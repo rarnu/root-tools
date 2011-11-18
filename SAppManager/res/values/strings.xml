@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    
+    <string name="app_name">系统应用管理器</string>
+    <string name="app_detail">应用程序明细</string>
+    <string name="app_select">选择应用程序</string>
+    <string name="app_settings">设置</string>
+    
+    <string name="system_app_path">/system/app/</string>
+    
+    <string name="menuitem_addfile">添加应用</string>
+    <string name="menuitem_deletefile">删除应用</string>
+    <string name="menuitem_settings">设置</string>
+    <string name="menuitem_about">关于</string>
+    
+    <string name="button_delete">删除应用</string>
+    <string name="textview_info">应用程序信息</string>
+    
+    <string name="textview_path">程序位置</string>
+    <string name="textview_odex">ODEX 位置</string>
+    <string name="textview_filesize">程序大小</string>
+    <string name="textview_datapath">数据文件位置</string>
+    <string name="textview_datasize">数据文件大小</string>
+    <string name="textview_library">共享用户ID</string>
+    <string name="textview_permission">程序权限</string>
+    
+    <string name="pref_settings">软件参数设置</string>
+    <string name="pref_allow_delete_0">允许删除任意应用</string>
+    <string name="pref_color_level">区分应用级别</string>
+    <string name="pref_allow_delete_0_summary">允许用户删除 Android 必备的应用程序</string>
+    <string name="pref_color_level_summary">以不同的颜色来标识不同级别的应用</string>
+    
+    <string name="credit_weibo">微博: </string>
+	<string name="credit_blog">博客: </string>
+	<string name="credit_mail">邮件/Gtalk: </string>
+	<string name="credit_weibo_url">http://weibo.com/rarnu</string>
+	<string name="credit_blog_url">http://blog.sina.com.cn/rarnu</string>
+	<string name="credit_mail_url">rarnu1985@gmail.com</string>
+	<string name="app_title">系统应用管理器 v1.0.0</string>
+	<string name="app_credit">橙子Infinity</string>
+    
+    <string name="hint">提示</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="unknown">未知</string>
+    <string name="na">N/A</string>
+    <string name="version">版本 </string>
+    <string name="no_root">您的设备没有 root 权限，无法使用本工具</string>
+    <string name="no_sdcard">没有找到可用的 SD 卡，无法使用本工具</string>
+    <string name="backup_app">第一次运行，正在备份系统应用程序，可能会花费几分钟时间，请耐心等待...</string>
+    <string name="backup_ok">备份系统应用程序成功</string>
+    <string name="backup_fail">备份系统应用程序失败，请手动备份</string>
+    <string name="delete_fail">删除系统应用程序失败</string>
+    <string name="delete_readonly">系统是只读的，无法删除应用程序</string>
+    <string name="mount_fail">无法挂载系统分区为可读写，请检查 root 权限</string>
+    <string name="long_press_back">长按返回键可以退出文件选择</string>
+    <string name="install_apk" formatted="false">确定要将 %s 安装到系统内吗？按“确定”进行安装，按“取消”不安装。</string>
+    <string name="installing">正在安装系统应用程序，请稍候...</string>
+    <string name="install_ok">安装系统应用程序成功</string>
+    <string name="install_fail">安装系统应用程序失败</string>
+    <string name="delete_android_app">这是一个 Android 系统必备的应用程序，删除它会引起系统问题。您依然确定要删除它吗？按“确定”删除应用程序，按“取消”保留。</string>
+    <string name="delete_google_app">这是一个 Google 服务应用程序，删除它将会无法再使用指定的 Google 服务。您依然确定要删除它吗？按“确定”删除应用程序，按“取消”保留。</string>
+    <string name="delete_system_app">您确定要删除此系统应用程序？若是不明确应用的作用，请将其保留，以防不测。按“确定”删除应用程序，按“取消”保留。</string>
+</resources>

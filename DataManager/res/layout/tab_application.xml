@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+	<EditText android:id="@+id/etFilterApp" android:layout_width="fill_parent"
+		android:layout_height="48dip" android:singleLine="true"
+		android:maxLines="1" android:gravity="left|center_vertical"
+		android:hint="@string/hint_list" android:enabled="false"
+		android:layout_toLeftOf="@+id/btnFilterApp" />
+	<ImageButton android:id="@+id/btnFilterApp"
+		android:layout_width="48dip" android:layout_height="48dip"
+		android:src="@android:drawable/ic_menu_search"
+		android:layout_alignParentRight="true" />
+
+	<ListView android:id="@+id/lvApplications"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:layout_below="@+id/etFilterApp" android:layout_above="@+id/layBtnApp"
+		android:fastScrollEnabled="true" />
+
+	<ProgressBar android:id="@+id/pbLoadApplication"
+		android:layout_width="32dip" android:layout_height="32dip"
+		android:layout_centerInParent="true" android:visibility="gone" />
+
+	<RelativeLayout android:id="@+id/layBtnApp"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true" android:layout_marginTop="4dip">
+		<Button android:id="@+id/btnBackup" android:layout_width="120dip"
+			android:layout_height="wrap_content" android:text="@string/btn_backup_pure"
+			android:enabled="false" />
+		<Button android:id="@+id/btnClearApp" android:layout_width="120dip"
+			android:layout_height="wrap_content" android:text="@string/btn_clear"
+			android:layout_toRightOf="@+id/btnBackup" android:enabled="false" />
+	</RelativeLayout>
+</RelativeLayout>

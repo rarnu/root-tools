@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+	android:title="@string/pref_bs_title">
+
+	<PreferenceCategory>
+		<CheckBoxPreference android:title="@string/pref_override"
+			android:summaryOff="@string/pref_override_soff" android:summaryOn="@string/pref_override_son"
+			android:key="pref_override" android:defaultValue="true"></CheckBoxPreference>
+		<CheckBoxPreference android:title="@string/pref_apk"
+			android:key="pref_apk" android:summaryOff="@string/pref_apk_soff"
+			android:summaryOn="@string/pref_apk_son" android:defaultValue="true"></CheckBoxPreference>
+	</PreferenceCategory>
+	<PreferenceCategory>
+		<Preference android:title="@string/pref_check_root"
+			android:key="pref_check_root"></Preference>
+		<Preference android:title="@string/pref_check_busybox"
+			android:key="pref_check_busybox"></Preference>
+	</PreferenceCategory>
+
+</PreferenceScreen>

@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+	<TextView android:id="@+id/tvPath" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:gravity="left|center_vertical"
+		android:textColor="@color/black" android:background="@color/gray"
+		android:padding="4dip" />
+
+	<ListView android:id="@+id/lvApk" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_below="@+id/tvPath" />
+
+	<ImageButton android:id="@+id/btnExit"
+		android:layout_width="48dip" android:layout_height="48dip"
+		android:background="@drawable/exit" android:layout_alignParentRight="true"
+		android:layout_alignParentBottom="true" android:layout_margin="8dip" />
+
+	<ProgressBar android:id="@+id/pbShowing"
+		android:layout_width="48dip" android:layout_height="48dip"
+		android:layout_centerInParent="true" android:visibility="gone" />
+</RelativeLayout>

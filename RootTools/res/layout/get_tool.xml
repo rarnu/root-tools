@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	<ListView android:id="@+id/lvTools" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_above="@+id/pbDownloading" />
+
+	<ProgressBar android:id="@+id/pbLoadTool"
+		android:layout_width="36dip" android:layout_height="36dip"
+		android:layout_centerInParent="true" android:visibility="gone" />
+
+	<ProgressBar android:id="@+id/pbDownloading"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		style="?android:attr/progressBarStyleHorizontal"
+		android:visibility="gone" />
+</RelativeLayout>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RootTools</string>
+    <string name="app_credit">橙子Infinity</string>
+    <string name="app_title">RootTools v1.0.0</string>
+    <string name="credit_weibo">微博: </string>
+	<string name="credit_blog">博客: </string>
+	<string name="credit_mail">邮件/Gtalk: </string>
+	<string name="credit_weibo_url">http://weibo.com/rarnu</string>
+	<string name="credit_blog_url">http://blog.sina.com.cn/rarnu</string>
+	<string name="credit_mail_url">rarnu1985@gmail.com</string>
+    
+    <string name="hint">提示</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    <string name="download_msg_fmt" formatted="false">您将要下载 %s，将会消耗 %s 流量，确定要下载吗？</string>
+    <string name="unknown">未知</string>
+    <string name="get_no_tool">无法获取工具列表，请保证网络畅通</string>
+    <string name="not_installed">指定的组件没有被安装</string>
+    <string name="no_component">没有安装任何组件，请按菜单键获取，或从 PC 下载安装</string>
+    <string name="start_download">开始下载指定的工具组件</string>
+    <string name="download_install_ok">下载安装工具组件完成</string>
+    <string name="download_error">下载工具出错，请重试</string>
+    <string name="get_more">获取工具</string>
+    <string name="get_update">刷新</string>
+    <string name="get_about">关于</string>
+    
+    <string name="st_installed">已安装</string>
+    <string name="st_not_installed">未安装</string>
+    <string name="st_updatable">可升级</string>
+    
+    <string name="no_root">您的设备没有 root 权限，无法使用本工具</string>
+</resources>

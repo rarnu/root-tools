@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:padding="4dip">
+
+	<EditText android:id="@+id/etHosts" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:gravity="left|top"
+		android:textColor="@color/black" android:layout_above="@+id/layFile"
+		android:hint="" />
+
+	<RelativeLayout android:id="@+id/layFile"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true">
+		<Button android:id="@+id/btnSave" android:layout_width="90dip"
+			android:layout_height="48dip" android:textColor="@color/black"
+			android:text="@string/btn_save_text" />
+
+		<Button android:id="@+id/btnCancel" android:layout_width="90dip"
+			android:layout_height="48dip" android:textColor="@color/black"
+			android:text="@string/btn_cancel_text" android:layout_toRightOf="@+id/btnSave" />
+
+	</RelativeLayout>
+
+</RelativeLayout>

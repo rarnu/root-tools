@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">HtcHosts</string>
+
+	<string name="app_desc">一款用于修改 hosts 的软件</string>
+
+	<string name="app_credit">橙子Infinity</string>
+	<string name="btn_go_text">设置 Hosts</string>
+	<string name="btn_customize_text">自定义</string>
+	<string name="btn_about_text">关于</string>
+	<string name="btn_save_text">保存</string>
+	<string name="btn_cancel_text">取消</string>
+
+	<string name="credit_weibo">微博: </string>
+	<string name="credit_blog">博客: </string>
+	<string name="credit_mail">邮件/Gtalk: </string>
+	<string name="credit_weibo_url">http://weibo.com/rarnu</string>
+	<string name="credit_blog_url">http://blog.sina.com.cn/rarnu</string>
+	<string name="credit_mail_url">rarnu1985@gmail.com</string>
+
+	<string name="update_title">发现更新</string>
+	<string name="update_message" formatted="false">HtcHosts 有更新了, 最新版本 %s,
+		大小 %s. 更新内容: \n%s\n\n确定要下载吗?</string>
+
+	<string name="customize_title">自定义 Hosts</string>
+
+	<string name="tv_noroot_text" formatted="false">设备型号 %s, android 版本 %s.
+		%s, %s</string>
+	<string name="info_well_supported">推荐的设备</string>
+	<string name="info_less_supported">不推荐的设备</string>
+	<string name="info_rooted">拥有 root 权限</string>
+	<string name="info_half_root">仅找到 su 文件，似乎没有完全 root</string>
+	<string name="info_no_root">没有 root 权限, 请先获取 root</string>
+
+	<string name="tv_desc_text">这个程序将修改您的 hosts 文件，以使您可以正常访问 Google
+		站点和服务。操作前请确认您的设备拥有 ROOT 权限, 并在选定所需项后，点击 "设置 Host" 按钮。hosts
+		成功修改后，您需要重启设备来使此修改生效。HTC 手机使用最佳。</string>
+	<string name="toast_set_host_error">设置 hosts 失败，请确认您的设备拥有 ROOT 权限</string>
+	<string name="toast_mount_fail">挂载 system 为可写失败，请确认您的设备是 S-OFF 的</string>
+	<string name="alert_reboot_title">重启</string>
+	<string name="alert_reboot_message">hosts 已修改，设备重启后生效，点击 "确定" 立即重启。若您的设备无法自动重启，请手动操作
+	</string>
+
+
+	<string name="btn_selall_text">全选</string>
+	<string name="btn_selnone_text">全不选</string>
+
+	<string name="str_ok">确定</string>
+	<string name="str_cancel">取消</string>
+
+	<string name="host_name_0">Account</string>
+	<string name="host_name_1">Search</string>
+	<string name="host_name_2">Image</string>
+	<string name="host_name_3">Shopping</string>
+	<string name="host_name_4">Books</string>
+	<string name="host_name_5">Video</string>
+	<string name="host_name_6">Group</string>
+	<string name="host_name_7">Docs</string>
+	<string name="host_name_8">Translate</string>
+	<string name="host_name_9">Reader</string>
+	<string name="host_name_10">Sites</string>
+	<string name="host_name_11">Codes</string>
+	<string name="host_name_12">Labs</string>
+	<string name="host_name_13">News</string>
+	<string name="host_name_14">Blogger</string>
+	<string name="host_name_15">Apps</string>
+	<string name="host_name_16">Plus</string>
+	<string name="host_name_17">Youtube</string>
+	<string name="host_name_18">Misc</string>
+	<string name="host_name_19">Customize</string>
+
+</resources>

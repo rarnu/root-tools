@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//WAPFORUM//DTD XHTML Mobile 1.0//EN" "http://www.wapforum.org/DTD/xhtml-mobile10.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+		<meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8"/>
+		<title> Google </title>
+		<style type="text/css">.z1gs7f{text-align:left}.dmg09o{text-align:center}.z1gs7f .la8bbn{display:block;text-align:center}.pq11io{font-size:small;padding:2px 0}.c855er{color:red}.r2a9dx{font-size:small}.x57jp{text-align:center}.k1vp4k{font-size:small;width:100%}.e90ssw{width:80%;text-align:left}.vhjedi{text-align:right;width:20%}.u6atpp .e90ssw{text-align:right}.u6atpp .vhjedi{text-align:left}.k3us1u{text-align:left;font-size:small;padding-left:5px}.p1gcwm{padding-top:10px;font-size:small}.le1u2g{color:#fff;border:2px;display:none}.as5yfr{padding-bottom:15px} </style> 
+</head> 
+	
+<body class="z1gs7f" bgcolor="#000"> 
+<font color="white">
+	<h3>Busybox 无法安装的解决办法</h3>
+	<hr><b>★环境需求</b><br>您的手机必须拥有 ROOT 权限，并且保证在 /system/app 目录下，包含 Superuser.apk 这个文件（不区分大小写），以及在 /system/bin 或 /system/xbin 目录下包含 su 文件（区分大小写）<br>
+	保证 su 文件的权限是 06755，若权限不正确，可能无法正常工作。<br>
+	<hr><font color="lime"><b>★保证权限</b><br>您可以使用以下命令，将 su 的权限设置为 06755<br>
+	# cd /system/bin<br>
+	# chmod 06755 su<br>
+	此时您可以尝试重启手机，并重新执行本软件，大多数情况下，可以成功的安装了</font>
+	<hr><b>★还不能安装</b><br>
+	若是您的手机依然无法成功执行本软件，请按以下步骤输入命令，完成安装<br>
+	<font color="yellow"># mount</font><br>
+	此命令将列出手机中的分区挂载情况，找到 /system 对应的分区，例如找到以下字符串：<br>
+	/dev/block/mmcblk0p25 /system ext3 ro,relatime,errors=continue,barrier=0,data=ordered 0 0<br>
+	此时分区就是 /dev/block/mmcblk0p25 <br>
+	使用以下命令将分区重新挂载为可读写<br>
+	<font color="yellow"># mount -o remount,rw /dev/block/mmcblk0p25 /system</font><br>
+	成功挂载后，即可继续进入以下操作（若是 mount 时发现 /system 已是 rw 状态，可以跳过 remount 的步骤）。<br>
+	<font color="yellow"># cd /sdcard/.busybox<br>
+	# cat busybox > /system/xbin/busybox<br>
+	# cd /system/xbin<br>
+	# ln -s ./busybox /system/bin/busybox<br>
+	# chmod 777 ./busybox<br>
+	# ./busybox --install -s /system/xbin</font><br>
+	现在您应该已经能够成功的安装 busybox 了<br>
+	<hr><font color="red">★上述命令也不能安装<br>
+	若是按上述命令依然无法安装，请检查系统分区内是否还有足够的空间，若是空间不足，则无法将 busybox 植入系统内，这个问题有可能需要重新刷机才能解决。
+	</font>
+	
+</font>
+</body> 
+</html>

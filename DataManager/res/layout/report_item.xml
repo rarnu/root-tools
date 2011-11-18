@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="48dip">
+
+	<ImageView android:id="@+id/report_icon" android:layout_width="42dip"
+		android:layout_height="40dip" android:layout_centerVertical="true"
+		android:layout_marginLeft="4dip" />
+
+	<TextView android:id="@+id/report_name" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:textColor="@color/white"
+		android:textSize="18dip" android:layout_toRightOf="@+id/report_icon"
+		android:layout_toLeftOf="@+id/report_state" android:layout_marginLeft="4dip"
+		android:gravity="left|center_vertical" android:maxLines="1"
+		android:singleLine="true" android:ellipsize="end" />
+
+	<TextView android:id="@+id/report_state" android:layout_width="60dip"
+		android:layout_height="fill_parent" android:layout_alignParentRight="true"
+		android:gravity="left|center_vertical" />
+
+</RelativeLayout>

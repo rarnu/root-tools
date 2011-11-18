@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RemoteAdb</string>
+    <string name="app_desc">本软件可以在您没有携带数据线时，让您顺利的操作 ADB，从而实现软件安装，文件传输以及 shell 接管等各种操作。本软件适合 Android 2.2 或更高版本使用，您的手机需要拥有 root 权限。</string>
+    <string name="app_credit">软件制作 橙子Infinity | http://weibo.com/rarnu</string>
+    
+    
+    <string name="str_start_adb">启动远程 adb</string>
+    <string name="str_stop_adb">关闭远程 adb</string>
+    <string name="str_no_root">没有 root 权限，无法操作</string>
+    <string name="str_no_wifi">没有 wifi 连接，无法操作</string>
+    <string name="str_via_usb">当前状态：无远程 adb 服务\n可以使用 USB 操作</string>
+    <string name="str_via_remote">当前状态：远程 adb 服务已启用\nPC 端使用 adb connect %s:5555　可访问设备\n不可以使用 USB 操作</string>
+</resources>

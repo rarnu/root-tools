@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+	android:id="@+id/layMain" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:padding="4dip">
+
+	<ScrollView android:id="@+id/svMain" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_above="@+id/layBottom"
+		android:layout_below="@+id/tvNoRoot">
+
+		<RelativeLayout android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+
+			<TextView android:id="@+id/tvNoRoot" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:textColor="@color/orange" />
+
+			<TextView android:id="@+id/tvDesc" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:textColor="@color/white"
+				android:text="@string/tv_desc_text" android:layout_below="@+id/tvNoRoot" />
+
+			<ListView android:id="@+id/lvItems" android:layout_width="fill_parent"
+				android:layout_height="fill_parent" android:layout_below="@+id/tvDesc"
+				android:dividerHeight="1dip" android:divider="@color/gray" />
+
+			<RelativeLayout android:id="@+id/laySel"
+				android:layout_width="wrap_content" android:layout_height="wrap_content"
+				android:layout_below="@+id/lvItems" android:layout_centerHorizontal="true">
+				<Button android:id="@+id/btnSelAll" android:layout_width="120dip"
+					android:layout_height="wrap_content" android:textColor="@color/black"
+					android:text="@string/btn_selall_text" />
+				<Button android:id="@+id/btnSelNone" android:layout_width="120dip"
+					android:layout_height="wrap_content" android:textColor="@color/black"
+					android:layout_toRightOf="@+id/btnSelAll" android:text="@string/btn_selnone_text" />
+			</RelativeLayout>
+		</RelativeLayout>
+	</ScrollView>
+
+	<RelativeLayout android:id="@+id/layBottom"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true">
+
+		<Button android:id="@+id/btnCustomize" android:layout_width="120dip"
+			android:layout_height="48dip" android:layout_alignParentLeft="true"
+			android:text="@string/btn_customize_text" android:textColor="@color/black" />
+		<Button android:id="@+id/btnGo" android:layout_width="120dip"
+			android:layout_height="48dip" android:layout_toRightOf="@+id/btnCustomize"
+			android:layout_toLeftOf="@+id/btnAbout" android:textColor="@color/black"
+			android:text="@string/btn_go_text" />
+
+		<ProgressBar android:id="@+id/pbGo" android:layout_width="32dip"
+			android:layout_height="32dip" android:layout_centerInParent="true"
+			android:visibility="gone" />
+	</RelativeLayout>
+</RelativeLayout>

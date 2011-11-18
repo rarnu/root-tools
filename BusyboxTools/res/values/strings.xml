@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">BusyboxTools</string>
+    <string name="app_cmd_help">命令帮助</string>
+    <string name="install_busybox">安装 Busybox</string>
+    <string name="uninstall_busybox">卸载 Busybox</string>
+    
+    <string name="install_succ">安装 Busybox 成功，请重新启动本程序</string>
+    <string name="install_fail">安装 Busybox 失败</string>
+    <string name="uninstall_succ">卸载 Busybox 成功，请重新启动本程序</string>
+    <string name="uninstall_fail">卸载 Busybox 失败</string>
+    
+    <string name="hint">提示</string>
+    <string name="uninstall_confirm">确定要卸载 Busybox 吗？</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+</resources>

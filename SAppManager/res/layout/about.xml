@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="290dip" android:layout_height="160dip"
+	android:background="@color/white" android:padding="4dip">
+
+	<ImageView android:id="@+id/imgIcon" android:layout_width="48dip"
+		android:layout_height="48dip" android:background="@drawable/icon" />
+
+	<TextView android:id="@+id/tvAppName" android:layout_width="fill_parent"
+		android:layout_height="32dip" android:text="@string/app_title"
+		android:layout_toRightOf="@+id/imgIcon" android:gravity="left|center_vertical"
+		android:textColor="@color/black" android:layout_marginLeft="8dip" />
+	<TextView android:id="@+id/tvCredit" android:layout_width="fill_parent"
+		android:layout_height="24dip" android:text="@string/app_credit"
+		android:gravity="left|center_vertical" android:layout_toRightOf="@+id/imgIcon"
+		android:layout_below="@+id/tvAppName" android:layout_marginLeft="8dip" />
+
+	<TextView android:id="@+id/tvSplit" android:layout_width="fill_parent"
+		android:layout_height="1dip" android:background="@color/gray"
+		android:layout_below="@+id/tvCredit" />
+
+	<TextView android:id="@+id/tvWeibo" android:layout_width="80dip"
+		android:layout_height="24dip" android:layout_below="@+id/tvSplit"
+		android:textColor="@color/orange" android:text="@string/credit_weibo"
+		android:gravity="left|center_vertical" android:layout_marginTop="4dip"
+		android:layout_marginLeft="4dip" />
+
+	<TextView android:id="@+id/tvBlog" android:layout_width="80dip"
+		android:layout_height="24dip" android:layout_below="@+id/tvWeibo"
+		android:textColor="@color/orange" android:text="@string/credit_blog"
+		android:gravity="left|center_vertical" android:layout_marginTop="4dip"
+		android:layout_marginLeft="4dip" />
+		
+	<TextView android:id="@+id/tvMail" android:layout_width="80dip"
+		android:layout_height="24dip" android:layout_below="@+id/tvBlog"
+		android:textColor="@color/orange" android:text="@string/credit_mail"
+		android:gravity="left|center_vertical" android:layout_marginTop="4dip"
+		android:layout_marginLeft="4dip" />
+
+	<TextView android:id="@+id/tvWeiboUrl" android:layout_width="fill_parent"
+		android:layout_height="24dip" android:layout_below="@+id/tvSplit"
+		android:textColor="@color/orange" android:text="@string/credit_weibo_url"
+		android:autoLink="web" android:gravity="left|center_vertical"
+		android:layout_marginTop="4dip" android:layout_toRightOf="@+id/tvWeibo" />
+
+	<TextView android:id="@+id/tvBlogUrl" android:layout_width="fill_parent"
+		android:layout_height="24dip" android:layout_below="@+id/tvWeiboUrl"
+		android:textColor="@color/orange" android:text="@string/credit_blog_url"
+		android:autoLink="web" android:gravity="left|center_vertical"
+		android:layout_marginTop="4dip" android:layout_toRightOf="@+id/tvBlog" />
+		
+	<TextView android:id="@+id/tvMailUrl" android:layout_width="fill_parent"
+		android:layout_height="24dip" android:layout_below="@+id/tvBlogUrl"
+		android:textColor="@color/orange" android:text="@string/credit_mail_url"
+		android:autoLink="email" android:gravity="left|center_vertical"
+		android:layout_marginTop="4dip" android:layout_toRightOf="@+id/tvMail" />
+</RelativeLayout>

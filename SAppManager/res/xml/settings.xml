@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<PreferenceScreen 
+	xmlns:android="http://schemas.android.com/apk/res/android" 
+	android:title="@string/pref_settings">
+	
+	<CheckBoxPreference 
+		android:key="@string/key_allow_delete_0" 
+		android:title="@string/pref_allow_delete_0" 
+		android:summary="@string/pref_allow_delete_0_summary"/>
+
+	<CheckBoxPreference 
+		android:key="@string/key_color_level" 
+		android:title="@string/pref_color_level" 
+		 android:summary="@string/pref_color_level_summary"/>
+		
+</PreferenceScreen>

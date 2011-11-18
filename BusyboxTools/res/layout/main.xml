@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent">
+
+	<Button android:id="@+id/btnInstallBusybox"
+		android:layout_width="fill_parent"
+		android:layout_height="48dip"
+		android:text="@string/install_busybox"
+		android:layout_marginLeft="4dip"
+		android:layout_marginTop="4dip"
+		android:layout_marginBottom="4dip"
+		android:layout_toLeftOf="@+id/btnCannotInstall"
+		/>
+	<Button android:id="@+id/btnCannotInstall"
+		android:layout_width="48dip"
+		android:layout_height="48dip"
+		android:layout_alignParentRight="true"
+		android:layout_marginRight="4dip"
+		android:layout_marginTop="4dip"
+		android:layout_marginBottom="4dip"
+		/>
+		
+	<ListView android:id="@+id/lvItems" android:layout_width="fill_parent"
+		android:layout_height="fill_parent"
+		android:layout_below="@+id/btnInstallBusybox" />
+
+	<TextView android:id="@+id/tvNoBusybox" android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_centerInParent="true"
+		android:layout_margin="8dip" />
+		
+	<ProgressBar android:id="@+id/pbLoad"
+		android:layout_width="32dip"
+		android:layout_height="32dip"
+		android:layout_centerInParent="true"
+		android:visibility="gone"
+		/>
+
+</RelativeLayout>
+

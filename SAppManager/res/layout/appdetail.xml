@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:paddingTop="4dip">
+
+	<ImageView android:id="@+id/appIcon" android:layout_width="48dip"
+		android:layout_height="48dip" android:layout_marginLeft="4dip"
+		android:layout_marginTop="4dip" />
+
+	<TextView android:id="@+id/appName" android:layout_width="fill_parent"
+		android:layout_height="36dip" android:textColor="@color/white"
+		android:textSize="18dip" android:layout_toRightOf="@+id/appIcon"
+		android:layout_marginLeft="4dip" android:gravity="left|center_vertical"
+		android:maxLines="1" android:singleLine="true" android:ellipsize="end" />
+
+	<TextView android:id="@+id/appVersion" android:layout_width="fill_parent"
+		android:layout_height="20dip" android:layout_toRightOf="@+id/appIcon"
+		android:textSize="12dip" android:layout_below="@+id/appName"
+		android:layout_marginLeft="4dip" android:gravity="left|center_vertical"
+		android:maxLines="1" android:singleLine="true" android:ellipsize="end" />
+
+	<Button android:id="@+id/btnDelete" android:layout_width="fill_parent"
+		android:layout_height="48dip" android:layout_below="@+id/appVersion"
+		android:layout_marginLeft="48dip" android:layout_marginRight="48dip"
+		android:layout_marginTop="8dip" android:text="@string/button_delete" />
+
+	<TextView android:id="@+id/tvInfo" android:layout_width="fill_parent"
+		android:layout_height="1dip" android:background="@color/gray"
+		android:layout_below="@+id/btnDelete" android:layout_marginTop="8dip"
+		android:layout_marginLeft="4dip"
+		android:layout_marginRight="4dip" />
+
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_below="@+id/tvInfo"
+		android:paddingTop="4dip">
+
+		<RelativeLayout android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+
+			<TextView android:id="@+id/tvPath" android:layout_width="fill_parent"
+				android:layout_height="24dip" android:layout_marginLeft="8dip"
+				android:textColor="@color/white" android:gravity="left|center_vertical"
+				android:text="@string/textview_path" />
+
+			<TextView android:id="@+id/tvPathDetail"
+				android:layout_width="fill_parent" android:layout_below="@+id/tvPath"
+				android:layout_height="24dip" android:layout_marginLeft="4dip"
+				android:layout_marginRight="8dip" android:textColor="@color/orange"
+				android:gravity="right|center_vertical" android:textSize="12dip" />
+
+			<TextView android:id="@+id/tvOdex" android:layout_width="fill_parent"
+				android:layout_height="24dip" android:layout_marginLeft="8dip"
+				android:textColor="@color/white" android:gravity="left|center_vertical"
+				android:layout_below="@+id/tvPathDetail" android:text="@string/textview_odex" />
+
+			<TextView android:id="@+id/tvOdexDetail"
+				android:layout_width="fill_parent" android:layout_height="24dip"
+				android:layout_marginLeft="4dip" android:layout_marginRight="8dip"
+				android:textColor="@color/orange" android:layout_below="@+id/tvOdex"
+				android:gravity="right|center_vertical" android:textSize="12dip" />
+				
+				
+			<TextView android:id="@+id/tvFileSize" android:layout_width="fill_parent"
+				android:layout_height="24dip" android:layout_marginLeft="8dip"
+				android:textColor="@color/white" android:gravity="left|center_vertical"
+				android:layout_below="@+id/tvOdexDetail" android:text="@string/textview_filesize" />
+
+			<TextView android:id="@+id/tvFileSizeDetail"
+				android:layout_width="fill_parent" android:layout_height="24dip"
+				android:layout_marginLeft="4dip" android:layout_marginRight="8dip"
+				android:textColor="@color/orange" android:layout_below="@+id/tvFileSize"
+				android:gravity="right|center_vertical" android:textSize="12dip" />
+				
+			<TextView android:id="@+id/tvDataPath" android:layout_width="fill_parent"
+				android:layout_height="24dip" android:layout_marginLeft="8dip"
+				android:textColor="@color/white" android:gravity="left|center_vertical"
+				android:layout_below="@+id/tvFileSizeDetail" android:text="@string/textview_datapath" />
+
+			<TextView android:id="@+id/tvDataPathDetail"
+				android:layout_width="fill_parent" android:layout_height="24dip"
+				android:layout_marginLeft="4dip" android:layout_marginRight="8dip"
+				android:textColor="@color/orange" android:layout_below="@+id/tvDataPath"
+				android:gravity="right|center_vertical" android:textSize="12dip" />
+				
+			<TextView android:id="@+id/tvDataSize" android:layout_width="fill_parent"
+				android:layout_height="24dip" android:layout_marginLeft="8dip"
+				android:textColor="@color/white" android:gravity="left|center_vertical"
+				android:layout_below="@+id/tvDataPathDetail" android:text="@string/textview_datasize" />
+
+			<TextView android:id="@+id/tvDataSizeDetail"
+				android:layout_width="fill_parent" android:layout_height="24dip"
+				android:layout_marginLeft="4dip" android:layout_marginRight="8dip"
+				android:textColor="@color/orange" android:layout_below="@+id/tvDataSize"
+				android:gravity="right|center_vertical" android:textSize="12dip" />
+				
+			<TextView android:id="@+id/tvSharedId" android:layout_width="fill_parent"
+				android:layout_height="24dip" android:layout_marginLeft="8dip"
+				android:textColor="@color/white" android:gravity="left|center_vertical"
+				android:layout_below="@+id/tvDataSizeDetail" android:text="@string/textview_library" />
+
+			<TextView android:id="@+id/tvSharedIdDetail"
+				android:layout_width="fill_parent" android:layout_height="24dip"
+				android:layout_marginLeft="4dip" android:layout_marginRight="8dip"
+				android:textColor="@color/orange" android:layout_below="@+id/tvSharedId"
+				android:gravity="right|center_vertical" android:textSize="12dip" />
+				
+
+		</RelativeLayout>
+	</ScrollView>
+</RelativeLayout>

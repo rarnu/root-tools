@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+	<EditText android:id="@+id/etFilterData" android:layout_width="fill_parent"
+		android:layout_height="48dip" android:singleLine="true"
+		android:maxLines="1" android:gravity="left|center_vertical"
+		android:hint="@string/hint_list" android:layout_toLeftOf="@+id/btnFilterData"
+		android:enabled="false" />
+
+	<ImageButton android:id="@+id/btnFilterData"
+		android:layout_width="48dip" android:layout_height="48dip"
+		android:src="@android:drawable/ic_menu_search"
+		android:layout_alignParentRight="true" />
+
+	<ListView android:id="@+id/lvData" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_above="@+id/layBtnData"
+		android:layout_below="@+id/etFilterData" android:fastScrollEnabled="true" />
+
+	<ProgressBar android:id="@+id/pbLoadData"
+		android:layout_width="32dip" android:layout_height="32dip"
+		android:layout_centerInParent="true" android:visibility="gone" />
+
+	<RelativeLayout android:id="@+id/layBtnData"
+		android:layout_width="wrap_content" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true"
+		android:layout_centerHorizontal="true" android:layout_marginTop="4dip">
+		<Button android:id="@+id/btnRestore" android:layout_width="120dip"
+			android:layout_height="wrap_content" android:text="@string/btn_restore_pure"
+			android:enabled="false" />
+
+		<Button android:id="@+id/btnClearData" android:layout_width="120dip"
+			android:layout_height="wrap_content" android:text="@string/btn_clear"
+			android:layout_toRightOf="@+id/btnRestore" android:enabled="false" />
+
+	</RelativeLayout>
+</RelativeLayout>
