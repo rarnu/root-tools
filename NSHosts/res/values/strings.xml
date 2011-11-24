@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">NSHosts</string>
+    
+    <string name="key_hosts">key_hosts</string>
+    <string name="key_ns">key_ns</string>
+    <string name="key_about">key_about</string>
+    
+    <string name="name_hosts">修改 Hosts</string>
+    <string name="name_ns">自动搜索 IP</string>
+    <string name="name_about">使用说明</string>
+    
+    <string name="tv_sitename">输入要搜索 IP 的域名</string>
+    <string name="btn_lookup">搜索 IP</string>
+    <string name="btn_com">.com</string>
+    <string name="btn_org">.org</string>
+    <string name="btn_cn">.cn</string>
+</resources>

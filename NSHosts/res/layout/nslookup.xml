@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:padding="4dip">
+
+	<TextView android:id="@+id/tvSiteName" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:textColor="@color/white"
+		android:text="@string/tv_sitename" android:layout_margin="4dip" />
+
+	<Button android:id="@+id/btnLookup" android:layout_width="96dip"
+		android:layout_height="96dip" android:layout_below="@id/tvSiteName"
+		android:layout_alignParentRight="true" android:text="@string/btn_lookup" />
+
+	<EditText android:id="@+id/etSiteName" android:layout_width="fill_parent"
+		android:layout_height="48dip" android:layout_below="@id/tvSiteName"
+		android:layout_toLeftOf="@id/btnLookup" />
+
+	<Button android:id="@+id/btnCom" android:layout_width="72dip"
+		android:layout_height="48dip"
+		android:layout_below="@id/etSiteName"
+		android:text="@string/btn_com" />
+		
+	<Button android:id="@+id/btnOrg" android:layout_width="72dip"
+		android:layout_height="48dip"
+		android:layout_below="@id/etSiteName"
+		android:layout_toRightOf="@id/btnCom"
+		android:text="@string/btn_org" />
+		
+	<Button android:id="@+id/btnCn" android:layout_width="72dip"
+		android:layout_height="48dip"
+		android:layout_below="@id/etSiteName"
+		android:layout_toRightOf="@id/btnOrg"
+		android:text="@string/btn_cn" />
+
+</RelativeLayout>
