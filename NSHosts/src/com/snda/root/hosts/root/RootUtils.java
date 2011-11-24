@@ -12,8 +12,8 @@ public class RootUtils {
 	private static final String SU_PATH = "/system/bin/su";
 	private static final String SU_PATH_X = "/system/xbin/su";
 	private static final String APP_PATH = "/system/app/";
-	private static final String bUSYBOX_PATH = "/system/xbin/busybox";
-
+	private static final String BUSYBOX_PATH = "/system/xbin/busybox";
+	private static final String BUSYBOX_PATH_X = "/system/bin/busybox";
 	/**
 	 * 
 	 * @return |0:no root|1:find only su|2:find two|
@@ -116,7 +116,11 @@ public class RootUtils {
 	}
 	
 	private static boolean findBusybox() {
-		return openFile(bUSYBOX_PATH).exists();
+		boolean ret = openFile(BUSYBOX_PATH).exists();
+		if (!ret) {
+			ret = openFile(BUSYBOX_PATH_X).exists();
+		}
+		return ret;
 	}
 
 	private static File openFile(String path) {
@@ -124,6 +128,10 @@ public class RootUtils {
 	}
 
 	public static String buildMountCommand() {
+		
+		if (hasBusybox()) {
+			return buildMountCommandEx();
+		}
 		String retstr = "";
 		CommandResult ret = runRootCommand("mount");
 		if (ret.error.equals("")) {
@@ -151,6 +159,10 @@ public class RootUtils {
 			retstr = "mount -o remount,rw" + retstr;
 		}
 		return retstr;
+	}
+	
+	public static String buildMountCommandEx() {
+		return "busybox mount -o remount,rw /system";
 	}
 
 }

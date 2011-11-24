@@ -1,5 +1,9 @@
 package com.snda.root.hosts;
 
+import com.snda.root.hosts.root.RootUtils;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -13,6 +17,22 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceClic
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        
+        if (RootUtils.hasRoot() == 0) {
+        	new AlertDialog.Builder(this)
+        		.setTitle(R.string.c_hint)
+        		.setMessage(R.string.c_noroot)
+        		.setPositiveButton(R.string.c_ok, new DialogInterface.OnClickListener() {
+					
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						finish();
+					}
+				})
+        		.show();
+        	return;
+        }
+        
         addPreferencesFromResource(R.xml.main);
         
         pHosts = findPreference(getResources().getString(R.string.key_hosts));

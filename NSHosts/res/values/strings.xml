@@ -10,6 +10,12 @@
     <string name="name_ns">自动搜索 IP</string>
     <string name="name_about">使用说明</string>
     
+    <string name="c_hint">提示</string>
+    <string name="c_ok">确·定</string>
+    <string name="c_cancel">取消</string>
+    <string name="c_noroot">您的设备没有 root 权限，不能使用本程序</string>
+    
+    
     <string name="tv_sitename">输入要搜索 IP 的域名</string>
     <string name="btn_lookup">搜索 IP</string>
     <string name="btn_com">.com</string>
