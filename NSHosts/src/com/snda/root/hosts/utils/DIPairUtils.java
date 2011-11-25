@@ -39,7 +39,7 @@ public class DIPairUtils {
 				if (lst.size() > 0) {
 					result = new ArrayList<Map<String, String>>();
 					for (String s : lst) {
-						s = s.replace("\t", " ").replaceAll("s+", " ");
+						s = s.replace("\t", " ").replaceAll("\\s+", " ");
 						String[] ss = s.split(" ");
 						Map<String, String> di = new HashMap<String, String>();
 						di.put("IP", ss[0]);
@@ -56,5 +56,13 @@ public class DIPairUtils {
 		}
 
 		return result;
+	}
+	
+	public static void mergePairLists(List<Map<String, String>> dest, List<Map<String, String>> source) {
+		for (Map<String, String> obj: source) {
+			if (dest.indexOf(obj) == -1) {
+				dest.add(obj);
+			}
+		}
 	}
 }

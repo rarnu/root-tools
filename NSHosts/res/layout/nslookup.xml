@@ -8,33 +8,24 @@
 		android:text="@string/tv_sitename" android:layout_margin="4dip" />
 
 	<Button android:id="@+id/btnLookup" android:layout_width="96dip"
-		android:layout_height="96dip" android:layout_below="@id/tvSiteName"
+		android:layout_height="48dip" android:layout_below="@id/tvSiteName"
 		android:layout_alignParentRight="true" android:text="@string/btn_lookup" />
 
+	<Button android:id="@+id/btnLookupCommon" android:layout_width="60dip"
+		android:layout_height="48dip" android:layout_toLeftOf="@id/btnLookup"
+		android:layout_below="@id/tvSiteName" android:text="@string/btn_common" />
 	<EditText android:id="@+id/etSiteName" android:layout_width="fill_parent"
 		android:layout_height="48dip" android:layout_below="@id/tvSiteName"
-		android:layout_toLeftOf="@id/btnLookup" />
-
-	<Button android:id="@+id/btnCom" android:layout_width="72dip"
-		android:layout_height="48dip" android:layout_below="@id/etSiteName"
-		android:text="@string/btn_com" />
-
-	<Button android:id="@+id/btnOrg" android:layout_width="72dip"
-		android:layout_height="48dip" android:layout_below="@id/etSiteName"
-		android:layout_toRightOf="@id/btnCom" android:text="@string/btn_org" />
-
-	<Button android:id="@+id/btnCn" android:layout_width="72dip"
-		android:layout_height="48dip" android:layout_below="@id/etSiteName"
-		android:layout_toRightOf="@id/btnOrg" android:text="@string/btn_cn" />
+		android:layout_toLeftOf="@id/btnLookupCommon" android:hint="@string/et_sitename" />
 
 	<ListView android:id="@+id/lvLookupResult"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:layout_below="@id/btnCom" android:layout_marginTop="4dip"
+		android:layout_below="@id/etSiteName" android:layout_marginTop="4dip"
 		android:layout_marginBottom="4dip" android:layout_above="@+id/layLookupBottom" />
 
 	<RelativeLayout android:id="@+id/layLookupProcess"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:layout_below="@id/btnCom" android:layout_marginTop="4dip"
+		android:layout_below="@id/etSiteName" android:layout_marginTop="4dip"
 		android:layout_marginBottom="4dip" android:layout_above="@+id/layLookupBottom"
 		android:visibility="gone">
 		<ProgressBar android:id="@+id/pbLookup"
@@ -45,14 +36,14 @@
 	<RelativeLayout android:id="@+id/layLookupBottom"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
 		android:layout_alignParentBottom="true">
-		<Button android:id="@+id/btnLookupSelAll" android:layout_width="70dip"
+		<Button android:id="@+id/btnLookupSelAll" android:layout_width="65dip"
 			android:layout_height="48dip" android:text="@string/c_selall" />
 		<Button android:id="@+id/btnLookupSelNone"
-			android:layout_width="70dip" android:layout_height="48dip"
+			android:layout_width="65dip" android:layout_height="48dip"
 			android:text="@string/c_selnone" android:layout_toRightOf="@id/btnLookupSelAll" />
 
 		<Button android:id="@+id/btnLookupAddHosts"
-			android:layout_width="120dip" android:layout_height="48dip"
+			android:layout_width="110dip" android:layout_height="48dip"
 			android:text="@string/btn_addhosts" android:layout_alignParentRight="true" />
 
 	</RelativeLayout>

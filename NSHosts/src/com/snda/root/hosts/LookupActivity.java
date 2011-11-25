@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Map;
 
 import android.app.Activity;
-import android.app.AlertDialog;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,9 +26,9 @@ import com.snda.root.hosts.utils.ListViewUtils;
 public class LookupActivity extends Activity implements OnClickListener {
 
 	Button btnLookup;
-	Button btnCom, btnOrg, btnCn;
 	Button btnLookupSelAll, btnLookupSelNone;
 	Button btnLookupAddHosts;
+	Button btnLookupCommon;
 	EditText etSiteName;
 
 	ListView lvLookupResult;
@@ -45,50 +45,46 @@ public class LookupActivity extends Activity implements OnClickListener {
 		setContentView(R.layout.nslookup);
 
 		btnLookup = (Button) findViewById(R.id.btnLookup);
-		btnCom = (Button) findViewById(R.id.btnCom);
-		btnOrg = (Button) findViewById(R.id.btnOrg);
-		btnCn = (Button) findViewById(R.id.btnCn);
 		etSiteName = (EditText) findViewById(R.id.etSiteName);
 		lvLookupResult = (ListView) findViewById(R.id.lvLookupResult);
 		layLookupProcess = (RelativeLayout) findViewById(R.id.layLookupProcess);
 		btnLookupSelAll = (Button) findViewById(R.id.btnLookupSelAll);
 		btnLookupSelNone = (Button) findViewById(R.id.btnLookupSelNone);
 		btnLookupAddHosts = (Button) findViewById(R.id.btnLookupAddHosts);
+		btnLookupCommon = (Button) findViewById(R.id.btnLookupCommon);
 
-		resizeCompleteButtons();
+//		resizeCompleteButtons();
 
 		btnLookup.setOnClickListener(this);
-		btnCom.setOnClickListener(this);
-		btnOrg.setOnClickListener(this);
-		btnCn.setOnClickListener(this);
 		btnLookupSelAll.setOnClickListener(this);
 		btnLookupSelNone.setOnClickListener(this);
 		btnLookupAddHosts.setOnClickListener(this);
+		btnLookupCommon.setOnClickListener(this);
 	}
 
-	private void resizeCompleteButtons() {
-
-		getWindowManager().getDefaultDisplay().getMetrics(dm);
-
-		int w = getWindowManager().getDefaultDisplay().getWidth();
-
-		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) btnLookup
-				.getLayoutParams();
-		int btnw = (w - lp.width - dipToPx(8)) / 3;
-
-		lp = (RelativeLayout.LayoutParams) btnCom.getLayoutParams();
-		lp.width = btnw;
-		btnCom.setLayoutParams(lp);
-
-		lp = (RelativeLayout.LayoutParams) btnOrg.getLayoutParams();
-		lp.width = btnw;
-		btnOrg.setLayoutParams(lp);
-
-		lp = (RelativeLayout.LayoutParams) btnCn.getLayoutParams();
-		lp.width = btnw;
-		btnCn.setLayoutParams(lp);
-
-	}
+//	private void resizeCompleteButtons() {
+//
+//		getWindowManager().getDefaultDisplay().getMetrics(dm);
+//
+//		int w = getWindowManager().getDefaultDisplay().getWidth();
+//
+//		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) btnLookup
+//				.getLayoutParams();
+//		int btnw = (w - lp.width - dipToPx(8)) / 3;
+//
+//		lp = (RelativeLayout.LayoutParams) btnCom.getLayoutParams();
+//		lp.width = btnw;
+//		btnCom.setLayoutParams(lp);
+//
+//		lp = (RelativeLayout.LayoutParams) btnOrg.getLayoutParams();
+//		lp.width = btnw;
+//		btnOrg.setLayoutParams(lp);
+//
+//		lp = (RelativeLayout.LayoutParams) btnCn.getLayoutParams();
+//		lp.width = btnw;
+//		btnCn.setLayoutParams(lp);
+//
+//	}
 
 	public int dipToPx(int dip) {
 		return (int) (dip * dm.density + 0.5f);
@@ -107,21 +103,21 @@ public class LookupActivity extends Activity implements OnClickListener {
 
 			getHostsT();
 			break;
-		case R.id.btnCom:
-			if (!etSiteName.getText().toString().endsWith(".com")) {
-				etSiteName.setText(etSiteName.getText().toString() + ".com");
-			}
-			break;
-		case R.id.btnOrg:
-			if (!etSiteName.getText().toString().endsWith(".org")) {
-				etSiteName.setText(etSiteName.getText().toString() + ".org");
-			}
-			break;
-		case R.id.btnCn:
-			if (!etSiteName.getText().toString().endsWith(".cn")) {
-				etSiteName.setText(etSiteName.getText().toString() + ".cn");
-			}
-			break;
+//		case R.id.btnCom:
+//			if (!etSiteName.getText().toString().endsWith(".com")) {
+//				etSiteName.setText(etSiteName.getText().toString() + ".com");
+//			}
+//			break;
+//		case R.id.btnOrg:
+//			if (!etSiteName.getText().toString().endsWith(".org")) {
+//				etSiteName.setText(etSiteName.getText().toString() + ".org");
+//			}
+//			break;
+//		case R.id.btnCn:
+//			if (!etSiteName.getText().toString().endsWith(".cn")) {
+//				etSiteName.setText(etSiteName.getText().toString() + ".cn");
+//			}
+//			break;
 		case R.id.btnLookupSelAll:
 			ListViewUtils.setListSelected(lvLookupResult, true);
 			break;
@@ -131,11 +127,17 @@ public class LookupActivity extends Activity implements OnClickListener {
 		case R.id.btnLookupAddHosts:
 			List<Map<String, String>> lst = ListViewUtils.getListSelectedItems(lvLookupResult);
 			if (lst.size() > 0) {
-				new AlertDialog.Builder(this).setTitle("Hint").setMessage(
-						String.format("IP:%s\nDomain:%s", lst.get(0).get("IP"),
-								lst.get(0).get("DOMAIN"))).setPositiveButton(
-						"OK", null).show();
+				GlobalInstance.passedHosts = lst;
+				Intent inHosts = new Intent(this, HostsActivity.class);
+				inHosts.putExtra("mode", 1);
+				startActivity(inHosts);
+			} else {
+				GlobalInstance.passedHosts = null;
+				Toast.makeText(this, R.string.c_noselection_add, Toast.LENGTH_LONG).show();
 			}
+			break;
+		case R.id.btnLookupCommon:
+			// TODO: common google sites
 			break;
 		}
 	}

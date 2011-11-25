@@ -1,4 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent">
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:padding="4dip">
+
+	<TextView android:id="@+id/tvCurrentHosts"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_margin="4dip" android:textColor="@color/white"
+		android:gravity="left|center_vertical" android:text="@string/tv_currenthosts" />
+
+	<ListView android:id="@+id/lvCurrentHosts"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:layout_below="@id/tvCurrentHosts" android:layout_above="@+id/layHostBottom"
+		android:layout_marginBottom="4dip" />
+
+	<RelativeLayout android:id="@+id/layLoadHosts"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:visibility="gone" android:layout_below="@id/tvCurrentHosts"
+		android:layout_above="@+id/layHostBottom" android:layout_marginBottom="4dip">
+		<ProgressBar android:id="@+id/pbHosts"
+			android:layout_width="32dip" android:layout_height="32dip"
+			android:layout_centerInParent="true" />
+	</RelativeLayout>
+
+	<RelativeLayout android:id="@+id/layHostBottom"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true">
+		<Button android:id="@+id/btnHostAdd" android:layout_width="65dip"
+			android:layout_height="48dip" android:text="@string/c_add" />
+		<Button android:id="@+id/btnHostDelete" android:layout_width="65dip"
+			android:layout_height="48dip" android:text="@string/c_del"
+			android:layout_toRightOf="@id/btnHostAdd" />
+		<Button android:id="@+id/btnHostAdvance" android:layout_width="65dip"
+			android:layout_height="48dip" android:text="@string/c_adv"
+			android:layout_toRightOf="@id/btnHostDelete" />
+
+		<Button android:id="@+id/btnHostSave" android:layout_width="110dip"
+			android:layout_height="48dip" android:text="@string/btn_hostsave"
+			android:layout_alignParentRight="true" />
+
+	</RelativeLayout>
+
+
 </RelativeLayout>

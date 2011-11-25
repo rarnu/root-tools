@@ -15,14 +15,23 @@
     <string name="c_cancel">取消</string>
     <string name="c_selall">全选</string>
     <string name="c_selnone">全不选</string>
+    <string name="c_add">新增</string>
+    <string name="c_del">删除</string>
+    <string name="c_adv">高级</string>
     
     <string name="c_noroot">您的设备没有 root 权限，不能使用本程序</string>
     <string name="c_input_domain">请输入要搜索 IP 的域名</string>
+    <string name="c_noselection_add">没有选中任何条目，不能添加</string>
+    <string name="c_noselection_del">没有选中任何条目，不能删除</string>
     
     <string name="tv_sitename">输入要搜索 IP 的域名</string>
     <string name="btn_lookup">搜索 IP</string>
     <string name="btn_com">.com</string>
     <string name="btn_org">.org</string>
     <string name="btn_cn">.cn</string>
+    <string name="btn_common">常用</string>
+    <string name="et_sitename">输入域名</string>
     <string name="btn_addhosts">添加到 Hosts</string>
+    <string name="btn_hostsave">保存到 Hosts</string>
+    <string name="tv_currenthosts">当前 Hosts 列表</string>
 </resources>

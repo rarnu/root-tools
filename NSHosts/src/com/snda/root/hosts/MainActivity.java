@@ -48,7 +48,10 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceClic
 		String key = p.getKey(); 
 		
 		if (key.equals(getResources().getString(R.string.key_hosts))) {
-			// TODO: /etc/hosts/
+			// /etc/hosts/
+			Intent inHosts = new Intent(this, HostsActivity.class);
+			inHosts.putExtra("mode", 0);
+			startActivity(inHosts);
 		} else if (key.equals(getResources().getString(R.string.key_ns))) {
 			// lookup
 			Intent inLookup = new Intent(this, LookupActivity.class);

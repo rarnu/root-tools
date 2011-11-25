@@ -47,4 +47,24 @@ public class ListViewUtils {
 
 		return result;
 	}
+	
+	public static int getListSelectedCount(ListView lv) {
+		int result = 0;
+		for (int i = 0; i < lv.getCount(); i++) {
+
+			RelativeLayout viewItem = (RelativeLayout) lv
+					.getChildAt(i);
+			if (viewItem != null) {
+				for (int j = 0; j < viewItem.getChildCount(); j++) {
+					if (viewItem.getChildAt(j) instanceof CheckBox) {
+						if (((CheckBox) viewItem.getChildAt(j)).isChecked()) {
+							result++;
+						}
+
+					}
+				}
+			}
+		}
+		return result;
+	}
 }
