@@ -1,6 +1,5 @@
 package com.snda.root.hosts.dns;
 
-
 import java.io.ByteArrayOutputStream;
 import java.io.DataOutputStream;
 import java.io.EOFException;
@@ -72,7 +71,7 @@ public class DNSQuery {
 	private Vector<DNSRR> answers = new Vector<DNSRR>();
 	private Vector<DNSRR> authorities = new Vector<DNSRR>();
 	private Vector<DNSRR> additional = new Vector<DNSRR>();
-	
+
 	@SuppressWarnings("unused")
 	public void receiveResponse(byte[] data, int length) throws IOException {
 		DNSInputStream dnsIn = new DNSInputStream(data, 0, length);
@@ -86,7 +85,7 @@ public class DNSQuery {
 		int numAuthorities = dnsIn.readShort();
 		int numAdditional = dnsIn.readShort();
 		while (numQueries-- > 0) {
-			
+
 			String queryName = dnsIn.readDomainName();
 			int queryType = dnsIn.readShort();
 			int queryClass = dnsIn.readShort();

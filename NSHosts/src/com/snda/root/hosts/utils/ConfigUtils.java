@@ -1,10 +1,10 @@
-package com.snda.root.hosts.root;
+package com.snda.root.hosts.utils;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-public class Misc {
+public class ConfigUtils {
 	public static String getConfig(Context context, String key, String def) {
 		SharedPreferences pre = PreferenceManager
 				.getDefaultSharedPreferences(context);

@@ -7,31 +7,38 @@ import java.io.DataOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.Enumeration;
+import java.util.List;
 
 import com.snda.root.hosts.dns.record.Address;
 
 public class NSLookup {
-	public static void main(String[] args) {
-		args = new String[1];
-		args[0] = "code.google.com";
-		int atIdx = args[0].indexOf("@");
-		String nameServer = (atIdx > -1) ? args[0].substring(atIdx + 1)
-				: "8.8.8.8";
-		String hostName = (atIdx > -1) ? args[0].substring(0, atIdx) : args[0];
-		System.out.println("Nameserver: " + nameServer);
-		System.out.println("Request: " + hostName);
-		DNSQuery query = new DNSQuery(hostName, DNS.TYPE_ANY, DNS.CLASS_IN);
+	
+	
+	public static List<Address> nslookup(String domain, String nameserver) {
+		List<Address> result = null;
+		DNSQuery query = new DNSQuery(domain, DNS.TYPE_ANY, DNS.CLASS_IN);
 		try {
-			Socket socket = new Socket(nameServer, DNS.DEFAULT_PORT);
+			Socket socket = new Socket(nameserver, DNS.DEFAULT_PORT);
 			socket.setSoTimeout(10000);
 			sendQuery(query, socket);
 			getResponse(query, socket);
 			socket.close();
-			printRRs(query);
+			Enumeration<DNSRR> answers = query.getAnswers();
+			result = new ArrayList<Address>();
+			while (answers.hasMoreElements()) {
+				DNSRR dr = answers.nextElement();
+				if (dr != null) {
+					if (dr.getRRType() == DNS.CLASS_IN) {
+						result.add((Address)dr);
+					}
+				}
+			}
 		} catch (IOException ex) {
-			System.out.println(ex);
+			
 		}
+		return result;
 	}
 
 	public static void sendQuery(DNSQuery query, Socket socket)
@@ -55,21 +62,5 @@ public class NSLookup {
 		dataIn.readFully(data);
 
 		query.receiveResponse(data, responseLength);
-	}
-
-	public static void printRRs(DNSQuery query) {
-		Enumeration<DNSRR> answers = query.getAnswers();
-		
-		while (answers.hasMoreElements()) {
-			DNSRR dr = answers.nextElement();
-			if (dr != null) {
-				if (dr.getRRType() == DNS.CLASS_IN) {
-					System.out.println(dr.getRRName());
-					System.out.println(((Address) dr).toByteString());
-
-					System.out.println("=========================");
-				}
-			}
-		}
 	}
 }

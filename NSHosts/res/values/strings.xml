@@ -13,12 +13,16 @@
     <string name="c_hint">提示</string>
     <string name="c_ok">确·定</string>
     <string name="c_cancel">取消</string>
-    <string name="c_noroot">您的设备没有 root 权限，不能使用本程序</string>
+    <string name="c_selall">全选</string>
+    <string name="c_selnone">全不选</string>
     
+    <string name="c_noroot">您的设备没有 root 权限，不能使用本程序</string>
+    <string name="c_input_domain">请输入要搜索 IP 的域名</string>
     
     <string name="tv_sitename">输入要搜索 IP 的域名</string>
     <string name="btn_lookup">搜索 IP</string>
     <string name="btn_com">.com</string>
     <string name="btn_org">.org</string>
     <string name="btn_cn">.cn</string>
+    <string name="btn_addhosts">添加到 Hosts</string>
 </resources>

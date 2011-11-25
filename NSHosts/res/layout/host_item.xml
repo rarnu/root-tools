@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="36dip">
+
+	<TextView android:id="@+id/tvItem_IP" android:layout_width="120dip"
+		android:layout_height="fill_parent" android:textColor="@color/white"
+		android:gravity="left|center_vertical" />
+	<TextView android:id="@+id/tvItem_Domain"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:textColor="@color/white" android:gravity="left|center_vertical"
+		android:layout_toRightOf="@id/tvItem_IP"
+		android:layout_toLeftOf="@+id/chkItem_Checked" />
+		
+	<CheckBox android:id="@+id/chkItem_Checked"
+		android:layout_alignParentRight="true"
+		android:layout_width="36dip"
+		android:layout_height="fill_parent"
+		android:focusable="false"
+		/>
+
+</RelativeLayout>
