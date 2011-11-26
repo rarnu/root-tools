@@ -4,14 +4,16 @@
     
     <string name="key_hosts">key_hosts</string>
     <string name="key_ns">key_ns</string>
+    <string name="key_option">key_option</string>
     <string name="key_about">key_about</string>
     
     <string name="name_hosts">修改 Hosts</string>
-    <string name="name_ns">自动搜索 IP</string>
+    <string name="name_ns">搜索 IP</string>
+    <string name="name_option">选项设置</string>
     <string name="name_about">使用说明</string>
     
     <string name="c_hint">提示</string>
-    <string name="c_ok">确·定</string>
+    <string name="c_ok">确定</string>
     <string name="c_cancel">取消</string>
     <string name="c_selall">全选</string>
     <string name="c_selnone">全不选</string>
@@ -23,6 +25,8 @@
     <string name="c_input_domain">请输入要搜索 IP 的域名</string>
     <string name="c_noselection_add">没有选中任何条目，不能添加</string>
     <string name="c_noselection_del">没有选中任何条目，不能删除</string>
+    <string name="c_inputinfo">请输入所有所需的内容</string>
+    <string name="c_alreadyexists">条目已存在，无须重复添加</string>
     
     <string name="tv_sitename">输入要搜索 IP 的域名</string>
     <string name="btn_lookup">搜索 IP</string>
@@ -31,7 +35,11 @@
     <string name="btn_cn">.cn</string>
     <string name="btn_common">常用</string>
     <string name="et_sitename">输入域名</string>
+    <string name="et_addip">输入 IP 地址</string>
+    <string name="et_adddomain">输入域名</string>
     <string name="btn_addhosts">添加到 Hosts</string>
     <string name="btn_hostsave">保存到 Hosts</string>
+    <string name="btn_clean">清除失效条目</string>
+    <string name="btn_manual">手动编辑</string>
     <string name="tv_currenthosts">当前 Hosts 列表</string>
 </resources>

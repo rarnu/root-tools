@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:padding="4dip">
+
+	<EditText android:id="@+id/etAddIP" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:singleLine="true"
+		android:maxLines="1" android:hint="@string/et_addip" />
+
+	<EditText android:id="@+id/etAddDomain" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:singleLine="true"
+		android:maxLines="1" android:hint="@string/et_adddomain"
+		android:layout_below="@id/etAddIP" />
+
+	<RelativeLayout android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_below="@id/etAddDomain"
+		android:layout_marginTop="8dip" android:layout_centerHorizontal="true">
+		<Button android:id="@+id/btnAddOK" android:layout_width="80dip"
+			android:layout_height="48dip" android:text="@string/c_ok" />
+		<Button android:id="@+id/btnAddCancel" android:layout_width="80dip"
+			android:layout_height="48dip" android:text="@string/c_cancel"
+			android:layout_toRightOf="@id/btnAddOK" />
+	</RelativeLayout>
+</RelativeLayout>

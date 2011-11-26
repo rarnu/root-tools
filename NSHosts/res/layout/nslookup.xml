@@ -16,7 +16,8 @@
 		android:layout_below="@id/tvSiteName" android:text="@string/btn_common" />
 	<EditText android:id="@+id/etSiteName" android:layout_width="fill_parent"
 		android:layout_height="48dip" android:layout_below="@id/tvSiteName"
-		android:layout_toLeftOf="@id/btnLookupCommon" android:hint="@string/et_sitename" />
+		android:layout_toLeftOf="@id/btnLookupCommon" android:hint="@string/et_sitename"
+		android:singleLine="true" android:maxLines="1" />
 
 	<ListView android:id="@+id/lvLookupResult"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"

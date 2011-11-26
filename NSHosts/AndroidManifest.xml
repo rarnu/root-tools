@@ -17,6 +17,9 @@
 		<activity android:name=".HostsActivity"
 			android:screenOrientation="portrait" />
 
+		<activity android:name=".AddHostActivity"
+			android:screenOrientation="portrait" android:theme="@android:style/Theme.Dialog" />
+
 	</application>
 	<uses-sdk android:minSdkVersion="8" />
 

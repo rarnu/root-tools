@@ -10,33 +10,47 @@
 
 	<ListView android:id="@+id/lvCurrentHosts"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
-		android:layout_below="@id/tvCurrentHosts" android:layout_above="@+id/layHostBottom"
+		android:layout_below="@id/tvCurrentHosts" android:layout_above="@+id/layHostOption"
 		android:layout_marginBottom="4dip" />
 
 	<RelativeLayout android:id="@+id/layLoadHosts"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"
 		android:visibility="gone" android:layout_below="@id/tvCurrentHosts"
-		android:layout_above="@+id/layHostBottom" android:layout_marginBottom="4dip">
+		android:layout_above="@+id/layHostOption" android:layout_marginBottom="4dip">
 		<ProgressBar android:id="@+id/pbHosts"
 			android:layout_width="32dip" android:layout_height="32dip"
 			android:layout_centerInParent="true" />
 	</RelativeLayout>
 
-	<RelativeLayout android:id="@+id/layHostBottom"
+	<RelativeLayout android:id="@+id/layHostOption"
 		android:layout_width="fill_parent" android:layout_height="wrap_content"
-		android:layout_alignParentBottom="true">
+		android:layout_above="@+id/layHostBottom">
 		<Button android:id="@+id/btnHostAdd" android:layout_width="65dip"
 			android:layout_height="48dip" android:text="@string/c_add" />
 		<Button android:id="@+id/btnHostDelete" android:layout_width="65dip"
 			android:layout_height="48dip" android:text="@string/c_del"
 			android:layout_toRightOf="@id/btnHostAdd" />
-		<Button android:id="@+id/btnHostAdvance" android:layout_width="65dip"
-			android:layout_height="48dip" android:text="@string/c_adv"
+		<Button android:id="@+id/btnHostSelAll" android:layout_width="65dip"
+			android:layout_height="48dip" android:text="@string/c_selall"
 			android:layout_toRightOf="@id/btnHostDelete" />
+		<Button android:id="@+id/btnHostSelNone" android:layout_width="65dip"
+			android:layout_height="48dip" android:text="@string/c_selnone"
+			android:layout_toRightOf="@id/btnHostSelAll" />
+	</RelativeLayout>
+
+	<RelativeLayout android:id="@+id/layHostBottom"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true">
+
+		<Button android:id="@+id/btnHostClean" android:layout_width="65dip"
+			android:layout_height="48dip" android:text="@string/btn_clean" />
+		<Button android:id="@+id/btnHostAdvance" android:layout_width="65dip"
+			android:layout_height="48dip" android:text="@string/btn_manual"
+			android:layout_toRightOf="@id/btnHostClean" />
 
 		<Button android:id="@+id/btnHostSave" android:layout_width="110dip"
 			android:layout_height="48dip" android:text="@string/btn_hostsave"
-			android:layout_alignParentRight="true" />
+			android:layout_toRightOf="@id/btnHostAdvance" />
 
 	</RelativeLayout>
 

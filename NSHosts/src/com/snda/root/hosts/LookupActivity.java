@@ -8,7 +8,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -34,7 +33,7 @@ public class LookupActivity extends Activity implements OnClickListener {
 	ListView lvLookupResult;
 	RelativeLayout layLookupProcess;
 
-	DisplayMetrics dm = new DisplayMetrics();
+//	DisplayMetrics dm = new DisplayMetrics();
 
 	List<Map<String, String>> listDI = null;
 	SimpleAdapter adapter = null;
@@ -86,9 +85,9 @@ public class LookupActivity extends Activity implements OnClickListener {
 //
 //	}
 
-	public int dipToPx(int dip) {
-		return (int) (dip * dm.density + 0.5f);
-	}
+//	public int dipToPx(int dip) {
+//		return (int) (dip * dm.density + 0.5f);
+//	}
 
 	@Override
 	public void onClick(View v) {
@@ -170,7 +169,7 @@ public class LookupActivity extends Activity implements OnClickListener {
 				List<Address> list = NSLookup.nslookup(etSiteName.getText()
 						.toString(), "8.8.8.8");
 				if (list != null) {
-					listDI = DIPairUtils.toPairList(list);
+					listDI = DIPairUtils.toPairList(etSiteName.getText().toString(),list);
 					if (listDI != null) {
 						adapter = new SimpleAdapter(LookupActivity.this,
 								listDI, R.layout.host_item, new String[] {

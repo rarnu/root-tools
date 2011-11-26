@@ -12,7 +12,7 @@ import android.preference.Preference.OnPreferenceClickListener;
 
 public class MainActivity extends PreferenceActivity implements OnPreferenceClickListener {
 
-	Preference pHosts, pLookup, pAbout;
+	Preference pHosts, pLookup, pOption, pAbout;
 	
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -37,10 +37,12 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceClic
         
         pHosts = findPreference(getResources().getString(R.string.key_hosts));
         pLookup = findPreference(getResources().getString(R.string.key_ns));
+        pOption = findPreference(getResources().getString(R.string.key_option));
         pAbout = findPreference(getResources().getString(R.string.key_about));
         
         pHosts.setOnPreferenceClickListener(this);
         pLookup.setOnPreferenceClickListener(this);
+        pOption.setOnPreferenceClickListener(this);
         pAbout.setOnPreferenceClickListener(this);
     }
 
@@ -56,6 +58,8 @@ public class MainActivity extends PreferenceActivity implements OnPreferenceClic
 			// lookup
 			Intent inLookup = new Intent(this, LookupActivity.class);
 			startActivity(inLookup);
+		} else if (key.equals(getResources().getString(R.string.key_option))) {
+			// TODO: options
 		} else if (key.equals(getResources().getString(R.string.key_about))) {
 			// TODO: help
 		}

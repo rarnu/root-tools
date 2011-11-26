@@ -10,13 +10,23 @@ import com.snda.root.hosts.dns.record.Address;
 
 public class DIPairUtils {
 
-	public static List<Map<String, String>> toPairList(List<Address> rrList) {
+	public static List<Map<String, String>> toPairList(String domain,
+			List<Address> rrList) {
 		List<Map<String, String>> result = null;
 		if (rrList != null) {
 			if (rrList.size() > 0) {
 				result = new ArrayList<Map<String, String>>();
 				for (Address dr : rrList) {
 
+					if (!dr.getRRName().equals(domain)) {
+						Map<String, String> di = new HashMap<String, String>();
+						di.put("IP", dr.toByteString());
+						di.put("DOMAIN", domain);
+
+						if (result.indexOf(di) == -1) {
+							result.add(di);
+						}
+					}
 					Map<String, String> di = new HashMap<String, String>();
 					di.put("IP", dr.toByteString());
 					di.put("DOMAIN", dr.getRRName());
@@ -39,14 +49,21 @@ public class DIPairUtils {
 				if (lst.size() > 0) {
 					result = new ArrayList<Map<String, String>>();
 					for (String s : lst) {
-						s = s.replace("\t", " ").replaceAll("\\s+", " ");
-						String[] ss = s.split(" ");
-						Map<String, String> di = new HashMap<String, String>();
-						di.put("IP", ss[0]);
-						di.put("DOMAIN", ss[1]);
+						if (!s.trim().equals("")) {
+							if (!s.startsWith("#")) {
+								s = s.replace("\t", " ")
+										.replaceAll("\\s+", " ");
+								String[] ss = s.split(" ");
+								if (ss.length == 2) {
+									Map<String, String> di = new HashMap<String, String>();
+									di.put("IP", ss[0]);
+									di.put("DOMAIN", ss[1]);
 
-						if (result.indexOf(di) == -1) {
-							result.add(di);
+									if (result.indexOf(di) == -1) {
+										result.add(di);
+									}
+								}
+							}
 						}
 					}
 				}
@@ -57,9 +74,10 @@ public class DIPairUtils {
 
 		return result;
 	}
-	
-	public static void mergePairLists(List<Map<String, String>> dest, List<Map<String, String>> source) {
-		for (Map<String, String> obj: source) {
+
+	public static void mergePairLists(List<Map<String, String>> dest,
+			List<Map<String, String>> source) {
+		for (Map<String, String> obj : source) {
 			if (dest.indexOf(obj) == -1) {
 				dest.add(obj);
 			}
