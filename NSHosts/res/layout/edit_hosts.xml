@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:padding="4dip">
+
+	<EditText android:id="@+id/etEditHosts" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:gravity="left|top"
+		android:scrollbars="horizontal|vertical" android:layout_above="@+id/btnEditSave" />
+
+	<Button android:id="@+id/btnEditSave" android:layout_width="fill_parent"
+		android:layout_height="48dip" android:layout_alignParentBottom="true"
+		android:text="@string/btn_hostsave" />
+
+
+</RelativeLayout>

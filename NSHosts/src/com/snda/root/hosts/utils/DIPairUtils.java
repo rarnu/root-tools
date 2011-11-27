@@ -6,6 +6,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.snda.root.hosts.GlobalInstance;
 import com.snda.root.hosts.dns.record.Address;
 
 public class DIPairUtils {
@@ -22,6 +23,8 @@ public class DIPairUtils {
 						Map<String, String> di = new HashMap<String, String>();
 						di.put("IP", dr.toByteString());
 						di.put("DOMAIN", domain);
+						di.put("CHECKED", GlobalInstance.autoSelect ? "true"
+								: "false");
 
 						if (result.indexOf(di) == -1) {
 							result.add(di);
@@ -30,6 +33,8 @@ public class DIPairUtils {
 					Map<String, String> di = new HashMap<String, String>();
 					di.put("IP", dr.toByteString());
 					di.put("DOMAIN", dr.getRRName());
+					di.put("CHECKED", GlobalInstance.autoSelect ? "true"
+							: "false");
 
 					if (result.indexOf(di) == -1) {
 						result.add(di);
@@ -58,6 +63,7 @@ public class DIPairUtils {
 									Map<String, String> di = new HashMap<String, String>();
 									di.put("IP", ss[0]);
 									di.put("DOMAIN", ss[1]);
+									di.put("CHECKED", "false");
 
 									if (result.indexOf(di) == -1) {
 										result.add(di);

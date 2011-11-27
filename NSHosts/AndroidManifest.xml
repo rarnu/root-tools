@@ -2,13 +2,14 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
 	package="com.snda.root.hosts" android:versionCode="1"
 	android:versionName="1.0">
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"></uses-permission>
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:debuggable="true">
 		<activity android:name=".MainActivity" android:label="@string/app_name"
 			android:screenOrientation="portrait">
 			<intent-filter>
-				<action android:name="android.intent.action.MAIN" />
-				<category android:name="android.intent.category.LAUNCHER" />
+				<action android:name="SNDA.ROOT" />
+				<category android:name="android.intent.category.OPENABLE" />
 			</intent-filter>
 		</activity>
 
@@ -19,7 +20,16 @@
 
 		<activity android:name=".AddHostActivity"
 			android:screenOrientation="portrait" android:theme="@android:style/Theme.Dialog" />
-
+		<activity android:name=".OptionActivity"
+			android:screenOrientation="portrait" />
+		<activity android:name=".CommonSiteActivity"
+			android:screenOrientation="portrait" />
+		<activity android:name=".EditHostsActivity"
+			android:screenOrientation="portrait" android:windowSoftInputMode="stateHidden" />
+		<activity android:name=".HelpActivity"
+			android:screenOrientation="portrait" />
+		<activity android:name=".DeprecatedHostsActivity"
+			android:screenOrientation="portrait" />
 	</application>
 	<uses-sdk android:minSdkVersion="8" />
 

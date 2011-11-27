@@ -14,9 +14,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.snda.root.hosts.adapter.HostItemAdapter;
 import com.snda.root.hosts.dns.NSLookup;
 import com.snda.root.hosts.dns.record.Address;
 import com.snda.root.hosts.utils.DIPairUtils;
@@ -33,10 +33,10 @@ public class LookupActivity extends Activity implements OnClickListener {
 	ListView lvLookupResult;
 	RelativeLayout layLookupProcess;
 
-//	DisplayMetrics dm = new DisplayMetrics();
+	// DisplayMetrics dm = new DisplayMetrics();
 
 	List<Map<String, String>> listDI = null;
-	SimpleAdapter adapter = null;
+	HostItemAdapter adapter = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,42 +52,20 @@ public class LookupActivity extends Activity implements OnClickListener {
 		btnLookupAddHosts = (Button) findViewById(R.id.btnLookupAddHosts);
 		btnLookupCommon = (Button) findViewById(R.id.btnLookupCommon);
 
-//		resizeCompleteButtons();
-
 		btnLookup.setOnClickListener(this);
 		btnLookupSelAll.setOnClickListener(this);
 		btnLookupSelNone.setOnClickListener(this);
 		btnLookupAddHosts.setOnClickListener(this);
 		btnLookupCommon.setOnClickListener(this);
+		setButtonsEnabled(false);
+
 	}
 
-//	private void resizeCompleteButtons() {
-//
-//		getWindowManager().getDefaultDisplay().getMetrics(dm);
-//
-//		int w = getWindowManager().getDefaultDisplay().getWidth();
-//
-//		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) btnLookup
-//				.getLayoutParams();
-//		int btnw = (w - lp.width - dipToPx(8)) / 3;
-//
-//		lp = (RelativeLayout.LayoutParams) btnCom.getLayoutParams();
-//		lp.width = btnw;
-//		btnCom.setLayoutParams(lp);
-//
-//		lp = (RelativeLayout.LayoutParams) btnOrg.getLayoutParams();
-//		lp.width = btnw;
-//		btnOrg.setLayoutParams(lp);
-//
-//		lp = (RelativeLayout.LayoutParams) btnCn.getLayoutParams();
-//		lp.width = btnw;
-//		btnCn.setLayoutParams(lp);
-//
-//	}
-
-//	public int dipToPx(int dip) {
-//		return (int) (dip * dm.density + 0.5f);
-//	}
+	private void setButtonsEnabled(boolean enable) {
+		btnLookupSelAll.setEnabled(enable);
+		btnLookupSelNone.setEnabled(enable);
+		btnLookupAddHosts.setEnabled(enable);
+	}
 
 	@Override
 	public void onClick(View v) {
@@ -102,42 +80,47 @@ public class LookupActivity extends Activity implements OnClickListener {
 
 			getHostsT();
 			break;
-//		case R.id.btnCom:
-//			if (!etSiteName.getText().toString().endsWith(".com")) {
-//				etSiteName.setText(etSiteName.getText().toString() + ".com");
-//			}
-//			break;
-//		case R.id.btnOrg:
-//			if (!etSiteName.getText().toString().endsWith(".org")) {
-//				etSiteName.setText(etSiteName.getText().toString() + ".org");
-//			}
-//			break;
-//		case R.id.btnCn:
-//			if (!etSiteName.getText().toString().endsWith(".cn")) {
-//				etSiteName.setText(etSiteName.getText().toString() + ".cn");
-//			}
-//			break;
+
 		case R.id.btnLookupSelAll:
-			ListViewUtils.setListSelected(lvLookupResult, true);
+			ListViewUtils.setListSelected(lvLookupResult, listDI, true);
 			break;
 		case R.id.btnLookupSelNone:
-			ListViewUtils.setListSelected(lvLookupResult, false);
+			ListViewUtils.setListSelected(lvLookupResult, listDI, false);
 			break;
 		case R.id.btnLookupAddHosts:
-			List<Map<String, String>> lst = ListViewUtils.getListSelectedItems(lvLookupResult);
+			List<Map<String, String>> lst = ListViewUtils
+					.getListSelectedItems(listDI);
 			if (lst.size() > 0) {
 				GlobalInstance.passedHosts = lst;
 				Intent inHosts = new Intent(this, HostsActivity.class);
 				inHosts.putExtra("mode", 1);
-				startActivity(inHosts);
+				startActivityForResult(inHosts, 1);
 			} else {
 				GlobalInstance.passedHosts = null;
-				Toast.makeText(this, R.string.c_noselection_add, Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.c_noselection_add,
+						Toast.LENGTH_LONG).show();
 			}
 			break;
 		case R.id.btnLookupCommon:
-			// TODO: common google sites
+			// common google sites
+			Intent inSites = new Intent(this, CommonSiteActivity.class);
+			startActivityForResult(inSites, 0);
 			break;
+		}
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case 0:
+				etSiteName.setText(data.getStringExtra("DOMAIN"));
+				break;
+			case 1:
+				ListViewUtils.setListSelected(lvLookupResult, listDI,
+						GlobalInstance.autoSelect);
+				break;
+			}
 		}
 	}
 
@@ -151,9 +134,10 @@ public class LookupActivity extends Activity implements OnClickListener {
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 					lvLookupResult.setAdapter(adapter);
-
+					setButtonsEnabled(adapter != null);
 					layLookupProcess.setVisibility(View.GONE);
 					lvLookupResult.setVisibility(View.VISIBLE);
+					etSiteName.setText("");
 
 				}
 				super.handleMessage(msg);
@@ -167,14 +151,13 @@ public class LookupActivity extends Activity implements OnClickListener {
 			public void run() {
 
 				List<Address> list = NSLookup.nslookup(etSiteName.getText()
-						.toString(), "8.8.8.8");
+						.toString(), GlobalInstance.nameServer);
 				if (list != null) {
-					listDI = DIPairUtils.toPairList(etSiteName.getText().toString(),list);
+					listDI = DIPairUtils.toPairList(etSiteName.getText()
+							.toString(), list);
 					if (listDI != null) {
-						adapter = new SimpleAdapter(LookupActivity.this,
-								listDI, R.layout.host_item, new String[] {
-										"IP", "DOMAIN" }, new int[] {
-										R.id.tvItem_IP, R.id.tvItem_Domain });
+						adapter = new HostItemAdapter(LookupActivity.this,
+								listDI, true);
 					} else {
 						adapter = null;
 					}

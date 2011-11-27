@@ -4,6 +4,8 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.util.Log;
 
@@ -14,6 +16,7 @@ public class RootUtils {
 	private static final String APP_PATH = "/system/app/";
 	private static final String BUSYBOX_PATH = "/system/xbin/busybox";
 	private static final String BUSYBOX_PATH_X = "/system/bin/busybox";
+
 	/**
 	 * 
 	 * @return |0:no root|1:find only su|2:find two|
@@ -26,7 +29,7 @@ public class RootUtils {
 		boolean hasSuperUser = findSuperUser();
 		return hasSuperUser ? 2 : 1;
 	}
-	
+
 	public static boolean hasBusybox() {
 		return findBusybox();
 	}
@@ -90,6 +93,42 @@ public class RootUtils {
 		}
 	}
 
+	static boolean timeout = false;
+	static String pingResult = "";
+	
+	@SuppressWarnings("deprecation")
+	public static String ping(String hostname) {
+		pingResult = "timeout";
+		timeout = false;
+
+		try {
+			final Process process = Runtime.getRuntime().exec("ping "+hostname);
+
+			DataInputStream stdout = new DataInputStream(process
+					.getInputStream());
+			String line;
+			final Timer tmr = new Timer();
+			tmr.schedule(new TimerTask() {
+				@Override
+				public void run() {
+					tmr.cancel();
+					process.destroy();
+				}
+			}, 3000);
+			
+			while ((line = stdout.readLine()) != null) {
+				pingResult = line;
+				tmr.cancel();
+				process.destroy();
+				return pingResult;
+			}
+			process.waitFor();
+			return pingResult;
+		} catch (Exception e) {
+			return pingResult;
+		}
+	}
+
 	private static boolean findSuperUser() {
 		File apps = new File(APP_PATH);
 		String[] apks = apps.list();
@@ -114,7 +153,7 @@ public class RootUtils {
 		}
 		return ret;
 	}
-	
+
 	private static boolean findBusybox() {
 		boolean ret = openFile(BUSYBOX_PATH).exists();
 		if (!ret) {
@@ -128,7 +167,7 @@ public class RootUtils {
 	}
 
 	public static String buildMountCommand() {
-		
+
 		if (hasBusybox()) {
 			return buildMountCommandEx();
 		}
@@ -160,9 +199,41 @@ public class RootUtils {
 		}
 		return retstr;
 	}
-	
+
 	public static String buildMountCommandEx() {
 		return "busybox mount -o remount,rw /system";
+	}
+
+	public static boolean pushFileToSystem(String src, String dest,
+			String fileName) {
+		CommandResult ret = null;
+		if (hasBusybox()) {
+			ret = runRootCommand(buildMountCommandEx());
+			if (ret.error.equals("")) {
+				ret = runRootCommand(String.format("cp %s %s", src, dest));
+				if (ret.error.equals("")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		} else {
+			ret = runRootCommand(buildMountCommand());
+			if (ret.error.equals("")) {
+				ret = runRootCommand(String.format("cat %s > %s%s", src, dest,
+						fileName));
+				if (ret.error.equals("")) {
+					return true;
+				} else {
+					return false;
+				}
+			} else {
+				return false;
+			}
+		}
+
 	}
 
 }

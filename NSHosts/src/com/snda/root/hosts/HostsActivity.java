@@ -1,5 +1,6 @@
 package com.snda.root.hosts;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -16,21 +17,23 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.Toast;
 
+import com.snda.root.hosts.adapter.HostItemAdapter;
+import com.snda.root.hosts.root.RootUtils;
 import com.snda.root.hosts.utils.DIPairUtils;
+import com.snda.root.hosts.utils.FileUtils;
 import com.snda.root.hosts.utils.ListViewUtils;
 
 public class HostsActivity extends Activity implements OnClickListener {
 
 	List<Map<String, String>> lstHosts = null;
-	SimpleAdapter adapter = null;
+	HostItemAdapter adapter = null;
 
 	ListView lvCurrentHosts;
 	RelativeLayout layLoadHosts;
 	Button btnHostAdd, btnHostDelete, btnHostSelAll, btnHostSelNone;
-	Button btnHostClean,btnHostAdvance, btnHostSave;
+	Button btnHostClean, btnHostAdvance, btnHostSave;
 
 	int mode = 0;
 
@@ -59,10 +62,13 @@ public class HostsActivity extends Activity implements OnClickListener {
 		btnHostSelAll.setOnClickListener(this);
 		btnHostSelNone.setOnClickListener(this);
 		btnHostClean.setOnClickListener(this);
-		
+
 		resizeCompleteButtons();
 
 		loadSystemHostsT();
+		if (mode == 1) {
+			setResult(RESULT_OK);
+		}
 	}
 
 	private void resizeCompleteButtons() {
@@ -73,7 +79,8 @@ public class HostsActivity extends Activity implements OnClickListener {
 
 		int btnw = (w - dipToPx(8)) / 4;
 
-		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) btnHostAdd.getLayoutParams();
+		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) btnHostAdd
+				.getLayoutParams();
 		lp.width = btnw;
 		btnHostAdd.setLayoutParams(lp);
 
@@ -84,21 +91,21 @@ public class HostsActivity extends Activity implements OnClickListener {
 		lp = (RelativeLayout.LayoutParams) btnHostSelAll.getLayoutParams();
 		lp.width = btnw;
 		btnHostSelAll.setLayoutParams(lp);
-		
+
 		lp = (RelativeLayout.LayoutParams) btnHostSelNone.getLayoutParams();
 		lp.width = btnw;
 		btnHostSelNone.setLayoutParams(lp);
-		
+
 		btnw = (w - dipToPx(8)) / 3;
-		
+
 		lp = (RelativeLayout.LayoutParams) btnHostClean.getLayoutParams();
 		lp.width = btnw;
 		btnHostClean.setLayoutParams(lp);
-		
+
 		lp = (RelativeLayout.LayoutParams) btnHostAdvance.getLayoutParams();
 		lp.width = btnw;
 		btnHostAdvance.setLayoutParams(lp);
-		
+
 		lp = (RelativeLayout.LayoutParams) btnHostSave.getLayoutParams();
 		lp.width = btnw;
 		btnHostSave.setLayoutParams(lp);
@@ -119,6 +126,8 @@ public class HostsActivity extends Activity implements OnClickListener {
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 					lvCurrentHosts.setAdapter(adapter);
+					ListViewUtils.setListSelected(lvCurrentHosts, lstHosts,
+							false);
 					layLoadHosts.setVisibility(View.GONE);
 					lvCurrentHosts.setVisibility(View.VISIBLE);
 
@@ -132,13 +141,11 @@ public class HostsActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void run() {
-				lstHosts = DIPairUtils.toPairList("/etc/hosts");
+				lstHosts = DIPairUtils.toPairList("/system/etc/hosts");
 				if (lstHosts != null) {
 					if (lstHosts.size() > 0) {
-						adapter = new SimpleAdapter(HostsActivity.this,
-								lstHosts, R.layout.host_item, new String[] {
-										"IP", "DOMAIN" }, new int[] {
-										R.id.tvItem_IP, R.id.tvItem_Domain });
+						adapter = new HostItemAdapter(HostsActivity.this,
+								lstHosts, true);
 					}
 				} else {
 					lstHosts = null;
@@ -171,7 +178,7 @@ public class HostsActivity extends Activity implements OnClickListener {
 
 			break;
 		case R.id.btnHostDelete:
-			int selCnt = ListViewUtils.getListSelectedCount(lvCurrentHosts);
+			int selCnt = ListViewUtils.getListSelectedCount(lstHosts);
 			if (selCnt == 0) {
 				Toast.makeText(this, R.string.c_noselection_del,
 						Toast.LENGTH_LONG).show();
@@ -180,19 +187,33 @@ public class HostsActivity extends Activity implements OnClickListener {
 			}
 			break;
 		case R.id.btnHostSave:
-			// TODO: save hosts
+			// save hosts
+			saveHostsT();
 			break;
 		case R.id.btnHostAdvance:
-			// TODO: advanced editing
+			// advanced editing
+			GlobalInstance.hostsText = buildHostsText();
+			Intent inEdit = new Intent(this, EditHostsActivity.class);
+			startActivityForResult(inEdit, 1);
 			break;
 		case R.id.btnHostSelAll:
-			ListViewUtils.setListSelected(lvCurrentHosts, true);
+			ListViewUtils.setListSelected(lvCurrentHosts, lstHosts, true);
 			break;
 		case R.id.btnHostSelNone:
-			ListViewUtils.setListSelected(lvCurrentHosts, false);
+			ListViewUtils.setListSelected(lvCurrentHosts, lstHosts, false);
 			break;
 		case R.id.btnHostClean:
-			// TODO: clean deprecated hosts
+			// clean deprecated hosts
+			GlobalInstance.testHosts = lstHosts;
+			if (GlobalInstance.testHosts == null
+					|| GlobalInstance.testHosts.size() == 0) {
+				Toast
+						.makeText(this, R.string.c_nohostsclean,
+								Toast.LENGTH_LONG).show();
+				return;
+			}
+			Intent inTest = new Intent(this, DeprecatedHostsActivity.class);
+			startActivityForResult(inTest, 2);
 			break;
 		}
 	}
@@ -206,17 +227,32 @@ public class HostsActivity extends Activity implements OnClickListener {
 				Map<String, String> m = new HashMap<String, String>();
 				m.put("IP", data.getStringExtra("IP"));
 				m.put("DOMAIN", data.getStringExtra("DOMAIN"));
+				m.put("CHECKED", "false");
 				if (lstHosts.indexOf(m) == -1) {
 					lstHosts.add(m);
-					adapter = new SimpleAdapter(HostsActivity.this, lstHosts,
-							R.layout.host_item,
-							new String[] { "IP", "DOMAIN" }, new int[] {
-									R.id.tvItem_IP, R.id.tvItem_Domain });
+					adapter = new HostItemAdapter(HostsActivity.this, lstHosts, true);
 					lvCurrentHosts.setAdapter(adapter);
 				} else {
 					Toast.makeText(this, R.string.c_alreadyexists,
 							Toast.LENGTH_LONG).show();
 				}
+				break;
+			case 1:
+				loadSystemHostsT();
+				break;
+			case 2:
+				// hosts cleaned
+				ListViewUtils.setListSelected(lvCurrentHosts, lstHosts, false);
+				if (GlobalInstance.deprecatedHosts == null || GlobalInstance.deprecatedHosts.size() == 0) {
+					return;
+				}
+				for (Map<String, String> map: GlobalInstance.deprecatedHosts) {
+					if (lstHosts.indexOf(map) != -1) {
+						lstHosts.remove(map);
+					}
+				}
+				adapter = new HostItemAdapter(HostsActivity.this, lstHosts, true);
+				lvCurrentHosts.setAdapter(adapter);
 				break;
 			}
 		}
@@ -225,7 +261,7 @@ public class HostsActivity extends Activity implements OnClickListener {
 
 	private void deleteSelectedItems() {
 		List<Map<String, String>> selected = ListViewUtils
-				.getListSelectedItems(lvCurrentHosts);
+				.getListSelectedItems(lstHosts);
 		if (selected != null) {
 			if (selected.size() > 0) {
 				for (Map<String, String> obj : selected) {
@@ -233,13 +269,90 @@ public class HostsActivity extends Activity implements OnClickListener {
 						lstHosts.remove(obj);
 					}
 				}
-				adapter = new SimpleAdapter(HostsActivity.this, lstHosts,
-						R.layout.host_item, new String[] { "IP", "DOMAIN" },
-						new int[] { R.id.tvItem_IP, R.id.tvItem_Domain });
+				adapter = new HostItemAdapter(HostsActivity.this, lstHosts,
+						true);
 				lvCurrentHosts.setAdapter(adapter);
 			}
 		}
 
+	}
+
+	private void saveHostsT() {
+		setButtonsEnabled(false);
+		layLoadHosts.setVisibility(View.VISIBLE);
+		layLoadHosts.bringToFront();
+
+		final Handler h = new Handler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+
+					// push to system
+					boolean pushed = RootUtils.pushFileToSystem(
+							GlobalInstance.app_dir
+									+ GlobalInstance.host_filename,
+							GlobalInstance.sys_dir,
+							GlobalInstance.host_filename);
+					mode = 0;
+					loadSystemHostsT();
+					setButtonsEnabled(true);
+
+					Toast.makeText(
+							HostsActivity.this,
+							pushed ? R.string.c_savehostsok
+									: R.string.c_savehostsfail,
+							Toast.LENGTH_LONG).show();
+
+				} else if (msg.what == 2) {
+					setButtonsEnabled(true);
+					Toast.makeText(HostsActivity.this,
+							R.string.c_savehostsfail, Toast.LENGTH_LONG).show();
+				}
+				super.handleMessage(msg);
+			}
+		};
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+
+				String hostsText = buildHostsText();
+				int what = 1;
+				try {
+					FileUtils.rewriteFile(GlobalInstance.app_dir
+							+ GlobalInstance.host_filename, hostsText);
+				} catch (IOException e) {
+					what = 2;
+				}
+
+				h.sendEmptyMessage(what);
+
+			}
+		}).start();
+	}
+
+	private void setButtonsEnabled(boolean enable) {
+		btnHostAdd.setEnabled(enable);
+		btnHostDelete.setEnabled(enable);
+		btnHostAdvance.setEnabled(enable);
+		btnHostClean.setEnabled(enable);
+		btnHostSave.setEnabled(enable);
+		btnHostSelAll.setEnabled(enable);
+		btnHostSelNone.setEnabled(enable);
+	}
+
+	private String buildHostsText() {
+		String result = "";
+		if (lstHosts == null || lstHosts.size() == 0) {
+			return "127.0.0.1 localhost";
+		}
+		for (Map<String, String> m : lstHosts) {
+			result = result
+					+ String.format("%s %s\n", m.get("IP"), m.get("DOMAIN"));
+		}
+		return result;
 	}
 
 }

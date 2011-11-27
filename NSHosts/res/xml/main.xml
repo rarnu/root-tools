@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
   xmlns:android="http://schemas.android.com/apk/res/android">
-<Preference android:key="@string/key_hosts" android:title="@string/name_hosts"></Preference>
-<Preference android:key="@string/key_ns" android:title="@string/name_ns"></Preference>
+<Preference android:key="@string/key_hosts" android:title="@string/name_hosts" android:summary="@string/summary_hosts"></Preference>
+<Preference android:key="@string/key_ns" android:title="@string/name_ns" android:summary="@string/summary_ns"></Preference>
 <Preference android:key="@string/key_option" android:title="@string/name_option"></Preference>
 <Preference android:key="@string/key_about" android:title="@string/name_about"></Preference>
 </PreferenceScreen>
