@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:background="@color/white" android:padding="8dip">
+
+	<ImageView android:id="@+id/ImgIcon" android:layout_width="48dip"
+		android:layout_height="48dip" android:layout_margin="4dip" />
+
+	<TextView android:id="@+id/tvName" android:layout_width="fill_parent"
+		android:layout_height="24dip" android:gravity="left|center_vertical"
+		android:textColor="@color/black" android:textStyle="bold"
+		android:layout_toRightOf="@+id/ImgIcon" android:maxLines="1"
+		android:ellipsize="end" android:singleLine="true"
+		android:layout_marginTop="2dip" />
+
+	<TextView android:id="@+id/tvNamespace" android:layout_width="fill_parent"
+		android:layout_height="24dip" android:gravity="left|center_vertical"
+		android:textColor="@color/black" android:layout_toRightOf="@+id/ImgIcon"
+		android:layout_below="@+id/tvName" android:maxLines="1"
+		android:ellipsize="end" android:singleLine="true"
+		android:layout_marginTop="4dip" />
+
+	<TextView android:id="@+id/spl1" android:layout_width="fill_parent"
+		android:layout_height="1dip" android:background="@color/gray"
+		android:layout_below="@+id/ImgIcon" android:layout_marginTop="4dip" />
+
+	<TextView android:id="@+id/tvPid" android:layout_width="100dip"
+		android:layout_height="24dip" android:gravity="left|center_vertical"
+		android:textColor="@color/blue" android:textStyle="bold"
+		android:layout_below="@+id/spl1" android:layout_marginTop="4dip"
+		android:layout_toRightOf="@+id/ImgIcon" android:text="@string/pid" />
+
+	<TextView android:id="@+id/tvMemory" android:layout_width="100dip"
+		android:layout_height="24dip" android:gravity="left|center_vertical"
+		android:textColor="@color/blue" android:textStyle="bold"
+		android:layout_below="@+id/tvPid" android:text="@string/memory"
+		android:layout_toRightOf="@+id/ImgIcon" />
+
+	<TextView android:id="@+id/tvUser" android:layout_width="100dip"
+		android:layout_height="24dip" android:gravity="left|center_vertical"
+		android:textColor="@color/blue" android:textStyle="bold"
+		android:layout_below="@+id/tvMemory" android:text="@string/user"
+		android:layout_toRightOf="@+id/ImgIcon" />
+
+	<TextView android:id="@+id/tvPidValue" android:layout_width="fill_parent"
+		android:layout_height="24dip" android:gravity="left|center_vertical"
+		android:textColor="@color/blue" android:textStyle="bold"
+		android:layout_below="@+id/spl1" android:layout_marginTop="4dip"
+		android:layout_toRightOf="@+id/tvPid" />
+
+	<TextView android:id="@+id/tvMemoryValue"
+		android:layout_width="fill_parent" android:layout_height="24dip"
+		android:gravity="left|center_vertical" android:textColor="@color/blue"
+		android:textStyle="bold" android:layout_below="@+id/tvPidValue"
+		android:layout_toRightOf="@+id/tvMemory" />
+
+	<TextView android:id="@+id/tvUserValue" android:layout_width="fill_parent"
+		android:layout_height="24dip" android:gravity="left|center_vertical"
+		android:textColor="@color/blue" android:textStyle="bold"
+		android:layout_below="@+id/tvMemoryValue" android:layout_toRightOf="@+id/tvUser" />
+		
+	<TextView android:id="@+id/tvWarning" android:layout_width="fill_parent"
+		android:layout_height="24dip" android:gravity="center"
+		android:textColor="@color/red" android:layout_below="@+id/tvUserValue"
+		android:visibility="gone" android:text="@string/c_kill_warning" />
+
+	<TextView android:id="@+id/spl2" android:layout_width="fill_parent"
+		android:layout_height="1dip" android:background="@color/gray"
+		android:layout_below="@+id/tvWarning" android:layout_marginTop="4dip" />
+
+	<RelativeLayout android:layout_width="wrap_content"
+		android:layout_height="wrap_content" android:layout_below="@+id/spl2"
+		android:layout_marginTop="4dip" android:layout_centerHorizontal="true">
+		<Button android:id="@+id/btnKill" android:layout_width="100dip"
+			android:layout_height="48dip" android:text="@string/kill" />
+		<Button android:id="@+id/btnCancel" android:layout_width="100dip"
+			android:layout_height="48dip" android:text="@string/back"
+			android:layout_toRightOf="@+id/btnKill" android:layout_marginLeft="8dip" />
+	</RelativeLayout>
+
+</RelativeLayout>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:background="@color/white">
+
+	<TextView android:id="@+id/tvMemory" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:padding="4dip"
+		android:background="@color/black" android:text="@string/memory_used"
+		android:textColor="@color/white" android:gravity="left|center_vertical" />
+
+	<TextView android:id="@+id/tvMemoryUsage"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:padding="4dip" android:textColor="@color/blue" android:text=""
+		android:layout_below="@id/tvMemory" android:gravity="left|center_vertical" />
+
+	<CheckBox android:id="@+id/chkKillProc" android:layout_width="fill_parent"
+		android:layout_height="48dip" android:textColor="@color/red"
+		android:text="@string/kill_before_clean" android:layout_below="@+id/tvMemoryUsage"
+		android:layout_marginLeft="32dip" android:layout_marginRight="32dip"
+		android:layout_marginTop="8dip" android:visibility="invisible" />
+
+	<Button android:id="@+id/btnClean" android:layout_width="fill_parent"
+		android:layout_height="48dip" android:layout_below="@+id/chkKillProc"
+		android:layout_marginLeft="32dip" android:layout_marginRight="32dip"
+		android:layout_marginTop="8dip" android:text="@string/clean_memory"
+		android:visibility="invisible" />
+
+	<TextView android:id="@+id/tvProcess" android:layout_width="fill_parent"
+		android:layout_height="wrap_content" android:padding="4dip"
+		android:background="@color/black" android:text="@string/process_info"
+		android:textColor="@color/white" android:gravity="left|center_vertical"
+		android:layout_below="@id/btnClean" android:layout_marginTop="8dip" />
+
+	<TextView android:id="@+id/tvProcessCount"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:padding="4dip" android:textColor="@color/blue" android:text=""
+		android:layout_below="@id/tvProcess" android:gravity="left|center_vertical" />
+
+	<ListView android:id="@+id/lstProcess" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_below="@id/tvProcessCount"
+		android:cacheColorHint="@color/none" />
+
+</RelativeLayout>

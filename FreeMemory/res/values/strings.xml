@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="app_name">FreeMemory</string>
+
+	<string name="memory_used">内存使用</string>
+	<string name="process_info">进程信息</string>
+	<string name="clean_memory">清理内存</string>
+	<string name="kill">终止进程</string>
+	<string name="back">返回</string>
+	<string name="kill_before_clean">清理前杀掉所有进程</string>
+
+	<string name="memory_usage_fmt" formatted="false">总内存 %dM / 空余 %dM / 共享
+		%dM / 缓冲 %dM</string>
+		
+	<string name="process_count_fmt" formatted="false">进程总数 %d</string>
+
+	<string name="c_noroot">您的设备没有 root 权限，不能使用本程序</string>
+	<string name="c_nobusybox">您的设备没有 busybox，无法使用本工具</string>
+	<string name="c_kill_warning">终止此进程可能造成系统不稳定或是其他问题</string>
+	<string name="c_clean_ok">清理内存完毕!</string>
+
+	<string name="c_hint">提示</string>
+	
+	<string name="c_ok">确定</string>
+	<string name="c_cancel">取消</string>
+	
+	<string name="pid">PID:</string>
+	<string name="memory">内存占用:</string>
+	<string name="user">用户:</string>
+</resources>
