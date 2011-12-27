@@ -8,7 +8,7 @@ public class MemoryUtils {
 	public static MemoryInfo getMemoryInfo() {
 
 		MemoryInfo ret = null;
-		CommandResult result = RootUtils.runRootCommand("busybox free -m");
+		CommandResult result = RootUtils.runRootCommand("busybox free");
 		if (result != null) {
 			if (result.error.equals("")) {
 				ret = new MemoryInfo();
