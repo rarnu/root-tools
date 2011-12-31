@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:background="@color/white" android:padding="4dip">
+
+	<ImageView android:id="@+id/ivAppIcon" android:layout_width="40dip"
+		android:layout_height="40dip" android:layout_margin="4dip" />
+
+	<TextView android:id="@+id/tvAppName" android:layout_width="fill_parent"
+		android:layout_height="28dip" android:textColor="@color/black"
+		android:textSize="20dip" android:gravity="left|center_vertical"
+		android:layout_toRightOf="@id/ivAppIcon" />
+
+	<TextView android:id="@+id/tvAppPackage" android:layout_width="fill_parent"
+		android:layout_height="20dip" android:gravity="left|center_vertical"
+		android:layout_toRightOf="@id/ivAppIcon" android:layout_below="@id/tvAppName" />
+
+	<TextView android:id="@+id/spl1" android:layout_width="fill_parent"
+		android:layout_height="1dip" android:background="@color/gray"
+		android:layout_below="@id/tvAppPackage" android:layout_marginTop="8dip"
+		android:layout_marginBottom="4dip" />
+
+	<ScrollView android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:layout_below="@id/spl1">
+		<TextView android:id="@+id/tvTestReceiver"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:gravity="left|top" />
+	</ScrollView>
+
+
+</RelativeLayout>

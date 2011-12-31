@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="48dip">
+
+	<ImageView android:id="@+id/itemIcon" android:layout_width="40dip"
+		android:layout_height="40dip" android:layout_margin="4dip" />
+
+	<TextView android:id="@+id/itemName" android:layout_width="fill_parent"
+		android:layout_height="28dip" android:textColor="@color/black"
+		android:textSize="20dip" android:gravity="left|center_vertical"
+		android:layout_toRightOf="@id/itemIcon" />
+
+	<RelativeLayout android:id="@+id/itemLayInfo"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:layout_toRightOf="@id/itemIcon" android:layout_below="@id/itemName">
+		<TextView android:id="@+id/tvSystemApp" android:layout_width="60dip"
+			android:layout_height="fill_parent" android:gravity="center"
+			android:textColor="@color/red" android:layout_alignParentRight="true"
+			android:text="@string/system_app" />
+
+		<TextView android:id="@+id/tvReceiverCount"
+			android:layout_width="wrap_content" android:layout_height="fill_parent"
+			android:layout_alignParentLeft="true" android:text="@string/receiver_count"
+			android:gravity="left|center_vertical" android:paddingLeft="2dip"
+			android:paddingRight="2dip" />
+
+		<TextView android:id="@+id/tvReceiverCountValue"
+			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:gravity="left|center_vertical" android:layout_toRightOf="@id/tvReceiverCount"
+			android:paddingLeft="2dip" android:paddingRight="2dip"
+			android:layout_toLeftOf="@id/tvSystemApp" />
+
+	</RelativeLayout>
+
+</RelativeLayout>
