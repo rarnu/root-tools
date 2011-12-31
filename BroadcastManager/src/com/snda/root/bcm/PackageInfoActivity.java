@@ -1,17 +1,21 @@
 package com.snda.root.bcm;
 
 import android.app.Activity;
-import android.content.pm.PackageParser;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.TextView;
+
+import com.snda.root.bcm.adapter.ReceiverAdapter;
 
 public class PackageInfoActivity extends Activity {
 
 	ImageView ivAppIcon;
 	TextView tvAppName, tvAppPackage;
 
-	TextView tvTestReceiver;
+	ListView lvReceiver;
+	ReceiverAdapter adapter = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -23,31 +27,26 @@ public class PackageInfoActivity extends Activity {
 		tvAppName = (TextView) findViewById(R.id.tvAppName);
 		tvAppPackage = (TextView) findViewById(R.id.tvAppPackage);
 
-		tvTestReceiver = (TextView) findViewById(R.id.tvTestReceiver);
+		lvReceiver = (ListView) findViewById(R.id.lvReceiver);
 
 		ivAppIcon.setBackgroundDrawable(GlobalInstance.currentPackageInfo.icon);
 		tvAppName.setText(GlobalInstance.currentPackageInfo.label);
 		tvAppPackage
 				.setText(GlobalInstance.currentPackageInfo.pack.packageName);
 
-		String ret = "";
-		int i = 0;
-		if (GlobalInstance.currentPackageInfo.receiverCount > 0) {
-			for (PackageParser.Activity a : GlobalInstance.currentPackageInfo.pack.receivers) {
-				ret += "\n\n" + a.info.name + "\n";
-				if (a.intents != null) {
-					if (a.intents.size() > 0) {
-						for (PackageParser.ActivityIntentInfo aii : a.intents) {
-							if (aii.countActions() > 0) {
-								for (i = 0; i < aii.countActions(); i++) {
-									ret += "    " + aii.getAction(i) + "\n";
-								}
-							}
-						}
-					}
-				}
-			}
-		}
-		tvTestReceiver.setText(ret);
+		tvAppName
+				.setTextColor(GlobalInstance.currentPackageInfo.isSytemApp ? Color.BLUE
+						: Color.BLACK);
+
+		fillReceiverList();
+
+	}
+
+	private void fillReceiverList() {
+		// lvReceiver
+		adapter = new ReceiverAdapter(getLayoutInflater(),
+				GlobalInstance.currentPackageInfo.pack.receivers);
+		lvReceiver.setAdapter(adapter);
+
 	}
 }

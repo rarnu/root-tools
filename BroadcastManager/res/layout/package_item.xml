@@ -8,7 +8,8 @@
 	<TextView android:id="@+id/itemName" android:layout_width="fill_parent"
 		android:layout_height="28dip" android:textColor="@color/black"
 		android:textSize="20dip" android:gravity="left|center_vertical"
-		android:layout_toRightOf="@id/itemIcon" />
+		android:layout_toRightOf="@id/itemIcon" android:ellipsize="end"
+		android:maxLines="1" android:singleLine="true" />
 
 	<RelativeLayout android:id="@+id/itemLayInfo"
 		android:layout_width="fill_parent" android:layout_height="fill_parent"

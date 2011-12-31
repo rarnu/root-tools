@@ -3,6 +3,7 @@
     <string name="app_name">BroadcastManager</string>
     <string name="packageinfo_name">应用程序明细</string>
     <string name="installed_app">已安装的应用程序</string>
+    <string name="registed_bcr">已注册的接收器</string>
     <string name="system_app">系统应用</string>
     <string name="no_name">&lt;未命名&gt;</string>
     <string name="receiver_count">接收器: </string>
