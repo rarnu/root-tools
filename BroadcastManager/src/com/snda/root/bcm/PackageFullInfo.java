@@ -3,7 +3,7 @@ package com.snda.root.bcm;
 import android.content.pm.PackageParser;
 import android.graphics.drawable.Drawable;
 
-public class PackgeFullInfo {
+public class PackageFullInfo {
 
 	public PackageParser.Package pack;
 	public Drawable icon;

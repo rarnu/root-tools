@@ -26,12 +26,15 @@ import com.snda.root.bcm.utils.ApkUtils;
 
 public class MainActivity extends Activity implements OnItemClickListener {
 
-	List<PackgeFullInfo> lstPackDetails = null;
+	List<PackageFullInfo> lstPackDetails = null;
 	ListView lvApps;
 	TextView tvLoading;
 	PackageAdapter adapter = null;
 
 	DisplayMetrics metrics = new DisplayMetrics();
+
+	int CurrentItemPosition = -1;
+	View CurrentClickedItemView = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -78,7 +81,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 					if (packs.size() > 0) {
 
 						if (lstPackDetails == null) {
-							lstPackDetails = new ArrayList<PackgeFullInfo>();
+							lstPackDetails = new ArrayList<PackageFullInfo>();
 						}
 
 						String fileAbsPath = "";
@@ -98,7 +101,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 											PackageParser.PARSE_IS_SYSTEM);
 							pkg.applicationInfo.publicSourceDir = fileAbsPath;
 							if (pkg != null) {
-								PackgeFullInfo pfi = new PackgeFullInfo();
+								PackageFullInfo pfi = new PackageFullInfo();
 								pfi.pack = pkg;
 								try {
 									pfi.icon = GlobalInstance.pm
@@ -123,11 +126,11 @@ public class MainActivity extends Activity implements OnItemClickListener {
 											}
 										}
 									}
-									
+
 								} else {
 									pfi.receiverCount = 0;
 								}
-								
+
 								pfi.disabledReceiver = dis;
 								pfi.enabledReceiver = ena;
 
@@ -168,11 +171,48 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		PackgeFullInfo item = (PackgeFullInfo) lvApps
+		PackageFullInfo item = (PackageFullInfo) lvApps
 				.getItemAtPosition(position);
 		GlobalInstance.currentPackageInfo = item;
+
+		CurrentItemPosition = position;
+		CurrentClickedItemView = view;
+
 		Intent inPackage = new Intent(this, PackageInfoActivity.class);
 		startActivityForResult(inPackage, 0);
+	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case 0:
+				PackageFullInfo item = lstPackDetails.get(CurrentItemPosition);
+				// re-count
+				if (item.pack.receivers != null) {
+					if (item.pack.receivers.size() > 0) {
+						int ena = 0, dis = 0;
+						for (PackageParser.Activity a : item.pack.receivers) {
+							if (GlobalInstance.pm.getComponentEnabledSetting(a
+									.getComponentName()) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
+								dis++;
+							} else {
+								ena++;
+							}
+						}
+						lstPackDetails.get(CurrentItemPosition).receiverCount = item.pack.receivers
+								.size();
+						lstPackDetails.get(CurrentItemPosition).enabledReceiver = ena;
+						lstPackDetails.get(CurrentItemPosition).disabledReceiver = dis;
+						((TextView) CurrentClickedItemView
+								.findViewById(R.id.tvReceiverCountValue))
+								.setText(String.format("C:%d/E:%d/D:%d",
+										item.pack.receivers.size(), ena, dis));
+					}
+				}
+
+				break;
+			}
+		}
 	}
 }

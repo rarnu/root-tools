@@ -4,22 +4,18 @@
 	android:background="@color/white">
 
 	<ImageView android:id="@+id/ivAppIcon" android:layout_width="40dip"
-		android:layout_height="40dip" android:layout_margin="8dip"
- />
+		android:layout_height="40dip" android:layout_margin="8dip" />
 
 	<TextView android:id="@+id/tvAppName" android:layout_width="fill_parent"
 		android:layout_height="28dip" android:textColor="@color/black"
 		android:textSize="20dip" android:gravity="left|center_vertical"
-		android:layout_toRightOf="@id/ivAppIcon"
-		android:layout_marginLeft="4dip"
-		android:layout_marginTop="4dip"
-		android:layout_marginRight="4dip" />
+		android:layout_toRightOf="@id/ivAppIcon" android:layout_marginLeft="4dip"
+		android:layout_marginTop="4dip" android:layout_marginRight="4dip" />
 
 	<TextView android:id="@+id/tvAppPackage" android:layout_width="fill_parent"
 		android:layout_height="20dip" android:gravity="left|center_vertical"
 		android:layout_toRightOf="@id/ivAppIcon" android:layout_below="@id/tvAppName"
-		android:layout_marginLeft="4dip"
-		android:layout_marginRight="4dip" />
+		android:layout_marginLeft="4dip" android:layout_marginRight="4dip" />
 
 	<TextView android:id="@+id/spl1" android:layout_width="fill_parent"
 		android:layout_height="wrap_content" android:background="@color/gray"
@@ -29,7 +25,13 @@
 
 	<ListView android:id="@+id/lvReceiver" android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:layout_below="@id/spl1"
-		android:cacheColorHint="@color/none" />
+		android:cacheColorHint="@color/none" android:layout_above="@+id/tvOperateHint" />
+
+	<TextView android:id="@+id/tvOperateHint"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true" android:background="@color/gray"
+		android:text="@string/operation_hint" android:padding="4dip"
+		android:textColor="@color/black" />
 
 
 </RelativeLayout>

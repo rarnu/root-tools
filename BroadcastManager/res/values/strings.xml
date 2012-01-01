@@ -10,4 +10,6 @@
     <string name="permission_count">权限: </string>
     <string name="comp_enabled">启用</string>
     <string name="comp_disabled">禁用</string>
+    <string name="operation_hint">长按可以切换启用/禁用状态</string>
+    <string name="operation_failed">操作失败，该接收器状态不可被改变</string>
 </resources>

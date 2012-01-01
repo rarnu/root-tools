@@ -6,5 +6,5 @@ public class GlobalInstance {
 
 	public static PackageManager pm  = null;
 	
-	public static PackgeFullInfo currentPackageInfo = null;
+	public static PackageFullInfo currentPackageInfo = null;
 }

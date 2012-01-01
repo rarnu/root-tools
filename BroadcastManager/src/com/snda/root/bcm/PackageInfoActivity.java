@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 
 import com.snda.root.bcm.adapter.ReceiverAdapter;
@@ -77,11 +78,27 @@ public class PackageInfoActivity extends Activity implements
 			int position, long id) {
 		ReceiverFullInfo item = (ReceiverFullInfo) lvReceiver
 				.getItemAtPosition(position);
+		boolean bRet = false;
 		if (item.enabled) {
-			ComponentUtils.doDisableReceiver(item.receiver.getComponentName());
+			bRet = ComponentUtils.doDisableReceiver(item.receiver.getComponentName());
+			if (bRet) {
+				item.enabled = false;
+				((TextView) view.findViewById(R.id.itemReceiverStatus)).setText(R.string.comp_disabled);
+				((TextView) view.findViewById(R.id.itemReceiverStatus)).setTextColor(Color.RED);
+			} else {
+				Toast.makeText(this, R.string.operation_failed, Toast.LENGTH_LONG).show();
+			}
 		} else if (!item.enabled) {
-			ComponentUtils.doEnabledReceiver(item.receiver.getComponentName());
+			bRet = ComponentUtils.doEnabledReceiver(item.receiver.getComponentName());
+			if (bRet) {
+				item.enabled = true;
+				((TextView) view.findViewById(R.id.itemReceiverStatus)).setText(R.string.comp_enabled);
+				((TextView) view.findViewById(R.id.itemReceiverStatus)).setTextColor(Color.GREEN);
+			} else {
+				Toast.makeText(this, R.string.operation_failed, Toast.LENGTH_LONG).show();
+			}
 		}
+		setResult(RESULT_OK);
 		return false;
 	}
 }

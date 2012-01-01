@@ -10,15 +10,15 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.snda.root.bcm.PackgeFullInfo;
+import com.snda.root.bcm.PackageFullInfo;
 import com.snda.root.bcm.R;
 
 public class PackageAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
-	private List<PackgeFullInfo> list;
+	private List<PackageFullInfo> list;
 
-	public PackageAdapter(LayoutInflater inflater, List<PackgeFullInfo> list) {
+	public PackageAdapter(LayoutInflater inflater, List<PackageFullInfo> list) {
 
 		this.inflater = inflater;
 		this.list = list;
@@ -38,7 +38,7 @@ public class PackageAdapter extends BaseAdapter {
 
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		PackgeFullInfo item = list.get(position);
+		PackageFullInfo item = list.get(position);
 
 		View v;
 		if (convertView == null) {
