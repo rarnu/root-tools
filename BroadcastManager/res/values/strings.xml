@@ -8,4 +8,6 @@
     <string name="no_name">&lt;未命名&gt;</string>
     <string name="receiver_count">接收器: </string>
     <string name="permission_count">权限: </string>
+    <string name="comp_enabled">启用</string>
+    <string name="comp_disabled">禁用</string>
 </resources>

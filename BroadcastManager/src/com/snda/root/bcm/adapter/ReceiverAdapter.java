@@ -3,6 +3,7 @@ package com.snda.root.bcm.adapter;
 import java.util.List;
 
 import android.content.pm.PackageParser;
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,14 +11,14 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.snda.root.bcm.R;
+import com.snda.root.bcm.ReceiverFullInfo;
 
 public class ReceiverAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
-	private List<PackageParser.Activity> list;
+	private List<ReceiverFullInfo> list;
 
-	public ReceiverAdapter(LayoutInflater inflater,
-			List<PackageParser.Activity> list) {
+	public ReceiverAdapter(LayoutInflater inflater, List<ReceiverFullInfo> list) {
 		this.inflater = inflater;
 		this.list = list;
 	}
@@ -35,7 +36,7 @@ public class ReceiverAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		PackageParser.Activity item = list.get(position);
+		ReceiverFullInfo item = list.get(position);
 
 		View v;
 		if (convertView == null) {
@@ -52,18 +53,26 @@ public class ReceiverAdapter extends BaseAdapter {
 					.findViewById(R.id.itemReceiverName);
 			holder.itemReceiverAction = (TextView) v
 					.findViewById(R.id.itemReceiverAction);
+			holder.itemReceiverStatus = (TextView) v
+					.findViewById(R.id.itemReceiverStatus);
 
 			v.setTag(holder);
 		}
 
 		if (item != null) {
-			holder.itemReceiverName.setText(item.info.name
-					.substring(item.info.name.lastIndexOf(".")+1));
+//			holder.itemReceiverName.setText(item.receiver.info.name
+//					.substring(item.receiver.info.name.lastIndexOf(".") + 1));
+			holder.itemReceiverName.setText(item.receiver.info.name);
+			holder.itemReceiverStatus
+					.setText(item.enabled ? R.string.comp_enabled
+							: R.string.comp_disabled);
+			holder.itemReceiverStatus.setTextColor(item.enabled ? Color.GREEN
+					: Color.RED);
 			String ret = "";
 			int i = 0;
-			if (item.intents != null) {
-				if (item.intents.size() > 0) {
-					for (PackageParser.ActivityIntentInfo aii : item.intents) {
+			if (item.receiver.intents != null) {
+				if (item.receiver.intents.size() > 0) {
+					for (PackageParser.ActivityIntentInfo aii : item.receiver.intents) {
 						if (aii.countActions() > 0) {
 							for (i = 0; i < aii.countActions(); i++) {
 								ret += aii.getAction(i) + "\n";
