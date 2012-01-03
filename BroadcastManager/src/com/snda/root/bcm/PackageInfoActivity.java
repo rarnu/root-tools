@@ -93,7 +93,7 @@ public class PackageInfoActivity extends Activity implements
 			if (bRet) {
 				item.enabled = true;
 				((TextView) view.findViewById(R.id.itemReceiverStatus)).setText(R.string.comp_enabled);
-				((TextView) view.findViewById(R.id.itemReceiverStatus)).setTextColor(Color.GREEN);
+				((TextView) view.findViewById(R.id.itemReceiverStatus)).setTextColor(0xFF008000);
 			} else {
 				Toast.makeText(this, R.string.operation_failed, Toast.LENGTH_LONG).show();
 			}

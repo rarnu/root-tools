@@ -13,6 +13,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
@@ -206,8 +207,13 @@ public class MainActivity extends Activity implements OnItemClickListener {
 						lstPackDetails.get(CurrentItemPosition).disabledReceiver = dis;
 						((TextView) CurrentClickedItemView
 								.findViewById(R.id.tvReceiverCountValue))
-								.setText(String.format("C:%d/E:%d/D:%d",
-										item.pack.receivers.size(), ena, dis));
+								.setText(Html
+										.fromHtml(String
+												.format(
+														"C:%d/<font color=\"green\">E:%d</font>/<font color=\"red\">D:%d</font>",
+														item.pack.receivers
+																.size(), ena,
+														dis)));
 					}
 				}
 

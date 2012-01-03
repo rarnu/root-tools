@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="msg_intent_a1">飞行模式变更</string>
+	<string name="msg_intent_a2">闹钟状态变更</string>
+	<string name="msg_intent_a3">列出所有应用</string>
+	<string name="msg_intent_a4">响应来电</string>
+	<string name="msg_intent_a5">应用程序出错</string>
+	<string name="msg_intent_a6">附加数据</string>
+
+	<string name="msg_intent_b1">电池电量变更</string>
+	<string name="msg_intent_b2">电池电量低</string>
+	<string name="msg_intent_b3">电池电量正常</string>
+	<string name="msg_intent_b4">启动完成</string>
+	<string name="msg_intent_b5">反馈错误</string>
+
+	<string name="msg_intent_c1">拨打电话</string>
+	<string name="msg_intent_c2">按下拨号按钮</string>
+	<string name="msg_intent_c3">紧急呼叫</string>
+	<string name="msg_intent_c4">特权呼叫</string>
+	<string name="msg_intent_c5">按下拍照按钮</string>
+	<string name="msg_intent_c6">显示选择器</string>
+	<string name="msg_intent_c7">关闭系统对话框</string>
+	<string name="msg_intent_c8">配置变更</string>
+	<string name="msg_intent_c9">创建快捷方式</string>
+
+	<string name="msg_intent_d1">日期变更</string>
+	<string name="msg_intent_d2">默认</string>
+	<string name="msg_intent_d3">删除</string>
+	<string name="msg_intent_d4">设备存储空间低</string>
+	<string name="msg_intent_d5">设备存储空间正常</string>
+	<string name="msg_intent_d6">拨出号码</string>
+	<string name="msg_intent_d7">底座事件</string>
+
+	<string name="msg_intent_e1">编辑</string>
+	<string name="msg_intent_e2">外部应用程序可用</string>
+	<string name="msg_intent_e3">外部应用程序不可用</string>
+
+	<string name="msg_intent_f1">工厂测试</string>
+
+	<string name="msg_intent_g1">获取内容</string>
+	<string name="msg_intent_g2">连接Gtalk服务</string>
+	<string name="msg_intent_g3">断开Gtalk服务</string>
+
+	<string name="msg_intent_h1">插入耳机</string>
+
+	<string name="msg_intent_i1">输入法变更</string>
+	<string name="msg_intent_i2">插入</string>
+	<string name="msg_intent_i3">插入或编辑</string>
+
+	<string name="msg_intent_l1">地区变更</string>
+
+	<string name="msg_intent_m1">主要</string>
+	<string name="msg_intent_m2">管理包存储</string>
+	<string name="msg_intent_m3">移除存储失败</string>
+	<string name="msg_intent_m4">按下媒体按钮</string>
+	<string name="msg_intent_m5">检查媒体</string>
+	<string name="msg_intent_m6">弹出媒体</string>
+	<string name="msg_intent_m7">挂载媒体</string>
+	<string name="msg_intent_m8">媒体未格式化</string>
+	<string name="msg_intent_m9">移除媒体</string>
+	<string name="msg_intent_m10">媒体扫描完成</string>
+	<string name="msg_intent_m11">扫描文件</string>
+	<string name="msg_intent_m12">媒体扫描开始</string>
+	<string name="msg_intent_m13">共享媒体</string>
+	<string name="msg_intent_m14">媒体可以被卸载</string>
+	<string name="msg_intent_m15">媒体已卸载</string>
+	<string name="msg_intent_m16">取消媒体共享</string>
+
+	<string name="msg_intent_o1">正在拨打电话</string>
+
+	<string name="msg_intent_p1">添加软件包</string>
+	<string name="msg_intent_p2">软件包变更</string>
+	<string name="msg_intent_p3">软件包数据清除</string>
+	<string name="msg_intent_p4">安装软件包</string>
+	<string name="msg_intent_p5">移除软件包</string>
+	<string name="msg_intent_p6">替换软件包</string>
+	<string name="msg_intent_p7">重启软件包</string>
+	<string name="msg_intent_p8">拾取</string>
+	<string name="msg_intent_p9">拾取Activity</string>
+	<string name="msg_intent_p10">连接到电源</string>
+	<string name="msg_intent_p11">与电源断开</string>
+	<string name="msg_intent_p12">电源使用明细</string>
+	<string name="msg_intent_p13">预启动完成</string>
+	<string name="msg_intent_p14">Provider变更</string>
+
+	<string name="msg_intent_q1">请求重启软件包</string>
+
+	<string name="msg_intent_r1">设备重启</string>
+	<string name="msg_intent_r2">远程调用</string>
+	<string name="msg_intent_r3">请求关机</string>
+	<string name="msg_intent_r4">运行</string>
+
+	<string name="msg_intent_s1">屏幕关闭</string>
+	<string name="msg_intent_s2">屏幕打开</string>
+	<string name="msg_intent_s3">搜索</string>
+	<string name="msg_intent_s4">长按搜索按钮</string>
+	<string name="msg_intent_s5">发送</string>
+	<string name="msg_intent_s6">多重发送</string>
+	<string name="msg_intent_s7">发送到</string>
+	<string name="msg_intent_s8">设置壁纸</string>
+	<string name="msg_intent_s9">关机</string>
+	<string name="msg_intent_s10">同步</string>
+	<string name="msg_intent_s11">同步状态变更</string>
+	<string name="msg_intent_s12">系统教程</string>
+	
+	<string name="msg_intent_t1">时间变更</string>
+	<string name="msg_intent_t2">时间流动</string>
+	<string name="msg_intent_t3">时区变更</string>
+	
+	<string name="msg_intent_u1">删除UID</string>
+	<string name="msg_intent_u2">连接USB大容量存储</string>
+	<string name="msg_intent_u3">断开USB大容量存储</string>
+	<string name="msg_intent_u4">升级设置</string>
+	<string name="msg_intent_u5">用户唤醒</string>
+	
+	<string name="msg_intent_v1">查看</string>
+	<string name="msg_intent_v2">声音命令</string>
+	
+	<string name="msg_intent_w1">壁纸变更</string>
+	<string name="msg_intent_w2">联网搜索</string>
+</resources>

@@ -3,6 +3,7 @@ package com.snda.root.bcm.adapter;
 import java.util.List;
 
 import android.graphics.Color;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -65,9 +66,15 @@ public class PackageAdapter extends BaseAdapter {
 					: Color.BLACK);
 			holder.tvSystemApp.setVisibility(item.isSytemApp ? View.VISIBLE
 					: View.GONE);
-			holder.tvReceiverCountValue.setText(String.format("C:%d/E:%d/D:%d",
-					item.receiverCount, item.enabledReceiver,
-					item.disabledReceiver));
+
+			holder.tvReceiverCountValue
+					.setText(Html
+							.fromHtml(String
+									.format(
+											"C:%d/<font color=\"green\">E:%d</font>/<font color=\"red\">D:%d</font>",
+											item.receiverCount,
+											item.enabledReceiver,
+											item.disabledReceiver)));
 
 		}
 

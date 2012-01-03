@@ -60,22 +60,33 @@ public class ReceiverAdapter extends BaseAdapter {
 		}
 
 		if (item != null) {
-//			holder.itemReceiverName.setText(item.receiver.info.name
-//					.substring(item.receiver.info.name.lastIndexOf(".") + 1));
-			holder.itemReceiverName.setText(item.receiver.info.name);
+			holder.itemReceiverName.setText(item.receiver.info.name
+					.substring(item.receiver.info.name.lastIndexOf(".") + 1));
+			// holder.itemReceiverName.setText(item.receiver.info.name);
 			holder.itemReceiverStatus
 					.setText(item.enabled ? R.string.comp_enabled
 							: R.string.comp_disabled);
-			holder.itemReceiverStatus.setTextColor(item.enabled ? Color.GREEN
+			holder.itemReceiverStatus.setTextColor(item.enabled ? 0xFF008000
 					: Color.RED);
 			String ret = "";
 			int i = 0;
+			// Integer act;
 			if (item.receiver.intents != null) {
 				if (item.receiver.intents.size() > 0) {
 					for (PackageParser.ActivityIntentInfo aii : item.receiver.intents) {
 						if (aii.countActions() > 0) {
 							for (i = 0; i < aii.countActions(); i++) {
-								ret += aii.getAction(i) + "\n";
+								// act =
+								// ReceiverMessageMap.messageMap.get(aii.getAction(i));
+								// if (act == null) {
+								// ret += aii.getAction(i) + "\n";
+								// } else {
+								// ret += v.getResources().getString(act)+"\n";
+								// }
+								ret += aii.getAction(i).substring(
+										aii.getAction(i).lastIndexOf(".") + 1)
+										.replace("_", " ").toLowerCase()
+										+ "\n";
 							}
 						}
 					}
