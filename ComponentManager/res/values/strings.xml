@@ -6,7 +6,7 @@
     <string name="registed_bcr">已注册的组件</string>
     <string name="system_app">系统应用</string>
     <string name="no_name">&lt;未命名&gt;</string>
-    <string name="receiver_count">接收器: </string>
+    <string name="receiver_count">组件: </string>
     <string name="permission_count">权限: </string>
     <string name="comp_enabled">启用</string>
     <string name="comp_disabled">禁用</string>
