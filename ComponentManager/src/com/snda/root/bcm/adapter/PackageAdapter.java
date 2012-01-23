@@ -72,9 +72,12 @@ public class PackageAdapter extends BaseAdapter {
 							.fromHtml(String
 									.format(
 											"C:%d/<font color=\"green\">E:%d</font>/<font color=\"red\">D:%d</font>",
-											item.receiverCount,
-											item.enabledReceiver,
-											item.disabledReceiver)));
+											item.receiverCount
+													+ item.serviceCount,
+											item.enabledReceiver
+													+ item.enabledService,
+											item.disabledReceiver
+													+ item.disabledService)));
 
 		}
 

@@ -135,6 +135,28 @@ public class MainActivity extends Activity implements OnItemClickListener {
 								pfi.disabledReceiver = dis;
 								pfi.enabledReceiver = ena;
 
+								dis = 0;
+								ena = 0;
+								if (pkg.services != null) {
+									pfi.serviceCount = pkg.services.size();
+									if (pkg.services.size() > 0) {
+										for (PackageParser.Service a : pkg.services) {
+											if (GlobalInstance.pm
+													.getComponentEnabledSetting(a
+															.getComponentName()) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
+												dis++;
+											} else {
+												ena++;
+											}
+										}
+									}
+								} else {
+									pfi.serviceCount = 0;
+								}
+
+								pfi.disabledService = dis;
+								pfi.enabledService = ena;
+
 								if (pkg.permissions != null) {
 									pfi.permissionCount = pkg.permissions
 											.size();
@@ -190,9 +212,16 @@ public class MainActivity extends Activity implements OnItemClickListener {
 			case 0:
 				PackageFullInfo item = lstPackDetails.get(CurrentItemPosition);
 				// re-count
+				int enaTot = 0,
+				disTot = 0;
+				int ena = 0,
+				dis = 0;
+
 				if (item.pack.receivers != null) {
 					if (item.pack.receivers.size() > 0) {
-						int ena = 0, dis = 0;
+
+						ena = 0;
+						dis = 0;
 						for (PackageParser.Activity a : item.pack.receivers) {
 							if (GlobalInstance.pm.getComponentEnabledSetting(a
 									.getComponentName()) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
@@ -205,18 +234,45 @@ public class MainActivity extends Activity implements OnItemClickListener {
 								.size();
 						lstPackDetails.get(CurrentItemPosition).enabledReceiver = ena;
 						lstPackDetails.get(CurrentItemPosition).disabledReceiver = dis;
-						((TextView) CurrentClickedItemView
-								.findViewById(R.id.tvReceiverCountValue))
-								.setText(Html
-										.fromHtml(String
-												.format(
-														"C:%d/<font color=\"green\">E:%d</font>/<font color=\"red\">D:%d</font>",
-														item.pack.receivers
-																.size(), ena,
-														dis)));
+
+						enaTot += ena;
+						disTot += dis;
 					}
 				}
 
+				if (item.pack.services != null) {
+					if (item.pack.services.size() > 0) {
+
+						ena = 0;
+						dis = 0;
+						for (PackageParser.Service s : item.pack.services) {
+							if (GlobalInstance.pm.getComponentEnabledSetting(s
+									.getComponentName()) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED) {
+								dis++;
+							} else {
+								ena++;
+							}
+						}
+						lstPackDetails.get(CurrentItemPosition).serviceCount = item.pack.services
+								.size();
+						lstPackDetails.get(CurrentItemPosition).enabledService = ena;
+						lstPackDetails.get(CurrentItemPosition).disabledService = dis;
+
+						enaTot += ena;
+						disTot += dis;
+
+					}
+				}
+				((TextView) CurrentClickedItemView
+						.findViewById(R.id.tvReceiverCountValue))
+						.setText(Html
+								.fromHtml(String
+										.format(
+												"C:%d/<font color=\"green\">E:%d</font>/<font color=\"red\">D:%d</font>",
+												item.pack.receivers.size()
+														+ item.pack.services
+																.size(),
+												enaTot, disTot)));
 				break;
 			}
 		}

@@ -13,6 +13,10 @@ public class PackageFullInfo {
 	public int disabledReceiver;
 	public int enabledReceiver;
 	
+	public int serviceCount;
+	public int disabledService;
+	public int enabledService;
+	
 	public int permissionCount;
 	public boolean isSytemApp;
 }

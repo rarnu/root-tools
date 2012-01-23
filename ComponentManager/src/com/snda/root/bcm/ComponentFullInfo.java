@@ -2,9 +2,10 @@ package com.snda.root.bcm;
 
 import android.content.pm.PackageParser;
 
-public class ReceiverFullInfo {
+public class ComponentFullInfo {
 
-	public PackageParser.Activity receiver;
+	public PackageParser.Component<?> component;	
 	public boolean enabled;
+	
 	
 }

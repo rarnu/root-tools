@@ -16,7 +16,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemLongClickListener;
 
-import com.snda.root.bcm.adapter.ReceiverAdapter;
+import com.snda.root.bcm.adapter.ComponentAdapter;
 import com.snda.root.bcm.utils.ComponentUtils;
 
 public class PackageInfoActivity extends Activity implements
@@ -26,9 +26,9 @@ public class PackageInfoActivity extends Activity implements
 	TextView tvAppName, tvAppPackage;
 
 	ListView lvReceiver;
-	ReceiverAdapter adapter = null;
+	ComponentAdapter adapter = null;
 
-	List<ReceiverFullInfo> lstReceiverInfo = null;
+	List<ComponentFullInfo> lstComponentInfo = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -53,22 +53,32 @@ public class PackageInfoActivity extends Activity implements
 
 		lvReceiver.setOnItemLongClickListener(this);
 
-		fillReceiverList();
+		fillComponentList();
 
 	}
 
-	private void fillReceiverList() {
+	private void fillComponentList() {
 		// lvReceiver
-		List<PackageParser.Activity> lst = GlobalInstance.currentPackageInfo.pack.receivers;
-		lstReceiverInfo = new ArrayList<ReceiverFullInfo>();
-		for (PackageParser.Activity a : lst) {
-			ReceiverFullInfo info = new ReceiverFullInfo();
-			info.receiver = a;
+		lstComponentInfo = new ArrayList<ComponentFullInfo>();
+		
+		List<PackageParser.Activity> lstReceiver = GlobalInstance.currentPackageInfo.pack.receivers;
+		for (PackageParser.Activity a : lstReceiver) {
+			ComponentFullInfo info = new ComponentFullInfo();
+			info.component = a;
 			info.enabled = GlobalInstance.pm.getComponentEnabledSetting(a
 					.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-			lstReceiverInfo.add(info);
+			lstComponentInfo.add(info);
 		}
-		adapter = new ReceiverAdapter(getLayoutInflater(), lstReceiverInfo);
+		
+		List<PackageParser.Service> lstService = GlobalInstance.currentPackageInfo.pack.services;
+		for (PackageParser.Service s: lstService) {
+			ComponentFullInfo info = new ComponentFullInfo();
+			info.component = s;
+			info.enabled = GlobalInstance.pm.getComponentEnabledSetting(s
+					.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+			lstComponentInfo.add(info);
+		}
+		adapter = new ComponentAdapter(getLayoutInflater(), lstComponentInfo);
 		lvReceiver.setAdapter(adapter);
 
 	}
@@ -76,11 +86,12 @@ public class PackageInfoActivity extends Activity implements
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
-		ReceiverFullInfo item = (ReceiverFullInfo) lvReceiver
+		ComponentFullInfo item = (ComponentFullInfo) lvReceiver
 				.getItemAtPosition(position);
 		boolean bRet = false;
 		if (item.enabled) {
-			bRet = ComponentUtils.doDisableReceiver(item.receiver.getComponentName());
+//			item.component.getComponentName()
+			bRet = ComponentUtils.doDisableReceiver(item.component.getComponentName());
 			if (bRet) {
 				item.enabled = false;
 				((TextView) view.findViewById(R.id.itemReceiverStatus)).setText(R.string.comp_disabled);
@@ -89,7 +100,7 @@ public class PackageInfoActivity extends Activity implements
 				Toast.makeText(this, R.string.operation_failed, Toast.LENGTH_LONG).show();
 			}
 		} else if (!item.enabled) {
-			bRet = ComponentUtils.doEnabledReceiver(item.receiver.getComponentName());
+			bRet = ComponentUtils.doEnabledReceiver(item.component.getComponentName());
 			if (bRet) {
 				item.enabled = true;
 				((TextView) view.findViewById(R.id.itemReceiverStatus)).setText(R.string.comp_enabled);

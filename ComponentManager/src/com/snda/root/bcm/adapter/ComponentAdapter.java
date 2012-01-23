@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.pm.PackageParser;
 import android.graphics.Color;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,14 +12,15 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.snda.root.bcm.R;
-import com.snda.root.bcm.ReceiverFullInfo;
+import com.snda.root.bcm.ComponentFullInfo;
 
-public class ReceiverAdapter extends BaseAdapter {
+public class ComponentAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
-	private List<ReceiverFullInfo> list;
+	private List<ComponentFullInfo> list;
 
-	public ReceiverAdapter(LayoutInflater inflater, List<ReceiverFullInfo> list) {
+	public ComponentAdapter(LayoutInflater inflater,
+			List<ComponentFullInfo> list) {
 		this.inflater = inflater;
 		this.list = list;
 	}
@@ -36,7 +38,7 @@ public class ReceiverAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
-		ReceiverFullInfo item = list.get(position);
+		ComponentFullInfo item = list.get(position);
 
 		View v;
 		if (convertView == null) {
@@ -45,10 +47,10 @@ public class ReceiverAdapter extends BaseAdapter {
 			v = convertView;
 		}
 
-		ReceiverHolder holder = (ReceiverHolder) v.getTag();
+		ComponentHolder holder = (ComponentHolder) v.getTag();
 
 		if (holder == null) {
-			holder = new ReceiverHolder();
+			holder = new ComponentHolder();
 			holder.itemReceiverName = (TextView) v
 					.findViewById(R.id.itemReceiverName);
 			holder.itemReceiverAction = (TextView) v
@@ -60,9 +62,17 @@ public class ReceiverAdapter extends BaseAdapter {
 		}
 
 		if (item != null) {
-			holder.itemReceiverName.setText(item.receiver.info.name
-					.substring(item.receiver.info.name.lastIndexOf(".") + 1));
-			// holder.itemReceiverName.setText(item.receiver.info.name);
+
+			String compName = item.component.className
+					.substring(item.component.className.lastIndexOf(".") + 1);
+
+			if (item.component instanceof PackageParser.Activity) {
+				compName += "<font color=\"blue\">(R)</font>";
+			} else {
+				compName += "<font color=\"blue\">(S)</font>";
+			}
+
+			holder.itemReceiverName.setText(Html.fromHtml(compName));
 			holder.itemReceiverStatus
 					.setText(item.enabled ? R.string.comp_enabled
 							: R.string.comp_disabled);
@@ -71,22 +81,21 @@ public class ReceiverAdapter extends BaseAdapter {
 			String ret = "";
 			int i = 0;
 			// Integer act;
-			if (item.receiver.intents != null) {
-				if (item.receiver.intents.size() > 0) {
-					for (PackageParser.ActivityIntentInfo aii : item.receiver.intents) {
-						if (aii.countActions() > 0) {
-							for (i = 0; i < aii.countActions(); i++) {
-								// act =
-								// ReceiverMessageMap.messageMap.get(aii.getAction(i));
-								// if (act == null) {
-								// ret += aii.getAction(i) + "\n";
-								// } else {
-								// ret += v.getResources().getString(act)+"\n";
-								// }
-								ret += aii.getAction(i).substring(
-										aii.getAction(i).lastIndexOf(".") + 1)
-										.replace("_", " ").toLowerCase()
-										+ "\n";
+			if (item.component instanceof PackageParser.Activity) {
+				PackageParser.Activity pa = (PackageParser.Activity) item.component;
+				if (pa.intents != null) {
+					if (pa.intents.size() > 0) {
+						for (PackageParser.ActivityIntentInfo aii : pa.intents) {
+							if (aii.countActions() > 0) {
+								for (i = 0; i < aii.countActions(); i++) {
+									ret += aii
+											.getAction(i)
+											.substring(
+													aii.getAction(i)
+															.lastIndexOf(".") + 1)
+											.replace("_", " ").toLowerCase()
+											+ "\n";
+								}
 							}
 						}
 					}

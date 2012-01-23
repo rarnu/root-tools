@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">BroadcastManager</string>
+    <string name="app_name">ComponentManager</string>
     <string name="packageinfo_name">应用程序明细</string>
     <string name="installed_app">已安装的应用程序</string>
-    <string name="registed_bcr">已注册的接收器</string>
+    <string name="registed_bcr">已注册的组件</string>
     <string name="system_app">系统应用</string>
     <string name="no_name">&lt;未命名&gt;</string>
     <string name="receiver_count">接收器: </string>
@@ -11,5 +11,5 @@
     <string name="comp_enabled">启用</string>
     <string name="comp_disabled">禁用</string>
     <string name="operation_hint">长按可以切换启用/禁用状态</string>
-    <string name="operation_failed">操作失败，该接收器状态不可被改变</string>
+    <string name="operation_failed">操作失败，该组件状态不可被改变</string>
 </resources>
