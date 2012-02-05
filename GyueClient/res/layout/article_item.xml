@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="match_parent"
+	android:layout_height="56dip" android:paddingLeft="6dip"
+	android:paddingRight="6dip">
+
+	<TextView android:id="@+id/article_title"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:textSize="20dip" android:textColor="@color/black"
+		android:gravity="left|center_vertical" android:layout_above="@+id/article_date_tag"
+		android:singleLine="true" android:ellipsize="end" android:maxLines="1"
+		android:layout_toLeftOf="@+id/article_recommand" />
+
+	<TextView android:id="@+id/article_date_tag"
+		android:layout_width="fill_parent" android:layout_height="16dip"
+		android:gravity="left|center_vertical"
+		android:layout_alignParentBottom="true" android:singleLine="true"
+		android:ellipsize="end" android:maxLines="1" android:layout_toLeftOf="@+id/article_recommand"
+		android:layout_marginBottom="4dip" />
+
+	<ImageView android:id="@+id/article_recommand"
+		android:layout_width="22dip" android:layout_height="14dip"
+		android:layout_margin="4dip" android:layout_alignParentRight="true"
+		android:background="@drawable/recommend" />
+
+	<ImageView android:id="@+id/article_hot"
+		android:layout_width="22dip" android:layout_height="14dip"
+		android:layout_alignParentRight="true" android:layout_margin="4dip"
+		android:layout_below="@+id/article_recommand" android:background="@drawable/hot" />
+
+</RelativeLayout>

@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:orientation="vertical" android:layout_width="fill_parent"
+	android:layout_height="fill_parent" android:background="@color/white">
+
+	<RelativeLayout android:id="@+id/layTitleBar"
+		android:layout_width="fill_parent" android:layout_height="48dip"
+		android:background="@drawable/bottombar">
+		<Button android:id="@+id/btnBack" android:layout_width="60dip"
+			android:layout_height="40dip" android:layout_margin="4dip"
+			android:background="@drawable/button_style" android:text="@string/back"
+			android:textColor="@color/white" />
+
+		<ImageView android:layout_width="90dip"
+			android:layout_height="48dip" android:background="@drawable/gyue"
+			android:layout_centerInParent="true" />
+
+	</RelativeLayout>
+
+	<RelativeLayout android:id="@+id/layContent"
+		android:layout_width="fill_parent" android:layout_height="fill_parent"
+		android:layout_below="@+id/layTitleBar" android:layout_above="@+id/layBottom">
+
+	</RelativeLayout>
+
+	<LinearLayout android:orientation="horizontal" android:id="@+id/layBottom"
+		android:layout_width="fill_parent" android:layout_height="wrap_content"
+		android:layout_alignParentBottom="true" android:background="@drawable/bottombar">
+
+		<include android:id="@+id/btnFunc1" layout="@layout/bottom_button" />
+		<include android:id="@+id/btnFunc2" layout="@layout/bottom_button" />
+		<include android:id="@+id/btnFunc3" layout="@layout/bottom_button" />
+		<include android:id="@+id/btnFunc4" layout="@layout/bottom_button" />
+		<include android:id="@+id/btnFunc5" layout="@layout/bottom_button" />
+
+	</LinearLayout>
+
+</RelativeLayout>
