@@ -6,7 +6,7 @@ import android.widget.TextView;
 public class ArticleItemHolder {
 
 	public TextView articleTitle;
-	public TextView articleDateTag;
-	public ImageView articleRecommand;
-	public ImageView articleHot;
+	public TextView articleDesc;
+	public TextView articleDate;
+	public ImageView articleImage;
 }

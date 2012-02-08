@@ -48,13 +48,13 @@ public class ArticleItemAdapter extends BaseAdapter {
 			holder = new ArticleItemHolder();
 			holder.articleTitle = (TextView) convertView
 					.findViewById(R.id.article_title);
-			holder.articleDateTag = (TextView) convertView
-					.findViewById(R.id.article_date_tag);
+			holder.articleDesc = (TextView) convertView
+					.findViewById(R.id.article_desc);
 
-			holder.articleRecommand = (ImageView) convertView
-					.findViewById(R.id.article_recommand);
-			holder.articleHot = (ImageView) convertView
-					.findViewById(R.id.article_hot);
+			holder.articleDate = (TextView) convertView
+					.findViewById(R.id.article_date);
+			holder.articleImage = (ImageView) convertView
+					.findViewById(R.id.article_image);
 
 			convertView.setTag(holder);
 		}
@@ -63,15 +63,10 @@ public class ArticleItemAdapter extends BaseAdapter {
 
 		ArticleItem item = list.get(position);
 		if (item != null) {
-			holder.articleTitle.setText(item.getTitle());
-			holder.articleDateTag.setText(String.format(convertView
-					.getResources().getString(R.string.item_tag), item
-					.getDatetime(), item.getTag()));
-			holder.articleRecommand
-					.setVisibility(item.isRecommand() ? View.VISIBLE
-							: View.GONE);
-			holder.articleHot.setVisibility(item.isHot() ? View.VISIBLE
-					: View.GONE);
+			holder.articleTitle.setText(item.title);
+			holder.articleDesc.setText(item.description);
+			holder.articleDate.setText(item.date);
+			holder.articleImage.setImageBitmap(item.articleImage);
 		}
 
 		return convertView;

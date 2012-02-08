@@ -2,23 +2,27 @@ package com.snda.gyue;
 
 import java.util.List;
 
+import org.apache.http.protocol.HTTP;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
 import android.view.View;
-import android.view.Window;
 import android.view.View.OnClickListener;
+import android.view.Window;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.snda.gyue.adapter.ArticleItemAdapter;
 import com.snda.gyue.classes.ArticleItem;
-import com.snda.gyue.test.Test;
+import com.snda.gyue.network.HttpProxy;
+import com.snda.gyue.utils.FileUtils;
 
 public class MainActivity extends Activity implements OnClickListener {
 
@@ -78,7 +82,8 @@ public class MainActivity extends Activity implements OnClickListener {
 				if (msg.what == 1) {
 					switch (type) {
 					case 1:
-						lvLatest.setAdapter(adapterLatest);
+//						 lvLatest.setAdapter(adapterLatest);
+						Toast.makeText(MainActivity.this, "ok", Toast.LENGTH_LONG).show();
 						break;
 					case 2:
 						break;
@@ -104,11 +109,21 @@ public class MainActivity extends Activity implements OnClickListener {
 				switch (type) {
 				case 1:
 					// TEST
-					lstLatestArticles = Test.getTestArticles();
-					if (lstLatestArticles != null) {
-						adapterLatest = new ArticleItemAdapter(
-								getLayoutInflater(), lstLatestArticles);
+//					lstLatestArticles = Test.getTestArticles();
+//					if (lstLatestArticles != null) {
+//						adapterLatest = new ArticleItemAdapter(
+//								getLayoutInflater(), lstLatestArticles);
+//					}
+					
+					try {
+						String xml = HttpProxy.CallGet("http://www.gyue.cn/index.php", "m=content&c=rss&rssid=54&page=1&size=20", "GBK");
+						FileUtils.rewriteFile("/sdcard/gyue.xml", xml);
+					} catch (Exception e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
 					}
+					
+					
 					break;
 				case 2:
 					// lstIndustryArticles
