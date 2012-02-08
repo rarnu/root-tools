@@ -66,7 +66,13 @@ public class ArticleItemAdapter extends BaseAdapter {
 			holder.articleTitle.setText(item.title);
 			holder.articleDesc.setText(item.description);
 			holder.articleDate.setText(item.date);
-			holder.articleImage.setImageBitmap(item.articleImage);
+			
+			if (item.articleImage == null) {
+				holder.articleImage.setVisibility(View.GONE);
+			} else {
+				holder.articleImage.setVisibility(View.VISIBLE);
+				holder.articleImage.setImageBitmap(item.articleImage);
+			}
 		}
 
 		return convertView;

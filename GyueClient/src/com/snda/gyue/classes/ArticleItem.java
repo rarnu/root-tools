@@ -11,6 +11,6 @@ public class ArticleItem {
 	public String comment;
 	public String description;
 	
-	public Bitmap articleImage;
+	public Bitmap articleImage = null;
 	
 }

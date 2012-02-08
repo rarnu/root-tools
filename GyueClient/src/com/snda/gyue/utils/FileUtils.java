@@ -393,5 +393,37 @@ public class FileUtils {
 			return false;
 		}
 	}
+	
+	/**
+	 * convert gbk file to utf-8 file
+	 * 
+	 * @param filename
+	 * @throws Exception
+	 */
+	public static void GBKFileToUtf8File(String filename) throws Exception {
+		final String shift = "GBK";
+		final String utf8 = "utf-8";
+
+		String backupfilename = filename + ".backup";
+		File f = new File(filename);
+		File outf = new File(backupfilename);
+		f.renameTo(outf);
+
+		java.io.FileInputStream in = new java.io.FileInputStream(backupfilename);
+		java.io.InputStreamReader isr = new java.io.InputStreamReader(in, shift);
+		java.io.BufferedReader br = (new java.io.BufferedReader(isr));
+
+		// open output stream
+		java.io.FileOutputStream out = new java.io.FileOutputStream(filename);
+		java.io.BufferedWriter bw = new java.io.BufferedWriter(new java.io.OutputStreamWriter(out, utf8));
+
+		char[] buffer = new char[4096];
+		int len;
+		while ((len = br.read(buffer)) != -1)
+			bw.write(buffer, 0, len);
+		br.close();
+		bw.flush();
+		bw.close();
+	}
 
 }

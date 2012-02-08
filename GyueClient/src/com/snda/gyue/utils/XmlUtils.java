@@ -21,6 +21,7 @@ import org.w3c.dom.NodeList;
 import org.xmlpull.v1.XmlSerializer;
 
 import android.content.Context;
+import android.util.Log;
 import android.util.Xml;
 
 /**
@@ -77,6 +78,7 @@ public class XmlUtils {
 
 	/**
 	 * Load a xml file with file
+	 * 
 	 * @param context
 	 * @param file
 	 * @return
@@ -88,6 +90,7 @@ public class XmlUtils {
 			is.close();
 			return true;
 		} catch (Exception e) {
+			Log.e("loadFile", e.getMessage());
 			return false;
 		}
 	}
@@ -250,5 +253,7 @@ public class XmlUtils {
 		} catch (Exception e) {
 		}
 	}
+
+	
 
 }
