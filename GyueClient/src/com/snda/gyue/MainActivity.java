@@ -7,16 +7,18 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.Button;
+import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.snda.gyue.adapter.ArticleItemAdapter;
 import com.snda.gyue.classes.ArticleItem;
@@ -27,24 +29,32 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	RelativeLayout btnFunc1, btnFunc2, btnFunc3, btnFunc4, btnFunc5;
 
-	RelativeLayout layContent;
+	ScrollView layContent;
+	ListView lvArticles;
+	List<ArticleItem> lstArticles;
+	ArticleItemAdapter adapter;
+	ProgressBar pbRefreshing;
+	Button btnRefresh, btnBack;
+	Gallery gallaryPhotos;
 
-	ListView lvFocused, lvIndustry, lvApplication, lvGame, lvMyFavorate;
-
-	List<ArticleItem> lstFocusedArticles, lstIndustryArticles, lstApplicationArticles, lstGameArticles;
-
-	ArticleItemAdapter adapterFocused, adapterIndustry, adapterApplication, adapterGame, adapterMyFavorate;
+	int CurrentType = 0;
+	boolean inProgress = false;
+	
+	DisplayMetrics metric = new DisplayMetrics();
+	float density;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		requestWindowFeature(Window.FEATURE_INDETERMINATE_PROGRESS);
+		
+		getWindowManager().getDefaultDisplay().getMetrics(metric);
+		density = metric.density;
 
 		setContentView(R.layout.main);
 
-		layContent = (RelativeLayout) findViewById(R.id.layContent);
+		layContent = (ScrollView) findViewById(R.id.layContent);
 
 		btnFunc1 = (RelativeLayout) findViewById(R.id.btnFunc1);
 		btnFunc2 = (RelativeLayout) findViewById(R.id.btnFunc2);
@@ -58,41 +68,41 @@ public class MainActivity extends Activity implements OnClickListener {
 		setIconText(btnFunc4, R.drawable.information, R.string.func4);
 		setIconText(btnFunc5, R.drawable.information, R.string.func5);
 
-		lvFocused = (ListView) getLayoutInflater().inflate(R.layout.page_latest, null);
-		lvIndustry = (ListView) getLayoutInflater().inflate(R.layout.page_latest, null);
-		setContentLayout(lvFocused);
+		lvArticles = (ListView) findViewById(R.id.lvArticles);
+		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
+		btnRefresh = (Button) findViewById(R.id.btnRefresh);
+		btnBack = (Button) findViewById(R.id.btnBack);
+		gallaryPhotos = (Gallery) findViewById(R.id.gallaryPhotos);
+
+		btnRefresh.setOnClickListener(this);
+		btnBack.setOnClickListener(this);
 
 		adjustButtonWidth();
 
-		getArticleListT(1, 1, 20);
+		onClick(btnFunc1);
 
 	}
 
-	private void getArticleListT(final int type, final int page, final int pageSize) {
-		setProgressBarIndeterminateVisibility(true);
+	private void getArticleListT(final int type, final int page) {
+
+		inProgress = true;
+		btnRefresh.setEnabled(false);
+		pbRefreshing.setVisibility(View.VISIBLE);
 
 		final Handler h = new Handler() {
 
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
-					switch (type) {
-					case 1:
-						break;
-					case 2:
-						lvIndustry.setAdapter(adapterIndustry);
-						Toast.makeText(MainActivity.this, "ok", Toast.LENGTH_LONG).show();
-						
-						break;
-					case 3:
-						break;
-					case 4:
-						break;
-					case 5:
-						break;
+					lvArticles.setAdapter(adapter);
 
-					}
-					setProgressBarIndeterminateVisibility(false);
+					RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) lvArticles.getLayoutParams();
+					lp.height = dipToPx(density, 81) * lstArticles.size();
+					lvArticles.setLayoutParams(lp);
+					btnRefresh.setEnabled(true);
+					pbRefreshing.setVisibility(View.GONE);
+
+					inProgress = false;
 				}
 				super.handleMessage(msg);
 			}
@@ -103,36 +113,17 @@ public class MainActivity extends Activity implements OnClickListener {
 			@Override
 			public void run() {
 
-				switch (type) {
-				case 1:
-					// TEST
-					// lstLatestArticles = Test.getTestArticles();
-					// if (lstLatestArticles != null) {
-					// adapterLatest = new ArticleItemAdapter(
-					// getLayoutInflater(), lstLatestArticles);
-					// }
-					break;
-				case 2:
-					// lstIndustryArticles
-					try {
-						String xml = HttpProxy.CallGet("http://www.gyue.cn/index.php", "m=content&c=rss&rssid=13&page=1&size=20", "GBK");
-						lstIndustryArticles = ItemBuilder.xmlToItems(MainActivity.this, 13, xml, false);
-						if (lstIndustryArticles != null) {
-							adapterIndustry = new ArticleItemAdapter(getLayoutInflater(), lstIndustryArticles);
-						}
-					} catch (Exception e) {
-						Log.e("getArticleListT", e.getMessage());
+				try {
+					String xml = HttpProxy.CallGet(GyueConsts.SITE_URL,
+							String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
+					lstArticles = ItemBuilder.xmlToItems(MainActivity.this, type, xml, false);
+					if (lstArticles != null) {
+						adapter = new ArticleItemAdapter(getLayoutInflater(), lstArticles);
+					} else {
+						adapter = null;
 					}
-					break;
-				case 3:
-					// lstApplicationArticles
-					break;
-				case 4:
-					// lstGameArticles
-					break;
-				case 5:
-					// lstMyFavorateArticles
-					break;
+				} catch (Exception e) {
+
 				}
 				h.sendEmptyMessage(1);
 
@@ -140,39 +131,8 @@ public class MainActivity extends Activity implements OnClickListener {
 		}).start();
 	}
 
-	private void switchPage(int page) {
-		layContent.removeAllViews();
-		switch (page) {
-		case 1:
-			layContent.addView(lvFocused);
-			break;
-		case 2:
-			layContent.addView(lvIndustry);
-			break;
-		case 3:
-			break;
-		case 4:
-			break;
-		case 5:
-			break;
-		}
-	}
-
-	private void setContentLayout(View v) {
-		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) v.getLayoutParams();
-		if (lp == null) {
-			lp = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.MATCH_PARENT);
-		} else {
-			lp.width = RelativeLayout.LayoutParams.MATCH_PARENT;
-			lp.height = RelativeLayout.LayoutParams.MATCH_PARENT;
-		}
-		v.setLayoutParams(lp);
-	}
-
 	private void adjustButtonWidth() {
-		DisplayMetrics metric = new DisplayMetrics();
-		getWindowManager().getDefaultDisplay().getMetrics(metric);
-		float density = metric.density;
+		
 		int wid = (getWindowManager().getDefaultDisplay().getWidth() - dipToPx(density, 40)) / 5;
 		setButtonWidth(btnFunc1, wid);
 		setButtonWidth(btnFunc2, wid);
@@ -200,27 +160,48 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	@Override
 	public void onClick(View v) {
+
+		if (inProgress) {
+			return;
+		}
+
+		if (v instanceof Button) {
+			switch (v.getId()) {
+			case R.id.btnBack:
+				finish();
+				break;
+			case R.id.btnRefresh:
+				getArticleListT(CurrentType, 1);
+				break;
+			}
+			return;
+		}
+
 		if (v instanceof RelativeLayout) {
 			setSelectedItem((RelativeLayout) v);
 		}
+
+		gallaryPhotos.setVisibility(View.GONE);
+
 		switch (v.getId()) {
 		case R.id.btnFunc1:
-			switchPage(1);
+			CurrentType = 54;
+			gallaryPhotos.setVisibility(View.VISIBLE);
 			break;
 		case R.id.btnFunc2:
-			switchPage(2);
-			getArticleListT(2, 1, 20);
+			CurrentType = 13;
 			break;
 		case R.id.btnFunc3:
-			switchPage(3);
+			CurrentType = 11;
 			break;
 		case R.id.btnFunc4:
-			switchPage(4);
+			CurrentType = 12;
 			break;
 		case R.id.btnFunc5:
-			switchPage(5);
-			break;
+			
+			return;
 		}
+		getArticleListT(CurrentType, 1);
 	}
 
 	private void setSelectedItem(RelativeLayout btn) {

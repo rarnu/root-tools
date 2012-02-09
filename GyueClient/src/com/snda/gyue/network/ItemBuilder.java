@@ -10,6 +10,7 @@ import org.w3c.dom.NodeList;
 import android.content.Context;
 import android.util.Log;
 
+import com.snda.gyue.GyueConsts;
 import com.snda.gyue.classes.ArticleItem;
 import com.snda.gyue.utils.FileUtils;
 import com.snda.gyue.utils.XmlUtils;
@@ -18,13 +19,13 @@ import com.snda.gyue.utils.XmlUtils;
 
 public class ItemBuilder {
 
-	private static final String TEMP_DIR = "/sdcard/.gyue/";
+	
 
 	public static List<ArticleItem> xmlToItems(Context context, int rssid, String xml, boolean local) throws Exception {
 
 		List<ArticleItem> result = null;
-		FileUtils.mkdir(TEMP_DIR);
-		String localFilePath = TEMP_DIR + String.format("a%d.xml", rssid);
+		FileUtils.mkdir(GyueConsts.GYUE_DIR);
+		String localFilePath = GyueConsts.GYUE_DIR + String.format("a%d.xml", rssid);
 
 		File fXml = new File(localFilePath);
 
@@ -33,7 +34,7 @@ public class ItemBuilder {
 			FileUtils.rewriteFile(fXml, xml);
 		} else {
 			if (xml == null || xml.equals("")) {
-				// 
+				//
 			}
 		}
 
@@ -45,26 +46,49 @@ public class ItemBuilder {
 		util.initialize();
 
 		if (util.loadFile(context, fXml)) {
-			NodeList nodeList = ((Element) util.getRoot().getElementsByTagName("channel").item(0)).getElementsByTagName("item");
+			NodeList nodeList = ((Element) util.getRoot().getElementsByTagName("channel").item(0))
+					.getElementsByTagName("item");
 			Element ele = null;
 			if (nodeList != null && nodeList.getLength() > 0) {
 				result = new ArrayList<ArticleItem>();
 				for (int i = 0; i < nodeList.getLength(); i++) {
 					ele = (Element) nodeList.item(i);
-					ArticleItem item =new ArticleItem();
-					item.title = util.getNodeValue((Element)ele.getElementsByTagName("title").item(0));
-					item.link = util.getNodeValue((Element) ele.getElementsByTagName("link").item(0));
-					item.description = util.getNodeValue((Element) ele.getElementsByTagName("description").item(0));
-					item.date = util.getNodeValue((Element) ele.getElementsByTagName("pubDate").item(0));
-					item.author = util.getNodeValue((Element) ele.getElementsByTagName("author").item(0));
-					item.comment = util.getNodeValue((Element) ele.getElementsByTagName("comments").item(0));
-					Log.e("ITEM_BUILDER", item.title);
+					ArticleItem item = new ArticleItem();
+					item.setTitle(util.getNodeValue((Element) ele.getElementsByTagName("title").item(0)));
+					item.setLink(util.getNodeValue((Element) ele.getElementsByTagName("link").item(0)));
+					item.setDescription(util.getNodeValue((Element) ele.getElementsByTagName("description").item(0)));
+					item.setDate(util.getNodeValue((Element) ele.getElementsByTagName("pubDate").item(0)));
+					item.setAuthor(util.getNodeValue((Element) ele.getElementsByTagName("author").item(0)));
+					item.setComment(util.getNodeValue((Element) ele.getElementsByTagName("comments").item(0)));
+					item.setArticleImageUrl(findImage(item.getDescription(), item.getComment()));
+					Log.e("NAME", item.getTitle());
+					Log.e("ITEM", item.getArticleImageUrl());
 					result.add(item);
 				}
 			}
 		}
 
 		util.finalize();
+		return result;
+	}
+
+	private static String findImage(String desc, String comment) {
+		String url = desc + comment;
+		String result = "";
+		if (url.contains("<img")) {
+			int p = url.indexOf("<img");
+			if (p != -1) {
+
+				for (int i = p; i < url.length(); i++) {
+					if (url.charAt(i) == '>') {
+						result += url.charAt(i);
+						break;
+
+					}
+					result += url.charAt(i);
+				}
+			}
+		}
 		return result;
 	}
 

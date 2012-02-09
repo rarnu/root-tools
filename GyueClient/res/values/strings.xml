@@ -3,12 +3,13 @@
     <string name="app_name">极悦网</string>
     
     <string name="back">返回</string>
+    <string name="refresh">刷新</string>
     
     <string name="func1">焦点</string>
     <string name="func2">业内</string>
     <string name="func3">应用</string>
     <string name="func4">游戏</string>
-    <string name="func5">收藏</string>
+    <string name="func5">设置</string>
     
     <string name="item_tag" formatted="false">%s | 标签: %s</string>
 </resources>
