@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white"
+    android:orientation="vertical" >
+
+    <RelativeLayout
+        android:id="@+id/layTitleBar"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:background="@drawable/bottombar" >
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="60dip"
+            android:layout_height="40dip"
+            android:layout_margin="4dip"
+            android:background="@drawable/button_style"
+            android:text="@string/back"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:layout_width="90dip"
+            android:layout_height="48dip"
+            android:layout_centerInParent="true"
+            android:gravity="center"
+            android:text="@string/reading"
+            android:textColor="@color/white"
+            android:textSize="18dip" />
+
+        <ProgressBar
+            android:id="@+id/pbRefreshing"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="18dip"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:id="@+id/layContent"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/layTitleBar"
+        android:layout_margin="4dip" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="18dip"
+                android:layout_marginLeft="8dip"
+                android:layout_marginRight="8dip" />
+
+            <TextView
+                android:id="@+id/tvDate"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvTitle"
+                android:layout_marginTop="4dip"
+                android:gravity="center_horizontal"
+                android:textColor="@color/black"
+                android:textSize="14dip" />
+
+            <TextView
+                android:id="@+id/tvArticle"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_below="@+id/tvDate"
+                android:layout_marginTop="4dip"
+                android:gravity="left|top"
+                android:textColor="@color/black"
+                android:textSize="16dip"
+                android:autoLink="all" />
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>

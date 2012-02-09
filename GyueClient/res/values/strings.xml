@@ -11,5 +11,7 @@
     <string name="func4">游戏</string>
     <string name="func5">设置</string>
     
+    <string name="reading">阅读正文</string>
+    
     <string name="item_tag" formatted="false">%s | 标签: %s</string>
 </resources>

@@ -60,7 +60,9 @@
             <Gallery
                 android:id="@+id/gallaryPhotos"
                 android:layout_width="fill_parent"
-                android:layout_height="260dip" />
+                android:layout_height="180dip"
+                android:layout_marginTop="4dip"
+                android:layout_marginBottom="4dip" />
 
             <ListView
                 android:id="@+id/lvArticles"

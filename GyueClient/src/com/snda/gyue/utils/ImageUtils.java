@@ -23,6 +23,10 @@ public class ImageUtils {
 		return new BitmapDrawable(context.getResources(), BitmapFactory.decodeFile(path, bop));
 	}
 	
+	public static int dipToPx(float density, int dip) {
+		return (int) (dip * density + 0.5f);
+	}
+	
 	
 
 //	private static Drawable loadGifImage(Context context, String path, int size, int maxWidth, int maxHeight) {

@@ -1,15 +1,18 @@
 package com.snda.gyue;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.Gallery;
 import android.widget.ImageView;
@@ -21,11 +24,13 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.snda.gyue.adapter.ArticleItemAdapter;
+import com.snda.gyue.adapter.ImageAdapter;
 import com.snda.gyue.classes.ArticleItem;
 import com.snda.gyue.network.HttpProxy;
 import com.snda.gyue.network.ItemBuilder;
+import com.snda.gyue.utils.ImageUtils;
 
-public class MainActivity extends Activity implements OnClickListener {
+public class MainActivity extends Activity implements OnClickListener, OnItemClickListener {
 
 	RelativeLayout btnFunc1, btnFunc2, btnFunc3, btnFunc4, btnFunc5;
 
@@ -39,18 +44,15 @@ public class MainActivity extends Activity implements OnClickListener {
 
 	int CurrentType = 0;
 	boolean inProgress = false;
-	
-	DisplayMetrics metric = new DisplayMetrics();
-	float density;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
-		
-		getWindowManager().getDefaultDisplay().getMetrics(metric);
-		density = metric.density;
+
+		getWindowManager().getDefaultDisplay().getMetrics(GlobalInstance.metric);
+		GlobalInstance.density = GlobalInstance.metric.density;
 
 		setContentView(R.layout.main);
 
@@ -76,6 +78,13 @@ public class MainActivity extends Activity implements OnClickListener {
 
 		btnRefresh.setOnClickListener(this);
 		btnBack.setOnClickListener(this);
+		lvArticles.setOnItemClickListener(this);
+
+		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) gallaryPhotos.getLayoutParams();
+		lp.height = (int) (260 * GlobalInstance.metric.widthPixels / 480);
+		gallaryPhotos.setLayoutParams(lp);
+
+		gallaryPhotos.setOnItemClickListener(this);
 
 		adjustButtonWidth();
 
@@ -97,11 +106,13 @@ public class MainActivity extends Activity implements OnClickListener {
 					lvArticles.setAdapter(adapter);
 
 					RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) lvArticles.getLayoutParams();
-					lp.height = dipToPx(density, 81) * lstArticles.size();
+					lp.height = ImageUtils.dipToPx(GlobalInstance.density, 81) * lstArticles.size();
 					lvArticles.setLayoutParams(lp);
 					btnRefresh.setEnabled(true);
 					pbRefreshing.setVisibility(View.GONE);
-
+					if (type == 54) {
+						setGalleryImages(lstArticles);
+					}
 					inProgress = false;
 				}
 				super.handleMessage(msg);
@@ -114,8 +125,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			public void run() {
 
 				try {
-					String xml = HttpProxy.CallGet(GyueConsts.SITE_URL,
-							String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
+					String xml = HttpProxy.CallGet(GyueConsts.SITE_URL, String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
 					lstArticles = ItemBuilder.xmlToItems(MainActivity.this, type, xml, false);
 					if (lstArticles != null) {
 						adapter = new ArticleItemAdapter(getLayoutInflater(), lstArticles);
@@ -132,8 +142,8 @@ public class MainActivity extends Activity implements OnClickListener {
 	}
 
 	private void adjustButtonWidth() {
-		
-		int wid = (getWindowManager().getDefaultDisplay().getWidth() - dipToPx(density, 40)) / 5;
+
+		int wid = (getWindowManager().getDefaultDisplay().getWidth() - ImageUtils.dipToPx(GlobalInstance.density, 40)) / 5;
 		setButtonWidth(btnFunc1, wid);
 		setButtonWidth(btnFunc2, wid);
 		setButtonWidth(btnFunc3, wid);
@@ -148,8 +158,18 @@ public class MainActivity extends Activity implements OnClickListener {
 		btn.setLayoutParams(lp);
 	}
 
-	public static int dipToPx(float density, int dip) {
-		return (int) (dip * density + 0.5f);
+	public void setGalleryImages(List<ArticleItem> images) {
+		List<ArticleItem> list = new ArrayList<ArticleItem>();
+		for (int i = 0; i < images.size(); i++) {
+			if ((images.get(i).getArticleImageLocalFileName() != null) && (!images.get(i).getArticleImageLocalFileName().equals(""))) {
+				list.add(images.get(i));
+				if (list.size() >= 5) {
+					break;
+				}
+			}
+		}
+		ImageAdapter imgAdapter = new ImageAdapter(this, list);
+		gallaryPhotos.setAdapter(imgAdapter);
 	}
 
 	private void setIconText(RelativeLayout btn, int icon, int text) {
@@ -198,7 +218,7 @@ public class MainActivity extends Activity implements OnClickListener {
 			CurrentType = 12;
 			break;
 		case R.id.btnFunc5:
-			
+
 			return;
 		}
 		getArticleListT(CurrentType, 1);
@@ -211,6 +231,27 @@ public class MainActivity extends Activity implements OnClickListener {
 		btnFunc4.setBackgroundDrawable(null);
 		btnFunc5.setBackgroundDrawable(null);
 		btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_focus));
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+		ArticleItem item = null;
+		switch (parent.getId()) {
+		case R.id.lvArticles:
+			item = (ArticleItem) lvArticles.getItemAtPosition(position);
+			break;
+		case R.id.gallaryPhotos:
+			item = (ArticleItem) gallaryPhotos.getItemAtPosition(position);
+			break;
+		}
+
+		if (item != null) {
+			GlobalInstance.currentArticle = item;
+			Intent inArticle = new Intent(this, ViewArticleActivity.class);
+			startActivity(inArticle);
+		}
+
 	}
 
 }
