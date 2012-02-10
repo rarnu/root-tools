@@ -12,6 +12,8 @@
     <string name="func5">设置</string>
     
     <string name="reading">阅读正文</string>
+    <string name="more">更多新闻</string>
+    <string name="no_more">没有更多的新闻了</string>
     
     <string name="item_tag" formatted="false">%s | 标签: %s</string>
 </resources>

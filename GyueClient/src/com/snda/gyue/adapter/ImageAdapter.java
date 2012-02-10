@@ -3,6 +3,7 @@ package com.snda.gyue.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
@@ -12,6 +13,7 @@ import android.widget.ImageView;
 import com.snda.gyue.GlobalInstance;
 import com.snda.gyue.GyueConsts;
 import com.snda.gyue.classes.ArticleItem;
+import com.snda.gyue.network.NetFiles;
 import com.snda.gyue.utils.ImageUtils;
 
 public class ImageAdapter extends BaseAdapter {
@@ -37,10 +39,22 @@ public class ImageAdapter extends BaseAdapter {
 	}
 
 	public View getView(int position, View convertView, ViewGroup parent) {
+
+		ArticleItem item = mList.get(position);
+
 		ImageView i = new ImageView(mContext);
-		i.setBackgroundDrawable(ImageUtils.loadFullImage(mContext, GyueConsts.GYUE_DIR + mList.get(position).getArticleImageLocalFileName()));
 		i.setScaleType(ImageView.ScaleType.FIT_CENTER);
-		i.setLayoutParams(new Gallery.LayoutParams(GlobalInstance.metric.widthPixels - 8, (int) (260 * GlobalInstance.metric.widthPixels / 480)));
+		i.setLayoutParams(new Gallery.LayoutParams(GlobalInstance.metric.widthPixels - 8,
+				(int) (260 * GlobalInstance.metric.widthPixels / 480)));
+
+		Drawable d = ImageUtils.loadFullImage(mContext, GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
+
+		if (d != null) {
+			i.setBackgroundDrawable(d);
+		} else {
+			NetFiles.doDownloadImageT(mContext, item.getArticleImageUrl(), item.getArticleImageLocalFileName(), i);
+		}
+
 		return i;
 	}
 }

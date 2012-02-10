@@ -46,22 +46,29 @@ public class ArticleItemAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
-		ArticleItemHolder holder;
+		ArticleItem item = list.get(position);
+
+		ArticleItemHolder holder = null;
 		if (convertView == null) {
-			convertView = inflater.inflate(R.layout.article_item, parent, false);
-			holder = new ArticleItemHolder();
-			holder.articleTitle = (TextView) convertView.findViewById(R.id.article_title);
-			holder.articleDesc = (TextView) convertView.findViewById(R.id.article_desc);
+			if (item != null) {
+				convertView = inflater.inflate(R.layout.article_item, parent, false);
+				holder = new ArticleItemHolder();
+				holder.articleTitle = (TextView) convertView.findViewById(R.id.article_title);
+				holder.articleDesc = (TextView) convertView.findViewById(R.id.article_desc);
 
-			holder.articleDate = (TextView) convertView.findViewById(R.id.article_date);
-			holder.articleImage = (ImageView) convertView.findViewById(R.id.article_image);
+				holder.articleDate = (TextView) convertView.findViewById(R.id.article_date);
+				holder.articleImage = (ImageView) convertView.findViewById(R.id.article_image);
 
-			convertView.setTag(holder);
+				convertView.setTag(holder);
+			} else {
+				convertView = inflater.inflate(R.layout.more_item, parent, false);
+				holder = new ArticleItemHolder();
+				holder.articleTitle = (TextView) convertView.findViewById(R.id.article_title);
+			}
 		}
 
 		holder = (ArticleItemHolder) convertView.getTag();
 
-		ArticleItem item = list.get(position);
 		if (item != null) {
 			holder.articleTitle.setText(item.getTitle());
 			holder.articleDesc.setText(Html.fromHtml(item.getDescription()));
@@ -77,8 +84,8 @@ public class ArticleItemAdapter extends BaseAdapter {
 							GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName()));
 
 				} else {
-					NetFiles.doDownloadImageT(convertView.getContext(), item.getArticleImageUrl(), item.getArticleImageLocalFileName(),
-							holder.articleImage);
+					NetFiles.doDownloadImageT(convertView.getContext(), item.getArticleImageUrl(),
+							item.getArticleImageLocalFileName(), holder.articleImage);
 				}
 			}
 		}

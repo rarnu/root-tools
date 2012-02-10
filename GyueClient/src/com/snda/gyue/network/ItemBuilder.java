@@ -21,21 +21,21 @@ public class ItemBuilder {
 
 	
 
-	public static List<ArticleItem> xmlToItems(Context context, int rssid, String xml, boolean local) throws Exception {
+	public static List<ArticleItem> xmlToItems(Context context, int rssid, String xml, boolean local, boolean saveMain) throws Exception {
 
 		List<ArticleItem> result = null;
 		FileUtils.mkdir(GyueConsts.GYUE_DIR);
 		String localFilePath = GyueConsts.GYUE_DIR + String.format("a%d.xml", rssid);
+		
+		if (!saveMain) {
+			localFilePath += ".tmp";
+		}
 
 		File fXml = new File(localFilePath);
 
 		if (!local) {
 			xml = xml.replace("<?xml version=\"1.0\" encoding=\"gbk\"?>", "<?xml version=\"1.0\" encoding=\"utf-8\"?>");
 			FileUtils.rewriteFile(fXml, xml);
-		} else {
-			if (xml == null || xml.equals("")) {
-				//
-			}
 		}
 
 		if (!fXml.exists()) {

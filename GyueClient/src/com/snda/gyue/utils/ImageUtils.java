@@ -1,5 +1,7 @@
 package com.snda.gyue.utils;
 
+import java.io.File;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
@@ -14,6 +16,10 @@ public class ImageUtils {
 	}
 	
 	public static Drawable loadFullImage(Context context, String path) {
+		File fImg = new File(path);
+		if (!fImg.exists()) {
+			return null;
+		}
 		return loadImage(context, path, 1, 480, 260);
 	}
 
