@@ -121,19 +121,15 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		switch (type) {
 		case 54:
 			inProgressFocus = true;
-			lvFocus.setEnabled(false);
 			break;
 		case 13:
 			inProgressIndustry = true;
-			lvIndustry.setEnabled(false);
 			break;
 		case 11:
 			inProgressApplication = true;
-			lvApplication.setEnabled(false);
 			break;
 		case 12:
 			inProgressGames = true;
-			lvGames.setEnabled(false);
 			break;
 		}
 
@@ -166,7 +162,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						setGalleryImages(lstFocus);
 
 						lvFocus.setLayoutParams(lp);
-						lvFocus.setEnabled(true);
 
 						inProgressFocus = false;
 
@@ -183,7 +178,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
 						lvIndustry.setAdapter(adapterIndustry);
-						lvIndustry.setEnabled(true);
 						lvIndustry.setSelection(pageIndustry - 2);
 						inProgressIndustry = false;
 						break;
@@ -195,7 +189,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
 						lvApplication.setAdapter(adapterApplication);
-						lvApplication.setEnabled(true);
 						lvApplication.setSelection(pageApplication - 2);
 
 						inProgressApplication = false;
@@ -208,7 +201,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
 						lvGames.setAdapter(adapterGames);
-						lvGames.setEnabled(true);
 						lvGames.setSelection(pageGames - 2);
 						inProgressGames = false;
 						break;
@@ -549,6 +541,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						Toast.makeText(this, R.string.no_more, Toast.LENGTH_LONG).show();
 						return;
 					}
+					if (inProgressFocus) {
+						return;
+					}
 					pageFocus += GyueConsts.PAGE_SIZE;
 					view.findViewById(R.id.article_progress).setVisibility(View.VISIBLE);
 					getArticleListT(CurrentType, pageFocus, false);
@@ -556,6 +551,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				case 13:
 					if (!hasNextIndustry) {
 						Toast.makeText(this, R.string.no_more, Toast.LENGTH_LONG).show();
+						return;
+					}
+					if (inProgressIndustry) {
 						return;
 					}
 					pageIndustry += GyueConsts.PAGE_SIZE;
@@ -567,6 +565,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						Toast.makeText(this, R.string.no_more, Toast.LENGTH_LONG).show();
 						return;
 					}
+					if (inProgressApplication) {
+						return;
+					}
 					pageApplication += GyueConsts.PAGE_SIZE;
 					view.findViewById(R.id.article_progress).setVisibility(View.VISIBLE);
 					getArticleListT(CurrentType, pageApplication, false);
@@ -574,6 +575,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				case 12:
 					if (!hasNextGames) {
 						Toast.makeText(this, R.string.no_more, Toast.LENGTH_LONG).show();
+						return;
+					}
+					if (inProgressGames) {
 						return;
 					}
 					pageGames += GyueConsts.PAGE_SIZE;
