@@ -6,6 +6,14 @@
     android:paddingLeft="6dip"
     android:paddingRight="6dip" >
 
+    <ProgressBar
+            android:id="@+id/article_progress"
+            android:layout_width="24dip"
+            android:layout_height="24dip"
+            android:layout_centerVertical="true" 
+            android:visibility="gone"
+            android:layout_toLeftOf="@+id/article_title"/>
+    
     <TextView
         android:id="@+id/article_title"
         android:layout_width="fill_parent"

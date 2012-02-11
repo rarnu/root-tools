@@ -21,7 +21,6 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -36,7 +35,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 	RelativeLayout btnFunc1, btnFunc2, btnFunc3, btnFunc4, btnFunc5;
 
-	ScrollView layContent;
+	RelativeLayout layContent, layMainFocus;
 	ListView lvFocus, lvIndustry, lvApplication, lvGames;
 	List<ArticleItem> lstFocus, lstIndustry, lstApplication, lstGames;
 	ArticleItemAdapter adapterFocus, adapterIndustry, adapterApplication, adapterGames;
@@ -61,14 +60,14 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		getWindowManager().getDefaultDisplay().getMetrics(GlobalInstance.metric);
 		GlobalInstance.density = GlobalInstance.metric.density;
-		
+
 		Intent inSplash = new Intent(this, SplashActivity.class);
 		startActivity(inSplash);
 
 		setContentView(R.layout.main);
 
-		layContent = (ScrollView) findViewById(R.id.layContent);
-
+		layContent = (RelativeLayout) findViewById(R.id.layContent);
+		layMainFocus = (RelativeLayout) findViewById(R.id.layMainFocus);
 		btnFunc1 = (RelativeLayout) findViewById(R.id.btnFunc1);
 		btnFunc2 = (RelativeLayout) findViewById(R.id.btnFunc2);
 		btnFunc3 = (RelativeLayout) findViewById(R.id.btnFunc3);
@@ -137,7 +136,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			lvGames.setEnabled(false);
 			break;
 		}
-		
+
 		if (CurrentType == type) {
 			btnRefresh.setEnabled(false);
 			pbRefreshing.setVisibility(View.VISIBLE);
@@ -162,16 +161,15 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						if (lstFocus == null) {
 							lp.height = 0;
 						} else {
-							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 81) * (lstFocus.size() - 1)
-									+ ImageUtils.dipToPx(GlobalInstance.density, 48);
+							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 81) * (lstFocus.size() - 1) + ImageUtils.dipToPx(GlobalInstance.density, 48);
 						}
 						setGalleryImages(lstFocus);
 
 						lvFocus.setLayoutParams(lp);
 						lvFocus.setEnabled(true);
-						
+
 						inProgressFocus = false;
-						
+
 						if (GlobalInstance.aSplash != null) {
 							GlobalInstance.aSplash.finish();
 						}
@@ -179,58 +177,39 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						break;
 					}
 					case 13: {
-						RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) lvIndustry.getLayoutParams();
+
 						loadedIndustry = true;
 						if (!hasNextIndustry) {
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
 						lvIndustry.setAdapter(adapterIndustry);
-						if (lstIndustry == null) {
-							lp.height = 0;
-						} else {
-							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 81) * (lstIndustry.size() - 1)
-									+ ImageUtils.dipToPx(GlobalInstance.density, 48);
-						}
-						lvIndustry.setLayoutParams(lp);
 						lvIndustry.setEnabled(true);
-						
+						lvIndustry.setSelection(pageIndustry - 2);
 						inProgressIndustry = false;
 						break;
 					}
 					case 11: {
-						RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) lvApplication.getLayoutParams();
+
 						loadedApplication = true;
 						if (!hasNextApplication) {
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
 						lvApplication.setAdapter(adapterApplication);
-						if (lstApplication == null) {
-							lp.height = 0;
-						} else {
-							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 81) * (lstApplication.size() - 1)
-									+ ImageUtils.dipToPx(GlobalInstance.density, 48);
-						}
-						lvApplication.setLayoutParams(lp);
 						lvApplication.setEnabled(true);
-						
+						lvApplication.setSelection(pageApplication - 2);
+
 						inProgressApplication = false;
 						break;
 					}
 					case 12: {
-						RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) lvGames.getLayoutParams();
+
 						loadedGames = true;
 						if (!hasNextGames) {
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
 						lvGames.setAdapter(adapterGames);
-						if (lstGames == null) {
-							lp.height = 0;
-						} else {
-							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 81) * (lstGames.size() - 1)
-									+ ImageUtils.dipToPx(GlobalInstance.density, 48);
-						}
-						lvGames.setLayoutParams(lp);
 						lvGames.setEnabled(true);
+						lvGames.setSelection(pageGames - 2);
 						inProgressGames = false;
 						break;
 					}
@@ -281,100 +260,89 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				try {
 					String xml = "";
 					if ((!local) || (!init)) {
-						xml = HttpProxy.CallGet(GyueConsts.SITE_URL,
-								String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
+						xml = HttpProxy.CallGet(GyueConsts.SITE_URL, String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
 					}
 					switch (type) {
 					case 54:
 						if (page == 1) {
-							lstFocus = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
-									true);
+							lstFocus = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
 							pageFocus = 1;
 							hasNextFocus = true;
 						} else {
 							if (hasNextFocus) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
-										(init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextFocus = false;
 								}
-								mergeList(tmp, lstFocus);
+								mergeList(tmp, lstFocus, 50);
 							}
 						}
 						if (lstFocus == null) {
 							lstFocus = new ArrayList<ArticleItem>();
 						}
-						lstFocus.add(null);
-
+						addEmptyArticle(lstFocus);
 						adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocus);
 						break;
 					case 13:
 						if (page == 1) {
-							lstIndustry = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
-									true);
+							lstIndustry = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
 							pageIndustry = 1;
 							hasNextIndustry = true;
 						} else {
 							if (hasNextIndustry) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
-										(init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextIndustry = false;
 								}
-								mergeList(tmp, lstIndustry);
+								mergeList(tmp, lstIndustry, -1);
 							}
 						}
 						if (lstIndustry == null) {
 							lstIndustry = new ArrayList<ArticleItem>();
 						}
-						lstIndustry.add(null);
+						addEmptyArticle(lstIndustry);
 
 						adapterIndustry = new ArticleItemAdapter(getLayoutInflater(), lstIndustry);
 						break;
 					case 11:
 						if (page == 1) {
-							lstApplication = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
-									(init ? local : false), true);
+							lstApplication = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
 							pageApplication = 1;
 							hasNextApplication = true;
 						} else {
 							if (hasNextApplication) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
-										(init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextApplication = false;
 								}
-								mergeList(tmp, lstApplication);
+								mergeList(tmp, lstApplication, -1);
 							}
 						}
 						if (lstApplication == null) {
 							lstApplication = new ArrayList<ArticleItem>();
 						}
-						lstApplication.add(null);
+						addEmptyArticle(lstApplication);
 
 						adapterApplication = new ArticleItemAdapter(getLayoutInflater(), lstApplication);
 						break;
 					case 12:
 						if (page == 1) {
-							lstGames = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
-									true);
+							lstGames = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
 							pageGames = 1;
 							hasNextGames = true;
 						} else {
 							if (hasNextGames) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
-										(init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextGames = false;
 								}
-								mergeList(tmp, lstGames);
+								mergeList(tmp, lstGames, -1);
 							}
 						}
 						if (lstGames == null) {
 							lstGames = new ArrayList<ArticleItem>();
 						}
-						lstGames.add(null);
-
+						addEmptyArticle(lstGames);
 						adapterGames = new ArticleItemAdapter(getLayoutInflater(), lstGames);
 						break;
 					}
@@ -388,13 +356,24 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		}).start();
 	}
 
-	private void mergeList(List<ArticleItem> source, List<ArticleItem> dest) {
+	private void mergeList(List<ArticleItem> source, List<ArticleItem> dest, int max) {
 		dest.remove(dest.size() - 1);
 		if (source != null && source.size() > 0) {
 			for (ArticleItem item : source) {
+				if (max != -1) {
+					if (dest.size() >= max) {
+						break;
+					}
+				}
 				dest.add(item);
 			}
 		}
+	}
+
+	private void addEmptyArticle(List<ArticleItem> dest) {
+		ArticleItem item = new ArticleItem();
+		item.setTitle("0");
+		dest.add(item);
 	}
 
 	private void adjustButtonWidth() {
@@ -423,8 +402,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			if (images.get(i) == null) {
 				continue;
 			}
-			if ((images.get(i).getArticleImageLocalFileName() != null)
-					&& (!images.get(i).getArticleImageLocalFileName().equals(""))) {
+			if ((images.get(i).getArticleImageLocalFileName() != null) && (!images.get(i).getArticleImageLocalFileName().equals(""))) {
 				list.add(images.get(i));
 				if (list.size() >= 5) {
 					break;
@@ -460,8 +438,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			setSelectedItem((RelativeLayout) v);
 		}
 
-		gallaryPhotos.setVisibility(View.GONE);
-		lvFocus.setVisibility(View.GONE);
+		layMainFocus.setVisibility(View.GONE);
 		lvIndustry.setVisibility(View.GONE);
 		lvApplication.setVisibility(View.GONE);
 		lvGames.setVisibility(View.GONE);
@@ -470,8 +447,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		switch (v.getId()) {
 		case R.id.btnFunc1:
 			CurrentType = 54;
-			lvFocus.setVisibility(View.VISIBLE);
-			gallaryPhotos.setVisibility(View.VISIBLE);
+			layMainFocus.setVisibility(View.VISIBLE);
 			if (inProgressFocus) {
 				btnRefresh.setEnabled(false);
 				pbRefreshing.setVisibility(View.VISIBLE);
@@ -550,7 +526,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		case R.id.lvIndustry:
 		case R.id.lvApplication:
 		case R.id.lvGames: {
-			
+
 			switch (parent.getId()) {
 			case R.id.lvFocus:
 				item = (ArticleItem) lvFocus.getItemAtPosition(position);
@@ -565,9 +541,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				item = (ArticleItem) lvGames.getItemAtPosition(position);
 				break;
 			}
-			
-			
-			if (item == null) {
+
+			if (item.getTitle().equals("0")) {
 				switch (CurrentType) {
 				case 54:
 					if (!hasNextFocus) {

@@ -4,13 +4,18 @@ import java.io.File;
 import java.util.List;
 
 import android.text.Html;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
+import com.snda.gyue.GlobalInstance;
 import com.snda.gyue.GyueConsts;
 import com.snda.gyue.R;
 import com.snda.gyue.classes.ArticleItem;
@@ -48,48 +53,79 @@ public class ArticleItemAdapter extends BaseAdapter {
 
 		ArticleItem item = list.get(position);
 
-		ArticleItemHolder holder = null;
+		View v;
 		if (convertView == null) {
-			if (item != null) {
-				convertView = inflater.inflate(R.layout.article_item, parent, false);
-				holder = new ArticleItemHolder();
-				holder.articleTitle = (TextView) convertView.findViewById(R.id.article_title);
-				holder.articleDesc = (TextView) convertView.findViewById(R.id.article_desc);
-
-				holder.articleDate = (TextView) convertView.findViewById(R.id.article_date);
-				holder.articleImage = (ImageView) convertView.findViewById(R.id.article_image);
-
-				convertView.setTag(holder);
-			} else {
-				convertView = inflater.inflate(R.layout.more_item, parent, false);
-				holder = new ArticleItemHolder();
-				holder.articleTitle = (TextView) convertView.findViewById(R.id.article_title);
-			}
+			v = inflater.inflate(R.layout.article_item, parent, false);
+		} else {
+			v = convertView;
 		}
 
-		holder = (ArticleItemHolder) convertView.getTag();
+		ArticleItemHolder holder = (ArticleItemHolder) v.getTag();
+
+		if (holder == null) {
+			holder = new ArticleItemHolder();
+			holder.articleTitle = (TextView) v.findViewById(R.id.article_title);
+			holder.articleDesc = (TextView) v.findViewById(R.id.article_desc);
+
+			holder.articleDate = (TextView) v.findViewById(R.id.article_date);
+			holder.articleImage = (ImageView) v.findViewById(R.id.article_image);
+
+			v.setTag(holder);
+		}
 
 		if (item != null) {
-			holder.articleTitle.setText(item.getTitle());
-			holder.articleDesc.setText(Html.fromHtml(item.getDescription()));
-			holder.articleDate.setText(item.getDate());
 
-			if ((item.getArticleImageUrl() == null) || item.getArticleImageUrl().equals("")) {
+			holder.articleDate.setVisibility(View.VISIBLE);
+			holder.articleDesc.setVisibility(View.VISIBLE);
+			holder.articleImage.setVisibility(View.VISIBLE);
+			
+			if (item.getTitle().equals("0")) {
+				holder.articleTitle.setText(R.string.more);
+				holder.articleDate.setVisibility(View.GONE);
+				holder.articleDesc.setVisibility(View.GONE);
 				holder.articleImage.setVisibility(View.GONE);
+				
+				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle.getLayoutParams();
+				lpMore.width = LayoutParams.WRAP_CONTENT;
+				lpMore.height = LayoutParams.MATCH_PARENT;
+				lpMore.addRule(RelativeLayout.CENTER_HORIZONTAL, 1);
+				holder.articleTitle.setLayoutParams(lpMore);
+				holder.articleTitle.setGravity(Gravity.CENTER);
+				
+				
+				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v.getLayoutParams();
+				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 48);
+				v.setLayoutParams(lpV);
 			} else {
-				holder.articleImage.setVisibility(View.VISIBLE);
-				File img = new File(GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
-				if (img.exists()) {
-					holder.articleImage.setBackgroundDrawable(ImageUtils.loadItemImage(convertView.getContext(),
-							GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName()));
+				holder.articleTitle.setText(item.getTitle());
+				holder.articleDesc.setText(Html.fromHtml(item.getDescription()));
+				holder.articleDate.setText(item.getDate());
+				
+				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle.getLayoutParams();
+				lpMore.width = LayoutParams.MATCH_PARENT;
+				lpMore.height = ImageUtils.dipToPx(GlobalInstance.density, 24);
+				holder.articleTitle.setLayoutParams(lpMore);
+				holder.articleTitle.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 
+				if ((item.getArticleImageUrl() == null) || item.getArticleImageUrl().equals("")) {
+					holder.articleImage.setVisibility(View.GONE);
 				} else {
-					NetFiles.doDownloadImageT(convertView.getContext(), item.getArticleImageUrl(),
-							item.getArticleImageLocalFileName(), holder.articleImage);
+					holder.articleImage.setVisibility(View.VISIBLE);
+					File img = new File(GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
+					if (img.exists()) {
+						holder.articleImage.setBackgroundDrawable(ImageUtils.loadItemImage(v.getContext(),
+								GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName()));
+
+					} else {
+						NetFiles.doDownloadImageT(v.getContext(), item.getArticleImageUrl(), item.getArticleImageLocalFileName(), holder.articleImage);
+					}
 				}
+				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v.getLayoutParams();
+				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 80);
+				v.setLayoutParams(lpV);
 			}
 		}
 
-		return convertView;
+		return v;
 	}
 }

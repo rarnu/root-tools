@@ -2,8 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
-    android:orientation="vertical" >
+    android:background="@color/white" >
 
     <RelativeLayout
         android:id="@+id/layTitleBar"
@@ -44,7 +43,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/layTitleBar"
-        android:layout_margin="4dip" >
+        android:layout_margin="4dip"
+        android:padding="4dip" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -54,11 +54,11 @@
                 android:id="@+id/tvTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginLeft="8dip"
+                android:layout_marginRight="8dip"
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
-                android:textSize="18dip"
-                android:layout_marginLeft="8dip"
-                android:layout_marginRight="8dip" />
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvDate"
@@ -76,10 +76,10 @@
                 android:layout_height="match_parent"
                 android:layout_below="@+id/tvDate"
                 android:layout_marginTop="4dip"
+                android:autoLink="all"
                 android:gravity="left|top"
                 android:textColor="@color/black"
-                android:textSize="16dip"
-                android:autoLink="all" />
+                android:textSize="16dip" />
         </RelativeLayout>
     </ScrollView>
 

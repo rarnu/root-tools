@@ -16,7 +16,7 @@ public class ArticleItem {
 	}
 
 	public void setTitle(String title) {
-		this.title = title;
+		this.title = title.trim();
 	}
 
 	public String getLink() {
@@ -24,7 +24,7 @@ public class ArticleItem {
 	}
 
 	public void setLink(String link) {
-		this.link = link;
+		this.link = link.trim();
 	}
 
 	public String getDate() {
@@ -33,7 +33,7 @@ public class ArticleItem {
 
 	public void setDate(String date) {
 		date = date.substring(5);
-		this.date = date;
+		this.date = date.trim();
 	}
 
 	public String getAuthor() {
@@ -41,7 +41,7 @@ public class ArticleItem {
 	}
 
 	public void setAuthor(String author) {
-		this.author = author;
+		this.author = author.trim();
 	}
 
 	public String getComment() {
@@ -49,7 +49,7 @@ public class ArticleItem {
 	}
 
 	public void setComment(String comment) {
-		this.comment = comment;
+		this.comment = comment.trim();
 	}
 
 	public String getDescription() {
@@ -61,7 +61,7 @@ public class ArticleItem {
 		description = description.replaceAll("<img[^>]*?((>.*?</img>)|(/>))", "");
 		description = description.replaceAll("<br[^>]*?((>.*?</br>)|(/>))", "");
 		description = description.replaceAll("<p[^>]*?((>.*?</p>)|(/>))", "");
-		this.description = description;
+		this.description = description.trim();
 	}
 
 	public String getArticleImageUrl() {
