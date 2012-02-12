@@ -16,4 +16,13 @@
     <string name="no_more">没有更多的新闻了</string>
     
     <string name="item_tag" formatted="false">%s | 标签: %s</string>
+    
+    <string name="no_pic_mode">不显示文章内大图</string>
+    <string name="only_wifi">仅 WIFI 下更新内容</string>
+    <string name="bind_sina_weibo">绑定新浪微博</string>
+    <string name="bind_tencent_weibo">绑定腾讯微博</string>
+    <string name="bind_sohu_weibo">绑定搜狐微博</string>
+    
+    <string name="no_network">没有网络连接</string>
+    <string name="only_wifi_refresh">仅 wifi 状态才可更新内容</string>
 </resources>
