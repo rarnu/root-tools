@@ -24,6 +24,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
@@ -43,6 +44,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	RelativeLayout layLoading;
 	ImageGetter iGetter;
 	Handler hPack;
+	ImageView imgShareTencent, imgShareSina;
 
 	boolean inProgress = false;
 	boolean tmrEd = false;
@@ -61,9 +63,13 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		layContent = (ScrollView) findViewById(R.id.layContent);
 		tvSeeWeb = (TextView) findViewById(R.id.tvSeeWeb);
 		layLoading = (RelativeLayout) findViewById(R.id.layLoading);
+		imgShareTencent = (ImageView) findViewById(R.id.imgShareTencent);
+		imgShareSina = (ImageView) findViewById(R.id.imgShareSina);
 
 		btnBack.setOnClickListener(this);
 		tvSeeWeb.setOnClickListener(this);
+		imgShareSina.setOnClickListener(this);
+		imgShareTencent.setOnClickListener(this);
 
 		tvTitle.setText(GlobalInstance.currentArticle.getTitle());
 		tvDate.setText(GlobalInstance.currentArticle.getDate());
@@ -174,6 +180,12 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.btnBack:
 			finish();
+			break;
+		case R.id.imgShareSina:
+			// TODO: share to sina
+			break;
+		case R.id.imgShareTencent:
+			// TODO: share to tencent
 			break;
 		}
 

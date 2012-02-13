@@ -55,7 +55,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	RelativeLayout laySettings;
 
 	CheckBox chkNoPic, chkOnlyWifi;
-	Button btnBindSinaWeibo, btnBindTencentWeibo;
+	Button btnBindSinaWeibo, btnBindTencentWeibo, btnAbout;
 
 	String sinaToken, sinaSecret, sinaName;
 	String tencentToken, tencentSecret, tencentName;
@@ -107,9 +107,13 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		chkOnlyWifi = (CheckBox) findViewById(R.id.chkOnlyWifi);
 		btnBindSinaWeibo = (Button) findViewById(R.id.btnBindSinaWeibo);
 		btnBindTencentWeibo = (Button) findViewById(R.id.btnBindTencentWeibo);
+		btnAbout = (Button) findViewById(R.id.btnAbout);
 
 		chkNoPic.setOnCheckedChangeListener(this);
 		chkOnlyWifi.setOnCheckedChangeListener(this);
+		btnBindSinaWeibo.setOnClickListener(this);
+		btnBindTencentWeibo.setOnClickListener(this);
+		btnAbout.setOnClickListener(this);
 		readConfig();
 
 		btnBindSinaWeibo.setText(sinaName.equals("") ? getString(R.string.bind_sina_weibo) : sinaName);
@@ -524,7 +528,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				}
 			}
 		}
-		ImageAdapter imgAdapter = new ImageAdapter(this, list);
+		ImageAdapter imgAdapter = new ImageAdapter(this, getLayoutInflater(), list);
 		gallaryPhotos.setAdapter(imgAdapter);
 	}
 
@@ -544,6 +548,15 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				break;
 			case R.id.btnRefresh:
 				getArticleListT(CurrentType, 1, false);
+				break;
+			case R.id.btnBindSinaWeibo:
+				// TODO: bind sina weibo
+				break;
+			case R.id.btnBindTencentWeibo:
+				// TODO: bind tencent weibo
+				break;
+			case R.id.btnAbout:
+				// TODO: show about dialog
 				break;
 			}
 			return;
