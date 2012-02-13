@@ -35,5 +35,5 @@
     <string name="cancel">取消</string>
     
     <string name="see_web">查看在线原始版本</string>
-    <string name="loading_article">正在加载文章，请稍候...</string>
+    <string name="loading_article">正在加载资讯内容，请稍候...</string>
 </resources>
