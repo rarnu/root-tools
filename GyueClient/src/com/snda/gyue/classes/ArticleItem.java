@@ -51,7 +51,9 @@ public class ArticleItem {
 	}
 
 	public void setComment(String comment) {
-		this.comment = comment.trim();
+		comment = comment.replaceAll("<p>", "").replaceAll("</p>", "<br />");
+		comment = comment.replaceAll("\t", "\t\t");
+		this.comment = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+comment.trim();
 	}
 
 	public String getDescription() {

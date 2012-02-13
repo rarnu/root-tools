@@ -157,7 +157,8 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void run() {
-				tvArticle.setText(Html.fromHtml(GlobalInstance.currentArticle.getComment(), iGetter, null));
+				String comment = GlobalInstance.currentArticle.getComment();
+				tvArticle.setText(Html.fromHtml(comment, iGetter, null));
 				h.sendEmptyMessage(1);
 			}
 		});
