@@ -43,19 +43,66 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/layTitleBar"
-        android:layout_margin="4dip"
-        android:padding="4dip" >
+        android:layout_marginLeft="4dip"
+        android:layout_marginRight="4dip"
+        android:layout_marginBottom="4dip"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip"
+        android:paddingBottom="4dip" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/layToolBar"
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                 >
+
+                <TextView
+                    android:id="@+id/tvSeeWeb"
+                    android:layout_width="fill_parent"
+                    android:layout_height="24dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginLeft="8dip"
+                    android:gravity="left|center_vertical"
+                    android:text="@string/see_web"
+                    android:textColor="@color/blue" />
+
+                <ImageView
+                    android:id="@+id/imgShareTencent"
+                    android:layout_width="32dip"
+                    android:layout_height="32dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="4dip"
+                    android:background="@drawable/tencent_logo" />
+
+                <ImageView
+                    android:id="@+id/imgShareSina"
+                    android:layout_width="32dip"
+                    android:layout_height="32dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="4dip"
+                    android:layout_toLeftOf="@+id/imgShareTencent"
+                    android:background="@drawable/sina_logo" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dip"
+                    android:layout_alignParentBottom="true"
+                    android:background="@color/silver" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/layToolBar"
                 android:layout_marginLeft="8dip"
                 android:layout_marginRight="8dip"
+                android:layout_marginTop="4dip"
                 android:gravity="center_horizontal"
                 android:textColor="@color/black"
                 android:textSize="18dip" />
@@ -73,7 +120,7 @@
             <TextView
                 android:id="@+id/tvArticle"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tvDate"
                 android:layout_marginTop="4dip"
                 android:autoLink="all"
@@ -82,5 +129,30 @@
                 android:textSize="16dip" />
         </RelativeLayout>
     </ScrollView>
-
+    
+    <RelativeLayout
+        android:id="@+id/layLoading"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/loading_back"
+        android:padding="16dip"
+        android:visibility="gone" >
+        
+        <ProgressBar android:id="@+id/pbLoading"
+            android:layout_width="24dip"
+            android:layout_height="24dip"
+            android:layout_centerVertical="true"
+            />
+        <TextView
+	    android:id="@+id/tvLoading"
+	    android:layout_width="wrap_content"
+	    android:layout_height="wrap_content"
+	    android:layout_centerVertical="true"
+	    android:text="@string/loading_article"
+	    android:textColor="@color/white"
+	    android:layout_toRightOf="@+id/pbLoading"
+	    android:layout_marginLeft="8dip"/>
+    </RelativeLayout>
+	
 </RelativeLayout>

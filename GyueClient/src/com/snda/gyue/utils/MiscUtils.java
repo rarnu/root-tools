@@ -22,7 +22,7 @@ import android.util.Log;
  * 
  */
 public class MiscUtils {
-	
+
 	public static String getFirmwareVersion(Context context) {
 		String firmwareVerPath = "/system/app/firmware.ver";
 		String ret = "";
@@ -43,10 +43,11 @@ public class MiscUtils {
 		xml.finalize();
 		return ret;
 	}
-	
+
 	/**
 	 * check data's encoding<br>
 	 * returns true for encoding is utf8 and false for not.
+	 * 
 	 * @param data
 	 * @return
 	 */
@@ -119,9 +120,8 @@ public class MiscUtils {
 	 */
 	public static int getNetworkType(Context inContext) {
 		Context context = inContext.getApplicationContext();
-		ConnectivityManager connectivity = (ConnectivityManager) context
-				.getSystemService(Context.CONNECTIVITY_SERVICE);
-		int ret = 0;
+		ConnectivityManager connectivity = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+		int ret = 4;
 		if (connectivity != null) {
 			NetworkInfo[] info = connectivity.getAllNetworkInfo();
 			if (info != null) {
@@ -131,17 +131,19 @@ public class MiscUtils {
 					String subTyp = info[i].getSubtypeName().toUpperCase();
 					Log.v("connection", typ + ":" + subTyp);
 					if (typ.equals("WIFI") && info[i].isConnected()) {
-						ret = 1;
-					} else if (typ.equals("MOBILE")
-							&& (subTyp.equals("UMTS") || subTyp.equals("HSDPA"))
+						if (ret > 1) {
+							ret = 1;
+						}
+					} else if (typ.equals("MOBILE") && (subTyp.equals("UMTS") || subTyp.equals("HSDPA"))
 							&& info[i].isConnected()) {
-						ret = 2;
-					} else if (typ.equals("MOBILE")
-							&& (subTyp.equals("EDGE") || subTyp.equals("GPRS"))
+						if (ret > 2) {
+							ret = 2;
+						}
+					} else if (typ.equals("MOBILE") && (subTyp.equals("EDGE") || subTyp.equals("GPRS"))
 							&& info[i].isConnected()) {
-						ret = 3;
-					} else {
-						ret = 4;
+						if (ret > 3) {
+							ret = 3;
+						}
 					}
 				}
 			}
@@ -151,6 +153,7 @@ public class MiscUtils {
 
 	/**
 	 * Get the File's UTC
+	 * 
 	 * @param context
 	 * @param fileName
 	 * @return

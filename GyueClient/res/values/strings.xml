@@ -25,4 +25,14 @@
     
     <string name="no_network">没有网络连接</string>
     <string name="only_wifi_refresh">仅 wifi 状态才可更新内容</string>
+    
+    <string name="new_version">发现新版本</string>
+    <string name="new_version_desc">发现新版本，是否要下载更新? </string>
+    
+    
+    <string name="update">更新</string>
+    <string name="cancel">取消</string>
+    
+    <string name="see_web">查看在线原始版本</string>
+    <string name="loading_article">正在加载文章，请稍候...</string>
 </resources>

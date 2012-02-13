@@ -5,8 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -34,6 +37,7 @@ import com.snda.gyue.adapter.ImageAdapter;
 import com.snda.gyue.classes.ArticleItem;
 import com.snda.gyue.network.HttpProxy;
 import com.snda.gyue.network.ItemBuilder;
+import com.snda.gyue.network.Updater;
 import com.snda.gyue.utils.ImageUtils;
 import com.snda.gyue.utils.MiscUtils;
 
@@ -62,7 +66,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	boolean firstFocus = true, firstIndustry = true, firstApplication = true, firstGames = true;
 
 	int CurrentType = 0;
-	boolean inProgressFocus = false, inProgressIndustry = false, inProgressApplication = false, inProgressGames = false;
+	boolean inProgressFocus = false, inProgressIndustry = false, inProgressApplication = false,
+			inProgressGames = false;
+	Handler hUpdate;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -131,6 +137,29 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		adjustButtonWidth();
 
 		onClick(btnFunc1);
+
+		hUpdate = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 99) {
+					new AlertDialog.Builder(MainActivity.this).setTitle(R.string.new_version)
+							.setMessage(R.string.new_version_desc)
+							.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									Intent inUpdate = new Intent(Intent.ACTION_VIEW);
+									inUpdate.setData(Uri.parse(Updater.updateApk));
+									startActivity(inUpdate);
+
+								}
+							}).setNegativeButton(R.string.cancel, null).show();
+				}
+				super.handleMessage(msg);
+			}
+		};
+		
+		Updater.checkUpdate(MainActivity.this, hUpdate);
 
 	}
 
@@ -208,7 +237,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						if (lstFocus == null) {
 							lp.height = 0;
 						} else {
-							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 81) * (lstFocus.size() - 1) + ImageUtils.dipToPx(GlobalInstance.density, 48);
+							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 81) * (lstFocus.size() - 1)
+									+ ImageUtils.dipToPx(GlobalInstance.density, 48);
 						}
 						setGalleryImages(lstFocus);
 
@@ -267,25 +297,57 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 					case 54:
 						if (firstFocus) {
 							firstFocus = false;
-							getArticleListT(type, 1, false);
+							if (MiscUtils.getNetworkType(MainActivity.this) != 0) {
+								if (chkOnlyWifi.isChecked()) {
+									if (MiscUtils.getNetworkType(MainActivity.this) == 1) {
+										getArticleListT(type, 1, false);
+									}
+								} else {
+									getArticleListT(type, 1, false);
+								}
+							}
 						}
 						break;
 					case 13:
 						if (firstIndustry) {
 							firstIndustry = false;
-							getArticleListT(type, 1, false);
+							if (MiscUtils.getNetworkType(MainActivity.this) != 0) {
+								if (chkOnlyWifi.isChecked()) {
+									if (MiscUtils.getNetworkType(MainActivity.this) == 1) {
+										getArticleListT(type, 1, false);
+									}
+								} else {
+									getArticleListT(type, 1, false);
+								}
+							}
 						}
 						break;
 					case 11:
 						if (firstApplication) {
 							firstApplication = false;
-							getArticleListT(type, 1, false);
+							if (MiscUtils.getNetworkType(MainActivity.this) != 0) {
+								if (chkOnlyWifi.isChecked()) {
+									if (MiscUtils.getNetworkType(MainActivity.this) == 1) {
+										getArticleListT(type, 1, false);
+									}
+								} else {
+									getArticleListT(type, 1, false);
+								}
+							}
 						}
 						break;
 					case 12:
 						if (firstGames) {
 							firstGames = false;
-							getArticleListT(type, 1, false);
+							if (MiscUtils.getNetworkType(MainActivity.this) != 0) {
+								if (chkOnlyWifi.isChecked()) {
+									if (MiscUtils.getNetworkType(MainActivity.this) == 1) {
+										getArticleListT(type, 1, false);
+									}
+								} else {
+									getArticleListT(type, 1, false);
+								}
+							}
 						}
 						break;
 					}
@@ -303,17 +365,20 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				try {
 					String xml = "";
 					if ((!local) || (!init)) {
-						xml = HttpProxy.CallGet(GyueConsts.SITE_URL, String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
+						xml = HttpProxy.CallGet(GyueConsts.SITE_URL,
+								String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
 					}
 					switch (type) {
 					case 54:
 						if (page == 1) {
-							lstFocus = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstFocus = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
+									true);
 							pageFocus = 1;
 							hasNextFocus = true;
 						} else {
 							if (hasNextFocus) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
+										(init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextFocus = false;
 								}
@@ -328,12 +393,14 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						break;
 					case 13:
 						if (page == 1) {
-							lstIndustry = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstIndustry = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
+									true);
 							pageIndustry = 1;
 							hasNextIndustry = true;
 						} else {
 							if (hasNextIndustry) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
+										(init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextIndustry = false;
 								}
@@ -349,12 +416,14 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						break;
 					case 11:
 						if (page == 1) {
-							lstApplication = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstApplication = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
+									(init ? local : false), true);
 							pageApplication = 1;
 							hasNextApplication = true;
 						} else {
 							if (hasNextApplication) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
+										(init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextApplication = false;
 								}
@@ -370,12 +439,14 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						break;
 					case 12:
 						if (page == 1) {
-							lstGames = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstGames = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
+									true);
 							pageGames = 1;
 							hasNextGames = true;
 						} else {
 							if (hasNextGames) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
+										(init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextGames = false;
 								}
@@ -445,7 +516,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			if (images.get(i) == null) {
 				continue;
 			}
-			if ((images.get(i).getArticleImageLocalFileName() != null) && (!images.get(i).getArticleImageLocalFileName().equals(""))) {
+			if ((images.get(i).getArticleImageLocalFileName() != null)
+					&& (!images.get(i).getArticleImageLocalFileName().equals(""))) {
 				list.add(images.get(i));
 				if (list.size() >= 5) {
 					break;
@@ -485,6 +557,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		lvIndustry.setVisibility(View.GONE);
 		lvApplication.setVisibility(View.GONE);
 		lvGames.setVisibility(View.GONE);
+		laySettings.setVisibility(View.GONE);
 		btnRefresh.setVisibility(View.VISIBLE);
 		btnRefresh.setEnabled(true);
 		pbRefreshing.setVisibility(View.GONE);
@@ -587,20 +660,20 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			}
 
 			if (item.getTitle().equals("0")) {
-				
+
 				int nt = MiscUtils.getNetworkType(this);
 				if (nt == 0) {
 					Toast.makeText(this, R.string.no_network, Toast.LENGTH_LONG).show();
 					return;
 				}
-				
+
 				if (chkOnlyWifi.isChecked()) {
 					if (nt != 1) {
 						Toast.makeText(this, R.string.only_wifi_refresh, Toast.LENGTH_LONG).show();
 						return;
 					}
 				}
-				
+
 				switch (CurrentType) {
 				case 54:
 					if (!hasNextFocus) {
@@ -665,6 +738,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		if (item != null) {
 			GlobalInstance.currentArticle = item;
 			Intent inArticle = new Intent(this, ViewArticleActivity.class);
+			inArticle.putExtra("no_pic", chkNoPic.isChecked());
 			startActivity(inArticle);
 		}
 

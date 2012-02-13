@@ -1,5 +1,7 @@
 package com.snda.gyue.classes;
 
+import android.util.Log;
+
 public class ArticleItem {
 
 	private String title;
@@ -53,11 +55,11 @@ public class ArticleItem {
 	}
 
 	public String getDescription() {
+		Log.e("GET DESC", description);
 		return description;
 	}
 
 	public void setDescription(String description) {
-		// Log.e("desc", description);
 		description = description.replaceAll("<img[^>]*?((>.*?</img>)|(/>))", "");
 		description = description.replaceAll("<br[^>]*?((>.*?</br>)|(/>))", "");
 		description = description.replaceAll("<p[^>]*?((>.*?</p>)|(/>))", "");

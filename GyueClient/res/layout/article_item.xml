@@ -24,7 +24,7 @@
         android:maxLines="1"
         android:singleLine="true"
         android:textColor="@color/black"
-        android:textSize="18dip" />
+        android:textSize="16dip" />
 
     <TextView
         android:id="@+id/article_desc"
@@ -33,7 +33,8 @@
         android:layout_above="@+id/article_date"
         android:layout_below="@+id/article_title"
         android:layout_toLeftOf="@+id/article_image"
-        android:gravity="left|center_vertical"
+        android:gravity="left|top"
+        android:ellipsize="end"
         android:maxLines="2" />
 
     <TextView
