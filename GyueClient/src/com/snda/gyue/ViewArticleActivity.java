@@ -29,9 +29,11 @@ import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.snda.gyue.network.NetFiles;
 import com.snda.gyue.utils.ImageUtils;
+import com.snda.gyue.utils.ShareUtils;
 
 public class ViewArticleActivity extends Activity implements OnClickListener {
 
@@ -182,10 +184,21 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.imgShareSina:
-			// TODO: share to sina
+			if (GlobalInstance.sinaName.equals("")) {
+				Toast.makeText(this, R.string.not_bind_sina, Toast.LENGTH_LONG).show();
+				return;
+			}
+			boolean bSina = ShareUtils.shareArticleToSina(GlobalInstance.currentArticle);
+			Toast.makeText(this, (bSina ? R.string.share_sina_ok : R.string.share_sina_fail), Toast.LENGTH_LONG).show();
 			break;
 		case R.id.imgShareTencent:
-			// TODO: share to tencent
+			if (GlobalInstance.tencentName.equals("")) {
+				Toast.makeText(this, R.string.not_bind_tencent, Toast.LENGTH_LONG).show();
+				return;
+			}
+			boolean bTencent = ShareUtils.shareArticleToTencent(GlobalInstance.currentArticle);
+			Toast.makeText(this, (bTencent ? R.string.share_tencent_ok : R.string.share_tencent_fail),
+					Toast.LENGTH_LONG).show();
 			break;
 		}
 

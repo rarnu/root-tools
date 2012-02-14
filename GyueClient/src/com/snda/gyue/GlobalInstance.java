@@ -11,4 +11,9 @@ public class GlobalInstance {
 	public static ArticleItem currentArticle = null;
 	
 	public static Activity aSplash = null;
+	
+	public static String sinaToken, sinaSecret, sinaName;
+	public static String tencentToken, tencentSecret, tencentName;
+	
+	public static boolean shareWithPic = true;
 }

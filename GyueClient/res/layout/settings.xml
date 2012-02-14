@@ -42,15 +42,36 @@
         android:layout_alignParentRight="true"
         android:layout_below="@+id/chkNoPic"
         android:layout_marginTop="4dip" />
+    
+    <TextView
+        android:id="@+id/tvShareWithPic"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_below="@+id/tvOnlyWifi"
+        android:layout_marginLeft="4dip"
+        android:layout_marginTop="4dip"
+        android:layout_toLeftOf="@+id/chkOnlyWifi"
+        android:gravity="left|center_vertical"
+        android:text="@string/share_with_pic"
+        android:textColor="@color/black"
+        android:textSize="16dip" />
+
+    <CheckBox
+        android:id="@+id/chkShareWithPic"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/chkOnlyWifi"
+        android:layout_marginTop="4dip" />
 
     <Button
         android:id="@+id/btnBindSinaWeibo"
         android:layout_width="fill_parent"
         android:layout_height="48dip"
-        android:layout_below="@+id/tvOnlyWifi"
+        android:layout_below="@+id/tvShareWithPic"
         android:layout_marginLeft="32dip"
         android:layout_marginRight="32dip"
-        android:layout_marginTop="8dip"
+        android:layout_marginTop="16dip"
         android:background="@drawable/button_style"
         android:text="@string/bind_sina_weibo"
         android:textColor="@color/white"
@@ -60,16 +81,16 @@
         android:id="@+id/imgSinaWeibo"
         android:layout_width="32dip"
         android:layout_height="32dip"
-        android:layout_below="@+id/tvOnlyWifi"
+        android:layout_below="@+id/tvShareWithPic"
         android:layout_marginLeft="40dip"
-        android:layout_marginTop="16dip"
+        android:layout_marginTop="24dip"
         android:background="@drawable/sina_logo" />
 
     <Button
         android:id="@+id/btnBindTencentWeibo"
         android:layout_width="fill_parent"
         android:layout_height="48dip"
-        android:layout_below="@+id/btnBindSinaWeibo"
+        android:layout_below="@id/btnBindSinaWeibo"
         android:layout_marginLeft="32dip"
         android:layout_marginRight="32dip"
         android:layout_marginTop="8dip"
@@ -82,7 +103,7 @@
         android:id="@+id/imgTencentWeibo"
         android:layout_width="32dip"
         android:layout_height="32dip"
-        android:layout_below="@+id/btnBindSinaWeibo"
+        android:layout_below="@id/btnBindSinaWeibo"
         android:layout_marginLeft="40dip"
         android:layout_marginTop="16dip"
         android:background="@drawable/tencent_logo" />

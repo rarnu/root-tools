@@ -54,11 +54,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	Gallery gallaryPhotos;
 	RelativeLayout laySettings;
 
-	CheckBox chkNoPic, chkOnlyWifi;
+	CheckBox chkNoPic, chkOnlyWifi, chkShareWithPic;
 	Button btnBindSinaWeibo, btnBindTencentWeibo, btnAbout;
-
-	String sinaToken, sinaSecret, sinaName;
-	String tencentToken, tencentSecret, tencentName;
 
 	boolean loadedFocus = false, loadedIndustry = false, loadedApplication = false, loadedGames = false;
 	int pageFocus = 1, pageIndustry = 1, pageApplication = 1, pageGames = 1;
@@ -92,11 +89,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		btnFunc4 = (RelativeLayout) findViewById(R.id.btnFunc4);
 		btnFunc5 = (RelativeLayout) findViewById(R.id.btnFunc5);
 
-		setIconText(btnFunc1, R.drawable.information, R.string.func1);
-		setIconText(btnFunc2, R.drawable.information, R.string.func2);
-		setIconText(btnFunc3, R.drawable.information, R.string.func3);
-		setIconText(btnFunc4, R.drawable.information, R.string.func4);
-		setIconText(btnFunc5, R.drawable.information, R.string.func5);
+		setIconText(btnFunc1, R.drawable.home, R.string.func1);
+		setIconText(btnFunc2, R.drawable.news, R.string.func2);
+		setIconText(btnFunc3, R.drawable.app, R.string.func3);
+		setIconText(btnFunc4, R.drawable.game, R.string.func4);
+		setIconText(btnFunc5, R.drawable.options, R.string.func5);
 
 		lvFocus = (ListView) findViewById(R.id.lvFocus);
 		lvIndustry = (ListView) findViewById(R.id.lvIndustry);
@@ -105,19 +102,23 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		chkNoPic = (CheckBox) findViewById(R.id.chkNoPic);
 		chkOnlyWifi = (CheckBox) findViewById(R.id.chkOnlyWifi);
+		chkShareWithPic = (CheckBox) findViewById(R.id.chkShareWithPic);
 		btnBindSinaWeibo = (Button) findViewById(R.id.btnBindSinaWeibo);
 		btnBindTencentWeibo = (Button) findViewById(R.id.btnBindTencentWeibo);
 		btnAbout = (Button) findViewById(R.id.btnAbout);
 
 		chkNoPic.setOnCheckedChangeListener(this);
 		chkOnlyWifi.setOnCheckedChangeListener(this);
+		chkShareWithPic.setOnCheckedChangeListener(this);
 		btnBindSinaWeibo.setOnClickListener(this);
 		btnBindTencentWeibo.setOnClickListener(this);
 		btnAbout.setOnClickListener(this);
 		readConfig();
 
-		btnBindSinaWeibo.setText(sinaName.equals("") ? getString(R.string.bind_sina_weibo) : sinaName);
-		btnBindSinaWeibo.setText(tencentName.equals("") ? getString(R.string.bind_tencent_weibo) : tencentName);
+		btnBindSinaWeibo.setText(GlobalInstance.sinaName.equals("") ? getString(R.string.bind_sina_weibo)
+				: GlobalInstance.sinaName);
+		btnBindTencentWeibo.setText(GlobalInstance.tencentName.equals("") ? getString(R.string.bind_tencent_weibo)
+				: GlobalInstance.tencentName);
 
 		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
 		btnRefresh = (Button) findViewById(R.id.btnRefresh);
@@ -162,9 +163,36 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				super.handleMessage(msg);
 			}
 		};
-		
+
 		Updater.checkUpdate(MainActivity.this, hUpdate);
 
+	}
+	
+	@Override
+	protected void onNewIntent(Intent intent) {
+		super.onNewIntent(intent);
+		if (intent == null) {
+			return;
+		}
+		String bind = intent.getStringExtra("bind");
+		
+		if (bind == null) {
+			return;
+		}
+		
+		if (bind.equals("sina")) {
+			writeConfig();
+			if (!GlobalInstance.sinaName.equals("")) {
+				btnBindSinaWeibo.setText(GlobalInstance.sinaName);
+			}
+		}
+		
+		if (bind.equals("tencent")) {
+			writeConfig();
+			if (!GlobalInstance.tencentName.equals("")) {
+				btnBindTencentWeibo.setText(GlobalInstance.tencentName);
+			}
+		}
 	}
 
 	private void readConfig() {
@@ -172,14 +200,16 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		chkNoPic.setChecked(sp.getBoolean("nopic", false));
 		chkOnlyWifi.setChecked(sp.getBoolean("onlywifi", false));
+		chkShareWithPic.setChecked(sp.getBoolean("sharewithpic", true));
+		
+		GlobalInstance.shareWithPic = chkShareWithPic.isChecked();
 
-		sinaToken = sp.getString("sinaToken", "");
-		sinaSecret = sp.getString("sinaSecret", "");
-		tencentToken = sp.getString("tencentToken", "");
-		tencentSecret = sp.getString("tencentSecret", "");
-
-		sinaName = sp.getString("sinaName", "");
-		tencentName = sp.getString("tencentName", "");
+		GlobalInstance.sinaToken = sp.getString("sinaToken", "");
+		GlobalInstance.sinaSecret = sp.getString("sinaSecret", "");
+		GlobalInstance.tencentToken = sp.getString("tencentToken", "");
+		GlobalInstance.tencentSecret = sp.getString("tencentSecret", "");
+		GlobalInstance.sinaName = sp.getString("sinaName", "");
+		GlobalInstance.tencentName = sp.getString("tencentName", "");
 	}
 
 	private void writeConfig() {
@@ -187,12 +217,16 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.edit().putBoolean("nopic", chkNoPic.isChecked()).commit();
 		sp.edit().putBoolean("onlywifi", chkOnlyWifi.isChecked()).commit();
-		sp.edit().putString("sinaToken", sinaToken).commit();
-		sp.edit().putString("sinaSecret", sinaSecret).commit();
-		sp.edit().putString("tencentToken", tencentToken).commit();
-		sp.edit().putString("tencentSecret", tencentSecret).commit();
-		sp.edit().putString("sinaName", sinaName).commit();
-		sp.edit().putString("tencentName", tencentName).commit();
+		sp.edit().putBoolean("sharewithpic", chkShareWithPic.isChecked()).commit();
+		sp.edit().putString("sinaToken", GlobalInstance.sinaToken).commit();
+		sp.edit().putString("sinaSecret", GlobalInstance.sinaSecret).commit();
+		sp.edit().putString("tencentToken", GlobalInstance.tencentToken).commit();
+		sp.edit().putString("tencentSecret", GlobalInstance.tencentSecret).commit();
+		sp.edit().putString("sinaName", GlobalInstance.sinaName).commit();
+		sp.edit().putString("tencentName", GlobalInstance.tencentName).commit();
+		
+		GlobalInstance.shareWithPic = chkShareWithPic.isChecked();
+		
 	}
 
 	private void getArticleListT(final int type, final int page, final boolean local) {
@@ -550,7 +584,26 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				getArticleListT(CurrentType, 1, false);
 				break;
 			case R.id.btnBindSinaWeibo:
-				// TODO: bind sina weibo
+
+				if (GlobalInstance.sinaToken.equals("")) {
+					// bind sina weibo
+					Intent inSina = new Intent(this, BindSinaActivity.class);
+					startActivity(inSina);
+				} else {
+					new AlertDialog.Builder(this).setTitle(R.string.hint).setMessage(R.string.unbind_sina)
+							.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									GlobalInstance.sinaName = "";
+									GlobalInstance.sinaToken = "";
+									GlobalInstance.sinaSecret = "";
+									writeConfig();
+									btnBindSinaWeibo.setText(R.string.bind_sina_weibo);
+
+								}
+							}).setNegativeButton(R.string.cancel, null).show();
+				}
 				break;
 			case R.id.btnBindTencentWeibo:
 				// TODO: bind tencent weibo
@@ -645,6 +698,23 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		btnFunc4.setBackgroundDrawable(null);
 		btnFunc5.setBackgroundDrawable(null);
 		btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_focus));
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == RESULT_OK) {
+			switch (requestCode) {
+			case 1:
+				writeConfig();
+				if (!GlobalInstance.sinaName.equals("")) {
+					btnBindSinaWeibo.setText(GlobalInstance.sinaName);
+				}
+				break;
+			case 2:
+				break;
+				
+			}
+		}
 	}
 
 	@Override
