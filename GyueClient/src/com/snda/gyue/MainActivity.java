@@ -609,7 +609,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				// TODO: bind tencent weibo
 				break;
 			case R.id.btnAbout:
-				// TODO: show about dialog
+				// show about dialog
+				Intent inAbout = new Intent(this, AboutActivity.class);
+				startActivity(inAbout);
 				break;
 			}
 			return;

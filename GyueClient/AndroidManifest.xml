@@ -16,8 +16,8 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:screenOrientation="portrait"
-            android:launchMode="singleTask" >
+            android:launchMode="singleTask"
+            android:screenOrientation="portrait" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -37,16 +37,24 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Light" >
             <intent-filter>
-		        <action android:name="android.intent.action.VIEW" />
-		        <category android:name="android.intent.category.DEFAULT" />
-		        <category android:name="android.intent.category.BROWSABLE" />
-		        <data android:scheme="sina" android:host="BindSinaActivity" /> 
-			</intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <data
+                    android:host="BindSinaActivity"
+                    android:scheme="sina" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".BindTencentActivity"
             android:launchMode="singleTask"
             android:screenOrientation="portrait" />
+        <activity
+            android:name=".AboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog" />
     </application>
 
 </manifest>
