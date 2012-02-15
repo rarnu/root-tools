@@ -12,6 +12,7 @@ import org.w3c.dom.NodeList;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.os.Environment;
 import android.util.Log;
 
 /**
@@ -22,6 +23,10 @@ import android.util.Log;
  * 
  */
 public class MiscUtils {
+	
+	public static boolean sdcardExists() {
+		return (Environment.getExternalStorageState().equals(Environment.MEDIA_MOUNTED));
+	}
 
 	public static String getFirmwareVersion(Context context) {
 		String firmwareVerPath = "/system/app/firmware.ver";

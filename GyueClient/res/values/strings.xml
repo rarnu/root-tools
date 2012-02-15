@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">极悦网</string>
-    <string name="app_about_name">极悦网 Android 客户端</string>
-    <string name="app_version">1.0 Beta</string>
+    <string name="app_about_name">极悦网 Android 客户端 1.0 Beta</string>
     
     <string name="back">返回</string>
     <string name="refresh">刷新</string>
@@ -55,4 +54,9 @@
     
     <string name="cancelled_bind">您取消了绑定微博帐号\n请按“返回”退出绑定界面</string>
     
+    <string name="about_gyue">		极悦网是最活力时尚的Android专业资讯门户，我们通过全方位的资讯体系，向用户推荐优秀的应用和游戏，并倡导全新的移动生活理念，引领更精彩、更快乐的移动生活。极悦网也为广大读者提供最具价值的移动互联网产业资讯，致力于推动移动互联网的发展。</string>
+    <string name="about_link">欢迎访问 www.gyue.cn</string>
+    <string name="about_author">客户端开发 橙子Infinity </string>
+    
+    <string name="sdcard_unmounted">没有找到 SD 卡, 请确保您的 SD 卡处于可用状态, 然后再试一次</string>
 </resources>

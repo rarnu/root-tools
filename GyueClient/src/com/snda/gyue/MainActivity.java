@@ -84,6 +84,18 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		getWindowManager().getDefaultDisplay().getMetrics(GlobalInstance.metric);
 		GlobalInstance.density = GlobalInstance.metric.density;
 
+		if (!MiscUtils.sdcardExists()) {
+			new AlertDialog.Builder(this).setTitle(R.string.hint).setMessage(R.string.sdcard_unmounted)
+					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							finish();
+						}
+					}).show();
+			return;
+		}
+
 		Intent inSplash = new Intent(this, SplashActivity.class);
 		startActivity(inSplash);
 

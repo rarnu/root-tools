@@ -48,8 +48,8 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	ImageView imgShareTencent, imgShareSina;
 
 	boolean inProgress = false;
-	boolean tmrEd = false;	
-	
+	boolean tmrEd = false;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -100,12 +100,21 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 				if (!getIntent().getBooleanExtra("no_pic", false)) {
 
 					String local = NetFiles.buildLocalFileName(source);
+					BitmapFactory.Options bop = new BitmapFactory.Options();
+
 					File fImg = new File(local);
-					if (!fImg.exists()) {
-						return new BitmapDrawable(getResources(), BitmapFactory.decodeResource(getResources(),
-								R.drawable.empty));
+					if (fImg.length() > 102400) {
+						bop.inSampleSize = 2;
+					} else {
+						bop.inSampleSize = 1;
 					}
-					Bitmap bmp = ImageUtils.doMatrix(BitmapFactory.decodeFile(local), 0,
+					
+					if (!fImg.exists()) {
+
+						return new BitmapDrawable(getResources(), BitmapFactory.decodeResource(getResources(),
+								R.drawable.empty, bop));
+					}
+					Bitmap bmp = ImageUtils.doMatrix(BitmapFactory.decodeFile(local, bop), 0,
 							GlobalInstance.metric.widthPixels, GlobalInstance.metric.heightPixels);
 					drawable = new BitmapDrawable(getResources(), bmp);
 					drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
@@ -199,65 +208,69 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		}
 
 	}
-	
+
 	private void shareToSinaT() {
 		laySharing.setVisibility(View.VISIBLE);
 		pbRefreshing.setVisibility(View.VISIBLE);
 		final Handler h = new Handler() {
-			
+
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
-					Toast.makeText(ViewArticleActivity.this, (msg.arg1 == 1 ? R.string.share_sina_ok : R.string.share_sina_fail), Toast.LENGTH_LONG).show();
+					Toast.makeText(ViewArticleActivity.this,
+							(msg.arg1 == 1 ? R.string.share_sina_ok : R.string.share_sina_fail), Toast.LENGTH_LONG)
+							.show();
 					laySharing.setVisibility(View.GONE);
 					pbRefreshing.setVisibility(View.GONE);
 				}
 				super.handleMessage(msg);
 			}
-			
+
 		};
-		
+
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				boolean bSina = ShareUtils.shareArticleToSina(GlobalInstance.currentArticle);
 				Message msg = new Message();
 				msg.what = 1;
-				msg.arg1 = (bSina ? 1 : 0 );
+				msg.arg1 = (bSina ? 1 : 0);
 				h.sendMessage(msg);
 			}
-		}).start();	
+		}).start();
 	}
-	
+
 	private void shareToTencentT() {
 		laySharing.setVisibility(View.VISIBLE);
 		pbRefreshing.setVisibility(View.VISIBLE);
 		final Handler h = new Handler() {
-			
+
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
-					Toast.makeText(ViewArticleActivity.this, (msg.arg1 == 1 ? R.string.share_tencent_ok : R.string.share_tencent_fail), Toast.LENGTH_LONG).show();
+					Toast.makeText(ViewArticleActivity.this,
+							(msg.arg1 == 1 ? R.string.share_tencent_ok : R.string.share_tencent_fail),
+							Toast.LENGTH_LONG).show();
 					laySharing.setVisibility(View.GONE);
 					pbRefreshing.setVisibility(View.GONE);
 				}
 				super.handleMessage(msg);
 			}
-			
+
 		};
-		
+
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				boolean bTencent = ShareUtils.shareArticleToTencent(GlobalInstance.currentArticle);
 				Message msg = new Message();
 				msg.what = 1;
-				msg.arg1 = (bTencent ? 1 : 0 );
+				msg.arg1 = (bTencent ? 1 : 0);
 				h.sendMessage(msg);
 			}
-		}).start();	
+		}).start();
 	}
 
 	public static List<String> getImages(String htmlStr) {
