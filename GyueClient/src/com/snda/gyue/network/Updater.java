@@ -12,7 +12,7 @@ public class Updater {
 
 	private static int versionCode = 1;
 	private static final String updateUrl = "http://rarnu.7thgen.info/snda/gyue/update.php";
-	public static final String updateApk = "http://rarnu.7thgen.info/snda/gyue/GYue.apk";
+	public static final String updateApk = "http://rarnu.7thgen.info/snda/gyue/gyue.apk";
 	
 	public static void checkUpdate(final Context context, final Handler hUpdate) {
 		
