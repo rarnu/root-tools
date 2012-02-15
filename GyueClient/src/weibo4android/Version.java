@@ -31,7 +31,8 @@ package weibo4android;
  */
 public class Version {
     private final static String VERSION = "1.2.1";
-    private final static String TITLE = "Weibo4J";
+    @SuppressWarnings("unused")
+	private final static String TITLE = "Weibo4J";
 
     public static String getVersion(){
         return VERSION;

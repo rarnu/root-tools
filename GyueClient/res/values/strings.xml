@@ -1,12 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">极悦网</string>
+    <string name="app_about_name">极悦网 Android 客户端</string>
+    <string name="app_version">1.0 Beta</string>
     
     <string name="back">返回</string>
     <string name="refresh">刷新</string>
     
-    <string name="func1">焦点</string>
-    <string name="func2">业内</string>
+    <string name="func1">首页</string>
+    <string name="func2">行业</string>
     <string name="func3">应用</string>
     <string name="func4">游戏</string>
     <string name="func5">设置</string>
@@ -20,6 +22,7 @@
     <string name="no_pic_mode">不显示文章内大图</string>
     <string name="only_wifi">仅 WIFI 下更新内容</string>
     <string name="share_with_pic">分享时包含图片</string>
+    <string name="bind_weibo">绑定微博</string>
     <string name="bind_sina_weibo">绑定新浪微博</string>
     <string name="bind_tencent_weibo">绑定腾讯微博</string>
     <string name="about">关于极悦网</string>
@@ -34,10 +37,12 @@
     <string name="update">更新</string>
     <string name="cancel">取消</string>
     
-    <string name="see_web">查看在线原始版本</string>
-    <string name="loading_article">正在加载资讯内容，请稍候...</string>
+    <string name="see_web">查看在线版本(可下载)</string>
+    <string name="loading_article">正在加载资讯内容，请稍候&#8230;</string>
+    <string name="sharing_article">正在分享资讯内容，请稍候&#8230;</string>
     <string name="hint">提示</string>
     <string name="unbind_sina">若是解除与新浪微博的帐号绑定，您将无法同步资讯到新浪微博</string>
+    <string name="unbind_tencent">若是解除与腾讯微博的帐号绑定，您将无法同步资讯到腾讯微博</string>
     <string name="bind_fail">绑定微博帐号失败</string>
     
     <string name="share_sina_ok">分享资讯到新浪微博成功</string>
@@ -47,5 +52,7 @@
     
     <string name="not_bind_sina">还未绑定新浪微博，不能分享资讯</string>
     <string name="not_bind_tencent">还未绑定腾讯微博，不能分享资讯</string>
+    
+    <string name="cancelled_bind">您取消了绑定微博帐号\n请按“返回”退出绑定界面</string>
     
 </resources>

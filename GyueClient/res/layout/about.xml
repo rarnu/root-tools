@@ -1,12 +1,60 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
+    android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:padding="8dip" 
-    android:background="@color/white">
+    android:background="@color/white"
+    android:padding="16dip" >
+
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:background="@drawable/icon"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="fill_parent"
+        android:layout_height="24dip"
+        android:layout_marginLeft="16dip"
+        android:layout_toRightOf="@+id/ivIcon"
+        android:gravity="left|center_vertical"
+        android:text="@string/app_about_name"
+        android:textColor="@color/black"
+        android:textSize="18dip" />
+
+    <TextView
+        android:id="@+id/tvAppVersion"
+        android:layout_width="fill_parent"
+        android:layout_height="24dip"
+        android:layout_below="@+id/tvAppName"
+        android:layout_marginLeft="16dip"
+        android:layout_toRightOf="@+id/ivIcon"
+        android:gravity="left|center_vertical"
+        android:text="@string/app_version"
+        android:textColor="@color/gray"
+        android:textSize="16dip" />
     
-    <RelativeLayout android:layout_width="200dip" 
-        android:layout_height="200dip"></RelativeLayout>
+    <TextView android:id="@+id/tvSpl"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/silver"
+        android:layout_below="@+id/ivIcon"
+        android:layout_marginTop="8dip"/>
     
+    <RelativeLayout android:id="@+id/layGIntro"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSpl">
+        
+        
+    </RelativeLayout>
+    
+    <TextView android:id="@+id/tvSpl2"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="@color/silver"
+        android:layout_below="@+id/layGIntro"
+        android:layout_marginTop="8dip"/>
 
 </RelativeLayout>

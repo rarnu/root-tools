@@ -76,7 +76,8 @@ public class Configuration {
         }
         DALVIK = getBoolean("weibo4j.dalvik");
         String t4jProps = "weibo4j.properties";
-        boolean loaded = loadProperties(defaultProperty, "." + File.separatorChar + t4jProps) ||
+        @SuppressWarnings("unused")
+		boolean loaded = loadProperties(defaultProperty, "." + File.separatorChar + t4jProps) ||
                 loadProperties(defaultProperty, Configuration.class.getResourceAsStream("/WEB-INF/" + t4jProps)) ||
                 loadProperties(defaultProperty, Configuration.class.getResourceAsStream("/" + t4jProps));
     }

@@ -20,11 +20,29 @@
             android:text="@string/back"
             android:textColor="@color/white" />
 
-        <ImageView
-            android:layout_width="90dip"
-            android:layout_height="48dip"
-            android:layout_centerInParent="true"
-            android:background="@drawable/gyue" />
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
+
+            <ImageView
+                android:id="@+id/ivGLogo"
+                android:layout_width="60dip"
+                android:layout_height="32dip"
+                android:background="@drawable/gyue"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/tvGName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="16dip"
+                android:layout_toRightOf="@+id/ivGLogo"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/white"
+                android:textSize="18dip" />
+        </RelativeLayout>
 
         <Button
             android:id="@+id/btnRefresh"
@@ -53,38 +71,33 @@
         android:layout_above="@+id/layBottom"
         android:layout_below="@+id/layTitleBar" >
 
-        <RelativeLayout
+        <ScrollView
             android:id="@+id/layMainFocus"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="fill_parent" >
 
-            <ScrollView
+            <RelativeLayout
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent" >
+                android:layout_height="wrap_content" >
 
-                <RelativeLayout
+                <Gallery
+                    android:id="@+id/gallaryPhotos"
                     android:layout_width="fill_parent"
-                    android:layout_height="fill_parent" >
+                    android:layout_height="180dip"
+                    android:layout_marginBottom="4dip"
+                    android:layout_marginTop="4dip" />
 
-                    <Gallery
-                        android:id="@+id/gallaryPhotos"
-                        android:layout_width="fill_parent"
-                        android:layout_height="180dip"
-                        android:layout_marginBottom="4dip"
-                        android:layout_marginTop="4dip" />
-
-                    <ListView
-                        android:id="@+id/lvFocus"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:layout_below="@+id/gallaryPhotos"
-                        android:cacheColorHint="#00000000"
-                        android:divider="@color/lightgray"
-                        android:dividerHeight="1dip" >
-                    </ListView>
-                </RelativeLayout>
-            </ScrollView>
-        </RelativeLayout>
+                <ListView
+                    android:id="@+id/lvFocus"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/gallaryPhotos"
+                    android:cacheColorHint="#00000000"
+                    android:divider="@color/lightgray"
+                    android:dividerHeight="1dip" >
+                </ListView>
+            </RelativeLayout>
+        </ScrollView>
 
         <ListView
             android:id="@+id/lvIndustry"

@@ -60,7 +60,8 @@ public class WeiboResponse implements java.io.Serializable {
     private transient int rateLimitLimit = -1;
     private transient int rateLimitRemaining = -1;
     private transient long rateLimitReset = -1;
-    private static final boolean IS_DALVIK = Configuration.isDalvik();
+    @SuppressWarnings("unused")
+	private static final boolean IS_DALVIK = Configuration.isDalvik();
 
     public WeiboResponse() {
     }

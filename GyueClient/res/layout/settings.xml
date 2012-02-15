@@ -78,6 +78,7 @@
         android:textSize="16dip" />
 
     <ImageView
+        android:contentDescription="@null"
         android:id="@+id/imgSinaWeibo"
         android:layout_width="32dip"
         android:layout_height="32dip"
@@ -100,6 +101,7 @@
         android:textSize="16dip" />
 
     <ImageView
+        android:contentDescription="@null"
         android:id="@+id/imgTencentWeibo"
         android:layout_width="32dip"
         android:layout_height="32dip"
@@ -122,6 +124,7 @@
         android:textSize="16dip" />
 
     <ImageView
+        android:contentDescription="@null"
         android:id="@+id/imgAbout"
         android:layout_width="32dip"
         android:layout_height="32dip"

@@ -10,16 +10,22 @@ import org.apache.http.protocol.HTTP;
 import weibo4android.Weibo;
 import weibo4android.http.ImageItem;
 
+import android.util.Log;
+
 import com.snda.gyue.GlobalInstance;
 import com.snda.gyue.GyueConsts;
 import com.snda.gyue.SnsKeys;
 import com.snda.gyue.classes.ArticleItem;
+import com.tencent.weibo.api.T_API;
+import com.tencent.weibo.beans.OAuth;
+import com.tencent.weibo.utils.Configuration;
+import com.tencent.weibo.utils.OAuthClient;
 
 public class ShareUtils {
 
 	public static boolean shareArticleToSina(ArticleItem item) {
 		// share to sina
-		
+
 		boolean ret = false;
 		try {
 			System.setProperty("weibo4j.oauth.consumerKey", SnsKeys.SINA_TOKEN);
@@ -30,10 +36,13 @@ public class ShareUtils {
 				String fn = GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName();
 				byte[] content = readFileImage(fn);
 				ImageItem pic = new ImageItem("pic", content);
-				w.uploadStatus(URLEncoder.encode(item.getDescription().substring(0, 100), HTTP.UTF_8), pic);
+				w.uploadStatus(
+						URLEncoder.encode(item.getDescription().substring(0, 100) + " " + item.getLink(), HTTP.UTF_8),
+						pic);
 				ret = true;
 			} else {
-				w.updateStatus(URLEncoder.encode(item.getDescription().substring(0, 100), HTTP.UTF_8));
+				w.updateStatus(URLEncoder.encode(item.getDescription().substring(0, 100) + " " + item.getLink(),
+						HTTP.UTF_8));
 				ret = true;
 			}
 		} catch (Exception e) {
@@ -44,8 +53,30 @@ public class ShareUtils {
 	}
 
 	public static boolean shareArticleToTencent(ArticleItem item) {
-		// TODO: share to tencent
-		return false;
+		// share to tencent
+		boolean ret = false;
+		try {
+			OAuth oauth = new OAuth("tencent://BindTencentActivity");
+			OAuthClient auth = new OAuthClient();
+			oauth = auth.requestToken(oauth);
+
+			oauth.setOauth_token(GlobalInstance.tencentToken);
+			oauth.setOauth_token_secret(GlobalInstance.tencentSecret);
+
+			T_API t = new T_API();
+			if (GlobalInstance.shareWithPic) {
+				t.add_pic(oauth, "json", item.getDescription().substring(0, 100) + " " + item.getLink(),
+						Configuration.wifiIp, GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
+			} else {
+				t.add(oauth, "json", item.getDescription().substring(0, 100) + " " + item.getLink(),
+						Configuration.wifiIp);
+			}
+			ret = true;
+		} catch (Exception e) {
+			Log.e("TENCENT SHARE", e.getMessage());
+		}
+
+		return ret;
 	}
 
 	private static byte[] readFileImage(String filename) throws IOException {

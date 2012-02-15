@@ -22,7 +22,6 @@ import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -43,18 +42,17 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	TextView tvTitle, tvDate;
 	ScrollView layContent;
 	TextView tvSeeWeb;
-	RelativeLayout layLoading;
+	RelativeLayout layLoading, laySharing;
 	ImageGetter iGetter;
 	Handler hPack;
 	ImageView imgShareTencent, imgShareSina;
 
 	boolean inProgress = false;
-	boolean tmrEd = false;
-
+	boolean tmrEd = false;	
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.view_article);
 
 		btnBack = (Button) findViewById(R.id.btnBack);
@@ -65,6 +63,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		layContent = (ScrollView) findViewById(R.id.layContent);
 		tvSeeWeb = (TextView) findViewById(R.id.tvSeeWeb);
 		layLoading = (RelativeLayout) findViewById(R.id.layLoading);
+		laySharing = (RelativeLayout) findViewById(R.id.laySharing);
 		imgShareTencent = (ImageView) findViewById(R.id.imgShareTencent);
 		imgShareSina = (ImageView) findViewById(R.id.imgShareSina);
 
@@ -188,20 +187,77 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 				Toast.makeText(this, R.string.not_bind_sina, Toast.LENGTH_LONG).show();
 				return;
 			}
-			boolean bSina = ShareUtils.shareArticleToSina(GlobalInstance.currentArticle);
-			Toast.makeText(this, (bSina ? R.string.share_sina_ok : R.string.share_sina_fail), Toast.LENGTH_LONG).show();
+			shareToSinaT();
 			break;
 		case R.id.imgShareTencent:
 			if (GlobalInstance.tencentName.equals("")) {
 				Toast.makeText(this, R.string.not_bind_tencent, Toast.LENGTH_LONG).show();
 				return;
 			}
-			boolean bTencent = ShareUtils.shareArticleToTencent(GlobalInstance.currentArticle);
-			Toast.makeText(this, (bTencent ? R.string.share_tencent_ok : R.string.share_tencent_fail),
-					Toast.LENGTH_LONG).show();
+			shareToTencentT();
 			break;
 		}
 
+	}
+	
+	private void shareToSinaT() {
+		laySharing.setVisibility(View.VISIBLE);
+		pbRefreshing.setVisibility(View.VISIBLE);
+		final Handler h = new Handler() {
+			
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					Toast.makeText(ViewArticleActivity.this, (msg.arg1 == 1 ? R.string.share_sina_ok : R.string.share_sina_fail), Toast.LENGTH_LONG).show();
+					laySharing.setVisibility(View.GONE);
+					pbRefreshing.setVisibility(View.GONE);
+				}
+				super.handleMessage(msg);
+			}
+			
+		};
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				boolean bSina = ShareUtils.shareArticleToSina(GlobalInstance.currentArticle);
+				Message msg = new Message();
+				msg.what = 1;
+				msg.arg1 = (bSina ? 1 : 0 );
+				h.sendMessage(msg);
+			}
+		}).start();	
+	}
+	
+	private void shareToTencentT() {
+		laySharing.setVisibility(View.VISIBLE);
+		pbRefreshing.setVisibility(View.VISIBLE);
+		final Handler h = new Handler() {
+			
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					Toast.makeText(ViewArticleActivity.this, (msg.arg1 == 1 ? R.string.share_tencent_ok : R.string.share_tencent_fail), Toast.LENGTH_LONG).show();
+					laySharing.setVisibility(View.GONE);
+					pbRefreshing.setVisibility(View.GONE);
+				}
+				super.handleMessage(msg);
+			}
+			
+		};
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				boolean bTencent = ShareUtils.shareArticleToTencent(GlobalInstance.currentArticle);
+				Message msg = new Message();
+				msg.what = 1;
+				msg.arg1 = (bTencent ? 1 : 0 );
+				h.sendMessage(msg);
+			}
+		}).start();	
 	}
 
 	public static List<String> getImages(String htmlStr) {

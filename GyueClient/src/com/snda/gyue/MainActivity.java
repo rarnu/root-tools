@@ -10,13 +10,14 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
@@ -29,6 +30,7 @@ import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -40,12 +42,15 @@ import com.snda.gyue.network.ItemBuilder;
 import com.snda.gyue.network.Updater;
 import com.snda.gyue.utils.ImageUtils;
 import com.snda.gyue.utils.MiscUtils;
+import com.tencent.weibo.utils.Configuration;
+import com.tencent.weibo.utils.Utils;
 
 public class MainActivity extends Activity implements OnClickListener, OnItemClickListener, OnCheckedChangeListener {
 
 	RelativeLayout btnFunc1, btnFunc2, btnFunc3, btnFunc4, btnFunc5;
 
-	RelativeLayout layContent, layMainFocus;
+	RelativeLayout layContent;
+	ScrollView layMainFocus;
 	ListView lvFocus, lvIndustry, lvApplication, lvGames;
 	List<ArticleItem> lstFocus, lstIndustry, lstApplication, lstGames;
 	ArticleItemAdapter adapterFocus, adapterIndustry, adapterApplication, adapterGames;
@@ -53,6 +58,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	Button btnRefresh, btnBack;
 	Gallery gallaryPhotos;
 	RelativeLayout laySettings;
+	TextView tvGName;
 
 	CheckBox chkNoPic, chkOnlyWifi, chkShareWithPic;
 	Button btnBindSinaWeibo, btnBindTencentWeibo, btnAbout;
@@ -67,11 +73,13 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			inProgressGames = false;
 	Handler hUpdate;
 
+	boolean starting = true;
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		requestWindowFeature(Window.FEATURE_NO_TITLE);
+		starting = true;
 
 		getWindowManager().getDefaultDisplay().getMetrics(GlobalInstance.metric);
 		GlobalInstance.density = GlobalInstance.metric.density;
@@ -82,7 +90,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		setContentView(R.layout.main);
 
 		layContent = (RelativeLayout) findViewById(R.id.layContent);
-		layMainFocus = (RelativeLayout) findViewById(R.id.layMainFocus);
+		layMainFocus = (ScrollView) findViewById(R.id.layMainFocus);
 		btnFunc1 = (RelativeLayout) findViewById(R.id.btnFunc1);
 		btnFunc2 = (RelativeLayout) findViewById(R.id.btnFunc2);
 		btnFunc3 = (RelativeLayout) findViewById(R.id.btnFunc3);
@@ -123,6 +131,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
 		btnRefresh = (Button) findViewById(R.id.btnRefresh);
 		btnBack = (Button) findViewById(R.id.btnBack);
+		tvGName = (TextView) findViewById(R.id.tvGName);
 		gallaryPhotos = (Gallery) findViewById(R.id.gallaryPhotos);
 		laySettings = (RelativeLayout) findViewById(R.id.laySettings);
 		laySettings.setVisibility(View.GONE);
@@ -165,9 +174,17 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		};
 
 		Updater.checkUpdate(MainActivity.this, hUpdate);
-
+		getIpAddress();
+		starting = false;
 	}
-	
+
+	private void getIpAddress() {
+		WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
+		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
+		int ipAddress = wifiInfo.getIpAddress();
+		Configuration.wifiIp = Utils.intToIp(ipAddress);
+	}
+
 	@Override
 	protected void onNewIntent(Intent intent) {
 		super.onNewIntent(intent);
@@ -175,18 +192,18 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			return;
 		}
 		String bind = intent.getStringExtra("bind");
-		
+
 		if (bind == null) {
 			return;
 		}
-		
+
 		if (bind.equals("sina")) {
 			writeConfig();
 			if (!GlobalInstance.sinaName.equals("")) {
 				btnBindSinaWeibo.setText(GlobalInstance.sinaName);
 			}
 		}
-		
+
 		if (bind.equals("tencent")) {
 			writeConfig();
 			if (!GlobalInstance.tencentName.equals("")) {
@@ -201,7 +218,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		chkNoPic.setChecked(sp.getBoolean("nopic", false));
 		chkOnlyWifi.setChecked(sp.getBoolean("onlywifi", false));
 		chkShareWithPic.setChecked(sp.getBoolean("sharewithpic", true));
-		
+
 		GlobalInstance.shareWithPic = chkShareWithPic.isChecked();
 
 		GlobalInstance.sinaToken = sp.getString("sinaToken", "");
@@ -215,18 +232,16 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	private void writeConfig() {
 		// write config
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		sp.edit().putBoolean("nopic", chkNoPic.isChecked()).commit();
-		sp.edit().putBoolean("onlywifi", chkOnlyWifi.isChecked()).commit();
-		sp.edit().putBoolean("sharewithpic", chkShareWithPic.isChecked()).commit();
-		sp.edit().putString("sinaToken", GlobalInstance.sinaToken).commit();
-		sp.edit().putString("sinaSecret", GlobalInstance.sinaSecret).commit();
-		sp.edit().putString("tencentToken", GlobalInstance.tencentToken).commit();
-		sp.edit().putString("tencentSecret", GlobalInstance.tencentSecret).commit();
-		sp.edit().putString("sinaName", GlobalInstance.sinaName).commit();
-		sp.edit().putString("tencentName", GlobalInstance.tencentName).commit();
-		
+		sp.edit().putBoolean("nopic", chkNoPic.isChecked()).putBoolean("onlywifi", chkOnlyWifi.isChecked())
+				.putBoolean("sharewithpic", chkShareWithPic.isChecked())
+				.putString("sinaToken", GlobalInstance.sinaToken).putString("sinaSecret", GlobalInstance.sinaSecret)
+				.putString("tencentToken", GlobalInstance.tencentToken)
+				.putString("tencentSecret", GlobalInstance.tencentSecret)
+				.putString("sinaName", GlobalInstance.sinaName).putString("tencentName", GlobalInstance.tencentName)
+				.commit();
+
 		GlobalInstance.shareWithPic = chkShareWithPic.isChecked();
-		
+
 	}
 
 	private void getArticleListT(final int type, final int page, final boolean local) {
@@ -606,7 +621,25 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				}
 				break;
 			case R.id.btnBindTencentWeibo:
-				// TODO: bind tencent weibo
+				// bind tencent weibo
+				if (GlobalInstance.tencentToken.equals("")) {
+					Intent inTencent = new Intent(this, BindTencentActivity.class);
+					startActivity(inTencent);
+				} else {
+					new AlertDialog.Builder(this).setTitle(R.string.hint).setMessage(R.string.unbind_tencent)
+							.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									GlobalInstance.tencentName = "";
+									GlobalInstance.tencentToken = "";
+									GlobalInstance.tencentSecret = "";
+									writeConfig();
+									btnBindTencentWeibo.setText(R.string.bind_tencent_weibo);
+
+								}
+							}).setNegativeButton(R.string.cancel, null).show();
+				}
 				break;
 			case R.id.btnAbout:
 				// show about dialog
@@ -632,6 +665,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		switch (v.getId()) {
 		case R.id.btnFunc1:
 			CurrentType = 54;
+			tvGName.setText(R.string.func1);
 			layMainFocus.setVisibility(View.VISIBLE);
 			if (inProgressFocus) {
 				btnRefresh.setEnabled(false);
@@ -640,6 +674,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			break;
 		case R.id.btnFunc2:
 			CurrentType = 13;
+			tvGName.setText(R.string.func2);
 			lvIndustry.setVisibility(View.VISIBLE);
 			if (inProgressIndustry) {
 				btnRefresh.setEnabled(false);
@@ -648,6 +683,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			break;
 		case R.id.btnFunc3:
 			CurrentType = 11;
+			tvGName.setText(R.string.func3);
 			lvApplication.setVisibility(View.VISIBLE);
 			if (inProgressApplication) {
 				btnRefresh.setEnabled(false);
@@ -656,6 +692,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			break;
 		case R.id.btnFunc4:
 			CurrentType = 12;
+			tvGName.setText(R.string.func4);
 			lvGames.setVisibility(View.VISIBLE);
 			if (inProgressGames) {
 				btnRefresh.setEnabled(false);
@@ -663,6 +700,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			}
 			break;
 		case R.id.btnFunc5:
+			tvGName.setText(R.string.func5);
 			btnRefresh.setVisibility(View.GONE);
 			laySettings.setVisibility(View.VISIBLE);
 			return;
@@ -701,7 +739,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		btnFunc5.setBackgroundDrawable(null);
 		btn.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_focus));
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode == RESULT_OK) {
@@ -714,7 +752,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				break;
 			case 2:
 				break;
-				
+
 			}
 		}
 	}
@@ -831,7 +869,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 	@Override
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		writeConfig();
+		if (!starting) {
+			writeConfig();
+		}
 	}
 
 }

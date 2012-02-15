@@ -8,7 +8,6 @@ import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.snda.gyue.GyueConsts;
 import com.snda.gyue.classes.ArticleItem;
@@ -19,14 +18,13 @@ import com.snda.gyue.utils.XmlUtils;
 
 public class ItemBuilder {
 
-	
-
-	public static List<ArticleItem> xmlToItems(Context context, int rssid, String xml, boolean local, boolean saveMain) throws Exception {
+	public static List<ArticleItem> xmlToItems(Context context, int rssid, String xml, boolean local, boolean saveMain)
+			throws Exception {
 
 		List<ArticleItem> result = null;
 		FileUtils.mkdir(GyueConsts.GYUE_DIR);
 		String localFilePath = GyueConsts.GYUE_DIR + String.format("a%d.xml", rssid);
-		
+
 		if (!saveMain) {
 			localFilePath += ".tmp";
 		}
@@ -61,8 +59,6 @@ public class ItemBuilder {
 					item.setAuthor(util.getNodeValue((Element) ele.getElementsByTagName("author").item(0)));
 					item.setComment(util.getNodeValue((Element) ele.getElementsByTagName("comments").item(0)));
 					item.setArticleImageUrl(findImage(item.getDescription(), item.getComment()));
-					Log.e("NAME", item.getTitle());
-					Log.e("ITEM", item.getArticleImageUrl());
 					result.add(item);
 				}
 			}

@@ -15,7 +15,8 @@ public class Test {
      * Entry point.
      * @param args
      */
-    public static void main(String args[]) {
+    @SuppressWarnings("rawtypes")
+	public static void main(String args[]) {
         Iterator it;
         JSONArray a;
         JSONObject j;

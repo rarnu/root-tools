@@ -71,7 +71,8 @@ public class Trends extends WeiboResponse implements Comparable<Trends> {
             Date asOf = parseDate(json.getString("as_of"));
             JSONObject trendsJson = json.getJSONObject("trends");
             trends = new ArrayList<Trends>(trendsJson.length());
-            Iterator ite = trendsJson.keys();
+            @SuppressWarnings("rawtypes")
+			Iterator ite = trendsJson.keys();
             while (ite.hasNext()) {
                 String key = (String) ite.next();
                 JSONArray array = trendsJson.getJSONArray(key);

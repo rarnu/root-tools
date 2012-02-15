@@ -125,7 +125,8 @@ public class HTTP {
      *  information.
      */
     public static String toString(JSONObject o) throws JSONException {
-        Iterator     keys = o.keys();
+        @SuppressWarnings("rawtypes")
+		Iterator     keys = o.keys();
         String       s;
         StringBuffer sb = new StringBuffer();
         if (o.has("Status-Code") && o.has("Reason-Phrase")) {

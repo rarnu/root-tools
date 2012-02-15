@@ -301,7 +301,8 @@ public class JSONML {
      * @return An XML string.
      * @throws JSONException
      */
-    public static String toString(JSONArray ja) throws JSONException {
+    @SuppressWarnings("rawtypes")
+	public static String toString(JSONArray ja) throws JSONException {
     	Object		 e;
     	int			 i;
     	JSONObject   jo;
@@ -383,6 +384,7 @@ public class JSONML {
      * @return An XML string.
      * @throws JSONException
      */
+	@SuppressWarnings("rawtypes")
 	public static String toString(JSONObject jo) throws JSONException {
 	    StringBuffer sb = new StringBuffer();
 	    Object		 e;

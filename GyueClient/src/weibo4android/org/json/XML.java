@@ -323,7 +323,8 @@ public class XML {
      * @return A string.
      * @throws JSONException
      */
-    public static String toString(Object o, String tagName)
+    @SuppressWarnings("rawtypes")
+	public static String toString(Object o, String tagName)
             throws JSONException {
         StringBuffer b = new StringBuffer();
         int          i;

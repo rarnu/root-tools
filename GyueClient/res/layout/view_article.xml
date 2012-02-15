@@ -43,12 +43,13 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/layTitleBar"
+        android:layout_above="@+id/layBottom"
+        android:layout_marginBottom="4dip"
         android:layout_marginLeft="4dip"
         android:layout_marginRight="4dip"
-        android:layout_marginBottom="4dip"
+        android:paddingBottom="4dip"
         android:paddingLeft="4dip"
-        android:paddingRight="4dip"
-        android:paddingBottom="4dip" >
+        android:paddingRight="4dip" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -57,12 +58,11 @@
             <RelativeLayout
                 android:id="@+id/layToolBar"
                 android:layout_width="fill_parent"
-                android:layout_height="40dip"
-                 >
+                android:layout_height="40dip" >
 
                 <TextView
                     android:id="@+id/tvSeeWeb"
-                    android:layout_width="fill_parent"
+                    android:layout_width="wrap_content"
                     android:layout_height="24dip"
                     android:layout_centerVertical="true"
                     android:layout_marginLeft="8dip"
@@ -71,6 +71,7 @@
                     android:textColor="@color/blue" />
 
                 <ImageView
+                    android:contentDescription="@null"
                     android:id="@+id/imgShareTencent"
                     android:layout_width="32dip"
                     android:layout_height="32dip"
@@ -80,6 +81,7 @@
                     android:background="@drawable/tencent_logo" />
 
                 <ImageView
+                    android:contentDescription="@null"
                     android:id="@+id/imgShareSina"
                     android:layout_width="32dip"
                     android:layout_height="32dip"
@@ -129,7 +131,7 @@
                 android:textSize="16dip" />
         </RelativeLayout>
     </ScrollView>
-    
+
     <RelativeLayout
         android:id="@+id/layLoading"
         android:layout_width="wrap_content"
@@ -138,21 +140,55 @@
         android:background="@drawable/loading_back"
         android:padding="16dip"
         android:visibility="gone" >
-        
-        <ProgressBar android:id="@+id/pbLoading"
+
+        <ProgressBar
+            android:id="@+id/pbLoading"
             android:layout_width="24dip"
             android:layout_height="24dip"
-            android:layout_centerVertical="true"
-            />
+            android:layout_centerVertical="true" />
+
         <TextView
-	    android:id="@+id/tvLoading"
-	    android:layout_width="wrap_content"
-	    android:layout_height="wrap_content"
-	    android:layout_centerVertical="true"
-	    android:text="@string/loading_article"
-	    android:textColor="@color/white"
-	    android:layout_toRightOf="@+id/pbLoading"
-	    android:layout_marginLeft="8dip"/>
+            android:id="@+id/tvLoading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dip"
+            android:layout_toRightOf="@+id/pbLoading"
+            android:text="@string/loading_article"
+            android:textColor="@color/white" />
     </RelativeLayout>
-	
+
+    <RelativeLayout
+        android:id="@+id/laySharing"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="@drawable/loading_back"
+        android:padding="16dip"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/pbSharing"
+            android:layout_width="24dip"
+            android:layout_height="24dip"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/tvSharing"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dip"
+            android:layout_toRightOf="@+id/pbSharing"
+            android:text="@string/sharing_article"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/layBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="16dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar" />
+
 </RelativeLayout>

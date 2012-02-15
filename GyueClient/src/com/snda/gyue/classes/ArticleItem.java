@@ -1,6 +1,5 @@
 package com.snda.gyue.classes;
 
-import android.util.Log;
 
 public class ArticleItem {
 
@@ -51,17 +50,18 @@ public class ArticleItem {
 	}
 
 	public void setComment(String comment) {
+		comment = comment.replaceAll("(?is)<table.*?</table>", "");
 		comment = comment.replaceAll("<p>", "").replaceAll("</p>", "<br />");
-		comment = comment.replaceAll("\t", "\t\t");
+		comment = comment.replaceAll("\t", "");
 		this.comment = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+comment.trim();
 	}
 
 	public String getDescription() {
-		Log.e("GET DESC", description);
 		return description;
 	}
 
 	public void setDescription(String description) {
+		description = description.replaceAll("(?is)<table.*?</table>", "");
 		description = description.replaceAll("<img[^>]*?((>.*?</img>)|(/>))", "");
 		description = description.replaceAll("<br[^>]*?((>.*?</br>)|(/>))", "");
 		description = description.replaceAll("<p[^>]*?((>.*?</p>)|(/>))", "");

@@ -187,12 +187,14 @@ public class OAuth implements java.io.Serializable {
         return normalizeRequestParameters(toParamList(params));
     }
 
-    public static String normalizeRequestParameters(List<PostParameter> params) {
+    @SuppressWarnings("unchecked")
+	public static String normalizeRequestParameters(List<PostParameter> params) {
         Collections.sort(params);
         return encodeParameters(params);
     }
 
-    public static String normalizeAuthorizationHeaders(List<PostParameter> params) {
+    @SuppressWarnings("unchecked")
+	public static String normalizeAuthorizationHeaders(List<PostParameter> params) {
         Collections.sort(params);
         return encodeParameters(params);
     }

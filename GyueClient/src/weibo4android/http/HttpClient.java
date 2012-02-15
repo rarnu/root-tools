@@ -39,10 +39,10 @@ import java.net.URL;
 import java.net.URLEncoder;
 import java.security.AccessControlException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import org.apache.commons.httpclient.Header;
 import org.apache.commons.httpclient.methods.PostMethod;
 import org.apache.commons.httpclient.methods.multipart.FilePart;
@@ -50,6 +50,7 @@ import org.apache.commons.httpclient.methods.multipart.MultipartRequestEntity;
 import org.apache.commons.httpclient.methods.multipart.Part;
 import org.apache.commons.httpclient.methods.multipart.PartBase;
 import org.apache.commons.httpclient.methods.multipart.StringPart;
+
 import weibo4android.Configuration;
 import weibo4android.Weibo;
 import weibo4android.WeiboException;
@@ -212,7 +213,8 @@ public class HttpClient implements java.io.Serializable {
      * @throws WeiboException
      * @since Weibo4J 1.2.0
      */
-    public AccessToken getOAuthAccessToken(String token, String tokenSecret) throws WeiboException {
+    @SuppressWarnings("serial")
+	public AccessToken getOAuthAccessToken(String token, String tokenSecret) throws WeiboException {
         try {
             this.oauthToken = new OAuthToken(token, tokenSecret) {
             };
@@ -232,7 +234,8 @@ public class HttpClient implements java.io.Serializable {
      * @throws WeiboException
      * @since Weibo4J 1.2.0
      */
-    public AccessToken getOAuthAccessToken(String token, String tokenSecret
+    @SuppressWarnings("serial")
+	public AccessToken getOAuthAccessToken(String token, String tokenSecret
             , String oauth_verifier) throws WeiboException {
         try {
             this.oauthToken = new OAuthToken(token, tokenSecret) {

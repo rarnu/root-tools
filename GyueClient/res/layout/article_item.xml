@@ -7,13 +7,13 @@
     android:paddingRight="6dip" >
 
     <ProgressBar
-            android:id="@+id/article_progress"
-            android:layout_width="24dip"
-            android:layout_height="24dip"
-            android:layout_centerVertical="true" 
-            android:visibility="gone"
-            android:layout_toLeftOf="@+id/article_title"/>
-    
+        android:id="@+id/article_progress"
+        android:layout_width="24dip"
+        android:layout_height="24dip"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/article_title"
+        android:visibility="gone" />
+
     <TextView
         android:id="@+id/article_title"
         android:layout_width="fill_parent"
@@ -33,8 +33,8 @@
         android:layout_above="@+id/article_date"
         android:layout_below="@+id/article_title"
         android:layout_toLeftOf="@+id/article_image"
-        android:gravity="left|top"
         android:ellipsize="end"
+        android:gravity="left|top"
         android:maxLines="2" />
 
     <TextView
@@ -42,8 +42,8 @@
         android:layout_width="fill_parent"
         android:layout_height="16dip"
         android:layout_alignParentBottom="true"
-        android:gravity="right|center_vertical"
         android:layout_marginBottom="2dip"
+        android:gravity="right|center_vertical"
         android:textSize="12dip" />
 
     <ImageView
@@ -53,6 +53,7 @@
         android:layout_above="@+id/article_date"
         android:layout_alignParentRight="true"
         android:layout_marginBottom="4dip"
-        android:layout_marginLeft="8dip" />
+        android:layout_marginLeft="8dip"
+        android:contentDescription="@null" />
 
 </RelativeLayout>
