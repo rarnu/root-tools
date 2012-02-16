@@ -1,20 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">极悦网</string>
-    <string name="app_about_name">极悦网 Android 客户端 1.0 Beta</string>
+    <string name="app_about_name">极悦网 Android 客户端 1.01 Beta</string>
     
     <string name="back">返回</string>
     <string name="refresh">刷新</string>
     
-    <string name="func1">首页</string>
-    <string name="func2">行业</string>
+    <string name="func1">焦点</string>
+    <string name="func2">新闻</string>
     <string name="func3">应用</string>
     <string name="func4">游戏</string>
     <string name="func5">设置</string>
     
+    <string name="func1_detail">焦点关注</string>
+    <string name="func2_detail">产业新闻</string>
+    <string name="func3_detail">Android 应用</string>
+    <string name="func4_detail">Android 游戏</string>
+    <string name="func5_detail">系统设置</string>
+    
     <string name="reading">阅读正文</string>
     <string name="more">更多新闻</string>
-    <string name="no_more">没有更多的新闻了</string>
+    <string name="no_more">查看更多新闻资讯，请尝试点击标签</string>
     
     <string name="item_tag" formatted="false">%s | 标签: %s</string>
     
@@ -35,8 +41,10 @@
     <string name="ok">确定</string>
     <string name="update">更新</string>
     <string name="cancel">取消</string>
+    <string name="click_download">点击下载</string>
+    <string name="go_web">请点击进入原贴下载</string>
     
-    <string name="see_web">查看在线版本(可下载)</string>
+    <string name="see_web">查看在线版本</string>
     <string name="loading_article">正在加载资讯内容，请稍候&#8230;</string>
     <string name="sharing_article">正在分享资讯内容，请稍候&#8230;</string>
     <string name="hint">提示</string>
@@ -59,4 +67,6 @@
     <string name="about_author">客户端开发 橙子Infinity </string>
     
     <string name="sdcard_unmounted">没有找到 SD 卡, 请确保您的 SD 卡处于可用状态, 然后再试一次</string>
+    <string name="first_start">这是您第一次启动极悦网 Android 客户端, 如果您使用 2G 网络, 可能会需要几分钟来刷新内容, 请耐心等待&#8230;</string>
+    <string name="close_confirm">您确定要退出吗?</string>
 </resources>

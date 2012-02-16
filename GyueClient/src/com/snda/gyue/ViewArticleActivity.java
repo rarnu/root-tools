@@ -18,6 +18,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.Html.ImageGetter;
 import android.view.View;
@@ -45,10 +46,15 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	RelativeLayout layLoading, laySharing;
 	ImageGetter iGetter;
 	Handler hPack;
-	ImageView imgShareTencent, imgShareSina;
+	ImageView imgShareTencent, imgShareSina, imgShareTencent2, imgShareSina2;
+	TextView tvDownloadApk;
+	RelativeLayout layZoom;
+	Button btnZoomIn, btnZoomOut;
 
 	boolean inProgress = false;
 	boolean tmrEd = false;
+
+	int fontSize = 16;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -66,14 +72,40 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		laySharing = (RelativeLayout) findViewById(R.id.laySharing);
 		imgShareTencent = (ImageView) findViewById(R.id.imgShareTencent);
 		imgShareSina = (ImageView) findViewById(R.id.imgShareSina);
+		imgShareTencent2 = (ImageView) findViewById(R.id.imgShareTencent2);
+		imgShareSina2 = (ImageView) findViewById(R.id.imgShareSina2);
+		tvDownloadApk = (TextView) findViewById(R.id.tvDownloadApk);
+		layZoom = (RelativeLayout) findViewById(R.id.layZoom);
+		btnZoomIn = (Button) findViewById(R.id.btnZoomIn);
+		btnZoomOut = (Button) findViewById(R.id.btnZoomOut);
 
 		btnBack.setOnClickListener(this);
 		tvSeeWeb.setOnClickListener(this);
 		imgShareSina.setOnClickListener(this);
 		imgShareTencent.setOnClickListener(this);
+		imgShareSina2.setOnClickListener(this);
+		imgShareTencent2.setOnClickListener(this);
+		tvDownloadApk.setOnClickListener(this);
+		btnZoomIn.setOnClickListener(this);
+		btnZoomOut.setOnClickListener(this);
+
+		// TextSize
+		fontSize = PreferenceManager.getDefaultSharedPreferences(this).getInt("font-size", 24);
 
 		tvTitle.setText(GlobalInstance.currentArticle.getTitle());
 		tvDate.setText(GlobalInstance.currentArticle.getDate());
+		tvArticle.setTextSize(fontSize);
+
+		if (GlobalInstance.currentArticle.getDownloadApkUrl() != null
+				&& !GlobalInstance.currentArticle.getDownloadApkUrl().equals("")) {
+			tvDownloadApk.setVisibility(View.VISIBLE);
+		}
+
+		boolean needShowDownload = getIntent().getBooleanExtra("needShowDownload", false);
+		if (needShowDownload && tvDownloadApk.getVisibility() == View.GONE) {
+			tvDownloadApk.setText(R.string.go_web);
+			tvDownloadApk.setVisibility(View.VISIBLE);
+		}
 
 		hPack = new Handler() {
 			@Override
@@ -108,7 +140,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 					} else {
 						bop.inSampleSize = 1;
 					}
-					
+
 					if (!fImg.exists()) {
 
 						return new BitmapDrawable(getResources(), BitmapFactory.decodeResource(getResources(),
@@ -125,6 +157,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			}
 		};
 
+		GlobalInstance.currentArticle.setComment(cutLastBR(GlobalInstance.currentArticle.getComment()));
 		setTextView();
 	}
 
@@ -138,6 +171,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 					if (!inProgress) {
 						pbRefreshing.setVisibility(View.GONE);
 						layLoading.setVisibility(View.GONE);
+						layZoom.setVisibility(View.VISIBLE);
 					}
 				}
 				super.handleMessage(msg);
@@ -155,6 +189,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		inProgress = true;
 		pbRefreshing.setVisibility(View.VISIBLE);
 		layLoading.setVisibility(View.VISIBLE);
+		layZoom.setVisibility(View.GONE);
 		final Handler h = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -163,6 +198,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 					if (tmrEd) {
 						pbRefreshing.setVisibility(View.GONE);
 						layLoading.setVisibility(View.GONE);
+						layZoom.setVisibility(View.VISIBLE);
 					}
 				}
 				super.handleMessage(msg);
@@ -174,6 +210,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			@Override
 			public void run() {
 				String comment = GlobalInstance.currentArticle.getComment();
+//				Log.e("ARTICLE", comment);
 				tvArticle.setText(Html.fromHtml(comment, iGetter, null));
 				h.sendEmptyMessage(1);
 			}
@@ -183,6 +220,16 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.btnZoomIn:
+			fontSize++;
+			tvArticle.setTextSize(fontSize);
+			PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("font-size", fontSize).commit();
+			break;
+		case R.id.btnZoomOut:
+			fontSize--;
+			tvArticle.setTextSize(fontSize);
+			PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("font-size", fontSize).commit();
+			break;
 		case R.id.tvSeeWeb:
 			Intent inSeeWeb = new Intent(Intent.ACTION_VIEW);
 			inSeeWeb.setData(Uri.parse(GlobalInstance.currentArticle.getLink()));
@@ -192,6 +239,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.imgShareSina:
+		case R.id.imgShareSina2:
 			if (GlobalInstance.sinaName.equals("")) {
 				Toast.makeText(this, R.string.not_bind_sina, Toast.LENGTH_LONG).show();
 				return;
@@ -199,11 +247,22 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			shareToSinaT();
 			break;
 		case R.id.imgShareTencent:
+		case R.id.imgShareTencent2:
 			if (GlobalInstance.tencentName.equals("")) {
 				Toast.makeText(this, R.string.not_bind_tencent, Toast.LENGTH_LONG).show();
 				return;
 			}
 			shareToTencentT();
+			break;
+		case R.id.tvDownloadApk:
+			Intent inDownload = new Intent(Intent.ACTION_VIEW);
+			if (GlobalInstance.currentArticle.getDownloadApkUrl() == null
+					|| GlobalInstance.currentArticle.getDownloadApkUrl().equals("")) {
+				inDownload.setData(Uri.parse(GlobalInstance.currentArticle.getLink()));
+			} else {
+				inDownload.setData(Uri.parse(GlobalInstance.currentArticle.getDownloadApkUrl()));
+			}
+			startActivity(inDownload);
 			break;
 		}
 
@@ -212,6 +271,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	private void shareToSinaT() {
 		laySharing.setVisibility(View.VISIBLE);
 		pbRefreshing.setVisibility(View.VISIBLE);
+		layZoom.setVisibility(View.GONE);
 		final Handler h = new Handler() {
 
 			@Override
@@ -222,6 +282,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 							.show();
 					laySharing.setVisibility(View.GONE);
 					pbRefreshing.setVisibility(View.GONE);
+					layZoom.setVisibility(View.VISIBLE);
 				}
 				super.handleMessage(msg);
 			}
@@ -244,6 +305,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	private void shareToTencentT() {
 		laySharing.setVisibility(View.VISIBLE);
 		pbRefreshing.setVisibility(View.VISIBLE);
+		layZoom.setVisibility(View.GONE);
 		final Handler h = new Handler() {
 
 			@Override
@@ -254,6 +316,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 							Toast.LENGTH_LONG).show();
 					laySharing.setVisibility(View.GONE);
 					pbRefreshing.setVisibility(View.GONE);
+					layZoom.setVisibility(View.VISIBLE);
 				}
 				super.handleMessage(msg);
 			}
@@ -285,5 +348,13 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			pics.add(m_image.group());
 		}
 		return pics;
+	}
+	
+	private String cutLastBR(String comment) {
+		String tmp = comment;
+		while (tmp.endsWith("<br />")) {
+			tmp = tmp.substring(0, tmp.length()-6).trim();
+		}
+		return tmp;
 	}
 }

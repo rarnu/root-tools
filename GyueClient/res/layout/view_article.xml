@@ -36,6 +36,25 @@
             android:layout_centerVertical="true"
             android:layout_marginRight="18dip"
             android:visibility="gone" />
+        
+        <RelativeLayout android:id="@+id/layZoom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dip"
+            >
+            <Button android:id="@+id/btnZoomIn"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+               	android:background="@drawable/zoomin"/>
+            <Button android:id="@+id/btnZoomOut"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+               	android:background="@drawable/zoomout"
+               	android:layout_toRightOf="@+id/btnZoomIn"/>
+            
+        </RelativeLayout>
     </RelativeLayout>
 
     <ScrollView
@@ -127,8 +146,45 @@
                 android:layout_marginTop="4dip"
                 android:autoLink="all"
                 android:gravity="left|top"
-                android:textColor="@color/black"
-                android:textSize="16dip" />
+                android:textColor="@color/black" />
+           	<TextView android:id="@+id/tvDownloadApk"
+           	    android:layout_width="fill_parent"
+           	    android:layout_height="48dip"
+           	    android:gravity="center"
+           	    android:textColor="@color/green"
+           	    android:textStyle="bold"
+           	    android:textSize="20dip"
+           	    android:text="@string/click_download"
+           	    android:visibility="gone"
+           	    android:layout_below="@+id/tvArticle"/>
+           	
+           	<RelativeLayout
+                android:id="@+id/layToolBarBottom"
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:layout_below="@+id/tvDownloadApk" >
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:id="@+id/imgShareTencent2"
+                    android:layout_width="32dip"
+                    android:layout_height="32dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="4dip"
+                    android:background="@drawable/tencent_logo" />
+
+                <ImageView
+                    android:contentDescription="@null"
+                    android:id="@+id/imgShareSina2"
+                    android:layout_width="32dip"
+                    android:layout_height="32dip"
+                    android:layout_centerVertical="true"
+                    android:layout_marginRight="4dip"
+                    android:layout_toLeftOf="@+id/imgShareTencent2"
+                    android:background="@drawable/sina_logo" />
+
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 

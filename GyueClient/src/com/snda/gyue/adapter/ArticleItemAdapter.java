@@ -10,7 +10,9 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
+import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
@@ -27,10 +29,14 @@ public class ArticleItemAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
 	private List<ArticleItem> list;
+	private ListView listview;
+	private Gallery gallery;
 
-	public ArticleItemAdapter(LayoutInflater inflater, List<ArticleItem> list) {
+	public ArticleItemAdapter(LayoutInflater inflater, List<ArticleItem> list, ListView listview, Gallery gallery) {
 		this.inflater = inflater;
 		this.list = list;
+		this.listview = listview;
+		this.gallery = gallery;
 	}
 
 	@Override
@@ -78,30 +84,31 @@ public class ArticleItemAdapter extends BaseAdapter {
 			holder.articleDate.setVisibility(View.VISIBLE);
 			holder.articleDesc.setVisibility(View.VISIBLE);
 			holder.articleImage.setVisibility(View.VISIBLE);
-			
+
 			if (item.getTitle().equals("0")) {
 				holder.articleTitle.setText(R.string.more);
 				holder.articleDate.setVisibility(View.GONE);
 				holder.articleDesc.setVisibility(View.GONE);
 				holder.articleImage.setVisibility(View.GONE);
-				
-				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle.getLayoutParams();
+
+				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle
+						.getLayoutParams();
 				lpMore.width = LayoutParams.WRAP_CONTENT;
 				lpMore.height = LayoutParams.MATCH_PARENT;
 				lpMore.addRule(RelativeLayout.CENTER_HORIZONTAL, 1);
 				holder.articleTitle.setLayoutParams(lpMore);
 				holder.articleTitle.setGravity(Gravity.CENTER);
-				
-				
+
 				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v.getLayoutParams();
 				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 48);
 				v.setLayoutParams(lpV);
 			} else {
 				holder.articleTitle.setText(item.getTitle());
 				holder.articleDesc.setText(Html.fromHtml(item.getDescription()));
-				holder.articleDate.setText(item.getDate());
-				
-				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle.getLayoutParams();
+				holder.articleDate.setText(item.getDate().substring(5));
+
+				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle
+						.getLayoutParams();
 				lpMore.width = LayoutParams.MATCH_PARENT;
 				lpMore.height = ImageUtils.dipToPx(GlobalInstance.density, 24);
 				holder.articleTitle.setLayoutParams(lpMore);
@@ -117,11 +124,12 @@ public class ArticleItemAdapter extends BaseAdapter {
 								GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName()));
 
 					} else {
-						NetFiles.doDownloadImageT(v.getContext(), item.getArticleImageUrl(), item.getArticleImageLocalFileName(), holder.articleImage);
+						NetFiles.doDownloadImageT(v.getContext(), item.getArticleImageUrl(),
+								item.getArticleImageLocalFileName(), holder.articleImage, listview, gallery);
 					}
 				}
 				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v.getLayoutParams();
-				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 80);
+				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 96);
 				v.setLayoutParams(lpV);
 			}
 		}

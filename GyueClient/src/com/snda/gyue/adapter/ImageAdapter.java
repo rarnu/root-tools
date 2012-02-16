@@ -8,7 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -25,11 +27,15 @@ public class ImageAdapter extends BaseAdapter {
 	private Context mContext;
 	private List<ArticleItem> mList;
 	private LayoutInflater inflater;
+	private ListView listview;
+	private Gallery gallery;
 
-	public ImageAdapter(Context c, LayoutInflater inflater, List<ArticleItem> list) {
+	public ImageAdapter(Context c, LayoutInflater inflater, List<ArticleItem> list, ListView listview, Gallery gallery) {
 		mContext = c;
 		mList = list;
 		this.inflater = inflater;
+		this.listview = listview;
+		this.gallery = gallery;
 	}
 
 	public int getCount() {
@@ -65,17 +71,18 @@ public class ImageAdapter extends BaseAdapter {
 
 		if (item != null) {
 
-			holder.galleryPicture.setLayoutParams(new RelativeLayout.LayoutParams(GlobalInstance.metric.widthPixels - 8,
-					(int) (260 * GlobalInstance.metric.widthPixels / 480)));
+			holder.galleryPicture.setLayoutParams(new RelativeLayout.LayoutParams(
+					GlobalInstance.metric.widthPixels - 8, (int) (260 * GlobalInstance.metric.widthPixels / 480)));
 
 			Drawable d = ImageUtils.loadFullImage(mContext, GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
 
 			if (d != null) {
 				holder.galleryPicture.setBackgroundDrawable(d);
 			} else {
-				NetFiles.doDownloadImageT(mContext, item.getArticleImageUrl(), item.getArticleImageLocalFileName(), holder.galleryPicture);
+				NetFiles.doDownloadImageT(mContext, item.getArticleImageUrl(), item.getArticleImageLocalFileName(),
+						holder.galleryPicture, listview, gallery);
 			}
-			
+
 			holder.galleryText.setText(item.getTitle());
 
 		}

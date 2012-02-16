@@ -16,6 +16,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
+import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
@@ -55,7 +56,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	List<ArticleItem> lstFocus, lstIndustry, lstApplication, lstGames;
 	ArticleItemAdapter adapterFocus, adapterIndustry, adapterApplication, adapterGames;
 	ProgressBar pbRefreshing;
-	Button btnRefresh, btnBack;
+	Button btnRefresh;
 	Gallery gallaryPhotos;
 	RelativeLayout laySettings;
 	TextView tvGName;
@@ -142,14 +143,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
 		btnRefresh = (Button) findViewById(R.id.btnRefresh);
-		btnBack = (Button) findViewById(R.id.btnBack);
 		tvGName = (TextView) findViewById(R.id.tvGName);
 		gallaryPhotos = (Gallery) findViewById(R.id.gallaryPhotos);
 		laySettings = (RelativeLayout) findViewById(R.id.laySettings);
 		laySettings.setVisibility(View.GONE);
 
 		btnRefresh.setOnClickListener(this);
-		btnBack.setOnClickListener(this);
 		lvFocus.setOnItemClickListener(this);
 		lvIndustry.setOnItemClickListener(this);
 		lvApplication.setOnItemClickListener(this);
@@ -161,6 +160,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		gallaryPhotos.setOnItemClickListener(this);
 
 		adjustButtonWidth();
+
+		initSelectedItem();
 
 		onClick(btnFunc1);
 
@@ -302,7 +303,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						if (lstFocus == null) {
 							lp.height = 0;
 						} else {
-							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 81) * (lstFocus.size() - 1)
+							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 97) * (lstFocus.size() - 1)
 									+ ImageUtils.dipToPx(GlobalInstance.density, 48);
 						}
 						setGalleryImages(lstFocus);
@@ -310,10 +311,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						lvFocus.setLayoutParams(lp);
 
 						inProgressFocus = false;
-
-						if (GlobalInstance.aSplash != null) {
-							GlobalInstance.aSplash.finish();
-						}
 
 						break;
 					}
@@ -454,7 +451,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							lstFocus = new ArrayList<ArticleItem>();
 						}
 						addEmptyArticle(lstFocus);
-						adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocus);
+						adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocus, lvFocus, gallaryPhotos);
 						break;
 					case 13:
 						if (page == 1) {
@@ -477,7 +474,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						}
 						addEmptyArticle(lstIndustry);
 
-						adapterIndustry = new ArticleItemAdapter(getLayoutInflater(), lstIndustry);
+						adapterIndustry = new ArticleItemAdapter(getLayoutInflater(), lstIndustry, lvIndustry, null);
 						break;
 					case 11:
 						if (page == 1) {
@@ -500,7 +497,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						}
 						addEmptyArticle(lstApplication);
 
-						adapterApplication = new ArticleItemAdapter(getLayoutInflater(), lstApplication);
+						adapterApplication = new ArticleItemAdapter(getLayoutInflater(), lstApplication, lvApplication,
+								null);
 						break;
 					case 12:
 						if (page == 1) {
@@ -522,7 +520,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							lstGames = new ArrayList<ArticleItem>();
 						}
 						addEmptyArticle(lstGames);
-						adapterGames = new ArticleItemAdapter(getLayoutInflater(), lstGames);
+						adapterGames = new ArticleItemAdapter(getLayoutInflater(), lstGames, lvGames, null);
 						break;
 					}
 
@@ -589,7 +587,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				}
 			}
 		}
-		ImageAdapter imgAdapter = new ImageAdapter(this, getLayoutInflater(), list);
+		ImageAdapter imgAdapter = new ImageAdapter(this, getLayoutInflater(), list, lvFocus, gallaryPhotos);
 		gallaryPhotos.setAdapter(imgAdapter);
 	}
 
@@ -604,9 +602,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 		if (v instanceof Button) {
 			switch (v.getId()) {
-			case R.id.btnBack:
-				finish();
-				break;
+			// case R.id.btnBack:
+			// finish();
+			// break;
 			case R.id.btnRefresh:
 				getArticleListT(CurrentType, 1, false);
 				break;
@@ -677,7 +675,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		switch (v.getId()) {
 		case R.id.btnFunc1:
 			CurrentType = 54;
-			tvGName.setText(R.string.func1);
+			tvGName.setText(R.string.func1_detail);
 			layMainFocus.setVisibility(View.VISIBLE);
 			if (inProgressFocus) {
 				btnRefresh.setEnabled(false);
@@ -686,7 +684,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			break;
 		case R.id.btnFunc2:
 			CurrentType = 13;
-			tvGName.setText(R.string.func2);
+			tvGName.setText(R.string.func2_detail);
 			lvIndustry.setVisibility(View.VISIBLE);
 			if (inProgressIndustry) {
 				btnRefresh.setEnabled(false);
@@ -695,7 +693,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			break;
 		case R.id.btnFunc3:
 			CurrentType = 11;
-			tvGName.setText(R.string.func3);
+			tvGName.setText(R.string.func3_detail);
 			lvApplication.setVisibility(View.VISIBLE);
 			if (inProgressApplication) {
 				btnRefresh.setEnabled(false);
@@ -704,7 +702,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			break;
 		case R.id.btnFunc4:
 			CurrentType = 12;
-			tvGName.setText(R.string.func4);
+			tvGName.setText(R.string.func4_detail);
 			lvGames.setVisibility(View.VISIBLE);
 			if (inProgressGames) {
 				btnRefresh.setEnabled(false);
@@ -712,7 +710,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			}
 			break;
 		case R.id.btnFunc5:
-			tvGName.setText(R.string.func5);
+			tvGName.setText(R.string.func5_detail);
 			btnRefresh.setVisibility(View.GONE);
 			laySettings.setVisibility(View.VISIBLE);
 			return;
@@ -741,6 +739,14 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			break;
 		}
 		getArticleListT(CurrentType, 1, true);
+	}
+
+	private void initSelectedItem() {
+		btnFunc1.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_focus));
+		btnFunc2.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_focus));
+		btnFunc3.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_focus));
+		btnFunc4.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_focus));
+		btnFunc5.setBackgroundDrawable(getResources().getDrawable(R.drawable.item_focus));
 	}
 
 	private void setSelectedItem(RelativeLayout btn) {
@@ -773,6 +779,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 		ArticleItem item = null;
+		boolean needShowDownload = false;
 		switch (parent.getId()) {
 		case R.id.lvFocus:
 		case R.id.lvIndustry:
@@ -787,9 +794,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				item = (ArticleItem) lvIndustry.getItemAtPosition(position);
 				break;
 			case R.id.lvApplication:
+				needShowDownload = true;
 				item = (ArticleItem) lvApplication.getItemAtPosition(position);
 				break;
 			case R.id.lvGames:
+				needShowDownload = true;
 				item = (ArticleItem) lvGames.getItemAtPosition(position);
 				break;
 			}
@@ -874,6 +883,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			GlobalInstance.currentArticle = item;
 			Intent inArticle = new Intent(this, ViewArticleActivity.class);
 			inArticle.putExtra("no_pic", chkNoPic.isChecked());
+			inArticle.putExtra("needShowDownload", needShowDownload);
 			startActivity(inArticle);
 		}
 
@@ -883,6 +893,24 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 		if (!starting) {
 			writeConfig();
+		}
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			new AlertDialog.Builder(this).setTitle(R.string.hint).setMessage(R.string.close_confirm)
+					.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+						@Override
+						public void onClick(DialogInterface dialog, int which) {
+							finish();
+
+						}
+					}).setNegativeButton(R.string.cancel, null).show();
+			return true;
+		} else {
+			return super.onKeyDown(keyCode, event);
 		}
 	}
 

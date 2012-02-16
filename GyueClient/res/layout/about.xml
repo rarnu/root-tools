@@ -19,7 +19,7 @@
         android:layout_below="@+id/ivIcon"
         android:layout_marginLeft="16dip"
         android:layout_marginTop="8dip"
-        android:gravity="left|center_vertical"
+        android:gravity="center"
         android:text="@string/app_about_name"
         android:textColor="@color/black"
         android:textSize="18dip" />
@@ -31,7 +31,8 @@
         android:layout_below="@+id/tvAppName"
         android:layout_marginTop="8dip"
         android:paddingLeft="8dip"
-        android:paddingRight="8dip" >
+        android:paddingRight="8dip"
+        android:layout_centerHorizontal="true" >
 
         <TextView
             android:layout_width="fill_parent"
@@ -62,7 +63,8 @@
             android:layout_height="wrap_content"
             android:padding="4dip"
             android:text="@string/about_link"
-            android:textColor="@color/green" />
+            android:textColor="@color/green"
+            android:gravity="center" />
     </RelativeLayout>
 
 </RelativeLayout>

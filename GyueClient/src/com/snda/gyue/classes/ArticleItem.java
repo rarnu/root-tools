@@ -11,6 +11,7 @@ public class ArticleItem {
 	private String description;
 	private String articleImageUrl;
 	private String articleImageLocalFileName;
+	private String downloadApkUrl;
 
 	public String getTitle() {
 		return title;
@@ -33,7 +34,6 @@ public class ArticleItem {
 	}
 
 	public void setDate(String date) {
-		date = date.substring(5);
 		this.date = date.trim();
 	}
 
@@ -50,10 +50,13 @@ public class ArticleItem {
 	}
 
 	public void setComment(String comment) {
+		extractDownloadUrl(comment);
 		comment = comment.replaceAll("(?is)<table.*?</table>", "");
 		comment = comment.replaceAll("<p>", "").replaceAll("</p>", "<br />");
+		comment = comment.replaceAll("<center>", "").replaceAll("</center>", "");
+		comment = comment.replaceAll("\\[page\\]", "").replaceAll("\\[/page\\]", "");
 		comment = comment.replaceAll("\t", "");
-		this.comment = "&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;"+comment.trim();
+		this.comment = comment.trim();
 	}
 
 	public String getDescription() {
@@ -73,8 +76,6 @@ public class ArticleItem {
 	}
 
 	public void setArticleImageUrl(String articleImageUrl) {
-
-		// src="http://www.gyue.cn/uploadfile/2012/0208/20120208093319687.jpg"
 		String local = "";
 
 		int p = articleImageUrl.indexOf("src=");
@@ -106,5 +107,30 @@ public class ArticleItem {
 		}
 
 		this.articleImageLocalFileName = local;
+	}
+
+	public String getDownloadApkUrl() {
+		return downloadApkUrl;
+	}
+
+	public void setDownloadApkUrl(String downloadApkUrl) {
+		this.downloadApkUrl = downloadApkUrl;
+	}
+	
+	private void extractDownloadUrl(String comment) {
+		if (comment.indexOf("http://static.ggg.cn/apks") < 0) {
+			downloadApkUrl = "";
+			return;
+		}
+		String s = comment.substring(comment.indexOf("http://static.ggg.cn/apks"));
+		String ret = "";
+		for (int i=0; i<s.length(); i++) {
+			if (s.charAt(i) != '\"') {
+				ret += s.charAt(i);
+			} else {
+				break;
+			}
+		}
+		downloadApkUrl = ret;
 	}
 }

@@ -11,7 +11,9 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.ListView;
 
 import com.snda.gyue.GyueConsts;
 import com.snda.gyue.utils.ImageUtils;
@@ -57,7 +59,7 @@ public class NetFiles {
 	}
 
 	public static void doDownloadImageT(final Context context, final String address, final String savePath,
-			final ImageView imgView) {
+			final ImageView imgView, final ListView lv, final Gallery gallery) {
 		final String localPath = GyueConsts.GYUE_DIR + savePath;
 
 		final Handler h = new Handler() {
@@ -74,6 +76,13 @@ public class NetFiles {
 					if (imgView.getBackground() == null) {
 						imgView.setVisibility(View.GONE);
 					}
+					if (lv != null) {
+						lv.postInvalidate();
+					}
+					if (gallery != null) {
+						gallery.postInvalidate();
+					}
+
 				}
 				super.handleMessage(msg);
 			}
@@ -91,12 +100,16 @@ public class NetFiles {
 	}
 
 	public static void downloadFile(Handler h, String address, String savePath) {
+		File fTmp = new File(savePath);
+		if (fTmp.exists()) {
+			return;
+		}
 		URL url = null;
 		try {
 			url = new URL(address);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			InputStream in = con.getInputStream();
-			File fileOut = new File(savePath);
+			File fileOut = new File(savePath+".tmp");
 			FileOutputStream out = new FileOutputStream(fileOut);
 			byte[] bytes = new byte[1024];
 			int c;
@@ -105,6 +118,7 @@ public class NetFiles {
 			}
 			in.close();
 			out.close();
+			fileOut.renameTo(fTmp);
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
