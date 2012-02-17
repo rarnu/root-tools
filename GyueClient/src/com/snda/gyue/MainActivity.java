@@ -298,19 +298,36 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						if (!hasNextFocus) {
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
+						setGalleryImages(lstFocus);
+						
+						List<ArticleItem> lstFocusTmp = new ArrayList<ArticleItem>(lstFocus);
+						for (int i=0; i<5; i++) {
+							lstFocusTmp.remove(0);
+						}
+						
+						adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocusTmp, lvFocus, gallaryPhotos);
 						lvFocus.setAdapter(adapterFocus);
 
 						if (lstFocus == null) {
 							lp.height = 0;
 						} else {
-							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 97) * (lstFocus.size() - 1)
+							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 97) * (lstFocusTmp.size() - 1)
 									+ ImageUtils.dipToPx(GlobalInstance.density, 48);
 						}
-						setGalleryImages(lstFocus);
+						
 
 						lvFocus.setLayoutParams(lp);
 
 						inProgressFocus = false;
+						
+						layMainFocus.post(new Runnable() {
+							
+							@Override
+							public void run() {
+								layMainFocus.scrollTo(0, 0);
+								
+							}
+						});
 
 						break;
 					}
@@ -451,7 +468,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							lstFocus = new ArrayList<ArticleItem>();
 						}
 						addEmptyArticle(lstFocus);
-						adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocus, lvFocus, gallaryPhotos);
+						
 						break;
 					case 13:
 						if (page == 1) {
@@ -587,6 +604,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				}
 			}
 		}
+		
 		ImageAdapter imgAdapter = new ImageAdapter(this, getLayoutInflater(), list, lvFocus, gallaryPhotos);
 		gallaryPhotos.setAdapter(imgAdapter);
 	}
