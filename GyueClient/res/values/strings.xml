@@ -69,4 +69,5 @@
     <string name="sdcard_unmounted">没有找到 SD 卡, 请确保您的 SD 卡处于可用状态, 然后再试一次</string>
     <string name="first_start">这是您第一次启动极悦网 Android 客户端, 如果您使用 2G 网络, 可能会需要几分钟来刷新内容, 请耐心等待&#8230;</string>
     <string name="close_confirm">您确定要退出吗?</string>
+    <string name="isee">我知道了</string>
 </resources>

@@ -60,6 +60,15 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_article);
+		
+		boolean firstView = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstView", true);
+		if (firstView) {
+			Intent inGuide = new Intent(this, GuideActivity.class);
+			inGuide.putExtra("img", 2);
+			startActivity(inGuide);
+			PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("firstView", false).commit();
+		}
+		
 
 		btnBack = (Button) findViewById(R.id.btnBack);
 		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
@@ -90,7 +99,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		btnZoomOut.setOnClickListener(this);
 
 		// TextSize
-		fontSize = PreferenceManager.getDefaultSharedPreferences(this).getInt("font-size", 24);
+		fontSize = PreferenceManager.getDefaultSharedPreferences(this).getInt("font-size", 16);
 
 		tvTitle.setText(GlobalInstance.currentArticle.getTitle());
 		tvDate.setText(GlobalInstance.currentArticle.getDate());
