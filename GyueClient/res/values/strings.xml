@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">极悦网</string>
-    <string name="app_about_name">极悦网 Android 客户端 1.01 Beta</string>
+    <string name="app_about_name">极悦网 Android 客户端 1.02 Beta</string>
     
     <string name="back">返回</string>
     <string name="refresh">刷新</string>
@@ -70,4 +70,6 @@
     <string name="first_start">这是您第一次启动极悦网 Android 客户端, 如果您使用 2G 网络, 可能会需要几分钟来刷新内容, 请耐心等待&#8230;</string>
     <string name="close_confirm">您确定要退出吗?</string>
     <string name="isee">我知道了</string>
+    
+    <string name="refreshing_widget">正在更新，请稍候&#8230;</string>
 </resources>

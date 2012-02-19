@@ -337,6 +337,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						if (!hasNextIndustry) {
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
+						if (GlobalInstance.gListFocusedArticles == null || GlobalInstance.gListFocusedArticles.size() == 0) {
+							GlobalInstance.gListFocusedArticles = new ArrayList<ArticleItem>(lstIndustry);
+						}
 						lvIndustry.setAdapter(adapterIndustry);
 						lvIndustry.setSelection(pageIndustry - 2);
 						inProgressIndustry = false;

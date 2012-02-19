@@ -21,6 +21,7 @@ import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.Html;
 import android.text.Html.ImageGetter;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -60,7 +61,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_article);
-		
+
 		boolean firstView = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstView", true);
 		if (firstView) {
 			Intent inGuide = new Intent(this, GuideActivity.class);
@@ -68,7 +69,13 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			startActivity(inGuide);
 			PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("firstView", false).commit();
 		}
-		
+
+		String widget = getIntent().getStringExtra("mode");
+		if (widget != null && widget.equals("widget")) {
+			int itemidx = getIntent().getIntExtra("item", 0);
+			Log.e("GyueWidget", String.format("itemidx: %d", itemidx));
+			GlobalInstance.currentArticle = GlobalInstance.gListFocusedArticles.get(itemidx);
+		}
 
 		btnBack = (Button) findViewById(R.id.btnBack);
 		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
@@ -105,8 +112,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		tvDate.setText(GlobalInstance.currentArticle.getDate());
 		tvArticle.setTextSize(fontSize);
 
-		if (GlobalInstance.currentArticle.getDownloadApkUrl() != null
-				&& !GlobalInstance.currentArticle.getDownloadApkUrl().equals("")) {
+		if (GlobalInstance.currentArticle.getDownloadApkUrl() != null && !GlobalInstance.currentArticle.getDownloadApkUrl().equals("")) {
 			tvDownloadApk.setVisibility(View.VISIBLE);
 		}
 
@@ -152,17 +158,15 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 
 					if (!fImg.exists()) {
 
-						return new BitmapDrawable(getResources(), BitmapFactory.decodeResource(getResources(),
-								R.drawable.empty, bop));
+						return new BitmapDrawable(getResources(), BitmapFactory.decodeResource(getResources(), R.drawable.empty, bop));
 					}
-					Bitmap bmp = ImageUtils.doMatrix(BitmapFactory.decodeFile(local, bop), 0,
-							GlobalInstance.metric.widthPixels, GlobalInstance.metric.heightPixels);
+					Bitmap bmp = ImageUtils.doMatrix(BitmapFactory.decodeFile(local, bop), 0, GlobalInstance.metric.widthPixels,
+							GlobalInstance.metric.heightPixels);
 					drawable = new BitmapDrawable(getResources(), bmp);
 					drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
 					return drawable;
 				}
-				return new BitmapDrawable(getResources(),
-						BitmapFactory.decodeResource(getResources(), R.drawable.empty));
+				return new BitmapDrawable(getResources(), BitmapFactory.decodeResource(getResources(), R.drawable.empty));
 			}
 		};
 
@@ -219,7 +223,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			@Override
 			public void run() {
 				String comment = GlobalInstance.currentArticle.getComment();
-//				Log.e("ARTICLE", comment);
+				// Log.e("ARTICLE", comment);
 				tvArticle.setText(Html.fromHtml(comment, iGetter, null));
 				h.sendEmptyMessage(1);
 			}
@@ -265,8 +269,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.tvDownloadApk:
 			Intent inDownload = new Intent(Intent.ACTION_VIEW);
-			if (GlobalInstance.currentArticle.getDownloadApkUrl() == null
-					|| GlobalInstance.currentArticle.getDownloadApkUrl().equals("")) {
+			if (GlobalInstance.currentArticle.getDownloadApkUrl() == null || GlobalInstance.currentArticle.getDownloadApkUrl().equals("")) {
 				inDownload.setData(Uri.parse(GlobalInstance.currentArticle.getLink()));
 			} else {
 				inDownload.setData(Uri.parse(GlobalInstance.currentArticle.getDownloadApkUrl()));
@@ -286,9 +289,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
-					Toast.makeText(ViewArticleActivity.this,
-							(msg.arg1 == 1 ? R.string.share_sina_ok : R.string.share_sina_fail), Toast.LENGTH_LONG)
-							.show();
+					Toast.makeText(ViewArticleActivity.this, (msg.arg1 == 1 ? R.string.share_sina_ok : R.string.share_sina_fail), Toast.LENGTH_LONG).show();
 					laySharing.setVisibility(View.GONE);
 					pbRefreshing.setVisibility(View.GONE);
 					layZoom.setVisibility(View.VISIBLE);
@@ -320,9 +321,8 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
-					Toast.makeText(ViewArticleActivity.this,
-							(msg.arg1 == 1 ? R.string.share_tencent_ok : R.string.share_tencent_fail),
-							Toast.LENGTH_LONG).show();
+					Toast.makeText(ViewArticleActivity.this, (msg.arg1 == 1 ? R.string.share_tencent_ok : R.string.share_tencent_fail), Toast.LENGTH_LONG)
+							.show();
 					laySharing.setVisibility(View.GONE);
 					pbRefreshing.setVisibility(View.GONE);
 					layZoom.setVisibility(View.VISIBLE);
@@ -358,11 +358,11 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		}
 		return pics;
 	}
-	
+
 	private String cutLastBR(String comment) {
 		String tmp = comment;
 		while (tmp.endsWith("<br />")) {
-			tmp = tmp.substring(0, tmp.length()-6).trim();
+			tmp = tmp.substring(0, tmp.length() - 6).trim();
 		}
 		return tmp;
 	}

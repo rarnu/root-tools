@@ -1,5 +1,7 @@
 package com.snda.gyue;
 
+import java.util.List;
+
 import android.app.Activity;
 import android.util.DisplayMetrics;
 
@@ -16,4 +18,6 @@ public class GlobalInstance {
 	public static String tencentToken, tencentSecret, tencentName;
 	
 	public static boolean shareWithPic = true;
+	
+	public static List<ArticleItem> gListFocusedArticles = null; 
 }
