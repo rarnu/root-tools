@@ -70,8 +70,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	boolean firstFocus = true, firstIndustry = true, firstApplication = true, firstGames = true;
 
 	int CurrentType = 0;
-	boolean inProgressFocus = false, inProgressIndustry = false, inProgressApplication = false,
-			inProgressGames = false;
+	boolean inProgressFocus = false, inProgressIndustry = false, inProgressApplication = false, inProgressGames = false;
 	Handler hUpdate;
 
 	boolean starting = true;
@@ -136,10 +135,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		btnAbout.setOnClickListener(this);
 		readConfig();
 
-		btnBindSinaWeibo.setText(GlobalInstance.sinaName.equals("") ? getString(R.string.bind_sina_weibo)
-				: GlobalInstance.sinaName);
-		btnBindTencentWeibo.setText(GlobalInstance.tencentName.equals("") ? getString(R.string.bind_tencent_weibo)
-				: GlobalInstance.tencentName);
+		btnBindSinaWeibo.setText(GlobalInstance.sinaName.equals("") ? getString(R.string.bind_sina_weibo) : GlobalInstance.sinaName);
+		btnBindTencentWeibo.setText(GlobalInstance.tencentName.equals("") ? getString(R.string.bind_tencent_weibo) : GlobalInstance.tencentName);
 
 		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
 		btnRefresh = (Button) findViewById(R.id.btnRefresh);
@@ -169,8 +166,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 99) {
-					new AlertDialog.Builder(MainActivity.this).setTitle(R.string.new_version)
-							.setMessage(R.string.new_version_desc)
+					new AlertDialog.Builder(MainActivity.this).setTitle(R.string.new_version).setMessage(R.string.new_version_desc)
 							.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
 
 								@Override
@@ -246,12 +242,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		// write config
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.edit().putBoolean("nopic", chkNoPic.isChecked()).putBoolean("onlywifi", chkOnlyWifi.isChecked())
-				.putBoolean("sharewithpic", chkShareWithPic.isChecked())
-				.putString("sinaToken", GlobalInstance.sinaToken).putString("sinaSecret", GlobalInstance.sinaSecret)
-				.putString("tencentToken", GlobalInstance.tencentToken)
-				.putString("tencentSecret", GlobalInstance.tencentSecret)
-				.putString("sinaName", GlobalInstance.sinaName).putString("tencentName", GlobalInstance.tencentName)
-				.commit();
+				.putBoolean("sharewithpic", chkShareWithPic.isChecked()).putString("sinaToken", GlobalInstance.sinaToken)
+				.putString("sinaSecret", GlobalInstance.sinaSecret).putString("tencentToken", GlobalInstance.tencentToken)
+				.putString("tencentSecret", GlobalInstance.tencentSecret).putString("sinaName", GlobalInstance.sinaName)
+				.putString("tencentName", GlobalInstance.tencentName).commit();
 
 		GlobalInstance.shareWithPic = chkShareWithPic.isChecked();
 
@@ -299,33 +293,43 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
 						setGalleryImages(lstFocus);
-						
-						List<ArticleItem> lstFocusTmp = new ArrayList<ArticleItem>(lstFocus);
-						for (int i=0; i<5; i++) {
-							lstFocusTmp.remove(0);
+
+						List<ArticleItem> lstFocusTmp = null;
+						if (lstFocus != null) {
+							lstFocusTmp = new ArrayList<ArticleItem>(lstFocus);
+							for (int i = 0; i < 5; i++) {
+								lstFocusTmp.remove(0);
+							}
 						}
-						
-						adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocusTmp, lvFocus, gallaryPhotos);
+
+						if (lstFocusTmp == null) {
+							adapterFocus = null;
+						} else {
+							adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocusTmp, lvFocus, gallaryPhotos);
+						}
 						lvFocus.setAdapter(adapterFocus);
 
 						if (lstFocus == null) {
 							lp.height = 0;
 						} else {
-							lp.height = ImageUtils.dipToPx(GlobalInstance.density, 97) * (lstFocusTmp.size() - 1)
-									+ ImageUtils.dipToPx(GlobalInstance.density, 48);
+							if (lstFocusTmp != null) {
+								lp.height = ImageUtils.dipToPx(GlobalInstance.density, 97) * (lstFocusTmp.size() - 1)
+										+ ImageUtils.dipToPx(GlobalInstance.density, 48);
+							} else {
+								lp.height = 0;
+							}
 						}
-						
 
 						lvFocus.setLayoutParams(lp);
 
 						inProgressFocus = false;
-						
+
 						layMainFocus.post(new Runnable() {
-							
+
 							@Override
 							public void run() {
 								layMainFocus.scrollTo(0, 0);
-								
+
 							}
 						});
 
@@ -338,7 +342,11 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
 						if (GlobalInstance.gListFocusedArticles == null || GlobalInstance.gListFocusedArticles.size() == 0) {
-							GlobalInstance.gListFocusedArticles = new ArrayList<ArticleItem>(lstIndustry);
+							if (lstIndustry == null) {
+								GlobalInstance.gListFocusedArticles = null;
+							} else {
+								GlobalInstance.gListFocusedArticles = new ArrayList<ArticleItem>(lstIndustry);
+							}
 						}
 						lvIndustry.setAdapter(adapterIndustry);
 						lvIndustry.setSelection(pageIndustry - 2);
@@ -447,20 +455,17 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				try {
 					String xml = "";
 					if ((!local) || (!init)) {
-						xml = HttpProxy.CallGet(GyueConsts.SITE_URL,
-								String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
+						xml = HttpProxy.CallGet(GyueConsts.SITE_URL, String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
 					}
 					switch (type) {
 					case 54:
 						if (page == 1) {
-							lstFocus = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
-									true);
+							lstFocus = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
 							pageFocus = 1;
 							hasNextFocus = true;
 						} else {
 							if (hasNextFocus) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
-										(init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextFocus = false;
 								}
@@ -471,18 +476,16 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							lstFocus = new ArrayList<ArticleItem>();
 						}
 						addEmptyArticle(lstFocus);
-						
+
 						break;
 					case 13:
 						if (page == 1) {
-							lstIndustry = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
-									true);
+							lstIndustry = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
 							pageIndustry = 1;
 							hasNextIndustry = true;
 						} else {
 							if (hasNextIndustry) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
-										(init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextIndustry = false;
 								}
@@ -498,14 +501,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						break;
 					case 11:
 						if (page == 1) {
-							lstApplication = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
-									(init ? local : false), true);
+							lstApplication = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
 							pageApplication = 1;
 							hasNextApplication = true;
 						} else {
 							if (hasNextApplication) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
-										(init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextApplication = false;
 								}
@@ -517,19 +518,16 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						}
 						addEmptyArticle(lstApplication);
 
-						adapterApplication = new ArticleItemAdapter(getLayoutInflater(), lstApplication, lvApplication,
-								null);
+						adapterApplication = new ArticleItemAdapter(getLayoutInflater(), lstApplication, lvApplication, null);
 						break;
 					case 12:
 						if (page == 1) {
-							lstGames = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
-									true);
+							lstGames = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
 							pageGames = 1;
 							hasNextGames = true;
 						} else {
 							if (hasNextGames) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
-										(init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextGames = false;
 								}
@@ -599,15 +597,14 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			if (images.get(i) == null) {
 				continue;
 			}
-			if ((images.get(i).getArticleImageLocalFileName() != null)
-					&& (!images.get(i).getArticleImageLocalFileName().equals(""))) {
+			if ((images.get(i).getArticleImageLocalFileName() != null) && (!images.get(i).getArticleImageLocalFileName().equals(""))) {
 				list.add(images.get(i));
 				if (list.size() >= 5) {
 					break;
 				}
 			}
 		}
-		
+
 		ImageAdapter imgAdapter = new ImageAdapter(this, getLayoutInflater(), list, lvFocus, gallaryPhotos);
 		gallaryPhotos.setAdapter(imgAdapter);
 	}
