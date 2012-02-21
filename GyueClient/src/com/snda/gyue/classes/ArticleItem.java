@@ -1,5 +1,7 @@
 package com.snda.gyue.classes;
 
+import com.snda.gyue.GlobalInstance;
+import com.snda.gyue.utils.UIUtils;
 
 public class ArticleItem {
 
@@ -11,7 +13,6 @@ public class ArticleItem {
 	private String description;
 	private String articleImageUrl;
 	private String articleImageLocalFileName;
-	private String downloadApkUrl;
 
 	public String getTitle() {
 		return title;
@@ -50,12 +51,20 @@ public class ArticleItem {
 	}
 
 	public void setComment(String comment) {
-		extractDownloadUrl(comment);
-		comment = comment.replaceAll("(?is)<table.*?</table>", "");
-		comment = comment.replaceAll("<p>", "").replaceAll("</p>", "<br />");
-		comment = comment.replaceAll("<center>", "").replaceAll("</center>", "");
-		comment = comment.replaceAll("\\[page\\]", "").replaceAll("\\[/page\\]", "");
-		comment = comment.replaceAll("\t", "");
+		// extractDownloadUrl(comment);
+		// comment = comment.replaceAll("(?is)<table.*?</table>", "");
+		// comment = comment.replaceAll("<p>", "").replaceAll("</p>", "<br />");
+		// comment = comment.replaceAll("<center>", "").replaceAll("</center>",
+		// "");
+		// comment =
+		// comment.replaceAll("\\[page\\]","").replaceAll("\\[/page\\]", "");
+		// comment = comment.replaceAll("\t", "");
+
+		comment = comment
+				.replaceAll("width=\"500\"",
+						"width=\"" + String.valueOf(GlobalInstance.metric.widthPixels - UIUtils.dipToPx(16)) + "\"")
+				.replaceAll("\\[page\\]", "").replaceAll("\\[/page\\]", "");
+
 		this.comment = comment.trim();
 	}
 
@@ -109,28 +118,4 @@ public class ArticleItem {
 		this.articleImageLocalFileName = local;
 	}
 
-	public String getDownloadApkUrl() {
-		return downloadApkUrl;
-	}
-
-	public void setDownloadApkUrl(String downloadApkUrl) {
-		this.downloadApkUrl = downloadApkUrl;
-	}
-	
-	private void extractDownloadUrl(String comment) {
-		if (comment.indexOf("http://static.ggg.cn/apks") < 0) {
-			downloadApkUrl = "";
-			return;
-		}
-		String s = comment.substring(comment.indexOf("http://static.ggg.cn/apks"));
-		String ret = "";
-		for (int i=0; i<s.length(); i++) {
-			if (s.charAt(i) != '\"') {
-				ret += s.charAt(i);
-			} else {
-				break;
-			}
-		}
-		downloadApkUrl = ret;
-	}
 }

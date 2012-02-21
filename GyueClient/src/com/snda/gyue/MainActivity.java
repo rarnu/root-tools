@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -43,10 +44,12 @@ import com.snda.gyue.network.ItemBuilder;
 import com.snda.gyue.network.Updater;
 import com.snda.gyue.utils.ImageUtils;
 import com.snda.gyue.utils.MiscUtils;
+import com.snda.gyue.utils.UIUtils;
 import com.tencent.weibo.utils.Configuration;
 import com.tencent.weibo.utils.Utils;
 
-public class MainActivity extends Activity implements OnClickListener, OnItemClickListener, OnCheckedChangeListener {
+public class MainActivity extends Activity implements OnClickListener, OnItemClickListener, OnCheckedChangeListener,
+		OnItemSelectedListener {
 
 	RelativeLayout btnFunc1, btnFunc2, btnFunc3, btnFunc4, btnFunc5;
 
@@ -60,8 +63,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	Gallery gallaryPhotos;
 	RelativeLayout laySettings;
 	TextView tvGName;
+	ImageView imgLeftArr, imgRightArr;
 
-	CheckBox chkNoPic, chkOnlyWifi, chkShareWithPic;
+	CheckBox chkOnlyWifi, chkShareWithPic;
 	Button btnBindSinaWeibo, btnBindTencentWeibo, btnAbout;
 
 	boolean loadedFocus = false, loadedIndustry = false, loadedApplication = false, loadedGames = false;
@@ -79,6 +83,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		UIUtils.initDisplayMetrics(getWindowManager());
 
 		starting = true;
 
@@ -110,6 +115,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		btnFunc4 = (RelativeLayout) findViewById(R.id.btnFunc4);
 		btnFunc5 = (RelativeLayout) findViewById(R.id.btnFunc5);
 
+		imgLeftArr = (ImageView) findViewById(R.id.imgLeftArr);
+		imgRightArr = (ImageView) findViewById(R.id.imgRightArr);
+
 		setIconText(btnFunc1, R.drawable.home, R.string.func1);
 		setIconText(btnFunc2, R.drawable.news, R.string.func2);
 		setIconText(btnFunc3, R.drawable.app, R.string.func3);
@@ -121,14 +129,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		lvApplication = (ListView) findViewById(R.id.lvApplication);
 		lvGames = (ListView) findViewById(R.id.lvGames);
 
-		chkNoPic = (CheckBox) findViewById(R.id.chkNoPic);
 		chkOnlyWifi = (CheckBox) findViewById(R.id.chkOnlyWifi);
 		chkShareWithPic = (CheckBox) findViewById(R.id.chkShareWithPic);
 		btnBindSinaWeibo = (Button) findViewById(R.id.btnBindSinaWeibo);
 		btnBindTencentWeibo = (Button) findViewById(R.id.btnBindTencentWeibo);
 		btnAbout = (Button) findViewById(R.id.btnAbout);
 
-		chkNoPic.setOnCheckedChangeListener(this);
 		chkOnlyWifi.setOnCheckedChangeListener(this);
 		chkShareWithPic.setOnCheckedChangeListener(this);
 		btnBindSinaWeibo.setOnClickListener(this);
@@ -158,6 +164,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		lp.height = (int) (260 * GlobalInstance.metric.widthPixels / 480);
 		gallaryPhotos.setLayoutParams(lp);
 		gallaryPhotos.setOnItemClickListener(this);
+		gallaryPhotos.setOnItemSelectedListener(this);
 
 		adjustButtonWidth();
 
@@ -228,7 +235,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	private void readConfig() {
 		// read config
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		chkNoPic.setChecked(sp.getBoolean("nopic", false));
 		chkOnlyWifi.setChecked(sp.getBoolean("onlywifi", false));
 		chkShareWithPic.setChecked(sp.getBoolean("sharewithpic", true));
 
@@ -245,7 +251,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	private void writeConfig() {
 		// write config
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		sp.edit().putBoolean("nopic", chkNoPic.isChecked()).putBoolean("onlywifi", chkOnlyWifi.isChecked())
+		sp.edit().putBoolean("onlywifi", chkOnlyWifi.isChecked())
 				.putBoolean("sharewithpic", chkShareWithPic.isChecked())
 				.putString("sinaToken", GlobalInstance.sinaToken).putString("sinaSecret", GlobalInstance.sinaSecret)
 				.putString("tencentToken", GlobalInstance.tencentToken)
@@ -312,7 +318,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							adapterFocus = null;
 						} else {
 							adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocusTmp, lvFocus,
-									gallaryPhotos);
+									gallaryPhotos, 54);
 						}
 						lvFocus.setAdapter(adapterFocus);
 
@@ -510,7 +516,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						}
 						addEmptyArticle(lstIndustry);
 
-						adapterIndustry = new ArticleItemAdapter(getLayoutInflater(), lstIndustry, lvIndustry, null);
+						adapterIndustry = new ArticleItemAdapter(getLayoutInflater(), lstIndustry, lvIndustry, null, 13);
 						break;
 					case 11:
 						if (page == 1) {
@@ -534,7 +540,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						addEmptyArticle(lstApplication);
 
 						adapterApplication = new ArticleItemAdapter(getLayoutInflater(), lstApplication, lvApplication,
-								null);
+								null, 11);
 						break;
 					case 12:
 						if (page == 1) {
@@ -556,7 +562,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							lstGames = new ArrayList<ArticleItem>();
 						}
 						addEmptyArticle(lstGames);
-						adapterGames = new ArticleItemAdapter(getLayoutInflater(), lstGames, lvGames, null);
+						adapterGames = new ArticleItemAdapter(getLayoutInflater(), lstGames, lvGames, null, 12);
 						break;
 					}
 
@@ -650,7 +656,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				if (GlobalInstance.sinaToken.equals("")) {
 					// bind sina weibo
 					Intent inSina = new Intent(this, BeforeBindActivity.class);
-					inSina.putExtra("auth",1);
+					inSina.putExtra("auth", 1);
 					startActivity(inSina);
 
 				} else {
@@ -673,7 +679,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				// bind tencent weibo
 				if (GlobalInstance.tencentToken.equals("")) {
 					Intent inTencent = new Intent(this, BeforeBindActivity.class);
-					inTencent.putExtra("auth",2);
+					inTencent.putExtra("auth", 2);
 					startActivity(inTencent);
 
 				} else {
@@ -923,7 +929,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		if (item != null) {
 			GlobalInstance.currentArticle = item;
 			Intent inArticle = new Intent(this, ViewArticleActivity.class);
-			inArticle.putExtra("no_pic", chkNoPic.isChecked());
 			inArticle.putExtra("needShowDownload", needShowDownload);
 			startActivity(inArticle);
 		}
@@ -953,6 +958,23 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		} else {
 			return super.onKeyDown(keyCode, event);
 		}
+	}
+
+	@Override
+	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+		imgLeftArr.setBackgroundDrawable(getResources().getDrawable(R.drawable.left_arr));
+		imgRightArr.setBackgroundDrawable(getResources().getDrawable(R.drawable.right_arr));
+		if (position == 0) {
+			imgLeftArr.setBackgroundDrawable(null);
+		} else if (position == 4) {
+			imgRightArr.setBackgroundDrawable(null);
+		}
+
+	}
+
+	@Override
+	public void onNothingSelected(AdapterView<?> parent) {
+
 	}
 
 }

@@ -23,7 +23,7 @@ import com.tencent.weibo.utils.OAuthClient;
 
 public class ShareUtils {
 
-	public static boolean shareArticleToSina(ArticleItem item) {
+	public static boolean shareArticleToSina(ArticleItem item, String text) {
 		// share to sina
 
 		boolean ret = false;
@@ -36,13 +36,10 @@ public class ShareUtils {
 				String fn = GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName();
 				byte[] content = readFileImage(fn);
 				ImageItem pic = new ImageItem("pic", content);
-				w.uploadStatus(
-						URLEncoder.encode(item.getDescription().substring(0, 100) + " " + item.getLink(), HTTP.UTF_8),
-						pic);
+				w.uploadStatus(URLEncoder.encode(text, HTTP.UTF_8), pic);
 				ret = true;
 			} else {
-				w.updateStatus(URLEncoder.encode(item.getDescription().substring(0, 100) + " " + item.getLink(),
-						HTTP.UTF_8));
+				w.updateStatus(URLEncoder.encode(text, HTTP.UTF_8));
 				ret = true;
 			}
 		} catch (Exception e) {
@@ -52,7 +49,7 @@ public class ShareUtils {
 		return ret;
 	}
 
-	public static boolean shareArticleToTencent(ArticleItem item) {
+	public static boolean shareArticleToTencent(ArticleItem item, String text) {
 		// share to tencent
 		boolean ret = false;
 		try {
@@ -65,11 +62,10 @@ public class ShareUtils {
 
 			T_API t = new T_API();
 			if (GlobalInstance.shareWithPic) {
-				t.add_pic(oauth, "json", item.getDescription().substring(0, 100) + " " + item.getLink(),
-						Configuration.wifiIp, GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
+				t.add_pic(oauth, "json", text, Configuration.wifiIp,
+						GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
 			} else {
-				t.add(oauth, "json", item.getDescription().substring(0, 100) + " " + item.getLink(),
-						Configuration.wifiIp);
+				t.add(oauth, "json", text, Configuration.wifiIp);
 			}
 			ret = true;
 		} catch (Exception e) {

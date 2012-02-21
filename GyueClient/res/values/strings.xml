@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">极悦网</string>
-    <string name="app_about_name">极悦网 Android 客户端 1.07 Beta</string>
+    <string name="app_about_name">极悦网 Android 客户端 1.10 Beta</string>
     
     <string name="back">返回</string>
     <string name="refresh">刷新</string>
@@ -18,8 +18,13 @@
     <string name="func4_detail">Android 游戏</string>
     <string name="func5_detail">系统设置</string>
     
+    <string name="more_func1_detail">更多焦点关注</string>
+    <string name="more_func2_detail">更多产业新闻</string>
+    <string name="more_func3_detail">更多 Android 应用</string>
+    <string name="more_func4_detail">更多 Android 游戏</string>
+    
     <string name="reading">阅读正文</string>
-    <string name="more">更多新闻</string>
+    <string name="more">更多</string>
     <string name="no_more">查看更多新闻资讯，请尝试点击标签</string>
     
     <string name="item_tag" formatted="false">%s | 标签: %s</string>
@@ -58,6 +63,8 @@
     <string name="unbind_tencent">若是解除与腾讯微博的帐号绑定，您将无法同步资讯到腾讯微博</string>
     <string name="bind_fail">绑定微博帐号失败</string>
     
+    <string name="share_sina">分享资讯到新浪微博</string>
+    <string name="share_tencent">分享资讯到腾讯微博</string>
     <string name="share_sina_ok">分享资讯到新浪微博成功</string>
     <string name="share_sina_fail">分享资讯到新浪微博失败</string>
     <string name="share_tencent_ok">分享资讯到腾讯微博成功</string>

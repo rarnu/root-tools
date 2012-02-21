@@ -31,12 +31,14 @@ public class ArticleItemAdapter extends BaseAdapter {
 	private List<ArticleItem> list;
 	private ListView listview;
 	private Gallery gallery;
+	private int articleId;
 
-	public ArticleItemAdapter(LayoutInflater inflater, List<ArticleItem> list, ListView listview, Gallery gallery) {
+	public ArticleItemAdapter(LayoutInflater inflater, List<ArticleItem> list, ListView listview, Gallery gallery, int articleId) {
 		this.inflater = inflater;
 		this.list = list;
 		this.listview = listview;
 		this.gallery = gallery;
+		this.articleId = articleId;
 	}
 
 	@Override
@@ -86,7 +88,21 @@ public class ArticleItemAdapter extends BaseAdapter {
 			holder.articleImage.setVisibility(View.VISIBLE);
 
 			if (item.getTitle().equals("0")) {
-				holder.articleTitle.setText(R.string.more);
+				switch (articleId) {
+				case 54:
+					holder.articleTitle.setText(R.string.more_func1_detail);
+					break;
+				case 13:
+					holder.articleTitle.setText(R.string.more_func2_detail);
+					break;
+				case 11:
+					holder.articleTitle.setText(R.string.more_func3_detail);
+					break;
+				case 12:
+					holder.articleTitle.setText(R.string.more_func4_detail);
+					break;
+				}
+				
 				holder.articleDate.setVisibility(View.GONE);
 				holder.articleDesc.setVisibility(View.GONE);
 				holder.articleImage.setVisibility(View.GONE);

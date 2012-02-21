@@ -6,27 +6,9 @@
     android:padding="8dip" >
 
     <TextView
-        android:id="@+id/tvNoPic"
-        android:layout_width="fill_parent"
-        android:layout_height="48dip"
-        android:layout_marginLeft="4dip"
-        android:layout_toLeftOf="@+id/chkNiPic"
-        android:gravity="left|center_vertical"
-        android:text="@string/no_pic_mode"
-        android:textColor="@color/black"
-        android:textSize="16dip" />
-
-    <CheckBox
-        android:id="@+id/chkNoPic"
-        android:layout_width="48dip"
-        android:layout_height="48dip"
-        android:layout_alignParentRight="true" />
-
-    <TextView
         android:id="@+id/tvOnlyWifi"
         android:layout_width="fill_parent"
         android:layout_height="48dip"
-        android:layout_below="@+id/tvNoPic"
         android:layout_marginLeft="4dip"
         android:layout_marginTop="4dip"
         android:layout_toLeftOf="@+id/chkOnlyWifi"
@@ -40,7 +22,6 @@
         android:layout_width="48dip"
         android:layout_height="48dip"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/chkNoPic"
         android:layout_marginTop="4dip" />
     
     <TextView
