@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.snda.gyue"
-    android:versionCode="5"
-    android:versionName="1.04 Beta" >
+    android:versionCode="8"
+    android:versionName="1.07 Beta" >
 
     <uses-sdk android:minSdkVersion="8" />
 
@@ -78,6 +78,10 @@
             </intent-filter>
         </activity>
         <activity
+            android:name=".BeforeBindActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar" />
+        <activity
             android:name=".AboutActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
@@ -93,16 +97,16 @@
             <intent-filter>
                 <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
                 <action android:name="com.snda.gyue.refresh_widget" />
-                <action android:name="com.snda.gyue.view_article.0"/>
-                <action android:name="com.snda.gyue.view_article.1"/>
-                <action android:name="com.snda.gyue.view_article.2"/>
-                <action android:name="com.snda.gyue.view_article.3"/>
-                <action android:name="com.snda.gyue.view_article.4"/>
-                <action android:name="com.snda.gyue.view_article.5"/>
-                <action android:name="com.snda.gyue.view_article.6"/>
-                <action android:name="com.snda.gyue.view_article.7"/>
-                <action android:name="com.snda.gyue.view_article.8"/>
-                <action android:name="com.snda.gyue.view_article.9"/>
+                <action android:name="com.snda.gyue.view_article.0" />
+                <action android:name="com.snda.gyue.view_article.1" />
+                <action android:name="com.snda.gyue.view_article.2" />
+                <action android:name="com.snda.gyue.view_article.3" />
+                <action android:name="com.snda.gyue.view_article.4" />
+                <action android:name="com.snda.gyue.view_article.5" />
+                <action android:name="com.snda.gyue.view_article.6" />
+                <action android:name="com.snda.gyue.view_article.7" />
+                <action android:name="com.snda.gyue.view_article.8" />
+                <action android:name="com.snda.gyue.view_article.9" />
             </intent-filter>
 
             <meta-data

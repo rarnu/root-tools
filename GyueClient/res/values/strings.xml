@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">极悦网</string>
-    <string name="app_about_name">极悦网 Android 客户端 1.04 Beta</string>
+    <string name="app_about_name">极悦网 Android 客户端 1.07 Beta</string>
     
     <string name="back">返回</string>
     <string name="refresh">刷新</string>
@@ -48,6 +48,12 @@
     <string name="loading_article">正在加载资讯内容，请稍候&#8230;</string>
     <string name="sharing_article">正在分享资讯内容，请稍候&#8230;</string>
     <string name="hint">提示</string>
+    <string name="user_auth">用户授权</string>
+    <string name="start_oauth">进入授权</string>
+    <string name="want_bind">授权《极悦网 Android 客户端》访问您的微博帐号，这将允许应用进行以下操作：</string>
+    <string name="a1">1. 获取您的个人信息</string>
+    <string name="a2">2. 分享极悦网内容到您的微博</string>
+    <string name="after_bind">请点击右下角的“进入授权“按钮开始进行授权操作，授权后您将可以通过阅读正文页面的微博按钮来进行内容分享</string>
     <string name="unbind_sina">若是解除与新浪微博的帐号绑定，您将无法同步资讯到新浪微博</string>
     <string name="unbind_tencent">若是解除与腾讯微博的帐号绑定，您将无法同步资讯到腾讯微博</string>
     <string name="bind_fail">绑定微博帐号失败</string>
@@ -72,4 +78,5 @@
     <string name="isee">我知道了</string>
     
     <string name="refreshing_widget">正在更新，请稍候&#8230;</string>
+    <string name="error">程序出错，请重新启动程序或重新安装</string>
 </resources>

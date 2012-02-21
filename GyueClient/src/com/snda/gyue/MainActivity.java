@@ -70,7 +70,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	boolean firstFocus = true, firstIndustry = true, firstApplication = true, firstGames = true;
 
 	int CurrentType = 0;
-	boolean inProgressFocus = false, inProgressIndustry = false, inProgressApplication = false, inProgressGames = false;
+	boolean inProgressFocus = false, inProgressIndustry = false, inProgressApplication = false,
+			inProgressGames = false;
 	Handler hUpdate;
 
 	boolean starting = true;
@@ -135,8 +136,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		btnAbout.setOnClickListener(this);
 		readConfig();
 
-		btnBindSinaWeibo.setText(GlobalInstance.sinaName.equals("") ? getString(R.string.bind_sina_weibo) : GlobalInstance.sinaName);
-		btnBindTencentWeibo.setText(GlobalInstance.tencentName.equals("") ? getString(R.string.bind_tencent_weibo) : GlobalInstance.tencentName);
+		btnBindSinaWeibo.setText(GlobalInstance.sinaName.equals("") ? getString(R.string.bind_sina_weibo)
+				: GlobalInstance.sinaName);
+		btnBindTencentWeibo.setText(GlobalInstance.tencentName.equals("") ? getString(R.string.bind_tencent_weibo)
+				: GlobalInstance.tencentName);
 
 		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
 		btnRefresh = (Button) findViewById(R.id.btnRefresh);
@@ -166,7 +169,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 99) {
-					new AlertDialog.Builder(MainActivity.this).setTitle(R.string.new_version).setMessage(R.string.new_version_desc)
+					new AlertDialog.Builder(MainActivity.this).setTitle(R.string.new_version)
+							.setMessage(R.string.new_version_desc)
 							.setPositiveButton(R.string.update, new DialogInterface.OnClickListener() {
 
 								@Override
@@ -242,10 +246,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		// write config
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
 		sp.edit().putBoolean("nopic", chkNoPic.isChecked()).putBoolean("onlywifi", chkOnlyWifi.isChecked())
-				.putBoolean("sharewithpic", chkShareWithPic.isChecked()).putString("sinaToken", GlobalInstance.sinaToken)
-				.putString("sinaSecret", GlobalInstance.sinaSecret).putString("tencentToken", GlobalInstance.tencentToken)
-				.putString("tencentSecret", GlobalInstance.tencentSecret).putString("sinaName", GlobalInstance.sinaName)
-				.putString("tencentName", GlobalInstance.tencentName).commit();
+				.putBoolean("sharewithpic", chkShareWithPic.isChecked())
+				.putString("sinaToken", GlobalInstance.sinaToken).putString("sinaSecret", GlobalInstance.sinaSecret)
+				.putString("tencentToken", GlobalInstance.tencentToken)
+				.putString("tencentSecret", GlobalInstance.tencentSecret)
+				.putString("sinaName", GlobalInstance.sinaName).putString("tencentName", GlobalInstance.tencentName)
+				.commit();
 
 		GlobalInstance.shareWithPic = chkShareWithPic.isChecked();
 
@@ -305,7 +311,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						if (lstFocusTmp == null) {
 							adapterFocus = null;
 						} else {
-							adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocusTmp, lvFocus, gallaryPhotos);
+							adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocusTmp, lvFocus,
+									gallaryPhotos);
 						}
 						lvFocus.setAdapter(adapterFocus);
 
@@ -341,7 +348,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						if (!hasNextIndustry) {
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
-						if (GlobalInstance.gListFocusedArticles == null || GlobalInstance.gListFocusedArticles.size() == 0) {
+						if (GlobalInstance.gListFocusedArticles == null
+								|| GlobalInstance.gListFocusedArticles.size() == 0) {
 							if (lstIndustry == null) {
 								GlobalInstance.gListFocusedArticles = null;
 							} else {
@@ -455,17 +463,20 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				try {
 					String xml = "";
 					if ((!local) || (!init)) {
-						xml = HttpProxy.CallGet(GyueConsts.SITE_URL, String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
+						xml = HttpProxy.CallGet(GyueConsts.SITE_URL,
+								String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
 					}
 					switch (type) {
 					case 54:
 						if (page == 1) {
-							lstFocus = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstFocus = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
+									true);
 							pageFocus = 1;
 							hasNextFocus = true;
 						} else {
 							if (hasNextFocus) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
+										(init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextFocus = false;
 								}
@@ -480,12 +491,14 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						break;
 					case 13:
 						if (page == 1) {
-							lstIndustry = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstIndustry = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
+									true);
 							pageIndustry = 1;
 							hasNextIndustry = true;
 						} else {
 							if (hasNextIndustry) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
+										(init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextIndustry = false;
 								}
@@ -501,12 +514,14 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						break;
 					case 11:
 						if (page == 1) {
-							lstApplication = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstApplication = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
+									(init ? local : false), true);
 							pageApplication = 1;
 							hasNextApplication = true;
 						} else {
 							if (hasNextApplication) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
+										(init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextApplication = false;
 								}
@@ -518,16 +533,19 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						}
 						addEmptyArticle(lstApplication);
 
-						adapterApplication = new ArticleItemAdapter(getLayoutInflater(), lstApplication, lvApplication, null);
+						adapterApplication = new ArticleItemAdapter(getLayoutInflater(), lstApplication, lvApplication,
+								null);
 						break;
 					case 12:
 						if (page == 1) {
-							lstGames = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstGames = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false),
+									true);
 							pageGames = 1;
 							hasNextGames = true;
 						} else {
 							if (hasNextGames) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml,
+										(init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextGames = false;
 								}
@@ -597,7 +615,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			if (images.get(i) == null) {
 				continue;
 			}
-			if ((images.get(i).getArticleImageLocalFileName() != null) && (!images.get(i).getArticleImageLocalFileName().equals(""))) {
+			if ((images.get(i).getArticleImageLocalFileName() != null)
+					&& (!images.get(i).getArticleImageLocalFileName().equals(""))) {
 				list.add(images.get(i));
 				if (list.size() >= 5) {
 					break;
@@ -630,8 +649,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 				if (GlobalInstance.sinaToken.equals("")) {
 					// bind sina weibo
-					Intent inSina = new Intent(this, BindSinaActivity.class);
+					Intent inSina = new Intent(this, BeforeBindActivity.class);
+					inSina.putExtra("auth",1);
 					startActivity(inSina);
+
 				} else {
 					new AlertDialog.Builder(this).setTitle(R.string.hint).setMessage(R.string.unbind_sina)
 							.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
@@ -651,8 +672,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			case R.id.btnBindTencentWeibo:
 				// bind tencent weibo
 				if (GlobalInstance.tencentToken.equals("")) {
-					Intent inTencent = new Intent(this, BindTencentActivity.class);
+					Intent inTencent = new Intent(this, BeforeBindActivity.class);
+					inTencent.putExtra("auth",2);
 					startActivity(inTencent);
+
 				} else {
 					new AlertDialog.Builder(this).setTitle(R.string.hint).setMessage(R.string.unbind_tencent)
 							.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {

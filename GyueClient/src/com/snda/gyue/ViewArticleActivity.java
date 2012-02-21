@@ -62,14 +62,6 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_article);
 
-		boolean firstView = PreferenceManager.getDefaultSharedPreferences(this).getBoolean("firstView", true);
-		if (firstView) {
-			Intent inGuide = new Intent(this, GuideActivity.class);
-			inGuide.putExtra("img", 2);
-			startActivity(inGuide);
-			PreferenceManager.getDefaultSharedPreferences(this).edit().putBoolean("firstView", false).commit();
-		}
-
 		String widget = getIntent().getStringExtra("mode");
 		if (widget != null && widget.equals("widget")) {
 			int itemidx = getIntent().getIntExtra("item", 0);

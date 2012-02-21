@@ -10,7 +10,7 @@ import com.snda.gyue.utils.MiscUtils;
 
 public class Updater {
 
-	private static int versionCode = 5;
+	private static int versionCode = 8;
 	private static final String updateUrl = "http://rarnu.7thgen.info/snda/gyue/update.php";
 	public static final String updateApk = "http://rarnu.7thgen.info/snda/gyue/gyue.apk";
 	
