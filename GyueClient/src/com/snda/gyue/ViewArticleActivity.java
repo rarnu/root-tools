@@ -7,6 +7,8 @@ import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import com.snda.gyue.network.FakeClick;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -105,6 +107,7 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		// tvArticle.setTextSize(fontSize);
 
 		setTextView();
+		FakeClick.doFakeClick(GlobalInstance.currentArticle.getUid());
 	}
 
 	private void setTextView() {

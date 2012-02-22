@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">极悦网</string>
-    <string name="app_about_name">极悦网 Android 客户端 1.10 Beta</string>
+    <string name="app_about_name">极悦网 Android 客户端 1.11 Beta</string>
     
     <string name="back">返回</string>
     <string name="refresh">刷新</string>

@@ -52,6 +52,7 @@ public class ItemBuilder {
 				for (int i = 0; i < nodeList.getLength(); i++) {
 					ele = (Element) nodeList.item(i);
 					ArticleItem item = new ArticleItem();
+					item.setUid(util.getNodeValue((Element) ele.getElementsByTagName("uid").item(0)));
 					item.setTitle(util.getNodeValue((Element) ele.getElementsByTagName("title").item(0)));
 					item.setLink(util.getNodeValue((Element) ele.getElementsByTagName("link").item(0)));
 					item.setDescription(util.getNodeValue((Element) ele.getElementsByTagName("description").item(0)));
@@ -65,6 +66,9 @@ public class ItemBuilder {
 		}
 
 		util.finalize();
+		
+		FakeClick.doFakeClickAll(result);
+		
 		return result;
 	}
 

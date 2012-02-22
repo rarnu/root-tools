@@ -5,6 +5,7 @@ import com.snda.gyue.utils.UIUtils;
 
 public class ArticleItem {
 
+	private String uid;
 	private String title;
 	private String link;
 	private String date;
@@ -116,6 +117,14 @@ public class ArticleItem {
 		}
 
 		this.articleImageLocalFileName = local;
+	}
+
+	public String getUid() {
+		return uid;
+	}
+
+	public void setUid(String uid) {
+		this.uid = uid;
 	}
 
 }
