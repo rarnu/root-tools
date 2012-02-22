@@ -7,4 +7,6 @@ public class GalleryHolder {
 
 	public ImageView galleryPicture;
 	public TextView galleryText;
+	public ImageView leftArrow;
+	public ImageView rightArrow;
 }

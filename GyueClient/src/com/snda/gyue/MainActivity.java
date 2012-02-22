@@ -21,12 +21,10 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemSelectedListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.CompoundButton.OnCheckedChangeListener;
-import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
@@ -37,8 +35,9 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.snda.gyue.adapter.ArticleItemAdapter;
-import com.snda.gyue.adapter.ImageAdapter;
+import com.snda.gyue.adapter.ImageAdapterDeprecated;
 import com.snda.gyue.classes.ArticleItem;
+import com.snda.gyue.component.GalleryFlow;
 import com.snda.gyue.network.HttpProxy;
 import com.snda.gyue.network.ItemBuilder;
 import com.snda.gyue.network.Updater;
@@ -48,8 +47,7 @@ import com.snda.gyue.utils.UIUtils;
 import com.tencent.weibo.utils.Configuration;
 import com.tencent.weibo.utils.Utils;
 
-public class MainActivity extends Activity implements OnClickListener, OnItemClickListener, OnCheckedChangeListener,
-		OnItemSelectedListener {
+public class MainActivity extends Activity implements OnClickListener, OnItemClickListener, OnCheckedChangeListener {
 
 	RelativeLayout btnFunc1, btnFunc2, btnFunc3, btnFunc4, btnFunc5;
 
@@ -60,10 +58,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	ArticleItemAdapter adapterFocus, adapterIndustry, adapterApplication, adapterGames;
 	ProgressBar pbRefreshing;
 	Button btnRefresh;
-	Gallery gallaryPhotos;
+	GalleryFlow gallaryPhotos;
 	RelativeLayout laySettings;
 	TextView tvGName;
-	ImageView imgLeftArr, imgRightArr;
 
 	CheckBox chkOnlyWifi, chkShareWithPic;
 	Button btnBindSinaWeibo, btnBindTencentWeibo, btnAbout;
@@ -115,9 +112,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		btnFunc4 = (RelativeLayout) findViewById(R.id.btnFunc4);
 		btnFunc5 = (RelativeLayout) findViewById(R.id.btnFunc5);
 
-		imgLeftArr = (ImageView) findViewById(R.id.imgLeftArr);
-		imgRightArr = (ImageView) findViewById(R.id.imgRightArr);
-
 		setIconText(btnFunc1, R.drawable.home, R.string.func1);
 		setIconText(btnFunc2, R.drawable.news, R.string.func2);
 		setIconText(btnFunc3, R.drawable.app, R.string.func3);
@@ -150,7 +144,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
 		btnRefresh = (Button) findViewById(R.id.btnRefresh);
 		tvGName = (TextView) findViewById(R.id.tvGName);
-		gallaryPhotos = (Gallery) findViewById(R.id.gallaryPhotos);
+		gallaryPhotos = (GalleryFlow) findViewById(R.id.gallaryPhotos);
+	
 		laySettings = (RelativeLayout) findViewById(R.id.laySettings);
 		laySettings.setVisibility(View.GONE);
 
@@ -160,11 +155,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		lvApplication.setOnItemClickListener(this);
 		lvGames.setOnItemClickListener(this);
 
-		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) gallaryPhotos.getLayoutParams();
-		lp.height = (int) (260 * GlobalInstance.metric.widthPixels / 480);
-		gallaryPhotos.setLayoutParams(lp);
+//		RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) gallaryPhotos.getLayoutParams();
+//		lp.height = (int) (260 * GlobalInstance.metric.widthPixels / 480);
+//		gallaryPhotos.setLayoutParams(lp);
 		gallaryPhotos.setOnItemClickListener(this);
-		gallaryPhotos.setOnItemSelectedListener(this);
 
 		adjustButtonWidth();
 
@@ -630,8 +624,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			}
 		}
 
-		ImageAdapter imgAdapter = new ImageAdapter(this, getLayoutInflater(), list, lvFocus, gallaryPhotos);
+		ImageAdapterDeprecated imgAdapter = new ImageAdapterDeprecated(this, getLayoutInflater(), list, lvFocus, gallaryPhotos);
 		gallaryPhotos.setAdapter(imgAdapter);
+		gallaryPhotos.setSelection(2);
 	}
 
 	private void setIconText(RelativeLayout btn, int icon, int text) {
@@ -958,23 +953,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		} else {
 			return super.onKeyDown(keyCode, event);
 		}
-	}
-
-	@Override
-	public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-		imgLeftArr.setBackgroundDrawable(getResources().getDrawable(R.drawable.left_arr));
-		imgRightArr.setBackgroundDrawable(getResources().getDrawable(R.drawable.right_arr));
-		if (position == 0) {
-			imgLeftArr.setBackgroundDrawable(null);
-		} else if (position == 4) {
-			imgRightArr.setBackgroundDrawable(null);
-		}
-
-	}
-
-	@Override
-	public void onNothingSelected(AdapterView<?> parent) {
-
 	}
 
 }
