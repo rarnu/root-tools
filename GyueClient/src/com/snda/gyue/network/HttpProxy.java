@@ -13,6 +13,24 @@ import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 
 public class HttpProxy {
+	
+	
+	public static void CallGetNoResponse(String url, String params, String encoding)
+			throws Exception {
+		// url format: site-url/action
+		// params format: p1=v1&p2=v2&.....
+		// so the final url be built will be like this:
+		// http://account.everbox.com/login?user=a&passwd=b&devId=c
+		HttpGet request = new HttpGet(url + "?" + params);
+
+		// execute the request and take the respone
+		// if the server is NOT ready, it will return 404 title
+		// and it will be filted below.
+		DefaultHttpClient hClient = new DefaultHttpClient();
+		hClient.getParams().setParameter(
+				CoreConnectionPNames.CONNECTION_TIMEOUT, 10000);
+		hClient.execute(request);
+	}
 
 	public static String CallPost(String url, String params, String encoding)
 			throws Exception {
