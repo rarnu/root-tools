@@ -41,9 +41,9 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	TextView tvSeeWeb;
 	RelativeLayout layLoading;
 	ImageGetter iGetter;
-	ImageView imgShareTencent, imgShareSina, imgShareTencent2, imgShareSina2;
+	ImageView imgShareTencent, imgShareSina;
 	RelativeLayout layZoom;
-	Button btnZoomIn, btnZoomOut;
+//	Button btnZoomIn, btnZoomOut;
 
 	boolean inProgress = false;
 	boolean tmrEd = false;
@@ -72,11 +72,9 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		layLoading = (RelativeLayout) findViewById(R.id.layLoading);
 		imgShareTencent = (ImageView) findViewById(R.id.imgShareTencent);
 		imgShareSina = (ImageView) findViewById(R.id.imgShareSina);
-		imgShareTencent2 = (ImageView) findViewById(R.id.imgShareTencent2);
-		imgShareSina2 = (ImageView) findViewById(R.id.imgShareSina2);
 		layZoom = (RelativeLayout) findViewById(R.id.layZoom);
-		btnZoomIn = (Button) findViewById(R.id.btnZoomIn);
-		btnZoomOut = (Button) findViewById(R.id.btnZoomOut);
+//		btnZoomIn = (Button) findViewById(R.id.btnZoomIn);
+//		btnZoomOut = (Button) findViewById(R.id.btnZoomOut);
 
 		WebSettings settings = tvArticle.getSettings();
 		settings.setLoadWithOverviewMode(false);
@@ -94,10 +92,8 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		tvSeeWeb.setOnClickListener(this);
 		imgShareSina.setOnClickListener(this);
 		imgShareTencent.setOnClickListener(this);
-		imgShareSina2.setOnClickListener(this);
-		imgShareTencent2.setOnClickListener(this);
-		btnZoomIn.setOnClickListener(this);
-		btnZoomOut.setOnClickListener(this);
+//		btnZoomIn.setOnClickListener(this);
+//		btnZoomOut.setOnClickListener(this);
 
 		// TextSize
 		fontSize = PreferenceManager.getDefaultSharedPreferences(this).getInt("font-size", 16);
@@ -187,7 +183,6 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			finish();
 			break;
 		case R.id.imgShareSina:
-		case R.id.imgShareSina2:
 			if (GlobalInstance.sinaName.equals("")) {
 				Toast.makeText(this, R.string.not_bind_sina, Toast.LENGTH_LONG).show();
 				return;
@@ -197,7 +192,6 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 			startActivity(inSina);
 			break;
 		case R.id.imgShareTencent:
-		case R.id.imgShareTencent2:
 			if (GlobalInstance.tencentName.equals("")) {
 				Toast.makeText(this, R.string.not_bind_tencent, Toast.LENGTH_LONG).show();
 				return;

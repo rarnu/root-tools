@@ -1,9 +1,12 @@
 package com.snda.gyue;
 
+import com.snda.gyue.utils.UIUtils;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
@@ -23,6 +26,15 @@ public class AboutActivity extends Activity implements OnClickListener {
 		tvGLink = (TextView) findViewById(R.id.tvGLink);
 		tvGLink.setOnClickListener(this);
 	}
+	
+	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		if (!UIUtils.touchInDialog(this, event)) {
+			finish();
+		}
+		return super.onTouchEvent(event);
+	}
+	
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {

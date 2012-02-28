@@ -19,7 +19,26 @@ public class UIUtils {
 			wm.getDefaultDisplay().getMetrics(dm);
 		}
 	}
-	
+
+	public static boolean touchInDialog(Activity activity, MotionEvent e) {
+		WindowManager.LayoutParams wlp = activity.getWindow().getAttributes();
+		int leftW, rightW, topH, bottomH;
+
+		if (wlp.width > 0 && wlp.height > 0) {
+			leftW = (dm.widthPixels - wlp.width) / 2;
+			rightW = dm.widthPixels - leftW;
+			topH = (dm.heightPixels - wlp.height) / 2;
+			bottomH = dm.heightPixels - topH;
+		} else {
+			leftW = (dm.widthPixels - 40) / 2;
+			rightW = dm.widthPixels - leftW;
+			topH = (dm.heightPixels - 80) / 2;
+			bottomH = dm.heightPixels - topH;
+		}
+		return ((e.getX() > leftW) && (e.getX() < rightW) && (e.getY() > topH) && (e
+				.getY() < bottomH));
+	}
+
 	public static boolean isScreenCenter(MotionEvent e) {
 		boolean ret = true;
 		if (e.getX() < (dm.widthPixels / 2 - 25)) {
@@ -38,11 +57,13 @@ public class UIUtils {
 	}
 
 	public static PointF getLeftBottomPoint() {
-		return new PointF((dm.widthPixels / 4) + 0.09f, (dm.heightPixels / 4 * 3) + 0.09f);
+		return new PointF((dm.widthPixels / 4) + 0.09f,
+				(dm.heightPixels / 4 * 3) + 0.09f);
 	}
 
 	public static PointF getRightBottomPoint() {
-		return new PointF((dm.widthPixels / 4 * 3) + 0.09f, (dm.heightPixels / 4 * 3) + 0.09f);
+		return new PointF((dm.widthPixels / 4 * 3) + 0.09f,
+				(dm.heightPixels / 4 * 3) + 0.09f);
 	}
 
 	public static PointF getLeftPoint() {
@@ -58,7 +79,8 @@ public class UIUtils {
 	}
 
 	public static int getStatusbarHeight(Context context) {
-		Drawable ico = context.getResources().getDrawable(android.R.drawable.stat_sys_phone_call);
+		Drawable ico = context.getResources().getDrawable(
+				android.R.drawable.stat_sys_phone_call);
 		return ico.getIntrinsicHeight();
 	}
 
@@ -91,13 +113,13 @@ public class UIUtils {
 		}
 		return (int) (scaledPx * dm.density);
 	}
-	
+
 	public static int getButtonAdvWidth(int count, int margin) {
 		int width = dm.widthPixels;
 		width = width - (margin * (count + 1));
 		width = width / count;
 		return width;
-		
+
 	}
 
 }

@@ -6,26 +6,26 @@
     <string name="back">返回</string>
     <string name="refresh">刷新</string>
     
-    <string name="func1">焦点</string>
-    <string name="func2">新闻</string>
+    <string name="func1">首页</string>
+    <string name="func2">行业</string>
     <string name="func3">应用</string>
     <string name="func4">游戏</string>
     <string name="func5">设置</string>
     
-    <string name="func1_detail">焦点关注</string>
-    <string name="func2_detail">产业新闻</string>
+    <string name="func1_detail">首页</string>
+    <string name="func2_detail">行业新闻</string>
     <string name="func3_detail">Android 应用</string>
     <string name="func4_detail">Android 游戏</string>
     <string name="func5_detail">系统设置</string>
     
-    <string name="more_func1_detail">更多焦点关注</string>
-    <string name="more_func2_detail">更多产业新闻</string>
-    <string name="more_func3_detail">更多 Android 应用</string>
-    <string name="more_func4_detail">更多 Android 游戏</string>
+    <string name="more_func1_detail">更多内容...</string>
+    <string name="more_func2_detail">更多内容...</string>
+    <string name="more_func3_detail">更多内容...</string>
+    <string name="more_func4_detail">更多内容...</string>
     
     <string name="reading">阅读正文</string>
     <string name="more">更多</string>
-    <string name="no_more">查看更多新闻资讯，请尝试点击标签</string>
+    <string name="no_more">没有更多内容了...</string>
     
     <string name="item_tag" formatted="false">%s | 标签: %s</string>
     

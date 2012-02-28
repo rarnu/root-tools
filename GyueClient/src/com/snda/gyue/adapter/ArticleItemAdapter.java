@@ -13,6 +13,7 @@ import android.widget.BaseAdapter;
 import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
@@ -32,8 +33,10 @@ public class ArticleItemAdapter extends BaseAdapter {
 	private ListView listview;
 	private Gallery gallery;
 	private int articleId;
+	private boolean updating = false;
 
-	public ArticleItemAdapter(LayoutInflater inflater, List<ArticleItem> list, ListView listview, Gallery gallery, int articleId) {
+	public ArticleItemAdapter(LayoutInflater inflater, List<ArticleItem> list,
+			ListView listview, Gallery gallery, int articleId) {
 		this.inflater = inflater;
 		this.list = list;
 		this.listview = listview;
@@ -56,6 +59,17 @@ public class ArticleItemAdapter extends BaseAdapter {
 		return position;
 	}
 
+	public void setNewList(List<ArticleItem> list) {
+		this.list = list;
+		this.updating = false;
+		notifyDataSetChanged();
+	}
+
+	public void setUpdateStatus(boolean updating) {
+		this.updating = updating;
+		notifyDataSetChanged();
+	}
+
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
@@ -74,9 +88,11 @@ public class ArticleItemAdapter extends BaseAdapter {
 			holder = new ArticleItemHolder();
 			holder.articleTitle = (TextView) v.findViewById(R.id.article_title);
 			holder.articleDesc = (TextView) v.findViewById(R.id.article_desc);
-
 			holder.articleDate = (TextView) v.findViewById(R.id.article_date);
-			holder.articleImage = (ImageView) v.findViewById(R.id.article_image);
+			holder.articleImage = (ImageView) v
+					.findViewById(R.id.article_image);
+			holder.articleProgress = (ProgressBar) v
+					.findViewById(R.id.article_progress);
 
 			v.setTag(holder);
 		}
@@ -87,6 +103,7 @@ public class ArticleItemAdapter extends BaseAdapter {
 			holder.articleDesc.setVisibility(View.VISIBLE);
 			holder.articleImage.setVisibility(View.VISIBLE);
 
+//			Log.e("ARTICLE TITLE", item.getTitle());
 			if (item.getTitle().equals("0")) {
 				switch (articleId) {
 				case 54:
@@ -102,7 +119,7 @@ public class ArticleItemAdapter extends BaseAdapter {
 					holder.articleTitle.setText(R.string.more_func4_detail);
 					break;
 				}
-				
+
 				holder.articleDate.setVisibility(View.GONE);
 				holder.articleDesc.setVisibility(View.GONE);
 				holder.articleImage.setVisibility(View.GONE);
@@ -115,12 +132,17 @@ public class ArticleItemAdapter extends BaseAdapter {
 				holder.articleTitle.setLayoutParams(lpMore);
 				holder.articleTitle.setGravity(Gravity.CENTER);
 
-				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v.getLayoutParams();
+				holder.articleProgress.setVisibility(updating ? View.VISIBLE
+						: View.GONE);
+
+				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v
+						.getLayoutParams();
 				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 48);
 				v.setLayoutParams(lpV);
 			} else {
 				holder.articleTitle.setText(item.getTitle());
-				holder.articleDesc.setText(Html.fromHtml(item.getDescription()));
+				holder.articleDesc
+						.setText(Html.fromHtml(item.getDescription()));
 				holder.articleDate.setText(item.getDate().substring(5));
 
 				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle
@@ -128,24 +150,35 @@ public class ArticleItemAdapter extends BaseAdapter {
 				lpMore.width = LayoutParams.MATCH_PARENT;
 				lpMore.height = ImageUtils.dipToPx(GlobalInstance.density, 24);
 				holder.articleTitle.setLayoutParams(lpMore);
-				holder.articleTitle.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
+				holder.articleTitle.setGravity(Gravity.LEFT
+						| Gravity.CENTER_VERTICAL);
 
-				if ((item.getArticleImageUrl() == null) || item.getArticleImageUrl().equals("")) {
+				holder.articleProgress.setVisibility(View.GONE);
+
+				if ((item.getArticleImageUrl() == null)
+						|| item.getArticleImageUrl().equals("")) {
 					holder.articleImage.setVisibility(View.GONE);
 				} else {
 					holder.articleImage.setVisibility(View.VISIBLE);
-					File img = new File(GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
+					File img = new File(GyueConsts.GYUE_DIR
+							+ item.getArticleImageLocalFileName());
 					if (img.exists()) {
-						holder.articleImage.setBackgroundDrawable(ImageUtils.loadItemImage(v.getContext(),
-								GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName()));
+						holder.articleImage
+								.setBackgroundDrawable(ImageUtils.loadItemImage(
+										v.getContext(),
+										GyueConsts.GYUE_DIR
+												+ item.getArticleImageLocalFileName()));
 
 					} else {
-						NetFiles.doDownloadImageT(v.getContext(), item.getArticleImageUrl(),
-								item.getArticleImageLocalFileName(), holder.articleImage, listview, gallery);
+						NetFiles.doDownloadImageT(v.getContext(),
+								item.getArticleImageUrl(),
+								item.getArticleImageLocalFileName(),
+								holder.articleImage, listview, gallery);
 					}
 				}
-				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v.getLayoutParams();
-				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 96);
+				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v
+						.getLayoutParams();
+				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 80);
 				v.setLayoutParams(lpV);
 			}
 		}

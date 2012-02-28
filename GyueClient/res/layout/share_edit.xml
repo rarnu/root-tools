@@ -57,7 +57,8 @@
             android:id="@+id/pbSharing"
             android:layout_width="24dip"
             android:layout_height="24dip"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:indeterminateDrawable="@drawable/progress_style" />
 
         <TextView
             android:id="@+id/tvSharing"

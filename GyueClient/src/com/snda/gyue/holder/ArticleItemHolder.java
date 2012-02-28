@@ -1,6 +1,7 @@
 package com.snda.gyue.holder;
 
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 
 public class ArticleItemHolder {
@@ -9,4 +10,5 @@ public class ArticleItemHolder {
 	public TextView articleDesc;
 	public TextView articleDate;
 	public ImageView articleImage;
+	public ProgressBar articleProgress;
 }
