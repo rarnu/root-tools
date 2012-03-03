@@ -21,20 +21,21 @@ public class UIUtils {
 	}
 
 	public static boolean touchInDialog(Activity activity, MotionEvent e) {
-		WindowManager.LayoutParams wlp = activity.getWindow().getAttributes();
+		// WindowManager.LayoutParams wlp =
+		// activity.getWindow().getAttributes();
 		int leftW, rightW, topH, bottomH;
 
-		if (wlp.width > 0 && wlp.height > 0) {
-			leftW = (dm.widthPixels - wlp.width) / 2;
-			rightW = dm.widthPixels - leftW;
-			topH = (dm.heightPixels - wlp.height) / 2;
-			bottomH = dm.heightPixels - topH;
-		} else {
-			leftW = (dm.widthPixels - 40) / 2;
-			rightW = dm.widthPixels - leftW;
-			topH = (dm.heightPixels - 80) / 2;
-			bottomH = dm.heightPixels - topH;
-		}
+		// if (wlp.width > 0 && wlp.height > 0) {
+		// leftW = (dm.widthPixels - wlp.width) / 2;
+		// rightW = dm.widthPixels - leftW;
+		// topH = (dm.heightPixels - wlp.height) / 2;
+		// bottomH = dm.heightPixels - topH;
+		// } else {
+		leftW = 8; // (dm.widthPixels - 16) / 2;
+		rightW = dm.widthPixels - leftW;
+		topH = 0; // (dm.heightPixels - 80) / 2;
+		bottomH = 450;
+		// }
 		return ((e.getX() > leftW) && (e.getX() < rightW) && (e.getY() > topH) && (e
 				.getY() < bottomH));
 	}
