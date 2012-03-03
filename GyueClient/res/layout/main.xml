@@ -35,7 +35,7 @@
             android:layout_width="60dip"
             android:layout_height="40dip"
             android:layout_alignParentRight="true"
-            android:layout_margin="4dip"
+            android:layout_margin="8dip"
             android:background="@drawable/button_style"
             android:text="@string/refresh"
             android:textColor="@color/white" />

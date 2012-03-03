@@ -10,23 +10,22 @@
         android:layout_height="48dip"
         android:background="@drawable/bottombar" >
 
+        <ImageView
+            android:id="@+id/ivGLogo"
+            android:layout_width="60dip"
+            android:layout_height="32dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/gyue"
+            android:contentDescription="@null" />
+        
         <Button
             android:id="@+id/btnBack"
             android:layout_width="60dip"
             android:layout_height="40dip"
-            android:layout_margin="4dip"
+            android:layout_margin="8dip"
             android:background="@drawable/button_style"
             android:text="@string/back"
             android:textColor="@color/white" />
-
-        <TextView
-            android:layout_width="90dip"
-            android:layout_height="48dip"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:text="@string/reading"
-            android:textColor="@color/white"
-            android:textSize="18dip" />
 
         <ProgressBar
             android:id="@+id/pbRefreshing"
@@ -38,30 +37,6 @@
             android:indeterminateDrawable="@drawable/progress_style"
             android:visibility="gone" />
 
-        <RelativeLayout
-            android:id="@+id/layZoom"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="8dip"
-            android:visibility="gone" >
-
-            <Button
-                android:id="@+id/btnZoomIn"
-                android:layout_width="32dip"
-                android:layout_height="32dip"
-                android:background="@drawable/zoomin"
-                android:visibility="gone" />
-
-            <Button
-                android:id="@+id/btnZoomOut"
-                android:layout_width="32dip"
-                android:layout_height="32dip"
-                android:layout_toRightOf="@+id/btnZoomIn"
-                android:background="@drawable/zoomout"
-                android:visibility="gone" />
-        </RelativeLayout>
     </RelativeLayout>
 
     <ScrollView

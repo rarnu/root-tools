@@ -1,6 +1,9 @@
 package com.snda.gyue.classes;
 
+import java.io.File;
+
 import com.snda.gyue.GlobalInstance;
+import com.snda.gyue.GyueConsts;
 import com.snda.gyue.utils.UIUtils;
 
 public class ArticleItem {
@@ -14,6 +17,7 @@ public class ArticleItem {
 	private String description;
 	private String articleImageUrl;
 	private String articleImageLocalFileName;
+	private File read;
 
 	public String getTitle() {
 		return title;
@@ -61,9 +65,7 @@ public class ArticleItem {
 		// comment.replaceAll("\\[page\\]","").replaceAll("\\[/page\\]", "");
 		// comment = comment.replaceAll("\t", "");
 
-		comment = comment
-				.replaceAll("width=\"500\"",
-						"width=\"" + String.valueOf(GlobalInstance.metric.widthPixels - UIUtils.dipToPx(16)) + "\"")
+		comment = comment.replaceAll("width=\"500\"", "width=\"" + String.valueOf(GlobalInstance.metric.widthPixels - UIUtils.dipToPx(16)) + "\"")
 				.replaceAll("\\[page\\]", "").replaceAll("\\[/page\\]", "");
 
 		this.comment = comment.trim();
@@ -125,6 +127,15 @@ public class ArticleItem {
 
 	public void setUid(String uid) {
 		this.uid = uid;
+		read = new File(GyueConsts.GYUE_DIR + this.uid);
+	}
+
+	public File getRead() {
+		return read;
+	}
+
+	public void setRead(File read) {
+		this.read = read;
 	}
 
 }

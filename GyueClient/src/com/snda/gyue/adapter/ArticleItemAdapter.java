@@ -3,6 +3,7 @@ package com.snda.gyue.adapter;
 import java.io.File;
 import java.util.List;
 
+import android.graphics.Color;
 import android.text.Html;
 import android.view.Gravity;
 import android.view.LayoutInflater;
@@ -35,8 +36,7 @@ public class ArticleItemAdapter extends BaseAdapter {
 	private int articleId;
 	private boolean updating = false;
 
-	public ArticleItemAdapter(LayoutInflater inflater, List<ArticleItem> list,
-			ListView listview, Gallery gallery, int articleId) {
+	public ArticleItemAdapter(LayoutInflater inflater, List<ArticleItem> list, ListView listview, Gallery gallery, int articleId) {
 		this.inflater = inflater;
 		this.list = list;
 		this.listview = listview;
@@ -86,24 +86,31 @@ public class ArticleItemAdapter extends BaseAdapter {
 
 		if (holder == null) {
 			holder = new ArticleItemHolder();
+			holder.layItemBackground = (RelativeLayout) v.findViewById(R.id.layItemBackground);
 			holder.articleTitle = (TextView) v.findViewById(R.id.article_title);
 			holder.articleDesc = (TextView) v.findViewById(R.id.article_desc);
 			holder.articleDate = (TextView) v.findViewById(R.id.article_date);
-			holder.articleImage = (ImageView) v
-					.findViewById(R.id.article_image);
-			holder.articleProgress = (ProgressBar) v
-					.findViewById(R.id.article_progress);
+			holder.articleImage = (RelativeLayout) v.findViewById(R.id.article_image);
+			holder.articleImageImpl = (ImageView) v.findViewById(R.id.article_image_impl);
+			holder.articleProgress = (ProgressBar) v.findViewById(R.id.article_progress);
 
 			v.setTag(holder);
 		}
 
 		if (item != null) {
+			holder.articleTitle.setTextColor(Color.BLACK);
+			holder.layItemBackground.setBackgroundDrawable(null);
+			if (item.getRead() != null) {
+				if (item.getRead().exists()) {
+					holder.articleTitle.setTextColor(0xFF777777);
+					holder.layItemBackground.setBackgroundColor(0xFFF5F5F5);
+				}
+			}
 
 			holder.articleDate.setVisibility(View.VISIBLE);
 			holder.articleDesc.setVisibility(View.VISIBLE);
 			holder.articleImage.setVisibility(View.VISIBLE);
 
-//			Log.e("ARTICLE TITLE", item.getTitle());
 			if (item.getTitle().equals("0")) {
 				switch (articleId) {
 				case 54:
@@ -124,60 +131,46 @@ public class ArticleItemAdapter extends BaseAdapter {
 				holder.articleDesc.setVisibility(View.GONE);
 				holder.articleImage.setVisibility(View.GONE);
 
-				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle
-						.getLayoutParams();
+				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle.getLayoutParams();
 				lpMore.width = LayoutParams.WRAP_CONTENT;
 				lpMore.height = LayoutParams.MATCH_PARENT;
 				lpMore.addRule(RelativeLayout.CENTER_HORIZONTAL, 1);
 				holder.articleTitle.setLayoutParams(lpMore);
 				holder.articleTitle.setGravity(Gravity.CENTER);
 
-				holder.articleProgress.setVisibility(updating ? View.VISIBLE
-						: View.GONE);
+				holder.articleProgress.setVisibility(updating ? View.VISIBLE : View.GONE);
 
-				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v
-						.getLayoutParams();
+				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v.getLayoutParams();
 				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 48);
 				v.setLayoutParams(lpV);
 			} else {
 				holder.articleTitle.setText(item.getTitle());
-				holder.articleDesc
-						.setText(Html.fromHtml(item.getDescription()));
+				holder.articleDesc.setText(Html.fromHtml(item.getDescription()));
 				holder.articleDate.setText(item.getDate().substring(5));
 
-				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle
-						.getLayoutParams();
+				RelativeLayout.LayoutParams lpMore = (RelativeLayout.LayoutParams) holder.articleTitle.getLayoutParams();
 				lpMore.width = LayoutParams.MATCH_PARENT;
 				lpMore.height = ImageUtils.dipToPx(GlobalInstance.density, 24);
 				holder.articleTitle.setLayoutParams(lpMore);
-				holder.articleTitle.setGravity(Gravity.LEFT
-						| Gravity.CENTER_VERTICAL);
+				holder.articleTitle.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 
 				holder.articleProgress.setVisibility(View.GONE);
 
-				if ((item.getArticleImageUrl() == null)
-						|| item.getArticleImageUrl().equals("")) {
+				if ((item.getArticleImageUrl() == null) || item.getArticleImageUrl().equals("")) {
 					holder.articleImage.setVisibility(View.GONE);
 				} else {
 					holder.articleImage.setVisibility(View.VISIBLE);
-					File img = new File(GyueConsts.GYUE_DIR
-							+ item.getArticleImageLocalFileName());
+					File img = new File(GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
 					if (img.exists()) {
-						holder.articleImage
-								.setBackgroundDrawable(ImageUtils.loadItemImage(
-										v.getContext(),
-										GyueConsts.GYUE_DIR
-												+ item.getArticleImageLocalFileName()));
+						holder.articleImageImpl.setBackgroundDrawable(ImageUtils.loadItemImage(v.getContext(),
+								GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName()));
 
 					} else {
-						NetFiles.doDownloadImageT(v.getContext(),
-								item.getArticleImageUrl(),
-								item.getArticleImageLocalFileName(),
-								holder.articleImage, listview, gallery);
+						NetFiles.doDownloadImageT(v.getContext(), item.getArticleImageUrl(), item.getArticleImageLocalFileName(), holder.articleImageImpl,
+								listview, gallery);
 					}
 				}
-				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v
-						.getLayoutParams();
+				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v.getLayoutParams();
 				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 80);
 				v.setLayoutParams(lpV);
 			}

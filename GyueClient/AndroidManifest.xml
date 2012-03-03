@@ -92,32 +92,6 @@
         <activity android:name=".ShareEditActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog" />
-
-        <receiver
-            android:name=".GyueWidget"
-            android:icon="@drawable/icon"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
-                <action android:name="com.snda.gyue.refresh_widget" />
-                <action android:name="com.snda.gyue.view_article.0" />
-                <action android:name="com.snda.gyue.view_article.1" />
-                <action android:name="com.snda.gyue.view_article.2" />
-                <action android:name="com.snda.gyue.view_article.3" />
-                <action android:name="com.snda.gyue.view_article.4" />
-                <action android:name="com.snda.gyue.view_article.5" />
-                <action android:name="com.snda.gyue.view_article.6" />
-                <action android:name="com.snda.gyue.view_article.7" />
-                <action android:name="com.snda.gyue.view_article.8" />
-                <action android:name="com.snda.gyue.view_article.9" />
-            </intent-filter>
-
-            <meta-data
-                android:name="android.appwidget.provider"
-                android:resource="@xml/widget_provider" />
-        </receiver>
-
-        <service android:name=".WidgetService" />
     </application>
 
 </manifest>

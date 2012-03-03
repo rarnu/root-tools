@@ -1,5 +1,6 @@
 package com.snda.gyue;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Timer;
@@ -8,6 +9,7 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import com.snda.gyue.network.FakeClick;
+import com.snda.gyue.utils.FileUtils;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -42,8 +44,6 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	RelativeLayout layLoading;
 	ImageGetter iGetter;
 	ImageView imgShareTencent, imgShareSina;
-	RelativeLayout layZoom;
-//	Button btnZoomIn, btnZoomOut;
 
 	boolean inProgress = false;
 	boolean tmrEd = false;
@@ -72,9 +72,6 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		layLoading = (RelativeLayout) findViewById(R.id.layLoading);
 		imgShareTencent = (ImageView) findViewById(R.id.imgShareTencent);
 		imgShareSina = (ImageView) findViewById(R.id.imgShareSina);
-		layZoom = (RelativeLayout) findViewById(R.id.layZoom);
-//		btnZoomIn = (Button) findViewById(R.id.btnZoomIn);
-//		btnZoomOut = (Button) findViewById(R.id.btnZoomOut);
 
 		WebSettings settings = tvArticle.getSettings();
 		settings.setLoadWithOverviewMode(false);
@@ -101,6 +98,11 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		tvTitle.setText(GlobalInstance.currentArticle.getTitle());
 		tvDate.setText(GlobalInstance.currentArticle.getDate());
 		// tvArticle.setTextSize(fontSize);
+		
+		try {
+			FileUtils.createFile(GlobalInstance.currentArticle.getRead().getAbsolutePath(), "");
+		} catch (IOException e) {
+		}
 
 		setTextView();
 		FakeClick.doFakeClick(GlobalInstance.currentArticle.getUid());
@@ -116,7 +118,6 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 					if (!inProgress) {
 						pbRefreshing.setVisibility(View.GONE);
 						layLoading.setVisibility(View.GONE);
-						layZoom.setVisibility(View.VISIBLE);
 					}
 				}
 				super.handleMessage(msg);
@@ -134,7 +135,6 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 		inProgress = true;
 		pbRefreshing.setVisibility(View.VISIBLE);
 		layLoading.setVisibility(View.VISIBLE);
-		layZoom.setVisibility(View.GONE);
 		final Handler h = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -143,7 +143,6 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 					if (tmrEd) {
 						pbRefreshing.setVisibility(View.GONE);
 						layLoading.setVisibility(View.GONE);
-						layZoom.setVisibility(View.VISIBLE);
 					}
 				}
 				super.handleMessage(msg);
@@ -164,16 +163,16 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btnZoomIn:
-			fontSize++;
-			tvArticle.zoomIn();
-			PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("font-size", fontSize).commit();
-			break;
-		case R.id.btnZoomOut:
-			fontSize--;
-			tvArticle.zoomOut();
-			PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("font-size", fontSize).commit();
-			break;
+//		case R.id.btnZoomIn:
+//			fontSize++;
+//			tvArticle.zoomIn();
+//			PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("font-size", fontSize).commit();
+//			break;
+//		case R.id.btnZoomOut:
+//			fontSize--;
+//			tvArticle.zoomOut();
+//			PreferenceManager.getDefaultSharedPreferences(this).edit().putInt("font-size", fontSize).commit();
+//			break;
 		case R.id.tvSeeWeb:
 			Intent inSeeWeb = new Intent(Intent.ACTION_VIEW);
 			inSeeWeb.setData(Uri.parse(GlobalInstance.currentArticle.getLink()));
