@@ -22,21 +22,21 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
+import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.snda.gyue.adapter.ArticleItemAdapter;
-import com.snda.gyue.adapter.ImageAdapterDeprecated;
+import com.snda.gyue.adapter.FocusItemAdapter;
+import com.snda.gyue.adapter.ImageAdapter;
+import com.snda.gyue.adapter.PreferenceAdapter;
 import com.snda.gyue.classes.ArticleItem;
+import com.snda.gyue.classes.SettingsItem;
 import com.snda.gyue.component.GalleryFlow;
 import com.snda.gyue.network.HttpProxy;
 import com.snda.gyue.network.ItemBuilder;
@@ -47,23 +47,27 @@ import com.snda.gyue.utils.UIUtils;
 import com.tencent.weibo.utils.Configuration;
 import com.tencent.weibo.utils.Utils;
 
-public class MainActivity extends Activity implements OnClickListener, OnItemClickListener, OnCheckedChangeListener {
+public class MainActivity extends Activity implements OnClickListener, OnItemClickListener {
 
 	RelativeLayout btnFunc1, btnFunc2, btnFunc3, btnFunc4, btnFunc5;
 
 	RelativeLayout layContent;
-	ScrollView layMainFocus;
-	ListView lvFocus, lvIndustry, lvApplication, lvGames;
-	List<ArticleItem> lstFocus, lstIndustry, lstApplication, lstGames;
-	ArticleItemAdapter adapterFocus, adapterIndustry, adapterApplication, adapterGames;
+	ListView lvFocus, lvIndustry, lvApplication, lvGames, lvSettings;
+	List<Object> lstFocus, lstIndustry, lstApplication, lstGames;
+	List<ArticleItem> lstGalleryItem;
+	List<SettingsItem> lstPreference;
+	ArticleItemAdapter adapterIndustry, adapterApplication, adapterGames;
+	FocusItemAdapter adapterFocus;
 	ProgressBar pbRefreshing;
 	Button btnRefresh;
-	GalleryFlow gallaryPhotos;
+	GalleryFlow gallaryPhotos = null;
+	ImageAdapter adapterGallery = null;
+	PreferenceAdapter adapterPref = null;
 	RelativeLayout laySettings;
 	TextView tvGName;
 
-	CheckBox chkOnlyWifi, chkShareWithPic;
-	Button btnBindSinaWeibo, btnBindTencentWeibo, btnAbout;
+	SettingsItem chkOnlyWifi, chkShareWithPic;
+	SettingsItem btnBindSinaWeibo, btnBindTencentWeibo, btnAbout;
 
 	boolean loadedFocus = false, loadedIndustry = false, loadedApplication = false, loadedGames = false;
 	int pageFocus = 1, pageIndustry = 1, pageApplication = 1, pageGames = 1;
@@ -76,6 +80,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 	boolean starting = true;
 	boolean firstLoadFocus = true;
+
+	public static final int ID_HEAD_GALLERY = 901;
+
+	Handler hRefreshConfig = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -105,7 +113,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		setContentView(R.layout.main);
 
 		layContent = (RelativeLayout) findViewById(R.id.layContent);
-		layMainFocus = (ScrollView) findViewById(R.id.layMainFocus);
 		btnFunc1 = (RelativeLayout) findViewById(R.id.btnFunc1);
 		btnFunc2 = (RelativeLayout) findViewById(R.id.btnFunc2);
 		btnFunc3 = (RelativeLayout) findViewById(R.id.btnFunc3);
@@ -122,27 +129,15 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		lvIndustry = (ListView) findViewById(R.id.lvIndustry);
 		lvApplication = (ListView) findViewById(R.id.lvApplication);
 		lvGames = (ListView) findViewById(R.id.lvGames);
+		lvSettings = (ListView) findViewById(R.id.lvSettings);
 
-		chkOnlyWifi = (CheckBox) findViewById(R.id.chkOnlyWifi);
-		chkShareWithPic = (CheckBox) findViewById(R.id.chkShareWithPic);
-		btnBindSinaWeibo = (Button) findViewById(R.id.btnBindSinaWeibo);
-		btnBindTencentWeibo = (Button) findViewById(R.id.btnBindTencentWeibo);
-		btnAbout = (Button) findViewById(R.id.btnAbout);
-
-		chkOnlyWifi.setOnCheckedChangeListener(this);
-		chkShareWithPic.setOnCheckedChangeListener(this);
-		btnBindSinaWeibo.setOnClickListener(this);
-		btnBindTencentWeibo.setOnClickListener(this);
-		btnAbout.setOnClickListener(this);
 		readConfig();
 
-		btnBindSinaWeibo.setText(GlobalInstance.sinaName.equals("") ? getString(R.string.bind_sina_weibo) : GlobalInstance.sinaName);
-		btnBindTencentWeibo.setText(GlobalInstance.tencentName.equals("") ? getString(R.string.bind_tencent_weibo) : GlobalInstance.tencentName);
+		buildPreference();
 
 		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
 		btnRefresh = (Button) findViewById(R.id.btnRefresh);
 		tvGName = (TextView) findViewById(R.id.tvGName);
-		gallaryPhotos = (GalleryFlow) findViewById(R.id.gallaryPhotos);
 
 		laySettings = (RelativeLayout) findViewById(R.id.laySettings);
 		laySettings.setVisibility(View.GONE);
@@ -153,11 +148,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		lvApplication.setOnItemClickListener(this);
 		lvGames.setOnItemClickListener(this);
 
-		// RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams)
-		// gallaryPhotos.getLayoutParams();
-		// lp.height = (int) (260 * GlobalInstance.metric.widthPixels / 480);
-		// gallaryPhotos.setLayoutParams(lp);
-		gallaryPhotos.setOnItemClickListener(this);
+		buildGalleryHead();
 
 		adjustButtonWidth();
 
@@ -190,6 +181,109 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		starting = false;
 	}
 
+	private void buildPreference() {
+		lstPreference = new ArrayList<SettingsItem>();
+
+		chkOnlyWifi = new SettingsItem();
+		chkOnlyWifi.setKey("onlywifi");
+		chkOnlyWifi.setTitle(getString(R.string.only_wifi));
+		chkOnlyWifi.setCheckBox(true);
+		chkOnlyWifi.setChecked(GlobalInstance.onlyWifi);
+		chkOnlyWifi.setSummary(getString(GlobalInstance.onlyWifi ? R.string.only_wifi_son : R.string.only_wifi_soff));
+		lstPreference.add(chkOnlyWifi);
+
+		chkShareWithPic = new SettingsItem();
+		chkShareWithPic.setKey("sharewithpic");
+		chkShareWithPic.setTitle(getString(R.string.share_with_pic));
+		chkShareWithPic.setCheckBox(true);
+		chkShareWithPic.setChecked(GlobalInstance.shareWithPic);
+		chkShareWithPic.setSummary(getString(GlobalInstance.shareWithPic ? R.string.share_with_pic_son : R.string.share_with_pic_soff));
+		lstPreference.add(chkShareWithPic);
+
+		btnBindSinaWeibo = new SettingsItem();
+		btnBindSinaWeibo.setKey("bind_sina");
+		btnBindSinaWeibo.setCheckBox(false);
+		btnBindSinaWeibo.setIcon(R.drawable.sina_logo);
+		btnBindSinaWeibo.setTitle(getString(GlobalInstance.sinaName.equals("") ? R.string.bind_sina_weibo : R.string.unbind_sina_weibo));
+		btnBindSinaWeibo.setSummary(GlobalInstance.sinaName.equals("") ? getString(R.string.bind_sina_sno) : String.format(getString(R.string.bind_sina_fmt),
+				GlobalInstance.sinaName));
+		lstPreference.add(btnBindSinaWeibo);
+
+		btnBindTencentWeibo = new SettingsItem();
+		btnBindTencentWeibo.setKey("bind_tencent");
+		btnBindTencentWeibo.setCheckBox(false);
+		btnBindTencentWeibo.setIcon(R.drawable.tencent_logo);
+		btnBindTencentWeibo.setTitle(getString(GlobalInstance.tencentName.equals("") ? R.string.bind_tencent_weibo : R.string.unbind_tencent_weibo));
+		btnBindTencentWeibo.setSummary(GlobalInstance.tencentName.equals("") ? getString(R.string.bind_tencent_sno) : String.format(
+				getString(R.string.bind_tencent_fmt), GlobalInstance.tencentName));
+		lstPreference.add(btnBindTencentWeibo);
+
+		btnAbout = new SettingsItem();
+		btnAbout.setKey("about");
+		btnAbout.setCheckBox(false);
+		btnAbout.setTitle(getString(R.string.about));
+		lstPreference.add(btnAbout);
+
+		hRefreshConfig = new Handler() {
+			
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 101) {
+					GlobalInstance.onlyWifi = chkOnlyWifi.isChecked();
+					GlobalInstance.shareWithPic = chkShareWithPic.isChecked();
+					writeConfig();
+				}
+				super.handleMessage(msg);
+			}
+			
+		};
+		
+		adapterPref = new PreferenceAdapter(getLayoutInflater(), lstPreference, hRefreshConfig);
+		lvSettings.setAdapter(adapterPref);
+
+		lvSettings.setOnItemClickListener(this);
+	}
+
+	private void buildGalleryHead() {
+		if (gallaryPhotos == null) {
+
+			RelativeLayout layGallary = new RelativeLayout(this);
+
+			gallaryPhotos = new GalleryFlow(this);
+			gallaryPhotos.setId(ID_HEAD_GALLERY);
+			gallaryPhotos.setClipChildren(true);
+			gallaryPhotos.setOnItemClickListener(this);
+			RelativeLayout.LayoutParams lpHead = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, UIUtils.dipToPx(160));
+			lpHead.topMargin = UIUtils.dipToPx(4);
+			lpHead.bottomMargin = UIUtils.dipToPx(4);
+			gallaryPhotos.setLayoutParams(lpHead);
+			layGallary.addView(gallaryPhotos);
+			lvFocus.addHeaderView(layGallary);
+
+		}
+	}
+
+	private void updateGallery() {
+		// update gallery
+		if (lstGalleryItem == null) {
+			lstGalleryItem = new ArrayList<ArticleItem>();
+		}
+		lstGalleryItem.clear();
+		for (int i = 0; i < 5; i++) {
+			lstGalleryItem.add((ArticleItem) lstFocus.get(i));
+		}
+
+		if (adapterGallery == null) {
+			adapterGallery = new ImageAdapter(this, getLayoutInflater(), lstGalleryItem, lvFocus, gallaryPhotos);
+			gallaryPhotos.setAdapter(adapterGallery);
+		}
+
+		if (firstLoadFocus) {
+			firstLoadFocus = false;
+			gallaryPhotos.setSelection(2);
+		}
+	}
+
 	private void getIpAddress() {
 		WifiManager wifiManager = (WifiManager) getSystemService(WIFI_SERVICE);
 		WifiInfo wifiInfo = wifiManager.getConnectionInfo();
@@ -212,14 +306,26 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		if (bind.equals("sina")) {
 			writeConfig();
 			if (!GlobalInstance.sinaName.equals("")) {
-				btnBindSinaWeibo.setText(GlobalInstance.sinaName);
+				// btnBindSinaWeibo.setText(GlobalInstance.sinaName);
+				btnBindSinaWeibo.setTitle(getString(GlobalInstance.sinaName.equals("") ? R.string.bind_sina_weibo : R.string.unbind_sina_weibo));
+				btnBindSinaWeibo.setSummary(GlobalInstance.sinaName.equals("") ? getString(R.string.bind_sina_sno) : String.format(
+						getString(R.string.bind_sina_fmt), GlobalInstance.sinaName));
+				if (adapterPref != null) {
+					adapterPref.notifyDataSetChanged();
+				}
 			}
 		}
 
 		if (bind.equals("tencent")) {
 			writeConfig();
 			if (!GlobalInstance.tencentName.equals("")) {
-				btnBindTencentWeibo.setText(GlobalInstance.tencentName);
+				// btnBindTencentWeibo.setText(GlobalInstance.tencentName);
+				btnBindTencentWeibo.setTitle(getString(GlobalInstance.tencentName.equals("") ? R.string.bind_tencent_weibo : R.string.unbind_tencent_weibo));
+				btnBindTencentWeibo.setSummary(GlobalInstance.tencentName.equals("") ? getString(R.string.bind_tencent_sno) : String.format(
+						getString(R.string.bind_tencent_fmt), GlobalInstance.tencentName));
+				if (adapterPref != null) {
+					adapterPref.notifyDataSetChanged();
+				}
 			}
 		}
 	}
@@ -227,10 +333,8 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	private void readConfig() {
 		// read config
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		chkOnlyWifi.setChecked(sp.getBoolean("onlywifi", false));
-		chkShareWithPic.setChecked(sp.getBoolean("sharewithpic", true));
-
-		GlobalInstance.shareWithPic = chkShareWithPic.isChecked();
+		GlobalInstance.onlyWifi = sp.getBoolean("onlywifi", false);
+		GlobalInstance.shareWithPic = sp.getBoolean("sharewithpic", true);
 
 		GlobalInstance.sinaToken = sp.getString("sinaToken", "");
 		GlobalInstance.sinaSecret = sp.getString("sinaSecret", "");
@@ -243,13 +347,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	private void writeConfig() {
 		// write config
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(this);
-		sp.edit().putBoolean("onlywifi", chkOnlyWifi.isChecked()).putBoolean("sharewithpic", chkShareWithPic.isChecked())
+		sp.edit().putBoolean("onlywifi", GlobalInstance.onlyWifi).putBoolean("sharewithpic", GlobalInstance.shareWithPic)
 				.putString("sinaToken", GlobalInstance.sinaToken).putString("sinaSecret", GlobalInstance.sinaSecret)
 				.putString("tencentToken", GlobalInstance.tencentToken).putString("tencentSecret", GlobalInstance.tencentSecret)
 				.putString("sinaName", GlobalInstance.sinaName).putString("tencentName", GlobalInstance.tencentName).commit();
-
-		GlobalInstance.shareWithPic = chkShareWithPic.isChecked();
-
 	}
 
 	private void getArticleListT(final int type, final int page, final boolean local) {
@@ -287,59 +388,21 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 					switch (type) {
 					case 54: {
-						RelativeLayout.LayoutParams lp = (RelativeLayout.LayoutParams) lvFocus.getLayoutParams();
 						loadedFocus = true;
-
 						if (!hasNextFocus) {
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
-						setGalleryImages(lstFocus);
 
-						List<ArticleItem> lstFocusTmp = null;
-						if (lstFocus != null) {
-							lstFocusTmp = new ArrayList<ArticleItem>(lstFocus);
-							for (int i = 0; i < 5; i++) {
-								lstFocusTmp.remove(0);
-							}
+						if (adapterFocus == null) {
+							adapterFocus = new FocusItemAdapter(getLayoutInflater(), lstFocus, lvFocus, 54);
 						}
 
-						if (lstFocusTmp == null) {
-							adapterFocus = null;
-						} else {
-							adapterFocus = new ArticleItemAdapter(getLayoutInflater(), lstFocusTmp, lvFocus, gallaryPhotos, 54);
+						if (lvFocus.getAdapter() == null) {
+							lvFocus.setAdapter(adapterFocus);
 						}
-
-						lvFocus.setAdapter(adapterFocus);
-
-						// adapterFocus.setNewList(lstFocusTmp);
-
-						if (lstFocus == null) {
-							lp.height = 0;
-						} else {
-							if (lstFocusTmp != null) {
-								lp.height = ImageUtils.dipToPx(GlobalInstance.density, 81) * (lstFocusTmp.size() - 1)
-										+ ImageUtils.dipToPx(GlobalInstance.density, 48);
-							} else {
-								lp.height = 0;
-							}
-						}
-
-						lvFocus.setLayoutParams(lp);
-
+						adapterFocus.setNewList(lstFocus);
+						updateGallery();
 						inProgressFocus = false;
-
-						if (firstLoadFocus) {
-							firstLoadFocus = false;
-							layMainFocus.post(new Runnable() {
-
-								@Override
-								public void run() {
-									layMainFocus.scrollTo(0, 0);
-
-								}
-							});
-						}
-
 						break;
 					}
 					case 13: {
@@ -348,18 +411,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						if (!hasNextIndustry) {
 							Toast.makeText(MainActivity.this, R.string.no_more, Toast.LENGTH_LONG).show();
 						}
-						if (GlobalInstance.gListFocusedArticles == null || GlobalInstance.gListFocusedArticles.size() == 0) {
-							if (lstIndustry == null) {
-								GlobalInstance.gListFocusedArticles = null;
-							} else {
-								GlobalInstance.gListFocusedArticles = new ArrayList<ArticleItem>(lstIndustry);
-							}
-						}
 						if (lvIndustry.getAdapter() == null) {
 							lvIndustry.setAdapter(adapterIndustry);
 						}
 						adapterIndustry.setNewList(lstIndustry);
-
 						inProgressIndustry = false;
 						break;
 					}
@@ -481,15 +536,15 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							hasNextFocus = true;
 						} else {
 							if (hasNextFocus) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<Object> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextFocus = false;
 								}
-								mergeList(tmp, lstFocus, 50);
+								mergeList(tmp, lstFocus, -1);
 							}
 						}
 						if (lstFocus == null) {
-							lstFocus = new ArrayList<ArticleItem>();
+							lstFocus = new ArrayList<Object>();
 						}
 						addEmptyArticle(lstFocus);
 
@@ -501,7 +556,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							hasNextIndustry = true;
 						} else {
 							if (hasNextIndustry) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<Object> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextIndustry = false;
 								}
@@ -509,7 +564,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							}
 						}
 						if (lstIndustry == null) {
-							lstIndustry = new ArrayList<ArticleItem>();
+							lstIndustry = new ArrayList<Object>();
 						}
 						addEmptyArticle(lstIndustry);
 
@@ -524,7 +579,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							hasNextApplication = true;
 						} else {
 							if (hasNextApplication) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<Object> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextApplication = false;
 								}
@@ -532,7 +587,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							}
 						}
 						if (lstApplication == null) {
-							lstApplication = new ArrayList<ArticleItem>();
+							lstApplication = new ArrayList<Object>();
 						}
 						addEmptyArticle(lstApplication);
 
@@ -547,7 +602,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							hasNextGames = true;
 						} else {
 							if (hasNextGames) {
-								List<ArticleItem> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<Object> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextGames = false;
 								}
@@ -555,7 +610,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 							}
 						}
 						if (lstGames == null) {
-							lstGames = new ArrayList<ArticleItem>();
+							lstGames = new ArrayList<Object>();
 						}
 						addEmptyArticle(lstGames);
 						if (adapterGames == null) {
@@ -573,10 +628,10 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		}).start();
 	}
 
-	private void mergeList(List<ArticleItem> source, List<ArticleItem> dest, int max) {
+	private void mergeList(List<Object> source, List<Object> dest, int max) {
 		dest.remove(dest.size() - 1);
 		if (source != null && source.size() > 0) {
-			for (ArticleItem item : source) {
+			for (Object item : source) {
 				if (max != -1) {
 					if (dest.size() >= max) {
 						break;
@@ -587,7 +642,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		}
 	}
 
-	private void addEmptyArticle(List<ArticleItem> dest) {
+	private void addEmptyArticle(List<Object> dest) {
 		ArticleItem item = new ArticleItem();
 		item.setTitle("0");
 		dest.add(item);
@@ -608,28 +663,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		LinearLayout.LayoutParams lp = (LinearLayout.LayoutParams) btn.getLayoutParams();
 		lp.width = width;
 		btn.setLayoutParams(lp);
-	}
-
-	public void setGalleryImages(List<ArticleItem> images) {
-		if (images == null) {
-			return;
-		}
-		List<ArticleItem> list = new ArrayList<ArticleItem>();
-		for (int i = 0; i < images.size(); i++) {
-			if (images.get(i) == null) {
-				continue;
-			}
-			if ((images.get(i).getArticleImageLocalFileName() != null) && (!images.get(i).getArticleImageLocalFileName().equals(""))) {
-				list.add(images.get(i));
-				if (list.size() >= 5) {
-					break;
-				}
-			}
-		}
-
-		ImageAdapterDeprecated imgAdapter = new ImageAdapterDeprecated(this, getLayoutInflater(), list, lvFocus, gallaryPhotos);
-		gallaryPhotos.setAdapter(imgAdapter);
-		gallaryPhotos.setSelection(2);
 	}
 
 	private void setIconText(RelativeLayout btn, int icon, int text) {
@@ -675,58 +708,6 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				}
 				getArticleListT(CurrentType, 1, false);
 				return;
-			case R.id.btnBindSinaWeibo:
-
-				if (GlobalInstance.sinaToken.equals("")) {
-					// bind sina weibo
-					Intent inSina = new Intent(this, BeforeBindActivity.class);
-					inSina.putExtra("auth", 1);
-					startActivity(inSina);
-
-				} else {
-					new AlertDialog.Builder(this).setTitle(R.string.hint).setMessage(R.string.unbind_sina)
-							.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									GlobalInstance.sinaName = "";
-									GlobalInstance.sinaToken = "";
-									GlobalInstance.sinaSecret = "";
-									writeConfig();
-									btnBindSinaWeibo.setText(R.string.bind_sina_weibo);
-
-								}
-							}).setNegativeButton(R.string.cancel, null).show();
-				}
-				break;
-			case R.id.btnBindTencentWeibo:
-				// bind tencent weibo
-				if (GlobalInstance.tencentToken.equals("")) {
-					Intent inTencent = new Intent(this, BeforeBindActivity.class);
-					inTencent.putExtra("auth", 2);
-					startActivity(inTencent);
-
-				} else {
-					new AlertDialog.Builder(this).setTitle(R.string.hint).setMessage(R.string.unbind_tencent)
-							.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog, int which) {
-									GlobalInstance.tencentName = "";
-									GlobalInstance.tencentToken = "";
-									GlobalInstance.tencentSecret = "";
-									writeConfig();
-									btnBindTencentWeibo.setText(R.string.bind_tencent_weibo);
-
-								}
-							}).setNegativeButton(R.string.cancel, null).show();
-				}
-				break;
-			case R.id.btnAbout:
-				// show about dialog
-				Intent inAbout = new Intent(this, AboutActivity.class);
-				startActivity(inAbout);
-				break;
 			}
 			return;
 		}
@@ -735,7 +716,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			setSelectedItem((RelativeLayout) v);
 		}
 
-		layMainFocus.setVisibility(View.GONE);
+		lvFocus.setVisibility(View.GONE);
 		lvIndustry.setVisibility(View.GONE);
 		lvApplication.setVisibility(View.GONE);
 		lvGames.setVisibility(View.GONE);
@@ -747,7 +728,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 		case R.id.btnFunc1:
 			CurrentType = 54;
 			tvGName.setText(R.string.func1_detail);
-			layMainFocus.setVisibility(View.VISIBLE);
+			lvFocus.setVisibility(View.VISIBLE);
 			if (inProgressFocus) {
 				if (adapterFocus != null) {
 					adapterFocus.setUpdateStatus(true);
@@ -842,27 +823,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 	}
 
 	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode == RESULT_OK) {
-			switch (requestCode) {
-			case 1:
-				writeConfig();
-				if (!GlobalInstance.sinaName.equals("")) {
-					btnBindSinaWeibo.setText(GlobalInstance.sinaName);
-				}
-				break;
-			case 2:
-				break;
-
-			}
-		}
-	}
-
-	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
 		ArticleItem item = null;
-		boolean needShowDownload = false;
 		switch (parent.getId()) {
 		case R.id.lvFocus:
 		case R.id.lvIndustry:
@@ -877,11 +840,9 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 				item = (ArticleItem) lvIndustry.getItemAtPosition(position);
 				break;
 			case R.id.lvApplication:
-				needShowDownload = true;
 				item = (ArticleItem) lvApplication.getItemAtPosition(position);
 				break;
 			case R.id.lvGames:
-				needShowDownload = true;
 				item = (ArticleItem) lvGames.getItemAtPosition(position);
 				break;
 			}
@@ -951,31 +912,74 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 					getArticleListT(CurrentType, pageGames, false);
 					break;
 				}
-
 				return;
 			}
 
 			break;
 		}
-		case R.id.gallaryPhotos:
+		case ID_HEAD_GALLERY:
 			item = (ArticleItem) gallaryPhotos.getItemAtPosition(position);
 			break;
+		case R.id.lvSettings:
+			// TODO:
+			SettingsItem sitem = (SettingsItem) lvSettings.getItemAtPosition(position);
+			if (sitem.getKey().equals("bind_sina")) {
+				if (GlobalInstance.sinaToken.equals("")) {
+					// bind sina weibo
+					Intent inSina = new Intent(this, BeforeBindActivity.class);
+					inSina.putExtra("auth", 1);
+					startActivity(inSina);
+				} else {
+					new AlertDialog.Builder(this).setTitle(R.string.hint).setMessage(R.string.unbind_sina)
+							.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									GlobalInstance.sinaName = "";
+									GlobalInstance.sinaToken = "";
+									GlobalInstance.sinaSecret = "";
+									writeConfig();
+									btnBindSinaWeibo.setTitle(getString(R.string.bind_sina_weibo));
+									btnBindSinaWeibo.setSummary(getString(R.string.bind_sina_sno));
+									adapterPref.notifyDataSetChanged();
+								}
+							}).setNegativeButton(R.string.cancel, null).show();
+				}
+			} else if (sitem.getKey().equals("bind_tencent")) {
+				if (GlobalInstance.tencentToken.equals("")) {
+					Intent inTencent = new Intent(this, BeforeBindActivity.class);
+					inTencent.putExtra("auth", 2);
+					startActivity(inTencent);
+				} else {
+					new AlertDialog.Builder(this).setTitle(R.string.hint).setMessage(R.string.unbind_tencent)
+							.setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog, int which) {
+									GlobalInstance.tencentName = "";
+									GlobalInstance.tencentToken = "";
+									GlobalInstance.tencentSecret = "";
+									writeConfig();
+									btnBindTencentWeibo.setTitle(getString(R.string.bind_tencent_weibo));
+									btnBindTencentWeibo.setSummary(getString(R.string.bind_tencent_sno));
+									adapterPref.notifyDataSetChanged();
+								}
+							}).setNegativeButton(R.string.cancel, null).show();
+				}
+			} else if (sitem.getKey().equals("about")) {
+				Intent inAbout = new Intent(this, AboutActivity.class);
+				startActivity(inAbout);
+			}
+
+			return;
 		}
 
 		if (item != null) {
 			GlobalInstance.currentArticle = item;
 			Intent inArticle = new Intent(this, ViewArticleActivity.class);
-			inArticle.putExtra("needShowDownload", needShowDownload);
 			startActivity(inArticle);
 		}
 
-	}
-
-	@Override
-	public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-		if (!starting) {
-			writeConfig();
-		}
 	}
 
 	@Override

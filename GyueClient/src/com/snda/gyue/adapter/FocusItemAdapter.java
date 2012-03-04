@@ -1,6 +1,7 @@
 package com.snda.gyue.adapter;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.graphics.Color;
@@ -11,7 +12,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.BaseAdapter;
-import android.widget.Gallery;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.ProgressBar;
@@ -27,21 +27,23 @@ import com.snda.gyue.holder.ArticleItemHolder;
 import com.snda.gyue.network.NetFiles;
 import com.snda.gyue.utils.ImageUtils;
 
-public class ArticleItemAdapter extends BaseAdapter {
+public class FocusItemAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
 	private List<Object> list;
 	private ListView listview;
-	private Gallery gallery;
 	private int articleId;
 	private boolean updating = false;
 
-	public ArticleItemAdapter(LayoutInflater inflater, List<Object> list, ListView listview, Gallery gallery, int articleId) {
+	public FocusItemAdapter(LayoutInflater inflater, List<Object> list, ListView listview, int articleId) {
 		this.inflater = inflater;
-		this.list = list;
+		this.list = new ArrayList<Object>(list);
 		this.listview = listview;
-		this.gallery = gallery;
 		this.articleId = articleId;
+		
+		for (int i=0;i<5; i++) {
+			this.list.remove(0);
+		}
 	}
 
 	@Override
@@ -60,7 +62,10 @@ public class ArticleItemAdapter extends BaseAdapter {
 	}
 
 	public void setNewList(List<Object> list) {
-		this.list = list;
+		this.list = new ArrayList<Object>(list);
+		for (int i=0;i<5; i++) {
+			this.list.remove(0);
+		}
 		this.updating = false;
 		notifyDataSetChanged();
 	}
@@ -73,9 +78,10 @@ public class ArticleItemAdapter extends BaseAdapter {
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 
+		View v = null;
+
 		ArticleItem item = (ArticleItem) list.get(position);
 
-		View v;
 		if (convertView == null) {
 			v = inflater.inflate(R.layout.article_item, parent, false);
 		} else {
@@ -167,7 +173,7 @@ public class ArticleItemAdapter extends BaseAdapter {
 
 					} else {
 						NetFiles.doDownloadImageT(v.getContext(), item.getArticleImageUrl(), item.getArticleImageLocalFileName(), holder.articleImageImpl,
-								listview, gallery);
+								listview, null);
 					}
 				}
 				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v.getLayoutParams();

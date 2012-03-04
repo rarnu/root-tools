@@ -58,35 +58,16 @@
         android:layout_above="@+id/layBottom"
         android:layout_below="@+id/layTitleBar" >
 
-        <ScrollView
-            android:id="@+id/layMainFocus"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content" >
-
-                <com.snda.gyue.component.GalleryFlow
-                    android:id="@+id/gallaryPhotos"
-                    android:layout_width="fill_parent"
-                    android:layout_height="160dip"
-                    android:layout_marginBottom="4dip"
-                    android:layout_marginTop="4dip"
-                    android:clipChildren="true" />
-
-                <ListView
-                    android:id="@+id/lvFocus"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/gallaryPhotos"
-                    android:cacheColorHint="#00000000"
-                    android:divider="@color/lightgray"
-                    android:dividerHeight="1dip"
-                    android:fastScrollEnabled="true" >
-                </ListView>
-            </RelativeLayout>
-        </ScrollView>
+        <ListView
+            android:id="@+id/lvFocus"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/gallaryPhotos"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/lightgray"
+            android:dividerHeight="1dip"
+            android:fastScrollEnabled="true" >
+        </ListView>
 
         <ListView
             android:id="@+id/lvIndustry"

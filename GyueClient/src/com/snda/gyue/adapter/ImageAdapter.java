@@ -1,122 +1,98 @@
 package com.snda.gyue.adapter;
 
+import java.util.List;
+
 import android.content.Context;
-import android.content.res.Resources;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.Config;
-import android.graphics.BitmapFactory;
-import android.graphics.Canvas;
-import android.graphics.LinearGradient;
-import android.graphics.Matrix;
-import android.graphics.Paint;
-import android.graphics.PorterDuffXfermode;
-import android.graphics.Shader.TileMode;
+import android.graphics.drawable.Drawable;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.Gallery;
 import android.widget.ImageView;
+import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
-import com.snda.gyue.component.GalleryFlow;
+import com.snda.gyue.GlobalInstance;
+import com.snda.gyue.GyueConsts;
+import com.snda.gyue.R;
+import com.snda.gyue.classes.ArticleItem;
+import com.snda.gyue.holder.GalleryHolder;
+import com.snda.gyue.network.NetFiles;
+import com.snda.gyue.utils.ImageUtils;
 
 public class ImageAdapter extends BaseAdapter {
-	int mGalleryItemBackground;
+
 	private Context mContext;
-	private Integer[] mImageIds;
-	private ImageView[] mImages;
+	private List<ArticleItem> mList;
+	private LayoutInflater inflater;
+	private ListView listview;
+	private Gallery gallery;
 
-	public ImageAdapter(Context c, Integer[] ImageIds) {
+	public ImageAdapter(Context c, LayoutInflater inflater, List<ArticleItem> list, ListView listview, Gallery gallery) {
 		mContext = c;
-		mImageIds = ImageIds;
-		mImages = new ImageView[mImageIds.length];
-	}
-
-	/**
-	 * 创建倒影效果
-	 * 
-	 * @return
-	 */
-	public boolean createReflectedImages() {
-		// 倒影图和原图之间的距离
-		final int reflectionGap = 4;
-		int index = 0;
-		for (int imageId : mImageIds) {
-			// 返回原图解码之后的bitmap对象
-			Bitmap originalImage = BitmapFactory.decodeResource(mContext.getResources(), imageId);
-			int width = originalImage.getWidth();
-			int height = originalImage.getHeight();
-			// 创建矩阵对象
-			Matrix matrix = new Matrix();
-
-			// 指定一个角度以0,0为坐标进行旋转
-			// matrix.setRotate(30);
-
-			// 指定矩阵(x轴不变，y轴相反)
-			matrix.preScale(1, -1);
-
-			// 将矩阵应用到该原图之中，返回一个宽度不变，高度为原图1/2的倒影位图
-			Bitmap reflectionImage = Bitmap
-					.createBitmap(originalImage, 0, height / 2, width, height / 2, matrix, false);
-
-			// 创建一个宽度不变，高度为原图+倒影图高度的位图
-			Bitmap bitmapWithReflection = Bitmap.createBitmap(width, (height + height / 2), Config.ARGB_8888);
-
-			// 将上面创建的位图初始化到画布
-			Canvas canvas = new Canvas(bitmapWithReflection);
-			canvas.drawBitmap(originalImage, 0, 0, null);
-
-			Paint deafaultPaint = new Paint();
-			deafaultPaint.setAntiAlias(false);
-			// canvas.drawRect(0, height, width, height +
-			// reflectionGap,deafaultPaint);
-			canvas.drawBitmap(reflectionImage, 0, height + reflectionGap, null);
-			Paint paint = new Paint();
-			paint.setAntiAlias(false);
-
-			/**
-			 * 参数一:为渐变起初点坐标x位置， 参数二:为y轴位置， 参数三和四:分辨对应渐变终点， 最后参数为平铺方式，
-			 * 这里设置为镜像Gradient是基于Shader类，所以我们通过Paint的setShader方法来设置这个渐变
-			 */
-			LinearGradient shader = new LinearGradient(0, originalImage.getHeight(), 0,
-					bitmapWithReflection.getHeight() + reflectionGap, 0x70ffffff, 0x00ffffff, TileMode.MIRROR);
-			// 设置阴影
-			paint.setShader(shader);
-			paint.setXfermode(new PorterDuffXfermode(android.graphics.PorterDuff.Mode.DST_IN));
-			// 用已经定义好的画笔构建一个矩形阴影渐变效果
-			canvas.drawRect(0, height, width, bitmapWithReflection.getHeight() + reflectionGap, paint);
-
-			// 创建一个ImageView用来显示已经画好的bitmapWithReflection
-			ImageView imageView = new ImageView(mContext);
-			imageView.setImageBitmap(bitmapWithReflection);
-			// 设置imageView大小 ，也就是最终显示的图片大小
-			imageView.setLayoutParams(new GalleryFlow.LayoutParams(300, 400));
-			// imageView.setScaleType(ScaleType.MATRIX);
-			mImages[index++] = imageView;
-		}
-		return true;
-	}
-
-	@SuppressWarnings("unused")
-	private Resources getResources() {
-		return null;
+		mList = list;
+		this.inflater = inflater;
+		this.listview = listview;
+		this.gallery = gallery;
 	}
 
 	public int getCount() {
-		return mImageIds.length;
+		return mList.size();
 	}
 
 	public Object getItem(int position) {
-		return position;
+		return mList.get(position);
 	}
 
 	public long getItemId(int position) {
 		return position;
 	}
-
-	public View getView(int position, View convertView, ViewGroup parent) {
-		return mImages[position];
+	
+	public void setNewList(List<ArticleItem> list) {
+		mList = list;
+		notifyDataSetChanged();
 	}
 
-	public float getScale(boolean focused, int offset) {
-		return Math.max(0, 1.0f / (float) Math.pow(2, Math.abs(offset)));
+	public View getView(int position, View convertView, ViewGroup parent) {
+
+		ArticleItem item = mList.get(position);
+
+		View v;
+		if (convertView == null) {
+			v = inflater.inflate(R.layout.gallery_item, parent, false);
+		} else {
+			v = convertView;
+		}
+
+		GalleryHolder holder = (GalleryHolder) v.getTag();
+		if (holder == null) {
+			holder = new GalleryHolder();
+			holder.galleryPicture = (ImageView) v.findViewById(R.id.gallery_picture);
+			holder.galleryText = (TextView) v.findViewById(R.id.gallery_text);
+			v.setTag(holder);
+		}
+
+		if (item != null) {
+
+			holder.galleryPicture.setLayoutParams(new RelativeLayout.LayoutParams(
+					GlobalInstance.metric.widthPixels - 8, (int) (260 * GlobalInstance.metric.widthPixels / 480)));
+
+			Drawable d = ImageUtils.loadFullImage(mContext, GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
+
+			if (d != null) {
+				holder.galleryPicture.setBackgroundDrawable(d);
+			} else {
+				NetFiles.doDownloadImageT(mContext, item.getArticleImageUrl(), item.getArticleImageLocalFileName(),
+						holder.galleryPicture, listview, gallery);
+			}
+
+			holder.galleryText.setText(item.getTitle());
+			
+
+		}
+
+		return v;
 	}
 }

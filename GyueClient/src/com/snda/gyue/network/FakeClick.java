@@ -29,7 +29,7 @@ public class FakeClick {
 		}).start();
 	}
 
-	public static void doFakeClickAll(final List<ArticleItem> list) {
+	public static void doFakeClickAll(final List<Object> list) {
 		new Thread(new Runnable() {
 
 			@Override
@@ -39,7 +39,7 @@ public class FakeClick {
 				try {
 					for (int i = 0; i < list.size(); i++) {
 
-						url = String.format(FAKE_URL, list.get(i).getUid());
+						url = String.format(FAKE_URL, ((ArticleItem)list.get(i)).getUid());
 						count = new Random(System.currentTimeMillis()).nextInt(10);
 						for (int j = 0; j < count; j++) {
 							try {

@@ -18,10 +18,10 @@ import com.snda.gyue.utils.XmlUtils;
 
 public class ItemBuilder {
 
-	public static List<ArticleItem> xmlToItems(Context context, int rssid, String xml, boolean local, boolean saveMain)
+	public static List<Object> xmlToItems(Context context, int rssid, String xml, boolean local, boolean saveMain)
 			throws Exception {
 
-		List<ArticleItem> result = null;
+		List<Object> result = null;
 		FileUtils.mkdir(GyueConsts.GYUE_DIR);
 		String localFilePath = GyueConsts.GYUE_DIR + String.format("a%d.xml", rssid);
 
@@ -48,7 +48,7 @@ public class ItemBuilder {
 					.getElementsByTagName("item");
 			Element ele = null;
 			if (nodeList != null && nodeList.getLength() > 0) {
-				result = new ArrayList<ArticleItem>();
+				result = new ArrayList<Object>();
 				for (int i = 0; i < nodeList.getLength(); i++) {
 					ele = (Element) nodeList.item(i);
 					ArticleItem item = new ArticleItem();

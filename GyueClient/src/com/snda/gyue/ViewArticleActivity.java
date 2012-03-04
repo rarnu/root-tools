@@ -8,9 +8,6 @@ import java.util.TimerTask;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.snda.gyue.network.FakeClick;
-import com.snda.gyue.utils.FileUtils;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
@@ -19,7 +16,6 @@ import android.os.Handler;
 import android.os.Message;
 import android.preference.PreferenceManager;
 import android.text.Html.ImageGetter;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebSettings;
@@ -32,6 +28,9 @@ import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.snda.gyue.network.FakeClick;
+import com.snda.gyue.utils.FileUtils;
 
 public class ViewArticleActivity extends Activity implements OnClickListener {
 
@@ -54,13 +53,6 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.view_article);
-
-		String widget = getIntent().getStringExtra("mode");
-		if (widget != null && widget.equals("widget")) {
-			int itemidx = getIntent().getIntExtra("item", 0);
-			Log.e("GyueWidget", String.format("itemidx: %d", itemidx));
-			GlobalInstance.currentArticle = GlobalInstance.gListFocusedArticles.get(itemidx);
-		}
 
 		btnBack = (Button) findViewById(R.id.btnBack);
 		pbRefreshing = (ProgressBar) findViewById(R.id.pbRefreshing);
