@@ -38,6 +38,8 @@ public class MainActivity extends Activity implements OnItemClickListener {
 
 	List<AppInfo> list = null;
 
+	private int position = -1;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -180,6 +182,7 @@ public class MainActivity extends Activity implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> adapter, View view, int position,
 			long id) {
+		this.position = position;
 		AppInfo item = (AppInfo) lvApps.getItemAtPosition(position);
 		Intent inApp = new Intent(this, AppDetailActivity.class);
 		GlobalInstance.currentApp = item;
@@ -234,7 +237,9 @@ public class MainActivity extends Activity implements OnItemClickListener {
 				boolean needRefresh = data
 						.getBooleanExtra("needRefresh", false);
 				if (needRefresh) {
-					loadSystemApp();
+					list.remove(position);
+					adapter.setNewList(list);
+					// loadSystemApp();
 				}
 			} else if (requestCode == 1) {
 				// select apk return

@@ -23,6 +23,11 @@ public class AppAdapter extends BaseAdapter {
 		this.list = list;
 	}
 
+	public void setNewList(List<AppInfo> list) {
+		this.list = list;
+		this.notifyDataSetChanged();
+	}
+	
 	public int getCount() {
 		return list.size();
 	}
