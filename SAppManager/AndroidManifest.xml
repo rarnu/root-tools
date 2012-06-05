@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	package="com.snda.root.sapp.manager" android:versionCode="2"
-	android:versionName="1.5">
+	package="com.snda.root.sapp.manager" android:versionCode="3"
+	android:versionName="1.6">
     <uses-sdk android:minSdkVersion="8"></uses-sdk>
 	<application android:icon="@drawable/icon" android:label="@string/app_name"
 		android:debuggable="true">
