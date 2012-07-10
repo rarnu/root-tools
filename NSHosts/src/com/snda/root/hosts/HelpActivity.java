@@ -24,7 +24,6 @@ public class HelpActivity extends Activity {
 
 		wvHelp.setVerticalScrollBarEnabled(true);
 		wvHelp.setHorizontalScrollBarEnabled(false);
-//		wvHelp.setClickable(false);
 		wvHelp.loadUrl("file:///android_asset/help.html");
 		
 	}

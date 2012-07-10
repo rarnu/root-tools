@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <com.rarnu.tools.root.comp.TitleBar
+        android:id="@+id/tbTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/imgBottom"
+        android:layout_below="@+id/tbTitle"
+        android:padding="8dip" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/layMore1"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:background="@drawable/list_above_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/scan_media"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layMore2"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layMore1"
+                android:background="@drawable/list_middle_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:id="@+id/tvCleanDalvik"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/clean_dalvik"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layMore3"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layMore2"
+                android:background="@drawable/list_middle_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/check_network_status"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layMore4"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layMore3"
+                android:background="@drawable/list_below_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/reboot_device"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layMore5"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layMore4"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/list_above_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/get_super_user"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layMore6"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layMore5"
+                android:background="@drawable/list_below_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/get_root_explorer"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

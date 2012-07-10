@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <com.rarnu.tools.root.comp.TitleBar
+        android:id="@+id/tbTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/btnAbout"
+        android:layout_below="@+id/tbTitle" >
+
+        <GridView
+            android:id="@+id/gdButtons"
+            android:layout_width="312dip"
+            android:layout_height="312dip"
+            android:layout_centerInParent="true"
+            android:columnWidth="92dip"
+            android:horizontalSpacing="8dip"
+            android:numColumns="3"
+            android:verticalSpacing="8dip" >
+        </GridView>
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnAbout"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_above="@+id/imgBottom"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="4dip"
+        android:layout_marginRight="4dip"
+        android:background="@drawable/button_style"
+        android:text="@string/short_about"
+        android:textColor="@color/white"
+        android:textSize="10dip" />
+
+    <Button
+        android:id="@+id/btnFeedback"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_above="@+id/imgBottom"
+        android:layout_marginBottom="4dip"
+        android:layout_marginRight="4dip"
+        android:layout_toLeftOf="@+id/btnAbout"
+        android:background="@drawable/button_style"
+        android:text="@string/short_feedback"
+        android:textColor="@color/white"
+        android:textSize="10dip" />
+
+    <Button
+        android:id="@+id/btnRecommand"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_above="@+id/imgBottom"
+        android:layout_marginBottom="4dip"
+        android:layout_marginRight="4dip"
+        android:layout_toLeftOf="@+id/btnFeedback"
+        android:background="@drawable/button_style"
+        android:text="@string/short_recommand"
+        android:textColor="@color/white"
+        android:textSize="10dip" />
+
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

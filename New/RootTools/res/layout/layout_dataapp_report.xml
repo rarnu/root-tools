@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white" >
+
+    <com.rarnu.tools.root.comp.TitleBar
+        android:id="@+id/tbTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" />
+
+    <ListView
+        android:id="@+id/lvReport"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tbTitle"
+        android:layout_above="@+id/imgBottom"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/lightgray"
+        android:dividerHeight="1dip"
+        android:fastScrollEnabled="true" />
+
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+</RelativeLayout>

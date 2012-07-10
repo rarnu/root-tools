@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <com.rarnu.tools.root.comp.TitleBar
+        android:id="@+id/tbTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/imgBottom"
+        android:layout_below="@+id/tbTitle" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dip" >
+
+            <TextView
+                android:id="@+id/tvRootDesc"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:text="@string/root_buybox_desc" />
+
+            <RelativeLayout
+                android:id="@+id/laySu"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/tvRootDesc"
+                android:layout_marginTop="16dip"
+                android:background="@drawable/list_above_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/file_su"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgSu"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/laySuperuser"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/laySu"
+                android:background="@drawable/list_middle_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/file_super_user"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgSuperUser"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layBusybox"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/laySuperuser"
+                android:background="@drawable/list_below_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/file_busybox"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgBusybox"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <com.rarnu.tools.root.comp.DataProgressBar
+        android:id="@+id/progressBusybox"
+        android:layout_width="fill_parent"
+        android:layout_height="24dip"
+        android:layout_above="@+id/imgBottom"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

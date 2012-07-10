@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <com.rarnu.tools.root.comp.TitleBar
+        android:id="@+id/tbTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" />
+
+    <com.rarnu.tools.root.comp.SearchBar
+        android:id="@+id/sbSearchHosts"
+        android:layout_width="fill_parent"
+        android:layout_height="56dip"
+        android:layout_below="@+id/tbTitle" />
+
+    <HorizontalScrollView
+        android:id="@+id/laySitBtn"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_below="@+id/sbSearchHosts"
+        android:layout_margin="4dip"
+        android:scrollbars="none" >
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:orientation="horizontal" >
+
+            <Button
+                android:id="@+id/btnCom"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:background="@drawable/button_style"
+                android:text=".com"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnOrg"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="4dip"
+                android:background="@drawable/button_style"
+                android:text=".org"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnNet"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="4dip"
+                android:background="@drawable/button_style"
+                android:text=".net"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnEdu"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="4dip"
+                android:background="@drawable/button_style"
+                android:text=".edu"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnInfo"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="4dip"
+                android:background="@drawable/button_style"
+                android:text=".info"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnBiz"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="4dip"
+                android:background="@drawable/button_style"
+                android:text=".biz"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnCn"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="4dip"
+                android:background="@drawable/button_style"
+                android:text=".cn"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnUs"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="4dip"
+                android:background="@drawable/button_style"
+                android:text=".us"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnJp"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="4dip"
+                android:background="@drawable/button_style"
+                android:text=".jp"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnHk"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="4dip"
+                android:background="@drawable/button_style"
+                android:text=".hk"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnTw"
+                android:layout_width="50dip"
+                android:layout_height="40dip"
+                android:layout_marginLeft="4dip"
+                android:background="@drawable/button_style"
+                android:text=".tw"
+                android:textColor="@color/white" />
+        </LinearLayout>
+    </HorizontalScrollView>
+
+    <ListView
+        android:id="@+id/lvAddHosts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/barAddHosts"
+        android:layout_below="@+id/laySitBtn"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/lightgray"
+        android:dividerHeight="1dip"
+        android:fastScrollEnabled="true"
+        android:focusableInTouchMode="false" >
+    </ListView>
+
+    <com.rarnu.tools.root.comp.DataBar
+        android:id="@+id/barAddHosts"
+        android:layout_width="wrap_content"
+        android:layout_height="48dip"
+        android:layout_above="@+id/imgBottom"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <com.rarnu.tools.root.comp.DataProgressBar
+        android:id="@+id/progressSearchHosts"
+        android:layout_width="fill_parent"
+        android:layout_height="24dip"
+        android:layout_above="@+id/imgBottom"
+        android:visibility="gone" />
+    
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

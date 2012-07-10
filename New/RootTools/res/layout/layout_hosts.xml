@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <com.rarnu.tools.root.comp.TitleBar
+        android:id="@+id/tbTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" />
+
+    <com.rarnu.tools.root.comp.SearchBar
+        android:id="@+id/sbHosts"
+        android:layout_width="fill_parent"
+        android:layout_height="56dip"
+        android:layout_below="@+id/tbTitle" />
+
+    <ListView
+        android:id="@+id/lvHosts"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/barHosts"
+        android:layout_below="@+id/sbHosts"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/lightgray"
+        android:dividerHeight="1dip"
+        android:fastScrollEnabled="true"
+        android:focusableInTouchMode="false" >
+    </ListView>
+
+    <com.rarnu.tools.root.comp.DataBar
+        android:id="@+id/barHosts"
+        android:layout_width="wrap_content"
+        android:layout_height="48dip"
+        android:layout_above="@+id/imgBottom"
+        android:layout_centerHorizontal="true"
+        android:visibility="gone" />
+
+    <com.rarnu.tools.root.comp.DataProgressBar
+        android:id="@+id/progressHosts"
+        android:layout_width="fill_parent"
+        android:layout_height="24dip"
+        android:layout_above="@+id/imgBottom"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

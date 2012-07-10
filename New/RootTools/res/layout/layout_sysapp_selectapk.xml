@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="@color/white" >
+
+    <com.rarnu.tools.root.comp.TitleBar
+        android:id="@+id/tbTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" />
+
+    <TextView
+        android:id="@+id/tvPath"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tbTitle"
+        android:background="@color/lightskyblue"
+        android:gravity="left|center_vertical"
+        android:padding="4dip"
+        android:textColor="@color/black" />
+
+    <ListView
+        android:id="@+id/lvApk"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/imgBottom"
+        android:layout_below="@+id/tvPath"
+        android:cacheColorHint="@color/transparent"
+        android:divider="@color/lightgray"
+        android:dividerHeight="1dip"
+        android:fastScrollEnabled="true" />
+
+    <ProgressBar
+        android:id="@+id/pbShowing"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

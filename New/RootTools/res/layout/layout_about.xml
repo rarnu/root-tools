@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <com.rarnu.tools.root.comp.TitleBar
+        android:id="@+id/tbTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/imgBottom"
+        android:layout_below="@+id/tbTitle" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dip" >
+
+            <ImageView
+                android:id="@+id/imgIcon"
+                android:layout_width="48dip"
+                android:layout_height="48dip"
+                android:background="@drawable/icon"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/tvAppName"
+                android:layout_width="wrap_content"
+                android:layout_height="24dip"
+                android:layout_marginLeft="8dip"
+                android:layout_toRightOf="@+id/imgIcon"
+                android:gravity="left|center_vertical"
+                android:text="@string/app_name"
+                android:textColor="@color/black" />
+
+            <TextView
+                android:id="@+id/tvAppVersion"
+                android:layout_width="wrap_content"
+                android:layout_height="24dip"
+                android:layout_marginLeft="8dip"
+                android:layout_toRightOf="@+id/tvAppName"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/black" />
+            
+            <TextView android:id="@+id/tvDebug"
+                android:layout_width="wrap_content"
+                android:layout_height="24dip"
+                android:layout_marginLeft="8dip"
+                android:layout_toRightOf="@+id/tvAppVersion"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/black"
+                android:text="@string/app_debug"/>
+
+            <TextView
+                android:id="@+id/tvCopyright"
+                android:layout_width="fill_parent"
+                android:layout_height="24dip"
+                android:layout_below="@+id/tvAppName"
+                android:layout_marginLeft="8dip"
+                android:layout_toRightOf="@+id/imgIcon"
+                android:gravity="left|center_vertical"
+                android:text="@string/copyright" />
+
+            <TextView
+                android:id="@+id/spl1"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/tvCopyright"
+                android:layout_marginBottom="8dip"
+                android:layout_marginTop="8dip"
+                android:background="@color/lightgray" />
+
+            <TextView
+                android:id="@+id/tvAbout"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_below="@+id/spl1"
+                android:autoLink="all"
+                android:gravity="left|top"
+                android:lineSpacingExtra="3dip"
+                android:text="@string/help_about"
+                android:textColor="@color/black" />
+
+            <RelativeLayout
+                android:id="@+id/layBottom"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvAbout"
+                android:layout_margin="8dip"
+                android:layout_marginTop="8dip" >
+
+                <RelativeLayout
+                    android:id="@+id/layHelp"
+                    android:layout_width="fill_parent"
+                    android:layout_height="56dip"
+                    android:layout_marginTop="8dip"
+                    android:background="@drawable/list_above_background"
+                    android:clickable="true" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="8dip"
+                        android:text="@string/how_to_use"
+                        android:textColor="@color/black" />
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layFitable"
+                    android:layout_width="fill_parent"
+                    android:layout_height="56dip"
+                    android:layout_below="@+id/layHelp"
+                    android:background="@drawable/list_below_background"
+                    android:clickable="true" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="8dip"
+                        android:text="@string/system_fitable"
+                        android:textColor="@color/black" />
+
+                    <ImageView
+                        android:id="@+id/imgFitable"
+                        android:layout_width="32dip"
+                        android:layout_height="32dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:background="@drawable/c0"
+                        android:contentDescription="@null" />
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

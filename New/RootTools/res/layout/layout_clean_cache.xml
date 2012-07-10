@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <com.rarnu.tools.root.comp.TitleBar
+        android:id="@+id/tbTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" />
+    
+    <TextView
+        android:id="@+id/tvCacheInfo"
+        android:layout_width="fill_parent"
+        android:layout_height="32dip"
+        android:layout_below="@+id/tbTitle"
+        android:background="@color/lightskyblue"
+        android:gravity="left|center_vertical"
+        android:padding="4dip"
+        android:textColor="@color/black"
+        android:textSize="10dip" />
+    
+    <com.rarnu.tools.root.comp.SearchBar
+        android:id="@+id/sbCache"
+        android:layout_width="fill_parent"
+        android:layout_height="56dip"
+        android:layout_below="@+id/tvCacheInfo" />
+
+    <ListView
+        android:id="@+id/lvCache"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnCleanCache"
+        android:layout_below="@+id/sbCache"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/lightgray"
+        android:dividerHeight="1dip"
+        android:fastScrollEnabled="true"
+        android:focusableInTouchMode="false" >
+    </ListView>
+
+    <Button
+        android:id="@+id/btnCleanCache"
+        android:layout_width="fill_parent"
+        android:layout_height="40dip"
+        android:layout_above="@+id/imgBottom"
+        android:layout_marginBottom="4dip"
+        android:layout_marginLeft="32dip"
+        android:layout_marginRight="32dip"
+        android:layout_marginTop="4dip"
+        android:background="@drawable/button_style"
+        android:text="@string/func6_title"
+        android:textColor="@color/white" />
+
+    <com.rarnu.tools.root.comp.DataProgressBar
+        android:id="@+id/progressCache"
+        android:layout_width="fill_parent"
+        android:layout_height="24dip"
+        android:layout_above="@+id/imgBottom"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

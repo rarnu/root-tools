@@ -921,7 +921,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			item = (ArticleItem) gallaryPhotos.getItemAtPosition(position);
 			break;
 		case R.id.lvSettings:
-			// TODO:
+			
 			SettingsItem sitem = (SettingsItem) lvSettings.getItemAtPosition(position);
 			if (sitem.getKey().equals("bind_sina")) {
 				if (GlobalInstance.sinaToken.equals("")) {
