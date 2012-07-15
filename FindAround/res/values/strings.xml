@@ -1,0 +1,63 @@
+<resources>
+    <string name="service_stat">true</string>
+    <string name="app_name">给力找周边</string>
+    <string name="func">功能</string>
+    <string name="back">返回</string>
+    <string name="save">保存</string>
+    
+    <string name="locating">正在定位，请稍候&#8230;</string>
+    <string name="searching">正在搜索，请稍候&#8230;</string>
+    <string name="counting">正在计算路线，请稍候&#8230;</string>
+    
+    <string name="find_market">找超市</string>
+    <string name="find_rest">找餐厅</string>
+    <string name="find_coffee">找咖啡店</string>
+    <string name="find_tor">找厕所</string>
+    <string name="market">超市</string>
+    <string name="tor">厕所</string>
+    <string name="rest">餐厅</string>
+    <string name="coffee">咖啡</string>
+    <string name="settings">设置</string>
+    
+    <string name="locate">定位</string>
+    <string name="mark">描点</string>
+    <string name="search">搜索</string>
+    <string name="search_clean">清除</string>
+    <string name="stop_mark">&lt;=停止</string>
+    <string name="clean">&lt;=清空</string>
+    <string name="address">地址</string>
+    <string name="mark_clicked">标点被点击</string>
+    <string name="poi">兴趣点</string>
+    <string name="route">路径</string>
+    <string name="busline">公交线</string>
+    
+    <string name="city_sh">上海</string>
+    <string name="input_busline">请输入公交车线路</string>
+    <string name="input_poi">请输入关键字</string>
+    <string name="no_result">抱歉，未找到结果</string>
+    
+    <string name="from_pos">起始位置</string>
+    <string name="to_pos">结束位置</string>
+    <string name="drive">驾车</string>
+    <string name="bus">公交</string>
+    <string name="walk">步行</string>
+    
+    <string name="hint">提示</string>
+    <string name="ok">确定</string>
+    <string name="no_location_found">没有定位到您的位置，请尝试重新定位</string>
+    <string name="gpu_40">您开启了强制GPU渲染，这将使程序无法正常工作，请关闭该选项后重试</string>
+    
+    <string name="settings_around">搜索距离</string>
+    <string name="settings_method">寻路方案</string>
+    <string name="settings_keywords">搜索关键字列表</string>
+    <string name="dist_1000">附近 1 公里</string>
+    <string name="dist_3000">附近 3 公里</string>
+    <string name="dist_5000">附近 5 公里</string>
+    <string name="dist_drive">自驾车 / 出租车</string>
+    <string name="dist_bus">公交换乘</string>
+    <string name="dist_walk">步行 / 自行车</string>
+    <string name="dist_keywords">设置搜索关键字</string>
+    <string name="keywords_hint">输入搜索关键字，它们将出现在“搜索”功能中，每行输入一个</string>
+	<string name="init_keywords">超市\n餐厅\n咖啡吧\n医院\n厕所</string>
+	<string name="network_error">当前网络不给力，请稍后再试</string>
+</resources>

@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <include
+        android:id="@+id/layTitle"
+        layout="@layout/title_bar" />
+
+    <EditText
+        android:id="@+id/etKeywords"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/layTitle"
+        android:layout_margin="8dip"
+        android:background="@color/white"
+        android:gravity="left|top"
+        android:hint="@string/keywords_hint"
+        android:scrollbars="horizontal|vertical" />
+
+</RelativeLayout>

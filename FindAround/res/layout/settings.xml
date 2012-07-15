@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <include
+        android:id="@+id/layTitle"
+        layout="@layout/title_bar" />
+    
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/layTitle" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:padding="8dip" >
+
+            <TextView
+                android:id="@+id/tvRound"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dip"
+                android:textColor="@color/black"
+                android:text="@string/settings_around" />
+
+            <RelativeLayout
+                android:id="@+id/layDist1"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/tvRound"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/list_above_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/dist_1000"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgDist1"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layDist2"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/layDist1"
+                android:background="@drawable/list_middle_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/dist_3000"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgDist2"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layDist3"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/layDist2"
+                android:background="@drawable/list_below_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/dist_5000"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgDist3"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+            
+            
+            <TextView
+                android:id="@+id/tvMethod"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dip"
+                android:layout_below="@+id/layDist3"
+                android:textColor="@color/black"
+                android:text="@string/settings_method" />
+
+            <RelativeLayout
+                android:id="@+id/layMethod1"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/tvMethod"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/list_above_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/dist_drive"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgMethod1"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            
+
+            <RelativeLayout
+                android:id="@+id/layMethod2"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/layMethod1"
+                android:background="@drawable/list_below_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/dist_walk"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgMethod2"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+            
+            <TextView
+                android:id="@+id/tvKeywords"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dip"
+                android:layout_below="@+id/layMethod2"
+                android:textColor="@color/black"
+                android:text="@string/settings_keywords" />
+            
+            <RelativeLayout
+                android:id="@+id/layKeywords"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_marginTop="8dip"
+                android:layout_below="@+id/tvKeywords"
+                android:background="@drawable/list_one_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/dist_keywords"
+                    android:textColor="@color/black" />
+
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
+
+</RelativeLayout>
