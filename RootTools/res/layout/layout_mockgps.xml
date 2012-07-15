@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <com.rarnu.tools.root.comp.TitleBar
+        android:id="@+id/tbTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip" />
+
+    <com.rarnu.tools.root.comp.SearchBar
+        android:id="@+id/sbMock"
+        android:layout_width="fill_parent"
+        android:layout_height="56dip"
+        android:layout_below="@+id/tbTitle" />
+
+    <RelativeLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/mbMock"
+        android:layout_below="@+id/sbMock" >
+
+        <com.baidu.mapapi.MapView
+            android:id="@+id/mvMock"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clickable="true" />
+        
+        <Button android:id="@+id/btnMockPrior"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:textColor="@color/white"
+            android:background="@drawable/button_style"
+            android:text="@string/mark_prior"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/tvMockPage"
+            android:layout_margin="4dip"
+            />
+        
+        <TextView android:id="@+id/tvMockPage"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentBottom="true"
+            android:layout_toLeftOf="@+id/btnMockNext"
+            android:layout_margin="4dip"
+            android:gravity="center"
+            android:textColor="@color/black"/>
+        
+        <Button android:id="@+id/btnMockNext"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:textColor="@color/white"
+            android:background="@drawable/button_style"
+            android:text="@string/mark_next"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="4dip"/>
+
+        <ImageView
+            android:id="@+id/imgCenter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="@drawable/cross"
+            android:contentDescription="@null" />
+    </RelativeLayout>
+
+    <com.rarnu.tools.root.comp.MockBar
+        android:id="@+id/mbMock"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_above="@+id/imgBottom" />
+
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

@@ -2,6 +2,7 @@ package com.rarnu.tools.root;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -10,15 +11,18 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.tools.root.api.LogApi;
+import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.DeviceUtils;
 
-public class AboutActivity extends Activity implements ActivityIntf, OnClickListener {
+public class AboutActivity extends Activity implements ActivityIntf,
+		OnClickListener {
 
 	// [region] field define
 	TitleBar tbTitle;
-	RelativeLayout layHelp, layFitable;
+	RelativeLayout layHelp, layFitable, layUpdate;
 	ImageView imgFitable;
 	TextView tvAppVersion, tvDebug;
 	// [/region]
@@ -26,6 +30,7 @@ public class AboutActivity extends Activity implements ActivityIntf, OnClickList
 	// [region] variable define
 	int fitable = 5;
 	int fitableClick = 0;
+
 	// [/region]
 
 	// [region] life circle
@@ -63,12 +68,46 @@ public class AboutActivity extends Activity implements ActivityIntf, OnClickList
 				startActivity(inEgg);
 			}
 			break;
+		case R.id.layUpdate:
+			showUpdateInfo();
+			break;
 		}
 	}
 
 	// [/region]
 
 	// [region] business logic
+
+	private void showUpdateInfo() {
+
+		if (GlobalInstance.updateInfo == null
+				|| GlobalInstance.updateInfo.result == 0) {
+			AlertDialogEx.showAlertDialogEx(this,
+					getString(R.string.check_update),
+					getString(R.string.no_update_found),
+					getString(R.string.ok), null, null, null);
+		} else {
+			AlertDialogEx.showAlertDialogEx(this,
+					getString(R.string.check_update), String.format(
+							getString(R.string.update_found_info),
+							GlobalInstance.updateInfo.versionName,
+							GlobalInstance.updateInfo.size),
+					getString(R.string.ok),
+					new AlertDialogEx.DialogButtonClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							// download new version
+							String downUrl = MobileApi.DOWNLOAD_BASE_URL
+									+ GlobalInstance.updateInfo.file;
+							Intent inDownload = new Intent(Intent.ACTION_VIEW);
+							inDownload.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							inDownload.setData(Uri.parse(downUrl));
+							startActivity(inDownload);
+						}
+					}, getString(R.string.cancel), null);
+		}
+	}
 
 	private void showDebugStatus() {
 		tvDebug.setVisibility(GlobalInstance.DEBUG ? View.VISIBLE : View.GONE);
@@ -137,6 +176,7 @@ public class AboutActivity extends Activity implements ActivityIntf, OnClickList
 		imgFitable = (ImageView) findViewById(R.id.imgFitable);
 		tvAppVersion = (TextView) findViewById(R.id.tvAppVersion);
 		tvDebug = (TextView) findViewById(R.id.tvDebug);
+		layUpdate = (RelativeLayout) findViewById(R.id.layUpdate);
 	}
 
 	@Override
@@ -156,6 +196,7 @@ public class AboutActivity extends Activity implements ActivityIntf, OnClickList
 	public void initEvents() {
 		layHelp.setOnClickListener(this);
 		layFitable.setOnClickListener(this);
+		layUpdate.setOnClickListener(this);
 		tbTitle.getLeftButton().setOnClickListener(this);
 	}
 

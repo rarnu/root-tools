@@ -9,10 +9,7 @@ import org.apache.http.protocol.HTTP;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
@@ -38,7 +35,8 @@ import com.rarnu.tools.root.utils.PingUtils;
 import com.rarnu.tools.root.utils.UIUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-public class WelcomeActivity extends Activity implements ActivityIntf, OnClickListener {
+public class WelcomeActivity extends Activity implements ActivityIntf,
+		OnClickListener {
 
 	// [region] consts
 	private static final int ID_BUTTON_0 = 1001;
@@ -71,8 +69,10 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 		super.onCreate(savedInstanceState);
 
 		if (!DirHelper.isSDCardExists()) {
-			AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint), getString(R.string.no_sdcard_found),
-					getString(R.string.ok), new AlertDialogEx.DialogButtonClickListener() {
+			AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint),
+					getString(R.string.no_sdcard_found),
+					getString(R.string.ok),
+					new AlertDialogEx.DialogButtonClickListener() {
 
 						@Override
 						public void onClick(View v) {
@@ -90,7 +90,8 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 		RootUtils.mountRW();
 
 		UIUtils.initDisplayMetrics(getWindowManager());
-		getWindowManager().getDefaultDisplay().getMetrics(GlobalInstance.metric);
+		getWindowManager().getDefaultDisplay()
+				.getMetrics(GlobalInstance.metric);
 		GlobalInstance.density = GlobalInstance.metric.density;
 		GlobalInstance.pm = getPackageManager();
 
@@ -100,12 +101,13 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 		loadExcludeListT();
 		showFunctionalEnabledTags();
 		loadNetworkStatus();
-		
+
 		if (GlobalInstance.isFirstStart) {
 			LogApi.logAppFirstStart();
 			GlobalInstance.isFirstStart = false;
 			RTConfig.setFirstStart(this, GlobalInstance.isFirstStart);
 		}
+		getUpdateInfo();
 	}
 
 	@Override
@@ -135,17 +137,25 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 
 	private void initDeviceInfo() {
 		GlobalInstance.deviceId = DeviceUtils.getDeviceUniqueId(this);
-		GlobalInstance.module = DeviceUtils.getBuildProp(DeviceUtils.RO_PRODUCT_MODEL);
-		GlobalInstance.osVersion = DeviceUtils.getBuildProp(DeviceUtils.RO_BUILD_VERSION_RELEASE);
+		GlobalInstance.module = DeviceUtils
+				.getBuildProp(DeviceUtils.RO_PRODUCT_MODEL);
+		GlobalInstance.osVersion = DeviceUtils
+				.getBuildProp(DeviceUtils.RO_BUILD_VERSION_RELEASE);
 		GlobalInstance.mail = GoogleUtils.getGoogleAccount();
-		GlobalInstance.buildDescription = DeviceUtils.getBuildProp(DeviceUtils.RO_BUILD_DESCRIPTION);
+		GlobalInstance.buildDescription = DeviceUtils
+				.getBuildProp(DeviceUtils.RO_BUILD_DESCRIPTION);
 
 		try {
-			GlobalInstance.deviceId = URLEncoder.encode(GlobalInstance.deviceId, HTTP.UTF_8);
-			GlobalInstance.module = URLEncoder.encode(GlobalInstance.module, HTTP.UTF_8);
-			GlobalInstance.osVersion = URLEncoder.encode(GlobalInstance.osVersion, HTTP.UTF_8);
-			GlobalInstance.mail = URLEncoder.encode(GlobalInstance.mail, HTTP.UTF_8);
-			GlobalInstance.buildDescription = URLEncoder.encode(GlobalInstance.buildDescription, HTTP.UTF_8);
+			GlobalInstance.deviceId = URLEncoder.encode(
+					GlobalInstance.deviceId, HTTP.UTF_8);
+			GlobalInstance.module = URLEncoder.encode(GlobalInstance.module,
+					HTTP.UTF_8);
+			GlobalInstance.osVersion = URLEncoder.encode(
+					GlobalInstance.osVersion, HTTP.UTF_8);
+			GlobalInstance.mail = URLEncoder.encode(GlobalInstance.mail,
+					HTTP.UTF_8);
+			GlobalInstance.buildDescription = URLEncoder.encode(
+					GlobalInstance.buildDescription, HTTP.UTF_8);
 		} catch (UnsupportedEncodingException e) {
 
 		}
@@ -156,10 +166,12 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 		GlobalInstance.isFirstStart = RTConfig.getFirstStart(this);
 		GlobalInstance.allowDeleteLevel0 = RTConfig.getAllowDeleteLevel0(this);
 		GlobalInstance.alsoDeleteData = RTConfig.getAlsoDeleteData(this);
-		GlobalInstance.backupBeforeDelete = RTConfig.getBackupBeforeDelete(this);
+		GlobalInstance.backupBeforeDelete = RTConfig
+				.getBackupBeforeDelete(this);
 		GlobalInstance.overrideBackuped = RTConfig.getOverrideBackuped(this);
 		GlobalInstance.reinstallApk = RTConfig.getReinstallApk(this);
-		GlobalInstance.killProcessBeforeClean = RTConfig.getKillProcessBeforeClean(this);
+		GlobalInstance.killProcessBeforeClean = RTConfig
+				.getKillProcessBeforeClean(this);
 		GlobalInstance.nameServer = RTConfig.getNameServer(this);
 	}
 
@@ -222,7 +234,8 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 			startActivity(SettingsActivity.class);
 			break;
 		case ID_BUTTON_0:
-			startActivityForResult(SysappMainActivity.class, RTConsts.REQCODE_SYSAPP);
+			startActivityForResult(SysappMainActivity.class,
+					RTConsts.REQCODE_SYSAPP);
 			break;
 		case ID_BUTTON_1:
 			startActivity(DataappMainActivity.class);
@@ -240,13 +253,14 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 			startActivity(CleanCacheMainActivity.class);
 			break;
 		case ID_BUTTON_6:
-			startActivityForResult(BusyboxActivity.class, RTConsts.REQCODE_BUSYBOX);
+			startActivityForResult(BusyboxActivity.class,
+					RTConsts.REQCODE_BUSYBOX);
 			break;
 		case ID_BUTTON_7:
-			startActivity(MoreMainActivity.class);
+			startActivity(MockGpsActivity.class);
 			break;
 		case ID_BUTTON_8:
-			showUpdateInfo();
+			startActivity(MoreMainActivity.class);
 			break;
 		case R.id.btnAbout:
 			startActivity(AboutActivity.class);
@@ -285,7 +299,8 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 		btn.setText(getString(text));
 		btn.setButtonId(id);
 		btn.setImageStyle(WelcomeButton.BS_NONE);
-		btn.setLayoutParams(new AbsListView.LayoutParams(UIUtils.dipToPx(96), UIUtils.dipToPx(96)));
+		btn.setLayoutParams(new AbsListView.LayoutParams(UIUtils.dipToPx(96),
+				UIUtils.dipToPx(96)));
 		return btn;
 	}
 
@@ -301,62 +316,8 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 
 	private void showBusyboxTag() {
 		boolean ready = BusyboxUtils.isSuBusyboxReady();
-		btnFunc[6].setImageStyle(ready ? WelcomeButton.BS_NONE : WelcomeButton.BS_WARNING);
-	}
-
-	private void showUpdateTag() {
-		final Handler h = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					int stat = msg.arg1;
-					btnFunc[8].setImageStyle(stat == 0 ? WelcomeButton.BS_NONE : WelcomeButton.BS_UPDATE);
-				}
-				super.handleMessage(msg);
-			}
-		};
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				int verCode = DeviceUtils.getAppVersionCode(WelcomeActivity.this);
-				GlobalInstance.updateInfo = MobileApi.checkUpdate(verCode);
-				Message msg = new Message();
-				msg.what = 1;
-				if (GlobalInstance.updateInfo == null) {
-					msg.arg1 = 0;
-				} else {
-					msg.arg1 = GlobalInstance.updateInfo.result;
-				}
-				h.sendMessage(msg);
-			}
-		}).start();
-	}
-
-	private void showUpdateInfo() {
-
-		if (GlobalInstance.updateInfo == null || GlobalInstance.updateInfo.result == 0) {
-			AlertDialogEx.showAlertDialogEx(this, getString(R.string.check_update),
-					getString(R.string.no_update_found), getString(R.string.ok), null, null, null);
-		} else {
-			AlertDialogEx.showAlertDialogEx(this, getString(R.string.check_update), String.format(
-					getString(R.string.update_found_info), GlobalInstance.updateInfo.versionName,
-					GlobalInstance.updateInfo.size), getString(R.string.ok),
-					new AlertDialogEx.DialogButtonClickListener() {
-
-						@Override
-						public void onClick(View v) {
-							// download new version
-							String downUrl = MobileApi.DOWNLOAD_BASE_URL + GlobalInstance.updateInfo.file;
-							Intent inDownload = new Intent(Intent.ACTION_VIEW);
-							inDownload.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-							inDownload.setData(Uri.parse(downUrl));
-							startActivity(inDownload);
-						}
-					}, getString(R.string.cancel), null);
-		}
+		btnFunc[6].setImageStyle(ready ? WelcomeButton.BS_NONE
+				: WelcomeButton.BS_WARNING);
 	}
 
 	private void loadExcludeListT() {
@@ -374,8 +335,10 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 			@Override
 			public void run() {
 				GlobalInstance.loadingNetwork = true;
-				GlobalInstance.networkInfo = NetworkUtils.getNetworkInfo(WelcomeActivity.this);
-				GlobalInstance.networkSpeed = PingUtils.testNetworkSpeed(WelcomeActivity.this);
+				GlobalInstance.networkInfo = NetworkUtils
+						.getNetworkInfo(WelcomeActivity.this);
+				GlobalInstance.networkSpeed = PingUtils
+						.testNetworkSpeed(WelcomeActivity.this);
 				GlobalInstance.loadingNetwork = false;
 			}
 		}).start();
@@ -397,7 +360,6 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 			for (int i = 0; i < btnFunc.length - 1; i++) {
 				btnFunc[i].setImageStyle(WelcomeButton.BS_BANNED);
 			}
-			showUpdateTag();
 			return;
 		}
 
@@ -411,14 +373,26 @@ public class WelcomeActivity extends Activity implements ActivityIntf, OnClickLi
 			showBusyboxTag();
 		}
 
-		showUpdateTag();
-
 	}
 
 	private void resetFuncButtons() {
 		for (int i = 0; i < btnFunc.length; i++) {
 			btnFunc[i].setImageStyle(WelcomeButton.BS_NONE);
 		}
+	}
+
+	private void getUpdateInfo() {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				int verCode = DeviceUtils
+						.getAppVersionCode(WelcomeActivity.this);
+				GlobalInstance.updateInfo = MobileApi.checkUpdate(verCode);
+
+			}
+		}).start();
 	}
 	// [/region]
 

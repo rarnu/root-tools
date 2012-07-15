@@ -82,7 +82,7 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.func8_title));
+		tbTitle.setText(getString(R.string.func9_func));
 		tbTitle.setLeftButtonText(getString(R.string.back));
 		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
 

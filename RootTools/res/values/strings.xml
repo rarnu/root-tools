@@ -40,9 +40,10 @@
     <string name="func6_title">清理缓存文件</string>
     <string name="func7">ROOT\nBusybox</string>
     <string name="func7_title">Root &amp; Busybox</string>
-    <string name="func8">杂项功能</string>
-    <string name="func8_title">杂项功能</string>
-    <string name="func9">检查更新</string>
+    <string name="func8">GPS位置摸拟</string>
+    <string name="func8_title">GPS位置摸拟</string>
+    <string name="func9">杂项功能</string>
+    <string name="func9_func">杂项功能</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="hint">提示</string>
@@ -226,4 +227,13 @@
 	<string name="delete_all_backup_data">删除所有备份的数据</string>
 	<string name="delete_all_backup_data_confirm">删除所有备份数据后，将无法再恢复应用程序和存档数据，确定要执行删除操作吗？按“确定”删除，按“取消”不删除。</string>
 	<string name="delete_all_backup_data_succ">已删除全部的备份数据</string>
+	<string name="input_hint_mock">请输入要搜索的地名</string>
+	<string name="mock">模拟</string>
+	<string name="stop">停止</string>
+	<string name="history">历史</string>
+	<string name="city">城市</string>
+	<string name="no_city_found">没有定位到当前城市，请先选择城市</string>
+	<string name="no_suggestion_found">没有找到关键字所代表的位置</string>
+	<string name="mark_prior">&lt;&lt;</string>
+	<string name="mark_next">&gt;&gt;</string>
 </resources>

@@ -92,13 +92,30 @@
                 android:layout_below="@+id/tvAbout"
                 android:layout_margin="8dip"
                 android:layout_marginTop="8dip" >
+                
+                <RelativeLayout
+                    android:id="@+id/layUpdate"
+                    android:layout_width="fill_parent"
+                    android:layout_height="56dip"
+                    android:layout_marginTop="8dip"
+                    android:background="@drawable/list_above_background"
+                    android:clickable="true" >
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="8dip"
+                        android:text="@string/check_update"
+                        android:textColor="@color/black" />
+                </RelativeLayout>
 
                 <RelativeLayout
                     android:id="@+id/layHelp"
                     android:layout_width="fill_parent"
                     android:layout_height="56dip"
-                    android:layout_marginTop="8dip"
-                    android:background="@drawable/list_above_background"
+                    android:layout_below="@+id/layUpdate"
+                    android:background="@drawable/list_middle_background"
                     android:clickable="true" >
 
                     <TextView

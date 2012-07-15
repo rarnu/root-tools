@@ -11,7 +11,7 @@ import com.rarnu.tools.root.common.SysappInfo;
 
 public class GlobalInstance {
 	
-	public static boolean DEBUG = false;
+	public static boolean DEBUG = true;
 	public static float density = 0;
 	public static DisplayMetrics metric = new DisplayMetrics();
 	public static PackageManager pm = null;
