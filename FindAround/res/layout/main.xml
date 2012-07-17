@@ -26,6 +26,16 @@
         android:layout_height="fill_parent"
         android:layout_below="@+id/hFunc"
         android:clickable="true" />
+    
+    <Button android:id="@+id/btnList"
+        android:layout_width="60dip"
+        android:layout_height="40dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dip"
+        android:background="@drawable/button_style"
+        android:textColor="@color/white"
+        android:text="@string/list"/>
 
     <TextView
         android:id="@+id/tvLoading"

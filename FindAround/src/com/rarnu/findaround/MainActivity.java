@@ -71,6 +71,7 @@ public class MainActivity extends MapActivity implements LocationListener,
 	TextView tvLoading;
 	Button btnLocate, btnAddress, btnSettings;
 	RelativeLayout layFunc;
+	Button btnList;
 
 	// [/region]
 
@@ -172,6 +173,9 @@ public class MainActivity extends MapActivity implements LocationListener,
 		btnLocate = (Button) findViewById(R.id.btnLocate);
 		btnAddress = (Button) findViewById(R.id.btnAddress);
 		btnSettings = (Button) findViewById(R.id.btnSettings);
+
+		btnList = (Button) findViewById(R.id.btnList);
+		btnList.setVisibility(View.GONE);
 	}
 
 	private void initMapComp() {
@@ -208,6 +212,7 @@ public class MainActivity extends MapActivity implements LocationListener,
 		btnSettings.setOnClickListener(this);
 
 		popup.setOnClickListener(this);
+		btnList.setOnClickListener(this);
 
 		// @SuppressWarnings("deprecation")
 		// ZoomControls zoom = (ZoomControls) mvMap.getZoomControls();
@@ -330,6 +335,11 @@ public class MainActivity extends MapActivity implements LocationListener,
 			startActivityForResult(inSettings, 0);
 			break;
 
+		case R.id.btnList:
+			Intent inList = new Intent(this, PoiListActivity.class);
+			startActivityForResult(inList, 1);
+			break;
+
 		case POPUP_ID:
 
 			if (point == null) {
@@ -359,6 +369,26 @@ public class MainActivity extends MapActivity implements LocationListener,
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (requestCode == 0) {
 			initPlaceButtons();
+		} else if (requestCode == 1) {
+			if (resultCode == RESULT_OK) {
+				if (point == null || GlobalInstance.selectedInfo == null) {
+					Toast.makeText(this, R.string.no_location_found,
+							Toast.LENGTH_LONG).show();
+					return;
+				}
+				popup.setVisibility(View.GONE);
+				tvLoading.setText(R.string.counting);
+				tvLoading.setVisibility(View.VISIBLE);
+				MKPlanNode nodeStart = new MKPlanNode();
+				nodeStart.pt = point;
+				MKPlanNode nodeEnd = new MKPlanNode();
+				nodeEnd.pt = GlobalInstance.selectedInfo.pt;
+				if (Config.getMethod(this) == 2) {
+					mSearch.walkingSearch(city, nodeStart, city, nodeEnd);
+				} else {
+					mSearch.drivingSearch(city, nodeStart, city, nodeEnd);
+				}
+			}
 		}
 	}
 
@@ -414,15 +444,18 @@ public class MainActivity extends MapActivity implements LocationListener,
 
 	@Override
 	public void onGetPoiResult(MKPoiResult res, int type, int error) {
+		btnList.setVisibility(View.GONE);
 		tvLoading.setVisibility(View.GONE);
 		removeRouteOverlays();
 		markOverlay.clearAll();
+		GlobalInstance.listPoi = null;
 
 		if (error != 0 || res == null) {
 			Toast.makeText(this, R.string.no_result, Toast.LENGTH_LONG).show();
 			return;
 		}
 		if (res.getAllPoi() != null && res.getAllPoi().size() != 0) {
+			GlobalInstance.listPoi = res.getAllPoi();
 			city = res.getAllPoi().get(0).city;
 			for (MKPoiInfo pr : res.getAllPoi()) {
 
@@ -432,6 +465,7 @@ public class MainActivity extends MapActivity implements LocationListener,
 		}
 
 		mvMap.invalidate();
+		btnList.setVisibility(View.VISIBLE);
 
 	}
 
@@ -517,6 +551,7 @@ public class MainActivity extends MapActivity implements LocationListener,
 		}
 		return ret;
 	}
+
 	// [/region]
 
 	// [region] receiver
@@ -525,12 +560,14 @@ public class MainActivity extends MapActivity implements LocationListener,
 		@Override
 		public void onReceive(Context context, Intent intent) {
 			tvLoading.setVisibility(View.GONE);
-			Toast.makeText(context, R.string.network_error, Toast.LENGTH_LONG).show();
+			Toast.makeText(context, R.string.network_error, Toast.LENGTH_LONG)
+					.show();
 		}
-		
+
 	}
-	
+
 	private MapReceiver myreceiver = new MapReceiver();
-	private IntentFilter mapFilter = new IntentFilter(MainApplication.NETWORK_ERROR_ACTION);
+	private IntentFilter mapFilter = new IntentFilter(
+			MainApplication.NETWORK_ERROR_ACTION);
 	// [/region]
 }
