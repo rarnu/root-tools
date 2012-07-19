@@ -88,20 +88,21 @@ public class ArticleItem {
 	}
 
 	public void setArticleImageUrl(String articleImageUrl) {
-		String local = "";
-
-		int p = articleImageUrl.indexOf("src=");
-		if (p != -1) {
-			for (int i = p + 5; i < articleImageUrl.length(); i++) {
-				if (articleImageUrl.charAt(i) == '\"') {
-					break;
-				}
-				local += articleImageUrl.charAt(i);
-			}
-		}
-
-		this.articleImageUrl = local;
-		setArticleImageLocalFileName(local);
+//		String local = "";
+//
+//		int p = articleImageUrl.indexOf("src=");
+//		if (p != -1) {
+//			for (int i = p + 5; i < articleImageUrl.length(); i++) {
+//				if (articleImageUrl.charAt(i) == '\"') {
+//					break;
+//				}
+//				local += articleImageUrl.charAt(i);
+//			}
+//		}
+		this.articleImageUrl = articleImageUrl;
+		this.articleImageLocalFileName = articleImageUrl;
+//		this.articleImageUrl = local;
+//		setArticleImageLocalFileName(local);
 	}
 
 	public String getArticleImageLocalFileName() {

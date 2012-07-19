@@ -161,21 +161,25 @@ public class FocusItemAdapter extends BaseAdapter {
 				holder.articleTitle.setGravity(Gravity.LEFT | Gravity.CENTER_VERTICAL);
 
 				holder.articleProgress.setVisibility(View.GONE);
+				
+				holder.articleImage.setVisibility(View.VISIBLE);
+				holder.articleImageImpl.setBackgroundResource(R.drawable.apic3);
 
-				if ((item.getArticleImageUrl() == null) || item.getArticleImageUrl().equals("")) {
-					holder.articleImage.setVisibility(View.GONE);
-				} else {
-					holder.articleImage.setVisibility(View.VISIBLE);
-					File img = new File(GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
-					if (img.exists()) {
-						holder.articleImageImpl.setBackgroundDrawable(ImageUtils.loadItemImage(v.getContext(),
-								GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName()));
-
-					} else {
-						NetFiles.doDownloadImageT(v.getContext(), item.getArticleImageUrl(), item.getArticleImageLocalFileName(), holder.articleImageImpl,
-								listview, null);
-					}
-				}
+//				if ((item.getArticleImageUrl() == null) || item.getArticleImageUrl().equals("")) {
+//					holder.articleImage.setVisibility(View.GONE);
+//				} else {
+//					holder.articleImage.setVisibility(View.VISIBLE);
+//					holder.articleImage.setBackgroundResource(R.drawable.apic3);
+//					File img = new File(GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
+//					if (img.exists()) {
+//						holder.articleImageImpl.setBackgroundDrawable(ImageUtils.loadItemImage(v.getContext(),
+//								GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName()));
+//
+//					} else {
+//						NetFiles.doDownloadImageT(v.getContext(), item.getArticleImageUrl(), item.getArticleImageLocalFileName(), holder.articleImageImpl,
+//								listview, null);
+//					}
+//				}
 				AbsListView.LayoutParams lpV = (AbsListView.LayoutParams) v.getLayoutParams();
 				lpV.height = ImageUtils.dipToPx(GlobalInstance.density, 80);
 				v.setLayoutParams(lpV);

@@ -525,18 +525,18 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 
 				try {
 					String xml = "";
-					if ((!local) || (!init)) {
-						xml = HttpProxy.CallGet(GyueConsts.SITE_URL, String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
-					}
+//					if ((!local) || (!init)) {
+//						xml = HttpProxy.CallGet(GyueConsts.SITE_URL, String.format(GyueConsts.REQ_PARAMS, type, page, GyueConsts.PAGE_SIZE), "GBK");
+//					}
 					switch (type) {
 					case 54:
 						if (page == 1) {
-							lstFocus = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstFocus = ItemBuilder.xmlToItems2(MainActivity.this, type, xml, (init ? local : false), true);
 							pageFocus = 1;
 							hasNextFocus = true;
 						} else {
 							if (hasNextFocus) {
-								List<Object> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<Object> tmp = ItemBuilder.xmlToItems2(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextFocus = false;
 								}
@@ -551,12 +551,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						break;
 					case 13:
 						if (page == 1) {
-							lstIndustry = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstIndustry = ItemBuilder.xmlToItems2(MainActivity.this, type, xml, (init ? local : false), true);
 							pageIndustry = 1;
 							hasNextIndustry = true;
 						} else {
 							if (hasNextIndustry) {
-								List<Object> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<Object> tmp = ItemBuilder.xmlToItems2(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextIndustry = false;
 								}
@@ -574,12 +574,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						break;
 					case 11:
 						if (page == 1) {
-							lstApplication = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstApplication = ItemBuilder.xmlToItems2(MainActivity.this, type, xml, (init ? local : false), true);
 							pageApplication = 1;
 							hasNextApplication = true;
 						} else {
 							if (hasNextApplication) {
-								List<Object> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<Object> tmp = ItemBuilder.xmlToItems2(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextApplication = false;
 								}
@@ -597,12 +597,12 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 						break;
 					case 12:
 						if (page == 1) {
-							lstGames = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), true);
+							lstGames = ItemBuilder.xmlToItems2(MainActivity.this, type, xml, (init ? local : false), true);
 							pageGames = 1;
 							hasNextGames = true;
 						} else {
 							if (hasNextGames) {
-								List<Object> tmp = ItemBuilder.xmlToItems(MainActivity.this, type, xml, (init ? local : false), false);
+								List<Object> tmp = ItemBuilder.xmlToItems2(MainActivity.this, type, xml, (init ? local : false), false);
 								if (tmp == null || tmp.size() == 0) {
 									hasNextGames = false;
 								}

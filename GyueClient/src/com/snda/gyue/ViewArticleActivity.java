@@ -145,8 +145,8 @@ public class ViewArticleActivity extends Activity implements OnClickListener {
 
 			@Override
 			public void run() {
-				String comment = GlobalInstance.currentArticle.getComment();
-				tvArticle.loadDataWithBaseURL("http://www.gyue.cn/", comment, "text/html", "utf-8", null);
+				// String comment = GlobalInstance.currentArticle.getComment();
+				tvArticle.loadUrl("http://gyue.cn/2012/07/11/github/");
 				h.sendEmptyMessage(1);
 			}
 		});

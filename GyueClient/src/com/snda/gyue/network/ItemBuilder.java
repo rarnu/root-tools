@@ -18,6 +18,24 @@ import com.snda.gyue.utils.XmlUtils;
 
 public class ItemBuilder {
 
+	public static List<Object> xmlToItems2(Context context, int rssid, String xml, boolean local, boolean saveMain) {
+		List<Object> result = new ArrayList<Object>();
+		for (int i=0;i<20; i++) {
+			ArticleItem item = new ArticleItem();
+			item.setUid("UID");
+			item.setTitle("HTC One之父谈设计：拒绝机海让体验说话");
+			item.setLink("");
+			item.setDescription("Scott Croyle（斯科特 库勒）是HTC全球设计副总，他负责过HTC Diamond及其之后所有手机的外观设计项目。HTC今年反攻的利器——One系列手机也全部出自这位资深设计师之手。作为旧金山One&Co设计公司的联合创始...");
+			item.setDate("2012-7-19");
+			item.setAuthor("极悦网");
+			item.setComment("");
+			item.setArticleImageUrl("jpg");
+			result.add(item);
+		}
+		return result;
+	}
+	
+	@Deprecated
 	public static List<Object> xmlToItems(Context context, int rssid, String xml, boolean local, boolean saveMain)
 			throws Exception {
 
@@ -83,7 +101,6 @@ public class ItemBuilder {
 					if (url.charAt(i) == '>') {
 						result += url.charAt(i);
 						break;
-
 					}
 					result += url.charAt(i);
 				}

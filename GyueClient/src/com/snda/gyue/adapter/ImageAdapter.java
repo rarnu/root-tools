@@ -79,17 +79,18 @@ public class ImageAdapter extends BaseAdapter {
 			holder.galleryPicture.setLayoutParams(new RelativeLayout.LayoutParams(
 					GlobalInstance.metric.widthPixels - 8, (int) (260 * GlobalInstance.metric.widthPixels / 480)));
 
-			Drawable d = ImageUtils.loadFullImage(mContext, GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
-
-			if (d != null) {
-				holder.galleryPicture.setBackgroundDrawable(d);
-			} else {
-				NetFiles.doDownloadImageT(mContext, item.getArticleImageUrl(), item.getArticleImageLocalFileName(),
-						holder.galleryPicture, listview, gallery);
-			}
+			holder.galleryPicture.setBackgroundResource(R.drawable.apic3);
+			
+//			Drawable d = ImageUtils.loadFullImage(mContext, GyueConsts.GYUE_DIR + item.getArticleImageLocalFileName());
+//
+//			if (d != null) {
+//				holder.galleryPicture.setBackgroundDrawable(d);
+//			} else {
+//				NetFiles.doDownloadImageT(mContext, item.getArticleImageUrl(), item.getArticleImageLocalFileName(),
+//						holder.galleryPicture, listview, gallery);
+//			}
 
 			holder.galleryText.setText(item.getTitle());
-			
 
 		}
 
