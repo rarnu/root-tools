@@ -12,6 +12,8 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.params.CoreConnectionPNames;
 import org.apache.http.util.EntityUtils;
 
+import android.util.Log;
+
 public class HttpProxy {
 	
 	
@@ -64,6 +66,7 @@ public class HttpProxy {
 
 	public static String CallGet(String url, String params, String encoding)
 			throws Exception {
+		Log.e("GET", url + "?" + params);
 		// url format: site-url/action
 		// params format: p1=v1&p2=v2&.....
 		// so the final url be built will be like this:
@@ -89,6 +92,7 @@ public class HttpProxy {
 
 		// repackage the string result to JSON object
 		// JSONObject json = new JSONObject(result);
+		Log.e("GET", result);
 		return result;
 	}
 

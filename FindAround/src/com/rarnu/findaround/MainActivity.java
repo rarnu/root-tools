@@ -72,6 +72,8 @@ public class MainActivity extends MapActivity implements LocationListener,
 	Button btnLocate, btnAddress, btnSettings;
 	RelativeLayout layFunc;
 	Button btnList;
+	Button btnPrior, btnNext;
+	TextView tvRoute;
 
 	// [/region]
 
@@ -176,6 +178,11 @@ public class MainActivity extends MapActivity implements LocationListener,
 
 		btnList = (Button) findViewById(R.id.btnList);
 		btnList.setVisibility(View.GONE);
+		btnPrior = (Button) findViewById(R.id.btnPrior);
+		btnNext = (Button) findViewById(R.id.btnNext);
+		tvRoute = (TextView) findViewById(R.id.tvRoute);
+
+		setRouteButtonVisible(false);
 	}
 
 	private void initMapComp() {
@@ -213,6 +220,8 @@ public class MainActivity extends MapActivity implements LocationListener,
 
 		popup.setOnClickListener(this);
 		btnList.setOnClickListener(this);
+		btnPrior.setOnClickListener(this);
+		btnNext.setOnClickListener(this);
 
 		// @SuppressWarnings("deprecation")
 		// ZoomControls zoom = (ZoomControls) mvMap.getZoomControls();
@@ -340,6 +349,14 @@ public class MainActivity extends MapActivity implements LocationListener,
 			startActivityForResult(inList, 1);
 			break;
 
+		case R.id.btnPrior:
+			setRouteShow(false);
+			break;
+
+		case R.id.btnNext:
+			setRouteShow(true);
+			break;
+
 		case POPUP_ID:
 
 			if (point == null) {
@@ -429,17 +446,22 @@ public class MainActivity extends MapActivity implements LocationListener,
 	@Override
 	public void onGetDrivingRouteResult(MKDrivingRouteResult res, int error) {
 		tvLoading.setVisibility(View.GONE);
+		setRouteButtonVisible(false);
 		removeRouteOverlays();
 		if (error != 0 || res == null) {
 			Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
 			return;
 		}
 		driveOverlay = new RouteOverlay(this, mvMap);
-		driveOverlay.setData(res.getPlan(0).getRoute(0));
+		GlobalInstance.selectedRoute = res.getPlan(0).getRoute(0);
+		GlobalInstance.routeIndex = -1;
+		driveOverlay.setData(GlobalInstance.selectedRoute);
 
 		mvMap.getOverlays().add(driveOverlay);
 		mvMap.invalidate();
 		mvMap.getController().animateTo(res.getStart().pt);
+		setRouteButtonVisible(true);
+		setRouteShow(true);
 	}
 
 	@Override
@@ -477,19 +499,23 @@ public class MainActivity extends MapActivity implements LocationListener,
 	@Override
 	public void onGetWalkingRouteResult(MKWalkingRouteResult res, int error) {
 		tvLoading.setVisibility(View.GONE);
+		setRouteButtonVisible(false);
 		removeRouteOverlays();
 		if (error != 0 || res == null) {
 			Toast.makeText(this, R.string.no_result, Toast.LENGTH_SHORT).show();
 			return;
 		}
 		walkOverlay = new RouteOverlay(this, mvMap);
-		walkOverlay.setData(res.getPlan(0).getRoute(0));
+		GlobalInstance.selectedRoute = res.getPlan(0).getRoute(0);
+		GlobalInstance.routeIndex = -1;
+		walkOverlay.setData(GlobalInstance.selectedRoute);
 
 		mvMap.getOverlays().add(walkOverlay);
 		mvMap.invalidate();
 
 		mvMap.getController().animateTo(res.getStart().pt);
-
+		setRouteButtonVisible(true);
+		setRouteShow(true);
 	}
 
 	@Override
@@ -550,6 +576,32 @@ public class MainActivity extends MapActivity implements LocationListener,
 			ret = false;
 		}
 		return ret;
+	}
+
+	private void setRouteButtonVisible(boolean visible) {
+		btnPrior.setVisibility(visible ? View.VISIBLE : View.GONE);
+		btnNext.setVisibility(visible ? View.VISIBLE : View.GONE);
+		tvRoute.setVisibility(visible ? View.VISIBLE : View.GONE);
+	}
+
+	private void setRouteShow(boolean next) {
+		if (next) {
+			if (GlobalInstance.routeIndex >= (GlobalInstance.selectedRoute
+					.getNumSteps() - 2)) {
+				return;
+			}
+			GlobalInstance.routeIndex++;
+		} else {
+			if (GlobalInstance.routeIndex <= 0) {
+				return;
+			}
+			GlobalInstance.routeIndex--;
+		}
+		tvRoute.setText(GlobalInstance.selectedRoute.getStep(
+				GlobalInstance.routeIndex).getContent());
+		mvMap.getController().animateTo(
+				GlobalInstance.selectedRoute.getStep(GlobalInstance.routeIndex)
+						.getPoint());
 	}
 
 	// [/region]

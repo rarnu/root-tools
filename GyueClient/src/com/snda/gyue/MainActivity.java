@@ -176,7 +176,7 @@ public class MainActivity extends Activity implements OnClickListener, OnItemCli
 			}
 		};
 
-		Updater.checkUpdate(MainActivity.this, hUpdate);
+//		Updater.checkUpdate(MainActivity.this, hUpdate);
 		getIpAddress();
 		starting = false;
 	}
