@@ -1,6 +1,5 @@
 package com.rarnu.tools.root;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,16 +8,16 @@ import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
-import com.rarnu.tools.root.comp.TitleBar;
+import com.rarnu.tools.root.base.BaseActivity;
 
-public class HelpActivity extends Activity implements ActivityIntf, OnClickListener {
+public class HelpActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	WebView wvHelp;
+
 	// [/region]
-	
+
 	// [region] life circle
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +27,7 @@ public class HelpActivity extends Activity implements ActivityIntf, OnClickListe
 		showHelp();
 		LogApi.logEnterHelp();
 	}
+
 	// [/region]
 
 	// [region] business logic
@@ -52,7 +52,7 @@ public class HelpActivity extends Activity implements ActivityIntf, OnClickListe
 			}
 		});
 	}
-	
+
 	// [/region]
 
 	// [region] events
@@ -64,12 +64,13 @@ public class HelpActivity extends Activity implements ActivityIntf, OnClickListe
 			break;
 		}
 	}
-	
+
 	// [/region]
 
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -78,15 +79,18 @@ public class HelpActivity extends Activity implements ActivityIntf, OnClickListe
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		wvHelp = (WebView) findViewById(R.id.wvHelp);
 	}
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.app_help));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.app_help);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		// tbTitle.setText(getString(R.string.app_help));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
 
 	}
 
@@ -97,9 +101,9 @@ public class HelpActivity extends Activity implements ActivityIntf, OnClickListe
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 
 	}
-	
+
 	// [/region]
 }

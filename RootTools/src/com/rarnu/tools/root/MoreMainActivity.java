@@ -1,6 +1,5 @@
 package com.rarnu.tools.root;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -18,14 +17,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.comp.AlertDialogEx;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.DalvikUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
 
-public class MoreMainActivity extends Activity implements ActivityIntf, OnClickListener {
+public class MoreMainActivity extends BaseActivity implements OnClickListener {
 
 	// [region] const define
 	private static final String NS_SUPER_USER_1 = "eu.chainfire.supersu";
@@ -40,7 +38,7 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 	// [/region]
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	RelativeLayout layMore1, layMore2, layMore3, layMore4, layMore5, layMore6;
 
 	// DataProgressBar progressMore;
@@ -61,6 +59,7 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -70,7 +69,7 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		layMore1 = (RelativeLayout) findViewById(R.id.layMore1);
 		layMore2 = (RelativeLayout) findViewById(R.id.layMore2);
 		layMore3 = (RelativeLayout) findViewById(R.id.layMore3);
@@ -82,9 +81,13 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.func9_func));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.func9_func);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+
+		// tbTitle.setText(getString(R.string.func9_func));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
 
 	}
 
@@ -95,7 +98,7 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 		layMore1.setOnClickListener(this);
 		layMore2.setOnClickListener(this);
 		layMore3.setOnClickListener(this);
@@ -145,14 +148,16 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 				}
 
 			} catch (Exception e) {
-				Toast.makeText(this, R.string.intent_open_error, Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.intent_open_error,
+						Toast.LENGTH_LONG).show();
 			}
 			break;
 		case R.id.layMore6:
 			try {
 				ApkUtils.gotoApp(this, NS_ROOT_EXPLORER, AS_ROOT_EXPLORER);
 			} catch (Exception e) {
-				Toast.makeText(this, R.string.intent_open_error, Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.intent_open_error,
+						Toast.LENGTH_LONG).show();
 			}
 			break;
 		}
@@ -164,30 +169,38 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 	private void showNetworkStatus() {
 
 		if (GlobalInstance.loadingNetwork) {
-			AlertDialogEx.showAlertDialogEx(this, getString(R.string.check_network_status),
-					getString(R.string.loading_network_status), getString(R.string.ok), null, null, null);
+			AlertDialogEx.showAlertDialogEx(this,
+					getString(R.string.check_network_status),
+					getString(R.string.loading_network_status),
+					getString(R.string.ok), null, null, null);
 			return;
 		}
 
 		String status = getString(R.string.no_connect_found);
 		if (GlobalInstance.networkInfo != null) {
 
-			status = String.format(getString(R.string.network_status_fmt), GlobalInstance.networkInfo.getTypeName(),
-					GlobalInstance.networkInfo.getSubtypeName(),
-					networkStatusToReadableString(GlobalInstance.networkInfo.getState()),
+			status = String
+					.format(getString(R.string.network_status_fmt),
+							GlobalInstance.networkInfo.getTypeName(),
+							GlobalInstance.networkInfo.getSubtypeName(),
+							networkStatusToReadableString(GlobalInstance.networkInfo
+									.getState()),
 
-					(GlobalInstance.networkInfo.getExtraInfo() == null ? getString(R.string.not_contained)
-							: GlobalInstance.networkInfo.getExtraInfo()),
+							(GlobalInstance.networkInfo.getExtraInfo() == null ? getString(R.string.not_contained)
+									: GlobalInstance.networkInfo.getExtraInfo()),
 
-					(GlobalInstance.networkInfo.isRoaming() ? getString(R.string.yes) : getString(R.string.no)),
-					(GlobalInstance.networkInfo.isFailover() ? getString(R.string.supported)
-							: getString(R.string.unsupported)),
-					(GlobalInstance.networkInfo.isAvailable() ? getString(R.string.available)
-							: getString(R.string.unavailable)), GlobalInstance.networkSpeed);
+							(GlobalInstance.networkInfo.isRoaming() ? getString(R.string.yes)
+									: getString(R.string.no)),
+							(GlobalInstance.networkInfo.isFailover() ? getString(R.string.supported)
+									: getString(R.string.unsupported)),
+							(GlobalInstance.networkInfo.isAvailable() ? getString(R.string.available)
+									: getString(R.string.unavailable)),
+							GlobalInstance.networkSpeed);
 		}
 
-		AlertDialogEx.showAlertDialogEx(this, getString(R.string.check_network_status), status, getString(R.string.ok),
-				null, null, null);
+		AlertDialogEx.showAlertDialogEx(this,
+				getString(R.string.check_network_status), status,
+				getString(R.string.ok), null, null, null);
 	}
 
 	private String networkStatusToReadableString(NetworkInfo.State state) {
@@ -209,15 +222,20 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	private void doScanMedia() {
 		LogApi.logScanMedia();
-		sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://"
-				+ Environment.getExternalStorageDirectory().getAbsolutePath())));
-		Log.e("Media Path", Environment.getExternalStorageDirectory().getAbsolutePath());
+		sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
+				Uri.parse("file://"
+						+ Environment.getExternalStorageDirectory()
+								.getAbsolutePath())));
+		Log.e("Media Path", Environment.getExternalStorageDirectory()
+				.getAbsolutePath());
 		Toast.makeText(this, R.string.scan, Toast.LENGTH_LONG).show();
 	}
 
 	private void doReboot() {
-		AlertDialogEx.showAlertDialogEx(this, getString(R.string.reboot_device), getString(R.string.confirm_reboot),
-				getString(R.string.ok), new AlertDialogEx.DialogButtonClickListener() {
+		AlertDialogEx.showAlertDialogEx(this,
+				getString(R.string.reboot_device),
+				getString(R.string.confirm_reboot), getString(R.string.ok),
+				new AlertDialogEx.DialogButtonClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -230,7 +248,8 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 	private void doCleanDalvik() {
 		// system@app@TuneIn.apk@classes.dex
 
-		((TextView) layMore2.findViewById(R.id.tvCleanDalvik)).setText(R.string.cleaning_cache);
+		((TextView) layMore2.findViewById(R.id.tvCleanDalvik))
+				.setText(R.string.cleaning_cache);
 		layMore2.setEnabled(false);
 
 		final Handler h = new Handler() {
@@ -239,16 +258,23 @@ public class MoreMainActivity extends Activity implements ActivityIntf, OnClickL
 				if (msg.what == 1) {
 
 					if (msg.arg1 == -1) {
-						Toast.makeText(MoreMainActivity.this, R.string.clean_dalvik_fail, Toast.LENGTH_LONG).show();
-					} else if (msg.arg1 == 0) {
-						Toast.makeText(MoreMainActivity.this, R.string.clean_dalvik_0, Toast.LENGTH_LONG).show();
-					} else {
 						Toast.makeText(MoreMainActivity.this,
-								String.format(getString(R.string.clean_dalvik_succ), msg.arg1), Toast.LENGTH_LONG)
+								R.string.clean_dalvik_fail, Toast.LENGTH_LONG)
 								.show();
+					} else if (msg.arg1 == 0) {
+						Toast.makeText(MoreMainActivity.this,
+								R.string.clean_dalvik_0, Toast.LENGTH_LONG)
+								.show();
+					} else {
+						Toast.makeText(
+								MoreMainActivity.this,
+								String.format(
+										getString(R.string.clean_dalvik_succ),
+										msg.arg1), Toast.LENGTH_LONG).show();
 					}
 
-					((TextView) layMore2.findViewById(R.id.tvCleanDalvik)).setText(R.string.clean_dalvik);
+					((TextView) layMore2.findViewById(R.id.tvCleanDalvik))
+							.setText(R.string.clean_dalvik);
 					layMore2.setEnabled(true);
 				}
 				super.handleMessage(msg);

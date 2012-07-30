@@ -2,7 +2,6 @@ package com.rarnu.tools.root;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -17,25 +16,25 @@ import android.widget.Toast;
 
 import com.rarnu.tools.root.adapter.HostsAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.dns.NSLookup;
 import com.rarnu.tools.root.dns.record.Address;
 import com.rarnu.tools.root.utils.DIPairUtils;
 
-public class HostAddActivity extends Activity implements ActivityIntf, OnClickListener {
+public class HostAddActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	SearchBar sbSearchHosts;
 	ListView lvAddHosts;
 	DataBar barAddHosts;
 	DataProgressBar progressSearchHosts;
-	Button btnCom, btnOrg, btnNet, btnEdu, btnInfo, btnBiz, btnCn, btnUs, btnJp, btnHk, btnTw;
+	Button btnCom, btnOrg, btnNet, btnEdu, btnInfo, btnBiz, btnCn, btnUs,
+			btnJp, btnHk, btnTw;
 	// [/region]
 
 	// [region] variable define
@@ -82,7 +81,8 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 			// search
 			String domain = sbSearchHosts.getText().toString();
 			if (domain == null || domain.equals("")) {
-				Toast.makeText(this, R.string.domain_name_empty, Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.domain_name_empty,
+						Toast.LENGTH_LONG).show();
 				return;
 			}
 			searchHosts(domain);
@@ -134,7 +134,8 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 			break;
 		}
 
-		sbSearchHosts.getEditText().setSelection(sbSearchHosts.getText().toString().length());
+		sbSearchHosts.getEditText().setSelection(
+				sbSearchHosts.getText().toString().length());
 		sbSearchHosts.getEditText().requestFocus();
 	}
 
@@ -157,7 +158,8 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 					if (list == null) {
 						adapter = null;
 					} else {
-						adapter = new HostsAdapter(getLayoutInflater(), list, hSelectHost, false, true);
+						adapter = new HostsAdapter(getLayoutInflater(), list,
+								hSelectHost, false, true);
 					}
 
 					lvAddHosts.setAdapter(adapter);
@@ -174,7 +176,8 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 
 			@Override
 			public void run() {
-				List<Address> listAddress = NSLookup.nslookup(domain, GlobalInstance.nameServer);
+				List<Address> listAddress = NSLookup.nslookup(domain,
+						GlobalInstance.nameServer);
 				list = DIPairUtils.toPairList(domain, listAddress);
 				h.sendEmptyMessage(1);
 			}
@@ -183,7 +186,8 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 
 	private void showHostSelectedCount() {
 		int count = getHostSelectedCount(list);
-		String cap = String.format(getResources().getString(R.string.btn_delete), count);
+		String cap = String.format(getResources()
+				.getString(R.string.btn_delete), count);
 		barAddHosts.setButton1Text(cap);
 		barAddHosts.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
 	}
@@ -200,7 +204,8 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 		return count;
 	}
 
-	private void setHostItemSelectedStatus(List<HostRecordInfo> list, BaseAdapter adapter, Handler h, boolean selected) {
+	private void setHostItemSelectedStatus(List<HostRecordInfo> list,
+			BaseAdapter adapter, Handler h, boolean selected) {
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).checked = selected;
 		}
@@ -221,7 +226,8 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 
 	private void returnAddHosts() {
 		if (list == null || list.size() == 0) {
-			Toast.makeText(this, R.string.no_host_for_add, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.no_host_for_add, Toast.LENGTH_LONG)
+					.show();
 			return;
 		}
 		String host = "";
@@ -244,6 +250,7 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -253,7 +260,7 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		sbSearchHosts = (SearchBar) findViewById(R.id.sbSearchHosts);
 		lvAddHosts = (ListView) findViewById(R.id.lvAddHosts);
 		barAddHosts = (DataBar) findViewById(R.id.barAddHosts);
@@ -275,20 +282,28 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.host_add));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.setRightButtonText(getString(R.string.add));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.host_add);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.add);
+		btnRight.setVisibility(View.VISIBLE);
+
+		// tbTitle.setText(getString(R.string.host_add));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.setRightButtonText(getString(R.string.add));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
 
 	}
 
 	@Override
 	public void initSearchBar() {
 		sbSearchHosts.getEditText().setHint(R.string.tv_sitename);
-		sbSearchHosts.getEditText().setFilters(new InputFilter[] { new InputFilter.LengthFilter(32) });
+		sbSearchHosts.getEditText().setFilters(
+				new InputFilter[] { new InputFilter.LengthFilter(32) });
 		sbSearchHosts.setAddButtonVisible(false);
-		sbSearchHosts.getCancelButton().setBackgroundResource(R.drawable.search);
+		sbSearchHosts.getCancelButton()
+				.setBackgroundResource(R.drawable.search);
 		barAddHosts.setCheckBoxVisible(true);
 	}
 
@@ -308,8 +323,8 @@ public class HostAddActivity extends Activity implements ActivityIntf, OnClickLi
 		btnJp.setOnClickListener(this);
 		btnHk.setOnClickListener(this);
 		btnTw.setOnClickListener(this);
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
+		btnRight.setOnClickListener(this);
 		barAddHosts.getCheckBox().setOnClickListener(this);
 	}
 

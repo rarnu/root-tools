@@ -1,19 +1,17 @@
 package com.rarnu.tools.root;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 
-import com.rarnu.tools.root.base.ActivityIntf;
-import com.rarnu.tools.root.comp.TitleBar;
+import com.rarnu.tools.root.base.BaseActivity;
 
-public class EggActivity extends Activity implements ActivityIntf, OnClickListener {
+public class EggActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	// [/region]
-	
+
 	// [region] life circle
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +25,7 @@ public class EggActivity extends Activity implements ActivityIntf, OnClickListen
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -36,32 +35,34 @@ public class EggActivity extends Activity implements ActivityIntf, OnClickListen
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
 
 	}
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.egg));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+
+		tvName.setText(R.string.egg);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		// tbTitle.setText(getString(R.string.egg));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
 
 	}
 
 	@Override
 	public void initSearchBar() {
-		
 
 	}
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 
 	}
-	
+
 	// [/region]
-	
+
 	// [region] events
 
 	@Override
@@ -71,7 +72,7 @@ public class EggActivity extends Activity implements ActivityIntf, OnClickListen
 			finish();
 			break;
 		}
-		
+
 	}
 
 	// [/region]

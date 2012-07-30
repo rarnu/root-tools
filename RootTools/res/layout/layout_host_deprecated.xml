@@ -4,11 +4,10 @@
     android:layout_height="fill_parent"
     android:background="@color/white" >
 
-    <com.rarnu.tools.root.comp.TitleBar
+    <include
         android:id="@+id/tbTitle"
-        android:layout_width="fill_parent"
-        android:layout_height="48dip" />
-
+        layout="@layout/title_bar" />
+    
     <ListView
         android:id="@+id/lvDeprecatedHosts"
         android:layout_width="fill_parent"

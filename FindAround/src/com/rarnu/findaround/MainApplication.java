@@ -10,9 +10,13 @@ import com.baidu.mapapi.MKGeneralListener;
 public class MainApplication extends Application implements MKGeneralListener {
 
 	private static BMapManager mapMgr = null;
-	private static final String mapKey = "7AA204E114A0EFBC0C49171C1D6684C1F3B6C2AA";
-	public static final String NETWORK_ERROR_ACTION = "map.anjuke.error";
-	
+	// public static final String mapKey = "7AA204E114A0EFBC0C49171C1D6684C1F3B6C2AA";
+	public static final String mapKey = "4C0573978FCB30054E907A49AB457D6CC939A0D2";
+	// public static final String mapKey = "";
+	public static final String webKey = "1aeee3652a060fe8254ee47073d8f6d0";
+	public static final String NETWORK_ERROR_ACTION = "anjuke.findaround.error";
+	public static final String ROUTE_FOUND_ACTION = "anjuke.findaround.found";
+
 	public BMapManager getMapManager() {
 		if (mapMgr == null) {
 			mapMgr = new BMapManager(this);
@@ -20,14 +24,15 @@ public class MainApplication extends Application implements MKGeneralListener {
 		}
 		return mapMgr;
 	}
-	
+
 	@Override
 	public void onCreate() {
 		mapMgr = new BMapManager(this);
 		mapMgr.init(mapKey, this);
+
 		super.onCreate();
 	}
-	
+
 	@Override
 	public void onTerminate() {
 		if (mapMgr != null) {
@@ -46,6 +51,6 @@ public class MainApplication extends Application implements MKGeneralListener {
 	@Override
 	public void onGetPermissionState(int error) {
 		Log.e("onGetPermissionState", "error");
-		
+
 	}
 }

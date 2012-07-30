@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,12 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.tools.root.adapter.SysappSelectApkAdapter;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.SysappSelectApkItem;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-public class SysappSelectApkActivity extends Activity implements ActivityIntf, OnItemClickListener, OnClickListener {
+public class SysappSelectApkActivity extends BaseActivity implements
+		OnItemClickListener, OnClickListener {
 
 	// [region] variable define
 	private static String rootDir = "/sdcard";
@@ -40,7 +39,6 @@ public class SysappSelectApkActivity extends Activity implements ActivityIntf, O
 	ListView lvFiles;
 	TextView tvPath;
 	ProgressBar pbShowing;
-	TitleBar tbTitle;
 
 	// [/region]
 
@@ -60,8 +58,10 @@ public class SysappSelectApkActivity extends Activity implements ActivityIntf, O
 	// [region] events
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		SysappSelectApkItem item = (SysappSelectApkItem) lvFiles.getItemAtPosition(position);
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		SysappSelectApkItem item = (SysappSelectApkItem) lvFiles
+				.getItemAtPosition(position);
 		File f = new File(currentDir + "/" + item.filename);
 		if (f.isDirectory()) {
 			currentDir = currentDir + "/" + item.filename;
@@ -111,7 +111,8 @@ public class SysappSelectApkActivity extends Activity implements ActivityIntf, O
 				finish();
 			} else {
 				canExit = true;
-				Toast.makeText(this, R.string.already_sdcard_root, Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.already_sdcard_root,
+						Toast.LENGTH_LONG).show();
 			}
 		}
 	}
@@ -127,15 +128,18 @@ public class SysappSelectApkActivity extends Activity implements ActivityIntf, O
 					if (f.isDirectory() || f.getName().endsWith(".apk")) {
 						SysappSelectApkItem item = new SysappSelectApkItem();
 						if (!f.isDirectory()) {
-							item.iconImg = ApkUtils.getIconFromPackage(this, f.getAbsolutePath());
+							item.iconImg = ApkUtils.getIconFromPackage(this,
+									f.getAbsolutePath());
 						}
 						item.icon = f.isDirectory() ? 1 : 0;
 						item.filename = f.getName();
-						item.level = ApkUtils.getAppLevel(f.getAbsolutePath(), "");
+						item.level = ApkUtils.getAppLevel(f.getAbsolutePath(),
+								"");
 						list.add(item);
 					}
 				}
-				adapter = new SysappSelectApkAdapter(list, this.getLayoutInflater());
+				adapter = new SysappSelectApkAdapter(list,
+						this.getLayoutInflater());
 			}
 		}
 	}
@@ -174,6 +178,7 @@ public class SysappSelectApkActivity extends Activity implements ActivityIntf, O
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -183,7 +188,6 @@ public class SysappSelectApkActivity extends Activity implements ActivityIntf, O
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
 
 		lvFiles = (ListView) findViewById(R.id.lvApk);
 		tvPath = (TextView) findViewById(R.id.tvPath);
@@ -192,11 +196,19 @@ public class SysappSelectApkActivity extends Activity implements ActivityIntf, O
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.sysapp_select));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.setRightButtonText(getString(R.string.uplevel));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
+
+		tvName.setText(R.string.func1_title);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.uplevel);
+		btnRight.setVisibility(View.VISIBLE);
+
+		//
+		// tbTitle.setText(getString(R.string.sysapp_select));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.setRightButtonText(getString(R.string.uplevel));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
 
 	}
 
@@ -207,8 +219,8 @@ public class SysappSelectApkActivity extends Activity implements ActivityIntf, O
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+		btnRight.setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 		lvFiles.setOnItemClickListener(this);
 	}
 

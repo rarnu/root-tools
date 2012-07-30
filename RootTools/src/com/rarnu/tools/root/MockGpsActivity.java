@@ -23,21 +23,19 @@ import com.baidu.mapapi.MKSearchListener;
 import com.baidu.mapapi.MKSuggestionResult;
 import com.baidu.mapapi.MKTransitRouteResult;
 import com.baidu.mapapi.MKWalkingRouteResult;
-import com.baidu.mapapi.MapActivity;
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.OverlayItem;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseMapActivity;
 import com.rarnu.tools.root.comp.MarkOverlay;
 import com.rarnu.tools.root.comp.MockBar;
 import com.rarnu.tools.root.comp.SearchBar;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.service.MockLocationService;
 
-public class MockGpsActivity extends MapActivity implements ActivityIntf,
+public class MockGpsActivity extends BaseMapActivity implements 
 		OnClickListener, LocationListener, MKSearchListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+	
 	SearchBar sbMock;
 	MapView mvMock;
 	MockBar mbMock;
@@ -93,10 +91,11 @@ public class MockGpsActivity extends MapActivity implements ActivityIntf,
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		RootApplication app = (RootApplication) getApplication();
 		app.getMapManager().start();
 		super.initMapActivity(app.getMapManager());
-
+		
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -119,7 +118,7 @@ public class MockGpsActivity extends MapActivity implements ActivityIntf,
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+	
 		sbMock = (SearchBar) findViewById(R.id.sbMock);
 		mvMock = (MapView) findViewById(R.id.mvMock);
 		mbMock = (MockBar) findViewById(R.id.mbMock);
@@ -130,11 +129,18 @@ public class MockGpsActivity extends MapActivity implements ActivityIntf,
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.func8_title));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setText(getString(R.string.city));
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
+		
+		tvName.setText(R.string.func8_title);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.city);
+		btnRight.setVisibility(View.VISIBLE);
+		
+//		tbTitle.setText(getString(R.string.func8_title));
+//		tbTitle.setLeftButtonText(getString(R.string.back));
+//		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+//		tbTitle.getRightButton().setText(getString(R.string.city));
+//		tbTitle.getRightButton().setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -146,8 +152,8 @@ public class MockGpsActivity extends MapActivity implements ActivityIntf,
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+		btnRight.setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 		sbMock.getCancelButton().setOnClickListener(this);
 		mbMock.getMockButton().setOnClickListener(this);
 		mbMock.getMockHistoryButton().setOnClickListener(this);
@@ -168,14 +174,14 @@ public class MockGpsActivity extends MapActivity implements ActivityIntf,
 			// TODO: switch city
 			break;
 		case R.id.btnCancel:
-			if (tbTitle.getRightButton().getText().toString()
+			if (btnRight.getText().toString()
 					.equals(getString(R.string.city))
-					|| tbTitle.getRightButton().getText().toString().equals("")) {
+					|| btnRight.getText().toString().equals("")) {
 				Toast.makeText(this, R.string.no_city_found, Toast.LENGTH_LONG)
 						.show();
 				return;
 			}
-			mkSearch.poiSearchInCity(tbTitle.getRightButton().getText()
+			mkSearch.poiSearchInCity(btnRight.getText()
 					.toString(), sbMock.getText().toString());
 			break;
 		case R.id.btnMock:
@@ -227,7 +233,7 @@ public class MockGpsActivity extends MapActivity implements ActivityIntf,
 		if (res != null) {
 			if (getCity) {
 				getCity = false;
-				tbTitle.getRightButton().setText(res.addressComponents.city);
+				btnRight.setText(res.addressComponents.city);
 				((RootApplication) getApplication()).getMapManager()
 						.getLocationManager().removeUpdates(this);
 			} else {

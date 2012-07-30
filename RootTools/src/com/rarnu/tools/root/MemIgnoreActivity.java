@@ -2,7 +2,6 @@ package com.rarnu.tools.root;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,16 +13,15 @@ import android.widget.Toast;
 
 import com.rarnu.tools.root.adapter.MemIgnoreAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.MemIgnoreInfo;
 import com.rarnu.tools.root.comp.DataBar;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 
-public class MemIgnoreActivity extends Activity implements ActivityIntf, OnClickListener {
+public class MemIgnoreActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	DataBar barIgnore;
 	ListView lvIgnore;
 	// [/region]
@@ -61,7 +59,8 @@ public class MemIgnoreActivity extends Activity implements ActivityIntf, OnClick
 	// [region] business logic
 	private void loadIgnore() {
 
-		adapter = new MemIgnoreAdapter(getLayoutInflater(), MemorySpecialList.getExcludeList(), hSelectIgnore);
+		adapter = new MemIgnoreAdapter(getLayoutInflater(),
+				MemorySpecialList.getExcludeList(), hSelectIgnore);
 		lvIgnore.setAdapter(adapter);
 	}
 
@@ -77,13 +76,15 @@ public class MemIgnoreActivity extends Activity implements ActivityIntf, OnClick
 		showIgnoreSelectedCount();
 		boolean saved = MemorySpecialList.saveExclude();
 		if (!saved) {
-			Toast.makeText(this, R.string.save_ignore_error, Toast.LENGTH_LONG).show();
+			Toast.makeText(this, R.string.save_ignore_error, Toast.LENGTH_LONG)
+					.show();
 		}
 	}
 
 	private void showIgnoreSelectedCount() {
 		int count = getIgnoreSelectedCount(MemorySpecialList.getExcludeList());
-		String cap = String.format(getResources().getString(R.string.btn_delete), count);
+		String cap = String.format(getResources()
+				.getString(R.string.btn_delete), count);
 		barIgnore.setButton1Text(cap);
 		barIgnore.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
 	}
@@ -100,7 +101,8 @@ public class MemIgnoreActivity extends Activity implements ActivityIntf, OnClick
 		return count;
 	}
 
-	private void setIgnoreItemSelectedStatus(List<MemIgnoreInfo> list, BaseAdapter adapter, Handler h, boolean selected) {
+	private void setIgnoreItemSelectedStatus(List<MemIgnoreInfo> list,
+			BaseAdapter adapter, Handler h, boolean selected) {
 		for (int i = 0; i < list.size(); i++) {
 			if (list.get(i).locked) {
 				list.get(i).checked = false;
@@ -125,11 +127,13 @@ public class MemIgnoreActivity extends Activity implements ActivityIntf, OnClick
 			deleteIgnore();
 			break;
 		case R.id.barButton2:
-			setIgnoreItemSelectedStatus(MemorySpecialList.getExcludeList(), adapter, hSelectIgnore, false);
+			setIgnoreItemSelectedStatus(MemorySpecialList.getExcludeList(),
+					adapter, hSelectIgnore, false);
 			break;
 		case R.id.chkSelAll:
 			boolean selected = barIgnore.getCheckBox().isChecked();
-			setIgnoreItemSelectedStatus(MemorySpecialList.getExcludeList(), adapter, hSelectIgnore, selected);
+			setIgnoreItemSelectedStatus(MemorySpecialList.getExcludeList(),
+					adapter, hSelectIgnore, selected);
 			break;
 		}
 	}
@@ -139,7 +143,7 @@ public class MemIgnoreActivity extends Activity implements ActivityIntf, OnClick
 	// [region] init
 	@Override
 	public void init() {
-
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -149,16 +153,20 @@ public class MemIgnoreActivity extends Activity implements ActivityIntf, OnClick
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		barIgnore = (DataBar) findViewById(R.id.barIgnore);
 		lvIgnore = (ListView) findViewById(R.id.lvIgnore);
 	}
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.kill_ignore_list));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.kill_ignore_list);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+
+		// tbTitle.setText(getString(R.string.kill_ignore_list));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
 
 	}
 
@@ -170,7 +178,7 @@ public class MemIgnoreActivity extends Activity implements ActivityIntf, OnClick
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 		barIgnore.getButton1().setOnClickListener(this);
 		barIgnore.getButton2().setOnClickListener(this);
 		barIgnore.getCheckBox().setOnClickListener(this);

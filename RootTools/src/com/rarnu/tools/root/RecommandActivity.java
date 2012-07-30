@@ -1,6 +1,5 @@
 package com.rarnu.tools.root;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -8,14 +7,13 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
-import com.rarnu.tools.root.comp.TitleBar;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-public class RecommandActivity extends Activity implements ActivityIntf, OnClickListener {
+public class RecommandActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	RelativeLayout layAnjuke, layHaozu, layBroker;
 	// [/region]
 
@@ -71,6 +69,7 @@ public class RecommandActivity extends Activity implements ActivityIntf, OnClick
 
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initSearchBar();
 		initTitle();
@@ -80,7 +79,7 @@ public class RecommandActivity extends Activity implements ActivityIntf, OnClick
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		layAnjuke = (RelativeLayout) findViewById(R.id.layAnjuke);
 		layHaozu = (RelativeLayout) findViewById(R.id.layHaozu);
 		layBroker = (RelativeLayout) findViewById(R.id.layBroker);
@@ -89,9 +88,13 @@ public class RecommandActivity extends Activity implements ActivityIntf, OnClick
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.app_push));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.app_push);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+
+		// tbTitle.setText(getString(R.string.app_push));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -101,7 +104,7 @@ public class RecommandActivity extends Activity implements ActivityIntf, OnClick
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 		layAnjuke.setOnClickListener(this);
 		layHaozu.setOnClickListener(this);
 		layBroker.setOnClickListener(this);

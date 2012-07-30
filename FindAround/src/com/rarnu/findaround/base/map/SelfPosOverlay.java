@@ -1,4 +1,4 @@
-package com.rarnu.findaround;
+package com.rarnu.findaround.base.map;
 
 import android.content.Context;
 import android.location.Location;

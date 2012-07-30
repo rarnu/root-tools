@@ -1,4 +1,4 @@
-package com.rarnu.findaround;
+package com.rarnu.findaround.adapter;
 
 import java.util.List;
 
@@ -9,6 +9,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.baidu.mapapi.MKPoiInfo;
+import com.rarnu.findaround.R;
 
 public class PoiAdapter extends BaseAdapter {
 

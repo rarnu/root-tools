@@ -7,7 +7,6 @@ import java.util.List;
 
 import org.apache.http.protocol.HTTP;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -19,11 +18,10 @@ import android.widget.GridView;
 import com.rarnu.tools.root.adapter.WelcomeAdapter;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.api.MobileApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.AlertDialogEx;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.comp.WelcomeButton;
 import com.rarnu.tools.root.utils.BusyboxUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
@@ -35,8 +33,7 @@ import com.rarnu.tools.root.utils.PingUtils;
 import com.rarnu.tools.root.utils.UIUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-public class WelcomeActivity extends Activity implements ActivityIntf,
-		OnClickListener {
+public class WelcomeActivity extends BaseActivity implements OnClickListener {
 
 	// [region] consts
 	private static final int ID_BUTTON_0 = 1001;
@@ -51,7 +48,6 @@ public class WelcomeActivity extends Activity implements ActivityIntf,
 	// [/region]
 
 	// [region] field define
-	TitleBar tbTitle;
 	GridView gdButtons;
 	WelcomeButton[] btnFunc;
 	Button btnAbout, btnFeedback, btnRecommand;
@@ -123,6 +119,7 @@ public class WelcomeActivity extends Activity implements ActivityIntf,
 	@Override
 	public void init() {
 		initConfig();
+		mappingTitle();
 		mappingComp();
 		initSearchBar();
 		initTitle();
@@ -177,7 +174,7 @@ public class WelcomeActivity extends Activity implements ActivityIntf,
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+		// tbTitle = (TitleBar) findViewById(R.id.tbTitle);
 		gdButtons = (GridView) findViewById(R.id.gdButtons);
 		btnAbout = (Button) findViewById(R.id.btnAbout);
 		btnFeedback = (Button) findViewById(R.id.btnFeedback);
@@ -186,9 +183,9 @@ public class WelcomeActivity extends Activity implements ActivityIntf,
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.app_name));
-		tbTitle.setRightButtonText(getString(R.string.settings));
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.app_name);
+		btnRight.setText(R.string.settings);
+		btnRight.setVisibility(View.VISIBLE);
 	}
 
 	private void initGrid9() {
@@ -215,7 +212,8 @@ public class WelcomeActivity extends Activity implements ActivityIntf,
 
 	@Override
 	public void initEvents() {
-		tbTitle.getRightButton().setOnClickListener(this);
+		// tbTitle.getRightButton().setOnClickListener(this);
+		btnRight.setOnClickListener(this);
 		for (int i = 0; i < btnFunc.length; i++) {
 			btnFunc[i].getButton().setOnClickListener(this);
 		}

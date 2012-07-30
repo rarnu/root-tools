@@ -1,4 +1,4 @@
-package com.rarnu.findaround;
+package com.rarnu.findaround.common;
 
 import android.app.Activity;
 import android.content.Context;

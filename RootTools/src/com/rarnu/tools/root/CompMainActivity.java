@@ -3,7 +3,6 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
@@ -19,20 +18,20 @@ import android.widget.ListView;
 
 import com.rarnu.tools.root.adapter.CompPackageAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
-import com.rarnu.tools.root.comp.TitleBar;
 
-public class CompMainActivity extends Activity implements ActivityIntf, OnClickListener, OnItemClickListener {
+public class CompMainActivity extends BaseActivity implements OnClickListener,
+		OnItemClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	ListView lvComp;
 	SearchBar sbComp;
 	DataProgressBar progressComp;
 	// [/region]
-	
+
 	// [region] variable define
 	List<PackageInfo> listCompAll = new ArrayList<PackageInfo>();
 	CompPackageAdapter compAdapter = null;
@@ -48,12 +47,14 @@ public class CompMainActivity extends Activity implements ActivityIntf, OnClickL
 		loadCompAppList();
 		LogApi.logEnterComponent();
 	}
+
 	// [/region]
 
 	// [region] init
-	
+
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -62,7 +63,7 @@ public class CompMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		progressComp = (DataProgressBar) findViewById(R.id.progressComp);
 		sbComp = (SearchBar) findViewById(R.id.sbComp);
 		lvComp = (ListView) findViewById(R.id.lvComp);
@@ -71,11 +72,17 @@ public class CompMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void initTitle() {
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.setRightButtonText(getString(R.string.refresh));
-		tbTitle.setText(getString(R.string.func3_title));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.func3_title);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.refresh);
+		btnRight.setVisibility(View.VISIBLE);
+
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.setRightButtonText(getString(R.string.refresh));
+		// tbTitle.setText(getString(R.string.func3_title));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -86,18 +93,20 @@ public class CompMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
+		btnRight.setOnClickListener(this);
 		sbComp.getCancelButton().setOnClickListener(this);
 		sbComp.getEditText().addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 
 			}
 
@@ -113,12 +122,12 @@ public class CompMainActivity extends Activity implements ActivityIntf, OnClickL
 	}
 
 	// [/region]
-	
+
 	// [region] business logic
 	private void loadCompAppList() {
 		progressComp.setAppName(getString(R.string.loading));
 		progressComp.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		final Handler h = new Handler() {
 
@@ -126,16 +135,18 @@ public class CompMainActivity extends Activity implements ActivityIntf, OnClickL
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 					if (listCompAll != null) {
-						compAdapter = new CompPackageAdapter(getLayoutInflater(), listCompAll);
+						compAdapter = new CompPackageAdapter(
+								getLayoutInflater(), listCompAll);
 					} else {
 						compAdapter = null;
 					}
 					lvComp.setAdapter(compAdapter);
 					progressComp.setVisibility(View.GONE);
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 
 				} else if (msg.what == 2) {
-					progressComp.setProgress(String.format("%d/%d", msg.arg1, msg.arg2));
+					progressComp.setProgress(String.format("%d/%d", msg.arg1,
+							msg.arg2));
 				}
 				super.handleMessage(msg);
 			}
@@ -170,8 +181,10 @@ public class CompMainActivity extends Activity implements ActivityIntf, OnClickL
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		GlobalInstance.currentComp = (PackageInfo) lvComp.getItemAtPosition(position);
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		GlobalInstance.currentComp = (PackageInfo) lvComp
+				.getItemAtPosition(position);
 
 		Intent inPackage = new Intent(this, CompPackageInfoActivity.class);
 		startActivity(inPackage);

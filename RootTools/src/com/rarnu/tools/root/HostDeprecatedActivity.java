@@ -3,7 +3,6 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -14,17 +13,17 @@ import android.widget.Toast;
 
 import com.rarnu.tools.root.adapter.HostsAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.comp.DataProgressBar;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.DIPairUtils;
 import com.rarnu.tools.root.utils.PingUtils;
 
-public class HostDeprecatedActivity extends Activity implements ActivityIntf, OnClickListener {
+public class HostDeprecatedActivity extends BaseActivity implements
+		OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	ListView lvDeprecatedHosts;
 	DataProgressBar progressDeprecated;
 	// [/region]
@@ -69,7 +68,8 @@ public class HostDeprecatedActivity extends Activity implements ActivityIntf, On
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 					if (lstDeprecated != null) {
-						adapter = new HostsAdapter(getLayoutInflater(), lstDeprecated, hSelectHost, false, false);
+						adapter = new HostsAdapter(getLayoutInflater(),
+								lstDeprecated, hSelectHost, false, false);
 					} else {
 						adapter = null;
 					}
@@ -96,7 +96,7 @@ public class HostDeprecatedActivity extends Activity implements ActivityIntf, On
 		LogApi.logCleanDeprecatedHosts();
 		progressDeprecated.setAppName(getString(R.string.testing));
 		progressDeprecated.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		final Handler h = new Handler() {
 			@Override
@@ -105,13 +105,16 @@ public class HostDeprecatedActivity extends Activity implements ActivityIntf, On
 				if (msg.what == 1) {
 					progressDeprecated.setVisibility(View.GONE);
 					adapter.notifyDataSetChanged();
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 					boolean ret = DIPairUtils.saveHosts(lstDeprecated);
 					if (ret) {
-						Toast.makeText(HostDeprecatedActivity.this, R.string.save_hosts_succ, Toast.LENGTH_LONG).show();
+						Toast.makeText(HostDeprecatedActivity.this,
+								R.string.save_hosts_succ, Toast.LENGTH_LONG)
+								.show();
 						finish();
 					} else {
-						Toast.makeText(HostDeprecatedActivity.this, R.string.save_hosts_error, Toast.LENGTH_LONG)
+						Toast.makeText(HostDeprecatedActivity.this,
+								R.string.save_hosts_error, Toast.LENGTH_LONG)
 								.show();
 					}
 				} else if (msg.what == 2) {
@@ -171,6 +174,7 @@ public class HostDeprecatedActivity extends Activity implements ActivityIntf, On
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -180,7 +184,7 @@ public class HostDeprecatedActivity extends Activity implements ActivityIntf, On
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		lvDeprecatedHosts = (ListView) findViewById(R.id.lvDeprecatedHosts);
 		progressDeprecated = (DataProgressBar) findViewById(R.id.progressDeprecated);
 
@@ -188,11 +192,18 @@ public class HostDeprecatedActivity extends Activity implements ActivityIntf, On
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.clean_deprecated_hosts));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.setRightButtonText(getString(R.string.clean));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
+
+		tvName.setText(R.string.clean_deprecated_hosts);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.clean);
+		btnRight.setVisibility(View.VISIBLE);
+
+		// tbTitle.setText(getString(R.string.clean_deprecated_hosts));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.setRightButtonText(getString(R.string.clean));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
 
 	}
 
@@ -203,8 +214,8 @@ public class HostDeprecatedActivity extends Activity implements ActivityIntf, On
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+		btnRight.setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 
 	}
 

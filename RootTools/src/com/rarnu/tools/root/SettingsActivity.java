@@ -1,6 +1,5 @@
 package com.rarnu.tools.root;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -15,24 +14,23 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.LineEditText;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-
-public class SettingsActivity extends Activity implements ActivityIntf, OnClickListener {
+public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
-	RelativeLayout layAllowDeleteLevel0, layAlsoDeleteData, layBackupBeforeDelete, layOverrideBackuped,
-			layReinstallApk, layKillProcessBeforeClean, layKillIgnoreList, layNameServer, layManualEditHosts,
-			layCleanDeprecated, layDeleteAllBackupData;
 
-	CheckBox imgAllowDeleteLevel0, imgAlsoDeleteData, imgBackupBeforeDelete, imgOverrideBackuped, imgReinstallApk,
-			imgKillProcessBeforeClean;
+	RelativeLayout layAllowDeleteLevel0, layAlsoDeleteData,
+			layBackupBeforeDelete, layOverrideBackuped, layReinstallApk,
+			layKillProcessBeforeClean, layKillIgnoreList, layNameServer,
+			layManualEditHosts, layCleanDeprecated, layDeleteAllBackupData;
+
+	CheckBox imgAllowDeleteLevel0, imgAlsoDeleteData, imgBackupBeforeDelete,
+			imgOverrideBackuped, imgReinstallApk, imgKillProcessBeforeClean;
 
 	LineEditText etNameServer;
 
@@ -59,7 +57,8 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 			break;
 		case R.id.imgAllowDeleteLevel0:
 			GlobalInstance.allowDeleteLevel0 = !GlobalInstance.allowDeleteLevel0;
-			RTConfig.setAllowDeleteLevel0(this, GlobalInstance.allowDeleteLevel0);
+			RTConfig.setAllowDeleteLevel0(this,
+					GlobalInstance.allowDeleteLevel0);
 			initConfigValues();
 			break;
 		case R.id.imgAlsoDeleteData:
@@ -69,7 +68,8 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 			break;
 		case R.id.imgBackupBeforeDelete:
 			GlobalInstance.backupBeforeDelete = !GlobalInstance.backupBeforeDelete;
-			RTConfig.setBackupBeforeDelete(this, GlobalInstance.backupBeforeDelete);
+			RTConfig.setBackupBeforeDelete(this,
+					GlobalInstance.backupBeforeDelete);
 			initConfigValues();
 			break;
 		case R.id.imgOverrideBackuped:
@@ -84,7 +84,8 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 			break;
 		case R.id.imgKillProcessBeforeClean:
 			GlobalInstance.killProcessBeforeClean = !GlobalInstance.killProcessBeforeClean;
-			RTConfig.setKillProcessBeforeClean(this, GlobalInstance.killProcessBeforeClean);
+			RTConfig.setKillProcessBeforeClean(this,
+					GlobalInstance.killProcessBeforeClean);
 			initConfigValues();
 			break;
 		case R.id.layKillIgnoreList:
@@ -99,7 +100,8 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 			break;
 		case R.id.layCleanDeprecated:
 			// clean deprecated
-			Intent inCleanDeprecated = new Intent(this, HostDeprecatedActivity.class);
+			Intent inCleanDeprecated = new Intent(this,
+					HostDeprecatedActivity.class);
 			startActivity(inCleanDeprecated);
 			break;
 		case R.id.layDeleteAllBackupData:
@@ -115,7 +117,8 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 
 	private void doDeleteAllBackupedData() {
 		AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint),
-				getString(R.string.delete_all_backup_data_confirm), getString(R.string.ok),
+				getString(R.string.delete_all_backup_data_confirm),
+				getString(R.string.ok),
 				new AlertDialogEx.DialogButtonClickListener() {
 
 					@Override
@@ -127,18 +130,22 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 
 	private void deleteAllBackupedDataT() {
 		layDeleteAllBackupData.setEnabled(false);
-		((TextView) layDeleteAllBackupData.findViewById(R.id.tvDeleteAllBackupData)).setText(R.string.deleting);
+		((TextView) layDeleteAllBackupData
+				.findViewById(R.id.tvDeleteAllBackupData))
+				.setText(R.string.deleting);
 		LogApi.logDeleteAllData();
-		
+
 		final Handler h = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
-					((TextView) layDeleteAllBackupData.findViewById(R.id.tvDeleteAllBackupData))
+					((TextView) layDeleteAllBackupData
+							.findViewById(R.id.tvDeleteAllBackupData))
 							.setText(R.string.delete_all_backup_data);
 					layDeleteAllBackupData.setEnabled(true);
-					Toast.makeText(SettingsActivity.this, R.string.delete_all_backup_data_succ, Toast.LENGTH_LONG)
-							.show();
+					Toast.makeText(SettingsActivity.this,
+							R.string.delete_all_backup_data_succ,
+							Toast.LENGTH_LONG).show();
 
 				}
 				super.handleMessage(msg);
@@ -162,6 +169,7 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -171,7 +179,7 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		layAllowDeleteLevel0 = (RelativeLayout) findViewById(R.id.layAllowDeleteLevel0);
 		layAlsoDeleteData = (RelativeLayout) findViewById(R.id.layAlsoDeleteData);
 		layBackupBeforeDelete = (RelativeLayout) findViewById(R.id.layBackupBeforeDelete);
@@ -197,9 +205,13 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.settings));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.settings);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		//
+		// tbTitle.setText(getString(R.string.settings));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
 
 	}
 
@@ -210,7 +222,7 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 		// checkbox click
 		imgAllowDeleteLevel0.setOnClickListener(this);
 		imgAlsoDeleteData.setOnClickListener(this);
@@ -228,19 +240,22 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 		etNameServer.addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 
 			}
 
 			@Override
 			public void afterTextChanged(Editable s) {
 				GlobalInstance.nameServer = etNameServer.getText().toString();
-				RTConfig.setNameServer(SettingsActivity.this, GlobalInstance.nameServer);
+				RTConfig.setNameServer(SettingsActivity.this,
+						GlobalInstance.nameServer);
 			}
 		});
 	}
@@ -252,7 +267,8 @@ public class SettingsActivity extends Activity implements ActivityIntf, OnClickL
 		imgBackupBeforeDelete.setChecked(GlobalInstance.backupBeforeDelete);
 		imgOverrideBackuped.setChecked(GlobalInstance.overrideBackuped);
 		imgReinstallApk.setChecked(GlobalInstance.reinstallApk);
-		imgKillProcessBeforeClean.setChecked(GlobalInstance.killProcessBeforeClean);
+		imgKillProcessBeforeClean
+				.setChecked(GlobalInstance.killProcessBeforeClean);
 	}
 
 	// [/region]

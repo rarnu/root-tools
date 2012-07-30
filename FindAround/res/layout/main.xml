@@ -8,66 +8,77 @@
         android:id="@+id/layTitle"
         layout="@layout/title_bar" />
 
-    <HorizontalScrollView
-        android:id="@+id/hFunc"
-        android:layout_width="fill_parent"
-        android:layout_height="48dip"
-        android:layout_below="@+id/layTitle"
-        android:scrollbars="none" >
-
-        <include 
-            android:id="@+id/layFunc"
-            layout="@layout/func_bar" />
-    </HorizontalScrollView>
-
-    <com.baidu.mapapi.MapView
-        android:id="@+id/mvMap"
+    <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/hFunc"
-        android:clickable="true" />
-    
-    <Button android:id="@+id/btnList"
-        android:layout_width="60dip"
-        android:layout_height="40dip"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="8dip"
-        android:background="@drawable/button_style"
-        android:textColor="@color/white"
-        android:text="@string/list"/>
-    
-    <Button android:id="@+id/btnPrior"
-        android:layout_width="40dip"
-        android:layout_height="40dip"
-        android:background="@drawable/button_style"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dip"
-        android:layout_marginLeft="8dip"
-        android:textColor="@color/white"
-        android:text="@string/prior"/>
-    
-    <Button android:id="@+id/btnNext"
-        android:layout_width="40dip"
-        android:layout_height="40dip"
-        android:background="@drawable/button_style"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="8dip"
-        android:layout_toRightOf="@+id/btnPrior"
-        android:textColor="@color/white"
-        android:text="@string/next"/>
-    
-    <TextView android:id="@+id/tvRoute"
+        android:layout_above="@+id/imgBottom"
+        android:layout_below="@+id/layTitle" >
+
+        <com.baidu.mapapi.MapView
+            android:id="@+id/mvMap"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:clickable="true" />
+
+        <ImageView
+            android:id="@+id/imgCross"
+            android:layout_width="8dip"
+            android:layout_height="8dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/cross"
+            android:contentDescription="@null" />
+
+        <RelativeLayout
+            android:id="@+id/layRoute"
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="4dip"
+            android:layout_marginRight="4dip"
+            android:background="#AA000000" >
+
+            <Button
+                android:id="@+id/btnPrior"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/btnNext"
+                android:background="@drawable/button_style"
+                android:text="@string/prior"
+                android:textColor="@color/white" />
+
+            <Button
+                android:id="@+id/btnNext"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_style"
+                android:text="@string/next"
+                android:layout_marginRight="4dip"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvRoute"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_toLeftOf="@+id/btnPrior"
+                android:layout_margin="4dip"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="4dip"
+                android:textColor="@color/white"
+                android:textSize="12dip" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/imgBottom"
         android:layout_width="fill_parent"
-        android:layout_height="40dip"
-        android:layout_marginBottom="8dip"
+        android:layout_height="4dip"
         android:layout_alignParentBottom="true"
-        android:layout_toRightOf="@+id/btnNext"
-        android:layout_toLeftOf="@+id/btnList"
-        android:textSize="12dip"
-        android:gravity="left|center_vertical"
-        android:paddingLeft="4dip"
-        android:textColor="@color/black"/>
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/tvLoading"
@@ -77,7 +88,7 @@
         android:layout_margin="16dip"
         android:background="#AA000000"
         android:gravity="center"
-        android:text="@string/locating"
+        android:text="@string/counting"
         android:textColor="@color/white"
         android:textSize="20dip"
         android:visibility="gone" />

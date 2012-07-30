@@ -3,7 +3,6 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,22 +19,21 @@ import android.widget.TextView;
 
 import com.rarnu.tools.root.adapter.MemProcessAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.MemProcessInfo;
 import com.rarnu.tools.root.common.MemoryInfo;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.MemoryUtils;
 import com.rarnu.tools.root.utils.ProcessUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-public class MemMainActivity extends Activity implements ActivityIntf, OnClickListener, OnItemClickListener {
+public class MemMainActivity extends BaseActivity implements OnClickListener,
+		OnItemClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
 	ListView lvMemory;
 	SearchBar sbMemory;
 	DataProgressBar progressMemory;
@@ -48,7 +46,7 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 	MemProcessAdapter memProcessAdapter = null;
 
 	// [/region]
-	
+
 	// [region] life circle
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -60,20 +58,20 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 	}
 
 	// [/region]
-	
+
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
 		initEvents();
 	}
 
-	
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		progressMemory = (DataProgressBar) findViewById(R.id.progressMemory);
 		sbMemory = (SearchBar) findViewById(R.id.sbMemory);
 		tvProcessInfo = (TextView) findViewById(R.id.tvProcessInfo);
@@ -84,11 +82,18 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 
 	@Override
 	public void initTitle() {
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.setRightButtonText(getString(R.string.refresh));
-		tbTitle.setText(getString(R.string.func4_title));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
+
+		tvName.setText(R.string.func4_title);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.refresh);
+		btnRight.setVisibility(View.VISIBLE);
+
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.setRightButtonText(getString(R.string.refresh));
+		// tbTitle.setText(getString(R.string.func4_title));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
 
 	}
 
@@ -104,12 +109,14 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 		sbMemory.getEditText().addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 
 			}
 
@@ -118,25 +125,26 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 				if (s == null || memProcessAdapter == null) {
 					return;
 				}
-				memProcessAdapter.getFilter().filter(sbMemory.getText().toString());
+				memProcessAdapter.getFilter().filter(
+						sbMemory.getText().toString());
 			}
 		});
 
 		lvMemory.setOnItemClickListener(this);
 		btnClean.setOnClickListener(this);
 
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
+		btnRight.setOnClickListener(this);
 	}
 
 	// [/region]
-	
+
 	// [region] business logic
 	private void loadMemProcessList() {
 		progressMemory.setAppName(getString(R.string.loading));
 		progressMemory.setVisibility(View.VISIBLE);
 		btnClean.setVisibility(View.GONE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		final Handler h = new Handler() {
 
@@ -144,17 +152,21 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 					if (listMemProcessAll != null) {
-						memProcessAdapter = new MemProcessAdapter(listMemProcessAll, getLayoutInflater());
+						memProcessAdapter = new MemProcessAdapter(
+								listMemProcessAll, getLayoutInflater());
 					} else {
 						memProcessAdapter = null;
 					}
 					lvMemory.setAdapter(memProcessAdapter);
 
-					tvProcessInfo.setText(String.format(getResources().getString(R.string.process_count_fmt),
-							(listMemProcessAll == null ? 0 : listMemProcessAll.size())));
+					tvProcessInfo.setText(String.format(
+							getResources()
+									.getString(R.string.process_count_fmt),
+							(listMemProcessAll == null ? 0 : listMemProcessAll
+									.size())));
 					progressMemory.setVisibility(View.GONE);
 					btnClean.setVisibility(View.VISIBLE);
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 					showMemoryInfo();
 				}
 				super.handleMessage(msg);
@@ -185,11 +197,14 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 				if (msg.what == 1) {
 					MemoryInfo info = (MemoryInfo) msg.obj;
 					if (info == null) {
-						tvMemoryInfo.setText(String.format(getResources().getString(R.string.memory_usage_fmt), 0, 0,
-								0, 0));
+						tvMemoryInfo.setText(String.format(getResources()
+								.getString(R.string.memory_usage_fmt), 0, 0, 0,
+								0));
 					} else {
-						tvMemoryInfo.setText(String.format(getResources().getString(R.string.memory_usage_fmt),
-								info.Total, info.Free, info.Shared, info.Buffer));
+						tvMemoryInfo.setText(String
+								.format(getResources().getString(
+										R.string.memory_usage_fmt), info.Total,
+										info.Free, info.Shared, info.Buffer));
 					}
 					progressMemory.setVisibility(View.GONE);
 					btnClean.setVisibility(View.VISIBLE);
@@ -226,7 +241,7 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 		lvMemory.setEnabled(false);
 		progressMemory.setAppName(getString(R.string.cleaning_memory));
 		progressMemory.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		final Handler h = new Handler() {
 			@Override
@@ -248,7 +263,9 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 						if (info.appInfo != null) {
 							// exclude list
 							if (MemorySpecialList.inExcludeList(info.NAME) == -1) {
-								RootUtils.runCommand(String.format("kill %d", info.PID), true);
+								RootUtils.runCommand(
+										String.format("kill %d", info.PID),
+										true);
 							}
 						}
 					}
@@ -266,7 +283,7 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 		lvMemory.setEnabled(false);
 		progressMemory.setAppName(getString(R.string.cleaning_memory));
 		progressMemory.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		final Handler h = new Handler() {
 
@@ -276,7 +293,7 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 					btnClean.setVisibility(View.VISIBLE);
 					lvMemory.setEnabled(true);
 					progressMemory.setVisibility(View.GONE);
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 					loadMemProcessList();
 				}
 				super.handleMessage(msg);
@@ -324,8 +341,10 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		GlobalInstance.currentMemoryProcess = (MemProcessInfo) lvMemory.getItemAtPosition(position);
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		GlobalInstance.currentMemoryProcess = (MemProcessInfo) lvMemory
+				.getItemAtPosition(position);
 
 		Intent inMem = new Intent(this, MemProcessActivity.class);
 		startActivityForResult(inMem, RTConsts.REQCODE_MEMORY);
@@ -340,7 +359,8 @@ public class MemMainActivity extends Activity implements ActivityIntf, OnClickLi
 		case RTConsts.REQCODE_MEMORY:
 			listMemProcessAll.remove(GlobalInstance.currentMemoryProcess);
 			memProcessAdapter.deleteItem(GlobalInstance.currentMemoryProcess);
-			tvProcessInfo.setText(String.format(getResources().getString(R.string.process_count_fmt),
+			tvProcessInfo.setText(String.format(
+					getResources().getString(R.string.process_count_fmt),
 					listMemProcessAll.size()));
 			showMemoryInfo();
 			break;

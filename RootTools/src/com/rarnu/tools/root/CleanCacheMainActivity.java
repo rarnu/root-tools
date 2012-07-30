@@ -3,7 +3,6 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,18 +19,18 @@ import android.widget.Toast;
 
 import com.rarnu.tools.root.adapter.CacheAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.CacheInfo;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.CacheUtils;
 
-public class CleanCacheMainActivity extends Activity implements ActivityIntf, OnClickListener, OnItemLongClickListener {
+public class CleanCacheMainActivity extends BaseActivity implements
+		OnClickListener, OnItemLongClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	TextView tvCacheInfo;
 	ListView lvCache;
 	Button btnCleanCache;
@@ -60,6 +59,7 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -69,7 +69,7 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		lvCache = (ListView) findViewById(R.id.lvCache);
 		sbCache = (SearchBar) findViewById(R.id.sbCache);
 		btnCleanCache = (Button) findViewById(R.id.btnCleanCache);
@@ -79,11 +79,17 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.func6_title));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		tbTitle.setRightButtonText(getString(R.string.refresh));
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.func6_title);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.refresh);
+		btnRight.setVisibility(View.VISIBLE);
+
+		// tbTitle.setText(getString(R.string.func6_title));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		// tbTitle.setRightButtonText(getString(R.string.refresh));
+		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -93,8 +99,9 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+
+		btnLeft.setOnClickListener(this);
+		btnRight.setOnClickListener(this);
 		btnCleanCache.setOnClickListener(this);
 		lvCache.setOnItemLongClickListener(this);
 
@@ -102,12 +109,14 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 		sbCache.getEditText().addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 
 			}
 
@@ -144,11 +153,14 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			final int position, long id) {
 
 		final CacheInfo info = listCacheAll.get(position);
-		AlertDialogEx.showAlertDialogEx(this, getString(R.string.func6_title), getString(R.string.confirm_clean_cache),
-				getString(R.string.ok), new AlertDialogEx.DialogButtonClickListener() {
+		AlertDialogEx.showAlertDialogEx(this, getString(R.string.func6_title),
+				getString(R.string.confirm_clean_cache),
+				getString(R.string.ok),
+				new AlertDialogEx.DialogButtonClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -157,8 +169,9 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 							adapterCache.deleteItem(info);
 							loadCacheCount();
 						} else {
-							Toast.makeText(CleanCacheMainActivity.this, R.string.clean_cache_failed, Toast.LENGTH_LONG)
-									.show();
+							Toast.makeText(CleanCacheMainActivity.this,
+									R.string.clean_cache_failed,
+									Toast.LENGTH_LONG).show();
 						}
 
 					}
@@ -172,7 +185,8 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 
 	private void loadCacheCount() {
 		String cacheCount = CacheUtils.countCache(listCacheAll);
-		tvCacheInfo.setText(String.format(getString(R.string.used_cache_size), cacheCount));
+		tvCacheInfo.setText(String.format(getString(R.string.used_cache_size),
+				cacheCount));
 	}
 
 	private void loadCache() {
@@ -180,7 +194,7 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 		btnCleanCache.setVisibility(View.GONE);
 		progressCache.setAppName(getString(R.string.loading));
 		progressCache.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		final Handler h = new Handler() {
 			@Override
@@ -190,12 +204,13 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 					if (listCacheAll == null) {
 						adapterCache = null;
 					} else {
-						adapterCache = new CacheAdapter(getLayoutInflater(), listCacheAll);
+						adapterCache = new CacheAdapter(getLayoutInflater(),
+								listCacheAll);
 					}
 					lvCache.setAdapter(adapterCache);
 
 					progressCache.setVisibility(View.GONE);
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 					btnCleanCache.setVisibility(View.VISIBLE);
 					loadCacheCount();
 				}
@@ -219,19 +234,21 @@ public class CleanCacheMainActivity extends Activity implements ActivityIntf, On
 		btnCleanCache.setVisibility(View.GONE);
 		progressCache.setAppName(getString(R.string.cleaning_cache));
 		progressCache.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		final Handler h = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 
-					Toast.makeText(CleanCacheMainActivity.this,
-							(msg.arg1 == 0 ? R.string.clean_all_cache_fail : R.string.clean_all_cache_succ),
+					Toast.makeText(
+							CleanCacheMainActivity.this,
+							(msg.arg1 == 0 ? R.string.clean_all_cache_fail
+									: R.string.clean_all_cache_succ),
 							Toast.LENGTH_LONG).show();
 
 					progressCache.setVisibility(View.GONE);
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 					btnCleanCache.setVisibility(View.VISIBLE);
 					loadCache();
 				}

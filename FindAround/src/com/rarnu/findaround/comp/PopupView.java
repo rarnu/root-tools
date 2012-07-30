@@ -1,12 +1,13 @@
-package com.rarnu.findaround;
-
-import com.baidu.mapapi.GeoPoint;
+package com.rarnu.findaround.comp;
 
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+
+import com.baidu.mapapi.GeoPoint;
+import com.rarnu.findaround.R;
 
 public class PopupView extends RelativeLayout {
 

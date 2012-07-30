@@ -1,6 +1,5 @@
 package com.rarnu.tools.root;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -10,18 +9,16 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.BusyboxUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-public class BusyboxActivity extends Activity implements ActivityIntf, OnClickListener {
+public class BusyboxActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
 	RelativeLayout laySu, laySuperuser, layBusybox;
 	ImageView imgSu, imgSuperuser, imgBusybox;
 	DataProgressBar progressBusybox;
@@ -68,8 +65,9 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 	// [region] business logic
 	private void showHelp() {
 		// help
-		AlertDialogEx.showAlertDialogEx(this, getString(R.string.help), getString(R.string.help_busybox),
-				getString(R.string.ok), null, null, null);
+		AlertDialogEx.showAlertDialogEx(this, getString(R.string.help),
+				getString(R.string.help_busybox), getString(R.string.ok), null,
+				null, null);
 	}
 
 	private void showSuStatus() {
@@ -78,7 +76,8 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 			ret = 0;
 		}
 		AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint),
-				getString(ret == 0 ? R.string.no_root_permission : R.string.has_su_file), getString(R.string.ok), null,
+				getString(ret == 0 ? R.string.no_root_permission
+						: R.string.has_su_file), getString(R.string.ok), null,
 				null, null);
 	}
 
@@ -93,8 +92,11 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 			imgSu.setBackgroundResource(R.drawable.ok);
 		}
 
-		imgSuperuser.setBackgroundResource(RootUtils.hasSuperuser() ? R.drawable.ok : R.drawable.warning);
-		imgBusybox.setBackgroundResource(RootUtils.hasBusybox() ? R.drawable.ok : R.drawable.warning);
+		imgSuperuser
+				.setBackgroundResource(RootUtils.hasSuperuser() ? R.drawable.ok
+						: R.drawable.warning);
+		imgBusybox.setBackgroundResource(RootUtils.hasBusybox() ? R.drawable.ok
+				: R.drawable.warning);
 	}
 
 	private void reinstallSuperuser() {
@@ -109,13 +111,15 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 
 			int sysVersionCode = android.os.Build.VERSION.SDK_INT;
 
-			if (DeviceUtils.getBuildProp(DeviceUtils.RO_PRODUCT_MANUFACTURER).toLowerCase().contains("xiaomi")) {
-				showXiaomiHint(sysVersionCode >= 14);
+			if (DeviceUtils.getBuildProp(DeviceUtils.RO_PRODUCT_MANUFACTURER)
+					.toLowerCase().contains("xiaomi")) {
+				showXiaomiHint(sysVersionCode >= 11);
 				return;
 			}
 
-			if (DeviceUtils.getBuildProp(DeviceUtils.RO_BUILD_ID).toLowerCase().contains("miui")) {
-				showXiaomiHint(sysVersionCode >= 14);
+			if (DeviceUtils.getBuildProp(DeviceUtils.RO_BUILD_ID).toLowerCase()
+					.contains("miui")) {
+				showXiaomiHint(sysVersionCode >= 11);
 				return;
 			}
 
@@ -126,8 +130,9 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 
 	private void showXiaomiHint(final boolean isIcs) {
 		if (isIcs) {
-			AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint), getString(R.string.hint_xiaomi),
-					getString(R.string.ok), new AlertDialogEx.DialogButtonClickListener() {
+			AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint),
+					getString(R.string.hint_xiaomi), getString(R.string.ok),
+					new AlertDialogEx.DialogButtonClickListener() {
 
 						@Override
 						public void onClick(View v) {
@@ -136,8 +141,9 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 						}
 					}, getString(R.string.cancel), null);
 		} else {
-			AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint), getString(R.string.hint_xiaomi),
-					getString(R.string.ok), null, null, null);
+			AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint),
+					getString(R.string.hint_xiaomi), getString(R.string.ok),
+					null, null, null);
 		}
 	}
 
@@ -155,8 +161,10 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 		}
 
 		// reinstall busybox
-		AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint), getString(R.string.confirm_reinstall_busybox),
-				getString(R.string.ok), new AlertDialogEx.DialogButtonClickListener() {
+		AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint),
+				getString(R.string.confirm_reinstall_busybox),
+				getString(R.string.ok),
+				new AlertDialogEx.DialogButtonClickListener() {
 
 					@Override
 					public void onClick(View v) {
@@ -224,6 +232,7 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -232,7 +241,7 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		laySu = (RelativeLayout) findViewById(R.id.laySu);
 		laySuperuser = (RelativeLayout) findViewById(R.id.laySuperuser);
 		layBusybox = (RelativeLayout) findViewById(R.id.layBusybox);
@@ -244,11 +253,17 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.busybox));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.setRightButtonText(getString(R.string.help));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.busybox);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.help);
+		btnRight.setVisibility(View.VISIBLE);
+
+		// tbTitle.setText(getString(R.string.busybox));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.setRightButtonText(getString(R.string.help));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -261,8 +276,10 @@ public class BusyboxActivity extends Activity implements ActivityIntf, OnClickLi
 		laySu.setOnClickListener(this);
 		laySuperuser.setOnClickListener(this);
 		layBusybox.setOnClickListener(this);
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
+		btnRight.setOnClickListener(this);
+		// tbTitle.getLeftButton().setOnClickListener(this);
+		// tbTitle.getRightButton().setOnClickListener(this);
 	}
 
 	// [/region]

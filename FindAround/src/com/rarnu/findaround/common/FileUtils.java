@@ -1,4 +1,4 @@
-package com.rarnu.findaround;
+package com.rarnu.findaround.common;
 
 import java.io.BufferedReader;
 import java.io.File;

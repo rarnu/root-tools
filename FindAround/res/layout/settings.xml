@@ -7,7 +7,7 @@
     <include
         android:id="@+id/layTitle"
         layout="@layout/title_bar" />
-    
+
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -23,8 +23,8 @@
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
-                android:textColor="@color/black"
-                android:text="@string/settings_around" />
+                android:text="@string/settings_around"
+                android:textColor="@color/black" />
 
             <RelativeLayout
                 android:id="@+id/layDist1"
@@ -101,16 +101,100 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@null" />
             </RelativeLayout>
-            
-            
+
+            <TextView
+                android:id="@+id/tvResultCount"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layDist3"
+                android:layout_marginTop="16dip"
+                android:text="@string/settings_result_count"
+                android:textColor="@color/black" />
+
+            <RelativeLayout
+                android:id="@+id/layCount1"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/tvResultCount"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/list_above_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/dist_c10"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgCount1"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layCount2"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/layCount1"
+                android:background="@drawable/list_middle_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/dist_c20"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgCount2"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layCount3"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/layCount2"
+                android:background="@drawable/list_below_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/dist_c30"
+                    android:textColor="@color/black" />
+
+                <ImageView
+                    android:id="@+id/imgCount3"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
+
             <TextView
                 android:id="@+id/tvMethod"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/layCount3"
                 android:layout_marginTop="16dip"
-                android:layout_below="@+id/layDist3"
-                android:textColor="@color/black"
-                android:text="@string/settings_method" />
+                android:text="@string/settings_method"
+                android:textColor="@color/black" />
 
             <RelativeLayout
                 android:id="@+id/layMethod1"
@@ -138,8 +222,6 @@
                     android:contentDescription="@null" />
             </RelativeLayout>
 
-            
-
             <RelativeLayout
                 android:id="@+id/layMethod2"
                 android:layout_width="fill_parent"
@@ -164,22 +246,22 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@null" />
             </RelativeLayout>
-            
+
             <TextView
                 android:id="@+id/tvKeywords"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dip"
                 android:layout_below="@+id/layMethod2"
-                android:textColor="@color/black"
-                android:text="@string/settings_keywords" />
-            
+                android:layout_marginTop="16dip"
+                android:text="@string/settings_keywords"
+                android:textColor="@color/black" />
+
             <RelativeLayout
                 android:id="@+id/layKeywords"
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
-                android:layout_marginTop="8dip"
                 android:layout_below="@+id/tvKeywords"
+                android:layout_marginTop="8dip"
                 android:background="@drawable/list_one_background"
                 android:clickable="true" >
 
@@ -190,7 +272,6 @@
                     android:paddingLeft="8dip"
                     android:text="@string/dist_keywords"
                     android:textColor="@color/black" />
-
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

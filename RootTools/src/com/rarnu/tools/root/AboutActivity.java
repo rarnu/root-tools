@@ -1,6 +1,5 @@
 package com.rarnu.tools.root;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,16 +11,14 @@ import android.widget.TextView;
 
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.api.MobileApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.comp.AlertDialogEx;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.DeviceUtils;
 
-public class AboutActivity extends Activity implements ActivityIntf,
-		OnClickListener {
+public class AboutActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	RelativeLayout layHelp, layFitable, layUpdate;
 	ImageView imgFitable;
 	TextView tvAppVersion, tvDebug;
@@ -162,6 +159,7 @@ public class AboutActivity extends Activity implements ActivityIntf,
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -170,7 +168,7 @@ public class AboutActivity extends Activity implements ActivityIntf,
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		layHelp = (RelativeLayout) findViewById(R.id.layHelp);
 		layFitable = (RelativeLayout) findViewById(R.id.layFitable);
 		imgFitable = (ImageView) findViewById(R.id.imgFitable);
@@ -181,9 +179,12 @@ public class AboutActivity extends Activity implements ActivityIntf,
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.about));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.about);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		// tbTitle.setText(getString(R.string.about));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
 
 	}
 
@@ -197,7 +198,9 @@ public class AboutActivity extends Activity implements ActivityIntf,
 		layHelp.setOnClickListener(this);
 		layFitable.setOnClickListener(this);
 		layUpdate.setOnClickListener(this);
-		tbTitle.getLeftButton().setOnClickListener(this);
+
+		btnLeft.setOnClickListener(this);
+		// tbTitle.getLeftButton().setOnClickListener(this);
 	}
 
 	// [/region]

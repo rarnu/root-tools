@@ -3,7 +3,6 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -18,30 +17,29 @@ import android.widget.Toast;
 
 import com.rarnu.tools.root.adapter.HostsAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.DIPairUtils;
 
-public class HostMainActivity extends Activity implements ActivityIntf, OnClickListener {
+public class HostMainActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	ListView lvHosts;
 	SearchBar sbHosts;
 	DataBar barHosts;
 	DataProgressBar progressHosts;
 	// [/region]
-	
+
 	// [region] variable define
 	List<HostRecordInfo> listHostsAll = new ArrayList<HostRecordInfo>();
 	HostsAdapter hostsAdapter = null;
 	// [/region]
-	
+
 	// [region] handler define
 	Handler hSelectHost = new Handler() {
 		@Override
@@ -53,6 +51,7 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 		};
 
 	};
+
 	// [/region]
 
 	// [region] life circle
@@ -64,12 +63,14 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 		loadHosts();
 		LogApi.logEnterHosts();
 	}
+
 	// [/region]
-	
+
 	// [region] init
 
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -78,7 +79,7 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		barHosts = (DataBar) findViewById(R.id.barHosts);
 		progressHosts = (DataProgressBar) findViewById(R.id.progressHosts);
 		sbHosts = (SearchBar) findViewById(R.id.sbHosts);
@@ -87,11 +88,18 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	@Override
 	public void initTitle() {
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.setRightButtonText(getString(R.string.refresh));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
-		tbTitle.setText(getString(R.string.func5_title));
+
+		tvName.setText(R.string.func5_title);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.refresh);
+		btnRight.setVisibility(View.VISIBLE);
+
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.setRightButtonText(getString(R.string.refresh));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
+		// tbTitle.setText(getString(R.string.func5_title));
 
 	}
 
@@ -108,12 +116,14 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 		sbHosts.getEditText().addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 
 			}
 
@@ -128,20 +138,21 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 
 		barHosts.getButton1().setOnClickListener(this);
 		barHosts.getButton2().setOnClickListener(this);
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+		btnRight.setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 
 		barHosts.getCheckBox().setOnClickListener(this);
 	}
+
 	// [/region]
-	
+
 	// [region] business logic
 	private void loadHosts() {
 
 		barHosts.setVisibility(View.GONE);
 		progressHosts.setAppName(getString(R.string.loading));
 		progressHosts.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		final Handler h = new Handler() {
 
@@ -149,14 +160,15 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 					if (listHostsAll != null) {
-						hostsAdapter = new HostsAdapter(getLayoutInflater(), listHostsAll, hSelectHost, true, true);
+						hostsAdapter = new HostsAdapter(getLayoutInflater(),
+								listHostsAll, hSelectHost, true, true);
 					} else {
 						hostsAdapter = null;
 					}
 					lvHosts.setAdapter(hostsAdapter);
 					progressHosts.setVisibility(View.GONE);
 					showHostSelectedCount();
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 				}
 				super.handleMessage(msg);
 			}
@@ -176,7 +188,8 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 
 	private void showHostSelectedCount() {
 		int count = getHostSelectedCount(listHostsAll);
-		String cap = String.format(getResources().getString(R.string.btn_delete), count);
+		String cap = String.format(getResources()
+				.getString(R.string.btn_delete), count);
 		barHosts.setButton1Text(cap);
 		barHosts.setVisibility(count == 0 ? View.GONE : View.VISIBLE);
 	}
@@ -193,7 +206,8 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 		return count;
 	}
 
-	private void setHostItemSelectedStatus(List<HostRecordInfo> list, BaseAdapter adapter, Handler h, boolean selected) {
+	private void setHostItemSelectedStatus(List<HostRecordInfo> list,
+			BaseAdapter adapter, Handler h, boolean selected) {
 		for (int i = 0; i < list.size(); i++) {
 			list.get(i).checked = selected;
 		}
@@ -207,7 +221,7 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 		barHosts.setVisibility(View.GONE);
 		progressHosts.setAppName(getString(R.string.deleting));
 		progressHosts.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		LogApi.logDeleteHosts();
 
@@ -221,13 +235,15 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 					if (msg.arg1 == 0) {
 						loadHosts();
 						sbHosts.setText("");
-						Toast.makeText(HostMainActivity.this, R.string.save_hosts_error, Toast.LENGTH_LONG).show();
+						Toast.makeText(HostMainActivity.this,
+								R.string.save_hosts_error, Toast.LENGTH_LONG)
+								.show();
 					}
 					lvHosts.setEnabled(true);
 					hostsAdapter.deleteItem(deletedHosts);
 
 					progressHosts.setVisibility(View.GONE);
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 				}
 				super.handleMessage(msg);
 			}
@@ -264,7 +280,7 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 		barHosts.setVisibility(View.GONE);
 		progressHosts.setAppName(getString(R.string.adding));
 		progressHosts.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		LogApi.logAddHosts();
 
@@ -276,12 +292,14 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 					if (msg.arg1 == 0) {
 						loadHosts();
 						sbHosts.setText("");
-						Toast.makeText(HostMainActivity.this, R.string.save_hosts_error, Toast.LENGTH_LONG).show();
+						Toast.makeText(HostMainActivity.this,
+								R.string.save_hosts_error, Toast.LENGTH_LONG)
+								.show();
 					}
 					lvHosts.setEnabled(true);
 					hostsAdapter.notifyDataSetChanged();
 					progressHosts.setVisibility(View.GONE);
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 				}
 				super.handleMessage(msg);
 			}
@@ -327,11 +345,13 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 			doDeleteHosts();
 			break;
 		case R.id.barButton2:
-			setHostItemSelectedStatus(listHostsAll, hostsAdapter, hSelectHost, false);
+			setHostItemSelectedStatus(listHostsAll, hostsAdapter, hSelectHost,
+					false);
 			break;
 		case R.id.chkSelAll:
 			boolean selected = barHosts.getCheckBox().isChecked();
-			setHostItemSelectedStatus(listHostsAll, hostsAdapter, hSelectHost, selected);
+			setHostItemSelectedStatus(listHostsAll, hostsAdapter, hSelectHost,
+					selected);
 			break;
 		}
 
@@ -350,7 +370,7 @@ public class HostMainActivity extends Activity implements ActivityIntf, OnClickL
 
 		}
 	}
-	
+
 	// [/region]
 
 }

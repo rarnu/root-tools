@@ -1,5 +1,7 @@
 package com.rarnu.findaround;
 
+import com.rarnu.findaround.common.Config;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -16,8 +18,8 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	TextView tvName;
 
 	RelativeLayout layDist1, layDist2, layDist3, layMethod1, layMethod2,
-			layKeywords;
-	ImageView imgDist1, imgDist2, imgDist3, imgMethod1, imgMethod2;
+			layKeywords, layCount1, layCount2, layCount3;
+	ImageView imgDist1, imgDist2, imgDist3, imgMethod1, imgMethod2, imgCount1, imgCount2, imgCount3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -37,11 +39,17 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		layDist1 = (RelativeLayout) findViewById(R.id.layDist1);
 		layDist2 = (RelativeLayout) findViewById(R.id.layDist2);
 		layDist3 = (RelativeLayout) findViewById(R.id.layDist3);
+		layCount1 = (RelativeLayout) findViewById(R.id.layCount1);
+		layCount2 = (RelativeLayout) findViewById(R.id.layCount2);
+		layCount3 = (RelativeLayout) findViewById(R.id.layCount3);
 		layMethod1 = (RelativeLayout) findViewById(R.id.layMethod1);
 		layMethod2 = (RelativeLayout) findViewById(R.id.layMethod2);
 		imgDist1 = (ImageView) findViewById(R.id.imgDist1);
 		imgDist2 = (ImageView) findViewById(R.id.imgDist2);
 		imgDist3 = (ImageView) findViewById(R.id.imgDist3);
+		imgCount1 = (ImageView) findViewById(R.id.imgCount1);
+		imgCount2 = (ImageView) findViewById(R.id.imgCount2);
+		imgCount3 = (ImageView) findViewById(R.id.imgCount3);
 		imgMethod1 = (ImageView) findViewById(R.id.imgMethod1);
 		imgMethod2 = (ImageView) findViewById(R.id.imgMethod2);
 		layKeywords = (RelativeLayout) findViewById(R.id.layKeywords);
@@ -55,6 +63,9 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		layMethod1.setOnClickListener(this);
 		layMethod2.setOnClickListener(this);
 		layKeywords.setOnClickListener(this);
+		layCount1.setOnClickListener(this);
+		layCount2.setOnClickListener(this);
+		layCount3.setOnClickListener(this);
 	}
 
 	private void initSettings() {
@@ -84,6 +95,21 @@ public class SettingsActivity extends Activity implements OnClickListener {
 			imgMethod2.setBackgroundResource(R.drawable.checked);
 			break;
 		}
+		int count = Config.getResultCount(this);
+		imgCount1.setBackgroundDrawable(null);
+		imgCount2.setBackgroundDrawable(null);
+		imgCount3.setBackgroundDrawable(null);
+		switch (count) {
+		case 10:
+			imgCount1.setBackgroundResource(R.drawable.checked);
+			break;
+		case 20:
+			imgCount2.setBackgroundResource(R.drawable.checked);
+			break;
+		case 30:
+			imgCount3.setBackgroundResource(R.drawable.checked);
+			break;
+		}
 	}
 
 	@Override
@@ -100,6 +126,15 @@ public class SettingsActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.layDist3:
 			Config.setDist(this, 5000);
+			break;
+		case R.id.layCount1:
+			Config.setResultCount(this, 10);
+			break;
+		case R.id.layCount2:
+			Config.setResultCount(this, 20);
+			break;
+		case R.id.layCount3:
+			Config.setResultCount(this, 30);
 			break;
 		case R.id.layMethod1:
 			Config.setMethod(this, 1);

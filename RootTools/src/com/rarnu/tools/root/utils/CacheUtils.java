@@ -15,16 +15,21 @@ public class CacheUtils {
 		List<CacheInfo> result = null;
 		// 4.0K ./com.android.providers.downloads/cache
 
-		CommandResult cmdResult = RootUtils.runCommand("busybox find /data/data/ -name \"cache\"", true);
+		CommandResult cmdResult = RootUtils.runCommand(
+				"busybox find /data/data/ -name \"cache\"", true);
 		if (cmdResult.error.equals("") && cmdResult.result.equals("")) {
 			return result;
 		}
 
-		cmdResult = RootUtils.runCommand("busybox find /data/data/ -name \"cache\" | busybox xargs du -sh", true);
+		cmdResult = RootUtils
+				.runCommand(
+						"busybox find /data/data/ -name \"cache\" | busybox xargs du -sh",
+						true);
 		if (cmdResult.error.equals("")) {
 			String cacheString = cmdResult.result;
 			cacheString = cacheString.replace("\t", " ");
-			cacheString = cacheString.replace("/data/data/", "").replace("/cache", "").replace("\n", "|");
+			cacheString = cacheString.replace("/data/data/", "")
+					.replace("/cache", "").replace("\n", "|");
 			cacheString = cacheString.replaceAll("\\s+", " ");
 			String[] lines = cacheString.split("\\|");
 
@@ -49,7 +54,8 @@ public class CacheUtils {
 
 	public static boolean cleanCache(CacheInfo info) {
 		String path = "rm -r /data/data/%s/cache";
-		CommandResult result = RootUtils.runCommand(String.format(path, info.namespace), true);
+		CommandResult result = RootUtils.runCommand(
+				String.format(path, info.namespace), true);
 		return result.error.equals("");
 	}
 
@@ -68,7 +74,12 @@ public class CacheUtils {
 		double sizeD = 0D;
 		for (CacheInfo info : list) {
 			size = info.cacheSize;
-			sizeD = Double.parseDouble(size.substring(0, size.length() - 1));
+			try {
+				sizeD = Double
+						.parseDouble(size.substring(0, size.length() - 1));
+			} catch (Exception e) {
+				sizeD = 0D;
+			}
 			if (size.endsWith("M")) {
 				sizeD *= 1024;
 			} else if (size.endsWith("G")) {

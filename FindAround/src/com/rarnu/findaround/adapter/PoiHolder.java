@@ -1,4 +1,4 @@
-package com.rarnu.findaround;
+package com.rarnu.findaround.adapter;
 
 import android.widget.TextView;
 

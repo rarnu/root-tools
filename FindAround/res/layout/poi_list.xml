@@ -12,8 +12,30 @@
         android:id="@+id/lvPoi"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_above="@+id/imgBottom"
         android:layout_below="@+id/layTitle"
         android:cacheColorHint="#00000000" >
     </ListView>
+
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/tvLoading"
+        android:layout_width="fill_parent"
+        android:layout_height="64dip"
+        android:layout_centerInParent="true"
+        android:layout_margin="16dip"
+        android:background="#AA000000"
+        android:gravity="center"
+        android:text="@string/searching"
+        android:textColor="@color/white"
+        android:textSize="20dip"
+        android:visibility="gone" />
 
 </RelativeLayout>

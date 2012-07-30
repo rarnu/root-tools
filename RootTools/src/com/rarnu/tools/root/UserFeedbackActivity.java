@@ -1,6 +1,5 @@
 package com.rarnu.tools.root;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -11,14 +10,14 @@ import android.widget.Toast;
 
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.api.MobileApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.comp.DataProgressBar;
-import com.rarnu.tools.root.comp.TitleBar;
 
-public class UserFeedbackActivity extends Activity implements ActivityIntf, OnClickListener {
+public class UserFeedbackActivity extends BaseActivity implements
+		OnClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	EditText etFeedback;
 	DataProgressBar progressFeedback;
 
@@ -45,7 +44,8 @@ public class UserFeedbackActivity extends Activity implements ActivityIntf, OnCl
 		case R.id.btnRight:
 			String comment = etFeedback.getText().toString();
 			if (comment.equals("")) {
-				Toast.makeText(this, R.string.empty_feedback, Toast.LENGTH_LONG).show();
+				Toast.makeText(this, R.string.empty_feedback, Toast.LENGTH_LONG)
+						.show();
 				return;
 			}
 			doSendFeedbackT(comment);
@@ -60,7 +60,7 @@ public class UserFeedbackActivity extends Activity implements ActivityIntf, OnCl
 	private void doSendFeedbackT(final String comment) {
 		progressFeedback.setAppName(getString(R.string.sending));
 		progressFeedback.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 		etFeedback.setEnabled(false);
 
 		LogApi.logUserFeedback();
@@ -72,16 +72,18 @@ public class UserFeedbackActivity extends Activity implements ActivityIntf, OnCl
 					//
 					if (msg.arg1 != 0) {
 						// succ
-						Toast.makeText(UserFeedbackActivity.this, R.string.send_feedback_succ, Toast.LENGTH_LONG)
+						Toast.makeText(UserFeedbackActivity.this,
+								R.string.send_feedback_succ, Toast.LENGTH_LONG)
 								.show();
 						finish();
 					} else {
 						// fail
-						Toast.makeText(UserFeedbackActivity.this, R.string.send_feedback_fail, Toast.LENGTH_LONG)
+						Toast.makeText(UserFeedbackActivity.this,
+								R.string.send_feedback_fail, Toast.LENGTH_LONG)
 								.show();
 					}
 					progressFeedback.setVisibility(View.GONE);
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 					etFeedback.setEnabled(true);
 				}
 				super.handleMessage(msg);
@@ -93,8 +95,10 @@ public class UserFeedbackActivity extends Activity implements ActivityIntf, OnCl
 
 			@Override
 			public void run() {
-				boolean ret = MobileApi.userFeedback(GlobalInstance.deviceId, GlobalInstance.module,
-						GlobalInstance.osVersion, GlobalInstance.mail, GlobalInstance.buildDescription, comment);
+				boolean ret = MobileApi.userFeedback(GlobalInstance.deviceId,
+						GlobalInstance.module, GlobalInstance.osVersion,
+						GlobalInstance.mail, GlobalInstance.buildDescription,
+						comment);
 				Message msg = new Message();
 				msg.what = 1;
 				msg.arg1 = (ret ? 1 : 0);
@@ -110,6 +114,7 @@ public class UserFeedbackActivity extends Activity implements ActivityIntf, OnCl
 	// [region] init
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -119,18 +124,24 @@ public class UserFeedbackActivity extends Activity implements ActivityIntf, OnCl
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		etFeedback = (EditText) findViewById(R.id.etFeedback);
 		progressFeedback = (DataProgressBar) findViewById(R.id.progressFeedback);
 	}
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.feedback));
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.setRightButtonText(getString(R.string.send));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
+		tvName.setText(R.string.feedback);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.send);
+		btnRight.setVisibility(View.VISIBLE);
+
+		// tbTitle.setText(getString(R.string.feedback));
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.setRightButtonText(getString(R.string.send));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
 
 	}
 
@@ -141,8 +152,8 @@ public class UserFeedbackActivity extends Activity implements ActivityIntf, OnCl
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+		btnRight.setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 
 	}
 

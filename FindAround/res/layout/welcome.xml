@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <include
+        android:id="@+id/tbTitle"
+        layout="@layout/title_bar" />
+
+    <Gallery
+        android:id="@+id/gButtons"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/tvAddress"
+        android:layout_below="@+id/tbTitle" />
+
+    <RelativeLayout
+        android:id="@+id/layBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="24dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar" >
+
+        <TextView
+            android:id="@+id/tvAddress"
+            android:layout_width="wrap_content"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="4dip"
+            android:text="@string/locating"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tvGeo"
+            android:layout_width="wrap_content"
+            android:layout_height="24dip"
+            android:layout_alignParentRight="true"
+            android:gravity="right|center_vertical"
+            android:paddingRight="4dip"
+            android:textSize="8dip"
+            
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+</RelativeLayout>

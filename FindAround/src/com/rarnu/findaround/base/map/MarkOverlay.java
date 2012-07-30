@@ -1,4 +1,4 @@
-package com.rarnu.findaround;
+package com.rarnu.findaround.base.map;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,6 +17,7 @@ import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.OverlayItem;
 import com.baidu.mapapi.Projection;
 import com.baidu.mapapi.MapView.LayoutParams;
+import com.rarnu.findaround.comp.PopupView;
 
 public class MarkOverlay extends ItemizedOverlay<OverlayItem> {
 
@@ -45,6 +46,7 @@ public class MarkOverlay extends ItemizedOverlay<OverlayItem> {
 	public void addOverlay(OverlayItem overlayItem) {
 		pointList.add(overlayItem);
 		populate();
+
 	}
 
 	public void clearAll() {
@@ -64,6 +66,7 @@ public class MarkOverlay extends ItemizedOverlay<OverlayItem> {
 	public GeoPoint getClickedPoint() {
 		return clickedPoint;
 	}
+
 	// [/region]
 
 	// [region] overrides
@@ -87,7 +90,8 @@ public class MarkOverlay extends ItemizedOverlay<OverlayItem> {
 				y = event.getY();
 				Projection projection = mapView.getProjection();
 
-				OverlayItem overlayItem = new OverlayItem(projection.fromPixels((int) x, (int) y), "", "");
+				OverlayItem overlayItem = new OverlayItem(
+						projection.fromPixels((int) x, (int) y), "", "");
 				addOverlay(overlayItem);
 
 			}
@@ -117,12 +121,14 @@ public class MarkOverlay extends ItemizedOverlay<OverlayItem> {
 
 	@Override
 	protected boolean onTap(int i) {
-		if (!isFreeDraw) {
+		if (popup.getVisibility() != View.VISIBLE) {
 			mvMap.getController().animateTo(pointList.get(i).getPoint());
 			setFocus(pointList.get(i));
 			clickedPoint = pointList.get(i).getPoint();
-			mvMap.updateViewLayout(popup, new MapView.LayoutParams(LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-					pointList.get(i).getPoint(), MapView.LayoutParams.BOTTOM_CENTER));
+			mvMap.updateViewLayout(popup, new MapView.LayoutParams(
+					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+					pointList.get(i).getPoint(),
+					MapView.LayoutParams.BOTTOM_CENTER));
 			popup.setGeoPoint(pointList.get(i).getPoint());
 			popup.setName(pointList.get(i).getTitle());
 			popup.setAddress(pointList.get(i).getSnippet());
@@ -133,7 +139,6 @@ public class MarkOverlay extends ItemizedOverlay<OverlayItem> {
 
 	@Override
 	public boolean onTap(GeoPoint arg0, MapView arg1) {
-		popup.setVisibility(View.GONE);
 		return super.onTap(arg0, arg1);
 	}
 	// [/region]

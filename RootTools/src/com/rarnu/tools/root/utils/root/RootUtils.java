@@ -20,6 +20,7 @@ public class RootUtils {
 	private static final String SUPERUSER_PATH_2 = "eu.chainfire.supersu.pro";
 	private static final String SUPERUSER_PATH_3 = "com.noshufou.android.su";
 	private static final String SUPERUSER_PATH_4 = "com.miui.uac";
+	private static final String SUPERUSER_PATH_5 = "com.lbe.security.shuame";
 
 	public static boolean hasBusybox() {
 		return openFile(BUSYBOX_PATH).exists();
@@ -57,6 +58,14 @@ public class RootUtils {
 				info = null;
 			}
 		}
+		
+		if (info == null) {
+			try {
+				info = GlobalInstance.pm.getApplicationInfo(SUPERUSER_PATH_5, 0);
+			} catch (NameNotFoundException e) {
+				info = null;
+			}
+		}
 
 		return info != null;
 	}
@@ -80,7 +89,7 @@ public class RootUtils {
 		if (GlobalInstance.DEBUG) {
 			Log.e("suStat", suStat);
 		}
-		return (!suStat.contains("-rwsr-sr-x"));
+		return ((!suStat.contains("-rwsr-sr-x")) && (!suStat.contains("-rwsr-xr-x")));
 	}
 
 	@SuppressWarnings("deprecation")

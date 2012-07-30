@@ -4,7 +4,6 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,19 +19,19 @@ import android.widget.Toast;
 
 import com.rarnu.tools.root.adapter.SysappAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
+import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.common.SysappInfo;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
-import com.rarnu.tools.root.comp.TitleBar;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-public class SysappMainActivity extends Activity implements ActivityIntf, OnClickListener, OnItemClickListener {
+public class SysappMainActivity extends BaseActivity implements
+		OnClickListener, OnItemClickListener {
 
 	// [region] field define
-	TitleBar tbTitle;
+
 	SearchBar sbSysApp;
 	DataProgressBar progressSysapp;
 	ListView lvSysApp;
@@ -62,6 +61,7 @@ public class SysappMainActivity extends Activity implements ActivityIntf, OnClic
 
 	@Override
 	public void init() {
+		mappingTitle();
 		mappingComp();
 		initTitle();
 		initSearchBar();
@@ -70,7 +70,7 @@ public class SysappMainActivity extends Activity implements ActivityIntf, OnClic
 
 	@Override
 	public void mappingComp() {
-		tbTitle = (TitleBar) findViewById(R.id.tbTitle);
+
 		sbSysApp = (SearchBar) findViewById(R.id.sbSysapp);
 		progressSysapp = (DataProgressBar) findViewById(R.id.progressSysapp);
 		lvSysApp = (ListView) findViewById(R.id.lvSysApp);
@@ -78,11 +78,18 @@ public class SysappMainActivity extends Activity implements ActivityIntf, OnClic
 
 	@Override
 	public void initTitle() {
-		tbTitle.setText(getString(R.string.func1_title));
-		tbTitle.setRightButtonText(getString(R.string.refresh));
-		tbTitle.getRightButton().setVisibility(View.VISIBLE);
-		tbTitle.setLeftButtonText(getString(R.string.back));
-		tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+
+		tvName.setText(R.string.func1_title);
+		btnLeft.setText(R.string.back);
+		btnLeft.setVisibility(View.VISIBLE);
+		btnRight.setText(R.string.refresh);
+		btnRight.setVisibility(View.VISIBLE);
+
+		// tbTitle.setText(getString(R.string.func1_title));
+		// tbTitle.setRightButtonText(getString(R.string.refresh));
+		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
+		// tbTitle.setLeftButtonText(getString(R.string.back));
+		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
 
 	}
 
@@ -93,19 +100,21 @@ public class SysappMainActivity extends Activity implements ActivityIntf, OnClic
 
 	@Override
 	public void initEvents() {
-		tbTitle.getLeftButton().setOnClickListener(this);
-		tbTitle.getRightButton().setOnClickListener(this);
+		btnRight.setOnClickListener(this);
+		btnLeft.setOnClickListener(this);
 		lvSysApp.setOnItemClickListener(this);
 		sbSysApp.getAddButton().setOnClickListener(this);
 		sbSysApp.getCancelButton().setOnClickListener(this);
 		sbSysApp.getEditText().addTextChangedListener(new TextWatcher() {
 
 			@Override
-			public void onTextChanged(CharSequence s, int start, int before, int count) {
+			public void onTextChanged(CharSequence s, int start, int before,
+					int count) {
 			}
 
 			@Override
-			public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+			public void beforeTextChanged(CharSequence s, int start, int count,
+					int after) {
 			}
 
 			@Override
@@ -127,20 +136,21 @@ public class SysappMainActivity extends Activity implements ActivityIntf, OnClic
 		sbSysApp.setText("");
 		progressSysapp.setAppName(getString(R.string.loading));
 		progressSysapp.setVisibility(View.VISIBLE);
-		tbTitle.getRightButton().setEnabled(false);
+		btnRight.setEnabled(false);
 
 		final Handler h = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 					if (listSysappAll != null) {
-						sysappAdapter = new SysappAdapter(getLayoutInflater(), listSysappAll);
+						sysappAdapter = new SysappAdapter(getLayoutInflater(),
+								listSysappAll);
 					} else {
 						sysappAdapter = null;
 					}
 					lvSysApp.setAdapter(sysappAdapter);
 					progressSysapp.setVisibility(View.GONE);
-					tbTitle.getRightButton().setEnabled(true);
+					btnRight.setEnabled(true);
 				}
 				super.handleMessage(msg);
 			}
@@ -168,8 +178,11 @@ public class SysappMainActivity extends Activity implements ActivityIntf, OnClic
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
-					Toast.makeText(SysappMainActivity.this,
-							(msg.arg1 == 1 ? R.string.install_ok : R.string.install_fail), Toast.LENGTH_LONG).show();
+					Toast.makeText(
+							SysappMainActivity.this,
+							(msg.arg1 == 1 ? R.string.install_ok
+									: R.string.install_fail), Toast.LENGTH_LONG)
+							.show();
 					progressSysapp.setVisibility(View.GONE);
 					loadSystemApp();
 				}
@@ -224,8 +237,10 @@ public class SysappMainActivity extends Activity implements ActivityIntf, OnClic
 			}
 			if (!apkPath.equals("")) {
 				AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint),
-						String.format(getResources().getString(R.string.install_apk), apk.getName()),
-						getString(R.string.ok), new AlertDialogEx.DialogButtonClickListener() {
+						String.format(
+								getResources().getString(R.string.install_apk),
+								apk.getName()), getString(R.string.ok),
+						new AlertDialogEx.DialogButtonClickListener() {
 
 							@Override
 							public void onClick(View v) {
@@ -239,8 +254,10 @@ public class SysappMainActivity extends Activity implements ActivityIntf, OnClic
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-		GlobalInstance.currentSysapp = (SysappInfo) lvSysApp.getItemAtPosition(position);
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		GlobalInstance.currentSysapp = (SysappInfo) lvSysApp
+				.getItemAtPosition(position);
 		Intent inApp = new Intent(this, SysappDetailActivity.class);
 		startActivityForResult(inApp, RTConsts.REQCODE_SYSAPP);
 	}
