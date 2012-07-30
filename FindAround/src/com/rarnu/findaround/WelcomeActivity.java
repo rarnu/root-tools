@@ -24,6 +24,8 @@ import com.baidu.mapapi.MKLocationManager;
 import com.rarnu.findaround.adapter.WelcomeAdapter;
 import com.rarnu.findaround.api.BaiduAPI;
 import com.rarnu.findaround.base.BaseActivity;
+import com.rarnu.findaround.common.PageItem;
+import com.rarnu.findaround.common.PageUtils;
 import com.rarnu.findaround.common.UIUtils;
 import com.rarnu.findaround.comp.GridPage;
 
@@ -31,7 +33,6 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		LocationListener {
 
 	Gallery gButtons;
-	GridPage gp1, gp2;
 	TextView tvAddress, tvGeo;
 
 	Button btnRight;
@@ -112,19 +113,15 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	private void initGrid9() {
 
 		listWelcome = new ArrayList<GridPage>();
-		gp1 = new GridPage(this);
-		gp2 = new GridPage(this);
 
-		gp1.setGallery(gButtons);
-		gp2.setGallery(gButtons);
-
-		gp1.setButtonsText(new String[] { "超市", "餐厅", "厕所", "ATM机" });
-
-		gp1.setButtonClickEvent(this);
-		gp2.setButtonClickEvent(this);
-
-		listWelcome.add(gp1);
-		listWelcome.add(gp2);
+		List<PageItem[]> pages = PageUtils.buildPages(this);
+		for (int i = 0; i < pages.size(); i++) {
+			GridPage gp = new GridPage(this);
+			gp.setGallery(gButtons);
+			gp.setButtonsItem(pages.get(i));
+			gp.setButtonClickEvent(this);
+			listWelcome.add(gp);
+		}
 
 		welcomeAdapter = new WelcomeAdapter(listWelcome);
 		gButtons.setAdapter(welcomeAdapter);
@@ -155,6 +152,13 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 0) {
+			initGrid9();
+		}
+	}
+	
 	@Override
 	public void onLocationChanged(Location location) {
 		if (location == null) {

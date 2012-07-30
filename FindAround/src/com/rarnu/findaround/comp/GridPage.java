@@ -8,6 +8,7 @@ import android.widget.Gallery;
 import android.widget.RelativeLayout;
 
 import com.rarnu.findaround.R;
+import com.rarnu.findaround.common.PageItem;
 
 public class GridPage extends RelativeLayout implements OnClickListener {
 
@@ -62,28 +63,25 @@ public class GridPage extends RelativeLayout implements OnClickListener {
 		this.listener = listener;
 	}
 
-	public void setButtonsText(String[] text) {
-		int count = text.length;
+	public void setButtonsItem(PageItem[] items) {
+		int count = items.length;
 		if (count > 12) {
 			count = 12;
 		}
 		for (int i = 0; i < count; i++) {
-			btns[i].setText(text[i]);
-		}
-	}
-
-	public void setButtonsText(int[] text) {
-		int count = text.length;
-		if (count > 12) {
-			count = 12;
-		}
-		for (int i = 0; i < count; i++) {
-			btns[i].setText(text[i]);
+			btns[i].setText(items[i].name);
+			btns[i].setFixed(items[i].fixed);
+			if (items[i].name.equals("")) {
+				btns[i].setVisibility(View.INVISIBLE);
+			}
 		}
 	}
 
 	@Override
 	public void onClick(View v) {
+		if (((TextViewEx) v).getText().toString().equals("")) {
+			return;
+		}
 		if (listener != null) {
 			listener.onClick(v);
 		}

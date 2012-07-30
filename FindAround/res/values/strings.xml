@@ -68,7 +68,7 @@
     <string name="dist_walk">步行 / 自行车</string>
     <string name="dist_keywords">设置搜索关键字</string>
     <string name="keywords_hint">输入搜索关键字，它们将出现在“搜索”功能中，每行输入一个</string>
-	<string name="init_keywords">超市\n餐厅\n咖啡吧\n医院\n厕所</string>
+	<string name="init_keywords">地铁\nKTV\n健身\n旅游\n广场\n数码</string>
 	<string name="network_error">当前网络不给力，请稍后再试</string>
 	
 	<string name="prior">&lt;</string>

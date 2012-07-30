@@ -14,6 +14,7 @@ import android.widget.TextView;
 public class TextViewEx extends TextView implements OnTouchListener {
 
 	private Gallery g;
+	private boolean fixed;
 
 	public TextViewEx(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -38,6 +39,11 @@ public class TextViewEx extends TextView implements OnTouchListener {
 		this.g = g;
 	}
 
+	public void setFixed(boolean fixed) {
+		this.fixed = fixed;
+		setBackgroundResource(fixed ? R.drawable.fix_button : R.drawable.button);
+	}
+
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
 
@@ -47,11 +53,12 @@ public class TextViewEx extends TextView implements OnTouchListener {
 
 		GlobalInstance.onTouchMutax = true;
 		if (event.getAction() == MotionEvent.ACTION_DOWN) {
-			
-			setBackgroundResource(R.drawable.button_focus);
+
+			setBackgroundResource(fixed ? R.drawable.fix_button_focus
+					: R.drawable.button_focus);
 		} else if (event.getAction() == MotionEvent.ACTION_UP) {
-			setBackgroundResource(R.drawable.button);
-			
+			setBackgroundResource(fixed ? R.drawable.fix_button
+					: R.drawable.button);
 		}
 		if (g != null) {
 			g.onTouchEvent(event);
