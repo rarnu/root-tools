@@ -27,6 +27,14 @@ public class Config {
 		}
 	}
 
+	public static void saveKeywordList(Context context, List<String> list) {
+		String key = "";
+		for (int i = 0; i < list.size(); i++) {
+			key += list.get(i) + "\n";
+		}
+		setKeywords(context, key);
+	}
+
 	public static String getKeywordsText(Context context) {
 		List<String> list = getKeywordsList(context);
 		String ret = "";

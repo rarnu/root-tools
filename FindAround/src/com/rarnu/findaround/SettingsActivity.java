@@ -1,9 +1,6 @@
 package com.rarnu.findaround;
 
-import com.rarnu.findaround.common.Config;
-
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -12,14 +9,17 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.rarnu.findaround.common.Config;
+
 public class SettingsActivity extends Activity implements OnClickListener {
 
 	Button btnLeft;
 	TextView tvName;
 
 	RelativeLayout layDist1, layDist2, layDist3, layMethod1, layMethod2,
-			layKeywords, layCount1, layCount2, layCount3;
-	ImageView imgDist1, imgDist2, imgDist3, imgMethod1, imgMethod2, imgCount1, imgCount2, imgCount3;
+			layCount1, layCount2, layCount3;
+	ImageView imgDist1, imgDist2, imgDist3, imgMethod1, imgMethod2, imgCount1,
+			imgCount2, imgCount3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -52,7 +52,7 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		imgCount3 = (ImageView) findViewById(R.id.imgCount3);
 		imgMethod1 = (ImageView) findViewById(R.id.imgMethod1);
 		imgMethod2 = (ImageView) findViewById(R.id.imgMethod2);
-		layKeywords = (RelativeLayout) findViewById(R.id.layKeywords);
+		
 	}
 
 	private void initEvents() {
@@ -62,7 +62,7 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		layDist3.setOnClickListener(this);
 		layMethod1.setOnClickListener(this);
 		layMethod2.setOnClickListener(this);
-		layKeywords.setOnClickListener(this);
+		
 		layCount1.setOnClickListener(this);
 		layCount2.setOnClickListener(this);
 		layCount3.setOnClickListener(this);
@@ -142,10 +142,10 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		case R.id.layMethod2:
 			Config.setMethod(this, 2);
 			break;
-		case R.id.layKeywords:
-			Intent inKeywords = new Intent(this, KeywordsActivity.class);
-			startActivity(inKeywords);
-			break;
+//		case R.id.layKeywords:
+//			Intent inKeywords = new Intent(this, KeywordsActivity.class);
+//			startActivity(inKeywords);
+//			break;
 		}
 		initSettings();
 	}

@@ -24,7 +24,7 @@ public class UIUtils {
 	public static boolean touchInView(View v, MotionEvent e) {
 		return false;
 	}
-	
+
 	public static boolean touchInDialog(Activity activity, MotionEvent e) {
 		// WindowManager.LayoutParams wlp =
 		// activity.getWindow().getAttributes();
@@ -128,4 +128,11 @@ public class UIUtils {
 
 	}
 
+	public static int getWidth() {
+		return dm.widthPixels;
+	}
+
+	public static int getHeight() {
+		return dm.heightPixels;
+	}
 }

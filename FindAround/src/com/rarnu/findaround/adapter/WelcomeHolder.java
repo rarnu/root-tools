@@ -1,8 +1,8 @@
 package com.rarnu.findaround.adapter;
 
-import com.rarnu.findaround.comp.GridPage;
+import com.rarnu.findaround.comp.GridPage4x4;
 
 public class WelcomeHolder {
 
-	GridPage gPage;
+	GridPage4x4 gPage;
 }

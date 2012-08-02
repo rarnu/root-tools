@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,8 +28,11 @@ import com.baidu.mapapi.MKSuggestionResult;
 import com.baidu.mapapi.MKTransitRouteResult;
 import com.baidu.mapapi.MKWalkingRouteResult;
 import com.rarnu.findaround.adapter.PoiAdapter;
+import com.rarnu.findaround.api.BaiduAPI;
 import com.rarnu.findaround.base.BaseActivity;
 import com.rarnu.findaround.common.Config;
+import com.rarnu.findaround.common.GeoPointOri;
+import com.rarnu.findaround.common.SIMUtils;
 
 public class PoiListActivity extends BaseActivity implements OnClickListener,
 		OnItemClickListener, MKSearchListener {
@@ -66,6 +71,10 @@ public class PoiListActivity extends BaseActivity implements OnClickListener,
 
 			mSearch.poiSearchNearBy(keyword, GlobalInstance.point,
 					Config.getDist(this));
+			if (!SIMUtils.isSimCardReady(this)) {
+				doCellGetPoi(keyword, GlobalInstance.pointOri,
+						Config.getDist(this));
+			}
 		}
 
 		super.onResume();
@@ -122,15 +131,17 @@ public class PoiListActivity extends BaseActivity implements OnClickListener,
 		GlobalInstance.selectedInfo = GlobalInstance.listPoi.get(position);
 		Intent inMap = new Intent(this, MapRouteActivity.class);
 		startActivity(inMap);
-		
+
 		MKPlanNode nodeStart = new MKPlanNode();
 		nodeStart.pt = GlobalInstance.point;
 		MKPlanNode nodeEnd = new MKPlanNode();
 		nodeEnd.pt = GlobalInstance.selectedInfo.pt;
 		if (Config.getMethod(this) == 2) {
-			mSearch.walkingSearch(GlobalInstance.city, nodeStart, GlobalInstance.city, nodeEnd);
+			mSearch.walkingSearch(GlobalInstance.city, nodeStart,
+					GlobalInstance.city, nodeEnd);
 		} else {
-			mSearch.drivingSearch(GlobalInstance.city, nodeStart, GlobalInstance.city, nodeEnd);
+			mSearch.drivingSearch(GlobalInstance.city, nodeStart,
+					GlobalInstance.city, nodeEnd);
 		}
 	}
 
@@ -180,6 +191,38 @@ public class PoiListActivity extends BaseActivity implements OnClickListener,
 					GlobalInstance.listPoi);
 			lvPoi.setAdapter(adapter);
 		}
+	}
+
+	public void doCellGetPoi(final String keyword, final GeoPointOri geo,
+			final int radius) {
+		final Handler h = new Handler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					tvLoading.setVisibility(View.GONE);
+					if (GlobalInstance.listPoi != null
+							&& GlobalInstance.listPoi.size() != 0) {
+						adapter = new PoiAdapter(getLayoutInflater(),
+								GlobalInstance.listPoi);
+						lvPoi.setAdapter(adapter);
+					}
+				}
+				super.handleMessage(msg);
+			}
+
+		};
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				GlobalInstance.listPoi = BaiduAPI.getPoiListViaGeo(
+						geo.latitude, geo.longitude, radius, keyword);
+				h.sendEmptyMessage(1);
+
+			}
+		}).start();
 	}
 
 	@Override

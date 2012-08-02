@@ -8,7 +8,7 @@
         android:id="@+id/tbTitle"
         layout="@layout/title_bar" />
 
-    <Gallery
+    <com.rarnu.findaround.comp.ScrollLayout
         android:id="@+id/gButtons"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
@@ -39,9 +39,8 @@
             android:layout_alignParentRight="true"
             android:gravity="right|center_vertical"
             android:paddingRight="4dip"
-            android:textSize="8dip"
-            
-            android:textColor="@color/white" />
+            android:textColor="@color/white"
+            android:textSize="8dip" />
     </RelativeLayout>
 
 </RelativeLayout>

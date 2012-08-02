@@ -18,7 +18,7 @@ public class PageUtils {
 
 		PageItem[][] items = new PageItem[pageCount][];
 		for (int i = 0; i < items.length; i++) {
-			items[i] = new PageItem[12];
+			items[i] = new PageItem[16];
 			buildPage(i, items[i], fixed, keywords);
 			result.add(items[i]);
 		}
@@ -28,7 +28,7 @@ public class PageUtils {
 
 	public static void buildPage(int page, PageItem[] items,
 			List<FixedPageItem> fixed, List<String> keywords) {
-		for (int i = 0; i < 12; i++) {
+		for (int i = 0; i < 16; i++) {
 			items[i] = new PageItem();
 		}
 		for (int i = fixed.size() - 1; i >= 0; i--) {
@@ -66,13 +66,25 @@ public class PageUtils {
 		}
 		return result;
 	}
+	
+	public static boolean isLockedItem(Context context, String keyword) {
+		boolean ret = false;
+		List<FixedPageItem> list = getFixedPageItem(context);
+		for (FixedPageItem item: list) {
+			if (item.name.equals("")) {
+				ret = true;
+				break;
+			}
+		}
+		return ret;
+	}
 
 	public static int getPageCount(List<FixedPageItem> fixList,
 			List<String> keyList) {
 		FixedPageItem lastItem = fixList.get(fixList.size() - 1);
 		int count = fixList.size() + keyList.size();
-		int pageCount = (count / 12);
-		if (count % 12 != 0) {
+		int pageCount = (count / 16);
+		if (count % 16 != 0) {
 			pageCount++;
 		}
 		if ((lastItem.page + 1) > pageCount) {

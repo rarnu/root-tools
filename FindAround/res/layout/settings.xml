@@ -246,33 +246,6 @@
                     android:layout_centerVertical="true"
                     android:contentDescription="@null" />
             </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tvKeywords"
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/layMethod2"
-                android:layout_marginTop="16dip"
-                android:text="@string/settings_keywords"
-                android:textColor="@color/black" />
-
-            <RelativeLayout
-                android:id="@+id/layKeywords"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/tvKeywords"
-                android:layout_marginTop="8dip"
-                android:background="@drawable/list_one_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/dist_keywords"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 

@@ -6,16 +6,16 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 
-import com.rarnu.findaround.comp.GridPage;
+import com.rarnu.findaround.comp.GridPage4x4;
 
 public class WelcomeAdapter extends BaseAdapter {
 
 	// [region] field define
 
-	private List<GridPage> list;
+	private List<GridPage4x4> list;
 
 	// [region] constructor
-	public WelcomeAdapter(List<GridPage> list) {
+	public WelcomeAdapter(List<GridPage4x4> list) {
 		this.list = list;
 	}
 

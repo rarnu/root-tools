@@ -8,15 +8,12 @@
         android:id="@+id/layTitle"
         layout="@layout/title_bar" />
 
-    <EditText
-        android:id="@+id/etKeywords"
+    <ListView
+        android:id="@+id/lvKeywords"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/layTitle"
-        android:layout_margin="8dip"
-        android:background="@color/white"
-        android:gravity="left|top"
-        android:hint="@string/keywords_hint"
-        android:scrollbars="horizontal|vertical" />
+        android:cacheColorHint="#00000000" >
+    </ListView>
 
 </RelativeLayout>
