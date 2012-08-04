@@ -4,6 +4,8 @@ import java.util.List;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.location.Location;
@@ -14,6 +16,8 @@ import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.view.inputmethod.InputMethodManager;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
@@ -37,15 +41,22 @@ import com.rarnu.findaround.comp.AlertDialogEx.DialogButtonClickListener;
 import com.rarnu.findaround.comp.GridPage4x4;
 import com.rarnu.findaround.comp.GridPage4x4.OnDeleteClickListener;
 import com.rarnu.findaround.comp.GridPage4x4.OnKeywordClickListener;
+import com.rarnu.findaround.comp.GridPageSearch;
+import com.rarnu.findaround.comp.PointBar;
 import com.rarnu.findaround.comp.PopupMenuDialog;
 import com.rarnu.findaround.comp.ScrollLayout;
+import com.rarnu.findaround.comp.ScrollLayout.OnScreenChangeListener;
 
 public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		LocationListener, OnLongClickListener, OnDeleteClickListener,
-		OnKeywordClickListener {
+		OnKeywordClickListener, OnScreenChangeListener {
 
 	ScrollLayout gButtons;
-	TextView tvAddress, tvGeo;
+	TextView tvAddress;
+	PointBar layPoints;
+	PopupMenuDialog menu;
+	ImageView ivArr, ivSplit;
+	InputMethodManager inputMgr;
 
 	// CellLocationManager locationManager = null;
 
@@ -54,6 +65,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		UIUtils.initDisplayMetrics(getWindowManager());
 		GlobalInstance.pm = getPackageManager();
+		inputMgr = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
 		setContentView(R.layout.welcome);
 
 		init();
@@ -72,8 +84,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 
 		init();
 		tvAddress.setText(GlobalInstance.address);
-		tvGeo.setText(String.format("%f, %f", GlobalInstance.pointOri.latitude,
-				GlobalInstance.pointOri.longitude));
+
 	}
 
 	@Override
@@ -127,9 +138,11 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void mappingComponents() {
 		super.mappingComponents();
+		layPoints = (PointBar) findViewById(R.id.layPoints);
 		tvAddress = (TextView) findViewById(R.id.tvAddress);
-		tvGeo = (TextView) findViewById(R.id.tvGeo);
 		gButtons = (ScrollLayout) findViewById(R.id.gButtons);
+		ivArr = (ImageView) findViewById(R.id.ivArr);
+		ivSplit = (ImageView) findViewById(R.id.ivSplit);
 	}
 
 	@Override
@@ -138,13 +151,12 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		super.init();
 		// gButtons.setSpacing(getSpacing());
 		initGrid9();
-		btnLeft.setText(R.string.settings);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnLeft.setOnClickListener(this);
-
-		btnRight.setText(R.string.add);
+		gButtons.setToScreen(1);
+		layPoints.setPoint(1);
+		tvName.setOnClickListener(this);
 		btnRight.setVisibility(View.VISIBLE);
 		btnRight.setOnClickListener(this);
+		gButtons.setOnScreenChangeListener(this);
 	}
 
 	private void initGrid9() {
@@ -152,9 +164,13 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		// listWelcome = new ArrayList<GridPage>();
 
 		List<PageItem[]> pages = PageUtils.buildPages(this);
+
+		gButtons.addView(new GridPageSearch(this));
+
 		for (int i = 0; i < pages.size(); i++) {
 
 			RelativeLayout lay = new RelativeLayout(this);
+			lay.setBackgroundColor(0x00000000);
 			lay.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -167,7 +183,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 				}
 			});
 			lay.setLayoutParams(new RelativeLayout.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT));
+					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			gButtons.addView(lay);
 
 			GridPage4x4 gp = new GridPage4x4(this);
@@ -182,6 +198,8 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 			lay.addView(gp);
 		}
 
+		layPoints.setPointCount(gButtons.getChildCount());
+
 		// welcomeAdapter = new WelcomeAdapter(listWelcome);
 		// gButtons.setAdapter(welcomeAdapter);
 	}
@@ -190,21 +208,41 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.btnLeft:
-			// Intent inSettings = new Intent(this, SettingsActivity.class);
-			// startActivityForResult(inSettings, 0);
+		case R.id.tvName:
+			if (menu == null) {
+				menu = new PopupMenuDialog(this, R.style.dialog);
+				menu.setCanceledOnTouchOutside(true);
+				menu.setOnCancelListener(new OnCancelListener() {
 
-			PopupMenuDialog menu = new PopupMenuDialog(this, R.style.dialog);
-			menu.setCanceledOnTouchOutside(true);
+					@Override
+					public void onCancel(DialogInterface dialog) {
+						menu = null;
+
+					}
+				});
+				menu.getButton(0).setOnClickListener(this);
+				menu.getButton(1).setOnClickListener(this);
+			}
+
 			menu.show();
 
 			break;
 		case R.id.btnRight:
-			int count = gButtons.getChildCount();
-			for (int i = 0; i < count; i++) {
-				((GridPage4x4) ((RelativeLayout) gButtons.getChildAt(i))
-						.getChildAt(0)).setEditStatus(false);
-			}
+
+			MainApplication app = (MainApplication) getApplication();
+			app.getMapManager().stop();
+			app.getMapManager().start();
+
+			break;
+
+		case R.id.diagBtn1:
+			menu.cancel();
+			Intent inSettings = new Intent(this, SettingsActivity.class);
+			startActivityForResult(inSettings, 0);
+			break;
+		case R.id.diagBtn2:
+			menu.cancel();
+			setEditMode(false);
 			AlertDialogEx.showAlertDialogEx(this,
 					getString(R.string.add_keyword),
 					getString(R.string.add_keyword_hint),
@@ -217,7 +255,6 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 
 						}
 					}, getString(R.string.cancel), null);
-
 			break;
 		}
 
@@ -236,8 +273,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 			if (tvAddress.getText().toString().equals("")) {
 				tvAddress.setText(R.string.addressing);
 			}
-			tvGeo.setText(String.format("%f, %f", location.getLatitude(),
-					location.getLongitude()));
+
 			getAddressByGeo(location.getLatitude(), location.getLongitude());
 		}
 	}
@@ -277,8 +313,6 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 				cellManager, wifiManager) {
 			@Override
 			public void onLocationChanged() {
-				tvGeo.setText(String.format("%f, %f", this.latitude(),
-						this.longitude()));
 
 				GlobalInstance.point = new GeoPoint(
 						(int) (this.latitude() * 1e6),
@@ -286,8 +320,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 				GlobalInstance.pointOri = new GeoPointOri(this.latitude(),
 						this.longitude());
 				tvAddress.setText(R.string.addressing);
-				tvGeo.setText(String.format("%f, %f", this.latitude(),
-						this.longitude()));
+
 				getAddressByGeo(this.latitude(), this.longitude());
 			}
 		};
@@ -310,12 +343,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public boolean onLongClick(View v) {
-		int count = gButtons.getChildCount();
-		for (int i = 0; i < count; i++) {
-			((GridPage4x4) ((RelativeLayout) gButtons.getChildAt(i))
-					.getChildAt(0)).setEditStatus(true);
-
-		}
+		setEditMode(true);
 
 		return true;
 	}
@@ -323,14 +351,9 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			boolean edit = ((GridPage4x4) ((RelativeLayout) gButtons
-					.getChildAt(0)).getChildAt(0)).getEditStatus();
+			boolean edit = getEditMode();
 			if (edit) {
-				int count = gButtons.getChildCount();
-				for (int i = 0; i < count; i++) {
-					((GridPage4x4) ((RelativeLayout) gButtons.getChildAt(i))
-							.getChildAt(0)).setEditStatus(false);
-				}
+				setEditMode(false);
 				return true;
 			}
 		}
@@ -375,4 +398,48 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		startActivity(inList);
 
 	}
+
+	public void setEditMode(boolean edit) {
+		int count = gButtons.getChildCount();
+		for (int i = 0; i < count; i++) {
+			if (((RelativeLayout) gButtons.getChildAt(i)).getChildAt(0) instanceof GridPage4x4) {
+				((GridPage4x4) ((RelativeLayout) gButtons.getChildAt(i))
+						.getChildAt(0)).setEditStatus(edit);
+			}
+
+		}
+
+	}
+
+	public boolean getEditMode() {
+		boolean edit = ((GridPage4x4) ((RelativeLayout) gButtons.getChildAt(1))
+				.getChildAt(0)).getEditStatus();
+		return edit;
+	}
+
+	@Override
+	public void onScreenChange(int screen) {
+		layPoints.setPoint(screen);
+
+		if (screen == 0) {
+			ivArr.setVisibility(View.INVISIBLE);
+			ivSplit.setVisibility(View.INVISIBLE);
+			btnRight.setVisibility(View.INVISIBLE);
+			tvName.setOnClickListener(null);
+			inputMgr.showSoftInput(
+					((GridPageSearch) gButtons.getChildAt(0)).getEdit(),
+					InputMethodManager.SHOW_IMPLICIT);
+		} else {
+			ivArr.setVisibility(View.VISIBLE);
+			ivSplit.setVisibility(View.VISIBLE);
+			btnRight.setVisibility(View.VISIBLE);
+			tvName.setOnClickListener(this);
+			inputMgr.hideSoftInputFromWindow(
+					getCurrentFocus().getWindowToken(),
+					InputMethodManager.HIDE_NOT_ALWAYS);
+
+		}
+
+	}
+
 }

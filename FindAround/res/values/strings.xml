@@ -6,6 +6,7 @@
     <string name="save">保存</string>
     
     <string name="list">列表</string>
+    <string name="hint_search">搜索 iPhone</string>
     <string name="list_result">搜索结果列表</string>
     <string name="addressing">正在获取地址&#8230;</string>
     <string name="locating">正在定位，请稍候&#8230;</string>

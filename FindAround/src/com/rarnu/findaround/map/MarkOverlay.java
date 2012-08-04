@@ -1,4 +1,4 @@
-package com.rarnu.findaround.base.map;
+package com.rarnu.findaround.map;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -139,6 +139,7 @@ public class MarkOverlay extends ItemizedOverlay<OverlayItem> {
 
 	@Override
 	public boolean onTap(GeoPoint arg0, MapView arg1) {
+		popup.setVisibility(View.GONE);
 		return super.onTap(arg0, arg1);
 	}
 	// [/region]

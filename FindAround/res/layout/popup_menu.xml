@@ -5,4 +5,15 @@
     android:layout_height="200dip"
     android:background="#AAAAAAAA" >
 
+    <Button android:id="@+id/diagBtn1"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:text="Settings"/>
+    
+    <Button android:id="@+id/diagBtn2"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:text="Add"
+        android:layout_below="@+id/diagBtn1"/>
+    
 </RelativeLayout>

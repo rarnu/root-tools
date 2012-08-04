@@ -106,6 +106,13 @@ public class UIUtils {
 		return (int) (dip * dm.density + 0.5f);
 	}
 
+	public static int pxToDip(int px) {
+		if (dm == null) {
+			return -1;
+		}
+		return (int) ((px - 0.5f) / dm.density);
+	}
+
 	public static float pxToScaledPx(int px) {
 		if (dm == null) {
 			return -1;

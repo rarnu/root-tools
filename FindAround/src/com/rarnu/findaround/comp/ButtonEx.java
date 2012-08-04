@@ -92,8 +92,7 @@ public class ButtonEx extends RelativeLayout {
 
 		if (getVisibility() == View.VISIBLE) {
 			btnDelete.setVisibility(edit ? View.VISIBLE : View.INVISIBLE);
-			btnDelete.setBackgroundResource(fixed ? R.drawable.locked
-					: R.drawable.cancel);
+			btnDelete.setBackgroundResource(fixed ? 0 : R.drawable.cancel);
 			if (edit) {
 				Animation animation = AnimationUtils.loadAnimation(
 						getContext(), R.anim.anim_shake);

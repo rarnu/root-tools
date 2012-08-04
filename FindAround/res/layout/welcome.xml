@@ -2,45 +2,116 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:background="@drawable/background" >
 
-    <include
+    <RelativeLayout
         android:id="@+id/tbTitle"
-        layout="@layout/title_bar" />
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:background="@drawable/bottombar" >
+
+        <Button
+            android:id="@+id/btnLeft"
+            android:layout_width="60dip"
+            android:layout_height="40dip"
+            android:layout_margin="8dip"
+            android:background="@drawable/button_style"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="8dip"
+            android:layout_marginTop="8dip"
+            android:layout_toRightOf="@+id/btnLeft"
+            android:gravity="left|center_vertical"
+            android:text="@string/app_name"
+            android:textColor="@color/white"
+            android:textSize="18dip" />
+
+        <ImageView
+            android:id="@+id/ivArr"
+            android:layout_width="8dip"
+            android:layout_height="8dip"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="4dip"
+            android:layout_marginLeft="4dip"
+            android:layout_toRightOf="@+id/tvName"
+            android:background="@drawable/btn_arr"
+            android:contentDescription="@null" />
+
+        <ImageView
+            android:id="@+id/ivSplit"
+            android:layout_width="2dip"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/btnRight"
+            android:background="@drawable/split"
+            android:contentDescription="@null" />
+
+        <Button
+            android:id="@+id/btnRight"
+            android:layout_width="28dip"
+            android:layout_height="28dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:background="@drawable/btn_locate_style"
+            android:contentDescription="@null" />
+    </RelativeLayout>
 
     <com.rarnu.findaround.comp.ScrollLayout
         android:id="@+id/gButtons"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/tvAddress"
-        android:layout_below="@+id/tbTitle" />
+        android:layout_above="@+id/layPoints"
+        android:layout_below="@+id/tbTitle"
+        android:layout_marginTop="4dip" />
+
+    <com.rarnu.findaround.comp.PointBar
+        android:id="@+id/layPoints"
+        android:layout_width="fill_parent"
+        android:layout_height="16dip"
+        android:layout_above="@+id/layBottom"
+        android:layout_marginBottom="8dip" />
 
     <RelativeLayout
         android:id="@+id/layBottom"
         android:layout_width="fill_parent"
-        android:layout_height="24dip"
+        android:layout_height="36dip"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottombar" >
+        android:layout_marginBottom="12dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
+        android:background="@drawable/address_bar" >
 
-        <TextView
-            android:id="@+id/tvAddress"
+        <RelativeLayout
             android:layout_width="wrap_content"
-            android:layout_height="24dip"
-            android:layout_alignParentBottom="true"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="4dip"
-            android:text="@string/locating"
-            android:textColor="@color/white" />
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true" >
 
-        <TextView
-            android:id="@+id/tvGeo"
-            android:layout_width="wrap_content"
-            android:layout_height="24dip"
-            android:layout_alignParentRight="true"
-            android:gravity="right|center_vertical"
-            android:paddingRight="4dip"
-            android:textColor="@color/white"
-            android:textSize="8dip" />
+            <ImageView
+                android:id="@+id/ivMarker"
+                android:layout_width="14dip"
+                android:layout_height="18dip"
+                android:layout_centerVertical="true"
+                android:background="@drawable/marker"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:id="@+id/tvAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="24dip"
+                android:layout_toRightOf="@+id/ivMarker"
+                android:gravity="left|center_vertical"
+                android:paddingLeft="4dip"
+                android:text="@string/locating"
+                android:textColor="@color/gray"
+                android:textSize="12dip"
+                android:textStyle="bold" />
+        </RelativeLayout>
     </RelativeLayout>
 
 </RelativeLayout>

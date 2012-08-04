@@ -23,6 +23,8 @@ public class ScrollLayout extends ViewGroup {
 	private int mCurScreen;
 	private int mDefaultScreen = 0;
 
+	private OnScreenChangeListener screenChangeListener;
+
 	private static final int TOUCH_STATE_REST = 0;
 	private static final int TOUCH_STATE_SCROLLING = 1;
 
@@ -101,6 +103,10 @@ public class ScrollLayout extends ViewGroup {
 		snapToScreen(destScreen);
 	}
 
+	public interface OnScreenChangeListener {
+		void onScreenChange(int screen);
+	}
+
 	public void snapToScreen(int whichScreen) {
 		// get the valid layout page
 		whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
@@ -111,6 +117,10 @@ public class ScrollLayout extends ViewGroup {
 					Math.abs(delta) * 2);
 			mCurScreen = whichScreen;
 			invalidate(); // Redraw the layout
+
+			if (screenChangeListener != null) {
+				screenChangeListener.onScreenChange(mCurScreen);
+			}
 		}
 	}
 
@@ -230,6 +240,15 @@ public class ScrollLayout extends ViewGroup {
 		}
 
 		return mTouchState != TOUCH_STATE_REST;
+	}
+
+	public OnScreenChangeListener getOnScreenChangeListener() {
+		return screenChangeListener;
+	}
+
+	public void setOnScreenChangeListener(
+			OnScreenChangeListener screenChangeListener) {
+		this.screenChangeListener = screenChangeListener;
 	}
 
 }

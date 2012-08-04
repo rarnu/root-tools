@@ -16,11 +16,14 @@ import com.baidu.mapapi.MKLocationManager;
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.MapView.LayoutParams;
 import com.baidu.mapapi.Overlay;
+import com.baidu.mapapi.OverlayItem;
 import com.baidu.mapapi.RouteOverlay;
 import com.rarnu.findaround.base.BaseMapActivity;
-import com.rarnu.findaround.base.map.SelfPosOverlay;
 import com.rarnu.findaround.common.Config;
+import com.rarnu.findaround.common.UIUtils;
 import com.rarnu.findaround.comp.PopupView;
+import com.rarnu.findaround.map.MarkOverlay;
+import com.rarnu.findaround.map.SelfPosOverlay;
 
 public class MapRouteActivity extends BaseMapActivity implements
 		OnClickListener {
@@ -33,7 +36,7 @@ public class MapRouteActivity extends BaseMapActivity implements
 	MapView mvMap;
 
 	SelfPosOverlay overlay;
-	// MarkOverlay markOverlay;
+	MarkOverlay markOverlay;
 
 	String city;
 
@@ -136,8 +139,6 @@ public class MapRouteActivity extends BaseMapActivity implements
 		btnNext = (Button) findViewById(R.id.btnNext);
 		tvRoute = (TextView) findViewById(R.id.tvRoute);
 
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
 		setRouteButtonVisible(false);
 	}
 
@@ -152,9 +153,8 @@ public class MapRouteActivity extends BaseMapActivity implements
 		overlay = new SelfPosOverlay(this, mvMap);
 		mvMap.getOverlays().add(overlay);
 
-		Drawable marker = getResources().getDrawable(R.drawable.iconmarka);
-		marker.setBounds(0, 0, marker.getIntrinsicWidth(),
-				marker.getIntrinsicHeight());
+		Drawable marker = getResources().getDrawable(R.drawable.marker);
+		marker.setBounds(0, 0, UIUtils.dipToPx(14), UIUtils.dipToPx(18));
 
 		popup = new PopupView(this);
 		popup.setId(POPUP_ID);
@@ -163,55 +163,24 @@ public class MapRouteActivity extends BaseMapActivity implements
 				MapView.LayoutParams.TOP_LEFT));
 		popup.setVisibility(View.GONE);
 
-		// markOverlay = new MarkOverlay(marker, popup, mvMap);
-		// mvMap.getOverlays().add(markOverlay);
-		// markOverlay.clearAll();
-		// markOverlay.addOverlay(new
-		// OverlayItem(GlobalInstance.selectedInfo.pt,
-		// GlobalInstance.selectedInfo.name,
-		// GlobalInstance.selectedInfo.address));
+		markOverlay = new MarkOverlay(marker, popup, mvMap);
+		mvMap.getOverlays().add(markOverlay);
+		markOverlay.clearAll();
+		for (int i = 0; i < GlobalInstance.listPoi.size(); i++) {
+			markOverlay.addOverlay(new OverlayItem(GlobalInstance.listPoi
+					.get(i).pt, GlobalInstance.listPoi.get(i).name,
+					GlobalInstance.listPoi.get(i).address));
+		}
+
 	}
 
 	private void initEvents() {
 		btnLeft.setOnClickListener(this);
-
+		tvName.setOnClickListener(this);
+		btnRight.setOnClickListener(this);
 		btnPrior.setOnClickListener(this);
 		btnNext.setOnClickListener(this);
 
-		// @SuppressWarnings("deprecation")
-		// ZoomControls zoom = (ZoomControls) mvMap.getZoomControls();
-		// zoom.setOnZoomInClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// int lvl = mvMap.getZoomLevel();
-		// if (lvl < ZOOM_MAX) {
-		// lvl++;
-		// }
-		// mvMap.getController().setZoom(lvl);
-		// Toast.makeText(MainActivity.this,
-		// String.format("Zoom Level: %d", mvMap.getZoomLevel()),
-		// Toast.LENGTH_SHORT).show();
-		//
-		// }
-		// });
-		//
-		// zoom.setOnZoomOutClickListener(new OnClickListener() {
-		//
-		// @Override
-		// public void onClick(View v) {
-		// int lvl = mvMap.getZoomLevel();
-		// if (lvl > ZOOM_MIN) {
-		// lvl--;
-		// }
-		//
-		// mvMap.getController().setZoom(lvl);
-		// Toast.makeText(MainActivity.this,
-		// String.format("Zoom Level: %d", mvMap.getZoomLevel()),
-		// Toast.LENGTH_SHORT).show();
-		//
-		// }
-		// });
 	}
 
 	// [/region]
@@ -220,8 +189,12 @@ public class MapRouteActivity extends BaseMapActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.tvName:
 		case R.id.btnLeft:
 			finish();
+			break;
+		case R.id.btnRight:
+			mvMap.getController().animateTo(GlobalInstance.point);
 			break;
 		case R.id.btnPrior:
 			setRouteShow(false);
@@ -247,6 +220,8 @@ public class MapRouteActivity extends BaseMapActivity implements
 		if (walk) {
 			walkOverlay = new RouteOverlay(this, mvMap);
 			walkOverlay.setData(GlobalInstance.selectedRoute);
+			// TODO: set marker
+			// walkOverlay.getItem(0).setMarker(null);
 			mvMap.getOverlays().add(walkOverlay);
 		} else {
 			driveOverlay = new RouteOverlay(this, mvMap);

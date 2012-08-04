@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#00000000" >
+
+    <com.rarnu.findaround.comp.LineEditText
+        android:id="@+id/etSearch"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:background="@null"
+        android:hint="@string/hint_search"
+        android:layout_margin="16dip" />
+
+</RelativeLayout>

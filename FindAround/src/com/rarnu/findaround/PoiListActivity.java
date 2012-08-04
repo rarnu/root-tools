@@ -10,9 +10,10 @@ import android.os.Message;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AbsListView;
+import android.widget.AbsListView.LayoutParams;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -32,10 +33,13 @@ import com.rarnu.findaround.api.BaiduAPI;
 import com.rarnu.findaround.base.BaseActivity;
 import com.rarnu.findaround.common.Config;
 import com.rarnu.findaround.common.GeoPointOri;
+import com.rarnu.findaround.common.NetFiles;
 import com.rarnu.findaround.common.SIMUtils;
+import com.rarnu.findaround.common.UIUtils;
+import com.rarnu.findaround.comp.MapHead;
 
-public class PoiListActivity extends BaseActivity implements OnClickListener,
-		OnItemClickListener, MKSearchListener {
+public class PoiListActivity extends BaseActivity implements
+		OnClickListener, OnItemClickListener, MKSearchListener {
 
 	ListView lvPoi;
 	TextView tvLoading;
@@ -96,8 +100,8 @@ public class PoiListActivity extends BaseActivity implements OnClickListener,
 	protected void init() {
 		super.init();
 		btnLeft.setOnClickListener(this);
+		tvName.setOnClickListener(this);
 		lvPoi.setOnItemClickListener(this);
-
 		tvLoading.setVisibility(View.VISIBLE);
 	}
 
@@ -106,19 +110,44 @@ public class PoiListActivity extends BaseActivity implements OnClickListener,
 		super.mappingComponents();
 		tvLoading = (TextView) findViewById(R.id.tvLoading);
 		lvPoi = (ListView) findViewById(R.id.lvPoi);
-		tvName = (TextView) findViewById(R.id.tvName);
-		btnLeft = (Button) findViewById(R.id.btnLeft);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
 		tvName.setText(R.string.list_result);
+	}
+
+	private void initMapPos() {
+
+		String url = "http://api.map.baidu.com/staticimage?";
+		url += String.format("center=%f,%f&width=%d&height=%d&zoom=%d",
+				GlobalInstance.pointOri.longitude,
+				GlobalInstance.pointOri.latitude,
+				UIUtils.pxToDip(UIUtils.getWidth()), 200, 16);
+
+		String markers = "";
+		double lat, lng;
+		for (int i = 0; i < GlobalInstance.listPoi.size(); i++) {
+			lat = (double) (((double) GlobalInstance.listPoi.get(i).pt
+					.getLatitudeE6()) / 1e6);
+			lng = (double) (((double) GlobalInstance.listPoi.get(i).pt
+					.getLongitudeE6()) / 1e6);
+			markers += String.format("%f,%f|", lng, lat);
+		}
+		url += "&markers=" + markers;
+		url += "&markerStyles=s,%20,0xff0000";
+
+		MapHead imgMap = new MapHead(this);
+		imgMap.setLayoutParams(new AbsListView.LayoutParams(
+				LayoutParams.MATCH_PARENT, 0));
+		Log.e("BAIDU", url);
+		NetFiles.doDownloadImageT(this, url, "tmp.jpg", imgMap, lvPoi);
+		lvPoi.addHeaderView(imgMap);
 	}
 
 	// [region] events
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.tvName:
 		case R.id.btnLeft:
-			setResult(RESULT_CANCELED);
+
 			finish();
 			break;
 		}
@@ -128,7 +157,11 @@ public class PoiListActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		GlobalInstance.selectedInfo = GlobalInstance.listPoi.get(position);
+		if (position == 0) {
+			// TODO: click map
+			return;
+		}
+		GlobalInstance.selectedInfo = GlobalInstance.listPoi.get(position - 1);
 		Intent inMap = new Intent(this, MapRouteActivity.class);
 		startActivity(inMap);
 
@@ -175,6 +208,7 @@ public class PoiListActivity extends BaseActivity implements OnClickListener,
 		Log.e("PoiListActivity", "onGetPoiResult");
 		tvLoading.setVisibility(View.GONE);
 		GlobalInstance.listPoi = null;
+		lvPoi.setAdapter(null);
 
 		if (error != 0 || res == null) {
 			Toast.makeText(this, R.string.no_result, Toast.LENGTH_LONG).show();
@@ -189,7 +223,9 @@ public class PoiListActivity extends BaseActivity implements OnClickListener,
 				&& GlobalInstance.listPoi.size() != 0) {
 			adapter = new PoiAdapter(getLayoutInflater(),
 					GlobalInstance.listPoi);
+			initMapPos();
 			lvPoi.setAdapter(adapter);
+
 		}
 	}
 
