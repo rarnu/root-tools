@@ -16,6 +16,8 @@ public class MainApplication extends Application implements MKGeneralListener {
 	public static final String webKey = "1aeee3652a060fe8254ee47073d8f6d0";
 	public static final String NETWORK_ERROR_ACTION = "anjuke.findaround.error";
 	public static final String ROUTE_FOUND_ACTION = "anjuke.findaround.found";
+	public static final String POI_FOUND_ACTION = "anjuke.poi.found";
+	public static final String ADDRESS_FOUND_ACTION = "anjuke.address.found";
 
 	public BMapManager getMapManager() {
 		if (mapMgr == null) {

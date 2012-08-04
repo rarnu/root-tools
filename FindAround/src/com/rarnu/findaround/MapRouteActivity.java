@@ -12,7 +12,6 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.baidu.mapapi.MKLocationManager;
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.MapView.LayoutParams;
 import com.baidu.mapapi.Overlay;
@@ -67,25 +66,23 @@ public class MapRouteActivity extends BaseMapActivity implements
 	@Override
 	protected void onResume() {
 
-		MainApplication app = (MainApplication) getApplication();
-		app.getMapManager().getLocationManager()
-				.enableProvider(MKLocationManager.MK_NETWORK_PROVIDER);
-		app.getMapManager().getLocationManager()
-				.enableProvider(MKLocationManager.MK_GPS_PROVIDER);
-
 		overlay.enableCompass();
 		overlay.enableMyLocation();
-		app.getMapManager().start();
 
-		// MKPlanNode nodeStart = new MKPlanNode();
-		// nodeStart.pt = GlobalInstance.point;
-		// MKPlanNode nodeEnd = new MKPlanNode();
-		// nodeEnd.pt = GlobalInstance.selectedInfo.pt;
-		// if (Config.getMethod(this) == 2) {
-		// mSearch.walkingSearch(city, nodeStart, city, nodeEnd);
-		// } else {
-		// mSearch.drivingSearch(city, nodeStart, city, nodeEnd);
-		// }
+		GlobalInstance.search.locate();
+
+		if (GlobalInstance.selectedInfo != null) {
+			tvLoading.setVisibility(View.VISIBLE);
+			if (Config.getMethod(this) == 2) {
+				GlobalInstance.search.searchWalk(GlobalInstance.point,
+						GlobalInstance.selectedInfo.pt);
+			} else {
+				GlobalInstance.search.searchDrive(GlobalInstance.point,
+						GlobalInstance.selectedInfo.pt);
+			}
+		} else {
+			tvLoading.setVisibility(View.GONE);
+		}
 
 		super.onResume();
 		registerReceiver(myreceiver, mapFilter);
@@ -93,15 +90,10 @@ public class MapRouteActivity extends BaseMapActivity implements
 
 	@Override
 	protected void onPause() {
-		MainApplication app = (MainApplication) getApplication();
 
-		app.getMapManager().getLocationManager()
-				.disableProvider(MKLocationManager.MK_NETWORK_PROVIDER);
-		app.getMapManager().getLocationManager()
-				.disableProvider(MKLocationManager.MK_GPS_PROVIDER);
 		overlay.disableCompass();
 		overlay.disableMyLocation();
-		app.getMapManager().stop();
+		GlobalInstance.search.stop();
 		unregisterReceiver(myreceiver);
 		super.onPause();
 	}
@@ -116,14 +108,16 @@ public class MapRouteActivity extends BaseMapActivity implements
 		initGlobal();
 		initMapComp();
 		initEvents();
-		tvName.setText(GlobalInstance.selectedInfo.name);
-		tvLoading.setVisibility(View.VISIBLE);
+		if (GlobalInstance.selectedInfo == null) {
+			tvName.setText(R.string.view_map);
+		} else {
+			tvName.setText(GlobalInstance.selectedInfo.name);
+		}
+
 	}
 
 	private void initGlobal() {
 		MainApplication app = (MainApplication) getApplication();
-		app.getMapManager().start();
-
 		super.initMapActivity(app.getMapManager());
 
 	}
@@ -144,6 +138,7 @@ public class MapRouteActivity extends BaseMapActivity implements
 
 	private void initMapComp() {
 		// locate shanghai first
+
 		mvMap.getController().setCenter(GlobalInstance.point);
 
 		mvMap.setDrawOverlayWhenZooming(true);

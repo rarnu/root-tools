@@ -47,7 +47,8 @@
             android:layout_height="fill_parent"
             android:layout_toLeftOf="@+id/btnRight"
             android:background="@drawable/split"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnRight"
@@ -58,7 +59,8 @@
             android:layout_marginLeft="16dip"
             android:layout_marginRight="16dip"
             android:background="@drawable/btn_locate_style"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:visibility="gone" />
     </RelativeLayout>
 
     <ListView

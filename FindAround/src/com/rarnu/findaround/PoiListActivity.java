@@ -18,33 +18,20 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.baidu.mapapi.MKAddrInfo;
-import com.baidu.mapapi.MKBusLineResult;
-import com.baidu.mapapi.MKDrivingRouteResult;
-import com.baidu.mapapi.MKPlanNode;
-import com.baidu.mapapi.MKPoiResult;
-import com.baidu.mapapi.MKSearch;
-import com.baidu.mapapi.MKSearchListener;
-import com.baidu.mapapi.MKSuggestionResult;
-import com.baidu.mapapi.MKTransitRouteResult;
-import com.baidu.mapapi.MKWalkingRouteResult;
 import com.rarnu.findaround.adapter.PoiAdapter;
 import com.rarnu.findaround.api.BaiduAPI;
 import com.rarnu.findaround.base.BaseActivity;
-import com.rarnu.findaround.common.Config;
 import com.rarnu.findaround.common.GeoPointOri;
 import com.rarnu.findaround.common.NetFiles;
-import com.rarnu.findaround.common.SIMUtils;
 import com.rarnu.findaround.common.UIUtils;
 import com.rarnu.findaround.comp.MapHead;
 
-public class PoiListActivity extends BaseActivity implements
-		OnClickListener, OnItemClickListener, MKSearchListener {
+public class PoiListActivity extends BaseActivity implements OnClickListener,
+		OnItemClickListener {
 
 	ListView lvPoi;
 	TextView tvLoading;
 	PoiAdapter adapter;
-	MKSearch mSearch;
 	String keyword;
 
 	boolean loading = true;
@@ -56,40 +43,29 @@ public class PoiListActivity extends BaseActivity implements
 		setContentView(R.layout.poi_list);
 		init();
 		keyword = getIntent().getStringExtra("keyword");
-		MainApplication app = (MainApplication) getApplication();
-		app.getMapManager().start();
-		mSearch = new MKSearch();
-		MKSearch.setPoiPageCapacity(Config.getResultCount(this));
-		mSearch.init(app.getMapManager(), this);
 
 	}
 
 	@Override
 	protected void onResume() {
 
-		MainApplication app = (MainApplication) getApplication();
-		app.getMapManager().start();
-
+		registerReceiver(myreceiver, mapFilter);
+		registerReceiver(searchReceiver, searchFilter);
 		if (loading) {
 			loading = false;
-
-			mSearch.poiSearchNearBy(keyword, GlobalInstance.point,
-					Config.getDist(this));
-			if (!SIMUtils.isSimCardReady(this)) {
-				doCellGetPoi(keyword, GlobalInstance.pointOri,
-						Config.getDist(this));
-			}
+			GlobalInstance.search.searchPoi(keyword);
 		}
 
 		super.onResume();
-		registerReceiver(myreceiver, mapFilter);
+
 	}
 
 	@Override
 	protected void onPause() {
-		MainApplication app = (MainApplication) getApplication();
-		app.getMapManager().stop();
+		GlobalInstance.search.stop();
 		unregisterReceiver(myreceiver);
+		unregisterReceiver(searchReceiver);
+		
 		super.onPause();
 
 	}
@@ -158,76 +134,19 @@ public class PoiListActivity extends BaseActivity implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		if (position == 0) {
-			// TODO: click map
-			return;
+			GlobalInstance.selectedInfo = null;
+		} else {
+			GlobalInstance.selectedInfo = GlobalInstance.listPoi.get(position - 1);
 		}
-		GlobalInstance.selectedInfo = GlobalInstance.listPoi.get(position - 1);
+		
 		Intent inMap = new Intent(this, MapRouteActivity.class);
 		startActivity(inMap);
 
-		MKPlanNode nodeStart = new MKPlanNode();
-		nodeStart.pt = GlobalInstance.point;
-		MKPlanNode nodeEnd = new MKPlanNode();
-		nodeEnd.pt = GlobalInstance.selectedInfo.pt;
-		if (Config.getMethod(this) == 2) {
-			mSearch.walkingSearch(GlobalInstance.city, nodeStart,
-					GlobalInstance.city, nodeEnd);
-		} else {
-			mSearch.drivingSearch(GlobalInstance.city, nodeStart,
-					GlobalInstance.city, nodeEnd);
-		}
 	}
 
 	// [/region]
 
 	// [region] map callback
-	@Override
-	public void onGetAddrResult(MKAddrInfo arg0, int arg1) {
-
-	}
-
-	@Override
-	public void onGetBusDetailResult(MKBusLineResult arg0, int arg1) {
-
-	}
-
-	@Override
-	public void onGetDrivingRouteResult(MKDrivingRouteResult res, int error) {
-		if (error != 0 || res == null) {
-			GlobalInstance.selectedRoute = null;
-			return;
-		}
-
-		GlobalInstance.selectedRoute = res.getPlan(0).getRoute(0);
-		GlobalInstance.routeIndex = -1;
-		sendBroadcast(new Intent(MainApplication.ROUTE_FOUND_ACTION));
-	}
-
-	@Override
-	public void onGetPoiResult(MKPoiResult res, int type, int error) {
-		Log.e("PoiListActivity", "onGetPoiResult");
-		tvLoading.setVisibility(View.GONE);
-		GlobalInstance.listPoi = null;
-		lvPoi.setAdapter(null);
-
-		if (error != 0 || res == null) {
-			Toast.makeText(this, R.string.no_result, Toast.LENGTH_LONG).show();
-			finish();
-			return;
-		}
-		if (res.getAllPoi() != null && res.getAllPoi().size() != 0) {
-			GlobalInstance.listPoi = res.getAllPoi();
-
-		}
-		if (GlobalInstance.listPoi != null
-				&& GlobalInstance.listPoi.size() != 0) {
-			adapter = new PoiAdapter(getLayoutInflater(),
-					GlobalInstance.listPoi);
-			initMapPos();
-			lvPoi.setAdapter(adapter);
-
-		}
-	}
 
 	public void doCellGetPoi(final String keyword, final GeoPointOri geo,
 			final int radius) {
@@ -261,28 +180,6 @@ public class PoiListActivity extends BaseActivity implements
 		}).start();
 	}
 
-	@Override
-	public void onGetSuggestionResult(MKSuggestionResult arg0, int arg1) {
-
-	}
-
-	@Override
-	public void onGetTransitRouteResult(MKTransitRouteResult arg0, int arg1) {
-
-	}
-
-	@Override
-	public void onGetWalkingRouteResult(MKWalkingRouteResult res, int error) {
-		if (error != 0 || res == null) {
-			GlobalInstance.selectedRoute = null;
-			return;
-		}
-
-		GlobalInstance.selectedRoute = res.getPlan(0).getRoute(0);
-		GlobalInstance.routeIndex = -1;
-		sendBroadcast(new Intent(MainApplication.ROUTE_FOUND_ACTION));
-	}
-
 	// [/region]
 
 	class MapReceiver extends BroadcastReceiver {
@@ -296,7 +193,34 @@ public class PoiListActivity extends BaseActivity implements
 
 	}
 
+	class SearchReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			tvLoading.setVisibility(View.GONE);
+
+			lvPoi.setAdapter(null);
+			if (GlobalInstance.listPoi == null) {
+				Toast.makeText(PoiListActivity.this, R.string.no_result,
+						Toast.LENGTH_LONG).show();
+				finish();
+				return;
+			}
+
+			if (GlobalInstance.listPoi.size() != 0) {
+				adapter = new PoiAdapter(getLayoutInflater(),
+						GlobalInstance.listPoi);
+				initMapPos();
+				lvPoi.setAdapter(adapter);
+			}
+		}
+	}
+
 	private MapReceiver myreceiver = new MapReceiver();
 	private IntentFilter mapFilter = new IntentFilter(
 			MainApplication.NETWORK_ERROR_ACTION);
+
+	private SearchReceiver searchReceiver = new SearchReceiver();
+	private IntentFilter searchFilter = new IntentFilter(
+			MainApplication.POI_FOUND_ACTION);
 }

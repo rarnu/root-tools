@@ -8,9 +8,11 @@ import com.baidu.mapapi.GeoPoint;
 import com.baidu.mapapi.MKPoiInfo;
 import com.baidu.mapapi.MKRoute;
 import com.rarnu.findaround.common.GeoPointOri;
+import com.rarnu.findaround.service.SearchService;
 
 public class GlobalInstance {
 	
+	public static SearchService search = null;
 	public static PackageManager pm = null;
 
 	public static List<MKPoiInfo> listPoi = null;

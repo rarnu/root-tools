@@ -85,4 +85,5 @@
 	
 	<string name="add_keyword">添加搜索关键字</string>
 	<string name="add_keyword_hint">在此输入搜索关键字，按确定可将关键字加入到列表</string>
+	<string name="view_map">浏览搜索结果</string>
 </resources>
