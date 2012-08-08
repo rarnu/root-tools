@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="48dip"
+    android:layout_height="64dip"
     android:paddingLeft="4dip"
     android:paddingRight="4dip" >
 
     <TextView
         android:id="@+id/tvName"
         android:layout_width="fill_parent"
-        android:layout_height="24dip"
+        android:layout_height="32dip"
         android:gravity="left|center_vertical"
         android:textColor="@color/black" />
 
     <TextView
         android:id="@+id/tvAddress"
         android:layout_width="fill_parent"
-        android:layout_height="24dip"
+        android:layout_height="32dip"
         android:layout_below="@+id/tvName"
         android:ellipsize="marquee"
         android:gravity="left|center_vertical"
@@ -24,5 +24,29 @@
         android:singleLine="true"
         android:textColor="@color/gray"
         android:textSize="12dip" />
+
+    <TextView
+        android:id="@+id/tvDistance"
+        android:layout_width="80dip"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="8dip"
+        android:gravity="center_vertical"
+        android:textColor="@color/red" />
+
+    <Button
+        android:id="@+id/btnDistance"
+        android:layout_width="80dip"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_margin="8dip"
+        android:background="@drawable/button_style"
+        android:focusable="false"
+        android:gravity="center_vertical"
+        android:textColor="@color/white"
+        android:visibility="gone"
+        android:text="@string/route" />
 
 </RelativeLayout>

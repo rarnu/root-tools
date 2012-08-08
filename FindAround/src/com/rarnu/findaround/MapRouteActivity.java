@@ -4,7 +4,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -13,14 +12,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.MapView;
-import com.baidu.mapapi.MapView.LayoutParams;
 import com.baidu.mapapi.Overlay;
-import com.baidu.mapapi.OverlayItem;
 import com.baidu.mapapi.RouteOverlay;
 import com.rarnu.findaround.base.BaseMapActivity;
 import com.rarnu.findaround.common.Config;
-import com.rarnu.findaround.common.UIUtils;
-import com.rarnu.findaround.comp.PopupView;
 import com.rarnu.findaround.map.MarkOverlay;
 import com.rarnu.findaround.map.SelfPosOverlay;
 
@@ -29,7 +24,7 @@ public class MapRouteActivity extends BaseMapActivity implements
 
 	// private static final int ZOOM_MAX = 18;
 	// private static final int ZOOM_MIN = 3;
-	private static final int POPUP_ID = 100001;
+	
 
 	// [region] map
 	MapView mvMap;
@@ -38,8 +33,6 @@ public class MapRouteActivity extends BaseMapActivity implements
 	MarkOverlay markOverlay;
 
 	String city;
-
-	PopupView popup;
 
 	RouteOverlay walkOverlay;
 	RouteOverlay driveOverlay;
@@ -137,7 +130,6 @@ public class MapRouteActivity extends BaseMapActivity implements
 	}
 
 	private void initMapComp() {
-		// locate shanghai first
 
 		mvMap.getController().setCenter(GlobalInstance.point);
 
@@ -148,24 +140,15 @@ public class MapRouteActivity extends BaseMapActivity implements
 		overlay = new SelfPosOverlay(this, mvMap);
 		mvMap.getOverlays().add(overlay);
 
-		Drawable marker = getResources().getDrawable(R.drawable.marker);
-		marker.setBounds(0, 0, UIUtils.dipToPx(14), UIUtils.dipToPx(18));
+//		Drawable marker = getResources().getDrawable(R.drawable.marker);
+//		marker.setBounds(0, 0, UIUtils.dipToPx(14), UIUtils.dipToPx(18));
 
-		popup = new PopupView(this);
-		popup.setId(POPUP_ID);
-		mvMap.addView(popup, new MapView.LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, null,
-				MapView.LayoutParams.TOP_LEFT));
-		popup.setVisibility(View.GONE);
-
-		markOverlay = new MarkOverlay(marker, popup, mvMap);
-		mvMap.getOverlays().add(markOverlay);
-		markOverlay.clearAll();
-		for (int i = 0; i < GlobalInstance.listPoi.size(); i++) {
-			markOverlay.addOverlay(new OverlayItem(GlobalInstance.listPoi
-					.get(i).pt, GlobalInstance.listPoi.get(i).name,
-					GlobalInstance.listPoi.get(i).address));
-		}
+//		markOverlay.clearAll();
+//		for (int i = 0; i < GlobalInstance.listPoi.size(); i++) {
+//			markOverlay.addOverlay(new OverlayItem(GlobalInstance.listPoi
+//					.get(i).pt, GlobalInstance.listPoi.get(i).name,
+//					GlobalInstance.listPoi.get(i).address));
+//		}
 
 	}
 

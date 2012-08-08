@@ -14,6 +14,7 @@ import com.baidu.mapapi.GeoPoint;
 import com.baidu.mapapi.MKPoiInfo;
 import com.rarnu.findaround.GlobalInstance;
 import com.rarnu.findaround.MainApplication;
+import com.rarnu.findaround.adapter.PoiInfoEx;
 
 public class BaiduAPI {
 
@@ -48,18 +49,18 @@ public class BaiduAPI {
 
 	}
 
-	public static List<MKPoiInfo> getPoiListViaGeo(double latitude,
+	public static List<PoiInfoEx> getPoiListViaGeo(double latitude,
 			double longitude, int radius, String keyword) {
 		String reqFmt = "query=%s&location=%f,%f&radius=%d&output=json&key=%s";
 		String reqParam = String.format(reqFmt, keyword, latitude, longitude,
 				radius, MainApplication.webKey);
 		String ret = HttpRequest.get(API_PLACE, reqParam, HTTP.UTF_8);
-		List<MKPoiInfo> result = null;
+		List<PoiInfoEx> result = null;
 		try {
 			JSONObject json = new JSONObject(ret);
 			int lat, lng;
 			if (json.getString("status").equals("OK")) {
-				result = new ArrayList<MKPoiInfo>();
+				result = new ArrayList<PoiInfoEx>();
 				JSONArray array = json.getJSONArray("results");
 				for (int i = 0; i < array.length(); i++) {
 					MKPoiInfo info = new MKPoiInfo();
@@ -70,7 +71,11 @@ public class BaiduAPI {
 					lng = (int) (array.getJSONObject(i)
 							.getJSONObject("location").getDouble("lng") * 1e6);
 					info.pt = new GeoPoint(lat, lng);
-					result.add(info);
+					
+					PoiInfoEx ex = new PoiInfoEx();
+					ex.info = info;
+					ex.showButton = false;
+					result.add(ex);
 				}
 			}
 		} catch (Exception e) {

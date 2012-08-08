@@ -32,6 +32,7 @@ import com.rarnu.findaround.comp.GridPage4x4;
 import com.rarnu.findaround.comp.GridPage4x4.OnDeleteClickListener;
 import com.rarnu.findaround.comp.GridPage4x4.OnKeywordClickListener;
 import com.rarnu.findaround.comp.GridPageSearch;
+import com.rarnu.findaround.comp.LineEditText;
 import com.rarnu.findaround.comp.PointBar;
 import com.rarnu.findaround.comp.PopupMenuDialog;
 import com.rarnu.findaround.comp.ScrollLayout;
@@ -136,11 +137,18 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				// TODO Auto-generated method stub
+				if (keyCode == KeyEvent.KEYCODE_ENTER) {
+					String tag = ((LineEditText) v).getText().toString();
+					((LineEditText) v).setText("");
+					onKeywordClick(v, tag);
+					gButtons.snapToScreen(1);
+					addKeyword(tag);
+				}
 				return false;
 			}
 		});
 
+		tvAddress.setOnClickListener(this);
 	}
 
 	private void initGrid9() {
@@ -224,6 +232,10 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 
 						}
 					}, getString(R.string.cancel), null);
+			break;
+		case R.id.tvAddress:
+			Intent inStreet = new Intent(this, StreetViewActivity.class);
+			startActivity(inStreet);
 			break;
 		}
 

@@ -1,8 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:layout_height="match_parent" >
 
     <RelativeLayout
         android:id="@+id/tbTitle"
@@ -37,7 +36,6 @@
             android:layout_marginTop="8dip"
             android:layout_toRightOf="@+id/ivSplit1"
             android:gravity="left|center_vertical"
-            android:text="@string/list_result"
             android:textColor="@color/white"
             android:textSize="18dip" />
 
@@ -61,41 +59,10 @@
             android:contentDescription="@null" />
     </RelativeLayout>
 
-    <com.baidu.mapapi.MapView
-        android:id="@+id/mvMap"
-        android:layout_width="fill_parent"
-        android:layout_height="240dip"
-        android:layout_below="@+id/tbTitle"
-        android:clickable="true" />
-
-    <ListView
-        android:id="@+id/lvPoi"
+    <com.rarnu.findaround.comp.LavenderView
+        android:id="@+id/lvStreet"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/imgBottom"
-        android:layout_below="@+id/mvMap"
-        android:cacheColorHint="#00000000" >
-    </ListView>
-
-    <ImageView
-        android:id="@+id/imgBottom"
-        android:layout_width="fill_parent"
-        android:layout_height="4dip"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottombar"
-        android:contentDescription="@null" />
-
-    <TextView
-        android:id="@+id/tvLoading"
-        android:layout_width="fill_parent"
-        android:layout_height="64dip"
-        android:layout_centerInParent="true"
-        android:layout_margin="16dip"
-        android:background="#AA000000"
-        android:gravity="center"
-        android:text="@string/searching"
-        android:textColor="@color/white"
-        android:textSize="20dip"
-        android:visibility="gone" />
+        android:layout_below="@+id/tbTitle" />
 
 </RelativeLayout>

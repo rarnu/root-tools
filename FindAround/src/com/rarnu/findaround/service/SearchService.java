@@ -1,5 +1,7 @@
 package com.rarnu.findaround.service;
 
+import java.util.ArrayList;
+
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -15,6 +17,7 @@ import com.baidu.mapapi.MKBusLineResult;
 import com.baidu.mapapi.MKDrivingRouteResult;
 import com.baidu.mapapi.MKLocationManager;
 import com.baidu.mapapi.MKPlanNode;
+import com.baidu.mapapi.MKPoiInfo;
 import com.baidu.mapapi.MKPoiResult;
 import com.baidu.mapapi.MKSearch;
 import com.baidu.mapapi.MKSearchListener;
@@ -23,6 +26,7 @@ import com.baidu.mapapi.MKTransitRouteResult;
 import com.baidu.mapapi.MKWalkingRouteResult;
 import com.rarnu.findaround.GlobalInstance;
 import com.rarnu.findaround.MainApplication;
+import com.rarnu.findaround.adapter.PoiInfoEx;
 import com.rarnu.findaround.api.BaiduAPI;
 import com.rarnu.findaround.common.Config;
 import com.rarnu.findaround.common.GeoPointOri;
@@ -51,6 +55,10 @@ public class SearchService extends ContextWrapper implements MKSearchListener,
 		application.getMapManager().getLocationManager()
 				.requestLocationUpdates(this);
 
+		start();
+	}
+	
+	public void start() {
 		application.getMapManager().start();
 	}
 
@@ -111,7 +119,13 @@ public class SearchService extends ContextWrapper implements MKSearchListener,
 		GlobalInstance.listPoi = null;
 		if (error == 0 && res != null) {
 			if (res.getAllPoi() != null && res.getAllPoi().size() != 0) {
-				GlobalInstance.listPoi = res.getAllPoi();
+				GlobalInstance.listPoi = new ArrayList<PoiInfoEx>();
+				for (MKPoiInfo info: res.getAllPoi()) {
+					PoiInfoEx item = new PoiInfoEx();
+					item.info = info;
+					item.showButton = false;
+					GlobalInstance.listPoi.add(item);
+				}
 			}
 		}
 		sendBroadcast(new Intent(MainApplication.POI_FOUND_ACTION));

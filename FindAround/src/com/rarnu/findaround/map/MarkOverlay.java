@@ -45,13 +45,16 @@ public class MarkOverlay extends ItemizedOverlay<OverlayItem> {
 	// [region] business logic
 	public void addOverlay(OverlayItem overlayItem) {
 		pointList.add(overlayItem);
+		onTap(0);
 		populate();
 
 	}
 
 	public void clearAll() {
 		pointList.clear();
-		popup.setVisibility(View.GONE);
+		if (popup != null) {
+			popup.setVisibility(View.GONE);
+		}
 		populate();
 	}
 
@@ -121,25 +124,29 @@ public class MarkOverlay extends ItemizedOverlay<OverlayItem> {
 
 	@Override
 	protected boolean onTap(int i) {
-		if (popup.getVisibility() != View.VISIBLE) {
-			mvMap.getController().animateTo(pointList.get(i).getPoint());
-			setFocus(pointList.get(i));
-			clickedPoint = pointList.get(i).getPoint();
-			mvMap.updateViewLayout(popup, new MapView.LayoutParams(
-					LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
-					pointList.get(i).getPoint(),
-					MapView.LayoutParams.BOTTOM_CENTER));
-			popup.setGeoPoint(pointList.get(i).getPoint());
-			popup.setName(pointList.get(i).getTitle());
-			popup.setAddress(pointList.get(i).getSnippet());
-			popup.setVisibility(View.VISIBLE);
+		if (popup != null) {
+			if (popup.getVisibility() != View.VISIBLE) {
+				mvMap.getController().animateTo(pointList.get(i).getPoint());
+				setFocus(pointList.get(i));
+				clickedPoint = pointList.get(i).getPoint();
+				mvMap.updateViewLayout(popup, new MapView.LayoutParams(
+						LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT,
+						pointList.get(i).getPoint(),
+						MapView.LayoutParams.BOTTOM_CENTER));
+				popup.setGeoPoint(pointList.get(i).getPoint());
+				popup.setName(pointList.get(i).getTitle());
+				popup.setAddress(pointList.get(i).getSnippet());
+				popup.setVisibility(View.VISIBLE);
+			}
 		}
 		return true;
 	}
 
 	@Override
 	public boolean onTap(GeoPoint arg0, MapView arg1) {
-		popup.setVisibility(View.GONE);
+//		if (popup != null) {
+//			popup.setVisibility(View.GONE);
+//		}
 		return super.onTap(arg0, arg1);
 	}
 	// [/region]
