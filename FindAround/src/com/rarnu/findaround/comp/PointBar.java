@@ -50,8 +50,15 @@ public class PointBar extends RelativeLayout {
 
 	public void setPoint(int point) {
 		for (int i = 0; i < iPoint.length; i++) {
-			iPoint[i].setBackgroundResource(i == point ? R.drawable.point_focus
-					: R.drawable.point);
+			if (i == 0) {
+				iPoint[i]
+						.setBackgroundResource(i == point ? R.drawable.query_focus
+								: R.drawable.query);
+			} else {
+				iPoint[i]
+						.setBackgroundResource(i == point ? R.drawable.point_focus
+								: R.drawable.point);
+			}
 		}
 	}
 

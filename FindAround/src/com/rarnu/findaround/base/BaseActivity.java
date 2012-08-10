@@ -1,16 +1,19 @@
 package com.rarnu.findaround.base;
 
-import com.rarnu.findaround.R;
-
 import android.app.Activity;
 import android.os.Bundle;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.rarnu.findaround.R;
 
 public class BaseActivity extends Activity {
 
 	protected TextView tvName;
-	protected Button btnLeft, btnRight;
+	protected ImageView btnLeft;
+	protected Button btnRight;
+	protected TextView backArea;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -23,7 +26,8 @@ public class BaseActivity extends Activity {
 
 	protected void mappingComponents() {
 		tvName = (TextView) findViewById(R.id.tvName);
-		btnLeft = (Button) findViewById(R.id.btnLeft);
+		btnLeft = (ImageView) findViewById(R.id.btnLeft);
 		btnRight = (Button) findViewById(R.id.btnRight);
+		backArea = (TextView) findViewById(R.id.backArea);
 	}
 }

@@ -4,14 +4,74 @@
     android:layout_height="match_parent"
     android:background="@color/white" >
 
-    <include
-        android:id="@+id/layTitle"
-        layout="@layout/title_bar" />
+    <RelativeLayout
+        android:id="@+id/tbTitle"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:background="@drawable/bottombar" >
+
+        <ImageView
+            android:id="@+id/btnLeft"
+            android:layout_width="14dip"
+            android:layout_height="28dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:background="@drawable/btn_back_style"
+            android:contentDescription="@null"
+            android:textColor="@color/white"
+            android:visibility="visible" />
+
+        <ImageView
+            android:id="@+id/ivSplit1"
+            android:layout_width="2dip"
+            android:layout_height="fill_parent"
+            android:layout_toRightOf="@+id/btnLeft"
+            android:background="@drawable/split"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/tvName"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="8dip"
+            android:layout_toRightOf="@+id/ivSplit1"
+            android:gravity="left|center_vertical"
+            android:text="@string/settings"
+            android:textColor="@color/white"
+            android:textSize="18dip" />
+
+        <TextView
+            android:id="@+id/backArea"
+            android:layout_width="80dip"
+            android:layout_height="fill_parent" />
+
+        <ImageView
+            android:id="@+id/ivSplit"
+            android:layout_width="2dip"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/btnRight"
+            android:background="@drawable/split"
+            android:contentDescription="@null"
+            android:visibility="gone" />
+
+        <Button
+            android:id="@+id/btnRight"
+            android:layout_width="28dip"
+            android:layout_height="28dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:background="@drawable/btn_locate_style"
+            android:contentDescription="@null"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/layTitle" >
+        android:layout_below="@+id/tbTitle" >
 
         <RelativeLayout
             android:layout_width="fill_parent"

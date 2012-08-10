@@ -85,6 +85,10 @@ public class PoiListActivity extends BaseMapActivity implements
 			GlobalInstance.search.searchPoi(keyword);
 		}
 
+		if (GlobalInstance.selectedInfo != null) {
+			mvMap.getController().setCenter(GlobalInstance.selectedInfo.pt);
+		}
+
 		super.onResume();
 
 	}
@@ -113,8 +117,9 @@ public class PoiListActivity extends BaseMapActivity implements
 		super.init();
 		initGlobal();
 		initMapComp();
-		btnLeft.setOnClickListener(this);
-		tvName.setOnClickListener(this);
+		// btnLeft.setOnClickListener(this);
+		// tvName.setOnClickListener(this);
+		backArea.setOnClickListener(this);
 		lvPoi.setOnItemClickListener(this);
 		tvLoading.setVisibility(View.VISIBLE);
 		btnRight.setOnClickListener(this);
@@ -127,10 +132,10 @@ public class PoiListActivity extends BaseMapActivity implements
 		mvMap.setDoubleClickZooming(true);
 		mvMap.getController().setCenter(GlobalInstance.point);
 
-		overlay = new SelfPosOverlay(this, mvMap);
+		overlay = new SelfPosOverlay(this, mvMap, false);
 		mvMap.getOverlays().add(overlay);
 
-		Drawable marker = getResources().getDrawable(R.drawable.marker);
+		Drawable marker = getResources().getDrawable(R.drawable.empty);
 		marker.setBounds(0, 0, UIUtils.dipToPx(14), UIUtils.dipToPx(18));
 
 		popup = new PopupView(this);
@@ -143,25 +148,6 @@ public class PoiListActivity extends BaseMapActivity implements
 
 		markOverlay = new MarkOverlay(marker, popup, mvMap);
 		mvMap.getOverlays().add(markOverlay);
-
-		// Drawable marker = getResources().getDrawable(R.drawable.marker);
-		// marker.setBounds(0, 0, UIUtils.dipToPx(14), UIUtils.dipToPx(18));
-
-		// popup = new PopupView(this);
-		// popup.setId(POPUP_ID);
-		// mvMap.addView(popup, new MapView.LayoutParams(
-		// LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, null,
-		// MapView.LayoutParams.TOP_LEFT));
-		// popup.setVisibility(View.GONE);
-
-		// markOverlay = new MarkOverlay(marker, popup, mvMap);
-		// mvMap.getOverlays().add(markOverlay);
-		// markOverlay.clearAll();
-		// for (int i = 0; i < GlobalInstance.listPoi.size(); i++) {
-		// markOverlay.addOverlay(new OverlayItem(GlobalInstance.listPoi
-		// .get(i).pt, GlobalInstance.listPoi.get(i).name,
-		// GlobalInstance.listPoi.get(i).address));
-		// }
 
 	}
 
@@ -206,8 +192,7 @@ public class PoiListActivity extends BaseMapActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tvName:
-		case R.id.btnLeft:
+		case R.id.backArea:
 
 			finish();
 			break;
@@ -232,7 +217,8 @@ public class PoiListActivity extends BaseMapActivity implements
 		markOverlay.clearAll();
 
 		markOverlay.addOverlay(new OverlayItem(GlobalInstance.selectedInfo.pt,
-				GlobalInstance.selectedInfo.name, ""));
+				GlobalInstance.selectedInfo.name,
+				GlobalInstance.selectedInfo.address));
 		mvMap.getController().animateTo(GlobalInstance.selectedInfo.pt);
 
 		// if (position == 0) {

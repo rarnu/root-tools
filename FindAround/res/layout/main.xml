@@ -10,7 +10,7 @@
         android:layout_height="48dip"
         android:background="@drawable/bottombar" >
 
-        <Button
+        <ImageView
             android:id="@+id/btnLeft"
             android:layout_width="14dip"
             android:layout_height="28dip"
@@ -18,6 +18,7 @@
             android:layout_marginLeft="8dip"
             android:layout_marginRight="8dip"
             android:background="@drawable/btn_back_style"
+            android:contentDescription="@null"
             android:textColor="@color/white"
             android:visibility="visible" />
 
@@ -34,11 +35,15 @@
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
             android:layout_marginLeft="8dip"
-            android:layout_marginTop="8dip"
             android:layout_toRightOf="@+id/ivSplit1"
             android:gravity="left|center_vertical"
             android:textColor="@color/white"
             android:textSize="18dip" />
+
+        <TextView
+            android:id="@+id/backArea"
+            android:layout_width="80dip"
+            android:layout_height="fill_parent" />
 
         <ImageView
             android:id="@+id/ivSplit"
@@ -63,7 +68,6 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/imgBottom"
         android:layout_below="@+id/tbTitle" >
 
         <com.baidu.mapapi.MapView
@@ -85,52 +89,54 @@
             android:layout_width="fill_parent"
             android:layout_height="48dip"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="8dip"
-            android:layout_marginLeft="4dip"
-            android:layout_marginRight="4dip"
             android:background="#AA000000" >
 
-            <Button
+            <RelativeLayout
                 android:id="@+id/btnPrior"
                 android:layout_width="40dip"
                 android:layout_height="40dip"
                 android:layout_centerVertical="true"
-                android:layout_toLeftOf="@+id/btnNext"
-                android:background="@drawable/button_style"
-                android:text="@string/prior"
-                android:textColor="@color/white" />
+                android:layout_marginLeft="4dip" >
 
-            <Button
-                android:id="@+id/btnNext"
-                android:layout_width="40dip"
-                android:layout_height="40dip"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="4dip"
-                android:background="@drawable/button_style"
-                android:text="@string/next"
-                android:textColor="@color/white" />
+                <ImageView
+                    android:id="@+id/imgPrior"
+                    android:layout_width="16dip"
+                    android:layout_height="33dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/route_left"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
 
             <TextView
                 android:id="@+id/tvRoute"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_margin="4dip"
-                android:layout_toLeftOf="@+id/btnPrior"
+                android:layout_toLeftOf="@+id/btnNext"
+                android:layout_toRightOf="@+id/btnPrior"
                 android:gravity="left|center_vertical"
                 android:paddingLeft="4dip"
                 android:textColor="@color/white"
                 android:textSize="12dip" />
+
+            <RelativeLayout
+                android:id="@+id/btnNext"
+                android:layout_width="40dip"
+                android:layout_height="40dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="4dip" >
+
+                <ImageView
+                    android:id="@+id/imgNext"
+                    android:layout_width="16dip"
+                    android:layout_height="33dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/route_right"
+                    android:contentDescription="@null" />
+            </RelativeLayout>
         </RelativeLayout>
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/imgBottom"
-        android:layout_width="fill_parent"
-        android:layout_height="4dip"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottombar"
-        android:contentDescription="@null" />
 
     <TextView
         android:id="@+id/tvLoading"

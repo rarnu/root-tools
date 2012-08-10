@@ -4,10 +4,11 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -16,7 +17,7 @@ import com.baidu.mapapi.Overlay;
 import com.baidu.mapapi.RouteOverlay;
 import com.rarnu.findaround.base.BaseMapActivity;
 import com.rarnu.findaround.common.Config;
-import com.rarnu.findaround.map.MarkOverlay;
+import com.rarnu.findaround.common.UIUtils;
 import com.rarnu.findaround.map.SelfPosOverlay;
 
 public class MapRouteActivity extends BaseMapActivity implements
@@ -24,18 +25,21 @@ public class MapRouteActivity extends BaseMapActivity implements
 
 	// private static final int ZOOM_MAX = 18;
 	// private static final int ZOOM_MIN = 3;
-	
+	// private static final int POPUP_ID = 100001;
 
 	// [region] map
 	MapView mvMap;
 
 	SelfPosOverlay overlay;
-	MarkOverlay markOverlay;
+	// MarkOverlay markOverlay;
 
 	String city;
 
 	RouteOverlay walkOverlay;
 	RouteOverlay driveOverlay;
+
+	Drawable markerStart, markerEnd;
+	// PopupView popup;
 
 	// [/region]
 
@@ -43,7 +47,8 @@ public class MapRouteActivity extends BaseMapActivity implements
 
 	TextView tvLoading;
 	RelativeLayout layRoute;
-	Button btnPrior, btnNext;
+	RelativeLayout btnPrior, btnNext;
+	ImageView imgPrior, imgNext;
 	TextView tvRoute;
 
 	// [/region]
@@ -122,8 +127,10 @@ public class MapRouteActivity extends BaseMapActivity implements
 		mvMap = (MapView) findViewById(R.id.mvMap);
 
 		layRoute = (RelativeLayout) findViewById(R.id.layRoute);
-		btnPrior = (Button) findViewById(R.id.btnPrior);
-		btnNext = (Button) findViewById(R.id.btnNext);
+		btnPrior = (RelativeLayout) findViewById(R.id.btnPrior);
+		btnNext = (RelativeLayout) findViewById(R.id.btnNext);
+		imgPrior = (ImageView) findViewById(R.id.imgPrior);
+		imgNext = (ImageView) findViewById(R.id.imgNext);
 		tvRoute = (TextView) findViewById(R.id.tvRoute);
 
 		setRouteButtonVisible(false);
@@ -137,24 +144,31 @@ public class MapRouteActivity extends BaseMapActivity implements
 		mvMap.getController().setZoom(mvMap.getMaxZoomLevel());
 		mvMap.setDoubleClickZooming(true);
 
-		overlay = new SelfPosOverlay(this, mvMap);
+		overlay = new SelfPosOverlay(this, mvMap, true);
 		mvMap.getOverlays().add(overlay);
 
-//		Drawable marker = getResources().getDrawable(R.drawable.marker);
-//		marker.setBounds(0, 0, UIUtils.dipToPx(14), UIUtils.dipToPx(18));
+		// popup = new PopupView(this);
+		// popup.setId(POPUP_ID);
+		// mvMap.addView(popup, new MapView.LayoutParams(
+		// LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, null,
+		// MapView.LayoutParams.TOP_LEFT));
+		// popup.setVisibility(View.GONE);
+		// popup.setOnClickListener(this);
 
-//		markOverlay.clearAll();
-//		for (int i = 0; i < GlobalInstance.listPoi.size(); i++) {
-//			markOverlay.addOverlay(new OverlayItem(GlobalInstance.listPoi
-//					.get(i).pt, GlobalInstance.listPoi.get(i).name,
-//					GlobalInstance.listPoi.get(i).address));
-//		}
+		markerStart = getResources().getDrawable(R.drawable.mypos);
+		markerStart.setBounds(0, 0, UIUtils.dipToPx(14), UIUtils.dipToPx(22));
+
+		markerEnd = getResources().getDrawable(R.drawable.marker_green);
+		markerEnd.setBounds(0, 0, UIUtils.dipToPx(19), UIUtils.dipToPx(24));
+
+		// markOverlay = new MarkOverlay(markerEnd, popup, mvMap);
+		// mvMap.getOverlays().add(markOverlay);
 
 	}
 
 	private void initEvents() {
-		btnLeft.setOnClickListener(this);
-		tvName.setOnClickListener(this);
+
+		backArea.setOnClickListener(this);
 		btnRight.setOnClickListener(this);
 		btnPrior.setOnClickListener(this);
 		btnNext.setOnClickListener(this);
@@ -167,8 +181,8 @@ public class MapRouteActivity extends BaseMapActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.tvName:
-		case R.id.btnLeft:
+
+		case R.id.backArea:
 			finish();
 			break;
 		case R.id.btnRight:
@@ -198,14 +212,25 @@ public class MapRouteActivity extends BaseMapActivity implements
 		if (walk) {
 			walkOverlay = new RouteOverlay(this, mvMap);
 			walkOverlay.setData(GlobalInstance.selectedRoute);
-			// TODO: set marker
-			// walkOverlay.getItem(0).setMarker(null);
+			walkOverlay.getItem(0).setMarker(markerStart);
+			walkOverlay.getItem(GlobalInstance.selectedRoute.getNumSteps() - 1)
+					.setMarker(markerEnd);
 			mvMap.getOverlays().add(walkOverlay);
 		} else {
 			driveOverlay = new RouteOverlay(this, mvMap);
 			driveOverlay.setData(GlobalInstance.selectedRoute);
+			driveOverlay.getItem(0).setMarker(markerStart);
+			driveOverlay
+					.getItem(GlobalInstance.selectedRoute.getNumSteps() - 1)
+					.setMarker(markerEnd);
 			mvMap.getOverlays().add(driveOverlay);
 		}
+
+		// markOverlay.clearAll();
+		// markOverlay.addOverlay(new
+		// OverlayItem(GlobalInstance.selectedInfo.pt,
+		// GlobalInstance.selectedInfo.name,
+		// GlobalInstance.selectedInfo.address));
 
 		mvMap.invalidate();
 		mvMap.getController()
@@ -284,6 +309,11 @@ public class MapRouteActivity extends BaseMapActivity implements
 		mvMap.getController().animateTo(
 				GlobalInstance.selectedRoute.getStep(GlobalInstance.routeIndex)
 						.getPoint());
+		imgPrior.setBackgroundResource(GlobalInstance.routeIndex <= 0 ? R.drawable.route_left_disabled
+				: R.drawable.route_left);
+		imgNext.setBackgroundResource(GlobalInstance.routeIndex >= (GlobalInstance.selectedRoute
+				.getNumSteps() - 2) ? R.drawable.route_right_disabled
+				: R.drawable.route_right);
 
 	}
 

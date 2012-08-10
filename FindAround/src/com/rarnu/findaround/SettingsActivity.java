@@ -1,20 +1,15 @@
 package com.rarnu.findaround;
 
-import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
+import com.rarnu.findaround.base.BaseActivity;
 import com.rarnu.findaround.common.Config;
 
-public class SettingsActivity extends Activity implements OnClickListener {
-
-	Button btnLeft;
-	TextView tvName;
+public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 	RelativeLayout layDist1, layDist2, layDist3, layMethod1, layMethod2,
 			layCount1, layCount2, layCount3;
@@ -25,16 +20,22 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings);
-		mappingComponents();
+		init();
+
+	}
+
+	@Override
+	protected void init() {
+		super.init();
 		initEvents();
 		initSettings();
 	}
 
-	private void mappingComponents() {
-		btnLeft = (Button) findViewById(R.id.btnLeft);
+	@Override
+	protected void mappingComponents() {
+		super.mappingComponents();
+
 		btnLeft.setVisibility(View.VISIBLE);
-		btnLeft.setText(R.string.back);
-		tvName = (TextView) findViewById(R.id.tvName);
 		tvName.setText(R.string.settings);
 		layDist1 = (RelativeLayout) findViewById(R.id.layDist1);
 		layDist2 = (RelativeLayout) findViewById(R.id.layDist2);
@@ -52,17 +53,17 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		imgCount3 = (ImageView) findViewById(R.id.imgCount3);
 		imgMethod1 = (ImageView) findViewById(R.id.imgMethod1);
 		imgMethod2 = (ImageView) findViewById(R.id.imgMethod2);
-		
+
 	}
 
 	private void initEvents() {
-		btnLeft.setOnClickListener(this);
+		backArea.setOnClickListener(this);
 		layDist1.setOnClickListener(this);
 		layDist2.setOnClickListener(this);
 		layDist3.setOnClickListener(this);
 		layMethod1.setOnClickListener(this);
 		layMethod2.setOnClickListener(this);
-		
+
 		layCount1.setOnClickListener(this);
 		layCount2.setOnClickListener(this);
 		layCount3.setOnClickListener(this);
@@ -115,7 +116,7 @@ public class SettingsActivity extends Activity implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btnLeft:
+		case R.id.backArea:
 			finish();
 			break;
 		case R.id.layDist1:
@@ -142,10 +143,10 @@ public class SettingsActivity extends Activity implements OnClickListener {
 		case R.id.layMethod2:
 			Config.setMethod(this, 2);
 			break;
-//		case R.id.layKeywords:
-//			Intent inKeywords = new Intent(this, KeywordsActivity.class);
-//			startActivity(inKeywords);
-//			break;
+		// case R.id.layKeywords:
+		// Intent inKeywords = new Intent(this, KeywordsActivity.class);
+		// startActivity(inKeywords);
+		// break;
 		}
 		initSettings();
 	}

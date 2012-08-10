@@ -26,8 +26,6 @@ import com.rarnu.findaround.common.Config;
 import com.rarnu.findaround.common.PageItem;
 import com.rarnu.findaround.common.PageUtils;
 import com.rarnu.findaround.common.UIUtils;
-import com.rarnu.findaround.comp.AlertDialogEx;
-import com.rarnu.findaround.comp.AlertDialogEx.DialogButtonClickListener;
 import com.rarnu.findaround.comp.GridPage4x4;
 import com.rarnu.findaround.comp.GridPage4x4.OnDeleteClickListener;
 import com.rarnu.findaround.comp.GridPage4x4.OnKeywordClickListener;
@@ -214,24 +212,15 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 
 		case R.id.diagBtn1:
 			menu.cancel();
-			Intent inSettings = new Intent(this, SettingsActivity.class);
-			startActivityForResult(inSettings, 0);
+			setEditMode(false);
+			Intent inKeyword = new Intent(this, KeywordsActivity.class);
+			startActivityForResult(inKeyword, 0);
 			break;
 		case R.id.diagBtn2:
 			menu.cancel();
 			setEditMode(false);
-			AlertDialogEx.showAlertDialogEx(this,
-					getString(R.string.add_keyword),
-					getString(R.string.add_keyword_hint),
-					getString(R.string.ok), new DialogButtonClickListener() {
-
-						@Override
-						public void onClick(View v, String text) {
-
-							addKeyword(text);
-
-						}
-					}, getString(R.string.cancel), null);
+			Intent inSettings = new Intent(this, SettingsActivity.class);
+			startActivity(inSettings);
 			break;
 		case R.id.tvAddress:
 			Intent inStreet = new Intent(this, StreetViewActivity.class);
@@ -240,13 +229,23 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		}
 
 	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode != RESULT_OK) {
+			return;
+		}
+		if (requestCode == 0) {
+			// TODO: add result
+		}
+	}
 
 	// public void doCellLocation() {
 	// CellInfoManager cellManager = new CellInfoManager(this);
 	// WifiInfoManager wifiManager = new WifiInfoManager(this);
 	// CellLocationManager locationManager = new CellLocationManager(this,
 	// cellManager, wifiManager) {
-	// @Override
+	// @Override;
 	// public void onLocationChanged() {
 	//
 	// GlobalInstance.point = new GeoPoint(
