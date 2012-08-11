@@ -28,6 +28,7 @@ public class ScrollLayout extends ViewGroup {
 	private int mTouchState = TOUCH_STATE_REST;
 	private int mTouchSlop;
 	private float mLastMotionX;
+
 	// private float mLastMotionY;
 
 	public ScrollLayout(Context context, AttributeSet attrs) {
@@ -46,20 +47,19 @@ public class ScrollLayout extends ViewGroup {
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
-		if (changed) {
-			int childLeft = 0;
-			final int childCount = getChildCount();
+		int childLeft = 0;
+		final int childCount = getChildCount();
 
-			for (int i = 0; i < childCount; i++) {
-				final View childView = getChildAt(i);
-				if (childView.getVisibility() != View.GONE) {
-					final int childWidth = childView.getMeasuredWidth();
-					childView.layout(childLeft, 0, childLeft + childWidth,
-							childView.getMeasuredHeight());
-					childLeft += childWidth;
-				}
+		for (int i = 0; i < childCount; i++) {
+			final View childView = getChildAt(i);
+			if (childView.getVisibility() != View.GONE) {
+				final int childWidth = childView.getMeasuredWidth();
+				childView.layout(childLeft, 0, childLeft + childWidth,
+						childView.getMeasuredHeight());
+				childLeft += childWidth;
 			}
 		}
+
 	}
 
 	@Override
@@ -148,7 +148,7 @@ public class ScrollLayout extends ViewGroup {
 
 		final int action = event.getAction();
 		final float x = event.getX();
-//		final float y = event.getY();
+		// final float y = event.getY();
 
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
@@ -210,7 +210,7 @@ public class ScrollLayout extends ViewGroup {
 		}
 
 		final float x = ev.getX();
-//		final float y = ev.getY();
+		// final float y = ev.getY();
 
 		switch (action) {
 		case MotionEvent.ACTION_MOVE:
@@ -223,7 +223,7 @@ public class ScrollLayout extends ViewGroup {
 
 		case MotionEvent.ACTION_DOWN:
 			mLastMotionX = x;
-//			mLastMotionY = y;
+			// mLastMotionY = y;
 			mTouchState = mScroller.isFinished() ? TOUCH_STATE_REST
 					: TOUCH_STATE_SCROLLING;
 			break;

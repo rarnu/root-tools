@@ -70,11 +70,11 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	}
 
 	protected void refresh() {
-		setContentView(R.layout.welcome);
+		// setContentView(R.layout.welcome);
 
-		init();
-		tvAddress.setText(GlobalInstance.address);
-
+		// init();
+		// tvAddress.setText(GlobalInstance.address);
+		initGrid9();
 	}
 
 	@Override
@@ -150,6 +150,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	}
 
 	private void initGrid9() {
+		gButtons.removeAllViews();
 		List<PageItem[]> pages = PageUtils.buildPages(this);
 		gButtons.addView(pageSearch);
 		for (int i = 0; i < pages.size(); i++) {

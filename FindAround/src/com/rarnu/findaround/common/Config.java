@@ -21,7 +21,13 @@ public class Config {
 
 		String path = "/data/data/" + context.getPackageName() + "/keywords";
 		try {
-			return FileUtils.readFile(new File(path));
+			List<String> ret = FileUtils.readFile(new File(path));
+			for (int i = ret.size() - 1; i >= 0; i--) {
+				if (ret.get(i).trim().equals("")) {
+					ret.remove(i);
+				}
+			}
+			return ret;
 		} catch (IOException e) {
 			return null;
 		}
@@ -30,7 +36,9 @@ public class Config {
 	public static void saveKeywordList(Context context, List<String> list) {
 		String key = "";
 		for (int i = 0; i < list.size(); i++) {
-			key += list.get(i) + "\n";
+			if (!list.get(i).trim().equals("")) {
+				key += list.get(i) + "\n";
+			}
 		}
 		setKeywords(context, key);
 	}
