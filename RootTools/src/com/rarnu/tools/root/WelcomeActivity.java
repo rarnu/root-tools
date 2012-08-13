@@ -236,26 +236,26 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
 					RTConsts.REQCODE_SYSAPP);
 			break;
 		case ID_BUTTON_1:
-			startActivity(DataappMainActivity.class);
+			startActivity(EnableappMainActivity.class);
 			break;
 		case ID_BUTTON_2:
-			startActivity(CompMainActivity.class);
+			startActivity(DataappMainActivity.class);
 			break;
 		case ID_BUTTON_3:
-			startActivity(MemMainActivity.class);
+			startActivity(CompMainActivity.class);
 			break;
 		case ID_BUTTON_4:
-			startActivity(HostMainActivity.class);
+			startActivity(MemMainActivity.class);
 			break;
 		case ID_BUTTON_5:
 			startActivity(CleanCacheMainActivity.class);
 			break;
 		case ID_BUTTON_6:
-			startActivityForResult(BusyboxActivity.class,
-					RTConsts.REQCODE_BUSYBOX);
+			startActivity(HostMainActivity.class);
 			break;
 		case ID_BUTTON_7:
-			startActivity(MockGpsActivity.class);
+			startActivityForResult(BusyboxActivity.class,
+					RTConsts.REQCODE_BUSYBOX);
 			break;
 		case ID_BUTTON_8:
 			startActivity(MoreMainActivity.class);

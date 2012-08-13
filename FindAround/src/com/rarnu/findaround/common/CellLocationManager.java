@@ -357,7 +357,7 @@ public abstract class CellLocationManager {
 			this.bid = bid;
 		}
 
-		public Void doInBackground(JSONArray[] paramArrayOfJSONArray) {
+		public Void doInBackground(JSONArray... paramArrayOfJSONArray) {
 			try {
 				JSONObject jsonObject = new JSONObject();
 				jsonObject.put("version", "1.1.0");

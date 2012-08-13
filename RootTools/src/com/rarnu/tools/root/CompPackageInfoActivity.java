@@ -153,7 +153,7 @@ public class CompPackageInfoActivity extends BaseActivity implements
 			// item.component.getComponentName()
 			LogApi.logDisableComponent(item.component.getComponentName()
 					.toString());
-			bRet = ComponentUtils.doDisableReceiver(item.component
+			bRet = ComponentUtils.doDisableComponent(item.component
 					.getComponentName());
 			if (bRet) {
 				item.enabled = false;
@@ -168,7 +168,7 @@ public class CompPackageInfoActivity extends BaseActivity implements
 		} else if (!item.enabled) {
 			LogApi.logEnableComponent(item.component.getComponentName()
 					.toString());
-			bRet = ComponentUtils.doEnabledReceiver(item.component
+			bRet = ComponentUtils.doEnabledComponent(item.component
 					.getComponentName());
 			if (bRet) {
 				item.enabled = true;
