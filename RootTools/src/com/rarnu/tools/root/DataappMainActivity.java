@@ -29,6 +29,7 @@ import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
 import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class DataappMainActivity extends BaseActivity implements
 		OnClickListener, OnItemLongClickListener {
@@ -576,6 +577,9 @@ public class DataappMainActivity extends BaseActivity implements
 
 			@Override
 			public void run() {
+
+				RootUtils.runCommand("pm set-install-location 1", true);
+
 				int cnt = 0;
 				DataappInfo info;
 				for (int i = 0; i < listBackDataappAll.size(); i++) {
