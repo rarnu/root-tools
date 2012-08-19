@@ -9,4 +9,5 @@ public class GalleryHolder {
 	public TextView galleryText;
 	public ImageView leftArrow;
 	public ImageView rightArrow;
+
 }

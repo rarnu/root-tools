@@ -1,5 +1,6 @@
 package com.rarnu.findaround;
 
+import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -8,39 +9,48 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.OverlayItem;
-import com.baidu.mapapi.MapView.LayoutParams;
 import com.rarnu.findaround.adapter.PoiAdapter;
+import com.rarnu.findaround.adapter.PoiInfoEx;
 import com.rarnu.findaround.api.BaiduAPI;
 import com.rarnu.findaround.base.BaseMapActivity;
 import com.rarnu.findaround.common.GeoPointOri;
 import com.rarnu.findaround.common.UIUtils;
-import com.rarnu.findaround.comp.PopupView;
-import com.rarnu.findaround.map.MarkOverlay;
-import com.rarnu.findaround.map.SelfPosOverlay;
+import com.rarnu.findaround.map.NoTouchOverlay;
 
+@SuppressLint("HandlerLeak")
 public class PoiListActivity extends BaseMapActivity implements
 		OnClickListener, OnItemClickListener {
 
-	private static final int POPUP_ID = 100001;
+	// private static final int POPUP_ID = 100001;
 
 	MapView mvMap;
-	SelfPosOverlay overlay;
-	MarkOverlay markOverlay;
+	NoTouchOverlay noTouchOverlay;
 	ListView lvPoi;
 	TextView tvLoading;
 	PoiAdapter adapter;
 	String keyword;
-	PopupView popup;
+	RelativeLayout layMapBottom;
+	RelativeLayout layGeoItem;
+	Button btnReturnList;
+	TextView tvPoiName, tvPoiAddress;
+	Button btnPoiDistance;
+
+	Drawable marker, markerGreen;
+	boolean mapMode = false;
+	// PopupView popup;
 
 	boolean loading = true;
 
@@ -52,9 +62,29 @@ public class PoiListActivity extends BaseMapActivity implements
 				GlobalInstance.selectedInfo = GlobalInstance.listPoi
 						.get(msg.arg1).info;
 
-				Intent inMap = new Intent(PoiListActivity.this,
-						MapRouteActivity.class);
-				startActivity(inMap);
+				showRoute();
+			}
+			super.handleMessage(msg);
+		};
+
+	};
+
+	Handler hJump = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				setMode(true);
+			}
+			super.handleMessage(msg);
+		};
+	};
+
+	Handler hShowPoiInfo = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				showTouchedButton(msg.arg1);
+				showTouchedInfo(msg.arg1 != -1);
 			}
 			super.handleMessage(msg);
 		};
@@ -68,6 +98,7 @@ public class PoiListActivity extends BaseMapActivity implements
 		setContentView(R.layout.poi_list);
 		init();
 		keyword = getIntent().getStringExtra("keyword");
+		tvName.setText(String.format(getString(R.string.nearby), keyword));
 		GlobalInstance.search.start();
 
 	}
@@ -78,7 +109,6 @@ public class PoiListActivity extends BaseMapActivity implements
 		registerReceiver(myreceiver, mapFilter);
 		registerReceiver(searchReceiver, searchFilter);
 
-		overlay.enableMyLocation();
 		GlobalInstance.search.start();
 		if (loading) {
 			loading = false;
@@ -87,15 +117,16 @@ public class PoiListActivity extends BaseMapActivity implements
 
 		if (GlobalInstance.selectedInfo != null) {
 			mvMap.getController().setCenter(GlobalInstance.selectedInfo.pt);
+			Log.e("Zoom", String.valueOf(mvMap.getZoomLevel()));
+		} else if (GlobalInstance.point != null) {
+			mvMap.getController().animateTo(GlobalInstance.point);
 		}
-
 		super.onResume();
 
 	}
 
 	@Override
 	protected void onPause() {
-		overlay.disableMyLocation();
 		GlobalInstance.search.stop();
 		unregisterReceiver(myreceiver);
 		unregisterReceiver(searchReceiver);
@@ -117,12 +148,12 @@ public class PoiListActivity extends BaseMapActivity implements
 		super.init();
 		initGlobal();
 		initMapComp();
-		// btnLeft.setOnClickListener(this);
-		// tvName.setOnClickListener(this);
 		backArea.setOnClickListener(this);
 		lvPoi.setOnItemClickListener(this);
 		tvLoading.setVisibility(View.VISIBLE);
 		btnRight.setOnClickListener(this);
+		btnReturnList.setOnClickListener(this);
+		btnPoiDistance.setOnClickListener(this);
 	}
 
 	private void initMapComp() {
@@ -132,23 +163,14 @@ public class PoiListActivity extends BaseMapActivity implements
 		mvMap.setDoubleClickZooming(true);
 		mvMap.getController().setCenter(GlobalInstance.point);
 
-		overlay = new SelfPosOverlay(this, mvMap, false);
-		mvMap.getOverlays().add(overlay);
+		marker = getResources().getDrawable(R.drawable.marker);
+		marker.setBounds(0, 0, UIUtils.dipToPx(44), UIUtils.dipToPx(50));
+		markerGreen = getResources().getDrawable(R.drawable.marker_focus);
+		markerGreen.setBounds(0, 0, UIUtils.dipToPx(44), UIUtils.dipToPx(50));
 
-		Drawable marker = getResources().getDrawable(R.drawable.empty);
-		marker.setBounds(0, 0, UIUtils.dipToPx(14), UIUtils.dipToPx(18));
-
-		popup = new PopupView(this);
-		popup.setId(POPUP_ID);
-		mvMap.addView(popup, new MapView.LayoutParams(
-				LayoutParams.WRAP_CONTENT, LayoutParams.WRAP_CONTENT, null,
-				MapView.LayoutParams.TOP_LEFT));
-		popup.setVisibility(View.GONE);
-		popup.setOnClickListener(this);
-
-		markOverlay = new MarkOverlay(marker, popup, mvMap);
-		mvMap.getOverlays().add(markOverlay);
-
+		noTouchOverlay = new NoTouchOverlay(this, marker, markerGreen, hJump,
+				hShowPoiInfo);
+		mvMap.getOverlays().add(noTouchOverlay);
 	}
 
 	@Override
@@ -158,51 +180,30 @@ public class PoiListActivity extends BaseMapActivity implements
 		tvLoading = (TextView) findViewById(R.id.tvLoading);
 		lvPoi = (ListView) findViewById(R.id.lvPoi);
 		tvName.setText(R.string.list_result);
-	}
 
-	// private void initMapPos() {
-	//
-	// String url = "http://api.map.baidu.com/staticimage?";
-	// url += String.format("center=%f,%f&width=%d&height=%d&zoom=%d",
-	// GlobalInstance.pointOri.longitude,
-	// GlobalInstance.pointOri.latitude,
-	// UIUtils.pxToDip(UIUtils.getWidth()), 200, 16);
-	//
-	// String markers = "";
-	// double lat, lng;
-	// for (int i = 0; i < GlobalInstance.listPoi.size(); i++) {
-	// lat = (double) (((double) GlobalInstance.listPoi.get(i).pt
-	// .getLatitudeE6()) / 1e6);
-	// lng = (double) (((double) GlobalInstance.listPoi.get(i).pt
-	// .getLongitudeE6()) / 1e6);
-	// markers += String.format("%f,%f|", lng, lat);
-	// }
-	// url += "&markers=" + markers;
-	// url += "&markerStyles=s,%20,0xff0000";
-	//
-	// MapHead imgMap = new MapHead(this);
-	// imgMap.setLayoutParams(new AbsListView.LayoutParams(
-	// LayoutParams.MATCH_PARENT, 0));
-	// Log.e("BAIDU", url);
-	// NetFiles.doDownloadImageT(this, url, "tmp.jpg", imgMap, lvPoi);
-	// lvPoi.addHeaderView(imgMap);
-	// }
+		layMapBottom = (RelativeLayout) findViewById(R.id.layMapBottom);
+		layGeoItem = (RelativeLayout) findViewById(R.id.layGeoItem);
+		btnReturnList = (Button) findViewById(R.id.btnReturnList);
+		tvPoiName = (TextView) findViewById(R.id.tvPoiName);
+		tvPoiAddress = (TextView) findViewById(R.id.tvPoiAddress);
+		btnPoiDistance = (Button) findViewById(R.id.btnPoiDistance);
+	}
 
 	// [region] events
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.backArea:
-
 			finish();
 			break;
 		case R.id.btnRight:
 			mvMap.getController().animateTo(GlobalInstance.point);
 			break;
-		case POPUP_ID:
-			Intent inMap = new Intent(PoiListActivity.this,
-					MapRouteActivity.class);
-			startActivity(inMap);
+		case R.id.btnReturnList:
+			setMode(false);
+			break;
+		case R.id.btnPoiDistance:
+			showRoute();
 			break;
 		}
 
@@ -214,22 +215,8 @@ public class PoiListActivity extends BaseMapActivity implements
 
 		GlobalInstance.selectedInfo = GlobalInstance.listPoi.get(position).info;
 		showTouchedButton(position);
-		markOverlay.clearAll();
-
-		markOverlay.addOverlay(new OverlayItem(GlobalInstance.selectedInfo.pt,
-				GlobalInstance.selectedInfo.name,
-				GlobalInstance.selectedInfo.address));
+		noTouchOverlay.onTap(position);
 		mvMap.getController().animateTo(GlobalInstance.selectedInfo.pt);
-
-		// if (position == 0) {
-		// GlobalInstance.selectedInfo = null;
-		// } else {
-		// GlobalInstance.selectedInfo = GlobalInstance.listPoi
-		// .get(position - 1);
-		// }
-		//
-		// Intent inMap = new Intent(this, MapRouteActivity.class);
-		// startActivity(inMap);
 
 	}
 
@@ -238,6 +225,56 @@ public class PoiListActivity extends BaseMapActivity implements
 			GlobalInstance.listPoi.get(i).showButton = (i == position);
 		}
 		adapter.notifyDataSetChanged();
+	}
+
+	private void showTouchedInfo(boolean hasItem) {
+		if (!hasItem) {
+			btnReturnList.setVisibility(View.VISIBLE);
+			layGeoItem.setVisibility(View.GONE);
+		} else {
+			layGeoItem.setVisibility(View.VISIBLE);
+			btnReturnList.setVisibility(View.GONE);
+			tvPoiName.setText(GlobalInstance.selectedInfo.name);
+			tvPoiAddress.setText(GlobalInstance.selectedInfo.address);
+		}
+	}
+
+	private void setMode(boolean mapMode) {
+		this.mapMode = mapMode;
+		if (mapMode) {
+			lvPoi.setVisibility(View.GONE);
+			layMapBottom.setVisibility(View.VISIBLE);
+			RelativeLayout.LayoutParams mapParam = (RelativeLayout.LayoutParams) mvMap
+					.getLayoutParams();
+			mapParam.height = RelativeLayout.LayoutParams.MATCH_PARENT;
+			// mapParam.addRule(RelativeLayout.ABOVE, R.id.layMapBottom);
+			mvMap.setLayoutParams(mapParam);
+			mvMap.getController().setZoom(mvMap.getMaxZoomLevel());
+			if (GlobalInstance.selectedInfo != null) {
+				mvMap.getController().setCenter(GlobalInstance.selectedInfo.pt);
+				showTouchedInfo(true);
+			} else {
+				showTouchedInfo(false);
+			}
+		} else {
+			layMapBottom.setVisibility(View.GONE);
+			lvPoi.setVisibility(View.VISIBLE);
+			RelativeLayout.LayoutParams mapParam = (RelativeLayout.LayoutParams) mvMap
+					.getLayoutParams();
+			mapParam.height = UIUtils.dipToPx(240);
+			// mapParam.addRule(RelativeLayout.ABOVE, 0);
+			mvMap.setLayoutParams(mapParam);
+			mvMap.getController().setZoom(mvMap.getMaxZoomLevel() - 2);
+			mvMap.getController().animateTo(GlobalInstance.point);
+		}
+		noTouchOverlay.setMapMode(mapMode);
+
+	}
+
+	private void showRoute() {
+		Intent inMap = new Intent(this, MapRouteActivity.class);
+		inMap.putExtra("style", mapMode ? 1 : 0);
+		startActivity(inMap);
 	}
 
 	// [/region]
@@ -310,6 +347,13 @@ public class PoiListActivity extends BaseMapActivity implements
 				// initMapPos();
 				lvPoi.setAdapter(adapter);
 			}
+			noTouchOverlay.clearAll();
+			for (PoiInfoEx info : GlobalInstance.listPoi) {
+				noTouchOverlay
+						.addOverlay(new OverlayItem(info.info.pt, "", ""));
+			}
+			noTouchOverlay.update();
+
 			GlobalInstance.search.start();
 		}
 	}

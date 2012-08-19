@@ -21,7 +21,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.settings);
 		init();
-
 	}
 
 	@Override

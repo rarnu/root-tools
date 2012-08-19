@@ -16,7 +16,7 @@ public class MobileApi {
 	public static final String DOWNLOAD_BASE_URL = BASE_URL + "download/";
 
 	private static final String UPDATE_URL = BASE_URL + "check_update.php";
-	private static final String UPDATE_PARAM = "check_update.php?version=%d";
+	private static final String UPDATE_PARAM = "version=%d";
 
 	private static final String FEEDBACK_URL = BASE_URL + "user_feedback.php";
 	private static final String FEEDBACK_PARAM = "deviceId=%s&module=%s&os_version=%s&mail=%s&build_desc=%s&comment=%s";

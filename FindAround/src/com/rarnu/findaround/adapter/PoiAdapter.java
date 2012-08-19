@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.baidu.mapapi.GeoPoint;
@@ -65,6 +66,7 @@ public class PoiAdapter extends BaseAdapter {
 			holder.tvAddress = (TextView) v.findViewById(R.id.tvAddress);
 			holder.tvDistance = (TextView) v.findViewById(R.id.tvDistance);
 			holder.btnDistance = (Button) v.findViewById(R.id.btnDistance);
+			holder.imgSearch = (ImageView) v.findViewById(R.id.imgSearch);
 			v.setTag(holder);
 		}
 		PoiInfoEx item = list.get(position);
@@ -74,6 +76,10 @@ public class PoiAdapter extends BaseAdapter {
 			holder.tvDistance.setText(getDistance(item.info.pt));
 			holder.btnDistance.setVisibility(item.showButton ? View.VISIBLE
 					: View.GONE);
+			holder.imgSearch.setVisibility(item.showButton ? View.VISIBLE
+					: View.GONE);
+			holder.tvName.setTextColor(item.showButton ? 0xFFDA4E00
+					: 0xFF000000);
 			holder.btnDistance.setOnClickListener(new OnClickListener() {
 
 				@Override

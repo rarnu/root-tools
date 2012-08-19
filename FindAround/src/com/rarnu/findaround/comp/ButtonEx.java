@@ -69,8 +69,7 @@ public class ButtonEx extends RelativeLayout {
 
 	public void setFixed(boolean fixed) {
 		this.fixed = fixed;
-		btn.setBackgroundResource(fixed ? R.drawable.fix_button_style
-				: R.drawable.button_style);
+		btn.setBackgroundResource(R.drawable.button_style);
 	}
 
 	public boolean isFixed() {

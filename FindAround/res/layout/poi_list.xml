@@ -4,11 +4,17 @@
     android:layout_height="match_parent"
     android:background="@color/white" >
 
+    <com.baidu.mapapi.MapView
+        android:id="@+id/mvMap"
+        android:layout_width="fill_parent"
+        android:layout_height="288dip"
+        android:clickable="true" />
+
     <RelativeLayout
         android:id="@+id/tbTitle"
         android:layout_width="match_parent"
         android:layout_height="48dip"
-        android:background="@drawable/bottombar" >
+        android:background="#AA000000" >
 
         <ImageView
             android:id="@+id/btnLeft"
@@ -37,7 +43,6 @@
             android:layout_marginLeft="8dip"
             android:layout_toRightOf="@+id/ivSplit1"
             android:gravity="left|center_vertical"
-            android:text="@string/list_result"
             android:textColor="@color/white"
             android:textSize="18dip" />
 
@@ -66,29 +71,83 @@
             android:contentDescription="@null" />
     </RelativeLayout>
 
-    <com.baidu.mapapi.MapView
-        android:id="@+id/mvMap"
-        android:layout_width="fill_parent"
-        android:layout_height="240dip"
-        android:layout_below="@+id/tbTitle"
-        android:clickable="true" />
-
     <ListView
         android:id="@+id/lvPoi"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/imgBottom"
         android:layout_below="@+id/mvMap"
         android:cacheColorHint="#00000000" >
     </ListView>
 
-    <ImageView
-        android:id="@+id/imgBottom"
+    <RelativeLayout
+        android:id="@+id/layMapBottom"
         android:layout_width="fill_parent"
-        android:layout_height="4dip"
+        android:layout_height="48dip"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottombar"
-        android:contentDescription="@null" />
+        android:background="#AA000000"
+        android:visibility="gone" >
+
+        <RelativeLayout
+            android:id="@+id/layGeoItem"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginLeft="8dip"
+            android:visibility="gone" >
+
+            <TextView
+                android:id="@+id/tvPoiName"
+                android:layout_width="fill_parent"
+                android:layout_height="24dip"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/white"
+                android:textSize="16dip" />
+
+            <TextView
+                android:id="@+id/tvPoiAddress"
+                android:layout_width="fill_parent"
+                android:layout_height="24dip"
+                android:layout_below="@+id/tvPoiName"
+                android:ellipsize="marquee"
+                android:gravity="left|center_vertical"
+                android:maxLines="1"
+                android:maxWidth="280dip"
+                android:singleLine="true"
+                android:textColor="@color/silver"
+                android:textSize="12dip" />
+
+            <Button
+                android:id="@+id/btnPoiDistance"
+                android:layout_width="110dip"
+                android:layout_height="fill_parent"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/btn_route_style"
+                android:focusable="false"
+                android:gravity="center"
+                android:text="@string/route"
+                android:textColor="#FF372100"
+                android:textSize="16dip" />
+
+            <ImageView
+                android:id="@+id/imgSearch"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:layout_marginRight="75dip"
+                android:background="@drawable/search_route"
+                android:contentDescription="@null" />
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/btnReturnList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:background="@drawable/address_bar_background"
+            android:text="@string/return_list"
+            android:textColor="@color/white"
+            android:visibility="gone" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tvLoading"

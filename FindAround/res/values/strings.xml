@@ -35,7 +35,7 @@
     <string name="address">地址</string>
     <string name="mark_clicked">标点被点击</string>
     <string name="poi">兴趣点</string>
-    <string name="route">路径</string>
+    <string name="route">&#160;&#160;&#160;&#160;&#160;&#160;&#160;&#160;查看路线</string>
     <string name="busline">公交线</string>
     
     <string name="city_sh">上海</string>
@@ -87,4 +87,7 @@
 	<string name="add_keyword_hint">在此输入搜索关键字，按确定可将关键字加入到列表</string>
 	<string name="view_map">浏览搜索结果</string>
 	<string name="meter">米</string>
+	
+	<string name="return_list">显示结果列表</string>
+	<string name="nearby" formatted="false">附近的%s</string>
 </resources>

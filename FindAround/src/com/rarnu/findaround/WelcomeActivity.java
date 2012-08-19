@@ -48,6 +48,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	ImageView ivArr, ivSplit;
 	InputMethodManager inputMgr;
 	GridPageSearch pageSearch;
+	RelativeLayout layBottom;
 
 	// CellLocationManager locationManager = null;
 
@@ -112,6 +113,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		super.mappingComponents();
 		pageSearch = new GridPageSearch(this);
 		layPoints = (PointBar) findViewById(R.id.layPoints);
+		layBottom = (RelativeLayout) findViewById(R.id.layBottom);
 		tvAddress = (TextView) findViewById(R.id.tvAddress);
 		gButtons = (ScrollLayout) findViewById(R.id.gButtons);
 		ivArr = (ImageView) findViewById(R.id.ivArr);
@@ -128,8 +130,8 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		gButtons.setToScreen(1);
 		layPoints.setPoint(1);
 		tvName.setOnClickListener(this);
-		btnRight.setVisibility(View.VISIBLE);
-		btnRight.setOnClickListener(this);
+		// btnRight.setVisibility(View.VISIBLE);
+		// btnRight.setOnClickListener(this);
 		gButtons.setOnScreenChangeListener(this);
 		pageSearch.getEdit().setOnKeyListener(new OnKeyListener() {
 
@@ -146,7 +148,8 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 			}
 		});
 
-		tvAddress.setOnClickListener(this);
+		layBottom.setOnClickListener(this);
+
 	}
 
 	private void initGrid9() {
@@ -208,7 +211,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 
 			break;
 		case R.id.btnRight:
-			GlobalInstance.search.locate();
+
 			break;
 
 		case R.id.diagBtn1:
@@ -223,14 +226,15 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 			Intent inSettings = new Intent(this, SettingsActivity.class);
 			startActivity(inSettings);
 			break;
-		case R.id.tvAddress:
-			Intent inStreet = new Intent(this, StreetViewActivity.class);
-			startActivity(inStreet);
+		case R.id.layBottom:
+			GlobalInstance.search.locate();
+			// Intent inStreet = new Intent(this, StreetViewActivity.class);
+			// startActivity(inStreet);
 			break;
 		}
 
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode != RESULT_OK) {

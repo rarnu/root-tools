@@ -4,11 +4,17 @@
     android:layout_height="match_parent"
     android:background="@color/white" >
 
+    <com.baidu.mapapi.MapView
+        android:id="@+id/mvMap"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:clickable="true" />
+
     <RelativeLayout
         android:id="@+id/tbTitle"
         android:layout_width="match_parent"
         android:layout_height="48dip"
-        android:background="@drawable/bottombar" >
+        android:background="#AA000000" >
 
         <ImageView
             android:id="@+id/btnLeft"
@@ -65,76 +71,64 @@
             android:contentDescription="@null" />
     </RelativeLayout>
 
+    <ImageView
+        android:id="@+id/imgCross"
+        android:layout_width="8dip"
+        android:layout_height="8dip"
+        android:layout_centerInParent="true"
+        android:background="@drawable/cross"
+        android:contentDescription="@null" />
+
     <RelativeLayout
+        android:id="@+id/layRoute"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_below="@+id/tbTitle" >
-
-        <com.baidu.mapapi.MapView
-            android:id="@+id/mvMap"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:clickable="true" />
-
-        <ImageView
-            android:id="@+id/imgCross"
-            android:layout_width="8dip"
-            android:layout_height="8dip"
-            android:layout_centerInParent="true"
-            android:background="@drawable/cross"
-            android:contentDescription="@null" />
+        android:layout_height="48dip"
+        android:layout_alignParentBottom="true"
+        android:background="#AA000000" >
 
         <RelativeLayout
-            android:id="@+id/layRoute"
+            android:id="@+id/btnPrior"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dip" >
+
+            <ImageView
+                android:id="@+id/imgPrior"
+                android:layout_width="16dip"
+                android:layout_height="33dip"
+                android:layout_centerInParent="true"
+                android:background="@drawable/route_left"
+                android:contentDescription="@null" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvRoute"
             android:layout_width="fill_parent"
-            android:layout_height="48dip"
-            android:layout_alignParentBottom="true"
-            android:background="#AA000000" >
+            android:layout_height="fill_parent"
+            android:layout_margin="4dip"
+            android:layout_toLeftOf="@+id/btnNext"
+            android:layout_toRightOf="@+id/btnPrior"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="4dip"
+            android:textColor="@color/white"
+            android:textSize="12dip" />
 
-            <RelativeLayout
-                android:id="@+id/btnPrior"
-                android:layout_width="40dip"
-                android:layout_height="40dip"
-                android:layout_centerVertical="true"
-                android:layout_marginLeft="4dip" >
+        <RelativeLayout
+            android:id="@+id/btnNext"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dip" >
 
-                <ImageView
-                    android:id="@+id/imgPrior"
-                    android:layout_width="16dip"
-                    android:layout_height="33dip"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/route_left"
-                    android:contentDescription="@null" />
-            </RelativeLayout>
-
-            <TextView
-                android:id="@+id/tvRoute"
-                android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_margin="4dip"
-                android:layout_toLeftOf="@+id/btnNext"
-                android:layout_toRightOf="@+id/btnPrior"
-                android:gravity="left|center_vertical"
-                android:paddingLeft="4dip"
-                android:textColor="@color/white"
-                android:textSize="12dip" />
-
-            <RelativeLayout
-                android:id="@+id/btnNext"
-                android:layout_width="40dip"
-                android:layout_height="40dip"
-                android:layout_alignParentRight="true"
-                android:layout_centerVertical="true"
-                android:layout_marginRight="4dip" >
-
-                <ImageView
-                    android:id="@+id/imgNext"
-                    android:layout_width="16dip"
-                    android:layout_height="33dip"
-                    android:layout_centerInParent="true"
-                    android:background="@drawable/route_right"
-                    android:contentDescription="@null" />
-            </RelativeLayout>
+            <ImageView
+                android:id="@+id/imgNext"
+                android:layout_width="16dip"
+                android:layout_height="33dip"
+                android:layout_centerInParent="true"
+                android:background="@drawable/route_right"
+                android:contentDescription="@null" />
         </RelativeLayout>
     </RelativeLayout>
 

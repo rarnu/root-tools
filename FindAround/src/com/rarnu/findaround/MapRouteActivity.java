@@ -32,13 +32,13 @@ public class MapRouteActivity extends BaseMapActivity implements
 
 	SelfPosOverlay overlay;
 	// MarkOverlay markOverlay;
-
 	String city;
 
 	RouteOverlay walkOverlay;
 	RouteOverlay driveOverlay;
 
 	Drawable markerStart, markerEnd;
+	int listStyle = 0;
 	// PopupView popup;
 
 	// [/region]
@@ -58,6 +58,7 @@ public class MapRouteActivity extends BaseMapActivity implements
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
 		setContentView(R.layout.main);
+		listStyle = getIntent().getIntExtra("style", 0);
 		init();
 	}
 
@@ -94,6 +95,14 @@ public class MapRouteActivity extends BaseMapActivity implements
 		GlobalInstance.search.stop();
 		unregisterReceiver(myreceiver);
 		super.onPause();
+	}
+
+	@Override
+	protected void onDestroy() {
+		mvMap.getController().setZoom(
+				listStyle == 0 ? mvMap.getMaxZoomLevel() - 2 : mvMap
+						.getMaxZoomLevel());
+		super.onDestroy();
 	}
 
 	// [/region]
@@ -158,7 +167,7 @@ public class MapRouteActivity extends BaseMapActivity implements
 		markerStart = getResources().getDrawable(R.drawable.mypos);
 		markerStart.setBounds(0, 0, UIUtils.dipToPx(14), UIUtils.dipToPx(22));
 
-		markerEnd = getResources().getDrawable(R.drawable.marker_green);
+		markerEnd = getResources().getDrawable(R.drawable.marker_focus);
 		markerEnd.setBounds(0, 0, UIUtils.dipToPx(19), UIUtils.dipToPx(24));
 
 		// markOverlay = new MarkOverlay(markerEnd, popup, mvMap);
