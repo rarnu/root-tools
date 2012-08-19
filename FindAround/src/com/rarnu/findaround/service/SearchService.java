@@ -2,6 +2,7 @@ package com.rarnu.findaround.service;
 
 import java.util.ArrayList;
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -31,6 +32,7 @@ import com.rarnu.findaround.api.BaiduAPI;
 import com.rarnu.findaround.common.Config;
 import com.rarnu.findaround.common.GeoPointOri;
 
+@SuppressLint("HandlerLeak")
 public class SearchService extends ContextWrapper implements MKSearchListener,
 		LocationListener {
 
@@ -42,7 +44,7 @@ public class SearchService extends ContextWrapper implements MKSearchListener,
 		this.application = application;
 
 		mSearch = new MKSearch();
-		MKSearch.setPoiPageCapacity(Config.getResultCount(this));
+
 		mSearch.init(application.getMapManager(), this);
 
 	}
@@ -57,7 +59,7 @@ public class SearchService extends ContextWrapper implements MKSearchListener,
 
 		start();
 	}
-	
+
 	public void start() {
 		application.getMapManager().start();
 	}
@@ -65,9 +67,10 @@ public class SearchService extends ContextWrapper implements MKSearchListener,
 	public void stop() {
 		application.getMapManager().stop();
 	}
-	
+
 	public void searchPoi(String keyword) {
 		application.getMapManager().start();
+		MKSearch.setPoiPageCapacity(Config.getResultCount(this));
 		mSearch.poiSearchNearBy(keyword, GlobalInstance.point,
 				Config.getDist(this));
 	}
@@ -120,7 +123,7 @@ public class SearchService extends ContextWrapper implements MKSearchListener,
 		if (error == 0 && res != null) {
 			if (res.getAllPoi() != null && res.getAllPoi().size() != 0) {
 				GlobalInstance.listPoi = new ArrayList<PoiInfoEx>();
-				for (MKPoiInfo info: res.getAllPoi()) {
+				for (MKPoiInfo info : res.getAllPoi()) {
 					PoiInfoEx item = new PoiInfoEx();
 					item.info = info;
 					item.showButton = false;

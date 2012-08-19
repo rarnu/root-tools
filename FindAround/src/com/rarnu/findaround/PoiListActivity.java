@@ -15,6 +15,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -34,8 +35,6 @@ import com.rarnu.findaround.map.NoTouchOverlay;
 public class PoiListActivity extends BaseMapActivity implements
 		OnClickListener, OnItemClickListener {
 
-	// private static final int POPUP_ID = 100001;
-
 	MapView mvMap;
 	NoTouchOverlay noTouchOverlay;
 	ListView lvPoi;
@@ -47,6 +46,7 @@ public class PoiListActivity extends BaseMapActivity implements
 	Button btnReturnList;
 	TextView tvPoiName, tvPoiAddress;
 	Button btnPoiDistance;
+	ImageView ivSplit;
 
 	Drawable marker, markerGreen;
 	boolean mapMode = false;
@@ -95,12 +95,19 @@ public class PoiListActivity extends BaseMapActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		Log.e("PoiListActivity", "onCreate");
 		setContentView(R.layout.poi_list);
 		init();
+		GlobalInstance.selectedInfo = null;
 		keyword = getIntent().getStringExtra("keyword");
+		Log.e("keyword", keyword);
 		tvName.setText(String.format(getString(R.string.nearby), keyword));
 		GlobalInstance.search.start();
-
+		// setResult(RESULT_CANCELED);
+		if (getIntent().getBooleanExtra("exists", true)) {
+			ivSplit.setVisibility(View.GONE);
+			btnRight.setVisibility(View.GONE);
+		}
 	}
 
 	@Override
@@ -180,7 +187,7 @@ public class PoiListActivity extends BaseMapActivity implements
 		tvLoading = (TextView) findViewById(R.id.tvLoading);
 		lvPoi = (ListView) findViewById(R.id.lvPoi);
 		tvName.setText(R.string.list_result);
-
+		ivSplit = (ImageView) findViewById(R.id.ivSplit);
 		layMapBottom = (RelativeLayout) findViewById(R.id.layMapBottom);
 		layGeoItem = (RelativeLayout) findViewById(R.id.layGeoItem);
 		btnReturnList = (Button) findViewById(R.id.btnReturnList);
@@ -197,7 +204,13 @@ public class PoiListActivity extends BaseMapActivity implements
 			finish();
 			break;
 		case R.id.btnRight:
-			mvMap.getController().animateTo(GlobalInstance.point);
+			Intent inKey = new Intent();
+			inKey.putExtra("keyword", keyword);
+			setResult(RESULT_OK, inKey);
+			Toast.makeText(this, R.string.add_keyword_to_screen,
+					Toast.LENGTH_LONG).show();
+			ivSplit.setVisibility(View.GONE);
+			btnRight.setVisibility(View.GONE);
 			break;
 		case R.id.btnReturnList:
 			setMode(false);
@@ -206,7 +219,6 @@ public class PoiListActivity extends BaseMapActivity implements
 			showRoute();
 			break;
 		}
-
 	}
 
 	@Override
@@ -266,6 +278,7 @@ public class PoiListActivity extends BaseMapActivity implements
 			mvMap.setLayoutParams(mapParam);
 			mvMap.getController().setZoom(mvMap.getMaxZoomLevel() - 2);
 			mvMap.getController().animateTo(GlobalInstance.point);
+			GlobalInstance.selectedInfo = null;
 		}
 		noTouchOverlay.setMapMode(mapMode);
 

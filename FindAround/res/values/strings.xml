@@ -6,7 +6,7 @@
     <string name="save">保存</string>
     
     <string name="list">列表</string>
-    <string name="hint_search">搜索 iPhone</string>
+    <string name="hint_search">搜索周边</string>
     <string name="list_result">搜索结果列表</string>
     <string name="addressing">正在获取地址&#8230;</string>
     <string name="locating">正在定位，请稍候&#8230;</string>
@@ -89,5 +89,8 @@
 	<string name="meter">米</string>
 	
 	<string name="return_list">显示结果列表</string>
+	<string name="return_map">显示地图视图</string>
 	<string name="nearby" formatted="false">附近的%s</string>
+	<string name="aim_address" formatted="false">目标地址:\n&#160;&#160;&#160;&#160;%s</string>
+	<string name="add_keyword_to_screen">已添加关键字到主屏</string>
 </resources>

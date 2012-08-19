@@ -8,8 +8,11 @@ import android.content.Context;
 
 public class PageUtils {
 
+	private static List<String> lstKeywordsFull = new ArrayList<String>();
+
 	public static List<PageItem[]> buildPages(Context context) {
 
+		lstKeywordsFull.clear();
 		List<PageItem[]> result = new ArrayList<PageItem[]>();
 		List<FixedPageItem> fixed = getFixedPageItem(context);
 		List<String> keywords = Config.getKeywordsList(context);
@@ -35,6 +38,7 @@ public class PageUtils {
 			if (fixed.get(i).page == page) {
 				items[fixed.get(i).position].name = fixed.get(i).name;
 				items[fixed.get(i).position].fixed = true;
+				lstKeywordsFull.add(items[fixed.get(i).position].name);
 				fixed.remove(i);
 			}
 		}
@@ -43,6 +47,7 @@ public class PageUtils {
 				if (keywords.size() != 0) {
 					items[i].name = keywords.get(keywords.size() - 1);
 					items[i].fixed = false;
+					lstKeywordsFull.add(items[i].name);
 					keywords.remove(keywords.size() - 1);
 				} else {
 					break;
@@ -66,11 +71,11 @@ public class PageUtils {
 		}
 		return result;
 	}
-	
+
 	public static boolean isLockedItem(Context context, String keyword) {
 		boolean ret = false;
 		List<FixedPageItem> list = getFixedPageItem(context);
-		for (FixedPageItem item: list) {
+		for (FixedPageItem item : list) {
 			if (item.name.equals("")) {
 				ret = true;
 				break;
@@ -93,4 +98,8 @@ public class PageUtils {
 		return pageCount;
 	}
 
+	public static boolean isKeywordExists(String keyword) {
+
+		return (lstKeywordsFull.indexOf(keyword) != -1);
+	}
 }

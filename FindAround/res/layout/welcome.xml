@@ -45,7 +45,8 @@
             android:layout_marginLeft="4dip"
             android:layout_toRightOf="@+id/tvName"
             android:background="@drawable/btn_arr"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:visibility="gone" />
 
         <ImageView
             android:id="@+id/ivSplit"
@@ -54,7 +55,7 @@
             android:layout_toLeftOf="@+id/btnRight"
             android:background="@drawable/split"
             android:contentDescription="@null"
-            android:visibility="gone" />
+             />
 
         <Button
             android:id="@+id/btnRight"
@@ -64,9 +65,9 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="16dip"
-            android:background="@drawable/btn_locate_style"
+            android:background="@drawable/btn_settings_style"
             android:contentDescription="@null"
-            android:visibility="gone" />
+             />
     </RelativeLayout>
 
     <com.rarnu.findaround.comp.ScrollLayout

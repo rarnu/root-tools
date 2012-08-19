@@ -67,7 +67,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="16dip"
-            android:background="@drawable/btn_locate_style"
+            android:background="@drawable/btn_walk"
             android:contentDescription="@null" />
     </RelativeLayout>
 
@@ -80,6 +80,50 @@
         android:contentDescription="@null" />
 
     <RelativeLayout
+        android:id="@+id/layListMode"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tbTitle"
+        android:background="#DDFFFFFF" >
+
+        <TextView
+            android:id="@+id/tvAimAddress"
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:layout_margin="8dip"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/black"
+            android:textSize="16dip" />
+
+        <TextView
+            android:id="@+id/splitRouteList"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_below="@+id/tvAimAddress"
+            android:background="@color/silver" />
+
+        <ListView
+            android:id="@+id/lvRouteList"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/btnReturnMap"
+            android:layout_below="@+id/splitRouteList"
+            android:divider="@color/silver"
+            android:dividerHeight="1dip"
+            android:cacheColorHint="#00000000" >
+        </ListView>
+
+        <Button
+            android:id="@+id/btnReturnMap"
+            android:layout_width="fill_parent"
+            android:layout_height="48dip"
+            android:layout_alignParentBottom="true"
+            android:background="#AA000000"
+            android:text="@string/return_map"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/layRoute"
         android:layout_width="fill_parent"
         android:layout_height="48dip"
@@ -87,11 +131,28 @@
         android:background="#AA000000" >
 
         <RelativeLayout
-            android:id="@+id/btnPrior"
+            android:id="@+id/btnListMode"
             android:layout_width="40dip"
             android:layout_height="40dip"
             android:layout_centerVertical="true"
             android:layout_marginLeft="4dip" >
+
+            <ImageView
+                android:id="@+id/imgListMode"
+                android:layout_width="36dip"
+                android:layout_height="36dip"
+                android:layout_centerInParent="true"
+                android:background="@drawable/btn_list_mode"
+                android:contentDescription="@null" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btnPrior"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dip"
+            android:layout_toRightOf="@+id/btnListMode" >
 
             <ImageView
                 android:id="@+id/imgPrior"

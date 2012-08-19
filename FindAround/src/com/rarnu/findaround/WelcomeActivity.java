@@ -4,8 +4,6 @@ import java.util.List;
 
 import android.content.BroadcastReceiver;
 import android.content.Context;
-import android.content.DialogInterface;
-import android.content.DialogInterface.OnCancelListener;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
@@ -129,20 +127,28 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		initGrid9();
 		gButtons.setToScreen(1);
 		layPoints.setPoint(1);
-		tvName.setOnClickListener(this);
+		// tvName.setOnClickListener(this);
 		// btnRight.setVisibility(View.VISIBLE);
-		// btnRight.setOnClickListener(this);
+		btnRight.setOnClickListener(this);
 		gButtons.setOnScreenChangeListener(this);
 		pageSearch.getEdit().setOnKeyListener(new OnKeyListener() {
 
 			@Override
 			public boolean onKey(View v, int keyCode, KeyEvent event) {
-				if (keyCode == KeyEvent.KEYCODE_ENTER) {
-					String tag = ((LineEditText) v).getText().toString();
-					((LineEditText) v).setText("");
-					onKeywordClick(v, tag);
-					gButtons.snapToScreen(1);
-					addKeyword(tag);
+				if (event.getAction() == KeyEvent.ACTION_DOWN) {
+					if (keyCode == KeyEvent.KEYCODE_ENTER) {
+						String tag = ((LineEditText) v).getText().toString();
+						((LineEditText) v).setText("");
+						if (tag != null) {
+							tag = tag.trim();
+							if (!tag.equals("")) {
+								onKeywordClick(v, tag);
+								gButtons.snapToScreen(1);
+							}
+						}
+
+						return true;
+					}
 				}
 				return false;
 			}
@@ -191,45 +197,12 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 
 		switch (v.getId()) {
-		case R.id.tvName:
-			if (menu == null) {
-				menu = new PopupMenuDialog(this, R.style.dialog);
-				menu.setCanceledOnTouchOutside(true);
-				menu.setOnCancelListener(new OnCancelListener() {
-
-					@Override
-					public void onCancel(DialogInterface dialog) {
-						menu = null;
-
-					}
-				});
-				menu.getButton(0).setOnClickListener(this);
-				menu.getButton(1).setOnClickListener(this);
-			}
-
-			menu.show();
-
-			break;
 		case R.id.btnRight:
-
-			break;
-
-		case R.id.diagBtn1:
-			menu.cancel();
-			setEditMode(false);
-			Intent inKeyword = new Intent(this, KeywordsActivity.class);
-			startActivityForResult(inKeyword, 0);
-			break;
-		case R.id.diagBtn2:
-			menu.cancel();
-			setEditMode(false);
 			Intent inSettings = new Intent(this, SettingsActivity.class);
 			startActivity(inSettings);
 			break;
 		case R.id.layBottom:
 			GlobalInstance.search.locate();
-			// Intent inStreet = new Intent(this, StreetViewActivity.class);
-			// startActivity(inStreet);
 			break;
 		}
 
@@ -240,31 +213,12 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		if (resultCode != RESULT_OK) {
 			return;
 		}
-		if (requestCode == 0) {
-			// TODO: add result
+		switch (requestCode) {
+		case 0:
+			addKeyword(data.getStringExtra("keyword"));
+			break;
 		}
 	}
-
-	// public void doCellLocation() {
-	// CellInfoManager cellManager = new CellInfoManager(this);
-	// WifiInfoManager wifiManager = new WifiInfoManager(this);
-	// CellLocationManager locationManager = new CellLocationManager(this,
-	// cellManager, wifiManager) {
-	// @Override;
-	// public void onLocationChanged() {
-	//
-	// GlobalInstance.point = new GeoPoint(
-	// (int) (this.latitude() * 1e6),
-	// (int) (this.longitude() * 1e6));
-	// GlobalInstance.pointOri = new GeoPointOri(this.latitude(),
-	// this.longitude());
-	// tvAddress.setText(R.string.addressing);
-	//
-	// getAddressByGeo(this.latitude(), this.longitude());
-	// }
-	// };
-	// locationManager.start();
-	// }
 
 	class MapReceiver extends BroadcastReceiver {
 
@@ -355,9 +309,18 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 					.show();
 			return;
 		}
+
+		if (tag == null) {
+			return;
+		}
+		tag = tag.trim();
+		if (tag.equals("")) {
+			return;
+		}
 		Intent inList = new Intent(this, PoiListActivity.class);
 		inList.putExtra("keyword", tag);
-		startActivity(inList);
+		inList.putExtra("exists", PageUtils.isKeywordExists(tag));
+		startActivityForResult(inList, 0);
 
 	}
 
@@ -384,17 +347,11 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		layPoints.setPoint(screen);
 
 		if (screen == 0) {
-			ivArr.setVisibility(View.INVISIBLE);
-			ivSplit.setVisibility(View.INVISIBLE);
-			btnRight.setVisibility(View.INVISIBLE);
-			tvName.setOnClickListener(null);
+
 			inputMgr.showSoftInput(pageSearch.getEdit(),
 					InputMethodManager.SHOW_IMPLICIT);
 		} else {
-			ivArr.setVisibility(View.VISIBLE);
-			ivSplit.setVisibility(View.VISIBLE);
-			btnRight.setVisibility(View.VISIBLE);
-			tvName.setOnClickListener(this);
+
 			inputMgr.hideSoftInputFromWindow(
 					getCurrentFocus().getWindowToken(),
 					InputMethodManager.HIDE_NOT_ALWAYS);

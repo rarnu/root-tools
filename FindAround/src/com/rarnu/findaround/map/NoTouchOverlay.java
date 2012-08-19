@@ -16,6 +16,7 @@ import com.baidu.mapapi.ItemizedOverlay;
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.OverlayItem;
 import com.rarnu.findaround.GlobalInstance;
+import com.rarnu.findaround.common.UIUtils;
 
 public class NoTouchOverlay extends ItemizedOverlay<OverlayItem> {
 
@@ -75,11 +76,17 @@ public class NoTouchOverlay extends ItemizedOverlay<OverlayItem> {
 
 	@Override
 	public boolean onTouchEvent(MotionEvent event, MapView mapView) {
+		if (event.getY() < UIUtils.dipToPx(48)
+				|| event.getY() > (UIUtils.getHeight() - UIUtils.dipToPx(48))) {
+			return true;
+		}
 		if (!mapMode) {
 			if (event.getAction() == MotionEvent.ACTION_UP) {
+
 				if (hJump != null) {
 					hJump.sendEmptyMessage(1);
 				}
+
 			}
 			return true;
 		} else {

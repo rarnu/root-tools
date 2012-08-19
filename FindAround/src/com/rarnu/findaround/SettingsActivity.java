@@ -11,10 +11,9 @@ import com.rarnu.findaround.common.Config;
 
 public class SettingsActivity extends BaseActivity implements OnClickListener {
 
-	RelativeLayout layDist1, layDist2, layDist3, layMethod1, layMethod2,
-			layCount1, layCount2, layCount3;
-	ImageView imgDist1, imgDist2, imgDist3, imgMethod1, imgMethod2, imgCount1,
-			imgCount2, imgCount3;
+	RelativeLayout layDist1, layDist2, layDist3, layCount1, layCount2,
+			layCount3;
+	ImageView imgDist1, imgDist2, imgDist3, imgCount1, imgCount2, imgCount3;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -42,16 +41,13 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		layCount1 = (RelativeLayout) findViewById(R.id.layCount1);
 		layCount2 = (RelativeLayout) findViewById(R.id.layCount2);
 		layCount3 = (RelativeLayout) findViewById(R.id.layCount3);
-		layMethod1 = (RelativeLayout) findViewById(R.id.layMethod1);
-		layMethod2 = (RelativeLayout) findViewById(R.id.layMethod2);
+
 		imgDist1 = (ImageView) findViewById(R.id.imgDist1);
 		imgDist2 = (ImageView) findViewById(R.id.imgDist2);
 		imgDist3 = (ImageView) findViewById(R.id.imgDist3);
 		imgCount1 = (ImageView) findViewById(R.id.imgCount1);
 		imgCount2 = (ImageView) findViewById(R.id.imgCount2);
 		imgCount3 = (ImageView) findViewById(R.id.imgCount3);
-		imgMethod1 = (ImageView) findViewById(R.id.imgMethod1);
-		imgMethod2 = (ImageView) findViewById(R.id.imgMethod2);
 
 	}
 
@@ -60,8 +56,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		layDist1.setOnClickListener(this);
 		layDist2.setOnClickListener(this);
 		layDist3.setOnClickListener(this);
-		layMethod1.setOnClickListener(this);
-		layMethod2.setOnClickListener(this);
 
 		layCount1.setOnClickListener(this);
 		layCount2.setOnClickListener(this);
@@ -84,17 +78,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 			imgDist3.setBackgroundResource(R.drawable.checked);
 			break;
 		}
-		int method = Config.getMethod(this);
-		imgMethod1.setBackgroundDrawable(null);
-		imgMethod2.setBackgroundDrawable(null);
-		switch (method) {
-		case 1:
-			imgMethod1.setBackgroundResource(R.drawable.checked);
-			break;
-		case 2:
-			imgMethod2.setBackgroundResource(R.drawable.checked);
-			break;
-		}
+
 		int count = Config.getResultCount(this);
 		imgCount1.setBackgroundDrawable(null);
 		imgCount2.setBackgroundDrawable(null);
@@ -136,16 +120,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		case R.id.layCount3:
 			Config.setResultCount(this, 30);
 			break;
-		case R.id.layMethod1:
-			Config.setMethod(this, 1);
-			break;
-		case R.id.layMethod2:
-			Config.setMethod(this, 2);
-			break;
-		// case R.id.layKeywords:
-		// Intent inKeywords = new Intent(this, KeywordsActivity.class);
-		// startActivity(inKeywords);
-		// break;
+
 		}
 		initSettings();
 	}

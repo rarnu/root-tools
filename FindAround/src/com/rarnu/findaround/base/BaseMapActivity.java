@@ -33,7 +33,6 @@ public class BaseMapActivity extends MapActivity {
 
 	@Override
 	protected boolean isRouteDisplayed() {
-		// TODO Auto-generated method stub
 		return false;
 	}
 }

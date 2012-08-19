@@ -8,16 +8,19 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.baidu.mapapi.MapView;
 import com.baidu.mapapi.Overlay;
-import com.baidu.mapapi.RouteOverlay;
+import com.rarnu.findaround.adapter.RouteAdapter;
 import com.rarnu.findaround.base.BaseMapActivity;
 import com.rarnu.findaround.common.Config;
 import com.rarnu.findaround.common.UIUtils;
+import com.rarnu.findaround.map.RouteOverlayEx;
 import com.rarnu.findaround.map.SelfPosOverlay;
 
 public class MapRouteActivity extends BaseMapActivity implements
@@ -34,11 +37,13 @@ public class MapRouteActivity extends BaseMapActivity implements
 	// MarkOverlay markOverlay;
 	String city;
 
-	RouteOverlay walkOverlay;
-	RouteOverlay driveOverlay;
+	RouteOverlayEx walkOverlay;
+	RouteOverlayEx driveOverlay;
 
 	Drawable markerStart, markerEnd;
 	int listStyle = 0;
+	ImageView imgCross;
+	TextView tvAimAddress;
 	// PopupView popup;
 
 	// [/region]
@@ -47,9 +52,15 @@ public class MapRouteActivity extends BaseMapActivity implements
 
 	TextView tvLoading;
 	RelativeLayout layRoute;
-	RelativeLayout btnPrior, btnNext;
+	RelativeLayout btnPrior, btnNext, btnListMode;
 	ImageView imgPrior, imgNext;
 	TextView tvRoute;
+	RelativeLayout layListMode;
+	Button btnReturnMap;
+	ListView lvRouteList;
+	RouteAdapter routeAdapter;
+
+	boolean mapMode = true;
 
 	// [/region]
 
@@ -57,9 +68,20 @@ public class MapRouteActivity extends BaseMapActivity implements
 	@Override
 	protected void onCreate(Bundle arg0) {
 		super.onCreate(arg0);
-		setContentView(R.layout.main);
+		setContentView(R.layout.map_route);
 		listStyle = getIntent().getIntExtra("style", 0);
 		init();
+
+		tvAimAddress.setText(String.format(getString(R.string.aim_address),
+				GlobalInstance.selectedInfo.address));
+
+		if (Config.getMethod(this) == 2) {
+			btnRight.setBackgroundResource(R.drawable.btn_walk);
+		} else {
+			btnRight.setBackgroundResource(R.drawable.btn_drive);
+		}
+
+		setMode(true);
 	}
 
 	@Override
@@ -134,14 +156,18 @@ public class MapRouteActivity extends BaseMapActivity implements
 		super.mappingComponents();
 		tvLoading = (TextView) findViewById(R.id.tvLoading);
 		mvMap = (MapView) findViewById(R.id.mvMap);
-
+		imgCross = (ImageView) findViewById(R.id.imgCross);
 		layRoute = (RelativeLayout) findViewById(R.id.layRoute);
 		btnPrior = (RelativeLayout) findViewById(R.id.btnPrior);
 		btnNext = (RelativeLayout) findViewById(R.id.btnNext);
+		btnListMode = (RelativeLayout) findViewById(R.id.btnListMode);
 		imgPrior = (ImageView) findViewById(R.id.imgPrior);
 		imgNext = (ImageView) findViewById(R.id.imgNext);
 		tvRoute = (TextView) findViewById(R.id.tvRoute);
-
+		layListMode = (RelativeLayout) findViewById(R.id.layListMode);
+		btnReturnMap = (Button) findViewById(R.id.btnReturnMap);
+		tvAimAddress = (TextView) findViewById(R.id.tvAimAddress);
+		lvRouteList = (ListView) findViewById(R.id.lvRouteList);
 		setRouteButtonVisible(false);
 	}
 
@@ -165,10 +191,10 @@ public class MapRouteActivity extends BaseMapActivity implements
 		// popup.setOnClickListener(this);
 
 		markerStart = getResources().getDrawable(R.drawable.mypos);
-		markerStart.setBounds(0, 0, UIUtils.dipToPx(14), UIUtils.dipToPx(22));
+		markerStart.setBounds(0, 0, UIUtils.dipToPx(22), UIUtils.dipToPx(25));
 
 		markerEnd = getResources().getDrawable(R.drawable.marker_focus);
-		markerEnd.setBounds(0, 0, UIUtils.dipToPx(19), UIUtils.dipToPx(24));
+		markerEnd.setBounds(0, 0, UIUtils.dipToPx(22), UIUtils.dipToPx(25));
 
 		// markOverlay = new MarkOverlay(markerEnd, popup, mvMap);
 		// mvMap.getOverlays().add(markOverlay);
@@ -181,6 +207,8 @@ public class MapRouteActivity extends BaseMapActivity implements
 		btnRight.setOnClickListener(this);
 		btnPrior.setOnClickListener(this);
 		btnNext.setOnClickListener(this);
+		btnListMode.setOnClickListener(this);
+		btnReturnMap.setOnClickListener(this);
 
 	}
 
@@ -195,7 +223,25 @@ public class MapRouteActivity extends BaseMapActivity implements
 			finish();
 			break;
 		case R.id.btnRight:
-			mvMap.getController().animateTo(GlobalInstance.point);
+			// mvMap.getController().animateTo(GlobalInstance.point);
+			if (Config.getMethod(this) == 2) {
+				Config.setMethod(this, 1);
+				btnRight.setBackgroundResource(R.drawable.btn_drive);
+
+				tvLoading.setVisibility(View.VISIBLE);
+
+				GlobalInstance.search.searchDrive(GlobalInstance.point,
+						GlobalInstance.selectedInfo.pt);
+
+			} else {
+				Config.setMethod(this, 2);
+				btnRight.setBackgroundResource(R.drawable.btn_walk);
+				tvLoading.setVisibility(View.VISIBLE);
+
+				GlobalInstance.search.searchWalk(GlobalInstance.point,
+						GlobalInstance.selectedInfo.pt);
+
+			}
 			break;
 		case R.id.btnPrior:
 			setRouteShow(false);
@@ -204,9 +250,13 @@ public class MapRouteActivity extends BaseMapActivity implements
 		case R.id.btnNext:
 			setRouteShow(true);
 			break;
-
+		case R.id.btnListMode:
+			setMode(false);
+			break;
+		case R.id.btnReturnMap:
+			setMode(true);
+			break;
 		}
-
 	}
 
 	// [/region]
@@ -219,31 +269,32 @@ public class MapRouteActivity extends BaseMapActivity implements
 		removeRouteOverlays();
 
 		if (walk) {
-			walkOverlay = new RouteOverlay(this, mvMap);
+			walkOverlay = new RouteOverlayEx(this, mvMap);
 			walkOverlay.setData(GlobalInstance.selectedRoute);
 			walkOverlay.getItem(0).setMarker(markerStart);
 			walkOverlay.getItem(GlobalInstance.selectedRoute.getNumSteps() - 1)
 					.setMarker(markerEnd);
+			walkOverlay.setMapMode(mapMode);
 			mvMap.getOverlays().add(walkOverlay);
 		} else {
-			driveOverlay = new RouteOverlay(this, mvMap);
+			driveOverlay = new RouteOverlayEx(this, mvMap);
 			driveOverlay.setData(GlobalInstance.selectedRoute);
 			driveOverlay.getItem(0).setMarker(markerStart);
 			driveOverlay
 					.getItem(GlobalInstance.selectedRoute.getNumSteps() - 1)
 					.setMarker(markerEnd);
+			driveOverlay.setMapMode(mapMode);
 			mvMap.getOverlays().add(driveOverlay);
 		}
-
-		// markOverlay.clearAll();
-		// markOverlay.addOverlay(new
-		// OverlayItem(GlobalInstance.selectedInfo.pt,
-		// GlobalInstance.selectedInfo.name,
-		// GlobalInstance.selectedInfo.address));
 
 		mvMap.invalidate();
 		mvMap.getController()
 				.animateTo(GlobalInstance.selectedRoute.getStart());
+
+		routeAdapter = new RouteAdapter(getLayoutInflater(),
+				GlobalInstance.selectedRoute);
+		lvRouteList.setAdapter(routeAdapter);
+
 		setRouteButtonVisible(true);
 		setRouteShow(true);
 
@@ -315,6 +366,7 @@ public class MapRouteActivity extends BaseMapActivity implements
 			tvRoute.setText(GlobalInstance.selectedRoute.getStep(
 					GlobalInstance.routeIndex).getContent());
 		}
+
 		mvMap.getController().animateTo(
 				GlobalInstance.selectedRoute.getStep(GlobalInstance.routeIndex)
 						.getPoint());
@@ -324,6 +376,30 @@ public class MapRouteActivity extends BaseMapActivity implements
 				.getNumSteps() - 2) ? R.drawable.route_right_disabled
 				: R.drawable.route_right);
 
+	}
+
+	private void setMode(boolean mapMode) {
+		this.mapMode = mapMode;
+		if (mapMode) {
+
+			layListMode.setVisibility(View.GONE);
+			imgCross.setVisibility(View.VISIBLE);
+			imgCross.bringToFront();
+			layRoute.setVisibility(View.VISIBLE);
+			layRoute.bringToFront();
+		} else {
+
+			imgCross.setVisibility(View.GONE);
+			layRoute.setVisibility(View.GONE);
+			layListMode.setVisibility(View.VISIBLE);
+			layListMode.bringToFront();
+		}
+		if (walkOverlay != null) {
+			walkOverlay.setMapMode(mapMode);
+		}
+		if (driveOverlay != null) {
+			driveOverlay.setMapMode(mapMode);
+		}
 	}
 
 	// [/region]
