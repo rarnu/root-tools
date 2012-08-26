@@ -8,6 +8,7 @@ import com.baidu.mapapi.GeoPoint;
 import com.baidu.mapapi.MKPoiInfo;
 import com.baidu.mapapi.MKRoute;
 import com.rarnu.findaround.adapter.PoiInfoEx;
+import com.rarnu.findaround.api.UpdateInfo;
 import com.rarnu.findaround.common.GeoPointOri;
 import com.rarnu.findaround.service.SearchService;
 
@@ -28,6 +29,7 @@ public class GlobalInstance {
 	public static String city = "";
 
 	public static boolean onTouchMutax = false;
+	public static UpdateInfo updateInfo = null;
 
 	// consts
 	public static final String NS_ANJUKE = "com.anjuke.android.app";

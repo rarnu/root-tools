@@ -28,20 +28,12 @@
             android:textColor="@color/white"
             android:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/ivSplit1"
-            android:layout_width="2dip"
-            android:layout_height="fill_parent"
-            android:layout_toRightOf="@+id/btnLeft"
-            android:background="@drawable/split"
-            android:contentDescription="@null" />
-
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="8dip"
-            android:layout_toRightOf="@+id/ivSplit1"
+            android:layout_marginLeft="16dip"
+            android:layout_toRightOf="@+id/btnLeft"
             android:gravity="left|center_vertical"
             android:textColor="@color/white"
             android:textSize="18dip" />
@@ -50,14 +42,6 @@
             android:id="@+id/backArea"
             android:layout_width="80dip"
             android:layout_height="fill_parent" />
-
-        <ImageView
-            android:id="@+id/ivSplit"
-            android:layout_width="2dip"
-            android:layout_height="fill_parent"
-            android:layout_toLeftOf="@+id/btnRight"
-            android:background="@drawable/split"
-            android:contentDescription="@null" />
 
         <Button
             android:id="@+id/btnRight"
@@ -84,12 +68,12 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/tbTitle"
-        android:background="#DDFFFFFF" >
+        android:background="#BBFFFFFF" >
 
         <TextView
             android:id="@+id/tvAimAddress"
             android:layout_width="fill_parent"
-            android:layout_height="48dip"
+            android:layout_height="64dip"
             android:layout_margin="8dip"
             android:gravity="left|center_vertical"
             android:textColor="@color/black"
@@ -108,9 +92,9 @@
             android:layout_height="fill_parent"
             android:layout_above="@+id/btnReturnMap"
             android:layout_below="@+id/splitRouteList"
+            android:cacheColorHint="#00000000"
             android:divider="@color/silver"
-            android:dividerHeight="1dip"
-            android:cacheColorHint="#00000000" >
+            android:dividerHeight="1dip" >
         </ListView>
 
         <Button
@@ -130,29 +114,32 @@
         android:layout_alignParentBottom="true"
         android:background="#AA000000" >
 
-        <RelativeLayout
+        <Button
             android:id="@+id/btnListMode"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="4dip" >
-
-            <ImageView
-                android:id="@+id/imgListMode"
-                android:layout_width="36dip"
-                android:layout_height="36dip"
-                android:layout_centerInParent="true"
-                android:background="@drawable/btn_list_mode"
-                android:contentDescription="@null" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/btnPrior"
-            android:layout_width="40dip"
+            android:layout_width="fill_parent"
             android:layout_height="40dip"
             android:layout_centerVertical="true"
             android:layout_marginLeft="4dip"
-            android:layout_toRightOf="@+id/btnListMode" >
+            android:layout_toLeftOf="@+id/ivSplitBtn"
+            android:text="@string/return_route"
+            android:background="@null"
+            android:textColor="@color/white" />
+
+        <ImageView
+            android:id="@+id/ivSplitBtn"
+            android:layout_width="2dip"
+            android:layout_height="fill_parent"
+            android:layout_toLeftOf="@+id/btnPrior"
+            android:background="@drawable/split"
+            android:contentDescription="@null" />
+        
+        <RelativeLayout
+            android:id="@+id/btnPrior"
+            android:layout_width="80dip"
+            android:layout_height="40dip"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="4dip"
+            android:layout_toLeftOf="@+id/btnNext" >
 
             <ImageView
                 android:id="@+id/imgPrior"
@@ -163,21 +150,9 @@
                 android:contentDescription="@null" />
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tvRoute"
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_margin="4dip"
-            android:layout_toLeftOf="@+id/btnNext"
-            android:layout_toRightOf="@+id/btnPrior"
-            android:gravity="left|center_vertical"
-            android:paddingLeft="4dip"
-            android:textColor="@color/white"
-            android:textSize="12dip" />
-
         <RelativeLayout
             android:id="@+id/btnNext"
-            android:layout_width="40dip"
+            android:layout_width="80dip"
             android:layout_height="40dip"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"

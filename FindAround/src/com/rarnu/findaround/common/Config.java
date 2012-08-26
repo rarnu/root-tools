@@ -2,22 +2,53 @@ package com.rarnu.findaround.common;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.rarnu.findaround.R;
-
 public class Config {
 
-	public static List<String> getKeywordsList(Context context) {
+	public static List<String> getHistoryList(Context context) {
+		String path = "/data/data/" + context.getPackageName() + "/history";
 
-		if (getFirstLoad(context)) {
-			setKeywords(context, context.getString(R.string.init_keywords));
-			setFirstLoad(context, false);
+		try {
+			List<String> ret = FileUtils.readFile(new File(path));
+			for (int i = ret.size() - 1; i >= 0; i--) {
+				if (ret.get(i).trim().equals("")) {
+					ret.remove(i);
+				}
+			}
+			return ret;
+		} catch (Exception e) {
+			return new ArrayList<String>();
 		}
+	}
+
+	public static void saveHistoryList(Context context, List<String> list) {
+		String key = "";
+		if (list != null && list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				if (!list.get(i).trim().equals("")) {
+					key += list.get(i) + "\n";
+				}
+			}
+		}
+		setHistory(context, key);
+	}
+
+	public static void setHistory(Context context, String text) {
+		String path = "/data/data/" + context.getPackageName() + "/history";
+
+		try {
+			FileUtils.rewriteFile(new File(path), text);
+		} catch (IOException e) {
+		}
+	}
+
+	public static List<String> getKeywordsList(Context context) {
 
 		String path = "/data/data/" + context.getPackageName() + "/keywords";
 		try {
@@ -29,15 +60,17 @@ public class Config {
 			}
 			return ret;
 		} catch (IOException e) {
-			return null;
+			return new ArrayList<String>();
 		}
 	}
 
 	public static void saveKeywordList(Context context, List<String> list) {
 		String key = "";
-		for (int i = 0; i < list.size(); i++) {
-			if (!list.get(i).trim().equals("")) {
-				key += list.get(i) + "\n";
+		if (list != null && list.size() > 0) {
+			for (int i = 0; i < list.size(); i++) {
+				if (!list.get(i).trim().equals("")) {
+					key += list.get(i) + "\n";
+				}
 			}
 		}
 		setKeywords(context, key);
@@ -88,18 +121,8 @@ public class Config {
 		getSharedPreferences(context).edit().putInt(KEY_METHOD, value).commit();
 	}
 
-	private static boolean getFirstLoad(Context context) {
-		return getSharedPreferences(context).getBoolean(KEY_FIRST_LOAD, true);
-	}
-
-	private static void setFirstLoad(Context context, boolean value) {
-		getSharedPreferences(context).edit().putBoolean(KEY_FIRST_LOAD, value)
-				.commit();
-	}
-
 	private final static String KEY_DIST = "key_dist";
 	private final static String KEY_METHOD = "key_method";
-	private final static String KEY_FIRST_LOAD = "key_first_load";
 	private final static String KEY_RESULT_COUNT = "key_result_count";
 
 	private static SharedPreferences sp = null;

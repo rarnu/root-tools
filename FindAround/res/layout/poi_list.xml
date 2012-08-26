@@ -7,7 +7,7 @@
     <com.baidu.mapapi.MapView
         android:id="@+id/mvMap"
         android:layout_width="fill_parent"
-        android:layout_height="288dip"
+        android:layout_height="220dip"
         android:clickable="true" />
 
     <RelativeLayout
@@ -28,20 +28,12 @@
             android:textColor="@color/white"
             android:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/ivSplit1"
-            android:layout_width="2dip"
-            android:layout_height="fill_parent"
-            android:layout_toRightOf="@+id/btnLeft"
-            android:background="@drawable/split"
-            android:contentDescription="@null" />
-
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="8dip"
-            android:layout_toRightOf="@+id/ivSplit1"
+            android:layout_marginLeft="16dip"
+            android:layout_toRightOf="@+id/btnLeft"
             android:gravity="left|center_vertical"
             android:textColor="@color/white"
             android:textSize="18dip" />
@@ -51,15 +43,6 @@
             android:layout_width="80dip"
             android:layout_height="fill_parent" />
 
-        <ImageView
-            android:id="@+id/ivSplit"
-            android:layout_width="2dip"
-            android:layout_height="fill_parent"
-            android:layout_toLeftOf="@+id/btnRight"
-            android:background="@drawable/split"
-            android:contentDescription="@null"
-            android:visibility="visible" />
-
         <Button
             android:id="@+id/btnRight"
             android:layout_width="28dip"
@@ -68,7 +51,7 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="16dip"
-            android:background="@drawable/btn_locate_style"
+            android:background="@drawable/btn_pin_style"
             android:contentDescription="@null"
             android:visibility="visible" />
     </RelativeLayout>
@@ -78,7 +61,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/mvMap"
-        android:background="@drawable/background"
+        android:background="#FFFAFAFA"
         android:cacheColorHint="#00000000" >
     </ListView>
 
@@ -101,6 +84,7 @@
                 android:id="@+id/tvPoiName"
                 android:layout_width="fill_parent"
                 android:layout_height="24dip"
+                android:layout_toLeftOf="@+id/btnPoiDistance"
                 android:gravity="left|center_vertical"
                 android:textColor="@color/white"
                 android:textSize="16dip" />
@@ -110,10 +94,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="24dip"
                 android:layout_below="@+id/tvPoiName"
-                android:ellipsize="marquee"
+                android:layout_marginLeft="4dip"
+                android:layout_toLeftOf="@+id/btnPoiDistance"
+                android:ellipsize="end"
                 android:gravity="left|center_vertical"
                 android:maxLines="1"
-                android:maxWidth="280dip"
+                android:maxWidth="240dip"
                 android:singleLine="true"
                 android:textColor="@color/silver"
                 android:textSize="12dip" />

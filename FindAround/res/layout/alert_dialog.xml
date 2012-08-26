@@ -28,27 +28,22 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvSplit"
-        android:layout_marginTop="8dip"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
+        android:layout_margin="8dip"
         android:textColor="@color/black"
         android:textStyle="bold" />
 
-    <com.rarnu.findaround.comp.LineEditText
-        android:id="@+id/etKeyword"
+    <TextView
+        android:id="@+id/spl2"
         android:layout_width="fill_parent"
-        android:layout_height="48dip"
-        android:background="@null"
+        android:layout_height="1dip"
         android:layout_below="@+id/tvMessage"
-        android:textColor="@color/black"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
-        android:layout_marginBottom="8dip" />
+        android:background="@color/lightgray"
+        android:gravity="left|top" />
 
     <RelativeLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/etKeyword"
+        android:layout_below="@+id/spl2"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dip" >
 
@@ -56,9 +51,9 @@
             android:id="@+id/btnOK"
             android:layout_width="100dip"
             android:layout_height="40dip"
-            android:background="@drawable/button_style"
+            android:background="@drawable/btn_route_style"
             android:text="@string/ok"
-            android:textColor="@color/white" />
+            android:textColor="#FF372100" />
 
         <Button
             android:id="@+id/btnCancel"
@@ -66,9 +61,9 @@
             android:layout_height="40dip"
             android:layout_marginLeft="8dip"
             android:layout_toRightOf="@+id/btnOK"
-            android:background="@drawable/button_style"
+            android:background="@drawable/btn_route_style"
             android:text="@string/back"
-            android:textColor="@color/white" />
+            android:textColor="#FF372100" />
     </RelativeLayout>
 
 </RelativeLayout>

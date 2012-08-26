@@ -301,7 +301,7 @@ public class FileUtils {
 		is.close();
 		arrayOutputStream.close();
 		String text = new String(arrayOutputStream.toByteArray());
-		return text;
+		return text.trim();
 	}
 
 	/**

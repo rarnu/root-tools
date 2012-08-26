@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white" >
+
+    <include
+        android:id="@+id/tbTitle"
+        layout="@layout/title_bar" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/progressHtcRom"
+        android:layout_below="@+id/tbTitle"
+        android:padding="8dip" >
+
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" >
+
+            <com.rarnu.tools.root.comp.HtcRomItem
+                android:id="@+id/itmCar"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip" />
+
+            <com.rarnu.tools.root.comp.HtcRomItem
+                android:id="@+id/itmFacebook"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip" />
+
+            <com.rarnu.tools.root.comp.HtcRomItem
+                android:id="@+id/itmTwitter"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip" />
+
+            <com.rarnu.tools.root.comp.HtcRomItem
+                android:id="@+id/itmDropbox"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip" />
+
+            <com.rarnu.tools.root.comp.HtcRomItem
+                android:id="@+id/itmSkydrive"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip" />
+
+            <com.rarnu.tools.root.comp.HtcRomItem
+                android:id="@+id/itmLaputa"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip" />
+
+            <com.rarnu.tools.root.comp.HtcRomItem
+                android:id="@+id/itmFlickr"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip" />
+
+            <com.rarnu.tools.root.comp.HtcRomItem
+                android:id="@+id/itmFriendStream"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip" />
+
+            <com.rarnu.tools.root.comp.HtcRomItem
+                android:id="@+id/itmGoogle"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip" />
+
+            <com.rarnu.tools.root.comp.HtcRomItem
+                android:id="@+id/itm3rd"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip" />
+        </LinearLayout>
+    </ScrollView>
+
+    <com.rarnu.tools.root.comp.DataProgressBar
+        android:id="@+id/progressHtcRom"
+        android:layout_width="fill_parent"
+        android:layout_height="24dip"
+        android:layout_above="@+id/imgBottom"
+        android:visibility="gone" />
+    
+    <ImageView
+        android:id="@+id/imgBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="4dip"
+        android:layout_alignParentBottom="true"
+        android:background="@drawable/bottombar"
+        android:contentDescription="@null" />
+
+</RelativeLayout>

@@ -1,39 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
-    android:background="#00000000" >
+    android:layout_height="48dip"
+    android:background="#00000000"
+    android:paddingBottom="8dip" >
 
-    <RelativeLayout
-        android:id="@+id/markMain"
+    <TextView
+        android:id="@+id/tvRouteStep"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/mark_address"
-        android:paddingBottom="8dip"
-        android:paddingLeft="8dip"
-        android:paddingRight="8dip"
-        android:paddingTop="4dip" >
-
-        <TextView
-            android:id="@+id/tvName"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:padding="4dip"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/tvAddress"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/tvName"
-            android:ellipsize="end"
-            android:maxLines="1"
-            android:maxWidth="280dip"
-            android:padding="4dip"
-            android:singleLine="true"
-            android:textColor="@color/white"
-            android:textSize="12dip" />
-    </RelativeLayout>
+        android:layout_height="fill_parent"
+        android:background="#AA000000"
+        android:gravity="left|center_vertical"
+        android:padding="4dip"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

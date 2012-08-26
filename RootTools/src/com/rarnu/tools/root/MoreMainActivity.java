@@ -1,5 +1,6 @@
 package com.rarnu.tools.root;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -23,6 +24,7 @@ import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.DalvikUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
 
+@SuppressLint("HandlerLeak")
 public class MoreMainActivity extends BaseActivity implements OnClickListener {
 
 	// [region] const define
@@ -40,6 +42,7 @@ public class MoreMainActivity extends BaseActivity implements OnClickListener {
 	// [region] field define
 
 	RelativeLayout layMore1, layMore2, layMore3, layMore4, layMore5, layMore6;
+	RelativeLayout layMoreHtc;
 
 	// DataProgressBar progressMore;
 
@@ -76,6 +79,7 @@ public class MoreMainActivity extends BaseActivity implements OnClickListener {
 		layMore4 = (RelativeLayout) findViewById(R.id.layMore4);
 		layMore5 = (RelativeLayout) findViewById(R.id.layMore5);
 		layMore6 = (RelativeLayout) findViewById(R.id.layMore6);
+		layMoreHtc = (RelativeLayout) findViewById(R.id.layMoreHtc);
 		// progressMore = (DataProgressBar) findViewById(R.id.progressMore);
 	}
 
@@ -105,6 +109,7 @@ public class MoreMainActivity extends BaseActivity implements OnClickListener {
 		layMore4.setOnClickListener(this);
 		layMore5.setOnClickListener(this);
 		layMore6.setOnClickListener(this);
+		layMoreHtc.setOnClickListener(this);
 	}
 
 	// [/region]
@@ -159,6 +164,10 @@ public class MoreMainActivity extends BaseActivity implements OnClickListener {
 				Toast.makeText(this, R.string.intent_open_error,
 						Toast.LENGTH_LONG).show();
 			}
+			break;
+		case R.id.layMoreHtc:
+			Intent inHtcRom = new Intent(this, MoreHtcRomActivity.class);
+			startActivity(inHtcRom);
 			break;
 		}
 	}

@@ -9,6 +9,7 @@
         android:layout_width="fill_parent"
         android:layout_height="28dip"
         android:layout_marginTop="4dip"
+        android:layout_toLeftOf="@+id/btnDistance"
         android:gravity="left|center_vertical"
         android:textColor="@color/black"
         android:textSize="16dip" />
@@ -18,10 +19,12 @@
         android:layout_width="fill_parent"
         android:layout_height="28dip"
         android:layout_below="@+id/tvName"
-        android:ellipsize="marquee"
+        android:layout_marginRight="4dip"
+        android:layout_toLeftOf="@+id/btnDistance"
+        android:ellipsize="end"
         android:gravity="left|center_vertical"
         android:maxLines="1"
-        android:maxWidth="280dip"
+        android:maxWidth="240dip"
         android:singleLine="true"
         android:textColor="#FF565656"
         android:textSize="12dip" />

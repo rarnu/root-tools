@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.rarnu.findaround.R;
 import com.rarnu.findaround.common.PageItem;
+import com.rarnu.findaround.common.PageUtils;
 import com.rarnu.findaround.common.UIUtils;
 
 public class GridPage4x4 extends RelativeLayout implements OnClickListener,
@@ -113,6 +114,7 @@ public class GridPage4x4 extends RelativeLayout implements OnClickListener,
 		for (int i = 0; i < count; i++) {
 			btns[i].setText(items[i].name);
 			btns[i].setFixed(items[i].fixed);
+			btns[i].setIcon(PageUtils.getIcon(items[i].image));
 			if (items[i].name.equals("")) {
 				btns[i].setVisibility(View.INVISIBLE);
 			}

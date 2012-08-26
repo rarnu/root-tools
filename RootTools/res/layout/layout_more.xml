@@ -34,12 +34,30 @@
                     android:text="@string/scan_media"
                     android:textColor="@color/black" />
             </RelativeLayout>
+            
+            <RelativeLayout
+                android:id="@+id/layMoreHtc"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layMore1"
+                android:background="@drawable/list_middle_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:id="@+id/tvCleanHTC"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/clean_htc_rom"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
 
             <RelativeLayout
                 android:id="@+id/layMore2"
                 android:layout_width="fill_parent"
                 android:layout_height="48dip"
-                android:layout_below="@+id/layMore1"
+                android:layout_below="@+id/layMoreHtc"
                 android:background="@drawable/list_middle_background"
                 android:clickable="true" >
 

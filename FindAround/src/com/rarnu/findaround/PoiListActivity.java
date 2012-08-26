@@ -15,7 +15,6 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
-import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -46,7 +45,6 @@ public class PoiListActivity extends BaseMapActivity implements
 	Button btnReturnList;
 	TextView tvPoiName, tvPoiAddress;
 	Button btnPoiDistance;
-	ImageView ivSplit;
 
 	Drawable marker, markerGreen;
 	boolean mapMode = false;
@@ -105,7 +103,6 @@ public class PoiListActivity extends BaseMapActivity implements
 		GlobalInstance.search.start();
 		// setResult(RESULT_CANCELED);
 		if (getIntent().getBooleanExtra("exists", true)) {
-			ivSplit.setVisibility(View.GONE);
 			btnRight.setVisibility(View.GONE);
 		}
 	}
@@ -124,7 +121,6 @@ public class PoiListActivity extends BaseMapActivity implements
 
 		if (GlobalInstance.selectedInfo != null) {
 			mvMap.getController().setCenter(GlobalInstance.selectedInfo.pt);
-			Log.e("Zoom", String.valueOf(mvMap.getZoomLevel()));
 		} else if (GlobalInstance.point != null) {
 			mvMap.getController().animateTo(GlobalInstance.point);
 		}
@@ -171,9 +167,9 @@ public class PoiListActivity extends BaseMapActivity implements
 		mvMap.getController().setCenter(GlobalInstance.point);
 
 		marker = getResources().getDrawable(R.drawable.marker);
-		marker.setBounds(0, 0, UIUtils.dipToPx(44), UIUtils.dipToPx(50));
+		marker.setBounds(0, 0, UIUtils.dipToPx(33), UIUtils.dipToPx(37));
 		markerGreen = getResources().getDrawable(R.drawable.marker_focus);
-		markerGreen.setBounds(0, 0, UIUtils.dipToPx(44), UIUtils.dipToPx(50));
+		markerGreen.setBounds(0, 0, UIUtils.dipToPx(33), UIUtils.dipToPx(37));
 
 		noTouchOverlay = new NoTouchOverlay(this, marker, markerGreen, hJump,
 				hShowPoiInfo);
@@ -187,7 +183,7 @@ public class PoiListActivity extends BaseMapActivity implements
 		tvLoading = (TextView) findViewById(R.id.tvLoading);
 		lvPoi = (ListView) findViewById(R.id.lvPoi);
 		tvName.setText(R.string.list_result);
-		ivSplit = (ImageView) findViewById(R.id.ivSplit);
+
 		layMapBottom = (RelativeLayout) findViewById(R.id.layMapBottom);
 		layGeoItem = (RelativeLayout) findViewById(R.id.layGeoItem);
 		btnReturnList = (Button) findViewById(R.id.btnReturnList);
@@ -209,7 +205,7 @@ public class PoiListActivity extends BaseMapActivity implements
 			setResult(RESULT_OK, inKey);
 			Toast.makeText(this, R.string.add_keyword_to_screen,
 					Toast.LENGTH_LONG).show();
-			ivSplit.setVisibility(View.GONE);
+
 			btnRight.setVisibility(View.GONE);
 			break;
 		case R.id.btnReturnList:
@@ -273,7 +269,7 @@ public class PoiListActivity extends BaseMapActivity implements
 			lvPoi.setVisibility(View.VISIBLE);
 			RelativeLayout.LayoutParams mapParam = (RelativeLayout.LayoutParams) mvMap
 					.getLayoutParams();
-			mapParam.height = UIUtils.dipToPx(240);
+			mapParam.height = UIUtils.dipToPx(220);
 			// mapParam.addRule(RelativeLayout.ABOVE, 0);
 			mvMap.setLayoutParams(mapParam);
 			mvMap.getController().setZoom(mvMap.getMaxZoomLevel() - 2);

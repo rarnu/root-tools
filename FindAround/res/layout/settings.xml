@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background" >
+    android:background="#FFE8E8E8" >
 
     <RelativeLayout
         android:id="@+id/tbTitle"
@@ -22,20 +22,12 @@
             android:textColor="@color/white"
             android:visibility="visible" />
 
-        <ImageView
-            android:id="@+id/ivSplit1"
-            android:layout_width="2dip"
-            android:layout_height="fill_parent"
-            android:layout_toRightOf="@+id/btnLeft"
-            android:background="@drawable/split"
-            android:contentDescription="@null" />
-
         <TextView
             android:id="@+id/tvName"
             android:layout_width="wrap_content"
             android:layout_height="fill_parent"
-            android:layout_marginLeft="8dip"
-            android:layout_toRightOf="@+id/ivSplit1"
+            android:layout_marginLeft="16dip"
+            android:layout_toRightOf="@+id/btnLeft"
             android:gravity="left|center_vertical"
             android:text="@string/settings"
             android:textColor="@color/white"
@@ -45,15 +37,6 @@
             android:id="@+id/backArea"
             android:layout_width="80dip"
             android:layout_height="fill_parent" />
-
-        <ImageView
-            android:id="@+id/ivSplit"
-            android:layout_width="2dip"
-            android:layout_height="fill_parent"
-            android:layout_toLeftOf="@+id/btnRight"
-            android:background="@drawable/split"
-            android:contentDescription="@null"
-            android:visibility="gone" />
 
         <Button
             android:id="@+id/btnRight"
@@ -76,7 +59,10 @@
         <RelativeLayout
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:padding="8dip" >
+            android:paddingTop="8dip"
+            android:paddingBottom="8dip"
+            android:paddingLeft="16dip"
+            android:paddingRight="16dip" >
 
             <TextView
                 android:id="@+id/tvRound"
@@ -84,7 +70,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dip"
                 android:text="@string/settings_around"
-                android:textColor="@color/black" />
+                android:textColor="#FF888888" />
 
             <RelativeLayout
                 android:id="@+id/layDist1"
@@ -92,14 +78,14 @@
                 android:layout_height="56dip"
                 android:layout_below="@+id/tvRound"
                 android:layout_marginTop="8dip"
-                android:background="@drawable/address_bar_background"
+                android:background="@drawable/list_above_background"
                 android:clickable="true" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
+                    android:paddingLeft="16dip"
                     android:text="@string/dist_1000"
                     android:textColor="@color/black" />
 
@@ -109,7 +95,7 @@
                     android:layout_height="24dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="8dip"
+                    android:layout_marginRight="16dip"
                     android:contentDescription="@null" />
             </RelativeLayout>
 
@@ -118,14 +104,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/layDist1"
-                android:background="@drawable/address_bar_background"
+                android:background="@drawable/list_middle_background"
                 android:clickable="true" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
+                    android:paddingLeft="16dip"
                     android:text="@string/dist_3000"
                     android:textColor="@color/black" />
 
@@ -135,7 +121,7 @@
                     android:layout_height="24dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="8dip"
+                    android:layout_marginRight="16dip"
                     android:contentDescription="@null" />
             </RelativeLayout>
 
@@ -144,14 +130,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/layDist2"
-                android:background="@drawable/address_bar_background"
+                android:background="@drawable/list_below_background"
                 android:clickable="true" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
+                    android:paddingLeft="16dip"
                     android:text="@string/dist_5000"
                     android:textColor="@color/black" />
 
@@ -161,7 +147,7 @@
                     android:layout_height="24dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="8dip"
+                    android:layout_marginRight="16dip"
                     android:contentDescription="@null" />
             </RelativeLayout>
 
@@ -172,22 +158,22 @@
                 android:layout_below="@+id/layDist3"
                 android:layout_marginTop="16dip"
                 android:text="@string/settings_result_count"
-                android:textColor="@color/black" />
+                android:textColor="#FF888888" />
 
             <RelativeLayout
                 android:id="@+id/layCount1"
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/tvResultCount"
-                android:layout_marginTop="8dip"
-                android:background="@drawable/address_bar_background"
+                android:layout_marginTop="16dip"
+                android:background="@drawable/list_above_background"
                 android:clickable="true" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
+                    android:paddingLeft="16dip"
                     android:text="@string/dist_c10"
                     android:textColor="@color/black" />
 
@@ -206,14 +192,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/layCount1"
-                android:background="@drawable/address_bar_background"
+                android:background="@drawable/list_middle_background"
                 android:clickable="true" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
+                    android:paddingLeft="16dip"
                     android:text="@string/dist_c20"
                     android:textColor="@color/black" />
 
@@ -223,7 +209,7 @@
                     android:layout_height="24dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="8dip"
+                    android:layout_marginRight="16dip"
                     android:contentDescription="@null" />
             </RelativeLayout>
 
@@ -232,14 +218,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/layCount2"
-                android:background="@drawable/address_bar_background"
+                android:background="@drawable/list_below_background"
                 android:clickable="true" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
+                    android:paddingLeft="16dip"
                     android:text="@string/dist_c30"
                     android:textColor="@color/black" />
 
@@ -249,8 +235,52 @@
                     android:layout_height="24dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
-                    android:layout_marginRight="8dip"
+                    android:layout_marginRight="16dip"
                     android:contentDescription="@null" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvSoftwareInfo"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layCount3"
+                android:layout_marginTop="16dip"
+                android:text="@string/software_info"
+                android:textColor="#FF888888" />
+
+            <RelativeLayout
+                android:id="@+id/laySoftware1"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/tvSoftwareInfo"
+                android:layout_marginTop="8dip"
+                android:background="@drawable/list_above_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="16dip"
+                    android:text="@string/software_update"
+                    android:textColor="@color/black" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/laySoftware2"
+                android:layout_width="fill_parent"
+                android:layout_height="56dip"
+                android:layout_below="@+id/laySoftware1"
+                android:background="@drawable/list_below_background"
+                android:clickable="true" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="16dip"
+                    android:text="@string/software_about"
+                    android:textColor="@color/black" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

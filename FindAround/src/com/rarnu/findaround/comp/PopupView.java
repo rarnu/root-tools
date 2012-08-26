@@ -8,10 +8,11 @@ import android.widget.TextView;
 
 import com.baidu.mapapi.GeoPoint;
 import com.rarnu.findaround.R;
+import com.rarnu.findaround.common.UIUtils;
 
 public class PopupView extends RelativeLayout {
 
-	private TextView tvName, tvAddress;
+	private TextView tvRouteStep;
 	private GeoPoint geo;
 
 	public PopupView(Context context, AttributeSet attrs, int defStyle) {
@@ -32,17 +33,12 @@ public class PopupView extends RelativeLayout {
 	private void init() {
 		addView(inflate(getContext(), R.layout.popup_view, null));
 		setLayoutParams(new ViewGroup.LayoutParams(LayoutParams.WRAP_CONTENT,
-				LayoutParams.WRAP_CONTENT));
-		tvName = (TextView) findViewById(R.id.tvName);
-		tvAddress = (TextView) findViewById(R.id.tvAddress);
+				UIUtils.dipToPx(48)));
+		tvRouteStep = (TextView) findViewById(R.id.tvRouteStep);
 	}
 
-	public void setName(String name) {
-		tvName.setText(name);
-	}
-
-	public void setAddress(String addr) {
-		tvAddress.setText(addr);
+	public void setText(String name) {
+		tvRouteStep.setText(name);
 	}
 
 	public void setGeoPoint(GeoPoint geo) {

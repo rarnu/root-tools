@@ -15,9 +15,8 @@ public class AlertDialogEx extends Dialog implements
 	// [region] field define
 	Button btnOK, btnCancel;
 	TextView tvTitle, tvMessage;
-	LineEditText etKeyword;
-	DialogButtonClickListener listenerPositive = null, listenerNegative = null;
-
+	DialogButtonClickListener listenerPositive = null,
+			listenerNegative = null;
 	// [/region]
 
 	// [region] constructor
@@ -30,15 +29,13 @@ public class AlertDialogEx extends Dialog implements
 		btnCancel = (Button) findViewById(R.id.btnCancel);
 		tvTitle = (TextView) findViewById(R.id.tvTitle);
 		tvMessage = (TextView) findViewById(R.id.tvMessage);
-		etKeyword = (LineEditText) findViewById(R.id.etKeyword);
 		btnOK.setOnClickListener(this);
 		btnCancel.setOnClickListener(this);
 		setCanceledOnTouchOutside(false);
 
 	}
-
 	// [/region]
-
+	
 	// [region] common
 	public void setTitle(CharSequence text) {
 		tvTitle.setText(text);
@@ -75,43 +72,38 @@ public class AlertDialogEx extends Dialog implements
 	}
 
 	// [/region]
-
+	
 	// [region] interface define
 	public interface DialogButtonClickListener {
-		void onClick(View v, String text);
+		void onClick(View v);
 	}
 
 	// [/region]
-
+	
 	// [region] events
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnOK:
 			if (listenerPositive != null) {
-				listenerPositive.onClick(btnOK, etKeyword.getText().toString()
-						.trim());
+				listenerPositive.onClick(btnOK);
 			}
 			dismiss();
 			break;
 		case R.id.btnCancel:
 			if (listenerNegative != null) {
-				listenerNegative.onClick(btnCancel, etKeyword.getText()
-						.toString().trim());
+				listenerNegative.onClick(btnCancel);
 			}
 			dismiss();
 			break;
 		}
 
 	}
-
 	// [/region]
-
+	
 	// [region] public call
-	public static void showAlertDialogEx(Context context, String title,
-			String message, String positiveText,
-			DialogButtonClickListener positiveListener, String negativeText,
-			DialogButtonClickListener negativeListener) {
+	public static void showAlertDialogEx(Context context, String title, String message, String positiveText, DialogButtonClickListener positiveListener,
+			String negativeText, DialogButtonClickListener negativeListener) {
 		AlertDialogEx dialog = new AlertDialogEx(context);
 		dialog.setTitle(title);
 		dialog.setMessage(message);

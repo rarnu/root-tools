@@ -1,19 +1,24 @@
 package com.rarnu.findaround;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
+import com.rarnu.findaround.api.MobileApi;
 import com.rarnu.findaround.base.BaseActivity;
 import com.rarnu.findaround.common.Config;
+import com.rarnu.findaround.comp.AlertDialogEx;
 
 public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 	RelativeLayout layDist1, layDist2, layDist3, layCount1, layCount2,
 			layCount3;
 	ImageView imgDist1, imgDist2, imgDist3, imgCount1, imgCount2, imgCount3;
+	RelativeLayout laySoftware1, laySoftware2;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -49,6 +54,8 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		imgCount2 = (ImageView) findViewById(R.id.imgCount2);
 		imgCount3 = (ImageView) findViewById(R.id.imgCount3);
 
+		laySoftware1 = (RelativeLayout) findViewById(R.id.laySoftware1);
+		laySoftware2 = (RelativeLayout) findViewById(R.id.laySoftware2);
 	}
 
 	private void initEvents() {
@@ -60,6 +67,9 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		layCount1.setOnClickListener(this);
 		layCount2.setOnClickListener(this);
 		layCount3.setOnClickListener(this);
+
+		laySoftware1.setOnClickListener(this);
+		laySoftware2.setOnClickListener(this);
 	}
 
 	private void initSettings() {
@@ -120,8 +130,47 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		case R.id.layCount3:
 			Config.setResultCount(this, 30);
 			break;
-
+		case R.id.laySoftware1:
+			// check update
+			showUpdateInfo();
+			break;
+		case R.id.laySoftware2:
+			// about
+			Intent inAbout = new Intent(this, AboutActivity.class);
+			startActivity(inAbout);
+			break;
 		}
 		initSettings();
+	}
+
+	private void showUpdateInfo() {
+
+		if (GlobalInstance.updateInfo == null
+				|| GlobalInstance.updateInfo.result == 0) {
+			AlertDialogEx.showAlertDialogEx(this,
+					getString(R.string.check_update),
+					getString(R.string.no_update_found),
+					getString(R.string.ok), null, null, null);
+		} else {
+			AlertDialogEx.showAlertDialogEx(this,
+					getString(R.string.check_update), String.format(
+							getString(R.string.update_found_info),
+							GlobalInstance.updateInfo.versionName,
+							GlobalInstance.updateInfo.size),
+					getString(R.string.ok),
+					new AlertDialogEx.DialogButtonClickListener() {
+
+						@Override
+						public void onClick(View v) {
+							// download new version
+							String downUrl = MobileApi.DOWNLOAD_BASE_URL
+							+ GlobalInstance.updateInfo.file;
+							Intent inDownload = new Intent(Intent.ACTION_VIEW);
+							inDownload.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+							inDownload.setData(Uri.parse(downUrl));
+							startActivity(inDownload);
+						}
+					}, getString(R.string.cancel), null);
+		}
 	}
 }

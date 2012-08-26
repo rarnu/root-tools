@@ -4,11 +4,35 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rarnu.findaround.R;
+
 import android.content.Context;
 
 public class PageUtils {
 
 	private static List<String> lstKeywordsFull = new ArrayList<String>();
+	private static List<Integer> lstDefaultIcons = new ArrayList<Integer>();
+
+	static {
+		lstDefaultIcons.add(R.drawable.def0);
+		lstDefaultIcons.add(R.drawable.def1);
+		lstDefaultIcons.add(R.drawable.def2);
+		lstDefaultIcons.add(R.drawable.def3);
+		lstDefaultIcons.add(R.drawable.def4);
+		lstDefaultIcons.add(R.drawable.def5);
+		lstDefaultIcons.add(R.drawable.def6);
+		lstDefaultIcons.add(R.drawable.def7);
+		lstDefaultIcons.add(R.drawable.def8);
+		lstDefaultIcons.add(R.drawable.def9);
+	}
+
+	public static int getIcon(int index) {
+		try {
+			return lstDefaultIcons.get(index);
+		} catch (Exception e) {
+			return R.drawable.def0;
+		}
+	}
 
 	public static List<PageItem[]> buildPages(Context context) {
 
@@ -38,6 +62,7 @@ public class PageUtils {
 			if (fixed.get(i).page == page) {
 				items[fixed.get(i).position].name = fixed.get(i).name;
 				items[fixed.get(i).position].fixed = true;
+				items[fixed.get(i).position].image = fixed.get(i).image;
 				lstKeywordsFull.add(items[fixed.get(i).position].name);
 				fixed.remove(i);
 			}
@@ -47,6 +72,7 @@ public class PageUtils {
 				if (keywords.size() != 0) {
 					items[i].name = keywords.get(keywords.size() - 1);
 					items[i].fixed = false;
+					items[i].image = 0;
 					lstKeywordsFull.add(items[i].name);
 					keywords.remove(keywords.size() - 1);
 				} else {

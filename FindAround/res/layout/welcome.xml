@@ -48,15 +48,6 @@
             android:contentDescription="@null"
             android:visibility="gone" />
 
-        <ImageView
-            android:id="@+id/ivSplit"
-            android:layout_width="2dip"
-            android:layout_height="fill_parent"
-            android:layout_toLeftOf="@+id/btnRight"
-            android:background="@drawable/split"
-            android:contentDescription="@null"
-             />
-
         <Button
             android:id="@+id/btnRight"
             android:layout_width="28dip"
@@ -66,8 +57,7 @@
             android:layout_marginLeft="16dip"
             android:layout_marginRight="16dip"
             android:background="@drawable/btn_settings_style"
-            android:contentDescription="@null"
-             />
+            android:contentDescription="@null" />
     </RelativeLayout>
 
     <com.rarnu.findaround.comp.ScrollLayout
@@ -101,7 +91,8 @@
             android:layout_width="18dip"
             android:layout_height="18dip"
             android:layout_centerVertical="true"
-            android:layout_marginLeft="8dip"
+            android:layout_marginRight="8dip"
+            android:layout_toLeftOf="@+id/tvAddress"
             android:background="@drawable/refresh"
             android:contentDescription="@null" />
 
@@ -112,7 +103,7 @@
             android:layout_centerInParent="true"
             android:gravity="center"
             android:text="@string/locating"
-            android:textColor="@color/gray"
+            android:textColor="#FF372100"
             android:textSize="12dip"
             android:textStyle="bold" />
     </RelativeLayout>
