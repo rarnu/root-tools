@@ -56,7 +56,7 @@ public class SearchService extends ContextWrapper implements MKSearchListener,
 				.enableProvider(MKLocationManager.MK_GPS_PROVIDER);
 		application.getMapManager().getLocationManager()
 				.requestLocationUpdates(this);
-
+		
 		start();
 	}
 

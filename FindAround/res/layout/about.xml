@@ -72,6 +72,14 @@
         android:textSize="16dip" />
 
     <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/tvCopyright"
+        android:gravity="center"
+        android:textColor="#FF372100" />
+
+    <TextView
         android:id="@+id/tvCopyright"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
