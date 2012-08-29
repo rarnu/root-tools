@@ -21,6 +21,7 @@ public class RootUtils {
 	private static final String SUPERUSER_PATH_3 = "com.noshufou.android.su";
 	private static final String SUPERUSER_PATH_4 = "com.miui.uac";
 	private static final String SUPERUSER_PATH_5 = "com.lbe.security.shuame";
+	private static final String SUPERUSER_PATH_6 = "com.lbe.security.miui";
 
 	public static boolean hasBusybox() {
 		return openFile(BUSYBOX_PATH).exists();
@@ -37,7 +38,8 @@ public class RootUtils {
 
 		if (info == null) {
 			try {
-				info = GlobalInstance.pm.getApplicationInfo(SUPERUSER_PATH_2, 0);
+				info = GlobalInstance.pm
+						.getApplicationInfo(SUPERUSER_PATH_2, 0);
 			} catch (NameNotFoundException e) {
 				info = null;
 			}
@@ -45,7 +47,8 @@ public class RootUtils {
 
 		if (info == null) {
 			try {
-				info = GlobalInstance.pm.getApplicationInfo(SUPERUSER_PATH_3, 0);
+				info = GlobalInstance.pm
+						.getApplicationInfo(SUPERUSER_PATH_3, 0);
 			} catch (NameNotFoundException e) {
 				info = null;
 			}
@@ -53,15 +56,26 @@ public class RootUtils {
 
 		if (info == null) {
 			try {
-				info = GlobalInstance.pm.getApplicationInfo(SUPERUSER_PATH_4, 0);
+				info = GlobalInstance.pm
+						.getApplicationInfo(SUPERUSER_PATH_4, 0);
 			} catch (NameNotFoundException e) {
 				info = null;
 			}
 		}
-		
+
 		if (info == null) {
 			try {
-				info = GlobalInstance.pm.getApplicationInfo(SUPERUSER_PATH_5, 0);
+				info = GlobalInstance.pm
+						.getApplicationInfo(SUPERUSER_PATH_5, 0);
+			} catch (NameNotFoundException e) {
+				info = null;
+			}
+		}
+
+		if (info == null) {
+			try {
+				info = GlobalInstance.pm
+						.getApplicationInfo(SUPERUSER_PATH_6, 0);
 			} catch (NameNotFoundException e) {
 				info = null;
 			}
@@ -85,11 +99,13 @@ public class RootUtils {
 
 	public static boolean isWrongRoot() {
 		// -rwsr-sr-x
-		String suStat = runCommand("ls -l " + SU_PATH, false).result + runCommand("ls -l " + SU_PATH_X, false).result;
+		String suStat = runCommand("ls -l " + SU_PATH, false).result
+				+ runCommand("ls -l " + SU_PATH_X, false).result;
 		if (GlobalInstance.DEBUG) {
 			Log.e("suStat", suStat);
 		}
-		return ((!suStat.contains("-rwsr-sr-x")) && (!suStat.contains("-rwsr-xr-x")));
+		return ((!suStat.contains("-rwsr-sr-x")) && (!suStat
+				.contains("-rwsr-xr-x")));
 	}
 
 	@SuppressWarnings("deprecation")
@@ -153,7 +169,8 @@ public class RootUtils {
 			}
 		}
 		if (GlobalInstance.DEBUG) {
-			Log.e("runRootCommand-Result", String.format("result:%s, error:%s", ret.result, ret.error));
+			Log.e("runRootCommand-Result",
+					String.format("result:%s, error:%s", ret.result, ret.error));
 		}
 		return ret;
 	}

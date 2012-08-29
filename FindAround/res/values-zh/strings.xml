@@ -67,6 +67,6 @@
     <string name="check_update">检查更新</string>
     <string name="no_update_found">当前已是最新版本，无需更新</string>
     <string name="update_found_info" formatted="false">发现新版本 %s，下载更新将使用 %s 流量，确定要更新吗？按“确定”下载更新，按“取消”不更新。</string>
-    <string name="copyright">Copyright&#169; AnjukeInc 2012</string>
+    <string name="copyright">Copyright&#169; Rarnu in AnjukeInc 2012.</string>
 	<string name="version_fmt" formatted="false">版本: %s</string>
 </resources>

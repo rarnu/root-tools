@@ -145,12 +145,12 @@ public class DeviceUtils {
 		}
 
 		if (factory.toLowerCase().contains("xiaomi")) {
-			result -= 2;
+			result -= 1;
 		}
 
 		String buildId = getBuildProp(RO_BUILD_ID);
 		if (buildId.toLowerCase().contains("miui")) {
-			result -= 2;
+			result += 1;
 		}
 
 		String cpu = getBuildProp(RO_PRODUCT_CPU_ABI);

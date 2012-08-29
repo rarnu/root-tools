@@ -12,16 +12,9 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.util.EntityUtils;
 
-import android.util.Log;
-
-import com.rarnu.tools.root.GlobalInstance;
-
 public class HttpRequest {
 
 	public static String post(String host, List<BasicNameValuePair> params, String encoding) {
-		if (GlobalInstance.DEBUG) {
-			Log.e("post", host);
-		}
 		HttpPost httpPost = new HttpPost(host);
 		try {
 
@@ -52,25 +45,9 @@ public class HttpRequest {
 
 	public static String get(String host, String params, String encoding) {
 
-		if (GlobalInstance.DEBUG) {
-			Log.e("get", host + "\n" + params);
-		}
-
-		// url format: site-url/action
-		// params format: p1=v1&p2=v2&.....
-		// so the final url be built will be like this:
-		// http://account.everbox.com/login?user=a&passwd=b&devId=c
-//		try {
-//			params = URLEncoder.encode(params, encoding);
-//		} catch (UnsupportedEncodingException e1) {
-//		}
 		HttpGet request = new HttpGet(host + "?" + params);
 
 		try {
-
-			// execute the request and take the respone
-			// if the server is NOT ready, it will return 404 title
-			// and it will be filted below.
 			BasicHttpParams httpParams = new BasicHttpParams();
 			HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
 			HttpConnectionParams.setSoTimeout(httpParams, 5000);
@@ -81,16 +58,7 @@ public class HttpRequest {
 			String result = "";
 			int statusCode = response.getStatusLine().getStatusCode();
 			if (statusCode == 200) {
-				// parse the http response context into pure string
-				// and the format of string is standard json
-
 				result = EntityUtils.toString(response.getEntity(), encoding);
-			}
-
-			// repackage the string result to JSON object
-			// JSONObject json = new JSONObject(result);
-			if (GlobalInstance.DEBUG) {
-				Log.e("get-result", result);
 			}
 			return result;
 		} catch (Exception e) {

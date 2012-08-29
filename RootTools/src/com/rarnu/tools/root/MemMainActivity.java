@@ -83,7 +83,7 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 	@Override
 	public void initTitle() {
 
-		tvName.setText(R.string.func4_title);
+		tvName.setText(R.string.func5_title);
 		btnLeft.setText(R.string.back);
 		btnLeft.setVisibility(View.VISIBLE);
 		btnRight.setText(R.string.refresh);

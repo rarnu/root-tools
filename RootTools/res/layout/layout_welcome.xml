@@ -63,7 +63,8 @@
         android:background="@drawable/button_style"
         android:text="@string/short_recommand"
         android:textColor="@color/white"
-        android:textSize="10dip" />
+        android:textSize="10dip"
+        android:visibility="gone" />
 
     <ImageView
         android:id="@+id/imgBottom"

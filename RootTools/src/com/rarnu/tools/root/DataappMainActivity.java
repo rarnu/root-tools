@@ -123,7 +123,7 @@ public class DataappMainActivity extends BaseActivity implements
 	@Override
 	public void initTitle() {
 
-		tvName.setText(R.string.func2_title);
+		tvName.setText(R.string.func3_title);
 		btnLeft.setText(R.string.back);
 		btnLeft.setVisibility(View.VISIBLE);
 		btnRight.setText(R.string.refresh);

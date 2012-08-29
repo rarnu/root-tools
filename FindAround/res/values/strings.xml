@@ -67,6 +67,6 @@
     <string name="check_update">Check Update</string>
     <string name="no_update_found">Already the last version</string>
     <string name="update_found_info" formatted="false">New version %s found, it will cost %s for downloading, sure to update? press "OK" for update and "Cancel" for not.</string>
-    <string name="copyright">Copyright&#169; AnjukeInc 2012</string>
+    <string name="copyright">Copyright&#169; Rarnu in AnjukeInc 2012.</string>
 	<string name="version_fmt" formatted="false">Version: %s</string>
 </resources>

@@ -89,7 +89,7 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 	@Override
 	public void initTitle() {
 
-		tvName.setText(R.string.func5_title);
+		tvName.setText(R.string.func7_title);
 		btnLeft.setText(R.string.back);
 		btnLeft.setVisibility(View.VISIBLE);
 		btnRight.setText(R.string.refresh);

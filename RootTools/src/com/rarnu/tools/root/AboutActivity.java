@@ -58,12 +58,12 @@ public class AboutActivity extends BaseActivity implements OnClickListener {
 			startActivity(inHelp);
 			break;
 		case R.id.layFitable:
-			fitableClick++;
-			if (fitableClick > 10) {
-				fitableClick = 0;
-				Intent inEgg = new Intent(this, EggActivity.class);
-				startActivity(inEgg);
-			}
+//			fitableClick++;
+//			if (fitableClick > 10) {
+//				fitableClick = 0;
+//				Intent inEgg = new Intent(this, EggActivity.class);
+//				startActivity(inEgg);
+//			}
 			break;
 		case R.id.layUpdate:
 			showUpdateInfo();
