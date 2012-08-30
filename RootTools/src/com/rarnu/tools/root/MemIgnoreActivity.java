@@ -2,6 +2,7 @@ package com.rarnu.tools.root;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -18,6 +19,7 @@ import com.rarnu.tools.root.common.MemIgnoreInfo;
 import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 
+@SuppressLint("HandlerLeak")
 public class MemIgnoreActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define

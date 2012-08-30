@@ -1,5 +1,6 @@
 package com.rarnu.tools.root;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +14,7 @@ import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.comp.DataProgressBar;
 
+@SuppressLint("HandlerLeak")
 public class UserFeedbackActivity extends BaseActivity implements
 		OnClickListener {
 

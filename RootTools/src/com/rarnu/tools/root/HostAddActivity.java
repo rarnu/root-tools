@@ -2,6 +2,7 @@ package com.rarnu.tools.root;
 
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -25,6 +26,7 @@ import com.rarnu.tools.root.dns.NSLookup;
 import com.rarnu.tools.root.dns.record.Address;
 import com.rarnu.tools.root.utils.DIPairUtils;
 
+@SuppressLint("HandlerLeak")
 public class HostAddActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define

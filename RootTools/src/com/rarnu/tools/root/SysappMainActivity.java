@@ -4,6 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +28,7 @@ import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
 import com.rarnu.tools.root.utils.ApkUtils;
 
+@SuppressLint("HandlerLeak")
 public class SysappMainActivity extends BaseActivity implements
 		OnClickListener, OnItemClickListener {
 

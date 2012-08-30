@@ -13,7 +13,9 @@ import java.util.List;
 
 public class FileUtils {
 
-    public static boolean mkdir(String path) {
+    private static FileOutputStream fs;
+
+	public static boolean mkdir(String path) {
         boolean ret = false;
         File myDir = new File(path);
         if (!myDir.exists()) {
@@ -93,7 +95,7 @@ public class FileUtils {
         File oldFile = new File(source);
         if (oldFile.exists()) {
             InputStream inStream = new FileInputStream(source);
-            FileOutputStream fs = new FileOutputStream(dest);
+            fs = new FileOutputStream(dest);
             byte[] buffer = new byte[1444];
             while ((byteread = inStream.read(buffer)) != -1) {
                 bytesum += byteread;

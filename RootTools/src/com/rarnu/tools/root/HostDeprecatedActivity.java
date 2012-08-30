@@ -3,6 +3,7 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,6 +20,7 @@ import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.utils.DIPairUtils;
 import com.rarnu.tools.root.utils.PingUtils;
 
+@SuppressLint("HandlerLeak")
 public class HostDeprecatedActivity extends BaseActivity implements
 		OnClickListener {
 

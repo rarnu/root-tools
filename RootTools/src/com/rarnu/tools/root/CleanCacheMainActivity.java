@@ -3,6 +3,7 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -26,6 +27,7 @@ import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
 import com.rarnu.tools.root.utils.CacheUtils;
 
+@SuppressLint("HandlerLeak")
 public class CleanCacheMainActivity extends BaseActivity implements
 		OnClickListener, OnItemLongClickListener {
 

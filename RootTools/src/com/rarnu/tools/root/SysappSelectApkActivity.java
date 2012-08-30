@@ -4,8 +4,10 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.KeyEvent;
@@ -23,11 +25,12 @@ import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.SysappSelectApkItem;
 import com.rarnu.tools.root.utils.ApkUtils;
 
+@SuppressLint("HandlerLeak")
 public class SysappSelectApkActivity extends BaseActivity implements
 		OnItemClickListener, OnClickListener {
 
 	// [region] variable define
-	private static String rootDir = "/sdcard";
+	private static String rootDir = Environment.getExternalStorageDirectory().getPath();
 	public static String ApkFilePath = "";
 	SysappSelectApkAdapter adapter = null;
 	String currentDir = rootDir;

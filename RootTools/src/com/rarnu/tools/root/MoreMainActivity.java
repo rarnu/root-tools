@@ -224,6 +224,8 @@ public class MoreMainActivity extends BaseActivity implements OnClickListener {
 			return getString(R.string.network_disconnecting);
 		case SUSPENDED:
 			return getString(R.string.network_suspended);
+		case UNKNOWN:
+			return getString(R.string.network_unknown);
 
 		}
 		return getString(R.string.network_unknown);

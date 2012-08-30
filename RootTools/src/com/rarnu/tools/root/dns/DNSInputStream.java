@@ -7,6 +7,7 @@ import java.io.IOException;
 
 public class DNSInputStream extends ByteArrayInputStream {
 	protected DataInputStream dataIn;
+	private DNSInputStream dnsIn;
 
 	public DNSInputStream(byte[] data, int off, int len) {
 		super(data, off, len);
@@ -51,7 +52,7 @@ public class DNSInputStream extends ByteArrayInputStream {
 			if ((buf[pos] & 0xc0) != 0xc0)
 				throw new IOException("Invalid domain name compression offset");
 			int offset = readShort() & 0x3fff;
-			DNSInputStream dnsIn = new DNSInputStream(buf, offset, buf.length - offset);
+			dnsIn = new DNSInputStream(buf, offset, buf.length - offset);
 			return dnsIn.readDomainName();
 		}
 	}

@@ -3,6 +3,7 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
@@ -22,6 +23,7 @@ import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
 
+@SuppressLint("HandlerLeak")
 public class CompMainActivity extends BaseActivity implements OnClickListener,
 		OnItemClickListener {
 

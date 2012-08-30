@@ -1,5 +1,6 @@
 package com.rarnu.tools.root;
 
+import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -20,6 +21,7 @@ import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.LineEditText;
 import com.rarnu.tools.root.utils.ApkUtils;
 
+@SuppressLint("HandlerLeak")
 public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define

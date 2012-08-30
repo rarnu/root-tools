@@ -1,5 +1,6 @@
 package com.rarnu.tools.root;
 
+import android.annotation.SuppressLint;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -16,6 +17,7 @@ import com.rarnu.tools.root.utils.BusyboxUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
+@SuppressLint("HandlerLeak")
 public class BusyboxActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
@@ -201,6 +203,7 @@ public class BusyboxActivity extends BaseActivity implements OnClickListener {
 
 	}
 
+	
 	private void doReinstallBusyboxT() {
 		progressBusybox.setAppName(getString(R.string.installing));
 		progressBusybox.setVisibility(View.VISIBLE);
