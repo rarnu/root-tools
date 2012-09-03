@@ -51,7 +51,7 @@ public class MobileAPI {
 	}
 	
 	public static void downloadFile(Context context, String folder, String fileName) {
-		String url = HOST + folder + "/" + fileName;
+		String url = HOST + folder.toLowerCase() + "/" + fileName;
 		Intent inDownload = new Intent(Intent.ACTION_VIEW);
 		inDownload.setData(Uri.parse(url));
 		context.startActivity(inDownload);
