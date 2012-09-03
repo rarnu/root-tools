@@ -10,15 +10,22 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:padding="32dip"
-        android:text="@string/title"
         android:textColor="#FF0000FF"
         android:textSize="28dip" />
 
+    <EditText
+        android:id="@+id/etFilter"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_below="@+id/tvTitle"
+        android:hint="@string/filter"
+        android:visibility="gone" />
+
     <ListView
-        android:id="@+id/lvDB"
+        android:id="@+id/lvFiles"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/tvTitle"
+        android:layout_below="@+id/etFilter"
         android:cacheColorHint="#00000000"
         android:divider="#00000000"
         android:dividerHeight="1dip"

@@ -3,5 +3,7 @@
     <string name="app_name">DailyBuild</string>
     
     <string name="title">Daily Build Platform</string>
+    <string name="build" formatted="false">%s\'s Daily Build</string>
     <string name="loading">正在加载，请稍候&#8230;</string>
+    <string name="filter">输入字符串以实现过滤</string>
 </resources>
