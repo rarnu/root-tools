@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#FFFFFFFF" >
+
+    <TextView
+        android:id="@+id/tvTitle"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:padding="32dip"
+        android:gravity="center"
+        android:text="@string/title"
+        android:textColor="#FF0000FF"
+        android:textSize="28dip" />
+
+    <ListView
+        android:id="@+id/lvDB"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tvTitle"
+        android:cacheColorHint="#00000000"
+        android:divider="#00000000"
+        android:dividerHeight="1dip"
+        android:scrollbars="none" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/tvLoading"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:background="#BB000000"
+        android:gravity="center"
+        android:padding="32dip"
+        android:text="@string/loading"
+        android:visibility="gone" />
+
+</RelativeLayout>

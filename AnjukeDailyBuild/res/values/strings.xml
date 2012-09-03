@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DailyBuild</string>
+    
+    <string name="title">Daily Build Platform</string>
+    <string name="loading">正在加载，请稍候&#8230;</string>
+</resources>
