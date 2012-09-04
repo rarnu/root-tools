@@ -7,8 +7,20 @@
         android:id="@+id/tvListItem"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center"
+        android:layout_marginLeft="16dip"
+        android:layout_toLeftOf="@+id/tvRight"
+        android:gravity="left|center_vertical"
         android:textColor="#FF000000"
         android:textSize="24dip" />
+
+    <TextView
+        android:id="@+id/tvRight"
+        android:layout_width="wrap_content"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="16dip"
+        android:gravity="center_vertical"
+        android:text="@string/gt"
+        android:textColor="#FF000000" />
 
 </RelativeLayout>

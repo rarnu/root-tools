@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.anjuke.android.dailybuild"
     android:versionCode="1"
-    android:versionName="1.0" >
+    android:versionName="1.0.0" >
 
     <uses-sdk
         android:minSdkVersion="8"
@@ -10,7 +10,8 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
 
-    <application android:label="@string/app_name" >
+    <application android:label="@string/app_name"
+        android:icon="@drawable/android" >
         <activity
             android:name="MainActivity"
             android:label="@string/app_name"

@@ -7,20 +7,21 @@
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dip"
+        android:background="#FF000000"
         android:gravity="center"
-        android:padding="32dip"
         android:text="@string/title"
-        android:textColor="#FF0000FF"
-        android:textSize="28dip" />
+        android:textColor="#FFFFFFFF"
+        android:textSize="24dip" />
 
     <ListView
         android:id="@+id/lvDB"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_above="@+id/tvLoading"
         android:layout_below="@+id/tvTitle"
         android:cacheColorHint="#00000000"
-        android:divider="#00000000"
+        android:divider="#FF777777"
         android:dividerHeight="1dip"
         android:scrollbars="none" >
     </ListView>
@@ -28,18 +29,17 @@
     <TextView
         android:id="@+id/tvLoading"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_height="48dip"
+        android:layout_alignParentBottom="true"
         android:background="#BB000000"
         android:gravity="center"
-        android:padding="32dip"
-        android:text="@string/loading"
-        android:visibility="gone" />
+        android:text="@string/reload" />
 
     <ImageView
         android:id="@+id/imgNoRecord"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
+        android:layout_above="@+id/tvLoading"
         android:layout_below="@+id/tvTitle"
         android:background="@drawable/no_record"
         android:contentDescription="@null"

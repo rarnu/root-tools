@@ -7,27 +7,37 @@
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dip"
+        android:background="#FF000000"
         android:gravity="center"
-        android:padding="32dip"
-        android:textColor="#FF0000FF"
-        android:textSize="28dip" />
+        android:textColor="#FFFFFFFF"
+        android:textSize="24dip" />
 
     <EditText
         android:id="@+id/etFilter"
         android:layout_width="fill_parent"
         android:layout_height="48dip"
         android:layout_below="@+id/tvTitle"
+        android:background="@null"
         android:hint="@string/filter"
-        android:visibility="gone" />
+        android:paddingLeft="8dip"
+        android:paddingRight="8dip" />
+    
+    <TextView android:id="@+id/tvLine"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:background="#FF777777"
+        android:layout_below="@+id/etFilter"
+        android:layout_marginBottom="2dip"/>
 
     <ListView
         android:id="@+id/lvFiles"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/etFilter"
+        android:layout_above="@+id/tvLoading"
+        android:layout_below="@+id/tvLine"
         android:cacheColorHint="#00000000"
-        android:divider="#00000000"
+        android:divider="#FF777777"
         android:dividerHeight="1dip"
         android:scrollbars="none" >
     </ListView>
@@ -35,19 +45,18 @@
     <TextView
         android:id="@+id/tvLoading"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
+        android:layout_height="48dip"
+        android:layout_alignParentBottom="true"
         android:background="#BB000000"
         android:gravity="center"
-        android:padding="32dip"
-        android:text="@string/loading"
-        android:visibility="gone" />
+        android:text="@string/reload" />
 
     <ImageView
         android:id="@+id/imgNoRecord"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/tvTitle"
+        android:layout_above="@+id/tvLoading"
+        android:layout_below="@+id/tvLine"
         android:background="@drawable/no_record"
         android:contentDescription="@null"
         android:visibility="gone" />

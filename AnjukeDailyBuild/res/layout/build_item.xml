@@ -7,7 +7,9 @@
         android:id="@+id/tvListItem"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:gravity="center"
+        android:layout_marginLeft="16dip"
+        android:gravity="left|center_vertical"
+        android:ellipsize="marquee"
         android:textColor="#FF000000"
         android:textSize="18dip" />
 
