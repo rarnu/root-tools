@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
-    android:layout_height="56dip" >
+    android:layout_height="56dip"
+    android:clickable="true" >
 
     <TextView
         android:id="@+id/itemName"
@@ -27,7 +28,8 @@
         android:gravity="left|center_vertical"
         android:maxLines="1"
         android:singleLine="true"
-        android:textSize="12dip" />
+        android:textSize="12dip"
+        android:visibility="gone" />
 
     <CheckBox
         android:id="@+id/chkSelect"

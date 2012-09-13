@@ -8,6 +8,7 @@ import android.util.DisplayMetrics;
 import com.rarnu.tools.root.api.UpdateInfo;
 import com.rarnu.tools.root.common.MemProcessInfo;
 import com.rarnu.tools.root.common.SysappInfo;
+import com.tencent.mm.sdk.openapi.IWXAPI;
 
 public class GlobalInstance {
 
@@ -15,6 +16,10 @@ public class GlobalInstance {
 	public static float density = 0;
 	public static DisplayMetrics metric = new DisplayMetrics();
 	public static PackageManager pm = null;
+	
+	// wechat
+	public static final String WEIXIN_APP_ID = "wxe9bd2c3ef21f7122";
+	public static IWXAPI api;
 
 	// network
 	public static boolean loadingNetwork = false;

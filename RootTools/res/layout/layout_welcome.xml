@@ -53,7 +53,7 @@
         android:textSize="10dip" />
 
     <Button
-        android:id="@+id/btnRecommand"
+        android:id="@+id/btnShare"
         android:layout_width="40dip"
         android:layout_height="40dip"
         android:layout_above="@+id/imgBottom"
@@ -61,10 +61,10 @@
         android:layout_marginRight="4dip"
         android:layout_toLeftOf="@+id/btnFeedback"
         android:background="@drawable/button_style"
-        android:text="@string/short_recommand"
+        android:text="@string/short_share"
         android:textColor="@color/white"
         android:textSize="10dip"
-        android:visibility="gone" />
+        android:visibility="visible" />
 
     <ImageView
         android:id="@+id/imgBottom"

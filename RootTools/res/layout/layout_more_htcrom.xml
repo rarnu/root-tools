@@ -13,7 +13,8 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/progressHtcRom"
         android:layout_below="@+id/tbTitle"
-        android:padding="8dip" >
+        android:padding="8dip"
+        android:scrollbars="none" >
 
         <LinearLayout
             android:layout_width="fill_parent"
@@ -23,52 +24,62 @@
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmCar"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip" />
+                android:layout_height="56dip"
+                android:background="@drawable/list_above_background" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmFacebook"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip" />
+                android:layout_height="56dip"
+                android:background="@drawable/list_middle_background" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmTwitter"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip" />
+                android:layout_height="56dip"
+                android:background="@drawable/list_middle_background" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmDropbox"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip" />
+                android:layout_height="56dip"
+                android:background="@drawable/list_middle_background" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmSkydrive"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip" />
+                android:layout_height="56dip"
+                android:background="@drawable/list_middle_background" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmLaputa"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip" />
+                android:layout_height="56dip"
+                android:background="@drawable/list_middle_background" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmFlickr"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip" />
+                android:layout_height="56dip"
+                android:background="@drawable/list_middle_background" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmFriendStream"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip" />
+                android:layout_height="56dip"
+                android:background="@drawable/list_middle_background" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmGoogle"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip" />
+                android:layout_height="56dip"
+                android:background="@drawable/list_middle_background" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itm3rd"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip" />
+                android:layout_height="56dip"
+                android:background="@drawable/list_below_background" />
         </LinearLayout>
     </ScrollView>
 
@@ -78,7 +89,7 @@
         android:layout_height="24dip"
         android:layout_above="@+id/imgBottom"
         android:visibility="gone" />
-    
+
     <ImageView
         android:id="@+id/imgBottom"
         android:layout_width="fill_parent"

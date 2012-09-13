@@ -11,6 +11,11 @@
     <string name="short_about">关于</string>
     <string name="short_feedback">反馈</string>
     <string name="short_recommand">推荐</string>
+    <string name="short_share">分享</string>
+    <string name="share_weixin">分享到微信</string>
+    <string name="share_weibo">分享到新浪微博</string>
+    <string name="share_sms">分享到短信</string>
+    <string name="share_mail">分享到邮件</string>
     <string name="component_list">组件状态列表</string>
     <string name="operation_result">操作结果</string>
     <string name="feedback">用户反馈</string>
