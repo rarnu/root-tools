@@ -25,6 +25,8 @@ public class CacheAdapter extends BaseAdapter implements Filterable {
 	private List<CacheInfo> listFull;
 	private ArrayFilter filter;
 
+	private final Object lock = new Object();
+
 	// [/region]
 
 	// [region] constructor
@@ -78,8 +80,10 @@ public class CacheAdapter extends BaseAdapter implements Filterable {
 		}
 		CacheInfo item = list.get(position);
 		if (item != null) {
-			holder.imgIcon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.info.applicationInfo));
-			holder.tvName.setText(GlobalInstance.pm.getApplicationLabel(item.info.applicationInfo));
+			holder.imgIcon.setBackgroundDrawable(GlobalInstance.pm
+					.getApplicationIcon(item.info.applicationInfo));
+			holder.tvName.setText(GlobalInstance.pm
+					.getApplicationLabel(item.info.applicationInfo));
 			holder.tvPath.setText(item.info.applicationInfo.sourceDir);
 			holder.tvCache.setText(item.cacheSize);
 		}
@@ -104,23 +108,29 @@ public class CacheAdapter extends BaseAdapter implements Filterable {
 			list = listFull;
 			FilterResults results = new FilterResults();
 			if (prefix == null || prefix.length() == 0) {
-				ArrayList<CacheInfo> l = new ArrayList<CacheInfo>(list);
-				results.values = l;
-				results.count = l.size();
+				synchronized (lock) {
+					ArrayList<CacheInfo> l = new ArrayList<CacheInfo>(list);
+					results.values = l;
+					results.count = l.size();
+				}
 			} else {
 
 				String prefixString = prefix.toString().toLowerCase();
 
-				final ArrayList<CacheInfo> values = new ArrayList<CacheInfo>(list);
+				final ArrayList<CacheInfo> values = new ArrayList<CacheInfo>(
+						list);
 
 				final int count = values.size();
 
-				final ArrayList<CacheInfo> newValues = new ArrayList<CacheInfo>(count);
+				final ArrayList<CacheInfo> newValues = new ArrayList<CacheInfo>(
+						count);
 
 				for (int i = 0; i < count; i++) {
 					final CacheInfo value = values.get(i);
-					final String valueText = GlobalInstance.pm.getApplicationLabel(value.info.applicationInfo)
-							.toString() + value.info.packageName;
+					final String valueText = GlobalInstance.pm
+							.getApplicationLabel(value.info.applicationInfo)
+							.toString()
+							+ value.info.packageName;
 
 					if (valueText.indexOf(prefixString) != -1) {
 						newValues.add(value);
@@ -137,7 +147,8 @@ public class CacheAdapter extends BaseAdapter implements Filterable {
 
 		@SuppressWarnings("unchecked")
 		@Override
-		protected void publishResults(CharSequence constraint, FilterResults results) {
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
 			list = (List<CacheInfo>) results.values;
 			if (results.count > 0) {
 				notifyDataSetChanged();

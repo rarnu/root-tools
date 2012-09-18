@@ -8,13 +8,15 @@ import java.util.List;
 import org.apache.http.protocol.HTTP;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AbsListView;
 import android.widget.Button;
 import android.widget.GridView;
-import android.widget.Toast;
 
 import com.rarnu.tools.root.adapter.WelcomeAdapter;
 import com.rarnu.tools.root.api.LogApi;
@@ -23,21 +25,19 @@ import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.AlertDialogEx;
-import com.rarnu.tools.root.comp.RadioDialogEx;
 import com.rarnu.tools.root.comp.WelcomeButton;
 import com.rarnu.tools.root.utils.BusyboxUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.GoogleUtils;
+import com.rarnu.tools.root.utils.ImageUtils;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.NetworkUtils;
 import com.rarnu.tools.root.utils.PingUtils;
+import com.rarnu.tools.root.utils.ShareUtils;
 import com.rarnu.tools.root.utils.UIUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
-import com.tencent.mm.sdk.openapi.SendMessageToWX;
 import com.tencent.mm.sdk.openapi.WXAPIFactory;
-import com.tencent.mm.sdk.openapi.WXAppExtendObject;
-import com.tencent.mm.sdk.openapi.WXMediaMessage;
 
 public class WelcomeActivity extends BaseActivity implements OnClickListener {
 
@@ -279,39 +279,16 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.btnShare:
 			// share
-			RadioDialogEx.showRadioDialogEx(this,
-					getString(R.string.short_share), new String[] {
-							getString(R.string.share_weixin),
-							getString(R.string.share_weibo),
-							getString(R.string.share_sms),
-							getString(R.string.share_mail) },
-					new RadioDialogEx.DialogRadioClickListener() {
-
-						@Override
-						public void onRadioClick(View v, int index) {
-							Toast.makeText(WelcomeActivity.this,
-									String.valueOf(index), Toast.LENGTH_SHORT)
-									.show();
-
-						}
-					}, getString(R.string.cancel), null);
+			Bitmap bmp = BitmapFactory.decodeResource(getResources(),
+					R.drawable.icon);
+			String bmpName = DirHelper.ROOT_DIR + "icon.png";
+			ImageUtils.saveBitmapToFile(bmp, bmpName);
+			ShareUtils.shareTo(this, getString(R.string.short_share),
+					getString(R.string.share_title),
+					getString(R.string.share_body),
+					Uri.parse("file://" + bmpName), null);
 			break;
 		}
-	}
-
-	public void sendWeixin() {
-		final WXAppExtendObject appdata = new WXAppExtendObject();
-		appdata.extInfo = "this is ext info";
-		final WXMediaMessage msg = new WXMediaMessage();
-		msg.title = "this is title";
-		msg.description = "this is description";
-		msg.mediaObject = appdata;
-
-		SendMessageToWX.Req req = new SendMessageToWX.Req();
-		req.transaction = String.valueOf(System.currentTimeMillis());
-		req.message = msg;
-		req.scene = SendMessageToWX.Req.WXSceneSession;
-		GlobalInstance.api.sendReq(req);
 	}
 
 	@Override

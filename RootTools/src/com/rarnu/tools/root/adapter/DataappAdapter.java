@@ -31,10 +31,13 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 	private int type;
 	private ArrayFilter filter;
 
+	private final Object lock = new Object();
+
 	// [/region]
 
 	// [region] constructor
-	public DataappAdapter(LayoutInflater inflater, List<DataappInfo> list, Handler h, int type) {
+	public DataappAdapter(LayoutInflater inflater, List<DataappInfo> list,
+			Handler h, int type) {
 		this.inflater = inflater;
 		this.listFull = list;
 		this.list = list;
@@ -50,6 +53,7 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 		listFull.remove(item);
 		notifyDataSetChanged();
 	}
+
 	// [/region]
 
 	// [region] adapter
@@ -92,12 +96,16 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 			holder.select.setChecked(item.checked);
 
 			if (type == 1) {
-				holder.icon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.info));
-				holder.name.setText(GlobalInstance.pm.getApplicationLabel(item.info));
+				holder.icon.setBackgroundDrawable(GlobalInstance.pm
+						.getApplicationIcon(item.info));
+				holder.name.setText(GlobalInstance.pm
+						.getApplicationLabel(item.info));
 				holder.path.setText(item.info.dataDir);
 			} else {
-				holder.icon.setBackgroundDrawable(ApkUtils.getIconFromPackage(v.getContext(), item.info));
-				holder.name.setText(ApkUtils.getLabelFromPackage(v.getContext(), item.info));
+				holder.icon.setBackgroundDrawable(ApkUtils.getIconFromPackage(
+						v.getContext(), item.info));
+				holder.name.setText(ApkUtils.getLabelFromPackage(
+						v.getContext(), item.info));
 				holder.path.setText(item.info.packageName + ".apk");
 			}
 
@@ -116,7 +124,7 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 	}
 
 	// [/region]
-	
+
 	// [region] filter
 	@Override
 	public Filter getFilter() {
@@ -133,22 +141,27 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 			list = listFull;
 			FilterResults results = new FilterResults();
 			if (prefix == null || prefix.length() == 0) {
-				ArrayList<DataappInfo> l = new ArrayList<DataappInfo>(list);
-				results.values = l;
-				results.count = l.size();
+				synchronized (lock) {
+					ArrayList<DataappInfo> l = new ArrayList<DataappInfo>(list);
+					results.values = l;
+					results.count = l.size();
+				}
 			} else {
 
 				String prefixString = prefix.toString().toLowerCase();
 
-				final ArrayList<DataappInfo> values = new ArrayList<DataappInfo>(list);
+				final ArrayList<DataappInfo> values = new ArrayList<DataappInfo>(
+						list);
 
 				final int count = values.size();
 
-				final ArrayList<DataappInfo> newValues = new ArrayList<DataappInfo>(count);
+				final ArrayList<DataappInfo> newValues = new ArrayList<DataappInfo>(
+						count);
 
 				for (int i = 0; i < count; i++) {
 					final DataappInfo value = values.get(i);
-					final String valueText = GlobalInstance.pm.getApplicationLabel(value.info).toString()
+					final String valueText = GlobalInstance.pm
+							.getApplicationLabel(value.info).toString()
 							+ value.info.packageName;
 
 					if (valueText.indexOf(prefixString) != -1) {
@@ -166,7 +179,8 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 
 		@SuppressWarnings("unchecked")
 		@Override
-		protected void publishResults(CharSequence constraint, FilterResults results) {
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
 			list = (List<DataappInfo>) results.values;
 			if (results.count > 0) {
 				notifyDataSetChanged();

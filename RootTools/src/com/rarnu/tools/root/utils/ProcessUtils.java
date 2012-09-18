@@ -3,6 +3,8 @@ package com.rarnu.tools.root.utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.util.Log;
+
 import com.rarnu.tools.root.common.MemProcessInfo;
 import com.rarnu.tools.root.utils.root.CommandResult;
 import com.rarnu.tools.root.utils.root.RootUtils;
@@ -28,11 +30,18 @@ public class ProcessUtils {
 				ret = new ArrayList<MemProcessInfo>();
 				for (int i = 1; i < ss.length; i++) {
 					if (!ss[i].startsWith("root")) {
-						MemProcessInfo info = MemProcessInfo.stringToProcessInfo(ss[i]);
+						Log.e("process", ss[i]);
+						MemProcessInfo info = null;
+						try {
+							info = MemProcessInfo.stringToProcessInfo(ss[i]);
+						} catch (Exception e) {
+							info = null;
+						}
+
 						if (info == null) {
 							continue;
 						}
-						if (info.PPID > 127) {
+						if (info.PID > 127) {
 							info.position = position;
 							ret.add(info);
 							position++;

@@ -28,6 +28,8 @@ public class EnableappAdapter extends BaseAdapter implements Filterable {
 	private List<EnableappInfo> listFull;
 	private ArrayFilter filter;
 
+	private final Object lock = new Object();
+
 	// [/region]
 
 	// [region] constructor
@@ -117,9 +119,12 @@ public class EnableappAdapter extends BaseAdapter implements Filterable {
 			list = listFull;
 			FilterResults results = new FilterResults();
 			if (prefix == null || prefix.length() == 0) {
-				ArrayList<EnableappInfo> l = new ArrayList<EnableappInfo>(list);
-				results.values = l;
-				results.count = l.size();
+				synchronized (lock) {
+					ArrayList<EnableappInfo> l = new ArrayList<EnableappInfo>(
+							list);
+					results.values = l;
+					results.count = l.size();
+				}
 			} else {
 
 				String prefixString = prefix.toString().toLowerCase();
@@ -168,11 +173,11 @@ public class EnableappAdapter extends BaseAdapter implements Filterable {
 	// [/region]
 
 	// [region] sort
-	
-	public void sort() {  
+
+	public void sort() {
 		Collections.sort(listFull, comparator);
-    }
-	
+	}
+
 	private Comparator<EnableappInfo> comparator = new Comparator<EnableappInfo>() {
 		@Override
 		public int compare(EnableappInfo obj1, EnableappInfo obj2) {

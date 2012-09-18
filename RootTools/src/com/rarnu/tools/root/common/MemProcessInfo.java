@@ -19,7 +19,7 @@ public class MemProcessInfo {
 	public ApplicationInfo appInfo = null;
 	public int position;
 
-	public static MemProcessInfo stringToProcessInfo(String str) {
+	public static MemProcessInfo stringToProcessInfo(String str) throws Exception {
 		str = str.replaceAll("\\s+", " ");
 		String[] ss = str.split(" ");
 		MemProcessInfo info = new MemProcessInfo();
@@ -37,8 +37,8 @@ public class MemProcessInfo {
 			info.appInfo = findApplicationByNamespace(ss[8]);
 		} catch (NameNotFoundException e) {
 		}
-		
-		if (info.NAME.equals("com.snda.root.memory")) {
+
+		if (info.NAME.equals("com.rarnu.tools.root")) {
 			GlobalInstance.myPid = info.PID;
 		}
 

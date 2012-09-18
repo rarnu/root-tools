@@ -21,9 +21,11 @@ public class PingUtils {
 		String pingResult = "timeout";
 
 		try {
-			final Process process = Runtime.getRuntime().exec("ping " + hostname);
+			final Process process = Runtime.getRuntime().exec(
+					"ping " + hostname);
 
-			DataInputStream stdout = new DataInputStream(process.getInputStream());
+			DataInputStream stdout = new DataInputStream(
+					process.getInputStream());
 			String line;
 			final Timer tmr = new Timer();
 			tmr.schedule(new TimerTask() {
@@ -49,7 +51,8 @@ public class PingUtils {
 
 	public static String testNetworkSpeed(Context context) {
 
-		CommandResult cmdResult = RootUtils.runCommand("ping -c 5 -s 1024 www.163.com", false);
+		CommandResult cmdResult = RootUtils.runCommand(
+				"ping -c 5 -s 1024 www.163.com", false);
 		if (!cmdResult.error.equals("")) {
 			return context.getString(R.string.no_speed_tested);
 		}
@@ -68,27 +71,32 @@ public class PingUtils {
 	}
 
 	private static PingInfo parseString(String str) {
-		PingInfo info = null;
-		// 1032 bytes from 61.153.56.191: icmp_seq=1 ttl=55 time=11.4 ms
-		if (str.contains("icmp_seq=") && str.contains("ttl=") && str.contains("time=")) {
-			info = new PingInfo();
-			info.byteCount = 1024;
-			str = str.replace(" ", "").trim();
-			// 1032bytesfrom61.153.56.191:icmp_seq=1ttl=55time=11.4ms
-			str = str.substring(str.lastIndexOf("="));
-			str = str.replace("ms", "").replace("=", "").trim();
-			info.time = Double.parseDouble(str);
+		try {
+			PingInfo info = null;
+			// 1032 bytes from 61.153.56.191: icmp_seq=1 ttl=55 time=11.4 ms
+			if (str.contains("icmp_seq=") && str.contains("ttl=")
+					&& str.contains("time=")) {
+				info = new PingInfo();
+				info.byteCount = 1024;
+				str = str.replace(" ", "").trim();
+				// 1032bytesfrom61.153.56.191:icmp_seq=1ttl=55time=11.4ms
+				str = str.substring(str.lastIndexOf("="));
+				str = str.replace("ms", "").replace("=", "").trim();
+				info.time = Double.parseDouble(str);
+			}
+			return info;
+		} catch (Exception ex) {
+			return null;
 		}
-		return info;
 	}
 
 	private static String getNetworkSpeed(Context context, List<PingInfo> list) {
 		if (list == null || list.size() == 0) {
 			return context.getString(R.string.no_speed_tested);
 		}
-		
+
 		double timeCount = 0D;
-		for (PingInfo info: list) {
+		for (PingInfo info : list) {
 			timeCount += info.time;
 		}
 		timeCount /= list.size();

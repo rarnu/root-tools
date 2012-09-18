@@ -29,11 +29,14 @@ public class HostsAdapter extends BaseAdapter implements Filterable {
 	private ArrayFilter filter;
 	private boolean locked0 = false;
 	private boolean showCheckbox = true;
+
+	private final Object lock = new Object();
+
 	// [/region]
 
 	// [region] constructor
-	public HostsAdapter(LayoutInflater inflater, List<HostRecordInfo> list, Handler h, boolean locked0,
-			boolean showCheckbox) {
+	public HostsAdapter(LayoutInflater inflater, List<HostRecordInfo> list,
+			Handler h, boolean locked0, boolean showCheckbox) {
 		this.inflater = inflater;
 		this.listFull = list;
 		this.list = list;
@@ -43,7 +46,7 @@ public class HostsAdapter extends BaseAdapter implements Filterable {
 	}
 
 	// [/region]
-	
+
 	// [region] business logic
 	public void deleteItem(List<HostRecordInfo> items) {
 		for (HostRecordInfo info : items) {
@@ -54,7 +57,7 @@ public class HostsAdapter extends BaseAdapter implements Filterable {
 	}
 
 	// [/region]
-	
+
 	// [region] adapter
 	@Override
 	public int getCount() {
@@ -84,7 +87,8 @@ public class HostsAdapter extends BaseAdapter implements Filterable {
 			holder = new HostsAdapterHolder();
 			holder.tvItemIP = (TextView) v.findViewById(R.id.tvItem_IP);
 			holder.tvItemDomain = (TextView) v.findViewById(R.id.tvItem_Domain);
-			holder.chkItemChecked = (CheckBox) v.findViewById(R.id.chkItem_Checked);
+			holder.chkItemChecked = (CheckBox) v
+					.findViewById(R.id.chkItem_Checked);
 			holder.imgLocked = (ImageView) v.findViewById(R.id.imgLocked);
 			v.setTag(holder);
 		}
@@ -92,15 +96,20 @@ public class HostsAdapter extends BaseAdapter implements Filterable {
 		if (item != null) {
 			holder.tvItemIP.setText(item.ip);
 			holder.tvItemDomain.setText(item.domain);
-			holder.chkItemChecked.setVisibility(showCheckbox ? View.VISIBLE : View.GONE);
+			holder.chkItemChecked.setVisibility(showCheckbox ? View.VISIBLE
+					: View.GONE);
 
 			if (locked0) {
 				if (!showCheckbox) {
 					holder.chkItemChecked.setVisibility(View.GONE);
 				} else {
-					boolean needLock = (position == 0 && item.ip.equals("127.0.0.1") && item.domain.equals("localhost"));
-					holder.chkItemChecked.setVisibility(needLock ? View.GONE : View.VISIBLE);
-					holder.imgLocked.setVisibility(needLock ? View.VISIBLE : View.GONE);
+					boolean needLock = (position == 0
+							&& item.ip.equals("127.0.0.1") && item.domain
+							.equals("localhost"));
+					holder.chkItemChecked.setVisibility(needLock ? View.GONE
+							: View.VISIBLE);
+					holder.imgLocked.setVisibility(needLock ? View.VISIBLE
+							: View.GONE);
 				}
 			}
 
@@ -120,7 +129,7 @@ public class HostsAdapter extends BaseAdapter implements Filterable {
 	}
 
 	// [/region]
-	
+
 	// [region] filter
 	@Override
 	public Filter getFilter() {
@@ -137,18 +146,23 @@ public class HostsAdapter extends BaseAdapter implements Filterable {
 			list = listFull;
 			FilterResults results = new FilterResults();
 			if (prefix == null || prefix.length() == 0) {
-				ArrayList<HostRecordInfo> l = new ArrayList<HostRecordInfo>(list);
-				results.values = l;
-				results.count = l.size();
+				synchronized (lock) {
+					ArrayList<HostRecordInfo> l = new ArrayList<HostRecordInfo>(
+							list);
+					results.values = l;
+					results.count = l.size();
+				}
 			} else {
 
 				String prefixString = prefix.toString().toLowerCase();
 
-				final ArrayList<HostRecordInfo> values = new ArrayList<HostRecordInfo>(list);
+				final ArrayList<HostRecordInfo> values = new ArrayList<HostRecordInfo>(
+						list);
 
 				final int count = values.size();
 
-				final ArrayList<HostRecordInfo> newValues = new ArrayList<HostRecordInfo>(count);
+				final ArrayList<HostRecordInfo> newValues = new ArrayList<HostRecordInfo>(
+						count);
 
 				for (int i = 0; i < count; i++) {
 					final HostRecordInfo value = values.get(i);
@@ -168,7 +182,8 @@ public class HostsAdapter extends BaseAdapter implements Filterable {
 
 		@SuppressWarnings("unchecked")
 		@Override
-		protected void publishResults(CharSequence constraint, FilterResults results) {
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
 			list = (List<HostRecordInfo>) results.values;
 			if (results.count > 0) {
 				notifyDataSetChanged();

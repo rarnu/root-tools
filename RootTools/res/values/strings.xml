@@ -15,7 +15,7 @@
     <string name="share_weixin">分享到微信</string>
     <string name="share_weibo">分享到新浪微博</string>
     <string name="share_sms">分享到短信</string>
-    <string name="share_mail">分享到邮件</string>
+    <string name="share_mail">分享到其他第三方客户端</string>
     <string name="component_list">组件状态列表</string>
     <string name="operation_result">操作结果</string>
     <string name="feedback">用户反馈</string>
@@ -269,6 +269,9 @@
     <string name="itmdesc_google">移除 Gmail, Plus, Youtube, Picasa, VoiceSearch 等</string>
     <string name="itm_3rd">第三方预置应用</string>
     <string name="itmdesc_3rd">移除 Flash, PDFViewer, PolarisOffice, Teeter 等</string>
-	<string name="clean_htc_rom_confirm">确定要清理 ROM 吗？请确保你的手机 ROM 是 HTC Sense 4.0 或以上，不支持低版本，若不是 HTC Sense ROM 请勿尝试。清理后不可恢复，确定要清理请按“确定”。</string>
-	<string name="no_clean_item_selected">没有选定要清除的项目</string>
+    <string name="clean_htc_rom_confirm">确定要清理 ROM 吗？请确保你的手机 ROM 是 HTC Sense 4.0 或以上，不支持低版本，若不是 HTC Sense ROM 请勿尝试。清理后不可恢复，确定要清理请按“确定”。</string>
+    <string name="no_clean_item_selected">没有选定要清除的项目</string>
+    <string name="share_title">向您推荐一款好用的App《RootTools》</string>
+    <string name="share_body">RootTools可以帮助您管理您的手机，实现对系统的完全掌控，更多功能请点击下载: http://www.appchina.com/app/com.rarnu.tools.root/</string>
+
 </resources>

@@ -26,6 +26,8 @@ public class SysappAdapter extends BaseAdapter implements Filterable {
 	private List<SysappInfo> list;
 	private ArrayFilter filter;
 
+	private final Object lock = new Object();
+
 	// [/region]
 
 	// [region] constructor
@@ -87,8 +89,10 @@ public class SysappAdapter extends BaseAdapter implements Filterable {
 		}
 
 		if (item != null) {
-			holder.icon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.info));
-			holder.name.setText(GlobalInstance.pm.getApplicationLabel(item.info));
+			holder.icon.setBackgroundDrawable(GlobalInstance.pm
+					.getApplicationIcon(item.info));
+			holder.name.setText(GlobalInstance.pm
+					.getApplicationLabel(item.info));
 			holder.path.setText(item.info.sourceDir);
 
 			holder.name.setTextColor(Color.BLACK);
@@ -128,22 +132,27 @@ public class SysappAdapter extends BaseAdapter implements Filterable {
 			list = listFull;
 			FilterResults results = new FilterResults();
 			if (prefix == null || prefix.length() == 0) {
-				ArrayList<SysappInfo> l = new ArrayList<SysappInfo>(list);
-				results.values = l;
-				results.count = l.size();
+				synchronized (lock) {
+					ArrayList<SysappInfo> l = new ArrayList<SysappInfo>(list);
+					results.values = l;
+					results.count = l.size();
+				}
 			} else {
 
 				String prefixString = prefix.toString().toLowerCase();
 
-				final ArrayList<SysappInfo> values = new ArrayList<SysappInfo>(list);
+				final ArrayList<SysappInfo> values = new ArrayList<SysappInfo>(
+						list);
 
 				final int count = values.size();
 
-				final ArrayList<SysappInfo> newValues = new ArrayList<SysappInfo>(count);
+				final ArrayList<SysappInfo> newValues = new ArrayList<SysappInfo>(
+						count);
 
 				for (int i = 0; i < count; i++) {
 					final SysappInfo value = values.get(i);
-					final String valueText = GlobalInstance.pm.getApplicationLabel(value.info).toString()
+					final String valueText = GlobalInstance.pm
+							.getApplicationLabel(value.info).toString()
 							+ value.info.packageName;
 
 					if (valueText.indexOf(prefixString) != -1) {
@@ -161,7 +170,8 @@ public class SysappAdapter extends BaseAdapter implements Filterable {
 
 		@SuppressWarnings("unchecked")
 		@Override
-		protected void publishResults(CharSequence constraint, FilterResults results) {
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
 			list = (List<SysappInfo>) results.values;
 			if (results.count > 0) {
 				notifyDataSetChanged();

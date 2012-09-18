@@ -25,6 +25,9 @@ public class CompPackageAdapter extends BaseAdapter implements Filterable {
 	private List<PackageInfo> list;
 	private List<PackageInfo> listFull;
 	private ArrayFilter filter;
+
+	private final Object lock = new Object();
+
 	// [/region]
 
 	// [region] constructor
@@ -34,8 +37,9 @@ public class CompPackageAdapter extends BaseAdapter implements Filterable {
 		this.listFull = list;
 		this.list = list;
 	}
+
 	// [/region]
-	
+
 	// [region] adapter
 	@Override
 	public int getCount() {
@@ -68,16 +72,19 @@ public class CompPackageAdapter extends BaseAdapter implements Filterable {
 			holder = new CompPackageAdapterHolder();
 			holder.itemIcon = (ImageView) v.findViewById(R.id.itemIcon);
 			holder.itemName = (TextView) v.findViewById(R.id.itemName);
-			holder.tvReceiverCountValue = (TextView) v.findViewById(R.id.tvReceiverCountValue);
+			holder.tvReceiverCountValue = (TextView) v
+					.findViewById(R.id.tvReceiverCountValue);
 			v.setTag(holder);
 		}
 
 		if (item != null) {
 
-			holder.itemIcon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.applicationInfo));
-			holder.itemName.setText(GlobalInstance.pm.getApplicationLabel(item.applicationInfo));
-			holder.itemName.setTextColor(item.applicationInfo.sourceDir.contains("/system/app/") ? Color.RED
-					: Color.BLACK);
+			holder.itemIcon.setBackgroundDrawable(GlobalInstance.pm
+					.getApplicationIcon(item.applicationInfo));
+			holder.itemName.setText(GlobalInstance.pm
+					.getApplicationLabel(item.applicationInfo));
+			holder.itemName.setTextColor(item.applicationInfo.sourceDir
+					.contains("/system/app/") ? Color.RED : Color.BLACK);
 			holder.tvReceiverCountValue.setText(item.applicationInfo.sourceDir);
 
 		}
@@ -86,7 +93,7 @@ public class CompPackageAdapter extends BaseAdapter implements Filterable {
 	}
 
 	// [/region]
-	
+
 	// [region] filter
 	@Override
 	public Filter getFilter() {
@@ -103,22 +110,27 @@ public class CompPackageAdapter extends BaseAdapter implements Filterable {
 			list = listFull;
 			FilterResults results = new FilterResults();
 			if (prefix == null || prefix.length() == 0) {
-				ArrayList<PackageInfo> l = new ArrayList<PackageInfo>(list);
-				results.values = l;
-				results.count = l.size();
+				synchronized (lock) {
+					ArrayList<PackageInfo> l = new ArrayList<PackageInfo>(list);
+					results.values = l;
+					results.count = l.size();
+				}
 			} else {
 
 				String prefixString = prefix.toString().toLowerCase();
 
-				final ArrayList<PackageInfo> values = new ArrayList<PackageInfo>(list);
+				final ArrayList<PackageInfo> values = new ArrayList<PackageInfo>(
+						list);
 
 				final int count = values.size();
 
-				final ArrayList<PackageInfo> newValues = new ArrayList<PackageInfo>(count);
+				final ArrayList<PackageInfo> newValues = new ArrayList<PackageInfo>(
+						count);
 
 				for (int i = 0; i < count; i++) {
 					final PackageInfo value = values.get(i);
-					final String valueText = GlobalInstance.pm.getApplicationLabel(value.applicationInfo)
+					final String valueText = GlobalInstance.pm
+							.getApplicationLabel(value.applicationInfo)
 							+ value.packageName;
 
 					if (valueText.indexOf(prefixString) != -1) {
@@ -136,7 +148,8 @@ public class CompPackageAdapter extends BaseAdapter implements Filterable {
 
 		@SuppressWarnings("unchecked")
 		@Override
-		protected void publishResults(CharSequence constraint, FilterResults results) {
+		protected void publishResults(CharSequence constraint,
+				FilterResults results) {
 			list = (List<PackageInfo>) results.values;
 			if (results.count > 0) {
 				notifyDataSetChanged();

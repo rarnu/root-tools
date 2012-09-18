@@ -24,9 +24,11 @@ public class MemProcessAdapter extends BaseAdapter implements Filterable {
 	private List<MemProcessInfo> listFull;
 	private LayoutInflater inflater;
 	private ArrayFilter filter;
-	
+
+	private final Object lock = new Object();
+
 	// [/region]
-	
+
 	// [region] constructor
 
 	public MemProcessAdapter(List<MemProcessInfo> list, LayoutInflater inflater) {
@@ -36,15 +38,16 @@ public class MemProcessAdapter extends BaseAdapter implements Filterable {
 	}
 
 	// [/region]
-	
+
 	// [region] business logic
 	public void deleteItem(MemProcessInfo item) {
 		list.remove(item);
 		listFull.remove(item);
 		notifyDataSetChanged();
 	}
+
 	// [/region]
-	
+
 	// [region] adapter
 	@Override
 	public int getCount() {
@@ -102,7 +105,7 @@ public class MemProcessAdapter extends BaseAdapter implements Filterable {
 	}
 
 	// [/region]
-	
+
 	// [region] filter
 	@Override
 	public Filter getFilter() {
@@ -119,10 +122,12 @@ public class MemProcessAdapter extends BaseAdapter implements Filterable {
 			list = listFull;
 			FilterResults results = new FilterResults();
 			if (prefix == null || prefix.length() == 0) {
-				ArrayList<MemProcessInfo> l = new ArrayList<MemProcessInfo>(
-						list);
-				results.values = l;
-				results.count = l.size();
+				synchronized (lock) {
+					ArrayList<MemProcessInfo> l = new ArrayList<MemProcessInfo>(
+							list);
+					results.values = l;
+					results.count = l.size();
+				}
 			} else {
 
 				String prefixString = prefix.toString().toLowerCase();

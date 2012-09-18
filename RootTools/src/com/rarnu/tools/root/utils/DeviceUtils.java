@@ -79,7 +79,8 @@ public class DeviceUtils {
 	}
 
 	public static String getDeviceUniqueId(Context context) {
-		TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+		TelephonyManager tm = (TelephonyManager) context
+				.getSystemService(Context.TELEPHONY_SERVICE);
 		return tm.getDeviceId() + "_" + tm.getSubscriberId();
 	}
 
@@ -104,7 +105,8 @@ public class DeviceUtils {
 	public static int getAppVersionCode(Context context) {
 		int versionCode = 0;
 		try {
-			PackageInfo pi = GlobalInstance.pm.getPackageInfo(context.getPackageName(), 0);
+			PackageInfo pi = GlobalInstance.pm.getPackageInfo(
+					context.getPackageName(), 0);
 			versionCode = pi.versionCode;
 
 		} catch (Exception e) {
@@ -116,7 +118,8 @@ public class DeviceUtils {
 	public static String getAppVersionName(Context context) {
 		String versionName = "";
 		try {
-			PackageInfo pi = GlobalInstance.pm.getPackageInfo(context.getPackageName(), 0);
+			PackageInfo pi = GlobalInstance.pm.getPackageInfo(
+					context.getPackageName(), 0);
 			versionName = pi.versionName;
 
 		} catch (Exception e) {
@@ -139,12 +142,25 @@ public class DeviceUtils {
 
 		String factory = getBuildProp(RO_PRODUCT_MANUFACTURER);
 		if (factory.toLowerCase().contains("htc")) {
-			result+=2;
+			result += 2;
 		} else {
 			result--;
 		}
 
 		if (factory.toLowerCase().contains("xiaomi")) {
+			result -= 1;
+		}
+
+		String module = getBuildProp(RO_PRODUCT_MODEL);
+		if (module.toLowerCase().contains("lenovo")) {
+			result -= 2;
+		}
+
+		if (module.toLowerCase().contains("ideatab")) {
+			result -= 2;
+		}
+		
+		if (module.toLowerCase().contains("zte")) {
 			result -= 1;
 		}
 
@@ -160,7 +176,8 @@ public class DeviceUtils {
 			result--;
 		}
 
-		if (GlobalInstance.metric.widthPixels >= 480 && GlobalInstance.metric.heightPixels >= 800) {
+		if (GlobalInstance.metric.widthPixels >= 480
+				&& GlobalInstance.metric.heightPixels >= 800) {
 			result++;
 		} else {
 			result--;

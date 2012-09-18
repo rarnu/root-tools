@@ -6,7 +6,7 @@ import android.os.Environment;
 
 public class DirHelper {
 
-	private static final String ROOT_DIR = Environment
+	public static final String ROOT_DIR = Environment
 			.getExternalStorageDirectory().getPath() + "/.root_tools/";
 	public static final String SYSAPP_DIR = ROOT_DIR + "sysapp/";
 	public static final String ENABLEAPP_DIR = ROOT_DIR + "enableapp/";
