@@ -63,6 +63,8 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	ListView lvHistory = null;
 	ArrayAdapter<String> adapterHistory = null;
 
+	boolean isForceGpu = false;
+
 	// CellLocationManager locationManager = null;
 
 	@Override
@@ -70,7 +72,8 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		UIUtils.initDisplayMetrics(getWindowManager());
 
-		if (isForceGpuRendering()) {
+		isForceGpu = isForceGpuRendering();
+		if (isForceGpu) {
 			AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint),
 					getString(R.string.gpu_40), getString(R.string.ok),
 					new AlertDialogEx.DialogButtonClickListener() {
@@ -109,21 +112,20 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	protected void onDestroy() {
-		GlobalInstance.point = null;
-		Config.saveHistoryList(this, listHistory);
+		if (!isForceGpu) {
+			GlobalInstance.point = null;
+			Config.saveHistoryList(this, listHistory);
+		}
 		super.onDestroy();
 	}
 
 	@Override
 	protected void onResume() {
-		registerReceiver(myreceiver, mapFilter);
-		registerReceiver(locationReceiver, locationFilter);
-		GlobalInstance.search.locate();
-		// if (!SIMUtils.isSimCardReady(this)) {
-		// if (locationManager != null) {
-		// locationManager.start();
-		// }
-		// }
+		if (!isForceGpu) {
+			registerReceiver(myreceiver, mapFilter);
+			registerReceiver(locationReceiver, locationFilter);
+			GlobalInstance.search.locate();
+		}
 
 		super.onResume();
 
@@ -131,12 +133,14 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	protected void onPause() {
-		GlobalInstance.search.stop();
-		unregisterReceiver(locationReceiver);
-		unregisterReceiver(myreceiver);
-
+		if (!isForceGpu) {
+			GlobalInstance.search.stop();
+			unregisterReceiver(locationReceiver);
+			unregisterReceiver(myreceiver);
+			setEditMode(false);
+		}
 		super.onPause();
-		setEditMode(false);
+
 	}
 
 	@Override
