@@ -36,9 +36,9 @@ import com.rarnu.findaround.common.PageItem;
 import com.rarnu.findaround.common.PageUtils;
 import com.rarnu.findaround.common.UIUtils;
 import com.rarnu.findaround.comp.AlertDialogEx;
-import com.rarnu.findaround.comp.GridPage4x4;
-import com.rarnu.findaround.comp.GridPage4x4.OnDeleteClickListener;
-import com.rarnu.findaround.comp.GridPage4x4.OnKeywordClickListener;
+import com.rarnu.findaround.comp.GridPage6x3;
+import com.rarnu.findaround.comp.GridPage6x3.OnDeleteClickListener;
+import com.rarnu.findaround.comp.GridPage6x3.OnKeywordClickListener;
 import com.rarnu.findaround.comp.GridPageSearch;
 import com.rarnu.findaround.comp.PointBar;
 import com.rarnu.findaround.comp.PopupMenuDialog;
@@ -235,7 +235,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 			lay.setLayoutParams(new RelativeLayout.LayoutParams(
 					LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
 			gButtons.addView(lay);
-			GridPage4x4 gp = new GridPage4x4(this);
+			GridPage6x3 gp = new GridPage6x3(this);
 			gp.setOnClickListener(new OnClickListener() {
 				@Override
 				public void onClick(View v) {
@@ -394,8 +394,8 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	public void setEditMode(boolean edit) {
 		int count = gButtons.getChildCount();
 		for (int i = 0; i < count; i++) {
-			if (((RelativeLayout) gButtons.getChildAt(i)).getChildAt(0) instanceof GridPage4x4) {
-				((GridPage4x4) ((RelativeLayout) gButtons.getChildAt(i))
+			if (((RelativeLayout) gButtons.getChildAt(i)).getChildAt(0) instanceof GridPage6x3) {
+				((GridPage6x3) ((RelativeLayout) gButtons.getChildAt(i))
 						.getChildAt(0)).setEditStatus(edit);
 			}
 
@@ -404,7 +404,7 @@ public class WelcomeActivity extends BaseActivity implements OnClickListener,
 	}
 
 	public boolean getEditMode() {
-		boolean edit = ((GridPage4x4) ((RelativeLayout) gButtons.getChildAt(1))
+		boolean edit = ((GridPage6x3) ((RelativeLayout) gButtons.getChildAt(1))
 				.getChildAt(0)).getEditStatus();
 		return edit;
 	}

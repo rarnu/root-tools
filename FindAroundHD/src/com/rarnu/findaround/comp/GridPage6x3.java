@@ -2,6 +2,7 @@ package com.rarnu.findaround.comp;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -13,7 +14,7 @@ import com.rarnu.findaround.common.PageItem;
 import com.rarnu.findaround.common.PageUtils;
 import com.rarnu.findaround.common.UIUtils;
 
-public class GridPage4x4 extends RelativeLayout implements OnClickListener,
+public class GridPage6x3 extends RelativeLayout implements OnClickListener,
 		OnLongClickListener {
 
 	public interface OnDeleteClickListener {
@@ -29,25 +30,25 @@ public class GridPage4x4 extends RelativeLayout implements OnClickListener,
 	private OnLongClickListener longListener;
 	private OnDeleteClickListener deleteListener;
 
-	public GridPage4x4(Context context, AttributeSet attrs, int defStyle) {
+	public GridPage6x3(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init();
 	}
 
-	public GridPage4x4(Context context, AttributeSet attrs) {
+	public GridPage6x3(Context context, AttributeSet attrs) {
 		super(context, attrs);
 		init();
 	}
 
-	public GridPage4x4(Context context) {
+	public GridPage6x3(Context context) {
 		super(context);
 		init();
 	}
 
 	private void init() {
-		addView(inflate(getContext(), R.layout.welcome_page_item_4x4, null));
+		addView(inflate(getContext(), R.layout.welcome_page_item_6x3, null));
 
-		btns = new ButtonEx[16];
+		btns = new ButtonEx[18];
 		btns[0] = (ButtonEx) findViewById(R.id.btn1);
 		btns[1] = (ButtonEx) findViewById(R.id.btn2);
 		btns[2] = (ButtonEx) findViewById(R.id.btn3);
@@ -64,6 +65,8 @@ public class GridPage4x4 extends RelativeLayout implements OnClickListener,
 		btns[13] = (ButtonEx) findViewById(R.id.btn14);
 		btns[14] = (ButtonEx) findViewById(R.id.btn15);
 		btns[15] = (ButtonEx) findViewById(R.id.btn16);
+		btns[16] = (ButtonEx) findViewById(R.id.btn17);
+		btns[17] = (ButtonEx) findViewById(R.id.btn18);
 
 		for (int i = 0; i < btns.length; i++) {
 			btns[i].setIcon(R.drawable.ic_launcher);
@@ -78,19 +81,20 @@ public class GridPage4x4 extends RelativeLayout implements OnClickListener,
 	private void resizeButtons() {
 		// 3wx4h
 		int width = UIUtils.getWidth();
+		Log.e("landscape", String.format("width %d", width));
 
 		// int height = UIUtils.getHeight() - 96;
 
-		width = width - 32;
-		width = width / 35;
+		width = width - UIUtils.dipToPx(128);
+		width = width / 26;
 
 		for (int i = 0; i < btns.length; i++) {
 			RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) btns[i]
 					.getLayoutParams();
-			rlp.width = width * 8;
-			rlp.height = rlp.width * 5 / 4;
-			rlp.leftMargin = (i % 4 == 0 ? 0 : width);
-			rlp.topMargin = (i < 4 ? 0 : width);
+			rlp.width = width * 3;
+			rlp.height = rlp.width;
+			rlp.leftMargin = width; // (i % 6 == 0 ? 0 : width);
+			rlp.topMargin = (i < 6 ? 0 : width);
 			btns[i].setLayoutParams(rlp);
 		}
 	}
@@ -109,8 +113,8 @@ public class GridPage4x4 extends RelativeLayout implements OnClickListener,
 
 	public void setButtonsItem(PageItem[] items) {
 		int count = items.length;
-		if (count > 16) {
-			count = 16;
+		if (count > 18) {
+			count = 18;
 		}
 		for (int i = 0; i < count; i++) {
 			btns[i].setText(items[i].name);
