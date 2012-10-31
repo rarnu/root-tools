@@ -8,10 +8,7 @@
         android:id="@+id/layMain"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/layBottom"
-        android:scrollbars="none"
-        android:fadingEdge="none"
-        android:layout_marginRight="-1dip" >
+        android:layout_above="@+id/layBottom" >
 
         <com.rarnu.zoe.loving.page.PageImage
             android:id="@+id/pageImage"

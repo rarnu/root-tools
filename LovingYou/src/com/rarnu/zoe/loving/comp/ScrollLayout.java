@@ -55,7 +55,10 @@ public class ScrollLayout extends ViewGroup {
 		for (int i = 0; i < childCount; i++) {
 			final View childView = getChildAt(i);
 			if (childView.getVisibility() != View.GONE) {
-				final int childWidth = childView.getMeasuredWidth();
+				final int childWidth = childView.getMeasuredWidth() - 1;
+				// Log.e("onLayout", String.format(
+				// "left:%d, top:%d, right:%d, bottom:%d", childLeft, 0,
+				// childLeft + childWidth, childView.getMeasuredHeight()));
 				childView.layout(childLeft, 0, childLeft + childWidth,
 						childView.getMeasuredHeight());
 				childLeft += childWidth;
