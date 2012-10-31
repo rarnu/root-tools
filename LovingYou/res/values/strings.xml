@@ -2,6 +2,15 @@
 
     <string name="app_name">LovingYou</string>
 
+    <string name="tab_image">图片</string>
+    <string name="tab_letter">写信</string>
+    <string name="tab_today">今天</string>
+    <string name="tab_history">历史</string>
+    <string name="tab_settings">设置</string>
+    
+    <string name="record_today">记录今天</string>
+    <string name="day_1">Day 1</string>
+    
     <string name="account">帐户</string>
     <string name="password">密码</string>
     <string name="repeat_password">重复</string>
