@@ -2,6 +2,36 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
+    <TextView
+        android:id="@+id/tvPostDay"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:gravity="right|center_vertical"
+        android:paddingRight="16dip"
+        android:textColor="#FF999999" />
+
+    <EditText
+        android:id="@+id/etPostDay"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/btnSubmit"
+        android:layout_below="@+id/tvPostDay"
+        android:layout_margin="16dip"
+        android:background="#FF222222"
+        android:textColor="@color/white"
+        android:gravity="left|top" />
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="120dip"
+        android:layout_height="48dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="64dip"
+        android:layout_marginRight="16dip"
+        android:background="#FF222222"
+        android:text="@string/tell_daomao"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

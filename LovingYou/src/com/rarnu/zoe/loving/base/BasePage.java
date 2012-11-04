@@ -1,11 +1,9 @@
 package com.rarnu.zoe.loving.base;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 public abstract class BasePage extends RelativeLayout {
 
@@ -40,12 +38,12 @@ public abstract class BasePage extends RelativeLayout {
 		layRoot.setLayoutParams(rootParam);
 		addView(layRoot);
 		
-		TextView tvLine = new TextView(getContext());
-		RelativeLayout.LayoutParams lineParam = new RelativeLayout.LayoutParams(1, LayoutParams.MATCH_PARENT);
-		lineParam.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
-		tvLine.setLayoutParams(lineParam);
-		tvLine.setBackgroundColor(Color.GRAY);
-		addView(tvLine);
+//		TextView tvLine = new TextView(getContext());
+//		RelativeLayout.LayoutParams lineParam = new RelativeLayout.LayoutParams(1, LayoutParams.MATCH_PARENT);
+//		lineParam.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, 1);
+//		tvLine.setLayoutParams(lineParam);
+//		tvLine.setBackgroundColor(Color.GRAY);
+//		addView(tvLine);
 
 		init();
 	}

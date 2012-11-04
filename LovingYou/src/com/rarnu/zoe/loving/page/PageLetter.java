@@ -2,12 +2,16 @@ package com.rarnu.zoe.loving.page;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.widget.TextView;
 
+import com.rarnu.zoe.loving.Global;
 import com.rarnu.zoe.loving.R;
 import com.rarnu.zoe.loving.base.BasePage;
 
 public class PageLetter extends BasePage {
 
+	TextView tvPostDay;
+	
 	public PageLetter(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 	}
@@ -28,8 +32,8 @@ public class PageLetter extends BasePage {
 
 	@Override
 	protected void init() {
-		// TODO Auto-generated method stub
-
+		tvPostDay = (TextView) findViewById(R.id.tvPostDay);
+		tvPostDay.setText(String.format(getResources().getString(R.string.day_fmt), Global.database.getDay()));
 	}
 
 	@Override

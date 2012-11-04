@@ -1,15 +1,41 @@
 <resources>
 
     <string name="app_name">LovingYou</string>
-
     <string name="tab_image">图片</string>
     <string name="tab_letter">写信</string>
     <string name="tab_today">今天</string>
     <string name="tab_history">历史</string>
     <string name="tab_settings">设置</string>
-    
     <string name="record_today">记录今天</string>
-    <string name="day_1">Day 1</string>
+    <string name="day_fmt" formatted="false">Day %d</string>
+    <string name="emotion">心情</string>
+    <string name="active">运动</string>
+    <string name="food">食物</string>
+    <string name="friend">朋友</string>
+    <string name="news">尝试新事物</string>
+    <string name="news_short">新事物</string>
+    <string name="tell">记录下来吧~</string>
+    <string name="emotion1">↖(^ω^)↗</string>
+    <string name="emotion2">T_T</string>
+    <string name="active1">0运动</string>
+    <string name="active2">20分钟</string>
+    <string name="active3">1小时</string>
+    <string name="food1">蔬菜水果</string>
+    <string name="food2">没吃</string>
+    <string name="food3">快餐</string>
+    <string name="friend1">是有趣的人</string>
+    <string name="friend2">跟SB在一起</string>
+    <string name="news1">有</string>
+    <string name="news2">无</string>
+    <string name="lvl_1">★</string>
+    <string name="lvl_2">〇</string>
+    <string name="lvl_3">Ⅹ</string>
+    <string name="tell_daomao">告诉大猫</string>
+    <string name="hint1">早餐提醒</string>
+    <string name="hint2">午餐提醒</string>
+    <string name="hint3">晚餐提醒</string>
+    
+    <string name="about">关于我们</string>
     
     <string name="account">帐户</string>
     <string name="password">密码</string>
@@ -30,9 +56,7 @@
     <string name="new_password_hint">* 如果不需要修改密码，请将以上两行留空</string>
     <string name="old_password_required">请输入当前密码</string>
     <string name="old_password_error">修改失败，请检查当前密码是否正确</string>
-    
     <string name="require_register">还没有帐号？点击此处注册一个</string>
-    
     <string name="refresh">刷新</string>
     <string name="settings">设置</string>
     <string name="back">返回</string>
@@ -58,62 +82,56 @@
     <string name="update_user_succ">修改用户资料成功</string>
     <string name="no_change">没有改动，无需保存</string>
     <string name="ok">确定</string>
-	<string name="cancel">取消</string>
-	<string name="do_public">发布</string>
-	<string name="public_talk">分享留言</string>
-	<string name="public_photo">分享照片</string>
-	<string name="public_file">分享文件</string>
-	
-	<string name="loading_file">正在加载文件分享，请稍候&#8230;</string>
-	<string name="loading_talk">正在加载留言分享，请稍候&#8230;</string>
-	<string name="loading_photo">正在加载照片分享，请稍候&#8230;</string>
-	<string name="loading_mine">正在加载个人信息，请稍候&#8230;</string>
-	<string name="loading_login">正在登录，请稍候&#8230;</string>
-	<string name="loading_register">正在注册，请稍候&#8230;</string>
-	<string name="loading_upload_talk">正在上传留言，请稍候&#8230;</string>
-	<string name="loading_upload_photo">正在上传照片，请稍候&#8230;</string>
-	<string name="loading_upload_file">正在上传文件，请稍候&#8230;</string>
-	
-	<string name="deleting_talk">正在删除留言分享，请稍候&#8230;</string>
-	<string name="deleting_photo">正在删除照片分享，请稍候&#8230;</string>
-	<string name="deleting_file">正在删除文件分享，请稍候&#8230;</string>
-	
-	<string name="empty_article">请先输入留言，然后再发布</string>
-	<string name="empty_photo">请先添加照片，然后再发布</string>
-	<string name="empty_file">请先添加文件，然后再发布</string>
-	<string name="public_article_succ">分享留言成功</string>
-	<string name="public_photo_succ">分享照片成功</string>
-	<string name="public_file_succ">分享文件成功</string>
-	<string name="public_article_fail">分享留言失败</string>
-	<string name="public_photo_fail">分享照片失败</string>
-	<string name="public_file_fail">分享文件失败</string>
-	
-	<string name="view_talk">查看留言</string>
-	<string name="view_photo">查看照片</string>
-	<string name="view_file">查看文件</string>
-	<string name="upload_photo_info">照片信息</string>
-	<string name="upload_file_info">文件信息</string>
-	<string name="upload_photo">上传照片</string>
-	<string name="upload_file">上传文件</string>
-	<string name="download_file">下载文件</string>
-	<string name="delete_photo_info">删除照片</string>
-	<string name="delete_file_info">删除文件</string>
-	<string name="delete">删除</string>
-	<string name="delete_confirm">确定要删除这条分享吗？按“确定”删除，按“取消”不删除。</string>
-	<string name="delete_succ">删除分享成功</string>
-	<string name="delete_fail">删除分享失败</string>
-	
-	<string name="talk_hint">在此输入留言，最多200字</string>
-	
-	<string name="pulldown_refresh">下拉可以刷新</string>
-	<string name="empty_pulldown_refresh">没有内容，请下拉列表刷新</string>
-	<string name="release_fresh">松开可以刷新</string>
-	<string name="refreshing">正在刷新&#8230;</string>
-	<string name="load_more">点击加载更多</string>
-	<string name="loading">正在加载&#8230;</string>
-	
-	<string name="file_too_large">文件太大，不能上传</string>
-	<string name="public_at">发表于: </string>
-	<string name="from_camera">拍照</string>
-	<string name="from_gallery">选取相册</string>
+    <string name="cancel">取消</string>
+    <string name="do_public">发布</string>
+    <string name="public_talk">分享留言</string>
+    <string name="public_photo">分享照片</string>
+    <string name="public_file">分享文件</string>
+    <string name="loading_file">正在加载文件分享，请稍候&#8230;</string>
+    <string name="loading_talk">正在加载留言分享，请稍候&#8230;</string>
+    <string name="loading_photo">正在加载照片分享，请稍候&#8230;</string>
+    <string name="loading_mine">正在加载个人信息，请稍候&#8230;</string>
+    <string name="loading_login">正在登录，请稍候&#8230;</string>
+    <string name="loading_register">正在注册，请稍候&#8230;</string>
+    <string name="loading_upload_talk">正在上传留言，请稍候&#8230;</string>
+    <string name="loading_upload_photo">正在上传照片，请稍候&#8230;</string>
+    <string name="loading_upload_file">正在上传文件，请稍候&#8230;</string>
+    <string name="deleting_talk">正在删除留言分享，请稍候&#8230;</string>
+    <string name="deleting_photo">正在删除照片分享，请稍候&#8230;</string>
+    <string name="deleting_file">正在删除文件分享，请稍候&#8230;</string>
+    <string name="empty_article">请先输入留言，然后再发布</string>
+    <string name="empty_photo">请先添加照片，然后再发布</string>
+    <string name="empty_file">请先添加文件，然后再发布</string>
+    <string name="public_article_succ">分享留言成功</string>
+    <string name="public_photo_succ">分享照片成功</string>
+    <string name="public_file_succ">分享文件成功</string>
+    <string name="public_article_fail">分享留言失败</string>
+    <string name="public_photo_fail">分享照片失败</string>
+    <string name="public_file_fail">分享文件失败</string>
+    <string name="view_talk">查看留言</string>
+    <string name="view_photo">查看照片</string>
+    <string name="view_file">查看文件</string>
+    <string name="upload_photo_info">照片信息</string>
+    <string name="upload_file_info">文件信息</string>
+    <string name="upload_photo">上传照片</string>
+    <string name="upload_file">上传文件</string>
+    <string name="download_file">下载文件</string>
+    <string name="delete_photo_info">删除照片</string>
+    <string name="delete_file_info">删除文件</string>
+    <string name="delete">删除</string>
+    <string name="delete_confirm">确定要删除这条分享吗？按“确定”删除，按“取消”不删除。</string>
+    <string name="delete_succ">删除分享成功</string>
+    <string name="delete_fail">删除分享失败</string>
+    <string name="talk_hint">在此输入留言，最多200字</string>
+    <string name="pulldown_refresh">下拉可以刷新</string>
+    <string name="empty_pulldown_refresh">没有内容，请下拉列表刷新</string>
+    <string name="release_fresh">松开可以刷新</string>
+    <string name="refreshing">正在刷新&#8230;</string>
+    <string name="load_more">点击加载更多</string>
+    <string name="loading">正在加载&#8230;</string>
+    <string name="file_too_large">文件太大，不能上传</string>
+    <string name="public_at">发表于: </string>
+    <string name="from_camera">拍照</string>
+    <string name="from_gallery">选取相册</string>
+
 </resources>

@@ -6,11 +6,11 @@ import android.preference.PreferenceManager;
 
 public class Config {
 
-	private static final String ACCOUNT = "user_account";
-	private static final String TOKEN = "user_token";
-	private static final String NICKNAME = "user_nickname";
-	private static final String ID = "user_id";
-	private static final String TEMP_ARTICLE = "temp_article";
+	public static final String TOKEN = "token";
+	public static final String SECRET_TOKEN = "secret_token";
+	
+	private static final String HINT_ENABLED = "hint%d_enabled";
+	private static final String HINT_TIME = "hint%d_time";
 
 	private static SharedPreferences sp = null;
 	private static void initSharedPreference(Context context) {
@@ -18,53 +18,29 @@ public class Config {
 			sp = PreferenceManager.getDefaultSharedPreferences(context);
 		}
 	}
-	public static String getAccount(Context context) {
+	
+	public static boolean getHintEnabled(Context context, int index) {
 		initSharedPreference(context);
-		return sp.getString(ACCOUNT, "");
+		String key = String.format(HINT_ENABLED, index);
+		return sp.getBoolean(key, false);
+		
 	}
 	
-	public static void setAccount(Context context, String account) {
+	public static void setHintEnabled(Context context, int index, boolean enabled) {
 		initSharedPreference(context);
-		sp.edit().putString(ACCOUNT, account).commit();
+		String key = String.format(HINT_ENABLED, index);
+		sp.edit().putBoolean(key, enabled).commit();
 	}
 	
-	public static String getToken(Context context) {
+	public static long getHintTime(Context context, int index, long def) {
 		initSharedPreference(context);
-		return sp.getString(TOKEN, "");
+		String key = String.format(HINT_TIME, index);
+		return sp.getLong(key, def);
 	}
 	
-	public static void setToken(Context context, String token) {
+	public static void setHintTime(Context context, int index, long value) {
 		initSharedPreference(context);
-		sp.edit().putString(TOKEN, token).commit();
-	}
-	
-	public static String getNickname(Context context) {
-		initSharedPreference(context);
-		return sp.getString(NICKNAME, "");
-	}
-	
-	public static void setNickname(Context context, String nickname) {
-		initSharedPreference(context);
-		sp.edit().putString(NICKNAME, nickname).commit();
-	}
-
-	public static int getId(Context context) {
-		initSharedPreference(context);
-		return sp.getInt(ID, 0);
-	}
-	
-	public static void setId(Context context, int value) {
-		initSharedPreference(context);
-		sp.edit().putInt(ID, value).commit();
-	}
-	
-	public static String getTempArticle(Context context) {
-		initSharedPreference(context);
-		return sp.getString(TEMP_ARTICLE, "");
-	}
-	
-	public static void setTempArticle(Context context, String value) {
-		initSharedPreference(context);
-		sp.edit().putString(TEMP_ARTICLE, value).commit();
+		String key = String.format(HINT_TIME, index);
+		sp.edit().putLong(key, value).commit();
 	}
 }

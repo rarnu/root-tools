@@ -2,6 +2,76 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
+    <RelativeLayout
+        android:id="@+id/layHistoryTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="#FF222222"
+        android:padding="8dip" >
+
+        <TextView
+            android:id="@+id/tvHEmotion"
+            android:layout_width="60dip"
+            android:layout_height="56dip"
+            android:gravity="left|center_vertical"
+            android:text="@string/emotion"
+            android:textColor="#FF999999"
+            android:textSize="16dip" />
+
+        <TextView
+            android:id="@+id/tvHActive"
+            android:layout_width="60dip"
+            android:layout_height="56dip"
+            android:layout_below="@+id/tvHEmotion"
+            android:gravity="left|center_vertical"
+            android:text="@string/active"
+            android:textColor="#FF999999"
+            android:textSize="16dip" />
+
+        <TextView
+            android:id="@+id/tvHFood"
+            android:layout_width="60dip"
+            android:layout_height="56dip"
+            android:layout_below="@+id/tvHActive"
+            android:gravity="left|center_vertical"
+            android:text="@string/food"
+            android:textColor="#FF999999"
+            android:textSize="16dip" />
+
+        <TextView
+            android:id="@+id/tvHFriend"
+            android:layout_width="60dip"
+            android:layout_height="56dip"
+            android:layout_below="@+id/tvHFood"
+            android:gravity="left|center_vertical"
+            android:text="@string/friend"
+            android:textColor="#FF999999"
+            android:textSize="16dip" />
+
+        <TextView
+            android:id="@+id/tvHNews"
+            android:layout_width="60dip"
+            android:layout_height="56dip"
+            android:layout_below="@+id/tvHFriend"
+            android:gravity="left|center_vertical"
+            android:text="@string/news_short"
+            android:textColor="#FF999999"
+            android:textSize="16dip" />
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lvHistory"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/tvHEmotion"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
+        android:layout_marginTop="56dip"
+        android:layout_toRightOf="@+id/layHistoryTitle"
+        android:background="@color/black"
+        android:divider="@color/black"
+        android:dividerHeight="1dip" >
+    </ListView>
 
 </RelativeLayout>

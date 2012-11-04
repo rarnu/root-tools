@@ -3,9 +3,6 @@ package com.rarnu.zoe.loving.base;
 import android.app.Activity;
 import android.os.Bundle;
 
-import com.rarnu.zoe.loving.R;
-import com.rarnu.zoe.loving.comp.TitleBar;
-
 public abstract class BaseActivity extends Activity {
 
 	@Override

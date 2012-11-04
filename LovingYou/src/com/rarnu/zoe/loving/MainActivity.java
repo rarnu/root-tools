@@ -1,6 +1,9 @@
 package com.rarnu.zoe.loving;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
@@ -11,8 +14,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.zoe.loving.base.BaseActivity;
+import com.rarnu.zoe.loving.common.Consts;
 import com.rarnu.zoe.loving.comp.ScrollLayout;
 import com.rarnu.zoe.loving.comp.ScrollLayout.OnScreenChangeListener;
+import com.rarnu.zoe.loving.database.DatabaseHelper;
 import com.rarnu.zoe.loving.page.PageHistory;
 import com.rarnu.zoe.loving.page.PageImage;
 import com.rarnu.zoe.loving.page.PageLetter;
@@ -38,28 +43,13 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		UIUtils.initDisplayMetrics(getWindowManager());
+		Global.database = new DatabaseHelper(this);
 		super.onCreate(savedInstanceState);
 
 		onClick(btnFunc3);
 		layMain.setToScreen(2);
-	}
-
-	@Override
-	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode != RESULT_OK) {
-			if (requestCode == 0) {
-				finish();
-			}
-			return;
-		}
-
-		switch (requestCode) {
-		case 0:
-			if (Config.getAccount(this).equals("")) {
-				finish();
-			}
-			break;
-		}
+		
+		registerReceiver(receiverScrollPage, filterScrollPage);
 	}
 
 	@Override
@@ -75,7 +65,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	protected void onDestroy() {
-
+		unregisterReceiver(receiverScrollPage);
 		super.onDestroy();
 	}
 
@@ -254,6 +244,24 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 		}
 	}
 
+	// [/region]
+	
+	// [region] receivers
+	public class ScrollPageReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			int page = intent.getIntExtra("page", -1);
+			if (page != -1) {
+				layMain.snapToScreen(page);
+			}
+			
+		}
+		
+	}
+	
+	public IntentFilter filterScrollPage = new IntentFilter(Consts.SCROLL_PAGE_ACTION);
+	public ScrollPageReceiver receiverScrollPage = new ScrollPageReceiver();
 	// [/region]
 
 }
