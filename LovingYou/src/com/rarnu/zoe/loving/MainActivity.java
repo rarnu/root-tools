@@ -50,6 +50,12 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 		layMain.setToScreen(2);
 		
 		registerReceiver(receiverScrollPage, filterScrollPage);
+		
+		if (Config.getFirstStart(this)) {
+			Config.setFirstStart(this, false);
+			Intent inSplash = new Intent(this, SplashActivity.class);
+			startActivity(inSplash);
+		}
 	}
 
 	@Override

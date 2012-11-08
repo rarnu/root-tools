@@ -9,6 +9,7 @@ public class Config {
 	public static final String TOKEN = "token";
 	public static final String SECRET_TOKEN = "secret_token";
 	
+	public static final String FIRST_START = "first_start";
 	private static final String HINT_ENABLED = "hint%d_enabled";
 	private static final String HINT_TIME = "hint%d_time";
 
@@ -19,11 +20,20 @@ public class Config {
 		}
 	}
 	
+	public static boolean getFirstStart(Context context) {
+		initSharedPreference(context);
+		return sp.getBoolean(FIRST_START, true);
+	}
+	
+	public static void setFirstStart(Context context, boolean value) {
+		initSharedPreference(context);
+		sp.edit().putBoolean(FIRST_START, value).commit();
+	}
+	
 	public static boolean getHintEnabled(Context context, int index) {
 		initSharedPreference(context);
 		String key = String.format(HINT_ENABLED, index);
 		return sp.getBoolean(key, false);
-		
 	}
 	
 	public static void setHintEnabled(Context context, int index, boolean enabled) {

@@ -67,7 +67,7 @@ public class PageHistory extends BasePage implements OnClickListener {
 
 	@Override
 	public void load(String... param) {
-		int baseWidth = UIUtils.getWidth() - UIUtils.dipToPx(32)
+		int baseWidth = UIUtils.getWidth() - UIUtils.dipToPx(48)
 				- UIUtils.dipToPx(60);
 		itemWidth = baseWidth / 3;
 		setSelTab(1);
