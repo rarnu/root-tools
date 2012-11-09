@@ -167,19 +167,16 @@ public class PageToday extends BasePage implements OnClickListener {
 
 	@Override
 	public void load(String... param) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void refresh() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void delete(int index) {
-		// TODO Auto-generated method stub
 
 	}
 

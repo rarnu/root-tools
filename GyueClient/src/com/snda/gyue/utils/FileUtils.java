@@ -385,9 +385,7 @@ public class FileUtils {
 			} finally {
 				out.close();
 			}
-			android.os.FileUtils.setPermissions(destFile.getAbsolutePath(), android.os.FileUtils.S_IRUSR
-					| android.os.FileUtils.S_IWUSR | android.os.FileUtils.S_IRGRP | android.os.FileUtils.S_IROTH, -1,
-					-1);
+			
 			return true;
 		} catch (IOException e) {
 			return false;

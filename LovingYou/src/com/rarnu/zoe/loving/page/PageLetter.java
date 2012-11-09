@@ -38,19 +38,16 @@ public class PageLetter extends BasePage {
 
 	@Override
 	public void load(String... param) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void refresh() {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void delete(int index) {
-		// TODO Auto-generated method stub
 
 	}
 

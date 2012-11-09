@@ -6,8 +6,8 @@ import android.preference.PreferenceManager;
 
 public class Config {
 
-	public static final String TOKEN = "token";
-	public static final String SECRET_TOKEN = "secret_token";
+	public static final String TOKEN = "b83b2cb9049ed3141ad282578bd9da0b";
+	public static final String SECRET_TOKEN = "33818b0bdc0f29ba5796163affc42073";
 	
 	public static final String FIRST_START = "first_start";
 	private static final String HINT_ENABLED = "hint%d_enabled";

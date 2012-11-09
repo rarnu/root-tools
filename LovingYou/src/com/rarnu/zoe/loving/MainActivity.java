@@ -261,13 +261,13 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 			if (page != -1) {
 				layMain.snapToScreen(page);
 			}
-			
 		}
 		
 	}
 	
 	public IntentFilter filterScrollPage = new IntentFilter(Consts.SCROLL_PAGE_ACTION);
 	public ScrollPageReceiver receiverScrollPage = new ScrollPageReceiver();
+	
 	// [/region]
 
 }
