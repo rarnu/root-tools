@@ -56,10 +56,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_toRightOf="@+id/tvEmotionT"
-                android:gravity="left|center_vertical"
+                android:gravity="center"
                 android:text="@string/emotion1"
                 android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvEmotion2"
@@ -69,7 +69,13 @@
                 android:gravity="center"
                 android:text="@string/emotion2"
                 android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:textSize="18dip" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_alignParentBottom="true"
+                android:background="#FF222222" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -94,10 +100,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_toRightOf="@+id/tvActiveT"
-                android:gravity="left|center_vertical"
+                android:gravity="center"
                 android:text="@string/active1"
                 android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvActive2"
@@ -107,17 +113,13 @@
                 android:gravity="center"
                 android:text="@string/active2"
                 android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:textSize="18dip" />
 
             <TextView
-                android:id="@+id/tvActive3"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_toRightOf="@+id/tvActive2"
-                android:gravity="center"
-                android:text="@string/active3"
-                android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_alignParentBottom="true"
+                android:background="#FF222222" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -142,10 +144,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_toRightOf="@+id/tvFoodT"
-                android:gravity="left|center_vertical"
+                android:gravity="center"
                 android:text="@string/food1"
                 android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvFood2"
@@ -155,17 +157,13 @@
                 android:gravity="center"
                 android:text="@string/food2"
                 android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:textSize="18dip" />
 
             <TextView
-                android:id="@+id/tvFood3"
-                android:layout_width="wrap_content"
-                android:layout_height="fill_parent"
-                android:layout_toRightOf="@+id/tvFood2"
-                android:gravity="center"
-                android:text="@string/food3"
-                android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_alignParentBottom="true"
+                android:background="#FF222222" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -190,10 +188,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="fill_parent"
                 android:layout_toRightOf="@+id/tvFriendT"
-                android:gravity="left|center_vertical"
+                android:gravity="center"
                 android:text="@string/friend1"
                 android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvFriend2"
@@ -203,7 +201,13 @@
                 android:gravity="center"
                 android:text="@string/friend2"
                 android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:textSize="18dip" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_alignParentBottom="true"
+                android:background="#FF222222" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -215,7 +219,7 @@
 
             <TextView
                 android:id="@+id/tvNewsT"
-                android:layout_width="120dip"
+                android:layout_width="80dip"
                 android:layout_height="fill_parent"
                 android:layout_marginRight="28dip"
                 android:gravity="left|center_vertical"
@@ -231,7 +235,7 @@
                 android:gravity="center"
                 android:text="@string/news1"
                 android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvNews2"
@@ -241,7 +245,13 @@
                 android:gravity="center"
                 android:text="@string/news2"
                 android:textColor="@color/white"
-                android:textSize="20dip" />
+                android:textSize="18dip" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_alignParentBottom="true"
+                android:background="#FF222222" />
         </RelativeLayout>
     </RelativeLayout>
 

@@ -1,7 +1,22 @@
-发布微博
-关于我们
 文案
+图片逻辑
 
+* 发布微博
+* 重启后重设闹铃
+* 提交到今天，不可以全空
+* 6,8修改
+* 设置里的“关于”改成“退出”
+* 关于我们
+* 21个格子倒序排，最后一天没有“关于”
 * 定时提醒
 * 3D看图模式
 * 启动画面
+
+zoe@zoe2012.com
+1985rarnusuper
+
+App key：2002030520
+App secret：ac3f3f01fd94aec68fe893116600e768
+
+<string name="token">2.00EVU4VCqa_ULCde7a79ab020tyak5</string>
+<long name="expiresTime" value="1352746799938" />

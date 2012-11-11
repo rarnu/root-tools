@@ -9,4 +9,13 @@
         android:layout_height="fill_parent"
         android:contentDescription="@null" />
 
+    <TextView
+        android:id="@+id/tvItem"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:background="#FF222222"
+        android:gravity="center"
+        android:textColor="#FF999999"
+        android:textSize="16dip" />
+
 </RelativeLayout>

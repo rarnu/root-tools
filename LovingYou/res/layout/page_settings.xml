@@ -108,13 +108,13 @@
     </RelativeLayout>
     
     <Button
-            android:id="@+id/btnAbout"
+            android:id="@+id/btnExit"
             android:layout_width="120dip"
             android:layout_height="48dip"
             android:layout_toRightOf="@+id/tvHint3"
             android:background="#FF222222"
             android:textColor="#FF999999"
-            android:text="@string/about"
+            android:text="@string/exit"
             android:textSize="20dip"
             android:layout_marginTop="48dip"
             android:layout_below="@+id/layHint3" />

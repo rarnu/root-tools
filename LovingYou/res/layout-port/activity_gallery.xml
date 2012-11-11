@@ -9,7 +9,6 @@
         android:layout_height="32dip"
         android:background="#FF222222"
         android:gravity="center"
-        android:text="test"
         android:textColor="#FF999999" />
 
     <com.rarnu.zoe.loving.comp.ScrollLayout

@@ -7,6 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.zoe.loving.R;
@@ -53,34 +54,26 @@ public class HistoryAdapter extends BaseAdapter {
 			holder.tvItem1 = (TextView) v.findViewById(R.id.tvItem1);
 			holder.tvItem2 = (TextView) v.findViewById(R.id.tvItem2);
 			holder.tvItem3 = (TextView) v.findViewById(R.id.tvItem3);
+			holder.imgItem1 = (ImageView) v.findViewById(R.id.imgItem1);
+			holder.imgItem2 = (ImageView) v.findViewById(R.id.imgItem2);
+			holder.imgItem3 = (ImageView) v.findViewById(R.id.imgItem3);
 			
 			holder.setComponentSize(itemWidth);
 			v.setTag(holder);
 		}
 		DataInfo item = list.get(position);
 		if (item != null) {
-			holder.tvItem1.setText(statToText(item.column, item.data1));
-			holder.tvItem2.setText(statToText(item.column, item.data2));
-			holder.tvItem3.setText(statToText(item.column, item.data3));
 			
+			holder.imgItem1.setVisibility(item.data1 == 1 ? View.VISIBLE: View.GONE);
+			holder.imgItem2.setVisibility(item.data2 == 1 ? View.VISIBLE: View.GONE);
+			holder.imgItem3.setVisibility(item.data3 == 1 ? View.VISIBLE: View.GONE);
+			
+			holder.tvItem1.setText(item.data1 == -1 ? "": context.getString(R.string.emotion2));
+			holder.tvItem2.setText(item.data2 == -1 ? "": context.getString(R.string.emotion2));
+			holder.tvItem3.setText(item.data3 == -1 ? "": context.getString(R.string.emotion2));
+
 		}
 		return v;
-	}
-	
-	private String statToText(String column, int stat) {
-		String ret = "";
-		switch (stat) {
-		case 1:
-			ret = context.getString(R.string.lvl_1);
-			break;
-		case 2:
-			ret = context.getString(R.string.lvl_2);
-			break;
-		case 3:
-			ret = context.getString(R.string.lvl_3);
-			break;
-		}
-		return ret;
 	}
 
 }

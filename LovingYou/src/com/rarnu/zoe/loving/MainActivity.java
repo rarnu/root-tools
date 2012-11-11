@@ -45,12 +45,14 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 		UIUtils.initDisplayMetrics(getWindowManager());
 		Global.database = new DatabaseHelper(this);
 		super.onCreate(savedInstanceState);
+		Global.activity = this;
 
 		onClick(btnFunc3);
 		layMain.setToScreen(2);
-		
+
 		registerReceiver(receiverScrollPage, filterScrollPage);
-		
+		registerReceiver(receiverExit, filterExit);
+
 		if (Config.getFirstStart(this)) {
 			Config.setFirstStart(this, false);
 			Intent inSplash = new Intent(this, SplashActivity.class);
@@ -72,6 +74,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void onDestroy() {
 		unregisterReceiver(receiverScrollPage);
+		unregisterReceiver(receiverExit);
 		super.onDestroy();
 	}
 
@@ -86,9 +89,8 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void init() {
 		super.init();
-
 		adjustButtonWidth();
-		
+		pImage.load();
 	}
 
 	@Override
@@ -198,7 +200,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 
 			case R.id.btnFunc1:
 				layMain.snapToScreen(0);
-				pImage.load();
+				// pImage.load();
 				break;
 			case R.id.btnFunc2:
 				layMain.snapToScreen(1);
@@ -226,8 +228,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 		switch (screen) {
 		case 0:
 			setSelectedItem(btnFunc1);
-
-			pImage.load();
+			// pImage.load();
 			break;
 		case 1:
 			setSelectedItem(btnFunc2);
@@ -251,7 +252,7 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 	}
 
 	// [/region]
-	
+
 	// [region] receivers
 	public class ScrollPageReceiver extends BroadcastReceiver {
 
@@ -262,12 +263,22 @@ public class MainActivity extends BaseActivity implements OnClickListener,
 				layMain.snapToScreen(page);
 			}
 		}
-		
+
 	}
-	
-	public IntentFilter filterScrollPage = new IntentFilter(Consts.SCROLL_PAGE_ACTION);
+
+	public IntentFilter filterScrollPage = new IntentFilter(
+			Consts.SCROLL_PAGE_ACTION);
 	public ScrollPageReceiver receiverScrollPage = new ScrollPageReceiver();
-	
+
+	public class ExitReceiver extends BroadcastReceiver {
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			finish();
+		}
+	}
+
+	public IntentFilter filterExit = new IntentFilter(Consts.EXIT_ACTION);
+	public ExitReceiver receiverExit = new ExitReceiver();
 	// [/region]
 
 }

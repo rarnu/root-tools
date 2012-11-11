@@ -8,7 +8,7 @@
         android:layout_width="fill_parent"
         android:layout_height="48dip"
         android:gravity="right|center_vertical"
-        android:paddingRight="16dip"
+        android:paddingRight="22dip"
         android:textColor="#FF999999" />
 
     <EditText
@@ -19,8 +19,13 @@
         android:layout_below="@+id/tvPostDay"
         android:layout_margin="16dip"
         android:background="#FF222222"
+        android:gravity="left|top"
+        android:hint="“世界上一定有另一个我，做着我不敢做的事，过着我想要的生活。”\n\n
+曾经想去看莫斯科冬季大雪，想看沙漠日落，想摸摸泰姬陵阴凉的大理石，想在爱琴海边石柱旁循环听“再见王子”，想在蓝色清真寺重读Istanbul，想结束不开心的感情，想一个人旅行。然后，然后全部都做到了。恩。\n\n
+写下心愿，然后一起来实现吧o(^_^)o\n
+（140字内）"
         android:textColor="@color/white"
-        android:gravity="left|top" />
+        android:textSize="16dip" />
 
     <Button
         android:id="@+id/btnSubmit"

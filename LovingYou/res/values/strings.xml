@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">LovingYou</string>
+    <string name="app_name">因为我爱你</string>
     <string name="tab_image">图片</string>
     <string name="tab_letter">写信</string>
     <string name="tab_today">今天</string>
@@ -12,17 +12,15 @@
     <string name="active">运动</string>
     <string name="food">食物</string>
     <string name="friend">朋友</string>
-    <string name="news">尝试新事物</string>
+    <string name="news">新事物</string>
     <string name="news_short">新事物</string>
     <string name="tell">记录下来吧~</string>
     <string name="emotion1">↖(^ω^)↗</string>
     <string name="emotion2">T_T</string>
-    <string name="active1">0运动</string>
-    <string name="active2">20分钟</string>
-    <string name="active3">1小时</string>
+    <string name="active1">20分钟以上</string>
+    <string name="active2">0运动</string>
     <string name="food1">蔬菜水果</string>
-    <string name="food2">没吃</string>
-    <string name="food3">快餐</string>
+    <string name="food2">没吃or快餐</string>
     <string name="friend1">是有趣的人</string>
     <string name="friend2">跟SB在一起</string>
     <string name="news1">有</string>
@@ -31,6 +29,8 @@
     <string name="lvl_2">〇</string>
     <string name="lvl_3">Ⅹ</string>
     <string name="tell_daomao">告诉大猫</string>
+    <string name="send_weibo_succ">感谢您的提交，大猫知道了哦~ \n您可以访问微博 @大猫喜欢你 来看自己的留言~</string>
+    <string name="send_weibo_fail">提交出错了，请过一会再重试哦~</string>
     <string name="hint1">早餐提醒</string>
     <string name="hint2">午餐提醒</string>
     <string name="hint3">晚餐提醒</string>
@@ -38,6 +38,8 @@
     <string name="about">关于我们</string>
     <string name="start">马上尝试一下哦~</string>
     <string name="isee">好啦，我知道了哦~</string>
+    <string name="exit">退出</string>
+    <string name="close">关闭</string>
     
     <string name="account">帐户</string>
     <string name="password">密码</string>

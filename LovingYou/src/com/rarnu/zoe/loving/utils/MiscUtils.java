@@ -9,5 +9,12 @@ public class MiscUtils {
 		c.setTimeInMillis(time);
 		return c;
 	}
+	
+	public static Calendar loadDefaultCalendar(int hour) {
+		Calendar cDef = Calendar.getInstance();
+		cDef.set(Calendar.HOUR_OF_DAY, hour);
+		cDef.set(Calendar.MINUTE, 0);
+		return cDef;
+	}
 
 }

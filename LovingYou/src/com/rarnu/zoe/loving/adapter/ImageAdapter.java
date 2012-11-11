@@ -8,16 +8,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.rarnu.zoe.loving.R;
+import com.rarnu.zoe.loving.common.ImageInfo;
 
 public class ImageAdapter extends BaseAdapter {
 
 	private Context context;
-	private List<Integer> list;
+	private List<ImageInfo> list;
 	private LayoutInflater inflater;
 
-	public ImageAdapter(Context context, List<Integer> list) {
+	public ImageAdapter(Context context, List<ImageInfo> list) {
 		this.context = context;
 		this.list = list;
 		this.inflater = LayoutInflater.from(context);
@@ -43,11 +45,22 @@ public class ImageAdapter extends BaseAdapter {
 		View v = convertView;
 		if (v == null) {
 			v = inflater.inflate(R.layout.item_image, parent, false);
-
-			((ImageView) v.findViewById(R.id.imgItem))
-					.setBackgroundDrawable(context.getResources().getDrawable(
-							R.drawable.test));
-
+		}
+		
+		ImageHolder holder = (ImageHolder) v.getTag();
+		if (holder == null) {
+			holder = new ImageHolder();
+			holder.tvItem = (TextView) v.findViewById(R.id.tvItem);
+			holder.imgItem = (ImageView) v.findViewById(R.id.imgItem);
+			v.setTag(holder);
+		}
+		
+		ImageInfo item = list.get(position);
+		if (item != null) {
+			holder.imgItem.setVisibility(item.showImage ? View.VISIBLE: View.GONE);
+			holder.tvItem.setVisibility(item.showImage ? View.GONE: View.VISIBLE);
+			holder.imgItem.setImageDrawable(context.getResources().getDrawable(item.image));
+			holder.tvItem.setText(item.text);
 		}
 
 		return v;

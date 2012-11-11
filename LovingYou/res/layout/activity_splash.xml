@@ -7,20 +7,27 @@
     <com.rarnu.zoe.loving.comp.ScrollLayout
         android:id="@+id/laySplash"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:background="@drawable/splash" >
 
         <RelativeLayout
             android:id="@+id/laySplash1"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/splash" >
+            android:layout_height="fill_parent">
+            
+            <TextView android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:textColor="#FFFFFFFF"
+                android:text="启动页还木有做好，直接往右边滑吧~"
+                android:layout_margin="16dip"
+                />
+            
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/laySplash2"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:background="@drawable/splash" >
+            android:layout_height="fill_parent" >
 
             <Button
                 android:id="@+id/btnStart"

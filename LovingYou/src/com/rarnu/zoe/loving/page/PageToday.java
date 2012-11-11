@@ -19,8 +19,8 @@ import com.rarnu.zoe.loving.utils.UIUtils;
 public class PageToday extends BasePage implements OnClickListener {
 
 	TextView tvEmotionT, tvEmotion1, tvEmotion2;
-	TextView tvActiveT, tvActive1, tvActive2, tvActive3;
-	TextView tvFoodT, tvFood1, tvFood2, tvFood3;
+	TextView tvActiveT, tvActive1, tvActive2;
+	TextView tvFoodT, tvFood1, tvFood2;
 	TextView tvFriendT, tvFriend1, tvFriend2;
 	TextView tvNewsT, tvNews1, tvNews2;
 	Button btnSubmit;
@@ -56,12 +56,10 @@ public class PageToday extends BasePage implements OnClickListener {
 		tvActiveT = (TextView) findViewById(R.id.tvActiveT);
 		tvActive1 = (TextView) findViewById(R.id.tvActive1);
 		tvActive2 = (TextView) findViewById(R.id.tvActive2);
-		tvActive3 = (TextView) findViewById(R.id.tvActive3);
 
 		tvFoodT = (TextView) findViewById(R.id.tvFoodT);
 		tvFood1 = (TextView) findViewById(R.id.tvFood1);
 		tvFood2 = (TextView) findViewById(R.id.tvFood2);
-		tvFood3 = (TextView) findViewById(R.id.tvFood3);
 
 		tvFriendT = (TextView) findViewById(R.id.tvFriendT);
 		tvFriend1 = (TextView) findViewById(R.id.tvFriend1);
@@ -107,17 +105,12 @@ public class PageToday extends BasePage implements OnClickListener {
 
 		// active
 
-		width = basewidth / 3;
-
 		rlp = (RelativeLayout.LayoutParams) tvActive1.getLayoutParams();
 		rlp.width = width;
 		tvActive1.setLayoutParams(rlp);
 		rlp = (RelativeLayout.LayoutParams) tvActive2.getLayoutParams();
 		rlp.width = width;
 		tvActive2.setLayoutParams(rlp);
-		rlp = (RelativeLayout.LayoutParams) tvActive3.getLayoutParams();
-		rlp.width = width;
-		tvActive3.setLayoutParams(rlp);
 
 		// food
 
@@ -127,13 +120,10 @@ public class PageToday extends BasePage implements OnClickListener {
 		rlp = (RelativeLayout.LayoutParams) tvFood2.getLayoutParams();
 		rlp.width = width;
 		tvFood2.setLayoutParams(rlp);
-		rlp = (RelativeLayout.LayoutParams) tvFood3.getLayoutParams();
-		rlp.width = width;
-		tvFood3.setLayoutParams(rlp);
 
 		// news
 		basewidth = UIUtils.getWidth() - UIUtils.dipToPx(32)
-				- UIUtils.dipToPx(148);
+				- UIUtils.dipToPx(108);
 		width = basewidth / 2;
 		rlp = (RelativeLayout.LayoutParams) tvNews1.getLayoutParams();
 		rlp.width = width;
@@ -150,11 +140,9 @@ public class PageToday extends BasePage implements OnClickListener {
 
 		tvActive1.setOnClickListener(this);
 		tvActive2.setOnClickListener(this);
-		tvActive3.setOnClickListener(this);
 
 		tvFood1.setOnClickListener(this);
 		tvFood2.setOnClickListener(this);
-		tvFood3.setOnClickListener(this);
 
 		tvFriend1.setOnClickListener(this);
 		tvFriend2.setOnClickListener(this);
@@ -195,17 +183,11 @@ public class PageToday extends BasePage implements OnClickListener {
 		case R.id.tvActive2:
 			setSelActive(2);
 			break;
-		case R.id.tvActive3:
-			setSelActive(3);
-			break;
 		case R.id.tvFood1:
 			setSelFood(1);
 			break;
 		case R.id.tvFood2:
 			setSelFood(2);
-			break;
-		case R.id.tvFood3:
-			setSelFood(3);
 			break;
 		case R.id.tvFriend1:
 			setSelFriend(1);
@@ -220,8 +202,11 @@ public class PageToday extends BasePage implements OnClickListener {
 			setSelNews(2);
 			break;
 		case R.id.btnSubmit:
-			Global.database.insert(System.currentTimeMillis(), selEmotion,
-					selActive, selFood, selFriend, selNews);
+			if (!((selEmotion == -1) && (selActive == -1) && (selFood == -1)
+					&& (selFriend == -1) && (selNews == -1))) {
+				Global.database.insert(System.currentTimeMillis(), selEmotion,
+						selActive, selFood, selFriend, selNews);
+			}
 			Intent inAction = new Intent(Consts.SCROLL_PAGE_ACTION);
 			inAction.putExtra("page", 3);
 			getContext().sendBroadcast(inAction);
@@ -247,13 +232,11 @@ public class PageToday extends BasePage implements OnClickListener {
 			selActive = -1;
 			tvActive1.setTextColor(Color.WHITE);
 			tvActive2.setTextColor(Color.WHITE);
-			tvActive3.setTextColor(Color.WHITE);
 			return;
 		}
 		selActive = sel;
 		tvActive1.setTextColor(selActive == 1 ? 0xff3399FF : Color.WHITE);
 		tvActive2.setTextColor(selActive == 2 ? 0xff3399FF : Color.WHITE);
-		tvActive3.setTextColor(selActive == 3 ? 0xff3399FF : Color.WHITE);
 	}
 
 	private void setSelFood(int sel) {
@@ -261,13 +244,11 @@ public class PageToday extends BasePage implements OnClickListener {
 			selFood = -1;
 			tvFood1.setTextColor(Color.WHITE);
 			tvFood2.setTextColor(Color.WHITE);
-			tvFood3.setTextColor(Color.WHITE);
 			return;
 		}
 		selFood = sel;
 		tvFood1.setTextColor(selFood == 1 ? 0xff3399FF : Color.WHITE);
 		tvFood2.setTextColor(selFood == 2 ? 0xff3399FF : Color.WHITE);
-		tvFood3.setTextColor(selFood == 3 ? 0xff3399FF : Color.WHITE);
 	}
 
 	private void setSelFriend(int sel) {

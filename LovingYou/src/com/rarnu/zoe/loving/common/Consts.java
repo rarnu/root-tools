@@ -6,6 +6,7 @@ public class Consts {
 	public static final String SCROLL_PAGE_ACTION = "com.rarnu.zoe.action.scroll.page";
 	
 	public static final String ALARM_ACTION = "com.rarnu.zoe.alarm";
+	public static final String EXIT_ACTION = "com.rarnu.zoe.exit";
 
 	public static final int WHAT_DID_LOAD_DATA = 0;
 	public static final int WHAT_DID_REFRESH = 1;

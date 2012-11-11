@@ -4,8 +4,6 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-import android.app.AlarmManager;
-import android.app.PendingIntent;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Context;
@@ -22,14 +20,14 @@ import com.rarnu.zoe.loving.Config;
 import com.rarnu.zoe.loving.R;
 import com.rarnu.zoe.loving.base.BasePage;
 import com.rarnu.zoe.loving.common.Consts;
+import com.rarnu.zoe.loving.utils.AlarmUtils;
 import com.rarnu.zoe.loving.utils.MiscUtils;
 
 public class PageSettings extends BasePage implements OnClickListener {
 
 	CheckBox chkHint1, chkHint2, chkHint3;
 	Button btnHint1, btnHint2, btnHint3;
-
-	AlarmManager am;
+	Button btnExit;
 
 	public PageSettings(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -51,9 +49,6 @@ public class PageSettings extends BasePage implements OnClickListener {
 
 	@Override
 	protected void init() {
-		am = (AlarmManager) getContext()
-				.getSystemService(Context.ALARM_SERVICE);
-
 		chkHint1 = (CheckBox) findViewById(R.id.chkHint1);
 		chkHint2 = (CheckBox) findViewById(R.id.chkHint2);
 		chkHint3 = (CheckBox) findViewById(R.id.chkHint3);
@@ -61,6 +56,8 @@ public class PageSettings extends BasePage implements OnClickListener {
 		btnHint1 = (Button) findViewById(R.id.btnHint1);
 		btnHint2 = (Button) findViewById(R.id.btnHint2);
 		btnHint3 = (Button) findViewById(R.id.btnHint3);
+
+		btnExit = (Button) findViewById(R.id.btnExit);
 
 		initEvent();
 	}
@@ -72,6 +69,7 @@ public class PageSettings extends BasePage implements OnClickListener {
 		btnHint1.setOnClickListener(this);
 		btnHint2.setOnClickListener(this);
 		btnHint3.setOnClickListener(this);
+		btnExit.setOnClickListener(this);
 	}
 
 	@Override
@@ -111,46 +109,40 @@ public class PageSettings extends BasePage implements OnClickListener {
 		case R.id.chkHint1:
 			Config.setHintEnabled(getContext(), 1, chkHint1.isChecked());
 			if (chkHint1.isChecked()) {
-				Calendar cDef = Calendar.getInstance();
-				cDef.set(Calendar.HOUR_OF_DAY, 6);
-				cDef.set(Calendar.MINUTE, 0);
+				Calendar cDef = MiscUtils.loadDefaultCalendar(6);
 				long timeMillis = Config.getHintTime(getContext(), 1,
 						cDef.getTimeInMillis());
 				Calendar c = MiscUtils.loadTimeMillis(timeMillis);
-				startAlarm(1, c.get(Calendar.HOUR_OF_DAY),
-						c.get(Calendar.MINUTE));
+				AlarmUtils.startAlarm(getContext(), 1,
+						c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
 			} else {
-				cancelAlarm(1);
+				AlarmUtils.cancelAlarm(getContext(), 1);
 			}
 			break;
 		case R.id.chkHint2:
 			Config.setHintEnabled(getContext(), 2, chkHint2.isChecked());
 			if (chkHint2.isChecked()) {
-				Calendar cDef = Calendar.getInstance();
-				cDef.set(Calendar.HOUR_OF_DAY, 12);
-				cDef.set(Calendar.MINUTE, 0);
+				Calendar cDef =MiscUtils.loadDefaultCalendar(12);
 				long timeMillis = Config.getHintTime(getContext(), 2,
 						cDef.getTimeInMillis());
 				Calendar c = MiscUtils.loadTimeMillis(timeMillis);
-				startAlarm(2, c.get(Calendar.HOUR_OF_DAY),
-						c.get(Calendar.MINUTE));
+				AlarmUtils.startAlarm(getContext(), 2,
+						c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
 			} else {
-				cancelAlarm(2);
+				AlarmUtils.cancelAlarm(getContext(), 2);
 			}
 			break;
 		case R.id.chkHint3:
 			Config.setHintEnabled(getContext(), 3, chkHint3.isChecked());
 			if (chkHint3.isChecked()) {
-				Calendar cDef = Calendar.getInstance();
-				cDef.set(Calendar.HOUR_OF_DAY, 18);
-				cDef.set(Calendar.MINUTE, 0);
+				Calendar cDef = MiscUtils.loadDefaultCalendar(18);
 				long timeMillis = Config.getHintTime(getContext(), 3,
 						cDef.getTimeInMillis());
 				Calendar c = MiscUtils.loadTimeMillis(timeMillis);
-				startAlarm(3, c.get(Calendar.HOUR_OF_DAY),
-						c.get(Calendar.MINUTE));
+				AlarmUtils.startAlarm(getContext(), 3,
+						c.get(Calendar.HOUR_OF_DAY), c.get(Calendar.MINUTE));
 			} else {
-				cancelAlarm(2);
+				AlarmUtils.cancelAlarm(getContext(), 2);
 			}
 			break;
 		case R.id.btnHint1:
@@ -161,6 +153,10 @@ public class PageSettings extends BasePage implements OnClickListener {
 			break;
 		case R.id.btnHint3:
 			selectTime(3);
+			break;
+		case R.id.btnExit:
+			Intent inExit = new Intent(Consts.EXIT_ACTION);
+			getContext().sendBroadcast(inExit);
 			break;
 		}
 
@@ -205,19 +201,22 @@ public class PageSettings extends BasePage implements OnClickListener {
 						case 1:
 							btnHint1.setText(timeStr);
 							if (chkHint1.isChecked()) {
-								startAlarm(1, hourOfDay, minute);
+								AlarmUtils.startAlarm(getContext(), 1,
+										hourOfDay, minute);
 							}
 							break;
 						case 2:
 							btnHint2.setText(timeStr);
 							if (chkHint2.isChecked()) {
-								startAlarm(2, hourOfDay, minute);
+								AlarmUtils.startAlarm(getContext(), 2,
+										hourOfDay, minute);
 							}
 							break;
 						case 3:
 							btnHint3.setText(timeStr);
 							if (chkHint3.isChecked()) {
-								startAlarm(3, hourOfDay, minute);
+								AlarmUtils.startAlarm(getContext(), 3,
+										hourOfDay, minute);
 							}
 							break;
 						}
@@ -226,40 +225,6 @@ public class PageSettings extends BasePage implements OnClickListener {
 				true);
 		dialog.setCanceledOnTouchOutside(false);
 		dialog.show();
-	}
-
-	private void startAlarm(int index, int hour, int minute) {
-		Log.e("startAlarm", String.format("hour:%d, minute:%d", hour, minute));
-		Calendar calendar = Calendar.getInstance();
-		calendar.setTimeInMillis(System.currentTimeMillis());
-		calendar.set(Calendar.HOUR_OF_DAY, hour);
-		calendar.set(Calendar.MINUTE, minute);
-		calendar.set(Calendar.SECOND, 0);
-		calendar.set(Calendar.MILLISECOND, 0);
-
-		if (calendar.getTimeInMillis() < System.currentTimeMillis()) {
-			calendar.setTimeInMillis(System.currentTimeMillis()
-					+ (24 * 60 * 60 * 1000));
-			calendar.set(Calendar.HOUR_OF_DAY, hour);
-			calendar.set(Calendar.MINUTE, minute);
-			calendar.set(Calendar.SECOND, 0);
-			calendar.set(Calendar.MILLISECOND, 0);
-		}
-
-		Intent intent = new Intent(Consts.ALARM_ACTION);
-		intent.putExtra("index", index);
-		PendingIntent pendingIntent = PendingIntent.getBroadcast(getContext(),
-				index, intent, 0);
-		am.set(AlarmManager.RTC_WAKEUP, calendar.getTimeInMillis(),
-				pendingIntent);
-	}
-
-	private void cancelAlarm(int index) {
-		Intent intent = new Intent(Consts.ALARM_ACTION);
-		intent.putExtra("index", index);
-		PendingIntent sender = PendingIntent.getBroadcast(getContext(), index,
-				intent, 0);
-		am.cancel(sender);
 	}
 
 }
