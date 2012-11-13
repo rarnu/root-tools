@@ -26,7 +26,7 @@ public class PageLetter extends BasePage implements OnClickListener,
 
 	TextView tvPostDay;
 	EditText etPostDay;
-	Button btnSubmit;
+	Button btnSelectImage, btnSubmit;
 
 	Handler hWeibo = new Handler() {
 		@Override
@@ -70,12 +70,14 @@ public class PageLetter extends BasePage implements OnClickListener,
 	protected void init() {
 		tvPostDay = (TextView) findViewById(R.id.tvPostDay);
 		etPostDay = (EditText) findViewById(R.id.etPostDay);
+		btnSelectImage = (Button) findViewById(R.id.btnSelectImage);
 		btnSubmit = (Button) findViewById(R.id.btnSubmit);
 
 		tvPostDay.setText(String.format(
 				getResources().getString(R.string.day_fmt),
 				Global.database.getDay()));
 
+		btnSelectImage.setOnClickListener(this);
 		btnSubmit.setOnClickListener(this);
 	}
 
@@ -96,7 +98,15 @@ public class PageLetter extends BasePage implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
-		WeiboUtils.shareArticleToSina(etPostDay.getText().toString(), this);
+		switch (v.getId()) {
+		case R.id.btnSelectImage:
+			// TODO: select image
+			break;
+		case R.id.btnSubmit:
+			// TODO: upload
+			WeiboUtils.shareArticleToSina(etPostDay.getText().toString(), "", this);
+			break;
+		}
 	}
 
 	@Override

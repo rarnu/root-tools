@@ -7,9 +7,14 @@ import com.weibo.sdk.android.net.RequestListener;
 
 public class WeiboUtils {
 
-	public static void shareArticleToSina(String text, RequestListener listener) {
+	public static void shareArticleToSina(String text, String file,
+			RequestListener listener) {
 		StatusesAPI api = new StatusesAPI(new Oauth2AccessToken(Config.TOKEN,
 				Config.EXPRIED));
-		api.update(text, "0", "0", listener);
+		if (file == null || file.equals("")) {
+			api.update(text, "0", "0", listener);
+		} else {
+			api.upload(text, file, "0", "0", listener);
+		}
 	}
 }

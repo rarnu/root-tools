@@ -3,75 +3,35 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <RelativeLayout
-        android:id="@+id/layHistoryTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="#FF222222"
-        android:padding="8dip" >
-
-        <TextView
-            android:id="@+id/tvHEmotion"
-            android:layout_width="60dip"
-            android:layout_height="56dip"
-            android:gravity="left|center_vertical"
-            android:text="@string/emotion"
-            android:textColor="#FF999999"
-            android:textSize="16dip" />
-
-        <TextView
-            android:id="@+id/tvHActive"
-            android:layout_width="60dip"
-            android:layout_height="56dip"
-            android:layout_below="@+id/tvHEmotion"
-            android:gravity="left|center_vertical"
-            android:text="@string/active"
-            android:textColor="#FF999999"
-            android:textSize="16dip" />
-
-        <TextView
-            android:id="@+id/tvHFood"
-            android:layout_width="60dip"
-            android:layout_height="56dip"
-            android:layout_below="@+id/tvHActive"
-            android:gravity="left|center_vertical"
-            android:text="@string/food"
-            android:textColor="#FF999999"
-            android:textSize="16dip" />
-
-        <TextView
-            android:id="@+id/tvHFriend"
-            android:layout_width="60dip"
-            android:layout_height="56dip"
-            android:layout_below="@+id/tvHFood"
-            android:gravity="left|center_vertical"
-            android:text="@string/friend"
-            android:textColor="#FF999999"
-            android:textSize="16dip" />
-
-        <TextView
-            android:id="@+id/tvHNews"
-            android:layout_width="60dip"
-            android:layout_height="56dip"
-            android:layout_below="@+id/tvHFriend"
-            android:gravity="left|center_vertical"
-            android:text="@string/news_short"
-            android:textColor="#FF999999"
-            android:textSize="16dip" />
-    </RelativeLayout>
+    <TextView
+        android:id="@+id/tvHistory"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="8dip"
+        android:textColor="#FF999999"
+        android:textSize="24dip" />
 
     <ListView
         android:id="@+id/lvHistory"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/tvHEmotion"
-        android:layout_marginLeft="16dip"
-        android:layout_marginRight="16dip"
-        android:layout_marginTop="56dip"
-        android:layout_toRightOf="@+id/layHistoryTitle"
+        android:layout_above="@+id/tvDesc"
+        android:layout_below="@+id/tvHistory"
+        android:layout_margin="16dip"
         android:background="@color/black"
         android:divider="@color/black"
-        android:dividerHeight="1dip" >
+        android:dividerHeight="1dip"
+        android:scrollbars="none" >
     </ListView>
+
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="fill_parent"
+        android:layout_height="80dip"
+        android:layout_alignParentBottom="true"
+        android:gravity="right|center_vertical"
+        android:paddingRight="22dip"
+        android:textColor="#FF999999" />
 
 </RelativeLayout>

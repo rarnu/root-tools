@@ -6,27 +6,34 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.zoe.loving.R;
 import com.rarnu.zoe.loving.common.DataInfo;
+import com.rarnu.zoe.loving.event.OnHistoryClick;
 
 public class HistoryAdapter extends BaseAdapter {
 
 	private Context context;
 	private List<DataInfo> list;
 	private LayoutInflater inflater;
+	private OnHistoryClick click;
 	private int itemWidth;
-	
-	public HistoryAdapter(Context context, List<DataInfo> list, int itemWidth) {
+	private int itemHeight;
+
+	public HistoryAdapter(Context context, List<DataInfo> list, int itemWidth, int itemHeight,
+			OnHistoryClick click) {
 		this.context = context;
 		this.list = list;
 		this.itemWidth = itemWidth;
+		this.itemHeight = itemHeight;
+		this.click = click;
 		this.inflater = LayoutInflater.from(context);
 	}
-	
+
 	@Override
 	public int getCount() {
 		return list.size();
@@ -43,7 +50,7 @@ public class HistoryAdapter extends BaseAdapter {
 	}
 
 	@Override
-	public View getView(int position, View convertView, ViewGroup parent) {
+	public View getView(final int position, View convertView, ViewGroup parent) {
 		View v = convertView;
 		if (v == null) {
 			v = inflater.inflate(R.layout.item_history, parent, false);
@@ -57,22 +64,50 @@ public class HistoryAdapter extends BaseAdapter {
 			holder.imgItem1 = (ImageView) v.findViewById(R.id.imgItem1);
 			holder.imgItem2 = (ImageView) v.findViewById(R.id.imgItem2);
 			holder.imgItem3 = (ImageView) v.findViewById(R.id.imgItem3);
-			
+
+			holder.tvItem1.setTag(1);
+			holder.tvItem2.setTag(2);
+			holder.tvItem3.setTag(3);
+
 			holder.setComponentSize(itemWidth);
 			v.setTag(holder);
 		}
 		DataInfo item = list.get(position);
 		if (item != null) {
-			
-			holder.imgItem1.setVisibility(item.data1 == 1 ? View.VISIBLE: View.GONE);
-			holder.imgItem2.setVisibility(item.data2 == 1 ? View.VISIBLE: View.GONE);
-			holder.imgItem3.setVisibility(item.data3 == 1 ? View.VISIBLE: View.GONE);
-			
-			holder.tvItem1.setText(item.data1 == -1 ? "": context.getString(R.string.emotion2));
-			holder.tvItem2.setText(item.data2 == -1 ? "": context.getString(R.string.emotion2));
-			holder.tvItem3.setText(item.data3 == -1 ? "": context.getString(R.string.emotion2));
+
+			holder.imgItem1.setVisibility(item.data1 <=7 ? View.VISIBLE
+					: View.GONE);
+			holder.imgItem2.setVisibility(item.data2 <=7 ? View.VISIBLE
+					: View.GONE);
+			holder.imgItem3.setVisibility(item.data3 <=7 ? View.VISIBLE
+					: View.GONE);
+
+			holder.tvItem1.setText(item.data1 == 99 ? "" : context
+					.getString(R.string.emotion2));
+			holder.tvItem2.setText(item.data2 == 99 ? "" : context
+					.getString(R.string.emotion2));
+			holder.tvItem3.setText(item.data3 == 99 ? "" : context
+					.getString(R.string.emotion2));
+
+			OnClickListener listener = new OnClickListener() {
+
+				@Override
+				public void onClick(View v) {
+					if (click != null) {
+						click.onClick(v,
+								((position * 3) + (Integer) v.getTag()));
+					}
+
+				}
+			};
+			holder.tvItem1.setOnClickListener(listener);
+			holder.tvItem2.setOnClickListener(listener);
+			holder.tvItem3.setOnClickListener(listener);
 
 		}
+		ViewGroup.LayoutParams vlp = v.getLayoutParams();
+		vlp.height = itemHeight;
+		v.setLayoutParams(vlp);
 		return v;
 	}
 

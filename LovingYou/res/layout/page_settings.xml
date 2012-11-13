@@ -7,12 +7,9 @@
     <RelativeLayout
         android:id="@+id/layHint1"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content" >
-
-        <CheckBox
-            android:id="@+id/chkHint1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_height="48dip"
+        android:layout_marginTop="8dip"
+        android:clickable="true" >
 
         <TextView
             android:id="@+id/tvHint1"
@@ -21,33 +18,43 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dip"
             android:layout_marginRight="16dip"
-            android:layout_toRightOf="@+id/chkHint1"
             android:gravity="left|center_vertical"
             android:text="@string/hint1"
-            android:textColor="#FF999999"
+            android:textColor="@color/white"
             android:textSize="22dip" />
 
-        <Button
-            android:id="@+id/btnHint1"
-            android:layout_width="100dip"
-            android:layout_height="48dip"
+        <TextView
+            android:id="@+id/tvHintValue1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dip"
             android:layout_toRightOf="@+id/tvHint1"
-            android:background="#FF222222"
+            android:gravity="left|center_vertical"
             android:textColor="#FF999999"
             android:textSize="20dip" />
+
+        <CheckBox
+            android:id="@+id/chkHint1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentBottom="true"
+            android:background="#FF222222" />
     </RelativeLayout>
-    
+
     <RelativeLayout
         android:id="@+id/layHint2"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dip"
         android:layout_below="@+id/layHint1"
-        android:layout_marginTop="32dip" >
-
-        <CheckBox
-            android:id="@+id/chkHint2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_marginTop="8dip"
+        android:clickable="true" >
 
         <TextView
             android:id="@+id/tvHint2"
@@ -56,33 +63,43 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dip"
             android:layout_marginRight="16dip"
-            android:layout_toRightOf="@+id/chkHint2"
             android:gravity="left|center_vertical"
             android:text="@string/hint2"
-            android:textColor="#FF999999"
+            android:textColor="@color/white"
             android:textSize="22dip" />
 
-        <Button
-            android:id="@+id/btnHint2"
-            android:layout_width="100dip"
-            android:layout_height="48dip"
+        <TextView
+            android:id="@+id/tvHintValue2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="16dip"
             android:layout_toRightOf="@+id/tvHint2"
-            android:background="#FF222222"
+            android:gravity="left|center_vertical"
             android:textColor="#FF999999"
             android:textSize="20dip" />
+
+        <CheckBox
+            android:id="@+id/chkHint2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentBottom="true"
+            android:background="#FF222222" />
     </RelativeLayout>
-    
+
     <RelativeLayout
         android:id="@+id/layHint3"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dip"
         android:layout_below="@+id/layHint2"
-        android:layout_marginTop="32dip" >
-
-        <CheckBox
-            android:id="@+id/chkHint3"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" />
+        android:layout_marginTop="8dip"
+        android:clickable="true" >
 
         <TextView
             android:id="@+id/tvHint3"
@@ -91,32 +108,70 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dip"
             android:layout_marginRight="16dip"
-            android:layout_toRightOf="@+id/chkHint3"
             android:gravity="left|center_vertical"
-            android:text="@string/hint3"
-            android:textColor="#FF999999"
+            android:text="@string/share"
+            android:textColor="@color/white"
             android:textSize="22dip" />
 
-        <Button
-            android:id="@+id/btnHint3"
-            android:layout_width="100dip"
-            android:layout_height="48dip"
-            android:layout_toRightOf="@+id/tvHint3"
-            android:background="#FF222222"
-            android:textColor="#FF999999"
-            android:textSize="20dip" />
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentBottom="true"
+            android:background="#FF222222" />
     </RelativeLayout>
-    
-    <Button
-            android:id="@+id/btnExit"
-            android:layout_width="120dip"
-            android:layout_height="48dip"
-            android:layout_toRightOf="@+id/tvHint3"
-            android:background="#FF222222"
-            android:textColor="#FF999999"
-            android:text="@string/exit"
-            android:textSize="20dip"
-            android:layout_marginTop="48dip"
-            android:layout_below="@+id/layHint3" />
+
+    <RelativeLayout
+        android:id="@+id/layHint4"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_below="@+id/layHint3"
+        android:layout_marginTop="8dip"
+        android:clickable="true" >
+
+        <TextView
+            android:id="@+id/tvHint4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="16dip"
+            android:gravity="left|center_vertical"
+            android:text="@string/donate"
+            android:textColor="@color/white"
+            android:textSize="22dip" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentBottom="true"
+            android:background="#FF222222" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/layHint5"
+        android:layout_width="fill_parent"
+        android:layout_height="48dip"
+        android:layout_below="@+id/layHint4"
+        android:layout_marginTop="8dip"
+        android:clickable="true" >
+
+        <TextView
+            android:id="@+id/tvHint5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="16dip"
+            android:gravity="left|center_vertical"
+            android:text="@string/about"
+            android:textColor="@color/white"
+            android:textSize="22dip" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentBottom="true"
+            android:background="#FF222222" />
+    </RelativeLayout>
 
 </RelativeLayout>

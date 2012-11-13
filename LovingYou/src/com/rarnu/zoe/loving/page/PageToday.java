@@ -83,7 +83,7 @@ public class PageToday extends BasePage implements OnClickListener {
 	private void resizeComponents() {
 		// emotion
 		int basewidth = UIUtils.getWidth() - UIUtils.dipToPx(32)
-				- UIUtils.dipToPx(88);
+				- UIUtils.dipToPx(72);
 		int width = basewidth / 2;
 
 		RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) tvEmotion1
@@ -123,7 +123,7 @@ public class PageToday extends BasePage implements OnClickListener {
 
 		// news
 		basewidth = UIUtils.getWidth() - UIUtils.dipToPx(32)
-				- UIUtils.dipToPx(108);
+				- UIUtils.dipToPx(88);
 		width = basewidth / 2;
 		rlp = (RelativeLayout.LayoutParams) tvNews1.getLayoutParams();
 		rlp.width = width;

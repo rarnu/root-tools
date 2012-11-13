@@ -8,8 +8,9 @@
         android:layout_width="fill_parent"
         android:layout_height="48dip"
         android:gravity="right|center_vertical"
-        android:paddingRight="22dip"
-        android:textColor="#FF999999" />
+        android:paddingRight="8dip"
+        android:textColor="#FF999999"
+        android:textSize="24dip" />
 
     <EditText
         android:id="@+id/etPostDay"
@@ -28,12 +29,24 @@
         android:textSize="16dip" />
 
     <Button
+        android:id="@+id/btnSelectImage"
+        android:layout_width="120dip"
+        android:layout_height="48dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_marginBottom="16dip"
+        android:layout_marginLeft="16dip"
+        android:background="#FF222222"
+        android:text="@string/upload_photo"
+        android:textColor="@color/white" />
+
+    <Button
         android:id="@+id/btnSubmit"
         android:layout_width="120dip"
         android:layout_height="48dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:layout_marginBottom="64dip"
+        android:layout_marginBottom="16dip"
         android:layout_marginRight="16dip"
         android:background="#FF222222"
         android:text="@string/tell_daomao"

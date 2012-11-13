@@ -43,13 +43,13 @@
 
             <TextView
                 android:id="@+id/tvEmotionT"
-                android:layout_width="60dip"
+                android:layout_width="56dip"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="28dip"
+                android:layout_marginRight="16dip"
                 android:gravity="left|center_vertical"
                 android:text="@string/emotion"
-                android:textColor="@color/white"
-                android:textSize="22dip" />
+                android:textColor="#FF999999"
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvEmotion1"
@@ -59,7 +59,7 @@
                 android:gravity="center"
                 android:text="@string/emotion1"
                 android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textSize="20dip" />
 
             <TextView
                 android:id="@+id/tvEmotion2"
@@ -69,7 +69,7 @@
                 android:gravity="center"
                 android:text="@string/emotion2"
                 android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textSize="20dip" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -87,13 +87,13 @@
 
             <TextView
                 android:id="@+id/tvActiveT"
-                android:layout_width="60dip"
+                android:layout_width="56dip"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="28dip"
+                android:layout_marginRight="16dip"
                 android:gravity="left|center_vertical"
                 android:text="@string/active"
-                android:textColor="@color/white"
-                android:textSize="22dip" />
+                android:textColor="#FF999999"
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvActive1"
@@ -103,7 +103,7 @@
                 android:gravity="center"
                 android:text="@string/active1"
                 android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textSize="20dip" />
 
             <TextView
                 android:id="@+id/tvActive2"
@@ -113,7 +113,7 @@
                 android:gravity="center"
                 android:text="@string/active2"
                 android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textSize="20dip" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -131,13 +131,13 @@
 
             <TextView
                 android:id="@+id/tvFoodT"
-                android:layout_width="60dip"
+                android:layout_width="56dip"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="28dip"
+                android:layout_marginRight="16dip"
                 android:gravity="left|center_vertical"
                 android:text="@string/food"
-                android:textColor="@color/white"
-                android:textSize="22dip" />
+                android:textColor="#FF999999"
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvFood1"
@@ -147,7 +147,7 @@
                 android:gravity="center"
                 android:text="@string/food1"
                 android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textSize="20dip" />
 
             <TextView
                 android:id="@+id/tvFood2"
@@ -157,7 +157,7 @@
                 android:gravity="center"
                 android:text="@string/food2"
                 android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textSize="20dip" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -175,13 +175,13 @@
 
             <TextView
                 android:id="@+id/tvFriendT"
-                android:layout_width="60dip"
+                android:layout_width="56dip"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="28dip"
+                android:layout_marginRight="16dip"
                 android:gravity="left|center_vertical"
                 android:text="@string/friend"
-                android:textColor="@color/white"
-                android:textSize="22dip" />
+                android:textColor="#FF999999"
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvFriend1"
@@ -191,7 +191,7 @@
                 android:gravity="center"
                 android:text="@string/friend1"
                 android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textSize="20dip" />
 
             <TextView
                 android:id="@+id/tvFriend2"
@@ -201,7 +201,7 @@
                 android:gravity="center"
                 android:text="@string/friend2"
                 android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textSize="20dip" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -219,13 +219,13 @@
 
             <TextView
                 android:id="@+id/tvNewsT"
-                android:layout_width="80dip"
+                android:layout_width="72dip"
                 android:layout_height="fill_parent"
-                android:layout_marginRight="28dip"
+                android:layout_marginRight="16dip"
                 android:gravity="left|center_vertical"
                 android:text="@string/news"
-                android:textColor="@color/white"
-                android:textSize="22dip" />
+                android:textColor="#FF999999"
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/tvNews1"
@@ -235,7 +235,7 @@
                 android:gravity="center"
                 android:text="@string/news1"
                 android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textSize="20dip" />
 
             <TextView
                 android:id="@+id/tvNews2"
@@ -245,7 +245,7 @@
                 android:gravity="center"
                 android:text="@string/news2"
                 android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textSize="20dip" />
 
             <TextView
                 android:layout_width="fill_parent"
