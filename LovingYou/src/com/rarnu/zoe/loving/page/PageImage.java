@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 
-import com.rarnu.zoe.loving.AboutActivity;
 import com.rarnu.zoe.loving.GalleryActivity;
 import com.rarnu.zoe.loving.Global;
 import com.rarnu.zoe.loving.R;
@@ -59,16 +58,11 @@ public class PageImage extends BasePage implements OnItemClickListener {
 	public void load(String... param) {
 		list = new ArrayList<ImageInfo>();
 		int day = Global.database.getDay();
-		day = 15;
+		
 		for (int i = 0; i < 21; i++) {
 			ImageInfo info = new ImageInfo();
-			// TODO: image index
 			info.image = spImgs[i];
-			if (i == 20) {
-				info.text = getContext().getString(R.string.about);
-			} else {
-				info.text = String.valueOf(21 - i);
-			}
+			info.text = String.valueOf(21 - i);
 			info.showImage = ((i + 1) <= day);
 			list.add(info);
 		}
@@ -91,15 +85,12 @@ public class PageImage extends BasePage implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		Intent inDo = null;
-		if (position == 20 && Global.database.getDay() < 21) {
-			inDo = new Intent(getContext(), AboutActivity.class);
-		} else if (position < Global.database.getDay()) {
-			inDo = new Intent(getContext(), GalleryActivity.class);
+
+		if (position < Global.database.getDay()) {
+			Intent inDo = new Intent(getContext(), GalleryActivity.class);
 			inDo.putExtra("index", position);
-		}
-		if (inDo != null) {
 			getContext().startActivity(inDo);
 		}
+
 	}
 }

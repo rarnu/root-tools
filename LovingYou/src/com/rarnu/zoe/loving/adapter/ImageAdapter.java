@@ -57,7 +57,6 @@ public class ImageAdapter extends BaseAdapter {
 		
 		ImageInfo item = list.get(position);
 		if (item != null) {
-			holder.imgItem.setVisibility(item.showImage ? View.VISIBLE: View.GONE);
 			holder.tvItem.setVisibility(item.showImage ? View.GONE: View.VISIBLE);
 			holder.imgItem.setImageDrawable(context.getResources().getDrawable(item.image));
 			holder.tvItem.setText(item.text);

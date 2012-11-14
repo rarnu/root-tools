@@ -15,12 +15,10 @@ public class BootReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
-		long[] timeDef = new long[] {
-				MiscUtils.loadDefaultCalendar(6).getTimeInMillis(),
-				MiscUtils.loadDefaultCalendar(12).getTimeInMillis(),
-				MiscUtils.loadDefaultCalendar(18).getTimeInMillis() };
+		long[] timeDef = new long[] { MiscUtils.loadDefaultCalendar(11)
+				.getTimeInMillis(), };
 
-		for (int i = 0; i < 3; i++) {
+		for (int i = 0; i < 2; i++) {
 			long time = 0;
 			Calendar c = null;
 			if (Config.getHintEnabled(context, i + 1)) {

@@ -11,6 +11,7 @@ import android.view.View.OnClickListener;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -27,10 +28,12 @@ public class PageLetter extends BasePage implements OnClickListener,
 	TextView tvPostDay;
 	EditText etPostDay;
 	Button btnSelectImage, btnSubmit;
+	RelativeLayout layLoading;
 
 	Handler hWeibo = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
+			layLoading.setVisibility(View.GONE);
 			switch (msg.what) {
 			case 1:
 				etPostDay.setText("");
@@ -72,6 +75,7 @@ public class PageLetter extends BasePage implements OnClickListener,
 		etPostDay = (EditText) findViewById(R.id.etPostDay);
 		btnSelectImage = (Button) findViewById(R.id.btnSelectImage);
 		btnSubmit = (Button) findViewById(R.id.btnSubmit);
+		layLoading = (RelativeLayout) findViewById(R.id.layLoading);
 
 		tvPostDay.setText(String.format(
 				getResources().getString(R.string.day_fmt),
@@ -103,10 +107,28 @@ public class PageLetter extends BasePage implements OnClickListener,
 			// TODO: select image
 			break;
 		case R.id.btnSubmit:
-			// TODO: upload
-			WeiboUtils.shareArticleToSina(etPostDay.getText().toString(), "", this);
+			// upload
+			String text = etPostDay.getText().toString();
+			if (!text.equals("")) {
+				shareSinaT(text, "");
+			} else {
+				Toast.makeText(getContext(), R.string.empty_text, Toast.LENGTH_LONG).show();
+			}
+
 			break;
 		}
+	}
+
+	private void shareSinaT(final String text, final String file) {
+		layLoading.setVisibility(View.VISIBLE);
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				WeiboUtils.shareArticleToSina(etPostDay.getText().toString(),
+						"", PageLetter.this);
+			}
+		}).start();
 	}
 
 	@Override

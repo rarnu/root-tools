@@ -33,8 +33,12 @@
     <string name="send_weibo_fail">提交出错了，请过一会再重试哦~</string>
     <string name="hint1">任务提醒</string>
     <string name="hint2">写信提醒</string>
+    <string name="todo_today">今天的任务</string>
+    <string name="done_today">记得交任务哦~</string>
+    <string name="action_day">当天的任务</string>
+    <string name="sending_weibo">正在发布微博，请稍候...</string>
     <string name="last_record" formatted="false">过去 %d 天的记录</string>
-    
+    <string name="empty_text">没有内容哦，写一些心情再试试看~</string>
     <string name="day_line_1" formatted="false">心情%s，%s运动</string>
     <string name="day_line_2" formatted="false">%s吃健康的食物，%s接触新事物</string>
     <string name="st_emotion_1">很好</string>

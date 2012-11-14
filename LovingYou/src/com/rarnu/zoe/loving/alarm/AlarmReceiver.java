@@ -10,7 +10,7 @@ import android.content.Intent;
 import android.util.Log;
 
 import com.rarnu.zoe.loving.Config;
-import com.rarnu.zoe.loving.NotifyActivity;
+import com.rarnu.zoe.loving.TodoActivity;
 import com.rarnu.zoe.loving.common.Consts;
 
 public class AlarmReceiver extends BroadcastReceiver {
@@ -20,20 +20,18 @@ public class AlarmReceiver extends BroadcastReceiver {
 		int index = intent.getIntExtra("index", 0);
 		Log.e("receiver", String.format("alarm: %d", index));
 
-		Intent inNotify = new Intent(context, NotifyActivity.class);
+		Intent inNotify = new Intent(context, TodoActivity.class);
 		inNotify.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		inNotify.putExtra("index", index);
 		context.startActivity(inNotify);
 
 		Calendar cDef = Calendar.getInstance();
 		switch (index) {
 		case 1:
-			cDef.set(Calendar.HOUR_OF_DAY, 6);
+			cDef.set(Calendar.HOUR_OF_DAY, 11);
 			break;
 		case 2:
-			cDef.set(Calendar.HOUR_OF_DAY, 12);
-			break;
-		case 3:
-			cDef.set(Calendar.HOUR_OF_DAY, 18);
+			cDef.set(Calendar.HOUR_OF_DAY, 20);
 			break;
 		}
 		cDef.set(Calendar.MINUTE, 0);

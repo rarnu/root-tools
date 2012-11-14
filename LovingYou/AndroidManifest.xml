@@ -28,7 +28,7 @@
         <activity
             android:name=".GalleryActivity"
             android:configChanges="keyboardHidden|orientation"
-            android:screenOrientation="sensor"
+            android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
@@ -48,6 +48,12 @@
             android:name=".DayActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Dialog"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".TodoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity

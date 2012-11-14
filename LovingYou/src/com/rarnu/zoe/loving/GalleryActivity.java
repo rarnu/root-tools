@@ -1,18 +1,15 @@
 package com.rarnu.zoe.loving;
 
 import android.app.Activity;
-import android.content.res.Configuration;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.rarnu.zoe.loving.comp.ScrollLayout;
 import com.rarnu.zoe.loving.comp.ScrollLayout.OnScreenChangeListener;
+import com.rarnu.zoe.loving.page.PageTodo;
 
 public class GalleryActivity extends Activity implements OnScreenChangeListener {
 
@@ -28,8 +25,7 @@ public class GalleryActivity extends Activity implements OnScreenChangeListener 
 			R.drawable.bp16, R.drawable.bp17, R.drawable.bp18, R.drawable.bp19,
 			R.drawable.bp20, R.drawable.bp21 };
 
-	ImageView[] ivs = new ImageView[21];
-	Bitmap[] bps = new Bitmap[21];
+	PageTodo[] ivs = new PageTodo[21];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -48,11 +44,10 @@ public class GalleryActivity extends Activity implements OnScreenChangeListener 
 		day = 21;
 
 		for (int i = 0; i < day; i++) {
-			ivs[i] = new ImageView(this);
+			ivs[i] = new PageTodo(this);
 			ivs[i].setLayoutParams(new RelativeLayout.LayoutParams(
 					LayoutParams.FILL_PARENT, LayoutParams.FILL_PARENT));
-			ivs[i].setAdjustViewBounds(true);
-			ivs[i].setScaleType(ScaleType.CENTER_INSIDE);
+			ivs[i].load(String.valueOf(i));
 			gf.addView(ivs[i]);
 		}
 
@@ -69,60 +64,23 @@ public class GalleryActivity extends Activity implements OnScreenChangeListener 
 		tvIndex.setText(String.format("%d / %d", page + 1, day));
 	}
 
-	private void clearImages() {
-		for (int i = 0; i < 21; i++) {
-			if (bps[i] != null) {
-				if (!bps[i].isRecycled()) {
-					ivs[i].setImageBitmap(null);
-					bps[i].recycle();
-					bps[i] = null;
-				}
-			}
-
-		}
-	}
-
 	private void loadImages(int index) {
 		for (int i = 0; i < 21; i++) {
 			if ((i != index) && (i != index - 1) && (i != index + 1)) {
-				if (bps[i] != null) {
-					if (!bps[i].isRecycled()) {
-						ivs[i].setImageBitmap(null);
-						bps[i].recycle();
-						bps[i] = null;
-					}
-				}
+				ivs[i].loadImage(0);
 			}
 		}
 		BitmapFactory.Options bop = new BitmapFactory.Options();
 		bop.inSampleSize = 2;
-		if (bps[index] == null) {
-			bps[index] = BitmapFactory.decodeResource(getResources(),
-					bpImgs[index], bop);
-			ivs[index].setImageBitmap(bps[index]);
-		}
+
+		ivs[index].loadImage(bpImgs[index]);
 
 		if (index - 1 >= 0) {
-			if (bps[index - 1] == null) {
-				bps[index - 1] = BitmapFactory.decodeResource(getResources(),
-						bpImgs[index - 1], bop);
-				ivs[index - 1].setImageBitmap(bps[index - 1]);
-			}
+			ivs[index - 1].loadImage(bpImgs[index - 1]);
 		}
 
 		if (index + 1 < 21) {
-			if (bps[index + 1] == null) {
-				bps[index + 1] = BitmapFactory.decodeResource(getResources(),
-						bpImgs[index + 1], bop);
-				ivs[index + 1].setImageBitmap(bps[index + 1]);
-			}
+			ivs[index + 1].loadImage(bpImgs[index + 1]);
 		}
-	}
-
-	@Override
-	public void onConfigurationChanged(Configuration newConfig) {
-		super.onConfigurationChanged(newConfig);
-		clearImages();
-		initData(page);
 	}
 }
