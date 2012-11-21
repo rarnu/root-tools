@@ -12,7 +12,9 @@
         android:label="@string/app_name" >
         <activity
             android:name=".MainActivity"
-            android:label="@string/title_activity_main" >
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateHidden" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
