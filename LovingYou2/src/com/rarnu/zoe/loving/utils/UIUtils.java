@@ -103,7 +103,11 @@ public class UIUtils {
 		if (dm == null) {
 			return -1;
 		}
-		return (int) (dip * dm.density + 0.5f);
+		if (dip == 0) {
+			return 0;
+		} else {
+			return (int) (dip * dm.density + 0.5f);
+		}
 	}
 
 	public static int pxToDip(int px) {
