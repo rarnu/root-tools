@@ -20,6 +20,7 @@ public class RarnuGrid extends RelativeLayout {
 			layGridSub;
 
 	RelativeLayout[] laySubItem;
+	OnClickListener listener = null;
 
 	int itemWidth = 0, itemHeight = 0;
 
@@ -144,5 +145,40 @@ public class RarnuGrid extends RelativeLayout {
 			laySubItem[i].addView(v[i]);
 		}
 	}
+	
+	public void setOnItemClickListener(OnClickListener listener) {
+		this.listener = listener;
+		layMainBig.setOnClickListener(listener);
+		layMain1.setOnClickListener(listener);
+		layMain2.setOnClickListener(listener);
+		layMain3.setOnClickListener(listener);
+		layMain4.setOnClickListener(listener);
+		for (int i = 0; i < laySubItem.length; i++) {
+			laySubItem[i].setOnClickListener(listener);
+		}
+	}
 
+	public void setMainTag(int index, Integer tag) {
+		switch (index) {
+		case 0:
+			layMainBig.setTag(tag);
+			break;
+		case 1:
+			layMain1.setTag(tag);
+			break;
+		case 2:
+			layMain2.setTag(tag);
+			break;
+		case 3:
+			layMain3.setTag(tag);
+			break;
+		case 4:
+			layMain4.setTag(tag);
+			break;
+		}
+	}
+	
+	public void setSubTag(int index, Integer tag) {
+		laySubItem[index].setTag(tag);
+	}
 }

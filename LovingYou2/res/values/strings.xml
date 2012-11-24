@@ -2,10 +2,15 @@
 
     <string name="app_name">LovingYou2</string>
     <string name="all_task">全部任务</string>
-    
+
     <string name="task">任务</string>
 	<string name="record">记录</string>
 	<string name="square">广场</string>
 	<string name="settings">设置</string>
 	
+	<string name="todo_today">今天的任务</string>
+	<string name="day_fmt" formatted="false">Day %d</string>
+	<string name="done_today">记得交任务哦~</string>
+	
+	<string name="record_today">记录今天</string>
 </resources>

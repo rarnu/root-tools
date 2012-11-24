@@ -16,6 +16,7 @@ public class BottomBar extends RelativeLayout {
 	public static final int BUTTON_4 = 4;
 
 	BottomButton btn1, btn2, btn3, btn4;
+	OnClickListener listener = null;
 
 	public BottomBar(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -100,5 +101,13 @@ public class BottomBar extends RelativeLayout {
 			btn4.setText(text);
 			break;
 		}
+	}
+	
+	public void setOnButtonClick(OnClickListener listener) {
+		this.listener = listener;
+		btn1.setOnClickListener(listener);
+		btn2.setOnClickListener(listener);
+		btn3.setOnClickListener(listener);
+		btn4.setOnClickListener(listener);
 	}
 }

@@ -5,41 +5,23 @@
 
     <com.rarnu.zoe.love2.comp.BarItem
         android:id="@+id/barLeft"
-        android:layout_width="100dip"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="4dip" />
-    
+
     <com.rarnu.zoe.love2.comp.BarItem
         android:id="@+id/barRight"
-        android:layout_width="100dip"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:layout_marginRight="4dip"
-        android:layout_alignParentRight="true" />
-    
+        android:layout_marginRight="4dip" />
+
     <com.rarnu.zoe.love2.comp.BarItem
         android:id="@+id/barCenter"
-        android:layout_width="100dip"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        
-         />
-
-    <TextView
-        android:id="@+id/tvBottomLine"
-        android:layout_width="fill_parent"
-        android:layout_height="2dip"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="2dip"
-        android:background="@color/skyblue" />
-
-    <TextView
-        android:id="@+id/tvBottomHighlight"
-        android:layout_width="100dip"
-        android:layout_height="6dip"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:background="@color/skyblue" />
+        android:layout_centerInParent="true" />
 
 </RelativeLayout>

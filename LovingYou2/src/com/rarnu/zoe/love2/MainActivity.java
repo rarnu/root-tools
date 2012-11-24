@@ -1,6 +1,9 @@
 package com.rarnu.zoe.love2;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
@@ -8,18 +11,20 @@ import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.comp.BottomBar;
 import com.rarnu.zoe.love2.comp.RarnuGrid;
 import com.rarnu.zoe.love2.comp.Title;
+import com.rarnu.zoe.loving.common.Consts;
+import com.rarnu.zoe.loving.database.DatabaseHelper;
 import com.rarnu.zoe.loving.utils.UIUtils;
 
-public class MainActivity extends BaseActivity {
+public class MainActivity extends BaseActivity implements OnClickListener {
 
 	RarnuGrid grid;
 	BottomBar bottom;
 	ImageView[] ivMain, ivSub;
-	
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		UIUtils.initDisplayMetrics(getWindowManager());
+		Global.database = new DatabaseHelper(this);
 		super.onCreate(savedInstanceState);
 	}
 
@@ -32,38 +37,128 @@ public class MainActivity extends BaseActivity {
 	protected void initComponents() {
 		super.initComponents();
 
-		title.getBarItem(Title.BARITEM_CENTER).setIcon(R.drawable.ic_launcher);
 		title.getBarItem(Title.BARITEM_CENTER).setText(R.string.all_task);
+		title.getBarItem(Title.BARITEM_RIGHT).setIcon(R.drawable.ic_launcher);
 
 		grid = (RarnuGrid) findViewById(R.id.grid);
 		bottom = (BottomBar) findViewById(R.id.bottom);
-		
+
 		bottom.setText(BottomBar.BUTTON_1, R.string.task);
 		bottom.setText(BottomBar.BUTTON_2, R.string.record);
 		bottom.setText(BottomBar.BUTTON_3, R.string.square);
 		bottom.setText(BottomBar.BUTTON_4, R.string.settings);
-		
-		setImages();
+
+		setImages(Global.database.getDay());
 	}
 
-	private void setImages() {
+	@Override
+	protected void initEvents() {
+		super.initEvents();
+		bottom.setOnButtonClick(this);
+
+	}
+
+	private void setImages(int day) {
+
+		if (day > 21) {
+			day = 21;
+		}
+
 		ivMain = new ImageView[5];
-		for (int i=0; i<5; i++) {
+		ivSub = new ImageView[16];
+		for (int i = 0; i < 5; i++) {
 			ivMain[i] = new ImageView(this);
 			ivMain[i].setAdjustViewBounds(true);
 			ivMain[i].setScaleType(ScaleType.CENTER_INSIDE);
-			ivMain[i].setImageResource(R.drawable.sp1);
 			grid.setMainView(i, ivMain[i]);
 		}
-		
-		ivSub = new ImageView[16];
-		for (int i=0; i<16; i++) {
+
+		for (int i = 0; i < 16; i++) {
 			ivSub[i] = new ImageView(this);
 			ivSub[i].setAdjustViewBounds(true);
 			ivSub[i].setScaleType(ScaleType.CENTER_INSIDE);
-			ivSub[i].setImageResource(R.drawable.sp1);
+		}
+		grid.setSubView(ivSub);
+
+		ivMain[0].setImageResource(Consts.spImgs[day - 1]);
+		grid.setMainTag(0, day - 1);
+
+		if (day <= 5) {
+			// day1 01234
+			// day2 10234
+			// day3 20134
+			// day4 30124
+			// day5 40123
+			int idx = 0;
+			for (int i = 1; i < 5; i++) {
+				if (idx == (day - 1)) {
+					idx++;
+				}
+				ivMain[i]
+						.setImageResource(i > (day - 1) ? R.drawable.ic_launcher
+								: Consts.spImgs[idx]);
+				grid.setMainTag(i, i > (day - 1) ? -1 : idx);
+				idx++;
+			}
+			for (int i = 0; i < 16; i++) {
+				ivSub[i].setImageResource(R.drawable.ic_launcher);
+				grid.setSubTag(i, -1);
+
+			}
+		} else {
+			for (int i = 1; i < 5; i++) {
+				ivMain[i].setImageResource(Consts.spImgs[i - 1]);
+				grid.setMainTag(i, i - 1);
+			}
+
+			int idx = 4;
+
+			// day6 5 0123 4678
+			// day7 6 0123 4578
+			// day8 7 0123 4568
+			for (int i = 0; i < 16; i++) {
+				if (idx == (day - 1)) {
+					idx++;
+				}
+				ivSub[i].setImageResource((i + 5) > (day - 1) ? R.drawable.ic_launcher
+						: Consts.spImgs[idx]);
+				grid.setSubTag(i, (i + 5) > (day - 1) ? -1 : idx);
+
+				idx++;
+			}
 		}
 
-		grid.setSubView(ivSub);
+		grid.setOnItemClickListener(this);
+
+	}
+
+	@Override
+	public void onClick(View v) {
+
+		Integer tag = (Integer) v.getTag();
+		if (tag != null) {
+			if (tag == -1) {
+				// TODO: not arrived day
+				return;
+			}
+			Intent inTodo = new Intent(this, TodoActivity.class);
+			inTodo.putExtra("index", tag);
+			startActivity(inTodo);
+			return;
+
+		}
+
+		switch (v.getId()) {
+
+		case R.id.btn2:
+			Intent inRecord = new Intent(this, RecordActivity.class);
+			startActivity(inRecord);
+			break;
+		case R.id.btn3:
+			break;
+		case R.id.btn4:
+			break;
+		}
+
 	}
 }

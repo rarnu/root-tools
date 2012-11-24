@@ -5,10 +5,12 @@
 
     <ImageView
         android:id="@+id/ivIcon"
-        android:layout_width="32dip"
-        android:layout_height="32dip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@null"
+        android:maxHeight="32dip"
+        android:maxWidth="32dip"
         android:scaleType="centerInside" />
 
     <TextView
