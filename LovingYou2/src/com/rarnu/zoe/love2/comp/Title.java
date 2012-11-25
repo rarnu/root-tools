@@ -33,10 +33,10 @@ public class Title extends RelativeLayout {
 
 	private void init() {
 		setLayoutParams(new RelativeLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT, UIUtils.dipToPx(52)));
+				LayoutParams.MATCH_PARENT, UIUtils.dipToPx(64)));
 		View v = inflate(getContext(), R.layout.comp_title, null);
 		v.setLayoutParams(new RelativeLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT, UIUtils.dipToPx(52)));
+				LayoutParams.MATCH_PARENT, UIUtils.dipToPx(64)));
 		addView(v);
 
 		barLeft = (BarItem) findViewById(R.id.barLeft);

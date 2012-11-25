@@ -6,6 +6,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
+import android.widget.RelativeLayout;
 
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.comp.BottomBar;
@@ -20,6 +21,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	RarnuGrid grid;
 	BottomBar bottom;
 	ImageView[] ivMain, ivSub;
+	ImageView imgIdc;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -38,15 +40,27 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		super.initComponents();
 
 		title.getBarItem(Title.BARITEM_CENTER).setText(R.string.all_task);
-		title.getBarItem(Title.BARITEM_RIGHT).setIcon(R.drawable.ic_launcher);
+		title.getBarItem(Title.BARITEM_RIGHT).setIcon(R.drawable.task);
 
 		grid = (RarnuGrid) findViewById(R.id.grid);
 		bottom = (BottomBar) findViewById(R.id.bottom);
+		imgIdc = (ImageView) findViewById(R.id.imgIdc);
+		
+		int idcWidth = bottom.getItemWidth();
+		RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) imgIdc.getLayoutParams();
+
+		rlp.width = idcWidth;
+		rlp.height = idcWidth * 48/224;
+		imgIdc.setLayoutParams(rlp);
 
 		bottom.setText(BottomBar.BUTTON_1, R.string.task);
 		bottom.setText(BottomBar.BUTTON_2, R.string.record);
 		bottom.setText(BottomBar.BUTTON_3, R.string.square);
 		bottom.setText(BottomBar.BUTTON_4, R.string.settings);
+		bottom.setIcon(BottomBar.BUTTON_1, R.drawable.task_b1);
+		bottom.setIcon(BottomBar.BUTTON_2, R.drawable.task_b2);
+		bottom.setIcon(BottomBar.BUTTON_3, R.drawable.task_b3);
+		bottom.setIcon(BottomBar.BUTTON_4, R.drawable.task_b4);
 
 		setImages(Global.database.getDay());
 	}
@@ -95,13 +109,13 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 					idx++;
 				}
 				ivMain[i]
-						.setImageResource(i > (day - 1) ? R.drawable.ic_launcher
+						.setImageResource(i > (day - 1) ? R.drawable.task_not_reach
 								: Consts.spImgs[idx]);
 				grid.setMainTag(i, i > (day - 1) ? -1 : idx);
 				idx++;
 			}
 			for (int i = 0; i < 16; i++) {
-				ivSub[i].setImageResource(R.drawable.ic_launcher);
+				ivSub[i].setImageResource(R.drawable.task_not_reach);
 				grid.setSubTag(i, -1);
 
 			}
@@ -120,7 +134,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 				if (idx == (day - 1)) {
 					idx++;
 				}
-				ivSub[i].setImageResource((i + 5) > (day - 1) ? R.drawable.ic_launcher
+				ivSub[i].setImageResource((i + 5) > (day - 1) ? R.drawable.task_not_reach
 						: Consts.spImgs[idx]);
 				grid.setSubTag(i, (i + 5) > (day - 1) ? -1 : idx);
 

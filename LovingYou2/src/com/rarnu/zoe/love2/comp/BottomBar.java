@@ -17,6 +17,8 @@ public class BottomBar extends RelativeLayout {
 
 	BottomButton btn1, btn2, btn3, btn4;
 	OnClickListener listener = null;
+	
+	int itemWidth = 0;
 
 	public BottomBar(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -50,7 +52,7 @@ public class BottomBar extends RelativeLayout {
 	}
 
 	private void resize() {
-		int itemWidth = UIUtils.getWidth() / 4;
+		itemWidth = UIUtils.getWidth() / 4;
 		RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) btn1
 				.getLayoutParams();
 		rlp.width = itemWidth;
@@ -67,6 +69,10 @@ public class BottomBar extends RelativeLayout {
 		rlp = (RelativeLayout.LayoutParams) btn4.getLayoutParams();
 		rlp.width = itemWidth;
 		btn4.setLayoutParams(rlp);
+	}
+	
+	public int getItemWidth() {
+		return itemWidth;
 	}
 
 	public void setText(int index, int res) {
@@ -99,6 +105,23 @@ public class BottomBar extends RelativeLayout {
 			break;
 		case BUTTON_4:
 			btn4.setText(text);
+			break;
+		}
+	}
+	
+	public void setIcon(int index, int res) {
+		switch (index) {
+		case BUTTON_1:
+			btn1.setIcon(res);
+			break;
+		case BUTTON_2:
+			btn2.setIcon(res);
+			break;
+		case BUTTON_3:
+			btn3.setIcon(res);
+			break;
+		case BUTTON_4:
+			btn4.setIcon(res);
 			break;
 		}
 	}

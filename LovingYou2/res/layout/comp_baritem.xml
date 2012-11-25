@@ -16,8 +16,10 @@
     <TextView
         android:id="@+id/tvTitle"
         android:layout_width="wrap_content"
-        android:layout_height="32dip"
+        android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/ivIcon"
-        android:gravity="center" />
+        android:gravity="center"
+        android:textColor="#FF999999"
+        android:textSize="20dip" />
 
 </RelativeLayout>

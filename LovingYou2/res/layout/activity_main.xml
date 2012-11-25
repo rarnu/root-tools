@@ -7,7 +7,7 @@
     <com.rarnu.zoe.love2.comp.Title
         android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="52dip" />
+        android:layout_height="64dip" />
 
     <ScrollView
         android:id="@+id/svMain"
@@ -28,7 +28,14 @@
         android:id="@+id/bottom"
         android:layout_width="fill_parent"
         android:layout_height="56dip"
-        android:layout_alignParentBottom="true" 
-        android:background="@color/silver"/>
+        android:layout_alignParentBottom="true" />
+
+    <ImageView
+        android:id="@+id/imgIdc"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/bottom"
+        android:layout_marginLeft="4dip"
+        android:src="@drawable/task_idc" />
 
 </RelativeLayout>
