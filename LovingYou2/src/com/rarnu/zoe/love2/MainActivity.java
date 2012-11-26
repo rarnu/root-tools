@@ -40,7 +40,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		super.initComponents();
 
 		title.getBarItem(Title.BARITEM_CENTER).setText(R.string.all_task);
-		title.getBarItem(Title.BARITEM_RIGHT).setIcon(R.drawable.task);
+		title.getBarItem(Title.BARITEM_RIGHT).setIcon(R.drawable.record_history);
 
 		grid = (RarnuGrid) findViewById(R.id.grid);
 		bottom = (BottomBar) findViewById(R.id.bottom);
@@ -69,7 +69,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	protected void initEvents() {
 		super.initEvents();
 		bottom.setOnButtonClick(this);
-
+		title.getBarItem(Title.BARITEM_RIGHT).setOnButtonClick(this);
 	}
 
 	private void setImages(int day) {
@@ -163,7 +163,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		}
 
 		switch (v.getId()) {
-
+		case Title.ITEM_RIGHT:
+			break;
 		case R.id.btn2:
 			Intent inRecord = new Intent(this, RecordActivity.class);
 			startActivity(inRecord);

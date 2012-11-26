@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/black" >
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:id="@+id/imgBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bk" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -16,16 +24,16 @@
                 android:id="@+id/layTodoTitle"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
-                android:background="#FF222222"
-                android:padding="16dip" >
+                android:padding="8dip" >
 
                 <TextView
                     android:id="@+id/tvTodoToday"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="16dip"
                     android:text="@string/todo_today"
                     android:textColor="#FF999999"
-                    android:textSize="16dip" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:id="@+id/tvTodo"
@@ -34,16 +42,35 @@
                     android:layout_below="@+id/tvTodoToday"
                     android:text="拍下街头美好的瞬间"
                     android:textColor="@color/white"
-                    android:textSize="20dip" />
+                    android:textSize="16dip" />
+
+                <ImageView
+                    android:id="@+id/imgCal"
+                    android:layout_width="24dip"
+                    android:layout_height="24dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginRight="6dip"
+                    android:contentDescription="@null"
+                    android:src="@drawable/task_top" />
+
+                <ImageView
+                    android:id="@+id/imgLine"
+                    android:layout_width="100dip"
+                    android:layout_height="30dip"
+                    android:layout_alignParentRight="true"
+                    android:layout_marginTop="16dip"
+                    android:src="@drawable/task_line" />
 
                 <TextView
                     android:id="@+id/tvDays"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
+                    android:layout_marginRight="32dip"
+                    android:layout_marginTop="6dip"
+                    android:text="Day 21 / 21"
                     android:textColor="#FF999999"
-                    android:textSize="22dip" />
+                    android:textSize="12dip" />
             </RelativeLayout>
 
             <ImageView
@@ -68,5 +95,15 @@
                 android:textSize="18dip" />
         </RelativeLayout>
     </ScrollView>
+
+    <ImageView
+        android:id="@+id/imgShare"
+        android:layout_width="28dip"
+        android:layout_height="28dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dip"
+        android:contentDescription="@null"
+        android:src="@drawable/share" />
 
 </RelativeLayout>

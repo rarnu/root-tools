@@ -13,6 +13,8 @@ public class BarItem extends RelativeLayout {
 
 	ImageView ivIcon;
 	TextView tvTitle;
+	
+	OnClickListener listener = null;
 
 	public BarItem(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -59,5 +61,10 @@ public class BarItem extends RelativeLayout {
 	
 	public void setTextSize(float size) {
 		tvTitle.setTextSize(size);
+	}
+	
+	public void setOnButtonClick(OnClickListener listener) {
+		this.listener = listener;
+		setOnClickListener(listener);
 	}
 }

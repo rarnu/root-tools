@@ -19,7 +19,7 @@ public class TodoActivity extends Activity {
 		setContentView(R.layout.activity_todo);
 
 		int index = getIntent().getIntExtra("index", -1);
-		
+
 		int day = Global.database.getDay();
 
 		tvTodoToday = (TextView) findViewById(R.id.tvTodoToday);
