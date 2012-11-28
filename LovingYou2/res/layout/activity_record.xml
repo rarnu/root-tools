@@ -3,9 +3,102 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <ImageView
+        android:id="@+id/imgBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bk" />
+
     <com.rarnu.zoe.love2.comp.Title
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="64dip" />
+
+    <TextView
+        android:id="@+id/tvRecordDesc"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/title"
+        android:layout_marginBottom="8dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
+        android:layout_marginTop="8dip"
+        android:textColor="#FF999999" />
+
+    <RelativeLayout
+        android:id="@+id/layText"
+        android:layout_width="fill_parent"
+        android:layout_height="240dip"
+        android:layout_below="@+id/tvRecordDesc"
+        android:layout_margin="8dip" >
+
+        <ImageView
+            android:id="@+id/imgTextBackground"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:adjustViewBounds="true"
+            android:background="@drawable/bk_record"
+            android:contentDescription="@null"
+            android:scaleType="center" />
+
+        <TextView
+            android:id="@+id/tvEmotion"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dip"
+            android:layout_marginTop="4dip"
+            android:text="@string/record_emotion"
+            android:textColor="#FF999999" />
+
+        <TextView
+            android:id="@+id/tvMiddle"
+            android:layout_width="0dip"
+            android:layout_height="0dip"
+            android:layout_centerHorizontal="true" />
+
+        <TextView
+            android:id="@+id/tvTask"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="-12dip"
+            android:layout_marginTop="4dip"
+            android:layout_toRightOf="@+id/tvMiddle"
+            android:text="@string/record_task"
+            android:textColor="#FF999999" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="120dip"
+        android:layout_height="32dip"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/layText"
+        android:layout_marginRight="16dip"
+        android:background="@drawable/record_submit" />
+
+    <RelativeLayout
+        android:id="@+id/layRuler"
+        android:layout_width="fill_parent"
+        android:layout_height="32dip"
+        android:layout_alignParentBottom="true" >
+
+        <RelativeLayout
+            android:id="@+id/layLines"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/tvBottomLine" >
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvBottomLine"
+            android:layout_width="fill_parent"
+            android:layout_height="4dip"
+            android:layout_alignParentBottom="true"
+            android:background="#FF666666" />
+    </RelativeLayout>
 
 </RelativeLayout>

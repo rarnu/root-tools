@@ -13,4 +13,6 @@
 	<string name="done_today">记得交任务哦~</string>
 	
 	<string name="record_today">记录今天</string>
+	<string name="record_emotion">心情参数</string>
+	<string name="record_task">任务记录</string>
 </resources>
