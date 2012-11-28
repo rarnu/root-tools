@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="32dip"
+    android:layout_height="32dip"
+    android:orientation="vertical" >
+    
+    <ImageView android:id="@+id/imgStatus"
+        android:layout_width="24dip"
+        android:layout_height="24dip"
+        android:layout_margin="2dip"
+        android:contentDescription="@null"
+        android:background="@drawable/record_yes"/>
+    
+    <ImageView android:id="@+id/imgTag"
+        android:layout_width="8dip"
+        android:layout_height="8dip"
+        android:contentDescription="@null"
+        android:background="@drawable/record_tag"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"/>
+
+</RelativeLayout>

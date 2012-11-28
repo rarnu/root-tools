@@ -15,4 +15,14 @@
 	<string name="record_today">记录今天</string>
 	<string name="record_emotion">心情参数</string>
 	<string name="record_task">任务记录</string>
+	
+	<string name="record_e1">好心情</string>
+	<string name="record_e2">有运动</string>
+	<string name="record_e3">水果蔬菜</string>
+	<string name="record_e4">有读书</string>
+	<string name="record_e5">为理想而战</string>
+	
+	<string name="sync_weibo">同步到微博</string>
+	
+	<string name="history">历史记录</string>
 </resources>

@@ -40,17 +40,19 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		super.initComponents();
 
 		title.getBarItem(Title.BARITEM_CENTER).setText(R.string.all_task);
-		title.getBarItem(Title.BARITEM_RIGHT).setIcon(R.drawable.record_history);
+		title.getBarItem(Title.BARITEM_RIGHT)
+				.setIcon(R.drawable.record_history);
 
 		grid = (RarnuGrid) findViewById(R.id.grid);
 		bottom = (BottomBar) findViewById(R.id.bottom);
 		imgIdc = (ImageView) findViewById(R.id.imgIdc);
-		
+
 		int idcWidth = bottom.getItemWidth();
-		RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) imgIdc.getLayoutParams();
+		RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) imgIdc
+				.getLayoutParams();
 
 		rlp.width = idcWidth;
-		rlp.height = idcWidth * 48/224;
+		rlp.height = idcWidth * 48 / 224;
 		imgIdc.setLayoutParams(rlp);
 
 		bottom.setText(BottomBar.BUTTON_1, R.string.task);
@@ -164,6 +166,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 		switch (v.getId()) {
 		case Title.ITEM_RIGHT:
+			Intent inHistory = new Intent(this, HistoryActivity.class);
+			startActivity(inHistory);
 			break;
 		case R.id.btn2:
 			Intent inRecord = new Intent(this, RecordActivity.class);

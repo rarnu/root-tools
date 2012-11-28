@@ -69,6 +69,179 @@
             android:layout_toRightOf="@+id/tvMiddle"
             android:text="@string/record_task"
             android:textColor="#FF999999" />
+
+        <RelativeLayout
+            android:id="@+id/layRecordEmotion"
+            android:layout_width="100dip"
+            android:layout_height="fill_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginBottom="8dip"
+            android:layout_marginRight="4dip"
+            android:layout_marginTop="32dip" >
+
+            <TextView
+                android:id="@+id/tvE1"
+                android:layout_width="wrap_content"
+                android:layout_height="36dip"
+                android:layout_marginRight="8dip"
+                android:layout_toLeftOf="@+id/chkE1"
+                android:gravity="right|center_vertical"
+                android:text="@string/record_e1"
+                android:textColor="#FF999999"
+                android:textSize="12dip" />
+
+            <TextView
+                android:id="@+id/tvE2"
+                android:layout_width="wrap_content"
+                android:layout_height="36dip"
+                android:layout_below="@+id/tvE1"
+                android:layout_marginRight="8dip"
+                android:layout_marginTop="4dip"
+                android:layout_toLeftOf="@+id/chkE2"
+                android:gravity="right|center_vertical"
+                android:text="@string/record_e2"
+                android:textColor="#FF999999"
+                android:textSize="12dip" />
+
+            <TextView
+                android:id="@+id/tvE3"
+                android:layout_width="wrap_content"
+                android:layout_height="36dip"
+                android:layout_below="@+id/tvE2"
+                android:layout_marginRight="8dip"
+                android:layout_marginTop="4dip"
+                android:layout_toLeftOf="@+id/chkE3"
+                android:gravity="right|center_vertical"
+                android:text="@string/record_e3"
+                android:textColor="#FF999999"
+                android:textSize="12dip" />
+
+            <TextView
+                android:id="@+id/tvE4"
+                android:layout_width="wrap_content"
+                android:layout_height="36dip"
+                android:layout_below="@+id/tvE3"
+                android:layout_marginRight="8dip"
+                android:layout_marginTop="4dip"
+                android:layout_toLeftOf="@+id/chkE4"
+                android:gravity="right|center_vertical"
+                android:text="@string/record_e4"
+                android:textColor="#FF999999"
+                android:textSize="12dip" />
+
+            <TextView
+                android:id="@+id/tvE5"
+                android:layout_width="wrap_content"
+                android:layout_height="36dip"
+                android:layout_below="@+id/tvE4"
+                android:layout_marginRight="8dip"
+                android:layout_marginTop="4dip"
+                android:layout_toLeftOf="@+id/chkE5"
+                android:gravity="right|center_vertical"
+                android:text="@string/record_e5"
+                android:textColor="#FF999999"
+                android:textSize="12dip" />
+
+            <com.rarnu.zoe.love2.comp.Checker
+                android:id="@+id/chkE1"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="2dip" />
+
+            <com.rarnu.zoe.love2.comp.Checker
+                android:id="@+id/chkE2"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/chkE1"
+                android:layout_marginTop="8dip" />
+
+            <com.rarnu.zoe.love2.comp.Checker
+                android:id="@+id/chkE3"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/chkE2"
+                android:layout_marginTop="8dip" />
+
+            <com.rarnu.zoe.love2.comp.Checker
+                android:id="@+id/chkE4"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/chkE3"
+                android:layout_marginTop="8dip" />
+
+            <com.rarnu.zoe.love2.comp.Checker
+                android:id="@+id/chkE5"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/chkE4"
+                android:layout_marginTop="8dip" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layRecordTask"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="4dip"
+            android:layout_marginRight="-8dip"
+            android:layout_marginTop="32dip"
+            android:layout_toLeftOf="@+id/layRecordEmotion" >
+
+            <EditText
+                android:id="@+id/etRecord"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginBottom="36dip"
+                android:layout_marginLeft="4dip"
+                android:layout_marginRight="4dip"
+                android:layout_marginTop="4dip"
+                android:background="@drawable/record_frame"
+                android:gravity="left|top"
+                android:padding="2dip"
+                android:textColor="#FF999999" />
+
+            <ImageView
+                android:id="@+id/imgPhoto"
+                android:layout_width="32dip"
+                android:layout_height="24dip"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="12dip"
+                android:background="@drawable/record_weibo1" />
+
+            <ImageView
+                android:id="@+id/imgGroup"
+                android:layout_width="32dip"
+                android:layout_height="24dip"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="12dip"
+                android:layout_toRightOf="@+id/imgPhoto"
+                android:background="@drawable/record_weibo2" />
+
+            <ImageView
+                android:id="@+id/chkWeibo"
+                android:layout_width="24dip"
+                android:layout_height="24dip"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="12dip"
+                android:layout_toRightOf="@+id/imgGroup"
+                android:background="@drawable/check_yes" />
+
+            <TextView
+                android:id="@+id/tvSyncWeibo"
+                android:layout_width="wrap_content"
+                android:layout_height="28dip"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="4dip"
+                android:layout_toRightOf="@+id/chkWeibo"
+                android:gravity="center"
+                android:text="@string/sync_weibo"
+                android:textSize="12dip" />
+        </RelativeLayout>
     </RelativeLayout>
 
     <Button
@@ -90,15 +263,22 @@
             android:id="@+id/layLines"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_above="@+id/tvBottomLine" >
+            android:layout_above="@+id/layBottomLine" >
         </RelativeLayout>
 
-        <TextView
-            android:id="@+id/tvBottomLine"
+        <RelativeLayout
+            android:id="@+id/layBottomLine"
             android:layout_width="fill_parent"
-            android:layout_height="4dip"
+            android:layout_height="12dip"
             android:layout_alignParentBottom="true"
             android:background="#FF666666" />
+
+        <ImageView
+            android:id="@+id/imgBall"
+            android:layout_width="12dip"
+            android:layout_height="12dip"
+            android:background="@drawable/record_ball"
+            android:contentDescription="@null" />
     </RelativeLayout>
 
 </RelativeLayout>
