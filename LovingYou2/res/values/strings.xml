@@ -25,4 +25,6 @@
 	<string name="sync_weibo">同步到微博</string>
 	
 	<string name="history">历史记录</string>
+	<string name="system_settings">系统设置</string>
+	
 </resources>

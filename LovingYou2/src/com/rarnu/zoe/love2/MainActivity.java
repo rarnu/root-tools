@@ -176,6 +176,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		case R.id.btn3:
 			break;
 		case R.id.btn4:
+			Intent inSettings = new Intent(this, SettingsActivity.class);
+			startActivity(inSettings);
 			break;
 		}
 
