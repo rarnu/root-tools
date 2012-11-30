@@ -24,8 +24,8 @@ public class HistoryAdapter extends BaseAdapter {
 	private int itemWidth;
 	private int itemHeight;
 
-	public HistoryAdapter(Context context, List<DataInfo> list, int itemWidth, int itemHeight,
-			OnHistoryClick click) {
+	public HistoryAdapter(Context context, List<DataInfo> list, int itemWidth,
+			int itemHeight, OnHistoryClick click) {
 		this.context = context;
 		this.list = list;
 		this.itemWidth = itemWidth;
@@ -75,11 +75,11 @@ public class HistoryAdapter extends BaseAdapter {
 		DataInfo item = list.get(position);
 		if (item != null) {
 
-			holder.imgItem1.setVisibility(item.data1 <=7 ? View.VISIBLE
+			holder.imgItem1.setVisibility(item.data1 <= 7 ? View.VISIBLE
 					: View.GONE);
-			holder.imgItem2.setVisibility(item.data2 <=7 ? View.VISIBLE
+			holder.imgItem2.setVisibility(item.data2 <= 7 ? View.VISIBLE
 					: View.GONE);
-			holder.imgItem3.setVisibility(item.data3 <=7 ? View.VISIBLE
+			holder.imgItem3.setVisibility(item.data3 <= 7 ? View.VISIBLE
 					: View.GONE);
 
 			holder.tvItem1.setText(item.data1 == 99 ? "" : context

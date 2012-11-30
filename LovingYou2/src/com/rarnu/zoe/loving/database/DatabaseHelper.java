@@ -12,7 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.rarnu.zoe.loving.common.DataInfo;
 import com.rarnu.zoe.loving.common.DayInfo;
-import com.rarnu.zoe.loving.common.PreDataInfo;
 
 public class DatabaseHelper {
 
@@ -88,7 +87,7 @@ public class DatabaseHelper {
 	}
 
 	public List<DataInfo> queryHistory() {
-		List<PreDataInfo> list = new ArrayList<PreDataInfo>();
+		List<DataInfo> list = new ArrayList<DataInfo>();
 
 		// select day, emotion from love group by day order by id desc;
 		Cursor c = db.query("love", new String[] { "day",
@@ -97,9 +96,9 @@ public class DatabaseHelper {
 		if (c != null) {
 			c.moveToFirst();
 			while (!c.isAfterLast()) {
-				PreDataInfo info = new PreDataInfo();
+				DataInfo info = new DataInfo();
 				info.day = c.getInt(0);
-				info.stat = c.getInt(1);
+				info.data = c.getInt(1);
 				list.add(info);
 				c.moveToNext();
 			}
@@ -109,34 +108,46 @@ public class DatabaseHelper {
 		return preDataToData(list);
 	}
 
-	public List<DataInfo> preDataToData(List<PreDataInfo> list) {
-		List<DataInfo> ret = new ArrayList<DataInfo>();
+	public List<DayInfo> queryFullHistory() {
+		List<DayInfo> list = new ArrayList<DayInfo>();
+		Cursor c = db.query("love", new String[] { "day", "emotion", "active",
+				"food", "friend", "news" }, null, null, "day", null, "id asc");
+		if (c != null) {
+			c.moveToFirst();
+			while (!c.isAfterLast()) {
+				DayInfo info = new DayInfo();
+				info.day = c.getInt(0);
+				info.emotion = c.getInt(1);
+				info.active = c.getInt(2);
+				info.food = c.getInt(3);
+				info.friend = c.getInt(4);
+				info.news = c.getInt(5);
+				list.add(info);
+				c.moveToNext();
+			}
+			c.close();
+		}
+		return list;
+	}
+
+	public List<DataInfo> preDataToData(List<DataInfo> list) {
 		// refill pre list
 		for (int i = 0; i < 21; i++) {
 			if ((list.size() - 1) < i) {
-				PreDataInfo info = new PreDataInfo();
+				DataInfo info = new DataInfo();
 				info.day = i + 1;
-				info.stat = 99;
+				info.data = 99;
 				list.add(info);
 				continue;
 			}
 			if (list.get(i).day != i + 1) {
-				PreDataInfo info = new PreDataInfo();
+				DataInfo info = new DataInfo();
 				info.day = i + 1;
-				info.stat = 99;
+				info.data = 99;
 				list.add(i, info);
 			}
 		}
-
-		for (int i = 0; i < 7; i++) {
-			DataInfo info = new DataInfo();
-			info.data1 = list.get(i * 3).stat;
-			info.data2 = list.get(i * 3 + 1).stat;
-			info.data3 = list.get(i * 3 + 2).stat;
-			// Log.e("data-item", info.toString());
-			ret.add(info);
-		}
-		return ret;
+		return list;
 	}
 
 	private int generateId() {

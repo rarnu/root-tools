@@ -32,6 +32,7 @@
                 android:id="@+id/tvTree"
                 android:layout_width="4dip"
                 android:layout_height="fill_parent"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:background="#FF009933" />
         </RelativeLayout>
@@ -150,7 +151,7 @@
 
             <TextView
                 android:id="@+id/tvValue5"
-                android:layout_width="50dip"
+                android:layout_width="fill_parent"
                 android:layout_height="8dip"
                 android:layout_alignParentBottom="true"
                 android:layout_marginBottom="6dip"
@@ -161,7 +162,7 @@
 
             <TextView
                 android:id="@+id/tvValue4"
-                android:layout_width="50dip"
+                android:layout_width="fill_parent"
                 android:layout_height="8dip"
                 android:layout_above="@+id/tvValue5"
                 android:layout_marginBottom="12dip"
@@ -172,7 +173,7 @@
 
             <TextView
                 android:id="@+id/tvValue3"
-                android:layout_width="50dip"
+                android:layout_width="fill_parent"
                 android:layout_height="8dip"
                 android:layout_above="@+id/tvValue4"
                 android:layout_marginBottom="12dip"
@@ -183,7 +184,7 @@
 
             <TextView
                 android:id="@+id/tvValue2"
-                android:layout_width="50dip"
+                android:layout_width="fill_parent"
                 android:layout_height="8dip"
                 android:layout_above="@+id/tvValue3"
                 android:layout_marginBottom="12dip"
@@ -194,7 +195,7 @@
 
             <TextView
                 android:id="@+id/tvValue1"
-                android:layout_width="50dip"
+                android:layout_width="fill_parent"
                 android:layout_height="8dip"
                 android:layout_above="@+id/tvValue2"
                 android:layout_marginBottom="12dip"
@@ -210,7 +211,13 @@
                 android:layout_above="@+id/tvE1"
                 android:layout_margin="8dip"
                 android:background="@drawable/history_grid"
-                android:numColumns="3" >
+                android:numColumns="3"
+                android:paddingBottom="8dip"
+                android:paddingLeft="4dip"
+                android:paddingRight="16dip"
+                android:paddingTop="12dip"
+                android:scrollbars="none"
+                 >
             </GridView>
         </RelativeLayout>
     </RelativeLayout>

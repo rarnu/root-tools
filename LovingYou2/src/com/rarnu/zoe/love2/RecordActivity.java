@@ -5,12 +5,14 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.rarnu.zoe.love2.base.BaseActivity;
+import com.rarnu.zoe.love2.comp.Checker;
 import com.rarnu.zoe.love2.comp.Title;
 import com.rarnu.zoe.loving.utils.UIUtils;
 
@@ -20,6 +22,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	RelativeLayout layLines, layBottomLine;
 	String[] text = null;
 	ImageView imgBall;
+	Checker chkE1, chkE2, chkE3, chkE4, chkE5;
+	Button btnSubmit;
 
 	ImageView[] imgLines = new ImageView[21];
 
@@ -50,6 +54,14 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		layLines = (RelativeLayout) findViewById(R.id.layLines);
 		layBottomLine = (RelativeLayout) findViewById(R.id.layBottomLine);
 		imgBall = (ImageView) findViewById(R.id.imgBall);
+
+		chkE1 = (Checker) findViewById(R.id.chkE1);
+		chkE2 = (Checker) findViewById(R.id.chkE2);
+		chkE3 = (Checker) findViewById(R.id.chkE3);
+		chkE4 = (Checker) findViewById(R.id.chkE4);
+		chkE5 = (Checker) findViewById(R.id.chkE5);
+
+		btnSubmit = (Button) findViewById(R.id.btnSubmit);
 	}
 
 	@Override
@@ -57,6 +69,14 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		super.initEvents();
 		title.getBarItem(Title.BARITEM_LEFT).setOnButtonClick(this);
 		title.getBarItem(Title.BARITEM_RIGHT).setOnButtonClick(this);
+
+		chkE1.setOnButtonClick(this);
+		chkE2.setOnButtonClick(this);
+		chkE3.setOnButtonClick(this);
+		chkE4.setOnButtonClick(this);
+		chkE5.setOnButtonClick(this);
+
+		btnSubmit.setOnClickListener(this);
 	}
 
 	@Override
@@ -69,8 +89,32 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 			Intent inHistory = new Intent(this, HistoryActivity.class);
 			startActivity(inHistory);
 			break;
+		case R.id.chkE1:
+		case R.id.chkE2:
+		case R.id.chkE3:
+		case R.id.chkE4:
+		case R.id.chkE5:
+			changeCheckerStatus((Checker) v);
+			break;
+		case R.id.btnSubmit:
+			long stamp = System.currentTimeMillis();
+			int emotion = chkE1.getStatus() == Checker.STATUS_YES ? 0 : 1;
+			int active = chkE2.getStatus() == Checker.STATUS_YES ? 0 : 1;
+			int food = chkE3.getStatus() == Checker.STATUS_YES ? 0 : 1;
+			int friend = chkE4.getStatus() == Checker.STATUS_YES ? 0 : 1;
+			int news = chkE5.getStatus() == Checker.STATUS_YES ? 0 : 1;
+			Global.database.insert(stamp, emotion, active, food, friend, news);
+			Intent inHis = new Intent(this, HistoryActivity.class);
+			startActivity(inHis);
+			finish();
+			break;
 		}
 
+	}
+
+	private void changeCheckerStatus(Checker chk) {
+		chk.setStatus(chk.getStatus() == Checker.STATUS_YES ? Checker.STATUS_NO
+				: Checker.STATUS_YES);
 	}
 
 	private void build21Lines(int day) {
@@ -114,7 +158,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void moveBall(int marginLeft) {
-		RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) imgBall.getLayoutParams();
+		RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) imgBall
+				.getLayoutParams();
 		rlp.leftMargin = marginLeft;
 		imgBall.setLayoutParams(rlp);
 	}
