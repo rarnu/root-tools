@@ -30,6 +30,7 @@
             android:layout_width="24dip"
             android:layout_height="24dip"
             android:layout_marginTop="8dip"
+            android:contentDescription="@null"
             android:src="@drawable/set_hint" />
 
         <TextView
@@ -47,6 +48,7 @@
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
             android:contentDescription="@null"
+            android:focusable="true"
             android:src="@drawable/check_yes" />
 
         <TextView
@@ -88,6 +90,7 @@
             android:layout_width="24dip"
             android:layout_height="24dip"
             android:layout_marginTop="8dip"
+            android:contentDescription="@null"
             android:src="@drawable/set_mail" />
 
         <TextView
@@ -135,6 +138,7 @@
             android:layout_width="24dip"
             android:layout_height="24dip"
             android:layout_marginTop="8dip"
+            android:contentDescription="@null"
             android:src="@drawable/share" />
 
         <TextView
@@ -182,6 +186,7 @@
             android:layout_width="24dip"
             android:layout_height="24dip"
             android:layout_marginTop="8dip"
+            android:contentDescription="@null"
             android:src="@drawable/set_fav" />
 
         <TextView
@@ -229,6 +234,7 @@
             android:layout_width="24dip"
             android:layout_height="24dip"
             android:layout_marginTop="8dip"
+            android:contentDescription="@null"
             android:src="@drawable/set_about" />
 
         <TextView

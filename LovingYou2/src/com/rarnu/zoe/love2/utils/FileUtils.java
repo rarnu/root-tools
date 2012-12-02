@@ -1,4 +1,4 @@
-package com.rarnu.zoe.loving.utils;
+package com.rarnu.zoe.love2.utils;
 
 import java.io.BufferedReader;
 import java.io.File;

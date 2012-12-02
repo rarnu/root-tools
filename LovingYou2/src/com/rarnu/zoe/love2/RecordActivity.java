@@ -14,7 +14,7 @@ import android.widget.TextView;
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.comp.Checker;
 import com.rarnu.zoe.love2.comp.Title;
-import com.rarnu.zoe.loving.utils.UIUtils;
+import com.rarnu.zoe.love2.utils.UIUtils;
 
 public class RecordActivity extends BaseActivity implements OnClickListener {
 

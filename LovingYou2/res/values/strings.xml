@@ -33,9 +33,12 @@
 	<string name="set_favapp">给APP打分</string>
 	<string name="set_about">关于我们</string>
 	
-	<string name="set_desc_hint">是否在任务栏提醒</string>
+	<string name="set_desc_hint" formatted="false">每天 %s 会提醒你哦~</string>
 	<string name="set_desc_feedback">开源软件，求各种意见和建议</string>
 	<string name="set_desc_share">^(oo)^ 笑眯眯多谢~</string>
 	<string name="set_desc_favapp">您的评论，能决定APP的传播</string>
 	<string name="set_desc_about">想做个温暖的APP，因为我爱你~</string>
+	
+	<string name="hint_task">因为我爱你~任务提醒~</string>
+	<string name="ground">已提交任务</string>
 </resources>

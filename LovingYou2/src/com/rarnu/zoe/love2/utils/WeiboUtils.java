@@ -1,8 +1,8 @@
-package com.rarnu.zoe.loving.utils;
+package com.rarnu.zoe.love2.utils;
 
 import java.io.IOException;
 
-import com.rarnu.zoe.loving.common.Config;
+import com.rarnu.zoe.love2.common.Config;
 import com.weibo.sdk.android.Oauth2AccessToken;
 import com.weibo.sdk.android.WeiboException;
 import com.weibo.sdk.android.api.StatusesAPI;

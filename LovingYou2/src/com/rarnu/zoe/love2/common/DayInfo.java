@@ -1,4 +1,4 @@
-package com.rarnu.zoe.loving.common;
+package com.rarnu.zoe.love2.common;
 
 import java.io.Serializable;
 

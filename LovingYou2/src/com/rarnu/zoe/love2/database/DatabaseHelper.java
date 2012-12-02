@@ -1,4 +1,4 @@
-package com.rarnu.zoe.loving.database;
+package com.rarnu.zoe.love2.database;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -10,8 +10,8 @@ import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 
-import com.rarnu.zoe.loving.common.DataInfo;
-import com.rarnu.zoe.loving.common.DayInfo;
+import com.rarnu.zoe.love2.common.DataInfo;
+import com.rarnu.zoe.love2.common.DayInfo;
 
 public class DatabaseHelper {
 

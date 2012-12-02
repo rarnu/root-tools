@@ -13,10 +13,10 @@ import android.widget.TextView;
 
 import com.rarnu.zoe.love2.adapter.HistoryAdapter;
 import com.rarnu.zoe.love2.base.BaseActivity;
+import com.rarnu.zoe.love2.common.DataInfo;
+import com.rarnu.zoe.love2.common.DayInfo;
 import com.rarnu.zoe.love2.comp.Title;
-import com.rarnu.zoe.loving.common.DataInfo;
-import com.rarnu.zoe.loving.common.DayInfo;
-import com.rarnu.zoe.loving.utils.UIUtils;
+import com.rarnu.zoe.love2.utils.UIUtils;
 
 public class HistoryActivity extends BaseActivity implements OnClickListener {
 

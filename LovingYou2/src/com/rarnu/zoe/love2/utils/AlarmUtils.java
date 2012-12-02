@@ -1,4 +1,4 @@
-package com.rarnu.zoe.loving.utils;
+package com.rarnu.zoe.love2.utils;
 
 import java.util.Calendar;
 
@@ -8,7 +8,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
 
-import com.rarnu.zoe.loving.common.Consts;
+import com.rarnu.zoe.love2.common.Consts;
 
 public class AlarmUtils {
 

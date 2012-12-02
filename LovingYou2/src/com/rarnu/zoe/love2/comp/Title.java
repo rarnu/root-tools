@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.rarnu.zoe.love2.R;
-import com.rarnu.zoe.loving.utils.UIUtils;
+import com.rarnu.zoe.love2.utils.UIUtils;
 
 public class Title extends RelativeLayout {
 

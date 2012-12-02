@@ -9,12 +9,12 @@ import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
 
 import com.rarnu.zoe.love2.base.BaseActivity;
+import com.rarnu.zoe.love2.common.Consts;
 import com.rarnu.zoe.love2.comp.BottomBar;
 import com.rarnu.zoe.love2.comp.RarnuGrid;
 import com.rarnu.zoe.love2.comp.Title;
-import com.rarnu.zoe.loving.common.Consts;
-import com.rarnu.zoe.loving.database.DatabaseHelper;
-import com.rarnu.zoe.loving.utils.UIUtils;
+import com.rarnu.zoe.love2.database.DatabaseHelper;
+import com.rarnu.zoe.love2.utils.UIUtils;
 
 public class MainActivity extends BaseActivity implements OnClickListener {
 
@@ -174,6 +174,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			startActivity(inRecord);
 			break;
 		case R.id.btn3:
+			Intent inGround = new Intent(this, GroundActivity.class);
+			startActivity(inGround);
 			break;
 		case R.id.btn4:
 			Intent inSettings = new Intent(this, SettingsActivity.class);

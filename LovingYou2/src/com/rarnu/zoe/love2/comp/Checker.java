@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.rarnu.zoe.love2.R;
-import com.rarnu.zoe.loving.utils.UIUtils;
+import com.rarnu.zoe.love2.utils.UIUtils;
 
 public class Checker extends RelativeLayout {
 

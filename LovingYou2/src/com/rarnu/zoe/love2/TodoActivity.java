@@ -1,12 +1,13 @@
 package com.rarnu.zoe.love2;
 
 import android.app.Activity;
+import android.app.NotificationManager;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.rarnu.zoe.loving.common.Consts;
+import com.rarnu.zoe.love2.common.Consts;
 
 public class TodoActivity extends Activity {
 
@@ -19,8 +20,16 @@ public class TodoActivity extends Activity {
 		setContentView(R.layout.activity_todo);
 
 		int index = getIntent().getIntExtra("index", -1);
-
 		int day = Global.database.getDay();
+		
+		if (getIntent().getAction() != null) {
+			String action = getIntent().getAction();
+			if (action.equals(Consts.NOTIFY_ACTION)) {
+				NotificationManager manager = (NotificationManager) getSystemService(NOTIFICATION_SERVICE);
+				manager.cancel(Consts.NOTIFY_ID);
+				index = day - 1;
+			}
+		}
 
 		tvTodoToday = (TextView) findViewById(R.id.tvTodoToday);
 		tvTodo = (TextView) findViewById(R.id.tvTodo);

@@ -1,4 +1,4 @@
-package com.rarnu.zoe.loving.common;
+package com.rarnu.zoe.love2.common;
 
 import com.rarnu.zoe.love2.R;
 
@@ -9,6 +9,8 @@ public class Consts {
 	
 	public static final String ALARM_ACTION = "com.rarnu.zoe.alarm";
 	public static final String EXIT_ACTION = "com.rarnu.zoe.exit";
+	public static final String NOTIFY_ACTION = "com.rarnu.zoe.notify";
+	public static final int NOTIFY_ID = 100001;
 
 	public static final int WHAT_DID_LOAD_DATA = 0;
 	public static final int WHAT_DID_REFRESH = 1;

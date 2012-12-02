@@ -2,7 +2,7 @@ package com.rarnu.zoe.love2;
 
 import android.app.Activity;
 
-import com.rarnu.zoe.loving.database.DatabaseHelper;
+import com.rarnu.zoe.love2.database.DatabaseHelper;
 
 public class Global {
 

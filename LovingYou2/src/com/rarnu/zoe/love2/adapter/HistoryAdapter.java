@@ -12,7 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.zoe.love2.R;
-import com.rarnu.zoe.loving.common.DataInfo;
+import com.rarnu.zoe.love2.common.DataInfo;
 
 public class HistoryAdapter extends BaseAdapter {
 
