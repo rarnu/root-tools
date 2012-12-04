@@ -76,12 +76,60 @@
             android:text="@string/set_desc_hint"
             android:textColor="#FF666666" />
     </RelativeLayout>
+    
+    <RelativeLayout
+        android:id="@+id/laySetWeibo"
+        android:layout_width="fill_parent"
+        android:layout_height="64dip"
+        android:layout_below="@+id/laySet1"
+        android:paddingLeft="16dip"
+        android:paddingRight="16dip" >
+
+        <ImageView
+            android:id="@+id/icoSetWeibo"
+            android:layout_width="24dip"
+            android:layout_height="24dip"
+            android:layout_marginTop="8dip"
+            android:contentDescription="@null"
+            android:src="@drawable/weibo" />
+
+        <TextView
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="16dip"
+            android:layout_toRightOf="@+id/icoSetWeibo"
+            android:background="#FF666666" />
+
+        <TextView
+            android:id="@+id/tvSetWeibo"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:layout_marginLeft="16dip"
+            android:layout_marginTop="8dip"
+            android:layout_toRightOf="@+id/icoSetWeibo"
+            android:gravity="left|center_vertical"
+            android:text="@string/set_weibo"
+            android:textColor="@color/white"
+            android:textSize="20dip" />
+
+        <TextView
+            android:id="@+id/tvSetDescWeibo"
+            android:layout_width="fill_parent"
+            android:layout_height="28dip"
+            android:layout_below="@+id/tvSetWeibo"
+            android:layout_marginLeft="40dip"
+            android:layout_toRightOf="@+id/icoSetWeibo"
+            android:gravity="left|center_vertical"
+            android:text="@string/set_desc_weibo"
+            android:textColor="#FF666666" />
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/laySet2"
         android:layout_width="fill_parent"
         android:layout_height="64dip"
-        android:layout_below="@+id/laySet1"
+        android:layout_below="@+id/laySetWeibo"
         android:paddingLeft="16dip"
         android:paddingRight="16dip" >
 

@@ -43,7 +43,7 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void initComponents() {
 		super.initComponents();
-		title.getBarItem(Title.BARITEM_CENTER).setText(R.string.history);
+		title.getBarItem(Title.BARITEM_CENTER).setText(R.string.history_record);
 		title.getBarItem(Title.BARITEM_LEFT).setIcon(R.drawable.home);
 
 		layTree = (RelativeLayout) findViewById(R.id.layTree);

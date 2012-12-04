@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-import android.widget.RelativeLayout;
 
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.common.Consts;
@@ -21,7 +20,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	RarnuGrid grid;
 	BottomBar bottom;
 	ImageView[] ivMain, ivSub;
-	ImageView imgIdc;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -40,28 +38,18 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		super.initComponents();
 
 		title.getBarItem(Title.BARITEM_CENTER).setText(R.string.all_task);
-		title.getBarItem(Title.BARITEM_RIGHT)
-				.setIcon(R.drawable.record_history);
 
 		grid = (RarnuGrid) findViewById(R.id.grid);
 		bottom = (BottomBar) findViewById(R.id.bottom);
-		imgIdc = (ImageView) findViewById(R.id.imgIdc);
 
-		int idcWidth = bottom.getItemWidth();
-		RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) imgIdc
-				.getLayoutParams();
-
-		rlp.width = idcWidth;
-		rlp.height = idcWidth * 48 / 224;
-		imgIdc.setLayoutParams(rlp);
-
-		bottom.setText(BottomBar.BUTTON_1, R.string.task);
+		bottom.setText(BottomBar.BUTTON_1, R.string.square);
 		bottom.setText(BottomBar.BUTTON_2, R.string.record);
-		bottom.setText(BottomBar.BUTTON_3, R.string.square);
+		bottom.setText(BottomBar.BUTTON_3, R.string.history);
 		bottom.setText(BottomBar.BUTTON_4, R.string.settings);
-		bottom.setIcon(BottomBar.BUTTON_1, R.drawable.task_b1);
+
+		bottom.setIcon(BottomBar.BUTTON_1, R.drawable.task_b3);
 		bottom.setIcon(BottomBar.BUTTON_2, R.drawable.task_b2);
-		bottom.setIcon(BottomBar.BUTTON_3, R.drawable.task_b3);
+		bottom.setIcon(BottomBar.BUTTON_3, R.drawable.task);
 		bottom.setIcon(BottomBar.BUTTON_4, R.drawable.task_b4);
 
 		setImages(Global.database.getDay());
@@ -165,23 +153,25 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		}
 
 		switch (v.getId()) {
-		case Title.ITEM_RIGHT:
-			Intent inHistory = new Intent(this, HistoryActivity.class);
-			startActivity(inHistory);
+
+		case R.id.btn1:
+			startActivity2(GroundActivity.class);
 			break;
 		case R.id.btn2:
-			Intent inRecord = new Intent(this, RecordActivity.class);
-			startActivity(inRecord);
+			startActivity2(RecordActivity.class);
 			break;
 		case R.id.btn3:
-			Intent inGround = new Intent(this, GroundActivity.class);
-			startActivity(inGround);
+			startActivity2(HistoryActivity.class);
 			break;
 		case R.id.btn4:
-			Intent inSettings = new Intent(this, SettingsActivity.class);
-			startActivity(inSettings);
+			startActivity2(SettingsActivity.class);
 			break;
 		}
 
+	}
+	
+	private void startActivity2(Class<?> cls) {
+		Intent inActivity = new Intent(this, cls);
+		startActivity(inActivity);
 	}
 }

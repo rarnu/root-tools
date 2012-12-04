@@ -7,6 +7,7 @@
 	<string name="record">记录</string>
 	<string name="square">广场</string>
 	<string name="settings">设置</string>
+	<string name="history">历史</string>
 	
 	<string name="todo_today">今天的任务</string>
 	<string name="day_fmt" formatted="false">Day %d / 21</string>
@@ -24,7 +25,7 @@
 	
 	<string name="sync_weibo">同步到微博</string>
 	
-	<string name="history">历史记录</string>
+	<string name="history_record">历史记录</string>
 	<string name="system_settings">系统设置</string>
 	
 	<string name="set_hint">提醒设置</string>
@@ -32,12 +33,14 @@
 	<string name="set_share">分享给朋友</string>
 	<string name="set_favapp">给APP打分</string>
 	<string name="set_about">关于我们</string>
+	<string name="set_weibo">绑定微博</string>
 	
 	<string name="set_desc_hint" formatted="false">每天 %s 会提醒你哦~</string>
 	<string name="set_desc_feedback">开源软件，求各种意见和建议</string>
 	<string name="set_desc_share">^(oo)^ 笑眯眯多谢~</string>
 	<string name="set_desc_favapp">您的评论，能决定APP的传播</string>
 	<string name="set_desc_about">想做个温暖的APP，因为我爱你~</string>
+	<string name="set_desc_weibo">可以分享自己的心情哦~</string>
 	
 	<string name="hint_task">因为我爱你~任务提醒~</string>
 	<string name="ground">已提交任务</string>
