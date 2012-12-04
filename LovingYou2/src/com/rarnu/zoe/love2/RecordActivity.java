@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.RelativeLayout.LayoutParams;
@@ -24,6 +25,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	ImageView imgBall;
 	Checker chkE1, chkE2, chkE3, chkE4, chkE5;
 	Button btnSubmit;
+	EditText etRecord;
 
 	ImageView[] imgLines = new ImageView[21];
 
@@ -62,6 +64,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		chkE5 = (Checker) findViewById(R.id.chkE5);
 
 		btnSubmit = (Button) findViewById(R.id.btnSubmit);
+		etRecord = (EditText) findViewById(R.id.etRecord);
 	}
 
 	@Override
@@ -77,6 +80,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		chkE5.setOnButtonClick(this);
 
 		btnSubmit.setOnClickListener(this);
+		
+		etRecord.setOnClickListener(this);
 	}
 
 	@Override
@@ -108,8 +113,25 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 			startActivity(inHis);
 			finish();
 			break;
+		case R.id.etRecord:
+			Intent inInput = new Intent(this, InputActivity.class);
+			startActivityForResult(inInput, 0);
+			break;
 		}
 
+	}
+	
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode != RESULT_OK) {
+			return;
+		}
+		
+		switch (requestCode) {
+		case 0:
+			break;
+		}
+		
 	}
 
 	private void changeCheckerStatus(Checker chk) {

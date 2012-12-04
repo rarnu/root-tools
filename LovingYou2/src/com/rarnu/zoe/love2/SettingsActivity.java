@@ -6,10 +6,12 @@ import java.util.Date;
 
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
@@ -23,6 +25,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 	TextView tvSet1, tvSetDesc1;
 	ImageView chkHint;
+	RelativeLayout laySet2, laySet3, laySet4, laySet5, laySetWeibo;
 
 	@Override
 	protected void setContentView() {
@@ -40,6 +43,12 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		tvSet1 = (TextView) findViewById(R.id.tvSet1);
 		tvSetDesc1 = (TextView) findViewById(R.id.tvSetDesc1);
 		chkHint = (ImageView) findViewById(R.id.chkHint);
+		
+		laySet2 = (RelativeLayout) findViewById(R.id.laySet2);
+		laySet3 = (RelativeLayout) findViewById(R.id.laySet3);
+		laySet4 = (RelativeLayout) findViewById(R.id.laySet4);
+		laySet5 = (RelativeLayout) findViewById(R.id.laySet5);
+		laySetWeibo = (RelativeLayout) findViewById(R.id.laySetWeibo);
 
 		chkHint.setImageResource(Config.getHintEnabled(this, 1) ? R.drawable.check_yes
 				: R.drawable.check_no);
@@ -64,6 +73,12 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		tvSet1.setOnClickListener(this);
 		tvSetDesc1.setOnClickListener(this);
 		chkHint.setOnClickListener(this);
+		
+		laySet2.setOnClickListener(this);
+		laySet3.setOnClickListener(this);
+		laySet4.setOnClickListener(this);
+		laySet5.setOnClickListener(this);
+		laySetWeibo.setOnClickListener(this);
 	}
 
 	@Override
@@ -92,6 +107,18 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		case R.id.tvSet1:
 		case R.id.tvSetDesc1:
 			selectTime();
+			break;
+		case R.id.laySet2:
+			Intent inFeedback = new Intent(this, FeedbackActivity.class);
+			startActivity(inFeedback);
+			break;
+		case R.id.laySet3:
+			break;
+		case R.id.laySet4:
+			break;
+		case R.id.laySet5:
+			break;
+		case R.id.laySetWeibo:
 			break;
 		}
 

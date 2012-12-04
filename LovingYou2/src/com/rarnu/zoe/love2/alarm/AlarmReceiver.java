@@ -7,7 +7,6 @@ import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.rarnu.zoe.love2.Global;
 import com.rarnu.zoe.love2.common.Config;
@@ -24,9 +23,7 @@ public class AlarmReceiver extends BroadcastReceiver {
 		NotificationUtils.doHint(context, "");
 
 		Calendar cDef = Calendar.getInstance();
-
 		cDef.set(Calendar.HOUR_OF_DAY, 11);
-
 		cDef.set(Calendar.MINUTE, 0);
 
 		long timeMillis = Config
