@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="100dip"
+    android:layout_height="100dip"
+    android:background="@color/white" >
+    
+    <ImageView android:id="@+id/imgGround"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/layBottom"
+        android:layout_marginTop="8dip"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:contentDescription="@null"
+        android:src="@drawable/sp1"
+        android:adjustViewBounds="true"
+        android:scaleType="centerInside"/>
+    
+    <RelativeLayout android:id="@+id/layBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="24dip"
+        android:layout_alignParentBottom="true"
+        >
+        
+        <TextView android:id="@+id/tvDay"
+            android:layout_width="wrap_content"
+            android:layout_height="fill_parent"
+            android:gravity="center"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dip"
+            android:text="Day 1"
+            android:textSize="8dip"
+            android:textColor="@color/black"/>
+        
+        <ImageView android:id="@+id/imgHeart"
+            android:layout_width="12dip"
+            android:layout_height="12dip"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:contentDescription="@null"
+            android:src="@drawable/ground_unchecked"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="8dip"/>
+        
+    </RelativeLayout>
+    
+
+</RelativeLayout>

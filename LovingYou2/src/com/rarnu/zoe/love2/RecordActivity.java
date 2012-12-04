@@ -108,7 +108,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 			int food = chkE3.getStatus() == Checker.STATUS_YES ? 0 : 1;
 			int friend = chkE4.getStatus() == Checker.STATUS_YES ? 0 : 1;
 			int news = chkE5.getStatus() == Checker.STATUS_YES ? 0 : 1;
-			Global.database.insert(stamp, emotion, active, food, friend, news);
+			Global.database.insertDay(stamp, emotion, active, food, friend, news);
 			Intent inHis = new Intent(this, HistoryActivity.class);
 			startActivity(inHis);
 			finish();

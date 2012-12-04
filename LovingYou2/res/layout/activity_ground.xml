@@ -16,7 +16,20 @@
         android:id="@+id/title"
         android:layout_width="fill_parent"
         android:layout_height="64dip" />
-
     
+    <GridView android:id="@+id/gvGround"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/title"
+        android:layout_above="@+id/layBottom"
+        android:layout_margin="8dip"
+        android:numColumns="3"></GridView>
+
+    <RelativeLayout android:id="@+id/layBottom"
+        android:layout_width="fill_parent"
+        android:layout_height="64dip"
+        android:layout_alignParentBottom="true">
+        
+    </RelativeLayout>
 
 </RelativeLayout>

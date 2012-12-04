@@ -12,11 +12,17 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.rarnu.zoe.love2.common.DataInfo;
 import com.rarnu.zoe.love2.common.DayInfo;
+import com.rarnu.zoe.love2.common.GroundInfo;
 
 public class DatabaseHelper {
 
-	private static final String CREATE_TABLE = "create table love(id int primary key, daystamp text, day int, emotion int, active int, food int, friend int, news int)";
-	private static final String INSERT = "insert into love (id, daystamp, day, emotion, active, food, friend, news) values (%d, '%s', %d, %d, %d, %d, %d, %d)";
+	private static final String CREATE_TABLE_DAY = "create table love(id int primary key, daystamp text, day int, emotion int, active int, food int, friend int, news int)";
+	private static final String CREATE_TABLE_GROUND = "create table ground(id int primary key, day int, txt text, path text, fav int)";
+
+	private static final String INSERT_DAY = "insert into love (id, daystamp, day, emotion, active, food, friend, news) values (%d, '%s', %d, %d, %d, %d, %d, %d)";
+	private static final String INSERT_GROUND = "insert into ground (id, day, txt, path, fav) values (%d, %d, '%s','%s',0)";
+
+	private static final String UPDATE_GROUND = "update ground set fav=%d where id=%d";
 
 	private SQLiteDatabase db = null;
 
@@ -25,7 +31,8 @@ public class DatabaseHelper {
 		File fDb = new File(dbfn);
 		if (!fDb.exists()) {
 			db = SQLiteDatabase.openOrCreateDatabase(fDb, null);
-			db.execSQL(CREATE_TABLE);
+			db.execSQL(CREATE_TABLE_DAY);
+			db.execSQL(CREATE_TABLE_GROUND);
 		} else {
 			db = SQLiteDatabase.openOrCreateDatabase(fDb, null);
 		}
@@ -50,12 +57,31 @@ public class DatabaseHelper {
 		return ret;
 	}
 
-	public void insert(long stamp, int emotion, int active, int food,
+	public void insertDay(long stamp, int emotion, int active, int food,
 			int friend, int news) {
-		int id = generateId();
+		int id = generateId("love");
 		int day = generateDay(stamp);
-		String sql = String.format(INSERT, id, String.valueOf(stamp), day,
+		String sql = String.format(INSERT_DAY, id, String.valueOf(stamp), day,
 				emotion, active, food, friend, news);
+		try {
+			db.execSQL(sql);
+		} catch (Exception e) {
+
+		}
+	}
+
+	public void insertGround(int day, String text, String path) {
+		int id = generateId("ground");
+		String sql = String.format(INSERT_GROUND, id, day, text, path);
+		try {
+			db.execSQL(sql);
+		} catch (Exception e) {
+
+		}
+	}
+
+	public void updateGround(int id, int fav) {
+		String sql = String.format(UPDATE_GROUND, fav, id);
 		try {
 			db.execSQL(sql);
 		} catch (Exception e) {
@@ -83,6 +109,26 @@ public class DatabaseHelper {
 			c.close();
 		}
 
+		return info;
+	}
+
+	public GroundInfo queryGround(int id) {
+		GroundInfo info = new GroundInfo();
+		Cursor c = db.query("ground", new String[] { "id", "day", "txt",
+				"path", "fav" }, "id=?", new String[] { String.valueOf(id) },
+				null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+			while (!c.isAfterLast()) {
+				info.id = c.getInt(0);
+				info.day = c.getInt(1);
+				info.txt = c.getString(2);
+				info.path = c.getString(3);
+				info.fav = c.getInt(4);
+				break;
+			}
+			c.close();
+		}
 		return info;
 	}
 
@@ -150,9 +196,9 @@ public class DatabaseHelper {
 		return list;
 	}
 
-	private int generateId() {
+	private int generateId(String table) {
 		int ret = 0;
-		Cursor c = db.query("love", new String[] { "id" }, null, null, null,
+		Cursor c = db.query(table, new String[] { "id" }, null, null, null,
 				null, "id desc", "0,1");
 		if (c != null) {
 			c.moveToFirst();

@@ -11,6 +11,7 @@
 	
 	<string name="todo_today">今天的任务</string>
 	<string name="day_fmt" formatted="false">Day %d / 21</string>
+	<string name="day_pfmt" formatted="false">Day %d</string>
 	<string name="done_today">记得交任务哦~</string>
 	
 	<string name="record_today">记录今天</string>
