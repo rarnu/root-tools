@@ -52,6 +52,12 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
+            android:name=".GroundDetailActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
             android:name=".InputActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"

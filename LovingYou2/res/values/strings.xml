@@ -45,4 +45,6 @@
 	
 	<string name="hint_task">因为我爱你~任务提醒~</string>
 	<string name="ground">已提交任务</string>
+	
+	<string name="task_detail">某人作业</string>
 </resources>
