@@ -13,6 +13,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.rarnu.zoe.love2.base.BaseActivity;
+import com.rarnu.zoe.love2.common.DayInfo;
 import com.rarnu.zoe.love2.comp.Checker;
 import com.rarnu.zoe.love2.comp.Title;
 import com.rarnu.zoe.love2.utils.UIUtils;
@@ -68,6 +69,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		etRecord = (EditText) findViewById(R.id.etRecord);
 
 		resize();
+		initEmotions();
 	}
 
 	private void resize() {
@@ -98,6 +100,22 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		rlp = (RelativeLayout.LayoutParams) tvE4.getLayoutParams();
 		rlp.leftMargin = width;
 		tvE4.setLayoutParams(rlp);
+	}
+	
+	private void initEmotions() {
+		chkE1.setYesDrawable(R.drawable.record_e1y);
+		chkE1.setNoDrawable(R.drawable.record_e1n);
+		chkE2.setYesDrawable(R.drawable.record_e2y);
+		chkE2.setNoDrawable(R.drawable.record_e2n);
+		chkE3.setYesDrawable(R.drawable.record_e3y);
+		chkE3.setNoDrawable(R.drawable.record_e3n);
+		chkE4.setYesDrawable(R.drawable.record_e4y);
+		chkE4.setNoDrawable(R.drawable.record_e4n);
+		
+		chkE1.setStatus(Checker.STATUS_NO);
+		chkE2.setStatus(Checker.STATUS_NO);
+		chkE3.setStatus(Checker.STATUS_NO);
+		chkE4.setStatus(Checker.STATUS_NO);
 	}
 
 	@Override
@@ -136,8 +154,16 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 			int food = chkE2.getStatus() == Checker.STATUS_YES ? 0 : 1;
 			int active = chkE3.getStatus() == Checker.STATUS_YES ? 0 : 1;
 			int reading = chkE4.getStatus() == Checker.STATUS_YES ? 0 : 1;
-			Global.database.insertDay(stamp, 1, active, food, reading, news);
-			// TODO:
+			DayInfo info = Global.database.queryDay(Global.database.getDay());
+			if ((news + food + active + reading) == 4) {
+				if (info.day == -1) {
+					Global.database.insertDay(stamp, 1, active, food, reading, news);
+				}
+			} else {
+				Global.database.insertDay(stamp, 1, active, food, reading, news);
+			}
+
+			// TODO: photo?
 			String txt = etRecord.getText().toString();
 			if (!txt.equals("")) {
 				Global.database.insertGround(Global.database.getDay(), txt, "");

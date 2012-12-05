@@ -2,6 +2,19 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
+    <ImageView
+        android:id="@+id/imgBackground"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:adjustViewBounds="true"
+        android:contentDescription="@null"
+        android:scaleType="centerCrop"
+        android:src="@drawable/bk" />
+
+    <com.rarnu.zoe.love2.comp.Title
+        android:id="@+id/title"
+        android:layout_width="fill_parent"
+        android:layout_height="64dip" />
 
 </RelativeLayout>

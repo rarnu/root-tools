@@ -23,16 +23,17 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/layEmotion"
         android:layout_below="@+id/title"
-        android:layout_margin="8dip" >
+        android:layout_margin="8dip"
+        android:background="@drawable/record_paper" >
 
         <EditText
             android:id="@+id/etRecord"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
             android:layout_marginBottom="36dip"
-            android:layout_marginLeft="4dip"
-            android:layout_marginRight="4dip"
-            android:layout_marginTop="4dip"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="16dip"
+            android:layout_marginTop="8dip"
             android:background="@drawable/record_frame"
             android:gravity="left|top"
             android:padding="2dip"
@@ -44,7 +45,8 @@
             android:layout_height="24dip"
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="12dip"
-            android:background="@drawable/record_weibo1" />
+            android:background="@drawable/record_weibo1"
+            android:layout_marginBottom="16dip" />
 
         <TextView
             android:id="@+id/tvAddPicture"
@@ -63,7 +65,8 @@
             android:layout_alignParentBottom="true"
             android:layout_marginLeft="12dip"
             android:layout_toRightOf="@+id/tvAddPicture"
-            android:background="@drawable/check_yes" />
+            android:background="@drawable/check_yes"
+            android:contentDescription="@null" />
 
         <TextView
             android:id="@+id/tvSyncWeibo"
