@@ -19,11 +19,11 @@ import com.rarnu.zoe.love2.utils.UIUtils;
 
 public class RecordActivity extends BaseActivity implements OnClickListener {
 
-	TextView tvRecordDesc;
 	RelativeLayout layLines, layBottomLine;
 	String[] text = null;
 	ImageView imgBall;
-	Checker chkE1, chkE2, chkE3, chkE4, chkE5;
+	Checker chkE1, chkE2, chkE3, chkE4;
+	TextView tvE1, tvE2, tvE3, tvE4;
 	Button btnSubmit;
 	EditText etRecord;
 
@@ -33,7 +33,6 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		text = getResources().getStringArray(R.array.record_text);
-		tvRecordDesc.setText(text[0]);
 		build21Lines(Global.database.getDay());
 	}
 
@@ -52,7 +51,6 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 				.setIcon(R.drawable.record_history);
 		title.getBarItem(Title.BARITEM_LEFT).setIcon(R.drawable.home);
 
-		tvRecordDesc = (TextView) findViewById(R.id.tvRecordDesc);
 		layLines = (RelativeLayout) findViewById(R.id.layLines);
 		layBottomLine = (RelativeLayout) findViewById(R.id.layBottomLine);
 		imgBall = (ImageView) findViewById(R.id.imgBall);
@@ -61,10 +59,45 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		chkE2 = (Checker) findViewById(R.id.chkE2);
 		chkE3 = (Checker) findViewById(R.id.chkE3);
 		chkE4 = (Checker) findViewById(R.id.chkE4);
-		chkE5 = (Checker) findViewById(R.id.chkE5);
+		tvE1 = (TextView) findViewById(R.id.tvE1);
+		tvE2 = (TextView) findViewById(R.id.tvE2);
+		tvE3 = (TextView) findViewById(R.id.tvE3);
+		tvE4 = (TextView) findViewById(R.id.tvE4);
 
 		btnSubmit = (Button) findViewById(R.id.btnSubmit);
 		etRecord = (EditText) findViewById(R.id.etRecord);
+
+		resize();
+	}
+
+	private void resize() {
+		int width = UIUtils.getWidth() - UIUtils.dipToPx(64)
+				- (UIUtils.dipToPx(52) * 4);
+		width = width / 3;
+		RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) chkE2
+				.getLayoutParams();
+		rlp.leftMargin = width;
+		chkE2.setLayoutParams(rlp);
+
+		rlp = (RelativeLayout.LayoutParams) chkE3.getLayoutParams();
+		rlp.leftMargin = width;
+		chkE3.setLayoutParams(rlp);
+
+		rlp = (RelativeLayout.LayoutParams) chkE4.getLayoutParams();
+		rlp.leftMargin = width;
+		chkE4.setLayoutParams(rlp);
+
+		rlp = (RelativeLayout.LayoutParams) tvE2.getLayoutParams();
+		rlp.leftMargin = width;
+		tvE2.setLayoutParams(rlp);
+
+		rlp = (RelativeLayout.LayoutParams) tvE3.getLayoutParams();
+		rlp.leftMargin = width;
+		tvE3.setLayoutParams(rlp);
+
+		rlp = (RelativeLayout.LayoutParams) tvE4.getLayoutParams();
+		rlp.leftMargin = width;
+		tvE4.setLayoutParams(rlp);
 	}
 
 	@Override
@@ -77,11 +110,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		chkE2.setOnButtonClick(this);
 		chkE3.setOnButtonClick(this);
 		chkE4.setOnButtonClick(this);
-		chkE5.setOnButtonClick(this);
 
 		btnSubmit.setOnClickListener(this);
-		
-		etRecord.setOnClickListener(this);
 	}
 
 	@Override
@@ -98,40 +128,41 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		case R.id.chkE2:
 		case R.id.chkE3:
 		case R.id.chkE4:
-		case R.id.chkE5:
 			changeCheckerStatus((Checker) v);
 			break;
 		case R.id.btnSubmit:
 			long stamp = System.currentTimeMillis();
-			int emotion = chkE1.getStatus() == Checker.STATUS_YES ? 0 : 1;
-			int active = chkE2.getStatus() == Checker.STATUS_YES ? 0 : 1;
-			int food = chkE3.getStatus() == Checker.STATUS_YES ? 0 : 1;
-			int friend = chkE4.getStatus() == Checker.STATUS_YES ? 0 : 1;
-			int news = chkE5.getStatus() == Checker.STATUS_YES ? 0 : 1;
-			Global.database.insertDay(stamp, emotion, active, food, friend, news);
+			int news = chkE1.getStatus() == Checker.STATUS_YES ? 0 : 1;
+			int food = chkE2.getStatus() == Checker.STATUS_YES ? 0 : 1;
+			int active = chkE3.getStatus() == Checker.STATUS_YES ? 0 : 1;
+			int reading = chkE4.getStatus() == Checker.STATUS_YES ? 0 : 1;
+			Global.database.insertDay(stamp, 1, active, food, reading, news);
+			// TODO:
+			String txt = etRecord.getText().toString();
+			if (!txt.equals("")) {
+				Global.database.insertGround(Global.database.getDay(), txt, "");
+				Global.database.updateDay(Global.database.getDay(), 0);
+			}
 			Intent inHis = new Intent(this, HistoryActivity.class);
 			startActivity(inHis);
 			finish();
 			break;
-		case R.id.etRecord:
-			Intent inInput = new Intent(this, InputActivity.class);
-			startActivityForResult(inInput, 0);
-			break;
+		
 		}
 
 	}
-	
+
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode != RESULT_OK) {
 			return;
 		}
-		
+
 		switch (requestCode) {
 		case 0:
 			break;
 		}
-		
+
 	}
 
 	private void changeCheckerStatus(Checker chk) {

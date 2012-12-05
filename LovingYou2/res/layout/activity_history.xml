@@ -41,7 +41,7 @@
             android:id="@+id/layGrid"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginBottom="48dip"
+            android:layout_marginBottom="8dip"
             android:layout_toRightOf="@+id/layTree" >
 
             <TextView
@@ -90,7 +90,7 @@
                 android:layout_height="20dip"
                 android:layout_above="@+id/tvE2"
                 android:gravity="right|center_vertical"
-                android:text="@string/record_e1"
+                android:text="@string/record_e7"
                 android:textColor="#FF999999"
                 android:textSize="12dip" />
 
@@ -221,15 +221,5 @@
             </GridView>
         </RelativeLayout>
     </RelativeLayout>
-
-    <ImageView
-        android:id="@+id/imgShare"
-        android:layout_width="28dip"
-        android:layout_height="28dip"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="16dip"
-        android:contentDescription="@null"
-        android:src="@drawable/share" />
 
 </RelativeLayout>

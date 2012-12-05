@@ -126,18 +126,18 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 		width = width / 21;
 
 		List<DayInfo> listInfo = Global.database.queryFullHistory();
-		int emotion = 0, active = 0, food = 0, friend = 0, news = 0;
+		int task = 0, active = 0, food = 0, reading = 0, news = 0;
 		for (int i = 0; i < listInfo.size(); i++) {
-			emotion += (listInfo.get(i).emotion == 0 ? 1 : 0);
+			task += (listInfo.get(i).task == 0 ? 1 : 0);
 			active += (listInfo.get(i).active == 0 ? 1 : 0);
 			food += (listInfo.get(i).food == 0 ? 1 : 0);
-			friend += (listInfo.get(i).friend == 0 ? 1 : 0);
+			reading += (listInfo.get(i).reading == 0 ? 1 : 0);
 			news += (listInfo.get(i).news == 0 ? 1 : 0);
 		}
 
 		RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) tvValue1
 				.getLayoutParams();
-		rlp.width = width * emotion;
+		rlp.width = width * task;
 		tvValue1.setLayoutParams(rlp);
 
 		rlp = (RelativeLayout.LayoutParams) tvValue2.getLayoutParams();
@@ -149,7 +149,7 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 		tvValue3.setLayoutParams(rlp);
 
 		rlp = (RelativeLayout.LayoutParams) tvValue4.getLayoutParams();
-		rlp.width = width * friend;
+		rlp.width = width * reading;
 		tvValue4.setLayoutParams(rlp);
 
 		rlp = (RelativeLayout.LayoutParams) tvValue5.getLayoutParams();

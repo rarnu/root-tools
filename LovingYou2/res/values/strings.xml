@@ -23,6 +23,8 @@
 	<string name="record_e3">水果蔬菜</string>
 	<string name="record_e4">有读书</string>
 	<string name="record_e5">为理想而战</string>
+	<string name="record_e6">坚持理想</string>
+	<string name="record_e7">提交任务</string>
 	
 	<string name="sync_weibo">同步到微博</string>
 	
@@ -47,4 +49,5 @@
 	<string name="ground">已提交任务</string>
 	
 	<string name="task_detail">某人作业</string>
+	<string name="send_picture">发送图片</string>
 </resources>

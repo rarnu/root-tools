@@ -16,12 +16,13 @@ import com.rarnu.zoe.love2.common.GroundInfo;
 
 public class DatabaseHelper {
 
-	private static final String CREATE_TABLE_DAY = "create table love(id int primary key, daystamp text, day int, emotion int, active int, food int, friend int, news int)";
+	private static final String CREATE_TABLE_DAY = "create table love(id int primary key, daystamp text, day int, task int, active int, food int, reading int, news int)";
 	private static final String CREATE_TABLE_GROUND = "create table ground(id int primary key, day int, txt text, path text, fav int)";
 
-	private static final String INSERT_DAY = "insert into love (id, daystamp, day, emotion, active, food, friend, news) values (%d, '%s', %d, %d, %d, %d, %d, %d)";
+	private static final String INSERT_DAY = "insert into love (id, daystamp, day, task, active, food, reading, news) values (%d, '%s', %d, %d, %d, %d, %d, %d)";
 	private static final String INSERT_GROUND = "insert into ground (id, day, txt, path, fav) values (%d, %d, '%s','%s',0)";
 
+	private static final String UPDATE_DAY = "update love set task=%d where day=%d";
 	private static final String UPDATE_GROUND = "update ground set fav=%d where id=%d";
 
 	private SQLiteDatabase db = null;
@@ -54,15 +55,19 @@ public class DatabaseHelper {
 			}
 			c.close();
 		}
+		int day = generateDay(System.currentTimeMillis());
+		if (day != ret) {
+			ret = day;
+		}
 		return ret;
 	}
 
-	public void insertDay(long stamp, int emotion, int active, int food,
-			int friend, int news) {
+	public void insertDay(long stamp, int task, int active, int food,
+			int reading, int news) {
 		int id = generateId("love");
 		int day = generateDay(stamp);
 		String sql = String.format(INSERT_DAY, id, String.valueOf(stamp), day,
-				emotion, active, food, friend, news);
+				task, active, food, reading, news);
 		try {
 			db.execSQL(sql);
 		} catch (Exception e) {
@@ -89,20 +94,29 @@ public class DatabaseHelper {
 		}
 	}
 
+	public void updateDay(int day, int task) {
+		String sql = String.format(UPDATE_DAY, task, day);
+		try {
+			db.execSQL(sql);
+		} catch (Exception e) {
+
+		}
+	}
+
 	public DayInfo queryDay(int day) {
 		DayInfo info = new DayInfo();
 
-		Cursor c = db.query("love", new String[] { "day", "emotion", "active",
-				"food", "friend", "news" }, "day=?",
+		Cursor c = db.query("love", new String[] { "day", "task", "active",
+				"food", "reading", "news" }, "day=?",
 				new String[] { String.valueOf(day) }, "day", null, "id desc");
 		if (c != null) {
 			c.moveToFirst();
 			while (!c.isAfterLast()) {
 				info.day = c.getInt(0);
-				info.emotion = c.getInt(1);
+				info.task = c.getInt(1);
 				info.active = c.getInt(2);
 				info.food = c.getInt(3);
-				info.friend = c.getInt(4);
+				info.reading = c.getInt(4);
 				info.news = c.getInt(5);
 				break;
 			}
@@ -158,7 +172,7 @@ public class DatabaseHelper {
 
 		// select day, emotion from love group by day order by id desc;
 		Cursor c = db.query("love", new String[] { "day",
-				"(emotion+active+food+friend+news)" }, null, null, "day", null,
+				"(task+active+food+reading+news)" }, null, null, "day", null,
 				"id asc");
 		if (c != null) {
 			c.moveToFirst();
@@ -177,17 +191,17 @@ public class DatabaseHelper {
 
 	public List<DayInfo> queryFullHistory() {
 		List<DayInfo> list = new ArrayList<DayInfo>();
-		Cursor c = db.query("love", new String[] { "day", "emotion", "active",
-				"food", "friend", "news" }, null, null, "day", null, "id asc");
+		Cursor c = db.query("love", new String[] { "day", "task", "active",
+				"food", "reading", "news" }, null, null, "day", null, "id asc");
 		if (c != null) {
 			c.moveToFirst();
 			while (!c.isAfterLast()) {
 				DayInfo info = new DayInfo();
 				info.day = c.getInt(0);
-				info.emotion = c.getInt(1);
+				info.task = c.getInt(1);
 				info.active = c.getInt(2);
 				info.food = c.getInt(3);
-				info.friend = c.getInt(4);
+				info.reading = c.getInt(4);
 				info.news = c.getInt(5);
 				list.add(info);
 				c.moveToNext();

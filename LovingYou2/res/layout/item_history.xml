@@ -2,8 +2,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="8dip"
-    android:background="#01010101" >
+    android:background="#01010101"
+    android:padding="12dip" >
 
     <ImageView
         android:id="@+id/imgHistory"
@@ -17,7 +17,7 @@
         android:id="@+id/tvHistory"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:text="X"
-        android:gravity="center" />
+        android:gravity="center"
+        android:text="X" />
 
 </RelativeLayout>

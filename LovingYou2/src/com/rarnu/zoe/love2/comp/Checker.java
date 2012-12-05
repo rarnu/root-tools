@@ -19,6 +19,8 @@ public class Checker extends RelativeLayout {
 
 	OnClickListener listener = null;
 
+	private int drawableYes = 0, drawableNo = 0;
+
 	public Checker(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init();
@@ -34,12 +36,21 @@ public class Checker extends RelativeLayout {
 		init();
 	}
 
+	public void setYesDrawable(int res) {
+		drawableYes = res;
+
+	}
+
+	public void setNoDrawable(int res) {
+		drawableNo = res;
+	}
+
 	private void init() {
-		setLayoutParams(new RelativeLayout.LayoutParams(UIUtils.dipToPx(32),
-				UIUtils.dipToPx(32)));
+		setLayoutParams(new RelativeLayout.LayoutParams(UIUtils.dipToPx(52),
+				UIUtils.dipToPx(52)));
 		View v = inflate(getContext(), R.layout.comp_checker, null);
-		v.setLayoutParams(new RelativeLayout.LayoutParams(UIUtils.dipToPx(32),
-				UIUtils.dipToPx(32)));
+		v.setLayoutParams(new RelativeLayout.LayoutParams(UIUtils.dipToPx(52),
+				UIUtils.dipToPx(52)));
 		addView(v);
 
 		imgStatus = (ImageView) findViewById(R.id.imgStatus);
@@ -47,9 +58,8 @@ public class Checker extends RelativeLayout {
 
 	public void setStatus(int status) {
 		this.status = status;
-		imgStatus
-				.setBackgroundResource(status == STATUS_YES ? R.drawable.record_yes
-						: R.drawable.record_no);
+		imgStatus.setBackgroundResource(status == STATUS_YES ? drawableYes
+				: drawableNo);
 	}
 
 	public int getStatus() {
