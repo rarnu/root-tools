@@ -7,36 +7,63 @@
     <com.rarnu.zoe.love2.comp.ScrollLayout
         android:id="@+id/laySplash"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:background="@drawable/bk" >
 
         <RelativeLayout
             android:id="@+id/laySplash1"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            android:padding="8dip" >
 
-            <TextView
+            <ImageView
                 android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="16dip"
-                android:text="启动页还木有做好，直接往右边滑吧~"
-                android:textColor="#FFFFFFFF" />
+                android:layout_height="fill_parent"
+                android:layout_marginTop="128dip"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/splash1" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/laySplash2"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent" >
+            android:layout_height="fill_parent"
+            android:padding="8dip" >
 
-            <Button
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="128dip"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/splash2" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/laySplash3"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:padding="8dip" >
+
+            <ImageView
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent"
+                android:layout_marginTop="128dip"
+                android:adjustViewBounds="true"
+                android:contentDescription="@null"
+                android:scaleType="centerInside"
+                android:src="@drawable/splash3" />
+
+            <ImageView
                 android:id="@+id/btnStart"
                 android:layout_width="160dip"
-                android:layout_height="48dip"
+                android:layout_height="128dip"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_margin="32dip"
-                android:background="#FF222222"
-                android:text="@string/start"
-                android:textColor="@color/white" />
+                android:layout_marginBottom="64dip" />
         </RelativeLayout>
     </com.rarnu.zoe.love2.comp.ScrollLayout>
 

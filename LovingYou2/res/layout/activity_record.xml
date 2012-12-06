@@ -30,13 +30,15 @@
             android:id="@+id/etRecord"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_marginBottom="36dip"
+            android:layout_above="@+id/imgPhoto"
+            android:layout_marginBottom="8dip"
             android:layout_marginLeft="8dip"
             android:layout_marginRight="16dip"
             android:layout_marginTop="8dip"
             android:background="@drawable/record_frame"
             android:gravity="left|top"
             android:padding="2dip"
+            android:scrollbars="vertical"
             android:textColor="#FF999999" />
 
         <ImageView
@@ -44,25 +46,29 @@
             android:layout_width="32dip"
             android:layout_height="24dip"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dip"
             android:layout_marginLeft="12dip"
             android:background="@drawable/record_weibo1"
-            android:layout_marginBottom="16dip" />
+            android:contentDescription="@null" />
 
         <TextView
             android:id="@+id/tvAddPicture"
             android:layout_width="wrap_content"
             android:layout_height="24dip"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dip"
             android:layout_marginLeft="4dip"
             android:layout_toRightOf="@+id/imgPhoto"
             android:gravity="center"
-            android:text="@string/send_picture" />
+            android:text="@string/send_picture"
+            android:textSize="12dip" />
 
         <ImageView
             android:id="@+id/chkWeibo"
             android:layout_width="24dip"
             android:layout_height="24dip"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dip"
             android:layout_marginLeft="12dip"
             android:layout_toRightOf="@+id/tvAddPicture"
             android:background="@drawable/check_yes"
@@ -71,8 +77,9 @@
         <TextView
             android:id="@+id/tvSyncWeibo"
             android:layout_width="wrap_content"
-            android:layout_height="28dip"
+            android:layout_height="24dip"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="24dip"
             android:layout_marginLeft="4dip"
             android:layout_toRightOf="@+id/chkWeibo"
             android:gravity="center"

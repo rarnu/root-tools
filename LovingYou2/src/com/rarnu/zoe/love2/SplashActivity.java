@@ -5,17 +5,17 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageView;
 
 public class SplashActivity extends Activity implements OnClickListener {
-
-	Button btnStart;
+	
+	ImageView btnStart;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
-		btnStart = (Button) findViewById(R.id.btnStart);
+		btnStart = (ImageView) findViewById(R.id.btnStart);
 		btnStart.setOnClickListener(this);
 	}
 	
