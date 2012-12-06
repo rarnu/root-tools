@@ -40,7 +40,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/tvTodoToday"
-                    android:text="拍下街头美好的瞬间"
                     android:textColor="@color/white"
                     android:textSize="16dip" />
 
@@ -68,7 +67,6 @@
                     android:layout_alignParentRight="true"
                     android:layout_marginRight="32dip"
                     android:layout_marginTop="6dip"
-                    android:text="Day 21 / 21"
                     android:textColor="#FF999999"
                     android:textSize="12dip" />
             </RelativeLayout>

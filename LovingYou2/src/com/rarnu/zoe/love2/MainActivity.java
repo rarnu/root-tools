@@ -5,9 +5,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
+import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 
 import com.rarnu.zoe.love2.base.BaseActivity;
+import com.rarnu.zoe.love2.common.Config;
 import com.rarnu.zoe.love2.common.Consts;
 import com.rarnu.zoe.love2.comp.BottomBar;
 import com.rarnu.zoe.love2.comp.RarnuGrid;
@@ -24,6 +26,13 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		UIUtils.initDisplayMetrics(getWindowManager());
+
+		if (Config.getFirstStart(this)) {
+			Config.setFirstStart(this, false);
+			startActivity2(SplashActivity.class);
+
+		}
+
 		Global.database = new DatabaseHelper(this);
 		super.onCreate(savedInstanceState);
 	}
@@ -142,7 +151,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		Integer tag = (Integer) v.getTag();
 		if (tag != null) {
 			if (tag == -1) {
-				// TODO: not arrived day
+				Toast.makeText(this, R.string.not_arrived, Toast.LENGTH_LONG)
+						.show();
 				return;
 			}
 			Intent inTodo = new Intent(this, TodoActivity.class);
@@ -169,7 +179,7 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		}
 
 	}
-	
+
 	private void startActivity2(Class<?> cls) {
 		Intent inActivity = new Intent(this, cls);
 		startActivity(inActivity);

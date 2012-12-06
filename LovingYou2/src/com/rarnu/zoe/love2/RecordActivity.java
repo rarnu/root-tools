@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
@@ -21,7 +22,7 @@ import com.rarnu.zoe.love2.utils.UIUtils;
 public class RecordActivity extends BaseActivity implements OnClickListener {
 
 	RelativeLayout layLines, layBottomLine;
-	String[] text = null;
+	// String[] text = null;
 	ImageView imgBall;
 	Checker chkE1, chkE2, chkE3, chkE4;
 	TextView tvE1, tvE2, tvE3, tvE4;
@@ -33,7 +34,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		text = getResources().getStringArray(R.array.record_text);
+		// text = getResources().getStringArray(R.array.record_text);
 		build21Lines(Global.database.getDay());
 	}
 
@@ -101,7 +102,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		rlp.leftMargin = width;
 		tvE4.setLayoutParams(rlp);
 	}
-	
+
 	private void initEmotions() {
 		chkE1.setYesDrawable(R.drawable.record_e1y);
 		chkE1.setNoDrawable(R.drawable.record_e1n);
@@ -111,7 +112,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		chkE3.setNoDrawable(R.drawable.record_e3n);
 		chkE4.setYesDrawable(R.drawable.record_e4y);
 		chkE4.setNoDrawable(R.drawable.record_e4n);
-		
+
 		chkE1.setStatus(Checker.STATUS_NO);
 		chkE2.setStatus(Checker.STATUS_NO);
 		chkE3.setStatus(Checker.STATUS_NO);
@@ -149,6 +150,13 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 			changeCheckerStatus((Checker) v);
 			break;
 		case R.id.btnSubmit:
+			// must write something
+			String txt = etRecord.getText().toString();
+			if (txt.equals("")) {
+				Toast.makeText(this, R.string.record_hint, Toast.LENGTH_LONG)
+						.show();
+				return;
+			}
 			long stamp = System.currentTimeMillis();
 			int news = chkE1.getStatus() == Checker.STATUS_YES ? 0 : 1;
 			int food = chkE2.getStatus() == Checker.STATUS_YES ? 0 : 1;
@@ -157,23 +165,24 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 			DayInfo info = Global.database.queryDay(Global.database.getDay());
 			if ((news + food + active + reading) == 4) {
 				if (info.day == -1) {
-					Global.database.insertDay(stamp, 1, active, food, reading, news);
+					Global.database.insertDay(stamp, 0, active, food, reading,
+							news);
 				}
 			} else {
-				Global.database.insertDay(stamp, 1, active, food, reading, news);
+				Global.database
+						.insertDay(stamp, 0, active, food, reading, news);
 			}
 
 			// TODO: photo?
-			String txt = etRecord.getText().toString();
-			if (!txt.equals("")) {
-				Global.database.insertGround(Global.database.getDay(), txt, "");
-				Global.database.updateDay(Global.database.getDay(), 0);
-			}
+
+			Global.database.insertGround(Global.database.getDay(), txt, "");
+			Global.database.updateDay(Global.database.getDay(), 0);
+
 			Intent inHis = new Intent(this, HistoryActivity.class);
 			startActivity(inHis);
 			finish();
 			break;
-		
+
 		}
 
 	}

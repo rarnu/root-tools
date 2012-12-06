@@ -51,4 +51,8 @@
 	<string name="task_detail">某人作业</string>
 	<string name="send_picture">发送图片</string>
 	<string name="contact_us">联系我们</string>
+	
+	<string name="start">马上尝试一下哦~</string>
+	<string name="record_hint">写点什么吧~</string>
+	<string name="not_arrived">这一天还没有到哦~</string>
 </resources>

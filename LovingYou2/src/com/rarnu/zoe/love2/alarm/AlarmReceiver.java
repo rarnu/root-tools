@@ -18,9 +18,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
-		// TODO: notification
+		Consts.setTaskTexts(context);
 		int day = Global.database.getDay();
-		NotificationUtils.doHint(context, "");
+		NotificationUtils.doHint(context, Consts.taskTitle[day - 1]);
 
 		Calendar cDef = Calendar.getInstance();
 		cDef.set(Calendar.HOUR_OF_DAY, 11);

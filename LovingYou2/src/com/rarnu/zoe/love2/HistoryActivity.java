@@ -121,7 +121,6 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 	}
 
 	private void buildValue(int day) {
-		// TODO:
 		int width = tvValue1.getWidth();
 		width = width / 21;
 

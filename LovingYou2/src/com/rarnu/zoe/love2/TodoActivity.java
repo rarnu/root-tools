@@ -19,9 +19,11 @@ public class TodoActivity extends Activity {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_todo);
 
+		Consts.setTaskTexts(this);
+
 		int index = getIntent().getIntExtra("index", -1);
 		int day = Global.database.getDay();
-		
+
 		if (getIntent().getAction() != null) {
 			String action = getIntent().getAction();
 			if (action.equals(Consts.NOTIFY_ACTION)) {
@@ -41,6 +43,9 @@ public class TodoActivity extends Activity {
 
 		tvTodoToday.setText(index == (day - 1) ? R.string.todo_today
 				: R.string.done_today);
+
+		tvTodo.setText(Consts.taskTitle[index]);
+		tvDesc.setText(Consts.taskText[index]);
 
 		BitmapFactory.Options bop = new BitmapFactory.Options();
 		bop.inSampleSize = 2;

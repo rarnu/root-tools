@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.comp.Title;
 
+// TODO: feedback
 public class FeedbackActivity extends BaseActivity implements OnClickListener {
 
 	@Override

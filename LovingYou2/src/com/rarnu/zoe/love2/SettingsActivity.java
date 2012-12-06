@@ -113,12 +113,16 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 			startActivity(inFeedback);
 			break;
 		case R.id.laySet3:
+			// TODO:
 			break;
 		case R.id.laySet4:
+			// TODO:
 			break;
 		case R.id.laySet5:
+			// TODO:
 			break;
 		case R.id.laySetWeibo:
+			// TODO: bind weibo
 			break;
 		}
 

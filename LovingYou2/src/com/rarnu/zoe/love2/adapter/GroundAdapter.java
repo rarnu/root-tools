@@ -57,8 +57,8 @@ public class GroundAdapter extends BaseAdapter {
 		}
 		GroundInfo item = list.get(position);
 		if (item != null) {
-			holder.imgGround
-					.setImageBitmap(BitmapFactory.decodeFile(item.path));
+			holder.imgGround.setImageBitmap(BitmapFactory.decodeFile(item.path
+					.equals("") ? "" : item.path));
 			holder.imgHeart
 					.setImageResource(item.fav == 0 ? R.drawable.ground_unchecked
 							: R.drawable.ground_checked);
