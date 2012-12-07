@@ -14,8 +14,7 @@
         android:layout_marginTop="8dip"
         android:adjustViewBounds="true"
         android:contentDescription="@null"
-        android:scaleType="centerInside"
-        android:src="@drawable/sp1" />
+        android:scaleType="fitCenter" />
 
     <RelativeLayout
         android:id="@+id/layBottom"
@@ -25,25 +24,16 @@
 
         <TextView
             android:id="@+id/tvDay"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_alignParentRight="true"
+            android:layout_marginLeft="8dip"
             android:layout_marginRight="8dip"
-            android:gravity="center"
-            android:text="Day 1"
+            android:ellipsize="end"
+            android:gravity="left|center"
+            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="@color/black"
             android:textSize="8dip" />
-
-        <ImageView
-            android:id="@+id/imgHeart"
-            android:layout_width="12dip"
-            android:layout_height="12dip"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dip"
-            android:adjustViewBounds="true"
-            android:contentDescription="@null"
-            android:scaleType="centerInside"
-            android:src="@drawable/ground_unchecked" />
     </RelativeLayout>
 
 </RelativeLayout>

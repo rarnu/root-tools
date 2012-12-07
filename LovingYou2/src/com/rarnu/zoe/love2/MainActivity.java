@@ -15,6 +15,7 @@ import com.rarnu.zoe.love2.comp.BottomBar;
 import com.rarnu.zoe.love2.comp.RarnuGrid;
 import com.rarnu.zoe.love2.comp.Title;
 import com.rarnu.zoe.love2.database.DatabaseHelper;
+import com.rarnu.zoe.love2.utils.DownloadUtils;
 import com.rarnu.zoe.love2.utils.UIUtils;
 
 public class MainActivity extends BaseActivity implements OnClickListener {

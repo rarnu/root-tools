@@ -126,47 +126,6 @@ public class DatabaseHelper {
 		return info;
 	}
 
-	public GroundInfo queryGround(int id) {
-		GroundInfo info = new GroundInfo();
-		Cursor c = db.query("ground", new String[] { "id", "day", "txt",
-				"path", "fav" }, "id=?", new String[] { String.valueOf(id) },
-				null, null, null);
-		if (c != null) {
-			c.moveToFirst();
-			while (!c.isAfterLast()) {
-				info.id = c.getInt(0);
-				info.day = c.getInt(1);
-				info.txt = c.getString(2);
-				info.path = c.getString(3);
-				info.fav = c.getInt(4);
-				break;
-			}
-			c.close();
-		}
-		return info;
-	}
-
-	public List<GroundInfo> queryGroundHistory() {
-		List<GroundInfo> list = new ArrayList<GroundInfo>();
-		Cursor c = db.query("ground", new String[] { "id", "day", "txt",
-				"path", "fav" }, null, null, null, null, "id desc");
-		if (c != null) {
-			c.moveToFirst();
-			while (!c.isAfterLast()) {
-				GroundInfo info = new GroundInfo();
-				info.id = c.getInt(0);
-				info.day = c.getInt(1);
-				info.txt = c.getString(2);
-				info.path = c.getString(3);
-				info.fav = c.getInt(4);
-				list.add(info);
-				c.moveToNext();
-			}
-			c.close();
-		}
-		return list;
-	}
-
 	public List<DataInfo> queryHistory() {
 		List<DataInfo> list = new ArrayList<DataInfo>();
 

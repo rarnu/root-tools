@@ -3,7 +3,6 @@ package com.rarnu.zoe.love2.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.graphics.BitmapFactory;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import com.rarnu.zoe.love2.R;
 import com.rarnu.zoe.love2.common.GroundInfo;
+import com.rarnu.zoe.love2.utils.DownloadUtils;
 
 public class GroundAdapter extends BaseAdapter {
 
@@ -51,19 +51,13 @@ public class GroundAdapter extends BaseAdapter {
 		if (holder == null) {
 			holder = new GroundHolder();
 			holder.imgGround = (ImageView) v.findViewById(R.id.imgGround);
-			holder.imgHeart = (ImageView) v.findViewById(R.id.imgHeart);
 			holder.tvDay = (TextView) v.findViewById(R.id.tvDay);
 			v.setTag(holder);
 		}
 		GroundInfo item = list.get(position);
 		if (item != null) {
-			holder.imgGround.setImageBitmap(BitmapFactory.decodeFile(item.path
-					.equals("") ? "" : item.path));
-			holder.imgHeart
-					.setImageResource(item.fav == 0 ? R.drawable.ground_unchecked
-							: R.drawable.ground_checked);
-			holder.tvDay.setText(String.format(
-					context.getString(R.string.day_pfmt), item.day));
+			DownloadUtils.downloadFileT(context, item, holder.imgGround);
+			holder.tvDay.setText(item.txt);
 		}
 		return v;
 	}

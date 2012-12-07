@@ -2,9 +2,8 @@ package com.rarnu.zoe.love2.common;
 
 public class GroundInfo {
 
-	public int id;
-	public int day = -1;
+	public String id;
 	public String txt = "";
-	public String path = "";
-	public int fav = 0;
+	public String thumb_path = "";
+	public String origin_path = "";
 }

@@ -14,16 +14,11 @@ public class GroundDetailActivity extends BaseActivity implements
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
-		int id = getIntent().getIntExtra("index", -1);
-		if (id == -1) {
-			finish();
-		}
-		
+
 		// TODO: load
-		GroundInfo info = Global.database.queryGround(id);
+		// GroundInfo info = Global.database.queryGround(id);
 	}
-	
+
 	@Override
 	protected void setContentView() {
 		setContentView(R.layout.activity_ground_detail);

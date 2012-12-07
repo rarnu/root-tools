@@ -26,7 +26,8 @@
         android:layout_margin="8dip"
         android:horizontalSpacing="8dip"
         android:numColumns="3"
-        android:verticalSpacing="8dip" >
+        android:verticalSpacing="8dip"
+        android:scrollbars="none" >
     </GridView>
 
     <RelativeLayout

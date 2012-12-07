@@ -7,5 +7,4 @@ public class GroundHolder {
 
 	public ImageView imgGround;
 	public TextView tvDay;
-	public ImageView imgHeart;
 }
