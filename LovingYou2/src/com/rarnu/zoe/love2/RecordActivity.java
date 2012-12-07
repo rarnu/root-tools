@@ -1,23 +1,29 @@
 package com.rarnu.zoe.love2;
 
+import java.io.IOException;
+
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
-import android.widget.Toast;
 import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.common.DayInfo;
 import com.rarnu.zoe.love2.comp.Checker;
 import com.rarnu.zoe.love2.comp.Title;
 import com.rarnu.zoe.love2.utils.UIUtils;
+import com.rarnu.zoe.love2.utils.WeiboUtils;
+import com.weibo.sdk.android.WeiboException;
+import com.weibo.sdk.android.net.RequestListener;
 
 public class RecordActivity extends BaseActivity implements OnClickListener {
 
@@ -177,6 +183,27 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 
 			Global.database.insertGround(Global.database.getDay(), txt, "");
 			Global.database.updateDay(Global.database.getDay(), 0);
+
+			WeiboUtils.shareArticleToSina(txt, "", new RequestListener() {
+
+				@Override
+				public void onIOException(IOException arg0) {
+					Log.e("ioexception", arg0.getMessage());
+
+				}
+
+				@Override
+				public void onError(WeiboException arg0) {
+					Log.e("error", arg0.getMessage());
+
+				}
+
+				@Override
+				public void onComplete(String arg0) {
+					Log.e("complete", arg0);
+
+				}
+			});
 
 			Intent inHis = new Intent(this, HistoryActivity.class);
 			startActivity(inHis);

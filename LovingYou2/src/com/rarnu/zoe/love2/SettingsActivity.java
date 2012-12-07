@@ -121,9 +121,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		case R.id.laySet5:
 			// TODO:
 			break;
-		case R.id.laySetWeibo:
-			// TODO: bind weibo
-			break;
 		}
 
 	}
