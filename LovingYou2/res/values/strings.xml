@@ -13,6 +13,9 @@
 	<string name="day_fmt" formatted="false">Day %d / 21</string>
 	<string name="day_pfmt" formatted="false">Day %d</string>
 	<string name="done_today">记得交任务哦~</string>
+	<string name="submit">提交</string>
+	
+	<string name="feedback">反馈信息</string>
 	
 	<string name="record_today">记录今天</string>
 	<string name="record_emotion">心情参数</string>
@@ -55,4 +58,14 @@
 	<string name="start">马上尝试一下哦~</string>
 	<string name="record_hint">写点什么吧~</string>
 	<string name="not_arrived">这一天还没有到哦~</string>
+	
+	<string name="loading">正在加载，请稍候...</string>
+	<string name="from_camera">拍照</string>
+	<string name="from_gallery">选取相册</string>
+	<string name="cancel">取消</string>
+	<string name="remove_photo">移除图片</string>
+	
+	<string name="feedback_uploaded">您的反馈已经提交了哦，感谢您的支持~</string>
+	<string name="feedback_empty">先写点什么吧~</string>
+	<string name="token_error">未能与新浪微博建立联系，请稍后再试~</string>
 </resources>

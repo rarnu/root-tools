@@ -13,7 +13,9 @@ import android.graphics.BitmapFactory;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 
 import com.rarnu.zoe.love2.common.GroundInfo;
 
@@ -21,26 +23,39 @@ public class DownloadUtils {
 
 	private static List<String> listDownloading = new ArrayList<String>();
 
-	private static String savePath = Environment.getExternalStorageDirectory()
+	public static String SAVE_PATH = Environment.getExternalStorageDirectory()
 			.getPath() + "/.lovingyou2/";
 
 	static {
-		File fSave = new File(savePath);
+		File fSave = new File(SAVE_PATH);
 		if (!fSave.exists()) {
 			fSave.mkdirs();
 		}
 	}
 
+	/**
+	 * 
+	 * @param context
+	 * @param ground
+	 * @param iv
+	 * @param type
+	 *            0:small 1:big
+	 */
 	public static void downloadFileT(final Context context,
-			final GroundInfo ground, final ImageView iv) {
+			final GroundInfo ground, final ImageView iv, final int type,
+			final RelativeLayout layLoading) {
 
-		final String filePath = savePath + String.format("%s.jpg", ground.id);
+		final String filePath = SAVE_PATH
+				+ String.format("%s_%s.jpg", (type == 0 ? "t" : "b"), ground.id);
 		File fImg = new File(filePath);
 		if (fImg.exists()) {
 			iv.setImageBitmap(BitmapFactory.decodeFile(filePath));
 			return;
 		}
 
+		if (layLoading != null) {
+			layLoading.setVisibility(View.VISIBLE);
+		}
 		final Handler h = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -48,6 +63,9 @@ public class DownloadUtils {
 					File file = new File(filePath);
 					if (file.exists()) {
 						iv.setImageBitmap(BitmapFactory.decodeFile(filePath));
+					}
+					if (layLoading != null) {
+						layLoading.setVisibility(View.GONE);
 					}
 				}
 				super.handleMessage(msg);
@@ -57,8 +75,9 @@ public class DownloadUtils {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				downloadFile(context, ground.thumb_path,
-						String.format("%s.jpg", ground.id));
+				downloadFile(context, (type == 0 ? ground.thumb_path
+						: ground.origin_path), String.format("%s_%s.jpg",
+						(type == 0 ? "t" : "b"), ground.id));
 				h.sendEmptyMessage(1);
 			}
 		}).start();
@@ -72,7 +91,7 @@ public class DownloadUtils {
 		}
 		listDownloading.add(localPureName);
 
-		File fTmp = new File(savePath + localPureName);
+		File fTmp = new File(SAVE_PATH + localPureName);
 		if (fTmp.exists()) {
 			fTmp.delete();
 		}
@@ -81,7 +100,7 @@ public class DownloadUtils {
 			url = new URL(address);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			InputStream in = con.getInputStream();
-			File fileOut = new File(savePath + localPureName + ".tmp");
+			File fileOut = new File(SAVE_PATH + localPureName + ".tmp");
 			FileOutputStream out = new FileOutputStream(fileOut);
 			byte[] bytes = new byte[1024];
 			int c;

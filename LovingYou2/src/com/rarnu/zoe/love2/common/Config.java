@@ -6,9 +6,9 @@ import android.preference.PreferenceManager;
 
 public class Config {
 
-	// TODO: need update when app start
-	public static final String TOKEN = "2.008sJe9Dqa_ULCcf06381dca0TfDwa";
-	public static final String EXPRIED = "125318";
+	// need update when app start
+	public static String TOKEN = "";
+	public static String EXPRIED = "";
 
 	public static final String FIRST_START = "first_start";
 	private static final String HINT_ENABLED = "hint%d_enabled";

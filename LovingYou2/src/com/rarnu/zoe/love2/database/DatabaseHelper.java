@@ -12,7 +12,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.rarnu.zoe.love2.common.DataInfo;
 import com.rarnu.zoe.love2.common.DayInfo;
-import com.rarnu.zoe.love2.common.GroundInfo;
 
 public class DatabaseHelper {
 

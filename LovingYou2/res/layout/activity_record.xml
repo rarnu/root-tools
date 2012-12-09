@@ -35,8 +35,9 @@
             android:layout_marginLeft="8dip"
             android:layout_marginRight="16dip"
             android:layout_marginTop="8dip"
-            android:background="@drawable/record_frame"
+            android:background="@null"
             android:gravity="left|top"
+            android:inputType="text"
             android:padding="2dip"
             android:scrollbars="vertical"
             android:textColor="#FF999999" />
@@ -167,7 +168,9 @@
         android:layout_marginBottom="8dip"
         android:layout_marginRight="16dip"
         android:layout_marginTop="8dip"
-        android:background="@drawable/record_submit" />
+        android:background="#FF666666"
+        android:text="@string/submit"
+        android:textColor="@color/white" />
 
     <RelativeLayout
         android:id="@+id/layRuler"

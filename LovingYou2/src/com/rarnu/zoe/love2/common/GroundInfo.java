@@ -1,6 +1,10 @@
 package com.rarnu.zoe.love2.common;
 
-public class GroundInfo {
+import java.io.Serializable;
+
+public class GroundInfo implements Serializable {
+
+	private static final long serialVersionUID = 2055649812413086275L;
 
 	public String id;
 	public String txt = "";

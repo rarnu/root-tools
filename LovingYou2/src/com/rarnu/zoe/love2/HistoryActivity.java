@@ -2,6 +2,7 @@ package com.rarnu.zoe.love2;
 
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -45,6 +46,7 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 		super.initComponents();
 		title.getBarItem(Title.BARITEM_CENTER).setText(R.string.history_record);
 		title.getBarItem(Title.BARITEM_LEFT).setIcon(R.drawable.home);
+		title.getBarItem(Title.BARITEM_RIGHT).setIcon(R.drawable.task_top);
 
 		layTree = (RelativeLayout) findViewById(R.id.layTree);
 		tvTree = (TextView) findViewById(R.id.tvTree);
@@ -61,6 +63,7 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 	protected void initEvents() {
 		super.initEvents();
 		title.getBarItem(Title.BARITEM_LEFT).setOnButtonClick(this);
+		title.getBarItem(Title.BARITEM_RIGHT).setOnButtonClick(this);
 	}
 
 	@Override
@@ -68,6 +71,10 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 		case Title.ITEM_LEFT:
 			finish();
+			break;
+		case Title.ITEM_RIGHT:
+			Intent inRecord = new Intent(this, RecordActivity.class);
+			startActivity(inRecord);
 			break;
 		}
 

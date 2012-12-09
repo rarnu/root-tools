@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:background="#77000000"
+    android:padding="16dip" >
+
+    <Button
+        android:id="@+id/btnCamera"
+        android:layout_width="120dip"
+        android:layout_height="48dip"
+        android:background="#FF666666"
+        android:text="@string/from_camera"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btnGallery"
+        android:layout_width="120dip"
+        android:layout_height="48dip"
+        android:layout_below="@+id/btnCamera"
+        android:layout_marginTop="8dip"
+        android:background="#FF666666"
+        android:text="@string/from_gallery"
+        android:textColor="@color/white" />
+
+    <Button
+        android:id="@+id/btnCancel"
+        android:layout_width="120dip"
+        android:layout_height="48dip"
+        android:layout_below="@+id/btnGallery"
+        android:layout_marginTop="8dip"
+        android:background="#FF666666"
+        android:text="@string/cancel"
+        android:textColor="@color/white" />
+
+</RelativeLayout>

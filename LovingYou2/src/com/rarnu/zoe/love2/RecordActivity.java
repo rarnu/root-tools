@@ -1,10 +1,14 @@
 package com.rarnu.zoe.love2;
 
+import java.io.File;
 import java.io.IOException;
 
 import android.content.Intent;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -17,9 +21,11 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.zoe.love2.base.BaseActivity;
+import com.rarnu.zoe.love2.common.Config;
 import com.rarnu.zoe.love2.common.DayInfo;
 import com.rarnu.zoe.love2.comp.Checker;
 import com.rarnu.zoe.love2.comp.Title;
+import com.rarnu.zoe.love2.utils.DownloadUtils;
 import com.rarnu.zoe.love2.utils.UIUtils;
 import com.rarnu.zoe.love2.utils.WeiboUtils;
 import com.weibo.sdk.android.WeiboException;
@@ -35,12 +41,19 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	Button btnSubmit;
 	EditText etRecord;
 
+	ImageView imgPhoto;
+	TextView tvAddPicture;
+
+	String photoFileName = "";
+	File fTmp, fPhotoTmp = null;
+
 	ImageView[] imgLines = new ImageView[21];
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		// text = getResources().getStringArray(R.array.record_text);
+		fTmp = new File(DownloadUtils.SAVE_PATH + "tmp.jpg");
+		fPhotoTmp = new File(DownloadUtils.SAVE_PATH + "tmp_p.jpg");
 		build21Lines(Global.database.getDay());
 	}
 
@@ -55,8 +68,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		super.initComponents();
 
 		title.getBarItem(Title.BARITEM_CENTER).setText(R.string.record_today);
-		title.getBarItem(Title.BARITEM_RIGHT)
-				.setIcon(R.drawable.record_history);
+//		title.getBarItem(Title.BARITEM_RIGHT)
+//				.setIcon(R.drawable.record_history);
 		title.getBarItem(Title.BARITEM_LEFT).setIcon(R.drawable.home);
 
 		layLines = (RelativeLayout) findViewById(R.id.layLines);
@@ -74,6 +87,9 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 
 		btnSubmit = (Button) findViewById(R.id.btnSubmit);
 		etRecord = (EditText) findViewById(R.id.etRecord);
+
+		imgPhoto = (ImageView) findViewById(R.id.imgPhoto);
+		tvAddPicture = (TextView) findViewById(R.id.tvAddPicture);
 
 		resize();
 		initEmotions();
@@ -129,7 +145,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	protected void initEvents() {
 		super.initEvents();
 		title.getBarItem(Title.BARITEM_LEFT).setOnButtonClick(this);
-		title.getBarItem(Title.BARITEM_RIGHT).setOnButtonClick(this);
+		// title.getBarItem(Title.BARITEM_RIGHT).setOnButtonClick(this);
 
 		chkE1.setOnButtonClick(this);
 		chkE2.setOnButtonClick(this);
@@ -137,6 +153,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		chkE4.setOnButtonClick(this);
 
 		btnSubmit.setOnClickListener(this);
+		imgPhoto.setOnClickListener(this);
+		tvAddPicture.setOnClickListener(this);
 	}
 
 	@Override
@@ -145,21 +163,37 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		case Title.ITEM_LEFT:
 			finish();
 			break;
-		case Title.ITEM_RIGHT:
-			Intent inHistory = new Intent(this, HistoryActivity.class);
-			startActivity(inHistory);
-			break;
+//		case Title.ITEM_RIGHT:
+//			Intent inHistory = new Intent(this, HistoryActivity.class);
+//			startActivity(inHistory);
+//			break;
 		case R.id.chkE1:
 		case R.id.chkE2:
 		case R.id.chkE3:
 		case R.id.chkE4:
 			changeCheckerStatus((Checker) v);
 			break;
+		case R.id.imgPhoto:
+		case R.id.tvAddPicture:
+			if (photoFileName.equals("")) {
+				Intent inMethod = new Intent(this, PhotoMethodActivity.class);
+				startActivityForResult(inMethod, 1);
+			} else {
+				photoFileName = "";
+				imgPhoto.setImageBitmap(null);
+				tvAddPicture.setText(R.string.send_picture);
+			}
+			break;
 		case R.id.btnSubmit:
 			// must write something
 			String txt = etRecord.getText().toString();
 			if (txt.equals("")) {
 				Toast.makeText(this, R.string.record_hint, Toast.LENGTH_LONG)
+						.show();
+				return;
+			}
+			if (Config.TOKEN.equals("") || Config.EXPRIED.equals("")) {
+				Toast.makeText(this, R.string.token_error, Toast.LENGTH_LONG)
 						.show();
 				return;
 			}
@@ -179,31 +213,31 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 						.insertDay(stamp, 0, active, food, reading, news);
 			}
 
-			// TODO: photo?
+			// photo?
+			// Global.database.insertGround(Global.database.getDay(), txt, "");
+			// Global.database.updateDay(Global.database.getDay(), 0);
 
-			Global.database.insertGround(Global.database.getDay(), txt, "");
-			Global.database.updateDay(Global.database.getDay(), 0);
+			WeiboUtils.shareArticleToSina(txt, photoFileName,
+					new RequestListener() {
 
-			WeiboUtils.shareArticleToSina(txt, "", new RequestListener() {
+						@Override
+						public void onIOException(IOException arg0) {
+							Log.e("ioexception", arg0.getMessage());
 
-				@Override
-				public void onIOException(IOException arg0) {
-					Log.e("ioexception", arg0.getMessage());
+						}
 
-				}
+						@Override
+						public void onError(WeiboException arg0) {
+							Log.e("error", arg0.getMessage());
 
-				@Override
-				public void onError(WeiboException arg0) {
-					Log.e("error", arg0.getMessage());
+						}
 
-				}
+						@Override
+						public void onComplete(String arg0) {
+							Log.e("complete", arg0);
 
-				@Override
-				public void onComplete(String arg0) {
-					Log.e("complete", arg0);
-
-				}
-			});
+						}
+					});
 
 			Intent inHis = new Intent(this, HistoryActivity.class);
 			startActivity(inHis);
@@ -211,7 +245,31 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 			break;
 
 		}
+	}
 
+	private void doChoosePhoto() {
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT, null);
+		intent.setType("image/*");
+		intent.putExtra("crop", "circle");
+		intent.putExtra("noFaceDetection", true);
+		if (fTmp.exists()) {
+			fTmp.delete();
+		}
+		intent.putExtra("output", Uri.fromFile(fTmp));
+		intent.putExtra("outputFormat", "JPEG");
+		startActivityForResult(intent, 0);
+	}
+
+	private void doCropPhoto(Uri uri) {
+		Intent intent = new Intent("com.android.camera.action.CROP");
+		intent.setDataAndType(uri, "image/*");
+		intent.putExtra("crop", "true");
+		if (fTmp.exists()) {
+			fTmp.delete();
+		}
+		intent.putExtra("output", Uri.fromFile(fTmp));
+		intent.putExtra("outputFormat", "JPEG");
+		startActivityForResult(intent, 0);
 	}
 
 	@Override
@@ -222,9 +280,34 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 
 		switch (requestCode) {
 		case 0:
+			if (fTmp.exists()) {
+				photoFileName = fTmp.getAbsolutePath();
+
+				BitmapFactory.Options bop = new BitmapFactory.Options();
+				bop.inSampleSize = 4;
+				imgPhoto.setImageBitmap(BitmapFactory.decodeFile(photoFileName,
+						bop));
+				tvAddPicture.setText(R.string.remove_photo);
+			}
+			break;
+		case 1:
+			int method = data.getIntExtra("method", 0);
+			if (method == 0) {
+				Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+				if (fPhotoTmp.exists()) {
+					fPhotoTmp.delete();
+				}
+				intent.putExtra(MediaStore.EXTRA_OUTPUT,
+						Uri.fromFile(fPhotoTmp));
+				startActivityForResult(intent, 2);
+			} else {
+				doChoosePhoto();
+			}
+			break;
+		case 2:
+			doCropPhoto(Uri.fromFile(fPhotoTmp));
 			break;
 		}
-
 	}
 
 	private void changeCheckerStatus(Checker chk) {

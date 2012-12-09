@@ -6,8 +6,6 @@ import java.util.List;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.rarnu.zoe.love2.common.Config;
 import com.rarnu.zoe.love2.common.GroundInfo;
 import com.weibo.sdk.android.Oauth2AccessToken;

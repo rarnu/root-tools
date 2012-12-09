@@ -56,7 +56,7 @@ public class GroundAdapter extends BaseAdapter {
 		}
 		GroundInfo item = list.get(position);
 		if (item != null) {
-			DownloadUtils.downloadFileT(context, item, holder.imgGround);
+			DownloadUtils.downloadFileT(context, item, holder.imgGround, 0, null);
 			holder.tvDay.setText(item.txt);
 		}
 		return v;

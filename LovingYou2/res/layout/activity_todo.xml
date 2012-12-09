@@ -14,7 +14,8 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/imgShare" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -58,7 +59,21 @@
                     android:layout_height="30dip"
                     android:layout_alignParentRight="true"
                     android:layout_marginTop="16dip"
+                    android:contentDescription="@null"
                     android:src="@drawable/task_line" />
+
+                <RelativeLayout
+                    android:id="@+id/layHotArea"
+                    android:layout_width="100dip"
+                    android:layout_height="48dip"
+                    android:layout_alignParentRight="true" >
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:id="@+id/layBackArea"
+                    android:layout_width="80dip"
+                    android:layout_height="48dip" >
+                </RelativeLayout>
 
                 <TextView
                     android:id="@+id/tvDays"

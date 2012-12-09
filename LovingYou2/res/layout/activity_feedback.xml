@@ -17,4 +17,45 @@
         android:layout_width="fill_parent"
         android:layout_height="64dip" />
 
+    <RelativeLayout
+        android:id="@+id/layText"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_above="@+id/btnSubmit"
+        android:layout_below="@+id/title"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="8dip"
+        android:background="@drawable/record_paper" >
+
+        <EditText
+            android:id="@+id/etRecord"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:layout_above="@+id/imgPhoto"
+            android:layout_marginBottom="8dip"
+            android:layout_marginLeft="8dip"
+            android:layout_marginRight="16dip"
+            android:layout_marginTop="8dip"
+            android:background="@null"
+            android:gravity="left|top"
+            android:padding="2dip"
+            android:scrollbars="vertical"
+            android:textColor="#FF999999" />
+    </RelativeLayout>
+
+    <Button
+        android:id="@+id/btnSubmit"
+        android:layout_width="120dip"
+        android:layout_height="32dip"
+        android:layout_above="@+id/layRuler"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="16dip"
+        android:layout_marginRight="16dip"
+        android:layout_marginTop="16dip"
+        android:background="#FF666666"
+        android:text="@string/submit"
+        android:textColor="@color/white" />
+
 </RelativeLayout>

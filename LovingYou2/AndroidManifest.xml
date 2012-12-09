@@ -72,6 +72,12 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
+        <activity
+            android:name=".PhotoMethodActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Dialog"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
 
         <receiver android:name=".alarm.AlarmReceiver" >
             <intent-filter>

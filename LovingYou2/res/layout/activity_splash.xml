@@ -18,8 +18,10 @@
 
             <ImageView
                 android:layout_width="fill_parent"
-                android:layout_height="fill_parent"
-                android:layout_marginTop="128dip"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="16dip"
+                android:layout_marginRight="16dip"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
@@ -35,7 +37,7 @@
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginTop="128dip"
+                android:layout_alignParentBottom="true"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
@@ -51,7 +53,9 @@
             <ImageView
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_marginTop="128dip"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="16dip"
+                android:layout_marginRight="16dip"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
                 android:scaleType="centerInside"
@@ -63,7 +67,8 @@
                 android:layout_height="128dip"
                 android:layout_alignParentBottom="true"
                 android:layout_alignParentRight="true"
-                android:layout_marginBottom="64dip" />
+                android:layout_marginBottom="64dip"
+                android:contentDescription="@null" />
         </RelativeLayout>
     </com.rarnu.zoe.love2.comp.ScrollLayout>
 
