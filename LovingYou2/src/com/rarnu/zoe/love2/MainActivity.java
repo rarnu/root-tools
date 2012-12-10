@@ -6,7 +6,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
-import android.widget.Toast;
 
 import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.base.BaseActivity;
@@ -151,8 +150,9 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		Integer tag = (Integer) v.getTag();
 		if (tag != null) {
 			if (tag == -1) {
-				Toast.makeText(this, R.string.not_arrived, Toast.LENGTH_SHORT)
-						.show();
+				// Toast.makeText(this, R.string.not_arrived,
+				// Toast.LENGTH_SHORT)
+				// .show();
 				return;
 			}
 			Intent inTodo = new Intent(this, TodoActivity.class);

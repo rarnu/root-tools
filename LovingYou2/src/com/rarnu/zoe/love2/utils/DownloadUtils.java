@@ -49,12 +49,20 @@ public class DownloadUtils {
 				+ String.format("%s_%s.jpg", (type == 0 ? "t" : "b"), ground.id);
 		File fImg = new File(filePath);
 		if (fImg.exists()) {
-			iv.setImageBitmap(BitmapFactory.decodeFile(filePath));
+			try {
+				iv.setImageBitmap(BitmapFactory.decodeFile(filePath));
+			} catch (Exception e) {
+
+			}
 			return;
 		}
 
 		if (layLoading != null) {
-			layLoading.setVisibility(View.VISIBLE);
+			try {
+				layLoading.setVisibility(View.VISIBLE);
+			} catch (Exception e) {
+
+			}
 		}
 		final Handler h = new Handler() {
 			@Override
@@ -62,10 +70,19 @@ public class DownloadUtils {
 				if (msg.what == 1) {
 					File file = new File(filePath);
 					if (file.exists()) {
-						iv.setImageBitmap(BitmapFactory.decodeFile(filePath));
+						try {
+							iv.setImageBitmap(BitmapFactory
+									.decodeFile(filePath));
+						} catch (Exception e) {
+
+						}
 					}
 					if (layLoading != null) {
-						layLoading.setVisibility(View.GONE);
+						try {
+							layLoading.setVisibility(View.GONE);
+						} catch (Exception e) {
+
+						}
 					}
 				}
 				super.handleMessage(msg);

@@ -104,8 +104,8 @@
                 android:layout_marginTop="16dip"
                 android:paddingLeft="32dip"
                 android:paddingRight="32dip"
-                android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textColor="#FF999999"
+                android:textSize="14dip" />
         </RelativeLayout>
     </ScrollView>
 

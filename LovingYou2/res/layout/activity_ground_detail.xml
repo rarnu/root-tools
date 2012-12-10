@@ -15,7 +15,7 @@
     <com.rarnu.zoe.love2.comp.Title
         android:id="@+id/title"
         android:layout_width="fill_parent"
-        android:layout_height="64dip" />
+        android:layout_height="56dip" />
 
     <ScrollView
         android:layout_width="fill_parent"
@@ -44,8 +44,8 @@
                 android:layout_marginTop="16dip"
                 android:paddingLeft="32dip"
                 android:paddingRight="32dip"
-                android:textColor="@color/white"
-                android:textSize="18dip" />
+                android:textColor="#FF999999"
+                android:textSize="14dip" />
         </RelativeLayout>
     </ScrollView>
 

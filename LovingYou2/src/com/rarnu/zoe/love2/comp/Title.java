@@ -13,7 +13,7 @@ public class Title extends RelativeLayout {
 	public static final int BARITEM_LEFT = 1;
 	public static final int BARITEM_RIGHT = 2;
 	public static final int BARITEM_CENTER = 3;
-	
+
 	public static final int ITEM_LEFT = R.id.barLeft;
 	public static final int ITEM_RIGHT = R.id.barRight;
 	public static final int ITEM_CENTER = R.id.barCenter;
@@ -37,10 +37,10 @@ public class Title extends RelativeLayout {
 
 	private void init() {
 		setLayoutParams(new RelativeLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT, UIUtils.dipToPx(64)));
+				LayoutParams.MATCH_PARENT, UIUtils.dipToPx(56)));
 		View v = inflate(getContext(), R.layout.comp_title, null);
 		v.setLayoutParams(new RelativeLayout.LayoutParams(
-				LayoutParams.MATCH_PARENT, UIUtils.dipToPx(64)));
+				LayoutParams.MATCH_PARENT, UIUtils.dipToPx(56)));
 		addView(v);
 
 		barLeft = (BarItem) findViewById(R.id.barLeft);

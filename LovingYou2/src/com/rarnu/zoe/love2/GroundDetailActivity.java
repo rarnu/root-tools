@@ -17,7 +17,7 @@ public class GroundDetailActivity extends BaseActivity implements
 
 	ImageView imgPhoto;
 	TextView tvDesc;
-	
+
 	RelativeLayout layLoading;
 
 	@Override
@@ -64,6 +64,12 @@ public class GroundDetailActivity extends BaseActivity implements
 			finish();
 			break;
 		}
+	}
+
+	@Override
+	protected void onDestroy() {
+		imgPhoto.setImageBitmap(null);
+		super.onDestroy();
 	}
 
 }
