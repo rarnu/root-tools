@@ -37,10 +37,12 @@
             android:layout_marginTop="8dip"
             android:background="@null"
             android:gravity="left|top"
+            android:hint="@string/input_hint"
             android:inputType="text"
             android:padding="2dip"
             android:scrollbars="vertical"
-            android:textColor="#FF999999" />
+            android:textColor="#FF999999"
+            android:textSize="14dip" />
 
         <ImageView
             android:id="@+id/imgPhoto"

@@ -7,31 +7,33 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 
 public class PhotoMethodActivity extends Activity implements OnClickListener {
 
-	Button btnCamera, btnGallery, btnCancel;
+	Button btnCamera, btnGallery;
+	ImageView imgClose;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.activity_photo_method);
-		
+
 		btnCamera = (Button) findViewById(R.id.btnCamera);
 		btnGallery = (Button) findViewById(R.id.btnGallery);
-		btnCancel = (Button) findViewById(R.id.btnCancel);
-		
+		imgClose = (ImageView) findViewById(R.id.imgClose);
+
 		btnCamera.setOnClickListener(this);
 		btnGallery.setOnClickListener(this);
-		btnCancel.setOnClickListener(this);
+		imgClose.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		int method = 0;
 		switch (v.getId()) {
-		case R.id.btnCancel:
+		case R.id.imgClose:
 			finish();
 			return;
 		case R.id.btnCamera:
@@ -41,12 +43,11 @@ public class PhotoMethodActivity extends Activity implements OnClickListener {
 			method = 1;
 			break;
 		}
-		
+
 		Intent inRet = new Intent();
 		inRet.putExtra("method", method);
 		setResult(RESULT_OK, inRet);
 		finish();
-		
-		
+
 	}
 }

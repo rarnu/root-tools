@@ -64,7 +64,7 @@
             android:name=".FeedbackActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
+            android:windowSoftInputMode="stateHidden|adjustPan" >
         </activity>
         <activity
             android:name=".SplashActivity"
@@ -75,7 +75,7 @@
         <activity
             android:name=".PhotoMethodActivity"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Dialog"
+            android:theme="@style/TransparentDialog"
             android:windowSoftInputMode="stateHidden" >
         </activity>
 
