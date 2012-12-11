@@ -15,14 +15,15 @@ import com.rarnu.zoe.love2.common.Consts;
 
 public class TodoActivity extends Activity implements OnClickListener {
 
-	TextView tvTodoToday, tvTodo, tvDays, tvDesc;
-	ImageView imgPhoto;
-	RelativeLayout layHotArea, layBackArea;
+	TextView tvTodoToday, tvTodo, tvDesc;
+	ImageView imgPhoto, imgDays;
+	RelativeLayout layBackArea;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_todo);
+		Global.initDatabase(this);
 
 		Consts.setTaskTexts(this);
 
@@ -40,17 +41,13 @@ public class TodoActivity extends Activity implements OnClickListener {
 
 		tvTodoToday = (TextView) findViewById(R.id.tvTodoToday);
 		tvTodo = (TextView) findViewById(R.id.tvTodo);
-		tvDays = (TextView) findViewById(R.id.tvDays);
+		imgDays = (ImageView) findViewById(R.id.imgDays);
 		tvDesc = (TextView) findViewById(R.id.tvDesc);
 		imgPhoto = (ImageView) findViewById(R.id.imgPhoto);
 
-		layHotArea = (RelativeLayout) findViewById(R.id.layHotArea);
 		layBackArea = (RelativeLayout) findViewById(R.id.layBackArea);
 
-		tvDays.setText(String.format(getString(R.string.day_fmt), index + 1));
-
-		tvTodoToday.setText(index == (day - 1) ? R.string.todo_today
-				: R.string.done_today);
+		tvTodoToday.setText(String.format(getString(R.string.todo_today), index + 1));
 
 		tvTodo.setText(Consts.taskTitle[index]);
 		tvDesc.setText(Consts.taskText[index]);
@@ -60,14 +57,14 @@ public class TodoActivity extends Activity implements OnClickListener {
 		imgPhoto.setImageBitmap(BitmapFactory.decodeResource(getResources(),
 				Consts.bpImgs[index], bop));
 
-		layHotArea.setOnClickListener(this);
 		layBackArea.setOnClickListener(this);
+		imgDays.setOnClickListener(this);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.layHotArea:
+		case R.id.imgDays:
 			Intent inRecord = new Intent(this, RecordActivity.class);
 			startActivity(inRecord);
 			break;

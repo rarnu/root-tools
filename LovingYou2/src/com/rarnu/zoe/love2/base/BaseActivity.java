@@ -3,6 +3,7 @@ package com.rarnu.zoe.love2.base;
 import android.app.Activity;
 import android.os.Bundle;
 
+import com.rarnu.zoe.love2.Global;
 import com.rarnu.zoe.love2.R;
 import com.rarnu.zoe.love2.common.Consts;
 import com.rarnu.zoe.love2.comp.Title;
@@ -15,6 +16,7 @@ public abstract class BaseActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView();
+		Global.initDatabase(this);
 		Consts.setTaskTexts(this);
 		init();
 	}

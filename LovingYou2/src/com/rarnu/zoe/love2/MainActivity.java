@@ -14,7 +14,6 @@ import com.rarnu.zoe.love2.common.Consts;
 import com.rarnu.zoe.love2.comp.BottomBar;
 import com.rarnu.zoe.love2.comp.RarnuGrid;
 import com.rarnu.zoe.love2.comp.Title;
-import com.rarnu.zoe.love2.database.DatabaseHelper;
 import com.rarnu.zoe.love2.utils.UIUtils;
 
 public class MainActivity extends BaseActivity implements OnClickListener {
@@ -31,8 +30,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			Config.setFirstStart(this, false);
 			startActivity2(SplashActivity.class);
 		}
-
-		Global.database = new DatabaseHelper(this);
 		super.onCreate(savedInstanceState);
 	}
 
@@ -50,13 +47,13 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		grid = (RarnuGrid) findViewById(R.id.grid);
 		bottom = (BottomBar) findViewById(R.id.bottom);
 
-		bottom.setText(BottomBar.BUTTON_1, R.string.square);
-		bottom.setText(BottomBar.BUTTON_2, R.string.record);
+		bottom.setText(BottomBar.BUTTON_1, R.string.record);
+		bottom.setText(BottomBar.BUTTON_2, R.string.square);
 		bottom.setText(BottomBar.BUTTON_3, R.string.history);
 		bottom.setText(BottomBar.BUTTON_4, R.string.settings);
 
-		bottom.setIcon(BottomBar.BUTTON_1, R.drawable.task_b3);
-		bottom.setIcon(BottomBar.BUTTON_2, R.drawable.task_b2);
+		bottom.setIcon(BottomBar.BUTTON_1, R.drawable.task_b2);
+		bottom.setIcon(BottomBar.BUTTON_2, R.drawable.task_b3);
 		bottom.setIcon(BottomBar.BUTTON_3, R.drawable.task);
 		bottom.setIcon(BottomBar.BUTTON_4, R.drawable.task_b4);
 
@@ -165,10 +162,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		switch (v.getId()) {
 
 		case R.id.btn1:
-			startActivity2(GroundActivity.class);
+			startActivity2(RecordActivity.class);
 			break;
 		case R.id.btn2:
-			startActivity2(RecordActivity.class);
+			startActivity2(GroundActivity.class);
 			break;
 		case R.id.btn3:
 			startActivity2(HistoryActivity.class);
@@ -177,7 +174,6 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			startActivity2(SettingsActivity.class);
 			break;
 		}
-
 	}
 
 	private void startActivity2(Class<?> cls) {

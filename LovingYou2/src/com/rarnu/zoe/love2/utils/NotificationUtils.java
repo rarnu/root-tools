@@ -16,13 +16,16 @@ public class NotificationUtils {
 
 		NotificationManager manager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
-		// manager.cancel(NOTIFICATION_ID);
-		Notification n = new Notification(R.drawable.ic_launcher, context
+		try {
+			manager.cancel(Consts.NOTIFY_ID);
+		} catch (Exception e) {
+
+		}
+		Notification n = new Notification(R.drawable.ic_small, context
 				.getResources().getString(R.string.hint_task),
 				System.currentTimeMillis());
 
 		n.defaults |= Notification.DEFAULT_SOUND;
-
 		n.defaults |= Notification.DEFAULT_LIGHTS;
 		n.ledARGB = 0xff00ff00;
 		n.ledOnMS = 300;
@@ -35,7 +38,7 @@ public class NotificationUtils {
 
 		PendingIntent pMain = PendingIntent.getActivity(context, 0, inMain, 0);
 		n.setLatestEventInfo(context,
-				context.getResources().getString(R.string.todo_today), hintStr,
+				context.getResources().getString(R.string.todo_hint), hintStr,
 				pMain);
 		manager.notify(Consts.NOTIFY_ID, n);
 	}

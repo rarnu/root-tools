@@ -68,8 +68,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		super.initComponents();
 
 		title.getBarItem(Title.BARITEM_CENTER).setText(R.string.record_today);
-//		title.getBarItem(Title.BARITEM_RIGHT)
-//				.setIcon(R.drawable.record_history);
+		// title.getBarItem(Title.BARITEM_RIGHT)
+		// .setIcon(R.drawable.record_history);
 		title.getBarItem(Title.BARITEM_LEFT).setIcon(R.drawable.home);
 
 		layLines = (RelativeLayout) findViewById(R.id.layLines);
@@ -163,10 +163,10 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		case Title.ITEM_LEFT:
 			finish();
 			break;
-//		case Title.ITEM_RIGHT:
-//			Intent inHistory = new Intent(this, HistoryActivity.class);
-//			startActivity(inHistory);
-//			break;
+		// case Title.ITEM_RIGHT:
+		// Intent inHistory = new Intent(this, HistoryActivity.class);
+		// startActivity(inHistory);
+		// break;
 		case R.id.chkE1:
 		case R.id.chkE2:
 		case R.id.chkE3:
@@ -197,6 +197,10 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 						.show();
 				return;
 			}
+			if (txt.length() > 132) {
+				txt = txt.substring(0, 132);
+			}
+			txt += "@" + getString(R.string.last_at);
 			long stamp = System.currentTimeMillis();
 			int news = chkE1.getStatus() == Checker.STATUS_YES ? 0 : 1;
 			int food = chkE2.getStatus() == Checker.STATUS_YES ? 0 : 1;
