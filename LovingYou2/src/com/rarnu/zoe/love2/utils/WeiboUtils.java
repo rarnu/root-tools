@@ -18,7 +18,7 @@ public class WeiboUtils {
 	public static void shareArticleToSina(String text, String file,
 			RequestListener listener) {
 		StatusesAPI api = new StatusesAPI(new Oauth2AccessToken(Config.TOKEN,
-				Config.EXPRIED));
+				String.valueOf(Config.EXPRIED)));
 
 		if (file == null || file.equals("")) {
 			api.update(text, "0", "0", listener);
@@ -29,7 +29,7 @@ public class WeiboUtils {
 
 	public static void getWeiboList(RequestListener listener) {
 		StatusesAPI api = new StatusesAPI(new Oauth2AccessToken(Config.TOKEN,
-				Config.EXPRIED));
+				String.valueOf(Config.EXPRIED)));
 		api.userTimeline(0, 0, 21, 1, false, FEATURE.PICTURE, false, listener);
 	}
 

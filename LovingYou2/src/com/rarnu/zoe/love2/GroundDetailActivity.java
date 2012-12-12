@@ -17,6 +17,7 @@ public class GroundDetailActivity extends BaseActivity implements
 
 	ImageView imgPhoto;
 	TextView tvDesc;
+	ImageView imgShare;
 
 	RelativeLayout layLoading;
 
@@ -49,12 +50,14 @@ public class GroundDetailActivity extends BaseActivity implements
 		imgPhoto = (ImageView) findViewById(R.id.imgPhoto);
 		tvDesc = (TextView) findViewById(R.id.tvDesc);
 		layLoading = (RelativeLayout) findViewById(R.id.layLoading);
+		imgShare = (ImageView) findViewById(R.id.imgShare);
 	}
 
 	@Override
 	protected void initEvents() {
 		super.initEvents();
 		title.getBarItem(Title.BARITEM_LEFT).setOnButtonClick(this);
+		imgShare.setOnClickListener(this);
 	}
 
 	@Override
@@ -62,6 +65,9 @@ public class GroundDetailActivity extends BaseActivity implements
 		switch (v.getId()) {
 		case Title.ITEM_LEFT:
 			finish();
+			break;
+		case R.id.imgShare:
+			// TODO: share
 			break;
 		}
 	}

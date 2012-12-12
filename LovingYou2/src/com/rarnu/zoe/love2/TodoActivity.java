@@ -18,13 +18,14 @@ public class TodoActivity extends Activity implements OnClickListener {
 	TextView tvTodoToday, tvTodo, tvDesc;
 	ImageView imgPhoto, imgDays;
 	RelativeLayout layBackArea;
+	ImageView imgShare;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_todo);
 		Global.initDatabase(this);
-
+		Global.doUpdateTokenT(this);
 		Consts.setTaskTexts(this);
 
 		int index = getIntent().getIntExtra("index", -1);
@@ -44,6 +45,7 @@ public class TodoActivity extends Activity implements OnClickListener {
 		imgDays = (ImageView) findViewById(R.id.imgDays);
 		tvDesc = (TextView) findViewById(R.id.tvDesc);
 		imgPhoto = (ImageView) findViewById(R.id.imgPhoto);
+		imgShare = (ImageView) findViewById(R.id.imgShare);
 
 		layBackArea = (RelativeLayout) findViewById(R.id.layBackArea);
 
@@ -59,6 +61,7 @@ public class TodoActivity extends Activity implements OnClickListener {
 
 		layBackArea.setOnClickListener(this);
 		imgDays.setOnClickListener(this);
+		imgShare.setOnClickListener(this);
 	}
 
 	@Override
@@ -70,6 +73,9 @@ public class TodoActivity extends Activity implements OnClickListener {
 			break;
 		case R.id.layBackArea:
 			finish();
+			break;
+		case R.id.imgShare:
+			// TODO: share
 			break;
 		}
 

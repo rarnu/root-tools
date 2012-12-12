@@ -6,6 +6,7 @@ import java.io.IOException;
 import android.content.Intent;
 import android.graphics.BitmapFactory;
 import android.graphics.Color;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.MediaStore;
@@ -26,6 +27,7 @@ import com.rarnu.zoe.love2.common.DayInfo;
 import com.rarnu.zoe.love2.comp.Checker;
 import com.rarnu.zoe.love2.comp.Title;
 import com.rarnu.zoe.love2.utils.DownloadUtils;
+import com.rarnu.zoe.love2.utils.NetworkUtils;
 import com.rarnu.zoe.love2.utils.UIUtils;
 import com.rarnu.zoe.love2.utils.WeiboUtils;
 import com.weibo.sdk.android.WeiboException;
@@ -55,6 +57,8 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		fTmp = new File(DownloadUtils.SAVE_PATH + "tmp.jpg");
 		fPhotoTmp = new File(DownloadUtils.SAVE_PATH + "tmp_p.jpg");
 		build21Lines(Global.database.getDay());
+
+		etRecord.setText(Config.getLastText(this));
 	}
 
 	@Override
@@ -158,6 +162,12 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
+	protected void onDestroy() {
+		Config.setLastText(this, etRecord.getText().toString());
+		super.onDestroy();
+	}
+
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case Title.ITEM_LEFT:
@@ -185,6 +195,14 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 			}
 			break;
 		case R.id.btnSubmit:
+
+			NetworkInfo nInfo = NetworkUtils.getNetworkInfo(this);
+			if (nInfo == null || !nInfo.isConnected()) {
+				Toast.makeText(this, R.string.no_connection, Toast.LENGTH_LONG)
+						.show();
+				return;
+			}
+
 			// must write something
 			String txt = etRecord.getText().toString();
 			if (txt.equals("")) {
@@ -192,15 +210,15 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 						.show();
 				return;
 			}
-			if (Config.TOKEN.equals("") || Config.EXPRIED.equals("")) {
+			if (Config.TOKEN.equals("") || Config.EXPRIED == 0) {
 				Toast.makeText(this, R.string.token_error, Toast.LENGTH_LONG)
 						.show();
 				return;
 			}
-			if (txt.length() > 132) {
-				txt = txt.substring(0, 132);
+			if (txt.length() > 140) {
+				txt = txt.substring(0, 140);
 			}
-			txt += "@" + getString(R.string.last_at);
+
 			long stamp = System.currentTimeMillis();
 			int news = chkE1.getStatus() == Checker.STATUS_YES ? 0 : 1;
 			int food = chkE2.getStatus() == Checker.STATUS_YES ? 0 : 1;
@@ -245,6 +263,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 
 			Intent inHis = new Intent(this, HistoryActivity.class);
 			startActivity(inHis);
+			etRecord.setText("");
 			finish();
 			break;
 

@@ -78,4 +78,14 @@
             android:textColor="@color/white" />
     </RelativeLayout>
 
+    <TextView
+        android:id="@+id/tvNA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/no_ground"
+        android:textColor="@color/white"
+        android:textSize="14dip"
+        android:visibility="gone" />
+
 </RelativeLayout>

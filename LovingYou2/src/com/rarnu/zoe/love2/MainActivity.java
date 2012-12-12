@@ -7,13 +7,13 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
-import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.common.Config;
 import com.rarnu.zoe.love2.common.Consts;
 import com.rarnu.zoe.love2.comp.BottomBar;
 import com.rarnu.zoe.love2.comp.RarnuGrid;
 import com.rarnu.zoe.love2.comp.Title;
+import com.rarnu.zoe.love2.utils.AlarmUtils;
 import com.rarnu.zoe.love2.utils.UIUtils;
 
 public class MainActivity extends BaseActivity implements OnClickListener {
@@ -25,9 +25,12 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		UIUtils.initDisplayMetrics(getWindowManager());
-		doUpdateTokenT();
+		Global.doUpdateTokenT(this);
 		if (Config.getFirstStart(this)) {
 			Config.setFirstStart(this, false);
+			Config.setHintEnabled(this, 1, true);
+			AlarmUtils.startAlarm(this, 1, 11, 0);
+
 			startActivity2(SplashActivity.class);
 		}
 		super.onCreate(savedInstanceState);
@@ -181,14 +184,4 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		startActivity(inActivity);
 	}
 
-	private void doUpdateTokenT() {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				LovingYouApi.getToken();
-
-			}
-		}).start();
-	}
 }

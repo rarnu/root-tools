@@ -13,6 +13,7 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.rarnu.zoe.love2.adapter.GroundAdapter;
 import com.rarnu.zoe.love2.base.BaseActivity;
@@ -28,6 +29,7 @@ public class GroundActivity extends BaseActivity implements OnClickListener,
 	GridView gvGround;
 	RelativeLayout layLoading;
 	ImageView imgAddFeedback;
+	TextView tvNA;
 
 	List<GroundInfo> list = null;
 	GroundAdapter adapter = null;
@@ -63,6 +65,7 @@ public class GroundActivity extends BaseActivity implements OnClickListener,
 		layLoading = (RelativeLayout) findViewById(R.id.layLoading);
 
 		imgAddFeedback = (ImageView) findViewById(R.id.imgAddFeedback);
+		tvNA = (TextView) findViewById(R.id.tvNA);
 	}
 
 	@Override
@@ -109,7 +112,7 @@ public class GroundActivity extends BaseActivity implements OnClickListener,
 			public void run() {
 				gvGround.setAdapter(adapter);
 				layLoading.setVisibility(View.GONE);
-
+				tvNA.setVisibility(list.size() == 0 ? View.VISIBLE : View.GONE);
 			}
 		});
 

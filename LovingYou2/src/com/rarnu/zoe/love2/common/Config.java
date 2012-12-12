@@ -8,11 +8,14 @@ public class Config {
 
 	// need update when app start
 	public static String TOKEN = "";
-	public static String EXPRIED = "";
+	public static long EXPRIED = 0;
 
 	public static final String FIRST_START = "first_start";
 	private static final String HINT_ENABLED = "hint%d_enabled";
 	private static final String HINT_TIME = "hint%d_time";
+	private static final String SINA_TOKEN = "sina_token";
+	private static final String SINA_EXPIRED = "sina_expired";
+	private static final String LAST_TEXT = "last_text";
 
 	private static SharedPreferences sp = null;
 
@@ -56,4 +59,36 @@ public class Config {
 		String key = String.format(HINT_TIME, index);
 		sp.edit().putLong(key, value).commit();
 	}
+	
+	public static String getSinaToken(Context context) {
+		initSharedPreference(context);
+		return sp.getString(SINA_TOKEN, "");
+	}
+	
+	public static void setSinaToken(Context context, String value) {
+		initSharedPreference(context);
+		sp.edit().putString(SINA_TOKEN, value).commit();
+	}
+	
+	public static long getSinaExpired(Context context) {
+		initSharedPreference(context);
+		return sp.getLong(SINA_EXPIRED, 0);
+	}
+	
+	public static void setSinaExpired(Context context, long value) {
+		initSharedPreference(context);
+		sp.edit().putLong(SINA_EXPIRED, value).commit();
+	}
+	
+	public static String getLastText(Context context) {
+		initSharedPreference(context);
+		return sp.getString(LAST_TEXT, "");
+	}
+	
+	public static void setLastText(Context context, String value) {
+		initSharedPreference(context);
+		sp.edit().putString(LAST_TEXT, value).commit();
+	}
 }
+
+

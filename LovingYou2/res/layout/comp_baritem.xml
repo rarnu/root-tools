@@ -9,8 +9,8 @@
         android:layout_height="wrap_content"
         android:adjustViewBounds="true"
         android:contentDescription="@null"
-        android:maxHeight="32dip"
-        android:maxWidth="32dip"
+        android:maxHeight="36dip"
+        android:maxWidth="60dip"
         android:scaleType="centerInside" />
 
     <TextView

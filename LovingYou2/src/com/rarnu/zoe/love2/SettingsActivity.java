@@ -7,6 +7,7 @@ import java.util.Date;
 import android.app.TimePickerDialog;
 import android.app.TimePickerDialog.OnTimeSetListener;
 import android.content.Intent;
+import android.net.Uri;
 import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -43,7 +44,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		tvSet1 = (TextView) findViewById(R.id.tvSet1);
 		tvSetDesc1 = (TextView) findViewById(R.id.tvSetDesc1);
 		chkHint = (ImageView) findViewById(R.id.chkHint);
-		
+
 		laySet2 = (RelativeLayout) findViewById(R.id.laySet2);
 		laySet3 = (RelativeLayout) findViewById(R.id.laySet3);
 		laySet4 = (RelativeLayout) findViewById(R.id.laySet4);
@@ -73,7 +74,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		tvSet1.setOnClickListener(this);
 		tvSetDesc1.setOnClickListener(this);
 		chkHint.setOnClickListener(this);
-		
+
 		laySet2.setOnClickListener(this);
 		laySet3.setOnClickListener(this);
 		laySet4.setOnClickListener(this);
@@ -113,13 +114,18 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 			startActivity(inFeedback);
 			break;
 		case R.id.laySet3:
-			// TODO:
+			// TODO: share
 			break;
 		case R.id.laySet4:
-			// TODO:
+			// goto market
+			Uri uri = Uri.parse("market://details?id=com.rarnu.zoe.love2");
+			Intent inMarket = new Intent(Intent.ACTION_VIEW, uri);
+			startActivity(inMarket);
 			break;
 		case R.id.laySet5:
-			// TODO:
+			// about
+			Intent inAbout = new Intent(this, AboutActivity.class);
+			startActivity(inAbout);
 			break;
 		}
 

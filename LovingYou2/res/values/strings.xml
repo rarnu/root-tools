@@ -29,6 +29,7 @@
 	<string name="record_e5">为理想而战</string>
 	<string name="record_e6">坚持理想</string>
 	<string name="record_e7">提交任务</string>
+	<string name="no_connection">没有网络连接，赶紧去检查一下哦~</string>
 	
 	<string name="sync_weibo">同步到微博&#064;大猫喜欢你</string>
 	
@@ -72,4 +73,6 @@
 	<string name="image_method">图片选择</string>
 	<string name="last_at">大猫喜欢你</string>
 	<string name="input_hint">大猫米有钱买服务器 &gt;_&lt; 穷啊穷啊穷……\n所有内容提交在&#064;大猫喜欢你，新浪微博\n若取消『同步微博』就发送不成了…\n\n信用卡密码，海外银行账户等……\n勿提交,可在楼下大喊告知，私信告知亦可。\n文本内容，140字内。\n发送图片可以加分，恩。</string>
+	<string name="no_ground">悲剧了…『广场』无法同步作业数据…\n大猫和程序猿，抱头痛哭::&gt;_&lt;::\n原因也许是：没有网络，外星人入侵…\n我们会努力改进…</string>
+	
 </resources>
