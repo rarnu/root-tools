@@ -42,7 +42,7 @@
             android:padding="2dip"
             android:scrollbars="vertical"
             android:textColor="#FF999999"
-            android:textSize="14dip" />
+             />
 
         <ImageView
             android:id="@+id/imgPhoto"

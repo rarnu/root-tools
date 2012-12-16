@@ -13,6 +13,7 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 
 import com.rarnu.zoe.love2.adapter.HistoryAdapter;
+import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.common.DataInfo;
 import com.rarnu.zoe.love2.common.DayInfo;
@@ -70,9 +71,11 @@ public class HistoryActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case Title.ITEM_LEFT:
+			LovingYouApi.saveLog(this, "HistoryActivity", "Back");
 			finish();
 			break;
 		case Title.ITEM_RIGHT:
+			LovingYouApi.saveLog(this, "HistoryActivity", "GotoRecord");
 			Intent inRecord = new Intent(this, RecordActivity.class);
 			startActivity(inRecord);
 			break;

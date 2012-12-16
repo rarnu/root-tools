@@ -15,7 +15,8 @@
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/imgShare" >
+        android:layout_above="@+id/imgShare"
+        android:scrollbars="none" >
 
         <RelativeLayout
             android:layout_width="fill_parent"

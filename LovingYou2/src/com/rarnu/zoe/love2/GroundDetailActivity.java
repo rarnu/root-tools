@@ -1,5 +1,8 @@
 package com.rarnu.zoe.love2;
 
+import java.io.File;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -7,10 +10,12 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.common.GroundInfo;
 import com.rarnu.zoe.love2.comp.Title;
 import com.rarnu.zoe.love2.utils.DownloadUtils;
+import com.rarnu.zoe.love2.utils.ShareUtils;
 
 public class GroundDetailActivity extends BaseActivity implements
 		OnClickListener {
@@ -20,12 +25,13 @@ public class GroundDetailActivity extends BaseActivity implements
 	ImageView imgShare;
 
 	RelativeLayout layLoading;
+	GroundInfo info = null;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 
-		GroundInfo info = (GroundInfo) getIntent().getSerializableExtra("data");
+		info = (GroundInfo) getIntent().getSerializableExtra("data");
 		if (info == null) {
 			finish();
 			return;
@@ -64,10 +70,19 @@ public class GroundDetailActivity extends BaseActivity implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case Title.ITEM_LEFT:
+			LovingYouApi.saveLog(this, "GroundDetailActivity", "Back");
 			finish();
 			break;
 		case R.id.imgShare:
-			// TODO: share
+			// share
+			LovingYouApi.saveLog(this, "GroundDetailActivity", "Share");
+			ShareUtils.shareTo(
+					this,
+					getString(R.string.share),
+					getString(R.string.share_title),
+					info.txt,
+					Uri.fromFile(new File(DownloadUtils.SAVE_PATH
+							+ String.format("b_%s.jpg", info.id))), null);
 			break;
 		}
 	}

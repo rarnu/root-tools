@@ -1,5 +1,7 @@
 package com.rarnu.zoe.love2.api;
 
+import java.net.URLEncoder;
+
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
@@ -8,12 +10,14 @@ import android.util.Log;
 
 import com.rarnu.zoe.love2.common.Config;
 import com.rarnu.zoe.love2.utils.HttpRequest;
+import com.rarnu.zoe.love2.utils.MiscUtils;
 
 public class LovingYouApi {
 
 	private static final String API_HOST = "http://rarnu.7thgen.info/lovingyou/";
 	private static final String GET_TOKEN = API_HOST + "get_token.php";
 	private static final String UPDATE_TOKEN = API_HOST + "update_token.php";
+	private static final String SAVE_LOG = API_HOST + "save_log.php";
 
 	public static void getToken(Context context) {
 		Config.TOKEN = Config.getSinaToken(context);
@@ -53,5 +57,31 @@ public class LovingYouApi {
 			ret = false;
 		}
 		return ret;
+	}
+
+	public static void saveLog(final Context context, final String page,
+			final String click) {
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+
+				String uClick = click;
+				String uModule = MiscUtils.getDeviceModule();
+				try {
+					uClick = URLEncoder.encode(uClick, HTTP.UTF_8);
+					uModule = URLEncoder.encode(uModule, HTTP.UTF_8);
+				} catch (Exception e) {
+
+				}
+
+				HttpRequest.get(SAVE_LOG, String.format(
+						"device=%s&page=%s&click=%s&module=%s",
+						MiscUtils.getDeviceUniqueId(context), page, uClick,
+						uModule), HTTP.UTF_8);
+
+			}
+		}).start();
+
 	}
 }

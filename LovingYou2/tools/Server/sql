@@ -1,5 +1,0 @@
-create table sina_token (_id int primary key, token text, time text);
-
-insert into sina_token values (0, 'key', 'time');
-
-

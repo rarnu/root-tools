@@ -16,11 +16,13 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
 
+import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.common.Config;
 import com.rarnu.zoe.love2.comp.Title;
 import com.rarnu.zoe.love2.utils.AlarmUtils;
 import com.rarnu.zoe.love2.utils.MiscUtils;
+import com.rarnu.zoe.love2.utils.ShareUtils;
 
 public class SettingsActivity extends BaseActivity implements OnClickListener {
 
@@ -31,7 +33,6 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void setContentView() {
 		setContentView(R.layout.activity_settings);
-
 	}
 
 	@Override
@@ -86,9 +87,11 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case Title.ITEM_LEFT:
+			LovingYouApi.saveLog(this, "SettingsActivity", "Back");
 			finish();
 			break;
 		case R.id.chkHint:
+			LovingYouApi.saveLog(this, "SettingsActivity", "ChangeHintStatus");
 			boolean checked = Config.getHintEnabled(this, 1);
 			checked = !checked;
 			Config.setHintEnabled(this, 1, checked);
@@ -107,23 +110,32 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 			break;
 		case R.id.tvSet1:
 		case R.id.tvSetDesc1:
+			LovingYouApi.saveLog(this, "SettingsActivity", "SetHintTime");
 			selectTime();
 			break;
 		case R.id.laySet2:
+			LovingYouApi.saveLog(this, "SettingsActivity", "GotoFeedback");
 			Intent inFeedback = new Intent(this, FeedbackActivity.class);
 			startActivity(inFeedback);
 			break;
 		case R.id.laySet3:
-			// TODO: share
+			// share
+			LovingYouApi.saveLog(this, "SettingsActivity", "Share");
+			ShareUtils.shareTo(this, getString(R.string.share),
+					getString(R.string.share_title),
+					getString(R.string.share_text), MiscUtils.saveLocalFile(this, 0),
+					null);
 			break;
 		case R.id.laySet4:
 			// goto market
+			LovingYouApi.saveLog(this, "SettingsActivity", "GotoMarket");
 			Uri uri = Uri.parse("market://details?id=com.rarnu.zoe.love2");
 			Intent inMarket = new Intent(Intent.ACTION_VIEW, uri);
 			startActivity(inMarket);
 			break;
 		case R.id.laySet5:
 			// about
+			LovingYouApi.saveLog(this, "SettingsActivity", "GotoAbout");
 			Intent inAbout = new Intent(this, AboutActivity.class);
 			startActivity(inAbout);
 			break;
@@ -169,4 +181,5 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		dialog.setCanceledOnTouchOutside(false);
 		dialog.show();
 	}
+
 }

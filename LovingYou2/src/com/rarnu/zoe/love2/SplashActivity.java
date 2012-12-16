@@ -10,11 +10,21 @@ import android.widget.ImageView;
 public class SplashActivity extends Activity implements OnClickListener {
 	
 	ImageView btnStart;
+	ImageView img1, img2, img3;
 	
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_splash);
+		img1 = (ImageView) findViewById(R.id.img1);
+		img2 = (ImageView) findViewById(R.id.img2);
+		img3 = (ImageView) findViewById(R.id.img3);
+		
+		img1.setImageResource(R.drawable.splash1);
+		img2.setImageResource(R.drawable.splash2);
+		img3.setImageResource(R.drawable.splash3);
+		
+		
 		btnStart = (ImageView) findViewById(R.id.btnStart);
 		btnStart.setOnClickListener(this);
 	}

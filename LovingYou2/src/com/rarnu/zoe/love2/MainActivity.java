@@ -7,6 +7,7 @@ import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 
+import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.common.Config;
 import com.rarnu.zoe.love2.common.Consts;
@@ -22,6 +23,8 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	BottomBar bottom;
 	ImageView[] ivMain, ivSub;
 
+	int day = 0;
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		UIUtils.initDisplayMetrics(getWindowManager());
@@ -30,10 +33,27 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 			Config.setFirstStart(this, false);
 			Config.setHintEnabled(this, 1, true);
 			AlarmUtils.startAlarm(this, 1, 11, 0);
-
 			startActivity2(SplashActivity.class);
+			LovingYouApi.saveLog(this, "MainActivity", "FirstStart");
 		}
 		super.onCreate(savedInstanceState);
+		day = Global.database.getDay();
+		if (day > 21) {
+			// over 21 days
+			Intent inEnd = new Intent(this, EndActivity.class);
+			startActivityForResult(inEnd, 0);
+			LovingYouApi.saveLog(this, "MainActivity", "Over21Days");
+		}
+		LovingYouApi.saveLog(this, "MainActivity", "Start");
+	}
+
+	@Override
+	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (requestCode == 0) {
+			if (day > 21) {
+				finish();
+			}
+		}
 	}
 
 	@Override
@@ -150,11 +170,10 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 		Integer tag = (Integer) v.getTag();
 		if (tag != null) {
 			if (tag == -1) {
-				// Toast.makeText(this, R.string.not_arrived,
-				// Toast.LENGTH_SHORT)
-				// .show();
+				LovingYouApi.saveLog(this, "MainActivity", "DayNotArrived");
 				return;
 			}
+			LovingYouApi.saveLog(this, "MainActivity", "ClickDay"+String.valueOf(tag));
 			Intent inTodo = new Intent(this, TodoActivity.class);
 			inTodo.putExtra("index", tag);
 			startActivity(inTodo);
@@ -166,15 +185,19 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 
 		case R.id.btn1:
 			startActivity2(RecordActivity.class);
+			LovingYouApi.saveLog(this, "MainActivity", "GotoRecord");
 			break;
 		case R.id.btn2:
 			startActivity2(GroundActivity.class);
+			LovingYouApi.saveLog(this, "MainActivity", "GotoGround");
 			break;
 		case R.id.btn3:
 			startActivity2(HistoryActivity.class);
+			LovingYouApi.saveLog(this, "MainActivity", "GotoHistory");
 			break;
 		case R.id.btn4:
 			startActivity2(SettingsActivity.class);
+			LovingYouApi.saveLog(this, "MainActivity", "GotoSettings");
 			break;
 		}
 	}
@@ -182,6 +205,12 @@ public class MainActivity extends BaseActivity implements OnClickListener {
 	private void startActivity2(Class<?> cls) {
 		Intent inActivity = new Intent(this, cls);
 		startActivity(inActivity);
+	}
+	
+	@Override
+	protected void onDestroy() {
+		LovingYouApi.saveLog(this, "MainActivity", "Finish");
+		super.onDestroy();
 	}
 
 }

@@ -17,6 +17,7 @@
             android:padding="8dip" >
 
             <ImageView
+                android:id="@+id/img1"
                 android:layout_width="fill_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -24,8 +25,7 @@
                 android:layout_marginRight="16dip"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
-                android:scaleType="centerInside"
-                android:src="@drawable/splash1" />
+                android:scaleType="centerInside" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -35,13 +35,13 @@
             android:padding="8dip" >
 
             <ImageView
+                android:id="@+id/img2"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_alignParentBottom="true"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
-                android:scaleType="centerInside"
-                android:src="@drawable/splash2" />
+                android:scaleType="centerInside" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -51,6 +51,7 @@
             android:padding="8dip" >
 
             <ImageView
+                android:id="@+id/img3"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
                 android:layout_alignParentBottom="true"
@@ -58,8 +59,7 @@
                 android:layout_marginRight="16dip"
                 android:adjustViewBounds="true"
                 android:contentDescription="@null"
-                android:scaleType="centerInside"
-                android:src="@drawable/splash3" />
+                android:scaleType="centerInside"/>
 
             <ImageView
                 android:id="@+id/btnStart"

@@ -20,6 +20,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 
 		Consts.setTaskTexts(context);
 		int day = Global.database.getDay();
+		if (day > 21) {
+			return;
+		}
 		NotificationUtils.doHint(context, Consts.taskTitle[day - 1]);
 
 		Calendar cDef = Calendar.getInstance();

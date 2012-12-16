@@ -8,12 +8,14 @@ import android.content.Intent;
 
 import com.rarnu.zoe.love2.R;
 import com.rarnu.zoe.love2.TodoActivity;
+import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.common.Consts;
 
 public class NotificationUtils {
 
 	public static void doHint(Context context, String hintStr) {
-
+		LovingYouApi.saveLog(context, "RTC", "Notification");
+		
 		NotificationManager manager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		try {

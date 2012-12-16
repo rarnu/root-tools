@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.zoe.love2.adapter.GroundAdapter;
+import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.common.GroundInfo;
 import com.rarnu.zoe.love2.comp.Title;
@@ -37,9 +38,7 @@ public class GroundActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-
 		queryWeibo();
-
 	}
 
 	private void queryWeibo() {
@@ -50,7 +49,6 @@ public class GroundActivity extends BaseActivity implements OnClickListener,
 	@Override
 	protected void setContentView() {
 		setContentView(R.layout.activity_ground);
-
 	}
 
 	@Override
@@ -81,13 +79,16 @@ public class GroundActivity extends BaseActivity implements OnClickListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case Title.ITEM_LEFT:
+			LovingYouApi.saveLog(this, "GroundActivity", "Back");
 			finish();
 			break;
 		case Title.ITEM_RIGHT:
+			LovingYouApi.saveLog(this, "GroundActivity", "GotoRecord");
 			Intent inRecord = new Intent(this, RecordActivity.class);
 			startActivity(inRecord);
 			break;
 		case R.id.imgAddFeedback:
+			LovingYouApi.saveLog(this, "GroundActivity", "GotoFeedback");
 			Intent inFeedback = new Intent(this, FeedbackActivity.class);
 			startActivity(inFeedback);
 			break;
@@ -96,6 +97,7 @@ public class GroundActivity extends BaseActivity implements OnClickListener,
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
+		LovingYouApi.saveLog(this, "GroundActivity", "ClickItem");
 		GroundInfo info = list.get(position);
 		Intent inDetail = new Intent(this, GroundDetailActivity.class);
 		inDetail.putExtra("data", info);
@@ -112,7 +114,8 @@ public class GroundActivity extends BaseActivity implements OnClickListener,
 			public void run() {
 				gvGround.setAdapter(adapter);
 				layLoading.setVisibility(View.GONE);
-				tvNA.setVisibility(list.size() == 0 ? View.VISIBLE : View.GONE);
+				tvNA.setVisibility((list == null || list.size() == 0) ? View.VISIBLE
+						: View.GONE);
 			}
 		});
 
@@ -127,6 +130,8 @@ public class GroundActivity extends BaseActivity implements OnClickListener,
 			public void run() {
 				layLoading.setVisibility(View.GONE);
 
+				tvNA.setVisibility((list == null || list.size() == 0) ? View.VISIBLE
+						: View.GONE);
 			}
 		});
 	}
@@ -139,8 +144,11 @@ public class GroundActivity extends BaseActivity implements OnClickListener,
 			@Override
 			public void run() {
 				layLoading.setVisibility(View.GONE);
-
+				tvNA.setVisibility((list == null || list.size() == 0) ? View.VISIBLE
+						: View.GONE);
 			}
 		});
 	}
+	
+	
 }

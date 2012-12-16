@@ -7,9 +7,11 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.comp.Title;
 import com.rarnu.zoe.love2.utils.MailSender;
+import com.rarnu.zoe.love2.utils.MiscUtils;
 
 public class FeedbackActivity extends BaseActivity implements OnClickListener {
 
@@ -47,9 +49,11 @@ public class FeedbackActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case Title.ITEM_LEFT:
+			LovingYouApi.saveLog(this, "FeedbackActivity", "Back");
 			finish();
 			break;
 		case R.id.btnSubmit:
+			LovingYouApi.saveLog(this, "FeedbackActivity", "SubmitFeedback");
 			// feedback
 			String text = etRecord.getText().toString();
 			if (!text.equals("")) {
@@ -64,6 +68,12 @@ public class FeedbackActivity extends BaseActivity implements OnClickListener {
 			break;
 		}
 
+	}
+	
+	@Override
+	protected void onPause() {
+		MiscUtils.hideInput(this);
+		super.onPause();
 	}
 
 	private void sendMail(String text) {

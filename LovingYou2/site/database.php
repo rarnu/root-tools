@@ -37,17 +37,4 @@ function checkKeyValue($db, $table, $field, $value) {
 	return $rows;
 }
 
-function getUserNameByUID($uid) {
-	$str = "";
-	$sql = "select * from lavender_user where uid=".$uid;
-	$db = openConnection();
-	$result = query($db, $sql);
-	while (list($uid, $uaccount, $uname, $upwd, $ucheck, $uhead) = mysql_fetch_row($result)) {
-		$str = $uname;
-		break;
-	}
-	closeConnection($db);
-	return $str;
-}
-
 ?>

@@ -21,12 +21,14 @@ import android.widget.RelativeLayout.LayoutParams;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.base.BaseActivity;
 import com.rarnu.zoe.love2.common.Config;
 import com.rarnu.zoe.love2.common.DayInfo;
 import com.rarnu.zoe.love2.comp.Checker;
 import com.rarnu.zoe.love2.comp.Title;
 import com.rarnu.zoe.love2.utils.DownloadUtils;
+import com.rarnu.zoe.love2.utils.MiscUtils;
 import com.rarnu.zoe.love2.utils.NetworkUtils;
 import com.rarnu.zoe.love2.utils.UIUtils;
 import com.rarnu.zoe.love2.utils.WeiboUtils;
@@ -162,8 +164,14 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	}
 
 	@Override
+	protected void onPause() {
+		MiscUtils.hideInput(this);
+		super.onPause();
+	}
+	@Override
 	protected void onDestroy() {
 		Config.setLastText(this, etRecord.getText().toString());
+		
 		super.onDestroy();
 	}
 
@@ -171,6 +179,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case Title.ITEM_LEFT:
+			LovingYouApi.saveLog(this, "RecordActivity", "Back");
 			finish();
 			break;
 		// case Title.ITEM_RIGHT:
@@ -181,10 +190,12 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		case R.id.chkE2:
 		case R.id.chkE3:
 		case R.id.chkE4:
+			LovingYouApi.saveLog(this, "RecordActivity", "ChangeStatus");
 			changeCheckerStatus((Checker) v);
 			break;
 		case R.id.imgPhoto:
 		case R.id.tvAddPicture:
+			LovingYouApi.saveLog(this, "RecordActivity", "AddPicture");
 			if (photoFileName.equals("")) {
 				Intent inMethod = new Intent(this, PhotoMethodActivity.class);
 				startActivityForResult(inMethod, 1);
@@ -195,7 +206,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 			}
 			break;
 		case R.id.btnSubmit:
-
+			LovingYouApi.saveLog(this, "RecordActivity", "Submit");
 			NetworkInfo nInfo = NetworkUtils.getNetworkInfo(this);
 			if (nInfo == null || !nInfo.isConnected()) {
 				Toast.makeText(this, R.string.no_connection, Toast.LENGTH_LONG)

@@ -1,6 +1,6 @@
 <resources>
 
-    <string name="app_name">LovingYou2</string>
+    <string name="app_name">因为我爱你</string>
     <string name="all_task">全部任务</string>
 
     <string name="task">任务</string>
@@ -8,6 +8,7 @@
 	<string name="square">广场</string>
 	<string name="settings">设置</string>
 	<string name="history">历史</string>
+	<string name="share">分享</string>
 	
 	<string name="todo_today" formatted="false">当日任务 Day %d/21</string>
 	<string name="todo_hint">当日任务</string>
@@ -72,7 +73,13 @@
 	<string name="token_error">未能与新浪微博建立联系，请稍后再试~</string>
 	<string name="image_method">图片选择</string>
 	<string name="last_at">大猫喜欢你</string>
-	<string name="input_hint">大猫米有钱买服务器 &gt;_&lt; 穷啊穷啊穷……\n所有内容提交在&#064;大猫喜欢你，新浪微博\n若取消『同步微博』就发送不成了…\n\n信用卡密码，海外银行账户等……\n勿提交,可在楼下大喊告知，私信告知亦可。\n文本内容，140字内。\n发送图片可以加分，恩。</string>
+	<string name="input_hint">大猫米有钱买服务器&gt;_&lt;\n所有内容提交在@大猫喜欢你 \n若取消『同步微博』就发不成了…\n提交不需要你微博帐号，请安心～\n\n文本内容，140字内。\n发送图片可以加分，恩。</string>
 	<string name="no_ground">悲剧了…『广场』无法同步作业数据…\n大猫和程序猿，抱头痛哭::&gt;_&lt;::\n原因也许是：没有网络，外星人入侵…\n我们会努力改进…</string>
 	
+	<string name="share_title">分享一个好玩APP</string>
+	<string name="share_text">有个猪头做了『因为我爱你』APP，很好玩～下载地址是 http://rarnu.7thgen.info/lovingyou/app/LovingYou_1.0.apk</string>
+	
+	<string name="about_belong">APP 属于：大猫布丁</string>
+	<string name="about_mail">邮件联络：zoelee0420@gmail.com</string>
+	<string name="about_disclaimer">免责声明</string>
 </resources>

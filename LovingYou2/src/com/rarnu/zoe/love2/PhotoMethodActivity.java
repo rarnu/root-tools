@@ -1,5 +1,7 @@
 package com.rarnu.zoe.love2;
 
+import com.rarnu.zoe.love2.api.LovingYouApi;
+
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,12 +36,15 @@ public class PhotoMethodActivity extends Activity implements OnClickListener {
 		int method = 0;
 		switch (v.getId()) {
 		case R.id.imgClose:
+			LovingYouApi.saveLog(this, "PhotoMethodActivity", "Back");
 			finish();
 			return;
 		case R.id.btnCamera:
+			LovingYouApi.saveLog(this, "PhotoMethodActivity", "Camera");
 			method = 0;
 			break;
 		case R.id.btnGallery:
+			LovingYouApi.saveLog(this, "PhotoMethodActivity", "Gallery");
 			method = 1;
 			break;
 		}
