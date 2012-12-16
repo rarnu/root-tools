@@ -170,7 +170,7 @@
         android:layout_marginBottom="8dip"
         android:layout_marginRight="16dip"
         android:layout_marginTop="8dip"
-        android:background="#FF666666"
+        android:background="#AA336699"
         android:text="@string/submit"
         android:textColor="@color/white" />
 
