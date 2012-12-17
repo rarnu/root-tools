@@ -41,7 +41,6 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	// String[] text = null;
 	ImageView imgBall;
 	Checker chkE1, chkE2, chkE3, chkE4;
-	TextView tvE1, tvE2, tvE3, tvE4;
 	Button btnSubmit;
 	EditText etRecord;
 
@@ -86,10 +85,6 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		chkE2 = (Checker) findViewById(R.id.chkE2);
 		chkE3 = (Checker) findViewById(R.id.chkE3);
 		chkE4 = (Checker) findViewById(R.id.chkE4);
-		tvE1 = (TextView) findViewById(R.id.tvE1);
-		tvE2 = (TextView) findViewById(R.id.tvE2);
-		tvE3 = (TextView) findViewById(R.id.tvE3);
-		tvE4 = (TextView) findViewById(R.id.tvE4);
 
 		btnSubmit = (Button) findViewById(R.id.btnSubmit);
 		etRecord = (EditText) findViewById(R.id.etRecord);
@@ -118,20 +113,15 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		rlp.leftMargin = width;
 		chkE4.setLayoutParams(rlp);
 
-		rlp = (RelativeLayout.LayoutParams) tvE2.getLayoutParams();
-		rlp.leftMargin = width;
-		tvE2.setLayoutParams(rlp);
-
-		rlp = (RelativeLayout.LayoutParams) tvE3.getLayoutParams();
-		rlp.leftMargin = width;
-		tvE3.setLayoutParams(rlp);
-
-		rlp = (RelativeLayout.LayoutParams) tvE4.getLayoutParams();
-		rlp.leftMargin = width;
-		tvE4.setLayoutParams(rlp);
 	}
 
 	private void initEmotions() {
+
+		chkE1.setText(R.string.record_e6);
+		chkE2.setText(R.string.record_e3);
+		chkE3.setText(R.string.record_e2);
+		chkE4.setText(R.string.record_e4);
+
 		chkE1.setYesDrawable(R.drawable.record_e1y);
 		chkE1.setNoDrawable(R.drawable.record_e1n);
 		chkE2.setYesDrawable(R.drawable.record_e2y);
@@ -168,10 +158,11 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 		MiscUtils.hideInput(this);
 		super.onPause();
 	}
+
 	@Override
 	protected void onDestroy() {
 		Config.setLastText(this, etRecord.getText().toString());
-		
+
 		super.onDestroy();
 	}
 

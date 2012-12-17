@@ -66,10 +66,8 @@ public class TodoActivity extends Activity implements OnClickListener {
 		tvTodo.setText(Consts.taskTitle[index]);
 		tvDesc.setText(Consts.taskText[index]);
 
-		BitmapFactory.Options bop = new BitmapFactory.Options();
-		bop.inSampleSize = 2;
 		imgPhoto.setImageBitmap(BitmapFactory.decodeResource(getResources(),
-				Consts.bpImgs[index], bop));
+				Consts.bpImgs[index]));
 
 		layBackArea.setOnClickListener(this);
 		imgDays.setOnClickListener(this);
@@ -99,10 +97,9 @@ public class TodoActivity extends Activity implements OnClickListener {
 	}
 
 	private Uri saveLocalFile() {
-		BitmapFactory.Options bop = new BitmapFactory.Options();
-		bop.inSampleSize = 2;
+
 		Bitmap bmp = BitmapFactory.decodeResource(getResources(),
-				Consts.bpImgs[index], bop);
+				Consts.bpImgs[index]);
 		String filename = DownloadUtils.SAVE_PATH
 				+ String.format("%d.png", index);
 
