@@ -1,15 +1,9 @@
 package com.rarnu.zoe.love2;
 
-import java.io.File;
-import java.io.FileOutputStream;
-import java.io.IOException;
-
 import android.app.Activity;
 import android.app.NotificationManager;
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -19,7 +13,7 @@ import android.widget.TextView;
 
 import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.common.Consts;
-import com.rarnu.zoe.love2.utils.DownloadUtils;
+import com.rarnu.zoe.love2.utils.MiscUtils;
 import com.rarnu.zoe.love2.utils.ShareUtils;
 
 public class TodoActivity extends Activity implements OnClickListener {
@@ -91,31 +85,9 @@ public class TodoActivity extends Activity implements OnClickListener {
 			LovingYouApi.saveLog(this, "TodoActivity", "Share");
 			ShareUtils.shareTo(this, getString(R.string.share),
 					Consts.taskTitle[index], Consts.taskText[index],
-					saveLocalFile(), null);
+					MiscUtils.saveLocalFile(this, index), null);
 			break;
 		}
 	}
 
-	private Uri saveLocalFile() {
-
-		Bitmap bmp = BitmapFactory.decodeResource(getResources(),
-				Consts.bpImgs[index]);
-		String filename = DownloadUtils.SAVE_PATH
-				+ String.format("%d.png", index);
-
-		FileOutputStream out = null;
-		try {
-			out = new FileOutputStream(filename);
-			bmp.compress(Bitmap.CompressFormat.PNG, 100, out);
-			out.flush();
-		} catch (Exception e) {
-		} finally {
-			try {
-				out.close();
-			} catch (IOException e) {
-			}
-			out = null;
-		}
-		return Uri.fromFile(new File(filename));
-	}
 }

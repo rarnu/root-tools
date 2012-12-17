@@ -5,6 +5,7 @@ import java.util.Calendar;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.rarnu.zoe.love2.common.Config;
 import com.rarnu.zoe.love2.utils.AlarmUtils;
@@ -14,7 +15,7 @@ public class BootReceiver extends BroadcastReceiver {
 
 	@Override
 	public void onReceive(Context context, Intent intent) {
-
+		Log.e("boot receiver", "booted");
 		long timeDef = MiscUtils.loadDefaultCalendar(11).getTimeInMillis();
 
 		long time = 0;

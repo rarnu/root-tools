@@ -258,7 +258,7 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 
 						@Override
 						public void onComplete(String arg0) {
-							Log.e("complete", arg0);
+							// Log.e("complete", arg0);
 
 						}
 					});

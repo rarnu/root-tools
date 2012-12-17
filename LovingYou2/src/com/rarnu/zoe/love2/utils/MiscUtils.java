@@ -41,13 +41,16 @@ public class MiscUtils {
 	}
 
 	public static Uri saveLocalFile(Context context, int index) {
-		BitmapFactory.Options bop = new BitmapFactory.Options();
-		bop.inSampleSize = 2;
-		Bitmap bmp = BitmapFactory.decodeResource(context.getResources(),
-				Consts.bpImgs[index], bop);
 		String filename = DownloadUtils.SAVE_PATH
 				+ String.format("%d.png", index);
+		File fLocal = new File(filename);
+		if (fLocal.exists()) {
+			return Uri.fromFile(new File(filename));
+		}
 
+		Bitmap bmp = BitmapFactory.decodeResource(context.getResources(),
+				Consts.bpImgs[index]);
+		
 		FileOutputStream out = null;
 		try {
 			out = new FileOutputStream(filename);

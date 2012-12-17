@@ -90,12 +90,13 @@
 
     <ImageView
         android:id="@+id/imgShare"
-        android:layout_width="28dip"
-        android:layout_height="28dip"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="16dip"
         android:contentDescription="@null"
+        android:padding="10dip"
         android:src="@drawable/share" />
 
 </RelativeLayout>

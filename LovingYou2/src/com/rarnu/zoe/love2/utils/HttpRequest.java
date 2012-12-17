@@ -58,7 +58,7 @@ public class HttpRequest {
 	public static String get(String host, String params, String encoding) {
 
 		HttpGet request = new HttpGet(host + "?" + params);
-		Log.e("get", host + "?" + params);
+		// Log.e("get", host + "?" + params);
 		try {
 			BasicHttpParams httpParams = new BasicHttpParams();
 			HttpConnectionParams.setConnectionTimeout(httpParams, 5000);

@@ -29,6 +29,7 @@ public class ShareUtils {
 			intent.putExtra(Intent.EXTRA_EMAIL, mail);
 		}
 		context.startActivity(Intent.createChooser(intent, title));
+		// context.startActivity(intent);
 		return true;
 	}
 

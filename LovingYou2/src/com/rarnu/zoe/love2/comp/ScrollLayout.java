@@ -2,7 +2,6 @@ package com.rarnu.zoe.love2.comp;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.VelocityTracker;
 import android.view.View;
@@ -43,7 +42,7 @@ public class ScrollLayout extends ViewGroup {
 
 		mCurScreen = mDefaultScreen;
 		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop() * 4;
-		Log.e("mTouchSlop", String.valueOf(mTouchSlop));
+//		Log.e("mTouchSlop", String.valueOf(mTouchSlop));
 	}
 
 	@Override
