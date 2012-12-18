@@ -12,6 +12,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.rarnu.zoe.sinatoken.api.LovingYouApi;
+import com.rarnu.zoe.sinatoken.utils.AlarmUtils;
 import com.weibo.sdk.android.Weibo;
 import com.weibo.sdk.android.WeiboAuthListener;
 import com.weibo.sdk.android.WeiboDialogError;
@@ -36,6 +37,12 @@ public class MainActivity extends Activity implements WeiboAuthListener,
 					@Override
 					public void run() {
 						showNewToken();
+						if (getIntent().getAction() != null) {
+							String action = getIntent().getAction();
+							if (action.equals(Consts.ALARM_AUTO)) {
+								finish();
+							}
+						}
 					}
 				});
 			}
@@ -60,6 +67,13 @@ public class MainActivity extends Activity implements WeiboAuthListener,
 
 		btnRenew.setOnClickListener(this);
 
+		if (getIntent().getAction() != null) {
+			String action = getIntent().getAction();
+			if (action.equals(Consts.ALARM_AUTO)) {
+				onClick(btnRenew);
+			}
+		}
+
 	}
 
 	private void showCurrentToken() {
@@ -83,6 +97,7 @@ public class MainActivity extends Activity implements WeiboAuthListener,
 		newExpiredTime = values.getString("expires_in");
 		saveToken();
 		doUpdateTokenT(newToken, newExpiredTime);
+		AlarmUtils.startAlarm(this, Long.parseLong(newExpiredTime));
 
 	}
 
