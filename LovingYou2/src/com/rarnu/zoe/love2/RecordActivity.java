@@ -65,7 +65,6 @@ public class RecordActivity extends BaseActivity implements OnClickListener {
 	@Override
 	protected void setContentView() {
 		setContentView(R.layout.activity_record);
-
 	}
 
 	@Override

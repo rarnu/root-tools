@@ -18,7 +18,9 @@ public class AlarmReceiver extends BroadcastReceiver {
 	@Override
 	public void onReceive(Context context, Intent intent) {
 
+		Global.initDatabase(context);
 		Consts.setTaskTexts(context);
+		Global.doUpdateTokenT(context);
 		int day = Global.database.getDay();
 		if (day > 21) {
 			return;

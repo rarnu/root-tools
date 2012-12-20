@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.rarnu.zoe.love2.api.LovingYouApi;
 import com.rarnu.zoe.love2.base.BaseActivity;
@@ -123,15 +124,19 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 			LovingYouApi.saveLog(this, "SettingsActivity", "Share");
 			ShareUtils.shareTo(this, getString(R.string.share),
 					getString(R.string.share_title),
-					getString(R.string.share_text), MiscUtils.saveLocalFile(this, 0),
-					null);
+					getString(R.string.share_text),
+					MiscUtils.saveLocalFile(this, 0), null);
 			break;
 		case R.id.laySet4:
 			// goto market
 			LovingYouApi.saveLog(this, "SettingsActivity", "GotoMarket");
-			Uri uri = Uri.parse("market://details?id=com.rarnu.zoe.love2");
-			Intent inMarket = new Intent(Intent.ACTION_VIEW, uri);
-			startActivity(inMarket);
+			try {
+				Uri uri = Uri.parse("market://details?id=com.rarnu.zoe.love2");
+				Intent inMarket = new Intent(Intent.ACTION_VIEW, uri);
+				startActivity(inMarket);
+			} catch (Exception e) {
+				Toast.makeText(this, R.string.no_market, Toast.LENGTH_LONG).show();
+			}
 			break;
 		case R.id.laySet5:
 			// about

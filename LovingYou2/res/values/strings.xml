@@ -66,5 +66,6 @@
     <string name="about_belong">APP 属于：<font color="blue">@大猫布丁</font></string>
     <string name="about_mail">邮件联络：zoelee0420@gmail.com</string>
     <string name="about_disclaimer">免责声明</string>
+    <string name="no_market">居然没有在你的手机里找到市场软件，先安装一个吧~</string>
 
 </resources>
