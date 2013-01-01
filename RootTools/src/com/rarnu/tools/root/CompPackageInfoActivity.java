@@ -1,10 +1,8 @@
 package com.rarnu.tools.root;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.content.pm.PackageManager;
-import android.content.pm.PackageParser;
+import android.app.Fragment;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
@@ -43,7 +41,7 @@ public class CompPackageInfoActivity extends BaseActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_comp_packageinfo);
-		init();
+
 		fillComponentList();
 
 	}
@@ -51,16 +49,9 @@ public class CompPackageInfoActivity extends BaseActivity implements
 	// [/region]
 
 	// [region] init
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
-	}
+	
 
-	@Override
+	
 	public void mappingComp() {
 		ivAppIcon = (ImageView) findViewById(R.id.ivAppIcon);
 		tvAppName = (TextView) findViewById(R.id.tvAppName);
@@ -69,27 +60,12 @@ public class CompPackageInfoActivity extends BaseActivity implements
 
 	}
 
-	@Override
-	public void initTitle() {
-		tvName.setText(R.string.component_list);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		//
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.setText(getString(R.string.component_list));
+	
 
-	}
-
-	@Override
-	public void initSearchBar() {
-
-	}
-
-	@Override
+	
 	public void initEvents() {
 		lvReceiver.setOnItemLongClickListener(this);
-		btnLeft.setOnClickListener(this);
+
 	}
 
 	// [/region]
@@ -108,7 +84,7 @@ public class CompPackageInfoActivity extends BaseActivity implements
 				.setTextColor(GlobalInstance.currentComp.applicationInfo.sourceDir
 						.contains("/system/app/") ? Color.RED : Color.BLACK);
 
-		PackageParser.Package pkg = ComponentUtils
+		Object /* PackageParser.Package */pkg = ComponentUtils
 				.parsePackageInfo(GlobalInstance.currentComp);
 		if (pkg == null) {
 			Toast.makeText(this, R.string.no_package_info_found,
@@ -117,25 +93,7 @@ public class CompPackageInfoActivity extends BaseActivity implements
 			return;
 		}
 		// lvReceiver
-		lstComponentInfo = new ArrayList<CompInfo>();
-
-		List<PackageParser.Activity> lstReceiver = pkg.receivers;
-		for (PackageParser.Activity a : lstReceiver) {
-			CompInfo info = new CompInfo();
-			info.component = a;
-			info.enabled = GlobalInstance.pm.getComponentEnabledSetting(a
-					.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-			lstComponentInfo.add(info);
-		}
-
-		List<PackageParser.Service> lstService = pkg.services;
-		for (PackageParser.Service s : lstService) {
-			CompInfo info = new CompInfo();
-			info.component = s;
-			info.enabled = GlobalInstance.pm.getComponentEnabledSetting(s
-					.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-			lstComponentInfo.add(info);
-		}
+		lstComponentInfo = ComponentUtils.getPackageRSList(pkg);
 		adapter = new CompAdapter(getLayoutInflater(), lstComponentInfo);
 		lvReceiver.setAdapter(adapter);
 
@@ -151,10 +109,10 @@ public class CompPackageInfoActivity extends BaseActivity implements
 		boolean bRet = false;
 		if (item.enabled) {
 			// item.component.getComponentName()
-			LogApi.logDisableComponent(item.component.getComponentName()
-					.toString());
-			bRet = ComponentUtils.doDisableComponent(item.component
-					.getComponentName());
+			LogApi.logDisableComponent(ComponentUtils.getPackageComponentName(
+					item.component).toString());
+			bRet = ComponentUtils.doDisableComponent(ComponentUtils
+					.getPackageComponentName(item.component));
 			if (bRet) {
 				item.enabled = false;
 				((TextView) view.findViewById(R.id.itemReceiverStatus))
@@ -166,10 +124,10 @@ public class CompPackageInfoActivity extends BaseActivity implements
 						Toast.LENGTH_LONG).show();
 			}
 		} else if (!item.enabled) {
-			LogApi.logEnableComponent(item.component.getComponentName()
-					.toString());
-			bRet = ComponentUtils.doEnabledComponent(item.component
-					.getComponentName());
+			LogApi.logEnableComponent(ComponentUtils.getPackageComponentName(
+					item.component).toString());
+			bRet = ComponentUtils.doEnabledComponent(ComponentUtils
+					.getPackageComponentName(item.component));
 			if (bRet) {
 				item.enabled = true;
 				((TextView) view.findViewById(R.id.itemReceiverStatus))
@@ -193,6 +151,12 @@ public class CompPackageInfoActivity extends BaseActivity implements
 			break;
 		}
 
+	}
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

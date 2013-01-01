@@ -3,7 +3,7 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -32,7 +32,6 @@ import com.rarnu.tools.root.comp.SearchBar;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-@SuppressLint("HandlerLeak")
 public class DataappMainActivity extends BaseActivity implements
 		OnClickListener, OnItemLongClickListener {
 
@@ -86,7 +85,7 @@ public class DataappMainActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_data);
-		init();
+
 		switchDataPage();
 		LogApi.logEnterData();
 	}
@@ -95,16 +94,9 @@ public class DataappMainActivity extends BaseActivity implements
 
 	// [region] init
 
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
-	};
+	
 
-	@Override
+	
 	public void mappingComp() {
 
 		pageData = (RelativeLayout) findViewById(R.id.pageData);
@@ -122,31 +114,11 @@ public class DataappMainActivity extends BaseActivity implements
 		tvCurrentFunc = (TextView) findViewById(R.id.tvCurrentFunc);
 	}
 
-	@Override
-	public void initTitle() {
+	
 
-		tvName.setText(R.string.func3_title);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.refresh);
-		btnRight.setVisibility(View.VISIBLE);
+	
 
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		// tbTitle.setRightButtonText(getString(R.string.refresh));
-		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
-		// tbTitle.setText(getString(R.string.func2_title));
-	}
-
-	@Override
-	public void initSearchBar() {
-		sbData.setAddButtonVisible(false);
-		sbBackData.setAddButtonVisible(false);
-		barData.setCheckBoxVisible(true);
-		barBackData.setCheckBoxVisible(true);
-	}
-
-	@Override
+	
 	public void initEvents() {
 		sbData.getCancelButton().setOnClickListener(this);
 		sbData.getEditText().addTextChangedListener(new TextWatcher() {
@@ -203,8 +175,7 @@ public class DataappMainActivity extends BaseActivity implements
 		barBackData.getButton2().setOnClickListener(this);
 		barData.getCheckBox().setOnClickListener(this);
 		barBackData.getCheckBox().setOnClickListener(this);
-		btnLeft.setOnClickListener(this);
-		btnRight.setOnClickListener(this);
+		
 
 	}
 
@@ -659,6 +630,12 @@ public class DataappMainActivity extends BaseActivity implements
 
 			}
 		}).start();
+	}
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

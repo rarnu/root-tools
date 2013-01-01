@@ -2,12 +2,11 @@ package com.rarnu.tools.root;
 
 import java.util.List;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.InputFilter;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
@@ -26,7 +25,6 @@ import com.rarnu.tools.root.dns.NSLookup;
 import com.rarnu.tools.root.dns.record.Address;
 import com.rarnu.tools.root.utils.DIPairUtils;
 
-@SuppressLint("HandlerLeak")
 public class HostAddActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
@@ -64,7 +62,6 @@ public class HostAddActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_host_add);
 
-		init();
 	}
 
 	// [/region]
@@ -250,17 +247,8 @@ public class HostAddActivity extends BaseActivity implements OnClickListener {
 	// [/region]
 
 	// [region] init
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
-
-	}
-
-	@Override
+	
+	
 	public void mappingComp() {
 
 		sbSearchHosts = (SearchBar) findViewById(R.id.sbSearchHosts);
@@ -282,34 +270,12 @@ public class HostAddActivity extends BaseActivity implements OnClickListener {
 
 	}
 
-	@Override
-	public void initTitle() {
-		tvName.setText(R.string.host_add);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.add);
-		btnRight.setVisibility(View.VISIBLE);
+	
 
-		// tbTitle.setText(getString(R.string.host_add));
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.setRightButtonText(getString(R.string.add));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
+	
+	
 
-	}
-
-	@Override
-	public void initSearchBar() {
-		sbSearchHosts.getEditText().setHint(R.string.tv_sitename);
-		sbSearchHosts.getEditText().setFilters(
-				new InputFilter[] { new InputFilter.LengthFilter(32) });
-		sbSearchHosts.setAddButtonVisible(false);
-		sbSearchHosts.getCancelButton()
-				.setBackgroundResource(R.drawable.search);
-		barAddHosts.setCheckBoxVisible(true);
-	}
-
-	@Override
+	
 	public void initEvents() {
 		sbSearchHosts.getCancelButton().setOnClickListener(this);
 		barAddHosts.getButton1().setOnClickListener(this);
@@ -325,9 +291,14 @@ public class HostAddActivity extends BaseActivity implements OnClickListener {
 		btnJp.setOnClickListener(this);
 		btnHk.setOnClickListener(this);
 		btnTw.setOnClickListener(this);
-		btnLeft.setOnClickListener(this);
-		btnRight.setOnClickListener(this);
+		
 		barAddHosts.getCheckBox().setOnClickListener(this);
+	}
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

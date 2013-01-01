@@ -1,26 +1,24 @@
 package com.rarnu.tools.root.base;
 
+import android.content.res.Configuration;
+
 import com.rarnu.tools.root.R;
 
-import android.app.Activity;
-import android.os.Bundle;
-import android.widget.Button;
-import android.widget.TextView;
-
-public abstract class BaseActivity extends Activity implements ActivityIntf {
-
-	protected TextView tvName;
-	protected Button btnLeft, btnRight;
+public abstract class BaseActivity extends InnerActivity {
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		
+	public boolean getCondition() {
+		return getResources().getConfiguration().orientation == Configuration.ORIENTATION_LANDSCAPE;
 	}
-	
-	protected void mappingTitle() {
-		tvName = (TextView) findViewById(R.id.tvName);
-		btnLeft = (Button) findViewById(R.id.btnLeft);
-		btnRight = (Button) findViewById(R.id.btnRight);
+
+	@Override
+	public int getBaseLayout() {
+		return R.layout.layout_replacement;
 	}
+
+	@Override
+	public int getReplaceId() {
+		return R.id.fReplacement;
+	}
+
 }

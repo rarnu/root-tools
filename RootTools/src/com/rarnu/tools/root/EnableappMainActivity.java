@@ -2,7 +2,7 @@ package com.rarnu.tools.root;
 
 import java.util.List;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,7 +25,6 @@ import com.rarnu.tools.root.comp.SearchBar;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.ComponentUtils;
 
-@SuppressLint("HandlerLeak")
 public class EnableappMainActivity extends BaseActivity implements
 		OnClickListener, OnItemLongClickListener {
 
@@ -47,23 +46,16 @@ public class EnableappMainActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_enableapp);
-		init();
+
 		loadEnableApp();
 	}
 
 	// [/region]
 
 	// [region] init
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
-	}
+	
 
-	@Override
+	
 	public void mappingComp() {
 		sbEnableapp = (SearchBar) findViewById(R.id.sbEnableapp);
 		lvEnableApp = (ListView) findViewById(R.id.lvEnableApp);
@@ -71,24 +63,12 @@ public class EnableappMainActivity extends BaseActivity implements
 		tvOperateHint = (TextView) findViewById(R.id.tvOperateHint);
 	}
 
-	@Override
-	public void initTitle() {
-		tvName.setText(R.string.func2_title);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.refresh);
-		btnRight.setVisibility(View.VISIBLE);
-	}
+	
 
-	@Override
-	public void initSearchBar() {
 
-	}
-
-	@Override
+	
 	public void initEvents() {
-		btnRight.setOnClickListener(this);
-		btnLeft.setOnClickListener(this);
+		
 
 		lvEnableApp.setOnItemLongClickListener(this);
 		sbEnableapp.getAddButton().setOnClickListener(this);
@@ -238,5 +218,11 @@ public class EnableappMainActivity extends BaseActivity implements
 
 	}
 	// [/region]
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 
 }

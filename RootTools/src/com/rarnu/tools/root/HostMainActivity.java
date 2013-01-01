@@ -3,7 +3,7 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -26,7 +26,7 @@ import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
 import com.rarnu.tools.root.utils.DIPairUtils;
 
-@SuppressLint("HandlerLeak")
+
 public class HostMainActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
@@ -61,7 +61,7 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_hosts);
-		init();
+
 		loadHosts();
 		LogApi.logEnterHosts();
 	}
@@ -70,16 +70,8 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 
 	// [region] init
 
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
-	}
-
-	@Override
+	
+	
 	public void mappingComp() {
 
 		barHosts = (DataBar) findViewById(R.id.barHosts);
@@ -88,30 +80,9 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 		lvHosts = (ListView) findViewById(R.id.lvHosts);
 	}
 
-	@Override
-	public void initTitle() {
+	
 
-		tvName.setText(R.string.func7_title);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.refresh);
-		btnRight.setVisibility(View.VISIBLE);
-
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.setRightButtonText(getString(R.string.refresh));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
-		// tbTitle.setText(getString(R.string.func5_title));
-
-	}
-
-	@Override
-	public void initSearchBar() {
-		sbHosts.setAddButtonVisible(true);
-		barHosts.setCheckBoxVisible(true);
-	}
-
-	@Override
+	
 	public void initEvents() {
 		sbHosts.getCancelButton().setOnClickListener(this);
 		sbHosts.getAddButton().setOnClickListener(this);
@@ -140,8 +111,7 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 
 		barHosts.getButton1().setOnClickListener(this);
 		barHosts.getButton2().setOnClickListener(this);
-		btnRight.setOnClickListener(this);
-		btnLeft.setOnClickListener(this);
+		
 
 		barHosts.getCheckBox().setOnClickListener(this);
 	}
@@ -154,7 +124,7 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 		barHosts.setVisibility(View.GONE);
 		progressHosts.setAppName(getString(R.string.loading));
 		progressHosts.setVisibility(View.VISIBLE);
-		btnRight.setEnabled(false);
+		
 
 		final Handler h = new Handler() {
 
@@ -170,7 +140,7 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 					lvHosts.setAdapter(hostsAdapter);
 					progressHosts.setVisibility(View.GONE);
 					showHostSelectedCount();
-					btnRight.setEnabled(true);
+					
 				}
 				super.handleMessage(msg);
 			}
@@ -223,7 +193,7 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 		barHosts.setVisibility(View.GONE);
 		progressHosts.setAppName(getString(R.string.deleting));
 		progressHosts.setVisibility(View.VISIBLE);
-		btnRight.setEnabled(false);
+		
 
 		LogApi.logDeleteHosts();
 
@@ -245,7 +215,7 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 					hostsAdapter.deleteItem(deletedHosts);
 
 					progressHosts.setVisibility(View.GONE);
-					btnRight.setEnabled(true);
+					
 				}
 				super.handleMessage(msg);
 			}
@@ -282,7 +252,7 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 		barHosts.setVisibility(View.GONE);
 		progressHosts.setAppName(getString(R.string.adding));
 		progressHosts.setVisibility(View.VISIBLE);
-		btnRight.setEnabled(false);
+		
 
 		LogApi.logAddHosts();
 
@@ -301,7 +271,7 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 					lvHosts.setEnabled(true);
 					hostsAdapter.notifyDataSetChanged();
 					progressHosts.setVisibility(View.GONE);
-					btnRight.setEnabled(true);
+					
 				}
 				super.handleMessage(msg);
 			}
@@ -371,6 +341,12 @@ public class HostMainActivity extends BaseActivity implements OnClickListener {
 			break;
 
 		}
+	}
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

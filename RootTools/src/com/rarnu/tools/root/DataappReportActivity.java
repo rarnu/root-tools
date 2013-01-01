@@ -2,6 +2,7 @@ package com.rarnu.tools.root;
 
 import java.util.List;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -26,8 +27,6 @@ public class DataappReportActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_dataapp_report);
-
-		init();
 
 		showReport();
 	}
@@ -59,44 +58,21 @@ public class DataappReportActivity extends BaseActivity implements
 
 	// [region] init
 
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initSearchBar();
-		initTitle();
-		initEvents();
+	
 
-	}
-
-	@Override
+	
 	public void mappingComp() {
 
 		lvReport = (ListView) findViewById(R.id.lvReport);
 
 	}
 
-	@Override
-	public void initTitle() {
-		tvName.setText(R.string.operation_result);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
 
-		// tbTitle.setText(getString(R.string.operation_result));
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-
-	}
-
-	@Override
-	public void initSearchBar() {
-
-	}
-
-	@Override
-	public void initEvents() {
-		btnLeft.setOnClickListener(this);
-
-	}
 	// [/region]
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

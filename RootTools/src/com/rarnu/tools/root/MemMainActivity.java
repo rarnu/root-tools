@@ -3,7 +3,7 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -31,7 +31,7 @@ import com.rarnu.tools.root.utils.MemoryUtils;
 import com.rarnu.tools.root.utils.ProcessUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-@SuppressLint("HandlerLeak")
+
 public class MemMainActivity extends BaseActivity implements OnClickListener,
 		OnItemClickListener {
 
@@ -54,7 +54,7 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_memory);
-		init();
+
 		loadMemProcessList();
 		LogApi.logEnterProcess();
 	}
@@ -62,16 +62,9 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 	// [/region]
 
 	// [region] init
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
-	}
+	
 
-	@Override
+	
 	public void mappingComp() {
 
 		progressMemory = (DataProgressBar) findViewById(R.id.progressMemory);
@@ -82,30 +75,10 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 		btnClean = (Button) findViewById(R.id.btnClean);
 	}
 
-	@Override
-	public void initTitle() {
+	
 
-		tvName.setText(R.string.func5_title);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.refresh);
-		btnRight.setVisibility(View.VISIBLE);
 
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.setRightButtonText(getString(R.string.refresh));
-		// tbTitle.setText(getString(R.string.func4_title));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
-
-	}
-
-	@Override
-	public void initSearchBar() {
-		sbMemory.setAddButtonVisible(false);
-
-	}
-
-	@Override
+	
 	public void initEvents() {
 		sbMemory.getCancelButton().setOnClickListener(this);
 		sbMemory.getEditText().addTextChangedListener(new TextWatcher() {
@@ -135,8 +108,7 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 		lvMemory.setOnItemClickListener(this);
 		btnClean.setOnClickListener(this);
 
-		btnLeft.setOnClickListener(this);
-		btnRight.setOnClickListener(this);
+		
 	}
 
 	// [/region]
@@ -146,7 +118,7 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 		progressMemory.setAppName(getString(R.string.loading));
 		progressMemory.setVisibility(View.VISIBLE);
 		btnClean.setVisibility(View.GONE);
-		btnRight.setEnabled(false);
+		
 
 		final Handler h = new Handler() {
 
@@ -168,7 +140,7 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 									.size())));
 					progressMemory.setVisibility(View.GONE);
 					btnClean.setVisibility(View.VISIBLE);
-					btnRight.setEnabled(true);
+					
 					showMemoryInfo();
 				}
 				super.handleMessage(msg);
@@ -243,7 +215,7 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 		lvMemory.setEnabled(false);
 		progressMemory.setAppName(getString(R.string.cleaning_memory));
 		progressMemory.setVisibility(View.VISIBLE);
-		btnRight.setEnabled(false);
+		
 
 		final Handler h = new Handler() {
 			@Override
@@ -285,7 +257,7 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 		lvMemory.setEnabled(false);
 		progressMemory.setAppName(getString(R.string.cleaning_memory));
 		progressMemory.setVisibility(View.VISIBLE);
-		btnRight.setEnabled(false);
+		
 
 		final Handler h = new Handler() {
 
@@ -295,7 +267,7 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 					btnClean.setVisibility(View.VISIBLE);
 					lvMemory.setEnabled(true);
 					progressMemory.setVisibility(View.GONE);
-					btnRight.setEnabled(true);
+					
 					loadMemProcessList();
 				}
 				super.handleMessage(msg);
@@ -368,6 +340,12 @@ public class MemMainActivity extends BaseActivity implements OnClickListener,
 			break;
 
 		}
+	}
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

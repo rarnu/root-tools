@@ -1,45 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white" >
-
-    <include
-        android:id="@+id/tbTitle"
-        layout="@layout/title_bar" />
-
-    <com.rarnu.tools.root.comp.SearchBar
-        android:id="@+id/sbSysapp"
-        android:layout_width="fill_parent"
-        android:layout_height="56dip"
-        android:layout_below="@+id/tbTitle" />
+    android:layout_height="match_parent" >
 
     <ListView
         android:id="@+id/lvSysApp"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/progressSysapp"
-        android:layout_below="@+id/sbSysapp"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/lightgray"
-        android:dividerHeight="1dip"
         android:fastScrollEnabled="true"
-        android:focusableInTouchMode="false" >
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip" >
     </ListView>
 
     <com.rarnu.tools.root.comp.DataProgressBar
         android:id="@+id/progressSysapp"
         android:layout_width="fill_parent"
         android:layout_height="24dip"
-        android:layout_above="@+id/imgBottom"
-        android:visibility="gone" />
-    
-    <ImageView
-        android:id="@+id/imgBottom"
-        android:layout_width="fill_parent"
-        android:layout_height="4dip"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottombar"
-        android:contentDescription="@null" />
+        android:visibility="gone" />
 
 </RelativeLayout>

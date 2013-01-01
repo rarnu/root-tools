@@ -4,7 +4,7 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
@@ -25,7 +25,7 @@ import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.common.SysappSelectApkItem;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-@SuppressLint("HandlerLeak")
+
 public class SysappSelectApkActivity extends BaseActivity implements
 		OnItemClickListener, OnClickListener {
 
@@ -50,7 +50,7 @@ public class SysappSelectApkActivity extends BaseActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_sysapp_selectapk);
-		init();
+
 
 		showDirT(currentDir);
 
@@ -178,18 +178,9 @@ public class SysappSelectApkActivity extends BaseActivity implements
 
 	// [/region]
 
-	// [region] init
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
+	
 
-	}
-
-	@Override
+	
 	public void mappingComp() {
 
 		lvFiles = (ListView) findViewById(R.id.lvApk);
@@ -197,34 +188,18 @@ public class SysappSelectApkActivity extends BaseActivity implements
 		pbShowing = (ProgressBar) findViewById(R.id.pbShowing);
 	}
 
-	@Override
-	public void initTitle() {
+	
 
-		tvName.setText(R.string.func1_title);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.uplevel);
-		btnRight.setVisibility(View.VISIBLE);
-
-		//
-		// tbTitle.setText(getString(R.string.sysapp_select));
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.setRightButtonText(getString(R.string.uplevel));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
-
-	}
-
-	@Override
-	public void initSearchBar() {
-
-	}
-
-	@Override
+	
 	public void initEvents() {
-		btnRight.setOnClickListener(this);
-		btnLeft.setOnClickListener(this);
+
 		lvFiles.setOnItemClickListener(this);
+	}
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

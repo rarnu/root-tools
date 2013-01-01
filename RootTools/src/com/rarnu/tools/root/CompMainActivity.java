@@ -3,7 +3,7 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
@@ -23,7 +23,6 @@ import com.rarnu.tools.root.base.BaseActivity;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
 
-@SuppressLint("HandlerLeak")
 public class CompMainActivity extends BaseActivity implements OnClickListener,
 		OnItemClickListener {
 
@@ -45,7 +44,7 @@ public class CompMainActivity extends BaseActivity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_comp);
-		init();
+
 		loadCompAppList();
 		LogApi.logEnterComponent();
 	}
@@ -54,16 +53,8 @@ public class CompMainActivity extends BaseActivity implements OnClickListener,
 
 	// [region] init
 
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
-	}
 
-	@Override
+	
 	public void mappingComp() {
 
 		progressComp = (DataProgressBar) findViewById(R.id.progressComp);
@@ -72,31 +63,13 @@ public class CompMainActivity extends BaseActivity implements OnClickListener,
 
 	}
 
-	@Override
-	public void initTitle() {
-		tvName.setText(R.string.func4_title);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.refresh);
-		btnRight.setVisibility(View.VISIBLE);
+	
 
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.setRightButtonText(getString(R.string.refresh));
-		// tbTitle.setText(getString(R.string.func3_title));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
-	}
+	
 
-	@Override
-	public void initSearchBar() {
-		sbComp.setAddButtonVisible(false);
-
-	}
-
-	@Override
+	
 	public void initEvents() {
-		btnLeft.setOnClickListener(this);
-		btnRight.setOnClickListener(this);
+
 		sbComp.getCancelButton().setOnClickListener(this);
 		sbComp.getEditText().addTextChangedListener(new TextWatcher() {
 
@@ -129,7 +102,7 @@ public class CompMainActivity extends BaseActivity implements OnClickListener,
 	private void loadCompAppList() {
 		progressComp.setAppName(getString(R.string.loading));
 		progressComp.setVisibility(View.VISIBLE);
-		btnRight.setEnabled(false);
+
 
 		final Handler h = new Handler() {
 
@@ -144,7 +117,7 @@ public class CompMainActivity extends BaseActivity implements OnClickListener,
 					}
 					lvComp.setAdapter(compAdapter);
 					progressComp.setVisibility(View.GONE);
-					btnRight.setEnabled(true);
+
 
 				} else if (msg.what == 2) {
 					progressComp.setProgress(String.format("%d/%d", msg.arg1,
@@ -190,6 +163,12 @@ public class CompMainActivity extends BaseActivity implements OnClickListener,
 
 		Intent inPackage = new Intent(this, CompPackageInfoActivity.class);
 		startActivity(inPackage);
+	}
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

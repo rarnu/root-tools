@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="horizontal" >
+
+    <RelativeLayout
+        android:id="@+id/layout_left"
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="0.7"
+        android:background="?android:attr/detailsElementBackground"
+        android:padding="4dip" >
+
+        <ImageView
+            android:id="@+id/appIcon"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:layout_marginLeft="4dip"
+            android:layout_marginTop="4dip"
+            android:contentDescription="@null" />
+
+        <TextView
+            android:id="@+id/appName"
+            android:layout_width="wrap_content"
+            android:layout_height="48dip"
+            android:layout_marginLeft="4dip"
+            android:layout_marginTop="4dip"
+            android:layout_toRightOf="@+id/appIcon"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="@color/white"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/appVersion"
+            android:layout_width="wrap_content"
+            android:layout_height="20dip"
+            android:layout_below="@+id/appName"
+            android:layout_marginLeft="4dip"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/appVersion"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="48dip"
+            android:layout_marginRight="48dip"
+            android:layout_marginTop="8dip"
+            android:text="@string/button_delete"
+            android:textColor="@color/white" />
+    </RelativeLayout>
+
+    <ScrollView
+        android:layout_width="0px"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:background="?android:attr/detailsElementBackground"
+        android:padding="4dip" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dip" >
+
+            <RelativeLayout
+                android:id="@+id/layApkPath"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_marginTop="4dip"
+                android:background="@drawable/list_above_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_path"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvPathDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layOdexPath"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layApkPath"
+                android:background="@drawable/list_middle_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_odex"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvOdexDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layFileSize"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layOdexPath"
+                android:background="@drawable/list_middle_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_filesize"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvFileSizeDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layDataPath"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layFileSize"
+                android:background="@drawable/list_middle_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_datapath"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvDataPathDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layDataSize"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layDataPath"
+                android:background="@drawable/list_middle_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_datasize"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvDataSizeDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layShareUid"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layDataSize"
+                android:background="@drawable/list_below_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_library"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvSharedIdDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="8dip"
+                android:layout_below="@+id/layShareUid" />
+        </RelativeLayout>
+    </ScrollView>
+
+</LinearLayout>

@@ -3,7 +3,7 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -20,7 +20,7 @@ import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.utils.DIPairUtils;
 import com.rarnu.tools.root.utils.PingUtils;
 
-@SuppressLint("HandlerLeak")
+
 public class HostDeprecatedActivity extends BaseActivity implements
 		OnClickListener {
 
@@ -52,7 +52,7 @@ public class HostDeprecatedActivity extends BaseActivity implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_host_deprecated);
-		init();
+
 		loadHosts();
 		LogApi.logEnterDeprecatedHosts();
 	}
@@ -98,7 +98,7 @@ public class HostDeprecatedActivity extends BaseActivity implements
 		LogApi.logCleanDeprecatedHosts();
 		progressDeprecated.setAppName(getString(R.string.testing));
 		progressDeprecated.setVisibility(View.VISIBLE);
-		btnRight.setEnabled(false);
+		
 
 		final Handler h = new Handler() {
 			@Override
@@ -107,7 +107,7 @@ public class HostDeprecatedActivity extends BaseActivity implements
 				if (msg.what == 1) {
 					progressDeprecated.setVisibility(View.GONE);
 					adapter.notifyDataSetChanged();
-					btnRight.setEnabled(true);
+					
 					boolean ret = DIPairUtils.saveHosts(lstDeprecated);
 					if (ret) {
 						Toast.makeText(HostDeprecatedActivity.this,
@@ -174,17 +174,9 @@ public class HostDeprecatedActivity extends BaseActivity implements
 	// [/region]
 
 	// [region] init
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
+	
 
-	}
-
-	@Override
+	
 	public void mappingComp() {
 
 		lvDeprecatedHosts = (ListView) findViewById(R.id.lvDeprecatedHosts);
@@ -192,33 +184,12 @@ public class HostDeprecatedActivity extends BaseActivity implements
 
 	}
 
-	@Override
-	public void initTitle() {
-
-		tvName.setText(R.string.clean_deprecated_hosts);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.clean);
-		btnRight.setVisibility(View.VISIBLE);
-
-		// tbTitle.setText(getString(R.string.clean_deprecated_hosts));
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.setRightButtonText(getString(R.string.clean));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
-
-	}
+	
 
 	@Override
-	public void initSearchBar() {
-
-	}
-
-	@Override
-	public void initEvents() {
-		btnRight.setOnClickListener(this);
-		btnLeft.setOnClickListener(this);
-
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

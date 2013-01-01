@@ -2,6 +2,7 @@ package com.rarnu.tools.root;
 
 import java.util.List;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,7 +35,7 @@ public class HostEditActivity extends BaseActivity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_host_edit);
-		init();
+
 		loadHosts();
 		LogApi.logEnterManualEditHosts();
 	}
@@ -98,49 +99,20 @@ public class HostEditActivity extends BaseActivity implements OnClickListener {
 	// [/region]
 
 	// [region] init
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
+	
 
-	}
-
-	@Override
+	
 	public void mappingComp() {
 
 		etEditHosts = (EditText) findViewById(R.id.etEditHosts);
 	}
 
-	@Override
-	public void initTitle() {
-
-		tvName.setText(R.string.manual_edit_hosts);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.save);
-		btnRight.setVisibility(View.VISIBLE);
-
-		// tbTitle.setText(getString(R.string.manual_edit_hosts));
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.setRightButtonText(getString(R.string.save));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
-
-	}
+	
 
 	@Override
-	public void initSearchBar() {
-
-	}
-
-	@Override
-	public void initEvents() {
-		btnRight.setOnClickListener(this);
-		btnLeft.setOnClickListener(this);
-
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

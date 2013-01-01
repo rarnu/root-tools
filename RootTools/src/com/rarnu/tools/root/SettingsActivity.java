@@ -1,6 +1,6 @@
 package com.rarnu.tools.root;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,7 +21,7 @@ import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.LineEditText;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-@SuppressLint("HandlerLeak")
+
 public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
@@ -43,7 +43,7 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_settings);
-		init();
+
 		LogApi.logEnterSystemSettings();
 	}
 
@@ -168,18 +168,9 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 
 	// [/region]
 
-	// [region] init
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
-		initConfigValues();
-	}
+	
 
-	@Override
+	
 	public void mappingComp() {
 
 		layAllowDeleteLevel0 = (RelativeLayout) findViewById(R.id.layAllowDeleteLevel0);
@@ -205,26 +196,11 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		etNameServer = (LineEditText) findViewById(R.id.etNameServer);
 	}
 
-	@Override
-	public void initTitle() {
-		tvName.setText(R.string.settings);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		//
-		// tbTitle.setText(getString(R.string.settings));
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
+	
 
-	}
-
-	@Override
-	public void initSearchBar() {
-
-	}
-
-	@Override
+	
 	public void initEvents() {
-		btnLeft.setOnClickListener(this);
+		
 		// checkbox click
 		imgAllowDeleteLevel0.setOnClickListener(this);
 		imgAlsoDeleteData.setOnClickListener(this);
@@ -271,6 +247,12 @@ public class SettingsActivity extends BaseActivity implements OnClickListener {
 		imgReinstallApk.setChecked(GlobalInstance.reinstallApk);
 		imgKillProcessBeforeClean
 				.setChecked(GlobalInstance.killProcessBeforeClean);
+	}
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

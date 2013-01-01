@@ -2,247 +2,225 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white" >
-
-    <include
-        android:id="@+id/tbTitle"
-        layout="@layout/title_bar" />
-
-    <RelativeLayout
-        android:id="@+id/layDetail"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/imgBottom"
-        android:layout_below="@+id/tbTitle"
-        android:padding="4dip" >
-
-        <ImageView
-            android:id="@+id/appIcon"
-            android:layout_width="48dip"
-            android:layout_height="48dip"
-            android:layout_marginLeft="4dip"
-            android:layout_marginTop="4dip"
-            android:contentDescription="@null" />
-
-        <TextView
-            android:id="@+id/appName"
-            android:layout_width="fill_parent"
-            android:layout_height="36dip"
-            android:layout_marginLeft="4dip"
-            android:layout_toRightOf="@+id/appIcon"
-            android:ellipsize="end"
-            android:gravity="left|center_vertical"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textColor="@color/black"
-            android:textSize="18dip" />
-
-        <TextView
-            android:id="@+id/appVersion"
-            android:layout_width="fill_parent"
-            android:layout_height="20dip"
-            android:layout_below="@+id/appName"
-            android:layout_marginLeft="4dip"
-            android:layout_toRightOf="@+id/appIcon"
-            android:ellipsize="end"
-            android:gravity="left|center_vertical"
-            android:maxLines="1"
-            android:singleLine="true"
-            android:textSize="12dip" />
-
-        <Button
-            android:id="@+id/btnDelete"
-            android:layout_width="fill_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/appVersion"
-            android:layout_marginLeft="48dip"
-            android:layout_marginRight="48dip"
-            android:layout_marginTop="8dip"
-            android:background="@drawable/button_style"
-            android:text="@string/button_delete"
-            android:textColor="@color/white" />
-
-        <ScrollView
-            android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:layout_below="@+id/btnDelete"
-            android:layout_marginTop="8dip" >
-
-            <RelativeLayout
-                android:layout_width="fill_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dip" >
-
-                <RelativeLayout
-                    android:id="@+id/layApkPath"
-                    android:layout_width="fill_parent"
-                    android:layout_height="48dip"
-                    android:background="@drawable/list_above_background"
-                    android:clickable="false" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingLeft="8dip"
-                        android:text="@string/textview_path"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/tvPathDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="8dip"
-                        android:textColor="@color/orange"
-                        android:textSize="12dip" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/layOdexPath"
-                    android:layout_width="fill_parent"
-                    android:layout_height="48dip"
-                    android:layout_below="@+id/layApkPath"
-                    android:background="@drawable/list_middle_background"
-                    android:clickable="false" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingLeft="8dip"
-                        android:text="@string/textview_odex"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/tvOdexDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="8dip"
-                        android:textColor="@color/orange"
-                        android:textSize="12dip" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/layFileSize"
-                    android:layout_width="fill_parent"
-                    android:layout_height="48dip"
-                    android:layout_below="@+id/layOdexPath"
-                    android:background="@drawable/list_middle_background"
-                    android:clickable="false" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingLeft="8dip"
-                        android:text="@string/textview_filesize"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/tvFileSizeDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="8dip"
-                        android:textColor="@color/orange"
-                        android:textSize="12dip" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/layDataPath"
-                    android:layout_width="fill_parent"
-                    android:layout_height="48dip"
-                    android:layout_below="@+id/layFileSize"
-                    android:background="@drawable/list_middle_background"
-                    android:clickable="false" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingLeft="8dip"
-                        android:text="@string/textview_datapath"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/tvDataPathDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="8dip"
-                        android:textColor="@color/orange"
-                        android:textSize="12dip" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/layDataSize"
-                    android:layout_width="fill_parent"
-                    android:layout_height="48dip"
-                    android:layout_below="@+id/layDataPath"
-                    android:background="@drawable/list_middle_background"
-                    android:clickable="false" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingLeft="8dip"
-                        android:text="@string/textview_datasize"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/tvDataSizeDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="8dip"
-                        android:textColor="@color/orange"
-                        android:textSize="12dip" />
-                </RelativeLayout>
-
-                <RelativeLayout
-                    android:id="@+id/layShareUid"
-                    android:layout_width="fill_parent"
-                    android:layout_height="48dip"
-                    android:layout_below="@+id/layDataSize"
-                    android:background="@drawable/list_below_background"
-                    android:clickable="false" >
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_centerVertical="true"
-                        android:paddingLeft="8dip"
-                        android:text="@string/textview_library"
-                        android:textColor="@color/black" />
-
-                    <TextView
-                        android:id="@+id/tvSharedIdDetail"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentRight="true"
-                        android:layout_centerVertical="true"
-                        android:paddingRight="8dip"
-                        android:textColor="@color/orange"
-                        android:textSize="12dip" />
-                </RelativeLayout>
-            </RelativeLayout>
-        </ScrollView>
-    </RelativeLayout>
+    android:padding="4dip" >
 
     <ImageView
-        android:id="@+id/imgBottom"
-        android:layout_width="fill_parent"
-        android:layout_height="4dip"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottombar"
+        android:id="@+id/appIcon"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:layout_marginLeft="4dip"
+        android:layout_marginTop="4dip"
         android:contentDescription="@null" />
+
+    <TextView
+        android:id="@+id/appName"
+        android:layout_width="fill_parent"
+        android:layout_height="36dip"
+        android:layout_marginLeft="4dip"
+        android:layout_toRightOf="@+id/appIcon"
+        android:ellipsize="end"
+        android:gravity="left|center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/white"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/appVersion"
+        android:layout_width="fill_parent"
+        android:layout_height="20dip"
+        android:layout_below="@+id/appName"
+        android:layout_marginLeft="4dip"
+        android:layout_toRightOf="@+id/appIcon"
+        android:ellipsize="end"
+        android:gravity="left|center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textSize="12sp" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/appVersion"
+        android:layout_marginLeft="48dip"
+        android:layout_marginRight="48dip"
+        android:layout_marginTop="8dip"
+        android:text="@string/button_delete"
+        android:textColor="@color/white" />
+
+    <ScrollView
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_below="@+id/btnDelete"
+        android:layout_marginTop="8dip" >
+
+        <RelativeLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="4dip" >
+
+            <RelativeLayout
+                android:id="@+id/layApkPath"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:background="@drawable/list_above_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_path"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvPathDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layOdexPath"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layApkPath"
+                android:background="@drawable/list_middle_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_odex"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvOdexDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layFileSize"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layOdexPath"
+                android:background="@drawable/list_middle_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_filesize"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvFileSizeDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layDataPath"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layFileSize"
+                android:background="@drawable/list_middle_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_datapath"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvDataPathDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layDataSize"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layDataPath"
+                android:background="@drawable/list_middle_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_datasize"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvDataSizeDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/layShareUid"
+                android:layout_width="fill_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/layDataSize"
+                android:background="@drawable/list_below_background"
+                android:clickable="false" >
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerVertical="true"
+                    android:paddingLeft="8dip"
+                    android:text="@string/textview_library"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvSharedIdDetail"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_centerVertical="true"
+                    android:paddingRight="8dip"
+                    android:textColor="@color/orange"
+                    android:textSize="12sp" />
+            </RelativeLayout>
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>

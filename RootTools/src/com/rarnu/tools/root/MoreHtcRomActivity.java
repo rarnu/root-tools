@@ -1,6 +1,6 @@
 package com.rarnu.tools.root;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
@@ -17,7 +17,7 @@ import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.HtcRomItem;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-@SuppressLint("HandlerLeak")
+
 public class MoreHtcRomActivity extends BaseActivity implements OnClickListener {
 
 	HtcRomItem itmCar, itmFacebook, itmTwitter, itmDropbox, itmSkydrive,
@@ -28,16 +28,14 @@ public class MoreHtcRomActivity extends BaseActivity implements OnClickListener 
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_more_htcrom);
-		init();
+
 	}
 
-	@Override
+	
 	public void init() {
-		mappingTitle();
+
 		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
+
 
 		itmCar.setName(R.string.itm_car);
 		itmCar.setDesc(R.string.itmdesc_car);
@@ -61,7 +59,7 @@ public class MoreHtcRomActivity extends BaseActivity implements OnClickListener 
 		itm3rd.setDesc(R.string.itmdesc_3rd);
 	}
 
-	@Override
+	
 	public void mappingComp() {
 		progressHtcRom = (DataProgressBar) findViewById(R.id.progressHtcRom);
 		itmCar = (HtcRomItem) findViewById(R.id.itmCar);
@@ -76,25 +74,6 @@ public class MoreHtcRomActivity extends BaseActivity implements OnClickListener 
 		itm3rd = (HtcRomItem) findViewById(R.id.itm3rd);
 	}
 
-	@Override
-	public void initTitle() {
-		tvName.setText(R.string.clean_htc_rom);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.clean);
-		btnRight.setVisibility(View.VISIBLE);
-	}
-
-	@Override
-	public void initSearchBar() {
-
-	}
-
-	@Override
-	public void initEvents() {
-		btnLeft.setOnClickListener(this);
-		btnRight.setOnClickListener(this);
-	}
 
 	@Override
 	public void onClick(View v) {
@@ -267,5 +246,11 @@ public class MoreHtcRomActivity extends BaseActivity implements OnClickListener 
 		} catch (NameNotFoundException e) {
 			Log.e("PackageNotFound", e.getMessage());
 		}
+	}
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 }

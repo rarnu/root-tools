@@ -11,11 +11,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.ActivityIntf;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-public class MemProcessActivity extends Activity implements ActivityIntf, OnClickListener {
+public class MemProcessActivity extends Activity implements OnClickListener {
 
 	// [region] field define
 	ImageView ImgIcon;
@@ -31,7 +30,7 @@ public class MemProcessActivity extends Activity implements ActivityIntf, OnClic
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.layout_mem_process);
-		init();
+
 		showProcessInfo();
 		showIgnoreStatus();
 	}
@@ -116,16 +115,8 @@ public class MemProcessActivity extends Activity implements ActivityIntf, OnClic
 	// [/region]
 	
 	// [region] init
-	@Override
-	public void init() {
-		mappingComp();
-		initSearchBar();
-		initTitle();
-		initEvents();
-
-	}
-
-	@Override
+	
+	
 	public void mappingComp() {
 		ImgIcon = (ImageView) findViewById(R.id.ImgIcon);
 		tvName = (TextView) findViewById(R.id.tvName);
@@ -140,17 +131,9 @@ public class MemProcessActivity extends Activity implements ActivityIntf, OnClic
 
 	}
 
-	@Override
-	public void initTitle() {
+	
 
-	}
-
-	@Override
-	public void initSearchBar() {
-
-	}
-
-	@Override
+	
 	public void initEvents() {
 		btnCancel.setOnClickListener(this);
 		btnKill.setOnClickListener(this);

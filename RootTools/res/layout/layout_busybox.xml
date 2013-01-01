@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white" >
-
-    <include
-        android:id="@+id/tbTitle"
-        layout="@layout/title_bar" />
+    android:layout_height="match_parent" >
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/imgBottom"
-        android:layout_below="@+id/tbTitle" >
+        android:layout_height="fill_parent" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -41,7 +34,7 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/file_su"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/imgSu"
@@ -66,7 +59,7 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/file_super_user"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/imgSuperUser"
@@ -91,7 +84,7 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/file_busybox"
-                    android:textColor="@color/black" />
+                    android:textColor="@color/white" />
 
                 <ImageView
                     android:id="@+id/imgBusybox"
@@ -108,15 +101,7 @@
         android:id="@+id/progressBusybox"
         android:layout_width="fill_parent"
         android:layout_height="24dip"
-        android:layout_above="@+id/imgBottom"
-        android:visibility="gone" />
-
-    <ImageView
-        android:id="@+id/imgBottom"
-        android:layout_width="fill_parent"
-        android:layout_height="4dip"
         android:layout_alignParentBottom="true"
-        android:background="@drawable/bottombar"
-        android:contentDescription="@null" />
+        android:visibility="gone" />
 
 </RelativeLayout>

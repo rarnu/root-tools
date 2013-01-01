@@ -1,5 +1,6 @@
 package com.rarnu.tools.root;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -34,7 +35,7 @@ public class RecommandActivity extends BaseActivity implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		setContentView(R.layout.layout_recommand);
-		init();
+
 		LogApi.logEnterAppRecommand();
 	}
 
@@ -67,17 +68,9 @@ public class RecommandActivity extends BaseActivity implements OnClickListener {
 
 	// [region] init
 
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initSearchBar();
-		initTitle();
-		initEvents();
+	
 
-	}
-
-	@Override
+	
 	public void mappingComp() {
 
 		layAnjuke = (RelativeLayout) findViewById(R.id.layAnjuke);
@@ -86,29 +79,21 @@ public class RecommandActivity extends BaseActivity implements OnClickListener {
 
 	}
 
-	@Override
-	public void initTitle() {
-		tvName.setText(R.string.app_push);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
 
-		// tbTitle.setText(getString(R.string.app_push));
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-	}
 
-	@Override
-	public void initSearchBar() {
-
-	}
-
-	@Override
+	
 	public void initEvents() {
-		btnLeft.setOnClickListener(this);
+		
 		layAnjuke.setOnClickListener(this);
 		layHaozu.setOnClickListener(this);
 		layBroker.setOnClickListener(this);
 
 	}
 	// [/region]
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

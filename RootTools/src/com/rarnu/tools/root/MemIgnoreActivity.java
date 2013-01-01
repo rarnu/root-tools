@@ -2,7 +2,7 @@ package com.rarnu.tools.root;
 
 import java.util.List;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -19,7 +19,6 @@ import com.rarnu.tools.root.common.MemIgnoreInfo;
 import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 
-@SuppressLint("HandlerLeak")
 public class MemIgnoreActivity extends BaseActivity implements OnClickListener {
 
 	// [region] field define
@@ -51,7 +50,7 @@ public class MemIgnoreActivity extends BaseActivity implements OnClickListener {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_mem_ignore);
-		init();
+	
 		loadIgnore();
 		LogApi.logEnterDeleteIgnore();
 	}
@@ -143,47 +142,29 @@ public class MemIgnoreActivity extends BaseActivity implements OnClickListener {
 	// [/region]
 
 	// [region] init
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
+	
 
-	}
-
-	@Override
+	
 	public void mappingComp() {
 
 		barIgnore = (DataBar) findViewById(R.id.barIgnore);
 		lvIgnore = (ListView) findViewById(R.id.lvIgnore);
 	}
 
-	@Override
-	public void initTitle() {
-		tvName.setText(R.string.kill_ignore_list);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
 
-		// tbTitle.setText(getString(R.string.kill_ignore_list));
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
 
-	}
-
-	@Override
-	public void initSearchBar() {
-		barIgnore.setCheckBoxVisible(true);
-
-	}
-
-	@Override
+	
 	public void initEvents() {
-		btnLeft.setOnClickListener(this);
+		
 		barIgnore.getButton1().setOnClickListener(this);
 		barIgnore.getButton2().setOnClickListener(this);
 		barIgnore.getCheckBox().setOnClickListener(this);
+	}
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 	// [/region]

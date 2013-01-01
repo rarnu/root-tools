@@ -3,7 +3,7 @@ package com.rarnu.tools.root;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -27,7 +27,6 @@ import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
 import com.rarnu.tools.root.utils.CacheUtils;
 
-@SuppressLint("HandlerLeak")
 public class CleanCacheMainActivity extends BaseActivity implements
 		OnClickListener, OnItemLongClickListener {
 
@@ -50,7 +49,7 @@ public class CleanCacheMainActivity extends BaseActivity implements
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.layout_clean_cache);
-		init();
+
 		loadCacheCount();
 		loadCache();
 		LogApi.logEnterCache();
@@ -58,18 +57,9 @@ public class CleanCacheMainActivity extends BaseActivity implements
 
 	// [/region]
 
-	// [region] init
-	@Override
-	public void init() {
-		mappingTitle();
-		mappingComp();
-		initTitle();
-		initSearchBar();
-		initEvents();
 
-	}
 
-	@Override
+	
 	public void mappingComp() {
 
 		lvCache = (ListView) findViewById(R.id.lvCache);
@@ -79,31 +69,12 @@ public class CleanCacheMainActivity extends BaseActivity implements
 		tvCacheInfo = (TextView) findViewById(R.id.tvCacheInfo);
 	}
 
-	@Override
-	public void initTitle() {
-		tvName.setText(R.string.func6_title);
-		btnLeft.setText(R.string.back);
-		btnLeft.setVisibility(View.VISIBLE);
-		btnRight.setText(R.string.refresh);
-		btnRight.setVisibility(View.VISIBLE);
 
-		// tbTitle.setText(getString(R.string.func6_title));
-		// tbTitle.setLeftButtonText(getString(R.string.back));
-		// tbTitle.getLeftButton().setVisibility(View.VISIBLE);
-		// tbTitle.setRightButtonText(getString(R.string.refresh));
-		// tbTitle.getRightButton().setVisibility(View.VISIBLE);
-	}
 
-	@Override
-	public void initSearchBar() {
-		sbCache.setAddButtonVisible(false);
-	}
-
-	@Override
+	
 	public void initEvents() {
 
-		btnLeft.setOnClickListener(this);
-		btnRight.setOnClickListener(this);
+
 		btnCleanCache.setOnClickListener(this);
 		lvCache.setOnItemLongClickListener(this);
 
@@ -196,7 +167,7 @@ public class CleanCacheMainActivity extends BaseActivity implements
 		btnCleanCache.setVisibility(View.GONE);
 		progressCache.setAppName(getString(R.string.loading));
 		progressCache.setVisibility(View.VISIBLE);
-		btnRight.setEnabled(false);
+
 
 		final Handler h = new Handler() {
 			@Override
@@ -212,7 +183,6 @@ public class CleanCacheMainActivity extends BaseActivity implements
 					lvCache.setAdapter(adapterCache);
 
 					progressCache.setVisibility(View.GONE);
-					btnRight.setEnabled(true);
 					btnCleanCache.setVisibility(View.VISIBLE);
 					loadCacheCount();
 				}
@@ -236,7 +206,6 @@ public class CleanCacheMainActivity extends BaseActivity implements
 		btnCleanCache.setVisibility(View.GONE);
 		progressCache.setAppName(getString(R.string.cleaning_cache));
 		progressCache.setVisibility(View.VISIBLE);
-		btnRight.setEnabled(false);
 
 		final Handler h = new Handler() {
 			@Override
@@ -250,7 +219,7 @@ public class CleanCacheMainActivity extends BaseActivity implements
 							Toast.LENGTH_LONG).show();
 
 					progressCache.setVisibility(View.GONE);
-					btnRight.setEnabled(true);
+
 					btnCleanCache.setVisibility(View.VISIBLE);
 					loadCache();
 				}
@@ -272,4 +241,10 @@ public class CleanCacheMainActivity extends BaseActivity implements
 		}).start();
 	}
 	// [/region]
+
+	@Override
+	public Fragment replaceFragment() {
+		// TODO Auto-generated method stub
+		return null;
+	}
 }

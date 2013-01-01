@@ -5,8 +5,8 @@
     android:versionName="2.4.2" >
 
     <uses-sdk
-        android:minSdkVersion="8"
-        android:targetSdkVersion="8" />
+        android:minSdkVersion="15"
+        android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.INTERNET" />
@@ -21,9 +21,8 @@
         android:icon="@drawable/icon"
         android:label="@string/app_name" >
         <activity
-            android:name=".WelcomeActivity"
-            android:label="@string/app_name"
-            android:screenOrientation="portrait"
+            android:name=".SplashActivity"
+            android:configChanges="keyboardHidden|orientation|screenSize"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateAlwaysHidden" >
             <intent-filter>
@@ -33,16 +32,47 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SysappMainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:name=".MainActivity"
+            android:label="@string/app_name"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.HelpActivity"
+            android:label="@string/help"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.UserFeedbackActivity"
+            android:label="@string/feedback"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.AboutActivity"
+            android:label="@string/about"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.BusyboxActivity"
+            android:label="@string/busybox"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.SysappMainActivity"
+            android:label="@string/func1_title"
+            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name=".SysappDetailActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" />
+            android:name=".fragmentactivity.SysappDetailActivity"
+            android:label="@string/sysapp_name"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" />
+        
         <activity
             android:name=".SysappSelectApkActivity"
             android:screenOrientation="portrait"
@@ -51,12 +81,6 @@
         </activity>
         <activity
             android:name=".SettingsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".SplashActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
@@ -104,18 +128,6 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name=".BusyboxActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".AboutActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
             android:name=".HostMainActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
@@ -135,18 +147,6 @@
         </activity>
         <activity
             android:name=".MemIgnoreActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".HelpActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".UserFeedbackActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
@@ -195,7 +195,6 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-
     </application>
 
 </manifest>

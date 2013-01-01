@@ -1,18 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white" >
-
-    <include
-        android:id="@+id/tbTitle"
-        layout="@layout/title_bar" />
+    android:layout_height="match_parent" >
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/imgBottom"
-        android:layout_below="@+id/tbTitle" >
+        android:layout_height="fill_parent" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -34,7 +27,7 @@
                 android:layout_toRightOf="@+id/imgIcon"
                 android:gravity="left|center_vertical"
                 android:text="@string/app_name"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <TextView
                 android:id="@+id/tvAppVersion"
@@ -43,7 +36,7 @@
                 android:layout_marginLeft="8dip"
                 android:layout_toRightOf="@+id/tvAppName"
                 android:gravity="left|center_vertical"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
             
             <TextView android:id="@+id/tvDebug"
                 android:layout_width="wrap_content"
@@ -51,7 +44,7 @@
                 android:layout_marginLeft="8dip"
                 android:layout_toRightOf="@+id/tvAppVersion"
                 android:gravity="left|center_vertical"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:text="@string/app_debug"/>
 
             <TextView
@@ -82,7 +75,7 @@
                 android:gravity="left|top"
                 android:lineSpacingExtra="3dip"
                 android:text="@string/help_about"
-                android:textColor="@color/black" />
+                android:textColor="@color/white" />
 
             <RelativeLayout
                 android:id="@+id/layBottom"
@@ -106,7 +99,7 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/check_update"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -123,7 +116,7 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/how_to_use"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
                 </RelativeLayout>
 
                 <RelativeLayout
@@ -140,7 +133,7 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/system_fitable"
-                        android:textColor="@color/black" />
+                        android:textColor="@color/white" />
 
                     <ImageView
                         android:id="@+id/imgFitable"
@@ -154,13 +147,5 @@
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
-
-    <ImageView
-        android:id="@+id/imgBottom"
-        android:layout_width="fill_parent"
-        android:layout_height="4dip"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottombar"
-        android:contentDescription="@null" />
 
 </RelativeLayout>
