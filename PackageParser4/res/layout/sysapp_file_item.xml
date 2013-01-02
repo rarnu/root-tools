@@ -16,8 +16,8 @@
 		android:layout_toRightOf="@+id/img_icon"
 		android:layout_marginLeft="4dip"
 		android:layout_marginRight="4dip"
-		android:textColor="@color/black"
+		android:textColor="@color/white"
 		android:gravity="left|center_vertical"
-		android:textSize="18dip"/>
+		android:textSize="18sp"/>
 
 </RelativeLayout>

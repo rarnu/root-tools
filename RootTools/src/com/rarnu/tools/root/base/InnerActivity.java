@@ -3,7 +3,6 @@ package com.rarnu.tools.root.base;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentTransaction;
 import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
@@ -23,7 +22,7 @@ public abstract class InnerActivity extends Activity {
 			finish();
 			return;
 		}
-		
+
 		setContentView(getBaseLayout());
 
 		bar = getActionBar();
@@ -33,7 +32,7 @@ public abstract class InnerActivity extends Activity {
 
 		redo();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
@@ -42,14 +41,15 @@ public abstract class InnerActivity extends Activity {
 
 	public void redo() {
 		getFragmentManager().beginTransaction()
-				.replace(getReplaceId(), replaceFragment())
-				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
-				.commit();
+				.replace(getReplaceId(), replaceFragment()).commit();
 	}
 
 	public abstract boolean getCondition();
+
 	public abstract int getBaseLayout();
+
 	public abstract int getReplaceId();
+
 	public abstract Fragment replaceFragment();
 
 	@Override
@@ -61,5 +61,5 @@ public abstract class InnerActivity extends Activity {
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 }

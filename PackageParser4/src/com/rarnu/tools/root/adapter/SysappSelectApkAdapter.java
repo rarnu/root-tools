@@ -75,7 +75,7 @@ public class SysappSelectApkAdapter extends BaseAdapter {
 			}
 			holder.tvFilename.setText(item.filename);
 
-			holder.tvFilename.setTextColor(Color.BLACK);
+			holder.tvFilename.setTextColor(Color.WHITE);
 
 			switch (item.level) {
 			case 0:

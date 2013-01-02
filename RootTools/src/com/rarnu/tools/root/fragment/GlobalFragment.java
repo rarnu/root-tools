@@ -18,6 +18,7 @@ public class GlobalFragment {
 	public static BusyboxFragment fBusybox = new BusyboxFragment();
 	public static SysappFragment fSysapp = new SysappFragment();
 	public static SysappDetailFragment fSysappDetail = new SysappDetailFragment();
+	public static SysappSelectApkFragment fSysappSelectApk = new SysappSelectApkFragment();
 	
 	public static void showContent(Activity activity, Intent inContent, Fragment fContent) {
 		if (GlobalInstance.dualPane) {

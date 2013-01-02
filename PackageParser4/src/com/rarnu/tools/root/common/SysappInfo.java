@@ -6,4 +6,5 @@ public class SysappInfo {
 	public ApplicationInfo info;
 	public int level;
 	public int position;
+
 }

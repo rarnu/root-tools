@@ -33,8 +33,7 @@ public class ApkUtils {
 
 	public static List<SysappInfo> getSystemApps(Context context) {
 		List<SysappInfo> res = new ArrayList<SysappInfo>();
-		List<PackageInfo> packs = GlobalInstance.pm
-				.getInstalledPackages(0);
+		List<PackageInfo> packs = GlobalInstance.pm.getInstalledPackages(0);
 		int position = 0;
 		for (int i = 0; i < packs.size(); i++) {
 			PackageInfo p = packs.get(i);
@@ -120,8 +119,13 @@ public class ApkUtils {
 
 	public static boolean installSystemApp(String path) {
 		String fn = path.substring(0, path.length() - 3) + "*";
+		String onlyApkName = path.substring(path.lastIndexOf("/") + 1);
 		CommandResult result = RootUtils.runCommand("busybox cp -r " + fn
 				+ " /system/app/", true);
+		if (result.error.equals("")) {
+			result = RootUtils.runCommand("chmod 644 /system/app/"
+					+ onlyApkName, true);
+		}
 		return result.error.equals("");
 	}
 
@@ -523,13 +527,14 @@ public class ApkUtils {
 
 	public static boolean uninstallApk(String packageName) {
 		try {
-			CommandResult cmdRet = RootUtils.runCommand(String.format("pm uninstall %s", packageName), true);
+			CommandResult cmdRet = RootUtils.runCommand(
+					String.format("pm uninstall %s", packageName), true);
 			return cmdRet.error.equals("");
 		} catch (Exception e) {
 			return false;
 		}
 	}
-	
+
 	private static List<DataappInfo> operationLog = new ArrayList<DataappInfo>();
 
 	public static void clearOperationLog() {

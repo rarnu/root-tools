@@ -1,7 +1,7 @@
 package com.rarnu.tools.root.base;
 
 
-public abstract class BasePopopFragment extends InnerFragment {
+public abstract class BasePopupFragment extends InnerFragment {
 
 	@Override
 	protected boolean getCondition() {

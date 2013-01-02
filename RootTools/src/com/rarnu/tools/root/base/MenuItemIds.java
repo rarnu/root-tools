@@ -12,4 +12,6 @@ public class MenuItemIds {
 	public static final int MENU_SEARCH = Menu.FIRST + 4;
 	public static final int MENU_ADD = Menu.FIRST + 5;
 	public static final int MENU_REFRESH = Menu.FIRST + 6;
+	
+	public static final int MENU_UPLEVEL = Menu.FIRST + 7;
 }
