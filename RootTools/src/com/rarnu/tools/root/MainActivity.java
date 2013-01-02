@@ -38,6 +38,8 @@ public class MainActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
+		
+		GlobalFragment.loadFragments();
 
 		if (!oneTimeRun) {
 			oneTimeRun = true;
@@ -100,6 +102,7 @@ public class MainActivity extends Activity {
 	
 	@Override
 	protected void onResume() {
+		GlobalFragment.loadFragments();
 		super.onResume();
 		setDualPane();
 	}

@@ -8,6 +8,7 @@ import android.view.MenuItem;
 import android.view.Window;
 
 import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.fragment.GlobalFragment;
 
 public abstract class InnerActivity extends Activity {
 
@@ -17,6 +18,8 @@ public abstract class InnerActivity extends Activity {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
+		
+		GlobalFragment.loadFragments();
 
 		if (getCondition()) {
 			finish();
@@ -35,6 +38,7 @@ public abstract class InnerActivity extends Activity {
 
 	@Override
 	protected void onResume() {
+		GlobalFragment.loadFragments();
 		super.onResume();
 		redo();
 	}
