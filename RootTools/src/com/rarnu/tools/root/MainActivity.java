@@ -69,7 +69,6 @@ public class MainActivity extends Activity {
 	}
 
 	private void loadUI() {
-		hideCurrentFragments();
 		setContentView(R.layout.layout_main);
 		replaceMainFragment();
 		View vDetail = findViewById(R.id.fragmentDetail);
@@ -114,11 +113,11 @@ public class MainActivity extends Activity {
 			}
 		}
 	}
-
+	
 	@Override
-	protected void onResume() {
+	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		GlobalFragment.loadFragments();
-		super.onResume();
+		super.onRestoreInstanceState(savedInstanceState);
 	}
 
 	private void replaceMainFragment() {
@@ -137,13 +136,6 @@ public class MainActivity extends Activity {
 		fragmentTransaction.replace(R.id.fragmentDetail, f);
 		fragmentTransaction.show(f);
 		fragmentTransaction.commit();
-	}
-
-	private void hideCurrentFragments() {
-		if (GlobalFragment.currentFragment != null) {
-			getFragmentManager().beginTransaction()
-					.remove(GlobalFragment.currentFragment).commit();
-		}
 	}
 
 	@Override

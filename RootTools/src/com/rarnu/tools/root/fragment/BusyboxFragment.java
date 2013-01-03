@@ -1,6 +1,5 @@
 package com.rarnu.tools.root.fragment;
 
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
@@ -25,19 +24,6 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 	RelativeLayout laySu, laySuperuser, layBusybox;
 	ImageView imgSu, imgSuperuser, imgBusybox;
 	DataProgressBar progressBusybox;
-
-	@Override
-	public void onResume() {
-		super.onResume();
-
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		checkStatus();
-		LogApi.logEnterRootBusybox();
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -272,6 +258,12 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 		itemHelp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		itemHelp.setIcon(android.R.drawable.ic_menu_help);
 		
+	}
+
+	@Override
+	protected void initLogic() {
+		checkStatus();
+		LogApi.logEnterRootBusybox();
 	}
 
 

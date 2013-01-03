@@ -53,12 +53,6 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 		super.onCreate(savedInstanceState);
 		LogApi.logEnterSystemSettings();
 	}
-	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		initConfigValues();
-	}
 
 	@Override
 	protected void initComponents() {
@@ -268,6 +262,11 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 						deleteAllBackupedDataT();
 					}
 				}, getString(R.string.cancel), null);
+	}
+
+	@Override
+	protected void initLogic() {
+		initConfigValues();
 	}
 
 }

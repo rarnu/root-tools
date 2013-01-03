@@ -59,7 +59,6 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 		pbShowing = (ProgressBar) innerView.findViewById(R.id.pbShowing);
 		lvFiles.setOnItemClickListener(this);
 
-		showDirT(currentDir);
 	}
 
 	@Override
@@ -198,6 +197,11 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 		itemUp.setIcon(android.R.drawable.ic_menu_upload);
 		itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
+	}
+
+	@Override
+	protected void initLogic() {
+		showDirT(currentDir);
 	}
 
 }

@@ -1,6 +1,5 @@
 package com.rarnu.tools.root.fragment;
 
-import android.os.Bundle;
 import android.view.Menu;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
@@ -12,12 +11,6 @@ import com.rarnu.tools.root.base.BaseFragment;
 public class IntroFragment extends BaseFragment {
 
 	WebView wvHelp;
-	
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		showHelp();
-	}
 
 	private void showHelp() {
 		WebSettings settings = wvHelp.getSettings();
@@ -64,6 +57,12 @@ public class IntroFragment extends BaseFragment {
 
 	@Override
 	protected void initMenu(Menu menu) {
+		
+	}
+
+	@Override
+	protected void initLogic() {
+		showHelp();
 		
 	}
 

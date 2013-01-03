@@ -2,7 +2,6 @@ package com.rarnu.tools.root.fragment;
 
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -27,17 +26,6 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 
 	int fitable = 5;
 	int fitableClick = 0;
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-
-		showAppVersion();
-		showSystemFitable();
-		showDebugStatus();
-		LogApi.logEnterAbout();
-		fitableClick = 0;
-	}
 
 	private void showUpdateInfo() {
 
@@ -145,8 +133,7 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 	@Override
 	protected void initComponents() {
 		layHelp = (RelativeLayout) innerView.findViewById(R.id.layHelp);
-		layFitable = (RelativeLayout) innerView
-				.findViewById(R.id.layFitable);
+		layFitable = (RelativeLayout) innerView.findViewById(R.id.layFitable);
 		imgFitable = (ImageView) innerView.findViewById(R.id.imgFitable);
 		tvAppVersion = (TextView) innerView.findViewById(R.id.tvAppVersion);
 		tvDebug = (TextView) innerView.findViewById(R.id.tvDebug);
@@ -154,7 +141,7 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 
 		layUpdate.setOnClickListener(this);
 		layHelp.setOnClickListener(this);
-		
+
 	}
 
 	@Override
@@ -164,8 +151,16 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	protected void initMenu(Menu menu) {
-		
-		
+
+	}
+
+	@Override
+	protected void initLogic() {
+		showAppVersion();
+		showSystemFitable();
+		showDebugStatus();
+		LogApi.logEnterAbout();
+		fitableClick = 0;
 	}
 
 }

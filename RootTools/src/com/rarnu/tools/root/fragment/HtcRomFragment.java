@@ -254,4 +254,10 @@ public class HtcRomFragment extends BaseFragment {
 		}
 	}
 
+	@Override
+	protected void initLogic() {
+		
+		
+	}
+
 }

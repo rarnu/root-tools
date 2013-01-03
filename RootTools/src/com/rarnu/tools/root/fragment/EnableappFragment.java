@@ -66,7 +66,7 @@ public class EnableappFragment extends BaseFragment implements
 
 		loader = new EnableappLoader(getActivity());
 		loader.registerListener(0, this);
-		doStartLoad();
+		
 	}
 
 	@Override
@@ -193,6 +193,12 @@ public class EnableappFragment extends BaseFragment implements
 			enableappAdapter.getFilter().filter(newText);
 		}
 		return false;
+	}
+
+	@Override
+	protected void initLogic() {
+		doStartLoad();
+		
 	}
 
 }

@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -46,12 +45,6 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	// [region] variable define
 	SysappInfo info = null;
 	PackageInfo pinfo = null;
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		showAppInfo();
-	}
 
 	@Override
 	protected int getBarTitle() {
@@ -215,6 +208,11 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	@Override
 	protected void initMenu(Menu menu) {
 		
+	}
+
+	@Override
+	protected void initLogic() {
+		showAppInfo();
 	}
 
 

@@ -197,7 +197,7 @@ public class SysappFragment extends BaseFragment implements
 
 		loader = new SysappLoader(getActivity());
 		loader.registerListener(0, this);
-		doStartLoad();
+		
 
 	}
 
@@ -225,6 +225,12 @@ public class SysappFragment extends BaseFragment implements
 		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
 		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
+	}
+
+	@Override
+	protected void initLogic() {
+		doStartLoad();
+		
 	}
 
 }

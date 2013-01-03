@@ -119,4 +119,9 @@ public class FeedbackFragment extends BaseFragment {
 		
 	}
 
+	@Override
+	protected void initLogic() {
+		
+	}
+
 }

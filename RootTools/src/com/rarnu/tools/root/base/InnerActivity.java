@@ -33,18 +33,10 @@ public abstract class InnerActivity extends Activity {
 		bar.setDisplayOptions(0, ActionBar.DISPLAY_HOME_AS_UP);
 		bar.setDisplayHomeAsUpEnabled(true);
 
-		redo();
+		replace();
 	}
 
-	@Override
-	protected void onResume() {
-		GlobalFragment.loadFragments();
-		super.onResume();
-		// getFragmentManager().beginTransaction().show(replaceFragment()).commit();
-		// redo();
-	}
-
-	public void redo() {
+	public void replace() {
 		GlobalFragment.currentFragment = replaceFragment();
 		getFragmentManager().beginTransaction()
 				.replace(getReplaceId(), replaceFragment()).commit();

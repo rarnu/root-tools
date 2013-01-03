@@ -69,7 +69,6 @@ public class CleanCacheFragment extends BaseFragment implements
 
 		loader = new CleanCacheLoader(getActivity());
 		loader.registerListener(0, this);
-		doStartLoad();
 	}
 
 	@Override
@@ -233,6 +232,11 @@ public class CleanCacheFragment extends BaseFragment implements
 			adapterCache.getFilter().filter(newText);
 		}
 		return true;
+	}
+
+	@Override
+	protected void initLogic() {
+		doStartLoad();
 	}
 
 }

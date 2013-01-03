@@ -15,7 +15,7 @@ import com.rarnu.tools.root.R;
 
 public abstract class InnerFragment extends Fragment {
 
-	protected View innerView;
+	protected View innerView = null;
 
 	@Override
 	public void onAttach(Activity activity) {
@@ -34,17 +34,26 @@ public abstract class InnerFragment extends Fragment {
 			innerView = inflater.inflate(getFragmentLayoutResId(), container,
 					false);
 			initComponents();
+			initLogic();
 		}
 		return innerView;
 	}
 
+	@Override
+	public void onLowMemory() {
+		super.onLowMemory();
+		innerView = null;
+	}
+	
 	protected abstract boolean getCondition();
-
+	
 	protected abstract int getBarTitle();
 
 	protected abstract int getBarTitleWithPath();
 
 	protected abstract void initComponents();
+
+	protected abstract void initLogic();
 
 	protected abstract int getFragmentLayoutResId();
 
