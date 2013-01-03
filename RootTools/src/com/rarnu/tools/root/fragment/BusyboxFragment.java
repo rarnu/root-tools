@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,15 +37,6 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 		super.onActivityCreated(savedInstanceState);
 		checkStatus();
 		LogApi.logEnterRootBusybox();
-	}
-
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		menu.clear();
-		MenuItem itemHelp = menu.add(0, MenuItemIds.MENU_HELP, 99,
-				R.string.help);
-		itemHelp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		itemHelp.setIcon(android.R.drawable.ic_menu_help);
 	}
 
 	@Override
@@ -257,11 +247,9 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 		laySu = (RelativeLayout) innerView.findViewById(R.id.laySu);
 		laySuperuser = (RelativeLayout) innerView
 				.findViewById(R.id.laySuperuser);
-		layBusybox = (RelativeLayout) innerView
-				.findViewById(R.id.layBusybox);
+		layBusybox = (RelativeLayout) innerView.findViewById(R.id.layBusybox);
 		imgSu = (ImageView) innerView.findViewById(R.id.imgSu);
-		imgSuperuser = (ImageView) innerView
-				.findViewById(R.id.imgSuperUser);
+		imgSuperuser = (ImageView) innerView.findViewById(R.id.imgSuperUser);
 		imgBusybox = (ImageView) innerView.findViewById(R.id.imgBusybox);
 		progressBusybox = (DataProgressBar) innerView
 				.findViewById(R.id.progressBusybox);
@@ -269,12 +257,22 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 		laySu.setOnClickListener(this);
 		laySuperuser.setOnClickListener(this);
 		layBusybox.setOnClickListener(this);
-		
+
 	}
 
 	@Override
 	protected int getFragmentLayoutResId() {
 		return R.layout.layout_busybox;
 	}
+
+	@Override
+	protected void initMenu(Menu menu) {
+		MenuItem itemHelp = menu.add(0, MenuItemIds.MENU_HELP, 99,
+				R.string.help);
+		itemHelp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		itemHelp.setIcon(android.R.drawable.ic_menu_help);
+		
+	}
+
 
 }

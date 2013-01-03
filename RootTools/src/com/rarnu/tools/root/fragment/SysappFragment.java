@@ -1,19 +1,18 @@
 package com.rarnu.tools.root.fragment;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -29,13 +28,14 @@ import com.rarnu.tools.root.adapter.SysappAdapter;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.base.MenuItemIds;
-import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.common.SysappInfo;
+import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.fragmentactivity.SysappDetailActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappSelectApkActivity;
 import com.rarnu.tools.root.loader.SysappLoader;
+import com.rarnu.tools.root.utils.ApkUtils;
 
 public class SysappFragment extends BaseFragment implements
 		OnQueryTextListener, OnItemClickListener,
@@ -52,40 +52,9 @@ public class SysappFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		getActivity().registerReceiver(receiverInstallResult,
-				filterInstallResult);
-		getActivity().registerReceiver(receiverUninstallResult,
-				filterUninstallResult);
 		LogApi.logEnterSysapp();
 	}
 
-	@Override
-	public void onDestroy() {
-		getActivity().unregisterReceiver(receiverInstallResult);
-		getActivity().unregisterReceiver(receiverUninstallResult);
-		super.onDestroy();
-	}
-
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		menu.clear();
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
-				R.string.search);
-		itemSearch.setIcon(android.R.drawable.ic_menu_search);
-		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		SearchView sv = new SearchView(getActivity());
-		sv.setOnQueryTextListener(this);
-		itemSearch.setActionView(sv);
-
-		MenuItem itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
-		itemAdd.setIcon(android.R.drawable.ic_menu_add);
-		itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-		MenuItem itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100,
-				R.string.refresh);
-		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
-		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -136,12 +105,10 @@ public class SysappFragment extends BaseFragment implements
 				.getItemAtPosition(position);
 		Intent inApp = new Intent(getActivity(), SysappDetailActivity.class);
 		startActivityForResult(inApp, RTConsts.REQCODE_SYSAPP);
-
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		Log.e("SysappFragment", "onActivityResult");
 		if (resultCode != Activity.RESULT_OK) {
 			return;
 		}
@@ -149,10 +116,59 @@ public class SysappFragment extends BaseFragment implements
 		case RTConsts.REQCODE_SYSAPP:
 			boolean needRefresh = data.getBooleanExtra("needRefresh", false);
 			if (needRefresh) {
-
+				listSysappAll.remove(GlobalInstance.currentSysapp);
+				sysappAdapter.deleteItem(GlobalInstance.currentSysapp);
 			}
 			break;
+		case RTConsts.REQCODE_SYSAPP_SELECT:
+			final String apkPath = data.getStringExtra("path");
+			File apk = new File(apkPath);
+			if (!apk.exists()) {
+				return;
+			}
+			if (!apkPath.equals("")) {
+				AlertDialogEx.showAlertDialogEx(getActivity(), getString(R.string.hint),
+						String.format(
+								getResources().getString(R.string.install_apk),
+								apk.getName()), getString(R.string.ok),
+						new AlertDialogEx.DialogButtonClickListener() {
+
+							@Override
+							public void onClick(View v) {
+								doInstallSystemApp(apkPath);
+							}
+						}, getString(R.string.cancel), null);
+			}
+			break;
+
 		}
+	}
+	
+	private void doInstallSystemApp(final String path) {
+		progressSysapp.setAppName(getString(R.string.installing));
+		progressSysapp.setVisibility(View.VISIBLE);
+
+		LogApi.logInstallSystemApp(path);
+
+		final Handler h = new Handler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					Toast.makeText(
+							getActivity(),
+							(msg.arg1 == 1 ? R.string.install_ok
+									: R.string.install_fail), Toast.LENGTH_LONG)
+							.show();
+					progressSysapp.setVisibility(View.GONE);
+					doStartLoad();
+				}
+				super.handleMessage(msg);
+			}
+
+		};
+
+		ApkUtils.installSystemApp(getActivity(), path, h);
 	}
 
 	@Override
@@ -190,40 +206,26 @@ public class SysappFragment extends BaseFragment implements
 		return R.layout.layout_sysapp;
 	}
 
-	public class InstallResultReceiver extends BroadcastReceiver {
+	@Override
+	protected void initMenu(Menu menu) {
+		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
+				R.string.search);
+		itemSearch.setIcon(android.R.drawable.ic_menu_search);
+		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		SearchView sv = new SearchView(getActivity());
+		sv.setOnQueryTextListener(this);
+		itemSearch.setActionView(sv);
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (intent.getIntExtra("result", 0) == 1) {
-				doStartLoad();
-				Toast.makeText(getActivity(), R.string.install_ok,
-						Toast.LENGTH_LONG).show();
-			} else {
-				Toast.makeText(getActivity(), R.string.install_fail,
-						Toast.LENGTH_LONG).show();
-			}
-		}
+		MenuItem itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
+		itemAdd.setIcon(android.R.drawable.ic_menu_add);
+		itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+		MenuItem itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100,
+				R.string.refresh);
+		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
+		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		
 	}
 
-	public class UninstallResultReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			if (intent.getIntExtra("result", 0) == 1) {
-				doStartLoad();
-			} else {
-				Toast.makeText(getActivity(), R.string.delete_fail,
-						Toast.LENGTH_LONG).show();
-			}
-		}
-	}
-
-	public IntentFilter filterInstallResult = new IntentFilter(
-			Actions.ACTION_INSALL_RESULT);
-	public InstallResultReceiver receiverInstallResult = new InstallResultReceiver();
-
-	public IntentFilter filterUninstallResult = new IntentFilter(
-			Actions.ACTION_UNINSTALL_RESULT);
-	public UninstallResultReceiver receiverUninstallResult = new UninstallResultReceiver();
 
 }

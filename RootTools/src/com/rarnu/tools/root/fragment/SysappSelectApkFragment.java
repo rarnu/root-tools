@@ -4,13 +4,13 @@ import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -26,11 +26,11 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.SysappSelectApkAdapter;
 import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.base.MenuItemIds;
-import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.SysappSelectApkItem;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-public class SysappSelectApkFragment extends BasePopupFragment implements OnItemClickListener, OnQueryTextListener {
+public class SysappSelectApkFragment extends BasePopupFragment implements
+		OnItemClickListener, OnQueryTextListener {
 
 	private static String rootDir = Environment.getExternalStorageDirectory()
 			.getPath();
@@ -65,24 +65,8 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
 	protected int getFragmentLayoutResId() {
 		return R.layout.layout_sysapp_selectapk;
 	}
-	
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		menu.clear();
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
-				R.string.search);
-		itemSearch.setIcon(android.R.drawable.ic_menu_search);
-		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		SearchView sv = new SearchView(getActivity());
-		sv.setOnQueryTextListener(this);
-		itemSearch.setActionView(sv);
 
-		MenuItem itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 99, R.string.uplevel);
-		itemUp.setIcon(android.R.drawable.ic_menu_upload);
-		itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-	}
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -98,7 +82,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
 		super.onActivityCreated(savedInstanceState);
 		showDirT(currentDir);
 	}
-	
+
 	private void doUplevel() {
 		if (!currentDir.equals(rootDir)) {
 			currentDir = currentDir.substring(0, currentDir.lastIndexOf("/"));
@@ -125,8 +109,8 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
 					if (f.isDirectory() || f.getName().endsWith(".apk")) {
 						SysappSelectApkItem item = new SysappSelectApkItem();
 						if (!f.isDirectory()) {
-							item.iconImg = ApkUtils.getIconFromPackage(getActivity(),
-									f.getAbsolutePath());
+							item.iconImg = ApkUtils.getIconFromPackage(
+									getActivity(), f.getAbsolutePath());
 						}
 						item.icon = f.isDirectory() ? 1 : 0;
 						item.filename = f.getName();
@@ -135,8 +119,8 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
 						list.add(item);
 					}
 				}
-				adapter = new SysappSelectApkAdapter(list,
-						getActivity().getLayoutInflater());
+				adapter = new SysappSelectApkAdapter(list, getActivity()
+						.getLayoutInflater());
 			}
 		}
 	}
@@ -169,7 +153,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
 			}
 		}).start();
 	}
-	
+
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
@@ -181,9 +165,9 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
 			showDirT(currentDir);
 			return;
 		}
-		Intent inRet = new Intent(Actions.ACTION_INSTALL_APK);
+		Intent inRet = new Intent();
 		inRet.putExtra("path", f.getAbsolutePath());
-		getActivity().sendBroadcast(inRet);
+		getActivity().setResult(Activity.RESULT_OK, inRet);
 		getActivity().finish();
 	}
 
@@ -198,4 +182,22 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
 
 		return false;
 	}
+
+	@Override
+	protected void initMenu(Menu menu) {
+		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
+				R.string.search);
+		itemSearch.setIcon(android.R.drawable.ic_menu_search);
+		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		SearchView sv = new SearchView(getActivity());
+		sv.setOnQueryTextListener(this);
+		itemSearch.setActionView(sv);
+
+		MenuItem itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 99,
+				R.string.uplevel);
+		itemUp.setIcon(android.R.drawable.ic_menu_upload);
+		itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		
+	}
+
 }

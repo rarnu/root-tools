@@ -3,6 +3,7 @@ package com.rarnu.tools.root.fragment;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
@@ -160,4 +161,11 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 	protected int getFragmentLayoutResId() {
 		return R.layout.layout_about;
 	}
+
+	@Override
+	protected void initMenu(Menu menu) {
+		
+		
+	}
+
 }

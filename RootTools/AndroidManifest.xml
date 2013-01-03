@@ -193,20 +193,6 @@
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
-        <receiver
-            android:name="com.rarnu.tools.root.receiver.InstallReceiver"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="com.rarnu.root.tools.install.apk" />
-            </intent-filter>
-        </receiver>
-        <receiver
-            android:name="com.rarnu.tools.root.receiver.UninstallReceiver"
-            android:label="@string/app_name" >
-            <intent-filter>
-                <action android:name="com.rarnu.root.tools.uninstall.apk" />
-            </intent-filter>
-        </receiver>
     </application>
 
 </manifest>

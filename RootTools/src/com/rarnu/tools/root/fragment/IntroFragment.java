@@ -1,6 +1,7 @@
 package com.rarnu.tools.root.fragment;
 
 import android.os.Bundle;
+import android.view.Menu;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
@@ -60,4 +61,10 @@ public class IntroFragment extends BaseFragment {
 	protected int getFragmentLayoutResId() {
 		return R.layout.layout_help;
 	}
+
+	@Override
+	protected void initMenu(Menu menu) {
+		
+	}
+
 }

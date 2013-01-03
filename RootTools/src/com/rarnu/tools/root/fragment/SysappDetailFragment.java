@@ -2,22 +2,25 @@ package com.rarnu.tools.root.fragment;
 
 import java.io.File;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BasePopupFragment;
-import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.SysappInfo;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.utils.ApkUtils;
@@ -147,17 +150,39 @@ public class SysappDetailFragment extends BasePopupFragment implements
 
 						@Override
 						public void onClick(View v) {
-							Intent inUninstall = new Intent(Actions.ACTION_UNINSTALL_APK);
-							inUninstall.putExtra("backup", GlobalInstance.backupBeforeDelete);
-							inUninstall.putExtra("deleteData", GlobalInstance.alsoDeleteData);
-							inUninstall.putExtra("info", info.info);
-							getActivity().finish();
-							getActivity().sendBroadcast(inUninstall);
+							deleteApp(GlobalInstance.backupBeforeDelete,
+									GlobalInstance.alsoDeleteData);
 						}
 					}, getString(R.string.cancel), null);
 			break;
 		}
 
+	}
+	
+	public void deleteApp(boolean backup, boolean deleteData) {
+		// need delete app's data also
+
+		if (backup) {
+			ApkUtils.backupSystemApp(info.info.sourceDir);
+		}
+
+		LogApi.logDeleteSystemApp(info.info.packageName);
+
+		boolean ret = ApkUtils.deleteSystemApp(info.info.sourceDir);
+		if (!ret) {
+			Toast.makeText(getActivity(), R.string.delete_fail, Toast.LENGTH_LONG)
+					.show();
+			return;
+		}
+
+		if (deleteData) {
+			ApkUtils.deleteSystemAppData(info.info.dataDir);
+		}
+
+		Intent inRet = new Intent();
+		inRet.putExtra("needRefresh", true);
+		getActivity().setResult(Activity.RESULT_OK, inRet);
+		getActivity().finish();
 	}
 
 	@Override
@@ -186,5 +211,11 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	protected int getFragmentLayoutResId() {
 		return R.layout.layout_sysapp_detail;
 	}
+
+	@Override
+	protected void initMenu(Menu menu) {
+		
+	}
+
 
 }

@@ -11,6 +11,8 @@ import com.rarnu.tools.root.R;
 
 public class GlobalFragment {
 
+	public static Fragment currentFragment = null;
+	
 	public static MainFragment fMain = null;
 	public static FeedbackFragment fFeedback =null;
 	public static IntroFragment fIntro = null;
@@ -21,6 +23,7 @@ public class GlobalFragment {
 	public static SysappSelectApkFragment fSysappSelectApk = null;
 	
 	public static void loadFragments() {
+		
 		if (fMain == null) {
 			fMain = new MainFragment();
 		}

@@ -11,6 +11,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -36,9 +37,8 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-		
+		super.onCreate(savedInstanceState);
 		GlobalFragment.loadFragments();
 
 		if (!oneTimeRun) {
@@ -53,7 +53,7 @@ public class MainActivity extends Activity {
 		LogApi.logAppStop();
 		super.onDestroy();
 	}
-	
+
 	private void initOneTime() {
 		RootUtils.mountRW();
 		loadExcludeListT();
@@ -69,16 +69,19 @@ public class MainActivity extends Activity {
 	}
 
 	private void loadUI() {
+		hideCurrentFragments();
 		setContentView(R.layout.layout_main);
 		replaceMainFragment();
 		View vDetail = findViewById(R.id.fragmentDetail);
 		GlobalInstance.dualPane = vDetail != null
 				&& vDetail.getVisibility() == View.VISIBLE;
 		getActionBar().setTitle(R.string.app_name);
-
+		setDualPane();
 	}
 
 	private void setDualPane() {
+		Log.e(getClass().getName(),
+				"DualPane:" + (GlobalInstance.dualPane ? "TRUE" : "FALSE"));
 		if (GlobalInstance.dualPane) {
 			switch (GlobalInstance.currentFragment) {
 			case 1:
@@ -99,12 +102,11 @@ public class MainActivity extends Activity {
 			}
 		}
 	}
-	
+
 	@Override
 	protected void onResume() {
 		GlobalFragment.loadFragments();
 		super.onResume();
-		setDualPane();
 	}
 
 	private void replaceMainFragment() {
@@ -112,20 +114,24 @@ public class MainActivity extends Activity {
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
 		fragmentTransaction.replace(R.id.fragmentMain, GlobalFragment.fMain);
-		fragmentTransaction
-				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
 		fragmentTransaction.commit();
 	}
 
 	private void replaceDetailFragment(Fragment f) {
+		GlobalFragment.currentFragment = f;
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
-
 		fragmentTransaction.replace(R.id.fragmentDetail, f);
-		fragmentTransaction
-				.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
+		fragmentTransaction.show(f);
 		fragmentTransaction.commit();
+	}
+
+	private void hideCurrentFragments() {
+		if (GlobalFragment.currentFragment != null) {
+			getFragmentManager().beginTransaction()
+					.remove(GlobalFragment.currentFragment).commit();
+		}
 	}
 
 	@Override

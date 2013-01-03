@@ -3,7 +3,6 @@ package com.rarnu.tools.root.fragment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.EditText;
@@ -22,14 +21,6 @@ public class FeedbackFragment extends BaseFragment {
 	EditText etFeedback;
 	DataProgressBar progressFeedback;
 	MenuItem itemSend;
-
-	@Override
-	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
-		menu.clear();
-		itemSend = menu.add(0, MenuItemIds.MENU_SEND, 99, R.string.send);
-		itemSend.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		itemSend.setIcon(android.R.drawable.ic_menu_send);
-	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -112,11 +103,20 @@ public class FeedbackFragment extends BaseFragment {
 		etFeedback = (EditText) innerView.findViewById(R.id.etFeedback);
 		progressFeedback = (DataProgressBar) innerView
 				.findViewById(R.id.progressFeedback);
-		
+
 	}
 
 	@Override
 	protected int getFragmentLayoutResId() {
 		return R.layout.layout_user_feedback;
 	}
+
+	@Override
+	protected void initMenu(Menu menu) {
+		itemSend = menu.add(0, MenuItemIds.MENU_SEND, 99, R.string.send);
+		itemSend.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		itemSend.setIcon(android.R.drawable.ic_menu_send);
+		
+	}
+
 }

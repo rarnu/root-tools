@@ -16,8 +16,9 @@ public abstract class InnerActivity extends Activity {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
+		super.onCreate(savedInstanceState);
+		
 		
 		GlobalFragment.loadFragments();
 
@@ -40,10 +41,12 @@ public abstract class InnerActivity extends Activity {
 	protected void onResume() {
 		GlobalFragment.loadFragments();
 		super.onResume();
-		redo();
+		// getFragmentManager().beginTransaction().show(replaceFragment()).commit();
+		// redo();
 	}
 
 	public void redo() {
+		GlobalFragment.currentFragment = replaceFragment();
 		getFragmentManager().beginTransaction()
 				.replace(getReplaceId(), replaceFragment()).commit();
 	}
