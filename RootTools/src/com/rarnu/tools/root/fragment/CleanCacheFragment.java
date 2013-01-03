@@ -139,8 +139,12 @@ public class CleanCacheFragment extends BaseFragment implements
 
 	private void loadCacheCount() {
 		String cacheCount = CacheUtils.countCache(listCacheAll);
-		tvCacheInfo.setText(String.format(getString(R.string.used_cache_size),
-				cacheCount));
+		if (this.isAdded()) {
+			if (tvCacheInfo != null) {
+				tvCacheInfo.setText(String.format(
+						getString(R.string.used_cache_size), cacheCount));
+			}
+		}
 	}
 
 	protected void doStartLoad() {
@@ -198,13 +202,6 @@ public class CleanCacheFragment extends BaseFragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LogApi.logEnterCache();
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		loadCacheCount();
-		doStartLoad();
 	}
 
 	@Override

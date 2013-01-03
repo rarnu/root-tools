@@ -1,41 +1,53 @@
-package com.rarnu.tools.root;
+package com.rarnu.tools.root.fragment;
 
-import android.app.Fragment;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.Toast;
 
-import com.rarnu.tools.root.base.BaseActivity;
+import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.base.BaseFragment;
+import com.rarnu.tools.root.base.MenuItemIds;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.HtcRomItem;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-
-public class MoreHtcRomActivity extends BaseActivity implements OnClickListener {
+public class HtcRomFragment extends BaseFragment {
 
 	HtcRomItem itmCar, itmFacebook, itmTwitter, itmDropbox, itmSkydrive,
 			itmLaputa, itmFlickr, itmFriendStream, itmGoogle, itm3rd;
 	DataProgressBar progressHtcRom;
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_more_htcrom);
-
+	protected int getBarTitle() {
+		return R.string.clean_htc_rom;
 	}
 
-	
-	public void init() {
+	@Override
+	protected int getBarTitleWithPath() {
+		return R.string.clean_htc_rom_with_path;
+	}
 
-		mappingComp();
-
+	@Override
+	protected void initComponents() {
+		progressHtcRom = (DataProgressBar) innerView.findViewById(R.id.progressHtcRom);
+		itmCar = (HtcRomItem) innerView.findViewById(R.id.itmCar);
+		itmFacebook = (HtcRomItem) innerView.findViewById(R.id.itmFacebook);
+		itmTwitter = (HtcRomItem) innerView.findViewById(R.id.itmTwitter);
+		itmDropbox = (HtcRomItem) innerView.findViewById(R.id.itmDropbox);
+		itmSkydrive = (HtcRomItem) innerView.findViewById(R.id.itmSkydrive);
+		itmLaputa = (HtcRomItem) innerView.findViewById(R.id.itmLaputa);
+		itmFlickr = (HtcRomItem) innerView.findViewById(R.id.itmFlickr);
+		itmFriendStream = (HtcRomItem) innerView.findViewById(R.id.itmFriendStream);
+		itmGoogle = (HtcRomItem) innerView.findViewById(R.id.itmGoogle);
+		itm3rd = (HtcRomItem) innerView.findViewById(R.id.itm3rd);
 
 		itmCar.setName(R.string.itm_car);
 		itmCar.setDesc(R.string.itmdesc_car);
@@ -59,47 +71,41 @@ public class MoreHtcRomActivity extends BaseActivity implements OnClickListener 
 		itm3rd.setDesc(R.string.itmdesc_3rd);
 	}
 
-	
-	public void mappingComp() {
-		progressHtcRom = (DataProgressBar) findViewById(R.id.progressHtcRom);
-		itmCar = (HtcRomItem) findViewById(R.id.itmCar);
-		itmFacebook = (HtcRomItem) findViewById(R.id.itmFacebook);
-		itmTwitter = (HtcRomItem) findViewById(R.id.itmTwitter);
-		itmDropbox = (HtcRomItem) findViewById(R.id.itmDropbox);
-		itmSkydrive = (HtcRomItem) findViewById(R.id.itmSkydrive);
-		itmLaputa = (HtcRomItem) findViewById(R.id.itmLaputa);
-		itmFlickr = (HtcRomItem) findViewById(R.id.itmFlickr);
-		itmFriendStream = (HtcRomItem) findViewById(R.id.itmFriendStream);
-		itmGoogle = (HtcRomItem) findViewById(R.id.itmGoogle);
-		itm3rd = (HtcRomItem) findViewById(R.id.itm3rd);
+	@Override
+	protected int getFragmentLayoutResId() {
+		return R.layout.layout_more_htcrom;
 	}
 
-
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btnLeft:
-			finish();
-			break;
-		case R.id.btnRight:
+	protected void initMenu(Menu menu) {
+		MenuItem itemClean = menu.add(0, MenuItemIds.MENU_CLEAN, 99, R.string.clean);
+		itemClean.setIcon(android.R.drawable.ic_menu_delete);
+		itemClean.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case MenuItemIds.MENU_CLEAN:
 			cleanHtcRom();
 			break;
 		}
-
+		return true;
 	}
-
+	
 	private void cleanHtcRom() {
 		if (!itmCar.isChecked() && !itmFacebook.isChecked()
 				&& !itmTwitter.isChecked() && !itmDropbox.isChecked()
 				&& !itmSkydrive.isChecked() && !itmLaputa.isChecked()
 				&& !itmFlickr.isChecked() && !itmFriendStream.isChecked()
 				&& !itmGoogle.isChecked() && !itm3rd.isChecked()) {
-			Toast.makeText(this, R.string.no_clean_item_selected,
+			Toast.makeText(getActivity(), R.string.no_clean_item_selected,
 					Toast.LENGTH_LONG).show();
 			return;
 		}
 
-		AlertDialogEx.showAlertDialogEx(this,
+		AlertDialogEx.showAlertDialogEx(getActivity(),
 				getString(R.string.clean_htc_rom),
 				getString(R.string.clean_htc_rom_confirm),
 				getString(R.string.ok),
@@ -248,9 +254,4 @@ public class MoreHtcRomActivity extends BaseActivity implements OnClickListener 
 		}
 	}
 
-	@Override
-	public Fragment replaceFragment() {
-		// TODO Auto-generated method stub
-		return null;
-	}
 }

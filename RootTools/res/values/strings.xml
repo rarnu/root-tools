@@ -26,6 +26,7 @@
     <string name="operation_result">操作结果</string>
     <string name="feedback">用户反馈</string>
     <string name="feedback_with_path">RootTools &gt; 用户反馈</string>
+    <string name="current_dir">当前目录</string>
     <string name="egg">Do you like eggs?</string>
     <string name="app_push">应用程序推荐</string>
     <string name="host_add">添加 Hosts</string>
@@ -33,6 +34,7 @@
     <string name="remote_adb">远程 ADB</string>
     <string name="change_boot_music">更换开机音乐</string>
     <string name="clean_htc_rom">清理 HTC ROM</string>
+    <string name="clean_htc_rom_with_path">RootTools &gt; 清理 HTC ROM</string>
     <string name="busybox">Root &amp; Busybox</string>
     <string name="busybox_with_path">RootTools &gt; Root &amp; Busybox</string>
     <string name="settings_with_path">RootTools &gt; 软件设置</string>
@@ -44,6 +46,7 @@
     <string name="func1_title_with_path">RootTools &gt; 系统应用管理</string>
     <string name="func2">启用/禁用\n应用程序</string>
     <string name="func2_title">可用性管理</string>
+    <string name="func2_title_with_path">RootTools &gt; 可用性管理</string>
     <string name="func3">备份/还原\n应用数据</string>
     <string name="func3_title">应用数据管理</string>
     <string name="func4">禁用/启用\n应用内组件</string>

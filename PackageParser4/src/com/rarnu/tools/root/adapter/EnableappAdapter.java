@@ -42,6 +42,12 @@ public class EnableappAdapter extends BaseAdapter implements Filterable {
 	// [/region]
 
 	// [region] business logic
+	public void setNewList(List<EnableappInfo> list) {
+		this.listFull = list;
+		this.list = list;
+		this.notifyDataSetChanged();
+	}
+	
 	public void deleteItem(EnableappInfo item) {
 		list.remove(item);
 		listFull.remove(item);

@@ -90,6 +90,21 @@
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
+        
+        <activity
+            android:name=".fragmentactivity.EnableappMainActivity"
+            android:label="@string/func2_title"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        
+        <activity
+            android:name=".fragmentactivity.HtcRomActivity"
+            android:label="@string/clean_htc_rom"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        
         <activity
             android:name=".DataappReportActivity"
             android:screenOrientation="portrait"
@@ -162,30 +177,15 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        <activity
-            android:name=".MoreMainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+        
         <activity
             android:name=".EggActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        <activity
-            android:name=".EnableappMainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".MoreHtcRomActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+        
+        
 
         <receiver
             android:name="com.rarnu.tools.root.receiver.NetworkReceiver"

@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <LinearLayout
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:orientation="horizontal" >
+
+        <RelativeLayout
+            android:layout_width="0px"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:padding="8dip"
+            android:background="?android:attr/detailsElementBackground" >
+
+            <TextView
+                android:id="@+id/tvCurrentDir"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/current_dir"
+                android:padding="4dip" />
+
+            <TextView
+                android:id="@+id/tvPath"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvCurrentDir"
+                android:background="@color/lightskyblue"
+                android:gravity="left|center_vertical"
+                android:padding="4dip"
+                android:textColor="@color/black" />
+        </RelativeLayout>
+
+        <ListView
+            android:id="@+id/lvApk"
+            android:layout_width="0px"
+            android:layout_height="fill_parent"
+            android:layout_weight="1"
+            android:fastScrollEnabled="true"
+            android:background="?android:attr/detailsElementBackground" />
+    </LinearLayout>
+
+    <ProgressBar
+        android:id="@+id/pbShowing"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:layout_centerInParent="true"
+        android:visibility="gone" />
+
+</RelativeLayout>

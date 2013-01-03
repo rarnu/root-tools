@@ -19,7 +19,6 @@ public abstract class InnerActivity extends Activity {
 		requestWindowFeature(Window.FEATURE_ACTION_BAR);
 		super.onCreate(savedInstanceState);
 		
-		
 		GlobalFragment.loadFragments();
 
 		if (getCondition()) {

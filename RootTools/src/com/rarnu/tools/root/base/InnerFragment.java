@@ -64,6 +64,9 @@ public abstract class InnerFragment extends Fragment {
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {
+		if (getActivity() == null) {
+			return;
+		}
 		if (getActivity().getClass().getName()
 				.equals(MainActivity.class.getName())
 				&& !GlobalInstance.dualPane) {

@@ -87,8 +87,14 @@ public class MainActivity extends Activity {
 			case 1:
 				replaceDetailFragment(GlobalFragment.fSysapp);
 				break;
+			case 2:
+				replaceDetailFragment(GlobalFragment.fEnableapp);
+				break;
 			case 4:
 				replaceDetailFragment(GlobalFragment.fBusybox);
+				break;
+			case 5:
+				replaceDetailFragment(GlobalFragment.fHtcRom);
 				break;
 			case 8:
 				replaceDetailFragment(GlobalFragment.fCleanCache);

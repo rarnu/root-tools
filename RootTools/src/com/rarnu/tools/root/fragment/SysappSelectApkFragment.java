@@ -6,7 +6,6 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -59,13 +58,14 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 		tvPath = (TextView) innerView.findViewById(R.id.tvPath);
 		pbShowing = (ProgressBar) innerView.findViewById(R.id.pbShowing);
 		lvFiles.setOnItemClickListener(this);
+
+		showDirT(currentDir);
 	}
 
 	@Override
 	protected int getFragmentLayoutResId() {
 		return R.layout.layout_sysapp_selectapk;
 	}
-
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -75,12 +75,6 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 			break;
 		}
 		return true;
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		showDirT(currentDir);
 	}
 
 	private void doUplevel() {
@@ -100,28 +94,34 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 
 	public void showDir(String dir) {
 
-		File fDir = new File(dir);
-		if (fDir.exists()) {
-			File[] files = fDir.listFiles();
-			if (files != null) {
-				List<SysappSelectApkItem> list = new ArrayList<SysappSelectApkItem>();
-				for (File f : files) {
-					if (f.isDirectory() || f.getName().endsWith(".apk")) {
-						SysappSelectApkItem item = new SysappSelectApkItem();
-						if (!f.isDirectory()) {
-							item.iconImg = ApkUtils.getIconFromPackage(
-									getActivity(), f.getAbsolutePath());
+		try {
+			File fDir = new File(dir);
+			if (fDir.exists()) {
+				File[] files = fDir.listFiles();
+				if (files != null) {
+					List<SysappSelectApkItem> list = new ArrayList<SysappSelectApkItem>();
+					for (File f : files) {
+						if (!f.getName().startsWith(".")) {
+							if (f.isDirectory() || f.getName().endsWith(".apk")) {
+								SysappSelectApkItem item = new SysappSelectApkItem();
+								if (!f.isDirectory()) {
+									item.iconImg = ApkUtils.getIconFromPackage(
+											getActivity(), f.getAbsolutePath());
+								}
+								item.icon = f.isDirectory() ? 1 : 0;
+								item.filename = f.getName();
+								item.level = ApkUtils.getAppLevel(
+										f.getAbsolutePath(), "");
+								list.add(item);
+							}
 						}
-						item.icon = f.isDirectory() ? 1 : 0;
-						item.filename = f.getName();
-						item.level = ApkUtils.getAppLevel(f.getAbsolutePath(),
-								"");
-						list.add(item);
 					}
+					adapter = new SysappSelectApkAdapter(list, getActivity()
+							.getLayoutInflater());
 				}
-				adapter = new SysappSelectApkAdapter(list, getActivity()
-						.getLayoutInflater());
 			}
+		} catch (Throwable th) {
+			adapter = null;
 		}
 	}
 
@@ -179,7 +179,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 
 	@Override
 	public boolean onQueryTextChange(String newText) {
-
+		// TODO:
 		return false;
 	}
 
@@ -197,7 +197,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 				R.string.uplevel);
 		itemUp.setIcon(android.R.drawable.ic_menu_upload);
 		itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		
+
 	}
 
 }

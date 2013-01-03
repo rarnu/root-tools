@@ -8,7 +8,7 @@
         android:id="@+id/layout_left"
         android:layout_width="0px"
         android:layout_height="match_parent"
-        android:layout_weight="0.7"
+        android:layout_weight="1"
         android:background="?android:attr/detailsElementBackground"
         android:padding="4dip" >
 
@@ -48,7 +48,7 @@
 
         <Button
             android:id="@+id/btnDelete"
-            android:layout_width="wrap_content"
+            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/appVersion"
             android:layout_centerHorizontal="true"

@@ -23,6 +23,8 @@ public class GlobalFragment {
 	public static SysappSelectApkFragment fSysappSelectApk = null;
 	public static SettingsFragment fSettings = null;
 	public static CleanCacheFragment fCleanCache = null;
+	public static EnableappFragment fEnableapp = null;
+	public static HtcRomFragment fHtcRom = null;
 	
 	public static void loadFragments() {
 		
@@ -32,7 +34,6 @@ public class GlobalFragment {
 		if (fFeedback == null) {
 			fFeedback =new FeedbackFragment();
 		}
-		
 		if (fIntro == null) {
 			fIntro = new IntroFragment();
 		}
@@ -56,6 +57,12 @@ public class GlobalFragment {
 		}
 		if (fCleanCache == null) {
 			fCleanCache = new CleanCacheFragment();
+		}
+		if (fEnableapp == null) {
+			fEnableapp = new EnableappFragment();
+		}
+		if (fHtcRom == null) {
+			fHtcRom = new HtcRomFragment();
 		}
 	}
 	
