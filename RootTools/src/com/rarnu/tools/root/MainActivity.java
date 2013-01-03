@@ -90,6 +90,9 @@ public class MainActivity extends Activity {
 			case 4:
 				replaceDetailFragment(GlobalFragment.fBusybox);
 				break;
+			case 8:
+				replaceDetailFragment(GlobalFragment.fCleanCache);
+				break;
 			case 10:
 				replaceDetailFragment(GlobalFragment.fFeedback);
 				break;

@@ -52,6 +52,7 @@
     <string name="func5_title">清理内存</string>
     <string name="func6">清理缓存文件</string>
     <string name="func6_title">清理缓存文件</string>
+    <string name="func6_title_with_path">RootTools &gt; 清理缓存文件</string>
     <string name="func7">修改 Hosts</string>
     <string name="func7_title">修改 Hosts</string>
     <string name="func8">ROOT\nBusybox</string>

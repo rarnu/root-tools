@@ -55,7 +55,6 @@ public class SysappFragment extends BaseFragment implements
 		LogApi.logEnterSysapp();
 	}
 
-
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -94,7 +93,9 @@ public class SysappFragment extends BaseFragment implements
 
 	@Override
 	public boolean onQueryTextChange(String newText) {
-		sysappAdapter.getFilter().filter(newText);
+		if (sysappAdapter != null) {
+			sysappAdapter.getFilter().filter(newText);
+		}
 		return true;
 	}
 
@@ -127,7 +128,8 @@ public class SysappFragment extends BaseFragment implements
 				return;
 			}
 			if (!apkPath.equals("")) {
-				AlertDialogEx.showAlertDialogEx(getActivity(), getString(R.string.hint),
+				AlertDialogEx.showAlertDialogEx(getActivity(),
+						getString(R.string.hint),
 						String.format(
 								getResources().getString(R.string.install_apk),
 								apk.getName()), getString(R.string.ok),
@@ -143,7 +145,7 @@ public class SysappFragment extends BaseFragment implements
 
 		}
 	}
-	
+
 	private void doInstallSystemApp(final String path) {
 		progressSysapp.setAppName(getString(R.string.installing));
 		progressSysapp.setVisibility(View.VISIBLE);
@@ -193,11 +195,9 @@ public class SysappFragment extends BaseFragment implements
 				listSysappAll);
 		lvSysApp.setAdapter(sysappAdapter);
 
-		progressSysapp.setAppName(getString(R.string.loading));
-		progressSysapp.setVisibility(View.VISIBLE);
 		loader = new SysappLoader(getActivity());
 		loader.registerListener(0, this);
-		loader.startLoading();
+		doStartLoad();
 
 	}
 
@@ -224,8 +224,7 @@ public class SysappFragment extends BaseFragment implements
 				R.string.refresh);
 		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
 		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-		
-	}
 
+	}
 
 }

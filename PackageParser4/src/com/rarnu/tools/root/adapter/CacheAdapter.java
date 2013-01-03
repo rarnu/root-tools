@@ -39,6 +39,13 @@ public class CacheAdapter extends BaseAdapter implements Filterable {
 	// [/region]
 
 	// [region] business logic
+	
+	public void setNewList(List<CacheInfo> list) {
+		this.listFull = list;
+		this.list = list;
+		this.notifyDataSetChanged();
+	}
+	
 	public void deleteItem(CacheInfo item) {
 		list.remove(item);
 		listFull.remove(item);

@@ -22,6 +22,7 @@ public class GlobalFragment {
 	public static SysappDetailFragment fSysappDetail = null;
 	public static SysappSelectApkFragment fSysappSelectApk = null;
 	public static SettingsFragment fSettings = null;
+	public static CleanCacheFragment fCleanCache = null;
 	
 	public static void loadFragments() {
 		
@@ -52,6 +53,9 @@ public class GlobalFragment {
 		}
 		if (fSettings == null) {
 			fSettings = new SettingsFragment();
+		}
+		if (fCleanCache == null) {
+			fCleanCache = new CleanCacheFragment();
 		}
 	}
 	

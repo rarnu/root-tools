@@ -84,7 +84,12 @@
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        
+        <activity
+            android:name=".fragmentactivity.CleanCacheMainActivity"
+            android:label="@string/func6_title"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
         <activity
             android:name=".DataappReportActivity"
             android:screenOrientation="portrait"
@@ -153,12 +158,6 @@
         </activity>
         <activity
             android:name=".RecommandActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".CleanCacheMainActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >

@@ -11,6 +11,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.comp.PreferenceEx;
 import com.rarnu.tools.root.fragmentactivity.AboutActivity;
 import com.rarnu.tools.root.fragmentactivity.BusyboxActivity;
+import com.rarnu.tools.root.fragmentactivity.CleanCacheMainActivity;
 import com.rarnu.tools.root.fragmentactivity.SettingsActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappMainActivity;
 import com.rarnu.tools.root.fragmentactivity.UserFeedbackActivity;
@@ -125,6 +126,8 @@ public class MainFragment extends PreferenceFragment implements
 		} else if (preference.getKey()
 				.equals(getString(R.string.id_cleancache))) {
 			GlobalInstance.currentFragment = 8;
+			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
+					CleanCacheMainActivity.class), GlobalFragment.fCleanCache);
 
 		} else if (preference.getKey().equals(
 				getString(R.string.id_cleandalvik))) {
