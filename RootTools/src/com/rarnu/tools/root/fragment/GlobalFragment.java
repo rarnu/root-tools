@@ -12,9 +12,9 @@ import com.rarnu.tools.root.R;
 public class GlobalFragment {
 
 	public static Fragment currentFragment = null;
-	
+
 	public static MainFragment fMain = null;
-	public static FeedbackFragment fFeedback =null;
+	public static FeedbackFragment fFeedback = null;
 	public static IntroFragment fIntro = null;
 	public static AboutFragment fAbout = null;
 	public static BusyboxFragment fBusybox = null;
@@ -25,14 +25,14 @@ public class GlobalFragment {
 	public static CleanCacheFragment fCleanCache = null;
 	public static EnableappFragment fEnableapp = null;
 	public static HtcRomFragment fHtcRom = null;
-	
+
 	public static void loadFragments() {
-		
+
 		if (fMain == null) {
 			fMain = new MainFragment();
 		}
 		if (fFeedback == null) {
-			fFeedback =new FeedbackFragment();
+			fFeedback = new FeedbackFragment();
 		}
 		if (fIntro == null) {
 			fIntro = new IntroFragment();
@@ -65,8 +65,25 @@ public class GlobalFragment {
 			fHtcRom = new HtcRomFragment();
 		}
 	}
-	
-	public static void showContent(Activity activity, Intent inContent, Fragment fContent) {
+
+	public static void releaseFragments() {
+
+		fMain = null;
+		fFeedback = null;
+		fIntro = null;
+		fAbout = null;
+		fBusybox = null;
+		fSysapp = null;
+		fSysappDetail = null;
+		fSysappSelectApk = null;
+		fSettings = null;
+		fCleanCache = null;
+		fEnableapp = null;
+		fHtcRom = null;
+	}
+
+	public static void showContent(Activity activity, Intent inContent,
+			Fragment fContent) {
 		if (GlobalInstance.dualPane) {
 			FragmentManager fragmentManager = activity.getFragmentManager();
 			FragmentTransaction fragmentTransaction = fragmentManager

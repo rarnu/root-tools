@@ -6,12 +6,16 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -40,6 +44,7 @@ public class MainActivity extends Activity {
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
 		super.onCreate(savedInstanceState);
 		GlobalFragment.loadFragments();
+		registerReceiver(receiverHome, filterHome);
 
 		if (!oneTimeRun) {
 			oneTimeRun = true;
@@ -50,8 +55,19 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onDestroy() {
+		Log.e(getClass().getName(), "onDestroy");
 		LogApi.logAppStop();
+		unregisterReceiver(receiverHome);
 		super.onDestroy();
+	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (keyCode == KeyEvent.KEYCODE_BACK) {
+			Log.e(getClass().getName(), "EXIT");
+			GlobalFragment.releaseFragments();
+		}
+		return super.onKeyDown(keyCode, event);
 	}
 
 	private void initOneTime() {
@@ -79,8 +95,8 @@ public class MainActivity extends Activity {
 	}
 
 	private void setDualPane() {
-		Log.e(getClass().getName(),
-				"DualPane:" + (GlobalInstance.dualPane ? "TRUE" : "FALSE"));
+		Log.e(getClass().getName(), "DualPane:"
+				+ (GlobalInstance.dualPane ? "TRUE" : "FALSE"));
 		if (GlobalInstance.dualPane) {
 			switch (GlobalInstance.currentFragment) {
 			case 1:
@@ -113,7 +129,7 @@ public class MainActivity extends Activity {
 			}
 		}
 	}
-	
+
 	@Override
 	protected void onRestoreInstanceState(Bundle savedInstanceState) {
 		GlobalFragment.loadFragments();
@@ -221,4 +237,32 @@ public class MainActivity extends Activity {
 		}).start();
 	}
 
+	public class HomeReceiver extends BroadcastReceiver {
+
+		static final String SYSTEM_REASON = "reason";
+		static final String SYSTEM_HOME_KEY = "homekey";
+		static final String SYSTEM_RECENT_APPS = "recentapps";
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			String action = intent.getAction();
+			if (action.equals(Intent.ACTION_CLOSE_SYSTEM_DIALOGS)) {
+				String reason = intent.getStringExtra(SYSTEM_REASON);
+				if (reason != null) {
+					if (reason.equals(SYSTEM_HOME_KEY)) {
+						Log.e(getClass().getName(), "SYSTEM_HOME_KEY");
+						GlobalFragment.releaseFragments();
+						finish();
+					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
+						Log.e(getClass().getName(), "SYSTEM_RECENT_APPS");
+					}
+				}
+			}
+
+		}
+
+	}
+	
+	public HomeReceiver receiverHome = new HomeReceiver();  
+	public IntentFilter filterHome = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
 }

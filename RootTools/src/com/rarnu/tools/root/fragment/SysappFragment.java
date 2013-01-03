@@ -142,7 +142,6 @@ public class SysappFragment extends BaseFragment implements
 						}, getString(R.string.cancel), null);
 			}
 			break;
-
 		}
 	}
 
@@ -229,6 +228,7 @@ public class SysappFragment extends BaseFragment implements
 
 	@Override
 	protected void initLogic() {
+		Log.e(getClass().getName(), "initLogic");
 		doStartLoad();
 		
 	}

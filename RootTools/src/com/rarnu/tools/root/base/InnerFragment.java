@@ -3,6 +3,7 @@ package com.rarnu.tools.root.base;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -31,22 +32,18 @@ public abstract class InnerFragment extends Fragment {
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
 		if (getCondition()) {
+			Log.e(getClass().getName(), "onCreateView");
 			innerView = inflater.inflate(getFragmentLayoutResId(), container,
 					false);
 			initComponents();
 			initLogic();
 		}
+		Log.e(getClass().getName(), "innerView:" + innerView);
 		return innerView;
 	}
 
-	@Override
-	public void onLowMemory() {
-		super.onLowMemory();
-		innerView = null;
-	}
-	
 	protected abstract boolean getCondition();
-	
+
 	protected abstract int getBarTitle();
 
 	protected abstract int getBarTitleWithPath();

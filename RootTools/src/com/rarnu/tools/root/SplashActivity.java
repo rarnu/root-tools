@@ -69,6 +69,7 @@ public class SplashActivity extends Activity {
 	
 	private void startMainActivity() {
 		Intent inMain = new Intent(this, MainActivity.class);
+		inMain.setFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
 		startActivity(inMain);
 	}
 	
