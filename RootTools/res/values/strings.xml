@@ -35,6 +35,7 @@
     <string name="clean_htc_rom">清理 HTC ROM</string>
     <string name="busybox">Root &amp; Busybox</string>
     <string name="busybox_with_path">RootTools &gt; Root &amp; Busybox</string>
+    <string name="settings_with_path">RootTools &gt; 软件设置</string>
     <string name="check_update">检查更新</string>
     <string name="about">关于本软件</string>
     <string name="about_with_path">RootTools &gt; 关于本软件</string>

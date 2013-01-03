@@ -1,282 +1,260 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:layout_height="match_parent" >
 
-    <include
-        android:id="@+id/tbTitle"
-        layout="@layout/title_bar" />
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/imgBottom"
-        android:layout_below="@+id/tbTitle" >
+        android:layout_height="wrap_content"
+        android:padding="8dip" >
 
         <RelativeLayout
+            android:id="@+id/layAllowDeleteLevel0"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:padding="8dip" >
+            android:layout_height="56dip"
+            android:background="@drawable/list_above_background"
+            android:clickable="true" >
 
-            <RelativeLayout
-                android:id="@+id/layAllowDeleteLevel0"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_above_background"
-                android:clickable="true" >
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/allow_delete_level0"
+                android:textColor="@color/white" />
 
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/allow_delete_level0"
-                    android:textColor="@color/black" />
-
-                <CheckBox
-                    android:id="@+id/imgAllowDeleteLevel0"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layBackupBeforeDelete"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layAllowDeleteLevel0"
-                android:background="@drawable/list_middle_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/backup_before_delete"
-                    android:textColor="@color/black" />
-
-                <CheckBox
-                    android:id="@+id/imgBackupBeforeDelete"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layAlsoDeleteData"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layBackupBeforeDelete"
-                android:background="@drawable/list_below_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/also_delete_data"
-                    android:textColor="@color/black" />
-
-                <CheckBox
-                    android:id="@+id/imgAlsoDeleteData"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
-            </RelativeLayout>
-
-            <!-- data -->
-
-            <RelativeLayout
-                android:id="@+id/layOverrideBackuped"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layAlsoDeleteData"
-                android:layout_marginTop="8dip"
-                android:background="@drawable/list_above_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/override_backuped"
-                    android:textColor="@color/black" />
-
-                <CheckBox
-                    android:id="@+id/imgOverrideBackuped"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layReinstallApk"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layOverrideBackuped"
-                android:background="@drawable/list_middle_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/reinstall_apk"
-                    android:textColor="@color/black" />
-
-                <CheckBox
-                    android:id="@+id/imgReinstallApk"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
-            </RelativeLayout>
-            
-            <RelativeLayout
-                android:id="@+id/layDeleteAllBackupData"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layReinstallApk"
-                android:background="@drawable/list_below_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:id="@+id/tvDeleteAllBackupData"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/delete_all_backup_data"
-                    android:textColor="@color/black" />
-
-            </RelativeLayout>
-
-            <!-- free memory -->
-
-            <RelativeLayout
-                android:id="@+id/layKillProcessBeforeClean"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layDeleteAllBackupData"
-                android:layout_marginTop="8dip"
-                android:background="@drawable/list_above_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/kill_process_before_clean"
-                    android:textColor="@color/black" />
-
-                <CheckBox
-                    android:id="@+id/imgKillProcessBeforeClean"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layKillIgnoreList"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layKillProcessBeforeClean"
-                android:background="@drawable/list_below_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/kill_ignore_list"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
-
-            <!-- hosts -->
-
-            <RelativeLayout
-                android:id="@+id/layNameServer"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layKillIgnoreList"
-                android:layout_marginTop="8dip"
-                android:background="@drawable/list_above_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:id="@+id/tvNameServer"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/name_server"
-                    android:textColor="@color/black" />
-
-                <com.rarnu.tools.root.comp.LineEditText
-                    android:id="@+id/etNameServer"
-                    android:layout_width="fill_parent"
-                    android:layout_height="40dip"
-                    android:layout_centerVertical="true"
-                    android:layout_marginLeft="8dip"
-                    android:layout_toRightOf="@+id/tvNameServer"
-                    android:background="@null"
-                    android:gravity="right|center_vertical" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layManualEditHosts"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layNameServer"
-                android:background="@drawable/list_middle_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/manual_edit_hosts"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layCleanDeprecated"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layManualEditHosts"
-                android:background="@drawable/list_below_background"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/clean_deprecated_hosts"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
+            <CheckBox
+                android:id="@+id/imgAllowDeleteLevel0"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
         </RelativeLayout>
-    </ScrollView>
 
-    <ImageView
-        android:id="@+id/imgBottom"
-        android:layout_width="fill_parent"
-        android:layout_height="4dip"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottombar"
-        android:contentDescription="@null" />
+        <RelativeLayout
+            android:id="@+id/layBackupBeforeDelete"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:layout_below="@+id/layAllowDeleteLevel0"
+            android:background="@drawable/list_middle_background"
+            android:clickable="true" >
 
-</RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/backup_before_delete"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/imgBackupBeforeDelete"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layAlsoDeleteData"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:layout_below="@+id/layBackupBeforeDelete"
+            android:background="@drawable/list_below_background"
+            android:clickable="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/also_delete_data"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/imgAlsoDeleteData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <!-- data -->
+
+        <RelativeLayout
+            android:id="@+id/layOverrideBackuped"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:layout_below="@+id/layAlsoDeleteData"
+            android:layout_marginTop="8dip"
+            android:background="@drawable/list_above_background"
+            android:clickable="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/override_backuped"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/imgOverrideBackuped"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layReinstallApk"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:layout_below="@+id/layOverrideBackuped"
+            android:background="@drawable/list_middle_background"
+            android:clickable="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/reinstall_apk"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/imgReinstallApk"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layDeleteAllBackupData"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:layout_below="@+id/layReinstallApk"
+            android:background="@drawable/list_below_background"
+            android:clickable="true" >
+
+            <TextView
+                android:id="@+id/tvDeleteAllBackupData"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/delete_all_backup_data"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <!-- free memory -->
+
+        <RelativeLayout
+            android:id="@+id/layKillProcessBeforeClean"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:layout_below="@+id/layDeleteAllBackupData"
+            android:layout_marginTop="8dip"
+            android:background="@drawable/list_above_background"
+            android:clickable="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/kill_process_before_clean"
+                android:textColor="@color/white" />
+
+            <CheckBox
+                android:id="@+id/imgKillProcessBeforeClean"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layKillIgnoreList"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:layout_below="@+id/layKillProcessBeforeClean"
+            android:background="@drawable/list_below_background"
+            android:clickable="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/kill_ignore_list"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <!-- hosts -->
+
+        <RelativeLayout
+            android:id="@+id/layNameServer"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:layout_below="@+id/layKillIgnoreList"
+            android:layout_marginTop="8dip"
+            android:background="@drawable/list_above_background"
+            android:clickable="true" >
+
+            <TextView
+                android:id="@+id/tvNameServer"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/name_server"
+                android:textColor="@color/white" />
+
+            <EditText
+                android:id="@+id/etNameServer"
+                android:layout_width="fill_parent"
+                android:layout_height="40dip"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dip"
+                android:layout_toRightOf="@+id/tvNameServer"
+                android:gravity="right|center_vertical" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layManualEditHosts"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:layout_below="@+id/layNameServer"
+            android:background="@drawable/list_middle_background"
+            android:clickable="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/manual_edit_hosts"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layCleanDeprecated"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:layout_below="@+id/layManualEditHosts"
+            android:background="@drawable/list_below_background"
+            android:clickable="true" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:paddingLeft="8dip"
+                android:text="@string/clean_deprecated_hosts"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </RelativeLayout>
+
+</ScrollView>

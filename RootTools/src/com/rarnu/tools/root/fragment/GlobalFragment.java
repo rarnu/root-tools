@@ -21,6 +21,7 @@ public class GlobalFragment {
 	public static SysappFragment fSysapp = null;
 	public static SysappDetailFragment fSysappDetail = null;
 	public static SysappSelectApkFragment fSysappSelectApk = null;
+	public static SettingsFragment fSettings = null;
 	
 	public static void loadFragments() {
 		
@@ -48,6 +49,9 @@ public class GlobalFragment {
 		}
 		if (fSysappSelectApk == null) {
 			fSysappSelectApk = new SysappSelectApkFragment();
+		}
+		if (fSettings == null) {
+			fSettings = new SettingsFragment();
 		}
 	}
 	

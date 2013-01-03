@@ -74,15 +74,17 @@
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".fragmentactivity.SysappSelectApkActivity"
+            android:label="@string/sysapp_select"
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name=".SettingsActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:name=".fragmentactivity.SettingsActivity"
+            android:label="@string/cat_settings"
+            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
+        
         <activity
             android:name=".DataappReportActivity"
             android:screenOrientation="portrait"

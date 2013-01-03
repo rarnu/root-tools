@@ -11,6 +11,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.comp.PreferenceEx;
 import com.rarnu.tools.root.fragmentactivity.AboutActivity;
 import com.rarnu.tools.root.fragmentactivity.BusyboxActivity;
+import com.rarnu.tools.root.fragmentactivity.SettingsActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappMainActivity;
 import com.rarnu.tools.root.fragmentactivity.UserFeedbackActivity;
 import com.rarnu.tools.root.utils.BusyboxUtils;
@@ -58,7 +59,7 @@ public class MainFragment extends PreferenceFragment implements
 		prefFeedback = (PreferenceEx) findPreference(getString(R.string.id_feedback));
 		prefRecommand = (PreferenceEx) findPreference(getString(R.string.id_recommand));
 		prefAbout = (PreferenceEx) findPreference(getString(R.string.id_about));
-		
+
 		prefSettings = (PreferenceEx) findPreference(getString(R.string.id_settings));
 	}
 
@@ -83,7 +84,7 @@ public class MainFragment extends PreferenceFragment implements
 		prefFeedback.setOnPreferenceClickListener(this);
 		prefRecommand.setOnPreferenceClickListener(this);
 		prefAbout.setOnPreferenceClickListener(this);
-		
+
 		prefSettings.setOnPreferenceClickListener(this);
 	}
 
@@ -155,11 +156,12 @@ public class MainFragment extends PreferenceFragment implements
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					AboutActivity.class), GlobalFragment.fAbout);
 		}
-		
+
 		//
 		else if (preference.getKey().equals(getString(R.string.id_settings))) {
 			GlobalInstance.currentFragment = 13;
-			
+			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
+					SettingsActivity.class), GlobalFragment.fSettings);
 		}
 
 		return true;

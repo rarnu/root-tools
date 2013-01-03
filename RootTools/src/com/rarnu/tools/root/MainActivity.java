@@ -96,6 +96,9 @@ public class MainActivity extends Activity {
 			case 12:
 				replaceDetailFragment(GlobalFragment.fAbout);
 				break;
+			case 13:
+				replaceDetailFragment(GlobalFragment.fSettings);
+				break;
 			default:
 				replaceDetailFragment(GlobalFragment.fIntro);
 				break;
