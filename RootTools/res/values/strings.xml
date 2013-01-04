@@ -60,6 +60,7 @@
     <string name="func6_title_with_path">RootTools &gt; 清理缓存文件</string>
     <string name="func7">修改 Hosts</string>
     <string name="func7_title">修改 Hosts</string>
+    <string name="func7_title_with_path">RootTools &gt; 修改 Hosts</string>
     <string name="func8">ROOT\nBusybox</string>
     <string name="func8_title">Root &amp; Busybox</string>
     <string name="func9">杂项功能</string>

@@ -29,6 +29,8 @@ public class GlobalFragment {
 	public static CompPackageInfoFragment fCompPackageInfo = null;
 	public static MemFragment fMem = null;
 	public static MemProcessFragment fMemProcess = null;
+	public static HostFragment fHost = null;
+	public static HostAddFragment fHostAdd = null;
 
 	public static void loadFragments() {
 
@@ -80,6 +82,12 @@ public class GlobalFragment {
 		if (fMemProcess == null) {
 			fMemProcess = new MemProcessFragment();
 		}
+		if (fHost == null) {
+			fHost = new HostFragment();
+		}
+		if (fHostAdd == null) {
+			fHostAdd = new HostAddFragment();
+		}
 	}
 	
 
@@ -100,6 +108,8 @@ public class GlobalFragment {
 		fComp = null;
 		fCompPackageInfo = null;
 		fMem = null;
+		fHost = null;
+		fHostAdd = null;
 	}
 
 	public static void showContent(Activity activity, Intent inContent,

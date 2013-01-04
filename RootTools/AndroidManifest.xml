@@ -126,6 +126,18 @@
             android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
+        <activity
+            android:name=".fragmentactivity.HostMainActivity"
+            android:label="@string/func7_title"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.HostAddActivity"
+            android:label="@string/host_add"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
         
         <activity
             android:name=".DataappReportActivity"
@@ -141,18 +153,8 @@
         </activity>
         
         
-        <activity
-            android:name=".HostAddActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".HostMainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+        
+        
         <activity
             android:name=".HostDeprecatedActivity"
             android:screenOrientation="portrait"

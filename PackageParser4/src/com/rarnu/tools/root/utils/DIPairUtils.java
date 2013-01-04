@@ -1,8 +1,11 @@
 package com.rarnu.tools.root.utils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.util.Log;
 
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.dns.record.Address;
@@ -15,11 +18,18 @@ public class DIPairUtils {
 
 	public static List<HostRecordInfo> getHostList() {
 		List<HostRecordInfo> result = null;
+		
+		File fHost = new File(HOST_PATH);
+		if (fHost.length() > 1024*10) {
+			return null;
+		}
+		
 		try {
 			List<String> lst = FileUtils.readFile(HOST_PATH);
 			result = listToList(lst);
 			addLocalHostToPos0(result);
 		} catch (IOException e) {
+			Log.e("DIPairUtils", e.getMessage());
 		}
 		return result;
 	}
@@ -36,6 +46,9 @@ public class DIPairUtils {
 			FileUtils.rewriteFile(fn, hosts);
 			String cmd = String.format("busybox cp %s /system/etc/", fn);
 			CommandResult result = RootUtils.runCommand(cmd, true);
+			if (result.error.equals("")) {
+				result = RootUtils.runCommand("chmod 644 /system/etc/hosts", true);
+			}
 			return result.error.equals("");
 		} catch (Exception e) {
 			return false;

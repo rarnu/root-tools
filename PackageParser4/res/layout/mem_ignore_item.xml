@@ -22,7 +22,7 @@
     <ImageView android:id="@+id/imgLocked"
         android:layout_width="32dip"
         android:layout_height="32dip"
-        android:background="@drawable/locked"
+        android:background="@android:drawable/ic_lock_lock"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="4dip"

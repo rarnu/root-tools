@@ -127,6 +127,9 @@ public class MainActivity extends Activity {
 			case 8:
 				replaceDetailFragment(GlobalFragment.fCleanCache);
 				break;
+			case 9:
+				replaceDetailFragment(GlobalFragment.fHost);
+				break;
 			case 10:
 				replaceDetailFragment(GlobalFragment.fFeedback);
 				break;

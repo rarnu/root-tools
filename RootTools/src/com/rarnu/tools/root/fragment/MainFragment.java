@@ -14,6 +14,7 @@ import com.rarnu.tools.root.fragmentactivity.BusyboxActivity;
 import com.rarnu.tools.root.fragmentactivity.CleanCacheMainActivity;
 import com.rarnu.tools.root.fragmentactivity.CompMainActivity;
 import com.rarnu.tools.root.fragmentactivity.EnableappMainActivity;
+import com.rarnu.tools.root.fragmentactivity.HostMainActivity;
 import com.rarnu.tools.root.fragmentactivity.HtcRomActivity;
 import com.rarnu.tools.root.fragmentactivity.MemMainActivity;
 import com.rarnu.tools.root.fragmentactivity.SettingsActivity;
@@ -149,7 +150,8 @@ public class MainFragment extends PreferenceFragment implements
 		// other
 		else if (preference.getKey().equals(getString(R.string.id_hosts))) {
 			GlobalInstance.currentFragment = 9;
-
+			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
+					HostMainActivity.class), GlobalFragment.fHost);
 		} else if (preference.getKey().equals(getString(R.string.id_scanmedia))) {
 			MiscUtils.doScanMedia(getActivity());
 		} else if (preference.getKey().equals(getString(R.string.id_network))) {

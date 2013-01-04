@@ -48,6 +48,13 @@ public class HostsAdapter extends BaseAdapter implements Filterable {
 	// [/region]
 
 	// [region] business logic
+	
+	public void setNewData(List<HostRecordInfo> list) {
+		this.listFull = list;
+		this.list = list;
+		this.notifyDataSetChanged();
+	}
+	
 	public void deleteItem(List<HostRecordInfo> items) {
 		for (HostRecordInfo info : items) {
 			list.remove(info);
