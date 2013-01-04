@@ -42,7 +42,13 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-		super.onCreate(savedInstanceState);
+		try {
+			// here will be a exception on ICS G7
+			// use try to avoid first
+			super.onCreate(savedInstanceState);
+		} catch (Exception e) {
+
+		}
 		GlobalFragment.loadFragments();
 		registerReceiver(receiverHome, filterHome);
 
@@ -270,7 +276,8 @@ public class MainActivity extends Activity {
 		}
 
 	}
-	
-	public HomeReceiver receiverHome = new HomeReceiver();  
-	public IntentFilter filterHome = new IntentFilter(Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+
+	public HomeReceiver receiverHome = new HomeReceiver();
+	public IntentFilter filterHome = new IntentFilter(
+			Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
 }
