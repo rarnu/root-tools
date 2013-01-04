@@ -12,8 +12,10 @@ import com.rarnu.tools.root.comp.PreferenceEx;
 import com.rarnu.tools.root.fragmentactivity.AboutActivity;
 import com.rarnu.tools.root.fragmentactivity.BusyboxActivity;
 import com.rarnu.tools.root.fragmentactivity.CleanCacheMainActivity;
+import com.rarnu.tools.root.fragmentactivity.CompMainActivity;
 import com.rarnu.tools.root.fragmentactivity.EnableappMainActivity;
 import com.rarnu.tools.root.fragmentactivity.HtcRomActivity;
+import com.rarnu.tools.root.fragmentactivity.MemMainActivity;
 import com.rarnu.tools.root.fragmentactivity.SettingsActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappMainActivity;
 import com.rarnu.tools.root.fragmentactivity.UserFeedbackActivity;
@@ -108,6 +110,8 @@ public class MainFragment extends PreferenceFragment implements
 
 		} else if (preference.getKey().equals(getString(R.string.id_component))) {
 			GlobalInstance.currentFragment = 3;
+			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
+					CompMainActivity.class), GlobalFragment.fComp);
 
 		} else if (preference.getKey().equals(getString(R.string.id_root))) {
 			GlobalInstance.currentFragment = 4;
@@ -128,6 +132,8 @@ public class MainFragment extends PreferenceFragment implements
 		// memory
 		else if (preference.getKey().equals(getString(R.string.id_cleanmemory))) {
 			GlobalInstance.currentFragment = 7;
+			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
+					MemMainActivity.class), GlobalFragment.fMem);
 
 		} else if (preference.getKey()
 				.equals(getString(R.string.id_cleancache))) {

@@ -51,8 +51,10 @@
     <string name="func3_title">应用数据管理</string>
     <string name="func4">禁用/启用\n应用内组件</string>
     <string name="func4_title">应用组件管理</string>
+    <string name="func4_title_with_path">RootTools &gt; 应用组件管理</string>
     <string name="func5">清理内存</string>
     <string name="func5_title">清理内存</string>
+    <string name="func5_title_with_path">RootTools &gt; 清理内存</string>
     <string name="func6">清理缓存文件</string>
     <string name="func6_title">清理缓存文件</string>
     <string name="func6_title_with_path">RootTools &gt; 清理缓存文件</string>

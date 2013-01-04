@@ -1,6 +1,7 @@
 package com.rarnu.tools.root.utils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 import android.content.ComponentName;
@@ -108,7 +109,7 @@ public class ComponentUtils {
 	
 	public static List<CompInfo> getPackageRSList(Object obj) {
 		PackageParser.Package pkg = (PackageParser.Package) obj;
-		List<CompInfo> lstComponentInfo = ComponentUtils.getPackageRSList(pkg);
+		List<CompInfo> lstComponentInfo = new ArrayList<CompInfo>();
 		
 		List<PackageParser.Activity> lstReceiver = pkg.receivers;
 		for (PackageParser.Activity a : lstReceiver) {

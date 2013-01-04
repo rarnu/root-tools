@@ -66,6 +66,7 @@ public class MainActivity extends Activity {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
 			Log.e(getClass().getName(), "EXIT");
 			GlobalFragment.releaseFragments();
+			oneTimeRun = false;
 		}
 		return super.onKeyDown(keyCode, event);
 	}
@@ -105,11 +106,17 @@ public class MainActivity extends Activity {
 			case 2:
 				replaceDetailFragment(GlobalFragment.fEnableapp);
 				break;
+			case 3:
+				replaceDetailFragment(GlobalFragment.fComp);
+				break;
 			case 4:
 				replaceDetailFragment(GlobalFragment.fBusybox);
 				break;
 			case 5:
 				replaceDetailFragment(GlobalFragment.fHtcRom);
+				break;
+			case 7:
+				replaceDetailFragment(GlobalFragment.fMem);
 				break;
 			case 8:
 				replaceDetailFragment(GlobalFragment.fCleanCache);
@@ -252,6 +259,7 @@ public class MainActivity extends Activity {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
 						Log.e(getClass().getName(), "SYSTEM_HOME_KEY");
 						GlobalFragment.releaseFragments();
+						oneTimeRun = false;
 						finish();
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
 						Log.e(getClass().getName(), "SYSTEM_RECENT_APPS");

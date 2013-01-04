@@ -25,6 +25,10 @@ public class GlobalFragment {
 	public static CleanCacheFragment fCleanCache = null;
 	public static EnableappFragment fEnableapp = null;
 	public static HtcRomFragment fHtcRom = null;
+	public static CompFragment fComp = null;
+	public static CompPackageInfoFragment fCompPackageInfo = null;
+	public static MemFragment fMem = null;
+	public static MemProcessFragment fMemProcess = null;
 
 	public static void loadFragments() {
 
@@ -64,7 +68,20 @@ public class GlobalFragment {
 		if (fHtcRom == null) {
 			fHtcRom = new HtcRomFragment();
 		}
+		if (fComp == null) {
+			fComp = new CompFragment();
+		}
+		if (fCompPackageInfo == null) {
+			fCompPackageInfo = new CompPackageInfoFragment();
+		}
+		if (fMem == null) {
+			fMem = new MemFragment();
+		}
+		if (fMemProcess == null) {
+			fMemProcess = new MemProcessFragment();
+		}
 	}
+	
 
 	public static void releaseFragments() {
 
@@ -80,6 +97,9 @@ public class GlobalFragment {
 		fCleanCache = null;
 		fEnableapp = null;
 		fHtcRom = null;
+		fComp = null;
+		fCompPackageInfo = null;
+		fMem = null;
 	}
 
 	public static void showContent(Activity activity, Intent inContent,

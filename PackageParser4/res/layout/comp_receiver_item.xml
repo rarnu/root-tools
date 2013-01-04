@@ -13,8 +13,8 @@
         android:maxLines="1"
         android:padding="4dip"
         android:singleLine="true"
-        android:textColor="@color/black"
-        android:textSize="18dip" />
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/itemReceiverStatus"

@@ -20,8 +20,8 @@
         android:gravity="left|center_vertical"
         android:maxLines="1"
         android:singleLine="true"
-        android:textColor="@color/black"
-        android:textSize="18dip" />
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
     <RelativeLayout
         android:id="@+id/itemLayInfo"

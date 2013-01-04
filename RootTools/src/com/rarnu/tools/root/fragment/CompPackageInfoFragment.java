@@ -1,12 +1,11 @@
-package com.rarnu.tools.root;
+package com.rarnu.tools.root.fragment;
 
 import java.util.List;
 
-import android.app.Fragment;
+import android.app.Activity;
 import android.graphics.Color;
-import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ImageView;
@@ -14,63 +13,49 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.CompAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.BaseActivity;
+import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.CompInfo;
 import com.rarnu.tools.root.utils.ComponentUtils;
 
-public class CompPackageInfoActivity extends BaseActivity implements
-		OnItemLongClickListener, OnClickListener {
-
-	// [region] field define
+public class CompPackageInfoFragment extends BasePopupFragment implements OnItemLongClickListener {
 
 	ImageView ivAppIcon;
 	TextView tvAppName, tvAppPackage;
 	ListView lvReceiver;
-	// [/region]
-
-	// [region] variable define
+	
 	CompAdapter adapter = null;
 	List<CompInfo> lstComponentInfo = null;
-
-	// [/region]
-
-	// [region] life circle
+	
 	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_comp_packageinfo);
-
-		fillComponentList();
-
+	protected int getBarTitle() {
+		return R.string.component_list;
 	}
 
-	// [/region]
-
-	// [region] init
-	
-
-	
-	public void mappingComp() {
-		ivAppIcon = (ImageView) findViewById(R.id.ivAppIcon);
-		tvAppName = (TextView) findViewById(R.id.tvAppName);
-		tvAppPackage = (TextView) findViewById(R.id.tvAppPackage);
-		lvReceiver = (ListView) findViewById(R.id.lvReceiver);
-
+	@Override
+	protected int getBarTitleWithPath() {
+		return R.string.component_list;
 	}
 
-	
-
-	
-	public void initEvents() {
+	@Override
+	protected void initComponents() {
+		ivAppIcon = (ImageView) innerView.findViewById(R.id.ivAppIcon);
+		tvAppName = (TextView) innerView.findViewById(R.id.tvAppName);
+		tvAppPackage = (TextView) innerView.findViewById(R.id.tvAppPackage);
+		lvReceiver = (ListView) innerView.findViewById(R.id.lvReceiver);
 		lvReceiver.setOnItemLongClickListener(this);
 
 	}
 
-	// [/region]
+	@Override
+	protected void initLogic() {
+		fillComponentList();
 
-	// [region] business logic
+	}
+	
 	private void fillComponentList() {
 		ivAppIcon
 				.setBackgroundDrawable(GlobalInstance.pm
@@ -82,26 +67,33 @@ public class CompPackageInfoActivity extends BaseActivity implements
 
 		tvAppName
 				.setTextColor(GlobalInstance.currentComp.applicationInfo.sourceDir
-						.contains("/system/app/") ? Color.RED : Color.BLACK);
+						.contains("/system/app/") ? Color.RED : Color.WHITE);
 
 		Object /* PackageParser.Package */pkg = ComponentUtils
 				.parsePackageInfo(GlobalInstance.currentComp);
 		if (pkg == null) {
-			Toast.makeText(this, R.string.no_package_info_found,
+			Toast.makeText(getActivity(), R.string.no_package_info_found,
 					Toast.LENGTH_LONG).show();
-			finish();
+			getActivity().finish();
 			return;
 		}
 		// lvReceiver
 		lstComponentInfo = ComponentUtils.getPackageRSList(pkg);
-		adapter = new CompAdapter(getLayoutInflater(), lstComponentInfo);
+		adapter = new CompAdapter(getActivity().getLayoutInflater(), lstComponentInfo);
 		lvReceiver.setAdapter(adapter);
 
 	}
 
-	// [/region]
+	@Override
+	protected int getFragmentLayoutResId() {
+		return R.layout.layout_comp_packageinfo;
+	}
 
-	// [region] events
+	@Override
+	protected void initMenu(Menu menu) {
+
+	}
+
 	@Override
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
@@ -120,7 +112,7 @@ public class CompPackageInfoActivity extends BaseActivity implements
 				((TextView) view.findViewById(R.id.itemReceiverStatus))
 						.setTextColor(Color.RED);
 			} else {
-				Toast.makeText(this, R.string.operation_failed,
+				Toast.makeText(getActivity(), R.string.operation_failed,
 						Toast.LENGTH_LONG).show();
 			}
 		} else if (!item.enabled) {
@@ -135,29 +127,12 @@ public class CompPackageInfoActivity extends BaseActivity implements
 				((TextView) view.findViewById(R.id.itemReceiverStatus))
 						.setTextColor(0xFF008000);
 			} else {
-				Toast.makeText(this, R.string.operation_failed,
+				Toast.makeText(getActivity(), R.string.operation_failed,
 						Toast.LENGTH_LONG).show();
 			}
 		}
-		setResult(RESULT_OK);
+		getActivity().setResult(Activity.RESULT_OK);
 		return false;
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btnLeft:
-			finish();
-			break;
-		}
-
-	}
-
-	@Override
-	public Fragment replaceFragment() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	// [/region]
 }

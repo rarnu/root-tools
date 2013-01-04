@@ -40,6 +40,12 @@ public class CompPackageAdapter extends BaseAdapter implements Filterable {
 
 	// [/region]
 
+	public void setNewList(List<PackageInfo> list) {
+		this.listFull = list;
+		this.list = list;
+		this.notifyDataSetChanged();
+	}
+
 	// [region] adapter
 	@Override
 	public int getCount() {
@@ -84,7 +90,7 @@ public class CompPackageAdapter extends BaseAdapter implements Filterable {
 			holder.itemName.setText(GlobalInstance.pm
 					.getApplicationLabel(item.applicationInfo));
 			holder.itemName.setTextColor(item.applicationInfo.sourceDir
-					.contains("/system/app/") ? Color.RED : Color.BLACK);
+					.contains("/system/app/") ? Color.RED : Color.WHITE);
 			holder.tvReceiverCountValue.setText(item.applicationInfo.sourceDir);
 
 		}

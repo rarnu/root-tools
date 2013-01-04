@@ -90,18 +90,40 @@
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        
         <activity
             android:name=".fragmentactivity.EnableappMainActivity"
             android:label="@string/func2_title"
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        
         <activity
             android:name=".fragmentactivity.HtcRomActivity"
             android:label="@string/clean_htc_rom"
             android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.CompMainActivity"
+            android:label="@string/func4_title"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.CompPackageInfoActivity"
+            android:label="@string/component_list"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        
+        <activity
+            android:name=".fragmentactivity.MemMainActivity"
+            android:label="@string/func5_title"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.MemProcessActivity"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         
@@ -117,30 +139,8 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        <activity
-            android:name=".CompMainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".CompPackageInfoActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".MemMainActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".MemProcessActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Dialog"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
+        
+        
         <activity
             android:name=".HostAddActivity"
             android:screenOrientation="portrait"
@@ -177,17 +177,14 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        
         <activity
             android:name=".EggActivity"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        
-        
 
-        <receiver
+		<receiver
             android:name="com.rarnu.tools.root.receiver.NetworkReceiver"
             android:label="@string/app_name" >
             <intent-filter>

@@ -25,6 +25,7 @@ public class SplashActivity extends Activity {
 	// [region] life circle
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		
 		super.onCreate(savedInstanceState);
 		UIUtils.initDisplayMetrics(getWindowManager());
 		

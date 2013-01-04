@@ -40,6 +40,13 @@ public class MemProcessAdapter extends BaseAdapter implements Filterable {
 	// [/region]
 
 	// [region] business logic
+	
+	public void setNewData(List<MemProcessInfo> list) {
+		this.listFull = list;
+		this.list = list;
+		this.notifyDataSetChanged();
+	}
+	
 	public void deleteItem(MemProcessInfo item) {
 		list.remove(item);
 		listFull.remove(item);
