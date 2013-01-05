@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="48dip"
-    android:background="@color/white"
     android:padding="4dip" >
 
     <RelativeLayout
@@ -15,7 +14,6 @@
             android:layout_width="90dip"
             android:layout_height="40dip"
             android:layout_centerVertical="true"
-            android:background="@drawable/button_style"
             android:textColor="@color/white" />
 
         <Button
@@ -25,15 +23,15 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dip"
             android:layout_toRightOf="@+id/barButton1"
-            android:background="@drawable/button_style"
             android:text="@string/cancel"
             android:textColor="@color/white" />
     </RelativeLayout>
-    
-    <CheckBox android:id="@+id/chkSelAll"
+
+    <CheckBox
+        android:id="@+id/chkSelAll"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 </RelativeLayout>

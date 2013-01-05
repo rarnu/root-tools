@@ -16,14 +16,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.tools.root.GlobalInstance;
-import com.rarnu.tools.root.HostDeprecatedActivity;
-import com.rarnu.tools.root.HostEditActivity;
-import com.rarnu.tools.root.MemIgnoreActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.comp.AlertDialogEx;
+import com.rarnu.tools.root.fragmentactivity.HostDeprecatedActivity;
+import com.rarnu.tools.root.fragmentactivity.HostEditActivity;
+import com.rarnu.tools.root.fragmentactivity.MemIgnoreActivity;
 import com.rarnu.tools.root.utils.ApkUtils;
 
 public class SettingsFragment extends BaseFragment implements OnClickListener {

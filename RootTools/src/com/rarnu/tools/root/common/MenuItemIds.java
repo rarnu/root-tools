@@ -1,4 +1,4 @@
-package com.rarnu.tools.root.base;
+package com.rarnu.tools.root.common;
 
 import android.view.Menu;
 
@@ -15,4 +15,7 @@ public class MenuItemIds {
 	
 	public static final int MENU_UPLEVEL = Menu.FIRST + 7;
 	public static final int MENU_CLEAN = Menu.FIRST + 8;
+	
+	public static final int MENU_SAVE = Menu.FIRST + 9;
+	public static final int MENU_SCAN = Menu.FIRST + 10;
 }

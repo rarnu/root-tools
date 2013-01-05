@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/white"
     android:padding="16dip" >
 
     <TextView
@@ -51,7 +50,6 @@
             android:layout_width="100dip"
             android:layout_height="40dip"
             android:layout_marginLeft="8dip"
-            android:background="@drawable/button_style"
             android:text="@string/back"
             android:textColor="@color/white" />
     </RelativeLayout>

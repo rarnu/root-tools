@@ -11,8 +11,6 @@ import com.rarnu.tools.root.R;
 
 public class GlobalFragment {
 
-	public static Fragment currentFragment = null;
-
 	public static MainFragment fMain = null;
 	public static FeedbackFragment fFeedback = null;
 	public static IntroFragment fIntro = null;
@@ -31,6 +29,11 @@ public class GlobalFragment {
 	public static MemProcessFragment fMemProcess = null;
 	public static HostFragment fHost = null;
 	public static HostAddFragment fHostAdd = null;
+	public static MemIgnoreFragment fMemIgnore = null;
+	public static HostEditFragment fHostEdit = null;
+	public static HostDeprecatedFragment fHostDeprecated = null;
+	public static RecommandFragment fRecommand = null;
+	public static DataappReportFragment fDataappReport = null;
 
 	public static void loadFragments() {
 
@@ -88,6 +91,21 @@ public class GlobalFragment {
 		if (fHostAdd == null) {
 			fHostAdd = new HostAddFragment();
 		}
+		if (fMemIgnore == null) {
+			fMemIgnore = new MemIgnoreFragment();
+		}
+		if (fHostEdit == null) {
+			fHostEdit = new HostEditFragment();
+		}
+		if (fHostDeprecated == null) {
+			fHostDeprecated = new HostDeprecatedFragment();
+		}
+		if (fRecommand == null) {
+			fRecommand = new RecommandFragment();
+		}
+		if (fDataappReport == null) {
+			fDataappReport = new DataappReportFragment();
+		}
 	}
 	
 
@@ -110,6 +128,11 @@ public class GlobalFragment {
 		fMem = null;
 		fHost = null;
 		fHostAdd = null;
+		fMemIgnore = null;
+		fHostEdit = null;
+		fHostDeprecated = null;
+		fRecommand = null;
+		fDataappReport = null;
 	}
 
 	public static void showContent(Activity activity, Intent inContent,

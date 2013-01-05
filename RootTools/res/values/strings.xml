@@ -17,6 +17,7 @@
     <string name="short_about">关于本软件</string>
     <string name="short_feedback">反馈</string>
     <string name="short_recommand">精品软件推荐</string>
+    <string name="short_recommand_with_path">RootTools &gt; 精品软件推荐</string>
     <string name="short_share">分享</string>
     <string name="share_weixin">分享到微信</string>
     <string name="share_weibo">分享到新浪微博</string>
@@ -35,6 +36,7 @@
     <string name="change_boot_music">更换开机音乐</string>
     <string name="clean_htc_rom">清理 HTC ROM</string>
     <string name="clean_htc_rom_with_path">RootTools &gt; 清理 HTC ROM</string>
+    <string name="clean_htc_rom_finish">清理 HTC ROM 完毕</string>
     <string name="busybox">Root &amp; Busybox</string>
     <string name="busybox_with_path">RootTools &gt; Root &amp; Busybox</string>
     <string name="settings_with_path">RootTools &gt; 软件设置</string>
@@ -47,8 +49,12 @@
     <string name="func2">启用/禁用\n应用程序</string>
     <string name="func2_title">可用性管理</string>
     <string name="func2_title_with_path">RootTools &gt; 可用性管理</string>
-    <string name="func3">备份/还原\n应用数据</string>
-    <string name="func3_title">应用数据管理</string>
+    <string name="func3">备份应用数据</string>
+    <string name="func3_title">备份应用数据</string>
+    <string name="func3_title_with_path">RootTools &gt; 备份应用数据</string>
+    <string name="func3p">还原应用数据</string>
+    <string name="func3p_title">还原应用数据</string>
+    <string name="func3p_title_with_path">RootTools &gt; 还原应用数据</string>
     <string name="func4">禁用/启用\n应用内组件</string>
     <string name="func4_title">应用组件管理</string>
     <string name="func4_title_with_path">RootTools &gt; 应用组件管理</string>
@@ -191,9 +197,10 @@
     <string name="empty_feedback">内容为空，不能发送</string>
     <string name="send_feedback_succ">发送反馈信息成功</string>
     <string name="send_feedback_fail">发送反馈信息失败</string>
-    <string name="recommand_anjuke">安居客 二手房</string>
-    <string name="recommand_haozu">安居客 好租租房</string>
-    <string name="recommand_broker">安居客 网络经纪人</string>
+    <string name="recommand_anjuke">安居客二手房</string>
+    <string name="recommand_haozu">好租租房</string>
+    <string name="recommand_xinfang">安居客新房</string>
+    <string name="recommand_broker">网络经纪人</string>
     <string name="crash_terminate">非常抱歉，软件出现了重大错误，即将被关闭，您可以重启本软件，然后将错误反馈给我们</string>
     <string name="no_host_for_add">没有任何 Hosts 可供添加</string>
     <string name="confirm_clean_cache">确实要清除该应用程序的缓存数据吗？按“确定”清除，按“取消”不清除。</string>
@@ -251,7 +258,8 @@
     <string name="summary_sysappenabled">禁用或启动指定的应用程序</string>
     <string name="summary_component">禁用或启动应用程序内的可选组件</string>
     <string name="summary_cleanhtc">清理基于 HTC Sense 的 ROM</string>
-    <string name="summary_backup">备份应用程序以及数据，刷机后还原一切都是原样</string>
+    <string name="summary_backup">备份应用程序以及私有数据</string>
+    <string name="summary_restore">还原已备份的应用程序以及私有数据</string>
     <string name="summary_host">修改 hosts 文件以实现访问指定服务</string>
     <string name="summary_scanmedia">扫描并刷新系统的媒体库</string>
     <string name="summary_feedback">写下您的意见和建议</string>

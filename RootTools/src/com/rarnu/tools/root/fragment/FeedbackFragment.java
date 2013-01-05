@@ -13,7 +13,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.base.BaseFragment;
-import com.rarnu.tools.root.base.MenuItemIds;
+import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.comp.DataProgressBar;
 
 public class FeedbackFragment extends BaseFragment {

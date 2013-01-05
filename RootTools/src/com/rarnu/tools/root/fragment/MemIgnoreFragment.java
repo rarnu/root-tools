@@ -1,37 +1,31 @@
-package com.rarnu.tools.root;
+package com.rarnu.tools.root.fragment;
 
 import java.util.List;
 
-import android.app.Fragment;
-import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.MemIgnoreAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.base.BaseActivity;
+import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.MemIgnoreInfo;
 import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 
-public class MemIgnoreActivity extends BaseActivity implements OnClickListener {
-
-	// [region] field define
+public class MemIgnoreFragment extends BasePopupFragment implements OnClickListener {
 
 	DataBar barIgnore;
 	ListView lvIgnore;
-	// [/region]
 
-	// [region] variable define
 	MemIgnoreAdapter adapter = null;
-	// [/region]
 
-	// [region] handler define
 	Handler hSelectIgnore = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -42,25 +36,47 @@ public class MemIgnoreActivity extends BaseActivity implements OnClickListener {
 		};
 
 	};
-
-	// [/region]
-
-	// [region] life circle
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		setContentView(R.layout.layout_mem_ignore);
 	
-		loadIgnore();
+	@Override
+	public void onCreate(android.os.Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
 		LogApi.logEnterDeleteIgnore();
+	};
+
+	@Override
+	protected int getBarTitle() {
+		return R.string.kill_ignore_list;
 	}
 
-	// [/region]
+	@Override
+	protected int getBarTitleWithPath() {
+		return R.string.kill_ignore_list;
+	}
 
-	// [region] business logic
+	@Override
+	protected void initComponents() {
+		barIgnore = (DataBar) innerView.findViewById(R.id.barIgnore);
+		lvIgnore = (ListView) innerView.findViewById(R.id.lvIgnore);
+		barIgnore.getButton1().setOnClickListener(this);
+		barIgnore.getButton2().setOnClickListener(this);
+		barIgnore.getCheckBox().setOnClickListener(this);
+
+	}
+
+	@Override
+	protected void initLogic() {
+		loadIgnore();
+
+	}
+
+	@Override
+	protected int getFragmentLayoutResId() {
+		return R.layout.layout_mem_ignore;
+	}
+	
 	private void loadIgnore() {
 
-		adapter = new MemIgnoreAdapter(getLayoutInflater(),
+		adapter = new MemIgnoreAdapter(getActivity().getLayoutInflater(),
 				MemorySpecialList.getExcludeList(), hSelectIgnore);
 		lvIgnore.setAdapter(adapter);
 	}
@@ -77,7 +93,7 @@ public class MemIgnoreActivity extends BaseActivity implements OnClickListener {
 		showIgnoreSelectedCount();
 		boolean saved = MemorySpecialList.saveExclude();
 		if (!saved) {
-			Toast.makeText(this, R.string.save_ignore_error, Toast.LENGTH_LONG)
+			Toast.makeText(getActivity(), R.string.save_ignore_error, Toast.LENGTH_LONG)
 					.show();
 		}
 	}
@@ -115,15 +131,9 @@ public class MemIgnoreActivity extends BaseActivity implements OnClickListener {
 		h.sendEmptyMessage(1);
 	}
 
-	// [/region]
-
-	// [region] events
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btnLeft:
-			finish();
-			break;
 		case R.id.barButton1:
 			deleteIgnore();
 			break;
@@ -137,36 +147,13 @@ public class MemIgnoreActivity extends BaseActivity implements OnClickListener {
 					adapter, hSelectIgnore, selected);
 			break;
 		}
-	}
-
-	// [/region]
-
-	// [region] init
-	
-
-	
-	public void mappingComp() {
-
-		barIgnore = (DataBar) findViewById(R.id.barIgnore);
-		lvIgnore = (ListView) findViewById(R.id.lvIgnore);
-	}
-
-
-
-	
-	public void initEvents() {
 		
-		barIgnore.getButton1().setOnClickListener(this);
-		barIgnore.getButton2().setOnClickListener(this);
-		barIgnore.getCheckBox().setOnClickListener(this);
 	}
 
 	@Override
-	public Fragment replaceFragment() {
-		// TODO Auto-generated method stub
-		return null;
+	protected void initMenu(Menu menu) {
+		
+		
 	}
-
-	// [/region]
 
 }

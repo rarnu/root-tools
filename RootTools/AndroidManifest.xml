@@ -114,7 +114,6 @@
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
-        
         <activity
             android:name=".fragmentactivity.MemMainActivity"
             android:label="@string/func5_title"
@@ -138,12 +137,35 @@
             android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        
         <activity
-            android:name=".DataappReportActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
+            android:name=".fragmentactivity.MemIgnoreActivity"
+            android:label="@string/kill_ignore_list"
+            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.HostEditActivity"
+            android:label="@string/manual_edit_hosts"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.HostDeprecatedActivity"
+            android:label="@string/clean_deprecated_hosts"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.RecommandActivity"
+            android:label="@string/short_recommand"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.DataappReportActivity"
+            android:label="@string/operation_result"
+            android:theme="@android:style/Theme.Holo"
+            android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".DataappMainActivity"
@@ -151,46 +173,23 @@
             android:theme="@android:style/Theme.NoTitleBar"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        
-        
-        
-        
-        <activity
-            android:name=".HostDeprecatedActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".HostEditActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".MemIgnoreActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".RecommandActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
-            android:name=".EggActivity"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
 
-		<receiver
-            android:name="com.rarnu.tools.root.receiver.NetworkReceiver"
+        <service
+            android:name=".service.HtcRomService"
+            android:label="@string/app_name" />
+
+        <receiver
+            android:name=".receiver.NetworkReceiver"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".receiver.NotifyReceiver"
+            android:label="@string/app_name" >
+            <intent-filter>
+                <action android:name="com.rarnu.root.tools.notify" />
             </intent-filter>
         </receiver>
     </application>

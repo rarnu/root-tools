@@ -7,6 +7,7 @@
     <string name="id_cleanhtc">id_cleanhtc</string>
     
     <string name="id_backup">id_backup</string>
+    <string name="id_restore">id_restore</string>
     
     <string name="id_cleanmemory">id_cleanmemory</string>
     <string name="id_cleancache">id_cleancache</string>

@@ -25,7 +25,6 @@ public abstract class BaseDialog extends Activity {
 	}
 
 	public void replace() {
-		GlobalFragment.currentFragment = replaceFragment();
 		getFragmentManager().beginTransaction()
 				.replace(android.R.id.content, replaceFragment()).commit();
 	}

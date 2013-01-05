@@ -29,6 +29,7 @@ import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.SearchBar;
+import com.rarnu.tools.root.fragmentactivity.DataappReportActivity;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
@@ -185,10 +186,8 @@ public class DataappMainActivity extends BaseActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
-		case R.id.btnLeft:
-			finish();
-			break;
-		case R.id.btnRight:
+		
+		case R.id.btnOK:
 			if (currentDataPage == 1) {
 				if ((!dataLoading) && (!backuping)) {
 					sbData.setText("");

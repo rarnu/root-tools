@@ -37,7 +37,6 @@ public abstract class InnerActivity extends Activity {
 	}
 
 	public void replace() {
-		GlobalFragment.currentFragment = replaceFragment();
 		getFragmentManager().beginTransaction()
 				.replace(getReplaceId(), replaceFragment()).commit();
 	}

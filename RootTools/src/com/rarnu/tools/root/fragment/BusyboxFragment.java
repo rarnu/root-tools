@@ -12,7 +12,7 @@ import android.widget.RelativeLayout;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
-import com.rarnu.tools.root.base.MenuItemIds;
+import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.utils.BusyboxUtils;

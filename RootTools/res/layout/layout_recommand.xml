@@ -1,111 +1,115 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/white" >
+    android:padding="8dip" >
 
-    <include
-        android:id="@+id/tbTitle"
-        layout="@layout/title_bar" />
-
-    <ScrollView
+    <LinearLayout
+        android:id="@+id/layRecommand"
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:layout_above="@+id/imgBottom"
-        android:layout_below="@+id/tbTitle"
-        android:padding="8dip" >
+        android:layout_height="wrap_content"
+        android:orientation="vertical" >
 
         <RelativeLayout
-            android:id="@+id/layRecommand"
+            android:id="@+id/layAnjuke"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content" >
+            android:layout_height="56dip"
+            android:layout_marginTop="8dip"
+            android:background="@drawable/list_above_background"
+            android:clickable="true" >
 
-            <RelativeLayout
-                android:id="@+id/layAnjuke"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_marginTop="8dip"
-                android:background="@drawable/list_above_background"
-                android:clickable="true" >
+            <ImageView
+                android:id="@+id/imgAnjuke"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_anjuke"
+                android:contentDescription="@null" />
 
-                <ImageView
-                    android:id="@+id/imgAnjuke"
-                    android:layout_width="32dip"
-                    android:layout_height="32dip"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/icon_anjuke"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/imgAnjuke"
-                    android:paddingLeft="8dip"
-                    android:text="@string/recommand_anjuke"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layHaozu"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layAnjuke"
-                android:background="@drawable/list_middle_background"
-                android:clickable="true" >
-
-                <ImageView
-                    android:id="@+id/imgHaozu"
-                    android:layout_width="32dip"
-                    android:layout_height="32dip"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/icon_haozu"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/imgHaozu"
-                    android:paddingLeft="8dip"
-                    android:text="@string/recommand_haozu"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layBroker"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layHaozu"
-                android:background="@drawable/list_below_background"
-                android:clickable="true" >
-
-                <ImageView
-                    android:id="@+id/imgBroker"
-                    android:layout_width="32dip"
-                    android:layout_height="32dip"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/icon_broker"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:layout_toRightOf="@+id/imgBroker"
-                    android:paddingLeft="8dip"
-                    android:text="@string/recommand_broker"
-                    android:textColor="@color/black" />
-            </RelativeLayout>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imgAnjuke"
+                android:paddingLeft="8dip"
+                android:text="@string/recommand_anjuke"
+                android:textColor="@color/white" />
         </RelativeLayout>
-    </ScrollView>
 
-    <ImageView
-        android:id="@+id/imgBottom"
-        android:layout_width="fill_parent"
-        android:layout_height="4dip"
-        android:layout_alignParentBottom="true"
-        android:background="@drawable/bottombar"
-        android:contentDescription="@null" />
+        <RelativeLayout
+            android:id="@+id/layHaozu"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:background="@drawable/list_middle_background"
+            android:clickable="true" >
 
-</RelativeLayout>
+            <ImageView
+                android:id="@+id/imgHaozu"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_haozu"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imgHaozu"
+                android:paddingLeft="8dip"
+                android:text="@string/recommand_haozu"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/layXinfang"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:background="@drawable/list_middle_background"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/imgXinfang"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_xinfang"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imgXinfang"
+                android:paddingLeft="8dip"
+                android:text="@string/recommand_xinfang"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layBroker"
+            android:layout_width="fill_parent"
+            android:layout_height="56dip"
+            android:background="@drawable/list_below_background"
+            android:clickable="true" >
+
+            <ImageView
+                android:id="@+id/imgBroker"
+                android:layout_width="32dip"
+                android:layout_height="32dip"
+                android:layout_centerVertical="true"
+                android:background="@drawable/icon_broker"
+                android:contentDescription="@null" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toRightOf="@+id/imgBroker"
+                android:paddingLeft="8dip"
+                android:text="@string/recommand_broker"
+                android:textColor="@color/white" />
+        </RelativeLayout>
+    </LinearLayout>
+
+</ScrollView>

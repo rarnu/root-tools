@@ -1,23 +1,22 @@
 package com.rarnu.tools.root.fragment;
 
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageManager.NameNotFoundException;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.base.BaseFragment;
-import com.rarnu.tools.root.base.MenuItemIds;
+import com.rarnu.tools.root.common.Actions;
+import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.HtcRomItem;
-import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.service.HtcRomService;
 
 public class HtcRomFragment extends BaseFragment {
 
@@ -34,10 +33,23 @@ public class HtcRomFragment extends BaseFragment {
 	protected int getBarTitleWithPath() {
 		return R.string.clean_htc_rom_with_path;
 	}
+	
+	@Override
+	public void onResume() {
+		super.onResume();
+		getActivity().registerReceiver(receiver, filter);
+	}
+	
+	@Override
+	public void onPause() {
+		getActivity().unregisterReceiver(receiver);
+		super.onPause();
+	}
 
 	@Override
 	protected void initComponents() {
-		progressHtcRom = (DataProgressBar) innerView.findViewById(R.id.progressHtcRom);
+		progressHtcRom = (DataProgressBar) innerView
+				.findViewById(R.id.progressHtcRom);
 		itmCar = (HtcRomItem) innerView.findViewById(R.id.itmCar);
 		itmFacebook = (HtcRomItem) innerView.findViewById(R.id.itmFacebook);
 		itmTwitter = (HtcRomItem) innerView.findViewById(R.id.itmTwitter);
@@ -45,7 +57,8 @@ public class HtcRomFragment extends BaseFragment {
 		itmSkydrive = (HtcRomItem) innerView.findViewById(R.id.itmSkydrive);
 		itmLaputa = (HtcRomItem) innerView.findViewById(R.id.itmLaputa);
 		itmFlickr = (HtcRomItem) innerView.findViewById(R.id.itmFlickr);
-		itmFriendStream = (HtcRomItem) innerView.findViewById(R.id.itmFriendStream);
+		itmFriendStream = (HtcRomItem) innerView
+				.findViewById(R.id.itmFriendStream);
 		itmGoogle = (HtcRomItem) innerView.findViewById(R.id.itmGoogle);
 		itm3rd = (HtcRomItem) innerView.findViewById(R.id.itm3rd);
 
@@ -78,12 +91,13 @@ public class HtcRomFragment extends BaseFragment {
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemClean = menu.add(0, MenuItemIds.MENU_CLEAN, 99, R.string.clean);
+		MenuItem itemClean = menu.add(0, MenuItemIds.MENU_CLEAN, 99,
+				R.string.clean);
 		itemClean.setIcon(android.R.drawable.ic_menu_delete);
 		itemClean.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -93,7 +107,7 @@ public class HtcRomFragment extends BaseFragment {
 		}
 		return true;
 	}
-	
+
 	private void cleanHtcRom() {
 		if (!itmCar.isChecked() && !itmFacebook.isChecked()
 				&& !itmTwitter.isChecked() && !itmDropbox.isChecked()
@@ -120,144 +134,92 @@ public class HtcRomFragment extends BaseFragment {
 	}
 
 	private void doCleanRom() {
-		progressHtcRom.setVisibility(View.VISIBLE);
-		progressHtcRom.setAppName(getString(R.string.cleaning_htcrom));
-		itmCar.disable();
-		itmFacebook.disable();
-		itmTwitter.disable();
-		itmDropbox.disable();
-		itmSkydrive.disable();
-		itmLaputa.disable();
-		itmFlickr.disable();
-		itmFriendStream.disable();
-		itmGoogle.disable();
-		itm3rd.disable();
-
-		final Handler h = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					progressHtcRom.setVisibility(View.GONE);
-					itmCar.enable();
-					itmFacebook.enable();
-					itmTwitter.enable();
-					itmDropbox.enable();
-					itmSkydrive.enable();
-					itmLaputa.enable();
-					itmFlickr.enable();
-					itmFriendStream.enable();
-					itmGoogle.enable();
-					itm3rd.enable();
-
-					itmCar.setChecked(false);
-					itmFacebook.setChecked(false);
-					itmTwitter.setChecked(false);
-					itmDropbox.setChecked(false);
-					itmSkydrive.setChecked(false);
-					itmLaputa.setChecked(false);
-					itmFlickr.setChecked(false);
-					itmFriendStream.setChecked(false);
-					itmGoogle.setChecked(false);
-					itm3rd.setChecked(false);
-				}
-				super.handleMessage(msg);
-			}
-
-		};
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-
-				if (itmCar.isChecked()) {
-					deleteApplication("com.htc.AutoMotive");
-					deleteApplication("com.htc.AutoMotive.Traffic");
-					deleteApplication("com.htc.InternetRadio");
-					deleteApplication("com.htc.autobot.cargps.provider");
-				}
-
-				if (itmFacebook.isChecked()) {
-					deleteApplication("com.htc.socialnetwork.facebook");
-					deleteApplication("com.htc.engine.facebook");
-					deleteApplication("com.facebook.katana");
-				}
-
-				if (itmTwitter.isChecked()) {
-					deleteApplication("com.htc.htctwitter");
-					deleteApplication("com.htc.engine.twitter");
-					deleteApplication("com.htc.Twitter3DWidget");
-					deleteApplication("com.htc.Trends3DWidget");
-					deleteApplication("com.twitter.android");
-				}
-				if (itmDropbox.isChecked()) {
-					deleteApplication("com.htc.dropbox.glrplugin");
-					deleteApplication("com.htc.cloudstorage.dropbox");
-					deleteApplication("com.dropbox.android");
-				}
-				if (itmSkydrive.isChecked()) {
-					deleteApplication("com.htc.skydrive.glrplugin");
-					deleteApplication("com.htc.cloudstorage.skydrive");
-				}
-				if (itmLaputa.isChecked()) {
-					deleteApplication("com.htc.laputa");
-					deleteApplication("com.htc.laputa.HtcLaputaInstaller");
-					deleteApplication("com.htc.laputa.widget3d.locations");
-					deleteApplication("com.htc.laputa.widget3d.navigate");
-					deleteApplication("com.htc.laputa.trip.TripWidget");
-				}
-				if (itmFlickr.isChecked()) {
-					deleteApplication("com.htc.socialnetwork.flickr");
-					deleteApplication("com.htc.engine.flickr");
-				}
-				if (itmFriendStream.isChecked()) {
-					deleteApplication("com.htc.friendstream");
-					deleteApplication("com.htc.FriendStream3DWidget");
-					deleteApplication("com.htc.idlescreen.socialnetwork");
-				}
-				if (itmGoogle.isChecked()) {
-					deleteApplication("com.google.android.apps.plus");
-					deleteApplication("com.google.android.youtube");
-					deleteApplication("com.htc.picasa");
-					deleteApplication("com.google.android.gm");
-					deleteApplication("com.google.android.voicesearch");
-					deleteApplication("com.google.android.apps.genie.geniewidget");
-				}
-				if (itm3rd.isChecked()) {
-					deleteApplication("com.adobe.flashplayer");
-					deleteApplication("com.adobe.reader");
-					deleteApplication("com.htc.pdfviewer");
-					deleteApplication("com.infraware.docmaster");
-					deleteApplication("com.htc.android.teeter");
-				}
-
-				h.sendEmptyMessage(1);
-
-			}
-		}).start();
+		setCleaningState(true);
+		// clean service
+		Intent inHtcRomService = new Intent(getActivity(), HtcRomService.class);
+		inHtcRomService.putExtra("command", buildCommand());
+		getActivity().startService(inHtcRomService);
 	}
 
-	private void deleteApplication(String namesapce) {
+	private String buildCommand() {
+		String cmd = "";
+		cmd += itmCar.isChecked() ? "1" : "0";
+		cmd += itmFacebook.isChecked() ? "1" : "0";
+		cmd += itmTwitter.isChecked() ? "1" : "0";
+		cmd += itmDropbox.isChecked() ? "1" : "0";
+		cmd += itmSkydrive.isChecked() ? "1" : "0";
+		cmd += itmLaputa.isChecked() ? "1" : "0";
+		cmd += itmFlickr.isChecked() ? "1" : "0";
+		cmd += itmFriendStream.isChecked() ? "1" : "0";
+		cmd += itmGoogle.isChecked() ? "1" : "0";
+		cmd += itm3rd.isChecked() ? "1" : "0";
+		return cmd;
+	}
+
+	private void setCleaningState(boolean cleaning) {
 		try {
-			ApplicationInfo info = GlobalInstance.pm.getApplicationInfo(
-					namesapce, 0);
-			String path = info.sourceDir;
-			if (info.sourceDir.contains("/system/app/")) {
-				ApkUtils.deleteSystemApp(path);
-				ApkUtils.deleteSystemAppData(info.dataDir);
+			progressHtcRom.setAppName(getString(R.string.cleaning_htcrom));
+			progressHtcRom.setVisibility(cleaning ? View.VISIBLE : View.GONE);
+
+			if (cleaning) {
+				itmCar.disable();
+				itmFacebook.disable();
+				itmTwitter.disable();
+				itmDropbox.disable();
+				itmSkydrive.disable();
+				itmLaputa.disable();
+				itmFlickr.disable();
+				itmFriendStream.disable();
+				itmGoogle.disable();
+				itm3rd.disable();
 			} else {
-				ApkUtils.uninstallApk(namesapce);
+				itmCar.enable();
+				itmFacebook.enable();
+				itmTwitter.enable();
+				itmDropbox.enable();
+				itmSkydrive.enable();
+				itmLaputa.enable();
+				itmFlickr.enable();
+				itmFriendStream.enable();
+				itmGoogle.enable();
+				itm3rd.enable();
+
+				itmCar.setChecked(false);
+				itmFacebook.setChecked(false);
+				itmTwitter.setChecked(false);
+				itmDropbox.setChecked(false);
+				itmSkydrive.setChecked(false);
+				itmLaputa.setChecked(false);
+				itmFlickr.setChecked(false);
+				itmFriendStream.setChecked(false);
+				itmGoogle.setChecked(false);
+				itm3rd.setChecked(false);
 			}
-		} catch (NameNotFoundException e) {
-			Log.e("PackageNotFound", e.getMessage());
+		} catch (Exception e) {
+
 		}
 	}
 
 	@Override
 	protected void initLogic() {
-		
-		
+
 	}
+
+	public class CleanHtcReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			boolean operating = intent.getBooleanExtra("operating", false);
+			if (!operating) {
+				Intent inHtcRomService = new Intent(getActivity(), HtcRomService.class);
+				getActivity().stopService(inHtcRomService);
+			}
+			setCleaningState(operating);
+			
+		}
+	}
+
+	public CleanHtcReceiver receiver = new CleanHtcReceiver();
+	public IntentFilter filter = new IntentFilter(Actions.ACTION_CLEANING_HTC);
 
 }

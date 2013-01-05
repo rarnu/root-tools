@@ -24,7 +24,7 @@ import android.widget.Toast;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.SysappSelectApkAdapter;
 import com.rarnu.tools.root.base.BasePopupFragment;
-import com.rarnu.tools.root.base.MenuItemIds;
+import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.SysappSelectApkItem;
 import com.rarnu.tools.root.utils.ApkUtils;
 
@@ -178,7 +178,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 
 	@Override
 	public boolean onQueryTextChange(String newText) {
-		// TODO:
+		// TODO: filter files
 		return false;
 	}
 

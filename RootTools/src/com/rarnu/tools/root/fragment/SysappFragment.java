@@ -27,7 +27,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.SysappAdapter;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
-import com.rarnu.tools.root.base.MenuItemIds;
+import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.common.SysappInfo;
 import com.rarnu.tools.root.comp.AlertDialogEx;

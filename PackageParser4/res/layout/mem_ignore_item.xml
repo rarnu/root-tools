@@ -10,8 +10,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:gravity="left|center_vertical"
-        android:textColor="@color/black"
-        android:textSize="18dip" />
+        android:textColor="@color/white"
+        android:textSize="18sp" />
     
     <CheckBox android:id="@+id/chkChecked"
         android:layout_width="wrap_content"

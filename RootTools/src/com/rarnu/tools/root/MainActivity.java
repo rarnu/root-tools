@@ -24,7 +24,7 @@ import android.widget.ShareActionProvider;
 
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.api.MobileApi;
-import com.rarnu.tools.root.base.MenuItemIds;
+import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.fragment.GlobalFragment;
 import com.rarnu.tools.root.utils.DeviceUtils;
@@ -47,7 +47,8 @@ public class MainActivity extends Activity {
 			// use try to avoid first
 			super.onCreate(savedInstanceState);
 		} catch (Exception e) {
-
+			finish();
+			return;
 		}
 		GlobalFragment.loadFragments();
 		registerReceiver(receiverHome, filterHome);
@@ -57,6 +58,7 @@ public class MainActivity extends Activity {
 			initOneTime();
 		}
 		loadUI();
+
 	}
 
 	@Override
@@ -121,6 +123,9 @@ public class MainActivity extends Activity {
 			case 5:
 				replaceDetailFragment(GlobalFragment.fHtcRom);
 				break;
+			case 6:
+				// TODO: backup
+				break;
 			case 7:
 				replaceDetailFragment(GlobalFragment.fMem);
 				break;
@@ -133,11 +138,17 @@ public class MainActivity extends Activity {
 			case 10:
 				replaceDetailFragment(GlobalFragment.fFeedback);
 				break;
+			case 11:
+				replaceDetailFragment(GlobalFragment.fRecommand);
+				break;
 			case 12:
 				replaceDetailFragment(GlobalFragment.fAbout);
 				break;
 			case 13:
 				replaceDetailFragment(GlobalFragment.fSettings);
+				break;
+			case 14:
+				// TODO: restore
 				break;
 			default:
 				replaceDetailFragment(GlobalFragment.fIntro);
@@ -161,7 +172,6 @@ public class MainActivity extends Activity {
 	}
 
 	private void replaceDetailFragment(Fragment f) {
-		GlobalFragment.currentFragment = f;
 		FragmentManager fragmentManager = getFragmentManager();
 		FragmentTransaction fragmentTransaction = fragmentManager
 				.beginTransaction();
@@ -283,4 +293,5 @@ public class MainActivity extends Activity {
 	public HomeReceiver receiverHome = new HomeReceiver();
 	public IntentFilter filterHome = new IntentFilter(
 			Intent.ACTION_CLOSE_SYSTEM_DIALOGS);
+
 }

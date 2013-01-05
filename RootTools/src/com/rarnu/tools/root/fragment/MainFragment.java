@@ -17,6 +17,7 @@ import com.rarnu.tools.root.fragmentactivity.EnableappMainActivity;
 import com.rarnu.tools.root.fragmentactivity.HostMainActivity;
 import com.rarnu.tools.root.fragmentactivity.HtcRomActivity;
 import com.rarnu.tools.root.fragmentactivity.MemMainActivity;
+import com.rarnu.tools.root.fragmentactivity.RecommandActivity;
 import com.rarnu.tools.root.fragmentactivity.SettingsActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappMainActivity;
 import com.rarnu.tools.root.fragmentactivity.UserFeedbackActivity;
@@ -29,7 +30,7 @@ public class MainFragment extends PreferenceFragment implements
 
 	PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefRoot,
 			prefHtcRom;
-	PreferenceEx prefBackup;
+	PreferenceEx prefBackup, prefRestore;
 	PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik;
 	PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
 	PreferenceEx prefFeedback, prefRecommand, prefAbout;
@@ -52,6 +53,7 @@ public class MainFragment extends PreferenceFragment implements
 		prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
 
 		prefBackup = (PreferenceEx) findPreference(getString(R.string.id_backup));
+		prefRestore = (PreferenceEx) findPreference(getString(R.string.id_restore));
 
 		prefCleanMemory = (PreferenceEx) findPreference(getString(R.string.id_cleanmemory));
 		prefCleanCache = (PreferenceEx) findPreference(getString(R.string.id_cleancache));
@@ -77,6 +79,7 @@ public class MainFragment extends PreferenceFragment implements
 		prefHtcRom.setOnPreferenceClickListener(this);
 
 		prefBackup.setOnPreferenceClickListener(this);
+		prefRestore.setOnPreferenceClickListener(this);
 
 		prefCleanMemory.setOnPreferenceClickListener(this);
 		prefCleanCache.setOnPreferenceClickListener(this);
@@ -128,6 +131,10 @@ public class MainFragment extends PreferenceFragment implements
 		// backup
 		else if (preference.getKey().equals(getString(R.string.id_backup))) {
 			GlobalInstance.currentFragment = 6;
+			// TODO: show backup fragment
+		} else if (preference.getKey().equals(getString(R.string.id_restore))) {
+			GlobalInstance.currentFragment = 14;
+			// TODO: show restore fragment
 		}
 
 		// memory
@@ -135,13 +142,11 @@ public class MainFragment extends PreferenceFragment implements
 			GlobalInstance.currentFragment = 7;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					MemMainActivity.class), GlobalFragment.fMem);
-
 		} else if (preference.getKey()
 				.equals(getString(R.string.id_cleancache))) {
 			GlobalInstance.currentFragment = 8;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					CleanCacheMainActivity.class), GlobalFragment.fCleanCache);
-
 		} else if (preference.getKey().equals(
 				getString(R.string.id_cleandalvik))) {
 			MiscUtils.doCleanDalvik(getActivity(), getView(), prefCleanDalvik);
@@ -167,7 +172,8 @@ public class MainFragment extends PreferenceFragment implements
 					UserFeedbackActivity.class), GlobalFragment.fFeedback);
 		} else if (preference.getKey().equals(getString(R.string.id_recommand))) {
 			GlobalInstance.currentFragment = 11;
-
+			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
+					RecommandActivity.class), GlobalFragment.fRecommand);
 		} else if (preference.getKey().equals(getString(R.string.id_about))) {
 			GlobalInstance.currentFragment = 12;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),

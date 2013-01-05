@@ -1,0 +1,57 @@
+package com.rarnu.tools.root.fragment;
+
+import java.util.List;
+
+import android.view.Menu;
+import android.widget.ListView;
+
+import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.adapter.DataappReportAdapter;
+import com.rarnu.tools.root.base.BasePopupFragment;
+import com.rarnu.tools.root.common.DataappInfo;
+import com.rarnu.tools.root.utils.ApkUtils;
+
+public class DataappReportFragment extends BasePopupFragment {
+
+	ListView lvReport;
+
+	@Override
+	protected int getBarTitle() {
+		return R.string.operation_result;
+	}
+
+	@Override
+	protected int getBarTitleWithPath() {
+		return R.string.operation_result;
+	}
+
+	@Override
+	protected void initComponents() {
+		lvReport = (ListView) innerView.findViewById(R.id.lvReport);
+
+	}
+
+	@Override
+	protected void initLogic() {
+		showReport();
+
+	}
+
+	@Override
+	protected int getFragmentLayoutResId() {
+		return R.layout.layout_dataapp_report;
+	}
+
+	@Override
+	protected void initMenu(Menu menu) {
+
+	}
+
+	private void showReport() {
+		List<DataappInfo> report = ApkUtils.getOperationLog();
+		DataappReportAdapter adapter = new DataappReportAdapter(getActivity()
+				.getLayoutInflater(), report);
+		lvReport.setAdapter(adapter);
+	}
+
+}
