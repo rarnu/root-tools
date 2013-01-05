@@ -34,6 +34,8 @@ public class GlobalFragment {
 	public static HostDeprecatedFragment fHostDeprecated = null;
 	public static RecommandFragment fRecommand = null;
 	public static DataappReportFragment fDataappReport = null;
+	public static BackupFragment fBackup = null;
+	public static RestoreFragment fRestore = null;
 
 	public static void loadFragments() {
 
@@ -106,6 +108,12 @@ public class GlobalFragment {
 		if (fDataappReport == null) {
 			fDataappReport = new DataappReportFragment();
 		}
+		if (fBackup == null) {
+			fBackup = new BackupFragment();
+		}
+		if (fRestore == null) {
+			fRestore = new RestoreFragment();
+		}
 	}
 	
 
@@ -133,6 +141,8 @@ public class GlobalFragment {
 		fHostDeprecated = null;
 		fRecommand = null;
 		fDataappReport = null;
+		fBackup = null;
+		fRestore = null;
 	}
 
 	public static void showContent(Activity activity, Intent inContent,

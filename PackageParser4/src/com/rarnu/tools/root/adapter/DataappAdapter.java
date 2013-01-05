@@ -48,6 +48,13 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 	// [/region]
 
 	// [region] business logic
+	
+	public void setNewData(List<DataappInfo> list) {
+		this.listFull = list;
+		this.list = list;
+		this.notifyDataSetChanged();
+	}
+	
 	public void deleteItem(DataappInfo item) {
 		list.remove(item);
 		listFull.remove(item);

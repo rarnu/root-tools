@@ -16,7 +16,6 @@ import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.utils.BusyboxUtils;
-import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class BusyboxFragment extends BaseFragment implements OnClickListener {
@@ -61,32 +60,7 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 		}).start();
 	}
 
-	private void doReinstallSuperuserT(final boolean isICS) {
-		// do reinstall superuser
-		progressBusybox.setAppName(getString(R.string.installing));
-		progressBusybox.setVisibility(View.VISIBLE);
-		final Handler h = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					progressBusybox.setVisibility(View.GONE);
-					checkStatus();
-				}
-				super.handleMessage(msg);
-			}
-
-		};
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				BusyboxUtils.removeSuperuser();
-				BusyboxUtils.installSuperuser(getActivity(), isICS);
-				h.sendEmptyMessage(1);
-			}
-		}).start();
-
-	}
+	
 
 	private void reinstallBusybox() {
 
@@ -116,54 +90,9 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 				}, getString(R.string.cancel), null);
 	}
 
-	private void showXiaomiHint(final boolean isIcs) {
-		if (isIcs) {
-			AlertDialogEx.showAlertDialogEx(getActivity(),
-					getString(R.string.hint), getString(R.string.hint_xiaomi),
-					getString(R.string.ok),
-					new AlertDialogEx.DialogButtonClickListener() {
+	
 
-						@Override
-						public void onClick(View v) {
-							doReinstallSuperuserT(isIcs);
-
-						}
-					}, getString(R.string.cancel), null);
-		} else {
-			AlertDialogEx.showAlertDialogEx(getActivity(),
-					getString(R.string.hint), getString(R.string.hint_xiaomi),
-					getString(R.string.ok), null, null, null);
-		}
-	}
-
-	private void reinstallSuperuser() {
-
-		int ret = RootUtils.hasRoot();
-		if (ret == 0) {
-			showSuStatus();
-			return;
-		}
-
-		if (!RootUtils.hasSuperuser()) {
-
-			int sysVersionCode = android.os.Build.VERSION.SDK_INT;
-
-			if (DeviceUtils.getBuildProp(DeviceUtils.RO_PRODUCT_MANUFACTURER)
-					.toLowerCase().contains("xiaomi")) {
-				showXiaomiHint(sysVersionCode >= 11);
-				return;
-			}
-
-			if (DeviceUtils.getBuildProp(DeviceUtils.RO_BUILD_ID).toLowerCase()
-					.contains("miui")) {
-				showXiaomiHint(sysVersionCode >= 11);
-				return;
-			}
-
-			doReinstallSuperuserT(sysVersionCode >= 14);
-			return;
-		}
-	}
+	
 
 	private void checkStatus() {
 		boolean hasSu = RootUtils.hasSu();
@@ -208,9 +137,6 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 		case R.id.laySu:
 			showSuStatus();
 			break;
-		case R.id.laySuperuser:
-			reinstallSuperuser();
-			break;
 		case R.id.layBusybox:
 			reinstallBusybox();
 			break;
@@ -241,7 +167,6 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 				.findViewById(R.id.progressBusybox);
 
 		laySu.setOnClickListener(this);
-		laySuperuser.setOnClickListener(this);
 		layBusybox.setOnClickListener(this);
 
 	}

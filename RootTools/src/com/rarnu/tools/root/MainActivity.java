@@ -124,7 +124,7 @@ public class MainActivity extends Activity {
 				replaceDetailFragment(GlobalFragment.fHtcRom);
 				break;
 			case 6:
-				// TODO: backup
+				replaceDetailFragment(GlobalFragment.fBackup);
 				break;
 			case 7:
 				replaceDetailFragment(GlobalFragment.fMem);
@@ -148,7 +148,7 @@ public class MainActivity extends Activity {
 				replaceDetailFragment(GlobalFragment.fSettings);
 				break;
 			case 14:
-				// TODO: restore
+				replaceDetailFragment(GlobalFragment.fRestore);
 				break;
 			default:
 				replaceDetailFragment(GlobalFragment.fIntro);

@@ -13,6 +13,8 @@ import com.rarnu.tools.root.fragmentactivity.AboutActivity;
 import com.rarnu.tools.root.fragmentactivity.BusyboxActivity;
 import com.rarnu.tools.root.fragmentactivity.CleanCacheMainActivity;
 import com.rarnu.tools.root.fragmentactivity.CompMainActivity;
+import com.rarnu.tools.root.fragmentactivity.DataBackupActivity;
+import com.rarnu.tools.root.fragmentactivity.DataRestoreActivity;
 import com.rarnu.tools.root.fragmentactivity.EnableappMainActivity;
 import com.rarnu.tools.root.fragmentactivity.HostMainActivity;
 import com.rarnu.tools.root.fragmentactivity.HtcRomActivity;
@@ -131,10 +133,12 @@ public class MainFragment extends PreferenceFragment implements
 		// backup
 		else if (preference.getKey().equals(getString(R.string.id_backup))) {
 			GlobalInstance.currentFragment = 6;
-			// TODO: show backup fragment
+			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
+					DataBackupActivity.class), GlobalFragment.fBackup);
 		} else if (preference.getKey().equals(getString(R.string.id_restore))) {
 			GlobalInstance.currentFragment = 14;
-			// TODO: show restore fragment
+			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
+					DataRestoreActivity.class), GlobalFragment.fRestore);
 		}
 
 		// memory
@@ -210,6 +214,8 @@ public class MainFragment extends PreferenceFragment implements
 				: PreferenceEx.STATE_BANNED);
 		prefBackup.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_BANNED);
+		prefRestore.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
+				: PreferenceEx.STATE_BANNED);
 		prefCleanMemory.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_BANNED);
 		prefCleanCache.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
@@ -242,6 +248,8 @@ public class MainFragment extends PreferenceFragment implements
 		prefRoot.setStatus(ready ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_WARNING);
 		prefBackup.setStatus(ready ? PreferenceEx.STATE_NORMAL
+				: PreferenceEx.STATE_WARNING);
+		prefRestore.setStatus(ready ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_WARNING);
 		prefCleanCache.setStatus(ready ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_WARNING);
