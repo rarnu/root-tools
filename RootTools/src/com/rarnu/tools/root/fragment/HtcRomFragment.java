@@ -13,6 +13,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.MenuItemIds;
+import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.HtcRomItem;
@@ -138,6 +139,9 @@ public class HtcRomFragment extends BaseFragment {
 		// clean service
 		Intent inHtcRomService = new Intent(getActivity(), HtcRomService.class);
 		inHtcRomService.putExtra("command", buildCommand());
+		inHtcRomService.putExtra("id", RTConsts.NOTIFY_ID_HTC_ROM);
+		inHtcRomService.putExtra("title", R.string.clean_htc_rom);
+		inHtcRomService.putExtra("desc", R.string.clean_htc_rom_finish);
 		getActivity().startService(inHtcRomService);
 	}
 

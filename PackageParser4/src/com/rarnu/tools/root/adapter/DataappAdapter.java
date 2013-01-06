@@ -28,9 +28,9 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 	private List<DataappInfo> list;
 	private List<DataappInfo> listFull;
 	private Handler h;
+	private boolean checkable = true;
 	private int type;
 	private ArrayFilter filter;
-
 	private final Object lock = new Object();
 
 	// [/region]
@@ -48,6 +48,11 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 	// [/region]
 
 	// [region] business logic
+	
+	public void setAdapterCheckable(boolean checkable) {
+		this.checkable = checkable;
+		this.notifyDataSetChanged();
+	}
 	
 	public void setNewData(List<DataappInfo> list) {
 		this.listFull = list;
@@ -116,6 +121,8 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 				holder.path.setText(item.info.packageName + ".apk");
 			}
 
+			holder.select.setEnabled(checkable);
+			
 			holder.select.setOnClickListener(new OnClickListener() {
 
 				@Override

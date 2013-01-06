@@ -183,6 +183,12 @@
         <service
             android:name=".service.HtcRomService"
             android:label="@string/app_name" />
+        <service
+            android:name=".service.DataBackupService"
+            android:label="@string/app_name" />
+        <service
+            android:name=".service.DataRestoreService"
+            android:label="@string/app_name" />
 
         <receiver
             android:name=".receiver.NetworkReceiver"

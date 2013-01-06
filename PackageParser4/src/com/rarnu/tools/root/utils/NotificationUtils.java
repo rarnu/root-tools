@@ -5,6 +5,7 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 public class NotificationUtils {
 
@@ -19,8 +20,7 @@ public class NotificationUtils {
 	}
 
 	public static void showNotification(final Context context, final int id,
-			final int icon, final int title, final int desc,
-			final String action) {
+			final int icon, final int title, final int desc, final String action) {
 		NotificationManager manager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		try {
@@ -39,7 +39,10 @@ public class NotificationUtils {
 		n.flags |= Notification.FLAG_SHOW_LIGHTS;
 
 		Intent inMain = new Intent(action);
-		PendingIntent pMain = PendingIntent.getBroadcast(context, 0, inMain, 0);
+		inMain.putExtra("id", id);
+		Log.e("NotificationUtils", String.valueOf(id));
+		PendingIntent pMain = PendingIntent.getBroadcast(context, 0, inMain,
+				PendingIntent.FLAG_UPDATE_CURRENT);
 		n.setLatestEventInfo(context, context.getString(title),
 				context.getString(desc), pMain);
 		manager.notify(id, n);

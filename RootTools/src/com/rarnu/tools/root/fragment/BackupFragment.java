@@ -3,7 +3,10 @@ package com.rarnu.tools.root.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Handler;
@@ -12,27 +15,22 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ListView;
-import android.widget.RelativeLayout;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.TextView;
 
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.DataappAdapter;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
+import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
+import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.comp.DataProgressBar;
-import com.rarnu.tools.root.comp.SearchBar;
-import com.rarnu.tools.root.fragmentactivity.DataBackupActivity;
-import com.rarnu.tools.root.fragmentactivity.DataappReportActivity;
 import com.rarnu.tools.root.loader.BackupLoader;
-import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.service.DataBackupService;
 import com.rarnu.tools.root.utils.ListUtils;
 
 public class BackupFragment extends BaseFragment implements OnClickListener,
@@ -78,6 +76,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		dataappAdapter = new DataappAdapter(getActivity().getLayoutInflater(),
 				listDataappAll, hSelectApp, 1);
 		lvData.setAdapter(dataappAdapter);
+		barData.getCheckBox().setVisibility(View.VISIBLE);
 
 		barData.getButton1().setOnClickListener(this);
 		barData.getButton2().setOnClickListener(this);
@@ -98,6 +97,22 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
+	public void onResume() {
+		super.onResume();
+		getActivity().registerReceiver(receiver, filter);
+		getActivity().registerReceiver(progressReceiver, progressFilter);
+		getActivity().registerReceiver(restoreReceiver, restoreFilter);
+	}
+
+	@Override
+	public void onPause() {
+		getActivity().unregisterReceiver(receiver);
+		getActivity().unregisterReceiver(progressReceiver);
+		getActivity().unregisterReceiver(restoreReceiver);
+		super.onPause();
+	}
+
+	@Override
 	protected void initMenu(Menu menu) {
 		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
 				R.string.search);
@@ -113,7 +128,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -141,86 +156,60 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		}
 	}
 
-	/*
-	private void doBackupT() {
-		backuping = true;
-		sbData.setText("");
-		sbData.getEditText().setEnabled(false);
-		lvData.setEnabled(false);
-		btnSwitchBackData.setEnabled(false);
-		btnSwitchBackData.setBackgroundResource(R.drawable.right_arrow_gray);
-
+	private void doBackup() {
 		LogApi.logBackupData();
-		final int maxCnt = getAppSelectedCount();
-		barData.setVisibility(View.GONE);
-		progressData.setVisibility(View.VISIBLE);
-		ApkUtils.clearOperationLog();
-
-		final Handler h = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					progressData.setAppName((String) msg.obj);
-					progressData.setProgress(String.format("%d / %d", msg.arg1,
-							maxCnt));
-				}
-				if (msg.what == 2) {
-					progressData.setVisibility(View.GONE);
-					lvData.setEnabled(true);
-					sbData.getEditText().setEnabled(true);
-					btnSwitchBackData.setEnabled(true);
-					btnSwitchBackData
-							.setBackgroundResource(R.drawable.right_arrow);
-					setListViewItemSelectedStatus(listDataappAll,
-							dataappAdapter, hSelectApp, false);
-					Intent inReport = new Intent(DataappMainActivity.this,
-							DataappReportActivity.class);
-					startActivity(inReport);
-					backuping = false;
-				}
-				super.handleMessage(msg);
-			};
-		};
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				int cnt = 0;
-				DataappInfo info;
-				for (int i = 0; i < listDataappAll.size(); i++) {
-					info = listDataappAll.get(i);
-					if (info.checked) {
-						cnt++;
-						Message msg = new Message();
-						msg.what = 1;
-						msg.obj = GlobalInstance.pm.getApplicationLabel(
-								info.info).toString();
-						msg.arg1 = cnt;
-						h.sendMessage(msg);
-
-						ApkUtils.backupData(DataappMainActivity.this,
-								GlobalInstance.pm
-										.getApplicationLabel(info.info)
-										.toString(), info.info.sourceDir,
-								info.info.packageName, info);
-
-					}
-
-				}
-				h.sendEmptyMessage(2);
-
+		setBackupState(true);
+		List<DataappInfo> listOperate = new ArrayList<DataappInfo>();
+		for (int i = 0; i < listDataappAll.size(); i++) {
+			if (listDataappAll.get(i).checked) {
+				listOperate.add(listDataappAll.get(i));
 			}
-		}).start();
-
+		}
+		ListUtils.setOperateList(listOperate);
+		progressData.setAppName(getString(R.string.backuping));
+		Intent inBackupService = new Intent(getActivity(),
+				DataBackupService.class);
+		inBackupService.putExtra("command", "backup");
+		inBackupService.putExtra("id", RTConsts.NOTIFY_ID_BACKUP);
+		inBackupService.putExtra("title", R.string.func3_title);
+		inBackupService.putExtra("desc", R.string.backup_ok);
+		getActivity().startService(inBackupService);
 	}
-	*/
+
+	private void setBackupState(boolean backup) {
+		dataappAdapter.setAdapterCheckable(!backup);
+		if (backup) {
+			barData.setVisibility(View.GONE);
+			progressData.setVisibility(View.VISIBLE);
+
+		} else {
+			progressData.setVisibility(View.GONE);
+			ListUtils.setListViewItemSelectedStatus(listDataappAll,
+					dataappAdapter, hSelectApp, false);
+		}
+	}
+
+	private void setOtherProcState(boolean restore) {
+		dataappAdapter.setAdapterCheckable(!restore);
+		if (restore) {
+			barData.setVisibility(View.GONE);
+			progressData.setVisibility(View.VISIBLE);
+			progressData.setAppName(getString(R.string.restoring));
+		} else {
+			progressData.setVisibility(View.GONE);
+		}
+	}
+
+	private void setBackupProgress(String name, int position, int total) {
+		progressData.setAppName(getString(R.string.backuping) + name);
+		progressData.setProgress(String.format("%d / %d", position, total));
+	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.barButton1:
-			// doBackupT();
+			doBackup();
 			break;
 		case R.id.barButton2:
 			ListUtils.setListViewItemSelectedStatus(listDataappAll,
@@ -272,4 +261,48 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		return true;
 	}
 
+	public class BackupReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			boolean operating = intent.getBooleanExtra("operating", false);
+			if (!operating) {
+				Intent inBackupService = new Intent(getActivity(),
+						DataBackupService.class);
+				getActivity().stopService(inBackupService);
+			}
+			setBackupState(operating);
+		}
+	}
+
+	public BackupReceiver receiver = new BackupReceiver();
+	public IntentFilter filter = new IntentFilter(Actions.ACTION_BACKUP);
+
+	public class BackupProgressReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			int size = intent.getIntExtra("size", 0);
+			int position = intent.getIntExtra("position", 0);
+			String name = intent.getStringExtra("name");
+			setBackupProgress(name, position, size);
+		}
+
+	}
+
+	public BackupProgressReceiver progressReceiver = new BackupProgressReceiver();
+	public IntentFilter progressFilter = new IntentFilter(
+			Actions.ACTION_BACKUP_PROGRESS);
+
+	public class RestoreReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			boolean operating = intent.getBooleanExtra("operating", false);
+			setOtherProcState(operating);
+		}
+	}
+
+	public RestoreReceiver restoreReceiver = new RestoreReceiver();
+	public IntentFilter restoreFilter = new IntentFilter(Actions.ACTION_RESTORE);
 }
