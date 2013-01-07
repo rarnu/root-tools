@@ -127,6 +127,8 @@
     <string name="confirm_delete_backup">确定要删除备份的数据？按“确定”删除，按“取消”不删除。</string>
     <string name="backuping">正在备份: </string>
     <string name="restoring">正在还原: </string>
+    <string name="mutax_backup">正在备份，不能进行还原</string>
+    <string name="mutax_restore">正在还原，不能进行备份</string>
     <string name="system_app">系统应用</string>
     <string name="receiver_count">组件: </string>
     <string name="permission_count">权限: </string>

@@ -8,6 +8,7 @@ import android.os.Message;
 
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
+import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.NotificationUtils;
 
@@ -48,10 +49,11 @@ public abstract class BaseService extends Service {
 	public abstract Intent getSendIntent();
 
 	public abstract void doOperation(String command);
-	
+
 	public abstract boolean getCommandCondition(String command);
 
-	private void operation(final String command, final int id, final int title, final int desc) {
+	private void operation(final String command, final int id, final int title,
+			final int desc) {
 
 		ApkUtils.clearOperationLog();
 
@@ -82,6 +84,11 @@ public abstract class BaseService extends Service {
 	}
 
 	private void doNotification(int id, int title, int desc) {
+		NotificationUtils
+				.cancalAllNotification(getApplicationContext(), new int[] {
+						RTConsts.NOTIFY_ID_HTC_ROM, RTConsts.NOTIFY_ID_BACKUP,
+						RTConsts.NOTIFY_ID_RESTORE });
+
 		NotificationUtils.showNotification(getApplicationContext(), id,
 				R.drawable.icon24, title, desc, Actions.ACTION_NOTIFY);
 	}

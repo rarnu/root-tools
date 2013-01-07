@@ -19,6 +19,15 @@ public class NotificationUtils {
 		}
 	}
 
+	public static void cancalAllNotification(final Context context,
+			final int[] ids) {
+		if (ids != null && ids.length != 0) {
+			for (int id : ids) {
+				cancelNotication(context, id);
+			}
+		}
+	}
+
 	public static void showNotification(final Context context, final int id,
 			final int icon, final int title, final int desc, final String action) {
 		NotificationManager manager = (NotificationManager) context

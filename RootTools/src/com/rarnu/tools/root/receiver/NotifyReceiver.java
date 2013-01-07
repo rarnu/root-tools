@@ -37,12 +37,9 @@ public class NotifyReceiver extends BroadcastReceiver {
 				break;
 			}
 
-			NotificationUtils.cancelNotication(context,
-					RTConsts.NOTIFY_ID_HTC_ROM);
-			NotificationUtils.cancelNotication(context,
-					RTConsts.NOTIFY_ID_BACKUP);
-			NotificationUtils.cancelNotication(context,
-					RTConsts.NOTIFY_ID_RESTORE);
+			NotificationUtils.cancalAllNotification(context, new int[] {
+					RTConsts.NOTIFY_ID_HTC_ROM, RTConsts.NOTIFY_ID_BACKUP,
+					RTConsts.NOTIFY_ID_RESTORE });
 
 		}
 

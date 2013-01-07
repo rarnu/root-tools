@@ -1,9 +1,6 @@
 package com.rarnu.tools.root.fragment;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,13 +14,17 @@ import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.HtcRomItem;
+import com.rarnu.tools.root.receiver.MutaxReceiver;
+import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
 import com.rarnu.tools.root.service.HtcRomService;
 
-public class HtcRomFragment extends BaseFragment {
+public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 
 	HtcRomItem itmCar, itmFacebook, itmTwitter, itmDropbox, itmSkydrive,
 			itmLaputa, itmFlickr, itmFriendStream, itmGoogle, itm3rd;
 	DataProgressBar progressHtcRom;
+
+	MutaxReceiver receiver;
 
 	@Override
 	protected int getBarTitle() {
@@ -34,16 +35,16 @@ public class HtcRomFragment extends BaseFragment {
 	protected int getBarTitleWithPath() {
 		return R.string.clean_htc_rom_with_path;
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
-		getActivity().registerReceiver(receiver, filter);
+		receiver.register(getActivity());
 	}
-	
+
 	@Override
 	public void onPause() {
-		getActivity().unregisterReceiver(receiver);
+		receiver.unregister(getActivity());
 		super.onPause();
 	}
 
@@ -83,6 +84,9 @@ public class HtcRomFragment extends BaseFragment {
 		itmGoogle.setDesc(R.string.itmdesc_google);
 		itm3rd.setName(R.string.itm_3rd);
 		itm3rd.setDesc(R.string.itmdesc_3rd);
+
+		receiver = new MutaxReceiver(Actions.ACTION_CLEANING_HTC, null, null);
+		receiver.setOnReceiveMessage(this);
 	}
 
 	@Override
@@ -209,21 +213,25 @@ public class HtcRomFragment extends BaseFragment {
 
 	}
 
-	public class CleanHtcReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			boolean operating = intent.getBooleanExtra("operating", false);
-			if (!operating) {
-				Intent inHtcRomService = new Intent(getActivity(), HtcRomService.class);
-				getActivity().stopService(inHtcRomService);
-			}
-			setCleaningState(operating);
-			
+	@Override
+	public void onStateChange(boolean operating) {
+		if (!operating) {
+			Intent inHtcRomService = new Intent(getActivity(),
+					HtcRomService.class);
+			getActivity().stopService(inHtcRomService);
 		}
+		setCleaningState(operating);
+
 	}
 
-	public CleanHtcReceiver receiver = new CleanHtcReceiver();
-	public IntentFilter filter = new IntentFilter(Actions.ACTION_CLEANING_HTC);
+	@Override
+	public void onProgress(String name, int position, int total) {
+
+	}
+
+	@Override
+	public void onMutaxMessage(boolean operating) {
+
+	}
 
 }

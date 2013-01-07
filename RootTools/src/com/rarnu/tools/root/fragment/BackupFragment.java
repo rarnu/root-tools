@@ -3,10 +3,7 @@ package com.rarnu.tools.root.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Handler;
@@ -30,11 +27,14 @@ import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.BackupLoader;
+import com.rarnu.tools.root.receiver.MutaxReceiver;
+import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
 import com.rarnu.tools.root.service.DataBackupService;
 import com.rarnu.tools.root.utils.ListUtils;
 
 public class BackupFragment extends BaseFragment implements OnClickListener,
-		OnLoadCompleteListener<List<DataappInfo>>, OnQueryTextListener {
+		OnLoadCompleteListener<List<DataappInfo>>, OnQueryTextListener,
+		OnReceiveMessage {
 
 	ListView lvData;
 	DataBar barData;
@@ -45,6 +45,8 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 
 	BackupLoader loader = null;
 	MenuItem itemRefresh;
+
+	MutaxReceiver receiver;
 
 	private Handler hSelectApp = new Handler() {
 		@Override
@@ -76,7 +78,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		dataappAdapter = new DataappAdapter(getActivity().getLayoutInflater(),
 				listDataappAll, hSelectApp, 1);
 		lvData.setAdapter(dataappAdapter);
-		
+
 		barData.setCheckBoxVisible(true);
 
 		barData.getButton1().setOnClickListener(this);
@@ -85,6 +87,11 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 
 		loader = new BackupLoader(getActivity());
 		loader.registerListener(0, this);
+
+		receiver = new MutaxReceiver(Actions.ACTION_BACKUP,
+				Actions.ACTION_BACKUP_PROGRESS,
+				new String[] { Actions.ACTION_RESTORE });
+		receiver.setOnReceiveMessage(this);
 	}
 
 	@Override
@@ -100,17 +107,13 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	@Override
 	public void onResume() {
 		super.onResume();
-		getActivity().registerReceiver(receiver, filter);
-		getActivity().registerReceiver(progressReceiver, progressFilter);
-		getActivity().registerReceiver(restoreReceiver, restoreFilter);
+		receiver.register(getActivity());
 		setBackupState(false);
 	}
 
 	@Override
 	public void onPause() {
-		getActivity().unregisterReceiver(receiver);
-		getActivity().unregisterReceiver(progressReceiver);
-		getActivity().unregisterReceiver(restoreReceiver);
+		receiver.unregister(getActivity());
 		super.onPause();
 	}
 
@@ -196,7 +199,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		if (restore) {
 			barData.setVisibility(View.GONE);
 			progressData.setVisibility(View.VISIBLE);
-			progressData.setAppName(getString(R.string.restoring));
+			progressData.setAppName(getString(R.string.mutax_restore));
 		} else {
 			progressData.setVisibility(View.GONE);
 		}
@@ -263,48 +266,27 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		return true;
 	}
 
-	public class BackupReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			boolean operating = intent.getBooleanExtra("operating", false);
-			if (!operating) {
-				Intent inBackupService = new Intent(getActivity(),
-						DataBackupService.class);
-				getActivity().stopService(inBackupService);
-			}
-			setBackupState(operating);
+	@Override
+	public void onStateChange(boolean operating) {
+		if (!operating) {
+			Intent inBackupService = new Intent(getActivity(),
+					DataBackupService.class);
+			getActivity().stopService(inBackupService);
 		}
-	}
-
-	public BackupReceiver receiver = new BackupReceiver();
-	public IntentFilter filter = new IntentFilter(Actions.ACTION_BACKUP);
-
-	public class BackupProgressReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			int size = intent.getIntExtra("size", 0);
-			int position = intent.getIntExtra("position", 0);
-			String name = intent.getStringExtra("name");
-			setBackupProgress(name, position, size);
-		}
+		setBackupState(operating);
 
 	}
 
-	public BackupProgressReceiver progressReceiver = new BackupProgressReceiver();
-	public IntentFilter progressFilter = new IntentFilter(
-			Actions.ACTION_BACKUP_PROGRESS);
+	@Override
+	public void onProgress(String name, int position, int total) {
+		setBackupProgress(name, position, total);
 
-	public class RestoreReceiver extends BroadcastReceiver {
-
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			boolean operating = intent.getBooleanExtra("operating", false);
-			setOtherProcState(operating);
-		}
 	}
 
-	public RestoreReceiver restoreReceiver = new RestoreReceiver();
-	public IntentFilter restoreFilter = new IntentFilter(Actions.ACTION_RESTORE);
+	@Override
+	public void onMutaxMessage(boolean operating) {
+		// Log.e(getClass().getName(), operating ? "TRUE" : "FALSE");
+		setOtherProcState(operating);
+
+	}
 }
