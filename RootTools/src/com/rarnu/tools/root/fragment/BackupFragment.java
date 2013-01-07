@@ -76,7 +76,8 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		dataappAdapter = new DataappAdapter(getActivity().getLayoutInflater(),
 				listDataappAll, hSelectApp, 1);
 		lvData.setAdapter(dataappAdapter);
-		barData.getCheckBox().setVisibility(View.VISIBLE);
+		
+		barData.setCheckBoxVisible(true);
 
 		barData.getButton1().setOnClickListener(this);
 		barData.getButton2().setOnClickListener(this);

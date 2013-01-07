@@ -22,7 +22,7 @@
         android:maxLines="1"
         android:singleLine="true"
         android:textColor="@color/white"
-        android:textSize="18dip" />
+        android:textSize="18sp" />
 
     <TextView
         android:id="@+id/item_path"
@@ -35,6 +35,6 @@
         android:gravity="left|center_vertical"
         android:maxLines="1"
         android:singleLine="true"
-        android:textSize="12dip" />
+        android:textSize="12sp" />
 
 </RelativeLayout>

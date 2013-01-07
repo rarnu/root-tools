@@ -6,7 +6,7 @@
     <TextView
         android:id="@+id/tvProcessInfo"
         android:layout_width="wrap_content"
-        android:layout_height="32dip"
+        android:layout_height="wrap_content"
         android:background="@color/lightskyblue"
         android:gravity="left|center_vertical"
         android:padding="4dip"
@@ -16,7 +16,7 @@
     <TextView
         android:id="@+id/tvMemoryInfo"
         android:layout_width="fill_parent"
-        android:layout_height="32dip"
+        android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvProcessInfo"
         android:background="@color/lightskyblue"
         android:gravity="left|center_vertical"

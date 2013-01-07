@@ -9,7 +9,7 @@
 
 	<TextView android:id="@+id/tvItemName" android:layout_width="fill_parent"
 		android:layout_height="fill_parent" android:layout_below="@id/imgItemIco"
-		android:textColor="@color/white" android:textSize="12dip"
+		android:textColor="@color/white" android:textSize="12sp"
 		android:gravity="center" />
 
 </RelativeLayout>

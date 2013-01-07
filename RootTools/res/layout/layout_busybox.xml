@@ -42,6 +42,7 @@
                     android:layout_height="24dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="4dip"
                     android:contentDescription="@null" />
             </RelativeLayout>
 
@@ -67,6 +68,7 @@
                     android:layout_height="24dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="4dip"
                     android:contentDescription="@null" />
             </RelativeLayout>
 
@@ -92,6 +94,7 @@
                     android:layout_height="24dip"
                     android:layout_alignParentRight="true"
                     android:layout_centerVertical="true"
+                    android:layout_marginRight="4dip"
                     android:contentDescription="@null" />
             </RelativeLayout>
         </RelativeLayout>

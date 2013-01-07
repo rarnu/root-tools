@@ -210,6 +210,8 @@ public class MainActivity extends Activity {
 		shareIntent.setType("image/*");
 		Uri uri = Uri.fromFile(fIcon);
 		shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+		shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_body));
+		shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
 		return shareIntent;
 	}
 

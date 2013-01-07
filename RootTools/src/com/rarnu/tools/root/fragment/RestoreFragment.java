@@ -97,7 +97,7 @@ public class RestoreFragment extends BaseFragment implements
 				.getLayoutInflater(), listBackDataappAll, hSelectData, 2);
 		lvBackData.setAdapter(backDataappAdapter);
 
-		barBackData.getCheckBox().setVisibility(View.VISIBLE);
+		barBackData.setCheckBoxVisible(true);
 		
 		lvBackData.setOnItemLongClickListener(this);
 		barBackData.getButton1().setOnClickListener(this);
