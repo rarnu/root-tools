@@ -103,6 +103,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		getActivity().registerReceiver(receiver, filter);
 		getActivity().registerReceiver(progressReceiver, progressFilter);
 		getActivity().registerReceiver(restoreReceiver, restoreFilter);
+		setBackupState(false);
 	}
 
 	@Override

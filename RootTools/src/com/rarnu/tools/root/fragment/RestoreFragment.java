@@ -77,6 +77,7 @@ public class RestoreFragment extends BaseFragment implements
 		getActivity().registerReceiver(receiver, filter);
 		getActivity().registerReceiver(progressReceiver, progressFilter);
 		getActivity().registerReceiver(backupReceiver, backupFilter);
+		setRestoreState(false);
 	}
 	
 	public void onPause() {
