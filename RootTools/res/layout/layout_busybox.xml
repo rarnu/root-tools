@@ -25,7 +25,6 @@
                 android:layout_height="56dip"
                 android:layout_below="@+id/tvRootDesc"
                 android:layout_marginTop="16dip"
-                android:background="@drawable/list_above_background"
                 android:clickable="true" >
 
                 <TextView
@@ -44,6 +43,12 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="4dip"
                     android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -51,7 +56,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/laySu"
-                android:background="@drawable/list_middle_background"
                 android:clickable="true" >
 
                 <TextView
@@ -70,6 +74,12 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="4dip"
                     android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -77,7 +87,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/laySuperuser"
-                android:background="@drawable/list_below_background"
                 android:clickable="true" >
 
                 <TextView
@@ -96,6 +105,12 @@
                     android:layout_centerVertical="true"
                     android:layout_marginRight="4dip"
                     android:contentDescription="@null" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

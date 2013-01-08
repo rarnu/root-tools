@@ -1,31 +1,33 @@
 package com.rarnu.tools.root.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.content.Loader;
+import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.RelativeLayout;
+import android.widget.ListView;
 
 import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.adapter.RecommandAdapter;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
-import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.common.RecommandInfo;
+import com.rarnu.tools.root.comp.DataProgressBar;
+import com.rarnu.tools.root.loader.RecommandLoader;
 
-public class RecommandFragment extends BaseFragment implements OnClickListener {
+public class RecommandFragment extends BaseFragment implements
+		OnLoadCompleteListener<List<RecommandInfo>> {
 
-	RelativeLayout layAnjuke, layHaozu, layXinfang, layBroker;
+	ListView lvRecommand;
+	DataProgressBar progressRecommand;
 
-	private static final String NS_ANJUKE = "com.anjuke.android.app";
-	private static final String AS_WELCOME_ANJUKE = ".activity.WelcomeActivity";
-	
-	private static final String NS_HAOZU = "com.anjuke.android.haozu";
-	private static final String AS_WELCOME_HAOZU = ".activity.WelcomeActivity";
-	
-	private static final String NS_XINFANG = "com.anjuke.android.xinfang";
-	private static final String AS_WELCOME_XINFANG = ".activity.WelcomeActivity";
-	
-	private static final String NS_BROKER = "com.anjuke.android.newbroker";
-	private static final String AS_WELCOME_BROKER = ".activity.LoginActivity";
+	List<RecommandInfo> lstRecommand = new ArrayList<RecommandInfo>();
+	RecommandAdapter adapter = null;
+
+	RecommandLoader loader = null;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -45,20 +47,19 @@ public class RecommandFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	protected void initComponents() {
-		layAnjuke = (RelativeLayout) innerView.findViewById(R.id.layAnjuke);
-		layHaozu = (RelativeLayout) innerView.findViewById(R.id.layHaozu);
-		layXinfang = (RelativeLayout) innerView.findViewById(R.id.layXinfang);
-		layBroker = (RelativeLayout) innerView.findViewById(R.id.layBroker);
-		layAnjuke.setOnClickListener(this);
-		layHaozu.setOnClickListener(this);
-		layXinfang.setOnClickListener(this);
-		layBroker.setOnClickListener(this);
+		lvRecommand = (ListView) innerView.findViewById(R.id.lvRecommand);
+		progressRecommand = (DataProgressBar) innerView
+				.findViewById(R.id.progressRecommand);
+		adapter = new RecommandAdapter(getActivity(), lstRecommand);
+		lvRecommand.setAdapter(adapter);
 
+		loader = new RecommandLoader(getActivity());
+		loader.registerListener(0, this);
 	}
 
 	@Override
 	protected void initLogic() {
-
+		doStartLoad();
 	}
 
 	@Override
@@ -71,26 +72,21 @@ public class RecommandFragment extends BaseFragment implements OnClickListener {
 
 	}
 
+	private void doStartLoad() {
+		progressRecommand.setAppName(getString(R.string.loading));
+		progressRecommand.setVisibility(View.VISIBLE);
+		loader.startLoading();
+	}
+
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-
-		case R.id.layAnjuke:
-			ApkUtils.gotoApp(getActivity(), NS_ANJUKE, AS_WELCOME_ANJUKE);
-			break;
-		case R.id.layHaozu:
-			ApkUtils.gotoApp(getActivity(), NS_HAOZU, AS_WELCOME_HAOZU);
-			break;
-		case R.id.layXinfang:
-			ApkUtils.gotoApp(getActivity(), NS_XINFANG, AS_WELCOME_XINFANG);
-			break;
-		case R.id.layBroker:
-			ApkUtils.gotoApp(getActivity(), NS_BROKER, AS_WELCOME_BROKER);
-			break;
+	public void onLoadComplete(Loader<List<RecommandInfo>> loader,
+			List<RecommandInfo> data) {
+		lstRecommand.clear();
+		if (data != null) {
+			lstRecommand.addAll(data);
 		}
-
-		getActivity().finish();
-
+		adapter.setNewData(lstRecommand);
+		progressRecommand.setVisibility(View.GONE);
 	}
 
 }

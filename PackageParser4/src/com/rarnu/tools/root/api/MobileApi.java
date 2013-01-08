@@ -1,12 +1,16 @@
 package com.rarnu.tools.root.api;
 
 import java.net.URLEncoder;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.util.Log;
 
+import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.utils.HttpRequest;
 
 public class MobileApi {
@@ -21,13 +25,16 @@ public class MobileApi {
 	private static final String FEEDBACK_URL = BASE_URL + "user_feedback.php";
 	private static final String FEEDBACK_PARAM = "deviceId=%s&module=%s&os_version=%s&mail=%s&build_desc=%s&comment=%s";
 
+	private static final String RECOMMAND_URL = BASE_URL + "get_recommand.php";
+
 	// [/region]
-	
+
 	// [region] business logic
 	public static UpdateInfo checkUpdate(int version) {
 		UpdateInfo result = null;
 		try {
-			String ret = HttpRequest.get(UPDATE_URL, String.format(UPDATE_PARAM, version), HTTP.UTF_8);
+			String ret = HttpRequest.get(UPDATE_URL,
+					String.format(UPDATE_PARAM, version), HTTP.UTF_8);
 			JSONObject json = new JSONObject(ret);
 			result = new UpdateInfo();
 			result.result = json.getInt("result");
@@ -42,17 +49,43 @@ public class MobileApi {
 		return result;
 	}
 
-	public static boolean userFeedback(String deviceId, String module, String osVersion, String mail, String buildDesc,
-			String comment) {
+	public static boolean userFeedback(String deviceId, String module,
+			String osVersion, String mail, String buildDesc, String comment) {
 		boolean result = false;
 		try {
 			comment = URLEncoder.encode(comment, HTTP.UTF_8);
-			String ret = HttpRequest.get(FEEDBACK_URL,
-					String.format(FEEDBACK_PARAM, deviceId, module, osVersion, mail, buildDesc, comment), HTTP.UTF_8);
+			String ret = HttpRequest.get(FEEDBACK_URL, String.format(
+					FEEDBACK_PARAM, deviceId, module, osVersion, mail,
+					buildDesc, comment), HTTP.UTF_8);
 			JSONObject json = new JSONObject(ret);
 			result = (json.getInt("result") != 0);
 		} catch (Exception e) {
 			result = false;
+		}
+		return result;
+	}
+
+	public static List<RecommandInfo> getRecommand() {
+		List<RecommandInfo> result = null;
+		try {
+			String ret = HttpRequest.get(RECOMMAND_URL, "", HTTP.UTF_8);
+			JSONObject json = new JSONObject(ret);
+			result = new ArrayList<RecommandInfo>();
+			JSONArray arr = json.getJSONArray("data");
+			for (int i = 0; i < arr.length(); i++) {
+				RecommandInfo info = new RecommandInfo();
+				info.id = arr.getJSONObject(i).getInt("id");
+				info.name = arr.getJSONObject(i).getString("name");
+				info.packageName = arr.getJSONObject(i).getString(
+						"package_name");
+				info.mainActivity = arr.getJSONObject(i).getString(
+						"main_activity");
+				info.iconUrl = arr.getJSONObject(i).getString("icon_url");
+				info.unixName = arr.getJSONObject(i).getString("unix_name");
+				result.add(info);
+			}
+		} catch (Exception e) {
+
 		}
 		return result;
 	}

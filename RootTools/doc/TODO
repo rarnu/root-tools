@@ -1,13 +1,4 @@
-land/
-	layout_dataapp_report.xml
-	layout_host_add.xml
-	layout_host_deprecated.xml
-	layout_host_edit.xml
-	layout_mem_ignore.xml
 
 server/
 	recommand server / upload page
 	recommand api
-
-layout_host_add.xml
-	laySiteBtn, UI style

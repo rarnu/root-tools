@@ -7,4 +7,5 @@ public class RecommandInfo {
 	public String packageName;
 	public String mainActivity;
 	public String iconUrl;
+	public String unixName;
 }

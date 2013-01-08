@@ -3,10 +3,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <ListView
-        android:id="@+id/lvReport"
+    <GridView
+        android:id="@+id/gvReport"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:fastScrollEnabled="true" />
+        android:fastScrollEnabled="true"
+        android:numColumns="2" />
 
 </RelativeLayout>

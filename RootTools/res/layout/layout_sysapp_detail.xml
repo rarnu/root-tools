@@ -64,7 +64,6 @@
                 android:id="@+id/layApkPath"
                 android:layout_width="fill_parent"
                 android:layout_height="48dip"
-                android:background="@drawable/list_above_background"
                 android:clickable="false" >
 
                 <TextView
@@ -84,6 +83,12 @@
                     android:paddingRight="8dip"
                     android:textColor="@color/orange"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -91,7 +96,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/layApkPath"
-                android:background="@drawable/list_middle_background"
                 android:clickable="false" >
 
                 <TextView
@@ -111,6 +115,12 @@
                     android:paddingRight="8dip"
                     android:textColor="@color/orange"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -118,7 +128,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/layOdexPath"
-                android:background="@drawable/list_middle_background"
                 android:clickable="false" >
 
                 <TextView
@@ -138,6 +147,12 @@
                     android:paddingRight="8dip"
                     android:textColor="@color/orange"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -145,7 +160,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/layFileSize"
-                android:background="@drawable/list_middle_background"
                 android:clickable="false" >
 
                 <TextView
@@ -165,6 +179,12 @@
                     android:paddingRight="8dip"
                     android:textColor="@color/orange"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -172,7 +192,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/layDataPath"
-                android:background="@drawable/list_middle_background"
                 android:clickable="false" >
 
                 <TextView
@@ -192,6 +211,12 @@
                     android:paddingRight="8dip"
                     android:textColor="@color/orange"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -199,7 +224,6 @@
                 android:layout_width="fill_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/layDataSize"
-                android:background="@drawable/list_below_background"
                 android:clickable="false" >
 
                 <TextView
@@ -219,6 +243,12 @@
                     android:paddingRight="8dip"
                     android:textColor="@color/orange"
                     android:textSize="12sp" />
+
+                <TextView
+                    android:layout_width="fill_parent"
+                    android:layout_height="1dp"
+                    android:layout_alignParentBottom="true"
+                    android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

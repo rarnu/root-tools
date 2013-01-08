@@ -31,7 +31,8 @@ import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.HostsSearchLoader;
 
 public class HostAddFragment extends BasePopupFragment implements
-		OnClickListener, OnLoadCompleteListener<List<HostRecordInfo>>, OnQueryTextListener {
+		OnClickListener, OnLoadCompleteListener<List<HostRecordInfo>>,
+		OnQueryTextListener {
 
 	ListView lvAddHosts;
 	DataBar barAddHosts;
@@ -88,8 +89,10 @@ public class HostAddFragment extends BasePopupFragment implements
 
 		adapter = new HostsAdapter(getActivity().getLayoutInflater(), list,
 				hSelectHost, false, true);
-		lvAddHosts.setAdapter(adapter);
-
+		if (lvAddHosts != null) {
+			lvAddHosts.setAdapter(adapter);
+		}
+		
 		barAddHosts.getButton1().setOnClickListener(this);
 		barAddHosts.getButton2().setOnClickListener(this);
 		btnCom.setOnClickListener(this);
@@ -113,7 +116,6 @@ public class HostAddFragment extends BasePopupFragment implements
 
 	@Override
 	protected void initLogic() {
-		list.clear();
 		adapter.notifyDataSetChanged();
 	}
 
@@ -138,7 +140,7 @@ public class HostAddFragment extends BasePopupFragment implements
 		itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -204,8 +206,8 @@ public class HostAddFragment extends BasePopupFragment implements
 
 	private void returnAddHosts() {
 		if (list == null || list.size() == 0) {
-			Toast.makeText(getActivity(), R.string.no_host_for_add, Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(getActivity(), R.string.no_host_for_add,
+					Toast.LENGTH_LONG).show();
 			return;
 		}
 		String host = "";
@@ -233,37 +235,37 @@ public class HostAddFragment extends BasePopupFragment implements
 			setHostItemSelectedStatus(list, adapter, hSelectHost, false);
 			return;
 		case R.id.btnCom:
-			sv.setQuery(sv.getQuery()+".com", false);
+			sv.setQuery(sv.getQuery() + ".com", false);
 			break;
 		case R.id.btnOrg:
-			sv.setQuery(sv.getQuery()+".org", false);
+			sv.setQuery(sv.getQuery() + ".org", false);
 			break;
 		case R.id.btnNet:
-			sv.setQuery(sv.getQuery()+".net", false);
+			sv.setQuery(sv.getQuery() + ".net", false);
 			break;
 		case R.id.btnEdu:
-			sv.setQuery(sv.getQuery()+".edu", false);
+			sv.setQuery(sv.getQuery() + ".edu", false);
 			break;
 		case R.id.btnInfo:
-			sv.setQuery(sv.getQuery()+".info", false);
+			sv.setQuery(sv.getQuery() + ".info", false);
 			break;
 		case R.id.btnBiz:
-			sv.setQuery(sv.getQuery()+".biz", false);
+			sv.setQuery(sv.getQuery() + ".biz", false);
 			break;
 		case R.id.btnCn:
-			sv.setQuery(sv.getQuery()+".cn", false);
+			sv.setQuery(sv.getQuery() + ".cn", false);
 			break;
 		case R.id.btnUs:
-			sv.setQuery(sv.getQuery()+".us", false);
+			sv.setQuery(sv.getQuery() + ".us", false);
 			break;
 		case R.id.btnJp:
-			sv.setQuery(sv.getQuery()+".jp", false);
+			sv.setQuery(sv.getQuery() + ".jp", false);
 			break;
 		case R.id.btnHk:
-			sv.setQuery(sv.getQuery()+".hk", false);
+			sv.setQuery(sv.getQuery() + ".hk", false);
 			break;
 		case R.id.btnTw:
-			sv.setQuery(sv.getQuery()+".tw", false);
+			sv.setQuery(sv.getQuery() + ".tw", false);
 			break;
 		case R.id.chkSelAll:
 			boolean selected = barAddHosts.getCheckBox().isChecked();

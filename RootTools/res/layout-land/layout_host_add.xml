@@ -1,142 +1,139 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:baselineAligned="false"
+    android:orientation="horizontal" >
 
-    <HorizontalScrollView
+    <ScrollView
         android:id="@+id/laySitBtn"
-        android:layout_width="fill_parent"
-        android:layout_height="40dip"
-        android:layout_margin="4dip"
-        android:scrollbars="none" >
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:padding="4dip"
+        android:background="?android:attr/detailsElementBackground" >
 
         <LinearLayout
-            android:layout_width="wrap_content"
+            android:layout_width="80dip"
             android:layout_height="fill_parent"
-            android:orientation="horizontal" >
+            android:orientation="vertical" >
 
             <Button
                 android:id="@+id/btnCom"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".com"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnOrg"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
-                android:layout_marginLeft="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".org"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnNet"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
-                android:layout_marginLeft="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".net"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnEdu"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
-                android:layout_marginLeft="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".edu"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnInfo"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
-                android:layout_marginLeft="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".info"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnBiz"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
-                android:layout_marginLeft="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".biz"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnCn"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
-                android:layout_marginLeft="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".cn"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnUs"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
-                android:layout_marginLeft="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".us"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnJp"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
-                android:layout_marginLeft="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".jp"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnHk"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
-                android:layout_marginLeft="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".hk"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
 
             <Button
                 android:id="@+id/btnTw"
-                android:layout_width="60dip"
-                android:layout_height="40dip"
-                android:layout_marginLeft="4dip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
                 android:text=".tw"
                 android:textColor="@color/white"
                 android:textSize="14sp" />
         </LinearLayout>
-    </HorizontalScrollView>
+    </ScrollView>
 
-    <ListView
-        android:id="@+id/lvAddHosts"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/barAddHosts"
-        android:layout_below="@+id/laySitBtn"
-        android:fastScrollEnabled="true" >
-    </ListView>
+        android:background="?android:attr/detailsElementBackground" >
 
-    <com.rarnu.tools.root.comp.DataBar
-        android:id="@+id/barAddHosts"
-        android:layout_width="wrap_content"
-        android:layout_height="48dip"
-        android:layout_alignParentBottom="true"
-        android:layout_centerHorizontal="true"
-        android:visibility="gone" />
+        <ListView
+            android:id="@+id/lvAddHosts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/barAddHosts"
+            android:fastScrollEnabled="true" >
+        </ListView>
 
-    <com.rarnu.tools.root.comp.DataProgressBar
-        android:id="@+id/progressSearchHosts"
-        android:layout_width="fill_parent"
-        android:layout_height="24dip"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone" />
+        <com.rarnu.tools.root.comp.DataBar
+            android:id="@+id/barAddHosts"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:visibility="gone" />
 
-</RelativeLayout>
+        <com.rarnu.tools.root.comp.DataProgressBar
+            android:id="@+id/progressSearchHosts"
+            android:layout_width="fill_parent"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+</LinearLayout>

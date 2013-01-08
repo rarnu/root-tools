@@ -18,62 +18,52 @@
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmCar"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_above_background" />
+                android:layout_height="56dip" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmFacebook"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_middle_background" />
+                android:layout_height="56dip" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmTwitter"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_middle_background" />
+                android:layout_height="56dip" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmDropbox"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_middle_background" />
+                android:layout_height="56dip" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmSkydrive"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_middle_background" />
+                android:layout_height="56dip" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmLaputa"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_middle_background" />
+                android:layout_height="56dip" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmFlickr"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_middle_background" />
+                android:layout_height="56dip" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmFriendStream"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_middle_background" />
+                android:layout_height="56dip" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itmGoogle"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_middle_background" />
+                android:layout_height="56dip" />
 
             <com.rarnu.tools.root.comp.HtcRomItem
                 android:id="@+id/itm3rd"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:background="@drawable/list_below_background" />
+                android:layout_height="56dip" />
         </LinearLayout>
     </ScrollView>
 

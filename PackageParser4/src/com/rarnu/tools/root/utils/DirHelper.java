@@ -18,6 +18,7 @@ public class DirHelper {
 	public static final String MEM_DIR = ROOT_DIR + "mem/";
 	public static final String TEMP_DIR = ROOT_DIR + "tmp/";
 	public static final String ERROR_DIR = ROOT_DIR + "error/";
+	public static final String ICON_DIR = ROOT_DIR + "icon/";
 
 	public static void makeDir() {
 		makeDir(ROOT_DIR);
@@ -30,6 +31,7 @@ public class DirHelper {
 		makeDir(MEM_DIR);
 		makeDir(TEMP_DIR);
 		makeDir(ERROR_DIR);
+		makeDir(ICON_DIR);
 	}
 
 	public static boolean isSDCardExists() {

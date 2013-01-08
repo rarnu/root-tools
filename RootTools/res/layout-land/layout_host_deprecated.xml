@@ -3,16 +3,13 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <ListView
-        android:id="@+id/lvDeprecatedHosts"
+    <GridView
+        android:id="@+id/gvDeprecatedHosts"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/progressDeprecated"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/lightgray"
-        android:dividerHeight="1dip"
         android:fastScrollEnabled="true"
-        android:focusableInTouchMode="false" />
+        android:numColumns="2" />
 
     <com.rarnu.tools.root.comp.DataProgressBar
         android:id="@+id/progressDeprecated"
@@ -20,5 +17,5 @@
         android:layout_height="24dip"
         android:layout_alignParentBottom="true"
         android:visibility="gone" />
-    
+
 </RelativeLayout>

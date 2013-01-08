@@ -8,6 +8,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.BaseAdapter;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -19,10 +20,12 @@ import com.rarnu.tools.root.common.MemIgnoreInfo;
 import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 
-public class MemIgnoreFragment extends BasePopupFragment implements OnClickListener {
+public class MemIgnoreFragment extends BasePopupFragment implements
+		OnClickListener {
 
 	DataBar barIgnore;
 	ListView lvIgnore;
+	GridView gvIgnore;
 
 	MemIgnoreAdapter adapter = null;
 
@@ -36,7 +39,7 @@ public class MemIgnoreFragment extends BasePopupFragment implements OnClickListe
 		};
 
 	};
-	
+
 	@Override
 	public void onCreate(android.os.Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -55,30 +58,37 @@ public class MemIgnoreFragment extends BasePopupFragment implements OnClickListe
 
 	@Override
 	protected void initComponents() {
-		barIgnore = (DataBar) innerView.findViewById(R.id.barIgnore);
+
+		gvIgnore = (GridView) innerView.findViewById(R.id.gvIgnore);
 		lvIgnore = (ListView) innerView.findViewById(R.id.lvIgnore);
+
+		barIgnore = (DataBar) innerView.findViewById(R.id.barIgnore);
 		barIgnore.getButton1().setOnClickListener(this);
 		barIgnore.getButton2().setOnClickListener(this);
 		barIgnore.getCheckBox().setOnClickListener(this);
-
 	}
 
 	@Override
 	protected void initLogic() {
 		loadIgnore();
-
+		showIgnoreSelectedCount();
 	}
 
 	@Override
 	protected int getFragmentLayoutResId() {
 		return R.layout.layout_mem_ignore;
 	}
-	
+
 	private void loadIgnore() {
 
 		adapter = new MemIgnoreAdapter(getActivity().getLayoutInflater(),
 				MemorySpecialList.getExcludeList(), hSelectIgnore);
-		lvIgnore.setAdapter(adapter);
+		if (gvIgnore != null) {
+			gvIgnore.setAdapter(adapter);
+		}
+		if (lvIgnore != null) {
+			lvIgnore.setAdapter(adapter);
+		}
 	}
 
 	private void deleteIgnore() {
@@ -93,8 +103,8 @@ public class MemIgnoreFragment extends BasePopupFragment implements OnClickListe
 		showIgnoreSelectedCount();
 		boolean saved = MemorySpecialList.saveExclude();
 		if (!saved) {
-			Toast.makeText(getActivity(), R.string.save_ignore_error, Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(getActivity(), R.string.save_ignore_error,
+					Toast.LENGTH_LONG).show();
 		}
 	}
 
@@ -147,13 +157,12 @@ public class MemIgnoreFragment extends BasePopupFragment implements OnClickListe
 					adapter, hSelectIgnore, selected);
 			break;
 		}
-		
+
 	}
 
 	@Override
 	protected void initMenu(Menu menu) {
-		
-		
+
 	}
 
 }

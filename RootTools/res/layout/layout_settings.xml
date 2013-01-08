@@ -12,7 +12,6 @@
             android:id="@+id/layAllowDeleteLevel0"
             android:layout_width="fill_parent"
             android:layout_height="56dip"
-            android:background="@drawable/list_above_background"
             android:clickable="true" >
 
             <TextView
@@ -29,6 +28,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -36,7 +41,6 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layAllowDeleteLevel0"
-            android:background="@drawable/list_middle_background"
             android:clickable="true" >
 
             <TextView
@@ -53,6 +57,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -60,7 +70,6 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layBackupBeforeDelete"
-            android:background="@drawable/list_below_background"
             android:clickable="true" >
 
             <TextView
@@ -77,6 +86,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
 
         <!-- data -->
@@ -87,7 +102,6 @@
             android:layout_height="56dip"
             android:layout_below="@+id/layAlsoDeleteData"
             android:layout_marginTop="8dip"
-            android:background="@drawable/list_above_background"
             android:clickable="true" >
 
             <TextView
@@ -104,6 +118,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -111,7 +131,6 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layOverrideBackuped"
-            android:background="@drawable/list_middle_background"
             android:clickable="true" >
 
             <TextView
@@ -128,6 +147,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -135,7 +160,6 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layReinstallApk"
-            android:background="@drawable/list_below_background"
             android:clickable="true" >
 
             <TextView
@@ -146,6 +170,12 @@
                 android:paddingLeft="8dip"
                 android:text="@string/delete_all_backup_data"
                 android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
 
         <!-- free memory -->
@@ -156,7 +186,6 @@
             android:layout_height="56dip"
             android:layout_below="@+id/layDeleteAllBackupData"
             android:layout_marginTop="8dip"
-            android:background="@drawable/list_above_background"
             android:clickable="true" >
 
             <TextView
@@ -173,6 +202,12 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -180,7 +215,6 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layKillProcessBeforeClean"
-            android:background="@drawable/list_below_background"
             android:clickable="true" >
 
             <TextView
@@ -190,6 +224,12 @@
                 android:paddingLeft="8dip"
                 android:text="@string/kill_ignore_list"
                 android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
 
         <!-- hosts -->
@@ -200,7 +240,6 @@
             android:layout_height="56dip"
             android:layout_below="@+id/layKillIgnoreList"
             android:layout_marginTop="8dip"
-            android:background="@drawable/list_above_background"
             android:clickable="true" >
 
             <TextView
@@ -220,6 +259,12 @@
                 android:layout_marginLeft="8dip"
                 android:layout_toRightOf="@+id/tvNameServer"
                 android:gravity="right|center_vertical" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -227,7 +272,6 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layNameServer"
-            android:background="@drawable/list_middle_background"
             android:clickable="true" >
 
             <TextView
@@ -237,6 +281,12 @@
                 android:paddingLeft="8dip"
                 android:text="@string/manual_edit_hosts"
                 android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
 
         <RelativeLayout
@@ -244,7 +294,6 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layManualEditHosts"
-            android:background="@drawable/list_below_background"
             android:clickable="true" >
 
             <TextView
@@ -254,6 +303,12 @@
                 android:paddingLeft="8dip"
                 android:text="@string/clean_deprecated_hosts"
                 android:textColor="@color/white" />
+
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="1dp"
+                android:layout_alignParentBottom="true"
+                android:background="@android:drawable/divider_horizontal_dark" />
         </RelativeLayout>
     </RelativeLayout>
 

@@ -8,6 +8,11 @@ import com.rarnu.tools.root.fragment.GlobalFragment;
 public class DataappReportActivity extends BasePopupActivity {
 
 	@Override
+	public boolean getCloseCondition() {
+		return false;
+	}
+	
+	@Override
 	public Fragment replaceFragment() {
 		return GlobalFragment.fDataappReport;
 	}

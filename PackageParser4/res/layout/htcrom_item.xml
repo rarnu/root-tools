@@ -36,8 +36,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_marginRight="4dip"
         android:layout_centerVertical="true"
+        android:layout_marginRight="4dip"
         android:focusable="false" />
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentBottom="true"
+        android:background="@android:drawable/divider_horizontal_dark" />
 
 </RelativeLayout>

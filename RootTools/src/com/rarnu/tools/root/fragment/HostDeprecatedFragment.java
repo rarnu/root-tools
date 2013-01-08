@@ -10,6 +10,7 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -28,6 +29,7 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 		OnLoadCompleteListener<List<HostRecordInfo>> {
 
 	ListView lvDeprecatedHosts;
+	GridView gvDeprecatedHosts;
 	DataProgressBar progressDeprecated;
 
 	List<HostRecordInfo> lstDeprecated = new ArrayList<HostRecordInfo>();
@@ -64,11 +66,18 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 	protected void initComponents() {
 		lvDeprecatedHosts = (ListView) innerView
 				.findViewById(R.id.lvDeprecatedHosts);
+		gvDeprecatedHosts = (GridView) innerView
+				.findViewById(R.id.gvDeprecatedHosts);
 		progressDeprecated = (DataProgressBar) innerView
 				.findViewById(R.id.progressDeprecated);
 		adapter = new HostsAdapter(getActivity().getLayoutInflater(),
 				lstDeprecated, hSelectHost, false, false);
-		lvDeprecatedHosts.setAdapter(adapter);
+		if (lvDeprecatedHosts != null) {
+			lvDeprecatedHosts.setAdapter(adapter);
+		}
+		if (gvDeprecatedHosts != null) {
+			gvDeprecatedHosts.setAdapter(adapter);
+		}
 		loader = new HostsLoader(getActivity());
 		loader.registerListener(0, this);
 	}
@@ -82,7 +91,7 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 	private void doStartLoad() {
 		progressDeprecated.setAppName(getString(R.string.loading));
 		progressDeprecated.setVisibility(View.VISIBLE);
-		
+
 		loader.startLoading();
 	}
 

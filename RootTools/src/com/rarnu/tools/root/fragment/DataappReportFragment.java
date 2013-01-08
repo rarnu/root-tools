@@ -3,6 +3,7 @@ package com.rarnu.tools.root.fragment;
 import java.util.List;
 
 import android.view.Menu;
+import android.widget.GridView;
 import android.widget.ListView;
 
 import com.rarnu.tools.root.R;
@@ -14,6 +15,7 @@ import com.rarnu.tools.root.utils.ApkUtils;
 public class DataappReportFragment extends BasePopupFragment {
 
 	ListView lvReport;
+	GridView gvReport;
 
 	@Override
 	protected int getBarTitle() {
@@ -28,7 +30,7 @@ public class DataappReportFragment extends BasePopupFragment {
 	@Override
 	protected void initComponents() {
 		lvReport = (ListView) innerView.findViewById(R.id.lvReport);
-
+		gvReport = (GridView) innerView.findViewById(R.id.gvReport);
 	}
 
 	@Override
@@ -51,7 +53,12 @@ public class DataappReportFragment extends BasePopupFragment {
 		List<DataappInfo> report = ApkUtils.getOperationLog();
 		DataappReportAdapter adapter = new DataappReportAdapter(getActivity()
 				.getLayoutInflater(), report);
-		lvReport.setAdapter(adapter);
+		if (lvReport != null) {
+			lvReport.setAdapter(adapter);
+		}
+		if (gvReport != null) {
+			gvReport.setAdapter(adapter);
+		}
 	}
 
 }
