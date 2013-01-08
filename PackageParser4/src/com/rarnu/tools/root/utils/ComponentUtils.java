@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
+import android.util.Log;
 
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.CompInfo;
@@ -73,7 +74,7 @@ public class ComponentUtils {
 		// com.melodis.midomiMusicIdentifier/com.google.ads.InstallReceiver
 		try {
 			RootUtils.runCommand(
-					String.format("pm enable %s/%s",
+					String.format("pm enable '%s/%s'",
 							receiverName.getPackageName(),
 							receiverName.getClassName()), true);
 
@@ -88,7 +89,7 @@ public class ComponentUtils {
 		// com.melodis.midomiMusicIdentifier/com.google.ads.InstallReceiver
 		try {
 			RootUtils.runCommand(
-					String.format("pm disable %s/%s",
+					String.format("pm disable '%s/%s'",
 							receiverName.getPackageName(),
 							receiverName.getClassName()), true);
 			return GlobalInstance.pm.getComponentEnabledSetting(receiverName) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
@@ -113,6 +114,7 @@ public class ComponentUtils {
 		
 		List<PackageParser.Activity> lstReceiver = pkg.receivers;
 		for (PackageParser.Activity a : lstReceiver) {
+			Log.e("ComponentUtils.getPackageRSList", a.getComponentName().toString());
 			CompInfo info = new CompInfo();
 			info.component = a;
 			info.enabled = GlobalInstance.pm.getComponentEnabledSetting(a
