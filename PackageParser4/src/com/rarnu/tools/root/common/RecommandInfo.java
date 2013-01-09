@@ -8,4 +8,5 @@ public class RecommandInfo {
 	public String mainActivity;
 	public String iconUrl;
 	public String unixName;
+	public String downloadUrl;
 }

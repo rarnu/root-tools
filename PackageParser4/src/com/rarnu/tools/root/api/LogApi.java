@@ -24,299 +24,227 @@ public class LogApi {
 	// [region] varibale define
 	private static String LOG_STATIC_PARAM = "";
 
+	static {
+		buildStaticParam();
+	}
+
 	// [/region]
 
 	// [region] business logic
 	public static void logAppFirstStart() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onFirst");
-		sendLog(param);
+		sendLog("onFirst");
 	}
 
 	public static void logAppStart() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onStart");
-		sendLog(param);
+		sendLog("onStart");
 	}
 
 	public static void logAppStop() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onStop");
-		sendLog(param);
+		sendLog("onStop");
 	}
 
 	public static void logEnterSysapp() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onSysapp");
-		sendLog(param);
+		sendLog("onSysapp");
 	}
 
 	public static void logDeleteSystemApp(String namespace) {
-		buildStaticParam();
+
 		try {
 			namespace = URLEncoder.encode(namespace, HTTP.UTF_8);
 		} catch (UnsupportedEncodingException e) {
 
 		}
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onDeleteSystemApp." + namespace);
-		sendLog(param);
+
+		sendLog("onDeleteSystemApp." + namespace);
 	}
 
 	public static void logInstallSystemApp(String namespace) {
-		buildStaticParam();
+		
 		try {
 			namespace = URLEncoder.encode(namespace, HTTP.UTF_8);
 		} catch (UnsupportedEncodingException e) {
 
 		}
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onInstallSystemApp." + namespace);
-		sendLog(param);
+		sendLog("onInstallSystemApp." + namespace);
 	}
 
 	public static void logEnterData() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onData");
-		sendLog(param);
+		sendLog("onData");
 	}
 
 	public static void logBackupData() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onBackupData");
-		sendLog(param);
+		sendLog("onBackupData");
 	}
 
 	public static void logRestoreData() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onRestoreData");
-		sendLog(param);
+		sendLog("onRestoreData");
 	}
 
 	public static void logDeleteData() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onDeleteData");
-		sendLog(param);
+		sendLog("onDeleteData");
 	}
 
 	public static void logDeleteAllData() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onDeleteAllData");
-		sendLog(param);
+		sendLog("onDeleteAllData");
 	}
-	
+
 	public static void logEnterComponent() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onComponent");
-		sendLog(param);
+		sendLog("onComponent");
 	}
 
 	public static void logDisableComponent(String name) {
-		buildStaticParam();
 		try {
 			name = URLEncoder.encode(name, HTTP.UTF_8);
 		} catch (UnsupportedEncodingException e) {
 
 		}
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onDisableComponent." + name);
-		sendLog(param);
+
+		sendLog("onDisableComponent." + name);
 	}
 
 	public static void logEnableComponent(String name) {
-		buildStaticParam();
+		
 		try {
 			name = URLEncoder.encode(name, HTTP.UTF_8);
 		} catch (UnsupportedEncodingException e) {
 
 		}
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onEnableComponent." + name);
-		sendLog(param);
+		sendLog("onEnableComponent." + name);
 	}
 
 	public static void logEnterProcess() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onEnterProcess");
-		sendLog(param);
+		sendLog("onEnterProcess");
 	}
 
 	public static void logKillProcess(String namespace) {
-		buildStaticParam();
 		try {
 			namespace = URLEncoder.encode(namespace, HTTP.UTF_8);
 		} catch (UnsupportedEncodingException e) {
 
 		}
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onKillProcess." + namespace);
-		sendLog(param);
+
+		sendLog("onKillProcess." + namespace);
 	}
 
 	public static void logCleanMemory() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onCleanMemory");
-		sendLog(param);
+		sendLog("onCleanMemory");
 	}
 
 	public static void logEnterDeleteIgnore() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onEnterDeleteIgnore");
-		sendLog(param);
+		sendLog("onEnterDeleteIgnore");
 	}
 
 	public static void logIgnoreProcess(String namespace) {
-		buildStaticParam();
+		
 		try {
 			namespace = URLEncoder.encode(namespace, HTTP.UTF_8);
 		} catch (UnsupportedEncodingException e) {
 
 		}
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onIgnoreProcess." + namespace);
-		sendLog(param);
+		sendLog("onIgnoreProcess." + namespace);
 	}
 
 	public static void logUnignoreProcess(String namespace) {
-		buildStaticParam();
+		
 		try {
 			namespace = URLEncoder.encode(namespace, HTTP.UTF_8);
 		} catch (UnsupportedEncodingException e) {
 
 		}
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onUnignoreProcess." + namespace);
-		sendLog(param);
+		sendLog("onUnignoreProcess." + namespace);
 	}
 
 	public static void logIgnoreList() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onIgnoreList");
-		sendLog(param);
+		sendLog("onIgnoreList");
 	}
 
 	public static void logDeleteIgnore() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onDeleteIgnore");
-		sendLog(param);
+		sendLog("onDeleteIgnore");
 	}
 
 	public static void logEnterHosts() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onHosts");
-		sendLog(param);
+		sendLog("onHosts");
 	}
 
 	public static void logAddHosts() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onAddHosts");
-		sendLog(param);
+		sendLog("onAddHosts");
 	}
 
 	public static void logSearchHosts(String url) {
-		buildStaticParam();
 		try {
 			url = URLEncoder.encode(url, HTTP.UTF_8);
 		} catch (UnsupportedEncodingException e) {
 
 		}
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onSearchHosts." + url);
-		sendLog(param);
+		sendLog("onSearchHosts." + url);
 	}
 
 	public static void logDeleteHosts() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onDeleteHosts");
-		sendLog(param);
+		sendLog("onDeleteHosts");
 	}
 
 	public static void logEnterManualEditHosts() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onEnterManualEditHosts");
-		sendLog(param);
+		sendLog("onEnterManualEditHosts");
 	}
 
 	public static void logManualEditHosts() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onManualEditHosts");
-		sendLog(param);
+		sendLog("onManualEditHosts");
 	}
 
 	public static void logEnterDeprecatedHosts() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onEnterDeprecatedHosts");
-		sendLog(param);
+		sendLog("onEnterDeprecatedHosts");
 	}
 
 	public static void logCleanDeprecatedHosts() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onCleanDeprecatedHosts");
-		sendLog(param);
+		sendLog("onCleanDeprecatedHosts");
 	}
 
 	public static void logScanMedia() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onScanMedia");
-		sendLog(param);
+		sendLog("onScanMedia");
 	}
 
 	public static void logEnterRootBusybox() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onRootBusybox");
-		sendLog(param);
+		sendLog("onRootBusybox");
 	}
 
 	public static void logReinstallBusybox() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onReinstallBusybox");
-		sendLog(param);
+		sendLog("onReinstallBusybox");
 	}
 
 	public static void logEnterSystemSettings() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onSystemSettings");
-		sendLog(param);
+		sendLog("onSystemSettings");
 	}
 
 	public static void logCheckUpdate(int version) {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onCheckUpdate." + String.valueOf(version));
-		sendLog(param);
+		sendLog("onCheckUpdate." + String.valueOf(version));
 	}
 
 	public static void logUserFeedback() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onUserFeedback");
-		sendLog(param);
+		sendLog("onUserFeedback");
 	}
 
 	public static void logEnterAppRecommand() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onAppRecommand");
-		sendLog(param);
+		sendLog("onAppRecommand");
 	}
 
 	public static void logEnterAbout() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onAbout");
-		sendLog(param);
+		sendLog("onAbout");
 	}
 
 	public static void logEnterHelp() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onHelp");
-		sendLog(param);
+		sendLog("onHelp");
 	}
 
 	public static void logEnterCache() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onCache");
-		sendLog(param);
+		sendLog("onCache");
 	}
 
 	public static void logCleanCache() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onCleanCache");
-		sendLog(param);
+		sendLog("onCleanCache");
 	}
 
 	public static void logEnterMore() {
-		buildStaticParam();
-		final String param = LOG_STATIC_PARAM + String.format(LOG_ACTION, "onMore");
-		sendLog(param);
+		sendLog("onMore");
 	}
 
 	public static void logCrash(String message) {
@@ -327,7 +255,6 @@ public class LogApi {
 		}
 	}
 
-	
 	// [/region]
 
 	// [region] common
@@ -337,11 +264,15 @@ public class LogApi {
 			@Override
 			public void run() {
 				List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-				params.add(new BasicNameValuePair("deviceId", GlobalInstance.deviceId));
-				params.add(new BasicNameValuePair("module", GlobalInstance.module));
-				params.add(new BasicNameValuePair("os_version", GlobalInstance.osVersion));
+				params.add(new BasicNameValuePair("deviceId",
+						GlobalInstance.deviceId));
+				params.add(new BasicNameValuePair("module",
+						GlobalInstance.module));
+				params.add(new BasicNameValuePair("os_version",
+						GlobalInstance.osVersion));
 				params.add(new BasicNameValuePair("mail", GlobalInstance.mail));
-				params.add(new BasicNameValuePair("build_desc", GlobalInstance.buildDescription));
+				params.add(new BasicNameValuePair("build_desc",
+						GlobalInstance.buildDescription));
 				params.add(new BasicNameValuePair("crash", crash));
 				HttpRequest.post(LOG_CRACH_URL, params, HTTP.UTF_8);
 			}
@@ -352,15 +283,19 @@ public class LogApi {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				HttpRequest.get(LOG_BASE_URL, params, HTTP.UTF_8);
+				HttpRequest.get(LOG_BASE_URL,
+						LOG_STATIC_PARAM + String.format(LOG_ACTION, params),
+						HTTP.UTF_8);
 			}
 		}).start();
 	}
 
 	private static void buildStaticParam() {
 		if (LOG_STATIC_PARAM.equals("")) {
-			LOG_STATIC_PARAM = String.format(LOG_BASE_PARAM, GlobalInstance.deviceId, GlobalInstance.module,
-					GlobalInstance.osVersion, GlobalInstance.mail, GlobalInstance.buildDescription);
+			LOG_STATIC_PARAM = String.format(LOG_BASE_PARAM,
+					GlobalInstance.deviceId, GlobalInstance.module,
+					GlobalInstance.osVersion, GlobalInstance.mail,
+					GlobalInstance.buildDescription);
 		}
 	}
 

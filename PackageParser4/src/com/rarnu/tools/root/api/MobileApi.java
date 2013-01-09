@@ -82,6 +82,7 @@ public class MobileApi {
 						"main_activity");
 				info.iconUrl = arr.getJSONObject(i).getString("icon_url");
 				info.unixName = arr.getJSONObject(i).getString("unix_name");
+				info.downloadUrl = arr.getJSONObject(i).getString("download_url");
 				result.add(info);
 			}
 		} catch (Exception e) {
@@ -89,5 +90,6 @@ public class MobileApi {
 		}
 		return result;
 	}
+
 	// [/region]
 }
