@@ -1,0 +1,7 @@
+create table root_tools_recommand (id int primary key, name text, package_name text, main_activity text, icon_url text, download_url text, unix_name text, app_order int default 0) character set utf8;
+
+create table root_tools_crash () character set utf8;
+
+create table root_tools_feedback () character set utf8;
+
+create table root_tools_log () character set utf8;
