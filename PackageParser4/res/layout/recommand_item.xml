@@ -15,8 +15,9 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
-        android:layout_toRightOf="@+id/imgRecommand"
+        android:layout_toRightOf="@+id/imgItemRecommand"
         android:paddingLeft="8dip"
-        android:textColor="@color/white" />
+        android:textColor="@color/white"
+        android:textSize="18sp" />
 
 </RelativeLayout>

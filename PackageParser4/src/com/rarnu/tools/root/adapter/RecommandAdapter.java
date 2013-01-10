@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.root.pp4.R;
+import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.holder.RecommandAdapterHolder;
 import com.rarnu.tools.root.utils.DownloadUtils;
@@ -67,7 +68,7 @@ public class RecommandAdapter extends BaseAdapter {
 		if (item != null) {
 			holder.tvItemRecommand.setText(item.name);
 			DownloadUtils.downloadFileT(context, holder.imgItemRecommand,
-					item.iconUrl, item.unixName);
+					MobileApi.ICON_BASE_URL + item.iconUrl, item.unixName);
 		}
 
 		return v;

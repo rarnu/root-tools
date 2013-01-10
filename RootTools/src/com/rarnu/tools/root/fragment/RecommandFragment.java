@@ -8,6 +8,8 @@ import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.rarnu.tools.root.R;
@@ -17,9 +19,10 @@ import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.RecommandLoader;
+import com.rarnu.tools.root.utils.ApkUtils;
 
 public class RecommandFragment extends BaseFragment implements
-		OnLoadCompleteListener<List<RecommandInfo>> {
+		OnLoadCompleteListener<List<RecommandInfo>>, OnItemClickListener {
 
 	ListView lvRecommand;
 	DataProgressBar progressRecommand;
@@ -52,6 +55,8 @@ public class RecommandFragment extends BaseFragment implements
 				.findViewById(R.id.progressRecommand);
 		adapter = new RecommandAdapter(getActivity(), lstRecommand);
 		lvRecommand.setAdapter(adapter);
+
+		lvRecommand.setOnItemClickListener(this);
 
 		loader = new RecommandLoader(getActivity());
 		loader.registerListener(0, this);
@@ -87,6 +92,14 @@ public class RecommandFragment extends BaseFragment implements
 		}
 		adapter.setNewData(lstRecommand);
 		progressRecommand.setVisibility(View.GONE);
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		RecommandInfo item = lstRecommand.get(position);
+		ApkUtils.gotoApp(getActivity(), item.packageName, item.mainActivity);
+
 	}
 
 }

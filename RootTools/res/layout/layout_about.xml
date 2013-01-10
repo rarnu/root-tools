@@ -99,7 +99,8 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/check_update"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -121,7 +122,8 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/how_to_use"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
 
                     <TextView
                         android:layout_width="fill_parent"
@@ -143,7 +145,8 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/system_fitable"
-                        android:textColor="@color/white" />
+                        android:textColor="@color/white"
+                        android:textSize="18sp" />
 
                     <ImageView
                         android:id="@+id/imgFitable"

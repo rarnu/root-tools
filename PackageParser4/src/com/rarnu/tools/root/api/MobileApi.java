@@ -16,8 +16,10 @@ import com.rarnu.tools.root.utils.HttpRequest;
 public class MobileApi {
 
 	// [region] const define
-	private static final String BASE_URL = "http://rarnu.7thgen.info/anjuke/root_tools/";
+	private static final String BASE_URL = "http://rarnu.7thgen.info/root_tools/";
 	public static final String DOWNLOAD_BASE_URL = BASE_URL + "download/";
+	public static final String ICON_BASE_URL = BASE_URL + "icon/";
+	public static final String PACKAGE_BASE_URL = BASE_URL + "package/";
 
 	private static final String UPDATE_URL = BASE_URL + "check_update.php";
 	private static final String UPDATE_PARAM = "version=%d";

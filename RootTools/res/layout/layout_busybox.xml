@@ -33,7 +33,8 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/file_su"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/imgSu"
@@ -64,7 +65,8 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/file_super_user"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/imgSuperUser"
@@ -95,7 +97,8 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/file_busybox"
-                    android:textColor="@color/white" />
+                    android:textColor="@color/white"
+                    android:textSize="18sp" />
 
                 <ImageView
                     android:id="@+id/imgBusybox"
