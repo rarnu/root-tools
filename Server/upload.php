@@ -12,15 +12,15 @@ $icon = $_FILES["icon"];
 $apk = $_FILES["apk"];
 
 if (empty($name) || empty($package_name) || empty($main_activity) || empty($unix_name)) {
-	echo file_get_contents("navbar.php").file_get_contents("field_error.php");
+	header("Location:field_error.php");
 	exit;
 }
 
 $ret = DoUpload($name, $package_name, $main_activity, $unix_name, $icon, $apk);
 if ($ret == "0") {
-	echo file_get_contents("navbar.php").file_get_contents("upload_succ.php");
+	header("Location:upload_succ.php");
 } else {
-	echo file_get_contents("navbar.php").file_get_contents("upload_fail.php");
+	header("Location:upload_fail.php");
 }
 
 function DoUpload($n, $p, $m, $u, $fi, $fp) {

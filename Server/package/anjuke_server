@@ -1,0 +1,24 @@
+1. generate key
+   $ ssh-keygen -t dsa
+
+2. modify the last characters in public key to your mail address
+
+3. install keychain
+   $ sudo apt-get install keychain
+
+4. modify bash profile and add:
+   keychain $HOME/.ssh/id_dsa
+   source $HOME/.keychain/$HOSTNAME-sh
+
+5. ssh to jumper
+   $ ssh -A nickhe@10.10.6.226
+
+6. ssh to evans
+   $ ssh evans@10.11.6.163
+
+7. use mysql in evans
+   $ mysql
+
+8. edit php files under:
+   $ cd /usr/share/nginx/html
+
