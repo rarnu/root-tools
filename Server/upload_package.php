@@ -36,23 +36,23 @@ include('navbar.php');
 		<form method="POST" action="upload.php" class="form-horizontal" enctype="multipart/form-data">
 		<table border="0" >
 			<tr>
-				<td>Name</td> <td><input type="textbox" name="name" size="20"></td>
+				<td>Name</td> <td><input type="text" name="name" size="20" class="input-block-level"></td>
 			</tr>
 			<tr>
-				<td>Package Name</td><td><input type="textbox" name="package_name" size="20"></td>
+				<td>Package Name</td><td><input type="text" name="package_name" size="20" class="input-block-level"></td>
 			</tr>
 			<tr>
-				<td>Main Activity</td><td><input type="textbox" name="main_activity" size="20"> </td>
+				<td>Main Activity</td><td><input type="text" name="main_activity" size="20" class="input-block-level"> </td>
 			</tr>
 			<tr>
-				<td>Unix Name</td><td><input type="textbox" name="unix_name" size="20"></td>
+				<td>Unix Name</td><td><input type="text" name="unix_name" size="20" class="input-block-level"></td>
 			</tr>
 			<tr>
-				<td>Upload Icon</td><td><input type="file" name="icon" size="20" ></td>
+				<td>Upload Icon</td><td><input type="file" name="icon" size="20" class="btn" ></td>
 			
 			</tr>
 			<tr>
-				<td>Upload package</td><td><input type="file" name="apk" size="20"></td>
+				<td>Upload package</td><td><input type="file" name="apk" size="20" class="btn"></td>
 			</tr>
 			<tr>
 				<td></td><td height="50">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="Submit" class="btn btn-big btn-primary">&nbsp;&nbsp;<input type="button" value="Reset" class="btn btn-big btn-primary"></td>
