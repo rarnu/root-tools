@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <com.rarnu.vim.emotion.comp.ScrollLayout
+        android:id="@+id/slLeftRight"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent" >
+
+        <FrameLayout
+                android:id="@+id/fragLeft"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+        <com.rarnu.vim.emotion.comp.HScrollLayout
+            android:id="@+id/slTopBottom"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent" >
+
+            <FrameLayout
+                android:id="@+id/fragTop"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <FrameLayout
+                android:id="@+id/fragCenter"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+
+            <FrameLayout
+                android:id="@+id/fragBottom"
+                android:layout_width="fill_parent"
+                android:layout_height="fill_parent" />
+        </com.rarnu.vim.emotion.comp.HScrollLayout>
+    </com.rarnu.vim.emotion.comp.ScrollLayout>
+
+</RelativeLayout>

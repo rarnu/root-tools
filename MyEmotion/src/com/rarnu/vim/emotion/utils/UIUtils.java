@@ -1,4 +1,4 @@
-package com.rarnu.tools.root.utils;
+package com.rarnu.vim.emotion.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -84,12 +84,14 @@ public class UIUtils {
 		return (e.getX() < (dm.widthPixels / 2));
 	}
 
+	@SuppressWarnings("deprecation")
 	public static int getStatusbarHeight(Context context) {
 		Drawable ico = context.getResources().getDrawable(
 				android.R.drawable.stat_sys_phone_call);
 		return ico.getIntrinsicHeight();
 	}
 
+	@SuppressWarnings("deprecation")
 	public static void setActivitySizePos(Activity activity) {
 		WindowManager m = activity.getWindowManager();
 		Display d = m.getDefaultDisplay();
