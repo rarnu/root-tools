@@ -1,15 +1,16 @@
 package com.rarnu.vim.emotion;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
+import android.view.Window;
 
 import com.rarnu.vim.emotion.common.FaceLoader;
 import com.rarnu.vim.emotion.comp.HScrollLayout;
 import com.rarnu.vim.emotion.comp.OnScreenChangeListener;
 import com.rarnu.vim.emotion.comp.OnScreenTouchListener;
-import com.rarnu.vim.emotion.comp.ScrollLayout;
+import com.rarnu.vim.emotion.comp.VScrollLayout;
 import com.rarnu.vim.emotion.database.EmotionDatabase;
 import com.rarnu.vim.emotion.fragment.BottomFragment;
 import com.rarnu.vim.emotion.fragment.CenterFragment;
@@ -22,8 +23,8 @@ import com.rarnu.vim.emotion.utils.UIUtils;
 public class MainActivity extends Activity implements OnScreenChangeListener,
 		EmotionInterface, OnScreenTouchListener {
 
-	ScrollLayout slLeftRight;
-	HScrollLayout slTopBottom;
+	HScrollLayout slLeftRight;
+	VScrollLayout slTopBottom;
 
 	TopFragment top;
 	BottomFragment bottom;
@@ -32,12 +33,13 @@ public class MainActivity extends Activity implements OnScreenChangeListener,
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
+		requestWindowFeature(Window.FEATURE_NO_TITLE);
 		UIUtils.initDisplayMetrics(getWindowManager());
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		slLeftRight = (ScrollLayout) findViewById(R.id.slLeftRight);
-		slTopBottom = (HScrollLayout) findViewById(R.id.slTopBottom);
+		slLeftRight = (HScrollLayout) findViewById(R.id.slLeftRight);
+		slTopBottom = (VScrollLayout) findViewById(R.id.slTopBottom);
 
 		slLeftRight.setOnScreenChangeListener(this);
 		slTopBottom.setOnScreenChangeListener(this);
@@ -55,7 +57,6 @@ public class MainActivity extends Activity implements OnScreenChangeListener,
 				.replace(R.id.fragCenter, center).replace(R.id.fragLeft, left)
 				.replace(R.id.fragTop, top).replace(R.id.fragBottom, bottom)
 				.commit();
-
 	}
 
 	@Override
@@ -109,12 +110,10 @@ public class MainActivity extends Activity implements OnScreenChangeListener,
 
 	@Override
 	public void onActionScrolling(View v) {
-		Log.e(getClass().getName(), "onActionScrolling");
 		switch (v.getId()) {
 		case R.id.slLeftRight:
 			break;
 		case R.id.slTopBottom:
-			Log.e(getClass().getName(), "slLeftRight.setEnableScroll(false)");
 			slLeftRight.setEnableScroll(false);
 			break;
 		}
@@ -126,7 +125,6 @@ public class MainActivity extends Activity implements OnScreenChangeListener,
 		case R.id.slLeftRight:
 			break;
 		case R.id.slTopBottom:
-			Log.e(getClass().getName(), "slLeftRight.setEnableScroll(true)");
 			slLeftRight.setEnableScroll(slTopBottom.getCurScreen() == 1);
 			top.setScrollable(slTopBottom.getCurScreen() == 0);
 			top.snap();
@@ -134,6 +132,26 @@ public class MainActivity extends Activity implements OnScreenChangeListener,
 			bottom.snap();
 			break;
 		}
-		
+	}
+
+	@Override
+	public void switchFragment(int layout, Fragment fragment) {
+		getFragmentManager().beginTransaction().replace(layout, fragment)
+				.commit();
+	}
+
+	@Override
+	public Fragment getFragment(int id) {
+		switch (id) {
+		case EmotionInterface.FRAGMENT_CENTER:
+			return center;
+		case EmotionInterface.FRAGMENT_TOP:
+			return top;
+		case EmotionInterface.FRAGMENT_BOTTOM:
+			return bottom;
+		case EmotionInterface.FRAGMENT_LEFT:
+			return left;
+		}
+		return null;
 	}
 }

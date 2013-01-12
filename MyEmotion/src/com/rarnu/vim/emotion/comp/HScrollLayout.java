@@ -28,7 +28,9 @@ public class HScrollLayout extends ViewGroup {
 
 	private int mTouchState = TOUCH_STATE_REST;
 	private int mTouchSlop;
-	private float mLastMotionY;
+	private float mLastMotionX;
+
+	// private float mLastMotionY;
 
 	public HScrollLayout(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
@@ -48,16 +50,17 @@ public class HScrollLayout extends ViewGroup {
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
-		int childTop = 0;
+		int childLeft = 0;
 		final int childCount = getChildCount();
 
 		for (int i = 0; i < childCount; i++) {
 			final View childView = getChildAt(i);
 			if (childView.getVisibility() != View.GONE) {
-				final int childHeight = childView.getMeasuredHeight();
-				childView.layout(0, childTop, childView.getMeasuredWidth(),
-						childTop + childHeight);
-				childTop += childHeight;
+				final int childWidth = childView.getMeasuredWidth();
+
+				childView.layout(childLeft, 0, childLeft + childWidth,
+						childView.getMeasuredHeight());
+				childLeft += childWidth;
 			}
 		}
 
@@ -67,8 +70,7 @@ public class HScrollLayout extends ViewGroup {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-		final int height = MeasureSpec.getSize(heightMeasureSpec);
-
+		final int width = MeasureSpec.getSize(widthMeasureSpec);
 		final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 		if (widthMode != MeasureSpec.EXACTLY) {
 			throw new IllegalStateException(
@@ -87,26 +89,25 @@ public class HScrollLayout extends ViewGroup {
 			getChildAt(i).measure(widthMeasureSpec, heightMeasureSpec);
 		}
 		// Log.e(TAG, "moving to screen "+mCurScreen);
-		scrollTo(0, mCurScreen * height);
+		scrollTo(mCurScreen * width, 0);
 	}
 
 	public void snapToDestination() {
-		final int screenHeight = getHeight();
-		final int destScreen = (getScrollY() + screenHeight / 2) / screenHeight;
+		final int screenWidth = getWidth();
+		final int destScreen = (getScrollX() + screenWidth / 2) / screenWidth;
 		snapToScreen(destScreen);
 	}
 
 	public void snapToScreen(int whichScreen) {
-
+		// get the valid layout page
 		whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
-		if (getScrollY() != (whichScreen * getHeight())) {
+		if (getScrollX() != (whichScreen * getWidth())) {
 
-			final int delta = whichScreen * getHeight() - getScrollY();
-
-			mScroller.startScroll(0, getScrollY(), 0, delta,
+			final int delta = whichScreen * getWidth() - getScrollX();
+			mScroller.startScroll(getScrollX(), 0, delta, 0,
 					Math.abs(delta) * 2);
 			mCurScreen = whichScreen;
-			invalidate();
+			invalidate(); // Redraw the layout
 
 			if (screenChangeListener != null) {
 				screenChangeListener.onScreenChange(this, mCurScreen);
@@ -117,7 +118,7 @@ public class HScrollLayout extends ViewGroup {
 	public void setToScreen(int whichScreen) {
 		whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
 		mCurScreen = whichScreen;
-		scrollTo(0, whichScreen * getHeight());
+		scrollTo(whichScreen * getWidth(), 0);
 	}
 
 	public int getCurScreen() {
@@ -145,38 +146,42 @@ public class HScrollLayout extends ViewGroup {
 		mVelocityTracker.addMovement(event);
 
 		final int action = event.getAction();
-		final float y = event.getY();
+		final float x = event.getX();
 
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
-
+			
 			if (!mScroller.isFinished()) {
 				mScroller.abortAnimation();
 			}
-			mLastMotionY = y;
+			mLastMotionX = x;
 			return true;
 
 		case MotionEvent.ACTION_MOVE:
-			int deltaY = (int) (mLastMotionY - y);
 			
-			if (Math.abs(deltaY) > 10) {
+			int deltaX = (int) (mLastMotionX - x);
+			if (Math.abs(deltaX) > 10) {
 				setTouchState(TOUCH_STATE_SCROLLING);
 			}
-			mLastMotionY = y;
+			
+			mLastMotionX = x;
 
-			scrollBy(0, deltaY);
+			scrollBy(deltaX, 0);
 			return true;
 
 		case MotionEvent.ACTION_UP:
-
+			
 			final VelocityTracker velocityTracker = mVelocityTracker;
 			velocityTracker.computeCurrentVelocity(1000);
-			int velocityY = (int) velocityTracker.getYVelocity();
+			int velocityX = (int) velocityTracker.getXVelocity();
 
-			if (velocityY > SNAP_VELOCITY && mCurScreen > 0) {
+			if (velocityX > SNAP_VELOCITY && mCurScreen > 0) {
+
 				snapToScreen(mCurScreen - 1);
-			} else if (velocityY < -SNAP_VELOCITY
+			} else if (velocityX < -SNAP_VELOCITY
 					&& mCurScreen < getChildCount() - 1) {
+				// Fling enough to move right
+
 				snapToScreen(mCurScreen + 1);
 			} else {
 				snapToDestination();
@@ -209,19 +214,21 @@ public class HScrollLayout extends ViewGroup {
 			return true;
 		}
 
-		// final float x = ev.getX();
-		final float y = ev.getY();
+		final float x = ev.getX();
+		// final float y = ev.getY();
 
 		switch (action) {
 		case MotionEvent.ACTION_MOVE:
-			final int xDiff = (int) Math.abs(mLastMotionY - y);
+			final int xDiff = (int) Math.abs(mLastMotionX - x);
 			if (xDiff > mTouchSlop) {
 				setTouchState(TOUCH_STATE_SCROLLING);
+
 			}
 			break;
 
 		case MotionEvent.ACTION_DOWN:
-			mLastMotionY = y;
+			mLastMotionX = x;
+			
 			setTouchState(mScroller.isFinished() ? TOUCH_STATE_REST
 					: TOUCH_STATE_SCROLLING);
 			break;
@@ -234,7 +241,7 @@ public class HScrollLayout extends ViewGroup {
 
 		return mTouchState != TOUCH_STATE_REST;
 	}
-
+	
 	private void setTouchState(int stat) {
 		mTouchState = stat;
 		if (touchListener != null) {
@@ -255,11 +262,11 @@ public class HScrollLayout extends ViewGroup {
 			OnScreenChangeListener screenChangeListener) {
 		this.screenChangeListener = screenChangeListener;
 	}
-
+	
 	public OnScreenTouchListener getScreenTouchListener() {
 		return touchListener;
 	}
-
+	
 	public void setOnScreenTouchListener(OnScreenTouchListener touchListener) {
 		this.touchListener = touchListener;
 	}

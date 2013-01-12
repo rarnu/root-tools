@@ -3,11 +3,11 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
-    <com.rarnu.vim.emotion.comp.ScrollLayout
+    <com.rarnu.vim.emotion.comp.HScrollLayout
         android:id="@+id/slButtons"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/layPoints"
+        android:layout_above="@+id/pb"
         android:layout_marginTop="4dip" />
 
     <com.rarnu.vim.emotion.comp.PointBar

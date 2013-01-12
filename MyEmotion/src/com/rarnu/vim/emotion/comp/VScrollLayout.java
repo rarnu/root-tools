@@ -9,7 +9,7 @@ import android.view.ViewConfiguration;
 import android.view.ViewGroup;
 import android.widget.Scroller;
 
-public class ScrollLayout extends ViewGroup {
+public class VScrollLayout extends ViewGroup {
 
 	private boolean enableScroll = true;
 	private Scroller mScroller;
@@ -28,15 +28,13 @@ public class ScrollLayout extends ViewGroup {
 
 	private int mTouchState = TOUCH_STATE_REST;
 	private int mTouchSlop;
-	private float mLastMotionX;
+	private float mLastMotionY;
 
-	// private float mLastMotionY;
-
-	public ScrollLayout(Context context, AttributeSet attrs) {
+	public VScrollLayout(Context context, AttributeSet attrs) {
 		this(context, attrs, 0);
 	}
 
-	public ScrollLayout(Context context, AttributeSet attrs, int defStyle) {
+	public VScrollLayout(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 
 		mScroller = new Scroller(context);
@@ -50,17 +48,16 @@ public class ScrollLayout extends ViewGroup {
 	@Override
 	protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
-		int childLeft = 0;
+		int childTop = 0;
 		final int childCount = getChildCount();
 
 		for (int i = 0; i < childCount; i++) {
 			final View childView = getChildAt(i);
 			if (childView.getVisibility() != View.GONE) {
-				final int childWidth = childView.getMeasuredWidth();
-
-				childView.layout(childLeft, 0, childLeft + childWidth,
-						childView.getMeasuredHeight());
-				childLeft += childWidth;
+				final int childHeight = childView.getMeasuredHeight();
+				childView.layout(0, childTop, childView.getMeasuredWidth(),
+						childTop + childHeight);
+				childTop += childHeight;
 			}
 		}
 
@@ -70,7 +67,8 @@ public class ScrollLayout extends ViewGroup {
 	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
 		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-		final int width = MeasureSpec.getSize(widthMeasureSpec);
+		final int height = MeasureSpec.getSize(heightMeasureSpec);
+
 		final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
 		if (widthMode != MeasureSpec.EXACTLY) {
 			throw new IllegalStateException(
@@ -89,25 +87,26 @@ public class ScrollLayout extends ViewGroup {
 			getChildAt(i).measure(widthMeasureSpec, heightMeasureSpec);
 		}
 		// Log.e(TAG, "moving to screen "+mCurScreen);
-		scrollTo(mCurScreen * width, 0);
+		scrollTo(0, mCurScreen * height);
 	}
 
 	public void snapToDestination() {
-		final int screenWidth = getWidth();
-		final int destScreen = (getScrollX() + screenWidth / 2) / screenWidth;
+		final int screenHeight = getHeight();
+		final int destScreen = (getScrollY() + screenHeight / 2) / screenHeight;
 		snapToScreen(destScreen);
 	}
 
 	public void snapToScreen(int whichScreen) {
-		// get the valid layout page
-		whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
-		if (getScrollX() != (whichScreen * getWidth())) {
 
-			final int delta = whichScreen * getWidth() - getScrollX();
-			mScroller.startScroll(getScrollX(), 0, delta, 0,
+		whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
+		if (getScrollY() != (whichScreen * getHeight())) {
+
+			final int delta = whichScreen * getHeight() - getScrollY();
+
+			mScroller.startScroll(0, getScrollY(), 0, delta,
 					Math.abs(delta) * 2);
 			mCurScreen = whichScreen;
-			invalidate(); // Redraw the layout
+			invalidate();
 
 			if (screenChangeListener != null) {
 				screenChangeListener.onScreenChange(this, mCurScreen);
@@ -118,7 +117,7 @@ public class ScrollLayout extends ViewGroup {
 	public void setToScreen(int whichScreen) {
 		whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
 		mCurScreen = whichScreen;
-		scrollTo(whichScreen * getWidth(), 0);
+		scrollTo(0, whichScreen * getHeight());
 	}
 
 	public int getCurScreen() {
@@ -146,42 +145,38 @@ public class ScrollLayout extends ViewGroup {
 		mVelocityTracker.addMovement(event);
 
 		final int action = event.getAction();
-		final float x = event.getX();
+		final float y = event.getY();
 
 		switch (action) {
 		case MotionEvent.ACTION_DOWN:
-			
+
 			if (!mScroller.isFinished()) {
 				mScroller.abortAnimation();
 			}
-			mLastMotionX = x;
+			mLastMotionY = y;
 			return true;
 
 		case MotionEvent.ACTION_MOVE:
+			int deltaY = (int) (mLastMotionY - y);
 			
-			int deltaX = (int) (mLastMotionX - x);
-			if (Math.abs(deltaX) > 10) {
+			if (Math.abs(deltaY) > 10) {
 				setTouchState(TOUCH_STATE_SCROLLING);
 			}
-			
-			mLastMotionX = x;
+			mLastMotionY = y;
 
-			scrollBy(deltaX, 0);
+			scrollBy(0, deltaY);
 			return true;
 
 		case MotionEvent.ACTION_UP:
-			
+
 			final VelocityTracker velocityTracker = mVelocityTracker;
 			velocityTracker.computeCurrentVelocity(1000);
-			int velocityX = (int) velocityTracker.getXVelocity();
+			int velocityY = (int) velocityTracker.getYVelocity();
 
-			if (velocityX > SNAP_VELOCITY && mCurScreen > 0) {
-
+			if (velocityY > SNAP_VELOCITY && mCurScreen > 0) {
 				snapToScreen(mCurScreen - 1);
-			} else if (velocityX < -SNAP_VELOCITY
+			} else if (velocityY < -SNAP_VELOCITY
 					&& mCurScreen < getChildCount() - 1) {
-				// Fling enough to move right
-
 				snapToScreen(mCurScreen + 1);
 			} else {
 				snapToDestination();
@@ -214,21 +209,18 @@ public class ScrollLayout extends ViewGroup {
 			return true;
 		}
 
-		final float x = ev.getX();
-		// final float y = ev.getY();
+		final float y = ev.getY();
 
 		switch (action) {
 		case MotionEvent.ACTION_MOVE:
-			final int xDiff = (int) Math.abs(mLastMotionX - x);
+			final int xDiff = (int) Math.abs(mLastMotionY - y);
 			if (xDiff > mTouchSlop) {
 				setTouchState(TOUCH_STATE_SCROLLING);
-
 			}
 			break;
 
 		case MotionEvent.ACTION_DOWN:
-			mLastMotionX = x;
-			
+			mLastMotionY = y;
 			setTouchState(mScroller.isFinished() ? TOUCH_STATE_REST
 					: TOUCH_STATE_SCROLLING);
 			break;
@@ -241,7 +233,7 @@ public class ScrollLayout extends ViewGroup {
 
 		return mTouchState != TOUCH_STATE_REST;
 	}
-	
+
 	private void setTouchState(int stat) {
 		mTouchState = stat;
 		if (touchListener != null) {
@@ -262,11 +254,11 @@ public class ScrollLayout extends ViewGroup {
 			OnScreenChangeListener screenChangeListener) {
 		this.screenChangeListener = screenChangeListener;
 	}
-	
+
 	public OnScreenTouchListener getScreenTouchListener() {
 		return touchListener;
 	}
-	
+
 	public void setOnScreenTouchListener(OnScreenTouchListener touchListener) {
 		this.touchListener = touchListener;
 	}

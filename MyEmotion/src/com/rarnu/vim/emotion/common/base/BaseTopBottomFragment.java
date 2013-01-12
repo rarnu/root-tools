@@ -11,15 +11,15 @@ import com.rarnu.vim.emotion.R;
 import com.rarnu.vim.emotion.common.PageItem;
 import com.rarnu.vim.emotion.comp.GridPage4x4;
 import com.rarnu.vim.emotion.comp.GridPage4x4.OnKeywordClickListener;
+import com.rarnu.vim.emotion.comp.HScrollLayout;
 import com.rarnu.vim.emotion.comp.OnScreenChangeListener;
 import com.rarnu.vim.emotion.comp.OnScreenTouchListener;
 import com.rarnu.vim.emotion.comp.PointBar;
-import com.rarnu.vim.emotion.comp.ScrollLayout;
 
 public abstract class BaseTopBottomFragment<T extends BasePageUtils<?>> extends BaseFragment implements
 		OnScreenChangeListener, OnKeywordClickListener, OnScreenTouchListener {
 
-	protected ScrollLayout slButtons;
+	protected HScrollLayout slButtons;
 	protected PointBar pb;
 	protected T pageUtils;
 	
@@ -29,7 +29,7 @@ public abstract class BaseTopBottomFragment<T extends BasePageUtils<?>> extends 
 	
 	@Override
 	public void initComponents() {
-		slButtons = (ScrollLayout) innerView.findViewById(R.id.slButtons);
+		slButtons = (HScrollLayout) innerView.findViewById(R.id.slButtons);
 		pb = (PointBar) innerView.findViewById(R.id.pb);
 		slButtons.setOnScreenChangeListener(this);
 		slButtons.setOnScreenTouchListener(this);
@@ -98,6 +98,17 @@ public abstract class BaseTopBottomFragment<T extends BasePageUtils<?>> extends 
 	@Override
 	public void onActionReset(View v) {
 		((EmotionInterface) getActivity()).setTopBottomScrollable(true);
+		
+	}
+	
+	@Override
+	public void doShrink() {
+
+	}
+
+	@Override
+	public void doExpand() {
+		
 		
 	}
 }

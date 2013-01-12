@@ -7,8 +7,6 @@
         android:id="@+id/wvHelp"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/imgBottom"
-        android:layout_below="@+id/tbTitle"
         android:padding="8dip" />
 
 </RelativeLayout>

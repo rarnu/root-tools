@@ -5,11 +5,53 @@
 
     <ImageView
         android:id="@+id/imgEmotion"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="96dip"
+        android:layout_height="96dip"
         android:layout_centerInParent="true"
+        android:contentDescription="@null" />
+
+    <ImageView
+        android:id="@+id/icoLeft"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:layout_centerVertical="true"
+        android:layout_margin="16dip"
+        android:layout_toLeftOf="@+id/imgEmotion"
         android:contentDescription="@null"
-        android:minHeight="48dip"
-        android:minWidth="48dip" />
+        android:src="@drawable/ic_launcher"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/icoRight"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:layout_centerVertical="true"
+        android:layout_margin="16dip"
+        android:layout_toRightOf="@+id/imgEmotion"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_launcher"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/icoTop"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:layout_above="@+id/imgEmotion"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dip"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_launcher"
+        android:visibility="gone" />
+
+    <ImageView
+        android:id="@+id/icoBottom"
+        android:layout_width="48dip"
+        android:layout_height="48dip"
+        android:layout_below="@+id/imgEmotion"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="16dip"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_launcher"
+        android:visibility="gone" />
 
 </RelativeLayout>

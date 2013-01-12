@@ -10,11 +10,11 @@
         android:layout_centerHorizontal="true"
         android:text="Share My Emotion" />
 
-    <com.rarnu.vim.emotion.comp.ScrollLayout
+    <com.rarnu.vim.emotion.comp.HScrollLayout
         android:id="@+id/slButtons"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_above="@+id/layPoints"
+        android:layout_above="@+id/pb"
         android:layout_below="@+id/tvTitle"
         android:layout_marginTop="4dip" />
 
