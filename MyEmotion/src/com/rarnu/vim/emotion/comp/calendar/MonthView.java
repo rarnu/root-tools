@@ -37,13 +37,14 @@ public class MonthView extends GridView {
 		return super.dispatchTouchEvent(ev);
 	}
 
-	public void setDays(CalendarDays days) {
+	public void setDays(CalendarDays days, int height) {
 		this.days = days;
-		adapter = new MonthAdapter(getContext(), days);
+		adapter = new MonthAdapter(getContext(), days, height);
 		setAdapter(adapter);
 	}
 
 	public CalendarDays getDays() {
 		return days;
 	}
+
 }

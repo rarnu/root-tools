@@ -2,7 +2,6 @@ package com.rarnu.findaround.service;
 
 import java.util.ArrayList;
 
-import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.ContextWrapper;
 import android.content.Intent;
@@ -32,7 +31,6 @@ import com.rarnu.findaround.api.BaiduAPI;
 import com.rarnu.findaround.common.Config;
 import com.rarnu.findaround.common.GeoPointOri;
 
-@SuppressLint("HandlerLeak")
 public class SearchService extends ContextWrapper implements MKSearchListener,
 		LocationListener {
 

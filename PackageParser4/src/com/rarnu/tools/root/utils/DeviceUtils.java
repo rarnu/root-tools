@@ -142,27 +142,31 @@ public class DeviceUtils {
 		}
 
 		String factory = getBuildProp(RO_PRODUCT_MANUFACTURER);
-		if (factory.toLowerCase().contains("htc")) {
-			result += 2;
-		} else {
-			result--;
-		}
+		if (factory != null) {
+			if (factory.toLowerCase().contains("htc") && factory.toLowerCase().contains("archos")) {
+				result += 2;
+			} else {
+				result--;
+			}
 
-		if (factory.toLowerCase().contains("xiaomi")) {
-			result -= 1;
+			if (factory.toLowerCase().contains("xiaomi")) {
+				result -= 1;
+			}
 		}
 
 		String module = getBuildProp(RO_PRODUCT_MODEL);
-		if (module.toLowerCase().contains("lenovo")) {
-			result -= 2;
-		}
+		if (module != null) {
+			if (module.toLowerCase().contains("lenovo")) {
+				result -= 2;
+			}
 
-		if (module.toLowerCase().contains("ideatab")) {
-			result -= 2;
-		}
-		
-		if (module.toLowerCase().contains("zte")) {
-			result -= 1;
+			if (module.toLowerCase().contains("ideatab")) {
+				result -= 2;
+			}
+
+			if (module.toLowerCase().contains("zte")) {
+				result -= 1;
+			}
 		}
 
 		String buildId = getBuildProp(RO_BUILD_ID);
@@ -177,8 +181,7 @@ public class DeviceUtils {
 			result--;
 		}
 
-		if (metric.widthPixels >= 480
-				&& metric.heightPixels >= 800) {
+		if (metric.widthPixels >= 480 && metric.heightPixels >= 800) {
 			result++;
 		} else {
 			result--;

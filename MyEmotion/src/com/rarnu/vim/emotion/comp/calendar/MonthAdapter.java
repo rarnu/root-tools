@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AbsListView;
 import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -14,12 +15,14 @@ public class MonthAdapter extends BaseAdapter {
 
 	private LayoutInflater inflater;
 	private CalendarDays days;
+	private int rowHeight = 0;
 
-	public MonthAdapter(Context context, CalendarDays days) {
+	public MonthAdapter(Context context, CalendarDays days, int rowHeight) {
 		this.inflater = LayoutInflater.from(context);
 		this.days = days;
+		this.rowHeight = rowHeight;
 	}
-
+	
 	@Override
 	public int getCount() {
 		return days.lstDays.size();
@@ -40,6 +43,9 @@ public class MonthAdapter extends BaseAdapter {
 		View v = convertView;
 		if (v == null) {
 			v = inflater.inflate(R.layout.item_day, parent, false);
+			AbsListView.LayoutParams lp = (AbsListView.LayoutParams)v.getLayoutParams();
+			lp.height = rowHeight;
+			v.setLayoutParams(lp);
 		}
 		DayHolder holder = (DayHolder) v.getTag();
 		if (holder == null) {

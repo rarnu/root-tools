@@ -7,6 +7,7 @@ import java.util.List;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -21,10 +22,11 @@ import com.rarnu.vim.emotion.comp.calendar.CalendarView;
 import com.rarnu.vim.emotion.comp.calendar.OnCalendarChange;
 import com.rarnu.vim.emotion.database.EmotionInfo;
 import com.rarnu.vim.emotion.loader.HistoryLoader;
+import com.rarnu.vim.emotion.utils.UIUtils;
 
 public class LeftFragment extends BaseFragment implements
 		OnLoadCompleteListener<List<EmotionInfo>>, OnItemClickListener,
-		OnCalendarChange {
+		OnCalendarChange, OnClickListener {
 
 	protected TextView tvTitle;
 	protected ListView lvHistory;
@@ -49,6 +51,7 @@ public class LeftFragment extends BaseFragment implements
 		cvHistory = (CalendarView) innerView.findViewById(R.id.cvHistory);
 		cvHistory.setOnCalendarClick(this);
 		cvHistory.SetOnCalendarChange(this);
+		cvHistory.setOnClickListener(this);
 		initCalendar();
 
 		loader = new HistoryLoader(getActivity());
@@ -60,6 +63,12 @@ public class LeftFragment extends BaseFragment implements
 		loader.startLoading();
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		layoutCalendar.setVisibility(View.GONE);
+	}
+
 	public void initCalendar() {
 		CalendarDays day = new CalendarDays();
 		listDays.add(day);
@@ -69,7 +78,13 @@ public class LeftFragment extends BaseFragment implements
 		for (int i = 0; i < 12; i++) {
 			listDays.add(listDays.get(listDays.size() - 1).getNextMonth());
 		}
-		cvHistory.setDate(listDays);
+		// set row height
+		int height = UIUtils.getHeight()
+				- UIUtils.getStatusbarHeight(getActivity())
+				- UIUtils.dipToPx(48);
+		height /= 6;
+		cvHistory.setDate(listDays, height);
+
 	}
 
 	@Override
@@ -85,8 +100,6 @@ public class LeftFragment extends BaseFragment implements
 	public void reload() {
 		loader.startLoading();
 	}
-
-	
 
 	@Override
 	public int getFragmentLayout() {
@@ -106,6 +119,7 @@ public class LeftFragment extends BaseFragment implements
 
 	@Override
 	public void doShrink() {
+
 		if (lvHistory.getVisibility() == View.VISIBLE) {
 			cvHistory.gotoCurrentMonth();
 			Calendar c = Calendar.getInstance();
@@ -113,12 +127,16 @@ public class LeftFragment extends BaseFragment implements
 					c.get(Calendar.MONTH) + 1));
 			layoutCalendar.setVisibility(View.VISIBLE);
 		}
-		
 	}
 
 	@Override
 	public void doExpand() {
-		
-		
+
+	}
+
+	@Override
+	public void onClick(View arg0) {
+		layoutCalendar.setVisibility(View.GONE);
+
 	}
 }

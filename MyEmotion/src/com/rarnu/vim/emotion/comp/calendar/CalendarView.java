@@ -22,6 +22,8 @@ public class CalendarView extends VScrollLayout implements
 	OnItemClickListener listener;
 	OnCalendarChange calendarChange;
 
+	OnClickListener clickListener;
+
 	public CalendarView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init();
@@ -37,18 +39,20 @@ public class CalendarView extends VScrollLayout implements
 		setOnScreenChangeListener(this);
 	}
 
-	private MonthView addMonth(CalendarDays days, boolean first) {
+	private MonthView addMonth(CalendarDays days, int height, boolean first) {
 		RelativeLayout layout = new RelativeLayout(getContext());
 		layout.setLayoutParams(new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.MATCH_PARENT,
 				RelativeLayout.LayoutParams.MATCH_PARENT));
+		layout.setClickable(true);
+		layout.setOnClickListener(clickListener);
 		MonthView m = new MonthView(getContext());
 		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.MATCH_PARENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		lp.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
 		m.setLayoutParams(lp);
-		m.setDays(days);
+		m.setDays(days, height);
 		m.setFocusable(false);
 		m.setOnItemClickListener(listener);
 		layout.addView(m);
@@ -64,15 +68,15 @@ public class CalendarView extends VScrollLayout implements
 		this.listener = listener;
 	}
 
-	public void setDate(List<CalendarDays> listDays) {
+	public void setDate(List<CalendarDays> listDays, int height) {
 		this.listDays = listDays;
 		removeAllViews();
 		for (CalendarDays days : listDays) {
-			addMonth(days, false);
+			addMonth(days, height, false);
 		}
 		setToScreen(12);
 	}
-	
+
 	public void gotoCurrentMonth() {
 		setToScreen(12);
 	}
@@ -80,7 +84,7 @@ public class CalendarView extends VScrollLayout implements
 	public List<CalendarDays> getDate() {
 		return listDays;
 	}
-	
+
 	public void SetOnCalendarChange(OnCalendarChange calendarChange) {
 		this.calendarChange = calendarChange;
 	}
@@ -100,7 +104,11 @@ public class CalendarView extends VScrollLayout implements
 		if (calendarChange != null) {
 			calendarChange.calendarChanged(listDays.get(screen));
 		}
-		
+
+	}
+
+	public void setViewClick(OnClickListener clickListener) {
+		this.clickListener = clickListener;
 	}
 
 }

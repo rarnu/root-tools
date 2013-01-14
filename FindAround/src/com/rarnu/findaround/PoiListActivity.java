@@ -1,6 +1,5 @@
 package com.rarnu.findaround;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -30,7 +29,7 @@ import com.rarnu.findaround.common.GeoPointOri;
 import com.rarnu.findaround.common.UIUtils;
 import com.rarnu.findaround.map.NoTouchOverlay;
 
-@SuppressLint("HandlerLeak")
+
 public class PoiListActivity extends BaseMapActivity implements
 		OnClickListener, OnItemClickListener {
 

@@ -3,7 +3,6 @@ package com.rarnu.findaround;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.annotation.SuppressLint;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -46,7 +45,7 @@ import com.rarnu.findaround.comp.ScrollLayout;
 import com.rarnu.findaround.comp.ScrollLayout.OnScreenChangeListener;
 import com.rarnu.findaround.service.SearchService;
 
-@SuppressLint("HandlerLeak")
+
 public class WelcomeActivity extends BaseActivity implements OnClickListener,
 		OnLongClickListener, OnDeleteClickListener, OnKeywordClickListener,
 		OnScreenChangeListener, OnItemClickListener {

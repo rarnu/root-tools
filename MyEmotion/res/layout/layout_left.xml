@@ -13,11 +13,8 @@
     <RelativeLayout
         android:id="@+id/layoutCalendar"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_margin="4dip"
-        android:background="@color/silver"
-        android:visibility="gone" >
+        android:layout_height="fill_parent"
+        android:padding="4dip" >
 
         <TextView
             android:id="@+id/tvTitle"
@@ -32,16 +29,9 @@
         <com.rarnu.vim.emotion.comp.calendar.CalendarView
             android:id="@+id/cvHistory"
             android:layout_width="fill_parent"
-            android:layout_height="288dip"
+            android:layout_height="fill_parent"
             android:layout_below="@+id/tvTitle"
-            android:layout_marginLeft="2dip"
-            android:layout_marginRight="2dip"
             android:background="@color/white" />
-
-        <TextView
-            android:layout_width="0px"
-            android:layout_height="2dip"
-            android:layout_below="@+id/cvHistory" />
     </RelativeLayout>
 
 </RelativeLayout>

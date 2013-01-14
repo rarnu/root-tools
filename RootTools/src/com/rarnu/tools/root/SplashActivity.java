@@ -1,6 +1,5 @@
 package com.rarnu.tools.root;
 
-import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -25,10 +24,10 @@ public class SplashActivity extends Activity {
 	// [region] life circle
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		
+
 		super.onCreate(savedInstanceState);
 		UIUtils.initDisplayMetrics(getWindowManager());
-		
+
 		if (!DirHelper.isSDCardExists()) {
 			AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint),
 					getString(R.string.no_sdcard_found),
@@ -42,22 +41,22 @@ public class SplashActivity extends Activity {
 					}, null, null);
 			return;
 		}
-		
+
 		setContentView(R.layout.layout_splash);
-		
+
 		initDeviceInfo();
 		LogApi.logAppStart();
-		
+
 		getWindowManager().getDefaultDisplay()
 				.getMetrics(GlobalInstance.metric);
 		GlobalInstance.density = GlobalInstance.metric.density;
 		GlobalInstance.pm = getPackageManager();
 
 		DirHelper.makeDir();
-		
+
 		final Timer tmrClose = new Timer();
 		tmrClose.schedule(new TimerTask() {
-			
+
 			@Override
 			public void run() {
 				tmrClose.cancel();
@@ -65,22 +64,23 @@ public class SplashActivity extends Activity {
 				startMainActivity();
 			}
 		}, 2000);
-		
+
 	}
-	
+
 	private void startMainActivity() {
 		Intent inMain = new Intent(this, MainActivity.class);
 		inMain.setFlags(Intent.FLAG_ACTIVITY_NO_USER_ACTION);
 		startActivity(inMain);
 	}
-	
+
 	// [/region]
-	
+
 	// [region] events
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		return true;
 	}
+
 	// [/region]
 
 	private void initDeviceInfo() {
@@ -96,16 +96,33 @@ public class SplashActivity extends Activity {
 		try {
 			GlobalInstance.deviceId = URLEncoder.encode(
 					GlobalInstance.deviceId, HTTP.UTF_8);
+		} catch (Exception e) {
+			GlobalInstance.deviceId = "0";
+		}
+
+		try {
 			GlobalInstance.module = URLEncoder.encode(GlobalInstance.module,
 					HTTP.UTF_8);
+		} catch (Exception e) {
+			GlobalInstance.module = "0";
+		}
+		try {
 			GlobalInstance.osVersion = URLEncoder.encode(
 					GlobalInstance.osVersion, HTTP.UTF_8);
+		} catch (Exception e) {
+			GlobalInstance.osVersion = "0";
+		}
+		try {
 			GlobalInstance.mail = URLEncoder.encode(GlobalInstance.mail,
 					HTTP.UTF_8);
+		} catch (Exception e) {
+			GlobalInstance.mail = "";
+		}
+		try {
 			GlobalInstance.buildDescription = URLEncoder.encode(
 					GlobalInstance.buildDescription, HTTP.UTF_8);
-		} catch (UnsupportedEncodingException e) {
-
+		} catch (Exception e) {
+			GlobalInstance.buildDescription = "";
 		}
 
 	}
