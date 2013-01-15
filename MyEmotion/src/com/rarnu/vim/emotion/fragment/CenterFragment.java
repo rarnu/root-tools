@@ -43,7 +43,7 @@ public class CenterFragment extends BaseFragment implements
 	}
 
 	public void setCurrentFace(String faceName) {
-		imgEmotion.setBackground(MiscUtils.getBitmapByAssets(getActivity(),
+		imgEmotion.setBackgroundDrawable(MiscUtils.getBitmapByAssets(getActivity(),
 				"face/" + faceName));
 	}
 
