@@ -2,6 +2,7 @@ package com.rarnu.tools.root.service;
 
 import java.util.List;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.util.Log;
 
@@ -19,14 +20,14 @@ public class DataBackupService extends BaseService {
 
 	@Override
 	public void initIntent() {
-		inBackup.putExtra("operating", true);	
+		inBackup.putExtra("operating", true);
 	}
 
 	@Override
 	public void fiIntent() {
 		inBackup.removeExtra("operating");
 		inBackup.putExtra("operating", false);
-		
+
 	}
 
 	@Override
@@ -35,7 +36,7 @@ public class DataBackupService extends BaseService {
 	}
 
 	@Override
-	public void doOperation(String command) {
+	public void doOperation(String command, Notification n) {
 		Log.e(getClass().getName(), "doOperation");
 		List<DataappInfo> list = ListUtils.getOperateList();
 		inBackupProgress.putExtra("size", list.size());
@@ -46,23 +47,19 @@ public class DataBackupService extends BaseService {
 					.getApplicationLabel(list.get(i).info).toString());
 			sendBroadcast(inBackupProgress);
 
-			ApkUtils.backupData(
-					getApplicationContext(),
-					GlobalInstance.pm.getApplicationLabel(
-							list.get(i).info).toString(),
-					list.get(i).info.sourceDir,
-					list.get(i).info.packageName, list.get(i));
+			ApkUtils.backupData(getApplicationContext(), GlobalInstance.pm
+					.getApplicationLabel(list.get(i).info).toString(), list
+					.get(i).info.sourceDir, list.get(i).info.packageName, list
+					.get(i));
 
 		}
-		
-	}
 
+	}
 
 	@Override
 	public boolean getCommandCondition(String command) {
 		Log.e(getClass().getName(), "getCommandCondition");
 		return command.equals("backup");
 	}
-
 
 }

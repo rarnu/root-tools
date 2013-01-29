@@ -259,6 +259,9 @@ public class RestoreFragment extends BaseFragment implements
 		inRestoreService.putExtra("id", RTConsts.NOTIFY_ID_RESTORE);
 		inRestoreService.putExtra("title", R.string.func3p_title);
 		inRestoreService.putExtra("desc", R.string.restore_ok);
+		inRestoreService.putExtra("proc_id", RTConsts.NOTIFY_PROC_RESTORE);
+		inRestoreService.putExtra("proc_title", R.string.func3p_title);
+		inRestoreService.putExtra("proc_desc", R.string.restoring_proc);
 		getActivity().startService(inRestoreService);
 	}
 

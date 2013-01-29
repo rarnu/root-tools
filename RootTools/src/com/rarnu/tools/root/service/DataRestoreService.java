@@ -2,6 +2,7 @@ package com.rarnu.tools.root.service;
 
 import java.util.List;
 
+import android.app.Notification;
 import android.content.Intent;
 
 import com.rarnu.tools.root.GlobalInstance;
@@ -35,7 +36,7 @@ public class DataRestoreService extends BaseService {
 	}
 
 	@Override
-	public void doOperation(String command) {
+	public void doOperation(String command, Notification n) {
 		RootUtils.runCommand("pm set-install-location 1", true);
 		List<DataappInfo> list = ListUtils.getOperateList();
 		inRestoreProgress.putExtra("size", list.size());

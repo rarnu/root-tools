@@ -15,5 +15,9 @@ public class RTConsts {
 	public static final int NOTIFY_ID_HTC_ROM = 101;
 	public static final int NOTIFY_ID_BACKUP = 102;
 	public static final int NOTIFY_ID_RESTORE = 103;
+	
+	public static final int NOTIFY_PROC_BACKUP = 201;
+	public static final int NOTIFY_PROC_RESTORE = 202;
+	public static final int NOTIFY_PROC_HTC_ROM = 203;
 
 }

@@ -146,6 +146,9 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 		inHtcRomService.putExtra("id", RTConsts.NOTIFY_ID_HTC_ROM);
 		inHtcRomService.putExtra("title", R.string.clean_htc_rom);
 		inHtcRomService.putExtra("desc", R.string.clean_htc_rom_finish);
+		inHtcRomService.putExtra("proc_id", RTConsts.NOTIFY_PROC_HTC_ROM);
+		inHtcRomService.putExtra("proc_title", R.string.clean_htc_rom);
+		inHtcRomService.putExtra("proc_desc", R.string.cleaning_proc);
 		getActivity().startService(inHtcRomService);
 	}
 

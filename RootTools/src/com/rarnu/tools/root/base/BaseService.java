@@ -1,10 +1,12 @@
 package com.rarnu.tools.root.base;
 
+import android.app.Notification;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
+import android.util.Log;
 
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
@@ -48,13 +50,19 @@ public abstract class BaseService extends Service {
 
 	public abstract Intent getSendIntent();
 
-	public abstract void doOperation(String command);
+	public abstract void doOperation(String command, Notification n);
 
 	public abstract boolean getCommandCondition(String command);
 
 	private void operation(final String command, final int id, final int title,
-			final int desc) {
+			final int desc, final int proc_id, final int proc_title,
+			final int proc_desc) {
 
+		final Notification n = NotificationUtils.buildNotification(
+				getApplicationContext(), id, R.drawable.icon24, proc_title,
+				proc_desc, Actions.ACTION_NOTIFY_NULL, false);
+		startForeground(proc_id, n);
+		
 		ApkUtils.clearOperationLog();
 
 		final Handler h = new Handler() {
@@ -65,7 +73,8 @@ public abstract class BaseService extends Service {
 					operating = false;
 					fiIntent();
 					sendBroadcast(getSendIntent());
-					doNotification(id, title, desc);
+					stopForeground(true);
+					doNotification(id, title, desc, true, Actions.ACTION_NOTIFY);
 				}
 				super.handleMessage(msg);
 			};
@@ -75,7 +84,7 @@ public abstract class BaseService extends Service {
 
 			@Override
 			public void run() {
-				doOperation(command);
+				doOperation(command, n);
 				h.sendEmptyMessage(1);
 
 			}
@@ -83,14 +92,17 @@ public abstract class BaseService extends Service {
 
 	}
 
-	private void doNotification(int id, int title, int desc) {
-		NotificationUtils
-				.cancalAllNotification(getApplicationContext(), new int[] {
-						RTConsts.NOTIFY_ID_HTC_ROM, RTConsts.NOTIFY_ID_BACKUP,
-						RTConsts.NOTIFY_ID_RESTORE });
+	private void doNotification(int id, int title, int desc, boolean canClose,
+			String action) {
+		NotificationUtils.cancalAllNotification(getApplicationContext(),
+				new int[] { RTConsts.NOTIFY_ID_HTC_ROM,
+						RTConsts.NOTIFY_ID_BACKUP, RTConsts.NOTIFY_ID_RESTORE,
+						RTConsts.NOTIFY_PROC_BACKUP,
+						RTConsts.NOTIFY_PROC_RESTORE,
+						RTConsts.NOTIFY_PROC_HTC_ROM });
 
 		NotificationUtils.showNotification(getApplicationContext(), id,
-				R.drawable.icon24, title, desc, Actions.ACTION_NOTIFY);
+				R.drawable.icon24, title, desc, action, canClose);
 	}
 
 	@Override
@@ -100,16 +112,26 @@ public abstract class BaseService extends Service {
 			int id = intent.getIntExtra("id", 0);
 			int title = intent.getIntExtra("title", 0);
 			int desc = intent.getIntExtra("desc", 0);
+			int proc_id = intent.getIntExtra("proc_id", 0);
+			int proc_title = intent.getIntExtra("proc_title", 0);
+			int proc_desc = intent.getIntExtra("proc_desc", 0);
 			if (command != null) {
 				if (getCommandCondition(command)) {
 					operating = true;
 					initIntent();
 					doSendMessage();
-					operation(command, id, title, desc);
+					operation(command, id, title, desc, proc_id, proc_title,
+							proc_desc);
 				}
 			}
 		}
 		return super.onStartCommand(intent, flags, startId);
+	}
+
+	@Override
+	public void onDestroy() {
+		Log.e(getClass().getName(), "onDestroy");
+		super.onDestroy();
 	}
 
 }

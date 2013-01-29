@@ -79,16 +79,16 @@ public class CompAdapter extends BaseAdapter {
 							.lastIndexOf(".") + 1);
 
 			if (item.component instanceof PackageParser.Activity) {
-				compName += "<font color=\"blue\">(R)</font>";
+				compName += "<font color=\"#6495ED\">(R)</font>";
 			} else {
-				compName += "<font color=\"blue\">(S)</font>";
+				compName += "<font color=\"#6495ED\">(S)</font>";
 			}
 
 			holder.itemReceiverName.setText(Html.fromHtml(compName));
 			holder.itemReceiverStatus
 					.setText(item.enabled ? R.string.comp_enabled
 							: R.string.comp_disabled);
-			holder.itemReceiverStatus.setTextColor(item.enabled ? 0xFF008000
+			holder.itemReceiverStatus.setTextColor(item.enabled ? Color.GREEN
 					: Color.RED);
 			String ret = "";
 			int i = 0;

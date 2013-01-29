@@ -178,6 +178,11 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		inBackupService.putExtra("id", RTConsts.NOTIFY_ID_BACKUP);
 		inBackupService.putExtra("title", R.string.func3_title);
 		inBackupService.putExtra("desc", R.string.backup_ok);
+		inBackupService.putExtra("proc_id", RTConsts.NOTIFY_PROC_BACKUP);
+		inBackupService.putExtra("proc_title", R.string.func3_title);
+		inBackupService.putExtra("proc_desc", R.string.backuping_proc);
+		
+		
 		getActivity().startService(inBackupService);
 	}
 

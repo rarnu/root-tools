@@ -1,5 +1,6 @@
 package com.rarnu.tools.root.service;
 
+import android.app.Notification;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -49,7 +50,7 @@ public class HtcRomService extends BaseService {
 	}
 
 	@Override
-	public void doOperation(String command) {
+	public void doOperation(String command, Notification n) {
 		if (command.charAt(0) == '1') {
 			deleteApplication("com.htc.AutoMotive");
 			deleteApplication("com.htc.AutoMotive.Traffic");

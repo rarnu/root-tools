@@ -85,7 +85,7 @@ public class SysappSelectApkAdapter extends BaseAdapter {
 				holder.tvFilename.setTextColor(Color.GREEN);
 				break;
 			case 2:
-				holder.tvFilename.setTextColor(Color.BLUE);
+				holder.tvFilename.setTextColor(0xFF6495ED);
 				break;
 			}
 
