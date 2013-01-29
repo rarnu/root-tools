@@ -29,6 +29,7 @@ public class NdefMessageParser {
 				elements.add(new ParsedNdefRecord() {
 					@Override
 					public String getNfcText() {
+						
 						return new String(record.getPayload());
 					}
 				});

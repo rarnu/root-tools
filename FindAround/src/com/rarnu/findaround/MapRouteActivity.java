@@ -361,17 +361,6 @@ public class MapRouteActivity extends BaseMapActivity implements
 			GlobalInstance.routeIndex--;
 		}
 
-		// if (GlobalInstance.routeIndex == GlobalInstance.selectedRoute
-		// .getNumSteps() - 2) {
-		// tvRoute.setText(getString(R.string.terminal)
-		// + GlobalInstance.selectedInfo.address);
-		// } else {
-		// tvRoute.setText(GlobalInstance.selectedRoute.getStep(
-		// GlobalInstance.routeIndex).getContent());
-		// }
-
-		// Log.e("routeIndex", String.valueOf(GlobalInstance.routeIndex));
-
 		if (Config.getMethod(this) == 2) {
 			walkOverlay.showPopup(GlobalInstance.routeIndex);
 		} else {
