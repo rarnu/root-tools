@@ -60,8 +60,6 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 		}).start();
 	}
 
-	
-
 	private void reinstallBusybox() {
 
 		int ret = RootUtils.hasRoot();
@@ -89,10 +87,6 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 					}
 				}, getString(R.string.cancel), null);
 	}
-
-	
-
-	
 
 	private void checkStatus() {
 		boolean hasSu = RootUtils.hasSu();
@@ -182,7 +176,7 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 				R.string.help);
 		itemHelp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		itemHelp.setIcon(android.R.drawable.ic_menu_help);
-		
+
 	}
 
 	@Override
@@ -190,6 +184,5 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 		checkStatus();
 		LogApi.logEnterRootBusybox();
 	}
-
 
 }

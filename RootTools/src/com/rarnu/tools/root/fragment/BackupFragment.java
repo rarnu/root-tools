@@ -285,12 +285,10 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	@Override
 	public void onProgress(String name, int position, int total) {
 		setBackupProgress(name, position, total);
-
 	}
 
 	@Override
 	public void onMutaxMessage(boolean operating) {
-		// Log.e(getClass().getName(), operating ? "TRUE" : "FALSE");
 		setOtherProcState(operating);
 
 	}

@@ -27,6 +27,10 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 	int fitable = 5;
 	int fitableClick = 0;
 
+	int[] fitableDrawable = new int[] { R.drawable.c1, R.drawable.c2,
+			R.drawable.c3, R.drawable.c4, R.drawable.c5, R.drawable.c6,
+			R.drawable.c7, R.drawable.c8, R.drawable.c9 };
+
 	private void showUpdateInfo() {
 
 		if (GlobalInstance.updateInfo == null
@@ -75,35 +79,7 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 		if (fitable > 9) {
 			fitable = 9;
 		}
-		switch (fitable) {
-		case 1:
-			imgFitable.setBackgroundResource(R.drawable.c1);
-			break;
-		case 2:
-			imgFitable.setBackgroundResource(R.drawable.c2);
-			break;
-		case 3:
-			imgFitable.setBackgroundResource(R.drawable.c3);
-			break;
-		case 4:
-			imgFitable.setBackgroundResource(R.drawable.c4);
-			break;
-		case 5:
-			imgFitable.setBackgroundResource(R.drawable.c5);
-			break;
-		case 6:
-			imgFitable.setBackgroundResource(R.drawable.c6);
-			break;
-		case 7:
-			imgFitable.setBackgroundResource(R.drawable.c7);
-			break;
-		case 8:
-			imgFitable.setBackgroundResource(R.drawable.c8);
-			break;
-		case 9:
-			imgFitable.setBackgroundResource(R.drawable.c9);
-			break;
-		}
+		imgFitable.setBackgroundResource(fitableDrawable[fitable - 1]);
 	}
 
 	@Override

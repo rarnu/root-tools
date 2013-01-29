@@ -2,13 +2,13 @@ package com.rarnu.tools.root.loader;
 
 import java.util.List;
 
-import android.content.AsyncTaskLoader;
 import android.content.Context;
 
+import com.rarnu.tools.root.base.BaseLoader;
 import com.rarnu.tools.root.common.EnableappInfo;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-public class EnableappLoader extends AsyncTaskLoader<List<EnableappInfo>> {
+public class EnableappLoader extends BaseLoader<EnableappInfo> {
 
 	public EnableappLoader(Context context) {
 		super(context);
@@ -19,24 +19,4 @@ public class EnableappLoader extends AsyncTaskLoader<List<EnableappInfo>> {
 		return ApkUtils.getEnabledApplications(getContext());
 	}
 
-	@Override
-	protected void onStartLoading() {
-		forceLoad();
-	}
-
-	@Override
-	public void onCanceled(List<EnableappInfo> data) {
-		super.onCanceled(data);
-	}
-
-	@Override
-	protected void onStopLoading() {
-		cancelLoad();
-	}
-
-	@Override
-	protected void onReset() {
-		stopLoading();
-
-	}
 }
