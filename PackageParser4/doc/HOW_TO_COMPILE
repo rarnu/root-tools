@@ -1,0 +1,12 @@
+if you want to compile this library, please follow this guide.
+
+1. download the froyo package with full source and hidden api.
+	$ wget http://rarnu.7thgen.info/downloads/froyo8.jar
+
+2. backup your android-8 library, a jar file under $(ANDROID_SDK)/platforms/android-8/ named "android.jar".
+
+3. replace your android-8 library with froyo8.jar.
+
+4. use ADT to fix the project if needed.
+
+5. compile
