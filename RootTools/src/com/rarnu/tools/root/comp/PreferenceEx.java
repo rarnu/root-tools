@@ -39,7 +39,7 @@ public class PreferenceEx extends Preference {
 	public void setStatus(int state) {
 		this.status = state;
 	}
-	
+
 	public void resetStatus(int state) {
 		this.status = state;
 		switch (status) {
@@ -77,6 +77,7 @@ public class PreferenceEx extends Preference {
 			pref_summary = (TextView) innerView.findViewById(R.id.pref_summary);
 			pref_warning = (ImageView) innerView
 					.findViewById(R.id.pref_warning);
+
 		}
 		return innerView;
 	}

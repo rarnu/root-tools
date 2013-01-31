@@ -10,7 +10,8 @@
         android:layout_above="@+id/progressSysapp"
         android:fastScrollEnabled="true"
         android:paddingLeft="4dip"
-        android:paddingRight="4dip" >
+        android:paddingRight="4dip"
+        android:listSelector="@android:drawable/list_selector_background" >
     </ListView>
 
     <com.rarnu.tools.root.comp.DataProgressBar

@@ -25,13 +25,14 @@
                 android:layout_height="56dip"
                 android:layout_below="@+id/tvRootDesc"
                 android:layout_marginTop="16dip"
+                android:background="@android:drawable/list_selector_background"
                 android:clickable="true" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
+                    android:paddingLeft="16dip"
                     android:text="@string/file_su"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
@@ -57,13 +58,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/laySu"
+                android:background="@android:drawable/list_selector_background"
                 android:clickable="true" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
+                    android:paddingLeft="16dip"
                     android:text="@string/file_super_user"
                     android:textColor="@color/white"
                     android:textSize="18sp" />
@@ -89,13 +91,14 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/laySuperuser"
+                android:background="@android:drawable/list_selector_background"
                 android:clickable="true" >
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
+                    android:paddingLeft="16dip"
                     android:text="@string/file_busybox"
                     android:textColor="@color/white"
                     android:textSize="18sp" />

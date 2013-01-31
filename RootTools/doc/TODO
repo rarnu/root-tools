@@ -1,6 +1,1 @@
-settings page
-refact RootUtils.*
-
-server/
-	recommand server / upload page
-	recommand api
+add cleaning backup service for settings

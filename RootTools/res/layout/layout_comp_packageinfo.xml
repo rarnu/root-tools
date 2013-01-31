@@ -49,7 +49,8 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/tvOperateHint"
-        android:layout_below="@id/spl1" />
+        android:layout_below="@id/spl1"
+        android:listSelector="@android:drawable/list_selector_background" />
 
     <TextView
         android:id="@+id/tvOperateHint"

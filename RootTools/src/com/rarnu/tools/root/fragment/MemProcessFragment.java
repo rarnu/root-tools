@@ -13,7 +13,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseDialogFragment;
 import com.rarnu.tools.root.utils.MemorySpecialList;
-import com.rarnu.tools.root.utils.root.RootUtils;
+import com.rarnu.tools.root.utils.MemoryUtils;
 
 public class MemProcessFragment extends BaseDialogFragment implements
 		OnClickListener {
@@ -97,8 +97,8 @@ public class MemProcessFragment extends BaseDialogFragment implements
 				return;
 			}
 			LogApi.logKillProcess(GlobalInstance.currentMemoryProcess.NAME);
-			RootUtils.runCommand(String.format("kill %d",
-					GlobalInstance.currentMemoryProcess.PID), true);
+			MemoryUtils.killProcess(GlobalInstance.currentMemoryProcess.PID);
+
 			getActivity().setResult(Activity.RESULT_OK);
 			getActivity().finish();
 			break;

@@ -2,35 +2,81 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <PreferenceCategory android:title="@string/cat_system" >
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_sysapp" android:title="@string/func1_title" android:summary="@string/summary_sysapp"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_sysappenabled" android:title="@string/func2_title" android:summary="@string/summary_sysappenabled"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_component" android:title="@string/func4_title" android:summary="@string/summary_component"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_root" android:title="@string/func8_title"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_cleanhtc" android:title="@string/clean_htc_rom" android:summary="@string/summary_cleanhtc"/>
+        
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_sysapp"
+            android:summary="@string/summary_sysapp"
+            android:title="@string/func1_title" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_sysappenabled"
+            android:summary="@string/summary_sysappenabled"
+            android:title="@string/func2_title" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_component"
+            android:summary="@string/summary_component"
+            android:title="@string/func4_title" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_root"
+            android:title="@string/func8_title" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_cleanhtc"
+            android:summary="@string/summary_cleanhtc"
+            android:title="@string/clean_htc_rom" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_backup" >
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_backup" android:title="@string/func3_title" android:summary="@string/summary_backup"/>
-    	<com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_restore" android:title="@string/func3p_title" android:summary="@string/summary_restore"/>
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_backup"
+            android:summary="@string/summary_backup"
+            android:title="@string/func3_title" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_restore"
+            android:summary="@string/summary_restore"
+            android:title="@string/func3p_title" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_memory" >
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_cleanmemory" android:title="@string/func5_title"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_cleancache" android:title="@string/func6_title"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_cleandalvik" android:title="@string/clean_dalvik"/>
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_cleanmemory"
+            android:title="@string/func5_title" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_cleancache"
+            android:title="@string/func6_title" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_cleandalvik"
+            android:title="@string/clean_dalvik" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_other" >
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_hosts" android:title="@string/func7_title" android:summary="@string/summary_host"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_scanmedia" android:title="@string/scan_media" android:summary="@string/summary_scanmedia"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_network" android:title="@string/check_network_status"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_reboot" android:title="@string/reboot_device"/>
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_hosts"
+            android:summary="@string/summary_host"
+            android:title="@string/func7_title" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_scanmedia"
+            android:summary="@string/summary_scanmedia"
+            android:title="@string/scan_media" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_network"
+            android:title="@string/check_network_status" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_reboot"
+            android:title="@string/reboot_device" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/cat_settings">
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_settings" android:title="@string/settings" />
-        
+    <PreferenceCategory android:title="@string/cat_settings" >
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_settings"
+            android:title="@string/settings" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_support" >
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_feedback" android:title="@string/short_feedback" android:summary="@string/summary_feedback"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_recommand" android:title="@string/short_recommand" android:summary="@string/summary_recommand"/>
-        <com.rarnu.tools.root.comp.PreferenceEx android:key="@string/id_about" android:title="@string/short_about"/>
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_feedback"
+            android:summary="@string/summary_feedback"
+            android:title="@string/short_feedback" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_recommand"
+            android:summary="@string/summary_recommand"
+            android:title="@string/short_recommand" />
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_about"
+            android:title="@string/short_about" />
     </PreferenceCategory>
 
 </PreferenceScreen>

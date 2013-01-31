@@ -19,7 +19,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/progressCache"
         android:layout_below="@+id/tvCacheInfo"
-        android:fastScrollEnabled="true" >
+        android:fastScrollEnabled="true"
+        android:listSelector="@android:drawable/list_selector_background" >
     </ListView>
 
     <com.rarnu.tools.root.comp.DataProgressBar

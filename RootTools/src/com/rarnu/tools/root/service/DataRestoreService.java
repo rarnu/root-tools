@@ -11,7 +11,6 @@ import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.ListUtils;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class DataRestoreService extends BaseService {
 
@@ -37,7 +36,7 @@ public class DataRestoreService extends BaseService {
 
 	@Override
 	public void doOperation(String command, Notification n) {
-		RootUtils.runCommand("pm set-install-location 1", true);
+		ApkUtils.setInstallLocation(ApkUtils.INSTALL_INTERNAL);
 		List<DataappInfo> list = ListUtils.getOperateList();
 		inRestoreProgress.putExtra("size", list.size());
 		for (int i = 0; i < list.size(); i++) {

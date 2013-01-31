@@ -10,7 +10,6 @@ import android.util.Log;
 
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
-import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.NotificationUtils;
 
@@ -62,7 +61,7 @@ public abstract class BaseService extends Service {
 				getApplicationContext(), id, R.drawable.icon24, proc_title,
 				proc_desc, Actions.ACTION_NOTIFY_NULL, false);
 		startForeground(proc_id, n);
-		
+
 		ApkUtils.clearOperationLog();
 
 		final Handler h = new Handler() {
@@ -94,12 +93,6 @@ public abstract class BaseService extends Service {
 
 	private void doNotification(int id, int title, int desc, boolean canClose,
 			String action) {
-		NotificationUtils.cancalAllNotification(getApplicationContext(),
-				new int[] { RTConsts.NOTIFY_ID_HTC_ROM,
-						RTConsts.NOTIFY_ID_BACKUP, RTConsts.NOTIFY_ID_RESTORE,
-						RTConsts.NOTIFY_PROC_BACKUP,
-						RTConsts.NOTIFY_PROC_RESTORE,
-						RTConsts.NOTIFY_PROC_HTC_ROM });
 
 		NotificationUtils.showNotification(getApplicationContext(), id,
 				R.drawable.icon24, title, desc, action, canClose);

@@ -2,8 +2,6 @@ package com.rarnu.tools.root.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.Menu;
@@ -13,20 +11,24 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
+import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.RTConfig;
+import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.fragmentactivity.HostDeprecatedActivity;
 import com.rarnu.tools.root.fragmentactivity.HostEditActivity;
 import com.rarnu.tools.root.fragmentactivity.MemIgnoreActivity;
-import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.receiver.MutaxReceiver;
+import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
+import com.rarnu.tools.root.service.CleanBackupService;
 
-public class SettingsFragment extends BaseFragment implements OnClickListener {
+public class SettingsFragment extends BaseFragment implements OnClickListener,
+		OnReceiveMessage {
 
 	RelativeLayout layAllowDeleteLevel0, layAlsoDeleteData,
 			layBackupBeforeDelete, layOverrideBackuped, layReinstallApk,
@@ -37,6 +39,8 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 			imgOverrideBackuped, imgReinstallApk, imgKillProcessBeforeClean;
 
 	EditText etNameServer;
+
+	MutaxReceiver receiver;
 
 	@Override
 	protected int getBarTitle() {
@@ -52,6 +56,18 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LogApi.logEnterSystemSettings();
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		receiver.register(getActivity());
+	}
+
+	@Override
+	public void onPause() {
+		receiver.unregister(getActivity());
+		super.onPause();
 	}
 
 	@Override
@@ -128,6 +144,9 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 				RTConfig.setNameServer(getActivity(), GlobalInstance.nameServer);
 			}
 		});
+
+		receiver = new MutaxReceiver(Actions.ACTION_CLEANING_BACKUP, null, null);
+		receiver.setOnReceiveMessage(this);
 	}
 
 	@Override
@@ -215,39 +234,21 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 	}
 
 	private void deleteAllBackupedDataT() {
-		layDeleteAllBackupData.setEnabled(false);
-		((TextView) layDeleteAllBackupData
-				.findViewById(R.id.tvDeleteAllBackupData))
-				.setText(R.string.deleting);
-		LogApi.logDeleteAllData();
-
-		final Handler h = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					((TextView) layDeleteAllBackupData
-							.findViewById(R.id.tvDeleteAllBackupData))
-							.setText(R.string.delete_all_backup_data);
-					layDeleteAllBackupData.setEnabled(true);
-					Toast.makeText(getActivity(),
-							R.string.delete_all_backup_data_succ,
-							Toast.LENGTH_LONG).show();
-
-				}
-				super.handleMessage(msg);
-			}
-		};
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-
-				ApkUtils.deleteAllBackupData();
-				h.sendEmptyMessage(1);
-
-			}
-		}).start();
+		setCleaningState(true);
+		Intent inCleanBackupService = new Intent(getActivity(),
+				CleanBackupService.class);
+		inCleanBackupService.putExtra("command", "clean-backup");
+		inCleanBackupService.putExtra("id", RTConsts.NOTIFY_ID_CLEAN_BACKUP);
+		inCleanBackupService.putExtra("title", R.string.delete_all_backup_data);
+		inCleanBackupService.putExtra("desc",
+				R.string.delete_all_backup_data_succ);
+		inCleanBackupService.putExtra("proc_id",
+				RTConsts.NOTIFY_PROC_CLEAN_BACKUP);
+		inCleanBackupService.putExtra("proc_title",
+				R.string.delete_all_backup_data);
+		inCleanBackupService.putExtra("proc_desc",
+				R.string.deleting);
+		getActivity().startService(inCleanBackupService);
 	}
 
 	private void doDeleteAllBackupedData() {
@@ -267,6 +268,35 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 	@Override
 	protected void initLogic() {
 		initConfigValues();
+	}
+
+	@Override
+	public void onStateChange(boolean operating) {
+		if (!operating) {
+			Intent inCleanBackupService = new Intent(getActivity(),
+					CleanBackupService.class);
+			getActivity().stopService(inCleanBackupService);
+		}
+		setCleaningState(operating);
+
+	}
+
+	private void setCleaningState(boolean operating) {
+		layDeleteAllBackupData.setEnabled(!operating);
+		((TextView) layDeleteAllBackupData
+				.findViewById(R.id.tvDeleteAllBackupData))
+				.setText(operating ? R.string.deleting
+						: R.string.delete_all_backup_data);
+	}
+
+	@Override
+	public void onProgress(String name, int position, int total) {
+
+	}
+
+	@Override
+	public void onMutaxMessage(boolean operating) {
+
 	}
 
 }

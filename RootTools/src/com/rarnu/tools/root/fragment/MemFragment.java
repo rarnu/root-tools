@@ -34,7 +34,6 @@ import com.rarnu.tools.root.fragmentactivity.MemProcessActivity;
 import com.rarnu.tools.root.loader.ProcessLoader;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.MemoryUtils;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class MemFragment extends BaseFragment implements OnItemClickListener,
 		OnLoadCompleteListener<List<MemProcessInfo>>, OnQueryTextListener {
@@ -229,9 +228,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 						if (info.appInfo != null) {
 							// exclude list
 							if (MemorySpecialList.inExcludeList(info.NAME) == -1) {
-								RootUtils.runCommand(
-										String.format("kill %d", info.PID),
-										true);
+								MemoryUtils.killProcess(info.PID);
 							}
 						}
 					}
@@ -275,13 +272,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 
 			@Override
 			public void run() {
-				RootUtils.runCommand("echo 3 > /proc/sys/vm/drop_caches", true);
-				try {
-					Thread.sleep(1000);
-				} catch (InterruptedException e) {
-
-				}
-				RootUtils.runCommand("echo 0 > /proc/sys/vm/drop_caches", true);
+				MemoryUtils.dropCache();
 				h.sendEmptyMessage(1);
 
 			}

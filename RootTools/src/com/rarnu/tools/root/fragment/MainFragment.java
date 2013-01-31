@@ -71,6 +71,7 @@ public class MainFragment extends PreferenceFragment implements
 		prefAbout = (PreferenceEx) findPreference(getString(R.string.id_about));
 
 		prefSettings = (PreferenceEx) findPreference(getString(R.string.id_settings));
+		
 	}
 
 	private void initEvents() {

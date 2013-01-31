@@ -14,8 +14,7 @@ import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.FileUtils;
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
+import com.rarnu.tools.root.utils.HostsUtils;
 
 public class HostEditFragment extends BasePopupFragment {
 
@@ -23,13 +22,13 @@ public class HostEditFragment extends BasePopupFragment {
 
 	private static final String PATH_HOSTS = "/system/etc/hosts";
 	private static final String LOCAL_HOSTS = DirHelper.HOSTS_DIR + "hosts";
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LogApi.logEnterManualEditHosts();
 	}
-	
+
 	@Override
 	protected int getBarTitle() {
 		return R.string.manual_edit_hosts;
@@ -58,12 +57,13 @@ public class HostEditFragment extends BasePopupFragment {
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSave = menu.add(0, MenuItemIds.MENU_SAVE, 99, R.string.save);
+		MenuItem itemSave = menu.add(0, MenuItemIds.MENU_SAVE, 99,
+				R.string.save);
 		itemSave.setIcon(android.R.drawable.ic_menu_save);
 		itemSave.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -80,7 +80,7 @@ public class HostEditFragment extends BasePopupFragment {
 		}
 		return true;
 	}
-	
+
 	private void loadHosts() {
 		List<String> hosts = null;
 		try {
@@ -100,18 +100,8 @@ public class HostEditFragment extends BasePopupFragment {
 	private boolean saveHosts() {
 		LogApi.logManualEditHosts();
 		String hosts = etEditHosts.getText().toString();
-		try {
-			FileUtils.rewriteFile(LOCAL_HOSTS, hosts);
-			String cmd = String.format("busybox cp %s /system/etc/",
-					LOCAL_HOSTS);
-			CommandResult result = RootUtils.runCommand(cmd, true);
-			if (result.error.equals("")) {
-				result = RootUtils.runCommand("chmod 644 /system/etc/hosts", true);
-			}
-			return result.error.equals("");
-		} catch (Exception e) {
-			return false;
-		}
+		return HostsUtils.copyHosts(hosts, LOCAL_HOSTS);
+
 	}
 
 }

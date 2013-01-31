@@ -111,7 +111,8 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/barAddHosts"
         android:layout_below="@+id/laySitBtn"
-        android:fastScrollEnabled="true" >
+        android:fastScrollEnabled="true"
+        android:listSelector="@android:drawable/list_selector_background" >
     </ListView>
 
     <com.rarnu.tools.root.comp.DataBar

@@ -6,19 +6,20 @@
     <RelativeLayout
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:padding="8dip" >
+        android:padding="16dip" >
 
         <RelativeLayout
             android:id="@+id/layAllowDeleteLevel0"
             android:layout_width="fill_parent"
             android:layout_height="56dip"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/allow_delete_level0"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -42,13 +43,14 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layAllowDeleteLevel0"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/backup_before_delete"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -72,13 +74,14 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layBackupBeforeDelete"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/also_delete_data"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -92,9 +95,9 @@
 
             <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_alignParentBottom="true"
-                android:background="@android:drawable/divider_horizontal_dark" />
+                android:background="@color/gray" />
         </RelativeLayout>
 
         <!-- data -->
@@ -105,13 +108,14 @@
             android:layout_height="56dip"
             android:layout_below="@+id/layAlsoDeleteData"
             android:layout_marginTop="8dip"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/override_backuped"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -135,13 +139,14 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layOverrideBackuped"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/reinstall_apk"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -165,6 +170,7 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layReinstallApk"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
@@ -172,16 +178,16 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/delete_all_backup_data"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_alignParentBottom="true"
-                android:background="@android:drawable/divider_horizontal_dark" />
+                android:background="@color/gray" />
         </RelativeLayout>
 
         <!-- free memory -->
@@ -192,13 +198,14 @@
             android:layout_height="56dip"
             android:layout_below="@+id/layDeleteAllBackupData"
             android:layout_marginTop="8dip"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/kill_process_before_clean"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -222,22 +229,23 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layKillProcessBeforeClean"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/kill_ignore_list"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
 
             <TextView
                 android:layout_width="fill_parent"
-                android:layout_height="1dp"
+                android:layout_height="2dp"
                 android:layout_alignParentBottom="true"
-                android:background="@android:drawable/divider_horizontal_dark" />
+                android:background="@color/gray" />
         </RelativeLayout>
 
         <!-- hosts -->
@@ -248,6 +256,7 @@
             android:layout_height="56dip"
             android:layout_below="@+id/layKillIgnoreList"
             android:layout_marginTop="8dip"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
@@ -255,7 +264,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/name_server"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -265,9 +274,12 @@
                 android:layout_width="fill_parent"
                 android:layout_height="40dip"
                 android:layout_centerVertical="true"
-                android:layout_marginLeft="8dip"
+                android:layout_marginLeft="24dip"
                 android:layout_toRightOf="@+id/tvNameServer"
-                android:gravity="right|center_vertical" />
+                android:gravity="right|center_vertical"
+                android:hint=""
+                android:maxLines="1"
+                android:singleLine="true" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -281,13 +293,14 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layNameServer"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/manual_edit_hosts"
                 android:textColor="@color/white"
                 android:textSize="18sp" />
@@ -304,13 +317,14 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layManualEditHosts"
+            android:background="@android:drawable/list_selector_background"
             android:clickable="true" >
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
-                android:paddingLeft="8dip"
+                android:paddingLeft="16dip"
                 android:text="@string/clean_deprecated_hosts"
                 android:textColor="@color/white"
                 android:textSize="18sp" />

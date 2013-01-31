@@ -31,6 +31,10 @@ import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class ApkUtils {
 
+	public static final int INSTALL_AUTO = 0;
+	public static final int INSTALL_INTERNAL = 1;
+	public static final int INSTALL_SDCARD = 2;
+
 	public static List<SysappInfo> getSystemApps(Context context) {
 		List<SysappInfo> res = new ArrayList<SysappInfo>();
 		List<PackageInfo> packs = GlobalInstance.pm.getInstalledPackages(0);
@@ -577,5 +581,10 @@ public class ApkUtils {
 		Intent inPlay = new Intent(Intent.ACTION_VIEW);
 		inPlay.setData(Uri.parse("market://details?id=" + namespace));
 		context.startActivity(inPlay);
+	}
+
+	public static void setInstallLocation(int location) {
+		RootUtils.runCommand(
+				"pm set-install-location " + String.valueOf(location), true);
 	}
 }

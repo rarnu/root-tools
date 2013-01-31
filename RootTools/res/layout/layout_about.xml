@@ -91,13 +91,14 @@
                     android:layout_width="fill_parent"
                     android:layout_height="56dip"
                     android:layout_marginTop="8dip"
+                    android:background="@android:drawable/list_selector_background"
                     android:clickable="true" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:paddingLeft="8dip"
+                        android:paddingLeft="16dip"
                         android:text="@string/check_update"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
@@ -114,13 +115,14 @@
                     android:layout_width="fill_parent"
                     android:layout_height="56dip"
                     android:layout_below="@+id/layUpdate"
+                    android:background="@android:drawable/list_selector_background"
                     android:clickable="true" >
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:paddingLeft="8dip"
+                        android:paddingLeft="16dip"
                         android:text="@string/how_to_use"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
@@ -143,7 +145,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
-                        android:paddingLeft="8dip"
+                        android:paddingLeft="16dip"
                         android:text="@string/system_fitable"
                         android:textColor="@color/white"
                         android:textSize="18sp" />
