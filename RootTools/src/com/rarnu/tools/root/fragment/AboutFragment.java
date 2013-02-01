@@ -23,6 +23,7 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 	RelativeLayout layHelp, layFitable, layUpdate;
 	ImageView imgFitable;
 	TextView tvAppVersion, tvDebug;
+	RelativeLayout layEoe;
 
 	int fitable = 5;
 	int fitableClick = 0;
@@ -92,6 +93,12 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					HelpActivity.class), GlobalFragment.fIntro);
 			break;
+		case R.id.layEoe:
+			// goto eoemarket
+			Intent inEoe = new Intent(Intent.ACTION_VIEW);
+			inEoe.setData(Uri.parse("http://eoemarket.com/"));
+			startActivity(inEoe);
+			break;
 		}
 
 	}
@@ -114,9 +121,11 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 		tvAppVersion = (TextView) innerView.findViewById(R.id.tvAppVersion);
 		tvDebug = (TextView) innerView.findViewById(R.id.tvDebug);
 		layUpdate = (RelativeLayout) innerView.findViewById(R.id.layUpdate);
+		layEoe = (RelativeLayout) innerView.findViewById(R.id.layEoe);
 
 		layUpdate.setOnClickListener(this);
 		layHelp.setOnClickListener(this);
+		layEoe.setOnClickListener(this);
 
 	}
 

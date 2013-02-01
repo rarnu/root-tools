@@ -63,15 +63,61 @@
                 android:layout_width="fill_parent"
                 android:layout_height="1dip"
                 android:layout_below="@+id/tvCopyright"
-                android:layout_marginBottom="8dip"
                 android:layout_marginTop="8dip"
+                android:background="@color/lightgray" />
+
+            <RelativeLayout
+                android:id="@+id/layEoe"
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/spl1"
+                android:background="@android:drawable/list_selector_background"
+                android:clickable="true"
+                android:paddingBottom="8dip"
+                android:paddingTop="8dip" >
+
+                <ImageView
+                    android:id="@+id/imgIconEoe"
+                    android:layout_width="48dip"
+                    android:layout_height="48dip"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/icon_eoe"
+                    android:contentDescription="@null" />
+
+                <TextView
+                    android:id="@+id/tvEoeName"
+                    android:layout_width="wrap_content"
+                    android:layout_height="24dip"
+                    android:layout_marginRight="8dip"
+                    android:layout_toLeftOf="@+id/imgIconEoe"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/eoe_title"
+                    android:textColor="@color/white" />
+
+                <TextView
+                    android:id="@+id/tvEoeDesc"
+                    android:layout_width="fill_parent"
+                    android:layout_height="24dip"
+                    android:layout_below="@+id/tvEoeName"
+                    android:layout_marginRight="8dip"
+                    android:layout_toLeftOf="@+id/imgIconEoe"
+                    android:gravity="right|center_vertical"
+                    android:text="@string/eoe_desc" />
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/spl2"
+                android:layout_width="fill_parent"
+                android:layout_height="1dip"
+                android:layout_below="@+id/layEoe"
+                android:layout_marginBottom="8dip"
                 android:background="@color/lightgray" />
 
             <TextView
                 android:id="@+id/tvAbout"
                 android:layout_width="fill_parent"
                 android:layout_height="fill_parent"
-                android:layout_below="@+id/spl1"
+                android:layout_below="@+id/spl2"
                 android:autoLink="all"
                 android:gravity="left|top"
                 android:lineSpacingExtra="3dip"

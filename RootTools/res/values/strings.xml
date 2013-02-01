@@ -4,7 +4,7 @@
     <string name="app_name">RootTools</string>
     <string name="app_debug">(DEBUG)</string>
     <string name="app_help">RootTools 使用说明</string>
-    <string name="copyright">Copyright© Rarnu in AnjukeInc 2012.</string>
+    <string name="copyright">Copyright© Rarnu 2013.</string>
     <string name="sysapp_name">应用程序详情</string>
     <string name="sysapp_select">选择应用程序</string>
     <string name="settings">设置</string>
@@ -269,5 +269,7 @@
     <string name="summary_scanmedia">扫描并刷新系统的媒体库</string>
     <string name="summary_feedback">写下您的意见和建议</string>
     <string name="summary_recommand">下载其他精品软件以支持我们</string>
+    <string name="eoe_title">优亿市场 www.eoemarket.com</string>
+    <string name="eoe_desc">RootTools 唯一指定合作伙伴</string>
 
 </resources>

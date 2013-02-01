@@ -1,16 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@drawable/splash" >
-    
-    <TextView android:id="@+i/tvCopyright"
+    android:layout_height="match_parent" >
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="32dip"
+        android:adjustViewBounds="true"
+        android:maxHeight="100dip"
+        android:scaleType="centerInside"
+        android:src="@drawable/logo" />
+
+    <TextView
+        android:id="@+i/tvCopyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="@string/copyright"
-        android:textColor="@color/white"
         android:layout_centerHorizontal="true"
-        android:layout_marginBottom="8dip"/>
+        android:layout_marginBottom="8dip"
+        android:text="@string/copyright"
+        android:textColor="@color/white" />
+
+    <ImageView
+        android:id="@+id/ivEoeLogo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+i/tvCopyright"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="8dip"
+        android:adjustViewBounds="true"
+        android:maxHeight="60dip"
+        android:src="@drawable/logo_eoe" />
 
 </RelativeLayout>

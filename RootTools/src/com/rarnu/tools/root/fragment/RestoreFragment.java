@@ -218,11 +218,12 @@ public class RestoreFragment extends BaseFragment implements
 		if (resotre) {
 			barBackData.setVisibility(View.GONE);
 			progressBackData.setVisibility(View.VISIBLE);
-
+			lvBackData.setOnItemLongClickListener(null);
 		} else {
 			progressBackData.setVisibility(View.GONE);
 			ListUtils.setListViewItemSelectedStatus(listBackDataappAll,
 					backDataappAdapter, hSelectData, false);
+			lvBackData.setOnItemLongClickListener(this);
 		}
 	}
 
@@ -232,8 +233,10 @@ public class RestoreFragment extends BaseFragment implements
 			barBackData.setVisibility(View.GONE);
 			progressBackData.setVisibility(View.VISIBLE);
 			progressBackData.setAppName(getString(R.string.mutax_backup));
+			lvBackData.setOnItemLongClickListener(null);
 		} else {
 			progressBackData.setVisibility(View.GONE);
+			lvBackData.setOnItemLongClickListener(this);
 		}
 	}
 

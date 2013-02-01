@@ -22,6 +22,7 @@ public class RootUtils {
 	private static final String SUPERUSER_PATH_4 = "com.miui.uac";
 	private static final String SUPERUSER_PATH_5 = "com.lbe.security.shuame";
 	private static final String SUPERUSER_PATH_6 = "com.lbe.security.miui";
+	private static final String SUPERUSER_PATH_7 = "com.m0narx.su";
 
 	public static boolean hasBusybox() {
 		return openFile(BUSYBOX_PATH).exists();
@@ -76,6 +77,15 @@ public class RootUtils {
 			try {
 				info = GlobalInstance.pm
 						.getApplicationInfo(SUPERUSER_PATH_6, 0);
+			} catch (NameNotFoundException e) {
+				info = null;
+			}
+		}
+		
+		if (info == null) {
+			try {
+				info = GlobalInstance.pm
+						.getApplicationInfo(SUPERUSER_PATH_7, 0);
 			} catch (NameNotFoundException e) {
 				info = null;
 			}
