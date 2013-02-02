@@ -23,6 +23,7 @@ import android.util.DisplayMetrics;
 
 import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.EnableappInfo;
 import com.rarnu.tools.root.common.SysappInfo;
@@ -569,14 +570,22 @@ public class ApkUtils {
 	}
 
 	public static void gotoApp(Context context, String namespace,
-			String activity) {
+			String activity, String url) {
 		if (ApkUtils.applicationInstalled(namespace)) {
 			ApkUtils.startApplication(namespace, activity);
 		} else {
-			openGooglePlayForApp(context, namespace);
+			// openGooglePlayForApp(context, namespace);
+			openDownloadApp(context, url);
 		}
 	}
 
+	public static void openDownloadApp(Context context, String url) {
+		String downloadUrl = MobileApi.PACKAGE_BASE_URL + url;
+		Intent inDownload = new Intent(Intent.ACTION_VIEW);
+		inDownload.setData(Uri.parse(downloadUrl));
+		context.startActivity(inDownload);
+	}
+	
 	public static void openGooglePlayForApp(Context context, String namespace) {
 		Intent inPlay = new Intent(Intent.ACTION_VIEW);
 		inPlay.setData(Uri.parse("market://details?id=" + namespace));
