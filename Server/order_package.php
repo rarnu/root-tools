@@ -3,7 +3,7 @@ include "navbar.php";
 include "database.php";
 
 function DoGenerateTable() {
-	$sql = "select id, name, app_order from root_tools_recommand order by id asc";
+	$sql = "select id, name, app_order from root_tools_recommand order by app_order asc";
 	$db = openConnection();
 	$result = query($db, $sql);
 	closeConnection($db);
