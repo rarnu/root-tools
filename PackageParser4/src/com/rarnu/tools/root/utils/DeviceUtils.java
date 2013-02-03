@@ -145,8 +145,6 @@ public class DeviceUtils {
 		if (factory != null) {
 			if (factory.toLowerCase().contains("htc") && factory.toLowerCase().contains("archos")) {
 				result += 2;
-			} else {
-				result--;
 			}
 
 			if (factory.toLowerCase().contains("xiaomi")) {
@@ -166,6 +164,9 @@ public class DeviceUtils {
 
 			if (module.toLowerCase().contains("zte")) {
 				result -= 1;
+			}
+			if (module.toLowerCase().contains("nexus")) {
+				result += 2;
 			}
 		}
 
