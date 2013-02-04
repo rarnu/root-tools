@@ -10,6 +10,7 @@
         android:layout_marginRight="8dip"
         android:layout_marginTop="32dip"
         android:adjustViewBounds="true"
+        android:contentDescription="@null"
         android:maxHeight="100dip"
         android:scaleType="centerInside"
         android:src="@drawable/logo" />
@@ -32,6 +33,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dip"
         android:adjustViewBounds="true"
+        android:contentDescription="@null"
         android:maxHeight="60dip"
         android:src="@drawable/logo_eoe" />
 
