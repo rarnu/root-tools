@@ -258,7 +258,7 @@
     <string name="clean_htc_rom_confirm">确定要清理 ROM 吗？请确保你的手机 ROM 是 HTC Sense 4.0 或以上，不支持低版本，若不是 HTC Sense ROM 请勿尝试。清理后不可恢复，确定要清理请按“确定”。</string>
     <string name="no_clean_item_selected">没有选定要清除的项目</string>
     <string name="share_title">向您推荐一款好用的App《RootTools》</string>
-    <string name="share_body">RootTools可以帮助您管理您的手机，实现对系统的完全掌控，更多功能请点击下载: http://www.appchina.com/app/com.rarnu.tools.root/</string>
+    <string name="share_body">RootTools可以帮助您管理您的手机，实现对系统的完全掌控，请点击下载: http://rarnu.7thgen.info/root_tools/download/RootTools_4.1.1.apk</string>
     <string name="summary_sysapp">安装或卸载系统内的应用程序</string>
     <string name="summary_sysappenabled">禁用或启动指定的应用程序</string>
     <string name="summary_component">禁用或启动应用程序内的可选组件</string>
