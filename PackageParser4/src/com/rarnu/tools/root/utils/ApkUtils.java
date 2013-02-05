@@ -442,21 +442,21 @@ public class ApkUtils {
 		cmd = String.format("busybox cp -r /data/data/%s "
 				+ DirHelper.DATAAPP_DIR, path);
 		CommandResult result = RootUtils.runCommand(cmd, true);
+
+		cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
+				+ "%s/ -name \"cache\" | busybox xargs rm -r", path);
+		RootUtils.runCommand(cmd, true);
+		cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
+				+ "%s/ -name \"lib\" | busybox xargs rm -r", path);
+		RootUtils.runCommand(cmd, true);
+		cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
+				+ "%s/ -name \"webview*\" | busybox xargs rm -r", path);
+		RootUtils.runCommand(cmd, true);
+		cmd = String.format(
+				"busybox cp %s " + DirHelper.DATAAPP_DIR + "%s.apk", apk, path);
+		result = RootUtils.runCommand(cmd, true);
+
 		if (result.error.equals("")) {
-
-			cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
-					+ "%s/ -name \"cache\" | busybox xargs rm -r", path);
-			RootUtils.runCommand(cmd, true);
-			cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
-					+ "%s/ -name \"lib\" | busybox xargs rm -r", path);
-			RootUtils.runCommand(cmd, true);
-			cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
-					+ "%s/ -name \"webview*\" | busybox xargs rm -r", path);
-			RootUtils.runCommand(cmd, true);
-			cmd = String.format("busybox cp %s " + DirHelper.DATAAPP_DIR
-					+ "%s.apk", apk, path);
-			RootUtils.runCommand(cmd, true);
-
 			info.log = context.getResources().getString(R.string.backup_ok);
 			info.logId = 0;
 			operationLog.add(info);
@@ -585,7 +585,7 @@ public class ApkUtils {
 		inDownload.setData(Uri.parse(downloadUrl));
 		context.startActivity(inDownload);
 	}
-	
+
 	public static void openGooglePlayForApp(Context context, String namespace) {
 		Intent inPlay = new Intent(Intent.ACTION_VIEW);
 		inPlay.setData(Uri.parse("market://details?id=" + namespace));
