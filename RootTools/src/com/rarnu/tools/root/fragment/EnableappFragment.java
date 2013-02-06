@@ -28,7 +28,8 @@ import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.ComponentUtils;
 
 public class EnableappFragment extends BaseFragment implements
-		OnItemLongClickListener, OnLoadCompleteListener<List<EnableappInfo>>, OnQueryTextListener {
+		OnItemLongClickListener, OnLoadCompleteListener<List<EnableappInfo>>,
+		OnQueryTextListener {
 
 	ListView lvEnableApp;
 	DataProgressBar progressEnableapp;
@@ -58,15 +59,14 @@ public class EnableappFragment extends BaseFragment implements
 				.findViewById(R.id.progressEnableapp);
 		tvOperateHint = (TextView) innerView.findViewById(R.id.tvOperateHint);
 
-		enableappAdapter = new EnableappAdapter(getActivity()
-				.getLayoutInflater(), listEnableappAll);
+		enableappAdapter = new EnableappAdapter(getActivity(), listEnableappAll);
 		lvEnableApp.setAdapter(enableappAdapter);
 
 		lvEnableApp.setOnItemLongClickListener(this);
 
 		loader = new EnableappLoader(getActivity());
 		loader.registerListener(0, this);
-		
+
 	}
 
 	@Override
@@ -83,7 +83,7 @@ public class EnableappFragment extends BaseFragment implements
 		SearchView sv = new SearchView(getActivity());
 		sv.setOnQueryTextListener(this);
 		itemSearch.setActionView(sv);
-		
+
 		MenuItem itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99,
 				R.string.refresh);
 		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
@@ -198,7 +198,7 @@ public class EnableappFragment extends BaseFragment implements
 	@Override
 	protected void initLogic() {
 		doStartLoad();
-		
+
 	}
 
 }

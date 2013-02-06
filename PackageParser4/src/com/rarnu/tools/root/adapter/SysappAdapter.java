@@ -1,15 +1,11 @@
 package com.rarnu.tools.root.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.Color;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,56 +14,10 @@ import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.SysappInfo;
 import com.rarnu.tools.root.holder.SysappAdapterHolder;
 
-public class SysappAdapter extends BaseAdapter implements Filterable {
+public class SysappAdapter extends InnerAdapter<SysappInfo> {
 
-	// [region] field define
-	private LayoutInflater inflater;
-	private List<SysappInfo> listFull;
-	private List<SysappInfo> list;
-	private ArrayFilter filter;
-
-	private final Object lock = new Object();
-
-	// [/region]
-
-	// [region] constructor
-	public SysappAdapter(LayoutInflater inflater, List<SysappInfo> list) {
-		this.inflater = inflater;
-		this.listFull = list;
-		this.list = list;
-	}
-
-	// [/region]
-
-	// [region] business logic
-	public void setNewList(List<SysappInfo> list) {
-		this.listFull = list;
-		this.list = list;
-		this.notifyDataSetChanged();
-	}
-
-	public void deleteItem(SysappInfo item) {
-		this.list.remove(item);
-		this.listFull.remove(item);
-		notifyDataSetChanged();
-	}
-
-	// [/region]
-
-	// [region] adapter
-	@Override
-	public int getCount() {
-		return list.size();
-	}
-
-	@Override
-	public Object getItem(int arg0) {
-		return list.get(arg0);
-	}
-
-	@Override
-	public long getItemId(int arg0) {
-		return arg0;
+	public SysappAdapter(Context context, List<SysappInfo> list) {
+		super(context, list);
 	}
 
 	@Override
@@ -114,72 +64,9 @@ public class SysappAdapter extends BaseAdapter implements Filterable {
 		return v;
 	}
 
-	// [/region]
-
-	// [region] filter
 	@Override
-	public Filter getFilter() {
-		if (filter == null) {
-			filter = new ArrayFilter();
-		}
-		return filter;
+	public String getValueText(SysappInfo item) {
+		return GlobalInstance.pm.getApplicationLabel(item.info).toString()
+				+ item.info.packageName;
 	}
-
-	private class ArrayFilter extends Filter {
-
-		@Override
-		protected FilterResults performFiltering(CharSequence prefix) {
-			list = listFull;
-			FilterResults results = new FilterResults();
-			if (prefix == null || prefix.length() == 0) {
-				synchronized (lock) {
-					ArrayList<SysappInfo> l = new ArrayList<SysappInfo>(list);
-					results.values = l;
-					results.count = l.size();
-				}
-			} else {
-
-				String prefixString = prefix.toString().toLowerCase();
-
-				final ArrayList<SysappInfo> values = new ArrayList<SysappInfo>(
-						list);
-
-				final int count = values.size();
-
-				final ArrayList<SysappInfo> newValues = new ArrayList<SysappInfo>(
-						count);
-
-				for (int i = 0; i < count; i++) {
-					final SysappInfo value = values.get(i);
-					final String valueText = GlobalInstance.pm
-							.getApplicationLabel(value.info).toString()
-							+ value.info.packageName;
-
-					if (valueText.indexOf(prefixString) != -1) {
-						newValues.add(value);
-					}
-
-				}
-
-				results.values = newValues;
-				results.count = newValues.size();
-			}
-
-			return results;
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected void publishResults(CharSequence constraint,
-				FilterResults results) {
-			list = (List<SysappInfo>) results.values;
-			if (results.count > 0) {
-				notifyDataSetChanged();
-			} else {
-				notifyDataSetInvalidated();
-			}
-		}
-
-	}
-	// [/region]
 }

@@ -1,16 +1,12 @@
 package com.rarnu.tools.root.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.graphics.Color;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -18,48 +14,10 @@ import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.holder.CompPackageAdapterHolder;
 
-public class CompPackageAdapter extends BaseAdapter implements Filterable {
+public class CompPackageAdapter extends InnerAdapter<PackageInfo> {
 
-	// [region] field define
-	private LayoutInflater inflater;
-	private List<PackageInfo> list;
-	private List<PackageInfo> listFull;
-	private ArrayFilter filter;
-
-	private final Object lock = new Object();
-
-	// [/region]
-
-	// [region] constructor
-	public CompPackageAdapter(LayoutInflater inflater, List<PackageInfo> list) {
-
-		this.inflater = inflater;
-		this.listFull = list;
-		this.list = list;
-	}
-
-	// [/region]
-
-	public void setNewList(List<PackageInfo> list) {
-		this.listFull = list;
-		this.list = list;
-		this.notifyDataSetChanged();
-	}
-
-	// [region] adapter
-	@Override
-	public int getCount() {
-		return list.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return list.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
+	public CompPackageAdapter(Context context, List<PackageInfo> list) {
+		super(context, list);
 	}
 
 	@Override
@@ -98,72 +56,9 @@ public class CompPackageAdapter extends BaseAdapter implements Filterable {
 		return v;
 	}
 
-	// [/region]
-
-	// [region] filter
 	@Override
-	public Filter getFilter() {
-		if (filter == null) {
-			filter = new ArrayFilter();
-		}
-		return filter;
+	public String getValueText(PackageInfo item) {
+		return GlobalInstance.pm.getApplicationLabel(item.applicationInfo)
+				+ item.packageName;
 	}
-
-	private class ArrayFilter extends Filter {
-
-		@Override
-		protected FilterResults performFiltering(CharSequence prefix) {
-			list = listFull;
-			FilterResults results = new FilterResults();
-			if (prefix == null || prefix.length() == 0) {
-				synchronized (lock) {
-					ArrayList<PackageInfo> l = new ArrayList<PackageInfo>(list);
-					results.values = l;
-					results.count = l.size();
-				}
-			} else {
-
-				String prefixString = prefix.toString().toLowerCase();
-
-				final ArrayList<PackageInfo> values = new ArrayList<PackageInfo>(
-						list);
-
-				final int count = values.size();
-
-				final ArrayList<PackageInfo> newValues = new ArrayList<PackageInfo>(
-						count);
-
-				for (int i = 0; i < count; i++) {
-					final PackageInfo value = values.get(i);
-					final String valueText = GlobalInstance.pm
-							.getApplicationLabel(value.applicationInfo)
-							+ value.packageName;
-
-					if (valueText.indexOf(prefixString) != -1) {
-						newValues.add(value);
-					}
-
-				}
-
-				results.values = newValues;
-				results.count = newValues.size();
-			}
-
-			return results;
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected void publishResults(CharSequence constraint,
-				FilterResults results) {
-			list = (List<PackageInfo>) results.values;
-			if (results.count > 0) {
-				notifyDataSetChanged();
-			} else {
-				notifyDataSetInvalidated();
-			}
-		}
-
-	}
-	// [/region]
 }

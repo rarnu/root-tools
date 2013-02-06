@@ -75,8 +75,8 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 				.findViewById(R.id.progressData);
 		lvData = (ListView) innerView.findViewById(R.id.lvData);
 
-		dataappAdapter = new DataappAdapter(getActivity().getLayoutInflater(),
-				listDataappAll, hSelectApp, 1);
+		dataappAdapter = new DataappAdapter(getActivity(), listDataappAll,
+				hSelectApp, 1);
 		lvData.setAdapter(dataappAdapter);
 
 		barData.setCheckBoxVisible(true);
@@ -181,8 +181,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		inBackupService.putExtra("proc_id", RTConsts.NOTIFY_PROC_BACKUP);
 		inBackupService.putExtra("proc_title", R.string.func3_title);
 		inBackupService.putExtra("proc_desc", R.string.backuping_proc);
-		
-		
+
 		getActivity().startService(inBackupService);
 	}
 
@@ -251,7 +250,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		if (data != null) {
 			listDataappAll.addAll(data);
 		}
-		dataappAdapter.setNewData(listDataappAll);
+		dataappAdapter.setNewList(listDataappAll);
 		progressData.setVisibility(View.GONE);
 
 		showAppSelectedCount();

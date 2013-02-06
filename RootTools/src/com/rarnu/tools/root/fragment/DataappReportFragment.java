@@ -51,8 +51,8 @@ public class DataappReportFragment extends BasePopupFragment {
 
 	private void showReport() {
 		List<DataappInfo> report = ApkUtils.getOperationLog();
-		DataappReportAdapter adapter = new DataappReportAdapter(getActivity()
-				.getLayoutInflater(), report);
+		DataappReportAdapter adapter = new DataappReportAdapter(getActivity(),
+				report);
 		if (lvReport != null) {
 			lvReport.setAdapter(adapter);
 		}

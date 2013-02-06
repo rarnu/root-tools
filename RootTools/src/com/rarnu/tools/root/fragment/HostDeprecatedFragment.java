@@ -70,8 +70,8 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 				.findViewById(R.id.gvDeprecatedHosts);
 		progressDeprecated = (DataProgressBar) innerView
 				.findViewById(R.id.progressDeprecated);
-		adapter = new HostsAdapter(getActivity().getLayoutInflater(),
-				lstDeprecated, hSelectHost, false, false);
+		adapter = new HostsAdapter(getActivity(), lstDeprecated, hSelectHost,
+				false, false);
 		if (lvDeprecatedHosts != null) {
 			lvDeprecatedHosts.setAdapter(adapter);
 		}
@@ -180,7 +180,7 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 		if (data != null) {
 			lstDeprecated.addAll(data);
 		}
-		adapter.setNewData(lstDeprecated);
+		adapter.setNewList(lstDeprecated);
 		progressDeprecated.setVisibility(View.GONE);
 
 	}

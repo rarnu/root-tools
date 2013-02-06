@@ -53,8 +53,7 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 		progressComp = (DataProgressBar) innerView
 				.findViewById(R.id.progressComp);
 		lvComp = (ListView) innerView.findViewById(R.id.lvComp);
-		compAdapter = new CompPackageAdapter(getActivity().getLayoutInflater(),
-				listCompAll);
+		compAdapter = new CompPackageAdapter(getActivity(), listCompAll);
 		lvComp.setAdapter(compAdapter);
 		lvComp.setOnItemClickListener(this);
 		loader = new CompLoader(getActivity());

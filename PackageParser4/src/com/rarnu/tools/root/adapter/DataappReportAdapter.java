@@ -2,11 +2,10 @@ package com.rarnu.tools.root.adapter;
 
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.Color;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,36 +15,10 @@ import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.holder.DataappReportAdapterHolder;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-public class DataappReportAdapter extends BaseAdapter {
+public class DataappReportAdapter extends InnerAdapter<DataappInfo> {
 
-	// [region] field define
-	private LayoutInflater inflater;
-	private List<DataappInfo> list;
-
-	// [/region]
-
-	// [region] constructor
-	public DataappReportAdapter(LayoutInflater inflater, List<DataappInfo> list) {
-		this.inflater = inflater;
-		this.list = list;
-	}
-
-	// [/region]
-
-	// [region] adapter
-	@Override
-	public int getCount() {
-		return list.size();
-	}
-
-	@Override
-	public Object getItem(int arg0) {
-		return list.get(arg0);
-	}
-
-	@Override
-	public long getItemId(int arg0) {
-		return arg0;
+	public DataappReportAdapter(Context context, List<DataappInfo> list) {
+		super(context, list);
 	}
 
 	@Override
@@ -57,7 +30,8 @@ public class DataappReportAdapter extends BaseAdapter {
 		} else {
 			v = convertView;
 		}
-		DataappReportAdapterHolder holder = (DataappReportAdapterHolder) v.getTag();
+		DataappReportAdapterHolder holder = (DataappReportAdapterHolder) v
+				.getTag();
 		if (holder == null) {
 			holder = new DataappReportAdapterHolder();
 			holder.icon = (ImageView) v.findViewById(R.id.report_icon);
@@ -69,8 +43,10 @@ public class DataappReportAdapter extends BaseAdapter {
 		if (item != null) {
 
 			if (item.type == 1) {
-				holder.icon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.info));
-				holder.name.setText(GlobalInstance.pm.getApplicationLabel(item.info));
+				holder.icon.setBackgroundDrawable(GlobalInstance.pm
+						.getApplicationIcon(item.info));
+				holder.name.setText(GlobalInstance.pm
+						.getApplicationLabel(item.info));
 				switch (item.logId) {
 				case 0:
 					holder.state.setText(R.string.rep_bak_succ);
@@ -87,8 +63,10 @@ public class DataappReportAdapter extends BaseAdapter {
 				}
 
 			} else {
-				holder.icon.setBackgroundDrawable(ApkUtils.getIconFromPackage(v.getContext(), item.info));
-				holder.name.setText(ApkUtils.getLabelFromPackage(v.getContext(), item.info));
+				holder.icon.setBackgroundDrawable(ApkUtils.getIconFromPackage(
+						v.getContext(), item.info));
+				holder.name.setText(ApkUtils.getLabelFromPackage(
+						v.getContext(), item.info));
 				switch (item.logId) {
 				case 0:
 					holder.state.setText(R.string.rep_res_succ);
@@ -106,5 +84,9 @@ public class DataappReportAdapter extends BaseAdapter {
 		return v;
 	}
 
-	// [/region]
+	@Override
+	public String getValueText(DataappInfo item) {
+		return "";
+	}
+
 }

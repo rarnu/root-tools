@@ -115,8 +115,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 							}
 						}
 					}
-					adapter = new SysappSelectApkAdapter(list, getActivity()
-							.getLayoutInflater());
+					adapter = new SysappSelectApkAdapter(getActivity(), list);
 				}
 			}
 		} catch (Throwable th) {
@@ -178,7 +177,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 
 	@Override
 	public boolean onQueryTextChange(String newText) {
-		// TODO: filter files
+		adapter.getFilter().filter(newText);
 		return false;
 	}
 

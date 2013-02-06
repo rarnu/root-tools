@@ -1,17 +1,13 @@
 package com.rarnu.tools.root.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -21,67 +17,22 @@ import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.holder.DataappAdapterHolder;
 import com.rarnu.tools.root.utils.ApkUtils;
 
-public class DataappAdapter extends BaseAdapter implements Filterable {
+public class DataappAdapter extends InnerAdapter<DataappInfo> {
 
-	// [region] field define
-	private LayoutInflater inflater;
-	private List<DataappInfo> list;
-	private List<DataappInfo> listFull;
 	private Handler h;
 	private boolean checkable = true;
 	private int type;
-	private ArrayFilter filter;
-	private final Object lock = new Object();
 
-	// [/region]
-
-	// [region] constructor
-	public DataappAdapter(LayoutInflater inflater, List<DataappInfo> list,
-			Handler h, int type) {
-		this.inflater = inflater;
-		this.listFull = list;
-		this.list = list;
+	public DataappAdapter(Context context, List<DataappInfo> list, Handler h,
+			int type) {
+		super(context, list);
 		this.h = h;
 		this.type = type;
 	}
 
-	// [/region]
-
-	// [region] business logic
-	
 	public void setAdapterCheckable(boolean checkable) {
 		this.checkable = checkable;
 		this.notifyDataSetChanged();
-	}
-	
-	public void setNewData(List<DataappInfo> list) {
-		this.listFull = list;
-		this.list = list;
-		this.notifyDataSetChanged();
-	}
-	
-	public void deleteItem(DataappInfo item) {
-		list.remove(item);
-		listFull.remove(item);
-		notifyDataSetChanged();
-	}
-
-	// [/region]
-
-	// [region] adapter
-	@Override
-	public int getCount() {
-		return list.size();
-	}
-
-	@Override
-	public Object getItem(int arg0) {
-		return list.get(arg0);
-	}
-
-	@Override
-	public long getItemId(int arg0) {
-		return arg0;
 	}
 
 	@Override
@@ -122,7 +73,7 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 			}
 
 			holder.select.setEnabled(checkable);
-			
+
 			holder.select.setOnClickListener(new OnClickListener() {
 
 				@Override
@@ -137,72 +88,9 @@ public class DataappAdapter extends BaseAdapter implements Filterable {
 		return v;
 	}
 
-	// [/region]
-
-	// [region] filter
 	@Override
-	public Filter getFilter() {
-		if (filter == null) {
-			filter = new ArrayFilter();
-		}
-		return filter;
+	public String getValueText(DataappInfo item) {
+		return GlobalInstance.pm.getApplicationLabel(item.info).toString()
+				+ item.info.packageName;
 	}
-
-	private class ArrayFilter extends Filter {
-
-		@Override
-		protected FilterResults performFiltering(CharSequence prefix) {
-			list = listFull;
-			FilterResults results = new FilterResults();
-			if (prefix == null || prefix.length() == 0) {
-				synchronized (lock) {
-					ArrayList<DataappInfo> l = new ArrayList<DataappInfo>(list);
-					results.values = l;
-					results.count = l.size();
-				}
-			} else {
-
-				String prefixString = prefix.toString().toLowerCase();
-
-				final ArrayList<DataappInfo> values = new ArrayList<DataappInfo>(
-						list);
-
-				final int count = values.size();
-
-				final ArrayList<DataappInfo> newValues = new ArrayList<DataappInfo>(
-						count);
-
-				for (int i = 0; i < count; i++) {
-					final DataappInfo value = values.get(i);
-					final String valueText = GlobalInstance.pm
-							.getApplicationLabel(value.info).toString()
-							+ value.info.packageName;
-
-					if (valueText.indexOf(prefixString) != -1) {
-						newValues.add(value);
-					}
-
-				}
-
-				results.values = newValues;
-				results.count = newValues.size();
-			}
-
-			return results;
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected void publishResults(CharSequence constraint,
-				FilterResults results) {
-			list = (List<DataappInfo>) results.values;
-			if (results.count > 0) {
-				notifyDataSetChanged();
-			} else {
-				notifyDataSetInvalidated();
-			}
-		}
-
-	}
-	// [/region]
 }

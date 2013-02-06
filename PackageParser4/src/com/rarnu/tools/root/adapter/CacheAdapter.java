@@ -1,14 +1,10 @@
 package com.rarnu.tools.root.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
-import android.view.LayoutInflater;
+import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,57 +13,10 @@ import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.CacheInfo;
 import com.rarnu.tools.root.holder.CacheAdapterHolder;
 
-public class CacheAdapter extends BaseAdapter implements Filterable {
+public class CacheAdapter extends InnerAdapter<CacheInfo> {
 
-	// [region] field define
-	private LayoutInflater inflater;
-	private List<CacheInfo> list;
-	private List<CacheInfo> listFull;
-	private ArrayFilter filter;
-
-	private final Object lock = new Object();
-
-	// [/region]
-
-	// [region] constructor
-	public CacheAdapter(LayoutInflater inflater, List<CacheInfo> list) {
-		this.inflater = inflater;
-		this.list = list;
-		this.listFull = list;
-	}
-
-	// [/region]
-
-	// [region] business logic
-	
-	public void setNewList(List<CacheInfo> list) {
-		this.listFull = list;
-		this.list = list;
-		this.notifyDataSetChanged();
-	}
-	
-	public void deleteItem(CacheInfo item) {
-		list.remove(item);
-		listFull.remove(item);
-		notifyDataSetChanged();
-	}
-
-	// [/region]
-
-	// [region] adapter
-	@Override
-	public int getCount() {
-		return list.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return list.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
+	public CacheAdapter(Context context, List<CacheInfo> list) {
+		super(context, list);
 	}
 
 	@Override
@@ -97,73 +46,9 @@ public class CacheAdapter extends BaseAdapter implements Filterable {
 		return v;
 	}
 
-	// [/region]
-
-	// [region] filter
 	@Override
-	public Filter getFilter() {
-		if (filter == null) {
-			filter = new ArrayFilter();
-		}
-		return filter;
+	public String getValueText(CacheInfo item) {
+		return GlobalInstance.pm.getApplicationLabel(item.info.applicationInfo)
+				.toString() + item.info.packageName;
 	}
-
-	private class ArrayFilter extends Filter {
-
-		@Override
-		protected FilterResults performFiltering(CharSequence prefix) {
-			list = listFull;
-			FilterResults results = new FilterResults();
-			if (prefix == null || prefix.length() == 0) {
-				synchronized (lock) {
-					ArrayList<CacheInfo> l = new ArrayList<CacheInfo>(list);
-					results.values = l;
-					results.count = l.size();
-				}
-			} else {
-
-				String prefixString = prefix.toString().toLowerCase();
-
-				final ArrayList<CacheInfo> values = new ArrayList<CacheInfo>(
-						list);
-
-				final int count = values.size();
-
-				final ArrayList<CacheInfo> newValues = new ArrayList<CacheInfo>(
-						count);
-
-				for (int i = 0; i < count; i++) {
-					final CacheInfo value = values.get(i);
-					final String valueText = GlobalInstance.pm
-							.getApplicationLabel(value.info.applicationInfo)
-							.toString()
-							+ value.info.packageName;
-
-					if (valueText.indexOf(prefixString) != -1) {
-						newValues.add(value);
-					}
-
-				}
-
-				results.values = newValues;
-				results.count = newValues.size();
-			}
-
-			return results;
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected void publishResults(CharSequence constraint,
-				FilterResults results) {
-			list = (List<CacheInfo>) results.values;
-			if (results.count > 0) {
-				notifyDataSetChanged();
-			} else {
-				notifyDataSetInvalidated();
-			}
-		}
-
-	}
-	// [/region]
 }

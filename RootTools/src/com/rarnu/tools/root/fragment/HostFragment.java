@@ -77,8 +77,8 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		barHosts.getButton2().setOnClickListener(this);
 		barHosts.getCheckBox().setOnClickListener(this);
 
-		hostsAdapter = new HostsAdapter(getActivity().getLayoutInflater(),
-				listHostsAll, hSelectHost, true, true);
+		hostsAdapter = new HostsAdapter(getActivity(), listHostsAll,
+				hSelectHost, true, true);
 		lvHosts.setAdapter(hostsAdapter);
 		loader = new HostsLoader(getActivity());
 		loader.registerListener(0, this);
@@ -122,7 +122,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -172,7 +172,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 			listHostsAll.addAll(data);
 		}
 
-		hostsAdapter.setNewData(listHostsAll);
+		hostsAdapter.setNewList(listHostsAll);
 		progressHosts.setVisibility(View.GONE);
 		showHostSelectedCount();
 
@@ -235,7 +235,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 								.show();
 					}
 					lvHosts.setEnabled(true);
-					hostsAdapter.deleteItem(deletedHosts);
+					hostsAdapter.deleteItems(deletedHosts);
 
 					progressHosts.setVisibility(View.GONE);
 

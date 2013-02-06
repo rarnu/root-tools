@@ -92,8 +92,8 @@ public class RestoreFragment extends BaseFragment implements
 				.findViewById(R.id.progressBackData);
 		lvBackData = (ListView) innerView.findViewById(R.id.lvBackData);
 
-		backDataappAdapter = new DataappAdapter(getActivity()
-				.getLayoutInflater(), listBackDataappAll, hSelectData, 2);
+		backDataappAdapter = new DataappAdapter(getActivity(),
+				listBackDataappAll, hSelectData, 2);
 		lvBackData.setAdapter(backDataappAdapter);
 
 		barBackData.setCheckBoxVisible(true);
@@ -315,7 +315,7 @@ public class RestoreFragment extends BaseFragment implements
 			listBackDataappAll.addAll(data);
 		}
 
-		backDataappAdapter.setNewData(listBackDataappAll);
+		backDataappAdapter.setNewList(listBackDataappAll);
 		progressBackData.setVisibility(View.GONE);
 		showDataSelectedCount();
 

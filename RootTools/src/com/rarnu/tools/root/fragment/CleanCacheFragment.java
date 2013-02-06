@@ -62,8 +62,7 @@ public class CleanCacheFragment extends BaseFragment implements
 				.findViewById(R.id.progressCache);
 		tvCacheInfo = (TextView) innerView.findViewById(R.id.tvCacheInfo);
 
-		adapterCache = new CacheAdapter(getActivity().getLayoutInflater(),
-				listCacheAll);
+		adapterCache = new CacheAdapter(getActivity(), listCacheAll);
 		lvCache.setAdapter(adapterCache);
 		lvCache.setOnItemLongClickListener(this);
 

@@ -87,12 +87,12 @@ public class HostAddFragment extends BasePopupFragment implements
 		btnHk = (Button) innerView.findViewById(R.id.btnHk);
 		btnTw = (Button) innerView.findViewById(R.id.btnTw);
 
-		adapter = new HostsAdapter(getActivity().getLayoutInflater(), list,
-				hSelectHost, false, true);
+		adapter = new HostsAdapter(getActivity(), list, hSelectHost, false,
+				true);
 		if (lvAddHosts != null) {
 			lvAddHosts.setAdapter(adapter);
 		}
-		
+
 		barAddHosts.getButton1().setOnClickListener(this);
 		barAddHosts.getButton2().setOnClickListener(this);
 		btnCom.setOnClickListener(this);
@@ -282,7 +282,7 @@ public class HostAddFragment extends BasePopupFragment implements
 		if (data != null) {
 			list.addAll(data);
 		}
-		adapter.setNewData(list);
+		adapter.setNewList(list);
 		progressSearchHosts.setVisibility(View.GONE);
 		showHostSelectedCount();
 

@@ -1,17 +1,13 @@
 package com.rarnu.tools.root.adapter;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Context;
 import android.os.Handler;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.CheckBox;
-import android.widget.Filter;
-import android.widget.Filterable;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -19,66 +15,18 @@ import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.holder.HostsAdapterHolder;
 
-public class HostsAdapter extends BaseAdapter implements Filterable {
+public class HostsAdapter extends InnerAdapter<HostRecordInfo> {
 
-	// [region] field define
-	private LayoutInflater inflater;
-	private List<HostRecordInfo> listFull;
-	private List<HostRecordInfo> list;
 	private Handler h;
-	private ArrayFilter filter;
 	private boolean locked0 = false;
 	private boolean showCheckbox = true;
 
-	private final Object lock = new Object();
-
-	// [/region]
-
-	// [region] constructor
-	public HostsAdapter(LayoutInflater inflater, List<HostRecordInfo> list,
-			Handler h, boolean locked0, boolean showCheckbox) {
-		this.inflater = inflater;
-		this.listFull = list;
-		this.list = list;
+	public HostsAdapter(Context context, List<HostRecordInfo> list, Handler h,
+			boolean locked0, boolean showCheckbox) {
+		super(context, list);
 		this.h = h;
 		this.locked0 = locked0;
 		this.showCheckbox = showCheckbox;
-	}
-
-	// [/region]
-
-	// [region] business logic
-	
-	public void setNewData(List<HostRecordInfo> list) {
-		this.listFull = list;
-		this.list = list;
-		this.notifyDataSetChanged();
-	}
-	
-	public void deleteItem(List<HostRecordInfo> items) {
-		for (HostRecordInfo info : items) {
-			list.remove(info);
-			listFull.remove(info);
-		}
-		notifyDataSetChanged();
-	}
-
-	// [/region]
-
-	// [region] adapter
-	@Override
-	public int getCount() {
-		return list.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return list.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
 	}
 
 	@Override
@@ -135,70 +83,8 @@ public class HostsAdapter extends BaseAdapter implements Filterable {
 		return v;
 	}
 
-	// [/region]
-
-	// [region] filter
 	@Override
-	public Filter getFilter() {
-		if (filter == null) {
-			filter = new ArrayFilter();
-		}
-		return filter;
+	public String getValueText(HostRecordInfo item) {
+		return item.ip + item.domain;
 	}
-
-	private class ArrayFilter extends Filter {
-
-		@Override
-		protected FilterResults performFiltering(CharSequence prefix) {
-			list = listFull;
-			FilterResults results = new FilterResults();
-			if (prefix == null || prefix.length() == 0) {
-				synchronized (lock) {
-					ArrayList<HostRecordInfo> l = new ArrayList<HostRecordInfo>(
-							list);
-					results.values = l;
-					results.count = l.size();
-				}
-			} else {
-
-				String prefixString = prefix.toString().toLowerCase();
-
-				final ArrayList<HostRecordInfo> values = new ArrayList<HostRecordInfo>(
-						list);
-
-				final int count = values.size();
-
-				final ArrayList<HostRecordInfo> newValues = new ArrayList<HostRecordInfo>(
-						count);
-
-				for (int i = 0; i < count; i++) {
-					final HostRecordInfo value = values.get(i);
-					String valueText = value.ip + value.domain;
-
-					if (valueText.indexOf(prefixString) != -1) {
-						newValues.add(value);
-					}
-
-				}
-
-				results.values = newValues;
-				results.count = newValues.size();
-			}
-			return results;
-		}
-
-		@SuppressWarnings("unchecked")
-		@Override
-		protected void publishResults(CharSequence constraint,
-				FilterResults results) {
-			list = (List<HostRecordInfo>) results.values;
-			if (results.count > 0) {
-				notifyDataSetChanged();
-			} else {
-				notifyDataSetInvalidated();
-			}
-		}
-
-	}
-	// [/region]
 }

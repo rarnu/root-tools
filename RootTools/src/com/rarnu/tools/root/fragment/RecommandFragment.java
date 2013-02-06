@@ -90,7 +90,7 @@ public class RecommandFragment extends BaseFragment implements
 		if (data != null) {
 			lstRecommand.addAll(data);
 		}
-		adapter.setNewData(lstRecommand);
+		adapter.setNewList(lstRecommand);
 		progressRecommand.setVisibility(View.GONE);
 	}
 

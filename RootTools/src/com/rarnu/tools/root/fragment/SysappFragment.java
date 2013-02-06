@@ -190,13 +190,11 @@ public class SysappFragment extends BaseFragment implements
 		lvSysApp = (ListView) innerView.findViewById(R.id.lvSysApp);
 		lvSysApp.setOnItemClickListener(this);
 
-		sysappAdapter = new SysappAdapter(getActivity().getLayoutInflater(),
-				listSysappAll);
+		sysappAdapter = new SysappAdapter(getActivity(), listSysappAll);
 		lvSysApp.setAdapter(sysappAdapter);
 
 		loader = new SysappLoader(getActivity());
 		loader.registerListener(0, this);
-		
 
 	}
 
@@ -230,7 +228,7 @@ public class SysappFragment extends BaseFragment implements
 	protected void initLogic() {
 		Log.e(getClass().getName(), "initLogic");
 		doStartLoad();
-		
+
 	}
 
 }

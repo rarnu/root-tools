@@ -73,8 +73,8 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 		tvMemoryInfo = (TextView) innerView.findViewById(R.id.tvMemoryInfo);
 		lvMemory = (ListView) innerView.findViewById(R.id.lvMemory);
 
-		memProcessAdapter = new MemProcessAdapter(listMemProcessAll,
-				getActivity().getLayoutInflater());
+		memProcessAdapter = new MemProcessAdapter(getActivity(),
+				listMemProcessAll);
 		lvMemory.setAdapter(memProcessAdapter);
 
 		lvMemory.setOnItemClickListener(this);
@@ -317,7 +317,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 			listMemProcessAll.addAll(data);
 		}
 
-		memProcessAdapter.setNewData(listMemProcessAll);
+		memProcessAdapter.setNewList(listMemProcessAll);
 
 		progressMemory.setVisibility(View.GONE);
 		if (menuClean != null) {

@@ -2,11 +2,10 @@ package com.rarnu.tools.root.adapter;
 
 import java.util.List;
 
+import android.content.Context;
 import android.graphics.Color;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,38 +13,11 @@ import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.common.SysappSelectApkItem;
 import com.rarnu.tools.root.holder.SysappSelectApkAdapterHolder;
 
-public class SysappSelectApkAdapter extends BaseAdapter {
+public class SysappSelectApkAdapter extends InnerAdapter<SysappSelectApkItem> {
 
-	// [region] field define
-	private List<SysappSelectApkItem> list;
-	private LayoutInflater inflate;
-
-	// [/region]
-	
-	// [region] constructor
-	public SysappSelectApkAdapter(List<SysappSelectApkItem> list,
-			LayoutInflater inflater) {
-		this.list = list;
-		this.inflate = inflater;
-	}
-	
-	// [/region]
-	
-	// [region] adapter
-
-	@Override
-	public int getCount() {
-		return list.size();
-	}
-
-	@Override
-	public SysappSelectApkItem getItem(int position) {
-		return list.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
+	public SysappSelectApkAdapter(Context context,
+			List<SysappSelectApkItem> list) {
+		super(context, list);
 	}
 
 	@Override
@@ -55,10 +27,11 @@ public class SysappSelectApkAdapter extends BaseAdapter {
 		if (convertView != null) {
 			view = convertView;
 		} else {
-			view = inflate.inflate(R.layout.sysapp_file_item, parent, false);
+			view = inflater.inflate(R.layout.sysapp_file_item, parent, false);
 		}
 
-		SysappSelectApkAdapterHolder holder = (SysappSelectApkAdapterHolder) view.getTag();
+		SysappSelectApkAdapterHolder holder = (SysappSelectApkAdapterHolder) view
+				.getTag();
 		if (holder == null) {
 			holder = new SysappSelectApkAdapterHolder();
 			holder.imgIcon = (ImageView) view.findViewById(R.id.img_icon);
@@ -94,5 +67,9 @@ public class SysappSelectApkAdapter extends BaseAdapter {
 		return view;
 	}
 
-	// [/region]
+	@Override
+	public String getValueText(SysappSelectApkItem item) {
+		return item.filename;
+	}
+
 }

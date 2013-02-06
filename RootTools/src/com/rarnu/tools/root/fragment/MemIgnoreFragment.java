@@ -81,7 +81,7 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 
 	private void loadIgnore() {
 
-		adapter = new MemIgnoreAdapter(getActivity().getLayoutInflater(),
+		adapter = new MemIgnoreAdapter(getActivity(),
 				MemorySpecialList.getExcludeList(), hSelectIgnore);
 		if (gvIgnore != null) {
 			gvIgnore.setAdapter(adapter);

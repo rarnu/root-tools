@@ -21,15 +21,16 @@ import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.CompInfo;
 import com.rarnu.tools.root.utils.ComponentUtils;
 
-public class CompPackageInfoFragment extends BasePopupFragment implements OnItemLongClickListener {
+public class CompPackageInfoFragment extends BasePopupFragment implements
+		OnItemLongClickListener {
 
 	ImageView ivAppIcon;
 	TextView tvAppName, tvAppPackage;
 	ListView lvReceiver;
-	
+
 	CompAdapter adapter = null;
 	List<CompInfo> lstComponentInfo = null;
-	
+
 	@Override
 	protected int getBarTitle() {
 		return R.string.component_list;
@@ -55,7 +56,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements OnItem
 		fillComponentList();
 
 	}
-	
+
 	private void fillComponentList() {
 		ivAppIcon
 				.setBackgroundDrawable(GlobalInstance.pm
@@ -79,7 +80,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements OnItem
 		}
 		// lvReceiver
 		lstComponentInfo = ComponentUtils.getPackageRSList(pkg);
-		adapter = new CompAdapter(getActivity().getLayoutInflater(), lstComponentInfo);
+		adapter = new CompAdapter(getActivity(), lstComponentInfo);
 		lvReceiver.setAdapter(adapter);
 
 	}

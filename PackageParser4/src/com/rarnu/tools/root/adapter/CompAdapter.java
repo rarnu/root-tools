@@ -2,49 +2,22 @@ package com.rarnu.tools.root.adapter;
 
 import java.util.List;
 
+import android.content.Context;
 import android.content.pm.PackageParser;
 import android.graphics.Color;
 import android.text.Html;
-import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.common.CompInfo;
 import com.rarnu.tools.root.holder.CompAdapterHolder;
 
-public class CompAdapter extends BaseAdapter {
+public class CompAdapter extends InnerAdapter<CompInfo> {
 
-	// [region] field define
-	private LayoutInflater inflater;
-	private List<CompInfo> list;
-
-	// [/region]
-
-	// [region] constructor
-	public CompAdapter(LayoutInflater inflater, List<CompInfo> list) {
-		this.inflater = inflater;
-		this.list = list;
-	}
-
-	// [/region]
-
-	// [region] adapter
-	@Override
-	public int getCount() {
-		return list.size();
-	}
-
-	@Override
-	public Object getItem(int position) {
-		return list.get(position);
-	}
-
-	@Override
-	public long getItemId(int position) {
-		return position;
+	public CompAdapter(Context context, List<CompInfo> list) {
+		super(context, list);
 	}
 
 	@Override
@@ -119,5 +92,9 @@ public class CompAdapter extends BaseAdapter {
 		return v;
 	}
 
-	// [/region]
+	@Override
+	public String getValueText(CompInfo item) {
+		return "";
+	}
+
 }
