@@ -1,4 +1,4 @@
-package com.rarnu.installer;
+package com.rarnu.installer.func;
 
 import java.io.BufferedOutputStream;
 import java.io.File;
@@ -19,11 +19,14 @@ public class GameCenterInstaller {
 	public static final int EC_EXTRACT_ASSETS = 2;
 	public static final int EC_INSTALL_SYSTEM_FILES = 3;
 	public static final int EC_START_SERVICE = 4;
+	public static final int EC_REMOUNT = 5;
 
 	private static String tmpPath = Environment.getExternalStorageDirectory()
 			+ "/.gci/";
 
 	public static int install(Context context) {
+		RootUtils.mountRW();
+
 		if (!uinputExists()) {
 			return EC_NO_UINPUT;
 		}
@@ -134,9 +137,14 @@ public class GameCenterInstaller {
 				true);
 		return ret.error.equals("");
 	}
-	
+
 	public static boolean startXcService() {
 		CommandResult ret = RootUtils.runCommand("xcmidware &", true);
 		return ret.error.equals("");
+	}
+	
+	public static boolean XcServiceExists() {
+		CommandResult ret = RootUtils.runCommand("ps | grep xcmidware", true);
+		return ret.result.contains("xcmidware");
 	}
 }

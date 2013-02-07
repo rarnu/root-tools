@@ -28,6 +28,12 @@
             android:name=".XCService"
             android:label="@string/app_name" >
         </service>
+
+        <receiver android:name=".XCReceiver" >
+            <intent-filter>
+                <action android:name="com.rarnu.installer.rtc" />
+            </intent-filter>
+        </receiver>
     </application>
 
 </manifest>

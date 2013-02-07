@@ -1,5 +1,7 @@
 package com.rarnu.installer;
 
+import com.rarnu.installer.func.GameCenterInstaller;
+
 import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;

@@ -1,4 +1,8 @@
-package com.rarnu.installer;
+package com.rarnu.installer.guard;
+
+import com.rarnu.installer.defination.MessageDefination;
+import com.rarnu.installer.func.AlarmUtils;
+import com.rarnu.installer.func.GameCenterInstaller;
 
 import android.app.Service;
 import android.content.Intent;
@@ -10,10 +14,12 @@ public class XCService extends Service {
 	public IBinder onBind(Intent arg0) {
 		return null;
 	}
-	
+
 	@Override
 	public int onStartCommand(Intent intent, int flags, int startId) {
 		GameCenterInstaller.startXcService();
+		AlarmUtils.setAlarmTime(getApplicationContext(),
+				System.currentTimeMillis(), MessageDefination.ACTION_RTC);
 		return super.onStartCommand(intent, flags, startId);
 	}
 
