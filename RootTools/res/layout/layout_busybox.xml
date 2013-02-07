@@ -25,7 +25,7 @@
                 android:layout_height="56dip"
                 android:layout_below="@+id/tvRootDesc"
                 android:layout_marginTop="16dip"
-                android:background="@android:drawable/list_selector_background"
+                android:background="@drawable/item_background_holo_dark"
                 android:clickable="true" >
 
                 <TextView
@@ -58,7 +58,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/laySu"
-                android:background="@android:drawable/list_selector_background"
+                android:background="@drawable/item_background_holo_dark"
                 android:clickable="true" >
 
                 <TextView
@@ -91,7 +91,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/laySuperuser"
-                android:background="@android:drawable/list_selector_background"
+                android:background="@drawable/item_background_holo_dark"
                 android:clickable="true" >
 
                 <TextView

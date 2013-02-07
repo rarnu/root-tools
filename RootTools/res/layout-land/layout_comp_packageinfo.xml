@@ -58,8 +58,7 @@
         <ListView
             android:id="@+id/lvReceiver"
             android:layout_width="fill_parent"
-            android:layout_height="fill_parent"
-            android:listSelector="@android:drawable/list_selector_background" />
+            android:layout_height="fill_parent" />
     </RelativeLayout>
 
 </LinearLayout>

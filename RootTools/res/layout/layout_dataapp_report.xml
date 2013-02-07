@@ -7,7 +7,6 @@
         android:id="@+id/lvReport"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:fastScrollEnabled="true"
-        android:listSelector="@android:drawable/list_selector_background" />
+        android:fastScrollEnabled="true" />
 
 </RelativeLayout>

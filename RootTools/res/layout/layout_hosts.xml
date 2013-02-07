@@ -1,15 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent" >
 
     <ListView
         android:id="@+id/lvHosts"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/barHosts"
-        android:fastScrollEnabled="true"
-        android:listSelector="@android:drawable/list_selector_background" >
+        android:fastScrollEnabled="true" >
     </ListView>
 
     <com.rarnu.tools.root.comp.DataBar

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="56dip"
-    android:background="@android:drawable/list_selector_background"
+    android:background="@drawable/item_background_holo_dark"
     android:clickable="true" >
 
     <TextView

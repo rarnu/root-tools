@@ -9,8 +9,8 @@
         android:id="@+id/laySitBtn"
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
-        android:padding="4dip"
-        android:background="?android:attr/detailsElementBackground" >
+        android:background="?android:attr/detailsElementBackground"
+        android:padding="4dip" >
 
         <LinearLayout
             android:layout_width="80dip"
@@ -117,8 +117,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/barAddHosts"
-            android:fastScrollEnabled="true"
-            android:listSelector="@android:drawable/list_selector_background" >
+            android:fastScrollEnabled="true" >
         </ListView>
 
         <com.rarnu.tools.root.comp.DataBar

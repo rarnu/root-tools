@@ -12,7 +12,7 @@
             android:id="@+id/layAllowDeleteLevel0"
             android:layout_width="fill_parent"
             android:layout_height="56dip"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView
@@ -43,7 +43,7 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layAllowDeleteLevel0"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView
@@ -74,7 +74,7 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layBackupBeforeDelete"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView
@@ -108,7 +108,7 @@
             android:layout_height="56dip"
             android:layout_below="@+id/layAlsoDeleteData"
             android:layout_marginTop="8dip"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView
@@ -139,7 +139,7 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layOverrideBackuped"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView
@@ -170,7 +170,7 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layReinstallApk"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView
@@ -198,7 +198,7 @@
             android:layout_height="56dip"
             android:layout_below="@+id/layDeleteAllBackupData"
             android:layout_marginTop="8dip"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView
@@ -229,7 +229,7 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layKillProcessBeforeClean"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView
@@ -256,7 +256,7 @@
             android:layout_height="56dip"
             android:layout_below="@+id/layKillIgnoreList"
             android:layout_marginTop="8dip"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView
@@ -293,7 +293,7 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layNameServer"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView
@@ -317,7 +317,7 @@
             android:layout_width="fill_parent"
             android:layout_height="56dip"
             android:layout_below="@+id/layManualEditHosts"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true" >
 
             <TextView

@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
-    
+
     <TextView
         android:id="@+id/tvCacheInfo"
         android:layout_width="fill_parent"
@@ -19,8 +19,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/progressCache"
         android:layout_below="@+id/tvCacheInfo"
-        android:fastScrollEnabled="true"
-        android:listSelector="@android:drawable/list_selector_background" >
+        android:fastScrollEnabled="true" >
     </ListView>
 
     <com.rarnu.tools.root.comp.DataProgressBar

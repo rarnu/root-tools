@@ -67,7 +67,7 @@
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/spl1"
-            android:background="@android:drawable/list_selector_background"
+            android:background="@drawable/item_background_holo_dark"
             android:clickable="true"
             android:paddingBottom="8dip"
             android:paddingTop="8dip" >
@@ -134,7 +134,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_marginTop="8dip"
-                android:background="@android:drawable/list_selector_background"
+                android:background="@drawable/item_background_holo_dark"
                 android:clickable="true" >
 
                 <TextView
@@ -158,7 +158,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/layUpdate"
-                android:background="@android:drawable/list_selector_background"
+                android:background="@drawable/item_background_holo_dark"
                 android:clickable="true" >
 
                 <TextView
@@ -182,6 +182,7 @@
                 android:layout_width="fill_parent"
                 android:layout_height="56dip"
                 android:layout_below="@+id/layHelp"
+                android:background="@drawable/item_background_holo_dark"
                 android:clickable="true" >
 
                 <TextView

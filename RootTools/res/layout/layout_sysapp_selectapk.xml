@@ -17,8 +17,7 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/tvPath"
-        android:fastScrollEnabled="true"
-        android:listSelector="@android:drawable/list_selector_background" />
+        android:fastScrollEnabled="true" />
 
     <ProgressBar
         android:id="@+id/pbShowing"
