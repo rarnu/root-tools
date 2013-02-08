@@ -38,8 +38,7 @@
             android:layout_width="0px"
             android:layout_height="fill_parent"
             android:layout_weight="1"
-            android:background="?android:attr/detailsElementBackground"
-            android:fastScrollEnabled="true" />
+            android:listSelector="@drawable/item_background_holo_dark" />
     </LinearLayout>
 
     <ProgressBar

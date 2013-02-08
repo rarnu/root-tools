@@ -5,8 +5,10 @@ import android.preference.Preference;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.tools.root.R;
@@ -17,12 +19,16 @@ public class PreferenceEx extends Preference {
 	public static final int STATE_WARNING = 1;
 	public static final int STATE_BANNED = 2;
 
+	RelativeLayout layPref;
 	ImageView pref_icon;
 	TextView pref_title;
 	TextView pref_summary;
 	ImageView pref_warning;
 	int status;
+	int innerTag;
 	View innerView;
+
+	OnClickListener listener;
 
 	public PreferenceEx(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -64,6 +70,8 @@ public class PreferenceEx extends Preference {
 			pref_summary.setVisibility(View.GONE);
 		}
 		pref_icon.setImageDrawable(getIcon());
+		layPref.setTag(innerTag);
+		layPref.setOnClickListener(listener);
 		resetStatus(status);
 	}
 
@@ -72,12 +80,12 @@ public class PreferenceEx extends Preference {
 		if (innerView == null) {
 			innerView = LayoutInflater.from(getContext()).inflate(
 					R.layout.comp_preference, parent, false);
+			layPref = (RelativeLayout) innerView.findViewById(R.id.layPref);
 			pref_icon = (ImageView) innerView.findViewById(R.id.pref_icon);
 			pref_title = (TextView) innerView.findViewById(R.id.pref_title);
 			pref_summary = (TextView) innerView.findViewById(R.id.pref_summary);
 			pref_warning = (ImageView) innerView
 					.findViewById(R.id.pref_warning);
-
 		}
 		return innerView;
 	}
@@ -86,5 +94,20 @@ public class PreferenceEx extends Preference {
 	public void setTitle(int titleResId) {
 		super.setTitle(titleResId);
 		pref_title.setText(titleResId);
+	}
+
+	public void setOnInnerClick(OnClickListener listener) {
+		this.listener = listener;
+		if (layPref != null) {
+			layPref.setOnClickListener(listener);
+		}
+
+	}
+
+	public void setInnerTag(int tag) {
+		innerTag = tag;
+		if (layPref != null) {
+			layPref.setTag(innerTag);
+		}
 	}
 }

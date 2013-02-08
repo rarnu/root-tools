@@ -29,7 +29,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:button="@drawable/btn_check_holo_dark"  />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -60,7 +61,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:button="@drawable/btn_check_holo_dark"  />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -91,7 +93,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:button="@drawable/btn_check_holo_dark"  />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -125,7 +128,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:button="@drawable/btn_check_holo_dark"  />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -156,7 +160,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:button="@drawable/btn_check_holo_dark"  />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -215,7 +220,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
-                android:layout_centerVertical="true" />
+                android:layout_centerVertical="true"
+                android:button="@drawable/btn_check_holo_dark" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -276,10 +282,12 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="24dip"
                 android:layout_toRightOf="@+id/tvNameServer"
+                android:background="@drawable/edit_text_holo_dark"
                 android:gravity="right|center_vertical"
                 android:hint=""
                 android:maxLines="1"
-                android:singleLine="true" />
+                android:singleLine="true"
+                android:textCursorDrawable="@null" />
 
             <TextView
                 android:layout_width="fill_parent"

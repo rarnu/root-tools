@@ -29,7 +29,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:focusable="false" />
+        android:focusable="false"
+        android:button="@drawable/btn_check_holo_dark"  />
 
     <ImageView
         android:id="@+id/imgLocked"

@@ -7,7 +7,7 @@
         android:id="@+id/gvReport"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:fastScrollEnabled="true"
-        android:numColumns="2" />
+        android:numColumns="2"
+        android:listSelector="@drawable/item_background_holo_dark" />
 
 </RelativeLayout>

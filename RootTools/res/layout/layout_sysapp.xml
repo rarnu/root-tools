@@ -8,9 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/progressSysapp"
-        android:fastScrollEnabled="true"
-        android:paddingLeft="4dip"
-        android:paddingRight="4dip" >
+        android:listSelector="@drawable/item_background_holo_dark" >
     </ListView>
 
     <com.rarnu.tools.root.comp.DataProgressBar

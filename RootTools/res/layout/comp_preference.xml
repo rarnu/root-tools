@@ -1,8 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layPref"
     android:layout_width="match_parent"
     android:layout_height="56dip"
-    android:padding="4dip" >
+    android:padding="4dip"
+    android:clickable="true"
+    android:background="@drawable/item_background_holo_dark" >
 
     <ImageView
         android:id="@+id/pref_icon"

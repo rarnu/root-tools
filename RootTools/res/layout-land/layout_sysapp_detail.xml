@@ -46,17 +46,38 @@
             android:singleLine="true"
             android:textSize="12sp" />
 
-        <Button
-            android:id="@+id/btnDelete"
+        <TextView
+            android:id="@+id/saDelete"
             android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="1dip"
             android:layout_below="@+id/appVersion"
             android:layout_centerHorizontal="true"
             android:layout_marginLeft="48dip"
             android:layout_marginRight="48dip"
             android:layout_marginTop="8dip"
+            android:background="@android:drawable/divider_horizontal_dark" />
+
+        <Button
+            android:id="@+id/btnDelete"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/saDelete"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="48dip"
+            android:layout_marginRight="48dip"
+            android:background="@drawable/item_background_holo_dark"
             android:text="@string/button_delete"
             android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/sbDelete"
+            android:layout_width="fill_parent"
+            android:layout_height="1dip"
+            android:layout_below="@+id/btnDelete"
+            android:layout_centerHorizontal="true"
+            android:layout_marginLeft="48dip"
+            android:layout_marginRight="48dip"
+            android:background="@android:drawable/divider_horizontal_dark" />
     </RelativeLayout>
 
     <ScrollView
@@ -98,7 +119,7 @@
 
                 <TextView
                     android:layout_width="fill_parent"
-                    android:layout_height="1px"
+                    android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
                     android:background="@android:drawable/divider_horizontal_dim_dark" />
             </RelativeLayout>

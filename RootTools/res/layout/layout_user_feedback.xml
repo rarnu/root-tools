@@ -9,9 +9,11 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/progressFeedback"
         android:layout_margin="8dip"
+        android:background="@drawable/edit_text_holo_dark"
         android:gravity="left|top"
         android:hint="@string/feedback_hint"
-        android:scrollbars="horizontal|vertical" />
+        android:scrollbars="horizontal|vertical"
+        android:textCursorDrawable="@null" />
 
     <com.rarnu.tools.root.comp.DataProgressBar
         android:id="@+id/progressFeedback"

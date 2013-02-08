@@ -38,21 +38,40 @@
         android:singleLine="true"
         android:textSize="12sp" />
 
-    <Button
-        android:id="@+id/btnDelete"
+    <TextView
+        android:id="@+id/saDelete"
         android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="1dip"
         android:layout_below="@+id/appVersion"
         android:layout_marginLeft="48dip"
         android:layout_marginRight="48dip"
         android:layout_marginTop="8dip"
+        android:background="@android:drawable/divider_horizontal_dark" />
+
+    <Button
+        android:id="@+id/btnDelete"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/saDelete"
+        android:layout_marginLeft="48dip"
+        android:layout_marginRight="48dip"
+        android:background="@drawable/item_background_holo_dark"
         android:text="@string/button_delete"
         android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/sbDelete"
+        android:layout_width="fill_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/btnDelete"
+        android:layout_marginLeft="48dip"
+        android:layout_marginRight="48dip"
+        android:background="@android:drawable/divider_horizontal_dark" />
 
     <ScrollView
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_below="@+id/btnDelete"
+        android:layout_below="@+id/sbDelete"
         android:layout_marginTop="8dip" >
 
         <RelativeLayout

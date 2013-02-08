@@ -60,7 +60,7 @@
             android:layout_height="1dip"
             android:layout_below="@+id/tvCopyright"
             android:layout_marginTop="8dip"
-            android:background="@color/lightgray" />
+            android:background="@android:drawable/divider_horizontal_dark" />
 
         <RelativeLayout
             android:id="@+id/layEoe"
@@ -108,7 +108,7 @@
             android:layout_height="1dip"
             android:layout_below="@+id/layEoe"
             android:layout_marginBottom="8dip"
-            android:background="@color/lightgray" />
+            android:background="@android:drawable/divider_horizontal_dark" />
 
         <TextView
             android:id="@+id/tvAbout"

@@ -32,7 +32,6 @@ public abstract class InnerActivity extends Activity {
 		bar.setIcon(R.drawable.icon);
 		bar.setDisplayOptions(0, ActionBar.DISPLAY_HOME_AS_UP);
 		bar.setDisplayHomeAsUpEnabled(true);
-
 		replace();
 	}
 
