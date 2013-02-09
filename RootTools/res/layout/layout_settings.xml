@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:fadingEdgeLength="0px"
+    android:overScrollMode="never" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -30,7 +32,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:button="@drawable/btn_check_holo_dark"  />
+                android:button="@drawable/btn_check_holo_dark" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -62,7 +64,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:button="@drawable/btn_check_holo_dark"  />
+                android:button="@drawable/btn_check_holo_dark" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -94,7 +96,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:button="@drawable/btn_check_holo_dark"  />
+                android:button="@drawable/btn_check_holo_dark" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -129,7 +131,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:button="@drawable/btn_check_holo_dark"  />
+                android:button="@drawable/btn_check_holo_dark" />
 
             <TextView
                 android:layout_width="fill_parent"
@@ -161,7 +163,7 @@
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_centerVertical="true"
-                android:button="@drawable/btn_check_holo_dark"  />
+                android:button="@drawable/btn_check_holo_dark" />
 
             <TextView
                 android:layout_width="fill_parent"

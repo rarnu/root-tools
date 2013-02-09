@@ -8,7 +8,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/barIgnore"
-        android:listSelector="@drawable/item_background_holo_dark" >
+        android:listSelector="@drawable/item_background_holo_dark"
+        android:overScrollMode="never"
+        android:fadingEdgeLength="0px" >
     </ListView>
 
     <com.rarnu.tools.root.comp.DataBar

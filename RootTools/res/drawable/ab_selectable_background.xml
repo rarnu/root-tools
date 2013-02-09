@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android" android:exitFadeDuration="@android:integer/config_mediumAnimTime">
+
+    <item android:drawable="@drawable/ab_selected_background" android:state_pressed="true"/>
+    <item android:drawable="@drawable/ab_selected_background" android:state_focused="true"/>
+    <item android:drawable="@drawable/ab_selected_background" android:state_activated="true"/>
+    <item android:drawable="@drawable/ab_selected_background" android:state_checked="true"/>
+    <item android:drawable="@android:color/transparent"/>
+
+</selector>

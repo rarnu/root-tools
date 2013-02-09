@@ -8,8 +8,10 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_above="@+id/progressDeprecated"
+        android:fadingEdgeLength="0px"
+        android:listSelector="@drawable/item_background_holo_dark"
         android:numColumns="2"
-        android:listSelector="@drawable/item_background_holo_dark" />
+        android:overScrollMode="never" />
 
     <com.rarnu.tools.root.comp.DataProgressBar
         android:id="@+id/progressDeprecated"

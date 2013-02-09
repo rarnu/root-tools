@@ -59,7 +59,9 @@
             android:id="@+id/lvReceiver"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:listSelector="@drawable/item_background_holo_dark" />
+            android:fadingEdgeLength="0px"
+            android:listSelector="@drawable/item_background_holo_dark"
+            android:overScrollMode="never" />
     </RelativeLayout>
 
 </LinearLayout>

@@ -7,6 +7,8 @@
         android:id="@+id/lvReport"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:listSelector="@drawable/item_background_holo_dark" />
+        android:listSelector="@drawable/item_background_holo_dark"
+        android:overScrollMode="never"
+        android:fadingEdgeLength="0px" />
 
 </RelativeLayout>

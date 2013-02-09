@@ -20,7 +20,8 @@
         android:name=".RootApplication"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
-        android:persistent="true" >
+        android:persistent="true"
+        android:theme="@style/Theme.RootTools" >
         <activity
             android:name=".SplashActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
@@ -35,90 +36,75 @@
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.HelpActivity"
             android:label="@string/help"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.UserFeedbackActivity"
             android:label="@string/feedback"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.AboutActivity"
             android:label="@string/about"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.BusyboxActivity"
             android:label="@string/busybox"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.SysappMainActivity"
             android:label="@string/func1_title"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.SysappDetailActivity"
             android:label="@string/sysapp_name"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
             android:name=".fragmentactivity.SysappSelectApkActivity"
             android:label="@string/sysapp_select"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.SettingsActivity"
             android:label="@string/cat_settings"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.CleanCacheMainActivity"
             android:label="@string/func6_title"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.EnableappMainActivity"
             android:label="@string/func2_title"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.HtcRomActivity"
             android:label="@string/clean_htc_rom"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.CompMainActivity"
             android:label="@string/func4_title"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.CompPackageInfoActivity"
             android:label="@string/component_list"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.MemMainActivity"
             android:label="@string/func5_title"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
@@ -129,55 +115,46 @@
         <activity
             android:name=".fragmentactivity.HostMainActivity"
             android:label="@string/func7_title"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.HostAddActivity"
             android:label="@string/host_add"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.MemIgnoreActivity"
             android:label="@string/kill_ignore_list"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.HostEditActivity"
             android:label="@string/manual_edit_hosts"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.HostDeprecatedActivity"
             android:label="@string/clean_deprecated_hosts"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.RecommandActivity"
             android:label="@string/short_recommand"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.DataappReportActivity"
             android:label="@string/operation_result"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.DataBackupActivity"
             android:label="@string/func3_title"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
             android:name=".fragmentactivity.DataRestoreActivity"
             android:label="@string/func3p_title"
-            android:theme="@android:style/Theme.Holo"
             android:windowSoftInputMode="stateHidden" >
         </activity>
 

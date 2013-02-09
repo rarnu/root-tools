@@ -192,7 +192,7 @@ public class MainActivity extends Activity {
 		actionProvider
 				.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
 		actionProvider.setShareIntent(createShareIntent());
-
+		
 		return true;
 	}
 

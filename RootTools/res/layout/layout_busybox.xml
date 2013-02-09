@@ -5,7 +5,9 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent" >
+        android:layout_height="fill_parent"
+        android:fadingEdgeLength="0px"
+        android:overScrollMode="never" >
 
         <RelativeLayout
             android:layout_width="fill_parent"

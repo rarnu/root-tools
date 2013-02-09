@@ -50,7 +50,9 @@
         android:layout_height="fill_parent"
         android:layout_above="@+id/tvOperateHint"
         android:layout_below="@id/spl1"
-        android:listSelector="@drawable/item_background_holo_dark" />
+        android:fadingEdgeLength="0px"
+        android:listSelector="@drawable/item_background_holo_dark"
+        android:overScrollMode="never" />
 
     <TextView
         android:id="@+id/tvOperateHint"

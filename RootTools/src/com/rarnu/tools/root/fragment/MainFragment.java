@@ -3,8 +3,12 @@ package com.rarnu.tools.root.fragment;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.View.OnClickListener;
+import android.widget.LinearLayout;
+import android.widget.ListView;
 
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
@@ -44,6 +48,16 @@ public class MainFragment extends PreferenceFragment implements OnClickListener 
 		mappingComponents();
 		initEvents();
 		showFunctionalEnabledTags();
+	}
+	
+	@Override
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		LinearLayout layout = (LinearLayout)super.onCreateView(inflater, container, savedInstanceState);
+		ListView list = (ListView)layout.getChildAt(0);
+		list.setFadingEdgeLength(0);
+		list.setOverScrollMode(View.OVER_SCROLL_NEVER);
+		return layout;
 	}
 
 	private void mappingComponents() {

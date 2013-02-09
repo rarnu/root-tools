@@ -72,7 +72,9 @@
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
         android:layout_below="@+id/sbDelete"
-        android:layout_marginTop="8dip" >
+        android:layout_marginTop="8dip"
+        android:overScrollMode="never"
+        android:fadingEdgeLength="0px" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
