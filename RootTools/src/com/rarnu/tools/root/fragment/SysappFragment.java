@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
@@ -30,7 +32,6 @@ import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.common.SysappInfo;
-import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.fragmentactivity.SysappDetailActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappSelectApkActivity;
@@ -128,18 +129,26 @@ public class SysappFragment extends BaseFragment implements
 				return;
 			}
 			if (!apkPath.equals("")) {
-				AlertDialogEx.showAlertDialogEx(getActivity(),
-						getString(R.string.hint),
-						String.format(
-								getResources().getString(R.string.install_apk),
-								apk.getName()), getString(R.string.ok),
-						new AlertDialogEx.DialogButtonClickListener() {
 
-							@Override
-							public void onClick(View v) {
-								doInstallSystemApp(apkPath);
-							}
-						}, getString(R.string.cancel), null);
+				new AlertDialog.Builder(getActivity())
+						.setTitle(R.string.hint)
+						.setMessage(
+								String.format(
+										getResources().getString(
+												R.string.install_apk),
+										apk.getName()))
+						.setPositiveButton(R.string.ok,
+								new DialogInterface.OnClickListener() {
+
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										doInstallSystemApp(apkPath);
+
+									}
+								}).setNegativeButton(R.string.cancel, null)
+						.show();
+
 			}
 			break;
 		}

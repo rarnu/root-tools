@@ -3,7 +3,9 @@ package com.rarnu.tools.root.fragment;
 import java.io.File;
 
 import android.app.Activity;
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
@@ -21,7 +23,6 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.SysappInfo;
-import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.utils.ApkUtils;
 
 public class SysappDetailFragment extends BasePopupFragment implements
@@ -64,7 +65,7 @@ public class SysappDetailFragment extends BasePopupFragment implements
 		} catch (NameNotFoundException e) {
 			pinfo = null;
 		}
-		
+
 		if (pinfo == null) {
 			getActivity().finish();
 			return;
@@ -137,21 +138,27 @@ public class SysappDetailFragment extends BasePopupFragment implements
 			}
 
 			// delete system app
-			AlertDialogEx.showAlertDialogEx(getActivity(),
-					getString(R.string.hint), hintStr, getString(R.string.ok),
-					new AlertDialogEx.DialogButtonClickListener() {
+			new AlertDialog.Builder(getActivity())
+					.setTitle(R.string.hint)
+					.setMessage(hintStr)
+					.setPositiveButton(R.string.ok,
+							new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(View v) {
-							deleteApp(GlobalInstance.backupBeforeDelete,
-									GlobalInstance.alsoDeleteData);
-						}
-					}, getString(R.string.cancel), null);
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									deleteApp(
+											GlobalInstance.backupBeforeDelete,
+											GlobalInstance.alsoDeleteData);
+
+								}
+							}).setNegativeButton(R.string.cancel, null).show();
+
 			break;
 		}
 
 	}
-	
+
 	public void deleteApp(boolean backup, boolean deleteData) {
 		// need delete app's data also
 
@@ -163,8 +170,8 @@ public class SysappDetailFragment extends BasePopupFragment implements
 
 		boolean ret = ApkUtils.deleteSystemApp(info.info.sourceDir);
 		if (!ret) {
-			Toast.makeText(getActivity(), R.string.delete_fail, Toast.LENGTH_LONG)
-					.show();
+			Toast.makeText(getActivity(), R.string.delete_fail,
+					Toast.LENGTH_LONG).show();
 			return;
 		}
 
@@ -207,13 +214,12 @@ public class SysappDetailFragment extends BasePopupFragment implements
 
 	@Override
 	protected void initMenu(Menu menu) {
-		
+
 	}
 
 	@Override
 	protected void initLogic() {
 		showAppInfo();
 	}
-
 
 }

@@ -2,7 +2,6 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="56dip"
-    android:background="@drawable/item_background_holo_dark"
     android:clickable="true" >
 
     <TextView
@@ -39,8 +38,7 @@
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="8dip"
-        android:focusable="false"
-        android:button="@drawable/btn_check_holo_dark"  />
+        android:focusable="false" />
 
     <TextView
         android:layout_width="fill_parent"

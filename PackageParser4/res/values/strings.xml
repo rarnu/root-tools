@@ -46,5 +46,6 @@
     <string name="network_unknown">未知</string>
     <string name="cleaning_dalvik">正在清理 Dalvik...</string>
     <string name="clean_dalvik">清理 Dalvik</string>
-    
+    <string name="eoe_title">优亿市场 www.eoemarket.com</string>
+    <string name="eoe_desc">RootTools 唯一指定合作伙伴</string>
 </resources>

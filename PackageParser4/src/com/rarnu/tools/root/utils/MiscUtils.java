@@ -1,6 +1,8 @@
 package com.rarnu.tools.root.utils;
 
+import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.NetworkInfo;
 import android.net.Uri;
@@ -15,7 +17,6 @@ import android.widget.Toast;
 import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.comp.AlertDialogEx;
 
 public class MiscUtils {
 
@@ -31,25 +32,28 @@ public class MiscUtils {
 	}
 
 	public static void doReboot(Context context) {
-		AlertDialogEx.showAlertDialogEx(context,
-				context.getString(R.string.reboot_device),
-				context.getString(R.string.confirm_reboot),
-				context.getString(R.string.ok),
-				new AlertDialogEx.DialogButtonClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						DeviceUtils.reboot();
+		new AlertDialog.Builder(context)
+				.setTitle(R.string.reboot_device)
+				.setMessage(R.string.confirm_reboot)
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
 
-					}
-				}, context.getString(R.string.cancel), null);
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								DeviceUtils.reboot();
+
+							}
+						}).setNegativeButton(R.string.cancel, null).show();
 	}
 
-	public static void doCleanDalvik(final Context context, final View view, final Preference pref) {
+	public static void doCleanDalvik(final Context context, final View view,
+			final Preference pref) {
 
 		pref.setTitle(R.string.cleaning_dalvik);
 		view.setEnabled(false);
-		
+
 		final Handler h = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -57,7 +61,7 @@ public class MiscUtils {
 
 					pref.setTitle(R.string.clean_dalvik);
 					view.setEnabled(true);
-					
+
 					if (msg.arg1 == -1) {
 						Toast.makeText(context, R.string.clean_dalvik_fail,
 								Toast.LENGTH_LONG).show();
@@ -91,10 +95,11 @@ public class MiscUtils {
 	public static void showNetworkStatus(final Context context) {
 
 		if (GlobalInstance.loadingNetwork) {
-			AlertDialogEx.showAlertDialogEx(context,
-					context.getString(R.string.check_network_status),
-					context.getString(R.string.loading_network_status),
-					context.getString(R.string.ok), null, null, null);
+			new AlertDialog.Builder(context)
+					.setTitle(R.string.check_network_status)
+					.setMessage(R.string.loading_network_status)
+					.setPositiveButton(R.string.ok, null).show();
+
 			return;
 		}
 
@@ -105,8 +110,8 @@ public class MiscUtils {
 					.format(context.getString(R.string.network_status_fmt),
 							GlobalInstance.networkInfo.getTypeName(),
 							GlobalInstance.networkInfo.getSubtypeName(),
-							networkStatusToReadableString(context, GlobalInstance.networkInfo
-									.getState()),
+							networkStatusToReadableString(context,
+									GlobalInstance.networkInfo.getState()),
 
 							(GlobalInstance.networkInfo.getExtraInfo() == null ? context
 									.getString(R.string.not_contained)
@@ -124,12 +129,14 @@ public class MiscUtils {
 							GlobalInstance.networkSpeed);
 		}
 
-		AlertDialogEx.showAlertDialogEx(context,
-				context.getString(R.string.check_network_status), status,
-				context.getString(R.string.ok), null, null, null);
+		new AlertDialog.Builder(context)
+				.setTitle(R.string.check_network_status).setMessage(status)
+				.setPositiveButton(R.string.ok, null).show();
+
 	}
 
-	private static String networkStatusToReadableString(Context context, NetworkInfo.State state) {
+	private static String networkStatusToReadableString(Context context,
+			NetworkInfo.State state) {
 		switch (state) {
 		case CONNECTED:
 			return context.getString(R.string.network_connected);

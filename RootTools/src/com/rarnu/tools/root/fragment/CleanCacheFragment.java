@@ -3,6 +3,8 @@ package com.rarnu.tools.root.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
@@ -25,7 +27,6 @@ import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.CacheInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.CleanCacheLoader;
 import com.rarnu.tools.root.utils.CacheUtils;
@@ -112,26 +113,29 @@ public class CleanCacheFragment extends BaseFragment implements
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		final CacheInfo info = listCacheAll.get(position);
-		AlertDialogEx.showAlertDialogEx(getActivity(),
-				getString(R.string.func6_title),
-				getString(R.string.confirm_clean_cache),
-				getString(R.string.ok),
-				new AlertDialogEx.DialogButtonClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						boolean ret = CacheUtils.cleanCache(info);
-						if (ret) {
-							adapterCache.deleteItem(info);
-							loadCacheCount();
-						} else {
-							Toast.makeText(getActivity(),
-									R.string.clean_cache_failed,
-									Toast.LENGTH_LONG).show();
-						}
+		new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.func6_title)
+				.setMessage(R.string.confirm_clean_cache)
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
 
-					}
-				}, getString(R.string.cancel), null);
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								boolean ret = CacheUtils.cleanCache(info);
+								if (ret) {
+									adapterCache.deleteItem(info);
+									loadCacheCount();
+								} else {
+									Toast.makeText(getActivity(),
+											R.string.clean_cache_failed,
+											Toast.LENGTH_LONG).show();
+								}
+
+							}
+						}).setNegativeButton(R.string.cancel, null).show();
+
 		return false;
 	}
 

@@ -1,5 +1,7 @@
 package com.rarnu.tools.root.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -11,7 +13,6 @@ import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
-import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.comp.HtcRomItem;
 import com.rarnu.tools.root.receiver.MutaxReceiver;
@@ -124,18 +125,20 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 			return;
 		}
 
-		AlertDialogEx.showAlertDialogEx(getActivity(),
-				getString(R.string.clean_htc_rom),
-				getString(R.string.clean_htc_rom_confirm),
-				getString(R.string.ok),
-				new AlertDialogEx.DialogButtonClickListener() {
+		new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.clean_htc_rom)
+				.setMessage(R.string.clean_htc_rom_confirm)
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						doCleanRom();
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								doCleanRom();
 
-					}
-				}, getString(R.string.cancel), null);
+							}
+						}).setNegativeButton(R.string.cancel, null).show();
+
 	}
 
 	private void doCleanRom() {

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fadingEdgeLength="0px"
-    android:overScrollMode="never" >
+    android:layout_height="match_parent" >
 
     <RelativeLayout
         android:layout_width="fill_parent"
@@ -64,154 +62,29 @@
             android:layout_marginTop="8dip"
             android:background="@android:drawable/divider_horizontal_dark" />
 
-        <RelativeLayout
-            android:id="@+id/layEoe"
+        <com.rarnu.tools.root.comp.BlockListView
+            android:id="@+id/lstEoe"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spl1"
-            android:background="@drawable/item_background_holo_dark"
-            android:clickable="true"
-            android:paddingBottom="8dip"
-            android:paddingTop="8dip" >
-
-            <ImageView
-                android:id="@+id/imgIconEoe"
-                android:layout_width="48dip"
-                android:layout_height="48dip"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="4dip"
-                android:background="@drawable/icon_eoe"
-                android:contentDescription="@null" />
-
-            <TextView
-                android:id="@+id/tvEoeName"
-                android:layout_width="wrap_content"
-                android:layout_height="24dip"
-                android:layout_marginRight="8dip"
-                android:layout_toLeftOf="@+id/imgIconEoe"
-                android:gravity="right|center_vertical"
-                android:text="@string/eoe_title"
-                android:textColor="@color/white" />
-
-            <TextView
-                android:id="@+id/tvEoeDesc"
-                android:layout_width="fill_parent"
-                android:layout_height="24dip"
-                android:layout_below="@+id/tvEoeName"
-                android:layout_marginRight="8dip"
-                android:layout_toLeftOf="@+id/imgIconEoe"
-                android:gravity="right|center_vertical"
-                android:text="@string/eoe_desc" />
-        </RelativeLayout>
-
-        <TextView
-            android:id="@+id/spl2"
-            android:layout_width="fill_parent"
-            android:layout_height="1dip"
-            android:layout_below="@+id/layEoe"
-            android:layout_marginBottom="8dip"
-            android:background="@android:drawable/divider_horizontal_dark" />
+            android:layout_below="@+id/spl1" />
 
         <TextView
             android:id="@+id/tvAbout"
             android:layout_width="fill_parent"
             android:layout_height="fill_parent"
-            android:layout_below="@+id/spl2"
+            android:layout_below="@+id/lstEoe"
+            android:layout_marginTop="4dip"
             android:autoLink="all"
             android:gravity="left|top"
             android:lineSpacingExtra="3dip"
-            android:text="@string/help_about"
-            android:textColor="@color/white" />
+            android:text="@string/help_about" />
 
-        <RelativeLayout
-            android:id="@+id/layBottom"
+        <com.rarnu.tools.root.comp.BlockListView
+            android:id="@+id/lstAbout"
             android:layout_width="fill_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvAbout"
-            android:layout_margin="8dip"
-            android:layout_marginTop="8dip" >
-
-            <RelativeLayout
-                android:id="@+id/layUpdate"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_marginTop="8dip"
-                android:background="@drawable/item_background_holo_dark"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="16dip"
-                    android:text="@string/check_update"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layHelp"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layUpdate"
-                android:background="@drawable/item_background_holo_dark"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="16dip"
-                    android:text="@string/how_to_use"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layFitable"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/layHelp"
-                android:background="@drawable/item_background_holo_dark"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="16dip"
-                    android:text="@string/system_fitable"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/imgFitable"
-                    android:layout_width="32dip"
-                    android:layout_height="32dip"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:background="@drawable/c0"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
-            </RelativeLayout>
-        </RelativeLayout>
+            android:layout_marginTop="8dip" />
     </RelativeLayout>
 
 </ScrollView>

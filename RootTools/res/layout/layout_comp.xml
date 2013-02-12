@@ -8,9 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/progressComp"
-        android:listSelector="@drawable/item_background_holo_dark"
-        android:overScrollMode="never"
-        android:fadingEdgeLength="0px" >
+        android:fastScrollEnabled="true" >
     </ListView>
 
     <com.rarnu.tools.root.comp.DataProgressBar

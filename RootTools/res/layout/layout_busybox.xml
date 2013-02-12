@@ -5,9 +5,7 @@
 
     <ScrollView
         android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:fadingEdgeLength="0px"
-        android:overScrollMode="never" >
+        android:layout_height="fill_parent" >
 
         <RelativeLayout
             android:layout_width="fill_parent"
@@ -21,105 +19,12 @@
                 android:layout_marginTop="8dip"
                 android:text="@string/root_buybox_desc" />
 
-            <RelativeLayout
-                android:id="@+id/laySu"
+            <com.rarnu.tools.root.comp.BlockListView
+                android:id="@+id/lstBusybox"
                 android:layout_width="fill_parent"
-                android:layout_height="56dip"
+                android:layout_height="wrap_content"
                 android:layout_below="@+id/tvRootDesc"
-                android:layout_marginTop="16dip"
-                android:background="@drawable/item_background_holo_dark"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="16dip"
-                    android:text="@string/file_su"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/imgSu"
-                    android:layout_width="24dip"
-                    android:layout_height="24dip"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="4dip"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/laySuperuser"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/laySu"
-                android:background="@drawable/item_background_holo_dark"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="16dip"
-                    android:text="@string/file_super_user"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/imgSuperUser"
-                    android:layout_width="24dip"
-                    android:layout_height="24dip"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="4dip"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
-            </RelativeLayout>
-
-            <RelativeLayout
-                android:id="@+id/layBusybox"
-                android:layout_width="fill_parent"
-                android:layout_height="56dip"
-                android:layout_below="@+id/laySuperuser"
-                android:background="@drawable/item_background_holo_dark"
-                android:clickable="true" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="16dip"
-                    android:text="@string/file_busybox"
-                    android:textColor="@color/white"
-                    android:textSize="18sp" />
-
-                <ImageView
-                    android:id="@+id/imgBusybox"
-                    android:layout_width="24dip"
-                    android:layout_height="24dip"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:layout_marginRight="4dip"
-                    android:contentDescription="@null" />
-
-                <TextView
-                    android:layout_width="fill_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
-            </RelativeLayout>
+                android:layout_marginTop="16dip" />
         </RelativeLayout>
     </ScrollView>
 

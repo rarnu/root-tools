@@ -1,28 +1,37 @@
 package com.rarnu.tools.root.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.ImageView;
-import android.widget.RelativeLayout;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 
 import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.adapter.BusyboxAdapter;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
+import com.rarnu.tools.root.common.BusyboxInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.comp.AlertDialogEx;
+import com.rarnu.tools.root.comp.BlockListView;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.utils.BusyboxUtils;
+import com.rarnu.tools.root.utils.UIUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-public class BusyboxFragment extends BaseFragment implements OnClickListener {
+public class BusyboxFragment extends BaseFragment implements
+		OnItemClickListener {
 
-	RelativeLayout laySu, laySuperuser, layBusybox;
-	ImageView imgSu, imgSuperuser, imgBusybox;
 	DataProgressBar progressBusybox;
+	BlockListView lstBusybox;
+	List<BusyboxInfo> list = null;
+	BusyboxAdapter adapter = null;
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
@@ -74,43 +83,57 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 		}
 
 		// reinstall busybox
-		AlertDialogEx.showAlertDialogEx(getActivity(),
-				getString(R.string.hint),
-				getString(R.string.confirm_reinstall_busybox),
-				getString(R.string.ok),
-				new AlertDialogEx.DialogButtonClickListener() {
+		new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.hint)
+				.setMessage(R.string.confirm_reinstall_busybox)
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						doReinstallBusyboxT();
-						LogApi.logReinstallBusybox();
-					}
-				}, getString(R.string.cancel), null);
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								doReinstallBusyboxT();
+								LogApi.logReinstallBusybox();
+
+							}
+						}).setNegativeButton(R.string.cancel, null).show();
+
 	}
 
 	private void checkStatus() {
 		boolean hasSu = RootUtils.hasSu();
 		boolean isWrong = RootUtils.isWrongRoot();
-		if (!hasSu) {
-			imgSu.setBackgroundResource(R.drawable.banned);
-		} else if (hasSu && isWrong) {
-			imgSu.setBackgroundResource(R.drawable.warning);
-		} else {
-			imgSu.setBackgroundResource(R.drawable.ok);
-		}
 
-		imgSuperuser
-				.setBackgroundResource(RootUtils.hasSuperuser() ? R.drawable.ok
-						: R.drawable.warning);
-		imgBusybox.setBackgroundResource(RootUtils.hasBusybox() ? R.drawable.ok
-				: R.drawable.warning);
+		list.clear();
+
+		BusyboxInfo infoSu = new BusyboxInfo();
+		infoSu.title = getString(R.string.file_su);
+		infoSu.state = (hasSu ? (isWrong ? BusyboxInfo.STATE_WARNING
+				: BusyboxInfo.STATE_NORMAL) : BusyboxInfo.STATE_BANNED);
+		list.add(infoSu);
+
+		BusyboxInfo infoSuperUser = new BusyboxInfo();
+		infoSuperUser.title = getString(R.string.file_super_user);
+		infoSuperUser.state = (RootUtils.hasSuperuser() ? BusyboxInfo.STATE_NORMAL
+				: BusyboxInfo.STATE_WARNING);
+		list.add(infoSuperUser);
+
+		BusyboxInfo infoBusybox = new BusyboxInfo();
+		infoBusybox.title = getString(R.string.file_busybox);
+		infoBusybox.state = (RootUtils.hasBusybox() ? BusyboxInfo.STATE_NORMAL
+				: BusyboxInfo.STATE_WARNING);
+		list.add(infoBusybox);
+
+		adapter.setNewList(list);
+		lstBusybox.resize();
 	}
 
 	private void showHelp() {
 		// help
-		AlertDialogEx.showAlertDialogEx(getActivity(),
-				getString(R.string.help), getString(R.string.help_busybox),
-				getString(R.string.ok), null, null, null);
+		new AlertDialog.Builder(getActivity()).setTitle(R.string.help)
+				.setMessage(R.string.help_busybox)
+				.setPositiveButton(R.string.ok, null).show();
+
 	}
 
 	private void showSuStatus() {
@@ -118,23 +141,12 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 		if (RootUtils.isWrongRoot()) {
 			ret = 0;
 		}
-		AlertDialogEx.showAlertDialogEx(getActivity(),
-				getString(R.string.hint),
-				getString(ret == 0 ? R.string.no_root_permission
-						: R.string.has_su_file), getString(R.string.ok), null,
-				null, null);
-	}
-
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.laySu:
-			showSuStatus();
-			break;
-		case R.id.layBusybox:
-			reinstallBusybox();
-			break;
-		}
+		new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.hint)
+				.setMessage(
+						(ret == 0 ? R.string.no_root_permission
+								: R.string.has_su_file))
+				.setPositiveButton(R.string.ok, null).show();
 
 	}
 
@@ -150,19 +162,16 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	protected void initComponents() {
-		laySu = (RelativeLayout) innerView.findViewById(R.id.laySu);
-		laySuperuser = (RelativeLayout) innerView
-				.findViewById(R.id.laySuperuser);
-		layBusybox = (RelativeLayout) innerView.findViewById(R.id.layBusybox);
-		imgSu = (ImageView) innerView.findViewById(R.id.imgSu);
-		imgSuperuser = (ImageView) innerView.findViewById(R.id.imgSuperUser);
-		imgBusybox = (ImageView) innerView.findViewById(R.id.imgBusybox);
+		lstBusybox = (BlockListView) innerView.findViewById(R.id.lstBusybox);
 		progressBusybox = (DataProgressBar) innerView
 				.findViewById(R.id.progressBusybox);
-
-		laySu.setOnClickListener(this);
-		layBusybox.setOnClickListener(this);
-
+		lstBusybox.setItemHeight(UIUtils.dipToPx(56));
+		lstBusybox.setOnItemClickListener(this);
+		
+		list = new ArrayList<BusyboxInfo>();
+		adapter = new BusyboxAdapter(getActivity(), list);
+		lstBusybox.setAdapter(adapter);
+		
 	}
 
 	@Override
@@ -183,6 +192,20 @@ public class BusyboxFragment extends BaseFragment implements OnClickListener {
 	protected void initLogic() {
 		checkStatus();
 		LogApi.logEnterRootBusybox();
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		switch (position) {
+		case 0:
+			showSuStatus();
+			break;
+		case 2:
+			reinstallBusybox();
+			break;
+		}
+
 	}
 
 }

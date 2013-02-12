@@ -3,6 +3,8 @@ package com.rarnu.tools.root.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.view.Menu;
@@ -21,7 +23,6 @@ import com.rarnu.tools.root.adapter.EnableappAdapter;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.EnableappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.EnableappLoader;
 import com.rarnu.tools.root.utils.ApkUtils;
@@ -130,23 +131,27 @@ public class EnableappFragment extends BaseFragment implements
 			}
 		} else if (info.type == 1) {
 
-			AlertDialogEx.showAlertDialogEx(getActivity(),
-					getString(R.string.func2_title),
-					getString(R.string.data_app_uninstall),
-					getString(R.string.ok),
-					new AlertDialogEx.DialogButtonClickListener() {
+			new AlertDialog.Builder(getActivity())
+					.setTitle(R.string.func2_title)
+					.setMessage(R.string.data_app_uninstall)
+					.setPositiveButton(R.string.ok,
+							new DialogInterface.OnClickListener() {
 
-						@Override
-						public void onClick(View v) {
-							if (ApkUtils.uninstallApk(info.info.packageName)) {
-								enableappAdapter.deleteItem(info);
-							} else {
-								Toast.makeText(getActivity(),
-										R.string.cannot_uninstall_package,
-										Toast.LENGTH_LONG).show();
-							}
-						}
-					}, getString(R.string.cancel), null);
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									if (ApkUtils
+											.uninstallApk(info.info.packageName)) {
+										enableappAdapter.deleteItem(info);
+									} else {
+										Toast.makeText(
+												getActivity(),
+												R.string.cannot_uninstall_package,
+												Toast.LENGTH_LONG).show();
+									}
+
+								}
+							}).setNegativeButton(R.string.cancel, null).show();
 
 		} else {
 			Toast.makeText(getActivity(),

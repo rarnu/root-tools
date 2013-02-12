@@ -8,10 +8,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/barIgnore"
-        android:fadingEdgeLength="0px"
-        android:listSelector="@drawable/item_background_holo_dark"
         android:numColumns="2"
-        android:overScrollMode="never" >
+        android:fastScrollEnabled="true" >
     </GridView>
 
     <com.rarnu.tools.root.comp.DataBar

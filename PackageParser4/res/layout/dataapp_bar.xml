@@ -9,56 +9,20 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true" >
 
-        <TextView
-            android:id="@+id/sa1"
-            android:layout_width="110dip"
-            android:layout_height="1dip"
-            android:background="@android:drawable/divider_horizontal_dark" />
-
-        <TextView
-            android:id="@+id/sb1"
-            android:layout_width="110dip"
-            android:layout_height="1dip"
-            android:layout_below="@+id/barButton1"
-            android:background="@android:drawable/divider_horizontal_dark" />
-
         <Button
             android:id="@+id/barButton1"
             android:layout_width="110dip"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sa1"
-            android:layout_centerVertical="true"
-            android:background="@drawable/item_background_holo_dark"
-            android:textColor="@color/white" />
-
-        <TextView
-            android:id="@+id/sa2"
-            android:layout_width="110dip"
-            android:layout_height="1dip"
-            android:layout_marginLeft="8dip"
-            android:layout_toRightOf="@+id/barButton1"
-            android:background="@android:drawable/divider_horizontal_dark" />
-
-        <TextView
-            android:id="@+id/sb2"
-            android:layout_width="110dip"
-            android:layout_height="1dip"
-            android:layout_below="@+id/barButton2"
-            android:layout_marginLeft="8dip"
-            android:layout_toRightOf="@+id/barButton1"
-            android:background="@android:drawable/divider_horizontal_dark" />
+            android:layout_centerVertical="true" />
 
         <Button
             android:id="@+id/barButton2"
             android:layout_width="110dip"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/sa2"
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dip"
             android:layout_toRightOf="@+id/barButton1"
-            android:background="@drawable/item_background_holo_dark"
-            android:text="@string/cancel"
-            android:textColor="@color/white" />
+            android:text="@string/cancel" />
     </RelativeLayout>
 
     <CheckBox
@@ -66,7 +30,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:button="@drawable/btn_check_holo_dark"
+        android:layout_marginRight="8dip"
         android:visibility="gone" />
 
 </RelativeLayout>

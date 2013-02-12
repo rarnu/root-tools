@@ -3,6 +3,8 @@ package com.rarnu.tools.root.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
@@ -26,7 +28,6 @@ import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
-import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.RestoreLoader;
@@ -166,17 +167,21 @@ public class RestoreFragment extends BaseFragment implements
 	}
 
 	private void confirmDeleteBackup(final DataappInfo item) {
-		AlertDialogEx.showAlertDialogEx(getActivity(),
-				getString(R.string.hint),
-				getString(R.string.confirm_delete_backup),
-				getString(R.string.ok),
-				new AlertDialogEx.DialogButtonClickListener() {
 
-					@Override
-					public void onClick(View v) {
-						doDeleteBackupT(item);
-					}
-				}, getString(R.string.cancel), null);
+		new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.hint)
+				.setMessage(R.string.confirm_delete_backup)
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								doDeleteBackupT(item);
+
+							}
+						}).setNegativeButton(R.string.cancel, null).show();
+
 	}
 
 	private void doDeleteBackupT(final DataappInfo item) {

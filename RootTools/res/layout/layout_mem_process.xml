@@ -136,85 +136,29 @@
         android:layout_centerHorizontal="true"
         android:layout_marginTop="8dip" >
 
-        <TextView
-            android:id="@+id/saKill"
-            android:layout_width="80dip"
-            android:layout_height="1dip"
-            android:background="@android:drawable/divider_horizontal_dark" />
-
-        <TextView
-            android:id="@+id/sbKill"
-            android:layout_width="80dip"
-            android:layout_height="1dip"
-            android:layout_below="@+id/btnKill"
-            android:background="@android:drawable/divider_horizontal_dark" />
-
         <Button
             android:id="@+id/btnKill"
             android:layout_width="80dip"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/saKill"
-            android:background="@drawable/item_background_holo_dark"
             android:text="@string/kill"
-            android:textColor="@color/white"
             android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/saIgnore"
-            android:layout_width="80dip"
-            android:layout_height="1dip"
-            android:layout_marginLeft="8dip"
-            android:layout_toRightOf="@+id/btnKill"
-            android:background="@android:drawable/divider_horizontal_dark" />
-
-        <TextView
-            android:id="@+id/sbIgnore"
-            android:layout_width="80dip"
-            android:layout_height="1dip"
-            android:layout_below="@+id/btnIgnore"
-            android:layout_marginLeft="8dip"
-            android:layout_toRightOf="@+id/btnKill"
-            android:background="@android:drawable/divider_horizontal_dark" />
 
         <Button
             android:id="@+id/btnIgnore"
             android:layout_width="80dip"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/saIgnore"
             android:layout_marginLeft="8dip"
             android:layout_toRightOf="@+id/btnKill"
-            android:background="@drawable/item_background_holo_dark"
             android:text="@string/add_ignore"
-            android:textColor="@color/white"
             android:textSize="12sp" />
-
-        <TextView
-            android:id="@+id/saCancel"
-            android:layout_width="80dip"
-            android:layout_height="1dip"
-            android:layout_marginLeft="8dip"
-            android:layout_toRightOf="@+id/btnIgnore"
-            android:background="@android:drawable/divider_horizontal_dark" />
-
-        <TextView
-            android:id="@+id/sbCancel"
-            android:layout_width="80dip"
-            android:layout_height="1dip"
-            android:layout_below="@+id/btnCancel"
-            android:layout_marginLeft="8dip"
-            android:layout_toRightOf="@+id/btnIgnore"
-            android:background="@android:drawable/divider_horizontal_dark" />
 
         <Button
             android:id="@+id/btnCancel"
             android:layout_width="80dip"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/saCancel"
             android:layout_marginLeft="8dip"
             android:layout_toRightOf="@+id/btnIgnore"
-            android:background="@drawable/item_background_holo_dark"
             android:text="@string/back"
-            android:textColor="@color/white"
             android:textSize="12sp" />
     </RelativeLayout>
 

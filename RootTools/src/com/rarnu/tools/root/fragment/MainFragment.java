@@ -2,11 +2,12 @@ package com.rarnu.tools.root.fragment;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.preference.Preference;
+import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.View.OnClickListener;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
@@ -31,7 +32,8 @@ import com.rarnu.tools.root.utils.BusyboxUtils;
 import com.rarnu.tools.root.utils.MiscUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-public class MainFragment extends PreferenceFragment implements OnClickListener {
+public class MainFragment extends PreferenceFragment implements
+		OnPreferenceClickListener {
 
 	PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefRoot,
 			prefHtcRom;
@@ -49,12 +51,13 @@ public class MainFragment extends PreferenceFragment implements OnClickListener 
 		initEvents();
 		showFunctionalEnabledTags();
 	}
-	
+
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		LinearLayout layout = (LinearLayout)super.onCreateView(inflater, container, savedInstanceState);
-		ListView list = (ListView)layout.getChildAt(0);
+		LinearLayout layout = (LinearLayout) super.onCreateView(inflater,
+				container, savedInstanceState);
+		ListView list = (ListView) layout.getChildAt(0);
 		list.setFadingEdgeLength(0);
 		list.setOverScrollMode(View.OVER_SCROLL_NEVER);
 		return layout;
@@ -89,47 +92,30 @@ public class MainFragment extends PreferenceFragment implements OnClickListener 
 
 	private void initEvents() {
 
-		prefSysApp.setInnerTag(R.string.id_sysapp);
-		prefSysApp.setOnInnerClick(this);
-		prefSysAppEnabled.setInnerTag(R.string.id_sysappenabled);
-		prefSysAppEnabled.setOnInnerClick(this);
-		prefComponent.setInnerTag(R.string.id_component);
-		prefComponent.setOnInnerClick(this);
-		prefRoot.setInnerTag(R.string.id_root);
-		prefRoot.setOnInnerClick(this);
-		prefHtcRom.setInnerTag(R.string.id_cleanhtc);
-		prefHtcRom.setOnInnerClick(this);
+		prefSysApp.setOnPreferenceClickListener(this);
+		prefSysAppEnabled.setOnPreferenceClickListener(this);
+		prefComponent.setOnPreferenceClickListener(this);
+		prefRoot.setOnPreferenceClickListener(this);
+		prefHtcRom.setOnPreferenceClickListener(this);
 
-		prefBackup.setInnerTag(R.string.id_backup);
-		prefBackup.setOnInnerClick(this);
-		prefRestore.setInnerTag(R.string.id_restore);
-		prefRestore.setOnInnerClick(this);
+		prefBackup.setOnPreferenceClickListener(this);
+		prefRestore.setOnPreferenceClickListener(this);
 
-		prefCleanMemory.setInnerTag(R.string.id_cleanmemory);
-		prefCleanMemory.setOnInnerClick(this);
-		prefCleanCache.setInnerTag(R.string.id_cleancache);
-		prefCleanCache.setOnInnerClick(this);
-		prefCleanDalvik.setInnerTag(R.string.id_cleandalvik);
-		prefCleanDalvik.setOnInnerClick(this);
+		prefCleanMemory.setOnPreferenceClickListener(this);
+		prefCleanCache.setOnPreferenceClickListener(this);
+		prefCleanDalvik.setOnPreferenceClickListener(this);
 
-		prefHosts.setInnerTag(R.string.id_hosts);
-		prefHosts.setOnInnerClick(this);
-		prefScanMedia.setInnerTag(R.string.id_scanmedia);
-		prefScanMedia.setOnInnerClick(this);
-		prefNetworkState.setInnerTag(R.string.id_network);
-		prefNetworkState.setOnInnerClick(this);
-		prefReboot.setInnerTag(R.string.id_reboot);
-		prefReboot.setOnInnerClick(this);
+		prefHosts.setOnPreferenceClickListener(this);
+		prefScanMedia.setOnPreferenceClickListener(this);
+		prefNetworkState.setOnPreferenceClickListener(this);
+		prefReboot.setOnPreferenceClickListener(this);
 
-		prefFeedback.setInnerTag(R.string.id_feedback);
-		prefFeedback.setOnInnerClick(this);
-		prefRecommand.setInnerTag(R.string.id_recommand);
-		prefRecommand.setOnInnerClick(this);
-		prefAbout.setInnerTag(R.string.id_about);
-		prefAbout.setOnInnerClick(this);
+		prefFeedback.setOnPreferenceClickListener(this);
+		prefRecommand.setOnPreferenceClickListener(this);
+		prefAbout.setOnPreferenceClickListener(this);
 
-		prefSettings.setInnerTag(R.string.id_settings);
-		prefSettings.setOnInnerClick(this);
+		prefSettings.setOnPreferenceClickListener(this);
+
 	}
 
 	public void showFunctionalEnabledTags() {
@@ -198,94 +184,97 @@ public class MainFragment extends PreferenceFragment implements OnClickListener 
 	}
 
 	@Override
-	public void onClick(View v) {
-		int tag = (Integer) v.getTag();
-
-		switch (tag) {
-		case R.string.id_sysapp:
+	public boolean onPreferenceClick(Preference preference) {
+		// system
+		if (preference.getKey().equals(getString(R.string.id_sysapp))) {
 			GlobalInstance.currentFragment = 1;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					SysappMainActivity.class), GlobalFragment.fSysapp);
-			break;
-		case R.string.id_sysappenabled:
+
+		} else if (preference.getKey().equals(
+				getString(R.string.id_sysappenabled))) {
 			GlobalInstance.currentFragment = 2;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					EnableappMainActivity.class), GlobalFragment.fEnableapp);
-			break;
-		case R.string.id_component:
+
+		} else if (preference.getKey().equals(getString(R.string.id_component))) {
 			GlobalInstance.currentFragment = 3;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					CompMainActivity.class), GlobalFragment.fComp);
-			break;
-		case R.string.id_root:
+
+		} else if (preference.getKey().equals(getString(R.string.id_root))) {
 			GlobalInstance.currentFragment = 4;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					BusyboxActivity.class), GlobalFragment.fBusybox);
-			break;
-		case R.string.id_cleanhtc:
+
+		} else if (preference.getKey().equals(getString(R.string.id_cleanhtc))) {
 			GlobalInstance.currentFragment = 5;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					HtcRomActivity.class), GlobalFragment.fHtcRom);
-			break;
-		case R.string.id_backup:
+
+		}
+		// backup
+		else if (preference.getKey().equals(getString(R.string.id_backup))) {
 			GlobalInstance.currentFragment = 6;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					DataBackupActivity.class), GlobalFragment.fBackup);
-			break;
-		case R.string.id_restore:
+		} else if (preference.getKey().equals(getString(R.string.id_restore))) {
 			GlobalInstance.currentFragment = 14;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					DataRestoreActivity.class), GlobalFragment.fRestore);
-			break;
-		case R.string.id_cleanmemory:
+		}
+
+		// memory
+		else if (preference.getKey().equals(getString(R.string.id_cleanmemory))) {
 			GlobalInstance.currentFragment = 7;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					MemMainActivity.class), GlobalFragment.fMem);
-			break;
-		case R.string.id_cleancache:
+		} else if (preference.getKey()
+				.equals(getString(R.string.id_cleancache))) {
 			GlobalInstance.currentFragment = 8;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					CleanCacheMainActivity.class), GlobalFragment.fCleanCache);
-			break;
-		case R.string.id_cleandalvik:
+		} else if (preference.getKey().equals(
+				getString(R.string.id_cleandalvik))) {
 			MiscUtils.doCleanDalvik(getActivity(), getView(), prefCleanDalvik);
-			break;
-		case R.string.id_hosts:
+		}
+
+		// other
+		else if (preference.getKey().equals(getString(R.string.id_hosts))) {
 			GlobalInstance.currentFragment = 9;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					HostMainActivity.class), GlobalFragment.fHost);
-			break;
-		case R.string.id_scanmedia:
+		} else if (preference.getKey().equals(getString(R.string.id_scanmedia))) {
 			MiscUtils.doScanMedia(getActivity());
-			break;
-		case R.string.id_network:
+		} else if (preference.getKey().equals(getString(R.string.id_network))) {
 			MiscUtils.showNetworkStatus(getActivity());
-			break;
-		case R.string.id_reboot:
+		} else if (preference.getKey().equals(getString(R.string.id_reboot))) {
 			MiscUtils.doReboot(getActivity());
-			break;
-		case R.string.id_feedback:
+		}
+
+		// support
+		else if (preference.getKey().equals(getString(R.string.id_feedback))) {
 			GlobalInstance.currentFragment = 10;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					UserFeedbackActivity.class), GlobalFragment.fFeedback);
-			break;
-		case R.string.id_recommand:
+		} else if (preference.getKey().equals(getString(R.string.id_recommand))) {
 			GlobalInstance.currentFragment = 11;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					RecommandActivity.class), GlobalFragment.fRecommand);
-			break;
-		case R.string.id_about:
+		} else if (preference.getKey().equals(getString(R.string.id_about))) {
 			GlobalInstance.currentFragment = 12;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					AboutActivity.class), GlobalFragment.fAbout);
-			break;
-		case R.string.id_settings:
+		}
+
+		//
+		else if (preference.getKey().equals(getString(R.string.id_settings))) {
 			GlobalInstance.currentFragment = 13;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					SettingsActivity.class), GlobalFragment.fSettings);
-			break;
 		}
 
+		return true;
 	}
 
 }

@@ -10,9 +10,7 @@
         android:layout_width="wrap_content"
         android:layout_height="match_parent"
         android:background="?android:attr/detailsElementBackground"
-        android:padding="4dip"
-        android:overScrollMode="never"
-        android:fadingEdgeLength="0px" >
+        android:padding="4dip" >
 
         <LinearLayout
             android:layout_width="80dip"
@@ -23,99 +21,77 @@
                 android:id="@+id/btnCom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".com"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnOrg"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".org"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnNet"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".net"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnEdu"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".edu"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".info"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnBiz"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".biz"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnCn"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".cn"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnUs"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".us"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnJp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".jp"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnHk"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".hk"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
 
             <Button
                 android:id="@+id/btnTw"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/item_background_holo_dark"
                 android:text=".tw"
-                android:textColor="@color/white"
                 android:textSize="12sp" />
         </LinearLayout>
     </ScrollView>
@@ -130,9 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_above="@+id/barAddHosts"
-            android:fadingEdgeLength="0px"
-            android:listSelector="@drawable/item_background_holo_dark"
-            android:overScrollMode="never" >
+            android:fastScrollEnabled="true">
         </ListView>
 
         <com.rarnu.tools.root.comp.DataBar

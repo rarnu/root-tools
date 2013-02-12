@@ -7,13 +7,13 @@ import java.util.TimerTask;
 import org.apache.http.protocol.HTTP;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
-import android.view.View;
 
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.comp.AlertDialogEx;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.GoogleUtils;
@@ -29,16 +29,21 @@ public class SplashActivity extends Activity {
 		UIUtils.initDisplayMetrics(getWindowManager());
 
 		if (!DirHelper.isSDCardExists()) {
-			AlertDialogEx.showAlertDialogEx(this, getString(R.string.hint),
-					getString(R.string.no_sdcard_found),
-					getString(R.string.ok),
-					new AlertDialogEx.DialogButtonClickListener() {
 
-						@Override
-						public void onClick(View v) {
-							finish();
-						}
-					}, null, null);
+			new AlertDialog.Builder(this)
+					.setTitle(R.string.hint)
+					.setMessage(R.string.no_sdcard_found)
+					.setPositiveButton(R.string.ok,
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									finish();
+
+								}
+							}).show();
+
 			return;
 		}
 
