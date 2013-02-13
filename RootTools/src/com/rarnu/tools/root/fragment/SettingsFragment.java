@@ -37,7 +37,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 			prefKillProcessBeforeClean;
 
 	PreferenceEx prefKillIgnoreList, prefNameServer, prefManualEditHosts,
-			prefCleanDeprecated, prefDeleteAllBackupData;
+			prefCleanDeprecated, prefDeleteAllBackupData, prefCustomAppClean;
 
 	MutaxReceiver receiver;
 
@@ -92,12 +92,14 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 		prefManualEditHosts = (PreferenceEx) findPreference(getString(R.string.id_manual_edit_hosts));
 		prefCleanDeprecated = (PreferenceEx) findPreference(getString(R.string.id_clean_deprecated_hosts));
 		prefDeleteAllBackupData = (PreferenceEx) findPreference(getString(R.string.id_delete_all_backup_data));
-
+		prefCustomAppClean = (PreferenceEx) findPreference(getString(R.string.id_custom_app_clean));
+		
 		prefKillIgnoreList.setOnPreferenceClickListener(this);
 		prefNameServer.setOnPreferenceClickListener(this);
 		prefManualEditHosts.setOnPreferenceClickListener(this);
 		prefCleanDeprecated.setOnPreferenceClickListener(this);
 		prefDeleteAllBackupData.setOnPreferenceClickListener(this);
+		prefCustomAppClean.setOnPreferenceClickListener(this);
 
 		receiver = new MutaxReceiver(Actions.ACTION_CLEANING_BACKUP, null, null);
 		receiver.setOnReceiveMessage(this);
@@ -242,6 +244,8 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 			startActivity(inCleanDeprecated);
 		} else if (key.equals(getString(R.string.id_delete_all_backup_data))) {
 			doDeleteAllBackupedData();
+		} else if (key.equals(getString(R.string.id_custom_app_clean))) {
+			// TODO: manage custom app clean
 		}
 		return true;
 	}

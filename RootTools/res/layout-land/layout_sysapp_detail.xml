@@ -56,6 +56,15 @@
             android:layout_marginRight="48dip"
             android:text="@string/button_delete" />
 
+        <Button
+            android:id="@+id/btnAddToCleanList"
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnDelete"
+            android:layout_marginLeft="48dip"
+            android:layout_marginRight="48dip"
+            android:layout_marginTop="4dip"
+            android:text="@string/button_add_to_clean_list" />
     </RelativeLayout>
 
     <ScrollView

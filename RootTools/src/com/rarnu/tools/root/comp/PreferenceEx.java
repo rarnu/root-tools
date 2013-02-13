@@ -87,14 +87,27 @@ public class PreferenceEx extends Preference {
 	@Override
 	public void setTitle(int titleResId) {
 		super.setTitle(titleResId);
-		pref_title.setText(titleResId);
+		if (pref_title != null) {
+			pref_title.setText(titleResId);
+		}
 	}
-	
+
+	@Override
 	public void setSummary(int summaryResId) {
 		super.setSummary(summaryResId);
-		pref_summary.setText(getSummary());
-		if (getSummary() == null || getSummary().equals("")) {
-			pref_summary.setVisibility(View.GONE);
+		if (pref_summary != null) {
+			pref_summary.setText(getSummary());
+			if (getSummary() == null || getSummary().equals("")) {
+				pref_summary.setVisibility(View.GONE);
+			}
+		}
+	}
+
+	@Override
+	public void setIcon(int iconResId) {
+		super.setIcon(iconResId);
+		if (pref_icon != null) {
+			pref_icon.setImageDrawable(getIcon());
 		}
 	}
 }

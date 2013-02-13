@@ -1,29 +1,36 @@
 package com.rarnu.tools.root.fragment;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.adapter.HtcRomAdapter;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.Actions;
+import com.rarnu.tools.root.common.HtcRomInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.DataProgressBar;
-import com.rarnu.tools.root.comp.HtcRomItem;
 import com.rarnu.tools.root.receiver.MutaxReceiver;
 import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
 import com.rarnu.tools.root.service.HtcRomService;
 
 public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 
-	HtcRomItem itmCar, itmFacebook, itmTwitter, itmDropbox, itmSkydrive,
-			itmLaputa, itmFlickr, itmFriendStream, itmGoogle, itm3rd;
+	ListView lstRomCleaner;
 	DataProgressBar progressHtcRom;
+
+	List<HtcRomInfo> list = null;
+	HtcRomAdapter adapter = null;
 
 	MutaxReceiver receiver;
 
@@ -51,40 +58,13 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 
 	@Override
 	protected void initComponents() {
+		lstRomCleaner = (ListView) innerView.findViewById(R.id.lstRomCleaner);
 		progressHtcRom = (DataProgressBar) innerView
 				.findViewById(R.id.progressHtcRom);
-		itmCar = (HtcRomItem) innerView.findViewById(R.id.itmCar);
-		itmFacebook = (HtcRomItem) innerView.findViewById(R.id.itmFacebook);
-		itmTwitter = (HtcRomItem) innerView.findViewById(R.id.itmTwitter);
-		itmDropbox = (HtcRomItem) innerView.findViewById(R.id.itmDropbox);
-		itmSkydrive = (HtcRomItem) innerView.findViewById(R.id.itmSkydrive);
-		itmLaputa = (HtcRomItem) innerView.findViewById(R.id.itmLaputa);
-		itmFlickr = (HtcRomItem) innerView.findViewById(R.id.itmFlickr);
-		itmFriendStream = (HtcRomItem) innerView
-				.findViewById(R.id.itmFriendStream);
-		itmGoogle = (HtcRomItem) innerView.findViewById(R.id.itmGoogle);
-		itm3rd = (HtcRomItem) innerView.findViewById(R.id.itm3rd);
 
-		itmCar.setName(R.string.itm_car);
-		itmCar.setDesc(R.string.itmdesc_car);
-		itmFacebook.setName(R.string.itm_facebook);
-		itmFacebook.setDesc(R.string.itmdesc_facebook);
-		itmTwitter.setName(R.string.itm_twitter);
-		itmTwitter.setDesc(R.string.itmdesc_twitter);
-		itmDropbox.setName(R.string.itm_dropbox);
-		itmDropbox.setDesc(R.string.itmdesc_dropbox);
-		itmSkydrive.setName(R.string.itm_skydrive);
-		itmSkydrive.setDesc(R.string.itmdesc_skydrive);
-		itmLaputa.setName(R.string.itm_laputa);
-		itmLaputa.setDesc(R.string.itmdesc_laputa);
-		itmFlickr.setName(R.string.itm_flickr);
-		itmFlickr.setDesc(R.string.itmdesc_flickr);
-		itmFriendStream.setName(R.string.itm_friendstream);
-		itmFriendStream.setDesc(R.string.itmdesc_friendstream);
-		itmGoogle.setName(R.string.itm_google);
-		itmGoogle.setDesc(R.string.itmdesc_google);
-		itm3rd.setName(R.string.itm_3rd);
-		itm3rd.setDesc(R.string.itmdesc_3rd);
+		list = new ArrayList<HtcRomInfo>();
+		adapter = new HtcRomAdapter(getActivity(), list);
+		lstRomCleaner.setAdapter(adapter);
 
 		receiver = new MutaxReceiver(Actions.ACTION_CLEANING_HTC, null, null);
 		receiver.setOnReceiveMessage(this);
@@ -92,7 +72,7 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 
 	@Override
 	protected int getFragmentLayoutResId() {
-		return R.layout.layout_more_htcrom;
+		return R.layout.layout_htcrom;
 	}
 
 	@Override
@@ -115,11 +95,7 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 	}
 
 	private void cleanHtcRom() {
-		if (!itmCar.isChecked() && !itmFacebook.isChecked()
-				&& !itmTwitter.isChecked() && !itmDropbox.isChecked()
-				&& !itmSkydrive.isChecked() && !itmLaputa.isChecked()
-				&& !itmFlickr.isChecked() && !itmFriendStream.isChecked()
-				&& !itmGoogle.isChecked() && !itm3rd.isChecked()) {
+		if (getSelectedItemCount() == 0) {
 			Toast.makeText(getActivity(), R.string.no_clean_item_selected,
 					Toast.LENGTH_LONG).show();
 			return;
@@ -157,17 +133,28 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 
 	private String buildCommand() {
 		String cmd = "";
-		cmd += itmCar.isChecked() ? "1" : "0";
-		cmd += itmFacebook.isChecked() ? "1" : "0";
-		cmd += itmTwitter.isChecked() ? "1" : "0";
-		cmd += itmDropbox.isChecked() ? "1" : "0";
-		cmd += itmSkydrive.isChecked() ? "1" : "0";
-		cmd += itmLaputa.isChecked() ? "1" : "0";
-		cmd += itmFlickr.isChecked() ? "1" : "0";
-		cmd += itmFriendStream.isChecked() ? "1" : "0";
-		cmd += itmGoogle.isChecked() ? "1" : "0";
-		cmd += itm3rd.isChecked() ? "1" : "0";
+
+		for (int i = 0; i < list.size(); i++) {
+			cmd += list.get(i).checked ? "1" : "0";
+		}
 		return cmd;
+	}
+
+	private void setAllItemUnchecked() {
+		for (int i = 0; i < list.size(); i++) {
+			list.get(i).checked = false;
+		}
+		adapter.setNewList(list);
+	}
+
+	private int getSelectedItemCount() {
+		int ret = 0;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).checked) {
+				ret++;
+			}
+		}
+		return ret;
 	}
 
 	private void setCleaningState(boolean cleaning) {
@@ -175,39 +162,9 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 			progressHtcRom.setAppName(getString(R.string.cleaning_htcrom));
 			progressHtcRom.setVisibility(cleaning ? View.VISIBLE : View.GONE);
 
-			if (cleaning) {
-				itmCar.disable();
-				itmFacebook.disable();
-				itmTwitter.disable();
-				itmDropbox.disable();
-				itmSkydrive.disable();
-				itmLaputa.disable();
-				itmFlickr.disable();
-				itmFriendStream.disable();
-				itmGoogle.disable();
-				itm3rd.disable();
-			} else {
-				itmCar.enable();
-				itmFacebook.enable();
-				itmTwitter.enable();
-				itmDropbox.enable();
-				itmSkydrive.enable();
-				itmLaputa.enable();
-				itmFlickr.enable();
-				itmFriendStream.enable();
-				itmGoogle.enable();
-				itm3rd.enable();
-
-				itmCar.setChecked(false);
-				itmFacebook.setChecked(false);
-				itmTwitter.setChecked(false);
-				itmDropbox.setChecked(false);
-				itmSkydrive.setChecked(false);
-				itmLaputa.setChecked(false);
-				itmFlickr.setChecked(false);
-				itmFriendStream.setChecked(false);
-				itmGoogle.setChecked(false);
-				itm3rd.setChecked(false);
+			adapter.setCheckable(!cleaning);
+			if (!cleaning) {
+				setAllItemUnchecked();
 			}
 		} catch (Exception e) {
 
@@ -217,6 +174,82 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 	@Override
 	protected void initLogic() {
 
+		list.clear();
+		
+		HtcRomInfo infoCustom = new HtcRomInfo();
+		infoCustom.title = getString(R.string.itm_custom);
+		infoCustom.desc = getString(R.string.itmdesc_custom);
+		infoCustom.icon = 0;
+		list.add(infoCustom);
+
+		HtcRomInfo infoCar = new HtcRomInfo();
+		infoCar.title = getString(R.string.itm_car);
+		infoCar.desc = getString(R.string.itmdesc_car);
+		infoCar.icon = 0;
+		list.add(infoCar);
+
+		HtcRomInfo infoFacebook = new HtcRomInfo();
+		infoFacebook.title = getString(R.string.itm_facebook);
+		infoFacebook.desc = getString(R.string.itmdesc_facebook);
+		infoFacebook.icon = 0;
+		list.add(infoFacebook);
+
+		HtcRomInfo infoTwitter = new HtcRomInfo();
+		infoTwitter.title = getString(R.string.itm_twitter);
+		infoTwitter.desc = getString(R.string.itmdesc_twitter);
+		infoTwitter.icon = 0;
+		list.add(infoTwitter);
+
+		HtcRomInfo infoDropbox = new HtcRomInfo();
+		infoDropbox.title = getString(R.string.itm_dropbox);
+		infoDropbox.desc = getString(R.string.itmdesc_dropbox);
+		infoDropbox.icon = 0;
+		list.add(infoDropbox);
+
+		HtcRomInfo infoSkydrive = new HtcRomInfo();
+		infoSkydrive.title = getString(R.string.itm_skydrive);
+		infoSkydrive.desc = getString(R.string.itmdesc_skydrive);
+		infoSkydrive.icon = 0;
+		list.add(infoSkydrive);
+
+		HtcRomInfo infoLaputa = new HtcRomInfo();
+		infoLaputa.title = getString(R.string.itm_laputa);
+		infoLaputa.desc = getString(R.string.itmdesc_laputa);
+		infoLaputa.icon = 0;
+		list.add(infoLaputa);
+
+		HtcRomInfo infoFlickr = new HtcRomInfo();
+		infoFlickr.title = getString(R.string.itm_flickr);
+		infoFlickr.desc = getString(R.string.itmdesc_flickr);
+		infoFlickr.icon = 0;
+		list.add(infoFlickr);
+
+		HtcRomInfo infoFriendstream = new HtcRomInfo();
+		infoFriendstream.title = getString(R.string.itm_friendstream);
+		infoFriendstream.desc = getString(R.string.itmdesc_friendstream);
+		infoFriendstream.icon = 0;
+		list.add(infoFriendstream);
+
+		HtcRomInfo infoGoogle = new HtcRomInfo();
+		infoGoogle.title = getString(R.string.itm_google);
+		infoGoogle.desc = getString(R.string.itmdesc_google);
+		infoGoogle.icon = 0;
+		list.add(infoGoogle);
+
+		HtcRomInfo info3rd = new HtcRomInfo();
+		info3rd.title = getString(R.string.itm_3rd);
+		info3rd.desc = getString(R.string.itmdesc_3rd);
+		info3rd.icon = 0;
+		list.add(info3rd);
+		
+		HtcRomInfo infoCm3rd = new HtcRomInfo();
+		infoCm3rd.title = getString(R.string.itm_cm3rd);
+		infoCm3rd.desc = getString(R.string.itmdesc_cm3rd);
+		infoCm3rd.icon = 0;
+		list.add(infoCm3rd);
+
+		adapter.setNewList(list);
+		adapter.setCheckable(true);
 	}
 
 	@Override

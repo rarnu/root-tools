@@ -16,7 +16,7 @@
         android:src="@drawable/logo" />
 
     <TextView
-        android:id="@+i/tvCopyright"
+        android:id="@+id/tvCopyright"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -29,7 +29,7 @@
         android:id="@+id/ivEoeLogo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+i/tvCopyright"
+        android:layout_above="@+id/tvCopyright"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dip"
         android:adjustViewBounds="true"

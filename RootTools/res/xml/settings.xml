@@ -11,6 +11,10 @@
         <com.rarnu.tools.root.comp.CheckBoxPreferenceEx
             android:key="@string/id_also_delete_data"
             android:title="@string/also_delete_data" />
+
+        <com.rarnu.tools.root.comp.PreferenceEx
+            android:key="@string/id_custom_app_clean"
+            android:title="@string/custom_app_clean" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_backup" >
         <com.rarnu.tools.root.comp.CheckBoxPreferenceEx

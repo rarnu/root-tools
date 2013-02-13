@@ -24,6 +24,7 @@ import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.SysappInfo;
 import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.utils.CustomPackageUtils;
 
 public class SysappDetailFragment extends BasePopupFragment implements
 		OnClickListener {
@@ -33,6 +34,7 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	TextView appPath;
 	TextView appVersion;
 	Button btnDelete;
+	Button btnAddToCleanList;
 
 	TextView tvPathDetail;
 	TextView tvOdexDetail;
@@ -113,11 +115,29 @@ public class SysappDetailFragment extends BasePopupFragment implements
 				btnDelete.setEnabled(false);
 			}
 		}
+
+		btnAddToCleanList
+				.setText(CustomPackageUtils
+						.customPackageIndex(info.info.packageName) == -1 ? R.string.button_add_to_clean_list
+						: R.string.button_remove_from_clean_list);
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.btnAddToCleanList:
+			if (CustomPackageUtils.customPackageIndex(info.info.packageName) == -1) {
+				CustomPackageUtils.addCustomPackage(appName.getText()
+						.toString(), info.info.packageName);
+			} else {
+				CustomPackageUtils.removeCustomPackage(info.info.packageName);
+			}
+			CustomPackageUtils.saveCustomPackages();
+			btnAddToCleanList
+					.setText(CustomPackageUtils
+							.customPackageIndex(info.info.packageName) == -1 ? R.string.button_add_to_clean_list
+							: R.string.button_remove_from_clean_list);
+			break;
 		case R.id.btnDelete:
 			// 0:android|1.google|2:other
 
@@ -191,6 +211,8 @@ public class SysappDetailFragment extends BasePopupFragment implements
 		appName = (TextView) innerView.findViewById(R.id.appName);
 		appVersion = (TextView) innerView.findViewById(R.id.appVersion);
 		btnDelete = (Button) innerView.findViewById(R.id.btnDelete);
+		btnAddToCleanList = (Button) innerView
+				.findViewById(R.id.btnAddToCleanList);
 
 		tvPathDetail = (TextView) innerView.findViewById(R.id.tvPathDetail);
 		tvOdexDetail = (TextView) innerView.findViewById(R.id.tvOdexDetail);
@@ -204,6 +226,7 @@ public class SysappDetailFragment extends BasePopupFragment implements
 				.findViewById(R.id.tvDataSizeDetail);
 
 		btnDelete.setOnClickListener(this);
+		btnAddToCleanList.setOnClickListener(this);
 
 	}
 

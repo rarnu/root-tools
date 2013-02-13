@@ -28,6 +28,7 @@
     <string name="id_allow_delete_level_0">id_allow_delete_level_0</string>
     <string name="id_backup_before_delete">id_backup_before_delete</string>
     <string name="id_also_delete_data">id_also_delete_data</string>
+    <string name="id_custom_app_clean">id_custom_app_clean</string>
     <string name="id_override_backuped">id_override_backuped</string>
     <string name="id_reinstall_apk">id_reinstall_apk</string>
     <string name="id_delete_all_backup_data">id_delete_all_backup_data</string>
@@ -36,4 +37,5 @@
     <string name="id_name_server">id_name_server</string>
     <string name="id_manual_edit_hosts">id_manual_edit_hosts</string>
     <string name="id_clean_deprecated_hosts">id_clean_deprecated_hosts</string>
+    
 </resources>

@@ -14,7 +14,6 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,6 +26,7 @@ import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.fragment.GlobalFragment;
+import com.rarnu.tools.root.utils.CustomPackageUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.ImageUtils;
@@ -50,6 +50,7 @@ public class MainActivity extends Activity {
 			finish();
 			return;
 		}
+		
 		GlobalFragment.loadFragments();
 		registerReceiver(receiverHome, filterHome);
 
@@ -63,7 +64,6 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		Log.e(getClass().getName(), "onDestroy");
 		LogApi.logAppStop();
 		unregisterReceiver(receiverHome);
 		super.onDestroy();
@@ -72,7 +72,6 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		if (keyCode == KeyEvent.KEYCODE_BACK) {
-			Log.e(getClass().getName(), "EXIT");
 			GlobalFragment.releaseFragments();
 			oneTimeRun = false;
 		}
@@ -82,6 +81,7 @@ public class MainActivity extends Activity {
 	private void initOneTime() {
 		RootUtils.mountRW();
 		loadExcludeListT();
+		loadCustomPackageListT();
 		initConfig();
 		if (GlobalInstance.isFirstStart) {
 			LogApi.logAppFirstStart();
@@ -104,8 +104,6 @@ public class MainActivity extends Activity {
 	}
 
 	private void setDualPane() {
-		Log.e(getClass().getName(), "DualPane:"
-				+ (GlobalInstance.dualPane ? "TRUE" : "FALSE"));
 		if (GlobalInstance.dualPane) {
 			switch (GlobalInstance.currentFragment) {
 			case 1:
@@ -236,6 +234,15 @@ public class MainActivity extends Activity {
 			}
 		}).start();
 	}
+	
+	public void loadCustomPackageListT() {
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				CustomPackageUtils.loadCustomPackages();
+			}
+		}).start();
+	}
 
 	private void loadNetworkStatus() {
 		new Thread(new Runnable() {
@@ -278,12 +285,12 @@ public class MainActivity extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						Log.e(getClass().getName(), "SYSTEM_HOME_KEY");
+						
 						GlobalFragment.releaseFragments();
 						oneTimeRun = false;
 						finish();
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						Log.e(getClass().getName(), "SYSTEM_RECENT_APPS");
+						
 					}
 				}
 			}
