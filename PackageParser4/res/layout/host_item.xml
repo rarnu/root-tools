@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="56dip"
     android:paddingLeft="4dip"
     android:paddingRight="4dip" >
@@ -8,7 +8,7 @@
     <TextView
         android:id="@+id/tvItem_IP"
         android:layout_width="140dip"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_marginLeft="8dip"
         android:gravity="left|center_vertical"
         android:textColor="@color/white"
@@ -16,8 +16,8 @@
 
     <TextView
         android:id="@+id/tvItem_Domain"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_toLeftOf="@+id/layRight"
         android:layout_toRightOf="@id/tvItem_IP"
         android:gravity="left|center_vertical"
@@ -27,7 +27,7 @@
     <RelativeLayout
         android:id="@+id/layRight"
         android:layout_width="48dip"
-        android:layout_height="fill_parent"
+        android:layout_height="match_parent"
         android:layout_alignParentRight="true" >
 
         <CheckBox

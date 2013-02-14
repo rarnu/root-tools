@@ -15,7 +15,7 @@
 
     <TextView
         android:id="@+id/tvMemoryInfo"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_toRightOf="@+id/tvProcessInfo"
         android:background="@color/lightskyblue"
@@ -35,7 +35,7 @@
 
     <com.rarnu.tools.root.comp.DataProgressBar
         android:id="@+id/progressMemory"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="24dip"
         android:layout_alignParentBottom="true"
         android:visibility="gone" />

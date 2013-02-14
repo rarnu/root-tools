@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/tvOperateHint"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="24dip"
         android:layout_alignParentBottom="true"
         android:background="@color/lightskyblue"
@@ -25,7 +25,7 @@
 
     <com.rarnu.tools.root.comp.DataProgressBar
         android:id="@+id/progressEnableapp"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="24dip"
         android:layout_alignParentBottom="true"
         android:visibility="gone" />

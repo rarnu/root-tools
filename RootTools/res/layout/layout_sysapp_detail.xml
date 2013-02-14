@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
     android:padding="4dip" >
 
     <ImageView
@@ -14,7 +14,7 @@
 
     <TextView
         android:id="@+id/appName"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="36dip"
         android:layout_marginLeft="4dip"
         android:layout_toRightOf="@+id/appIcon"
@@ -27,7 +27,7 @@
 
     <TextView
         android:id="@+id/appVersion"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="20dip"
         android:layout_below="@+id/appName"
         android:layout_marginLeft="4dip"
@@ -40,7 +40,7 @@
 
     <Button
         android:id="@+id/btnDelete"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/appVersion"
         android:layout_marginLeft="48dip"
@@ -49,7 +49,7 @@
     
     <Button
         android:id="@+id/btnAddToCleanList"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/btnDelete"
         android:layout_marginLeft="48dip"
@@ -58,19 +58,19 @@
         android:text="@string/button_add_to_clean_list" />
 
     <ScrollView
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_below="@+id/btnAddToCleanList"
         android:layout_marginTop="8dip" >
 
         <RelativeLayout
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_margin="4dip" >
 
             <RelativeLayout
                 android:id="@+id/layApkPath"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="48dip"
                 android:clickable="false" >
 
@@ -93,7 +93,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
                     android:background="@android:drawable/divider_horizontal_dark" />
@@ -101,7 +101,7 @@
 
             <RelativeLayout
                 android:id="@+id/layOdexPath"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/layApkPath"
                 android:clickable="false" >
@@ -125,7 +125,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
                     android:background="@android:drawable/divider_horizontal_dark" />
@@ -133,7 +133,7 @@
 
             <RelativeLayout
                 android:id="@+id/layFileSize"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/layOdexPath"
                 android:clickable="false" >
@@ -157,7 +157,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
                     android:background="@android:drawable/divider_horizontal_dark" />
@@ -165,7 +165,7 @@
 
             <RelativeLayout
                 android:id="@+id/layDataPath"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/layFileSize"
                 android:clickable="false" >
@@ -189,7 +189,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
                     android:background="@android:drawable/divider_horizontal_dark" />
@@ -197,7 +197,7 @@
 
             <RelativeLayout
                 android:id="@+id/layDataSize"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/layDataPath"
                 android:clickable="false" >
@@ -221,7 +221,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
                     android:background="@android:drawable/divider_horizontal_dark" />
@@ -229,7 +229,7 @@
 
             <RelativeLayout
                 android:id="@+id/layShareUid"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/layDataSize"
                 android:clickable="false" >
@@ -253,7 +253,7 @@
                     android:textSize="12sp" />
 
                 <TextView
-                    android:layout_width="fill_parent"
+                    android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:layout_alignParentBottom="true"
                     android:background="@android:drawable/divider_horizontal_dark" />

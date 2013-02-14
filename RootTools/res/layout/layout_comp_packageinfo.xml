@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
     <ImageView
         android:id="@+id/ivAppIcon"
@@ -12,7 +12,7 @@
 
     <TextView
         android:id="@+id/tvAppName"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="28dip"
         android:layout_marginLeft="4dip"
         android:layout_marginRight="4dip"
@@ -24,7 +24,7 @@
 
     <TextView
         android:id="@+id/tvAppPackage"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="20dip"
         android:layout_below="@id/tvAppName"
         android:layout_marginLeft="4dip"
@@ -34,7 +34,7 @@
 
     <TextView
         android:id="@+id/spl1"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@id/tvAppPackage"
         android:layout_marginBottom="4dip"
@@ -46,15 +46,15 @@
 
     <ListView
         android:id="@+id/lvReceiver"
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_above="@+id/tvOperateHint"
         android:layout_below="@id/spl1"
         android:fastScrollEnabled="true" />
 
     <TextView
         android:id="@+id/tvOperateHint"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:background="@color/lightskyblue"

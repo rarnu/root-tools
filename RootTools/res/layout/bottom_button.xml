@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="56dip" android:layout_height="56dip"
-	android:layout_margin="4dip">
+    android:layout_width="56dip"
+    android:layout_height="56dip"
+    android:layout_margin="4dip" >
 
-	<ImageView android:id="@+id/imgItemIco" android:layout_width="32dip"
-		android:layout_height="32dip" android:layout_centerHorizontal="true"
-		android:contentDescription="@null" />
+    <ImageView
+        android:id="@+id/imgItemIco"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_centerHorizontal="true"
+        android:contentDescription="@null" />
 
-	<TextView android:id="@+id/tvItemName" android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:layout_below="@id/imgItemIco"
-		android:textColor="@color/white" android:textSize="12sp"
-		android:gravity="center" />
+    <TextView
+        android:id="@+id/tvItemName"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/imgItemIco"
+        android:gravity="center"
+        android:textColor="@color/white"
+        android:textSize="12sp" />
 
 </RelativeLayout>

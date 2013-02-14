@@ -1,30 +1,30 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
     <LinearLayout
-        android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:orientation="horizontal" >
 
         <RelativeLayout
             android:layout_width="0px"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:background="?android:attr/detailsElementBackground"
             android:padding="8dip" >
 
             <TextView
                 android:id="@+id/tvCurrentDir"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:padding="4dip"
                 android:text="@string/current_dir" />
 
             <TextView
                 android:id="@+id/tvPath"
-                android:layout_width="fill_parent"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvCurrentDir"
                 android:background="@color/lightskyblue"
@@ -36,7 +36,7 @@
         <ListView
             android:id="@+id/lvApk"
             android:layout_width="0px"
-            android:layout_height="fill_parent"
+            android:layout_height="match_parent"
             android:layout_weight="1"
             android:fastScrollEnabled="true" />
     </LinearLayout>

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
+    android:layout_width="match_parent"
     android:layout_height="56dip" >
 
     <ImageView
@@ -13,7 +13,7 @@
 
     <TextView
         android:id="@+id/item_name"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="32dip"
         android:layout_marginLeft="4dip"
         android:layout_toLeftOf="@+id/chk_select"
@@ -27,7 +27,7 @@
 
     <TextView
         android:id="@+id/item_path"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="20dip"
         android:layout_below="@+id/item_name"
         android:layout_marginLeft="4dip"

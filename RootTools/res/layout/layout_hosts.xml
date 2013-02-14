@@ -21,7 +21,7 @@
 
     <com.rarnu.tools.root.comp.DataProgressBar
         android:id="@+id/progressHosts"
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="24dip"
         android:layout_alignParentBottom="true"
         android:visibility="gone" />

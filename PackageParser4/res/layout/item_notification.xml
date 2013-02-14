@@ -12,7 +12,7 @@
         android:contentDescription="@null" />
 
     <RelativeLayout
-        android:layout_width="fill_parent"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="28dip"
@@ -20,7 +20,7 @@
 
         <TextView
             android:id="@+id/tvNotifyTitle"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textColor="@color/white"
             android:textSize="16sp"
@@ -28,7 +28,7 @@
 
         <TextView
             android:id="@+id/tvNotifyText"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvNotifyTitle"
             android:layout_toRightOf="@+id/ivNotifyIcon" />
