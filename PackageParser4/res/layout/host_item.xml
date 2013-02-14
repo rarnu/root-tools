@@ -9,6 +9,7 @@
         android:id="@+id/tvItem_IP"
         android:layout_width="140dip"
         android:layout_height="fill_parent"
+        android:layout_marginLeft="8dip"
         android:gravity="left|center_vertical"
         android:textColor="@color/white"
         android:textSize="18sp" />
@@ -17,30 +18,33 @@
         android:id="@+id/tvItem_Domain"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_toLeftOf="@+id/chkItem_Checked"
+        android:layout_toLeftOf="@+id/layRight"
         android:layout_toRightOf="@id/tvItem_IP"
         android:gravity="left|center_vertical"
         android:textColor="@color/white"
         android:textSize="18sp" />
 
-    <CheckBox
-        android:id="@+id/chkItem_Checked"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:focusable="false"
-        android:layout_marginRight="8dip" />
+    <RelativeLayout
+        android:id="@+id/layRight"
+        android:layout_width="48dip"
+        android:layout_height="fill_parent"
+        android:layout_alignParentRight="true" >
 
-    <ImageView
-        android:id="@+id/imgLocked"
-        android:layout_width="32dip"
-        android:layout_height="32dip"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:layout_marginRight="8dip"
-        android:background="@android:drawable/ic_lock_lock"
-        android:contentDescription="@null"
-        android:visibility="gone" />
+        <CheckBox
+            android:id="@+id/chkItem_Checked"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:focusable="false" />
+
+        <ImageView
+            android:id="@+id/imgLocked"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_centerInParent="true"
+            android:background="@android:drawable/ic_lock_lock"
+            android:contentDescription="@null"
+            android:visibility="gone" />
+    </RelativeLayout>
 
 </RelativeLayout>

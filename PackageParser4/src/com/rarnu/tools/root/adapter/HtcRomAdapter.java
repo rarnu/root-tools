@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.root.pp4.R;
@@ -36,7 +35,6 @@ public class HtcRomAdapter extends InnerAdapter<HtcRomInfo> {
 		HtcRomAdapterHolder holder = (HtcRomAdapterHolder) v.getTag();
 		if (holder == null) {
 			holder = new HtcRomAdapterHolder();
-			holder.itemIcon = (ImageView) v.findViewById(R.id.itemIcon);
 			holder.itemName = (TextView) v.findViewById(R.id.itemName);
 			holder.itemDesc = (TextView) v.findViewById(R.id.itemDesc);
 			holder.chkSelect = (CheckBox) v.findViewById(R.id.chkSelect);
@@ -44,11 +42,6 @@ public class HtcRomAdapter extends InnerAdapter<HtcRomInfo> {
 		}
 		final HtcRomInfo item = list.get(position);
 		if (item != null) {
-			if (item.icon == 0) {
-				holder.itemIcon.setImageBitmap(null);
-			} else {
-				holder.itemIcon.setImageResource(item.icon);
-			}
 			holder.itemName.setText(item.title);
 			holder.itemDesc.setText(item.desc);
 			holder.chkSelect.setChecked(item.checked);

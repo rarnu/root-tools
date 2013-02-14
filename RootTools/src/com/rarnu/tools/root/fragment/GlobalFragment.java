@@ -36,6 +36,7 @@ public class GlobalFragment {
 	public static DataappReportFragment fDataappReport = null;
 	public static BackupFragment fBackup = null;
 	public static RestoreFragment fRestore = null;
+	public static CustomCleanManagerFragment fCustumClean = null;
 
 	public static void loadFragments() {
 
@@ -114,6 +115,9 @@ public class GlobalFragment {
 		if (fRestore == null) {
 			fRestore = new RestoreFragment();
 		}
+		if (fCustumClean == null) {
+			fCustumClean = new CustomCleanManagerFragment();
+		}
 	}
 	
 
@@ -143,6 +147,7 @@ public class GlobalFragment {
 		fDataappReport = null;
 		fBackup = null;
 		fRestore = null;
+		fCustumClean = null;
 	}
 
 	public static void showContent(Activity activity, Intent inContent,

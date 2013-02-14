@@ -30,6 +30,10 @@ public class CustomPackageUtils {
 		}
 	}
 
+	public static void removeCustomPackage(int idx) {
+		lstCustomPackage.remove(idx);
+	}
+
 	public static int customPackageIndex(String namespace) {
 		int ret = -1;
 		for (int i = 0; i < lstCustomPackage.size(); i++) {

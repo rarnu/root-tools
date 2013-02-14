@@ -161,6 +161,7 @@
     <string name="save_hosts_error">保存 Hosts 时发生错误</string>
     <string name="save_ignore_succ">已保存当前编辑的忽略列表</string>
     <string name="save_ignore_error">保存忽略列表时发生错误</string>
+    <string name="save_custom_clean_error">保存自定义清理列表时发生错误</string>
     <string name="added_ignore">已成功将应用程序添加到忽略列表</string>
     <string name="added_ignore_error">添加应用程序到忽略列表时失败</string>
     <string name="locked_app_error">程序是被锁定的，不能取消忽略</string>
@@ -277,4 +278,5 @@
     <string name="summary_feedback">写下您的意见和建议</string>
     <string name="summary_recommand">下载其他精品软件以支持我们</string>
     <string name="name_server_hint">输入搜索 Hosts IP 时使用的 DNS 服务器地址，默认为 Google 提供的 DNS</string>
+    <string name="custom_clean_empty">没有需要管理的内容，请先到&lt;font color=\'#6495ED\'&gt;系统应用管理&lt;/font&gt;中添加要清除的应用程序</string>
 </resources>

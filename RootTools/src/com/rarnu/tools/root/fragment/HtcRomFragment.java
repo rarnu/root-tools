@@ -179,73 +179,61 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 		HtcRomInfo infoCustom = new HtcRomInfo();
 		infoCustom.title = getString(R.string.itm_custom);
 		infoCustom.desc = getString(R.string.itmdesc_custom);
-		infoCustom.icon = 0;
 		list.add(infoCustom);
 
 		HtcRomInfo infoCar = new HtcRomInfo();
 		infoCar.title = getString(R.string.itm_car);
 		infoCar.desc = getString(R.string.itmdesc_car);
-		infoCar.icon = 0;
 		list.add(infoCar);
 
 		HtcRomInfo infoFacebook = new HtcRomInfo();
 		infoFacebook.title = getString(R.string.itm_facebook);
 		infoFacebook.desc = getString(R.string.itmdesc_facebook);
-		infoFacebook.icon = 0;
 		list.add(infoFacebook);
 
 		HtcRomInfo infoTwitter = new HtcRomInfo();
 		infoTwitter.title = getString(R.string.itm_twitter);
 		infoTwitter.desc = getString(R.string.itmdesc_twitter);
-		infoTwitter.icon = 0;
 		list.add(infoTwitter);
 
 		HtcRomInfo infoDropbox = new HtcRomInfo();
 		infoDropbox.title = getString(R.string.itm_dropbox);
 		infoDropbox.desc = getString(R.string.itmdesc_dropbox);
-		infoDropbox.icon = 0;
 		list.add(infoDropbox);
 
 		HtcRomInfo infoSkydrive = new HtcRomInfo();
 		infoSkydrive.title = getString(R.string.itm_skydrive);
 		infoSkydrive.desc = getString(R.string.itmdesc_skydrive);
-		infoSkydrive.icon = 0;
 		list.add(infoSkydrive);
 
 		HtcRomInfo infoLaputa = new HtcRomInfo();
 		infoLaputa.title = getString(R.string.itm_laputa);
 		infoLaputa.desc = getString(R.string.itmdesc_laputa);
-		infoLaputa.icon = 0;
 		list.add(infoLaputa);
 
 		HtcRomInfo infoFlickr = new HtcRomInfo();
 		infoFlickr.title = getString(R.string.itm_flickr);
 		infoFlickr.desc = getString(R.string.itmdesc_flickr);
-		infoFlickr.icon = 0;
 		list.add(infoFlickr);
 
 		HtcRomInfo infoFriendstream = new HtcRomInfo();
 		infoFriendstream.title = getString(R.string.itm_friendstream);
 		infoFriendstream.desc = getString(R.string.itmdesc_friendstream);
-		infoFriendstream.icon = 0;
 		list.add(infoFriendstream);
 
 		HtcRomInfo infoGoogle = new HtcRomInfo();
 		infoGoogle.title = getString(R.string.itm_google);
 		infoGoogle.desc = getString(R.string.itmdesc_google);
-		infoGoogle.icon = 0;
 		list.add(infoGoogle);
 
 		HtcRomInfo info3rd = new HtcRomInfo();
 		info3rd.title = getString(R.string.itm_3rd);
 		info3rd.desc = getString(R.string.itmdesc_3rd);
-		info3rd.icon = 0;
 		list.add(info3rd);
 		
 		HtcRomInfo infoCm3rd = new HtcRomInfo();
 		infoCm3rd.title = getString(R.string.itm_cm3rd);
 		infoCm3rd.desc = getString(R.string.itmdesc_cm3rd);
-		infoCm3rd.icon = 0;
 		list.add(infoCm3rd);
 
 		adapter.setNewList(list);

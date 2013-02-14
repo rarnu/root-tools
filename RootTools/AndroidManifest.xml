@@ -131,6 +131,11 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
+            android:name=".fragmentactivity.CustomCleanManagerActivity"
+            android:label="@string/custom_app_clean"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
             android:name=".fragmentactivity.HostEditActivity"
             android:label="@string/manual_edit_hosts"
             android:windowSoftInputMode="stateHidden" >

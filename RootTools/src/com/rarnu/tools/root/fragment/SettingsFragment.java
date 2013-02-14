@@ -22,6 +22,7 @@ import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.comp.CheckBoxPreferenceEx;
 import com.rarnu.tools.root.comp.PreferenceEx;
+import com.rarnu.tools.root.fragmentactivity.CustomCleanManagerActivity;
 import com.rarnu.tools.root.fragmentactivity.HostDeprecatedActivity;
 import com.rarnu.tools.root.fragmentactivity.HostEditActivity;
 import com.rarnu.tools.root.fragmentactivity.MemIgnoreActivity;
@@ -245,7 +246,9 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 		} else if (key.equals(getString(R.string.id_delete_all_backup_data))) {
 			doDeleteAllBackupedData();
 		} else if (key.equals(getString(R.string.id_custom_app_clean))) {
-			// TODO: manage custom app clean
+			// manage custom app clean
+			Intent inCustomClean = new Intent(getActivity(), CustomCleanManagerActivity.class);
+			startActivity(inCustomClean);
 		}
 		return true;
 	}
