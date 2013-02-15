@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
 
 import com.rarnu.tools.root.R;
@@ -39,6 +40,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	ListView lvData;
 	DataBar barData;
 	DataProgressBar progressData;
+	TextView tvEmptyHint;
 
 	List<DataappInfo> listDataappAll = new ArrayList<DataappInfo>();
 	DataappAdapter dataappAdapter = null;
@@ -74,6 +76,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		progressData = (DataProgressBar) innerView
 				.findViewById(R.id.progressData);
 		lvData = (ListView) innerView.findViewById(R.id.lvData);
+		tvEmptyHint = (TextView) innerView.findViewById(R.id.tvEmptyHint);
 
 		dataappAdapter = new DataappAdapter(getActivity(), listDataappAll,
 				hSelectApp, 1);
@@ -254,6 +257,8 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		progressData.setVisibility(View.GONE);
 
 		showAppSelectedCount();
+		tvEmptyHint.setVisibility(dataappAdapter.getCount() == 0 ? View.VISIBLE
+				: View.GONE);
 
 	}
 

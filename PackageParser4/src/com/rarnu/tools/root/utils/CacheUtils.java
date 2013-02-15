@@ -23,7 +23,7 @@ public class CacheUtils {
 
 		cmdResult = RootUtils
 				.runCommand(
-						"busybox find /data/data/ -name \"cache\" | busybox xargs du -sh",
+						"busybox find /data/data/ -name \"cache\" | busybox xargs du -s",
 						true);
 		if (cmdResult.error.equals("")) {
 			String cacheString = cmdResult.result;

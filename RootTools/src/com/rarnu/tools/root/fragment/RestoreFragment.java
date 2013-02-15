@@ -10,6 +10,7 @@ import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +19,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
 
 import com.rarnu.tools.root.R;
@@ -45,6 +47,7 @@ public class RestoreFragment extends BaseFragment implements
 	ListView lvBackData;
 	DataBar barBackData;
 	DataProgressBar progressBackData;
+	TextView tvEmptyHint;
 
 	List<DataappInfo> listBackDataappAll = new ArrayList<DataappInfo>();
 	DataappAdapter backDataappAdapter = null;
@@ -92,6 +95,9 @@ public class RestoreFragment extends BaseFragment implements
 		progressBackData = (DataProgressBar) innerView
 				.findViewById(R.id.progressBackData);
 		lvBackData = (ListView) innerView.findViewById(R.id.lvBackData);
+		tvEmptyHint = (TextView) innerView.findViewById(R.id.tvEmptyHint);
+
+		tvEmptyHint.setText(Html.fromHtml(getString(R.string.restore_empty)));
 
 		backDataappAdapter = new DataappAdapter(getActivity(),
 				listBackDataappAll, hSelectData, 2);
@@ -323,6 +329,9 @@ public class RestoreFragment extends BaseFragment implements
 		backDataappAdapter.setNewList(listBackDataappAll);
 		progressBackData.setVisibility(View.GONE);
 		showDataSelectedCount();
+		tvEmptyHint
+				.setVisibility(backDataappAdapter.getCount() == 0 ? View.VISIBLE
+						: View.GONE);
 
 	}
 

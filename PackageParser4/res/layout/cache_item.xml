@@ -16,6 +16,7 @@
         android:layout_width="match_parent"
         android:layout_height="32dip"
         android:layout_marginLeft="4dip"
+        android:layout_toLeftOf="@+id/item_cache"
         android:layout_toRightOf="@+id/item_icon"
         android:ellipsize="end"
         android:gravity="left|center_vertical"
@@ -23,15 +24,15 @@
         android:singleLine="true"
         android:textColor="@color/white"
         android:textSize="18sp" />
-    
+
     <TextView
         android:id="@+id/item_path"
         android:layout_width="match_parent"
         android:layout_height="20dip"
         android:layout_below="@+id/item_name"
         android:layout_marginLeft="4dip"
-        android:layout_toRightOf="@+id/item_icon"
         android:layout_toLeftOf="@+id/item_cache"
+        android:layout_toRightOf="@+id/item_icon"
         android:ellipsize="end"
         android:gravity="left|center_vertical"
         android:maxLines="1"
@@ -41,14 +42,16 @@
     <TextView
         android:id="@+id/item_cache"
         android:layout_width="wrap_content"
-        android:layout_height="20dip"
-        android:layout_below="@+id/item_name"
+        android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
         android:layout_marginLeft="4dip"
+        android:layout_marginRight="8dip"
         android:ellipsize="end"
         android:gravity="right|center_vertical"
         android:maxLines="1"
         android:singleLine="true"
-        android:textSize="12sp" />
+        android:textColor="#FF6495ED"
+        android:textSize="14sp" />
 
 </RelativeLayout>

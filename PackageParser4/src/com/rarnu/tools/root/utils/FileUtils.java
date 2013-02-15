@@ -1,6 +1,7 @@
 package com.rarnu.tools.root.utils;
 
 import java.io.BufferedReader;
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
@@ -10,6 +11,8 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
+
+import android.content.Context;
 
 public class FileUtils {
 
@@ -166,5 +169,31 @@ public class FileUtils {
         File myFile = new File(path);
         return readFile(myFile);
     }
+    
+    public static String readAssetFile(Context context, String fileName) throws IOException {
+		InputStream is = context.getAssets().open(fileName);
+		byte[] bytes = new byte[1024];
+		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+		while (is.read(bytes) != -1) {
+			arrayOutputStream.write(bytes, 0, bytes.length);
+		}
+		is.close();
+		arrayOutputStream.close();
+		String text = new String(arrayOutputStream.toByteArray());
+		return text.trim();
+	}
+    
+    public static String readFile(Context context, String path) throws IOException {
+		InputStream is = context.openFileInput(path);
+		byte[] bytes = new byte[1024];
+		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+		while (is.read(bytes) != -1) {
+			arrayOutputStream.write(bytes, 0, bytes.length);
+		}
+		is.close();
+		arrayOutputStream.close();
+		String text = new String(arrayOutputStream.toByteArray());
+		return text;
+	}
 
 }

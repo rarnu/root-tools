@@ -14,7 +14,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemLongClickListener;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
@@ -32,12 +32,13 @@ import com.rarnu.tools.root.loader.CleanCacheLoader;
 import com.rarnu.tools.root.utils.CacheUtils;
 
 public class CleanCacheFragment extends BaseFragment implements
-		OnItemLongClickListener, OnLoadCompleteListener<List<CacheInfo>>,
-		OnQueryTextListener {
+		OnLoadCompleteListener<List<CacheInfo>>, OnQueryTextListener,
+		OnItemClickListener {
 
 	TextView tvCacheInfo;
 	ListView lvCache;
 	DataProgressBar progressCache;
+	TextView tvEmptyHint;
 
 	List<CacheInfo> listCacheAll = new ArrayList<CacheInfo>();
 	CacheAdapter adapterCache;
@@ -62,10 +63,11 @@ public class CleanCacheFragment extends BaseFragment implements
 		progressCache = (DataProgressBar) innerView
 				.findViewById(R.id.progressCache);
 		tvCacheInfo = (TextView) innerView.findViewById(R.id.tvCacheInfo);
+		tvEmptyHint = (TextView) innerView.findViewById(R.id.tvEmptyHint);
 
 		adapterCache = new CacheAdapter(getActivity(), listCacheAll);
 		lvCache.setAdapter(adapterCache);
-		lvCache.setOnItemLongClickListener(this);
+		lvCache.setOnItemClickListener(this);
 
 		loader = new CleanCacheLoader(getActivity());
 		loader.registerListener(0, this);
@@ -109,36 +111,6 @@ public class CleanCacheFragment extends BaseFragment implements
 		return true;
 	}
 
-	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view,
-			int position, long id) {
-		final CacheInfo info = listCacheAll.get(position);
-
-		new AlertDialog.Builder(getActivity())
-				.setTitle(R.string.func6_title)
-				.setMessage(R.string.confirm_clean_cache)
-				.setPositiveButton(R.string.ok,
-						new DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								boolean ret = CacheUtils.cleanCache(info);
-								if (ret) {
-									adapterCache.deleteItem(info);
-									loadCacheCount();
-								} else {
-									Toast.makeText(getActivity(),
-											R.string.clean_cache_failed,
-											Toast.LENGTH_LONG).show();
-								}
-
-							}
-						}).setNegativeButton(R.string.cancel, null).show();
-
-		return false;
-	}
-
 	private void loadCacheCount() {
 		String cacheCount = CacheUtils.countCache(listCacheAll);
 		if (this.isAdded()) {
@@ -147,6 +119,8 @@ public class CleanCacheFragment extends BaseFragment implements
 						getString(R.string.used_cache_size), cacheCount));
 			}
 		}
+		tvEmptyHint.setVisibility(adapterCache.getCount() == 0 ? View.VISIBLE
+				: View.GONE);
 	}
 
 	protected void doStartLoad() {
@@ -216,7 +190,6 @@ public class CleanCacheFragment extends BaseFragment implements
 		adapterCache.setNewList(listCacheAll);
 		progressCache.setVisibility(View.GONE);
 		if (menuClean != null) {
-
 			menuClean.setEnabled(true);
 			menuRefresh.setEnabled(true);
 		}
@@ -240,6 +213,35 @@ public class CleanCacheFragment extends BaseFragment implements
 	@Override
 	protected void initLogic() {
 		doStartLoad();
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		final CacheInfo info = listCacheAll.get(position);
+
+		new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.func6_title)
+				.setMessage(R.string.confirm_clean_cache)
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								boolean ret = CacheUtils.cleanCache(info);
+								if (ret) {
+									adapterCache.deleteItem(info);
+									loadCacheCount();
+								} else {
+									Toast.makeText(getActivity(),
+											R.string.clean_cache_failed,
+											Toast.LENGTH_LONG).show();
+								}
+
+							}
+						}).setNegativeButton(R.string.cancel, null).show();
+
 	}
 
 }

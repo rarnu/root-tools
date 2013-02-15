@@ -279,4 +279,12 @@
     <string name="summary_recommand">下载其他精品软件以支持我们</string>
     <string name="name_server_hint">输入搜索 Hosts IP 时使用的 DNS 服务器地址，默认为 Google 提供的 DNS</string>
     <string name="custom_clean_empty">没有需要管理的内容，请先到&lt;font color=\'#6495ED\'&gt;系统应用管理&lt;/font&gt;中添加要清除的应用程序</string>
+    <string name="clean_cache_empty">没有缓存的内容，无需清理</string>
+    <string name="backup_empty">没有可以备份的内容，请先安装一些应用</string>
+    <string name="restore_empty">没有可以还原的内容，请先到&lt;font color=\'#6495ED\'&gt;备份应用数据&lt;/font&gt;中进行备份操作</string>
+
+    <!-- egg -->
+    <string name="close_egg">如果你的手机没有返回键，请点这里\n当然如果有返回键的话，也请点这里</string>
+	<string name="weibo_egg">&lt;img src=\'weibo\'/&gt; 欢迎关注作者的新浪微博 &lt;font color=\'#6495ED\'&gt;@橙子Infinity&lt;/font&gt;</string>
+	<string name="github_egg">&lt;img src=\'github\'/&gt; 本软件全部代码开源，请访问 &lt;font color=\'#6495ED\'&gt;github&lt;/font&gt; 获取</string>
 </resources>

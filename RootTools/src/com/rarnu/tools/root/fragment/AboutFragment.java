@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
+import com.rarnu.tools.root.EggActivity;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.AboutAdapter;
@@ -187,9 +188,18 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 						getActivity(), HelpActivity.class),
 						GlobalFragment.fIntro);
 				break;
+			case 2:
+				if (!GlobalInstance.DEBUG) {
+					fitableClick++;
+					if (fitableClick == 10) {
+						fitableClick = 0;
+						Intent inEgg = new Intent(getActivity(),
+								EggActivity.class);
+						startActivity(inEgg);
+					}
+				}
+				break;
 			}
 		}
-
 	}
-
 }

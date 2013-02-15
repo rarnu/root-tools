@@ -1,0 +1,11 @@
+如果你想自行编译 RootTools，请参考以下步骤。<br>
+<br>
+1. 下载 Android 2.2(froyo) 的带源码及隐藏 API 的 SDK 包<br>
+	<font color='yellow'>$ wget http://rarnu.7thgen.info/downloads/froyo8.jar</font><br>
+2. 备份 android-8 库, 一个位于 Android SDK 目录下的 jar 文件<br>
+	<font color='yellow'>$ cp $(SDK)/platforms/android-8/android.jar ./backup/</font><br>
+3. 将下载到的 froyo8.jar 改名为 android.jar 并放到 android-8 目录内<br>
+	<font color='yellow'>$ mv froyo8.jar android.jar</font><br>
+	<font color='yellow'>$ cp android.jar $(SDK)/platforms/android-8/</font><br>
+4. 导入项目，使用 ADT 对项目进行修复<br>
+5. 编译 PackageParser4 和 RootTools<br>

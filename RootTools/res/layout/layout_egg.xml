@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:scrollbars="none" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="8dip" >
+
+        <ImageView
+            android:id="@+id/ivLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginRight="8dip"
+            android:layout_marginTop="32dip"
+            android:adjustViewBounds="true"
+            android:contentDescription="@null"
+            android:maxHeight="100dip"
+            android:scaleType="centerInside"
+            android:src="@drawable/logo" />
+
+        <TextView
+            android:id="@+id/tvDesc"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivLogo"
+            android:layout_marginTop="16dip"
+            android:gravity="left|top" />
+
+        <TextView
+            android:id="@+id/tvWeibo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDesc"
+            android:layout_marginTop="8dip"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tvSource"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvWeibo"
+            android:layout_marginTop="8dip"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/white" />
+
+        <TextView
+            android:id="@+id/tvSplit"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tvSource"
+            android:layout_marginTop="8dip"
+            android:background="@color/lightgray" />
+
+        <TextView
+            android:id="@+id/tvCompileCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSplit"
+            android:layout_marginTop="8dip"
+            android:gravity="left|center_vertical"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+
+        <Button
+            android:id="@+id/btnClose"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvCompileCode"
+            android:layout_margin="16dip"
+            android:text="@string/close_egg"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+</ScrollView>
