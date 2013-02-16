@@ -12,6 +12,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.GridView;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.tools.root.R;
@@ -31,6 +32,7 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 	ListView lvDeprecatedHosts;
 	GridView gvDeprecatedHosts;
 	DataProgressBar progressDeprecated;
+	TextView tvTooBigHint;
 
 	List<HostRecordInfo> lstDeprecated = new ArrayList<HostRecordInfo>();
 	HostsAdapter adapter = null;
@@ -70,6 +72,8 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 				.findViewById(R.id.gvDeprecatedHosts);
 		progressDeprecated = (DataProgressBar) innerView
 				.findViewById(R.id.progressDeprecated);
+		tvTooBigHint = (TextView) innerView.findViewById(R.id.tvTooBigHint);
+
 		adapter = new HostsAdapter(getActivity(), lstDeprecated, hSelectHost,
 				false, false);
 		if (lvDeprecatedHosts != null) {
@@ -106,6 +110,7 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 		itemScan.setIcon(android.R.drawable.ic_menu_manage);
 		itemScan.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
+		itemScan.setEnabled(lstDeprecated.size() != 0);
 	}
 
 	@Override
@@ -182,7 +187,10 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 		}
 		adapter.setNewList(lstDeprecated);
 		progressDeprecated.setVisibility(View.GONE);
-
+		tvTooBigHint.setVisibility(data == null ? View.VISIBLE : View.GONE);
+		if (itemScan != null) {
+			itemScan.setEnabled(data != null);
+		}
 	}
 
 }

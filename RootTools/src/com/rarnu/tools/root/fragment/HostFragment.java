@@ -18,6 +18,7 @@ import android.widget.BaseAdapter;
 import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.tools.root.R;
@@ -39,11 +40,13 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 	ListView lvHosts;
 	DataBar barHosts;
 	DataProgressBar progressHosts;
+	TextView tvTooBigHint;
 
 	List<HostRecordInfo> listHostsAll = new ArrayList<HostRecordInfo>();
 	HostsAdapter hostsAdapter = null;
 
 	HostsLoader loader = null;
+	MenuItem itemAdd = null;
 
 	Handler hSelectHost = new Handler() {
 		@Override
@@ -72,6 +75,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		progressHosts = (DataProgressBar) innerView
 				.findViewById(R.id.progressHosts);
 		lvHosts = (ListView) innerView.findViewById(R.id.lvHosts);
+		tvTooBigHint = (TextView) innerView.findViewById(R.id.tvTooBigHint);
 
 		barHosts.getButton1().setOnClickListener(this);
 		barHosts.getButton2().setOnClickListener(this);
@@ -112,9 +116,11 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		sv.setOnQueryTextListener(this);
 		itemSearch.setActionView(sv);
 
-		MenuItem itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
+		itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
 		itemAdd.setIcon(android.R.drawable.ic_menu_add);
 		itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+		itemAdd.setEnabled(listHostsAll.size() != 0);
 
 		MenuItem itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100,
 				R.string.refresh);
@@ -175,7 +181,10 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		hostsAdapter.setNewList(listHostsAll);
 		progressHosts.setVisibility(View.GONE);
 		showHostSelectedCount();
-
+		tvTooBigHint.setVisibility(data == null ? View.VISIBLE : View.GONE);
+		if (itemAdd != null) {
+			itemAdd.setEnabled(data != null);
+		}
 	}
 
 	private void showHostSelectedCount() {

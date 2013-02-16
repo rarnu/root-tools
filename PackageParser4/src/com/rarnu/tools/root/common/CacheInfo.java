@@ -15,7 +15,7 @@ public class CacheInfo {
 		// 4.0K com.android.defcontainer
 		String[] cs = str.split(" ");
 		CacheInfo info = new CacheInfo();
-		info.cacheSize = cs[0];
+		info.cacheSize = cs[0] + "K";
 		info.namespace = cs[1];
 		try {
 			info.info = GlobalInstance.pm.getPackageInfo(info.namespace, 0);

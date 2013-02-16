@@ -41,11 +41,8 @@ public class CacheUtils {
 					}
 					CacheInfo info = CacheInfo.parseString(s);
 					if (info != null) {
-						if (!info.cacheSize.equals("4.0K")) {
-							result.add(info);
-						}
+						result.add(info);
 					}
-
 				}
 			}
 		}
@@ -80,11 +77,7 @@ public class CacheUtils {
 			} catch (Exception e) {
 				sizeD = 0D;
 			}
-			if (size.endsWith("M")) {
-				sizeD *= 1024;
-			} else if (size.endsWith("G")) {
-				sizeD *= 1024 * 1024;
-			}
+
 			count += sizeD;
 		}
 

@@ -1,11 +1,14 @@
 package com.rarnu.tools.root.fragment;
 
+import java.io.File;
 import java.util.List;
 
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.tools.root.R;
@@ -19,6 +22,10 @@ import com.rarnu.tools.root.utils.HostsUtils;
 public class HostEditFragment extends BasePopupFragment {
 
 	EditText etEditHosts;
+	TextView tvTooBigHint;
+
+	MenuItem itemSave = null;
+	boolean canEdit = false;
 
 	private static final String PATH_HOSTS = "/system/etc/hosts";
 	private static final String LOCAL_HOSTS = DirHelper.HOSTS_DIR + "hosts";
@@ -42,6 +49,7 @@ public class HostEditFragment extends BasePopupFragment {
 	@Override
 	protected void initComponents() {
 		etEditHosts = (EditText) innerView.findViewById(R.id.etEditHosts);
+		tvTooBigHint = (TextView) innerView.findViewById(R.id.tvTooBigHint);
 	}
 
 	@Override
@@ -57,11 +65,10 @@ public class HostEditFragment extends BasePopupFragment {
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSave = menu.add(0, MenuItemIds.MENU_SAVE, 99,
-				R.string.save);
+		itemSave = menu.add(0, MenuItemIds.MENU_SAVE, 99, R.string.save);
 		itemSave.setIcon(android.R.drawable.ic_menu_save);
 		itemSave.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
+		itemSave.setEnabled(canEdit);
 	}
 
 	@Override
@@ -82,6 +89,19 @@ public class HostEditFragment extends BasePopupFragment {
 	}
 
 	private void loadHosts() {
+
+		File fHost = new File(PATH_HOSTS);
+		canEdit = (fHost.length() <= 1024 * 10);
+
+		tvTooBigHint.setVisibility(canEdit ? View.GONE : View.VISIBLE);
+		etEditHosts.setEnabled(canEdit);
+		if (itemSave != null) {
+			itemSave.setEnabled(canEdit);
+		}
+		if (!canEdit) {
+			return;
+		}
+
 		List<String> hosts = null;
 		try {
 			hosts = FileUtils.readFile(PATH_HOSTS);

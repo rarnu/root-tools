@@ -12,5 +12,16 @@
         android:hint="@string/host_hint"
         android:scrollbars="horizontal|vertical"
         android:textCursorDrawable="@null" />
+    
+    <TextView
+        android:id="@+id/tvTooBigHint"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="32dip"
+        android:text="@string/hosts_too_big"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        android:visibility="gone" />
 
 </RelativeLayout>

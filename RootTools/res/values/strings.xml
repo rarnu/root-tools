@@ -282,7 +282,7 @@
     <string name="clean_cache_empty">没有缓存的内容，无需清理</string>
     <string name="backup_empty">没有可以备份的内容，请先安装一些应用</string>
     <string name="restore_empty">没有可以还原的内容，请先到&lt;font color=\'#6495ED\'&gt;备份应用数据&lt;/font&gt;中进行备份操作</string>
-
+	<string name="hosts_too_big">Hosts 文件太大，无法编辑</string>
     <!-- egg -->
     <string name="close_egg">如果你的手机没有返回键，请点这里\n当然如果有返回键的话，也请点这里</string>
 	<string name="weibo_egg">&lt;img src=\'weibo\'/&gt; 欢迎关注作者的新浪微博 &lt;font color=\'#6495ED\'&gt;@橙子Infinity&lt;/font&gt;</string>
