@@ -40,9 +40,7 @@ public class SearchService extends ContextWrapper implements MKSearchListener,
 	public SearchService(Context base, MainApplication application) {
 		super(base);
 		this.application = application;
-
 		mSearch = new MKSearch();
-
 		mSearch.init(application.getMapManager(), this);
 
 	}
@@ -195,6 +193,16 @@ public class SearchService extends ContextWrapper implements MKSearchListener,
 			}
 		}).start();
 
+	}
+
+	@Override
+	public void onGetPoiDetailSearchResult(int arg0, int arg1) {
+		
+	}
+
+	@Override
+	public void onGetRGCShareUrlResult(String arg0, int arg1) {
+		
 	}
 
 }
