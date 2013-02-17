@@ -266,7 +266,7 @@
     <string name="clean_htc_rom_confirm">确定要清理 ROM 吗？清理后不可恢复，确定要清理请按“确定”。</string>
     <string name="no_clean_item_selected">没有选定要清除的项目</string>
     <string name="share_title">向您推荐一款好用的App《RootTools》</string>
-    <string name="share_body">RootTools可以帮助您管理您的手机，实现对系统的完全掌控，请点击下载: http://rarnu.7thgen.info/root_tools/download/RootTools_4.1.1.apk</string>
+    <string name="share_body">RootTools可以帮助您管理您的手机，实现对系统的完全掌控，请点击下载: http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk</string>
     <string name="summary_sysapp">安装或卸载系统内的应用程序</string>
     <string name="summary_sysappenabled">禁用或启动指定的应用程序</string>
     <string name="summary_component">禁用或启动应用程序内的可选组件</string>
@@ -282,9 +282,10 @@
     <string name="clean_cache_empty">没有缓存的内容，无需清理</string>
     <string name="backup_empty">没有可以备份的内容，请先安装一些应用</string>
     <string name="restore_empty">没有可以还原的内容，请先到&lt;font color=\'#6495ED\'&gt;备份应用数据&lt;/font&gt;中进行备份操作</string>
-	<string name="hosts_too_big">Hosts 文件太大，无法编辑</string>
+    <string name="hosts_too_big">Hosts 文件太大，无法编辑</string>
     <!-- egg -->
     <string name="close_egg">如果你的手机没有返回键，请点这里\n当然如果有返回键的话，也请点这里</string>
-	<string name="weibo_egg">&lt;img src=\'weibo\'/&gt; 欢迎关注作者的新浪微博 &lt;font color=\'#6495ED\'&gt;@橙子Infinity&lt;/font&gt;</string>
-	<string name="github_egg">&lt;img src=\'github\'/&gt; 本软件全部代码开源，请访问 &lt;font color=\'#6495ED\'&gt;github&lt;/font&gt; 获取</string>
+    <string name="weibo_egg">&lt;img src=\'weibo\'/&gt; 欢迎关注作者的新浪微博 &lt;font color=\'#6495ED\'&gt;@橙子Infinity&lt;/font&gt;</string>
+    <string name="github_egg">&lt;img src=\'github\'/&gt; 本软件全部代码开源，请访问 &lt;font color=\'#6495ED\'&gt;github&lt;/font&gt; 获取</string>
+
 </resources>

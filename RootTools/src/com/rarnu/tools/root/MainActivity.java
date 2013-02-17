@@ -14,6 +14,8 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -33,6 +35,7 @@ import com.rarnu.tools.root.utils.ImageUtils;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.NetworkUtils;
 import com.rarnu.tools.root.utils.PingUtils;
+import com.rarnu.tools.root.utils.UpdateUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class MainActivity extends Activity {
@@ -50,7 +53,7 @@ public class MainActivity extends Activity {
 			finish();
 			return;
 		}
-		
+
 		GlobalFragment.loadFragments();
 		registerReceiver(receiverHome, filterHome);
 
@@ -190,7 +193,7 @@ public class MainActivity extends Activity {
 		actionProvider
 				.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
 		actionProvider.setShareIntent(createShareIntent());
-		
+
 		return true;
 	}
 
@@ -209,7 +212,8 @@ public class MainActivity extends Activity {
 		Uri uri = Uri.fromFile(fIcon);
 		shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
 		shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_body));
-		shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
+		shareIntent.putExtra(Intent.EXTRA_SUBJECT,
+				getString(R.string.share_title));
 		return shareIntent;
 	}
 
@@ -234,7 +238,7 @@ public class MainActivity extends Activity {
 			}
 		}).start();
 	}
-	
+
 	public void loadCustomPackageListT() {
 		new Thread(new Runnable() {
 			@Override
@@ -261,13 +265,27 @@ public class MainActivity extends Activity {
 
 	private void getUpdateInfo() {
 
+		final Handler hUpdate = new Handler() {
+
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					if (GlobalInstance.updateInfo != null
+							&& GlobalInstance.updateInfo.result != 0) {
+						UpdateUtils.showUpdateInfo(MainActivity.this);
+					}
+				}
+				super.handleMessage(msg);
+			}
+
+		};
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				int verCode = DeviceUtils.getAppVersionCode(MainActivity.this);
 				GlobalInstance.updateInfo = MobileApi.checkUpdate(verCode);
-
+				hUpdate.sendEmptyMessage(1);
 			}
 		}).start();
 	}
@@ -285,12 +303,12 @@ public class MainActivity extends Activity {
 				String reason = intent.getStringExtra(SYSTEM_REASON);
 				if (reason != null) {
 					if (reason.equals(SYSTEM_HOME_KEY)) {
-						
+
 						GlobalFragment.releaseFragments();
 						oneTimeRun = false;
 						finish();
 					} else if (reason.equals(SYSTEM_RECENT_APPS)) {
-						
+
 					}
 				}
 			}

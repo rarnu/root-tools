@@ -3,8 +3,6 @@ package com.rarnu.tools.root.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.view.Menu;
@@ -19,13 +17,13 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.AboutAdapter;
 import com.rarnu.tools.root.adapter.PartnerAdapter;
 import com.rarnu.tools.root.api.LogApi;
-import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.AboutInfo;
 import com.rarnu.tools.root.comp.BlockListView;
 import com.rarnu.tools.root.fragmentactivity.HelpActivity;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.UIUtils;
+import com.rarnu.tools.root.utils.UpdateUtils;
 
 public class AboutFragment extends BaseFragment implements OnItemClickListener {
 
@@ -40,46 +38,6 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 
 	int fitable = 5;
 	int fitableClick = 0;
-
-	private void showUpdateInfo() {
-
-		if (GlobalInstance.updateInfo == null
-				|| GlobalInstance.updateInfo.result == 0) {
-
-			new AlertDialog.Builder(getActivity())
-					.setTitle(R.string.check_update)
-					.setMessage(R.string.no_update_found)
-					.setPositiveButton(R.string.ok, null).show();
-
-		} else {
-
-			new AlertDialog.Builder(getActivity())
-					.setTitle(R.string.check_update)
-					.setMessage(
-							String.format(
-									getString(R.string.update_found_info),
-									GlobalInstance.updateInfo.versionName,
-									GlobalInstance.updateInfo.size))
-					.setPositiveButton(R.string.ok,
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									// download new version
-									String downUrl = MobileApi.DOWNLOAD_BASE_URL
-											+ GlobalInstance.updateInfo.file;
-									Intent inDownload = new Intent(
-											Intent.ACTION_VIEW);
-									inDownload
-											.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-									inDownload.setData(Uri.parse(downUrl));
-									startActivity(inDownload);
-
-								}
-							}).setNegativeButton(R.string.cancel, null).show();
-		}
-	}
 
 	private void showDebugStatus() {
 		tvDebug.setVisibility(GlobalInstance.DEBUG ? View.VISIBLE : View.GONE);
@@ -181,7 +139,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 		} else {
 			switch (position) {
 			case 0:
-				showUpdateInfo();
+				UpdateUtils.showUpdateInfo(getActivity());
 				break;
 			case 1:
 				GlobalFragment.showContent(getActivity(), new Intent(
