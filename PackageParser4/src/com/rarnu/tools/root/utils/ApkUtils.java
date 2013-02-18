@@ -59,22 +59,18 @@ public class ApkUtils {
 	}
 
 	public static String getAppSize(String path) {
-
 		int fileLen = getFileSize(path);
-
 		String odexPath = path.substring(0, path.length() - 3) + "odex";
 		File fOdex = new File(odexPath);
 		if (fOdex.exists()) {
 			fileLen += getFileSize(odexPath);
 		}
-
 		return new DecimalFormat("#.##").format(fileLen / 1024);
 	}
 
 	private static int getFileSize(String path) {
 		File f = new File(path);
 		int fileLen = 0;
-
 		FileInputStream fis = null;
 		try {
 			fis = new FileInputStream(f);
@@ -203,9 +199,7 @@ public class ApkUtils {
 
 	public static void installSystemApp(final Context context,
 			final String path, final Handler h) {
-
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				boolean installOK = installSystemApp(path);
@@ -228,7 +222,6 @@ public class ApkUtils {
 		assetMag.addAssetPath(DirHelper.DATAAPP_DIR + info.packageName + ".apk");
 		res = new Resources(assetMag, res.getDisplayMetrics(),
 				res.getConfiguration());
-
 		try {
 			if (info.labelRes != 0) {
 				return res.getText(info.labelRes).toString();
@@ -242,13 +235,11 @@ public class ApkUtils {
 
 	public static Drawable getIconFromPackage(Context context,
 			ApplicationInfo info) {
-
 		Resources res = context.getResources();
 		AssetManager assmgr = new AssetManager();
 		assmgr.addAssetPath(DirHelper.DATAAPP_DIR + info.packageName + ".apk");
 		res = new Resources(assmgr, res.getDisplayMetrics(),
 				res.getConfiguration());
-
 		try {
 			if (info.icon != 0) {
 				return res.getDrawable(info.icon);
@@ -271,7 +262,6 @@ public class ApkUtils {
 			return res.getText(info.labelRes).toString();
 		} else {
 			return info.packageName;
-			// return context.getResources().getString(R.string.no_name);
 		}
 	}
 
@@ -574,7 +564,6 @@ public class ApkUtils {
 		if (ApkUtils.applicationInstalled(namespace)) {
 			ApkUtils.startApplication(namespace, activity);
 		} else {
-			// openGooglePlayForApp(context, namespace);
 			openDownloadApp(context, url);
 		}
 	}

@@ -41,6 +41,7 @@ import com.rarnu.tools.root.utils.root.RootUtils;
 public class MainActivity extends Activity {
 
 	private static boolean oneTimeRun = false;
+	MenuItem actionItem;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -184,7 +185,7 @@ public class MainActivity extends Activity {
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		menu.clear();
-		MenuItem actionItem = menu.add(0, MenuItemIds.MENU_ID_SHARE, 0,
+		actionItem = menu.add(0, MenuItemIds.MENU_ID_SHARE, 0,
 				R.string.short_share);
 		actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		actionItem.setIcon(android.R.drawable.ic_menu_share);
@@ -263,22 +264,20 @@ public class MainActivity extends Activity {
 		}).start();
 	}
 
-	private void getUpdateInfo() {
-
-		final Handler hUpdate = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					if (GlobalInstance.updateInfo != null
-							&& GlobalInstance.updateInfo.result != 0) {
-						UpdateUtils.showUpdateInfo(MainActivity.this);
-					}
+	final Handler hUpdate = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				if (GlobalInstance.updateInfo != null
+						&& GlobalInstance.updateInfo.result != 0) {
+					UpdateUtils.showUpdateInfo(MainActivity.this);
 				}
-				super.handleMessage(msg);
 			}
-
-		};
+			super.handleMessage(msg);
+		}
+	};
+	
+	private void getUpdateInfo() {
 		new Thread(new Runnable() {
 
 			@Override

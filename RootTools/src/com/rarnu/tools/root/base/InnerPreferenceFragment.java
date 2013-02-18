@@ -26,6 +26,7 @@ public abstract class InnerPreferenceFragment extends PreferenceFragment {
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
 		initComponents();
+		initEvents();
 		initLogic();
 	}
 
@@ -34,6 +35,8 @@ public abstract class InnerPreferenceFragment extends PreferenceFragment {
 	protected abstract int getBarTitleWithPath();
 
 	protected abstract void initComponents();
+	
+	protected abstract void initEvents();
 
 	protected abstract void initLogic();
 

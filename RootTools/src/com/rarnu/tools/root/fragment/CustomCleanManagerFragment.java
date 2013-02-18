@@ -59,16 +59,10 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements
 
 	@Override
 	protected void initComponents() {
-
 		gvCustomClean = (GridView) innerView.findViewById(R.id.gvCustomClean);
 		lvCustomClean = (ListView) innerView.findViewById(R.id.lvCustomClean);
-
 		barCustomClean = (DataBar) innerView.findViewById(R.id.barCustomClean);
 		tvEmptyHint = (TextView) innerView.findViewById(R.id.tvEmptyHint);
-
-		barCustomClean.getButton1().setOnClickListener(this);
-		barCustomClean.getButton2().setOnClickListener(this);
-		barCustomClean.getCheckBox().setOnClickListener(this);
 	}
 
 	@Override
@@ -83,7 +77,6 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements
 	}
 
 	private void loadCustomClean() {
-
 		adapter = new CustomCleanAdapter(getActivity(),
 				CustomPackageUtils.getCustomPackageList(), hSelectApp);
 		if (gvCustomClean != null) {
@@ -168,6 +161,13 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements
 	@Override
 	protected void initMenu(Menu menu) {
 
+	}
+
+	@Override
+	protected void initEvents() {
+		barCustomClean.getButton1().setOnClickListener(this);
+		barCustomClean.getButton2().setOnClickListener(this);
+		barCustomClean.getCheckBox().setOnClickListener(this);
 	}
 
 }

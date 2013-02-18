@@ -61,4 +61,9 @@ public class DataappReportFragment extends BasePopupFragment {
 		}
 	}
 
+	@Override
+	protected void initEvents() {
+		
+	}
+
 }

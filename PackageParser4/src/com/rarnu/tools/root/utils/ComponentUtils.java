@@ -24,15 +24,22 @@ public class ComponentUtils {
 		String dest = "";
 		if (info.type == 0) {
 			dest = "/system/app/";
-			filePath = dest + source.replace(DirHelper.ENABLEAPP_DIR_SYSTEM, "");
+			filePath = dest
+					+ source.replace(DirHelper.ENABLEAPP_DIR_SYSTEM, "");
 		} else if (info.type == 1) {
 			dest = "/data/app/";
 			filePath = dest + source.replace(DirHelper.ENABLEAPP_DIR_DATA, "");
 		}
 		try {
-			CommandResult cmdRet = RootUtils.runCommand(String.format("busybox cp %s %s", source, dest), true);
+			CommandResult cmdRet = RootUtils.runCommand(
+					String.format("busybox cp %s %s", source, dest), true);
 			if (cmdRet.error.equals("")) {
-				cmdRet = RootUtils.runCommand(String.format("rm %s", source), true);
+				cmdRet = RootUtils.runCommand(String.format("rm %s", source),
+						true);
+				if (cmdRet.error.equals("")) {
+					cmdRet = RootUtils
+							.runCommand("chmod 644 " + filePath, true);
+				}
 				info.filePath = filePath;
 			}
 			return cmdRet.error.equals("");
@@ -98,23 +105,24 @@ public class ComponentUtils {
 		}
 	}
 
-	public static Object /* PackageParser.Package */ parsePackageInfo(PackageInfo info) {
+	public static Object /* PackageParser.Package */parsePackageInfo(
+			PackageInfo info) {
 		String fileAbsPath = info.applicationInfo.publicSourceDir;
 		PackageParser packageParser = new PackageParser(fileAbsPath);
 		File sourceFile = new File(fileAbsPath);
 		PackageParser.Package pkg = packageParser.parsePackage(sourceFile,
-				fileAbsPath, GlobalInstance.metric,
-				PackageParser.PARSE_IS_SYSTEM);
+				fileAbsPath, UIUtils.getDM(), PackageParser.PARSE_IS_SYSTEM);
 		return pkg;
 	}
-	
+
 	public static List<CompInfo> getPackageRSList(Object obj) {
 		PackageParser.Package pkg = (PackageParser.Package) obj;
 		List<CompInfo> lstComponentInfo = new ArrayList<CompInfo>();
-		
+
 		List<PackageParser.Activity> lstReceiver = pkg.receivers;
 		for (PackageParser.Activity a : lstReceiver) {
-			Log.e("ComponentUtils.getPackageRSList", a.getComponentName().toString());
+			Log.e("ComponentUtils.getPackageRSList", a.getComponentName()
+					.toString());
 			CompInfo info = new CompInfo();
 			info.component = a;
 			info.enabled = GlobalInstance.pm.getComponentEnabledSetting(a
@@ -132,8 +140,7 @@ public class ComponentUtils {
 		}
 		return lstComponentInfo;
 	}
-	
-	
+
 	public static ComponentName getPackageComponentName(Object obj) {
 		PackageParser.Component<?> comp = (PackageParser.Component<?>) obj;
 		return comp.getComponentName();

@@ -42,6 +42,9 @@ public class EnableappFragment extends BaseFragment implements
 
 	EnableappLoader loader = null;
 
+	MenuItem itemSearch;
+	MenuItem itemRefresh;
+
 	@Override
 	protected int getBarTitle() {
 		return R.string.func2_title;
@@ -62,11 +65,7 @@ public class EnableappFragment extends BaseFragment implements
 
 		enableappAdapter = new EnableappAdapter(getActivity(), listEnableappAll);
 		lvEnableApp.setAdapter(enableappAdapter);
-
-		lvEnableApp.setOnItemLongClickListener(this);
-
 		loader = new EnableappLoader(getActivity());
-		loader.registerListener(0, this);
 
 	}
 
@@ -77,15 +76,14 @@ public class EnableappFragment extends BaseFragment implements
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
-				R.string.search);
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		SearchView sv = new SearchView(getActivity());
 		sv.setOnQueryTextListener(this);
 		itemSearch.setActionView(sv);
 
-		MenuItem itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99,
+		itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99,
 				R.string.refresh);
 		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
 		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -107,59 +105,62 @@ public class EnableappFragment extends BaseFragment implements
 			int position, long id) {
 		final EnableappInfo info = (EnableappInfo) lvEnableApp
 				.getItemAtPosition(position);
-
 		if (info.type == 0) {
-			boolean ret = false;
-			if (info.enabled) {
-				ret = ComponentUtils.doDisableApplication(info);
-				if (ret) {
-					info.enabled = false;
-				}
-			} else {
-				ret = ComponentUtils.doEnableApplication(info);
-				if (ret) {
-					info.enabled = true;
-				}
-			}
-			if (ret) {
-				enableappAdapter.sort();
-				enableappAdapter.notifyDataSetChanged();
-			} else {
-				Toast.makeText(getActivity(),
-						R.string.change_package_status_fail, Toast.LENGTH_LONG)
-						.show();
-			}
+			switchSystemApp(info);
 		} else if (info.type == 1) {
-
-			new AlertDialog.Builder(getActivity())
-					.setTitle(R.string.func2_title)
-					.setMessage(R.string.data_app_uninstall)
-					.setPositiveButton(R.string.ok,
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									if (ApkUtils
-											.uninstallApk(info.info.packageName)) {
-										enableappAdapter.deleteItem(info);
-									} else {
-										Toast.makeText(
-												getActivity(),
-												R.string.cannot_uninstall_package,
-												Toast.LENGTH_LONG).show();
-									}
-
-								}
-							}).setNegativeButton(R.string.cancel, null).show();
+			uninstallUserApp(info);
 
 		} else {
 			Toast.makeText(getActivity(),
 					R.string.cannot_change_package_status, Toast.LENGTH_LONG)
 					.show();
 		}
-
 		return true;
+	}
+
+	private void switchSystemApp(EnableappInfo info) {
+		boolean ret = false;
+		if (info.enabled) {
+			ret = ComponentUtils.doDisableApplication(info);
+			if (ret) {
+				info.enabled = false;
+			}
+		} else {
+			ret = ComponentUtils.doEnableApplication(info);
+			if (ret) {
+				info.enabled = true;
+			}
+		}
+		if (ret) {
+			enableappAdapter.sort();
+			enableappAdapter.notifyDataSetChanged();
+		} else {
+			Toast.makeText(getActivity(), R.string.change_package_status_fail,
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	private void uninstallUserApp(final EnableappInfo info) {
+		new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.func2_title)
+				.setMessage(R.string.data_app_uninstall)
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								if (ApkUtils
+										.uninstallApk(info.info.packageName)) {
+									enableappAdapter.deleteItem(info);
+								} else {
+									Toast.makeText(getActivity(),
+											R.string.cannot_uninstall_package,
+											Toast.LENGTH_LONG).show();
+								}
+
+							}
+						}).setNegativeButton(R.string.cancel, null).show();
 	}
 
 	private void doStartLoad() {
@@ -188,7 +189,6 @@ public class EnableappFragment extends BaseFragment implements
 
 	@Override
 	public boolean onQueryTextSubmit(String query) {
-
 		return false;
 	}
 
@@ -204,6 +204,12 @@ public class EnableappFragment extends BaseFragment implements
 	protected void initLogic() {
 		doStartLoad();
 
+	}
+
+	@Override
+	protected void initEvents() {
+		lvEnableApp.setOnItemLongClickListener(this);
+		loader.registerListener(0, this);
 	}
 
 }

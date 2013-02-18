@@ -47,6 +47,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 
 	BackupLoader loader = null;
 	MenuItem itemRefresh;
+	MenuItem itemSearch;
 
 	MutaxReceiver receiver;
 
@@ -81,20 +82,13 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		dataappAdapter = new DataappAdapter(getActivity(), listDataappAll,
 				hSelectApp, 1);
 		lvData.setAdapter(dataappAdapter);
-
 		barData.setCheckBoxVisible(true);
-
-		barData.getButton1().setOnClickListener(this);
-		barData.getButton2().setOnClickListener(this);
-		barData.getCheckBox().setOnClickListener(this);
-
 		loader = new BackupLoader(getActivity());
-		loader.registerListener(0, this);
-
 		receiver = new MutaxReceiver(Actions.ACTION_BACKUP,
 				Actions.ACTION_BACKUP_PROGRESS,
 				new String[] { Actions.ACTION_RESTORE });
-		receiver.setOnReceiveMessage(this);
+
+
 	}
 
 	@Override
@@ -122,7 +116,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
 				R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -134,7 +128,6 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 				R.string.refresh);
 		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
 		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
 	}
 
 	@Override
@@ -295,5 +288,15 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	public void onMutaxMessage(boolean operating) {
 		setOtherProcState(operating);
 
+	}
+
+	@Override
+	protected void initEvents() {
+		barData.getButton1().setOnClickListener(this);
+		barData.getButton2().setOnClickListener(this);
+		barData.getCheckBox().setOnClickListener(this);
+		loader.registerListener(0, this);
+		receiver.setOnReceiveMessage(this);
+		
 	}
 }

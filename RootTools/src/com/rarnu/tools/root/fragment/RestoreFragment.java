@@ -54,6 +54,7 @@ public class RestoreFragment extends BaseFragment implements
 
 	RestoreLoader loader = null;
 	MenuItem itemRefresh;
+	MenuItem itemSearch;
 
 	MutaxReceiver receiver;
 
@@ -96,27 +97,16 @@ public class RestoreFragment extends BaseFragment implements
 				.findViewById(R.id.progressBackData);
 		lvBackData = (ListView) innerView.findViewById(R.id.lvBackData);
 		tvEmptyHint = (TextView) innerView.findViewById(R.id.tvEmptyHint);
-
 		tvEmptyHint.setText(Html.fromHtml(getString(R.string.restore_empty)));
-
 		backDataappAdapter = new DataappAdapter(getActivity(),
 				listBackDataappAll, hSelectData, 2);
 		lvBackData.setAdapter(backDataappAdapter);
-
 		barBackData.setCheckBoxVisible(true);
-
-		lvBackData.setOnItemLongClickListener(this);
-		barBackData.getButton1().setOnClickListener(this);
-		barBackData.getButton2().setOnClickListener(this);
-		barBackData.getCheckBox().setOnClickListener(this);
-
 		loader = new RestoreLoader(getActivity());
-		loader.registerListener(0, this);
-
 		receiver = new MutaxReceiver(Actions.ACTION_RESTORE,
 				Actions.ACTION_RESTORE_PROGRESS,
 				new String[] { Actions.ACTION_BACKUP });
-		receiver.setOnReceiveMessage(this);
+		
 	}
 
 	@Override
@@ -131,7 +121,7 @@ public class RestoreFragment extends BaseFragment implements
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
 				R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -189,37 +179,34 @@ public class RestoreFragment extends BaseFragment implements
 						}).setNegativeButton(R.string.cancel, null).show();
 
 	}
+	
+	final Handler hDeleteBackup = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				DataappInfo item = (DataappInfo) msg.obj;
+				listBackDataappAll.remove(item);
+				backDataappAdapter.deleteItem(item);
+				progressBackData.setVisibility(View.GONE);
+				lvBackData.setEnabled(true);
+			}
+			super.handleMessage(msg);
+		}
+	};
 
 	private void doDeleteBackupT(final DataappInfo item) {
 		lvBackData.setEnabled(false);
 		progressBackData.setAppName(getString(R.string.deleting));
 		progressBackData.setVisibility(View.VISIBLE);
-
 		LogApi.logDeleteData();
-
-		final Handler h = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					listBackDataappAll.remove(item);
-					backDataappAdapter.deleteItem(item);
-
-					progressBackData.setVisibility(View.GONE);
-					lvBackData.setEnabled(true);
-				}
-				super.handleMessage(msg);
-			}
-
-		};
-
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				ApkUtils.deleteBackupData(item.info.packageName);
-				h.sendEmptyMessage(1);
-
+				Message msg = new Message();
+				msg.what = 1;
+				msg.obj = item;
+				hDeleteBackup.sendMessage(msg);
 			}
 		}).start();
 	}
@@ -308,12 +295,10 @@ public class RestoreFragment extends BaseFragment implements
 	}
 
 	private void doStartLoad() {
-
 		barBackData.setVisibility(View.GONE);
 		progressBackData.setAppName(getString(R.string.loading));
 		progressBackData.setProgress("");
 		progressBackData.setVisibility(View.VISIBLE);
-
 		loader.startLoading();
 	}
 
@@ -366,8 +351,17 @@ public class RestoreFragment extends BaseFragment implements
 
 	@Override
 	public void onMutaxMessage(boolean operating) {
-		// Log.e(getClass().getName(), operating ? "TRUE" : "FALSE");
 		setOtherProcState(operating);
 
+	}
+
+	@Override
+	protected void initEvents() {
+		lvBackData.setOnItemLongClickListener(this);
+		barBackData.getButton1().setOnClickListener(this);
+		barBackData.getButton2().setOnClickListener(this);
+		barBackData.getCheckBox().setOnClickListener(this);
+		loader.registerListener(0, this);
+		receiver.setOnReceiveMessage(this);
 	}
 }

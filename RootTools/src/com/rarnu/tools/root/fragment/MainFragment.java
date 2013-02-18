@@ -53,63 +53,48 @@ public class MainFragment extends PreferenceFragment implements
 		prefComponent = (PreferenceEx) findPreference(getString(R.string.id_component));
 		prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
 		prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
-
 		prefBackup = (PreferenceEx) findPreference(getString(R.string.id_backup));
 		prefRestore = (PreferenceEx) findPreference(getString(R.string.id_restore));
-
 		prefCleanMemory = (PreferenceEx) findPreference(getString(R.string.id_cleanmemory));
 		prefCleanCache = (PreferenceEx) findPreference(getString(R.string.id_cleancache));
 		prefCleanDalvik = (PreferenceEx) findPreference(getString(R.string.id_cleandalvik));
-
 		prefHosts = (PreferenceEx) findPreference(getString(R.string.id_hosts));
 		prefScanMedia = (PreferenceEx) findPreference(getString(R.string.id_scanmedia));
 		prefNetworkState = (PreferenceEx) findPreference(getString(R.string.id_network));
 		prefReboot = (PreferenceEx) findPreference(getString(R.string.id_reboot));
-
 		prefFeedback = (PreferenceEx) findPreference(getString(R.string.id_feedback));
 		prefRecommand = (PreferenceEx) findPreference(getString(R.string.id_recommand));
 		prefAbout = (PreferenceEx) findPreference(getString(R.string.id_about));
-
 		prefSettings = (PreferenceEx) findPreference(getString(R.string.id_settings));
-
 	}
 
 	private void initEvents() {
-
 		prefSysApp.setOnPreferenceClickListener(this);
 		prefSysAppEnabled.setOnPreferenceClickListener(this);
 		prefComponent.setOnPreferenceClickListener(this);
 		prefRoot.setOnPreferenceClickListener(this);
 		prefHtcRom.setOnPreferenceClickListener(this);
-
 		prefBackup.setOnPreferenceClickListener(this);
 		prefRestore.setOnPreferenceClickListener(this);
-
 		prefCleanMemory.setOnPreferenceClickListener(this);
 		prefCleanCache.setOnPreferenceClickListener(this);
 		prefCleanDalvik.setOnPreferenceClickListener(this);
-
 		prefHosts.setOnPreferenceClickListener(this);
 		prefScanMedia.setOnPreferenceClickListener(this);
 		prefNetworkState.setOnPreferenceClickListener(this);
 		prefReboot.setOnPreferenceClickListener(this);
-
 		prefFeedback.setOnPreferenceClickListener(this);
 		prefRecommand.setOnPreferenceClickListener(this);
 		prefAbout.setOnPreferenceClickListener(this);
-
 		prefSettings.setOnPreferenceClickListener(this);
-
 	}
 
 	public void showFunctionalEnabledTags() {
-
 		boolean isRooted = RootUtils.hasSu();
 		boolean isWrongRooted = RootUtils.isWrongRoot();
 		if (isWrongRooted) {
 			isRooted = false;
 		}
-
 		prefSysApp.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_BANNED);
 		prefSysAppEnabled.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
@@ -134,13 +119,11 @@ public class MainFragment extends PreferenceFragment implements
 				: PreferenceEx.STATE_BANNED);
 		prefReboot.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_BANNED);
-
 		prefScanMedia.setStatus(PreferenceEx.STATE_NORMAL);
 		prefNetworkState.setStatus(PreferenceEx.STATE_NORMAL);
 		prefFeedback.setStatus(PreferenceEx.STATE_NORMAL);
 		prefRecommand.setStatus(PreferenceEx.STATE_NORMAL);
 		prefAbout.setStatus(PreferenceEx.STATE_NORMAL);
-
 		if (isRooted) {
 			showBusyboxTag();
 		}
@@ -148,7 +131,6 @@ public class MainFragment extends PreferenceFragment implements
 
 	private void showBusyboxTag() {
 		boolean ready = BusyboxUtils.isSuBusyboxReady();
-
 		prefSysApp.setStatus(ready ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_WARNING);
 		prefSysAppEnabled.setStatus(ready ? PreferenceEx.STATE_NORMAL

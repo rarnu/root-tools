@@ -19,14 +19,11 @@ public class IntroFragment extends BaseFragment {
 		settings.setAllowFileAccess(true);
 		settings.setBuiltInZoomControls(false);
 		settings.setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
-
 		wvHelp.setVerticalScrollBarEnabled(false);
 		wvHelp.setHorizontalScrollBarEnabled(false);
 		wvHelp.setFocusable(false);
 		wvHelp.setFocusableInTouchMode(false);
-
 		wvHelp.post(new Runnable() {
-
 			@Override
 			public void run() {
 				wvHelp.loadUrl("file:///android_asset/help.html");
@@ -63,6 +60,11 @@ public class IntroFragment extends BaseFragment {
 	@Override
 	protected void initLogic() {
 		showHelp();
+		
+	}
+
+	@Override
+	protected void initEvents() {
 		
 	}
 

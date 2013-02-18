@@ -33,6 +33,7 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 	HtcRomAdapter adapter = null;
 
 	MutaxReceiver receiver;
+	MenuItem itemClean;
 
 	@Override
 	protected int getBarTitle() {
@@ -61,13 +62,11 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 		lstRomCleaner = (ListView) innerView.findViewById(R.id.lstRomCleaner);
 		progressHtcRom = (DataProgressBar) innerView
 				.findViewById(R.id.progressHtcRom);
-
 		list = new ArrayList<HtcRomInfo>();
 		adapter = new HtcRomAdapter(getActivity(), list);
 		lstRomCleaner.setAdapter(adapter);
-
 		receiver = new MutaxReceiver(Actions.ACTION_CLEANING_HTC, null, null);
-		receiver.setOnReceiveMessage(this);
+		
 	}
 
 	@Override
@@ -77,7 +76,7 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemClean = menu.add(0, MenuItemIds.MENU_CLEAN, 99,
+		itemClean = menu.add(0, MenuItemIds.MENU_CLEAN, 99,
 				R.string.clean);
 		itemClean.setIcon(android.R.drawable.ic_menu_delete);
 		itemClean.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -173,71 +172,29 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 
 	@Override
 	protected void initLogic() {
-
 		list.clear();
-		
-		HtcRomInfo infoCustom = new HtcRomInfo();
-		infoCustom.title = getString(R.string.itm_custom);
-		infoCustom.desc = getString(R.string.itmdesc_custom);
-		list.add(infoCustom);
-
-		HtcRomInfo infoCar = new HtcRomInfo();
-		infoCar.title = getString(R.string.itm_car);
-		infoCar.desc = getString(R.string.itmdesc_car);
-		list.add(infoCar);
-
-		HtcRomInfo infoFacebook = new HtcRomInfo();
-		infoFacebook.title = getString(R.string.itm_facebook);
-		infoFacebook.desc = getString(R.string.itmdesc_facebook);
-		list.add(infoFacebook);
-
-		HtcRomInfo infoTwitter = new HtcRomInfo();
-		infoTwitter.title = getString(R.string.itm_twitter);
-		infoTwitter.desc = getString(R.string.itmdesc_twitter);
-		list.add(infoTwitter);
-
-		HtcRomInfo infoDropbox = new HtcRomInfo();
-		infoDropbox.title = getString(R.string.itm_dropbox);
-		infoDropbox.desc = getString(R.string.itmdesc_dropbox);
-		list.add(infoDropbox);
-
-		HtcRomInfo infoSkydrive = new HtcRomInfo();
-		infoSkydrive.title = getString(R.string.itm_skydrive);
-		infoSkydrive.desc = getString(R.string.itmdesc_skydrive);
-		list.add(infoSkydrive);
-
-		HtcRomInfo infoLaputa = new HtcRomInfo();
-		infoLaputa.title = getString(R.string.itm_laputa);
-		infoLaputa.desc = getString(R.string.itmdesc_laputa);
-		list.add(infoLaputa);
-
-		HtcRomInfo infoFlickr = new HtcRomInfo();
-		infoFlickr.title = getString(R.string.itm_flickr);
-		infoFlickr.desc = getString(R.string.itmdesc_flickr);
-		list.add(infoFlickr);
-
-		HtcRomInfo infoFriendstream = new HtcRomInfo();
-		infoFriendstream.title = getString(R.string.itm_friendstream);
-		infoFriendstream.desc = getString(R.string.itmdesc_friendstream);
-		list.add(infoFriendstream);
-
-		HtcRomInfo infoGoogle = new HtcRomInfo();
-		infoGoogle.title = getString(R.string.itm_google);
-		infoGoogle.desc = getString(R.string.itmdesc_google);
-		list.add(infoGoogle);
-
-		HtcRomInfo info3rd = new HtcRomInfo();
-		info3rd.title = getString(R.string.itm_3rd);
-		info3rd.desc = getString(R.string.itmdesc_3rd);
-		list.add(info3rd);
-		
-		HtcRomInfo infoCm3rd = new HtcRomInfo();
-		infoCm3rd.title = getString(R.string.itm_cm3rd);
-		infoCm3rd.desc = getString(R.string.itmdesc_cm3rd);
-		list.add(infoCm3rd);
+		list.add(buildRomInfo(R.string.itm_custom, R.string.itmdesc_custom));
+		list.add(buildRomInfo(R.string.itm_car, R.string.itmdesc_car));
+		list.add(buildRomInfo(R.string.itm_facebook, R.string.itmdesc_facebook));
+		list.add(buildRomInfo(R.string.itm_twitter, R.string.itmdesc_twitter));
+		list.add(buildRomInfo(R.string.itm_dropbox, R.string.itmdesc_dropbox));
+		list.add(buildRomInfo(R.string.itm_skydrive, R.string.itmdesc_skydrive));
+		list.add(buildRomInfo(R.string.itm_laputa, R.string.itmdesc_laputa));
+		list.add(buildRomInfo(R.string.itm_flickr, R.string.itmdesc_flickr));
+		list.add(buildRomInfo(R.string.itm_friendstream, R.string.itmdesc_friendstream));
+		list.add(buildRomInfo(R.string.itm_google, R.string.itmdesc_google));
+		list.add(buildRomInfo(R.string.itm_3rd, R.string.itmdesc_3rd));
+		list.add(buildRomInfo(R.string.itm_cm3rd, R.string.itmdesc_cm3rd));
 
 		adapter.setNewList(list);
 		adapter.setCheckable(true);
+	}
+	
+	private HtcRomInfo buildRomInfo(int resTitle, int resDesc) {
+		HtcRomInfo info = new HtcRomInfo();
+		info.title = getString(resTitle);
+		info.desc = getString(resDesc);
+		return info;
 	}
 
 	@Override
@@ -259,6 +216,12 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 	@Override
 	public void onMutaxMessage(boolean operating) {
 
+	}
+
+	@Override
+	protected void initEvents() {
+		receiver.setOnReceiveMessage(this);
+		
 	}
 
 }

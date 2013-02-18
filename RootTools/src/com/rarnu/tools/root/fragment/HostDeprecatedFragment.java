@@ -73,7 +73,6 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 		progressDeprecated = (DataProgressBar) innerView
 				.findViewById(R.id.progressDeprecated);
 		tvTooBigHint = (TextView) innerView.findViewById(R.id.tvTooBigHint);
-
 		adapter = new HostsAdapter(getActivity(), lstDeprecated, hSelectHost,
 				false, false);
 		if (lvDeprecatedHosts != null) {
@@ -83,19 +82,16 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 			gvDeprecatedHosts.setAdapter(adapter);
 		}
 		loader = new HostsLoader(getActivity());
-		loader.registerListener(0, this);
 	}
 
 	@Override
 	protected void initLogic() {
 		doStartLoad();
-
 	}
 
 	private void doStartLoad() {
 		progressDeprecated.setAppName(getString(R.string.loading));
 		progressDeprecated.setVisibility(View.VISIBLE);
-
 		loader.startLoading();
 	}
 
@@ -109,7 +105,6 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 		itemScan = menu.add(0, MenuItemIds.MENU_SCAN, 99, R.string.scan);
 		itemScan.setIcon(android.R.drawable.ic_menu_manage);
 		itemScan.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
 		itemScan.setEnabled(lstDeprecated.size() != 0);
 	}
 
@@ -122,39 +117,38 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 		}
 		return true;
 	}
+	
+	final Handler hScanHosts = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+
+			if (msg.what == 1) {
+				progressDeprecated.setVisibility(View.GONE);
+				itemScan.setEnabled(true);
+				adapter.notifyDataSetChanged();
+
+				boolean ret = DIPairUtils.saveHosts(lstDeprecated);
+				if (ret) {
+					Toast.makeText(getActivity(), R.string.save_hosts_succ,
+							Toast.LENGTH_LONG).show();
+					getActivity().finish();
+				} else {
+					Toast.makeText(getActivity(),
+							R.string.save_hosts_error, Toast.LENGTH_LONG)
+							.show();
+				}
+			} else if (msg.what == 2) {
+				progressDeprecated.setProgress((String) msg.obj);
+			}
+			super.handleMessage(msg);
+		}
+	};
 
 	private void scanDeprecatedHostsT() {
 		LogApi.logCleanDeprecatedHosts();
 		progressDeprecated.setAppName(getString(R.string.testing));
 		progressDeprecated.setVisibility(View.VISIBLE);
 		itemScan.setEnabled(false);
-
-		final Handler h = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-
-				if (msg.what == 1) {
-					progressDeprecated.setVisibility(View.GONE);
-					itemScan.setEnabled(true);
-					adapter.notifyDataSetChanged();
-
-					boolean ret = DIPairUtils.saveHosts(lstDeprecated);
-					if (ret) {
-						Toast.makeText(getActivity(), R.string.save_hosts_succ,
-								Toast.LENGTH_LONG).show();
-						getActivity().finish();
-					} else {
-						Toast.makeText(getActivity(),
-								R.string.save_hosts_error, Toast.LENGTH_LONG)
-								.show();
-					}
-				} else if (msg.what == 2) {
-					progressDeprecated.setProgress((String) msg.obj);
-				}
-				super.handleMessage(msg);
-			}
-		};
-
 		new Thread(new Runnable() {
 
 			@Override
@@ -165,17 +159,15 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 					Message msg = new Message();
 					msg.what = 2;
 					msg.obj = lstDeprecated.get(i).ip;
-					h.sendMessage(msg);
-
+					hScanHosts.sendMessage(msg);
 					ping = PingUtils.ping(lstDeprecated.get(i).ip);
 					if (ping.equals("") || ping.equals("timeout")) {
 						lstDeprecated.remove(i);
 					}
 				}
-				h.sendEmptyMessage(1);
+				hScanHosts.sendEmptyMessage(1);
 			}
 		}).start();
-
 	}
 
 	@Override
@@ -191,6 +183,11 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 		if (itemScan != null) {
 			itemScan.setEnabled(data != null);
 		}
+	}
+
+	@Override
+	protected void initEvents() {
+		loader.registerListener(0, this);
 	}
 
 }

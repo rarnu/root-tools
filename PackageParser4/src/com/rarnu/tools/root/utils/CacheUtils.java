@@ -13,7 +13,6 @@ public class CacheUtils {
 	public static List<CacheInfo> getCacheList() {
 
 		List<CacheInfo> result = null;
-		// 4.0K ./com.android.providers.downloads/cache
 
 		CommandResult cmdResult = RootUtils.runCommand(
 				"busybox find /data/data/ -name \"cache\"", true);

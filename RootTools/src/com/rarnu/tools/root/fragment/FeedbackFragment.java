@@ -36,42 +36,38 @@ public class FeedbackFragment extends BaseFragment {
 		return true;
 	}
 
+	final Handler hSendFeedback = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				//
+				if (msg.arg1 != 0) {
+					// succ
+					Toast.makeText(getActivity(), R.string.send_feedback_succ,
+							Toast.LENGTH_LONG).show();
+					etFeedback.setText("");
+				} else {
+					// fail
+					Toast.makeText(getActivity(), R.string.send_feedback_fail,
+							Toast.LENGTH_LONG).show();
+				}
+				progressFeedback.setVisibility(View.GONE);
+				itemSend.setEnabled(true);
+				etFeedback.setEnabled(true);
+			}
+			super.handleMessage(msg);
+		}
+
+	};
+
 	private void doSendFeedbackT(final String comment) {
 		progressFeedback.setAppName(getString(R.string.sending));
 		progressFeedback.setVisibility(View.VISIBLE);
 		etFeedback.setEnabled(false);
 		itemSend.setEnabled(false);
 		LogApi.logUserFeedback();
-		final Handler h = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					//
-					if (msg.arg1 != 0) {
-						// succ
-						Toast.makeText(getActivity(),
-								R.string.send_feedback_succ, Toast.LENGTH_LONG)
-								.show();
-						etFeedback.setText("");
-
-					} else {
-						// fail
-						Toast.makeText(getActivity(),
-								R.string.send_feedback_fail, Toast.LENGTH_LONG)
-								.show();
-					}
-					progressFeedback.setVisibility(View.GONE);
-					itemSend.setEnabled(true);
-					etFeedback.setEnabled(true);
-				}
-				super.handleMessage(msg);
-			}
-
-		};
 
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				boolean ret = MobileApi.userFeedback(GlobalInstance.deviceId,
@@ -81,11 +77,9 @@ public class FeedbackFragment extends BaseFragment {
 				Message msg = new Message();
 				msg.what = 1;
 				msg.arg1 = (ret ? 1 : 0);
-				h.sendMessage(msg);
-
+				hSendFeedback.sendMessage(msg);
 			}
 		}).start();
-
 	}
 
 	@Override
@@ -116,12 +110,17 @@ public class FeedbackFragment extends BaseFragment {
 		itemSend = menu.add(0, MenuItemIds.MENU_SEND, 99, R.string.send);
 		itemSend.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		itemSend.setIcon(android.R.drawable.ic_menu_send);
-		
+
 	}
 
 	@Override
 	protected void initLogic() {
-		
+
+	}
+
+	@Override
+	protected void initEvents() {
+
 	}
 
 }

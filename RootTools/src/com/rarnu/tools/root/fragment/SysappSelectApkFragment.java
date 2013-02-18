@@ -41,6 +41,8 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 	ListView lvFiles;
 	TextView tvPath;
 	ProgressBar pbShowing;
+	MenuItem itemSearch;
+	MenuItem itemUp;
 
 	@Override
 	protected int getBarTitle() {
@@ -57,7 +59,6 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 		lvFiles = (ListView) innerView.findViewById(R.id.lvApk);
 		tvPath = (TextView) innerView.findViewById(R.id.tvPath);
 		pbShowing = (ProgressBar) innerView.findViewById(R.id.pbShowing);
-		lvFiles.setOnItemClickListener(this);
 
 	}
 
@@ -92,7 +93,6 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 	}
 
 	public void showDir(String dir) {
-
 		try {
 			File fDir = new File(dir);
 			if (fDir.exists()) {
@@ -123,30 +123,28 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 		}
 	}
 
+	final Handler hShowDir = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				lvFiles.setAdapter(adapter);
+				pbShowing.setVisibility(View.GONE);
+				lvFiles.setEnabled(true);
+			}
+			super.handleMessage(msg);
+		}
+	};
+
 	public void showDirT(final String dir) {
 		canExit = false;
 		pbShowing.setVisibility(View.VISIBLE);
 		tvPath.setText(dir);
 		lvFiles.setEnabled(false);
-
-		final Handler h = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					lvFiles.setAdapter(adapter);
-					pbShowing.setVisibility(View.GONE);
-					lvFiles.setEnabled(true);
-				}
-				super.handleMessage(msg);
-			}
-		};
-
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				showDir(dir);
-				h.sendEmptyMessage(1);
+				hShowDir.sendEmptyMessage(1);
 
 			}
 		}).start();
@@ -183,16 +181,14 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
-				R.string.search);
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		SearchView sv = new SearchView(getActivity());
 		sv.setOnQueryTextListener(this);
 		itemSearch.setActionView(sv);
 
-		MenuItem itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 99,
-				R.string.uplevel);
+		itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 99, R.string.uplevel);
 		itemUp.setIcon(android.R.drawable.ic_menu_upload);
 		itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
@@ -201,6 +197,11 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 	@Override
 	protected void initLogic() {
 		showDirT(currentDir);
+	}
+
+	@Override
+	protected void initEvents() {
+		lvFiles.setOnItemClickListener(this);
 	}
 
 }

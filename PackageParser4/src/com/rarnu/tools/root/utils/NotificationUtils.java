@@ -48,10 +48,6 @@ public class NotificationUtils {
 			final String action, final boolean canClose) {
 		Notification n = new Notification(icon, context.getString(title),
 				System.currentTimeMillis());
-
-		// n.contentView = new RemoteViews(context.getPackageName(),
-		// R.layout.item_notification);
-
 		if (canClose) {
 			n.defaults |= Notification.DEFAULT_SOUND;
 		}
@@ -72,13 +68,6 @@ public class NotificationUtils {
 
 		n.setLatestEventInfo(context, context.getString(title),
 				context.getString(desc), pMain);
-//		n.contentIntent = pMain;
-//
-//		n.contentView.setImageViewResource(R.id.ivNotifyIcon, icon);
-//		n.contentView.setTextViewText(R.id.tvNotifyTitle,
-//				context.getString(title));
-//		n.contentView.setTextViewText(R.id.tvNotifyText,
-//				context.getString(desc));
 		return n;
 	}
 

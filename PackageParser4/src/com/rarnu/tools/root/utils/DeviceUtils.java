@@ -12,11 +12,6 @@ import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.DeviceInfo;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-/**
- * 设备操作基础工具类
- * 
- * @author rarnu
- */
 public class DeviceUtils {
 
 	private static final String BUILD_PROP = "/system/build.prop";
@@ -143,7 +138,8 @@ public class DeviceUtils {
 
 		String factory = getBuildProp(RO_PRODUCT_MANUFACTURER);
 		if (factory != null) {
-			if (factory.toLowerCase().contains("htc") && factory.toLowerCase().contains("archos")) {
+			if (factory.toLowerCase().contains("htc")
+					&& factory.toLowerCase().contains("archos")) {
 				result += 2;
 			}
 

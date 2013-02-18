@@ -124,4 +124,9 @@ public class HostEditFragment extends BasePopupFragment {
 
 	}
 
+	@Override
+	protected void initEvents() {
+		
+	}
+
 }

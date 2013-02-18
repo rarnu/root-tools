@@ -37,6 +37,9 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 	List<PackageInfo> listCompAll = new ArrayList<PackageInfo>();
 	CompPackageAdapter compAdapter = null;
 	CompLoader loader = null;
+	
+	MenuItem itemSearch;
+	MenuItem menuRefresh;
 
 	@Override
 	protected int getBarTitle() {
@@ -55,9 +58,9 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 		lvComp = (ListView) innerView.findViewById(R.id.lvComp);
 		compAdapter = new CompPackageAdapter(getActivity(), listCompAll);
 		lvComp.setAdapter(compAdapter);
-		lvComp.setOnItemClickListener(this);
 		loader = new CompLoader(getActivity());
-		loader.registerListener(0, this);
+		
+		
 	}
 
 	@Override
@@ -78,7 +81,7 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
 				R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -86,7 +89,7 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 		sv.setOnQueryTextListener(this);
 		itemSearch.setActionView(sv);
 
-		MenuItem menuRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99,
+		menuRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99,
 				R.string.refresh);
 		menuRefresh.setIcon(android.R.drawable.ic_menu_revert);
 		menuRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -145,6 +148,12 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 			compAdapter.getFilter().filter(newText);
 		}
 		return false;
+	}
+
+	@Override
+	protected void initEvents() {
+		lvComp.setOnItemClickListener(this);
+		loader.registerListener(0, this);
 	}
 
 }

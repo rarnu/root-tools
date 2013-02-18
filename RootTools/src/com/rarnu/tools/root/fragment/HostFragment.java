@@ -46,7 +46,9 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 	HostsAdapter hostsAdapter = null;
 
 	HostsLoader loader = null;
-	MenuItem itemAdd = null;
+	MenuItem itemAdd;
+	MenuItem itemSearch;
+	MenuItem itemRefresh;
 
 	Handler hSelectHost = new Handler() {
 		@Override
@@ -77,15 +79,10 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		lvHosts = (ListView) innerView.findViewById(R.id.lvHosts);
 		tvTooBigHint = (TextView) innerView.findViewById(R.id.tvTooBigHint);
 
-		barHosts.getButton1().setOnClickListener(this);
-		barHosts.getButton2().setOnClickListener(this);
-		barHosts.getCheckBox().setOnClickListener(this);
-
 		hostsAdapter = new HostsAdapter(getActivity(), listHostsAll,
 				hSelectHost, true, true);
 		lvHosts.setAdapter(hostsAdapter);
 		loader = new HostsLoader(getActivity());
-		loader.registerListener(0, this);
 
 	}
 
@@ -108,8 +105,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
-				R.string.search);
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		SearchView sv = new SearchView(getActivity());
@@ -119,14 +115,12 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
 		itemAdd.setIcon(android.R.drawable.ic_menu_add);
 		itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
 		itemAdd.setEnabled(listHostsAll.size() != 0);
 
-		MenuItem itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100,
+		itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100,
 				R.string.refresh);
 		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
 		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
 	}
 
 	@Override
@@ -197,7 +191,6 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		} catch (Exception e) {
 
 		}
-
 	}
 
 	private int getHostSelectedCount(List<HostRecordInfo> list) {
@@ -221,41 +214,35 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		h.sendEmptyMessage(1);
 	}
 
+	final Handler hDeleteHosts = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				if (msg.arg1 == 0) {
+					doStartLoad();
+					Toast.makeText(getActivity(), R.string.save_hosts_error,
+							Toast.LENGTH_LONG).show();
+				}
+				lvHosts.setEnabled(true);
+				@SuppressWarnings("unchecked")
+				List<HostRecordInfo> deletedHosts = (List<HostRecordInfo>) msg.obj;
+				hostsAdapter.deleteItems(deletedHosts);
+				progressHosts.setVisibility(View.GONE);
+
+			}
+			super.handleMessage(msg);
+		}
+	};
+
 	private void doDeleteHosts() {
-		// delete hosts
 		lvHosts.setEnabled(false);
 		barHosts.setVisibility(View.GONE);
 		progressHosts.setAppName(getString(R.string.deleting));
 		progressHosts.setVisibility(View.VISIBLE);
-
 		LogApi.logDeleteHosts();
-
 		final List<HostRecordInfo> deletedHosts = new ArrayList<HostRecordInfo>();
 
-		final Handler h = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					if (msg.arg1 == 0) {
-						doStartLoad();
-						Toast.makeText(getActivity(),
-								R.string.save_hosts_error, Toast.LENGTH_LONG)
-								.show();
-					}
-					lvHosts.setEnabled(true);
-					hostsAdapter.deleteItems(deletedHosts);
-
-					progressHosts.setVisibility(View.GONE);
-
-				}
-				super.handleMessage(msg);
-			}
-
-		};
-
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				int count = listHostsAll.size();
@@ -269,44 +256,39 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 				Message msg = new Message();
 				msg.what = 1;
 				msg.arg1 = (ret ? 1 : 0);
-				h.sendMessage(msg);
-
+				msg.obj = deletedHosts;
+				hDeleteHosts.sendMessage(msg);
 			}
 		}).start();
 	}
+
+	final Handler hMergeHosts = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				if (msg.arg1 == 0) {
+					doStartLoad();
+					Toast.makeText(getActivity(), R.string.save_hosts_error,
+							Toast.LENGTH_LONG).show();
+				}
+				lvHosts.setEnabled(true);
+				hostsAdapter.notifyDataSetChanged();
+				progressHosts.setVisibility(View.GONE);
+			}
+			super.handleMessage(msg);
+		}
+
+	};
 
 	private void doMergeHosts(final String[] hosts) {
 		if (hosts == null || hosts.length == 0) {
 			return;
 		}
-
 		lvHosts.setEnabled(false);
 		barHosts.setVisibility(View.GONE);
 		progressHosts.setAppName(getString(R.string.adding));
 		progressHosts.setVisibility(View.VISIBLE);
-
 		LogApi.logAddHosts();
-
-		final Handler h = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					if (msg.arg1 == 0) {
-						doStartLoad();
-						Toast.makeText(getActivity(),
-								R.string.save_hosts_error, Toast.LENGTH_LONG)
-								.show();
-					}
-					lvHosts.setEnabled(true);
-					hostsAdapter.notifyDataSetChanged();
-					progressHosts.setVisibility(View.GONE);
-
-				}
-				super.handleMessage(msg);
-			}
-
-		};
 
 		new Thread(new Runnable() {
 
@@ -317,7 +299,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 				Message msg = new Message();
 				msg.what = 1;
 				msg.arg1 = (ret ? 1 : 0);
-				h.sendMessage(msg);
+				hMergeHosts.sendMessage(msg);
 
 			}
 		}).start();
@@ -329,7 +311,6 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 			return;
 		}
 		switch (requestCode) {
-
 		case RTConsts.REQCODE_HOST:
 			doMergeHosts(data.getStringArrayExtra("hosts"));
 			break;
@@ -339,7 +320,6 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 
 	@Override
 	public boolean onQueryTextSubmit(String query) {
-
 		return false;
 	}
 
@@ -349,6 +329,14 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 			hostsAdapter.getFilter().filter(newText);
 		}
 		return true;
+	}
+
+	@Override
+	protected void initEvents() {
+		barHosts.getButton1().setOnClickListener(this);
+		barHosts.getButton2().setOnClickListener(this);
+		barHosts.getCheckBox().setOnClickListener(this);
+		loader.registerListener(0, this);
 	}
 
 }

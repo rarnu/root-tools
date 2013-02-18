@@ -49,7 +49,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 
 	private int getSystemFitable() {
 
-		fitable = DeviceUtils.getFitable(GlobalInstance.metric);
+		fitable = DeviceUtils.getFitable(UIUtils.getDM());
 		if (fitable < 1) {
 			fitable = 1;
 		}
@@ -71,20 +71,16 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 
 	@Override
 	protected void initComponents() {
-
 		tvAppVersion = (TextView) innerView.findViewById(R.id.tvAppVersion);
 		tvDebug = (TextView) innerView.findViewById(R.id.tvDebug);
 		lstAbout = (BlockListView) innerView.findViewById(R.id.lstAbout);
 		lstEoe = (BlockListView) innerView.findViewById(R.id.lstEoe);
 		lstAbout.setItemHeight(UIUtils.dipToPx(56));
 		lstEoe.setItemHeight(UIUtils.dipToPx(64));
-		lstAbout.setOnItemClickListener(this);
-		lstEoe.setOnItemClickListener(this);
-
+		
 		list = new ArrayList<AboutInfo>();
 		adapter = new AboutAdapter(getActivity(), list);
 		lstAbout.setAdapter(adapter);
-
 		listEoe = new ArrayList<Object>();
 		listEoe.add(new Object());
 		adapterEoe = new PartnerAdapter(getActivity(), listEoe);
@@ -109,24 +105,20 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 		fitableClick = 0;
 
 		list.clear();
-		AboutInfo infoUpdate = new AboutInfo();
-		infoUpdate.title = getString(R.string.check_update);
-		infoUpdate.fitable = -1;
-		list.add(infoUpdate);
-
-		AboutInfo infoHelp = new AboutInfo();
-		infoHelp.title = getString(R.string.how_to_use);
-		infoHelp.fitable = -1;
-		list.add(infoHelp);
-
-		AboutInfo infoFitable = new AboutInfo();
-		infoFitable.title = getString(R.string.system_fitable);
-		infoFitable.fitable = getSystemFitable();
-		list.add(infoFitable);
+		list.add(buildAboutInfo(R.string.check_update, -1));
+		list.add(buildAboutInfo(R.string.how_to_use, -1));
+		list.add(buildAboutInfo(R.string.system_fitable, getSystemFitable()));
 
 		adapter.setNewList(list);
 		lstAbout.resize();
 		lstEoe.resize();
+	}
+	
+	private AboutInfo buildAboutInfo(int resTitle, int fitable) {
+		AboutInfo info = new AboutInfo();
+		info.title = getString(resTitle);
+		info.fitable = fitable;
+		return info;
 	}
 
 	@Override
@@ -159,5 +151,12 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 				break;
 			}
 		}
+	}
+
+	@Override
+	protected void initEvents() {
+		lstAbout.setOnItemClickListener(this);
+		lstEoe.setOnItemClickListener(this);
+		
 	}
 }

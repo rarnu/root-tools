@@ -3,7 +3,6 @@ package com.rarnu.tools.root;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.NetworkInfo;
-import android.util.DisplayMetrics;
 
 import com.rarnu.tools.root.api.UpdateInfo;
 import com.rarnu.tools.root.common.MemProcessInfo;
@@ -14,14 +13,9 @@ public class GlobalInstance {
 	public static boolean DEBUG = false;
 	
 	public static boolean dualPane = false;
-	public static float density = 0;
-	public static DisplayMetrics metric = new DisplayMetrics();
 	public static PackageManager pm = null;
 	
 	public static int currentFragment = 0;
-	
-	// wechat
-	public static final String WEIXIN_APP_ID = "wxe9bd2c3ef21f7122";
 
 	// network
 	public static boolean loadingNetwork = false;

@@ -81,29 +81,15 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 		prefReinstallApk = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_reinstall_apk));
 		prefKillProcessBeforeClean = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_kill_process_before_clean));
 
-		prefAllowDeleteLevel0.setOnCheckboxClickListener(this);
-		prefAlsoDeleteData.setOnCheckboxClickListener(this);
-		prefBackupBeforeDelete.setOnCheckboxClickListener(this);
-		prefOverrideBackuped.setOnCheckboxClickListener(this);
-		prefReinstallApk.setOnCheckboxClickListener(this);
-		prefKillProcessBeforeClean.setOnCheckboxClickListener(this);
-
 		prefKillIgnoreList = (PreferenceEx) findPreference(getString(R.string.id_kill_ignore_list));
 		prefNameServer = (PreferenceEx) findPreference(getString(R.string.id_name_server));
 		prefManualEditHosts = (PreferenceEx) findPreference(getString(R.string.id_manual_edit_hosts));
 		prefCleanDeprecated = (PreferenceEx) findPreference(getString(R.string.id_clean_deprecated_hosts));
 		prefDeleteAllBackupData = (PreferenceEx) findPreference(getString(R.string.id_delete_all_backup_data));
 		prefCustomAppClean = (PreferenceEx) findPreference(getString(R.string.id_custom_app_clean));
-		
-		prefKillIgnoreList.setOnPreferenceClickListener(this);
-		prefNameServer.setOnPreferenceClickListener(this);
-		prefManualEditHosts.setOnPreferenceClickListener(this);
-		prefCleanDeprecated.setOnPreferenceClickListener(this);
-		prefDeleteAllBackupData.setOnPreferenceClickListener(this);
-		prefCustomAppClean.setOnPreferenceClickListener(this);
 
 		receiver = new MutaxReceiver(Actions.ACTION_CLEANING_BACKUP, null, null);
-		receiver.setOnReceiveMessage(this);
+
 	}
 
 	@Override
@@ -247,7 +233,8 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 			doDeleteAllBackupedData();
 		} else if (key.equals(getString(R.string.id_custom_app_clean))) {
 			// manage custom app clean
-			Intent inCustomClean = new Intent(getActivity(), CustomCleanManagerActivity.class);
+			Intent inCustomClean = new Intent(getActivity(),
+					CustomCleanManagerActivity.class);
 			startActivity(inCustomClean);
 		}
 		return true;
@@ -277,6 +264,23 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 							}
 						}).setNegativeButton(R.string.cancel, null).show();
 
+	}
+
+	@Override
+	protected void initEvents() {
+		prefAllowDeleteLevel0.setOnCheckboxClickListener(this);
+		prefAlsoDeleteData.setOnCheckboxClickListener(this);
+		prefBackupBeforeDelete.setOnCheckboxClickListener(this);
+		prefOverrideBackuped.setOnCheckboxClickListener(this);
+		prefReinstallApk.setOnCheckboxClickListener(this);
+		prefKillProcessBeforeClean.setOnCheckboxClickListener(this);
+		prefKillIgnoreList.setOnPreferenceClickListener(this);
+		prefNameServer.setOnPreferenceClickListener(this);
+		prefManualEditHosts.setOnPreferenceClickListener(this);
+		prefCleanDeprecated.setOnPreferenceClickListener(this);
+		prefDeleteAllBackupData.setOnPreferenceClickListener(this);
+		prefCustomAppClean.setOnPreferenceClickListener(this);
+		receiver.setOnReceiveMessage(this);
 	}
 
 }

@@ -13,7 +13,6 @@ import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -49,6 +48,9 @@ public class SysappFragment extends BaseFragment implements
 	SysappAdapter sysappAdapter = null;
 
 	SysappLoader loader = null;
+	MenuItem itemSearch;
+	MenuItem itemAdd;
+	MenuItem itemRefresh;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -123,68 +125,62 @@ public class SysappFragment extends BaseFragment implements
 			}
 			break;
 		case RTConsts.REQCODE_SYSAPP_SELECT:
-			final String apkPath = data.getStringExtra("path");
-			File apk = new File(apkPath);
-			if (!apk.exists()) {
-				return;
-			}
-			if (!apkPath.equals("")) {
-
-				new AlertDialog.Builder(getActivity())
-						.setTitle(R.string.hint)
-						.setMessage(
-								String.format(
-										getResources().getString(
-												R.string.install_apk),
-										apk.getName()))
-						.setPositiveButton(R.string.ok,
-								new DialogInterface.OnClickListener() {
-
-									@Override
-									public void onClick(DialogInterface dialog,
-											int which) {
-										doInstallSystemApp(apkPath);
-
-									}
-								}).setNegativeButton(R.string.cancel, null)
-						.show();
-
-			}
+			String apkPath = data.getStringExtra("path");
+			confirmInstall(apkPath);
 			break;
 		}
 	}
 
+	private void confirmInstall(final String apkPath) {
+		File apk = new File(apkPath);
+		if (!apk.exists()) {
+			return;
+		}
+		if (!apkPath.equals("")) {
+			new AlertDialog.Builder(getActivity())
+					.setTitle(R.string.hint)
+					.setMessage(
+							String.format(
+									getResources().getString(
+											R.string.install_apk),
+									apk.getName()))
+					.setPositiveButton(R.string.ok,
+							new DialogInterface.OnClickListener() {
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									doInstallSystemApp(apkPath);
+								}
+							}).setNegativeButton(R.string.cancel, null).show();
+		}
+	}
+
+	final Handler hInstall = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				Toast.makeText(
+						getActivity(),
+						(msg.arg1 == 1 ? R.string.install_ok
+								: R.string.install_fail), Toast.LENGTH_LONG)
+						.show();
+				progressSysapp.setVisibility(View.GONE);
+				doStartLoad();
+			}
+			super.handleMessage(msg);
+		}
+	};
+
 	private void doInstallSystemApp(final String path) {
 		progressSysapp.setAppName(getString(R.string.installing));
 		progressSysapp.setVisibility(View.VISIBLE);
-
 		LogApi.logInstallSystemApp(path);
-
-		final Handler h = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					Toast.makeText(
-							getActivity(),
-							(msg.arg1 == 1 ? R.string.install_ok
-									: R.string.install_fail), Toast.LENGTH_LONG)
-							.show();
-					progressSysapp.setVisibility(View.GONE);
-					doStartLoad();
-				}
-				super.handleMessage(msg);
-			}
-
-		};
-
-		ApkUtils.installSystemApp(getActivity(), path, h);
+		ApkUtils.installSystemApp(getActivity(), path, hInstall);
 	}
 
 	@Override
 	public void onLoadComplete(Loader<List<SysappInfo>> loader,
 			List<SysappInfo> data) {
-		Log.e("SysappFragment", "onLoadComplete");
 		listSysappAll.clear();
 		listSysappAll.addAll(data);
 		sysappAdapter.setNewList(listSysappAll);
@@ -197,13 +193,9 @@ public class SysappFragment extends BaseFragment implements
 		progressSysapp = (DataProgressBar) innerView
 				.findViewById(R.id.progressSysapp);
 		lvSysApp = (ListView) innerView.findViewById(R.id.lvSysApp);
-		lvSysApp.setOnItemClickListener(this);
-
 		sysappAdapter = new SysappAdapter(getActivity(), listSysappAll);
 		lvSysApp.setAdapter(sysappAdapter);
-
 		loader = new SysappLoader(getActivity());
-		loader.registerListener(0, this);
 
 	}
 
@@ -214,19 +206,18 @@ public class SysappFragment extends BaseFragment implements
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
-				R.string.search);
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		SearchView sv = new SearchView(getActivity());
 		sv.setOnQueryTextListener(this);
 		itemSearch.setActionView(sv);
 
-		MenuItem itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
+		itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
 		itemAdd.setIcon(android.R.drawable.ic_menu_add);
 		itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-		MenuItem itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100,
+		itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100,
 				R.string.refresh);
 		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
 		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -235,9 +226,13 @@ public class SysappFragment extends BaseFragment implements
 
 	@Override
 	protected void initLogic() {
-		Log.e(getClass().getName(), "initLogic");
 		doStartLoad();
+	}
 
+	@Override
+	protected void initEvents() {
+		lvSysApp.setOnItemClickListener(this);
+		loader.registerListener(0, this);
 	}
 
 }

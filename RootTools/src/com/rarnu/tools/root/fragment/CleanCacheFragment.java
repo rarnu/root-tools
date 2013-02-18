@@ -46,6 +46,7 @@ public class CleanCacheFragment extends BaseFragment implements
 	CleanCacheLoader loader = null;
 
 	MenuItem menuRefresh, menuClean;
+	MenuItem itemSearch;
 
 	@Override
 	protected int getBarTitle() {
@@ -67,10 +68,8 @@ public class CleanCacheFragment extends BaseFragment implements
 
 		adapterCache = new CacheAdapter(getActivity(), listCacheAll);
 		lvCache.setAdapter(adapterCache);
-		lvCache.setOnItemClickListener(this);
-
 		loader = new CleanCacheLoader(getActivity());
-		loader.registerListener(0, this);
+
 	}
 
 	@Override
@@ -80,8 +79,7 @@ public class CleanCacheFragment extends BaseFragment implements
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
-				R.string.search);
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		SearchView sv = new SearchView(getActivity());
@@ -134,6 +132,22 @@ public class CleanCacheFragment extends BaseFragment implements
 		loader.startLoading();
 	}
 
+	private Handler hCleanCache = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				Toast.makeText(
+						getActivity(),
+						(msg.arg1 == 0 ? R.string.clean_all_cache_fail
+								: R.string.clean_all_cache_succ),
+						Toast.LENGTH_LONG).show();
+
+				doStartLoad();
+			}
+			super.handleMessage(msg);
+		}
+	};
+
 	private void doCleanCache() {
 		LogApi.logCleanCache();
 		if (menuClean != null) {
@@ -143,23 +157,6 @@ public class CleanCacheFragment extends BaseFragment implements
 		progressCache.setAppName(getString(R.string.cleaning_cache));
 		progressCache.setVisibility(View.VISIBLE);
 
-		final Handler h = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-
-					Toast.makeText(
-							getActivity(),
-							(msg.arg1 == 0 ? R.string.clean_all_cache_fail
-									: R.string.clean_all_cache_succ),
-							Toast.LENGTH_LONG).show();
-
-					doStartLoad();
-				}
-				super.handleMessage(msg);
-			}
-		};
-
 		new Thread(new Runnable() {
 
 			@Override
@@ -168,7 +165,7 @@ public class CleanCacheFragment extends BaseFragment implements
 				Message msg = new Message();
 				msg.what = 1;
 				msg.arg1 = (ret ? 1 : 0);
-				h.sendMessage(msg);
+				hCleanCache.sendMessage(msg);
 
 			}
 		}).start();
@@ -242,6 +239,12 @@ public class CleanCacheFragment extends BaseFragment implements
 							}
 						}).setNegativeButton(R.string.cancel, null).show();
 
+	}
+
+	@Override
+	protected void initEvents() {
+		lvCache.setOnItemClickListener(this);
+		loader.registerListener(0, this);
 	}
 
 }

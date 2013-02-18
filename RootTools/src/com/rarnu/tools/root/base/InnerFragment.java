@@ -33,7 +33,7 @@ public abstract class InnerFragment extends Fragment {
 		innerView = inflater
 				.inflate(getFragmentLayoutResId(), container, false);
 		initComponents();
-
+		initEvents();
 		return innerView;
 	}
 
@@ -48,6 +48,8 @@ public abstract class InnerFragment extends Fragment {
 	protected abstract int getBarTitleWithPath();
 
 	protected abstract void initComponents();
+	
+	protected abstract void initEvents();
 
 	protected abstract void initLogic();
 

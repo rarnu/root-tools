@@ -35,11 +35,6 @@ public class MemProcessFragment extends BaseDialogFragment implements
 		btnCancel = (Button) innerView.findViewById(R.id.btnCancel);
 		btnKill = (Button) innerView.findViewById(R.id.btnKill);
 		btnIgnore = (Button) innerView.findViewById(R.id.btnIgnore);
-
-		btnCancel.setOnClickListener(this);
-		btnKill.setOnClickListener(this);
-		btnIgnore.setOnClickListener(this);
-
 	}
 
 	@Override
@@ -81,24 +76,13 @@ public class MemProcessFragment extends BaseDialogFragment implements
 				GlobalInstance.currentMemoryProcess.RSS));
 		tvUserValue.setText(GlobalInstance.currentMemoryProcess.USER);
 
-		// tvWarning.setVisibility(GlobalInstance.currentMemoryProcess.USER.startsWith("app_")
-		// ? View.GONE : View.VISIBLE);
-
 	}
 
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnKill:
-			if (MemorySpecialList
-					.isExcludeLocked(GlobalInstance.currentMemoryProcess.NAME)) {
-				Toast.makeText(getActivity(), R.string.locked_app_kill,
-						Toast.LENGTH_LONG).show();
-				return;
-			}
-			LogApi.logKillProcess(GlobalInstance.currentMemoryProcess.NAME);
-			MemoryUtils.killProcess(GlobalInstance.currentMemoryProcess.PID);
-
+			killProc();
 			getActivity().setResult(Activity.RESULT_OK);
 			getActivity().finish();
 			break;
@@ -110,41 +94,63 @@ public class MemProcessFragment extends BaseDialogFragment implements
 			int inIgnore = MemorySpecialList
 					.inExcludeList(GlobalInstance.currentMemoryProcess.NAME);
 			if (inIgnore != -1) {
-				// remove ignore
-				if (MemorySpecialList
-						.isExcludeLocked(GlobalInstance.currentMemoryProcess.NAME)) {
-					Toast.makeText(getActivity(), R.string.locked_app_error,
-							Toast.LENGTH_LONG).show();
-				} else {
-					LogApi.logUnignoreProcess(GlobalInstance.currentMemoryProcess.NAME);
-					MemorySpecialList
-							.removeExclude(GlobalInstance.currentMemoryProcess.NAME);
-					if (MemorySpecialList.saveExclude()) {
-						Toast.makeText(getActivity(), R.string.added_ignore,
-								Toast.LENGTH_LONG).show();
-					} else {
-						Toast.makeText(getActivity(),
-								R.string.added_ignore_error, Toast.LENGTH_LONG)
-								.show();
-					}
-				}
+				removeIgnore();
 			} else {
-				// add ignore
-				LogApi.logIgnoreProcess(GlobalInstance.currentMemoryProcess.NAME);
-				MemorySpecialList
-						.addExclude(GlobalInstance.currentMemoryProcess.NAME);
-				if (MemorySpecialList.saveExclude()) {
-					Toast.makeText(getActivity(), R.string.added_ignore,
-							Toast.LENGTH_LONG).show();
-				} else {
-					Toast.makeText(getActivity(), R.string.added_ignore_error,
-							Toast.LENGTH_LONG).show();
-				}
+				addIgnore();
 			}
 			showIgnoreStatus();
 			break;
 		}
 
+	}
+
+	private void killProc() {
+		if (MemorySpecialList
+				.isExcludeLocked(GlobalInstance.currentMemoryProcess.NAME)) {
+			Toast.makeText(getActivity(), R.string.locked_app_kill,
+					Toast.LENGTH_LONG).show();
+			return;
+		}
+		LogApi.logKillProcess(GlobalInstance.currentMemoryProcess.NAME);
+		MemoryUtils.killProcess(GlobalInstance.currentMemoryProcess.PID);
+	}
+
+	private void addIgnore() {
+		LogApi.logIgnoreProcess(GlobalInstance.currentMemoryProcess.NAME);
+		MemorySpecialList.addExclude(GlobalInstance.currentMemoryProcess.NAME);
+		if (MemorySpecialList.saveExclude()) {
+			Toast.makeText(getActivity(), R.string.added_ignore,
+					Toast.LENGTH_LONG).show();
+		} else {
+			Toast.makeText(getActivity(), R.string.added_ignore_error,
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	private void removeIgnore() {
+		if (MemorySpecialList
+				.isExcludeLocked(GlobalInstance.currentMemoryProcess.NAME)) {
+			Toast.makeText(getActivity(), R.string.locked_app_error,
+					Toast.LENGTH_LONG).show();
+		} else {
+			LogApi.logUnignoreProcess(GlobalInstance.currentMemoryProcess.NAME);
+			MemorySpecialList
+					.removeExclude(GlobalInstance.currentMemoryProcess.NAME);
+			if (MemorySpecialList.saveExclude()) {
+				Toast.makeText(getActivity(), R.string.added_ignore,
+						Toast.LENGTH_LONG).show();
+			} else {
+				Toast.makeText(getActivity(), R.string.added_ignore_error,
+						Toast.LENGTH_LONG).show();
+			}
+		}
+	}
+
+	@Override
+	protected void initEvents() {
+		btnCancel.setOnClickListener(this);
+		btnKill.setOnClickListener(this);
+		btnIgnore.setOnClickListener(this);
 	}
 
 }

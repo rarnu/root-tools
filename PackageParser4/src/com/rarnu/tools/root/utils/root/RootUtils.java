@@ -94,10 +94,6 @@ public class RootUtils {
 		return info != null;
 	}
 
-	/**
-	 * 
-	 * @return |0:no root|1:find only su|2:find two|
-	 */
 	public static int hasRoot() {
 		boolean hasSU = findSU();
 		if (!hasSU) {
@@ -166,13 +162,6 @@ public class RootUtils {
 				if (stderr != null) {
 					stderr.close();
 				}
-				// if (process != null) {
-				// try {
-				// process.destroy();
-				// } catch (Throwable th) {
-				//
-				// }
-				// }
 			} catch (Exception e) {
 				ret.result = "";
 				ret.error = e.getMessage();

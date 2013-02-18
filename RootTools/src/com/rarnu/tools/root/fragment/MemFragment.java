@@ -47,6 +47,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	ProcessLoader loader = null;
 
 	MenuItem menuRefresh, menuClean;
+	MenuItem itemSearch;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
@@ -68,20 +69,13 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	protected void initComponents() {
 		progressMemory = (DataProgressBar) innerView
 				.findViewById(R.id.progressMemory);
-
 		tvProcessInfo = (TextView) innerView.findViewById(R.id.tvProcessInfo);
 		tvMemoryInfo = (TextView) innerView.findViewById(R.id.tvMemoryInfo);
 		lvMemory = (ListView) innerView.findViewById(R.id.lvMemory);
-
 		memProcessAdapter = new MemProcessAdapter(getActivity(),
 				listMemProcessAll);
 		lvMemory.setAdapter(memProcessAdapter);
-
-		lvMemory.setOnItemClickListener(this);
-
 		loader = new ProcessLoader(getActivity());
-		loader.registerListener(0, this);
-
 	}
 
 	private void doStartLoad() {
@@ -97,7 +91,6 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	@Override
 	protected void initLogic() {
 		doStartLoad();
-
 	}
 
 	@Override
@@ -107,8 +100,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
-				R.string.search);
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		SearchView sv = new SearchView(getActivity());
@@ -139,8 +131,27 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 		return true;
 	}
 
-	private void showMemoryInfo() {
+	final Handler hShowInfo = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				MemoryInfo info = (MemoryInfo) msg.obj;
+				if (info == null) {
+					tvMemoryInfo.setText(String.format(getResources()
+							.getString(R.string.memory_usage_fmt), 0, 0, 0, 0));
+				} else {
+					tvMemoryInfo.setText(String.format(getResources()
+							.getString(R.string.memory_usage_fmt), info.Total,
+							info.Free, info.Shared, info.Buffer));
+				}
+				progressMemory.setVisibility(View.GONE);
 
+			}
+			super.handleMessage(msg);
+		};
+	};
+
+	private void showMemoryInfo() {
 		try {
 			tvProcessInfo
 					.setText(String.format(
@@ -148,31 +159,8 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 									.getString(R.string.process_count_fmt),
 							(listMemProcessAll == null ? 0 : listMemProcessAll
 									.size())));
-
 			progressMemory.setAppName(getString(R.string.loading));
 			progressMemory.setVisibility(View.VISIBLE);
-
-			final Handler h = new Handler() {
-				@Override
-				public void handleMessage(Message msg) {
-					if (msg.what == 1) {
-						MemoryInfo info = (MemoryInfo) msg.obj;
-						if (info == null) {
-							tvMemoryInfo.setText(String.format(getResources()
-									.getString(R.string.memory_usage_fmt), 0,
-									0, 0, 0));
-						} else {
-							tvMemoryInfo.setText(String.format(getResources()
-									.getString(R.string.memory_usage_fmt),
-									info.Total, info.Free, info.Shared,
-									info.Buffer));
-						}
-						progressMemory.setVisibility(View.GONE);
-
-					}
-					super.handleMessage(msg);
-				};
-			};
 
 			new Thread(new Runnable() {
 				@Override
@@ -181,7 +169,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 					Message msg = new Message();
 					msg.what = 1;
 					msg.obj = info;
-					h.sendMessage(msg);
+					hShowInfo.sendMessage(msg);
 				}
 			}).start();
 		} catch (Exception e) {
@@ -198,8 +186,17 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 		}
 	}
 
-	private void doKillProcT() {
+	final Handler hKillProc = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				doDropCacheT();
+			}
+			super.handleMessage(msg);
+		}
+	};
 
+	private void doKillProcT() {
 		if (menuClean != null) {
 			menuClean.setEnabled(false);
 			menuRefresh.setEnabled(false);
@@ -207,19 +204,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 		lvMemory.setEnabled(false);
 		progressMemory.setAppName(getString(R.string.cleaning_memory));
 		progressMemory.setVisibility(View.VISIBLE);
-
-		final Handler h = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					doDropCacheT();
-				}
-				super.handleMessage(msg);
-			}
-		};
-
 		new Thread(new Runnable() {
-
 			@Override
 			public void run() {
 				if (listMemProcessAll != null && listMemProcessAll.size() != 0) {
@@ -233,12 +218,29 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 						}
 					}
 				}
-				h.sendEmptyMessage(1);
-
+				hKillProc.sendEmptyMessage(1);
 			}
 		}).start();
 
 	}
+
+	final Handler hDropCache = new Handler() {
+
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				if (menuClean != null) {
+					menuClean.setEnabled(true);
+					menuRefresh.setEnabled(true);
+				}
+				lvMemory.setEnabled(true);
+				progressMemory.setVisibility(View.GONE);
+
+				doStartLoad();
+			}
+			super.handleMessage(msg);
+		}
+	};
 
 	private void doDropCacheT() {
 
@@ -250,30 +252,12 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 		progressMemory.setAppName(getString(R.string.cleaning_memory));
 		progressMemory.setVisibility(View.VISIBLE);
 
-		final Handler h = new Handler() {
-
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					if (menuClean != null) {
-						menuClean.setEnabled(true);
-						menuRefresh.setEnabled(true);
-					}
-					lvMemory.setEnabled(true);
-					progressMemory.setVisibility(View.GONE);
-
-					doStartLoad();
-				}
-				super.handleMessage(msg);
-			}
-		};
-
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				MemoryUtils.dropCache();
-				h.sendEmptyMessage(1);
+				hDropCache.sendEmptyMessage(1);
 
 			}
 		}).start();
@@ -293,7 +277,6 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 					listMemProcessAll.size()));
 			showMemoryInfo();
 			break;
-
 		}
 	}
 
@@ -340,6 +323,12 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 			memProcessAdapter.getFilter().filter(newText);
 		}
 		return true;
+	}
+
+	@Override
+	protected void initEvents() {
+		lvMemory.setOnItemClickListener(this);
+		loader.registerListener(0, this);
 	}
 
 }

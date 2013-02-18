@@ -21,7 +21,6 @@ import com.rarnu.tools.root.utils.UIUtils;
 
 public class SplashActivity extends Activity {
 
-	// [region] life circle
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -51,10 +50,7 @@ public class SplashActivity extends Activity {
 
 		initDeviceInfo();
 		LogApi.logAppStart();
-
-		getWindowManager().getDefaultDisplay()
-				.getMetrics(GlobalInstance.metric);
-		GlobalInstance.density = GlobalInstance.metric.density;
+		
 		GlobalInstance.pm = getPackageManager();
 
 		DirHelper.makeDir();
@@ -78,15 +74,10 @@ public class SplashActivity extends Activity {
 		startActivity(inMain);
 	}
 
-	// [/region]
-
-	// [region] events
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
 		return true;
 	}
-
-	// [/region]
 
 	private void initDeviceInfo() {
 		GlobalInstance.deviceId = DeviceUtils.getDeviceUniqueId(this);

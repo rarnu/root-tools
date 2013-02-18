@@ -14,6 +14,7 @@ import org.apache.http.util.EntityUtils;
 
 public class HttpRequest {
 
+	// TODO: refact
 	public static String post(String host, List<BasicNameValuePair> params, String encoding) {
 		HttpPost httpPost = new HttpPost(host);
 		try {

@@ -14,6 +14,15 @@ public class UIUtils {
 
 	private static DisplayMetrics dm = null;
 
+	
+	public static DisplayMetrics getDM() {
+		return dm;
+	}
+	
+	public static float getDensity() {
+		return dm.density;
+	}
+	
 	public static void initDisplayMetrics(WindowManager wm) {
 		if (dm == null) {
 			dm = new DisplayMetrics();

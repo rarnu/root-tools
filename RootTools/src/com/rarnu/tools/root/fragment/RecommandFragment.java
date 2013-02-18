@@ -55,11 +55,7 @@ public class RecommandFragment extends BaseFragment implements
 				.findViewById(R.id.progressRecommand);
 		adapter = new RecommandAdapter(getActivity(), lstRecommand);
 		lvRecommand.setAdapter(adapter);
-
-		lvRecommand.setOnItemClickListener(this);
-
 		loader = new RecommandLoader(getActivity());
-		loader.registerListener(0, this);
 	}
 
 	@Override
@@ -100,6 +96,12 @@ public class RecommandFragment extends BaseFragment implements
 		RecommandInfo item = lstRecommand.get(position);
 		ApkUtils.gotoApp(getActivity(), item.packageName, item.mainActivity, item.downloadUrl);
 
+	}
+
+	@Override
+	protected void initEvents() {
+		lvRecommand.setOnItemClickListener(this);
+		loader.registerListener(0, this);
 	}
 
 }

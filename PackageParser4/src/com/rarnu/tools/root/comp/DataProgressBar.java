@@ -9,12 +9,9 @@ import com.rarnu.root.pp4.R;
 
 public class DataProgressBar extends RelativeLayout {
 
-	// [region] field define
 	TextView tvProgressApp;
 	TextView tvProgressCount;
-	// [/region]
 
-	// [region] constructor
 	public DataProgressBar(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init();
@@ -30,9 +27,6 @@ public class DataProgressBar extends RelativeLayout {
 		init();
 	}
 
-	// [/region]
-	
-	// [region] common
 	public void init() {
 		addView(inflate(getContext(), R.layout.dataapp_progress, null));
 		tvProgressApp = (TextView) findViewById(R.id.tvProgressApp);
@@ -47,5 +41,4 @@ public class DataProgressBar extends RelativeLayout {
 		tvProgressCount.setText(text);
 	}
 
-	// [/region]
 }

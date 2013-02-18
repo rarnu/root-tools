@@ -11,12 +11,9 @@ import com.rarnu.root.pp4.R;
 
 public class DataBar extends RelativeLayout {
 
-	// [region] field define
 	Button btn1, btn2;
 	CheckBox chkSelectAll;
-	// [/region]
-	
-	// [region] constructor
+
 	public DataBar(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
 		init();
@@ -32,9 +29,6 @@ public class DataBar extends RelativeLayout {
 		init();
 	}
 	
-	// [/region]
-	
-	// [region] common
 	public Button getButton1() {
 		return btn1;
 	}
@@ -65,5 +59,5 @@ public class DataBar extends RelativeLayout {
 		btn2 = (Button) findViewById(R.id.barButton2);
 		chkSelectAll = (CheckBox) findViewById(R.id.chkSelAll);
 	}
-	// [/region]
+
 }

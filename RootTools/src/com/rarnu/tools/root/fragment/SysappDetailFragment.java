@@ -43,9 +43,6 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	TextView tvSharedIdDetail;
 	TextView tvDataSizeDetail;
 
-	// [/region]
-
-	// [region] variable define
 	SysappInfo info = null;
 	PackageInfo pinfo = null;
 
@@ -67,7 +64,6 @@ public class SysappDetailFragment extends BasePopupFragment implements
 		} catch (NameNotFoundException e) {
 			pinfo = null;
 		}
-
 		if (pinfo == null) {
 			getActivity().finish();
 			return;
@@ -79,26 +75,20 @@ public class SysappDetailFragment extends BasePopupFragment implements
 		appVersion.setText(getResources().getString(R.string.version)
 				+ (pinfo == null ? getResources().getString(R.string.unknown)
 						: pinfo.versionName));
-
 		tvPathDetail.setText(info.info.sourceDir.replace("/system/app/", ""));
-
 		String odexPath = info.info.sourceDir.substring(0,
 				info.info.sourceDir.length() - 3)
 				+ "odex";
 		File fOdex = new File(odexPath);
 		tvOdexDetail.setText(fOdex.exists() ? odexPath.replace("/system/app/",
 				"") : getResources().getString(R.string.na));
-
 		tvFileSizeDetail.setText(ApkUtils.getAppSize(info.info.sourceDir)
 				+ " KB "
 				+ String.format("(%s)", fOdex.exists() ? "APK+ODEX" : "APK"));
-
 		tvDataPathDetail.setText(info.info.dataDir.replace("/data/data/", ""));
-
 		String dataSize = ApkUtils.getDataSize(info.info.dataDir);
 		tvDataSizeDetail.setText(dataSize.equals("") ? getResources()
 				.getString(R.string.unknown) : dataSize + " KB");
-
 		String sid = pinfo.sharedUserId;
 		if (sid == null) {
 			sid = "";
@@ -115,7 +105,6 @@ public class SysappDetailFragment extends BasePopupFragment implements
 				btnDelete.setEnabled(false);
 			}
 		}
-
 		btnAddToCleanList
 				.setText(CustomPackageUtils
 						.customPackageIndex(info.info.packageName) == -1 ? R.string.button_add_to_clean_list
@@ -126,79 +115,75 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.btnAddToCleanList:
-			if (CustomPackageUtils.customPackageIndex(info.info.packageName) == -1) {
-				CustomPackageUtils.addCustomPackage(appName.getText()
-						.toString(), info.info.packageName);
-			} else {
-				CustomPackageUtils.removeCustomPackage(info.info.packageName);
-			}
-			CustomPackageUtils.saveCustomPackages();
-			btnAddToCleanList
-					.setText(CustomPackageUtils
-							.customPackageIndex(info.info.packageName) == -1 ? R.string.button_add_to_clean_list
-							: R.string.button_remove_from_clean_list);
+			addToCleanList();
 			break;
 		case R.id.btnDelete:
-			// 0:android|1.google|2:other
-
-			String hintStr = "";
-			switch (info.level) {
-			case 0:
-				hintStr = getResources().getString(R.string.delete_android_app);
-				break;
-			case 1:
-				hintStr = getResources().getString(R.string.delete_google_app);
-				break;
-			case 2:
-				hintStr = getResources().getString(R.string.delete_htc_app);
-				break;
-			case 3:
-				hintStr = getResources().getString(R.string.delete_system_app);
-				break;
-			}
-
-			// delete system app
-			new AlertDialog.Builder(getActivity())
-					.setTitle(R.string.hint)
-					.setMessage(hintStr)
-					.setPositiveButton(R.string.ok,
-							new DialogInterface.OnClickListener() {
-
-								@Override
-								public void onClick(DialogInterface dialog,
-										int which) {
-									deleteApp(
-											GlobalInstance.backupBeforeDelete,
-											GlobalInstance.alsoDeleteData);
-
-								}
-							}).setNegativeButton(R.string.cancel, null).show();
-
+			confirmDelete();
 			break;
 		}
 
 	}
 
-	public void deleteApp(boolean backup, boolean deleteData) {
-		// need delete app's data also
+	private void addToCleanList() {
+		if (CustomPackageUtils.customPackageIndex(info.info.packageName) == -1) {
+			CustomPackageUtils.addCustomPackage(appName.getText().toString(),
+					info.info.packageName);
+		} else {
+			CustomPackageUtils.removeCustomPackage(info.info.packageName);
+		}
+		CustomPackageUtils.saveCustomPackages();
+		btnAddToCleanList
+				.setText(CustomPackageUtils
+						.customPackageIndex(info.info.packageName) == -1 ? R.string.button_add_to_clean_list
+						: R.string.button_remove_from_clean_list);
+	}
 
+	private void confirmDelete() {
+		String hintStr = "";
+		switch (info.level) {
+		case 0:
+			hintStr = getResources().getString(R.string.delete_android_app);
+			break;
+		case 1:
+			hintStr = getResources().getString(R.string.delete_google_app);
+			break;
+		case 2:
+			hintStr = getResources().getString(R.string.delete_htc_app);
+			break;
+		case 3:
+			hintStr = getResources().getString(R.string.delete_system_app);
+			break;
+		}
+
+		// delete system app
+		new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.hint)
+				.setMessage(hintStr)
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								deleteApp(GlobalInstance.backupBeforeDelete,
+										GlobalInstance.alsoDeleteData);
+							}
+						}).setNegativeButton(R.string.cancel, null).show();
+	}
+
+	private void deleteApp(boolean backup, boolean deleteData) {
 		if (backup) {
 			ApkUtils.backupSystemApp(info.info.sourceDir);
 		}
-
 		LogApi.logDeleteSystemApp(info.info.packageName);
-
 		boolean ret = ApkUtils.deleteSystemApp(info.info.sourceDir);
 		if (!ret) {
 			Toast.makeText(getActivity(), R.string.delete_fail,
 					Toast.LENGTH_LONG).show();
 			return;
 		}
-
 		if (deleteData) {
 			ApkUtils.deleteSystemAppData(info.info.dataDir);
 		}
-
 		Intent inRet = new Intent();
 		inRet.putExtra("needRefresh", true);
 		getActivity().setResult(Activity.RESULT_OK, inRet);
@@ -225,9 +210,6 @@ public class SysappDetailFragment extends BasePopupFragment implements
 		tvDataSizeDetail = (TextView) innerView
 				.findViewById(R.id.tvDataSizeDetail);
 
-		btnDelete.setOnClickListener(this);
-		btnAddToCleanList.setOnClickListener(this);
-
 	}
 
 	@Override
@@ -243,6 +225,13 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	@Override
 	protected void initLogic() {
 		showAppInfo();
+	}
+
+	@Override
+	protected void initEvents() {
+		btnDelete.setOnClickListener(this);
+		btnAddToCleanList.setOnClickListener(this);
+
 	}
 
 }

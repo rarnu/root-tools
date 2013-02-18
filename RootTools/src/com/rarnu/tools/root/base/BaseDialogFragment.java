@@ -19,6 +19,7 @@ public abstract class BaseDialogFragment extends Fragment {
 		innerView = inflater
 				.inflate(getFragmentLayoutResId(), container, false);
 		initComponents();
+		initEvents();
 		initLogic();
 
 		Log.e(getClass().getName(), "innerView:" + innerView);
@@ -26,6 +27,8 @@ public abstract class BaseDialogFragment extends Fragment {
 	}
 
 	protected abstract void initComponents();
+	
+	protected abstract void initEvents();
 
 	protected abstract void initLogic();
 

@@ -27,9 +27,12 @@ public class BusyboxUtils {
 		if (!ret) {
 			return false;
 		}
-		result = RootUtils.runCommand(String.format("cat %sbusybox > /system/xbin/busybox", DirHelper.BUSYBOX_DIR), true);
+		result = RootUtils.runCommand(String.format(
+				"cat %sbusybox > /system/xbin/busybox", DirHelper.BUSYBOX_DIR),
+				true);
 		result = RootUtils.runCommand("chmod 777 /system/xbin/busybox", true);
-		result = RootUtils.runCommand("/system/xbin/busybox --install -s /system/xbin", true);
+		result = RootUtils.runCommand(
+				"/system/xbin/busybox --install -s /system/xbin", true);
 		if (!result.error.equals("")) {
 			return false;
 		}
@@ -44,7 +47,8 @@ public class BusyboxUtils {
 		if (!ret) {
 			return false;
 		}
-		result = RootUtils.runCommand(String.format("cat %sSuperuser_%s.apk > /system/app/Superuser.apk",
+		result = RootUtils.runCommand(String.format(
+				"cat %sSuperuser_%s.apk > /system/app/Superuser.apk",
 				DirHelper.BUSYBOX_DIR, (isICS ? "ics" : "old")), true);
 		if (!result.error.equals("")) {
 			return false;
@@ -56,7 +60,10 @@ public class BusyboxUtils {
 	public static boolean removeBusybox() {
 
 		CommandResult result = null;
-		result = RootUtils.runCommand("busybox find /system/xbin -type l | busybox xargs rm -r", true);
+		result = RootUtils
+				.runCommand(
+						"busybox find /system/xbin -type l | busybox xargs rm -r",
+						true);
 		result = RootUtils.runCommand("rm /system/xbin/busybox", true);
 		if (!result.error.equals("")) {
 			return false;
@@ -89,7 +96,8 @@ public class BusyboxUtils {
 			}
 
 			InputStream is = context.getAssets().open("busybox");
-			OutputStream fos = new BufferedOutputStream(new FileOutputStream(dest));
+			OutputStream fos = new BufferedOutputStream(new FileOutputStream(
+					dest));
 			int n;
 			while ((n = is.read(buffer, 0, buffer.length)) != -1)
 				fos.write(buffer, 0, n);
@@ -110,14 +118,17 @@ public class BusyboxUtils {
 		try {
 			byte[] buffer = new byte[8192];
 
-			File dest = new File(DirHelper.BUSYBOX_DIR + "Superuser_" + surfix + ".apk");
+			File dest = new File(DirHelper.BUSYBOX_DIR + "Superuser_" + surfix
+					+ ".apk");
 
 			if (dest.exists()) {
 				dest.delete();
 			}
 
-			InputStream is = context.getAssets().open("Superuser_" + surfix + ".apk");
-			OutputStream fos = new BufferedOutputStream(new FileOutputStream(dest));
+			InputStream is = context.getAssets().open(
+					"Superuser_" + surfix + ".apk");
+			OutputStream fos = new BufferedOutputStream(new FileOutputStream(
+					dest));
 			int n;
 			while ((n = is.read(buffer, 0, buffer.length)) != -1)
 				fos.write(buffer, 0, n);

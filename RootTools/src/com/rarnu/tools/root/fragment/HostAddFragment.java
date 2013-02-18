@@ -45,6 +45,8 @@ public class HostAddFragment extends BasePopupFragment implements
 	List<HostRecordInfo> list = new ArrayList<HostRecordInfo>();
 
 	HostsSearchLoader loader = null;
+	MenuItem itemSearch;
+	MenuItem itemAdd;
 
 	Handler hSelectHost = new Handler() {
 		@Override
@@ -74,7 +76,6 @@ public class HostAddFragment extends BasePopupFragment implements
 		barAddHosts = (DataBar) innerView.findViewById(R.id.barAddHosts);
 		progressSearchHosts = (DataProgressBar) innerView
 				.findViewById(R.id.progressSearchHosts);
-
 		btnCom = (Button) innerView.findViewById(R.id.btnCom);
 		btnOrg = (Button) innerView.findViewById(R.id.btnOrg);
 		btnNet = (Button) innerView.findViewById(R.id.btnNet);
@@ -86,32 +87,12 @@ public class HostAddFragment extends BasePopupFragment implements
 		btnJp = (Button) innerView.findViewById(R.id.btnJp);
 		btnHk = (Button) innerView.findViewById(R.id.btnHk);
 		btnTw = (Button) innerView.findViewById(R.id.btnTw);
-
 		adapter = new HostsAdapter(getActivity(), list, hSelectHost, false,
 				true);
 		if (lvAddHosts != null) {
 			lvAddHosts.setAdapter(adapter);
 		}
-
-		barAddHosts.getButton1().setOnClickListener(this);
-		barAddHosts.getButton2().setOnClickListener(this);
-		btnCom.setOnClickListener(this);
-		btnOrg.setOnClickListener(this);
-		btnNet.setOnClickListener(this);
-		btnEdu.setOnClickListener(this);
-		btnInfo.setOnClickListener(this);
-		btnBiz.setOnClickListener(this);
-		btnCn.setOnClickListener(this);
-		btnUs.setOnClickListener(this);
-		btnJp.setOnClickListener(this);
-		btnHk.setOnClickListener(this);
-		btnTw.setOnClickListener(this);
-
-		barAddHosts.getCheckBox().setOnClickListener(this);
-
 		loader = new HostsSearchLoader(getActivity());
-		loader.registerListener(0, this);
-
 	}
 
 	@Override
@@ -126,7 +107,7 @@ public class HostAddFragment extends BasePopupFragment implements
 
 	@Override
 	protected void initMenu(Menu menu) {
-		MenuItem itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
 				R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -135,7 +116,7 @@ public class HostAddFragment extends BasePopupFragment implements
 		sv.setOnQueryTextListener(this);
 		itemSearch.setActionView(sv);
 
-		MenuItem itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
+		itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
 		itemAdd.setIcon(android.R.drawable.ic_menu_add);
 		itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
@@ -234,42 +215,13 @@ public class HostAddFragment extends BasePopupFragment implements
 		case R.id.barButton2:
 			setHostItemSelectedStatus(list, adapter, hSelectHost, false);
 			return;
-		case R.id.btnCom:
-			sv.setQuery(sv.getQuery() + ".com", false);
-			break;
-		case R.id.btnOrg:
-			sv.setQuery(sv.getQuery() + ".org", false);
-			break;
-		case R.id.btnNet:
-			sv.setQuery(sv.getQuery() + ".net", false);
-			break;
-		case R.id.btnEdu:
-			sv.setQuery(sv.getQuery() + ".edu", false);
-			break;
-		case R.id.btnInfo:
-			sv.setQuery(sv.getQuery() + ".info", false);
-			break;
-		case R.id.btnBiz:
-			sv.setQuery(sv.getQuery() + ".biz", false);
-			break;
-		case R.id.btnCn:
-			sv.setQuery(sv.getQuery() + ".cn", false);
-			break;
-		case R.id.btnUs:
-			sv.setQuery(sv.getQuery() + ".us", false);
-			break;
-		case R.id.btnJp:
-			sv.setQuery(sv.getQuery() + ".jp", false);
-			break;
-		case R.id.btnHk:
-			sv.setQuery(sv.getQuery() + ".hk", false);
-			break;
-		case R.id.btnTw:
-			sv.setQuery(sv.getQuery() + ".tw", false);
-			break;
 		case R.id.chkSelAll:
 			boolean selected = barAddHosts.getCheckBox().isChecked();
 			setHostItemSelectedStatus(list, adapter, hSelectHost, selected);
+			break;
+		default:
+			Button btnQuery = (Button) v;
+			sv.setQuery(sv.getQuery() + btnQuery.getText().toString(), false);
 			break;
 		}
 
@@ -305,6 +257,25 @@ public class HostAddFragment extends BasePopupFragment implements
 	@Override
 	public boolean onQueryTextChange(String newText) {
 		return false;
+	}
+
+	@Override
+	protected void initEvents() {
+		barAddHosts.getButton1().setOnClickListener(this);
+		barAddHosts.getButton2().setOnClickListener(this);
+		btnCom.setOnClickListener(this);
+		btnOrg.setOnClickListener(this);
+		btnNet.setOnClickListener(this);
+		btnEdu.setOnClickListener(this);
+		btnInfo.setOnClickListener(this);
+		btnBiz.setOnClickListener(this);
+		btnCn.setOnClickListener(this);
+		btnUs.setOnClickListener(this);
+		btnJp.setOnClickListener(this);
+		btnHk.setOnClickListener(this);
+		btnTw.setOnClickListener(this);
+		barAddHosts.getCheckBox().setOnClickListener(this);
+		loader.registerListener(0, this);
 	}
 
 }

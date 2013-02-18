@@ -2,6 +2,7 @@ package com.rarnu.tools.root.fragment;
 
 import java.util.List;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
@@ -37,11 +38,10 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 			}
 			super.handleMessage(msg);
 		};
-
 	};
 
 	@Override
-	public void onCreate(android.os.Bundle savedInstanceState) {
+	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		LogApi.logEnterDeleteIgnore();
 	};
@@ -58,14 +58,9 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 
 	@Override
 	protected void initComponents() {
-
 		gvIgnore = (GridView) innerView.findViewById(R.id.gvIgnore);
 		lvIgnore = (ListView) innerView.findViewById(R.id.lvIgnore);
-
 		barIgnore = (DataBar) innerView.findViewById(R.id.barIgnore);
-		barIgnore.getButton1().setOnClickListener(this);
-		barIgnore.getButton2().setOnClickListener(this);
-		barIgnore.getCheckBox().setOnClickListener(this);
 	}
 
 	@Override
@@ -163,6 +158,14 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 	@Override
 	protected void initMenu(Menu menu) {
 
+	}
+
+	@Override
+	protected void initEvents() {
+		barIgnore.getButton1().setOnClickListener(this);
+		barIgnore.getButton2().setOnClickListener(this);
+		barIgnore.getCheckBox().setOnClickListener(this);
+		
 	}
 
 }

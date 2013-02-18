@@ -47,7 +47,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 		tvAppName = (TextView) innerView.findViewById(R.id.tvAppName);
 		tvAppPackage = (TextView) innerView.findViewById(R.id.tvAppPackage);
 		lvReceiver = (ListView) innerView.findViewById(R.id.lvReceiver);
-		lvReceiver.setOnItemLongClickListener(this);
+		
 
 	}
 
@@ -99,41 +99,52 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	public boolean onItemLongClick(AdapterView<?> parent, View view,
 			int position, long id) {
 		CompInfo item = (CompInfo) lvReceiver.getItemAtPosition(position);
-		boolean bRet = false;
 		if (item.enabled) {
-			// item.component.getComponentName()
-			LogApi.logDisableComponent(ComponentUtils.getPackageComponentName(
-					item.component).toString());
-			bRet = ComponentUtils.doDisableComponent(ComponentUtils
-					.getPackageComponentName(item.component));
-			if (bRet) {
-				item.enabled = false;
-				((TextView) view.findViewById(R.id.itemReceiverStatus))
-						.setText(R.string.comp_disabled);
-				((TextView) view.findViewById(R.id.itemReceiverStatus))
-						.setTextColor(Color.RED);
-			} else {
-				Toast.makeText(getActivity(), R.string.operation_failed,
-						Toast.LENGTH_LONG).show();
-			}
+			doDisableComponent(item, view);
 		} else if (!item.enabled) {
-			LogApi.logEnableComponent(ComponentUtils.getPackageComponentName(
-					item.component).toString());
-			bRet = ComponentUtils.doEnabledComponent(ComponentUtils
-					.getPackageComponentName(item.component));
-			if (bRet) {
-				item.enabled = true;
-				((TextView) view.findViewById(R.id.itemReceiverStatus))
-						.setText(R.string.comp_enabled);
-				((TextView) view.findViewById(R.id.itemReceiverStatus))
-						.setTextColor(0xFF008000);
-			} else {
-				Toast.makeText(getActivity(), R.string.operation_failed,
-						Toast.LENGTH_LONG).show();
-			}
+			doEnableComponent(item, view);
 		}
 		getActivity().setResult(Activity.RESULT_OK);
 		return false;
+	}
+	
+	private void doEnableComponent(CompInfo item, View view) {
+		LogApi.logEnableComponent(ComponentUtils.getPackageComponentName(
+				item.component).toString());
+		boolean bRet = ComponentUtils.doEnabledComponent(ComponentUtils
+				.getPackageComponentName(item.component));
+		if (bRet) {
+			item.enabled = true;
+			((TextView) view.findViewById(R.id.itemReceiverStatus))
+					.setText(R.string.comp_enabled);
+			((TextView) view.findViewById(R.id.itemReceiverStatus))
+					.setTextColor(0xFF008000);
+		} else {
+			Toast.makeText(getActivity(), R.string.operation_failed,
+					Toast.LENGTH_LONG).show();
+		}
+	}
+	
+	private void doDisableComponent(CompInfo item, View view) {
+		LogApi.logDisableComponent(ComponentUtils.getPackageComponentName(
+				item.component).toString());
+		boolean bRet = ComponentUtils.doDisableComponent(ComponentUtils
+				.getPackageComponentName(item.component));
+		if (bRet) {
+			item.enabled = false;
+			((TextView) view.findViewById(R.id.itemReceiverStatus))
+					.setText(R.string.comp_disabled);
+			((TextView) view.findViewById(R.id.itemReceiverStatus))
+					.setTextColor(Color.RED);
+		} else {
+			Toast.makeText(getActivity(), R.string.operation_failed,
+					Toast.LENGTH_LONG).show();
+		}
+	}
+
+	@Override
+	protected void initEvents() {
+		lvReceiver.setOnItemLongClickListener(this);
 	}
 
 }
