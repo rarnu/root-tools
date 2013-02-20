@@ -49,8 +49,8 @@ public class CompPackageAdapter extends InnerAdapter<PackageInfo> {
 			holder.itemName.setText(GlobalInstance.pm
 					.getApplicationLabel(item.applicationInfo));
 
-			holder.itemName.setTextColor(ColorUtils.getSystemAttrColor(context,
-					android.R.attr.textColorPrimary));
+			holder.itemName.setTextColor(ColorUtils
+					.getTextColorPrimary(context));
 			if (item.applicationInfo.sourceDir.contains("/system/app/")) {
 				holder.itemName.setTextColor(Color.RED);
 			}

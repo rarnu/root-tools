@@ -49,8 +49,8 @@ public class SysappSelectApkAdapter extends InnerAdapter<SysappSelectApkItem> {
 			}
 			holder.tvFilename.setText(item.filename);
 
-			holder.tvFilename.setTextColor(ColorUtils.getSystemAttrColor(
-					context, android.R.attr.textColorPrimary));
+			holder.tvFilename.setTextColor(ColorUtils
+					.getTextColorPrimary(context));
 
 			switch (item.level) {
 			case 0:

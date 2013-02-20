@@ -66,8 +66,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 						.getApplicationLabel(GlobalInstance.currentComp.applicationInfo));
 		tvAppPackage.setText(GlobalInstance.currentComp.packageName);
 
-		tvAppName.setTextColor(ColorUtils.getSystemAttrColor(getActivity(),
-				android.R.attr.textColorPrimary));
+		tvAppName.setTextColor(ColorUtils.getTextColorPrimary(getActivity()));
 		if (GlobalInstance.currentComp.applicationInfo.sourceDir
 				.contains("/system/app/")) {
 			tvAppName.setTextColor(Color.RED);

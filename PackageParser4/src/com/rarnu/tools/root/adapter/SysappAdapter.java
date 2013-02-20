@@ -46,8 +46,7 @@ public class SysappAdapter extends InnerAdapter<SysappInfo> {
 					.getApplicationLabel(item.info));
 			holder.path.setText(item.info.sourceDir);
 
-			holder.name.setTextColor(ColorUtils.getSystemAttrColor(context,
-					android.R.attr.textColorPrimary));
+			holder.name.setTextColor(ColorUtils.getTextColorPrimary(context));
 
 			switch (item.level) {
 			case 0:

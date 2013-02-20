@@ -43,7 +43,7 @@
         android:layout_height="1dip"
         android:layout_below="@+id/ImgIcon"
         android:layout_marginTop="4dip"
-        android:background="@color/lightgray" />
+        android:background="@android:drawable/divider_horizontal_dark" />
 
     <TextView
         android:id="@+id/tvPid"
@@ -126,7 +126,7 @@
         android:layout_height="1dip"
         android:layout_below="@+id/tvWarning"
         android:layout_marginTop="4dip"
-        android:background="@color/lightgray"
+        android:background="@android:drawable/divider_horizontal_dark"
         android:gravity="left|top" />
 
     <RelativeLayout

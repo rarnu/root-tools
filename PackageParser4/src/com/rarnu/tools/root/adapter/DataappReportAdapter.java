@@ -14,6 +14,7 @@ import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.holder.DataappReportAdapterHolder;
 import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.utils.ColorUtils;
 
 public class DataappReportAdapter extends InnerAdapter<DataappInfo> {
 
@@ -50,11 +51,13 @@ public class DataappReportAdapter extends InnerAdapter<DataappInfo> {
 				switch (item.logId) {
 				case 0:
 					holder.state.setText(R.string.rep_bak_succ);
-					holder.state.setTextColor(Color.GRAY);
+					holder.state.setTextColor(ColorUtils
+							.getTextColorSecondary(context));
 					break;
 				case 1:
 					holder.state.setText(R.string.rep_bak_na);
-					holder.state.setTextColor(Color.GRAY);
+					holder.state.setTextColor(ColorUtils
+							.getTextColorSecondary(context));
 					break;
 				case 2:
 					holder.state.setText(R.string.rep_bak_fail);
@@ -70,7 +73,8 @@ public class DataappReportAdapter extends InnerAdapter<DataappInfo> {
 				switch (item.logId) {
 				case 0:
 					holder.state.setText(R.string.rep_res_succ);
-					holder.state.setTextColor(Color.GRAY);
+					holder.state.setTextColor(ColorUtils
+							.getTextColorSecondary(context));
 					break;
 				case 2:
 					holder.state.setText(R.string.rep_res_fail);
