@@ -27,7 +27,7 @@
         android:layout_centerInParent="true"
         android:layout_margin="32dip"
         android:text="@string/custom_clean_empty"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp"
         android:visibility="gone" />
 

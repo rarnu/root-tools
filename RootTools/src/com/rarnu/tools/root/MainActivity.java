@@ -46,14 +46,7 @@ public class MainActivity extends Activity {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-		try {
-			// here will be a exception on ICS G7
-			// use try to avoid first
-			super.onCreate(savedInstanceState);
-		} catch (Exception e) {
-			finish();
-			return;
-		}
+		super.onCreate(savedInstanceState);
 
 		GlobalFragment.loadFragments();
 		registerReceiver(receiverHome, filterHome);
@@ -276,7 +269,7 @@ public class MainActivity extends Activity {
 			super.handleMessage(msg);
 		}
 	};
-	
+
 	private void getUpdateInfo() {
 		new Thread(new Runnable() {
 

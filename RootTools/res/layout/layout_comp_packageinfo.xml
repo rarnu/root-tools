@@ -19,7 +19,7 @@
         android:layout_marginTop="4dip"
         android:layout_toRightOf="@id/ivAppIcon"
         android:gravity="left|center_vertical"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="20sp" />
 
     <TextView

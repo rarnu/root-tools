@@ -21,7 +21,7 @@
         android:layout_toLeftOf="@+id/pref_checkbox"
         android:layout_toRightOf="@+id/pref_icon"
         android:gravity="left|center_vertical"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp" />
 
     <TextView

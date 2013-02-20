@@ -13,7 +13,7 @@
         android:maxLines="1"
         android:padding="4dip"
         android:singleLine="true"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp" />
 
     <TextView

@@ -21,7 +21,7 @@
         android:layout_toLeftOf="@+id/imgIconEoe"
         android:gravity="right|center_vertical"
         android:text="@string/eoe_title"
-        android:textColor="@color/white" />
+        android:textColor="?android:attr/textColorPrimary" />
 
     <TextView
         android:id="@+id/tvEoeDesc"

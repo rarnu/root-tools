@@ -19,6 +19,7 @@ import com.rarnu.tools.root.adapter.CompAdapter;
 import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.CompInfo;
+import com.rarnu.tools.root.utils.ColorUtils;
 import com.rarnu.tools.root.utils.ComponentUtils;
 
 public class CompPackageInfoFragment extends BasePopupFragment implements
@@ -47,7 +48,6 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 		tvAppName = (TextView) innerView.findViewById(R.id.tvAppName);
 		tvAppPackage = (TextView) innerView.findViewById(R.id.tvAppPackage);
 		lvReceiver = (ListView) innerView.findViewById(R.id.lvReceiver);
-		
 
 	}
 
@@ -66,9 +66,12 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 						.getApplicationLabel(GlobalInstance.currentComp.applicationInfo));
 		tvAppPackage.setText(GlobalInstance.currentComp.packageName);
 
-		tvAppName
-				.setTextColor(GlobalInstance.currentComp.applicationInfo.sourceDir
-						.contains("/system/app/") ? Color.RED : Color.WHITE);
+		tvAppName.setTextColor(ColorUtils.getSystemAttrColor(getActivity(),
+				android.R.attr.textColorPrimary));
+		if (GlobalInstance.currentComp.applicationInfo.sourceDir
+				.contains("/system/app/")) {
+			tvAppName.setTextColor(Color.RED);
+		}
 
 		Object /* PackageParser.Package */pkg = ComponentUtils
 				.parsePackageInfo(GlobalInstance.currentComp);
@@ -107,7 +110,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 		getActivity().setResult(Activity.RESULT_OK);
 		return false;
 	}
-	
+
 	private void doEnableComponent(CompInfo item, View view) {
 		LogApi.logEnableComponent(ComponentUtils.getPackageComponentName(
 				item.component).toString());
@@ -118,13 +121,13 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 			((TextView) view.findViewById(R.id.itemReceiverStatus))
 					.setText(R.string.comp_enabled);
 			((TextView) view.findViewById(R.id.itemReceiverStatus))
-					.setTextColor(0xFF008000);
+					.setTextColor(Color.GREEN);
 		} else {
 			Toast.makeText(getActivity(), R.string.operation_failed,
 					Toast.LENGTH_LONG).show();
 		}
 	}
-	
+
 	private void doDisableComponent(CompInfo item, View view) {
 		LogApi.logDisableComponent(ComponentUtils.getPackageComponentName(
 				item.component).toString());

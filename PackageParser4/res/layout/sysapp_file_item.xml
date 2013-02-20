@@ -17,7 +17,7 @@
 		android:layout_toRightOf="@+id/img_icon"
 		android:layout_marginLeft="4dip"
 		android:layout_marginRight="4dip"
-		android:textColor="@color/white"
+		android:textColor="?android:attr/textColorPrimary"
 		android:gravity="left|center_vertical"
 		android:textSize="18sp"/>
 

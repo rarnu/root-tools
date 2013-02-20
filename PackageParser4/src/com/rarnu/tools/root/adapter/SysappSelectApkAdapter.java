@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.common.SysappSelectApkItem;
 import com.rarnu.tools.root.holder.SysappSelectApkAdapterHolder;
+import com.rarnu.tools.root.utils.ColorUtils;
 
 public class SysappSelectApkAdapter extends InnerAdapter<SysappSelectApkItem> {
 
@@ -48,7 +49,8 @@ public class SysappSelectApkAdapter extends InnerAdapter<SysappSelectApkItem> {
 			}
 			holder.tvFilename.setText(item.filename);
 
-			holder.tvFilename.setTextColor(Color.WHITE);
+			holder.tvFilename.setTextColor(ColorUtils.getSystemAttrColor(
+					context, android.R.attr.textColorPrimary));
 
 			switch (item.level) {
 			case 0:

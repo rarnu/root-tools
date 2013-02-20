@@ -22,7 +22,7 @@
         android:gravity="left|center_vertical"
         android:maxLines="1"
         android:singleLine="true"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp" />
 
     <TextView
@@ -80,7 +80,7 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/textview_path"
-                    android:textColor="@color/white" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                     android:id="@+id/tvPathDetail"
@@ -112,7 +112,7 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/textview_odex"
-                    android:textColor="@color/white" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                     android:id="@+id/tvOdexDetail"
@@ -144,7 +144,7 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/textview_filesize"
-                    android:textColor="@color/white" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                     android:id="@+id/tvFileSizeDetail"
@@ -176,7 +176,7 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/textview_datapath"
-                    android:textColor="@color/white" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                     android:id="@+id/tvDataPathDetail"
@@ -208,7 +208,7 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/textview_datasize"
-                    android:textColor="@color/white" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                     android:id="@+id/tvDataSizeDetail"
@@ -240,7 +240,7 @@
                     android:layout_centerVertical="true"
                     android:paddingLeft="8dip"
                     android:text="@string/textview_library"
-                    android:textColor="@color/white" />
+                    android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                     android:id="@+id/tvSharedIdDetail"

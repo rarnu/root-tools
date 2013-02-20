@@ -13,6 +13,7 @@ import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.SysappInfo;
 import com.rarnu.tools.root.holder.SysappAdapterHolder;
+import com.rarnu.tools.root.utils.ColorUtils;
 
 public class SysappAdapter extends InnerAdapter<SysappInfo> {
 
@@ -45,7 +46,8 @@ public class SysappAdapter extends InnerAdapter<SysappInfo> {
 					.getApplicationLabel(item.info));
 			holder.path.setText(item.info.sourceDir);
 
-			holder.name.setTextColor(Color.WHITE);
+			holder.name.setTextColor(ColorUtils.getSystemAttrColor(context,
+					android.R.attr.textColorPrimary));
 
 			switch (item.level) {
 			case 0:

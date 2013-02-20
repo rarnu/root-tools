@@ -32,7 +32,7 @@
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_margin="32dip"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp"
         android:visibility="gone" />
 

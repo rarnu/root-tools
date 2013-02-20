@@ -13,6 +13,7 @@ import android.widget.TextView;
 import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.holder.CompPackageAdapterHolder;
+import com.rarnu.tools.root.utils.ColorUtils;
 
 public class CompPackageAdapter extends InnerAdapter<PackageInfo> {
 
@@ -47,8 +48,13 @@ public class CompPackageAdapter extends InnerAdapter<PackageInfo> {
 					.getApplicationIcon(item.applicationInfo));
 			holder.itemName.setText(GlobalInstance.pm
 					.getApplicationLabel(item.applicationInfo));
-			holder.itemName.setTextColor(item.applicationInfo.sourceDir
-					.contains("/system/app/") ? Color.RED : Color.WHITE);
+
+			holder.itemName.setTextColor(ColorUtils.getSystemAttrColor(context,
+					android.R.attr.textColorPrimary));
+			if (item.applicationInfo.sourceDir.contains("/system/app/")) {
+				holder.itemName.setTextColor(Color.RED);
+			}
+
 			holder.tvReceiverCountValue.setText(item.applicationInfo.sourceDir);
 
 		}

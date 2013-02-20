@@ -23,7 +23,7 @@
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="8dip"
         android:text="@string/copyright"
-        android:textColor="@color/white" />
+        android:textColor="?android:attr/textColorPrimary" />
 
     <ImageView
         android:id="@+id/ivEoeLogo"

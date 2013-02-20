@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:paddingLeft="16dip"
-        android:textColor="@color/white"
+        android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp" />
 
     <ImageView
