@@ -125,8 +125,7 @@ public class ComponentUtils {
 					.toString());
 			CompInfo info = new CompInfo();
 			info.component = a;
-			info.fullPackageName = a.getComponentName().getPackageName() + "."
-					+ a.getComponentName().getClassName();
+			info.fullPackageName = a.getComponentName().getClassName();
 			info.enabled = GlobalInstance.pm.getComponentEnabledSetting(a
 					.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
 			lstComponentInfo.add(info);
@@ -136,8 +135,7 @@ public class ComponentUtils {
 		for (PackageParser.Service s : lstService) {
 			CompInfo info = new CompInfo();
 			info.component = s;
-			info.fullPackageName = s.getComponentName().getPackageName() + "."
-					+ s.getComponentName().getClassName();
+			info.fullPackageName = s.getComponentName().getClassName();
 			info.enabled = GlobalInstance.pm.getComponentEnabledSetting(s
 					.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
 			lstComponentInfo.add(info);

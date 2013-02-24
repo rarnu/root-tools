@@ -63,7 +63,8 @@ public class CompAdapter extends InnerAdapter<CompInfo> {
 							: R.string.comp_disabled);
 			holder.itemReceiverStatus.setTextColor(item.enabled ? Color.GREEN
 					: Color.RED);
-			String ret = "";
+			String ret = "<font color=\"yellow\"><small>" + item.fullPackageName
+					+ "</small></font><br>";
 			int i = 0;
 			// Integer act;
 			if (item.component instanceof PackageParser.Activity) {
@@ -79,14 +80,14 @@ public class CompAdapter extends InnerAdapter<CompInfo> {
 													aii.getAction(i)
 															.lastIndexOf(".") + 1)
 											.replace("_", " ").toLowerCase()
-											+ "\n";
+											+ "<br />";
 								}
 							}
 						}
 					}
 				}
 			}
-			holder.itemReceiverAction.setText(ret);
+			holder.itemReceiverAction.setText(Html.fromHtml(ret));
 		}
 
 		return v;

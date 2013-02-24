@@ -7,12 +7,14 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PackageParser;
+import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -559,10 +561,10 @@ public class ApkUtils {
 		}
 	}
 
-	public static void gotoApp(Context context, String namespace,
-			String activity, String url) {
+	public static void gotoApp(Context context, String namespace, String url) {
 		if (ApkUtils.applicationInstalled(namespace)) {
-			ApkUtils.startApplication(namespace, activity);
+			openApp(context, namespace);
+			// ApkUtils.startApplication(namespace, activity);
 		} else {
 			openDownloadApp(context, url);
 		}
@@ -584,5 +586,34 @@ public class ApkUtils {
 	public static void setInstallLocation(int location) {
 		RootUtils.runCommand(
 				"pm set-install-location " + String.valueOf(location), true);
+	}
+
+	public static void openApp(Context context, String packageName) {
+		PackageInfo pi = null;
+		try {
+			pi = GlobalInstance.pm.getPackageInfo(packageName, 0);
+		} catch (NameNotFoundException e) {
+		}
+
+		if (pi == null) {
+			return;
+		}
+
+		Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
+		resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
+		resolveIntent.setPackage(pi.packageName);
+
+		List<ResolveInfo> apps = GlobalInstance.pm.queryIntentActivities(
+				resolveIntent, 0);
+
+		ResolveInfo ri = apps.iterator().next();
+		if (ri != null) {
+			String className = ri.activityInfo.name;
+			Intent intent = new Intent(Intent.ACTION_MAIN);
+			intent.addCategory(Intent.CATEGORY_LAUNCHER);
+			ComponentName cn = new ComponentName(packageName, className);
+			intent.setComponent(cn);
+			context.startActivity(intent);
+		}
 	}
 }

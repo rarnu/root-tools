@@ -11,7 +11,6 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
-import com.rarnu.tools.root.EggActivity;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.AboutAdapter;
@@ -139,6 +138,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 						GlobalFragment.fIntro);
 				break;
 			case 2:
+				/*
 				if (!GlobalInstance.DEBUG) {
 					fitableClick++;
 					if (fitableClick == 10) {
@@ -148,6 +148,8 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 						startActivity(inEgg);
 					}
 				}
+				*/
+				
 				break;
 			}
 		}

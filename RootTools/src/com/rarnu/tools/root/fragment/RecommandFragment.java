@@ -94,7 +94,7 @@ public class RecommandFragment extends BaseFragment implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		RecommandInfo item = lstRecommand.get(position);
-		ApkUtils.gotoApp(getActivity(), item.packageName, item.mainActivity, item.downloadUrl);
+		ApkUtils.gotoApp(getActivity(), item.packageName, item.downloadUrl);
 
 	}
 
