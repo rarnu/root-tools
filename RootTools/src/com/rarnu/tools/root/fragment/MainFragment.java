@@ -1,5 +1,7 @@
 package com.rarnu.tools.root.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -24,7 +26,10 @@ import com.rarnu.tools.root.fragmentactivity.SettingsActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappMainActivity;
 import com.rarnu.tools.root.fragmentactivity.UserFeedbackActivity;
 import com.rarnu.tools.root.utils.BusyboxUtils;
+import com.rarnu.tools.root.utils.DalvikUtils;
+import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.MiscUtils;
+import com.rarnu.tools.root.utils.NetworkUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class MainFragment extends PreferenceFragment implements
@@ -202,7 +207,7 @@ public class MainFragment extends PreferenceFragment implements
 					CleanCacheMainActivity.class), GlobalFragment.fCleanCache);
 		} else if (preference.getKey().equals(
 				getString(R.string.id_cleandalvik))) {
-			MiscUtils.doCleanDalvik(getActivity(), getView(), prefCleanDalvik);
+			DalvikUtils.doCleanDalvikT(getActivity(), getView(), prefCleanDalvik);
 		}
 
 		// other
@@ -213,9 +218,25 @@ public class MainFragment extends PreferenceFragment implements
 		} else if (preference.getKey().equals(getString(R.string.id_scanmedia))) {
 			MiscUtils.doScanMedia(getActivity());
 		} else if (preference.getKey().equals(getString(R.string.id_network))) {
-			MiscUtils.showNetworkStatus(getActivity());
+			new AlertDialog.Builder(getActivity())
+					.setTitle(R.string.check_network_status)
+					.setMessage(
+							NetworkUtils.getNetworkStatusDesc(getActivity()))
+					.setPositiveButton(R.string.ok, null).show();
 		} else if (preference.getKey().equals(getString(R.string.id_reboot))) {
-			MiscUtils.doReboot(getActivity());
+			new AlertDialog.Builder(getActivity())
+					.setTitle(R.string.reboot_device)
+					.setMessage(R.string.confirm_reboot)
+					.setPositiveButton(R.string.ok,
+							new DialogInterface.OnClickListener() {
+
+								@Override
+								public void onClick(DialogInterface dialog,
+										int which) {
+									DeviceUtils.reboot();
+
+								}
+							}).setNegativeButton(R.string.cancel, null).show();
 		}
 
 		// support

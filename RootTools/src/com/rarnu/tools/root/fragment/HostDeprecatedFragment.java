@@ -24,7 +24,7 @@ import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.HostsLoader;
 import com.rarnu.tools.root.utils.DIPairUtils;
-import com.rarnu.tools.root.utils.PingUtils;
+import com.rarnu.tools.root.utils.NetworkUtils;
 
 public class HostDeprecatedFragment extends BasePopupFragment implements
 		OnLoadCompleteListener<List<HostRecordInfo>> {
@@ -160,7 +160,7 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 					msg.what = 2;
 					msg.obj = lstDeprecated.get(i).ip;
 					hScanHosts.sendMessage(msg);
-					ping = PingUtils.ping(lstDeprecated.get(i).ip);
+					ping = NetworkUtils.ping(lstDeprecated.get(i).ip);
 					if (ping.equals("") || ping.equals("timeout")) {
 						lstDeprecated.remove(i);
 					}

@@ -2,6 +2,14 @@ package com.rarnu.tools.root.utils;
 
 import java.io.File;
 
+import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
+import android.preference.Preference;
+import android.view.View;
+import android.widget.Toast;
+
+import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.utils.root.CommandResult;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
@@ -39,5 +47,49 @@ public class DalvikUtils {
 			}
 		}
 		return cleanCount;
+	}
+	
+	public static void doCleanDalvikT(final Context context, final View view,
+			final Preference pref) {
+
+		pref.setTitle(R.string.cleaning_dalvik);
+		view.setEnabled(false);
+
+		final Handler h = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+
+					pref.setTitle(R.string.clean_dalvik);
+					view.setEnabled(true);
+
+					if (msg.arg1 == -1) {
+						Toast.makeText(context, R.string.clean_dalvik_fail,
+								Toast.LENGTH_LONG).show();
+					} else if (msg.arg1 == 0) {
+						Toast.makeText(context, R.string.clean_dalvik_0,
+								Toast.LENGTH_LONG).show();
+					} else {
+						Toast.makeText(
+								context,
+								String.format(context
+										.getString(R.string.clean_dalvik_succ),
+										msg.arg1), Toast.LENGTH_LONG).show();
+					}
+				}
+				super.handleMessage(msg);
+			}
+		};
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				Message msg = new Message();
+				msg.what = 1;
+				msg.arg1 = cleanDalvik();
+				h.sendMessage(msg);
+
+			}
+		}).start();
 	}
 }

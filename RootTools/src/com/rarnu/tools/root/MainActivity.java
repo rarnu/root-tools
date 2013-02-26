@@ -34,7 +34,6 @@ import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.ImageUtils;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.NetworkUtils;
-import com.rarnu.tools.root.utils.PingUtils;
 import com.rarnu.tools.root.utils.UpdateUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
@@ -243,18 +242,7 @@ public class MainActivity extends Activity {
 	}
 
 	private void loadNetworkStatus() {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				GlobalInstance.loadingNetwork = true;
-				GlobalInstance.networkInfo = NetworkUtils
-						.getNetworkInfo(MainActivity.this);
-				GlobalInstance.networkSpeed = PingUtils
-						.testNetworkSpeed(MainActivity.this);
-				GlobalInstance.loadingNetwork = false;
-			}
-		}).start();
+		NetworkUtils.doGetNetworkInfoT(this);
 	}
 
 	final Handler hUpdate = new Handler() {
