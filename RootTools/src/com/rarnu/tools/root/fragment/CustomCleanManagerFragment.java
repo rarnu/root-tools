@@ -14,11 +14,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.component.DataBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.CustomCleanAdapter;
 import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.CustomPackageInfo;
-import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.utils.CustomPackageUtils;
 
 public class CustomCleanManagerFragment extends BasePopupFragment implements

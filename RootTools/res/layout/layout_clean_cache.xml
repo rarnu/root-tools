@@ -22,7 +22,7 @@
         android:fastScrollEnabled="true" >
     </ListView>
 
-    <com.rarnu.tools.root.comp.DataProgressBar
+    <com.rarnu.devlib.component.DataProgressBar
         android:id="@+id/progressCache"
         android:layout_width="match_parent"
         android:layout_height="24dip"

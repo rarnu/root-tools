@@ -11,6 +11,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
@@ -23,7 +24,8 @@ import android.view.View;
 import android.view.Window;
 import android.widget.ShareActionProvider;
 
-import com.rarnu.tools.root.api.LogApi;
+import com.rarnu.devlib.common.UIInstance;
+import com.rarnu.devlib.utils.ImageUtils;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConfig;
@@ -31,7 +33,6 @@ import com.rarnu.tools.root.fragment.GlobalFragment;
 import com.rarnu.tools.root.utils.CustomPackageUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
-import com.rarnu.tools.root.utils.ImageUtils;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.NetworkUtils;
 import com.rarnu.tools.root.utils.UpdateUtils;
@@ -60,7 +61,7 @@ public class MainActivity extends Activity {
 
 	@Override
 	protected void onDestroy() {
-		LogApi.logAppStop();
+
 		unregisterReceiver(receiverHome);
 		super.onDestroy();
 	}
@@ -80,7 +81,7 @@ public class MainActivity extends Activity {
 		loadCustomPackageListT();
 		initConfig();
 		if (GlobalInstance.isFirstStart) {
-			LogApi.logAppFirstStart();
+
 			GlobalInstance.isFirstStart = false;
 			RTConfig.setFirstStart(this, GlobalInstance.isFirstStart);
 		}
@@ -93,15 +94,15 @@ public class MainActivity extends Activity {
 		setContentView(R.layout.layout_main);
 		replaceMainFragment();
 		View vDetail = findViewById(R.id.fragmentDetail);
-		GlobalInstance.dualPane = vDetail != null
+		UIInstance.dualPane = vDetail != null
 				&& vDetail.getVisibility() == View.VISIBLE;
 		getActionBar().setTitle(R.string.app_name);
 		setDualPane();
 	}
 
 	private void setDualPane() {
-		if (GlobalInstance.dualPane) {
-			switch (GlobalInstance.currentFragment) {
+		if (UIInstance.dualPane) {
+			switch (UIInstance.currentFragment) {
 			case 1:
 				replaceDetailFragment(GlobalFragment.fSysapp);
 				break;
@@ -197,7 +198,7 @@ public class MainActivity extends Activity {
 		if (!fIcon.exists()) {
 			Bitmap bmp = BitmapFactory.decodeResource(getResources(),
 					R.drawable.icon);
-			ImageUtils.saveBitmapToFile(bmp, bmpName);
+			ImageUtils.saveBitmapToFile(bmp, bmpName, CompressFormat.PNG);
 		}
 
 		Intent shareIntent = new Intent(Intent.ACTION_SEND);

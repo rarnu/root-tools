@@ -20,7 +20,6 @@ import android.widget.Toast;
 
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.SysappInfo;
 import com.rarnu.tools.root.utils.ApkUtils;
@@ -174,7 +173,7 @@ public class SysappDetailFragment extends BasePopupFragment implements
 		if (backup) {
 			ApkUtils.backupSystemApp(info.info.sourceDir);
 		}
-		LogApi.logDeleteSystemApp(info.info.packageName);
+		
 		boolean ret = ApkUtils.deleteSystemApp(info.info.sourceDir);
 		if (!ret) {
 			Toast.makeText(getActivity(), R.string.delete_fail,

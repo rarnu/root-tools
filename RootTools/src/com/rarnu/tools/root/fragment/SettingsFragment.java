@@ -13,15 +13,14 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.rarnu.devlib.component.CheckBoxPreferenceEx;
+import com.rarnu.devlib.component.PreferenceEx;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.InnerPreferenceFragment;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.common.RTConsts;
-import com.rarnu.tools.root.comp.CheckBoxPreferenceEx;
-import com.rarnu.tools.root.comp.PreferenceEx;
 import com.rarnu.tools.root.fragmentactivity.CustomCleanManagerActivity;
 import com.rarnu.tools.root.fragmentactivity.HostDeprecatedActivity;
 import com.rarnu.tools.root.fragmentactivity.HostEditActivity;
@@ -56,7 +55,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		addPreferencesFromResource(R.xml.settings);
-		LogApi.logEnterSystemSettings();
+		
 	}
 
 	@Override

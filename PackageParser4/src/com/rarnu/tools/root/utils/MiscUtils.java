@@ -8,12 +8,10 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.rarnu.root.pp4.R;
-import com.rarnu.tools.root.api.LogApi;
 
 public class MiscUtils {
 
 	public static void doScanMedia(Context context) {
-		LogApi.logScanMedia();
 		context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE,
 				Uri.parse("file://"
 						+ Environment.getExternalStorageDirectory()

@@ -12,12 +12,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.RecommandAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.RecommandInfo;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.RecommandLoader;
 import com.rarnu.tools.root.utils.ApkUtils;
 
@@ -35,7 +34,7 @@ public class RecommandFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LogApi.logEnterAppRecommand();
+		
 	}
 
 	@Override

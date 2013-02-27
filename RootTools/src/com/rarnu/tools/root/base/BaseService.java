@@ -8,10 +8,10 @@ import android.os.IBinder;
 import android.os.Message;
 import android.util.Log;
 
+import com.rarnu.devlib.utils.NotificationUtils;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.utils.ApkUtils;
-import com.rarnu.tools.root.utils.NotificationUtils;
 
 public abstract class BaseService extends Service {
 

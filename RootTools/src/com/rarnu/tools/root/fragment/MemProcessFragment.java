@@ -10,7 +10,6 @@ import android.widget.Toast;
 
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseDialogFragment;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.MemoryUtils;
@@ -111,12 +110,12 @@ public class MemProcessFragment extends BaseDialogFragment implements
 					Toast.LENGTH_LONG).show();
 			return;
 		}
-		LogApi.logKillProcess(GlobalInstance.currentMemoryProcess.NAME);
+		
 		MemoryUtils.killProcess(GlobalInstance.currentMemoryProcess.PID);
 	}
 
 	private void addIgnore() {
-		LogApi.logIgnoreProcess(GlobalInstance.currentMemoryProcess.NAME);
+		
 		MemorySpecialList.addExclude(GlobalInstance.currentMemoryProcess.NAME);
 		if (MemorySpecialList.saveExclude()) {
 			Toast.makeText(getActivity(), R.string.added_ignore,
@@ -133,7 +132,7 @@ public class MemProcessFragment extends BaseDialogFragment implements
 			Toast.makeText(getActivity(), R.string.locked_app_error,
 					Toast.LENGTH_LONG).show();
 		} else {
-			LogApi.logUnignoreProcess(GlobalInstance.currentMemoryProcess.NAME);
+			
 			MemorySpecialList
 					.removeExclude(GlobalInstance.currentMemoryProcess.NAME);
 			if (MemorySpecialList.saveExclude()) {

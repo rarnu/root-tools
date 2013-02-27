@@ -23,15 +23,14 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.SysappAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.common.SysappInfo;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.fragmentactivity.SysappDetailActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappSelectApkActivity;
 import com.rarnu.tools.root.loader.SysappLoader;
@@ -55,7 +54,7 @@ public class SysappFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LogApi.logEnterSysapp();
+		
 	}
 
 	@Override
@@ -174,7 +173,7 @@ public class SysappFragment extends BaseFragment implements
 	private void doInstallSystemApp(final String path) {
 		progressSysapp.setAppName(getString(R.string.installing));
 		progressSysapp.setVisibility(View.VISIBLE);
-		LogApi.logInstallSystemApp(path);
+		
 		ApkUtils.installSystemApp(getActivity(), path, hInstall);
 	}
 

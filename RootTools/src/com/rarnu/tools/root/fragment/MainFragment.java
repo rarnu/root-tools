@@ -8,9 +8,9 @@ import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.preference.PreferenceFragment;
 
-import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.devlib.common.UIInstance;
+import com.rarnu.devlib.component.PreferenceEx;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.comp.PreferenceEx;
 import com.rarnu.tools.root.fragmentactivity.AboutActivity;
 import com.rarnu.tools.root.fragmentactivity.BusyboxActivity;
 import com.rarnu.tools.root.fragmentactivity.CleanCacheMainActivity;
@@ -158,61 +158,62 @@ public class MainFragment extends PreferenceFragment implements
 	public boolean onPreferenceClick(Preference preference) {
 		// system
 		if (preference.getKey().equals(getString(R.string.id_sysapp))) {
-			GlobalInstance.currentFragment = 1;
+			UIInstance.currentFragment = 1;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					SysappMainActivity.class), GlobalFragment.fSysapp);
 
 		} else if (preference.getKey().equals(
 				getString(R.string.id_sysappenabled))) {
-			GlobalInstance.currentFragment = 2;
+			UIInstance.currentFragment = 2;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					EnableappMainActivity.class), GlobalFragment.fEnableapp);
 
 		} else if (preference.getKey().equals(getString(R.string.id_component))) {
-			GlobalInstance.currentFragment = 3;
+			UIInstance.currentFragment = 3;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					CompMainActivity.class), GlobalFragment.fComp);
 
 		} else if (preference.getKey().equals(getString(R.string.id_root))) {
-			GlobalInstance.currentFragment = 4;
+			UIInstance.currentFragment = 4;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					BusyboxActivity.class), GlobalFragment.fBusybox);
 
 		} else if (preference.getKey().equals(getString(R.string.id_cleanhtc))) {
-			GlobalInstance.currentFragment = 5;
+			UIInstance.currentFragment = 5;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					HtcRomActivity.class), GlobalFragment.fHtcRom);
 
 		}
 		// backup
 		else if (preference.getKey().equals(getString(R.string.id_backup))) {
-			GlobalInstance.currentFragment = 6;
+			UIInstance.currentFragment = 6;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					DataBackupActivity.class), GlobalFragment.fBackup);
 		} else if (preference.getKey().equals(getString(R.string.id_restore))) {
-			GlobalInstance.currentFragment = 14;
+			UIInstance.currentFragment = 14;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					DataRestoreActivity.class), GlobalFragment.fRestore);
 		}
 
 		// memory
 		else if (preference.getKey().equals(getString(R.string.id_cleanmemory))) {
-			GlobalInstance.currentFragment = 7;
+			UIInstance.currentFragment = 7;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					MemMainActivity.class), GlobalFragment.fMem);
 		} else if (preference.getKey()
 				.equals(getString(R.string.id_cleancache))) {
-			GlobalInstance.currentFragment = 8;
+			UIInstance.currentFragment = 8;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					CleanCacheMainActivity.class), GlobalFragment.fCleanCache);
 		} else if (preference.getKey().equals(
 				getString(R.string.id_cleandalvik))) {
-			DalvikUtils.doCleanDalvikT(getActivity(), getView(), prefCleanDalvik);
+			DalvikUtils.doCleanDalvikT(getActivity(), getView(),
+					prefCleanDalvik);
 		}
 
 		// other
 		else if (preference.getKey().equals(getString(R.string.id_hosts))) {
-			GlobalInstance.currentFragment = 9;
+			UIInstance.currentFragment = 9;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					HostMainActivity.class), GlobalFragment.fHost);
 		} else if (preference.getKey().equals(getString(R.string.id_scanmedia))) {
@@ -241,22 +242,22 @@ public class MainFragment extends PreferenceFragment implements
 
 		// support
 		else if (preference.getKey().equals(getString(R.string.id_feedback))) {
-			GlobalInstance.currentFragment = 10;
+			UIInstance.currentFragment = 10;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					UserFeedbackActivity.class), GlobalFragment.fFeedback);
 		} else if (preference.getKey().equals(getString(R.string.id_recommand))) {
-			GlobalInstance.currentFragment = 11;
+			UIInstance.currentFragment = 11;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					RecommandActivity.class), GlobalFragment.fRecommand);
 		} else if (preference.getKey().equals(getString(R.string.id_about))) {
-			GlobalInstance.currentFragment = 12;
+			UIInstance.currentFragment = 12;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					AboutActivity.class), GlobalFragment.fAbout);
 		}
 
 		//
 		else if (preference.getKey().equals(getString(R.string.id_settings))) {
-			GlobalInstance.currentFragment = 13;
+			UIInstance.currentFragment = 13;
 			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
 					SettingsActivity.class), GlobalFragment.fSettings);
 		}

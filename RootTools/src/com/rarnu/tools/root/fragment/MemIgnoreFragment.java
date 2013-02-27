@@ -13,12 +13,11 @@ import android.widget.GridView;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.component.DataBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.MemIgnoreAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.MemIgnoreInfo;
-import com.rarnu.tools.root.comp.DataBar;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 
 public class MemIgnoreFragment extends BasePopupFragment implements
@@ -43,7 +42,7 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LogApi.logEnterDeleteIgnore();
+		
 	};
 
 	@Override
@@ -87,7 +86,7 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 	}
 
 	private void deleteIgnore() {
-		LogApi.logDeleteIgnore();
+		
 		int count = MemorySpecialList.getExcludeList().size();
 		for (int i = count - 1; i >= 0; i--) {
 			if (MemorySpecialList.getExcludeList().get(i).checked) {

@@ -18,12 +18,12 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.EnableappAdapter;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.EnableappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.EnableappLoader;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.ComponentUtils;

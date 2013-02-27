@@ -62,7 +62,7 @@
             android:layout_marginTop="8dip"
             android:background="@android:drawable/divider_horizontal_dark" />
 
-        <com.rarnu.tools.root.comp.BlockListView
+        <com.rarnu.devlib.component.BlockListView
             android:id="@+id/lstEoe"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
             android:lineSpacingExtra="3dip"
             android:text="@string/help_about" />
 
-        <com.rarnu.tools.root.comp.BlockListView
+        <com.rarnu.devlib.component.BlockListView
             android:id="@+id/lstAbout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"

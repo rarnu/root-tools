@@ -8,6 +8,7 @@ import android.content.ComponentName;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
+import android.util.DisplayMetrics;
 import android.util.Log;
 
 import com.rarnu.tools.root.GlobalInstance;
@@ -106,12 +107,12 @@ public class ComponentUtils {
 	}
 
 	public static Object /* PackageParser.Package */parsePackageInfo(
-			PackageInfo info) {
+			PackageInfo info, DisplayMetrics dm) {
 		String fileAbsPath = info.applicationInfo.publicSourceDir;
 		PackageParser packageParser = new PackageParser(fileAbsPath);
 		File sourceFile = new File(fileAbsPath);
 		PackageParser.Package pkg = packageParser.parsePackage(sourceFile,
-				fileAbsPath, UIUtils.getDM(), PackageParser.PARSE_IS_SYSTEM);
+				fileAbsPath, dm, PackageParser.PARSE_IS_SYSTEM);
 		return pkg;
 	}
 

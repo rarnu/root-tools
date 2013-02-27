@@ -21,15 +21,14 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.component.DataBar;
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.HostsAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
-import com.rarnu.tools.root.comp.DataBar;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.fragmentactivity.HostAddActivity;
 import com.rarnu.tools.root.loader.HostsLoader;
 import com.rarnu.tools.root.utils.DIPairUtils;
@@ -95,7 +94,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LogApi.logEnterHosts();
+		
 	}
 
 	@Override
@@ -239,7 +238,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		barHosts.setVisibility(View.GONE);
 		progressHosts.setAppName(getString(R.string.deleting));
 		progressHosts.setVisibility(View.VISIBLE);
-		LogApi.logDeleteHosts();
+		
 		final List<HostRecordInfo> deletedHosts = new ArrayList<HostRecordInfo>();
 
 		new Thread(new Runnable() {
@@ -288,7 +287,6 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		barHosts.setVisibility(View.GONE);
 		progressHosts.setAppName(getString(R.string.adding));
 		progressHosts.setVisibility(View.VISIBLE);
-		LogApi.logAddHosts();
 
 		new Thread(new Runnable() {
 

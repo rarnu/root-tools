@@ -19,19 +19,18 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.TextView;
 
+import com.rarnu.devlib.component.DataBar;
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.DataappAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
-import com.rarnu.tools.root.comp.DataBar;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.RestoreLoader;
 import com.rarnu.tools.root.receiver.MutaxReceiver;
 import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
@@ -198,7 +197,7 @@ public class RestoreFragment extends BaseFragment implements
 		lvBackData.setEnabled(false);
 		progressBackData.setAppName(getString(R.string.deleting));
 		progressBackData.setVisibility(View.VISIBLE);
-		LogApi.logDeleteData();
+		
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
@@ -244,7 +243,7 @@ public class RestoreFragment extends BaseFragment implements
 	}
 
 	private void doRestore() {
-		LogApi.logRestoreData();
+		
 		setRestoreState(true);
 		List<DataappInfo> listOperate = new ArrayList<DataappInfo>();
 		for (int i = 0; i < listBackDataappAll.size(); i++) {

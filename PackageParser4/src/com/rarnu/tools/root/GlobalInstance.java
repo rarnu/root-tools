@@ -1,26 +1,20 @@
 package com.rarnu.tools.root;
 
+import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.NetworkInfo;
 
 import com.rarnu.tools.root.api.UpdateInfo;
+import com.rarnu.tools.root.common.DeviceInfo;
 import com.rarnu.tools.root.common.MemProcessInfo;
 import com.rarnu.tools.root.common.SysappInfo;
+import com.rarnu.tools.root.utils.DeviceUtils;
 
 public class GlobalInstance {
 
 	public static boolean DEBUG = false;
-	
-	public static boolean dualPane = false;
 	public static PackageManager pm = null;
-	
-	public static int currentFragment = 0;
-
-	// network
-	public static boolean loadingNetwork = false;
-	public static NetworkInfo networkInfo = null;
-	public static String networkSpeed = "";
 
 	// sysapp
 	public static SysappInfo currentSysapp = null;
@@ -40,6 +34,11 @@ public class GlobalInstance {
 	public static boolean killProcessBeforeClean = true;
 	public static MemProcessInfo currentMemoryProcess = null;
 
+	// network
+	public static boolean loadingNetwork = false;
+	public static NetworkInfo networkInfo = null;
+	public static String networkSpeed = "";
+
 	// host
 	public static String nameServer = "8.8.8.8";
 
@@ -47,10 +46,10 @@ public class GlobalInstance {
 	public static UpdateInfo updateInfo = null;
 	public static boolean isFirstStart = true;
 
-	// device info
-	public static String deviceId = "";
-	public static String module = "";
-	public static String osVersion = "";
-	public static String mail = "";
-	public static String buildDescription = "";
+	public static DeviceInfo device = null;
+
+	public static void init(Context context) {
+		pm = context.getPackageManager();
+		device = DeviceUtils.getDeviceInfo();
+	}
 }

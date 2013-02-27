@@ -6,7 +6,7 @@ import android.preference.PreferenceFragment;
 import android.view.Menu;
 import android.view.MenuInflater;
 
-import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.devlib.common.UIInstance;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 
@@ -15,7 +15,7 @@ public abstract class InnerPreferenceFragment extends PreferenceFragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		if (GlobalInstance.dualPane) {
+		if (UIInstance.dualPane) {
 			getActivity().getActionBar().setTitle(getBarTitleWithPath());
 		} else {
 			getActivity().getActionBar().setTitle(getBarTitle());
@@ -35,7 +35,7 @@ public abstract class InnerPreferenceFragment extends PreferenceFragment {
 	protected abstract int getBarTitleWithPath();
 
 	protected abstract void initComponents();
-	
+
 	protected abstract void initEvents();
 
 	protected abstract void initLogic();
@@ -61,7 +61,7 @@ public abstract class InnerPreferenceFragment extends PreferenceFragment {
 		}
 		if (getActivity().getClass().getName()
 				.equals(MainActivity.class.getName())
-				&& !GlobalInstance.dualPane) {
+				&& !UIInstance.dualPane) {
 			return;
 		}
 

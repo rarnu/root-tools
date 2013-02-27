@@ -3,7 +3,6 @@ package com.rarnu.tools.root.service;
 import android.app.Notification;
 import android.content.Intent;
 
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseService;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.utils.ApkUtils;
@@ -31,7 +30,6 @@ public class CleanBackupService extends BaseService {
 
 	@Override
 	public void doOperation(String command, Notification n) {
-		LogApi.logDeleteAllData();
 		ApkUtils.deleteAllBackupData();
 	}
 

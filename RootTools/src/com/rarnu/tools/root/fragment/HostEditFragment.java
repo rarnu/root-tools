@@ -12,7 +12,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.DirHelper;
@@ -33,7 +32,7 @@ public class HostEditFragment extends BasePopupFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LogApi.logEnterManualEditHosts();
+		
 	}
 
 	@Override
@@ -118,7 +117,7 @@ public class HostEditFragment extends BasePopupFragment {
 	}
 
 	private boolean saveHosts() {
-		LogApi.logManualEditHosts();
+		
 		String hosts = etEditHosts.getText().toString();
 		return HostsUtils.copyHosts(hosts, LOCAL_HOSTS);
 

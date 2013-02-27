@@ -20,14 +20,13 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.Toast;
 
+import com.rarnu.devlib.component.DataBar;
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.HostsAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.comp.DataBar;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.HostsSearchLoader;
 
 public class HostAddFragment extends BasePopupFragment implements
@@ -133,7 +132,7 @@ public class HostAddFragment extends BasePopupFragment implements
 	}
 
 	private void doSearch(final String domain) {
-		LogApi.logSearchHosts(domain);
+		
 		barAddHosts.setVisibility(View.GONE);
 		progressSearchHosts.setAppName(getString(R.string.searching));
 		progressSearchHosts.setVisibility(View.VISIBLE);

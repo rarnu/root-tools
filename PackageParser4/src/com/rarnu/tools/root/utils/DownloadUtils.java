@@ -16,12 +16,24 @@ import android.widget.ImageView;
 
 public class DownloadUtils {
 
+	public static final int WHAT_DOWNLOAD_START = 1;
+	public static final int WHAT_DOWNLOAD_PROGRESS = 2;
+	public static final int WHAT_DOWNLOAD_FINISH = 3;
+
 	private static List<String> listDownloading = new ArrayList<String>();
 
 	public static void downloadFileT(final Context context, final ImageView iv,
-			final String url, final String localFile) {
+			final String url, String localDir, final String localFile,
+			final Handler hProgress) {
 
-		final String filePath = DirHelper.ICON_DIR + localFile;
+		if (!localDir.endsWith("/")) {
+			localDir += "/";
+		}
+		File fDir = new File(localDir);
+		if (!fDir.exists()) {
+			fDir.mkdirs();
+		}
+		final String filePath = localDir + localFile;
 
 		File fImg = new File(filePath);
 		if (fImg.exists()) {
@@ -33,15 +45,17 @@ public class DownloadUtils {
 			return;
 		}
 
-		final Handler h = new Handler() {
+		final Handler hImage = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 					File file = new File(filePath);
 					if (file.exists()) {
 						try {
-							iv.setImageBitmap(BitmapFactory
-									.decodeFile(filePath));
+							if (iv != null) {
+								iv.setImageBitmap(BitmapFactory
+										.decodeFile(filePath));
+							}
 						} catch (Exception e) {
 
 						}
@@ -54,15 +68,13 @@ public class DownloadUtils {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				downloadFile(context, url, filePath);
-				h.sendEmptyMessage(1);
+				downloadFile(url, filePath, hProgress);
+				hImage.sendEmptyMessage(1);
 			}
 		}).start();
 	}
 
-	public static void downloadFile(Context context, String address,
-			String localFile) {
-
+	public static void downloadFile(String address, String localFile, Handler h) {
 		if (listDownloading.indexOf(localFile) != -1) {
 			return;
 		}
@@ -72,21 +84,48 @@ public class DownloadUtils {
 		if (fTmp.exists()) {
 			fTmp.delete();
 		}
+
 		URL url = null;
+		int filesize = 0;
+		int position = 0;
 		try {
 			url = new URL(address);
 			HttpURLConnection con = (HttpURLConnection) url.openConnection();
 			InputStream in = con.getInputStream();
+			filesize = con.getContentLength();
+			if (h != null) {
+				Message msg = new Message();
+				msg.what = WHAT_DOWNLOAD_START;
+				msg.arg1 = position;
+				msg.arg2 = filesize;
+				h.sendMessage(msg);
+			}
 			File fileOut = new File(localFile + ".tmp");
 			FileOutputStream out = new FileOutputStream(fileOut);
 			byte[] bytes = new byte[1024];
 			int c;
 			while ((c = in.read(bytes)) != -1) {
 				out.write(bytes, 0, c);
+				position += c;
+
+				if (h != null) {
+					Message msg = new Message();
+					msg.what = WHAT_DOWNLOAD_PROGRESS;
+					msg.arg1 = position;
+					msg.arg2 = filesize;
+					h.sendMessage(msg);
+				}
 			}
 			in.close();
 			out.close();
 			fileOut.renameTo(fTmp);
+			if (h != null) {
+				Message msg = new Message();
+				msg.what = WHAT_DOWNLOAD_FINISH;
+				msg.arg1 = 0;
+				msg.arg2 = filesize;
+				h.sendMessage(msg);
+			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

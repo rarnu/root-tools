@@ -21,13 +21,12 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.CacheAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.CacheInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.CleanCacheLoader;
 import com.rarnu.tools.root.utils.CacheUtils;
 
@@ -149,7 +148,7 @@ public class CleanCacheFragment extends BaseFragment implements
 	};
 
 	private void doCleanCache() {
-		LogApi.logCleanCache();
+		
 		if (menuClean != null) {
 			menuClean.setEnabled(false);
 			menuRefresh.setEnabled(false);
@@ -174,7 +173,7 @@ public class CleanCacheFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LogApi.logEnterCache();
+		
 	}
 
 	@Override

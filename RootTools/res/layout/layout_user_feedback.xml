@@ -14,7 +14,7 @@
         android:scrollbars="horizontal|vertical"
         android:textCursorDrawable="@null" />
 
-    <com.rarnu.tools.root.comp.DataProgressBar
+    <com.rarnu.devlib.component.DataProgressBar
         android:id="@+id/progressFeedback"
         android:layout_width="match_parent"
         android:layout_height="24dip"

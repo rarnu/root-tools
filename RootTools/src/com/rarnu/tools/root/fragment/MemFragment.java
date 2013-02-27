@@ -20,16 +20,15 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.MemProcessAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.MemProcessInfo;
 import com.rarnu.tools.root.common.MemoryInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.fragmentactivity.MemProcessActivity;
 import com.rarnu.tools.root.loader.ProcessLoader;
 import com.rarnu.tools.root.utils.MemorySpecialList;
@@ -52,7 +51,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LogApi.logEnterProcess();
+		
 	}
 
 	@Override
@@ -178,7 +177,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	private void doClean() {
-		LogApi.logCleanMemory();
+		
 		if (GlobalInstance.killProcessBeforeClean) {
 			doKillProcT();
 		} else {

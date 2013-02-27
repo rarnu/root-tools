@@ -12,6 +12,7 @@ import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.holder.RecommandAdapterHolder;
+import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.DownloadUtils;
 
 public class RecommandAdapter extends InnerAdapter<RecommandInfo> {
@@ -40,7 +41,8 @@ public class RecommandAdapter extends InnerAdapter<RecommandInfo> {
 		if (item != null) {
 			holder.tvItemRecommand.setText(item.name);
 			DownloadUtils.downloadFileT(context, holder.imgItemRecommand,
-					MobileApi.ICON_BASE_URL + item.iconUrl, item.unixName);
+					MobileApi.ICON_BASE_URL + item.iconUrl, DirHelper.TEMP_DIR,
+					item.unixName, null);
 		}
 
 		return v;

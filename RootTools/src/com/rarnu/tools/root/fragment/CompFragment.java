@@ -18,13 +18,12 @@ import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.CompPackageAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.fragmentactivity.CompPackageInfoActivity;
 import com.rarnu.tools.root.loader.CompLoader;
 
@@ -76,7 +75,7 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		LogApi.logEnterComponent();
+		
 	}
 
 	@Override

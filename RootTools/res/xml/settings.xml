@@ -2,49 +2,49 @@
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
 
     <PreferenceCategory android:title="@string/func1_title" >
-        <com.rarnu.tools.root.comp.CheckBoxPreferenceEx
+        <com.rarnu.devlib.component.CheckBoxPreferenceEx
             android:key="@string/id_allow_delete_level_0"
             android:title="@string/allow_delete_level0" />
-        <com.rarnu.tools.root.comp.CheckBoxPreferenceEx
+        <com.rarnu.devlib.component.CheckBoxPreferenceEx
             android:key="@string/id_backup_before_delete"
             android:title="@string/backup_before_delete" />
-        <com.rarnu.tools.root.comp.CheckBoxPreferenceEx
+        <com.rarnu.devlib.component.CheckBoxPreferenceEx
             android:key="@string/id_also_delete_data"
             android:title="@string/also_delete_data" />
 
-        <com.rarnu.tools.root.comp.PreferenceEx
+        <com.rarnu.devlib.component.PreferenceEx
             android:key="@string/id_custom_app_clean"
             android:title="@string/custom_app_clean" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_backup" >
-        <com.rarnu.tools.root.comp.CheckBoxPreferenceEx
+        <com.rarnu.devlib.component.CheckBoxPreferenceEx
             android:key="@string/id_override_backuped"
             android:title="@string/override_backuped" />
-        <com.rarnu.tools.root.comp.CheckBoxPreferenceEx
+        <com.rarnu.devlib.component.CheckBoxPreferenceEx
             android:key="@string/id_reinstall_apk"
             android:title="@string/reinstall_apk" />
 
-        <com.rarnu.tools.root.comp.PreferenceEx
+        <com.rarnu.devlib.component.PreferenceEx
             android:key="@string/id_delete_all_backup_data"
             android:title="@string/delete_all_backup_data" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/func5_title" >
-        <com.rarnu.tools.root.comp.CheckBoxPreferenceEx
+        <com.rarnu.devlib.component.CheckBoxPreferenceEx
             android:key="@string/id_kill_process_before_clean"
             android:title="@string/kill_process_before_clean" />
 
-        <com.rarnu.tools.root.comp.PreferenceEx
+        <com.rarnu.devlib.component.PreferenceEx
             android:key="@string/id_kill_ignore_list"
             android:title="@string/kill_ignore_list" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/func7_title" >
-        <com.rarnu.tools.root.comp.PreferenceEx
+        <com.rarnu.devlib.component.PreferenceEx
             android:key="@string/id_name_server"
             android:title="@string/name_server" />
-        <com.rarnu.tools.root.comp.PreferenceEx
+        <com.rarnu.devlib.component.PreferenceEx
             android:key="@string/id_manual_edit_hosts"
             android:title="@string/manual_edit_hosts" />
-        <com.rarnu.tools.root.comp.PreferenceEx
+        <com.rarnu.devlib.component.PreferenceEx
             android:key="@string/id_clean_deprecated_hosts"
             android:title="@string/clean_deprecated_hosts" />
     </PreferenceCategory>

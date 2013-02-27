@@ -10,7 +10,7 @@
         android:layout_above="@+id/progressDeprecated"
         android:fastScrollEnabled="true" />
 
-    <com.rarnu.tools.root.comp.DataProgressBar
+    <com.rarnu.devlib.component.DataProgressBar
         android:id="@+id/progressDeprecated"
         android:layout_width="match_parent"
         android:layout_height="24dip"

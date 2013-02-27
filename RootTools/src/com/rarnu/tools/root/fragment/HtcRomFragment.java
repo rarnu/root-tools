@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.HtcRomAdapter;
 import com.rarnu.tools.root.base.BaseFragment;
@@ -19,7 +20,6 @@ import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.HtcRomInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.receiver.MutaxReceiver;
 import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
 import com.rarnu.tools.root.service.HtcRomService;

@@ -19,7 +19,7 @@
                 android:layout_marginTop="8dip"
                 android:text="@string/root_buybox_desc" />
 
-            <com.rarnu.tools.root.comp.BlockListView
+            <com.rarnu.devlib.component.BlockListView
                 android:id="@+id/lstBusybox"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         </RelativeLayout>
     </ScrollView>
 
-    <com.rarnu.tools.root.comp.DataProgressBar
+    <com.rarnu.devlib.component.DataProgressBar
         android:id="@+id/progressBusybox"
         android:layout_width="match_parent"
         android:layout_height="24dip"

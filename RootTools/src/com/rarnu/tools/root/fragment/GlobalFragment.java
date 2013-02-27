@@ -6,7 +6,7 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 
-import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.devlib.common.UIInstance;
 import com.rarnu.tools.root.R;
 
 public class GlobalFragment {
@@ -152,7 +152,7 @@ public class GlobalFragment {
 
 	public static void showContent(Activity activity, Intent inContent,
 			Fragment fContent) {
-		if (GlobalInstance.dualPane) {
+		if (UIInstance.dualPane) {
 			FragmentManager fragmentManager = activity.getFragmentManager();
 			FragmentTransaction fragmentTransaction = fragmentManager
 					.beginTransaction();

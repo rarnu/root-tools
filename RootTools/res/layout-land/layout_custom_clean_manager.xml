@@ -12,7 +12,7 @@
         android:fastScrollEnabled="true" >
     </GridView>
 
-    <com.rarnu.tools.root.comp.DataBar
+    <com.rarnu.devlib.component.DataBar
         android:id="@+id/barCustomClean"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

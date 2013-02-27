@@ -11,17 +11,16 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
+import com.rarnu.devlib.component.BlockListView;
+import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.AboutAdapter;
 import com.rarnu.tools.root.adapter.PartnerAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.AboutInfo;
-import com.rarnu.tools.root.comp.BlockListView;
 import com.rarnu.tools.root.fragmentactivity.HelpActivity;
 import com.rarnu.tools.root.utils.DeviceUtils;
-import com.rarnu.tools.root.utils.UIUtils;
 import com.rarnu.tools.root.utils.UpdateUtils;
 
 public class AboutFragment extends BaseFragment implements OnItemClickListener {
@@ -100,7 +99,6 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 	protected void initLogic() {
 		showAppVersion();
 		showDebugStatus();
-		LogApi.logEnterAbout();
 		fitableClick = 0;
 
 		list.clear();

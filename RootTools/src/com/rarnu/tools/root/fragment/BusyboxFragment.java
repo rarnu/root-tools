@@ -13,16 +13,15 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.rarnu.devlib.component.BlockListView;
+import com.rarnu.devlib.component.DataProgressBar;
+import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.BusyboxAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.BusyboxInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.comp.BlockListView;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.utils.BusyboxUtils;
-import com.rarnu.tools.root.utils.UIUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class BusyboxFragment extends BaseFragment implements
@@ -90,7 +89,7 @@ public class BusyboxFragment extends BaseFragment implements
 							public void onClick(DialogInterface dialog,
 									int which) {
 								doReinstallBusyboxT();
-								LogApi.logReinstallBusybox();
+								
 
 							}
 						}).setNegativeButton(R.string.cancel, null).show();
@@ -181,7 +180,6 @@ public class BusyboxFragment extends BaseFragment implements
 	@Override
 	protected void initLogic() {
 		checkStatus();
-		LogApi.logEnterRootBusybox();
 	}
 
 	@Override

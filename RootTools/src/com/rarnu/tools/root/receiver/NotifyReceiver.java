@@ -4,10 +4,10 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
+import com.rarnu.devlib.utils.NotificationUtils;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.fragmentactivity.DataappReportActivity;
-import com.rarnu.tools.root.utils.NotificationUtils;
 
 public class NotifyReceiver extends BroadcastReceiver {
 

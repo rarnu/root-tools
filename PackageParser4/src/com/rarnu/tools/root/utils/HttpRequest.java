@@ -16,6 +16,12 @@ import org.apache.http.util.EntityUtils;
 
 public class HttpRequest {
 
+	public static String post(String host, String getParams,
+			List<BasicNameValuePair> params, String encoding) {
+		String url = host + "?" + getParams;
+		return post(url, params, encoding);
+	}
+
 	public static String post(String host, List<BasicNameValuePair> params,
 			String encoding) {
 		HttpPost httpPost = new HttpPost(host);

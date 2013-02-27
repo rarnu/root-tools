@@ -13,10 +13,10 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.CompAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.CompInfo;
 import com.rarnu.tools.root.utils.ColorUtils;
@@ -73,7 +73,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 		}
 
 		Object /* PackageParser.Package */pkg = ComponentUtils
-				.parsePackageInfo(GlobalInstance.currentComp);
+				.parsePackageInfo(GlobalInstance.currentComp, UIUtils.getDM());
 		if (pkg == null) {
 			Toast.makeText(getActivity(), R.string.no_package_info_found,
 					Toast.LENGTH_LONG).show();
@@ -111,8 +111,6 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	}
 
 	private void doEnableComponent(CompInfo item, View view) {
-		LogApi.logEnableComponent(ComponentUtils.getPackageComponentName(
-				item.component).toString());
 		boolean bRet = ComponentUtils.doEnabledComponent(ComponentUtils
 				.getPackageComponentName(item.component));
 		if (bRet) {
@@ -128,8 +126,6 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	}
 
 	private void doDisableComponent(CompInfo item, View view) {
-		LogApi.logDisableComponent(ComponentUtils.getPackageComponentName(
-				item.component).toString());
 		boolean bRet = ComponentUtils.doDisableComponent(ComponentUtils
 				.getPackageComponentName(item.component));
 		if (bRet) {

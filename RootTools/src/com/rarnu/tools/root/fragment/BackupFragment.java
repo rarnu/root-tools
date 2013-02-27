@@ -14,19 +14,18 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.TextView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.TextView;
 
+import com.rarnu.devlib.component.DataBar;
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.DataappAdapter;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
-import com.rarnu.tools.root.comp.DataBar;
-import com.rarnu.tools.root.comp.DataProgressBar;
 import com.rarnu.tools.root.loader.BackupLoader;
 import com.rarnu.tools.root.receiver.MutaxReceiver;
 import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
@@ -158,7 +157,6 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	}
 
 	private void doBackup() {
-		LogApi.logBackupData();
 		setBackupState(true);
 		List<DataappInfo> listOperate = new ArrayList<DataappInfo>();
 		for (int i = 0; i < listDataappAll.size(); i++) {

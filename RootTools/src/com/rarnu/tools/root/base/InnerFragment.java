@@ -9,7 +9,7 @@ import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.devlib.common.UIInstance;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 
@@ -20,7 +20,7 @@ public abstract class InnerFragment extends Fragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		if (GlobalInstance.dualPane) {
+		if (UIInstance.dualPane) {
 			getActivity().getActionBar().setTitle(getBarTitleWithPath());
 		} else {
 			getActivity().getActionBar().setTitle(getBarTitle());
@@ -76,7 +76,7 @@ public abstract class InnerFragment extends Fragment {
 		}
 		if (getActivity().getClass().getName()
 				.equals(MainActivity.class.getName())
-				&& !GlobalInstance.dualPane) {
+				&& !UIInstance.dualPane) {
 			return;
 		}
 

@@ -103,7 +103,7 @@
         android:fastScrollEnabled="true">
     </ListView>
 
-    <com.rarnu.tools.root.comp.DataBar
+    <com.rarnu.devlib.component.DataBar
         android:id="@+id/barAddHosts"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -111,7 +111,7 @@
         android:layout_centerHorizontal="true"
         android:visibility="gone" />
 
-    <com.rarnu.tools.root.comp.DataProgressBar
+    <com.rarnu.devlib.component.DataProgressBar
         android:id="@+id/progressSearchHosts"
         android:layout_width="match_parent"
         android:layout_height="24dip"

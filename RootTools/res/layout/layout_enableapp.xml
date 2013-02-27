@@ -23,7 +23,7 @@
         android:textColor="@color/black"
         android:visibility="gone" />
 
-    <com.rarnu.tools.root.comp.DataProgressBar
+    <com.rarnu.devlib.component.DataProgressBar
         android:id="@+id/progressEnableapp"
         android:layout_width="match_parent"
         android:layout_height="24dip"

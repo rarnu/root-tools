@@ -8,13 +8,13 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.api.LogApi;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.comp.DataProgressBar;
+import com.rarnu.tools.root.utils.DeviceUtils;
 
 public class FeedbackFragment extends BaseFragment {
 
@@ -65,15 +65,15 @@ public class FeedbackFragment extends BaseFragment {
 		progressFeedback.setVisibility(View.VISIBLE);
 		etFeedback.setEnabled(false);
 		itemSend.setEnabled(false);
-		LogApi.logUserFeedback();
 
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				boolean ret = MobileApi.userFeedback(GlobalInstance.deviceId,
-						GlobalInstance.module, GlobalInstance.osVersion,
-						GlobalInstance.mail, GlobalInstance.buildDescription,
-						comment);
+				boolean ret = MobileApi.userFeedback(
+						DeviceUtils.getDeviceUniqueId(getActivity()),
+						GlobalInstance.device.roProductModel,
+						GlobalInstance.device.roBuildVersionSdk, "",
+						GlobalInstance.device.roBuildDescription, comment);
 				Message msg = new Message();
 				msg.what = 1;
 				msg.arg1 = (ret ? 1 : 0);
