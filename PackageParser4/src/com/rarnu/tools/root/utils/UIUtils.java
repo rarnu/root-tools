@@ -14,26 +14,23 @@ public class UIUtils {
 
 	private static DisplayMetrics dm = null;
 
-	
 	public static DisplayMetrics getDM() {
 		return dm;
 	}
-	
+
 	public static float getDensity() {
 		return dm.density;
 	}
-	
+
 	public static void initDisplayMetrics(WindowManager wm) {
-		if (dm == null) {
-			dm = new DisplayMetrics();
-			wm.getDefaultDisplay().getMetrics(dm);
-		}
+		dm = new DisplayMetrics();
+		wm.getDefaultDisplay().getMetrics(dm);
 	}
 
 	public static boolean touchInView(View v, MotionEvent e) {
 		return false;
 	}
-	
+
 	public static boolean touchInDialog(Activity activity, MotionEvent e) {
 		// WindowManager.LayoutParams wlp =
 		// activity.getWindow().getAttributes();
@@ -136,7 +133,7 @@ public class UIUtils {
 		return width;
 
 	}
-	
+
 	public static int getWidth() {
 		return dm.widthPixels;
 	}
