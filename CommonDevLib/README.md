@@ -1,4 +1,0 @@
-rtdevlib
-========
-
-RT Development Library
