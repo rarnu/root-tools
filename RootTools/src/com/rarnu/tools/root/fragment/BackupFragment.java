@@ -6,6 +6,7 @@ import java.util.List;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
@@ -17,11 +18,12 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
+import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataBar;
 import com.rarnu.devlib.component.DataProgressBar;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.DataappAdapter;
-import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
@@ -295,6 +297,16 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		barData.getCheckBox().setOnClickListener(this);
 		loader.registerListener(0, this);
 		receiver.setOnReceiveMessage(this);
+		
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
 		
 	}
 }

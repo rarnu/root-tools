@@ -4,7 +4,7 @@ import android.app.Fragment;
 import android.content.res.Configuration;
 import android.os.Bundle;
 
-import com.rarnu.tools.root.base.BaseDialog;
+import com.rarnu.devlib.base.BaseDialog;
 import com.rarnu.tools.root.fragment.GlobalFragment;
 
 public class MemProcessActivity extends BaseDialog {

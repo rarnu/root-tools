@@ -1,5 +1,6 @@
 package com.rarnu.tools.root.fragment;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
@@ -8,11 +9,12 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.MobileApi;
-import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.DeviceUtils;
 
@@ -121,6 +123,16 @@ public class FeedbackFragment extends BaseFragment {
 	@Override
 	protected void initEvents() {
 
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+		
 	}
 
 }

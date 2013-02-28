@@ -7,6 +7,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,10 +19,11 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.EnableappAdapter;
-import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.EnableappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.loader.EnableappLoader;
@@ -210,6 +212,16 @@ public class EnableappFragment extends BaseFragment implements
 	protected void initEvents() {
 		lvEnableApp.setOnItemLongClickListener(this);
 		loader.registerListener(0, this);
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+
 	}
 
 }

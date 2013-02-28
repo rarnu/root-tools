@@ -9,7 +9,10 @@ import android.widget.BaseAdapter;
 import android.widget.Filter;
 import android.widget.Filterable;
 
-public abstract class InnerAdapter<T> extends BaseAdapter implements Filterable {
+/**
+ * @hide
+ */
+abstract class InnerAdapter<T> extends BaseAdapter implements Filterable {
 
 	protected Context context;
 	protected LayoutInflater inflater;
@@ -123,5 +126,9 @@ public abstract class InnerAdapter<T> extends BaseAdapter implements Filterable 
 	}
 
 	public abstract String getValueText(T item);
+
+	public void filter(String text) {
+		getFilter().filter(text);
+	}
 
 }

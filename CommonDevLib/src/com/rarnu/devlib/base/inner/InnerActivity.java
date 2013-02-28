@@ -7,8 +7,6 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.view.Window;
 
-import com.rarnu.devlib.R;
-
 public abstract class InnerActivity extends Activity {
 
 	protected ActionBar bar;
@@ -27,7 +25,7 @@ public abstract class InnerActivity extends Activity {
 
 		bar = getActionBar();
 		if (bar != null) {
-			bar.setIcon(R.drawable.ic_launcher);
+			bar.setIcon(getIcon());
 			bar.setDisplayOptions(0, ActionBar.DISPLAY_HOME_AS_UP);
 			bar.setDisplayHomeAsUpEnabled(true);
 		}
@@ -38,6 +36,8 @@ public abstract class InnerActivity extends Activity {
 		getFragmentManager().beginTransaction()
 				.replace(getReplaceId(), replaceFragment()).commit();
 	}
+
+	public abstract int getIcon();
 
 	public abstract boolean getCondition();
 

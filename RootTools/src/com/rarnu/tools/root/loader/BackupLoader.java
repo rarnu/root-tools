@@ -4,7 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 
-import com.rarnu.tools.root.base.BaseLoader;
+import com.rarnu.devlib.base.BaseLoader;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.utils.ApkUtils;
 

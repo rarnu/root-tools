@@ -185,7 +185,7 @@
             android:label="@string/app_name" />
 
         <receiver
-            android:name=".receiver.NetworkReceiver"
+            android:name="com.rarnu.tools.root.comp.NetworkReceiver"
             android:label="@string/app_name" >
             <intent-filter>
                 <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />

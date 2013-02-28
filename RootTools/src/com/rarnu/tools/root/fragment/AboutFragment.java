@@ -5,19 +5,22 @@ import java.util.List;
 
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
+import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.devlib.common.FragmentStarter;
 import com.rarnu.devlib.component.BlockListView;
 import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.AboutAdapter;
 import com.rarnu.tools.root.adapter.PartnerAdapter;
-import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.AboutInfo;
 import com.rarnu.tools.root.fragmentactivity.HelpActivity;
 import com.rarnu.tools.root.utils.DeviceUtils;
@@ -75,7 +78,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 		lstEoe = (BlockListView) innerView.findViewById(R.id.lstEoe);
 		lstAbout.setItemHeight(UIUtils.dipToPx(56));
 		lstEoe.setItemHeight(UIUtils.dipToPx(64));
-		
+
 		list = new ArrayList<AboutInfo>();
 		adapter = new AboutAdapter(getActivity(), list);
 		lstAbout.setAdapter(adapter);
@@ -110,7 +113,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 		lstAbout.resize();
 		lstEoe.resize();
 	}
-	
+
 	private AboutInfo buildAboutInfo(int resTitle, int fitable) {
 		AboutInfo info = new AboutInfo();
 		info.title = getString(resTitle);
@@ -131,23 +134,17 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 				UpdateUtils.showUpdateInfo(getActivity());
 				break;
 			case 1:
-				GlobalFragment.showContent(getActivity(), new Intent(
-						getActivity(), HelpActivity.class),
+				FragmentStarter.showContent(getActivity(), HelpActivity.class,
 						GlobalFragment.fIntro);
 				break;
 			case 2:
 				/*
-				if (!GlobalInstance.DEBUG) {
-					fitableClick++;
-					if (fitableClick == 10) {
-						fitableClick = 0;
-						Intent inEgg = new Intent(getActivity(),
-								EggActivity.class);
-						startActivity(inEgg);
-					}
-				}
-				*/
-				
+				 * if (!GlobalInstance.DEBUG) { fitableClick++; if (fitableClick
+				 * == 10) { fitableClick = 0; Intent inEgg = new
+				 * Intent(getActivity(), EggActivity.class);
+				 * startActivity(inEgg); } }
+				 */
+
 				break;
 			}
 		}
@@ -157,6 +154,16 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 	protected void initEvents() {
 		lstAbout.setOnItemClickListener(this);
 		lstEoe.setOnItemClickListener(this);
-		
+
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+
 	}
 }

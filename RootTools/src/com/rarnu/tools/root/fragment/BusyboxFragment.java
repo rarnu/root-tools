@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
@@ -13,12 +14,13 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.BlockListView;
 import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.devlib.utils.UIUtils;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.BusyboxAdapter;
-import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.BusyboxInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.BusyboxUtils;
@@ -198,6 +200,16 @@ public class BusyboxFragment extends BaseFragment implements
 	@Override
 	protected void initEvents() {
 		lstBusybox.setOnItemClickListener(this);
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+		
 	}
 
 }

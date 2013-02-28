@@ -5,6 +5,7 @@ import java.util.List;
 
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
@@ -15,10 +16,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.base.BasePopupFragment;
 import com.rarnu.devlib.component.DataProgressBar;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.HostsAdapter;
-import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.loader.HostsLoader;
@@ -187,6 +189,16 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 	@Override
 	protected void initEvents() {
 		loader.registerListener(0, this);
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+		
 	}
 
 }

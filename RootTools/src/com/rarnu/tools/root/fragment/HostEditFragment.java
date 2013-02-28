@@ -11,8 +11,9 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.base.BasePopupFragment;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.FileUtils;
@@ -125,6 +126,16 @@ public class HostEditFragment extends BasePopupFragment {
 
 	@Override
 	protected void initEvents() {
+		
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
 		
 	}
 

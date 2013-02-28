@@ -5,8 +5,8 @@ import java.util.List;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 
+import com.rarnu.devlib.base.BaseLoader;
 import com.rarnu.tools.root.GlobalInstance;
-import com.rarnu.tools.root.base.BaseLoader;
 
 public class CompLoader extends BaseLoader<PackageInfo> {
 

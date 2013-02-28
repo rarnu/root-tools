@@ -5,8 +5,9 @@ import java.util.List;
 import android.app.Notification;
 import android.content.Intent;
 
+import com.rarnu.devlib.base.BaseService;
 import com.rarnu.tools.root.GlobalInstance;
-import com.rarnu.tools.root.base.BaseService;
+import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.utils.ApkUtils;
@@ -59,6 +60,16 @@ public class DataRestoreService extends BaseService {
 	@Override
 	public boolean getCommandCondition(String command) {
 		return command.equals("restore");
+	}
+
+	@Override
+	public boolean showNotification() {
+		return true;
+	}
+
+	@Override
+	public int getIcon24() {
+		return R.drawable.icon24;
 	}
 
 }

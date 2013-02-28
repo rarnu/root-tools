@@ -206,10 +206,6 @@
     <string name="empty_feedback">内容为空，不能发送</string>
     <string name="send_feedback_succ">发送反馈信息成功</string>
     <string name="send_feedback_fail">发送反馈信息失败</string>
-    <string name="recommand_anjuke">安居客二手房</string>
-    <string name="recommand_haozu">好租租房</string>
-    <string name="recommand_xinfang">安居客新房</string>
-    <string name="recommand_broker">网络经纪人</string>
     <string name="crash_terminate">非常抱歉，软件出现了重大错误，即将被关闭，您可以重启本软件，然后将错误反馈给我们</string>
     <string name="no_host_for_add">没有任何 Hosts 可供添加</string>
     <string name="confirm_clean_cache">确实要清除该应用程序的缓存数据吗？按“确定”清除，按“取消”不清除。</string>

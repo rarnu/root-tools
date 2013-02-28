@@ -4,10 +4,10 @@ import java.util.List;
 
 import android.app.Notification;
 import android.content.Intent;
-import android.util.Log;
 
+import com.rarnu.devlib.base.BaseService;
 import com.rarnu.tools.root.GlobalInstance;
-import com.rarnu.tools.root.base.BaseService;
+import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.utils.ApkUtils;
@@ -37,7 +37,6 @@ public class DataBackupService extends BaseService {
 
 	@Override
 	public void doOperation(String command, Notification n) {
-		Log.e(getClass().getName(), "doOperation");
 		List<DataappInfo> list = ListUtils.getOperateList();
 		inBackupProgress.putExtra("size", list.size());
 		for (int i = 0; i < list.size(); i++) {
@@ -58,8 +57,17 @@ public class DataBackupService extends BaseService {
 
 	@Override
 	public boolean getCommandCondition(String command) {
-		Log.e(getClass().getName(), "getCommandCondition");
 		return command.equals("backup");
+	}
+
+	@Override
+	public boolean showNotification() {
+		return true;
+	}
+
+	@Override
+	public int getIcon24() {
+		return R.drawable.icon24;
 	}
 
 }

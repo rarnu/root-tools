@@ -21,11 +21,12 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataBar;
 import com.rarnu.devlib.component.DataProgressBar;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.HostsAdapter;
-import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
@@ -335,6 +336,16 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		barHosts.getButton2().setOnClickListener(this);
 		barHosts.getCheckBox().setOnClickListener(this);
 		loader.registerListener(0, this);
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+		
 	}
 
 }

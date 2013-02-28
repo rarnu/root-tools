@@ -3,7 +3,6 @@ package com.rarnu.tools.root.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.view.Menu;
@@ -13,11 +12,12 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.EditText;
 
+import com.rarnu.devlib.base.inner.InnerPreferenceFragment;
 import com.rarnu.devlib.component.CheckBoxPreferenceEx;
 import com.rarnu.devlib.component.PreferenceEx;
 import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.base.InnerPreferenceFragment;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.common.RTConsts;
@@ -49,13 +49,6 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 	@Override
 	protected int getBarTitleWithPath() {
 		return R.string.settings_with_path;
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.settings);
-		
 	}
 
 	@Override
@@ -280,6 +273,16 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 		prefDeleteAllBackupData.setOnPreferenceClickListener(this);
 		prefCustomAppClean.setOnPreferenceClickListener(this);
 		receiver.setOnReceiveMessage(this);
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected int getPreferenceLayoutId() {
+		return R.xml.settings;
 	}
 
 }

@@ -9,6 +9,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,9 +19,10 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.base.BasePopupFragment;
 import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.SysappInfo;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.CustomPackageUtils;
@@ -231,6 +233,16 @@ public class SysappDetailFragment extends BasePopupFragment implements
 		btnDelete.setOnClickListener(this);
 		btnAddToCleanList.setOnClickListener(this);
 
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+		
 	}
 
 }

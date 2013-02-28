@@ -2,7 +2,8 @@ package com.rarnu.tools.root.fragmentactivity;
 
 import android.app.Fragment;
 
-import com.rarnu.tools.root.base.BaseActivity;
+import com.rarnu.devlib.base.BaseActivity;
+import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.fragment.GlobalFragment;
 
 public class SettingsActivity extends BaseActivity {
@@ -12,4 +13,9 @@ public class SettingsActivity extends BaseActivity {
 		return GlobalFragment.fSettings;
 	}
 
+	@Override
+	public int getIcon() {
+		return R.drawable.icon;
+	}
+	
 }

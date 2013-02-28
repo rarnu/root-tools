@@ -6,6 +6,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
@@ -21,9 +22,10 @@ import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.base.BasePopupFragment;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.SysappSelectApkAdapter;
-import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.SysappSelectApkItem;
 import com.rarnu.tools.root.utils.ApkUtils;
@@ -202,6 +204,16 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 	@Override
 	protected void initEvents() {
 		lvFiles.setOnItemClickListener(this);
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+		
 	}
 
 }

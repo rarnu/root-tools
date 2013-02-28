@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.graphics.Color;
+import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,11 +14,12 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.base.BasePopupFragment;
 import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.CompAdapter;
-import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.CompInfo;
 import com.rarnu.tools.root.utils.ColorUtils;
 import com.rarnu.tools.root.utils.ComponentUtils;
@@ -143,6 +145,17 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	@Override
 	protected void initEvents() {
 		lvReceiver.setOnItemLongClickListener(this);
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+
+		
 	}
 
 }

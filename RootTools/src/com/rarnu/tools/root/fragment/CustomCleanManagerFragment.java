@@ -2,6 +2,7 @@ package com.rarnu.tools.root.fragment;
 
 import java.util.List;
 
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.text.Html;
@@ -14,10 +15,11 @@ import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.rarnu.devlib.base.BasePopupFragment;
 import com.rarnu.devlib.component.DataBar;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.CustomCleanAdapter;
-import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.CustomPackageInfo;
 import com.rarnu.tools.root.utils.CustomPackageUtils;
 
@@ -168,6 +170,16 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements
 		barCustomClean.getButton1().setOnClickListener(this);
 		barCustomClean.getButton2().setOnClickListener(this);
 		barCustomClean.getCheckBox().setOnClickListener(this);
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+		
 	}
 
 }

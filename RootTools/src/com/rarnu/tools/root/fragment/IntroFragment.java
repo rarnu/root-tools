@@ -1,12 +1,14 @@
 package com.rarnu.tools.root.fragment;
 
+import android.os.Bundle;
 import android.view.Menu;
 import android.webkit.WebSettings;
 import android.webkit.WebSettings.LayoutAlgorithm;
 import android.webkit.WebView;
 
+import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.base.BaseFragment;
 
 public class IntroFragment extends BaseFragment {
 
@@ -65,6 +67,16 @@ public class IntroFragment extends BaseFragment {
 
 	@Override
 	protected void initEvents() {
+		
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
 		
 	}
 

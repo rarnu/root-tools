@@ -8,8 +8,9 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
+import com.rarnu.devlib.base.BaseService;
 import com.rarnu.tools.root.GlobalInstance;
-import com.rarnu.tools.root.base.BaseService;
+import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.CustomPackageInfo;
 import com.rarnu.tools.root.utils.ApkUtils;
@@ -137,6 +138,16 @@ public class HtcRomService extends BaseService {
 	@Override
 	public boolean getCommandCondition(String command) {
 		return command != null && command.length() == 12;
+	}
+
+	@Override
+	public boolean showNotification() {
+		return true;
+	}
+
+	@Override
+	public int getIcon24() {
+		return R.drawable.icon24;
 	}
 
 }

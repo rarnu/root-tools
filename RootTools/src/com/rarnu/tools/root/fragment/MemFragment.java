@@ -20,11 +20,12 @@ import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 import android.widget.TextView;
 
+import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.GlobalInstance;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.MemProcessAdapter;
-import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.MemProcessInfo;
 import com.rarnu.tools.root.common.MemoryInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
@@ -328,6 +329,16 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	protected void initEvents() {
 		lvMemory.setOnItemClickListener(this);
 		loader.registerListener(0, this);
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+		
 	}
 
 }

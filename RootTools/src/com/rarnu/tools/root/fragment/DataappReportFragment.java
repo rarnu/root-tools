@@ -2,13 +2,15 @@ package com.rarnu.tools.root.fragment;
 
 import java.util.List;
 
+import android.os.Bundle;
 import android.view.Menu;
 import android.widget.GridView;
 import android.widget.ListView;
 
+import com.rarnu.devlib.base.BasePopupFragment;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.DataappReportAdapter;
-import com.rarnu.tools.root.base.BasePopupFragment;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.utils.ApkUtils;
 
@@ -63,6 +65,16 @@ public class DataappReportFragment extends BasePopupFragment {
 
 	@Override
 	protected void initEvents() {
+		
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
 		
 	}
 

@@ -1,17 +1,9 @@
 package com.rarnu.tools.root.fragment;
 
-import android.app.Activity;
-import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
-import android.content.Intent;
-
-import com.rarnu.devlib.common.UIInstance;
-import com.rarnu.tools.root.R;
 
 public class GlobalFragment {
 
-	public static MainFragment fMain = null;
+	public static IndexFragment fIndex = null;
 	public static FeedbackFragment fFeedback = null;
 	public static IntroFragment fIntro = null;
 	public static AboutFragment fAbout = null;
@@ -40,8 +32,8 @@ public class GlobalFragment {
 
 	public static void loadFragments() {
 
-		if (fMain == null) {
-			fMain = new MainFragment();
+		if (fIndex == null) {
+			fIndex = new IndexFragment();
 		}
 		if (fFeedback == null) {
 			fFeedback = new FeedbackFragment();
@@ -123,7 +115,7 @@ public class GlobalFragment {
 
 	public static void releaseFragments() {
 
-		fMain = null;
+		fIndex = null;
 		fFeedback = null;
 		fIntro = null;
 		fAbout = null;
@@ -148,20 +140,5 @@ public class GlobalFragment {
 		fBackup = null;
 		fRestore = null;
 		fCustumClean = null;
-	}
-
-	public static void showContent(Activity activity, Intent inContent,
-			Fragment fContent) {
-		if (UIInstance.dualPane) {
-			FragmentManager fragmentManager = activity.getFragmentManager();
-			FragmentTransaction fragmentTransaction = fragmentManager
-					.beginTransaction();
-			fragmentTransaction.replace(R.id.fragmentDetail, fContent);
-			fragmentTransaction
-					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE);
-			fragmentTransaction.commit();
-		} else {
-			activity.startActivity(inContent);
-		}
 	}
 }

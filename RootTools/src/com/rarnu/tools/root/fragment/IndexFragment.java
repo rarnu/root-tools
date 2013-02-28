@@ -2,14 +2,15 @@ package com.rarnu.tools.root.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.Intent;
-import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.preference.PreferenceFragment;
+import android.view.Menu;
 
+import com.rarnu.devlib.base.BasePreferenceFragment;
+import com.rarnu.devlib.common.FragmentStarter;
 import com.rarnu.devlib.common.UIInstance;
 import com.rarnu.devlib.component.PreferenceEx;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.fragmentactivity.AboutActivity;
 import com.rarnu.tools.root.fragmentactivity.BusyboxActivity;
@@ -32,7 +33,7 @@ import com.rarnu.tools.root.utils.MiscUtils;
 import com.rarnu.tools.root.utils.NetworkUtils;
 import com.rarnu.tools.root.utils.root.RootUtils;
 
-public class MainFragment extends PreferenceFragment implements
+public class IndexFragment extends BasePreferenceFragment implements
 		OnPreferenceClickListener {
 
 	PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefRoot,
@@ -42,57 +43,6 @@ public class MainFragment extends PreferenceFragment implements
 	PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
 	PreferenceEx prefFeedback, prefRecommand, prefAbout;
 	PreferenceEx prefSettings;
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		addPreferencesFromResource(R.xml.main);
-		mappingComponents();
-		initEvents();
-		showFunctionalEnabledTags();
-	}
-
-	private void mappingComponents() {
-		prefSysApp = (PreferenceEx) findPreference(getString(R.string.id_sysapp));
-		prefSysAppEnabled = (PreferenceEx) findPreference(getString(R.string.id_sysappenabled));
-		prefComponent = (PreferenceEx) findPreference(getString(R.string.id_component));
-		prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
-		prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
-		prefBackup = (PreferenceEx) findPreference(getString(R.string.id_backup));
-		prefRestore = (PreferenceEx) findPreference(getString(R.string.id_restore));
-		prefCleanMemory = (PreferenceEx) findPreference(getString(R.string.id_cleanmemory));
-		prefCleanCache = (PreferenceEx) findPreference(getString(R.string.id_cleancache));
-		prefCleanDalvik = (PreferenceEx) findPreference(getString(R.string.id_cleandalvik));
-		prefHosts = (PreferenceEx) findPreference(getString(R.string.id_hosts));
-		prefScanMedia = (PreferenceEx) findPreference(getString(R.string.id_scanmedia));
-		prefNetworkState = (PreferenceEx) findPreference(getString(R.string.id_network));
-		prefReboot = (PreferenceEx) findPreference(getString(R.string.id_reboot));
-		prefFeedback = (PreferenceEx) findPreference(getString(R.string.id_feedback));
-		prefRecommand = (PreferenceEx) findPreference(getString(R.string.id_recommand));
-		prefAbout = (PreferenceEx) findPreference(getString(R.string.id_about));
-		prefSettings = (PreferenceEx) findPreference(getString(R.string.id_settings));
-	}
-
-	private void initEvents() {
-		prefSysApp.setOnPreferenceClickListener(this);
-		prefSysAppEnabled.setOnPreferenceClickListener(this);
-		prefComponent.setOnPreferenceClickListener(this);
-		prefRoot.setOnPreferenceClickListener(this);
-		prefHtcRom.setOnPreferenceClickListener(this);
-		prefBackup.setOnPreferenceClickListener(this);
-		prefRestore.setOnPreferenceClickListener(this);
-		prefCleanMemory.setOnPreferenceClickListener(this);
-		prefCleanCache.setOnPreferenceClickListener(this);
-		prefCleanDalvik.setOnPreferenceClickListener(this);
-		prefHosts.setOnPreferenceClickListener(this);
-		prefScanMedia.setOnPreferenceClickListener(this);
-		prefNetworkState.setOnPreferenceClickListener(this);
-		prefReboot.setOnPreferenceClickListener(this);
-		prefFeedback.setOnPreferenceClickListener(this);
-		prefRecommand.setOnPreferenceClickListener(this);
-		prefAbout.setOnPreferenceClickListener(this);
-		prefSettings.setOnPreferenceClickListener(this);
-	}
 
 	public void showFunctionalEnabledTags() {
 		boolean isRooted = RootUtils.hasSu();
@@ -159,52 +109,51 @@ public class MainFragment extends PreferenceFragment implements
 		// system
 		if (preference.getKey().equals(getString(R.string.id_sysapp))) {
 			UIInstance.currentFragment = 1;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					SysappMainActivity.class), GlobalFragment.fSysapp);
-
+			FragmentStarter.showContent(getActivity(),
+					SysappMainActivity.class, GlobalFragment.fSysapp);
 		} else if (preference.getKey().equals(
 				getString(R.string.id_sysappenabled))) {
 			UIInstance.currentFragment = 2;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					EnableappMainActivity.class), GlobalFragment.fEnableapp);
+			FragmentStarter.showContent(getActivity(),
+					EnableappMainActivity.class, GlobalFragment.fEnableapp);
 
 		} else if (preference.getKey().equals(getString(R.string.id_component))) {
 			UIInstance.currentFragment = 3;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					CompMainActivity.class), GlobalFragment.fComp);
+			FragmentStarter.showContent(getActivity(), CompMainActivity.class,
+					GlobalFragment.fComp);
 
 		} else if (preference.getKey().equals(getString(R.string.id_root))) {
 			UIInstance.currentFragment = 4;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					BusyboxActivity.class), GlobalFragment.fBusybox);
+			FragmentStarter.showContent(getActivity(), BusyboxActivity.class,
+					GlobalFragment.fBusybox);
 
 		} else if (preference.getKey().equals(getString(R.string.id_cleanhtc))) {
 			UIInstance.currentFragment = 5;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					HtcRomActivity.class), GlobalFragment.fHtcRom);
+			FragmentStarter.showContent(getActivity(), HtcRomActivity.class,
+					GlobalFragment.fHtcRom);
 
 		}
 		// backup
 		else if (preference.getKey().equals(getString(R.string.id_backup))) {
 			UIInstance.currentFragment = 6;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					DataBackupActivity.class), GlobalFragment.fBackup);
+			FragmentStarter.showContent(getActivity(),
+					DataBackupActivity.class, GlobalFragment.fBackup);
 		} else if (preference.getKey().equals(getString(R.string.id_restore))) {
 			UIInstance.currentFragment = 14;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					DataRestoreActivity.class), GlobalFragment.fRestore);
+			FragmentStarter.showContent(getActivity(),
+					DataRestoreActivity.class, GlobalFragment.fRestore);
 		}
 
 		// memory
 		else if (preference.getKey().equals(getString(R.string.id_cleanmemory))) {
 			UIInstance.currentFragment = 7;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					MemMainActivity.class), GlobalFragment.fMem);
+			FragmentStarter.showContent(getActivity(), MemMainActivity.class,
+					GlobalFragment.fMem);
 		} else if (preference.getKey()
 				.equals(getString(R.string.id_cleancache))) {
 			UIInstance.currentFragment = 8;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					CleanCacheMainActivity.class), GlobalFragment.fCleanCache);
+			FragmentStarter.showContent(getActivity(),
+					CleanCacheMainActivity.class, GlobalFragment.fCleanCache);
 		} else if (preference.getKey().equals(
 				getString(R.string.id_cleandalvik))) {
 			DalvikUtils.doCleanDalvikT(getActivity(), getView(),
@@ -214,8 +163,8 @@ public class MainFragment extends PreferenceFragment implements
 		// other
 		else if (preference.getKey().equals(getString(R.string.id_hosts))) {
 			UIInstance.currentFragment = 9;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					HostMainActivity.class), GlobalFragment.fHost);
+			FragmentStarter.showContent(getActivity(), HostMainActivity.class,
+					GlobalFragment.fHost);
 		} else if (preference.getKey().equals(getString(R.string.id_scanmedia))) {
 			MiscUtils.doScanMedia(getActivity());
 		} else if (preference.getKey().equals(getString(R.string.id_network))) {
@@ -243,26 +192,103 @@ public class MainFragment extends PreferenceFragment implements
 		// support
 		else if (preference.getKey().equals(getString(R.string.id_feedback))) {
 			UIInstance.currentFragment = 10;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					UserFeedbackActivity.class), GlobalFragment.fFeedback);
+			FragmentStarter.showContent(getActivity(),
+					UserFeedbackActivity.class, GlobalFragment.fFeedback);
 		} else if (preference.getKey().equals(getString(R.string.id_recommand))) {
 			UIInstance.currentFragment = 11;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					RecommandActivity.class), GlobalFragment.fRecommand);
+			FragmentStarter.showContent(getActivity(), RecommandActivity.class,
+					GlobalFragment.fRecommand);
 		} else if (preference.getKey().equals(getString(R.string.id_about))) {
 			UIInstance.currentFragment = 12;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					AboutActivity.class), GlobalFragment.fAbout);
+			FragmentStarter.showContent(getActivity(), AboutActivity.class,
+					GlobalFragment.fAbout);
 		}
 
 		//
 		else if (preference.getKey().equals(getString(R.string.id_settings))) {
 			UIInstance.currentFragment = 13;
-			GlobalFragment.showContent(getActivity(), new Intent(getActivity(),
-					SettingsActivity.class), GlobalFragment.fSettings);
+			FragmentStarter.showContent(getActivity(), SettingsActivity.class,
+					GlobalFragment.fSettings);
 		}
 
 		return true;
+	}
+
+	@Override
+	protected int getBarTitle() {
+		return R.string.app_name;
+	}
+
+	@Override
+	protected int getBarTitleWithPath() {
+		return R.string.app_name;
+	}
+
+	@Override
+	protected void initComponents() {
+		prefSysApp = (PreferenceEx) findPreference(getString(R.string.id_sysapp));
+		prefSysAppEnabled = (PreferenceEx) findPreference(getString(R.string.id_sysappenabled));
+		prefComponent = (PreferenceEx) findPreference(getString(R.string.id_component));
+		prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
+		prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
+		prefBackup = (PreferenceEx) findPreference(getString(R.string.id_backup));
+		prefRestore = (PreferenceEx) findPreference(getString(R.string.id_restore));
+		prefCleanMemory = (PreferenceEx) findPreference(getString(R.string.id_cleanmemory));
+		prefCleanCache = (PreferenceEx) findPreference(getString(R.string.id_cleancache));
+		prefCleanDalvik = (PreferenceEx) findPreference(getString(R.string.id_cleandalvik));
+		prefHosts = (PreferenceEx) findPreference(getString(R.string.id_hosts));
+		prefScanMedia = (PreferenceEx) findPreference(getString(R.string.id_scanmedia));
+		prefNetworkState = (PreferenceEx) findPreference(getString(R.string.id_network));
+		prefReboot = (PreferenceEx) findPreference(getString(R.string.id_reboot));
+		prefFeedback = (PreferenceEx) findPreference(getString(R.string.id_feedback));
+		prefRecommand = (PreferenceEx) findPreference(getString(R.string.id_recommand));
+		prefAbout = (PreferenceEx) findPreference(getString(R.string.id_about));
+		prefSettings = (PreferenceEx) findPreference(getString(R.string.id_settings));
+
+	}
+
+	@Override
+	protected void initEvents() {
+		prefSysApp.setOnPreferenceClickListener(this);
+		prefSysAppEnabled.setOnPreferenceClickListener(this);
+		prefComponent.setOnPreferenceClickListener(this);
+		prefRoot.setOnPreferenceClickListener(this);
+		prefHtcRom.setOnPreferenceClickListener(this);
+		prefBackup.setOnPreferenceClickListener(this);
+		prefRestore.setOnPreferenceClickListener(this);
+		prefCleanMemory.setOnPreferenceClickListener(this);
+		prefCleanCache.setOnPreferenceClickListener(this);
+		prefCleanDalvik.setOnPreferenceClickListener(this);
+		prefHosts.setOnPreferenceClickListener(this);
+		prefScanMedia.setOnPreferenceClickListener(this);
+		prefNetworkState.setOnPreferenceClickListener(this);
+		prefReboot.setOnPreferenceClickListener(this);
+		prefFeedback.setOnPreferenceClickListener(this);
+		prefRecommand.setOnPreferenceClickListener(this);
+		prefAbout.setOnPreferenceClickListener(this);
+		prefSettings.setOnPreferenceClickListener(this);
+
+	}
+
+	@Override
+	protected void initLogic() {
+		showFunctionalEnabledTags();
+
+	}
+
+	@Override
+	protected void initMenu(Menu menu) {
+
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected int getPreferenceLayoutId() {
+		return R.xml.main;
 	}
 
 }

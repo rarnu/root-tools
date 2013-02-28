@@ -12,10 +12,11 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
+import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
+import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.RecommandAdapter;
-import com.rarnu.tools.root.base.BaseFragment;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.loader.RecommandLoader;
 import com.rarnu.tools.root.utils.ApkUtils;
@@ -101,6 +102,16 @@ public class RecommandFragment extends BaseFragment implements
 	protected void initEvents() {
 		lvRecommand.setOnItemClickListener(this);
 		loader.registerListener(0, this);
+	}
+
+	@Override
+	protected String getMainActivityName() {
+		return MainActivity.class.getName();
+	}
+
+	@Override
+	protected void onGetNewArguments(Bundle bn) {
+		
 	}
 
 }
