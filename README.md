@@ -4,9 +4,9 @@ RootTools
 how to compile:
 
 1) get the froyo jar with full source
-
+```
    $ wget http://rarnu.7thgen.info/downloads/froyo8.jar
-
+```
 2) backup your android.jar in $(ANDROID_SDK)/platforms/android-8/
 
    $ mv $(ANDROID_SDK)/platforms/android-8/android.jar ./backup/
