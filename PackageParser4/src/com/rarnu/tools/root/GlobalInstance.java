@@ -5,7 +5,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.NetworkInfo;
 
-import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.common.DeviceInfo;
 import com.rarnu.tools.root.common.MemProcessInfo;
 import com.rarnu.tools.root.common.SysappInfo;
@@ -51,7 +50,6 @@ public class GlobalInstance {
 
 	public static void init(Context context) {
 		pm = context.getPackageManager();
-		RootUtils.init(context);
 		device = DeviceUtils.getDeviceInfo();
 	}
 }
