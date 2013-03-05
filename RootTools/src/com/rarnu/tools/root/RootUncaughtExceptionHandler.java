@@ -7,8 +7,8 @@ import android.os.Looper;
 import android.util.Log;
 import android.widget.Toast;
 
+import com.rarnu.devlib.utils.FileUtils;
 import com.rarnu.tools.root.utils.DirHelper;
-import com.rarnu.tools.root.utils.FileUtils;
 
 public class RootUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
 

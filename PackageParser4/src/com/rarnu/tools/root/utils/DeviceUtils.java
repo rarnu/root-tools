@@ -8,9 +8,9 @@ import android.content.pm.PackageInfo;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
+import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.DeviceInfo;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class DeviceUtils {
 

@@ -5,12 +5,12 @@ import java.net.NetworkInterface;
 import java.net.SocketException;
 import java.util.Enumeration;
 
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
-
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 
 public class RemoteAdbd {
 

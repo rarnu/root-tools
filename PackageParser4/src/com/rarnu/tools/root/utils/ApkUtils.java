@@ -23,14 +23,13 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
 
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.GlobalInstance;
-import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.EnableappInfo;
 import com.rarnu.tools.root.common.SysappInfo;
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class ApkUtils {
 
@@ -570,8 +569,10 @@ public class ApkUtils {
 		}
 	}
 
+	private static final String PACKAGE_URL = "http://rarnu.7thgen.info/root_tools/package/";
+
 	public static void openDownloadApp(Context context, String url) {
-		String downloadUrl = MobileApi.PACKAGE_BASE_URL + url;
+		String downloadUrl = PACKAGE_URL + url;
 		Intent inDownload = new Intent(Intent.ACTION_VIEW);
 		inDownload.setData(Uri.parse(downloadUrl));
 		context.startActivity(inDownload);

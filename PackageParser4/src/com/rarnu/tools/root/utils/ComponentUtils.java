@@ -11,11 +11,11 @@ import android.content.pm.PackageParser;
 import android.util.DisplayMetrics;
 import android.util.Log;
 
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.CompInfo;
 import com.rarnu.tools.root.common.EnableappInfo;
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class ComponentUtils {
 

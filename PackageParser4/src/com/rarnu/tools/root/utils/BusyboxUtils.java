@@ -6,10 +6,10 @@ import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
-
 import android.content.Context;
+
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 
 public class BusyboxUtils {
 

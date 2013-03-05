@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 
+import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.BlockListView;
 import com.rarnu.devlib.component.DataProgressBar;
@@ -24,7 +25,6 @@ import com.rarnu.tools.root.adapter.BusyboxAdapter;
 import com.rarnu.tools.root.common.BusyboxInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.BusyboxUtils;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class BusyboxFragment extends BaseFragment implements
 		OnItemClickListener {

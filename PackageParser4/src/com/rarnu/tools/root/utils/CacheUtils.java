@@ -4,9 +4,9 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.common.CacheInfo;
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class CacheUtils {
 

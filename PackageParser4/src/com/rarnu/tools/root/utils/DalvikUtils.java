@@ -9,9 +9,9 @@ import android.preference.Preference;
 import android.view.View;
 import android.widget.Toast;
 
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 import com.rarnu.root.pp4.R;
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class DalvikUtils {
 

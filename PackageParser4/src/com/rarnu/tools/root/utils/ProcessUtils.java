@@ -5,9 +5,9 @@ import java.util.List;
 
 import android.util.Log;
 
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.common.MemProcessInfo;
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class ProcessUtils {
 

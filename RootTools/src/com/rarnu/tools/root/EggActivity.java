@@ -12,7 +12,7 @@ import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.rarnu.tools.root.utils.FileUtils;
+import com.rarnu.devlib.utils.FileUtils;
 
 public class EggActivity extends Activity implements OnClickListener {
 

@@ -3,8 +3,8 @@ package com.rarnu.tools.root.utils;
 import java.io.IOException;
 import java.util.List;
 
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 
 
 public class GoogleUtils {

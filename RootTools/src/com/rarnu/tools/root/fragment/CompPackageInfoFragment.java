@@ -15,13 +15,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.devlib.base.BasePopupFragment;
+import com.rarnu.devlib.utils.ColorUtils;
 import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.CompAdapter;
 import com.rarnu.tools.root.common.CompInfo;
-import com.rarnu.tools.root.utils.ColorUtils;
 import com.rarnu.tools.root.utils.ComponentUtils;
 
 public class CompPackageInfoFragment extends BasePopupFragment implements

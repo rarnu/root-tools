@@ -1,8 +1,8 @@
 package com.rarnu.tools.root.utils;
 
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.common.MemoryInfo;
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class MemoryUtils {
 

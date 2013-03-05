@@ -7,10 +7,10 @@ import java.util.List;
 
 import android.util.Log;
 
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.dns.record.Address;
-import com.rarnu.tools.root.utils.root.CommandResult;
-import com.rarnu.tools.root.utils.root.RootUtils;
 
 public class DIPairUtils {
 

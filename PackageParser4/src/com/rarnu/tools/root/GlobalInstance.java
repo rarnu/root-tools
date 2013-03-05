@@ -5,10 +5,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.NetworkInfo;
 
-import com.rarnu.tools.root.api.UpdateInfo;
 import com.rarnu.tools.root.common.DeviceInfo;
 import com.rarnu.tools.root.common.MemProcessInfo;
 import com.rarnu.tools.root.common.SysappInfo;
+import com.rarnu.tools.root.common.UpdateInfo;
 import com.rarnu.tools.root.utils.DeviceUtils;
 
 public class GlobalInstance {

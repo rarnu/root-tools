@@ -16,7 +16,7 @@ import java.util.List;
 
 import android.content.Context;
 
-public class FileUtils {
+class FileUtils {
 
 	private static FileOutputStream fs;
 
