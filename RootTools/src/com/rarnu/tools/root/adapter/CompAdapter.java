@@ -47,11 +47,9 @@ public class CompAdapter extends BaseAdapter<CompInfo> {
 
 		if (item != null) {
 
-			String compName = ((PackageParser.Component<?>) item.component).className
-					.substring(((PackageParser.Component<?>) item.component).className
-							.lastIndexOf(".") + 1);
+			String compName = item.getCompName();
 
-			if (item.component instanceof PackageParser.Activity) {
+			if (item.isActivity()) {
 				compName += "<font color=\"#6495ED\">(R)</font>";
 			} else {
 				compName += "<font color=\"#6495ED\">(S)</font>";
@@ -65,27 +63,9 @@ public class CompAdapter extends BaseAdapter<CompInfo> {
 					: Color.RED);
 			String ret = "<font color=\"yellow\"><small>" + item.fullPackageName
 					+ "</small></font><br>";
-			int i = 0;
-			// Integer act;
-			if (item.component instanceof PackageParser.Activity) {
-				PackageParser.Activity pa = (PackageParser.Activity) item.component;
-				if (pa.intents != null) {
-					if (pa.intents.size() > 0) {
-						for (PackageParser.ActivityIntentInfo aii : pa.intents) {
-							if (aii.countActions() > 0) {
-								for (i = 0; i < aii.countActions(); i++) {
-									ret += aii
-											.getAction(i)
-											.substring(
-													aii.getAction(i)
-															.lastIndexOf(".") + 1)
-											.replace("_", " ").toLowerCase()
-											+ "<br />";
-								}
-							}
-						}
-					}
-				}
+			
+			if (item.isActivity()) {
+				ret = item.appendIntents(ret);
 			}
 			holder.itemReceiverAction.setText(Html.fromHtml(ret));
 		}
