@@ -18,12 +18,14 @@ how to compile:
 ```
 4) import and fix CommonDevLib, PackageParser4 and RootTools
 ```
+   $ android update project -n CommandLib -p . -t android-8
    $ android update project -n CommonDevLib -p . -t android-15
    $ android update project -n PackageParser4 -p . -t android-8
    $ android update project -n RootTools -p . -t android-15
 ```
 5) build and install
 ```
+   $ cd $(ROOT_TOOLS_SRC)
    $ ant debug
    $ adb install $(ROOT_TOOLS_SRC)/bin/RootTools-debug.apk
 ```
