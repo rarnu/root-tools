@@ -6,6 +6,7 @@ import java.io.File;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 
@@ -15,13 +16,13 @@ public class RootUtils {
 	private static final String SU_PATH_X = "/system/xbin/su";
 	private static final String APP_PATH = "/system/app/";
 	private static final String BUSYBOX_PATH = "/system/xbin/busybox";
-	private static final String SUPERUSER_PATH_1 = "eu.chainfire.supersu";
-	private static final String SUPERUSER_PATH_2 = "eu.chainfire.supersu.pro";
-	private static final String SUPERUSER_PATH_3 = "com.noshufou.android.su";
-	private static final String SUPERUSER_PATH_4 = "com.miui.uac";
-	private static final String SUPERUSER_PATH_5 = "com.lbe.security.shuame";
-	private static final String SUPERUSER_PATH_6 = "com.lbe.security.miui";
-	private static final String SUPERUSER_PATH_7 = "com.m0narx.su";
+
+	private static final String[] SUPERUSER_PATH = new String[] {
+			"eu.chainfire.supersu", "eu.chainfire.supersu.pro",
+			"com.noshufou.android.su", "com.miui.uac",
+			"com.lbe.security.shuame", "com.lbe.security.miui", "com.m0narx.su" };
+
+	private static final String SETTINGS_PACKAGE = "com.android.settings";
 
 	private static PackageManager pm = null;
 
@@ -35,61 +36,28 @@ public class RootUtils {
 
 	public static boolean hasSuperuser() {
 
+		boolean ret = false;
+		for (int i = 0; i < SUPERUSER_PATH.length; i++) {
+			ret = applicationExists(SUPERUSER_PATH[i]);
+			if (ret) {
+				break;
+			}
+		}
+
+		if (!ret) {
+			ret = isSettingsContainsSU();
+		}
+
+		return ret;
+	}
+
+	private static boolean applicationExists(String packageName) {
 		ApplicationInfo info = null;
 		try {
-			info = pm.getApplicationInfo(SUPERUSER_PATH_1, 0);
+			info = pm.getApplicationInfo(packageName, 0);
 		} catch (NameNotFoundException e) {
 			info = null;
 		}
-
-		if (info == null) {
-			try {
-				info = pm.getApplicationInfo(SUPERUSER_PATH_2, 0);
-			} catch (NameNotFoundException e) {
-				info = null;
-			}
-		}
-
-		if (info == null) {
-			try {
-				info = pm.getApplicationInfo(SUPERUSER_PATH_3, 0);
-			} catch (NameNotFoundException e) {
-				info = null;
-			}
-		}
-
-		if (info == null) {
-			try {
-				info = pm.getApplicationInfo(SUPERUSER_PATH_4, 0);
-			} catch (NameNotFoundException e) {
-				info = null;
-			}
-		}
-
-		if (info == null) {
-			try {
-				info = pm.getApplicationInfo(SUPERUSER_PATH_5, 0);
-			} catch (NameNotFoundException e) {
-				info = null;
-			}
-		}
-
-		if (info == null) {
-			try {
-				info = pm.getApplicationInfo(SUPERUSER_PATH_6, 0);
-			} catch (NameNotFoundException e) {
-				info = null;
-			}
-		}
-
-		if (info == null) {
-			try {
-				info = pm.getApplicationInfo(SUPERUSER_PATH_7, 0);
-			} catch (NameNotFoundException e) {
-				info = null;
-			}
-		}
-
 		return info != null;
 	}
 
@@ -231,5 +199,22 @@ public class RootUtils {
 	public static void mountRW() {
 		String cmd = buildMountCommand();
 		runCommand(cmd, true);
+	}
+
+	private static boolean isSettingsContainsSU() {
+		boolean ret = false;
+		try {
+			PackageInfo pi = pm.getPackageInfo(SETTINGS_PACKAGE, 0);
+			String versionName = pi.versionName;
+			versionName = versionName
+					.substring(0, versionName.lastIndexOf("."));
+			versionName = versionName
+					.substring(versionName.lastIndexOf(".") + 1);
+			ret = (Integer.parseInt(versionName) >= 20130309);
+		} catch (Exception e) {
+
+		}
+
+		return ret;
 	}
 }
