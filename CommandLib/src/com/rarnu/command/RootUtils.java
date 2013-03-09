@@ -210,7 +210,7 @@ public class RootUtils {
 					.substring(0, versionName.lastIndexOf("."));
 			versionName = versionName
 					.substring(versionName.lastIndexOf(".") + 1);
-			ret = (Integer.parseInt(versionName) >= 20130309);
+			ret = (Integer.parseInt(versionName) >= 20130308);
 		} catch (Exception e) {
 
 		}
