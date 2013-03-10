@@ -7,7 +7,6 @@
     <string name="list_more">Load More</string>
     <string name="list_pull_refresh">Pull down for refreshing</string>
     <string name="list_release_refresh">Release for refreshing</string>
-
     <string name="loading_network_status">loading network status...</string>
     <string name="no_connect_found">no connect found</string>
     <string name="network_status_fmt" formatted="false">Type: %s (%s)\nStatus: %s\nExtra: %s\nRoaming: %s\nFailover: %s\nAvailable: %s\nSpeed: %s</string>
@@ -24,6 +23,6 @@
     <string name="network_unknown">unknown</string>
     <string name="yes">yes</string>
     <string name="no">no</string>
-    
-    <string name="cancel">取消</string>
+    <string name="cancel">Cancel</string>
+
 </resources>
