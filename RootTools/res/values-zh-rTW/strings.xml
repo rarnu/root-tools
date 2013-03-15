@@ -19,10 +19,6 @@
     <string name="short_recommand">精品软件推荐</string>
     <string name="short_recommand_with_path">RootTools &gt; 精品软件推荐</string>
     <string name="short_share">分享</string>
-    <string name="share_weixin">分享到微信</string>
-    <string name="share_weibo">分享到新浪微博</string>
-    <string name="share_sms">分享到短信</string>
-    <string name="share_mail">分享到其他第三方客户端</string>
     <string name="component_list">组件状态列表</string>
     <string name="operation_result">操作结果</string>
     <string name="feedback">用户反馈</string>
@@ -170,9 +166,6 @@
     <string name="tv_sitename">输入要搜索的域名</string>
     <string name="domain_name_empty">搜索的域名不能为空</string>
     <string name="btn_lookup">搜索 IP</string>
-    <string name="btn_com">.com</string>
-    <string name="btn_org">.org</string>
-    <string name="btn_cn">.cn</string>
     <string name="btn_common">常用</string>
     <string name="et_sitename">输入域名</string>
     <string name="et_addip">输入 IP 地址</string>
