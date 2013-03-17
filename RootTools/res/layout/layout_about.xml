@@ -76,8 +76,7 @@
             android:layout_marginTop="4dip"
             android:autoLink="all"
             android:gravity="left|top"
-            android:lineSpacingExtra="3dip"
-            android:text="@string/help_about" />
+            android:lineSpacingExtra="3dip" />
 
         <com.rarnu.devlib.component.BlockListView
             android:id="@+id/lstAbout"

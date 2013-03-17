@@ -1,5 +1,7 @@
 package com.rarnu.tools.root.fragment;
 
+import java.util.Locale;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.webkit.WebSettings;
@@ -28,7 +30,26 @@ public class IntroFragment extends BaseFragment {
 		wvHelp.post(new Runnable() {
 			@Override
 			public void run() {
-				wvHelp.loadUrl("file:///android_asset/help.html");
+				String lang = Locale.getDefault().getLanguage();
+				String country = Locale.getDefault().getCountry();
+
+				String introUrl = "";
+				try {
+					if (lang.equals("zh")) {
+						if (country.equals("TW")) {
+							introUrl = "file:///android_asset/help_zn_TW.html";
+						} else {
+							introUrl = "file:///android_asset/help_zn_CN.html";
+						}
+					} else {
+						introUrl = "file:///android_asset/help.html";
+					}
+				} catch (Exception e) {
+
+				}
+				if (!introUrl.equals("")) {
+					wvHelp.loadUrl(introUrl);
+				}
 			}
 		});
 	}
@@ -46,7 +67,7 @@ public class IntroFragment extends BaseFragment {
 	@Override
 	protected void initComponents() {
 		wvHelp = (WebView) innerView.findViewById(R.id.wvHelp);
-		
+
 	}
 
 	@Override
@@ -56,18 +77,18 @@ public class IntroFragment extends BaseFragment {
 
 	@Override
 	protected void initMenu(Menu menu) {
-		
+
 	}
 
 	@Override
 	protected void initLogic() {
 		showHelp();
-		
+
 	}
 
 	@Override
 	protected void initEvents() {
-		
+
 	}
 
 	@Override
@@ -77,7 +98,7 @@ public class IntroFragment extends BaseFragment {
 
 	@Override
 	protected void onGetNewArguments(Bundle bn) {
-		
+
 	}
 
 }

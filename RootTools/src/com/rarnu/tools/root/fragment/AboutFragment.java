@@ -2,6 +2,7 @@ package com.rarnu.tools.root.fragment;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 import android.content.Intent;
 import android.net.Uri;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.common.FragmentStarter;
 import com.rarnu.devlib.component.BlockListView;
+import com.rarnu.devlib.utils.FileUtils;
 import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.MainActivity;
@@ -30,6 +32,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 
 	TextView tvAppVersion, tvDebug;
 	BlockListView lstAbout, lstEoe;
+	TextView tvAbout;
 
 	AboutAdapter adapter = null;
 	List<AboutInfo> list = null;
@@ -76,6 +79,8 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 		tvDebug = (TextView) innerView.findViewById(R.id.tvDebug);
 		lstAbout = (BlockListView) innerView.findViewById(R.id.lstAbout);
 		lstEoe = (BlockListView) innerView.findViewById(R.id.lstEoe);
+		tvAbout = (TextView) innerView.findViewById(R.id.tvAbout);
+
 		lstAbout.setItemHeight(UIUtils.dipToPx(56));
 		lstEoe.setItemHeight(UIUtils.dipToPx(64));
 
@@ -112,6 +117,27 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 		adapter.setNewList(list);
 		lstAbout.resize();
 		lstEoe.resize();
+
+		String lang = Locale.getDefault().getLanguage();
+		String country = Locale.getDefault().getCountry();
+
+		String aboutText = "";
+		try {
+			if (lang.equals("zh")) {
+				if (country.equals("TW")) {
+					aboutText = FileUtils.readAssetFile(getActivity(),
+							"about_zh_TW");
+				} else {
+					aboutText = FileUtils.readAssetFile(getActivity(),
+							"about_zh_CN");
+				}
+			} else {
+				aboutText = FileUtils.readAssetFile(getActivity(), "about");
+			}
+		} catch (Exception e) {
+
+		}
+		tvAbout.setText(aboutText);
 	}
 
 	private AboutInfo buildAboutInfo(int resTitle, int fitable) {

@@ -10,8 +10,8 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="back">Back</string>
-    <string name="comp_enabled">Enable</string>
-    <string name="comp_disabled">Disable</string>
+    <string name="comp_enabled">Enabled</string>
+    <string name="comp_disabled">Disabled</string>
     <string name="rep_bak_succ">OK</string>
     <string name="rep_bak_na">N/A</string>
     <string name="rep_bak_fail">FAIL</string>

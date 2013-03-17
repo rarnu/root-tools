@@ -51,7 +51,7 @@
     <string name="func3p">还原应用数据</string>
     <string name="func3p_title">还原应用数据</string>
     <string name="func3p_title_with_path">RootTools &gt; 还原应用数据</string>
-    <string name="func4">禁用/启用\n应用内组件</string>
+    <string name="func4">启用/禁用\n应用内组件</string>
     <string name="func4_title">应用组件管理</string>
     <string name="func4_title_with_path">RootTools &gt; 应用组件管理</string>
     <string name="func5">清理内存</string>
@@ -167,21 +167,7 @@
     <string name="domain_name_empty">搜索的域名不能为空</string>
     <string name="btn_lookup">搜索 IP</string>
     <string name="btn_common">常用</string>
-    <string name="et_sitename">输入域名</string>
-    <string name="et_addip">输入 IP 地址</string>
-    <string name="et_adddomain">输入域名</string>
-    <string name="btn_addhosts">添加到 Hosts</string>
-    <string name="btn_hostsave">保存到 Hosts</string>
-    <string name="btn_clean">清除失效</string>
-    <string name="btn_manual">手动编辑</string>
-    <string name="tv_currenthosts">当前 Hosts 列表</string>
-    <string name="tv_deprecatedhosts">已失效的 Hosts 列表</string>
-    <string name="btn_testhosts">检测失效 Hosts</string>
-    <string name="btn_cleanhosts">清除失效 Hosts</string>
-    <string name="tv_testhost" formatted="false">测试: 第 %d 项 / 共 %d 项</string>
-    <string name="tv_sites">选择一个常用的域名</string>
     <string name="name_server">DNS 服务器</string>
-    <string name="update_common_site">更新常用站点列表</string>
     <string name="manual_edit_hosts">手动编辑 Hosts</string>
     <string name="clean_deprecated_hosts">清除已失效的 Hosts</string>
     <string name="file_su">su</string>
@@ -195,7 +181,6 @@
     <string name="confirm_reinstall_superuser">当前设备已安装了 Superuser.apk，确定要重新安装吗？按“确定”重新安装，按“取消”不安装。</string>
     <string name="confirm_reinstall_busybox">当前设备已安装了 busybox，确定要重新安装吗？按“确定”重新安装，按“取消”不安装。</string>
     <string name="help_busybox">本功能将会检测设备内是否包含 root 的关键文件，包括 su，Superuser.apk 以及 busybox。其中 busybox 是一个非常强大的工具库，在拥有了 busybox 之后，您才可以顺畅的享受本软件带来的便利。</string>
-    <string name="help_about">RootTools 是针对 Android 手机用户的个性化需求而推出的一款工具类软件。其目标是帮助 Android 用户更好的使用手机，不受来自手机内外的影响与困扰。\n\nRootTools 可以帮助您：\n\n    1. 删除系统自带应用，系统里有什么都听你的，也可以安装你想要的程序到系统里\n    2. 备份或还原应用程序和相关数据，刷机再也不怕丢游戏存档。\n    3. 管理已安装的程序模块，满足你想用一个程序但是又不想看到它的广告，或是不愿启用支付的需要\n    4. 随时知道系统里运行了什么，快速的清理内存，保持系统流畅顺滑\n    5. 智能的 Hosts 修改，自动为您搜索最新的 IP 地址，正常使用 Google 服务不在话下\n    6. 更多功能，等待你的意见\n\n请将您的意见告诉我们，以便可以将这个产品做得更好，更符合您的需要。\n</string>
     <string name="feedback_hint">请在此输入你想告诉我们的话</string>
     <string name="empty_feedback">内容为空，不能发送</string>
     <string name="send_feedback_succ">发送反馈信息成功</string>
@@ -210,21 +195,11 @@
     <string name="get_super_user">Super User</string>
     <string name="get_root_explorer">Root Explorer</string>
     <string name="root_buybox_desc">本软件不提供为手机获取 Root 的功能，若是提示没有 Root 权限，请按手机型号不同，使用对应的 Root 方法，相关的方法在各大论坛可以查询。\n\n此处将检查系统内是否具备使用本软件的所需条件，除 su 外，不符合需求的条件将可以得到修正，右侧的对勾图标即表示指定项是符合需求的。\n\n有个别手机获取了 Root 之后，依然无法正常使用本软件，请给我们反馈。</string>
-    <string name="hint_xiaomi">当前设备是小米手机或刷了 MIUI ROM，安装本软件内置的 Superuser.apk 将破坏系统功能，安装操作已被取消。</string>
     <string name="intent_open_error">无法找到指定的应用程序</string>
     <string name="no_package_info_found">指定的应用程序没有对应的包信息</string>
     <string name="delete_all_backup_data">删除所有备份的数据</string>
     <string name="delete_all_backup_data_confirm">删除所有备份数据后，将无法再恢复应用程序和存档数据，确定要执行删除操作吗？按“确定”删除，按“取消”不删除。</string>
     <string name="delete_all_backup_data_succ">已删除全部的备份数据</string>
-    <string name="input_hint_mock">请输入要搜索的地名</string>
-    <string name="mock">模拟</string>
-    <string name="stop">停止</string>
-    <string name="history">历史</string>
-    <string name="city">城市</string>
-    <string name="no_city_found">没有定位到当前城市，请先选择城市</string>
-    <string name="no_suggestion_found">没有找到关键字所代表的位置</string>
-    <string name="mark_prior">&lt;&lt;</string>
-    <string name="mark_next">&gt;&gt;</string>
     <string name="change_package_status_fail">改变应用程序状态失败</string>
     <string name="cannot_change_package_status">不能改变指定应用程序的状态</string>
     <string name="data_app_uninstall">选定的应用是第三方应用，无法禁用，按“确定”按钮可将其删除，按“取消”不做任何操作。</string>
@@ -273,9 +248,4 @@
     <string name="backup_empty">没有可以备份的内容，请先安装一些应用</string>
     <string name="restore_empty">没有可以还原的内容，请先到&lt;font color=\'#6495ED\'&gt;备份应用数据&lt;/font&gt;中进行备份操作</string>
     <string name="hosts_too_big">Hosts 文件太大，无法编辑</string>
-    <!-- egg -->
-    <string name="close_egg">如果你的手机没有返回键，请点这里\n当然如果有返回键的话，也请点这里</string>
-    <string name="weibo_egg">&lt;img src=\'weibo\'/&gt; 欢迎关注作者的新浪微博 &lt;font color=\'#6495ED\'&gt;@橙子Infinity&lt;/font&gt;</string>
-    <string name="github_egg">&lt;img src=\'github\'/&gt; 本软件全部代码开源，请访问 &lt;font color=\'#6495ED\'&gt;github&lt;/font&gt; 获取</string>
-
 </resources>

@@ -166,11 +166,6 @@
             android:label="@string/func3p_title"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        <activity
-            android:name=".EggActivity"
-            android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
-            android:windowSoftInputMode="stateAlwaysHidden" >
-        </activity>
 
         <service
             android:name=".service.HtcRomService"

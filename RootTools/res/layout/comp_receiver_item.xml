@@ -18,7 +18,7 @@
 
     <TextView
         android:id="@+id/itemReceiverStatus"
-        android:layout_width="40dip"
+        android:layout_width="wrap_content"
         android:layout_height="32dip"
         android:layout_alignParentRight="true"
         android:gravity="center"
