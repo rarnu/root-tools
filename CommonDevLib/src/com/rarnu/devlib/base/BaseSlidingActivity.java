@@ -13,10 +13,11 @@ import com.rarnu.devlib.common.ISliding;
 import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.devlib.utils.SlidingHelper;
 
-public abstract class BaseSlidingActivity extends InnerActivity implements ISliding {
+public abstract class BaseSlidingActivity extends InnerActivity implements
+		ISliding {
 
 	private SlidingHelper mHelper;
-	
+
 	@Override
 	public boolean getCondition() {
 		return false;
@@ -31,36 +32,51 @@ public abstract class BaseSlidingActivity extends InnerActivity implements ISlid
 	public int getReplaceId() {
 		return R.id.fReplacement;
 	}
-	
+
 	public abstract Fragment replaceMenuFragment();
-	
+
+	public abstract Fragment replaceSecondMenuFragment();
+
 	public abstract int getBehindOffset();
-	
+
 	public abstract int getAboveTouchMode();
-	
+
 	public abstract int getBehindTouchMode();
+
+	public abstract int getSlideMode();
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		mHelper = new SlidingHelper(this);
 		mHelper.onCreate(savedInstanceState);
-		
+
 		super.onCreate(savedInstanceState);
 		setBehindContentView(R.layout.layout_menu_replacement);
 		replaceMenu();
-		
-        SlidingMenu sm = getSlidingMenu();
-        sm.setShadowWidth(50);
-        sm.setShadowDrawable(R.drawable.shadow);
-        sm.setBehindOffset(getBehindOffset());
-        sm.setFadeDegree(0.35f);
-        sm.setTouchModeAbove(getAboveTouchMode());
-        sm.setTouchModeBehind(getBehindTouchMode());
+
+		SlidingMenu sm = getSlidingMenu();
+		sm.setShadowWidth(50);
+		sm.setShadowDrawable(R.drawable.shadow);
+		sm.setBehindOffset(getBehindOffset());
+		sm.setFadeDegree(0.35f);
+		sm.setTouchModeAbove(getAboveTouchMode());
+		sm.setTouchModeBehind(getBehindTouchMode());
+		sm.setMode(getSlideMode());
+		if (sm.getMode() == SlidingMenu.LEFT_RIGHT) {
+			sm.setSecondaryMenu(R.layout.layout_second_menu_replacement);
+			replaceSecondMenu();
+		}
 	}
-	
+
 	public void replaceMenu() {
 		getFragmentManager().beginTransaction()
 				.replace(R.id.menu, replaceMenuFragment()).commit();
+	}
+
+	public void replaceSecondMenu() {
+		getFragmentManager().beginTransaction()
+				.replace(R.id.second_menu, replaceSecondMenuFragment())
+				.commit();
 	}
 
 	@Override
@@ -90,7 +106,8 @@ public abstract class BaseSlidingActivity extends InnerActivity implements ISlid
 
 	@Override
 	public void setContentView(View v) {
-		setContentView(v, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		setContentView(v, new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
 	}
 
 	@Override
@@ -104,7 +121,8 @@ public abstract class BaseSlidingActivity extends InnerActivity implements ISlid
 	}
 
 	public void setBehindContentView(View v) {
-		setBehindContentView(v, new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+		setBehindContentView(v, new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
 	}
 
 	public void setBehindContentView(View v, LayoutParams params) {
@@ -138,10 +156,11 @@ public abstract class BaseSlidingActivity extends InnerActivity implements ISlid
 	@Override
 	public boolean onKeyUp(int keyCode, KeyEvent event) {
 		boolean b = mHelper.onKeyUp(keyCode, event);
-		if (b) return b;
+		if (b)
+			return b;
 		return super.onKeyUp(keyCode, event);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -151,7 +170,5 @@ public abstract class BaseSlidingActivity extends InnerActivity implements ISlid
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
-	
 
 }
