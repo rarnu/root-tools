@@ -5,7 +5,6 @@ public class GlobalFragment {
 
 	public static IndexFragment fIndex = null;
 	public static FeedbackFragment fFeedback = null;
-	public static IntroFragment fIntro = null;
 	public static AboutFragment fAbout = null;
 	public static BusyboxFragment fBusybox = null;
 	public static SysappFragment fSysapp = null;
@@ -37,9 +36,6 @@ public class GlobalFragment {
 		}
 		if (fFeedback == null) {
 			fFeedback = new FeedbackFragment();
-		}
-		if (fIntro == null) {
-			fIntro = new IntroFragment();
 		}
 		if (fAbout == null) {
 			fAbout = new AboutFragment();
@@ -117,7 +113,6 @@ public class GlobalFragment {
 
 		fIndex = null;
 		fFeedback = null;
-		fIntro = null;
 		fAbout = null;
 		fBusybox = null;
 		fSysapp = null;

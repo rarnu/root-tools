@@ -43,11 +43,6 @@
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
-            android:name=".fragmentactivity.HelpActivity"
-            android:label="@string/help"
-            android:windowSoftInputMode="stateAlwaysHidden" >
-        </activity>
-        <activity
             android:name=".fragmentactivity.UserFeedbackActivity"
             android:label="@string/feedback"
             android:windowSoftInputMode="stateAlwaysHidden" >

@@ -178,7 +178,7 @@ public class MainActivity extends BaseMainActivity {
 		case 14:
 			return GlobalFragment.fRestore;
 		default:
-			return GlobalFragment.fIntro;
+			return GlobalFragment.fAbout;
 		}
 	}
 

@@ -14,7 +14,6 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.common.FragmentStarter;
 import com.rarnu.devlib.component.BlockListView;
 import com.rarnu.devlib.utils.FileUtils;
 import com.rarnu.devlib.utils.UIUtils;
@@ -24,7 +23,6 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.AboutAdapter;
 import com.rarnu.tools.root.adapter.PartnerAdapter;
 import com.rarnu.tools.root.common.AboutInfo;
-import com.rarnu.tools.root.fragmentactivity.HelpActivity;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.UpdateUtils;
 
@@ -160,8 +158,8 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 				UpdateUtils.showUpdateInfo(getActivity());
 				break;
 			case 1:
-				FragmentStarter.showContent(getActivity(), HelpActivity.class,
-						GlobalFragment.fIntro);
+//				FragmentStarter.showContent(getActivity(), HelpActivity.class,
+//						GlobalFragment.fIntro);
 				break;
 			case 2:
 				/*
