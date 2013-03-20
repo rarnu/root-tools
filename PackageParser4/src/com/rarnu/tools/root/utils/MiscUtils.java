@@ -22,7 +22,12 @@ public class MiscUtils {
 				.getAbsolutePath());
 		Toast.makeText(context, R.string.scan, Toast.LENGTH_LONG).show();
 	}
-	
+
+	public static boolean isSDCardExists() {
+		return (Environment.getExternalStorageState()
+				.equals(Environment.MEDIA_MOUNTED));
+	}
+
 	public static String getSecondSdcardPath(boolean hasSplit) {
 		CommandResult ret = RootUtils.runCommand("mount", false);
 		String[] lines = ret.result.split("\n");

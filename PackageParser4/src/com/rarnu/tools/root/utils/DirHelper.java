@@ -34,10 +34,7 @@ public class DirHelper {
 		makeDir(ICON_DIR);
 	}
 
-	public static boolean isSDCardExists() {
-		return (Environment.getExternalStorageState()
-				.equals(Environment.MEDIA_MOUNTED));
-	}
+	
 
 	private static void makeDir(String path) {
 		File fDir = new File(path);

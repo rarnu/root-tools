@@ -13,6 +13,7 @@ import android.view.KeyEvent;
 import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.utils.DirHelper;
+import com.rarnu.tools.root.utils.MiscUtils;
 
 public class SplashActivity extends Activity {
 
@@ -24,7 +25,7 @@ public class SplashActivity extends Activity {
 		RootUtils.init(this);
 		GlobalInstance.init(this);
 
-		if (!DirHelper.isSDCardExists()) {
+		if (!MiscUtils.isSDCardExists()) {
 
 			new AlertDialog.Builder(this)
 					.setTitle(R.string.hint)
