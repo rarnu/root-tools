@@ -9,12 +9,13 @@ import android.view.ViewGroup.LayoutParams;
 
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.base.inner.InnerActivity;
+import com.rarnu.devlib.common.IFragments;
 import com.rarnu.devlib.common.ISliding;
 import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.devlib.utils.SlidingHelper;
 
 public abstract class BaseSlidingActivity extends InnerActivity implements
-		ISliding {
+		ISliding, IFragments {
 
 	private SlidingHelper mHelper;
 
@@ -50,6 +51,8 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 		mHelper = new SlidingHelper(this);
 		mHelper.onCreate(savedInstanceState);
 
+		loadFragments();
+		
 		super.onCreate(savedInstanceState);
 		setBehindContentView(R.layout.layout_menu_replacement);
 		replaceMenu();
@@ -66,6 +69,12 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 			sm.setSecondaryMenu(R.layout.layout_second_menu_replacement);
 			replaceSecondMenu();
 		}
+	}
+	
+	@Override
+	protected void onDestroy() {
+		releaseFragments();
+		super.onDestroy();
 	}
 
 	public void replaceMenu() {
