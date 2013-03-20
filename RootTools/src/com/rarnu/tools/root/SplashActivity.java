@@ -11,9 +11,9 @@ import android.os.Bundle;
 import android.view.KeyEvent;
 
 import com.rarnu.command.RootUtils;
+import com.rarnu.devlib.utils.MiscUtils;
 import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.utils.DirHelper;
-import com.rarnu.tools.root.utils.MiscUtils;
 
 public class SplashActivity extends Activity {
 

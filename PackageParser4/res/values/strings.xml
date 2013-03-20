@@ -20,7 +20,6 @@
     <string name="package_enabled">Enabled</string>
     <string name="package_disabled">Disabled</string>
     <string name="add">Add</string>
-    <string name="scan">Scaning media files...</string>
     <string name="reboot_device">Reboot</string>
     <string name="confirm_reboot">Are you sure to reboot the device? Press "OK" for rebooting and "Cancel" for closing.</string>
     <string name="clean_dalvik_fail">Clean Dalvik Failed</string>

@@ -11,6 +11,7 @@ import com.rarnu.devlib.base.BasePreferenceFragment;
 import com.rarnu.devlib.common.FragmentStarter;
 import com.rarnu.devlib.common.UIInstance;
 import com.rarnu.devlib.component.PreferenceEx;
+import com.rarnu.devlib.utils.MiscUtils;
 import com.rarnu.devlib.utils.NetworkUtils;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
@@ -31,7 +32,6 @@ import com.rarnu.tools.root.fragmentactivity.UserFeedbackActivity;
 import com.rarnu.tools.root.utils.BusyboxUtils;
 import com.rarnu.tools.root.utils.DalvikUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
-import com.rarnu.tools.root.utils.MiscUtils;
 
 public class IndexFragment extends BasePreferenceFragment implements
 		OnPreferenceClickListener {

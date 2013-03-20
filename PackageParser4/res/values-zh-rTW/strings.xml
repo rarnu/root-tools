@@ -20,7 +20,6 @@
     <string name="package_enabled">已啓用</string>
     <string name="package_disabled">已禁用</string>
     <string name="add">增添</string>
-    <string name="scan">正在掃描多媒體...</string>
     <string name="reboot_device">重啓設備</string>
     <string name="confirm_reboot">確認要重啓設備嗎？按“確定”重啓設備，按“取消”不重啓。</string>
     <string name="clean_dalvik_fail">清理 Dalvik 失敗</string>

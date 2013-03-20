@@ -1,4 +1,4 @@
-package com.rarnu.tools.root.utils;
+package com.rarnu.devlib.utils;
 
 import android.content.Context;
 import android.content.Intent;
@@ -9,7 +9,7 @@ import android.widget.Toast;
 
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
-import com.rarnu.root.pp4.R;
+import com.rarnu.devlib.R;
 
 public class MiscUtils {
 
