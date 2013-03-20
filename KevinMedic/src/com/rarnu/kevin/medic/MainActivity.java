@@ -16,6 +16,7 @@ public class MainActivity extends BaseSlidingActivity {
 	public void onCreate(Bundle savedInstanceState) {
 		UIUtils.initDisplayMetrics(this, getWindowManager());
 		super.onCreate(savedInstanceState);
+		getActionBar().setBackgroundDrawable(getResources().getDrawable(R.color.lightgray));
 	}
 
 	@Override
@@ -67,6 +68,18 @@ public class MainActivity extends BaseSlidingActivity {
 			break;
 		case 1:
 			f = Fragments.fPage1;
+			break;
+		case 2:
+			f = Fragments.fPage2;
+			break;
+		case 3:
+			f = Fragments.fPage3;
+			break;
+		case 4:
+			f = Fragments.fPage4;
+			break;
+		case 5:
+			f = Fragments.fPage5;
 			break;
 		}
 		if (!f.isAdded()) {

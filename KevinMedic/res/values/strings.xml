@@ -13,4 +13,5 @@
     
     <string name="fragment_0">首页</string>
     <string name="app_settings">设置选项</string>
+    <string name="rightmenu_0">右侧菜单</string>
 </resources>

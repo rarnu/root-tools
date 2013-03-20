@@ -338,8 +338,11 @@ public class CustomViewBehind extends ViewGroup {
 			left = content.getRight();
 		} else if (mMode == SlidingMenu.LEFT_RIGHT) {
 			if (mSecondaryShadowDrawable != null) {
+				// left = content.getRight() - mShadowWidth;
+				// mSecondaryShadowDrawable.setBounds(left, 0, left + mShadowWidth, getHeight());
+				
 				left = content.getRight();
-				mSecondaryShadowDrawable.setBounds(left, 0, left + mShadowWidth, getHeight());
+				mSecondaryShadowDrawable.setBounds(left- mShadowWidth, 0, left, getHeight());
 				mSecondaryShadowDrawable.draw(canvas);
 			}
 			left = content.getLeft() - mShadowWidth;

@@ -58,7 +58,7 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 		replaceMenu();
 
 		SlidingMenu sm = getSlidingMenu();
-		sm.setShadowWidth(50);
+		sm.setShadowWidth(15);
 		sm.setShadowDrawable(R.drawable.shadow);
 		sm.setBehindOffset(getBehindOffset());
 		sm.setFadeDegree(0.35f);
@@ -67,6 +67,7 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 		sm.setMode(getSlideMode());
 		if (sm.getMode() == SlidingMenu.LEFT_RIGHT) {
 			sm.setSecondaryMenu(R.layout.layout_second_menu_replacement);
+			sm.setSecondaryShadowDrawable(R.drawable.shadow);
 			replaceSecondMenu();
 		}
 	}

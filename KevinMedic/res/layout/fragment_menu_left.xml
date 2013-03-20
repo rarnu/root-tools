@@ -26,6 +26,13 @@
             android:layout_toRightOf="@+id/iHead"
             android:gravity="left|center_vertical"
             android:text="Kevin" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/layHeadBar"
+            android:background="@drawable/action_bar_divider" />
     </RelativeLayout>
 
     <com.rarnu.devlib.component.BlockListView

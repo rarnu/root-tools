@@ -10,14 +10,30 @@
         android:background="@color/lightgrey"
         android:clickable="true" >
 
-        <ImageView android:id="@+id/iSettings"
+        <ImageView
+            android:id="@+id/iSettings"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
-            android:layout_margin="8dip"
-            android:src="@android:drawable/ic_menu_preferences"
             android:layout_centerVertical="true"
-            android:clickable="true"/>
+            android:layout_margin="8dip"
+            android:clickable="true"
+            android:contentDescription="@null"
+            android:src="@android:drawable/ic_menu_preferences" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/layHeadBar"
+            android:background="@drawable/action_bar_divider" />
     </RelativeLayout>
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:text="@string/rightmenu_0"
+        android:textSize="24sp" />
 
 </RelativeLayout>
