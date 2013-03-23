@@ -1,0 +1,106 @@
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/sv"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dip" >
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvToday"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:textColor="#FFFFFF"
+            android:textSize="24sp" />
+
+        <RelativeLayout
+            android:id="@+id/layGood"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvToday"
+            android:layout_marginTop="8dip"
+            android:background="#ffffaa" >
+
+            <TextView
+                android:id="@+id/tvGood"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="#ffee44"
+                android:gravity="center"
+                android:text="@string/good"
+                android:textColor="#FF000000"
+                android:textSize="24sp" />
+
+            <LinearLayout
+                android:id="@+id/lvGood"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tvGood"
+                android:orientation="vertical" >
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layBad"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layGood"
+            android:background="#ffddd3" >
+
+            <TextView
+                android:id="@+id/tvBad"
+                android:layout_width="80dip"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:background="#ff4444"
+                android:gravity="center"
+                android:text="@string/bad"
+                android:textColor="#FFFFFFFF"
+                android:textSize="24sp" />
+
+            <LinearLayout
+                android:id="@+id/lvBad"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@+id/tvBad"
+                android:orientation="vertical" >
+            </LinearLayout>
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/tvDirection"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layBad"
+            android:layout_marginLeft="8dip"
+            android:layout_marginTop="8dip"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvDrink"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDirection"
+            android:layout_marginLeft="8dip"
+            android:layout_marginTop="8dip"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/tvGoddes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvDrink"
+            android:layout_marginLeft="8dip"
+            android:layout_marginTop="8dip"
+            android:textColor="#FFFFFF"
+            android:textSize="14sp" />
+    </RelativeLayout>
+
+</ScrollView>
