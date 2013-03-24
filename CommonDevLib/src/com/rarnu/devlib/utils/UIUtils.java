@@ -3,7 +3,7 @@ package com.rarnu.devlib.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.graphics.PointF;
-import android.graphics.drawable.Drawable;
+import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.MotionEvent;
 import android.view.View;
@@ -86,11 +86,10 @@ public class UIUtils {
 		return (e.getX() < (dm.widthPixels / 2));
 	}
 
-	public static int getStatusbarHeight(Context context) {
-		Drawable ico = context.getResources().getDrawable(
-				android.R.drawable.stat_sys_warning);
-
-		return ico.getIntrinsicHeight();
+	public static int getStatusbarHeight(Activity activity) {
+		Rect frame = new Rect();
+		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
+		return frame.top;
 	}
 
 	public static void setActivitySizePos(Activity activity, int x, int y,
