@@ -1,14 +1,13 @@
 package com.rarnu.almanac;
 
-import java.io.File;
 import java.util.List;
 
 import android.app.Activity;
-import android.content.Intent;
-import android.net.Uri;
+import android.app.AlertDialog;
+import android.graphics.Color;
 import android.os.Bundle;
-import android.os.Environment;
 import android.text.Html;
+import android.text.util.Linkify;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -16,7 +15,6 @@ import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.widget.LinearLayout;
 import android.widget.ScrollView;
-import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.rarnu.almanac.Almanac.Result;
@@ -30,12 +28,13 @@ public class MainActivity extends Activity implements OnGlobalLayoutListener {
 	LinearLayout lvGood, lvBad;
 	TextView tvGood, tvBad;
 	ScrollView sv;
+	TextView tvHelp;
 
-	private static final int MENUID_SHARE = 0;
+//	private static final int MENUID_SHARE = 0;
 	private static final int MENUID_HELP = 1;
 
-	private String fn = Environment.getExternalStorageDirectory()
-			.getAbsolutePath() + "/screenshot.png";
+	// private String fn = Environment.getExternalStorageDirectory()
+	// .getAbsolutePath() + "/screenshot.png";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -57,45 +56,58 @@ public class MainActivity extends Activity implements OnGlobalLayoutListener {
 		lvBad.getViewTreeObserver().addOnGlobalLayoutListener(this);
 		loadData();
 
+		
+
 	}
 
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
-		MenuItem itemShare = menu.add(0, MENUID_SHARE, 0, R.string.share);
+		// MenuItem itemShare = menu.add(0, MENUID_SHARE, 0, R.string.share);
 		MenuItem itemHelp = menu.add(0, MENUID_HELP, 1, R.string.help);
 
-		itemShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		// itemShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		itemHelp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-		itemShare.setIcon(android.R.drawable.ic_menu_share);
+		// itemShare.setIcon(android.R.drawable.ic_menu_share);
 		itemHelp.setIcon(android.R.drawable.ic_menu_help);
 
-		ShareActionProvider actionProvider = new ShareActionProvider(this);
-		itemShare.setActionProvider(actionProvider);
-		actionProvider
-				.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
-		actionProvider.setShareIntent(createShareIntent());
+		// ShareActionProvider actionProvider = new ShareActionProvider(this);
+		// itemShare.setActionProvider(actionProvider);
+		// actionProvider
+		// .setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+		// actionProvider.setShareIntent(createShareIntent());
 
 		return true;
 	}
 
-	private Intent createShareIntent() {
-
-		File fBmp = new File(fn);
-		Intent shareIntent = new Intent(Intent.ACTION_SEND);
-		shareIntent.setType("image/*");
-		Uri uri = Uri.fromFile(fBmp);
-		shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
-		shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_body));
-		shareIntent.putExtra(Intent.EXTRA_SUBJECT,
-				getString(R.string.share_title));
-		return shareIntent;
-	}
+	// private Intent createShareIntent() {
+	//
+	// File fBmp = new File(fn);
+	// Intent shareIntent = new Intent(Intent.ACTION_SEND);
+	// shareIntent.setType("image/*");
+	// Uri uri = Uri.fromFile(fBmp);
+	// shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
+	// shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_body));
+	// shareIntent.putExtra(Intent.EXTRA_SUBJECT,
+	// getString(R.string.share_title));
+	// return shareIntent;
+	// }
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MENUID_HELP:
+
+			tvHelp = new TextView(this);
+			tvHelp.setAutoLinkMask(Linkify.ALL);
+			tvHelp.setTextColor(Color.WHITE);
+			tvHelp.setTextSize(16);
+			tvHelp.setLineSpacing(0F, 1.5F);
+			tvHelp.setPadding(16, 16, 0, 0);
+			tvHelp.setText(Html.fromHtml(getString(R.string.help_detail)));
+			new AlertDialog.Builder(this).setTitle(R.string.help)
+					.setView(tvHelp).setPositiveButton(R.string.close, null)
+					.show();
 			break;
 		}
 		return true;
@@ -136,9 +148,9 @@ public class MainActivity extends Activity implements OnGlobalLayoutListener {
 		tv.setLayoutParams(vglp);
 	}
 
-	private void screenshot() {
-		String fn = Environment.getExternalStorageDirectory().getAbsolutePath()
-				+ "/screenshot.png";
-		ImageUtils.takeScreenShot(sv, fn);
-	}
+//	private void screenshot() {
+//		String fn = Environment.getExternalStorageDirectory().getAbsolutePath()
+//				+ "/screenshot.png";
+//		ImageUtils.takeScreenShot(sv, fn);
+//	}
 }
