@@ -9,7 +9,6 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.GridView;
 import android.widget.ListView;
 
 public class UIUtils {
@@ -273,16 +272,4 @@ public class UIUtils {
 		lv.setLayoutParams(lp);
 	}
 
-	public static void makeGridViewFullSize(GridView gv, int itemHeight) {
-		int itemCount = gv.getAdapter().getCount();
-		int columns = gv.getNumColumns();
-		int lines = (int) (itemCount / columns);
-		if (itemCount % columns != 0) {
-			lines++;
-		}
-		ViewGroup.LayoutParams lp = gv.getLayoutParams();
-		lp.height = lines * itemHeight;
-		gv.setLayoutParams(lp);
-
-	}
 }

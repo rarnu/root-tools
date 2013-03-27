@@ -10,6 +10,12 @@
     <string name="share_body">今日吉凶，来自《程序员老黄历》Android版</string>
     <string name="share_title">程序员老黄历</string>
     
+    <string name="check_update">检查更新</string>
+    <string name="no_update_found">当前已是最新版本，无需更新</string>
+    <string name="update_found_info" formatted="false">发现新版本 %s，下载更新将使用 %s 流量，确定要更新吗？按“确定”下载更新，按“取消”不更新。</string>
+    <string name="ok">确定</string>
+    <string name="cancel">取消</string>
+    
     <string name="direction_fmt" formatted="false">&lt;strong&gt;座位朝向：&lt;/strong&gt;面向&lt;font color=\'#00FF00\'&gt;&lt;strong&gt;%s&lt;/strong&gt;&lt;/font&gt;写程序，BUG 最少。</string>
 	<string name="drink_fmt" formatted="false">&lt;strong&gt;今日宜饮：&lt;/strong&gt;%s</string>
 	<string name="goddes_fmt" formatted="false">&lt;strong&gt;女神亲近指数：&lt;/strong&gt;%s</string>
