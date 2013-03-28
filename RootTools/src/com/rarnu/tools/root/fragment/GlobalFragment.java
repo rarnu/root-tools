@@ -1,6 +1,5 @@
 package com.rarnu.tools.root.fragment;
 
-
 public class GlobalFragment {
 
 	public static IndexFragment fIndex = null;
@@ -30,84 +29,32 @@ public class GlobalFragment {
 	public static CustomCleanManagerFragment fCustumClean = null;
 
 	public static void loadFragments() {
-
-		if (fIndex == null) {
-			fIndex = new IndexFragment();
-		}
-		if (fFeedback == null) {
-			fFeedback = new FeedbackFragment();
-		}
-		if (fAbout == null) {
-			fAbout = new AboutFragment();
-		}
-		if (fBusybox == null) {
-			fBusybox = new BusyboxFragment();
-		}
-		if (fSysapp == null) {
-			fSysapp = new SysappFragment();
-		}
-		if (fSysappDetail == null) {
-			fSysappDetail = new SysappDetailFragment();
-		}
-		if (fSysappSelectApk == null) {
-			fSysappSelectApk = new SysappSelectApkFragment();
-		}
-		if (fSettings == null) {
-			fSettings = new SettingsFragment();
-		}
-		if (fCleanCache == null) {
-			fCleanCache = new CleanCacheFragment();
-		}
-		if (fEnableapp == null) {
-			fEnableapp = new EnableappFragment();
-		}
-		if (fHtcRom == null) {
-			fHtcRom = new HtcRomFragment();
-		}
-		if (fComp == null) {
-			fComp = new CompFragment();
-		}
-		if (fCompPackageInfo == null) {
-			fCompPackageInfo = new CompPackageInfoFragment();
-		}
-		if (fMem == null) {
-			fMem = new MemFragment();
-		}
-		if (fMemProcess == null) {
-			fMemProcess = new MemProcessFragment();
-		}
-		if (fHost == null) {
-			fHost = new HostFragment();
-		}
-		if (fHostAdd == null) {
-			fHostAdd = new HostAddFragment();
-		}
-		if (fMemIgnore == null) {
-			fMemIgnore = new MemIgnoreFragment();
-		}
-		if (fHostEdit == null) {
-			fHostEdit = new HostEditFragment();
-		}
-		if (fHostDeprecated == null) {
-			fHostDeprecated = new HostDeprecatedFragment();
-		}
-		if (fRecommand == null) {
-			fRecommand = new RecommandFragment();
-		}
-		if (fDataappReport == null) {
-			fDataappReport = new DataappReportFragment();
-		}
-		if (fBackup == null) {
-			fBackup = new BackupFragment();
-		}
-		if (fRestore == null) {
-			fRestore = new RestoreFragment();
-		}
-		if (fCustumClean == null) {
-			fCustumClean = new CustomCleanManagerFragment();
-		}
+		fIndex = new IndexFragment();
+		fFeedback = new FeedbackFragment();
+		fAbout = new AboutFragment();
+		fBusybox = new BusyboxFragment();
+		fSysapp = new SysappFragment();
+		fSysappDetail = new SysappDetailFragment();
+		fSysappSelectApk = new SysappSelectApkFragment();
+		fSettings = new SettingsFragment();
+		fCleanCache = new CleanCacheFragment();
+		fEnableapp = new EnableappFragment();
+		fHtcRom = new HtcRomFragment();
+		fComp = new CompFragment();
+		fCompPackageInfo = new CompPackageInfoFragment();
+		fMem = new MemFragment();
+		fMemProcess = new MemProcessFragment();
+		fHost = new HostFragment();
+		fHostAdd = new HostAddFragment();
+		fMemIgnore = new MemIgnoreFragment();
+		fHostEdit = new HostEditFragment();
+		fHostDeprecated = new HostDeprecatedFragment();
+		fRecommand = new RecommandFragment();
+		fDataappReport = new DataappReportFragment();
+		fBackup = new BackupFragment();
+		fRestore = new RestoreFragment();
+		fCustumClean = new CustomCleanManagerFragment();
 	}
-	
 
 	public static void releaseFragments() {
 

@@ -236,7 +236,11 @@ public class ApkUtils {
 
 	public static Drawable getIconFromPackage(Context context,
 			ApplicationInfo info) {
+		
 		Resources res = context.getResources();
+		if (info == null) {
+			return res.getDrawable(android.R.drawable.sym_def_app_icon);
+		}
 		AssetManager assmgr = new AssetManager();
 		assmgr.addAssetPath(DirHelper.DATAAPP_DIR + info.packageName + ".apk");
 		res = new Resources(assmgr, res.getDisplayMetrics(),

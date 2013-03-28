@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rarnu.tools.root"
     android:versionCode="38"
-    android:versionName="4.3.1" >
+    android:versionName="4.3.2" >
 
     <uses-sdk
         android:minSdkVersion="15"
