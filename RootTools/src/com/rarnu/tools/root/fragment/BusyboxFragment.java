@@ -77,13 +77,12 @@ public class BusyboxFragment extends BaseFragment implements
 			showSuStatus();
 			return;
 		}
-		if (!RootUtils.hasBusybox()) {
-			doReinstallBusyboxT();
-			return;
-		}
+
 		new AlertDialog.Builder(getActivity())
 				.setTitle(R.string.hint)
-				.setMessage(R.string.confirm_reinstall_busybox)
+				.setMessage(
+						RootUtils.hasBusybox() ? R.string.confirm_reinstall_busybox
+								: R.string.confirm_install_busybox)
 				.setPositiveButton(R.string.ok,
 						new DialogInterface.OnClickListener() {
 
@@ -91,7 +90,6 @@ public class BusyboxFragment extends BaseFragment implements
 							public void onClick(DialogInterface dialog,
 									int which) {
 								doReinstallBusyboxT();
-								
 
 							}
 						}).setNegativeButton(R.string.cancel, null).show();
@@ -209,7 +207,7 @@ public class BusyboxFragment extends BaseFragment implements
 
 	@Override
 	protected void onGetNewArguments(Bundle bn) {
-		
+
 	}
 
 }

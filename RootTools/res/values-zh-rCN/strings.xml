@@ -180,6 +180,7 @@
     <string name="has_su_file">系统内发现 su 文件，可以尝试使用本软件的功能，若不能使用请尝试重新获取 ROOT 权限</string>
     <string name="confirm_reinstall_superuser">当前设备已安装了 Superuser.apk，确定要重新安装吗？按“确定”重新安装，按“取消”不安装。</string>
     <string name="confirm_reinstall_busybox">当前设备已安装了 busybox，确定要重新安装吗？按“确定”重新安装，按“取消”不安装。</string>
+    <string name="confirm_install_busybox">部分设备在安装了 busybox 后将无法启动，安装后风险自负。按“确定”进行安装，按“取消”不安装。</string>
     <string name="help_busybox">本功能将会检测设备内是否包含 root 的关键文件，包括 su，Superuser.apk 以及 busybox。其中 busybox 是一个非常强大的工具库，在拥有了 busybox 之后，您才可以顺畅的享受本软件带来的便利。</string>
     <string name="feedback_hint">请在此输入你想告诉我们的话</string>
     <string name="empty_feedback">内容为空，不能发送</string>

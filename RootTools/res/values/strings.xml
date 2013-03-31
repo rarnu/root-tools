@@ -180,6 +180,7 @@
     <string name="has_su_file">SU detected, you may try using this app. Please try again ROOT your device if this app not work normally.</string>
     <string name="confirm_reinstall_superuser">Superuser.apk already installed. Are you sure to reinstall it?</string>
     <string name="confirm_reinstall_busybox">Busybox already installed. Are you sure to reinstall it?</string>
+    <string name="confirm_install_busybox">Some devices will be unable to start after installed busybox. Please ensure your own risk. Are you sure to install it?</string>
     <string name="help_busybox">This will check your ROOT permission, include su, Superuser.apk and busybox. Busybox is a strong tool library and offers many functions. This app works on busybox normally installed.</string>
     <string name="feedback_hint">Input what you want to tell us here</string>
     <string name="empty_feedback">Cannot send empty text</string>

@@ -180,6 +180,7 @@
     <string name="has_su_file">系統內發現 su 檔案，可以嘗試使用本軟體的功能，若無法使用請嘗試重新獲取 ROOT 權限</string>
     <string name="confirm_reinstall_superuser">當前設備已安裝了 Superuser.apk，確定要重新安裝嗎?</string>
     <string name="confirm_reinstall_busybox">當前設備已安裝了 busybox，確定要重新安裝嗎?</string>
+    <string name="confirm_install_busybox">部分設備若是安裝了 busybox 後會無法啓動，安裝後風險自負。確定要安裝嗎？</string>
     <string name="help_busybox">本功能將會檢測設備內是否包含 root 的關鍵文件，包括 su，Superuser.apk 以及 busybox。其中 busybox 是一個非常強大的工具庫，只有擁有 busybox，您才可以享受本軟體帶來的便利。</string>
     <string name="feedback_hint">請在此輸入您想告訴我們的話</string>
     <string name="empty_feedback">內容是空的, 不能發送</string>

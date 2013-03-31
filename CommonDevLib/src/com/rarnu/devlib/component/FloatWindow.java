@@ -14,9 +14,6 @@ public class FloatWindow extends View implements OnTouchListener {
 	private WindowManager windowMgr;
 	private WindowManager.LayoutParams wmParams;
 	private View view;
-	private int tag = 0;
-	private int oldOffsetX;
-	private int oldOffsetY;
 	private float lastX, lastY;
 
 	public FloatWindow(Context context, View view) {
@@ -66,34 +63,23 @@ public class FloatWindow extends View implements OnTouchListener {
 
 	@Override
 	public boolean onTouch(View v, MotionEvent event) {
-		final int action = event.getAction();
-
 		float x = event.getX();
 		float y = event.getY();
 
-		if (tag == 0) {
-			oldOffsetX = wmParams.x;
-			oldOffsetY = wmParams.y;
-		}
-
-		if (action == MotionEvent.ACTION_DOWN) {
+		switch (event.getAction()) {
+		case MotionEvent.ACTION_DOWN:
 			lastX = x;
 			lastY = y;
-
-		} else if (action == MotionEvent.ACTION_MOVE) {
+			break;
+		case MotionEvent.ACTION_MOVE:
 			wmParams.x += (int) (x - lastX);
 			wmParams.y += (int) (y - lastY);
-			tag = 1;
 			windowMgr.updateViewLayout(view, wmParams);
+			lastX = x;
+			lastY = y;
+			break;
 		}
 
-		else if (action == MotionEvent.ACTION_UP) {
-			int newOffsetX = wmParams.x;
-			int newOffsetY = wmParams.y;
-			if (oldOffsetX != newOffsetX || oldOffsetY != newOffsetY) {
-				tag = 0;
-			}
-		}
 		return true;
 	}
 
