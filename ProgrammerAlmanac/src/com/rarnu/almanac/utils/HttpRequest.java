@@ -1,4 +1,4 @@
-package com.rarnu.almanac;
+package com.rarnu.almanac.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.util.List;

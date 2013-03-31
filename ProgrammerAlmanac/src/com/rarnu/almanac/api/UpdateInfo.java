@@ -1,4 +1,4 @@
-package com.rarnu.almanac;
+package com.rarnu.almanac.api;
 
 public class UpdateInfo {
 

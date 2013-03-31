@@ -1,4 +1,4 @@
-package com.rarnu.almanac;
+package com.rarnu.almanac.adapter;
 
 import android.widget.TextView;
 

@@ -1,4 +1,4 @@
-package com.rarnu.almanac;
+package com.rarnu.almanac.utils;
 
 import android.app.Activity;
 import android.content.Context;

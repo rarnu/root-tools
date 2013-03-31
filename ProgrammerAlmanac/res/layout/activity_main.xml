@@ -21,27 +21,36 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_centerVertical="true"
-            android:layout_toRightOf="@+id/ivIcon"
-            android:layout_toLeftOf="@+id/btnHelp"
-            android:textColor="#FFFFFFFF"
-            android:textSize="20sp"
             android:layout_marginLeft="8dip"
-            android:text="@string/app_name" />
+            android:layout_toLeftOf="@+id/btnShare"
+            android:layout_toRightOf="@+id/ivIcon"
+            android:text="@string/app_name"
+            android:textColor="#FFFFFFFF"
+            android:textSize="20sp" />
+
+        <Button
+            android:id="@+id/btnHelp"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="8dip"
+            android:background="@android:drawable/ic_menu_info_details" />
         
-        <Button android:id="@+id/btnHelp"
+        <Button
+            android:id="@+id/btnShare"
             android:layout_width="32dip"
             android:layout_height="32dip"
             android:layout_centerVertical="true"
-            android:background="@android:drawable/ic_menu_help"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="8dip"/>
-        
-        <TextView android:layout_width="match_parent"
+            android:layout_marginRight="4dip"
+            android:background="@android:drawable/ic_menu_share"
+            android:layout_toLeftOf="@+id/btnHelp" />
+
+        <TextView
+            android:layout_width="match_parent"
             android:layout_height="2dip"
-            android:background="#87cefa"
-            android:layout_alignParentBottom="true"/>
-        
-        
+            android:layout_alignParentBottom="true"
+            android:background="#87cefa" />
     </RelativeLayout>
 
     <ScrollView
@@ -59,16 +68,16 @@
                 android:id="@+id/tvToday"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:background="#FFFFFFFF"
                 android:gravity="center_horizontal"
-                android:textColor="#FFFFFF"
-                android:textSize="24sp" />
+                android:textColor="#FF000000"
+                android:textSize="22sp" />
 
             <RelativeLayout
                 android:id="@+id/layGood"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvToday"
-                android:layout_marginTop="8dip"
                 android:background="#ffffaa" >
 
                 <TextView
@@ -118,35 +127,45 @@
                 </LinearLayout>
             </RelativeLayout>
 
-            <TextView
-                android:id="@+id/tvDirection"
+            <RelativeLayout
+                android:id="@+id/layMoreInfo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/layBad"
-                android:layout_marginLeft="8dip"
-                android:layout_marginTop="8dip"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                android:layout_below="@+id/layBad" >
 
-            <TextView
-                android:id="@+id/tvDrink"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvDirection"
-                android:layout_marginLeft="8dip"
-                android:layout_marginTop="8dip"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tvDirection"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="#9AFF9A"
+                    android:gravity="center"
+                    android:padding="4dip"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
 
-            <TextView
-                android:id="@+id/tvGoddes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/tvDrink"
-                android:layout_marginLeft="8dip"
-                android:layout_marginTop="8dip"
-                android:textColor="#FFFFFF"
-                android:textSize="14sp" />
+                <TextView
+                    android:id="@+id/tvDrink"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_toLeftOf="@+id/tvGoddes"
+                    android:layout_toRightOf="@+id/tvDirection"
+                    android:background="#4EEE94"
+                    android:gravity="center"
+                    android:padding="4dip"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+
+                <TextView
+                    android:id="@+id/tvGoddes"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:background="#00CD66"
+                    android:gravity="center"
+                    android:padding="4dip"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 

@@ -1,4 +1,4 @@
-package com.rarnu.almanac;
+package com.rarnu.almanac.adapter;
 
 import java.util.List;
 
@@ -10,6 +10,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.rarnu.almanac.Almanac.Result;
+import com.rarnu.almanac.R;
 
 public class ItemAdapter extends BaseAdapter {
 

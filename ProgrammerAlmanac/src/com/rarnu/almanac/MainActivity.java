@@ -1,10 +1,16 @@
 package com.rarnu.almanac;
 
+import java.io.File;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v4.app.FragmentActivity;
@@ -25,6 +31,12 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.rarnu.almanac.Almanac.Result;
+import com.rarnu.almanac.api.MobileApi;
+import com.rarnu.almanac.api.UpdateInfo;
+import com.rarnu.almanac.utils.DeviceUtils;
+import com.rarnu.almanac.utils.ImageUtils;
+import com.rarnu.almanac.utils.UIUtils;
+import com.rarnu.almanac.utils.UpdateUtils;
 
 public class MainActivity extends FragmentActivity implements
 		OnGlobalLayoutListener, OnClickListener {
@@ -38,10 +50,11 @@ public class MainActivity extends FragmentActivity implements
 	ScrollView sv;
 	TextView tvHelp;
 	RelativeLayout layTitle;
-	Button btnHelp;
+	Button btnHelp, btnShare;
 
 	UpdateInfo updateInfo = null;
 
+	private static final int MENUID_SHARE = 0;
 	private static final int MENUID_HELP = 1;
 
 	@Override
@@ -55,6 +68,7 @@ public class MainActivity extends FragmentActivity implements
 
 		layTitle = (RelativeLayout) findViewById(R.id.layTitle);
 		btnHelp = (Button) findViewById(R.id.btnHelp);
+		btnShare = (Button) findViewById(R.id.btnShare);
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 			layTitle.setVisibility(View.GONE);
@@ -73,10 +87,60 @@ public class MainActivity extends FragmentActivity implements
 		lvGood.getViewTreeObserver().addOnGlobalLayoutListener(this);
 		lvBad.getViewTreeObserver().addOnGlobalLayoutListener(this);
 		btnHelp.setOnClickListener(this);
+		btnShare.setOnClickListener(this);
 		loadData();
-
 		getUpdateInfo();
+	}
 
+	private Handler hShare = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				String fn = (String) msg.obj;
+				shareTo(fn);
+			}
+			super.handleMessage(msg);
+		};
+	};
+
+	private void shareTo(String fn) {
+		Intent intent = new Intent(Intent.ACTION_SEND);
+		intent.setType("image/*");
+		intent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
+		intent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_body));
+		intent.putExtra(Intent.EXTRA_STREAM, Uri.parse(fn));
+		intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		startActivity(Intent
+				.createChooser(intent, getString(R.string.share_to)));
+	}
+
+	private void saveTodaysAlmanacT() {
+		String fn = Environment.getExternalStorageDirectory().getAbsolutePath()
+				+ "/.almanac/";
+		File fTmpDir = new File(fn);
+		if (!fTmpDir.exists()) {
+			fTmpDir.mkdirs();
+		}
+		fn += new SimpleDateFormat("yyyyMMdd").format(new Date()) + ".png";
+		final String finalFn = fn;
+
+		final Message msg = new Message();
+		msg.what = 1;
+		msg.obj = finalFn;
+
+		File fScreenshot = new File(finalFn);
+		if (fScreenshot.exists()) {
+			hShare.sendMessage(msg);
+			return;
+		}
+
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				ImageUtils.takeScreenShot(sv, finalFn);
+				hShare.sendMessage(msg);
+			}
+		}).start();
 	}
 
 	final Handler hUpdate = new Handler() {
@@ -106,10 +170,16 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public boolean onCreateOptionsMenu(Menu menu) {
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+
+			MenuItem itemShare = menu.add(0, MENUID_SHARE, 0, R.string.share);
+			MenuItemCompat.setShowAsAction(itemShare,
+					MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
+			itemShare.setIcon(android.R.drawable.ic_menu_share);
+
 			MenuItem itemHelp = menu.add(0, MENUID_HELP, 1, R.string.help);
 			MenuItemCompat.setShowAsAction(itemHelp,
 					MenuItemCompat.SHOW_AS_ACTION_IF_ROOM);
-			itemHelp.setIcon(android.R.drawable.ic_menu_help);
+			itemHelp.setIcon(android.R.drawable.ic_menu_info_details);
 		}
 		return true;
 	}
@@ -117,6 +187,9 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
+		case MENUID_SHARE:
+			saveTodaysAlmanacT();
+			break;
 		case MENUID_HELP:
 			showHelp();
 			break;
@@ -138,6 +211,17 @@ public class MainActivity extends FragmentActivity implements
 		for (Result r : listAll) {
 			addLayout(r);
 		}
+
+		int width = UIUtils.getWidth() - UIUtils.dipToPx(32);
+		width /= 3;
+		resizeView(tvDirection, width);
+		resizeView(tvGoddes, width);
+	}
+
+	private void resizeView(View v, int width) {
+		ViewGroup.LayoutParams vglp = v.getLayoutParams();
+		vglp.width = width;
+		v.setLayoutParams(vglp);
 	}
 
 	private void addLayout(Result r) {
@@ -162,6 +246,9 @@ public class MainActivity extends FragmentActivity implements
 	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
+		case R.id.btnShare:
+			saveTodaysAlmanacT();
+			break;
 		case R.id.btnHelp:
 			showHelp();
 			break;
@@ -171,7 +258,7 @@ public class MainActivity extends FragmentActivity implements
 	private void showHelp() {
 		tvHelp = new TextView(this);
 		tvHelp.setAutoLinkMask(Linkify.ALL);
-		tvHelp.setTextColor(Color.WHITE);
+		tvHelp.setTextColor(Color.BLACK);
 		tvHelp.setTextSize(16);
 		tvHelp.setLineSpacing(0F, 1.5F);
 		tvHelp.setPadding(16, 16, 0, 0);

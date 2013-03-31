@@ -5,6 +5,7 @@
     <string name="bad">不宜</string>
     
     <string name="share">分享</string>
+    <string name="share_to">分享到...</string>
     <string name="help">帮助</string>
     
     <string name="share_body">今日吉凶，来自《程序员老黄历》Android版</string>
@@ -16,9 +17,9 @@
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     
-    <string name="direction_fmt" formatted="false">&lt;strong&gt;座位朝向：&lt;/strong&gt;面向&lt;font color=\'#00FF00\'&gt;&lt;strong&gt;%s&lt;/strong&gt;&lt;/font&gt;写程序，BUG 最少。</string>
-	<string name="drink_fmt" formatted="false">&lt;strong&gt;今日宜饮：&lt;/strong&gt;%s</string>
-	<string name="goddes_fmt" formatted="false">&lt;strong&gt;女神亲近指数：&lt;/strong&gt;%s</string>
+    <string name="direction_fmt" formatted="false">&lt;strong&gt;座位朝向&lt;/strong&gt;&lt;br&gt;%s</string>
+	<string name="drink_fmt" formatted="false">&lt;strong&gt;今日宜饮&lt;/strong&gt;&lt;br&gt;%s</string>
+	<string name="goddes_fmt" formatted="false">&lt;strong&gt;妹子指数&lt;/strong&gt;&lt;br&gt;%s</string>
 	<string name="close">关闭</string>
 	<string name="help_detail">&lt;font color=\'yellow\'&gt;程序员老黄历 for Android&lt;/font&gt;&lt;br&gt;算法来源：http://runjs.cn/detail/ydp3it7b&lt;br&gt;程序移植：&lt;a href=\'http://weibo.com/rarnu\'&gt;@橙子Infinity&lt;/a&gt;</string>
 </resources>

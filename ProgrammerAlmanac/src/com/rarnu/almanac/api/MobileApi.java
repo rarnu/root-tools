@@ -1,7 +1,9 @@
-package com.rarnu.almanac;
+package com.rarnu.almanac.api;
 
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
+
+import com.rarnu.almanac.utils.HttpRequest;
 
 import android.util.Log;
 

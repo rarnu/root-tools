@@ -1,10 +1,14 @@
-package com.rarnu.almanac;
+package com.rarnu.almanac.utils;
 
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+
+import com.rarnu.almanac.R;
+import com.rarnu.almanac.api.MobileApi;
+import com.rarnu.almanac.api.UpdateInfo;
 
 public class UpdateUtils {
 
