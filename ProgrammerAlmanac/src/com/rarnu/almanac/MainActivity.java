@@ -27,7 +27,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
-import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.rarnu.almanac.Almanac.Result;
@@ -47,7 +46,7 @@ public class MainActivity extends FragmentActivity implements
 	TextView tvDirection, tvDrink, tvGoddes;
 	LinearLayout lvGood, lvBad;
 	TextView tvGood, tvBad;
-	ScrollView sv;
+	RelativeLayout layAlmanac;
 	TextView tvHelp;
 	RelativeLayout layTitle;
 	Button btnHelp, btnShare;
@@ -74,7 +73,7 @@ public class MainActivity extends FragmentActivity implements
 			layTitle.setVisibility(View.GONE);
 		}
 
-		sv = (ScrollView) findViewById(R.id.sv);
+		layAlmanac = (RelativeLayout) findViewById(R.id.layAlmanac);
 		tvToday = (TextView) findViewById(R.id.tvToday);
 		tvDirection = (TextView) findViewById(R.id.tvDirection);
 		tvDrink = (TextView) findViewById(R.id.tvDrink);
@@ -137,7 +136,7 @@ public class MainActivity extends FragmentActivity implements
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				ImageUtils.takeScreenShot(sv, finalFn);
+				ImageUtils.takeScreenShot(layAlmanac, finalFn);
 				hShare.sendMessage(msg);
 			}
 		}).start();
