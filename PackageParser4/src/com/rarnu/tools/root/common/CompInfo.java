@@ -1,6 +1,9 @@
 package com.rarnu.tools.root.common;
 
+import android.content.Context;
 import android.content.pm.PackageParser;
+
+import com.rarnu.tools.root.utils.ComponentUtils;
 
 public class CompInfo {
 
@@ -39,5 +42,13 @@ public class CompInfo {
 			}
 		}
 		return str;
+	}
+	
+	public boolean isServiceRunning(Context context) {
+		boolean ret = false;
+		if (!isActivity()) {
+			ret = ComponentUtils.isServiceRunning(context, ((PackageParser.Component<?>) component).className);
+		}
+		return ret;
 	}
 }

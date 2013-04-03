@@ -24,7 +24,7 @@
         android:theme="@android:style/Theme.Holo" >
         <meta-data
             android:name="debug"
-            android:value="false" />
+            android:value="true" />
 
         <activity
             android:name=".SplashActivity"

@@ -127,8 +127,10 @@ public class CleanCacheFragment extends BaseFragment implements
 			menuRefresh.setEnabled(false);
 		}
 
-		progressCache.setAppName(getString(R.string.loading));
-		progressCache.setVisibility(View.VISIBLE);
+		if (isAdded()) {
+			progressCache.setAppName(getString(R.string.loading));
+			progressCache.setVisibility(View.VISIBLE);
+		}
 		loader.startLoading();
 	}
 
@@ -149,14 +151,15 @@ public class CleanCacheFragment extends BaseFragment implements
 	};
 
 	private void doCleanCache() {
-		
+
 		if (menuClean != null) {
 			menuClean.setEnabled(false);
 			menuRefresh.setEnabled(false);
 		}
-		progressCache.setAppName(getString(R.string.cleaning_cache));
-		progressCache.setVisibility(View.VISIBLE);
-
+		if (isAdded()) {
+			progressCache.setAppName(getString(R.string.cleaning_cache));
+			progressCache.setVisibility(View.VISIBLE);
+		}
 		new Thread(new Runnable() {
 
 			@Override
@@ -174,7 +177,7 @@ public class CleanCacheFragment extends BaseFragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 	}
 
 	@Override
@@ -254,7 +257,7 @@ public class CleanCacheFragment extends BaseFragment implements
 
 	@Override
 	protected void onGetNewArguments(Bundle bn) {
-		
+
 	}
 
 }

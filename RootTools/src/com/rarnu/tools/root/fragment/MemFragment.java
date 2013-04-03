@@ -52,7 +52,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		
+
 	}
 
 	@Override
@@ -79,8 +79,10 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	private void doStartLoad() {
-		progressMemory.setAppName(getString(R.string.loading));
-		progressMemory.setVisibility(View.VISIBLE);
+		if (isAdded()) {
+			progressMemory.setAppName(getString(R.string.loading));
+			progressMemory.setVisibility(View.VISIBLE);
+		}
 		if (menuClean != null) {
 			menuClean.setEnabled(false);
 			menuRefresh.setEnabled(false);
@@ -178,7 +180,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	private void doClean() {
-		
+
 		if (GlobalInstance.killProcessBeforeClean) {
 			doKillProcT();
 		} else {
@@ -202,13 +204,19 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 			menuRefresh.setEnabled(false);
 		}
 		lvMemory.setEnabled(false);
-		progressMemory.setAppName(getString(R.string.cleaning_memory));
-		progressMemory.setVisibility(View.VISIBLE);
+		if (isAdded()) {
+			progressMemory.setAppName(getString(R.string.cleaning_memory));
+			progressMemory.setVisibility(View.VISIBLE);
+		}
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				if (listMemProcessAll != null && listMemProcessAll.size() != 0) {
-					for (MemProcessInfo info : listMemProcessAll) {
+
+				List<MemProcessInfo> lstTmp = new ArrayList<MemProcessInfo>();
+				lstTmp.addAll(listMemProcessAll);
+
+				if (lstTmp != null && lstTmp.size() != 0) {
+					for (MemProcessInfo info : lstTmp) {
 						// only kill the user applications
 						if (info.appInfo != null) {
 							// exclude list
@@ -249,9 +257,10 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 			menuRefresh.setEnabled(false);
 		}
 		lvMemory.setEnabled(false);
-		progressMemory.setAppName(getString(R.string.cleaning_memory));
-		progressMemory.setVisibility(View.VISIBLE);
-
+		if (isAdded()) {
+			progressMemory.setAppName(getString(R.string.cleaning_memory));
+			progressMemory.setVisibility(View.VISIBLE);
+		}
 		new Thread(new Runnable() {
 
 			@Override
@@ -338,7 +347,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 
 	@Override
 	protected void onGetNewArguments(Bundle bn) {
-		
+
 	}
 
 }
