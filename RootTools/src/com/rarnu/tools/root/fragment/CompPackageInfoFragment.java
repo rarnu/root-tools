@@ -3,6 +3,8 @@ package com.rarnu.tools.root.fragment;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -100,11 +102,26 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> parent, View view,
+	public boolean onItemLongClick(AdapterView<?> parent, final View view,
 			int position, long id) {
-		CompInfo item = (CompInfo) lvReceiver.getItemAtPosition(position);
+		final CompInfo item = (CompInfo) lvReceiver.getItemAtPosition(position);
 		if (item.enabled) {
-			doDisableComponent(item, view);
+			if (item.isServiceRunning(getActivity())) {
+				new AlertDialog.Builder(getActivity())
+						.setTitle(R.string.hint)
+						.setMessage(R.string.service_is_running)
+						.setPositiveButton(R.string.ok,
+								new DialogInterface.OnClickListener() {
+									@Override
+									public void onClick(DialogInterface dialog,
+											int which) {
+										doDisableComponent(item, view);
+									}
+								}).setNegativeButton(R.string.cancel, null)
+						.show();
+			} else {
+				doDisableComponent(item, view);
+			}
 		} else if (!item.enabled) {
 			doEnableComponent(item, view);
 		}
@@ -121,6 +138,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 					.setText(R.string.comp_enabled);
 			((TextView) view.findViewById(R.id.itemReceiverStatus))
 					.setTextColor(Color.GREEN);
+			adapter.notifyDataSetChanged();
 		} else {
 			Toast.makeText(getActivity(), R.string.operation_failed,
 					Toast.LENGTH_LONG).show();
@@ -136,6 +154,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 					.setText(R.string.comp_disabled);
 			((TextView) view.findViewById(R.id.itemReceiverStatus))
 					.setTextColor(Color.RED);
+			adapter.notifyDataSetChanged();
 		} else {
 			Toast.makeText(getActivity(), R.string.operation_failed,
 					Toast.LENGTH_LONG).show();
@@ -155,7 +174,6 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	@Override
 	protected void onGetNewArguments(Bundle bn) {
 
-		
 	}
 
 }

@@ -249,4 +249,5 @@
     <string name="backup_empty">没有可以备份的内容，请先安装一些应用</string>
     <string name="restore_empty">没有可以还原的内容，请先到&lt;font color=\'#6495ED\'&gt;备份应用数据&lt;/font&gt;中进行备份操作</string>
     <string name="hosts_too_big">Hosts 文件太大，无法编辑</string>
+    <string name="service_is_running">这个服务正在运行中，如果强行停止可能会引起内存错误。按“确定”禁用服务，按“取消”不做操作。</string>
 </resources>

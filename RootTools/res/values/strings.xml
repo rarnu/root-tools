@@ -249,5 +249,5 @@
     <string name="backup_empty">No app for backuping, install some first</string>
     <string name="restore_empty">No app for restoring, please goto &lt;font color=\'#6495ED\'&gt;Backup Data&lt;/font&gt; and backup some apps</string>
     <string name="hosts_too_big">Hosts file too big, cannot edit</string>
-
+	<string name="service_is_running">This service is running, and it will cause the memory exception if you kill it right now. Are you sure to disable it?</string>
 </resources>

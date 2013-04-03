@@ -52,7 +52,11 @@ public class CompAdapter extends BaseAdapter<CompInfo> {
 			if (item.isActivity()) {
 				compName += "<font color=\"#6495ED\">(R)</font>";
 			} else {
+				if (item.isServiceRunning(context)) {
+					compName = "<font color=\"red\">" + compName + "</font>";
+				}
 				compName += "<font color=\"#6495ED\">(S)</font>";
+
 			}
 
 			holder.itemReceiverName.setText(Html.fromHtml(compName));
@@ -61,9 +65,9 @@ public class CompAdapter extends BaseAdapter<CompInfo> {
 							: R.string.comp_disabled);
 			holder.itemReceiverStatus.setTextColor(item.enabled ? Color.GREEN
 					: Color.RED);
-			String ret = "<font color=\"yellow\"><small>" + item.fullPackageName
-					+ "</small></font><br>";
-			
+			String ret = "<font color=\"yellow\"><small>"
+					+ item.fullPackageName + "</small></font><br>";
+
 			if (item.isActivity()) {
 				ret = item.appendIntents(ret);
 			}
