@@ -9,14 +9,18 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.KeyEvent;
+import android.widget.TextView;
 
 import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.utils.MiscUtils;
 import com.rarnu.devlib.utils.UIUtils;
+import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
 
 public class SplashActivity extends Activity {
 
+	TextView tvVersion;
+	
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 
@@ -45,6 +49,15 @@ public class SplashActivity extends Activity {
 		}
 
 		setContentView(R.layout.layout_splash);
+		tvVersion = (TextView) findViewById(R.id.tvVersion);
+		
+		String ver = String.format(getString(R.string.app_ver), DeviceUtils.getAppVersionName(this));
+		if (GlobalInstance.DEBUG) {
+			ver += getString(R.string.app_debug);
+		}
+		
+		tvVersion.setText(ver);
+		
 		DirHelper.makeDir();
 
 		final Timer tmrClose = new Timer();

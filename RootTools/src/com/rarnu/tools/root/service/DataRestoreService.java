@@ -10,6 +10,7 @@ import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
+import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.ListUtils;
 
@@ -59,7 +60,7 @@ public class DataRestoreService extends BaseService {
 
 	@Override
 	public boolean getCommandCondition(String command) {
-		return command.equals("restore");
+		return command.equals(FragmentNameConst.FN_RESTORE);
 	}
 
 	@Override

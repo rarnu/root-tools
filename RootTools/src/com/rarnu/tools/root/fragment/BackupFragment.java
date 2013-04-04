@@ -26,6 +26,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.DataappAdapter;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
+import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.loader.BackupLoader;
@@ -170,7 +171,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 		progressData.setAppName(getString(R.string.backuping));
 		Intent inBackupService = new Intent(getActivity(),
 				DataBackupService.class);
-		inBackupService.putExtra("command", "backup");
+		inBackupService.putExtra("command", FragmentNameConst.FN_BACKUP);
 		inBackupService.putExtra("id", RTConsts.NOTIFY_ID_BACKUP);
 		inBackupService.putExtra("title", R.string.func3_title);
 		inBackupService.putExtra("desc", R.string.backup_ok);

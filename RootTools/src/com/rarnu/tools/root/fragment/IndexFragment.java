@@ -13,8 +13,10 @@ import com.rarnu.devlib.common.UIInstance;
 import com.rarnu.devlib.component.PreferenceEx;
 import com.rarnu.devlib.utils.MiscUtils;
 import com.rarnu.devlib.utils.NetworkUtils;
+import com.rarnu.tools.root.Fragments;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.fragmentactivity.AboutActivity;
 import com.rarnu.tools.root.fragmentactivity.BusyboxActivity;
 import com.rarnu.tools.root.fragmentactivity.CleanCacheMainActivity;
@@ -28,6 +30,7 @@ import com.rarnu.tools.root.fragmentactivity.MemMainActivity;
 import com.rarnu.tools.root.fragmentactivity.RecommandActivity;
 import com.rarnu.tools.root.fragmentactivity.SettingsActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappMainActivity;
+import com.rarnu.tools.root.fragmentactivity.TerminalActivity;
 import com.rarnu.tools.root.fragmentactivity.UserFeedbackActivity;
 import com.rarnu.tools.root.utils.BusyboxUtils;
 import com.rarnu.tools.root.utils.DalvikUtils;
@@ -42,6 +45,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 	PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik;
 	PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
 	PreferenceEx prefFeedback, prefRecommand, prefAbout;
+	PreferenceEx prefTerminal;
 	PreferenceEx prefSettings;
 
 	public void showFunctionalEnabledTags() {
@@ -79,6 +83,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 		prefFeedback.setStatus(PreferenceEx.STATE_NORMAL);
 		prefRecommand.setStatus(PreferenceEx.STATE_NORMAL);
 		prefAbout.setStatus(PreferenceEx.STATE_NORMAL);
+		prefTerminal.setStatus(PreferenceEx.STATE_NORMAL);
 		if (isRooted) {
 			showBusyboxTag();
 		}
@@ -110,50 +115,55 @@ public class IndexFragment extends BasePreferenceFragment implements
 		if (preference.getKey().equals(getString(R.string.id_sysapp))) {
 			UIInstance.currentFragment = 1;
 			FragmentStarter.showContent(getActivity(),
-					SysappMainActivity.class, GlobalFragment.fSysapp);
+					SysappMainActivity.class,
+					Fragments.getFragment(FragmentNameConst.FN_SYSAPP));
 		} else if (preference.getKey().equals(
 				getString(R.string.id_sysappenabled))) {
 			UIInstance.currentFragment = 2;
 			FragmentStarter.showContent(getActivity(),
-					EnableappMainActivity.class, GlobalFragment.fEnableapp);
+					EnableappMainActivity.class,
+					Fragments.getFragment(FragmentNameConst.FN_ENABLEAPP));
 
 		} else if (preference.getKey().equals(getString(R.string.id_component))) {
 			UIInstance.currentFragment = 3;
 			FragmentStarter.showContent(getActivity(), CompMainActivity.class,
-					GlobalFragment.fComp);
+					Fragments.getFragment(FragmentNameConst.FN_COMP));
 
 		} else if (preference.getKey().equals(getString(R.string.id_root))) {
 			UIInstance.currentFragment = 4;
 			FragmentStarter.showContent(getActivity(), BusyboxActivity.class,
-					GlobalFragment.fBusybox);
+					Fragments.getFragment(FragmentNameConst.FN_BUSYBOX));
 
 		} else if (preference.getKey().equals(getString(R.string.id_cleanhtc))) {
 			UIInstance.currentFragment = 5;
 			FragmentStarter.showContent(getActivity(), HtcRomActivity.class,
-					GlobalFragment.fHtcRom);
+					Fragments.getFragment(FragmentNameConst.FN_HTCROM));
 
 		}
 		// backup
 		else if (preference.getKey().equals(getString(R.string.id_backup))) {
 			UIInstance.currentFragment = 6;
 			FragmentStarter.showContent(getActivity(),
-					DataBackupActivity.class, GlobalFragment.fBackup);
+					DataBackupActivity.class,
+					Fragments.getFragment(FragmentNameConst.FN_BACKUP));
 		} else if (preference.getKey().equals(getString(R.string.id_restore))) {
 			UIInstance.currentFragment = 14;
 			FragmentStarter.showContent(getActivity(),
-					DataRestoreActivity.class, GlobalFragment.fRestore);
+					DataRestoreActivity.class,
+					Fragments.getFragment(FragmentNameConst.FN_RESTORE));
 		}
 
 		// memory
 		else if (preference.getKey().equals(getString(R.string.id_cleanmemory))) {
 			UIInstance.currentFragment = 7;
 			FragmentStarter.showContent(getActivity(), MemMainActivity.class,
-					GlobalFragment.fMem);
+					Fragments.getFragment(FragmentNameConst.FN_MEM));
 		} else if (preference.getKey()
 				.equals(getString(R.string.id_cleancache))) {
 			UIInstance.currentFragment = 8;
 			FragmentStarter.showContent(getActivity(),
-					CleanCacheMainActivity.class, GlobalFragment.fCleanCache);
+					CleanCacheMainActivity.class,
+					Fragments.getFragment(FragmentNameConst.FN_CLEAN_CACHE));
 		} else if (preference.getKey().equals(
 				getString(R.string.id_cleandalvik))) {
 			DalvikUtils.doCleanDalvikT(getActivity(), getView(),
@@ -164,7 +174,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 		else if (preference.getKey().equals(getString(R.string.id_hosts))) {
 			UIInstance.currentFragment = 9;
 			FragmentStarter.showContent(getActivity(), HostMainActivity.class,
-					GlobalFragment.fHost);
+					Fragments.getFragment(FragmentNameConst.FN_HOST));
 		} else if (preference.getKey().equals(getString(R.string.id_scanmedia))) {
 			MiscUtils.doScanMedia(getActivity());
 		} else if (preference.getKey().equals(getString(R.string.id_network))) {
@@ -193,22 +203,30 @@ public class IndexFragment extends BasePreferenceFragment implements
 		else if (preference.getKey().equals(getString(R.string.id_feedback))) {
 			UIInstance.currentFragment = 10;
 			FragmentStarter.showContent(getActivity(),
-					UserFeedbackActivity.class, GlobalFragment.fFeedback);
+					UserFeedbackActivity.class,
+					Fragments.getFragment(FragmentNameConst.FN_FEEDBACK));
 		} else if (preference.getKey().equals(getString(R.string.id_recommand))) {
 			UIInstance.currentFragment = 11;
 			FragmentStarter.showContent(getActivity(), RecommandActivity.class,
-					GlobalFragment.fRecommand);
+					Fragments.getFragment(FragmentNameConst.FN_RECOMMAND));
 		} else if (preference.getKey().equals(getString(R.string.id_about))) {
 			UIInstance.currentFragment = 12;
 			FragmentStarter.showContent(getActivity(), AboutActivity.class,
-					GlobalFragment.fAbout);
+					Fragments.getFragment(FragmentNameConst.FN_ABOUT));
+		}
+		// emu
+		else if (preference.getKey()
+				.equals(getString(R.string.id_terminal_emu))) {
+			UIInstance.currentFragment = 15;
+			FragmentStarter.showContent(getActivity(), TerminalActivity.class,
+					Fragments.getFragment(FragmentNameConst.FN_TERMINAL));
 		}
 
 		//
 		else if (preference.getKey().equals(getString(R.string.id_settings))) {
 			UIInstance.currentFragment = 13;
 			FragmentStarter.showContent(getActivity(), SettingsActivity.class,
-					GlobalFragment.fSettings);
+					Fragments.getFragment(FragmentNameConst.FN_SETTINGS));
 		}
 
 		return true;
@@ -244,7 +262,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 		prefRecommand = (PreferenceEx) findPreference(getString(R.string.id_recommand));
 		prefAbout = (PreferenceEx) findPreference(getString(R.string.id_about));
 		prefSettings = (PreferenceEx) findPreference(getString(R.string.id_settings));
-
+		prefTerminal = (PreferenceEx) findPreference(getString(R.string.id_terminal_emu));
 	}
 
 	@Override
@@ -267,7 +285,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 		prefRecommand.setOnPreferenceClickListener(this);
 		prefAbout.setOnPreferenceClickListener(this);
 		prefSettings.setOnPreferenceClickListener(this);
-
+		prefTerminal.setOnPreferenceClickListener(this);
 	}
 
 	@Override

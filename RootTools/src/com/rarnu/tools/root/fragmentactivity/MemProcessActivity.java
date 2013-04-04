@@ -5,7 +5,8 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 
 import com.rarnu.devlib.base.BaseDialog;
-import com.rarnu.tools.root.fragment.GlobalFragment;
+import com.rarnu.tools.root.Fragments;
+import com.rarnu.tools.root.common.FragmentNameConst;
 
 public class MemProcessActivity extends BaseDialog {
 
@@ -30,7 +31,7 @@ public class MemProcessActivity extends BaseDialog {
 
 	@Override
 	public Fragment replaceFragment() {
-		return GlobalFragment.fMemProcess;
+		return Fragments.getFragment(FragmentNameConst.FN_MEM_PROCESS);
 	}
 
 	@Override

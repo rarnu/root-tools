@@ -31,6 +31,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.DataappAdapter;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
+import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.loader.RestoreLoader;
@@ -257,7 +258,7 @@ public class RestoreFragment extends BaseFragment implements
 		progressBackData.setAppName(getString(R.string.restoring));
 		Intent inRestoreService = new Intent(getActivity(),
 				DataRestoreService.class);
-		inRestoreService.putExtra("command", "restore");
+		inRestoreService.putExtra("command", FragmentNameConst.FN_RESTORE);
 		inRestoreService.putExtra("id", RTConsts.NOTIFY_ID_RESTORE);
 		inRestoreService.putExtra("title", R.string.func3p_title);
 		inRestoreService.putExtra("desc", R.string.restore_ok);

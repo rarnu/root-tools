@@ -14,7 +14,8 @@
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
-    <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="android.permission.ROOT_TOOLS" />
 
     <application
         android:name=".RootApplication"
@@ -159,6 +160,11 @@
         <activity
             android:name=".fragmentactivity.DataRestoreActivity"
             android:label="@string/func3p_title"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.TerminalActivity"
+            android:label="@string/func_terminal"
             android:windowSoftInputMode="stateHidden" >
         </activity>
 

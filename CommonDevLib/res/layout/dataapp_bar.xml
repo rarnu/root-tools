@@ -13,7 +13,8 @@
             android:id="@+id/barButton1"
             android:layout_width="110dip"
             android:layout_height="wrap_content"
-            android:layout_centerVertical="true" />
+            android:layout_centerVertical="true"
+            android:textSize="14sp" />
 
         <Button
             android:id="@+id/barButton2"
@@ -22,7 +23,8 @@
             android:layout_centerVertical="true"
             android:layout_marginLeft="8dip"
             android:layout_toRightOf="@+id/barButton1"
-            android:text="@string/cancel" />
+            android:text="@string/cancel"
+            android:textSize="14sp" />
     </RelativeLayout>
 
     <CheckBox

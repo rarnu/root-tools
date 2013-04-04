@@ -18,6 +18,8 @@
     <string name="id_network">id_network</string>
     <string name="id_reboot">id_reboot</string>
     
+    <string name="id_terminal_emu">id_terminal_emu</string>
+    
     <string name="id_settings">id_settings</string>
     
     <string name="id_feedback">id_feedback</string>

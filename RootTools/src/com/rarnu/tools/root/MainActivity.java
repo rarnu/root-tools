@@ -19,9 +19,9 @@ import com.rarnu.devlib.base.BaseMainActivity;
 import com.rarnu.devlib.utils.ImageUtils;
 import com.rarnu.devlib.utils.NetworkUtils;
 import com.rarnu.tools.root.api.MobileApi;
+import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConfig;
-import com.rarnu.tools.root.fragment.GlobalFragment;
 import com.rarnu.tools.root.utils.CustomPackageUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
@@ -114,13 +114,13 @@ public class MainActivity extends BaseMainActivity {
 
 	@Override
 	public void loadFragments() {
-		GlobalFragment.loadFragments();
+		Fragments.loadFragments();
 
 	}
 
 	@Override
 	public void releaseFragments() {
-		GlobalFragment.releaseFragments();
+		Fragments.releaseFragments();
 
 	}
 
@@ -150,41 +150,43 @@ public class MainActivity extends BaseMainActivity {
 	public Fragment getFragment(int currentFragment) {
 		switch (currentFragment) {
 		case 1:
-			return GlobalFragment.fSysapp;
+			return Fragments.getFragment(FragmentNameConst.FN_SYSAPP);
 		case 2:
-			return GlobalFragment.fEnableapp;
+			return Fragments.getFragment(FragmentNameConst.FN_ENABLEAPP);
 		case 3:
-			return GlobalFragment.fComp;
+			return Fragments.getFragment(FragmentNameConst.FN_COMP);
 		case 4:
-			return GlobalFragment.fBusybox;
+			return Fragments.getFragment(FragmentNameConst.FN_BUSYBOX);
 		case 5:
-			return GlobalFragment.fHtcRom;
+			return Fragments.getFragment(FragmentNameConst.FN_HTCROM);
 		case 6:
-			return GlobalFragment.fBackup;
+			return Fragments.getFragment(FragmentNameConst.FN_BACKUP);
 		case 7:
-			return GlobalFragment.fMem;
+			return Fragments.getFragment(FragmentNameConst.FN_MEM);
 		case 8:
-			return GlobalFragment.fCleanCache;
+			return Fragments.getFragment(FragmentNameConst.FN_CLEAN_CACHE);
 		case 9:
-			return GlobalFragment.fHost;
+			return Fragments.getFragment(FragmentNameConst.FN_HOST);
 		case 10:
-			return GlobalFragment.fFeedback;
+			return Fragments.getFragment(FragmentNameConst.FN_FEEDBACK);
 		case 11:
-			return GlobalFragment.fRecommand;
+			return Fragments.getFragment(FragmentNameConst.FN_RECOMMAND);
 		case 12:
-			return GlobalFragment.fAbout;
+			return Fragments.getFragment(FragmentNameConst.FN_ABOUT);
 		case 13:
-			return GlobalFragment.fSettings;
+			return Fragments.getFragment(FragmentNameConst.FN_SETTINGS);
 		case 14:
-			return GlobalFragment.fRestore;
+			return Fragments.getFragment(FragmentNameConst.FN_RESTORE);
+		case 15:
+			return Fragments.getFragment(FragmentNameConst.FN_TERMINAL);
 		default:
-			return GlobalFragment.fAbout;
+			return Fragments.getFragment(FragmentNameConst.FN_ABOUT);
 		}
 	}
 
 	@Override
 	public Fragment getIndexFragment() {
-		return GlobalFragment.fIndex;
+		return Fragments.getFragment(FragmentNameConst.FN_INDEX);
 	}
 
 	@Override
@@ -204,9 +206,9 @@ public class MainActivity extends BaseMainActivity {
 
 	@Override
 	public void onHomeClick() {
-		GlobalFragment.releaseFragments();
-		oneTimeRun = false;
-		finish();
+		// GlobalFragment.releaseFragments();
+		// oneTimeRun = false;
+		// finish();
 
 	}
 
