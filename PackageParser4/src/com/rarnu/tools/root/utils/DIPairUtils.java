@@ -5,8 +5,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.util.Log;
-
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.common.HostRecordInfo;
@@ -29,7 +27,6 @@ public class DIPairUtils {
 			result = listToList(lst);
 			addLocalHostToPos0(result);
 		} catch (IOException e) {
-			Log.e("DIPairUtils", e.getMessage());
 		}
 		return result;
 	}

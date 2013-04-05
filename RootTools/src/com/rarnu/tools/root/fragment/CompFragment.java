@@ -8,7 +8,6 @@ import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.content.pm.PackageInfo;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -127,7 +126,6 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 	@Override
 	public void onLoadComplete(Loader<List<PackageInfo>> loader,
 			List<PackageInfo> data) {
-		Log.e(getClass().getName(), "onLoadComplete");
 		listCompAll.clear();
 		if (data != null) {
 			listCompAll.addAll(data);

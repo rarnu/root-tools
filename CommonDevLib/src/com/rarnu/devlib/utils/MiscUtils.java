@@ -4,7 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Environment;
-import android.util.Log;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
 import com.rarnu.command.CommandResult;
@@ -18,8 +18,6 @@ public class MiscUtils {
 				Uri.parse("file://"
 						+ Environment.getExternalStorageDirectory()
 								.getAbsolutePath())));
-		Log.e("Media Path", Environment.getExternalStorageDirectory()
-				.getAbsolutePath());
 		Toast.makeText(context, R.string.scan, Toast.LENGTH_LONG).show();
 	}
 
@@ -54,5 +52,12 @@ public class MiscUtils {
 			extSdcard += "/";
 		}
 		return extSdcard;
+	}
+
+	public static void toggleSoftKeyboard(Context context) {
+		InputMethodManager imm = (InputMethodManager) context
+				.getSystemService(Context.INPUT_METHOD_SERVICE);
+		imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+
 	}
 }

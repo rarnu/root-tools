@@ -8,8 +8,6 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.util.Log;
-
 import com.rarnu.devlib.utils.HttpRequest;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.common.UpdateInfo;
@@ -46,7 +44,6 @@ public class MobileApi {
 			result.file = json.getString("file");
 			result.size = json.getString("size");
 		} catch (Exception e) {
-			Log.e("checkUpdate", e.getMessage());
 			result = null;
 		}
 		return result;

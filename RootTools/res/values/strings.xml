@@ -87,6 +87,8 @@
     <string name="clean">Clean</string>
     <string name="search">Search</string>
     <string name="uplevel">Up</string>
+    <string name="send_ctrl">Send Ctrl</string>
+    <string name="toggle_input_method">Toggle Input Method</string>
     <string name="add_ignore">Ignore</string>
     <string name="remove_ignore">Unignore</string>
     <string name="how_to_use">How to use</string>

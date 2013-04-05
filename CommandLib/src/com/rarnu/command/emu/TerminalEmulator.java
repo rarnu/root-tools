@@ -3,72 +3,42 @@ package com.rarnu.command.emu;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-class TerminalEmulator {
+import com.rarnu.command.emu.tool.Screen;
+
+public class TerminalEmulator {
 
 	private int mCursorRow;
-
 	private int mCursorCol;
-
 	private int mRows;
-
 	private int mColumns;
-
 	private FileOutputStream mTermOut;
-
 	private Screen mScreen;
-
 	private int mArgIndex;
-
 	private static final int MAX_ESCAPE_PARAMETERS = 16;
-
 	private int[] mArgs = new int[MAX_ESCAPE_PARAMETERS];
-
 	private static final int ESC_NONE = 0;
-
 	private static final int ESC = 1;
-
 	private static final int ESC_POUND = 2;
-
 	private static final int ESC_SELECT_LEFT_PAREN = 3;
-
 	private static final int ESC_SELECT_RIGHT_PAREN = 4;
-
 	private static final int ESC_LEFT_SQUARE_BRACKET = 5;
-
 	private static final int ESC_LEFT_SQUARE_BRACKET_QUESTION_MARK = 6;
-
 	private boolean mContinueSequence;
-
 	private int mEscapeState;
-
 	private int mSavedCursorRow;
-
 	private int mSavedCursorCol;
-
 	private static final int K_132_COLUMN_MODE_MASK = 1 << 3;
-
 	private static final int K_ORIGIN_MODE_MASK = 1 << 6;
-
 	private int mDecFlags;
-
 	private int mSavedDecFlags;
-
 	private boolean mInsertMode;
-
 	private boolean[] mTabStop;
-
 	private int mTopMargin;
-
 	private int mBottomMargin;
-
 	private boolean mAboutToAutoWrap;
-
 	private int mForeColor;
-
 	private int mBackColor;
-
 	private boolean mInverseColors;
-
 	private boolean mbKeypadApplicationMode;
 
 	public TerminalEmulator(Screen screen, int columns, int rows,
@@ -361,6 +331,7 @@ class TerminalEmulator {
 			mScreen.blockSet(0, 0, mColumns, mRows, 'E', getForeColor(),
 					getBackColor());
 			break;
+
 		default:
 			unknownSequence(b);
 			break;
@@ -372,32 +343,41 @@ class TerminalEmulator {
 		case '#':
 			continueSequence(ESC_POUND);
 			break;
+
 		case '(':
 			continueSequence(ESC_SELECT_LEFT_PAREN);
 			break;
+
 		case ')':
 			continueSequence(ESC_SELECT_RIGHT_PAREN);
 			break;
+
 		case '7':
 			mSavedCursorRow = mCursorRow;
 			mSavedCursorCol = mCursorCol;
 			break;
+
 		case '8':
 			setCursorRowCol(mSavedCursorRow, mSavedCursorCol);
 			break;
+
 		case 'D':
 			doLinefeed();
 			break;
+
 		case 'E':
 			setCursorCol(0);
 			doLinefeed();
 			break;
+
 		case 'F':
 			setCursorRowCol(0, mBottomMargin - 1);
 			break;
+
 		case 'H':
 			mTabStop[mCursorCol] = true;
 			break;
+
 		case 'M':
 			if (mCursorRow == 0) {
 				mScreen.blockCopy(0, mTopMargin + 1, mColumns, mBottomMargin
@@ -406,28 +386,37 @@ class TerminalEmulator {
 			} else {
 				mCursorRow--;
 			}
+
 			break;
+
 		case 'N':
 			unimplementedSequence(b);
 			break;
+
 		case '0':
 			unimplementedSequence(b);
 			break;
+
 		case 'P':
 			unimplementedSequence(b);
 			break;
+
 		case 'Z':
 			sendDeviceAttributes();
 			break;
+
 		case '[':
 			continueSequence(ESC_LEFT_SQUARE_BRACKET);
 			break;
+
 		case '=':
 			mbKeypadApplicationMode = true;
 			break;
+
 		case '>':
 			mbKeypadApplicationMode = false;
 			break;
+
 		default:
 			unknownSequence(b);
 			break;
@@ -445,24 +434,31 @@ class TerminalEmulator {
 			blockClear(mCursorCol, mCursorRow, charsToInsert);
 		}
 			break;
+
 		case 'A':
 			setCursorRow(Math.max(mTopMargin, mCursorRow - getArg0(1)));
 			break;
+
 		case 'B':
 			setCursorRow(Math.min(mBottomMargin - 1, mCursorRow + getArg0(1)));
 			break;
+
 		case 'C':
 			setCursorCol(Math.min(mColumns - 1, mCursorCol + getArg0(1)));
 			break;
+
 		case 'D':
 			setCursorCol(Math.max(0, mCursorCol - getArg0(1)));
 			break;
+
 		case 'G':
 			setCursorCol(Math.min(Math.max(1, getArg0(1)), mColumns) - 1);
 			break;
+
 		case 'H':
 			setHorizontalVerticalPosition();
 			break;
+
 		case 'J':
 			switch (getArg0(0)) {
 			case 0:
@@ -470,13 +466,16 @@ class TerminalEmulator {
 				blockClear(0, mCursorRow + 1, mColumns, mBottomMargin
 						- (mCursorRow + 1));
 				break;
+
 			case 1:
 				blockClear(0, mTopMargin, mColumns, mCursorRow - mTopMargin);
 				blockClear(0, mCursorRow, mCursorCol + 1);
 				break;
+
 			case 2:
 				blockClear(0, mTopMargin, mColumns, mBottomMargin - mTopMargin);
 				break;
+
 			default:
 				unknownSequence(b);
 				break;
@@ -488,17 +487,21 @@ class TerminalEmulator {
 			case 0:
 				blockClear(mCursorCol, mCursorRow, mColumns - mCursorCol);
 				break;
+
 			case 1:
 				blockClear(0, mCursorRow, mCursorCol + 1);
 				break;
+
 			case 2:
 				blockClear(0, mCursorRow, mColumns);
 				break;
+
 			default:
 				unknownSequence(b);
 				break;
 			}
 			break;
+
 		case 'L': {
 			int linesAfterCursor = mBottomMargin - mCursorRow;
 			int linesToInsert = Math.min(getArg0(1), linesAfterCursor);
@@ -508,6 +511,7 @@ class TerminalEmulator {
 			blockClear(0, mCursorRow, mColumns, linesToInsert);
 		}
 			break;
+
 		case 'M': {
 			int linesAfterCursor = mBottomMargin - mCursorRow;
 			int linesToDelete = Math.min(getArg0(1), linesAfterCursor);
@@ -517,6 +521,7 @@ class TerminalEmulator {
 			blockClear(0, mCursorRow + linesToMove, mColumns, linesToDelete);
 		}
 			break;
+
 		case 'P': {
 			int charsAfterCursor = mColumns - mCursorCol;
 			int charsToDelete = Math.min(getArg0(1), charsAfterCursor);
@@ -526,9 +531,11 @@ class TerminalEmulator {
 			blockClear(mCursorCol + charsToMove, mCursorRow, charsToDelete);
 		}
 			break;
+
 		case 'T':
 			unimplementedSequence(b);
 			break;
+
 		case '?':
 			continueSequence(ESC_LEFT_SQUARE_BRACKET_QUESTION_MARK);
 			break;
@@ -672,7 +679,10 @@ class TerminalEmulator {
 	private void sendDeviceAttributes() {
 
 		byte[] attributes = { (byte) 27, (byte) '[', (byte) '?', (byte) '1',
-				(byte) ';', (byte) '2', (byte) 'c' };
+				(byte) ';', (byte) '2', (byte) 'c'
+
+		};
+
 		write(attributes);
 	}
 
@@ -748,14 +758,12 @@ class TerminalEmulator {
 	}
 
 	private boolean autoWrapEnabled() {
-
 		return true;
 
 	}
 
 	private void emit(byte b) {
 		boolean autoWrap = autoWrapEnabled();
-
 		if (autoWrap) {
 			if (mCursorCol == mColumns - 1 && mAboutToAutoWrap) {
 				mScreen.setLineWrap(mCursorRow);

@@ -1,6 +1,6 @@
-package com.rarnu.command.emu;
+package com.rarnu.command.emu.tool;
 
-interface Screen {
+public interface Screen {
 
 	void setLineWrap(int row);
 

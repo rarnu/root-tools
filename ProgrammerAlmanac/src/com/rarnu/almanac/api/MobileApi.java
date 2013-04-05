@@ -5,8 +5,6 @@ import org.json.JSONObject;
 
 import com.rarnu.almanac.utils.HttpRequest;
 
-import android.util.Log;
-
 public class MobileApi {
 
 	private static final String BASE_URL = "http://rarnu.7thgen.info/almanac/";
@@ -29,7 +27,6 @@ public class MobileApi {
 			result.file = json.getString("file");
 			result.size = json.getString("size");
 		} catch (Exception e) {
-			Log.e("checkUpdate", e.getMessage());
 			result = null;
 		}
 		return result;

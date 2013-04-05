@@ -2,6 +2,7 @@ package com.rarnu.devlib.utils;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.TypedArray;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
@@ -15,6 +16,8 @@ import android.widget.ListView;
 import com.rarnu.devlib.R;
 
 public class UIUtils {
+
+	public static final int ACTIONBAR_HEIGHT = android.R.attr.actionBarSize;
 
 	private static Context context = null;
 	private static DisplayMetrics dm = null;
@@ -87,9 +90,25 @@ public class UIUtils {
 	}
 
 	public static int getStatusbarHeight(Activity activity) {
-		Rect frame = new Rect();
-		activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(frame);
-		return frame.top;
+		int statusHeight = 0;
+		Rect localRect = new Rect();
+		activity.getWindow().getDecorView()
+				.getWindowVisibleDisplayFrame(localRect);
+		statusHeight = localRect.top;
+		if (statusHeight == 0) {
+			try {
+				Class<?> localClass = Class.forName("com.android.internal.R$dimen");
+				Object localObject = localClass.newInstance();
+				int i5 = Integer.parseInt(localClass
+						.getField("status_bar_height").get(localObject)
+						.toString());
+				statusHeight = activity.getResources()
+						.getDimensionPixelSize(i5);
+			} catch (Exception e) {
+
+			}
+		}
+		return statusHeight;
 	}
 
 	public static void setActivitySizePos(Activity activity, int x, int y,
@@ -287,5 +306,13 @@ public class UIUtils {
 		lp.height = lines * itemHeight;
 		gv.setLayoutParams(lp);
 
+	}
+
+	public static int getActionBarHeight() {
+		TypedArray a = context
+				.obtainStyledAttributes(new int[] { ACTIONBAR_HEIGHT });
+		int ret = a.getDimensionPixelSize(0, -1);
+		a.recycle();
+		return ret;
 	}
 }

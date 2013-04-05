@@ -5,7 +5,6 @@ import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 public class NotificationUtils {
 
@@ -49,7 +48,6 @@ public class NotificationUtils {
 
 		Intent inMain = new Intent(action);
 		inMain.putExtra("id", id);
-		Log.e("NotificationUtils", String.valueOf(id));
 		PendingIntent pMain = PendingIntent.getBroadcast(context, 0, inMain,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 

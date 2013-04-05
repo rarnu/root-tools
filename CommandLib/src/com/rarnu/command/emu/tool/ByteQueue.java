@@ -1,6 +1,6 @@
-package com.rarnu.command.emu;
+package com.rarnu.command.emu.tool;
 
-class ByteQueue {
+public class ByteQueue {
 	public ByteQueue(int size) {
 		mBuffer = new byte[size];
 	}

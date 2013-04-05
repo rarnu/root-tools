@@ -1,7 +1,6 @@
 package com.rarnu.tools.root.utils;
 
 import android.graphics.Point;
-import android.util.Log;
 
 public class PointUtils {
 
@@ -56,7 +55,6 @@ public class PointUtils {
 					
 				}
 				if (ret.x != -1 && ret.y != -1) {
-					Log.e("Point", String.format("x:%d, y:%d", ret.x, ret.y));
 					break;
 				}
 			}

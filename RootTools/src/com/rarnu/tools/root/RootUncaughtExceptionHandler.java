@@ -4,7 +4,6 @@ import java.io.File;
 
 import android.content.Context;
 import android.os.Looper;
-import android.util.Log;
 import android.widget.Toast;
 
 import com.rarnu.devlib.utils.FileUtils;
@@ -50,8 +49,6 @@ public class RootUncaughtExceptionHandler implements Thread.UncaughtExceptionHan
 
 	private void sendReport(String msg, String stack) {
 		if (GlobalInstance.DEBUG) {
-			Log.e("uncaughtException", msg);
-			Log.e("sendReport", stack);
 			String path = DirHelper.ERROR_DIR + "log.txt";
 			File fError = new File(path);
 			try {
@@ -61,7 +58,7 @@ public class RootUncaughtExceptionHandler implements Thread.UncaughtExceptionHan
 					FileUtils.rewriteFile(path, msg + "\n" + stack + "\n\n");
 				}
 			} catch (Exception ex) {
-				Log.e("sendReport", ex.getMessage());
+				
 			}
 		}
 

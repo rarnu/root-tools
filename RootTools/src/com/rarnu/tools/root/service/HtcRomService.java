@@ -6,7 +6,6 @@ import android.app.Notification;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.util.Log;
 
 import com.rarnu.devlib.base.BaseService;
 import com.rarnu.tools.root.GlobalInstance;
@@ -32,7 +31,7 @@ public class HtcRomService extends BaseService {
 				ApkUtils.uninstallApk(namesapce);
 			}
 		} catch (NameNotFoundException e) {
-			Log.e("PackageNotFound", e.getMessage());
+			
 		}
 	}
 

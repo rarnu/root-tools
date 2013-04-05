@@ -1,6 +1,10 @@
-package com.rarnu.command.emu;
+package com.rarnu.command.emu.tool;
 
-class TranscriptScreen implements Screen {
+import android.graphics.Canvas;
+
+import com.rarnu.command.emu.renderer.TextRenderer;
+
+public class TranscriptScreen implements Screen {
 
 	private int mColumns;
 
@@ -48,7 +52,7 @@ class TranscriptScreen implements Screen {
 			throw new IllegalArgumentException(errorMessage);
 		}
 		if (row >= 0) {
-			return row;
+			return row; 
 		}
 		return mScreenRows
 				+ ((mHead + mActiveTranscriptRows + row) % mActiveTranscriptRows);
@@ -99,6 +103,7 @@ class TranscriptScreen implements Screen {
 		}
 		consistencyCheck();
 
+		// Block move the scroll line to the transcript
 		int topOffset = getOffset(topMargin);
 		int destOffset = getOffset(-1);
 		System.arraycopy(mData, topOffset, mData, destOffset, mColumns);
@@ -107,6 +112,7 @@ class TranscriptScreen implements Screen {
 		int destLine = externalToInternalRow(-1);
 		System.arraycopy(mLineWrap, topLine, mLineWrap, destLine, 1);
 
+		// Block move the scrolled data up
 		int numScrollChars = (bottomMargin - topMargin - 1) * mColumns;
 		System.arraycopy(mData, topOffset + mColumns, mData, topOffset,
 				numScrollChars);
@@ -114,6 +120,7 @@ class TranscriptScreen implements Screen {
 		System.arraycopy(mLineWrap, topLine + 1, mLineWrap, topLine,
 				numScrollLines);
 
+		// Erase the bottom line of the scroll region
 		blockSet(0, bottomMargin - 1, mColumns, 1, ' ', foreColor, backColor);
 		mLineWrap[externalToInternalRow(bottomMargin - 1)] = false;
 	}
@@ -161,12 +168,14 @@ class TranscriptScreen implements Screen {
 			throw new IllegalArgumentException();
 		}
 		if (sy <= dy) {
+			// Move in increasing order
 			for (int y = 0; y < h; y++) {
 				int srcOffset = getOffset(sx, sy + y);
 				int dstOffset = getOffset(dx, dy + y);
 				System.arraycopy(mData, srcOffset, mData, dstOffset, w);
 			}
 		} else {
+			// Move in decreasing order
 			for (int y = 0; y < h; y++) {
 				int y2 = h - (y + 1);
 				int srcOffset = getOffset(sx, sy + y2);
@@ -188,6 +197,48 @@ class TranscriptScreen implements Screen {
 			for (int x = 0; x < w; x++) {
 				data[offset + x] = encodedVal;
 			}
+		}
+	}
+
+	public final void drawText(int row, Canvas canvas, float x, float y,
+			TextRenderer renderer, int cx) {
+
+		// Out-of-bounds rows are blank.
+		if (row < -mActiveTranscriptRows || row >= mScreenRows) {
+			return;
+		}
+
+		int offset = getOffset(row);
+		char[] rowBuffer = mRowBuffer;
+		char[] data = mData;
+		int columns = mColumns;
+		int lastColors = 0;
+		int lastRunStart = -1;
+		final int CURSOR_MASK = 0x10000;
+		for (int i = 0; i < columns; i++) {
+			char c = data[offset + i];
+			int colors = (char) (c & 0xff00);
+			if (cx == i) {
+				// Set cursor background color:
+				colors |= CURSOR_MASK;
+			}
+			rowBuffer[i] = (char) (c & 0x00ff);
+			if (colors != lastColors) {
+				if (lastRunStart >= 0) {
+					renderer.drawTextRun(canvas, x, y, lastRunStart, rowBuffer,
+							lastRunStart, i - lastRunStart,
+							(lastColors & CURSOR_MASK) != 0,
+							0xf & (lastColors >> 12), 0xf & (lastColors >> 8));
+				}
+				lastColors = colors;
+				lastRunStart = i;
+			}
+		}
+		if (lastRunStart >= 0) {
+			renderer.drawTextRun(canvas, x, y, lastRunStart, rowBuffer,
+					lastRunStart, columns - lastRunStart,
+					(lastColors & CURSOR_MASK) != 0, 0xf & (lastColors >> 12),
+					0xf & (lastColors >> 8));
 		}
 	}
 

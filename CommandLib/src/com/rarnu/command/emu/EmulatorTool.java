@@ -10,6 +10,8 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.rarnu.command.emu.event.IEmuCallback;
+import com.rarnu.command.emu.tool.ByteQueue;
+import com.rarnu.command.emu.tool.TranscriptScreen;
 import com.rarnu.command.jni.Exec;
 
 public class EmulatorTool {

@@ -11,7 +11,6 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
@@ -124,8 +123,6 @@ public class ComponentUtils {
 
 		List<PackageParser.Activity> lstReceiver = pkg.receivers;
 		for (PackageParser.Activity a : lstReceiver) {
-			Log.e("ComponentUtils.getPackageRSList", a.getComponentName()
-					.toString());
 			CompInfo info = new CompInfo();
 			info.component = a;
 			info.fullPackageName = a.getComponentName().getClassName();

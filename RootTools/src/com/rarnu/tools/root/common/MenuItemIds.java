@@ -18,4 +18,7 @@ public class MenuItemIds {
 	
 	public static final int MENU_SAVE = Menu.FIRST + 9;
 	public static final int MENU_SCAN = Menu.FIRST + 10;
+	
+	public static final int MENU_SEND_CTRL = Menu.FIRST + 11;
+	public static final int MENU_TOGGLE_INPUT_METHOD = Menu.FIRST + 12;
 }
