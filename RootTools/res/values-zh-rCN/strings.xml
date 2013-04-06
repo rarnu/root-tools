@@ -88,6 +88,9 @@
     <string name="search">搜索</string>
     <string name="uplevel">向上</string>
     <string name="send_ctrl">发送 Ctrl</string>
+    <string name="send_fn">发送 FN</string>
+    <string name="ctrl">Ctrl</string>
+    <string name="fn">FN</string>
     <string name="toggle_input_method">切换输入法</string>
     <string name="add_ignore">加入忽略</string>
     <string name="remove_ignore">取消忽略</string>
