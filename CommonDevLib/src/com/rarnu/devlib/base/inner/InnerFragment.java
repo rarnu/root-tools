@@ -15,6 +15,27 @@ public abstract class InnerFragment extends Fragment {
 
 	protected View innerView = null;
 	protected Bundle innerBundle = null;
+	
+	protected String tagText;
+	protected String tabTitle;
+
+	public String getTagText() {
+		return tagText;
+	}
+
+	public String getTabTitle() {
+		return tabTitle;
+	}
+	
+	public InnerFragment() {
+		super();
+	}
+	
+	public InnerFragment(String tagText, String tabTitle) {
+		super();
+		this.tagText = tagText;
+		this.tabTitle = tabTitle;
+	}
 
 	@Override
 	public void onAttach(Activity activity) {
