@@ -50,6 +50,7 @@ public class MainActivity extends FragmentActivity implements
 	TextView tvHelp;
 	RelativeLayout layTitle;
 	Button btnHelp, btnShare;
+	RelativeLayout layMain;
 
 	UpdateInfo updateInfo = null;
 
@@ -65,12 +66,15 @@ public class MainActivity extends FragmentActivity implements
 		UIUtils.initDisplayMetrics(this, getWindowManager());
 		setContentView(R.layout.activity_main);
 
+		layMain = (RelativeLayout) findViewById(R.id.layMain);
 		layTitle = (RelativeLayout) findViewById(R.id.layTitle);
 		btnHelp = (Button) findViewById(R.id.btnHelp);
 		btnShare = (Button) findViewById(R.id.btnShare);
 
 		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
 			layTitle.setVisibility(View.GONE);
+		} else {
+			layMain.setBackgroundColor(Color.WHITE);
 		}
 
 		layAlmanac = (RelativeLayout) findViewById(R.id.layAlmanac);
@@ -257,7 +261,11 @@ public class MainActivity extends FragmentActivity implements
 	private void showHelp() {
 		tvHelp = new TextView(this);
 		tvHelp.setAutoLinkMask(Linkify.ALL);
-		tvHelp.setTextColor(Color.BLACK);
+		if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.HONEYCOMB) {
+			tvHelp.setTextColor(Color.BLACK);
+		} else {
+			tvHelp.setTextColor(Color.WHITE);
+		}
 		tvHelp.setTextSize(16);
 		tvHelp.setLineSpacing(0F, 1.5F);
 		tvHelp.setPadding(16, 16, 0, 0);
