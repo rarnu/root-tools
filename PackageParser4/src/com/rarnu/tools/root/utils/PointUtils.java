@@ -16,6 +16,15 @@ public class PointUtils {
 	private static int LAST_X = 0;
 	private static int LAST_Y = 0;
 	
+	/**
+	 * use getevent -p for these parameters
+	 * @param xmin
+	 * @param ymin
+	 * @param xmax
+	 * @param ymax
+	 * @param width
+	 * @param height
+	 */
 	public static void init(int xmin, int ymin, int xmax, int ymax, int width, int height) {
 		X_MIN = xmin;
 		Y_MIN = ymin;
