@@ -224,4 +224,9 @@ public class EnableappFragment extends BaseFragment implements
 
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

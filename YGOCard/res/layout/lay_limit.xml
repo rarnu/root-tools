@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+	<ScrollView android:id="@+id/svLimit" android:layout_width="fill_parent"
+		android:layout_height="fill_parent">
+
+		<RelativeLayout android:layout_width="fill_parent"
+			android:layout_height="fill_parent">
+			<TextView android:id="@+id/tvLimitTitle"
+				android:layout_width="fill_parent" android:layout_height="24dip"
+				android:textColor="@color/black" android:textSize="20dip"
+				android:gravity="center" android:text="@string/limit_date" />
+
+			<TextView android:id="@+id/tvLimitBanned"
+				android:layout_width="fill_parent" android:layout_height="24dip"
+				android:gravity="left|center_vertical" android:text="@string/card_banned"
+				android:layout_below="@+id/tvLimitTitle" android:layout_marginTop="8dip"
+				android:textColor="@color/white" android:layout_marginLeft="4dip"
+				android:layout_marginRight="4dip" android:paddingLeft="16dip"
+				android:background="@color/black" />
+
+			<TextView android:layout_width="10dip"
+				android:layout_height="10dip" android:background="@color/red"
+				android:layout_below="@+id/tvLimitTitle" android:layout_marginLeft="8dip"
+				android:layout_marginTop="15dip" />
+
+			<ListView android:id="@+id/lvBanned" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:dividerHeight="1dip"
+				android:divider="@color/gray" android:layout_below="@+id/tvLimitBanned"
+				android:layout_marginLeft="4dip" android:layout_marginRight="4dip"
+				android:cacheColorHint="#00000000" />
+
+			<TextView android:id="@+id/tvLimit1" android:layout_width="fill_parent"
+				android:layout_height="24dip" android:gravity="left|center_vertical"
+				android:text="@string/card_limit1" android:layout_below="@+id/lvBanned"
+				android:layout_marginTop="8dip" android:textColor="@color/white"
+				android:layout_marginLeft="4dip" android:layout_marginRight="4dip"
+				android:paddingLeft="16dip" android:background="@color/black" />
+
+			<TextView android:layout_width="10dip"
+				android:layout_height="10dip" android:background="@color/blue"
+				android:layout_below="@+id/lvBanned" android:layout_marginLeft="8dip"
+				android:layout_marginTop="15dip" />
+
+
+			<ListView android:id="@+id/lvLimit1" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:layout_below="@+id/tvLimit1"
+				android:layout_marginLeft="4dip" android:layout_marginRight="4dip"
+				android:dividerHeight="1dip" android:divider="@color/gray"
+				android:cacheColorHint="#00000000" />
+
+			<TextView android:id="@+id/tvLimit2" android:layout_width="fill_parent"
+				android:layout_height="24dip" android:gravity="left|center_vertical"
+				android:text="@string/card_limit2" android:layout_below="@+id/lvLimit1"
+				android:layout_marginTop="8dip" android:textColor="@color/white"
+				android:layout_marginLeft="4dip" android:layout_marginRight="4dip"
+				android:paddingLeft="16dip" android:background="@color/black">
+			</TextView>
+
+			<TextView android:layout_width="10dip"
+				android:layout_height="10dip" android:background="@color/green"
+				android:layout_below="@+id/lvLimit1" android:layout_marginLeft="8dip"
+				android:layout_marginTop="15dip" />
+
+			<ListView android:id="@+id/lvLimit2" android:layout_width="fill_parent"
+				android:layout_height="wrap_content" android:dividerHeight="1dip"
+				android:divider="@color/gray" android:layout_below="@+id/tvLimit2"
+				android:layout_marginLeft="4dip" android:layout_marginRight="4dip"
+				android:cacheColorHint="#00000000" />
+
+
+		</RelativeLayout>
+
+
+
+	</ScrollView>
+
+</RelativeLayout>

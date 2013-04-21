@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:layout_above="@+id/layBottom" android:layout_below="@+id/layTop"
+	android:layout_margin="4dip">
+
+	<RelativeLayout android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:background="@color/gray">
+
+		<RelativeLayout android:layout_width="fill_parent"
+			android:layout_height="fill_parent" android:layout_margin="1dip"
+			android:background="@color/white">
+
+			<include android:id="@+id/layTop100" layout="@layout/lay_top100" />
+
+			<include android:id="@+id/layLimit" layout="@layout/lay_limit" />
+
+			<WebView android:id="@+id/wvUpdateHistory"
+				android:layout_width="fill_parent" android:layout_height="fill_parent"
+				android:layout_margin="4dip" android:background="@color/white" />
+		</RelativeLayout>
+
+
+	</RelativeLayout>
+
+
+</RelativeLayout>

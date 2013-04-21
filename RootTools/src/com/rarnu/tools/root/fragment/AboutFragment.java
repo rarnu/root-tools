@@ -190,4 +190,9 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 	protected void onGetNewArguments(Bundle bn) {
 
 	}
+
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
 }

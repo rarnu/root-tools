@@ -176,4 +176,9 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

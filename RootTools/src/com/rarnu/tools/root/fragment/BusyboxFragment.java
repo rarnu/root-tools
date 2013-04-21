@@ -210,4 +210,9 @@ public class BusyboxFragment extends BaseFragment implements
 
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

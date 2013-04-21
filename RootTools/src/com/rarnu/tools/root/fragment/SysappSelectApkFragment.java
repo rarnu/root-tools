@@ -216,4 +216,9 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 		
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

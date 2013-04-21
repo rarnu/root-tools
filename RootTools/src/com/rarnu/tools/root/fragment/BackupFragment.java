@@ -310,4 +310,9 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	protected void onGetNewArguments(Bundle bn) {
 		
 	}
+
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
 }

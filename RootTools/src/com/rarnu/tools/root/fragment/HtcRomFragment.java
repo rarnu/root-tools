@@ -236,4 +236,9 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 		
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

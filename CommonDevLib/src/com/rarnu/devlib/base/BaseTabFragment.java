@@ -132,7 +132,12 @@ public abstract class BaseTabFragment extends InnerFragment implements
 	public void onPageSelected(int position) {
 		currentPage = position;
 		bar.setSelectedNavigationItem(position);
-
+		
+	}
+	
+	public void setTabPosition(int position) {
+		bar.setSelectedNavigationItem(position);
+		pager.setCurrentItem(position);
 	}
 
 }

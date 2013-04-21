@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:id="@+id/layLeftMenuHead"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize" >
+
+        <ImageView android:id="@+id/ivLogo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:scaleType="centerInside"
+            android:adjustViewBounds="true"/>
+
+        <RelativeLayout
+            android:id="@+id/laySplit"
+            android:layout_width="match_parent"
+            android:layout_height="3px"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/holo_blue_light" >
+        </RelativeLayout>
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lvCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layLeftMenuHead"
+        android:divider="@color/shadow"
+        android:dividerHeight="1px" >
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/laySplit2"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/lvCard"
+        android:background="@color/shadow" >
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/laySplit3"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@+id/lvExit"
+        android:background="@color/shadow" >
+    </RelativeLayout>
+
+    <ListView
+        android:id="@+id/lvExit"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:divider="@color/shadow"
+        android:dividerHeight="1px" >
+    </ListView>
+
+</RelativeLayout>

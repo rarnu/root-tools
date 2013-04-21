@@ -350,4 +350,9 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

@@ -178,4 +178,9 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

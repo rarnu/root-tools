@@ -109,4 +109,9 @@ public class TerminalFragment extends BaseFragment {
 
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

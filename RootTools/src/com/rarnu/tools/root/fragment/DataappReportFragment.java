@@ -78,4 +78,9 @@ public class DataappReportFragment extends BasePopupFragment {
 		
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

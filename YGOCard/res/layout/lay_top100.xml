@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent">
+
+	<TextView android:id="@+id/tvTop100Title"
+		android:layout_width="fill_parent" android:layout_height="24dip"
+		android:textColor="@color/black" android:textSize="20dip"
+		android:gravity="center" android:text="@string/top100_date"
+		android:layout_margin="4dip" />
+
+	<ListView android:id="@+id/lvCard" android:layout_width="fill_parent"
+		android:layout_height="fill_parent" android:cacheColorHint="#00000000"
+		android:layout_margin="4dip" android:divider="@color/gray"
+		android:dividerHeight="1dip" android:layout_below="@+id/tvTop100Title" />
+
+
+</RelativeLayout>

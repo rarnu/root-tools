@@ -15,7 +15,7 @@ public abstract class InnerFragment extends Fragment {
 
 	protected View innerView = null;
 	protected Bundle innerBundle = null;
-	
+
 	protected String tagText;
 	protected String tabTitle;
 
@@ -26,11 +26,11 @@ public abstract class InnerFragment extends Fragment {
 	public String getTabTitle() {
 		return tabTitle;
 	}
-	
+
 	public InnerFragment() {
 		super();
 	}
-	
+
 	public InnerFragment(String tagText, String tabTitle) {
 		super();
 		this.tagText = tagText;
@@ -40,10 +40,14 @@ public abstract class InnerFragment extends Fragment {
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);
-		if (UIInstance.dualPane) {
-			getActivity().getActionBar().setTitle(getBarTitleWithPath());
+		if (getCustomTitle() == null || getCustomTitle().equals("")) {
+			if (UIInstance.dualPane) {
+				getActivity().getActionBar().setTitle(getBarTitleWithPath());
+			} else {
+				getActivity().getActionBar().setTitle(getBarTitle());
+			}
 		} else {
-			getActivity().getActionBar().setTitle(getBarTitle());
+			getActivity().getActionBar().setTitle(getCustomTitle());
 		}
 	}
 
@@ -68,20 +72,22 @@ public abstract class InnerFragment extends Fragment {
 
 	protected abstract int getBarTitleWithPath();
 
+	protected abstract String getCustomTitle();
+
 	protected abstract void initComponents();
-	
+
 	protected abstract void initEvents();
 
 	protected abstract void initLogic();
 
 	protected abstract int getFragmentLayoutResId();
-	
+
 	protected abstract String getMainActivityName();
 
 	protected abstract void initMenu(Menu menu);
-	
+
 	protected abstract void onGetNewArguments(Bundle bn);
-	
+
 	public void setNewArguments(Bundle bn) {
 		innerBundle = getArguments();
 		onGetNewArguments(bn);
@@ -95,7 +101,11 @@ public abstract class InnerFragment extends Fragment {
 
 	@Override
 	public void onPause() {
-		getActivity().setTitle(getBarTitle());
+		if (getCustomTitle() == null || getCustomTitle().equals("")) {
+			getActivity().setTitle(getBarTitle());
+		} else {
+			getActivity().getActionBar().setTitle(getCustomTitle());
+		}
 		super.onPause();
 	}
 
@@ -104,8 +114,7 @@ public abstract class InnerFragment extends Fragment {
 		if (getActivity() == null) {
 			return;
 		}
-		if (getActivity().getClass().getName()
-				.equals(getMainActivityName())
+		if (getActivity().getClass().getName().equals(getMainActivityName())
 				&& !UIInstance.dualPane) {
 			return;
 		}

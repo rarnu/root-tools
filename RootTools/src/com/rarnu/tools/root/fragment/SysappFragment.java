@@ -245,4 +245,9 @@ public class SysappFragment extends BaseFragment implements
 		
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

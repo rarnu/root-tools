@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:background="@color/white">
+
+	<include android:id="@+id/lay_home" layout="@layout/lay_home" />
+	<include android:id="@+id/lay_search" layout="@layout/fragment_search" />
+	<include android:id="@+id/lay_list" layout="@layout/fragment_search_result" />
+	<include android:id="@+id/lay_tool" layout="@layout/lay_tool" />
+</RelativeLayout>

@@ -245,4 +245,9 @@ public class SysappDetailFragment extends BasePopupFragment implements
 		
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

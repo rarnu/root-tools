@@ -374,7 +374,11 @@ public class RestoreFragment extends BaseFragment implements
 
 	@Override
 	protected void onGetNewArguments(Bundle bn) {
-		// TODO Auto-generated method stub
 		
+	}
+
+	@Override
+	protected String getCustomTitle() {
+		return null;
 	}
 }
