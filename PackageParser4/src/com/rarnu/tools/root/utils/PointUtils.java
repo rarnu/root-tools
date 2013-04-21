@@ -70,5 +70,41 @@ public class PointUtils {
 		}
 		return ret;
 	}
+	
+	public static Point getOffsetPoint(String logStr) {
+		String[] logs = logStr.split("\r\n");
+
+		Point ret = new Point(-1, -1);
+
+		for (String s : logs) {
+			if (s.length() == 18) {
+
+				if (s.startsWith("0002 0000 ") || s.startsWith("0002 0001 ")) {
+
+					String[] ss = s.split(" ");
+					long value = Long.valueOf(ss[2], 16);
+
+					if (ss[2].startsWith("f")) {
+						value = value - Long.valueOf("ffffffff", 16);
+					}
+
+					if (ss[1].equals("0000")) {
+						ret.x = (int) value;
+						LAST_X = (int) value;
+						ret.y = LAST_Y;
+					} else if (ss[1].equals("0001")) {
+						ret.y = (int) value;
+						LAST_Y = (int) value;
+						ret.x = LAST_X;
+					}
+
+				}
+				if (ret.x != -1 && ret.y != -1) {
+					break;
+				}
+			}
+		}
+		return ret;
+	}
 
 }
