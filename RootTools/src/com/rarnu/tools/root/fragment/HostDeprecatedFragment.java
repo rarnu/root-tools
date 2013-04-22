@@ -201,4 +201,9 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 		
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

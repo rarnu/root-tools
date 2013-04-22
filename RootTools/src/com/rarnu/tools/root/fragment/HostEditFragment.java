@@ -139,4 +139,9 @@ public class HostEditFragment extends BasePopupFragment {
 		
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

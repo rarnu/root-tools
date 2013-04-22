@@ -348,4 +348,9 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 		
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

@@ -289,4 +289,9 @@ public class HostAddFragment extends BasePopupFragment implements
 		
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

@@ -135,4 +135,9 @@ public class FeedbackFragment extends BaseFragment {
 		
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

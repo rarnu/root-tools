@@ -1,5 +1,6 @@
 package com.rarnu.devlib.base;
 
+import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
@@ -36,6 +37,14 @@ public abstract class BaseMainActivity extends Activity implements IFragments {
 			initOneTime();
 		}
 		loadUI();
+	}
+	
+	@Override
+	protected void onResume() {
+		super.onResume();
+		if (!UIInstance.dualPane) {
+			getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+		}
 	}
 
 	@Override
