@@ -86,7 +86,8 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
 			long id) {
 		switch (parent.getId()) {
 		case R.id.lvCard:
-			// TODO: switch page
+			// switch page
+			((MainActivity)getActivity()).switchPage(position);
 			break;
 		case R.id.lvExit:
 			getActivity().finish();

@@ -2,6 +2,7 @@ package com.yugioh.android.fragments;
 
 import java.util.List;
 
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -17,14 +18,6 @@ public class MainFragment extends BaseTabFragment {
 
 	MenuItem itemSearch;
 	MenuItem itemReset;
-
-	@Override
-	public void initFragmentList(List<BaseFragment> listFragment) {
-		listFragment.add((BaseFragment) Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_SEARCH));
-		listFragment.add((BaseFragment) Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_SEARCH_RESULT));
-	}
 
 	@Override
 	protected int getBarTitle() {
@@ -87,6 +80,15 @@ public class MainFragment extends BaseTabFragment {
 	@Override
 	protected String getCustomTitle() {
 		return null;
+	}
+
+	@Override
+	public void initFragmentList(List<Fragment> listFragment) {
+		listFragment.add((BaseFragment) Fragments.getFragment(getActivity(),
+				FragmentNames.FRAGMENT_SEARCH));
+		listFragment.add((BaseFragment) Fragments.getFragment(getActivity(),
+				FragmentNames.FRAGMENT_SEARCH_RESULT));
+
 	}
 
 }

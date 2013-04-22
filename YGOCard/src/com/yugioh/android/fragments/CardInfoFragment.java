@@ -3,10 +3,10 @@ package com.yugioh.android.fragments;
 import java.util.List;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 
-import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BaseTabFragment;
 import com.yugioh.android.FragmentNames;
 import com.yugioh.android.Fragments;
@@ -28,16 +28,6 @@ public class CardInfoFragment extends BaseTabFragment {
 	@Override
 	protected void initComponents() {
 		super.initComponents();
-	}
-
-	@Override
-	public void initFragmentList(List<BaseFragment> listFragment) {
-		listFragment.add((BaseFragment) Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_CARDINFO_CARD));
-		listFragment.add((BaseFragment) Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_CARDINFO_ADJUST));
-		listFragment.add((BaseFragment) Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_CARDINFO_PICTURE));
 	}
 
 	@Override
@@ -72,6 +62,17 @@ public class CardInfoFragment extends BaseTabFragment {
 			title = info.getSCCardName();
 		}
 		return title;
+	}
+
+	@Override
+	public void initFragmentList(List<Fragment> listFragment) {
+		listFragment.add(Fragments.getFragment(getActivity(),
+				FragmentNames.FRAGMENT_CARDINFO_CARD));
+		listFragment.add(Fragments.getFragment(getActivity(),
+				FragmentNames.FRAGMENT_CARDINFO_ADJUST));
+		listFragment.add(Fragments.getFragment(getActivity(),
+				FragmentNames.FRAGMENT_CARDINFO_PICTURE));
+		
 	}
 
 }

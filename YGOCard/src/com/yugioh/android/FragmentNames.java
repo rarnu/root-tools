@@ -11,5 +11,6 @@ public class FragmentNames {
 	public static final String FRAGMENT_CARDINFO_CARD = "cardinfo_card";
 	public static final String FRAGMENT_CARDINFO_ADJUST = "cardinfo_adjust";
 	public static final String FRAGMENT_CARDINFO_PICTURE = "cardinfo_picture";
+	public static final String FRAGMENT_LIMIT = "limit";
 	
 }

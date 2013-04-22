@@ -13,7 +13,6 @@
 
 			<include android:id="@+id/layTop100" layout="@layout/lay_top100" />
 
-			<include android:id="@+id/layLimit" layout="@layout/lay_limit" />
 
 			<WebView android:id="@+id/wvUpdateHistory"
 				android:layout_width="fill_parent" android:layout_height="fill_parent"

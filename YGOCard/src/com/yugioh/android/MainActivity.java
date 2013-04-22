@@ -69,16 +69,27 @@ public class MainActivity extends BaseSlidingActivity {
 
 	public void switchPage(int page) {
 		currentPage = page;
-		Fragment f = null;
-		switch (currentPage) {
-		case 0:
-			f = Fragments.getFragment(this, FragmentNames.FRAGMENT_MAIN);
-			break;
-		}
+		Fragment f = getCurrentFragment(currentPage);
 		if (!f.isAdded()) {
 			getFragmentManager().beginTransaction()
 					.replace(R.id.fReplacement, f).commit();
 		}
+		toggle();
+	}
+
+	private Fragment getCurrentFragment(int page) {
+		Fragment f = null;
+		switch (page) {
+		case 0:
+			// MAIN
+			f = Fragments.getFragment(this, FragmentNames.FRAGMENT_MAIN);
+			break;
+		case 1:
+			// LIMIT
+			f = Fragments.getFragment(this, FragmentNames.FRAGMENT_LIMIT);
+			break;
+		}
+		return f;
 	}
 
 }

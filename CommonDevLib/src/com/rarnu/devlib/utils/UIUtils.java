@@ -21,6 +21,7 @@ public class UIUtils {
 
 	private static Context context = null;
 	private static DisplayMetrics dm = null;
+	
 
 	public static DisplayMetrics getDM() {
 		return dm;

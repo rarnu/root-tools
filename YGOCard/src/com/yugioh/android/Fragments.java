@@ -8,6 +8,7 @@ import com.yugioh.android.fragments.CardInfoCardFragment;
 import com.yugioh.android.fragments.CardInfoFragment;
 import com.yugioh.android.fragments.CardInfoPictureFragment;
 import com.yugioh.android.fragments.LeftMenuFragment;
+import com.yugioh.android.fragments.LimitFragment;
 import com.yugioh.android.fragments.MainFragment;
 import com.yugioh.android.fragments.RightMenuFragment;
 import com.yugioh.android.fragments.SearchFragment;
@@ -24,6 +25,7 @@ public class Fragments {
 	private static CardInfoCardFragment fCardInfoCard = null;
 	private static CardInfoAdjustFragment fCardInfoAdjust = null;
 	private static CardInfoPictureFragment fCardInfoPicture = null;
+	private static LimitFragment fLimit = null;
 
 	public static void Load(Context context) {
 		fMain = new MainFragment();
@@ -44,6 +46,7 @@ public class Fragments {
 		fCardInfoPicture = new CardInfoPictureFragment(
 				context.getString(R.string.page_picture),
 				context.getString(R.string.page_picture));
+		fLimit = new LimitFragment();
 	}
 
 	public static void Release() {
@@ -56,6 +59,7 @@ public class Fragments {
 		fCardInfoCard = null;
 		fCardInfoAdjust = null;
 		fCardInfoPicture = null;
+		fLimit = null;
 	}
 
 	public static Fragment getFragment(Context context, String name) {
@@ -115,6 +119,11 @@ public class Fragments {
 						context.getString(R.string.page_picture));
 			}
 			f = fCardInfoPicture;
+		} else if (name.equals(FragmentNames.FRAGMENT_LIMIT)) {
+			if (fLimit == null) {
+				fLimit = new LimitFragment();
+			}
+			f = fLimit;
 		}
 
 		return f;
