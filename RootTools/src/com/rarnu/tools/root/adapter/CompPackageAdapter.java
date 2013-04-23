@@ -11,7 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseAdapter;
-import com.rarnu.devlib.utils.ColorUtils;
+import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.holder.CompPackageAdapterHolder;
@@ -50,7 +50,7 @@ public class CompPackageAdapter extends BaseAdapter<PackageInfo> {
 			holder.itemName.setText(GlobalInstance.pm
 					.getApplicationLabel(item.applicationInfo));
 
-			holder.itemName.setTextColor(ColorUtils
+			holder.itemName.setTextColor(DrawableUtils
 					.getTextColorPrimary(context));
 			if (item.applicationInfo.sourceDir.contains("/system/app/")) {
 				holder.itemName.setTextColor(Color.RED);

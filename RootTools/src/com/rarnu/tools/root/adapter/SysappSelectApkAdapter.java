@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseAdapter;
-import com.rarnu.devlib.utils.ColorUtils;
+import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.SysappSelectApkItem;
 import com.rarnu.tools.root.holder.SysappSelectApkAdapterHolder;
@@ -50,7 +50,7 @@ public class SysappSelectApkAdapter extends BaseAdapter<SysappSelectApkItem> {
 			}
 			holder.tvFilename.setText(item.filename);
 
-			holder.tvFilename.setTextColor(ColorUtils
+			holder.tvFilename.setTextColor(DrawableUtils
 					.getTextColorPrimary(context));
 
 			switch (item.level) {

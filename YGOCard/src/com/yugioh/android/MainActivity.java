@@ -6,14 +6,17 @@ import android.os.Bundle;
 import com.rarnu.devlib.base.BaseSlidingActivity;
 import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.devlib.utils.UIUtils;
+import com.yugioh.android.global.FragmentNames;
+import com.yugioh.android.global.Fragments;
+import com.yugioh.android.intf.IMainIntf;
 
-public class MainActivity extends BaseSlidingActivity {
+public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
 	int currentPage = 0;
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-		UIUtils.initDisplayMetrics(this, getWindowManager());
+		UIUtils.initDisplayMetrics(this, getWindowManager(), false);
 		super.onCreate(savedInstanceState);
 	}
 
@@ -39,7 +42,7 @@ public class MainActivity extends BaseSlidingActivity {
 
 	@Override
 	public int getBehindOffset() {
-		return UIUtils.dipToPx(200);
+		return UIUtils.dipToPx(150);
 	}
 
 	@Override
@@ -67,6 +70,7 @@ public class MainActivity extends BaseSlidingActivity {
 		return Fragments.getFragment(this, FragmentNames.FRAGMENT_MAIN);
 	}
 
+	@Override
 	public void switchPage(int page) {
 		currentPage = page;
 		Fragment f = getCurrentFragment(currentPage);
@@ -88,8 +92,17 @@ public class MainActivity extends BaseSlidingActivity {
 			// LIMIT
 			f = Fragments.getFragment(this, FragmentNames.FRAGMENT_LIMIT);
 			break;
+		case 2:
+			// NEW CARD
+			f = Fragments.getFragment(this, FragmentNames.FRAGMENT_NEWCARD);
+			break;
+		case 3:
+			// DUEL TOOL
+			f = Fragments.getFragment(this, FragmentNames.FRAGMENT_DUELTOOL);
+			break;
 		}
 		return f;
 	}
+
 
 }

@@ -17,7 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.devlib.base.BasePopupFragment;
-import com.rarnu.devlib.utils.ColorUtils;
+import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.MainActivity;
@@ -70,7 +70,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 						.getApplicationLabel(GlobalInstance.currentComp.applicationInfo));
 		tvAppPackage.setText(GlobalInstance.currentComp.packageName);
 
-		tvAppName.setTextColor(ColorUtils.getTextColorPrimary(getActivity()));
+		tvAppName.setTextColor(DrawableUtils.getTextColorPrimary(getActivity()));
 		if (GlobalInstance.currentComp.applicationInfo.sourceDir
 				.contains("/system/app/")) {
 			tvAppName.setTextColor(Color.RED);

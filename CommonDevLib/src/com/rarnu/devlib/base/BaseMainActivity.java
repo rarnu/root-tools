@@ -9,14 +9,18 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.Window;
+import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.common.IFragments;
 import com.rarnu.devlib.common.UIInstance;
+import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.devlib.utils.UIUtils;
 
 public abstract class BaseMainActivity extends Activity implements IFragments {
@@ -26,7 +30,6 @@ public abstract class BaseMainActivity extends Activity implements IFragments {
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
-		UIUtils.initDisplayMetrics(this, getWindowManager());
 		super.onCreate(savedInstanceState);
 		registerReceiver(receiverHome, filterHome);
 
@@ -38,12 +41,13 @@ public abstract class BaseMainActivity extends Activity implements IFragments {
 		}
 		loadUI();
 	}
-	
+
 	@Override
 	protected void onResume() {
 		super.onResume();
 		if (!UIInstance.dualPane) {
-			getActionBar().setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+			getActionBar()
+					.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 		}
 	}
 
@@ -65,10 +69,26 @@ public abstract class BaseMainActivity extends Activity implements IFragments {
 
 	private void loadUI() {
 		setContentView(R.layout.layout_main);
+
 		replaceIndexFragment();
 		View vDetail = findViewById(R.id.fragmentDetail);
 		UIInstance.dualPane = vDetail != null
 				&& vDetail.getVisibility() == View.VISIBLE;
+
+		Drawable dSysBackground = DrawableUtils.getSystemAttrDrawable(this,
+				DrawableUtils.DETAILS_ELEMENT_BACKGROUND);
+		Drawable dBackground = (UIUtils.isFollowSystemBackground() ? dSysBackground
+				: null);
+		if (UIInstance.dualPane) {
+			((FrameLayout) findViewById(R.id.fragmentMain))
+					.setBackgroundDrawable(dBackground);
+			((FrameLayout) findViewById(R.id.fragmentDetail))
+					.setBackgroundDrawable(dBackground);
+		} else {
+			((LinearLayout) findViewById(R.id.layoutMain))
+					.setBackgroundDrawable(dBackground);
+		}
+
 		getActionBar().setTitle(getBarTitle());
 		setDualPane();
 	}

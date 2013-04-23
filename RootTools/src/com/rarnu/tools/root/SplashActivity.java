@@ -20,12 +20,12 @@ import com.rarnu.tools.root.utils.DirHelper;
 public class SplashActivity extends Activity {
 
 	TextView tvVersion;
-	
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
-
+		UIUtils.initDisplayMetrics(this, getWindowManager(), true);
 		super.onCreate(savedInstanceState);
-		UIUtils.initDisplayMetrics(this, getWindowManager());
+
 		RootUtils.init(this);
 		GlobalInstance.init(this);
 
@@ -50,14 +50,15 @@ public class SplashActivity extends Activity {
 
 		setContentView(R.layout.layout_splash);
 		tvVersion = (TextView) findViewById(R.id.tvVersion);
-		
-		String ver = String.format(getString(R.string.app_ver), DeviceUtils.getAppVersionName(this));
+
+		String ver = String.format(getString(R.string.app_ver),
+				DeviceUtils.getAppVersionName(this));
 		if (GlobalInstance.DEBUG) {
 			ver += getString(R.string.app_debug);
 		}
-		
+
 		tvVersion.setText(ver);
-		
+
 		DirHelper.makeDir();
 
 		final Timer tmrClose = new Timer();

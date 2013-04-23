@@ -2,32 +2,26 @@ package com.yugioh.android.fragments;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 
 import com.rarnu.devlib.base.BaseTabFragment;
-import com.yugioh.android.FragmentNames;
-import com.yugioh.android.Fragments;
 import com.yugioh.android.classes.CardInfo;
-import com.yugioh.android.database.YugiohUtils;
+import com.yugioh.android.global.FragmentNames;
+import com.yugioh.android.global.Fragments;
 
 public class CardInfoFragment extends BaseTabFragment {
 
 	CardInfo info = null;
 
 	@Override
-	public void onAttach(Activity activity) {
-		int cid = getActivity().getIntent().getIntExtra("CardId", 0);
-		info = YugiohUtils.getOneCard(getActivity(), cid);
-		getActivity().getIntent().putExtra("cardinfo", info);
-		super.onAttach(activity);
-	}
+	protected void initLogic() {
+		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
+				"cardinfo");
+		super.initLogic();
 
-	@Override
-	protected void initComponents() {
-		super.initComponents();
 	}
 
 	@Override
@@ -72,7 +66,7 @@ public class CardInfoFragment extends BaseTabFragment {
 				FragmentNames.FRAGMENT_CARDINFO_ADJUST));
 		listFragment.add(Fragments.getFragment(getActivity(),
 				FragmentNames.FRAGMENT_CARDINFO_PICTURE));
-		
+
 	}
 
 }

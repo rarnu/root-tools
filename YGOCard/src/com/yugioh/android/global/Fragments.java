@@ -1,15 +1,18 @@
-package com.yugioh.android;
+package com.yugioh.android.global;
 
 import android.app.Fragment;
 import android.content.Context;
 
+import com.yugioh.android.R;
 import com.yugioh.android.fragments.CardInfoAdjustFragment;
 import com.yugioh.android.fragments.CardInfoCardFragment;
 import com.yugioh.android.fragments.CardInfoFragment;
 import com.yugioh.android.fragments.CardInfoPictureFragment;
+import com.yugioh.android.fragments.DuelToolFragment;
 import com.yugioh.android.fragments.LeftMenuFragment;
 import com.yugioh.android.fragments.LimitFragment;
 import com.yugioh.android.fragments.MainFragment;
+import com.yugioh.android.fragments.NewCardFragment;
 import com.yugioh.android.fragments.RightMenuFragment;
 import com.yugioh.android.fragments.SearchFragment;
 import com.yugioh.android.fragments.SearchResultFragment;
@@ -26,6 +29,8 @@ public class Fragments {
 	private static CardInfoAdjustFragment fCardInfoAdjust = null;
 	private static CardInfoPictureFragment fCardInfoPicture = null;
 	private static LimitFragment fLimit = null;
+	private static NewCardFragment fNewCard = null;
+	private static DuelToolFragment fDuelTool = null;
 
 	public static void Load(Context context) {
 		fMain = new MainFragment();
@@ -47,6 +52,8 @@ public class Fragments {
 				context.getString(R.string.page_picture),
 				context.getString(R.string.page_picture));
 		fLimit = new LimitFragment();
+		fNewCard = new NewCardFragment();
+		fDuelTool = new DuelToolFragment();
 	}
 
 	public static void Release() {
@@ -60,6 +67,8 @@ public class Fragments {
 		fCardInfoAdjust = null;
 		fCardInfoPicture = null;
 		fLimit = null;
+		fNewCard = null;
+		fDuelTool = null;
 	}
 
 	public static Fragment getFragment(Context context, String name) {
@@ -124,6 +133,16 @@ public class Fragments {
 				fLimit = new LimitFragment();
 			}
 			f = fLimit;
+		} else if (name.equals(FragmentNames.FRAGMENT_NEWCARD)) {
+			if (fNewCard == null) {
+				fNewCard = new NewCardFragment();
+			}
+			f = fNewCard;
+		} else if (name.equals(FragmentNames.FRAGMENT_DUELTOOL)) {
+			if (fDuelTool == null) {
+				fDuelTool = new DuelToolFragment();
+			}
+			f = fDuelTool;
 		}
 
 		return f;

@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseAdapter;
-import com.rarnu.devlib.utils.ColorUtils;
+import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.SysappInfo;
@@ -47,7 +47,7 @@ public class SysappAdapter extends BaseAdapter<SysappInfo> {
 					.getApplicationLabel(item.info));
 			holder.path.setText(item.info.sourceDir);
 
-			holder.name.setTextColor(ColorUtils.getTextColorPrimary(context));
+			holder.name.setTextColor(DrawableUtils.getTextColorPrimary(context));
 
 			switch (item.level) {
 			case 0:

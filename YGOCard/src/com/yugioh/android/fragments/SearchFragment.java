@@ -13,11 +13,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.yugioh.android.FragmentNames;
-import com.yugioh.android.Fragments;
 import com.yugioh.android.R;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.CardConstDefine;
+import com.yugioh.android.global.FragmentNames;
+import com.yugioh.android.global.Fragments;
 
 public class SearchFragment extends BaseFragment implements
 		OnItemSelectedListener {

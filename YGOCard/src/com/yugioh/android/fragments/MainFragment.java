@@ -9,10 +9,10 @@ import android.view.MenuItem;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BaseTabFragment;
-import com.yugioh.android.FragmentNames;
-import com.yugioh.android.Fragments;
 import com.yugioh.android.R;
 import com.yugioh.android.common.MenuIds;
+import com.yugioh.android.global.FragmentNames;
+import com.yugioh.android.global.Fragments;
 
 public class MainFragment extends BaseTabFragment {
 

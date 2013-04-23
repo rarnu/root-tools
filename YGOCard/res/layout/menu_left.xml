@@ -6,20 +6,34 @@
     <RelativeLayout
         android:id="@+id/layLeftMenuHead"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize" >
+        android:layout_height="wrap_content" >
 
-        <ImageView android:id="@+id/ivLogo"
+        <ImageView
+            android:id="@+id/ivLogo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:scaleType="fitStart"
             android:src="@drawable/logo"
-            android:scaleType="centerInside"
-            android:adjustViewBounds="true"/>
+            android:visibility="visible" />
+
+        <TextView
+            android:id="@+id/tvLeftTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="left|center_vertical"
+            android:paddingBottom="7dip"
+            android:paddingTop="8dip"
+            android:text="@string/empty"
+            android:layout_toRightOf="@+id/ivLogo"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18dp" />
 
         <RelativeLayout
             android:id="@+id/laySplit"
             android:layout_width="match_parent"
             android:layout_height="3px"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/tvLeftTitle"
             android:background="@android:color/holo_blue_light" >
         </RelativeLayout>
     </RelativeLayout>

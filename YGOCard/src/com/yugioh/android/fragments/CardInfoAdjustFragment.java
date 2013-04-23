@@ -1,7 +1,7 @@
 package com.yugioh.android.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
@@ -18,13 +18,6 @@ public class CardInfoAdjustFragment extends BaseFragment {
 
 	public CardInfoAdjustFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
-	}
-
-	@Override
-	public void onAttach(Activity activity) {
-		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
-				"cardinfo");
-		super.onAttach(activity);
 	}
 
 	@Override
@@ -50,6 +43,10 @@ public class CardInfoAdjustFragment extends BaseFragment {
 
 	@Override
 	protected void initLogic() {
+		
+		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
+				"cardinfo");
+		
 		tvAdjust.setText(info.getCardAdjust());
 		tvNoAdjust.setVisibility((info.getCardAdjust() == null || info
 				.getCardAdjust().trim().equals("")) ? View.VISIBLE : View.GONE);

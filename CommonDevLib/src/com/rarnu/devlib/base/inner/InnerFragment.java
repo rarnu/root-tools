@@ -1,6 +1,5 @@
 package com.rarnu.devlib.base.inner;
 
-import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -8,10 +7,12 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
 import com.rarnu.devlib.common.UIInstance;
 
-public abstract class InnerFragment extends Fragment {
+public abstract class InnerFragment extends Fragment implements
+		OnGlobalLayoutListener {
 
 	protected View innerView = null;
 	protected Bundle innerBundle = null;
@@ -38,8 +39,21 @@ public abstract class InnerFragment extends Fragment {
 	}
 
 	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
+	public View onCreateView(LayoutInflater inflater, ViewGroup container,
+			Bundle savedInstanceState) {
+		innerView = inflater
+				.inflate(getFragmentLayoutResId(), container, false);
+		initComponents();
+		initEvents();
+		innerView.getViewTreeObserver().addOnGlobalLayoutListener(this);
+		return innerView;
+	}
+
+	@Override
+	public void onActivityCreated(Bundle savedInstanceState) {
+		super.onActivityCreated(savedInstanceState);
+		innerBundle = getArguments();
+		initLogic();
 		if (getCustomTitle() == null || getCustomTitle().equals("")) {
 			if (UIInstance.dualPane) {
 				getActivity().getActionBar().setTitle(getBarTitleWithPath());
@@ -49,23 +63,6 @@ public abstract class InnerFragment extends Fragment {
 		} else {
 			getActivity().getActionBar().setTitle(getCustomTitle());
 		}
-	}
-
-	@Override
-	public View onCreateView(LayoutInflater inflater, ViewGroup container,
-			Bundle savedInstanceState) {
-		innerView = inflater
-				.inflate(getFragmentLayoutResId(), container, false);
-		initComponents();
-		initEvents();
-		return innerView;
-	}
-
-	@Override
-	public void onActivityCreated(Bundle savedInstanceState) {
-		super.onActivityCreated(savedInstanceState);
-		innerBundle = getArguments();
-		initLogic();
 	}
 
 	protected abstract int getBarTitle();
@@ -120,6 +117,15 @@ public abstract class InnerFragment extends Fragment {
 		}
 
 		initMenu(menu);
+	}
+
+	@Override
+	public void onGlobalLayout() {
+		onLayoutReady();
+	}
+
+	protected void onLayoutReady() {
+
 	}
 
 }

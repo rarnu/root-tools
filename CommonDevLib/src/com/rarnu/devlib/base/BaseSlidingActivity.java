@@ -6,13 +6,16 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup.LayoutParams;
+import android.widget.FrameLayout;
 
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.base.inner.InnerActivity;
 import com.rarnu.devlib.common.IFragments;
 import com.rarnu.devlib.common.ISliding;
 import com.rarnu.devlib.component.SlidingMenu;
+import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.devlib.utils.SlidingHelper;
+import com.rarnu.devlib.utils.UIUtils;
 
 public abstract class BaseSlidingActivity extends InnerActivity implements
 		ISliding, IFragments {
@@ -52,9 +55,15 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 		mHelper.onCreate(savedInstanceState);
 
 		loadFragments();
-		
+
 		super.onCreate(savedInstanceState);
 		setBehindContentView(R.layout.layout_menu_replacement);
+
+		((FrameLayout) findViewById(R.id.menu)).setBackgroundDrawable(UIUtils
+				.isFollowSystemBackground() ? DrawableUtils
+				.getSystemAttrDrawable(this,
+						DrawableUtils.DETAILS_ELEMENT_BACKGROUND) : null);
+
 		replaceMenu();
 
 		SlidingMenu sm = getSlidingMenu();
@@ -67,11 +76,16 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 		sm.setMode(getSlideMode());
 		if (sm.getMode() == SlidingMenu.LEFT_RIGHT) {
 			sm.setSecondaryMenu(R.layout.layout_second_menu_replacement);
+			((FrameLayout) findViewById(R.id.second_menu))
+					.setBackgroundDrawable(UIUtils.isFollowSystemBackground() ? DrawableUtils
+							.getSystemAttrDrawable(this,
+									DrawableUtils.DETAILS_ELEMENT_BACKGROUND)
+							: null);
 			sm.setSecondaryShadowDrawable(R.drawable.shadow);
 			replaceSecondMenu();
 		}
 	}
-	
+
 	@Override
 	protected void onDestroy() {
 		releaseFragments();

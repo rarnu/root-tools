@@ -1,7 +1,7 @@
 package com.yugioh.android.fragments;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 
@@ -16,13 +16,6 @@ public class CardInfoCardFragment extends BaseFragment {
 
 	public CardInfoCardFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
-	}
-
-	@Override
-	public void onAttach(Activity activity) {
-		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
-				"cardinfo");
-		super.onAttach(activity);
 	}
 
 	@Override
@@ -47,6 +40,9 @@ public class CardInfoCardFragment extends BaseFragment {
 
 	@Override
 	protected void initLogic() {
+		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
+				"cardinfo");
+		
 		tvInfo.setText(buildCardInfo(info));
 	}
 

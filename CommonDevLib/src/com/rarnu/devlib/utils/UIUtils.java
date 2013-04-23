@@ -21,7 +21,7 @@ public class UIUtils {
 
 	private static Context context = null;
 	private static DisplayMetrics dm = null;
-	
+	private static boolean followSystemBackground = true;
 
 	public static DisplayMetrics getDM() {
 		return dm;
@@ -31,13 +31,14 @@ public class UIUtils {
 		return dm.density;
 	}
 
-	public static void initDisplayMetrics(Context ctx, WindowManager wm) {
+	public static void initDisplayMetrics(Context ctx, WindowManager wm, boolean isFollowSystemBackground) {
 		if (context == null) {
 			context = ctx;
 		}
 
 		dm = new DisplayMetrics();
 		wm.getDefaultDisplay().getMetrics(dm);
+		followSystemBackground = isFollowSystemBackground;
 
 	}
 
@@ -315,5 +316,13 @@ public class UIUtils {
 		int ret = a.getDimensionPixelSize(0, -1);
 		a.recycle();
 		return ret;
+	}
+
+	public static boolean isFollowSystemBackground() {
+		return followSystemBackground;
+	}
+
+	public static void setFollowSystemBackground(boolean isFollowSystemBackground) {
+		followSystemBackground = isFollowSystemBackground;
 	}
 }

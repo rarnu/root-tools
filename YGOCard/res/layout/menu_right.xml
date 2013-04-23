@@ -6,24 +6,24 @@
     <RelativeLayout
         android:id="@+id/layLeftMenuHead"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize"
-        android:background="?android:attr/actionBarItemBackground" >
+        android:layout_height="wrap_content" >
 
         <TextView
             android:id="@+id/tvRightTitle"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:gravity="left|center_vertical"
-            android:padding="8dip"
+            android:paddingTop="8dip"
+            android:paddingBottom="7dip"
             android:text="@string/page_settings"
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="18sp" />
+            android:textSize="18dp" />
 
         <RelativeLayout
             android:id="@+id/laySplit"
             android:layout_width="match_parent"
             android:layout_height="3px"
-            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/tvRightTitle"
             android:background="@android:color/holo_blue_light" >
         </RelativeLayout>
     </RelativeLayout>

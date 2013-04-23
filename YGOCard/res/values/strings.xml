@@ -10,6 +10,7 @@
     <string name="about_date">发布日期：2012年04月03日</string>
 
     <!-- common -->
+    <string name="empty"> </string>
     <string name="ok">确定</string>
     <string name="cancel">取消</string>
     <string name="hint">提示</string>

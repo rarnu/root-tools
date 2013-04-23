@@ -3,6 +3,7 @@ package com.yugioh.android.fragments;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,12 +14,14 @@ import android.widget.SimpleCursorAdapter;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.devlib.base.BaseTabFragment;
 import com.yugioh.android.CardInfoActivity;
-import com.yugioh.android.FragmentNames;
-import com.yugioh.android.Fragments;
 import com.yugioh.android.R;
+import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.FieldDefine;
+import com.yugioh.android.global.FragmentNames;
+import com.yugioh.android.global.Fragments;
 
 public class SearchResultFragment extends BaseFragment implements
 		OnItemClickListener {
@@ -105,7 +108,7 @@ public class SearchResultFragment extends BaseFragment implements
 				.setVisibility(adapterSearchResult.getCount() == 0 ? View.VISIBLE
 						: View.GONE);
 
-		((MainFragment) Fragments.getFragment(getActivity(),
+		((BaseTabFragment) Fragments.getFragment(getActivity(),
 				FragmentNames.FRAGMENT_MAIN)).setTabPosition(1);
 	}
 
@@ -115,7 +118,9 @@ public class SearchResultFragment extends BaseFragment implements
 		cSearchResult.moveToPosition(position);
 		int cardId = cSearchResult.getInt(0);
 		Intent inCardInfo = new Intent(getActivity(), CardInfoActivity.class);
-		inCardInfo.putExtra("CardId", cardId);
+		CardInfo info = YugiohUtils.getOneCard(getActivity(), cardId);
+		inCardInfo.putExtra("cardinfo", info);
+		Log.e("onItemClick", info.toString());
 		startActivity(inCardInfo);
 	}
 

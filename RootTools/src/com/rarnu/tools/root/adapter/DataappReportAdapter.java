@@ -10,7 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseAdapter;
-import com.rarnu.devlib.utils.ColorUtils;
+import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.DataappInfo;
@@ -52,12 +52,12 @@ public class DataappReportAdapter extends BaseAdapter<DataappInfo> {
 				switch (item.logId) {
 				case 0:
 					holder.state.setText(R.string.rep_bak_succ);
-					holder.state.setTextColor(ColorUtils
+					holder.state.setTextColor(DrawableUtils
 							.getTextColorSecondary(context));
 					break;
 				case 1:
 					holder.state.setText(R.string.rep_bak_na);
-					holder.state.setTextColor(ColorUtils
+					holder.state.setTextColor(DrawableUtils
 							.getTextColorSecondary(context));
 					break;
 				case 2:
@@ -74,7 +74,7 @@ public class DataappReportAdapter extends BaseAdapter<DataappInfo> {
 				switch (item.logId) {
 				case 0:
 					holder.state.setText(R.string.rep_res_succ);
-					holder.state.setTextColor(ColorUtils
+					holder.state.setTextColor(DrawableUtils
 							.getTextColorSecondary(context));
 					break;
 				case 2:

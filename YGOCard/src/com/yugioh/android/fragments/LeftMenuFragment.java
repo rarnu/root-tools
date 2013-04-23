@@ -9,17 +9,25 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.yugioh.android.MainActivity;
 import com.yugioh.android.R;
+import com.yugioh.android.intf.IMainIntf;
 
-public class LeftMenuFragment extends BaseFragment implements OnItemClickListener {
+public class LeftMenuFragment extends BaseFragment implements
+		OnItemClickListener {
 
 	ListView lvCard, lvExit;
 	ArrayAdapter<String> adapterCard, adapterExit;
 	List<String> listCard, listExit;
+	ImageView ivLogo;
+	TextView tvLeftTitle;
+	RelativeLayout.LayoutParams lpLogo = null;
 
 	@Override
 	protected int getBarTitle() {
@@ -35,7 +43,9 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
 	protected void initComponents() {
 		lvCard = (ListView) innerView.findViewById(R.id.lvCard);
 		lvExit = (ListView) innerView.findViewById(R.id.lvExit);
-		
+		tvLeftTitle = (TextView) innerView.findViewById(R.id.tvLeftTitle);
+		ivLogo = (ImageView) innerView.findViewById(R.id.ivLogo);
+
 		listCard = new ArrayList<String>();
 		listCard.add(getString(R.string.lm_search));
 		listCard.add(getString(R.string.lm_banned));
@@ -43,11 +53,13 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
 		listCard.add(getString(R.string.lm_tool));
 		listExit = new ArrayList<String>();
 		listExit.add(getString(R.string.lm_exit));
-		adapterCard = new ArrayAdapter<String>(getActivity(), R.layout.item_menu, listCard);
-		adapterExit = new ArrayAdapter<String>(getActivity(), R.layout.item_menu, listExit);
+		adapterCard = new ArrayAdapter<String>(getActivity(),
+				R.layout.item_menu, listCard);
+		adapterExit = new ArrayAdapter<String>(getActivity(),
+				R.layout.item_menu, listExit);
 		lvCard.setAdapter(adapterCard);
 		lvExit.setAdapter(adapterExit);
-		
+
 	}
 
 	@Override
@@ -58,7 +70,7 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
 
 	@Override
 	protected void initLogic() {
-		
+
 	}
 
 	@Override
@@ -87,18 +99,28 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
 		switch (parent.getId()) {
 		case R.id.lvCard:
 			// switch page
-			((MainActivity)getActivity()).switchPage(position);
+			((IMainIntf) getActivity()).switchPage(position);
 			break;
 		case R.id.lvExit:
 			getActivity().finish();
 			break;
 		}
-		
+
 	}
 
 	@Override
 	protected String getCustomTitle() {
 		return null;
+	}
+
+	@Override
+	protected void onLayoutReady() {
+		super.onLayoutReady();
+		lpLogo = new RelativeLayout.LayoutParams(
+				RelativeLayout.LayoutParams.WRAP_CONTENT, tvLeftTitle
+				.getHeight());
+		ivLogo.setLayoutParams(lpLogo);
+		ivLogo.setVisibility(View.VISIBLE);
 	}
 
 }
