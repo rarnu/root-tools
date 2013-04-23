@@ -10,6 +10,27 @@ import com.rarnu.devlib.common.UIInstance;
 
 public abstract class InnerPreferenceFragment extends PreferenceFragment {
 	
+	protected String tagText;
+	protected String tabTitle;
+
+	public String getTagText() {
+		return tagText;
+	}
+
+	public String getTabTitle() {
+		return tabTitle;
+	}
+
+	public InnerPreferenceFragment() {
+		super();
+	}
+
+	public InnerPreferenceFragment(String tagText, String tabTitle) {
+		super();
+		this.tagText = tagText;
+		this.tabTitle = tabTitle;
+	}
+	
 	@Override
 	public void onAttach(Activity activity) {
 		super.onAttach(activity);

@@ -5,6 +5,8 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Window;
 
+import com.rarnu.devlib.base.inner.InnerFragment;
+
 public abstract class BaseDialog extends Activity {
 
 	@Override
@@ -19,8 +21,11 @@ public abstract class BaseDialog extends Activity {
 	}
 
 	public void replace() {
-		getFragmentManager().beginTransaction()
-				.replace(android.R.id.content, replaceFragment()).commit();
+		Fragment bf = replaceFragment();
+		getFragmentManager()
+				.beginTransaction()
+				.replace(android.R.id.content, bf,
+						((InnerFragment) bf).getTagText()).commit();
 	}
 
 	public abstract boolean getCondition();

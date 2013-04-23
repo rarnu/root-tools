@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item name="tag_main" type="tag">tag_main</item>
+    <item name="tag_main_search" type="tag">tag_main_search</item>
+    <item name="tag_main_result" type="tag">tag_main_result</item>
+    <item name="tag_main_limit" type="tag">tag_main_limit</item>
+    <item name="tag_main_newcard" type="tag">tag_main_newcard</item>
+    <item name="tag_main_dueltool" type="tag">tag_main_dueltool</item>
+    
+    <item name="tag_card" type="tag">tag_card</item>
+    <item name="tag_card_info" type="tag">tag_card_info</item>
+    <item name="tag_card_adjust" type="tag">tag_card_adjust</item>
+    <item name="tag_card_pic" type="tag">tag_card_pic</item>
+    
+    <item name="tag_menu_left" type="tag">tag_menu_left</item>
+    <item name="tag_menu_right" type="tag">tag_menu_right</item>
+</resources>

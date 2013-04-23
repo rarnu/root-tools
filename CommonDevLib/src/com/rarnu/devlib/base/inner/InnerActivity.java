@@ -13,7 +13,8 @@ import com.rarnu.devlib.R;
 import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.devlib.utils.UIUtils;
 
-public abstract class InnerActivity extends Activity implements OnGlobalLayoutListener {
+public abstract class InnerActivity extends Activity implements
+		OnGlobalLayoutListener {
 
 	protected ActionBar bar;
 	protected RelativeLayout layoutReplacement;
@@ -29,7 +30,7 @@ public abstract class InnerActivity extends Activity implements OnGlobalLayoutLi
 		}
 
 		setContentView(getBaseLayout());
-		
+
 		layoutReplacement = (RelativeLayout) findViewById(R.id.layoutReplacement);
 		layoutReplacement.getViewTreeObserver().addOnGlobalLayoutListener(this);
 		layoutReplacement.setBackgroundDrawable(UIUtils
@@ -48,8 +49,10 @@ public abstract class InnerActivity extends Activity implements OnGlobalLayoutLi
 	}
 
 	public void replace() {
+		Fragment bf = replaceFragment();
 		getFragmentManager().beginTransaction()
-				.replace(getReplaceId(), replaceFragment()).commit();
+				.replace(getReplaceId(), bf, ((InnerFragment) bf).getTagText())
+				.commit();
 	}
 
 	public abstract int getIcon();
@@ -71,14 +74,14 @@ public abstract class InnerActivity extends Activity implements OnGlobalLayoutLi
 		}
 		return super.onOptionsItemSelected(item);
 	}
-	
+
 	@Override
 	public void onGlobalLayout() {
 		onLayoutReady();
 	}
-	
+
 	protected void onLayoutReady() {
-		
+
 	}
 
 }

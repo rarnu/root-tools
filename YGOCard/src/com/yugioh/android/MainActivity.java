@@ -4,10 +4,15 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.rarnu.devlib.base.BaseSlidingActivity;
+import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.devlib.utils.UIUtils;
-import com.yugioh.android.global.FragmentNames;
-import com.yugioh.android.global.Fragments;
+import com.yugioh.android.fragments.DuelToolFragment;
+import com.yugioh.android.fragments.LeftMenuFragment;
+import com.yugioh.android.fragments.LimitFragment;
+import com.yugioh.android.fragments.MainFragment;
+import com.yugioh.android.fragments.NewCardFragment;
+import com.yugioh.android.fragments.RightMenuFragment;
 import com.yugioh.android.intf.IMainIntf;
 
 public class MainActivity extends BaseSlidingActivity implements IMainIntf {
@@ -22,22 +27,22 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
 	@Override
 	public void loadFragments() {
-		Fragments.Load(this);
+
 	}
 
 	@Override
 	public void releaseFragments() {
-		Fragments.Release();
+
 	}
 
 	@Override
 	public Fragment replaceMenuFragment() {
-		return Fragments.getFragment(this, FragmentNames.FRAGMENT_LEFTMENU);
+		return new LeftMenuFragment(getString(R.tag.tag_menu_left), "");
 	}
 
 	@Override
 	public Fragment replaceSecondMenuFragment() {
-		return Fragments.getFragment(this, FragmentNames.FRAGMENT_RIGHTMENU);
+		return new RightMenuFragment(getString(R.tag.tag_menu_right), "");
 	}
 
 	@Override
@@ -67,16 +72,20 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
 	@Override
 	public Fragment replaceFragment() {
-		return Fragments.getFragment(this, FragmentNames.FRAGMENT_MAIN);
+		return new MainFragment(getString(R.tag.tag_main), "");
 	}
 
 	@Override
 	public void switchPage(int page) {
-		currentPage = page;
-		Fragment f = getCurrentFragment(currentPage);
-		if (!f.isAdded()) {
-			getFragmentManager().beginTransaction()
-					.replace(R.id.fReplacement, f).commit();
+		if (currentPage != page) {
+			currentPage = page;
+			Fragment f = getCurrentFragment(currentPage);
+			if (!f.isAdded()) {
+				getFragmentManager()
+						.beginTransaction()
+						.replace(R.id.fReplacement, f,
+								((InnerFragment) f).getTagText()).commit();
+			}
 		}
 		toggle();
 	}
@@ -86,23 +95,21 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 		switch (page) {
 		case 0:
 			// MAIN
-			f = Fragments.getFragment(this, FragmentNames.FRAGMENT_MAIN);
+			f = new MainFragment(getString(R.tag.tag_main), "");
 			break;
 		case 1:
 			// LIMIT
-			f = Fragments.getFragment(this, FragmentNames.FRAGMENT_LIMIT);
+			f = new LimitFragment(getString(R.tag.tag_main_limit), "");
 			break;
 		case 2:
 			// NEW CARD
-			f = Fragments.getFragment(this, FragmentNames.FRAGMENT_NEWCARD);
+			f = new NewCardFragment(getString(R.tag.tag_main_newcard), "");
 			break;
 		case 3:
 			// DUEL TOOL
-			f = Fragments.getFragment(this, FragmentNames.FRAGMENT_DUELTOOL);
+			f = new DuelToolFragment(getString(R.tag.tag_main_dueltool), "");
 			break;
 		}
 		return f;
 	}
-
-
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.app.Activity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -13,11 +14,10 @@ import android.widget.EditText;
 import android.widget.Spinner;
 
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.devlib.base.inner.InnerFragment;
 import com.yugioh.android.R;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.CardConstDefine;
-import com.yugioh.android.global.FragmentNames;
-import com.yugioh.android.global.Fragments;
 
 public class SearchFragment extends BaseFragment implements
 		OnItemSelectedListener {
@@ -185,7 +185,7 @@ public class SearchFragment extends BaseFragment implements
 		if (spCardLimit.getSelectedItemPosition() != 0) {
 			cardLimit = (String) spCardLimit.getSelectedItem();
 		}
-		
+
 		int cardTunner = spCardTunner.getSelectedItemPosition();
 
 		Bundle bn = new Bundle();
@@ -202,8 +202,11 @@ public class SearchFragment extends BaseFragment implements
 		bn.putString("cardLimit", cardLimit);
 		bn.putInt("cardTunner", cardTunner);
 
-		((BaseFragment) Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_SEARCH_RESULT)).setNewArguments(bn);
+		String tag = getString(R.tag.tag_main_result);
+		InnerFragment bfSearchResult = (InnerFragment) getFragmentManager()
+				.findFragmentByTag(getString(R.tag.tag_main_result));
+		Log.e("doSearchCard", tag + ":" + bfSearchResult.toString());
+		bfSearchResult.setNewArguments(bn);
 	}
 
 	private void doSearchReset() {

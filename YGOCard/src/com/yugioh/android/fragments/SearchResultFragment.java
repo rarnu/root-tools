@@ -3,7 +3,6 @@ package com.yugioh.android.fragments;
 import android.content.Intent;
 import android.database.Cursor;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -20,8 +19,6 @@ import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.FieldDefine;
-import com.yugioh.android.global.FragmentNames;
-import com.yugioh.android.global.Fragments;
 
 public class SearchResultFragment extends BaseFragment implements
 		OnItemClickListener {
@@ -108,8 +105,9 @@ public class SearchResultFragment extends BaseFragment implements
 				.setVisibility(adapterSearchResult.getCount() == 0 ? View.VISIBLE
 						: View.GONE);
 
-		((BaseTabFragment) Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_MAIN)).setTabPosition(1);
+		BaseTabFragment btf = (BaseTabFragment) getFragmentManager()
+				.findFragmentByTag(getString(R.tag.tag_main));
+		btf.setTabPosition(1);
 	}
 
 	@Override
@@ -120,7 +118,6 @@ public class SearchResultFragment extends BaseFragment implements
 		Intent inCardInfo = new Intent(getActivity(), CardInfoActivity.class);
 		CardInfo info = YugiohUtils.getOneCard(getActivity(), cardId);
 		inCardInfo.putExtra("cardinfo", info);
-		Log.e("onItemClick", info.toString());
 		startActivity(inCardInfo);
 	}
 

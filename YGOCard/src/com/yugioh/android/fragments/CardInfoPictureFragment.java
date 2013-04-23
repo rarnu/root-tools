@@ -1,7 +1,6 @@
 package com.yugioh.android.fragments;
 
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 
 import com.rarnu.devlib.base.BaseFragment;

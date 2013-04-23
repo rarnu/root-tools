@@ -22,6 +22,10 @@ public class RightMenuFragment extends BaseFragment implements
 	List<String> listAbout;
 	ArrayAdapter<String> adapterAbout;
 
+	public RightMenuFragment(String tagText, String tabTitle) {
+		super(tagText, tabTitle);
+	}
+	
 	@Override
 	protected int getBarTitle() {
 		return R.string.app_name;

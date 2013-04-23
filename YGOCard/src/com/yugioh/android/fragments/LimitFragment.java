@@ -8,6 +8,10 @@ import com.yugioh.android.R;
 
 public class LimitFragment extends BaseFragment {
 
+	public LimitFragment(String tagText, String tabTitle) {
+		super(tagText, tabTitle);
+	}
+	
 	@Override
 	protected int getBarTitle() {
 		return R.string.lm_banned;

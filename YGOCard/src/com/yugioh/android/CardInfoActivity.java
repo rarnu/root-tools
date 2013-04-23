@@ -3,8 +3,7 @@ package com.yugioh.android;
 import android.app.Fragment;
 
 import com.rarnu.devlib.base.BaseActivity;
-import com.yugioh.android.global.FragmentNames;
-import com.yugioh.android.global.Fragments;
+import com.yugioh.android.fragments.CardInfoFragment;
 
 public class CardInfoActivity extends BaseActivity {
 
@@ -15,7 +14,6 @@ public class CardInfoActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return Fragments.getFragment(this, FragmentNames.FRAGMENT_CARDINFO);
+		return new CardInfoFragment(getString(R.tag.tag_card), "");
 	}
-
 }

@@ -8,6 +8,10 @@ import com.yugioh.android.R;
 
 public class DuelToolFragment extends BaseFragment {
 
+	public DuelToolFragment(String tagText, String tabTitle) {
+		super(tagText, tabTitle);
+	}
+	
 	@Override
 	protected int getBarTitle() {
 		return R.string.lm_tool;

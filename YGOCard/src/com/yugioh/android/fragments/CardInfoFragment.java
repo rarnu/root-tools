@@ -8,16 +8,20 @@ import android.util.Log;
 import android.view.Menu;
 
 import com.rarnu.devlib.base.BaseTabFragment;
+import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
-import com.yugioh.android.global.FragmentNames;
-import com.yugioh.android.global.Fragments;
 
 public class CardInfoFragment extends BaseTabFragment {
+
+	public CardInfoFragment(String tagText, String tabTitle) {
+		super(tagText, tabTitle);
+	}
 
 	CardInfo info = null;
 
 	@Override
 	protected void initLogic() {
+		Log.e("CardInfoFragment", "initLogic");
 		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
 				"cardinfo");
 		super.initLogic();
@@ -60,12 +64,16 @@ public class CardInfoFragment extends BaseTabFragment {
 
 	@Override
 	public void initFragmentList(List<Fragment> listFragment) {
-		listFragment.add(Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_CARDINFO_CARD));
-		listFragment.add(Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_CARDINFO_ADJUST));
-		listFragment.add(Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_CARDINFO_PICTURE));
+
+		listFragment.add(new CardInfoCardFragment(
+				getString(R.tag.tag_card_info),
+				getString(R.string.page_cardinfo)));
+		listFragment.add(new CardInfoAdjustFragment(
+				getString(R.tag.tag_card_adjust),
+				getString(R.string.page_cardadjust)));
+		listFragment
+				.add(new CardInfoPictureFragment(getString(R.tag.tag_card_pic),
+						getString(R.string.page_picture)));
 
 	}
 

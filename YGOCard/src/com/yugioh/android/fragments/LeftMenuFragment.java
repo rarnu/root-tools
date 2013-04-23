@@ -29,6 +29,10 @@ public class LeftMenuFragment extends BaseFragment implements
 	TextView tvLeftTitle;
 	RelativeLayout.LayoutParams lpLogo = null;
 
+	public LeftMenuFragment(String tagText, String tabTitle) {
+		super(tagText, tabTitle);
+	}
+	
 	@Override
 	protected int getBarTitle() {
 		return R.string.app_name;

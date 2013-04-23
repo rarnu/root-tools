@@ -1,10 +1,13 @@
 package com.rarnu.devlib.base.inner;
 
+import java.util.List;
+
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -13,9 +16,11 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 	private final FragmentManager mFragmentManager;
 	private FragmentTransaction mCurTransaction = null;
 	private Fragment mCurrentPrimaryItem = null;
+	private List<String> mListTags = null;
 
-	public FragmentPagerAdapter(FragmentManager fm) {
+	public FragmentPagerAdapter(FragmentManager fm, List<String> tags) {
 		mFragmentManager = fm;
+		this.mListTags = tags;
 	}
 
 	public abstract Fragment getItem(int position);
@@ -30,18 +35,21 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 			mCurTransaction = mFragmentManager.beginTransaction();
 		}
 
-		final long itemId = getItemId(position);
+		// final long itemId = getItemId(position);
+		//
+		// String name = makeFragmentName(container.getId(), itemId);
 
-		String name = makeFragmentName(container.getId(), itemId);
+		String name = mListTags.get(position);
+		Log.e("instantiateItem", name);
+
 		Fragment fragment = mFragmentManager.findFragmentByTag(name);
 		if (fragment != null) {
-
+			Log.e("instantiateItem", "attach");
 			mCurTransaction.attach(fragment);
 		} else {
+			Log.e("instantiateItem", "add");
 			fragment = getItem(position);
-
-			mCurTransaction.add(container.getId(), fragment,
-					makeFragmentName(container.getId(), itemId));
+			mCurTransaction.add(container.getId(), fragment, name);
 		}
 		if (fragment != mCurrentPrimaryItem) {
 			fragment.setMenuVisibility(false);
@@ -104,9 +112,5 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
 	public long getItemId(int position) {
 		return position;
-	}
-
-	private static String makeFragmentName(int viewId, long id) {
-		return "android:switcher:" + viewId + ":" + id;
 	}
 }

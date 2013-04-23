@@ -3,8 +3,6 @@ package com.rarnu.devlib.base;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.app.Fragment;
-import android.app.FragmentManager;
-import android.app.FragmentTransaction;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.rarnu.devlib.R;
+import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.common.IFragments;
 import com.rarnu.devlib.common.UIInstance;
 import com.rarnu.devlib.utils.DrawableUtils;
@@ -104,20 +103,16 @@ public abstract class BaseMainActivity extends Activity implements IFragments {
 	public abstract Fragment getIndexFragment();
 
 	private void replaceIndexFragment() {
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager
-				.beginTransaction();
-		fragmentTransaction.replace(R.id.fragmentMain, getIndexFragment());
-		fragmentTransaction.commit();
+		Fragment fIndex = getIndexFragment();
+		getFragmentManager()
+				.beginTransaction()
+				.replace(R.id.fragmentMain, fIndex,
+						((InnerFragment) fIndex).getTagText()).commit();
 	}
 
 	private void replaceDetailFragment(Fragment f) {
-		FragmentManager fragmentManager = getFragmentManager();
-		FragmentTransaction fragmentTransaction = fragmentManager
-				.beginTransaction();
-		fragmentTransaction.replace(R.id.fragmentDetail, f);
-		fragmentTransaction.show(f);
-		fragmentTransaction.commit();
+		getFragmentManager().beginTransaction().replace(R.id.fragmentDetail, f,
+				((InnerFragment) f).getTagText()).commit();
 	}
 
 	@Override

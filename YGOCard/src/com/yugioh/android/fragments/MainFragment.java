@@ -11,10 +11,12 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BaseTabFragment;
 import com.yugioh.android.R;
 import com.yugioh.android.common.MenuIds;
-import com.yugioh.android.global.FragmentNames;
-import com.yugioh.android.global.Fragments;
 
 public class MainFragment extends BaseTabFragment {
+
+	public MainFragment(String tagText, String tabTitle) {
+		super(tagText, tabTitle);
+	}
 
 	MenuItem itemSearch;
 	MenuItem itemReset;
@@ -49,8 +51,9 @@ public class MainFragment extends BaseTabFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		Bundle bn = new Bundle();
-		BaseFragment fSearch = (BaseFragment) Fragments.getFragment(
-				getActivity(), FragmentNames.FRAGMENT_SEARCH);
+
+		BaseFragment fSearch = (BaseFragment) getFragmentManager()
+				.findFragmentByTag(getString(R.tag.tag_main_search));
 
 		switch (item.getItemId()) {
 		case MenuIds.MENUID_SEARCH:
@@ -84,11 +87,11 @@ public class MainFragment extends BaseTabFragment {
 
 	@Override
 	public void initFragmentList(List<Fragment> listFragment) {
-		listFragment.add((BaseFragment) Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_SEARCH));
-		listFragment.add((BaseFragment) Fragments.getFragment(getActivity(),
-				FragmentNames.FRAGMENT_SEARCH_RESULT));
-
+		listFragment.add(new SearchFragment(getString(R.tag.tag_main_search),
+				getString(R.string.page_search)));
+		listFragment
+				.add(new SearchResultFragment(getString(R.tag.tag_main_result),
+						getString(R.string.page_list)));
 	}
 
 }
