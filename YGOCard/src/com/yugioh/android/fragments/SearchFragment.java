@@ -5,7 +5,6 @@ import java.util.List;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -221,10 +220,8 @@ public class SearchFragment extends BaseFragment implements
 		bn.putString("cardLimit", cardLimit);
 		bn.putInt("cardTunner", cardTunner);
 
-		String tag = getString(R.tag.tag_main_result);
 		InnerFragment bfSearchResult = (InnerFragment) getFragmentManager()
 				.findFragmentByTag(getString(R.tag.tag_main_result));
-		Log.e("doSearchCard", tag + ":" + bfSearchResult.toString());
 		bfSearchResult.setNewArguments(bn);
 	}
 

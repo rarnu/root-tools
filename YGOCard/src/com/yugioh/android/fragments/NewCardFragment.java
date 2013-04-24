@@ -1,6 +1,8 @@
 package com.yugioh.android.fragments;
 
 import android.content.Intent;
+import android.content.Loader;
+import android.content.Loader.OnLoadCompleteListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,13 +19,15 @@ import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.FieldDefine;
+import com.yugioh.android.loader.NewCardLoader;
 
 public class NewCardFragment extends BaseFragment implements
-		OnItemClickListener {
+		OnItemClickListener, OnLoadCompleteListener<Cursor> {
 
 	ListView lvNewCard;
 	Cursor cNewCard;
 	SimpleCursorAdapter adapterNewCard;
+	NewCardLoader loaderNewcard;
 
 	public NewCardFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -57,24 +61,19 @@ public class NewCardFragment extends BaseFragment implements
 	@Override
 	protected void initComponents() {
 		lvNewCard = (ListView) innerView.findViewById(R.id.lvNewCard);
-
+		loaderNewcard = new NewCardLoader(getActivity());
 	}
 
 	@Override
 	protected void initEvents() {
 		lvNewCard.setOnItemClickListener(this);
+		loaderNewcard.registerListener(0, this);
 	}
 
 	@Override
 	protected void initLogic() {
-		cNewCard = YugiohUtils.getLatest100(getActivity());
-		adapterNewCard = new SimpleCursorAdapter(getActivity(),
-				R.layout.item_card, cNewCard,
-				new String[] { FieldDefine.DataFields[5],
-						FieldDefine.DataFields[10] }, new int[] {
-						R.id.tvCardName, R.id.tvCardType },
-				CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-		lvNewCard.setAdapter(adapterNewCard);
+		loaderNewcard.startLoading();
+
 	}
 
 	@Override
@@ -96,6 +95,21 @@ public class NewCardFragment extends BaseFragment implements
 		CardInfo info = YugiohUtils.getOneCard(getActivity(), cardId);
 		inCardInfo.putExtra("cardinfo", info);
 		startActivity(inCardInfo);
+
+	}
+
+	@Override
+	public void onLoadComplete(Loader<Cursor> loader, Cursor data) {
+		if (data != null) {
+			cNewCard = data;
+			adapterNewCard = new SimpleCursorAdapter(getActivity(),
+					R.layout.item_card, cNewCard, new String[] {
+							FieldDefine.DataFields[5],
+							FieldDefine.DataFields[10] }, new int[] {
+							R.id.tvCardName, R.id.tvCardType },
+					CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+			lvNewCard.setAdapter(adapterNewCard);
+		}
 
 	}
 

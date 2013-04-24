@@ -7,7 +7,6 @@ import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Parcelable;
 import android.support.v4.view.PagerAdapter;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 
@@ -34,20 +33,11 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 		if (mCurTransaction == null) {
 			mCurTransaction = mFragmentManager.beginTransaction();
 		}
-
-		// final long itemId = getItemId(position);
-		//
-		// String name = makeFragmentName(container.getId(), itemId);
-
 		String name = mListTags.get(position);
-		Log.e("instantiateItem", name);
-
 		Fragment fragment = mFragmentManager.findFragmentByTag(name);
 		if (fragment != null) {
-			Log.e("instantiateItem", "attach");
 			mCurTransaction.attach(fragment);
 		} else {
-			Log.e("instantiateItem", "add");
 			fragment = getItem(position);
 			mCurTransaction.add(container.getId(), fragment, name);
 		}

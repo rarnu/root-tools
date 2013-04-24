@@ -10,7 +10,6 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
-import android.util.Log;
 
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.base.inner.InnerFragment;
@@ -42,7 +41,6 @@ public abstract class BaseTabFragment extends InnerFragment implements
 	@Override
 	public void onDestroyView() {
 		if (needRelease) {
-			Log.e("BaseTabFragment", "needRelease");
 			bar.removeAllTabs();
 			bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
 			adapter = null;

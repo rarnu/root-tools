@@ -2,7 +2,6 @@ package com.rarnu.devlib.base.inner;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -44,7 +43,6 @@ public abstract class InnerFragment extends Fragment implements
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
 			Bundle savedInstanceState) {
-		Log.e("InnerFragment", "onCreateView");
 		innerView = inflater
 				.inflate(getFragmentLayoutResId(), container, false);
 		initComponents();
@@ -56,7 +54,6 @@ public abstract class InnerFragment extends Fragment implements
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
-		Log.e("InnerFragment", "onActivityCreated");
 		innerBundle = getArguments();
 		initLogic();
 		if (getCustomTitle() == null || getCustomTitle().equals("")) {
@@ -98,7 +95,6 @@ public abstract class InnerFragment extends Fragment implements
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
-		Log.e("InnerFragment", "onCreate");
 		setHasOptionsMenu(true);
 	}
 

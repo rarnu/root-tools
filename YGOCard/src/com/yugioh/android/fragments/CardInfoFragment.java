@@ -4,7 +4,6 @@ import java.util.List;
 
 import android.app.Fragment;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 
 import com.rarnu.devlib.base.BaseTabFragment;
@@ -21,7 +20,6 @@ public class CardInfoFragment extends BaseTabFragment {
 
 	@Override
 	protected void initLogic() {
-		Log.e("CardInfoFragment", "initLogic");
 		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
 				"cardinfo");
 		super.initLogic();
