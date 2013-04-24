@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
     <item name="tag_main" type="tag">tag_main</item>
     <item name="tag_main_search" type="tag">tag_main_search</item>
     <item name="tag_main_result" type="tag">tag_main_result</item>
     <item name="tag_main_limit" type="tag">tag_main_limit</item>
+    <item name="tag_main_limit_banned" type="tag">tag_main_limit_banned</item>
+    <item name="tag_main_limit_limit1" type="tag">tag_main_limit_limit1</item>
+    <item name="tag_main_limit_limit2" type="tag">tag_main_limit_limit2</item>
     <item name="tag_main_newcard" type="tag">tag_main_newcard</item>
     <item name="tag_main_dueltool" type="tag">tag_main_dueltool</item>
     

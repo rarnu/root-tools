@@ -16,7 +16,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.base.inner.InnerFragment;
+import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.devlib.common.IFragments;
 import com.rarnu.devlib.common.UIInstance;
 import com.rarnu.devlib.utils.DrawableUtils;
@@ -107,12 +107,13 @@ public abstract class BaseMainActivity extends Activity implements IFragments {
 		getFragmentManager()
 				.beginTransaction()
 				.replace(R.id.fragmentMain, fIndex,
-						((InnerFragment) fIndex).getTagText()).commit();
+						((InnerIntf) fIndex).getTagText()).commit();
 	}
 
 	private void replaceDetailFragment(Fragment f) {
-		getFragmentManager().beginTransaction().replace(R.id.fragmentDetail, f,
-				((InnerFragment) f).getTagText()).commit();
+		getFragmentManager().beginTransaction()
+				.replace(R.id.fragmentDetail, f, ((InnerIntf) f).getTagText())
+				.commit();
 	}
 
 	@Override

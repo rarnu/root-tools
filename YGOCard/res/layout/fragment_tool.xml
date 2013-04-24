@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:layout_width="match_parent" android:layout_height="match_parent"
 	android:layout_above="@+id/layBottom" android:layout_below="@+id/layTop"
 	android:layout_margin="4dip">
 
-	<RelativeLayout android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:background="@color/gray">
+	<RelativeLayout android:layout_width="match_parent"
+		android:layout_height="match_parent" android:background="@color/gray">
 
-		<RelativeLayout android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:layout_margin="1dip"
+		<RelativeLayout android:layout_width="match_parent"
+			android:layout_height="match_parent" android:layout_margin="1dip"
 			android:background="@color/white" android:padding="4dip">
 
 			<TextView android:id="@+id/tvPlay1" android:layout_width="120dip"
@@ -16,7 +16,7 @@
 				android:textColor="@color/black" android:gravity="left|center_vertical" />
 
 			<TextView android:id="@+id/tvPlayer1Life"
-				android:layout_width="fill_parent" android:layout_height="24dip"
+				android:layout_width="match_parent" android:layout_height="24dip"
 				android:layout_toRightOf="@+id/tvPlay1" android:gravity="left|center_vertical"
 				android:textColor="@color/green" android:text="8000" />
 
@@ -26,19 +26,19 @@
 				android:layout_below="@+id/tvPlay1" />
 
 			<TextView android:id="@+id/tvPlayer2Life"
-				android:layout_width="fill_parent" android:layout_height="24dip"
+				android:layout_width="match_parent" android:layout_height="24dip"
 				android:layout_toRightOf="@+id/tvPlay2" android:layout_below="@+id/tvPlayer1Life"
 				android:gravity="left|center_vertical" android:textColor="@color/green"
 				android:text="8000" />
 
-			<TextView android:id="@+id/tvP1Oper" android:layout_width="fill_parent"
+			<TextView android:id="@+id/tvP1Oper" android:layout_width="match_parent"
 				android:layout_height="wrap_content" android:background="@color/black"
 				android:textColor="@color/white" android:text="@string/tool_p1Oper"
 				android:gravity="left|center_vertical" android:layout_below="@+id/tvPlay2"
 				android:layout_marginTop="2dip" android:layout_marginBottom="2dip"
 				android:paddingLeft="4dip" />
 
-			<EditText android:id="@+id/etP1Life" android:layout_width="fill_parent"
+			<EditText android:id="@+id/etP1Life" android:layout_width="match_parent"
 				android:layout_height="40dip" android:singleLine="true"
 				android:maxLines="1" android:layout_below="@+id/tvP1Oper"
 				android:layout_toLeftOf="@+id/btnP1Add" android:numeric="integer" />
@@ -75,7 +75,7 @@
 				android:textColor="@color/red" />
 
 
-			<TextView android:id="@+id/tvP2Oper" android:layout_width="fill_parent"
+			<TextView android:id="@+id/tvP2Oper" android:layout_width="match_parent"
 				android:layout_height="wrap_content" android:background="@color/black"
 				android:textColor="@color/white" android:text="@string/tool_p2Oper"
 				android:gravity="left|center_vertical" android:layout_below="@+id/btnP1Half"
@@ -83,7 +83,7 @@
 				android:paddingLeft="4dip" />
 
 
-			<EditText android:id="@+id/etP2Life" android:layout_width="fill_parent"
+			<EditText android:id="@+id/etP2Life" android:layout_width="match_parent"
 				android:layout_height="40dip" android:singleLine="true"
 				android:maxLines="1" android:layout_below="@+id/tvP2Oper"
 				android:layout_toLeftOf="@+id/btnP2Add" android:numeric="integer" />
@@ -120,7 +120,7 @@
 				android:textColor="@color/red" />
 
 
-			<TextView android:id="@+id/tvOper" android:layout_width="fill_parent"
+			<TextView android:id="@+id/tvOper" android:layout_width="match_parent"
 				android:layout_height="wrap_content" android:background="@color/black"
 				android:textColor="@color/white" android:text="@string/tool_oper"
 				android:gravity="left|center_vertical" android:layout_above="@+id/layDiceCoin"
@@ -128,7 +128,7 @@
 				android:paddingLeft="4dip" />
 
 			<RelativeLayout android:id="@+id/layDiceCoin"
-				android:layout_width="fill_parent" android:layout_height="wrap_content"
+				android:layout_width="match_parent" android:layout_height="wrap_content"
 				android:layout_alignParentBottom="true">
 
 				<Button android:id="@+id/btnCoin" android:layout_width="80dip"

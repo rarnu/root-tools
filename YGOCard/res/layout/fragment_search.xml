@@ -18,7 +18,7 @@
 
         <EditText
             android:id="@+id/etCardName"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_toRightOf="@+id/tvCardName" />
 
@@ -33,7 +33,7 @@
 
         <Spinner
             android:id="@+id/spCardBelongs"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_below="@+id/etCardName"
             android:layout_toRightOf="@+id/tvCardBelongs" />
@@ -49,7 +49,7 @@
 
         <Spinner
             android:id="@+id/spCardType"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_below="@+id/spCardBelongs"
             android:layout_toLeftOf="@+id/spCardTunner"
@@ -73,7 +73,7 @@
 
         <Spinner
             android:id="@+id/spCardRace"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_below="@+id/spCardType"
             android:layout_toRightOf="@+id/tvCardRace" />
@@ -89,7 +89,7 @@
 
         <Spinner
             android:id="@+id/spCardAttribute"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_below="@+id/spCardRace"
             android:layout_toRightOf="@+id/tvCardAttribute" />
@@ -105,7 +105,7 @@
 
         <Spinner
             android:id="@+id/spCardLevel"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_below="@+id/spCardAttribute"
             android:layout_toRightOf="@+id/tvCardLevel" />
@@ -121,7 +121,7 @@
 
         <Spinner
             android:id="@+id/spCardRare"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_below="@+id/spCardLevel"
             android:layout_toRightOf="@+id/tvCardRare" />
@@ -137,7 +137,7 @@
 
         <Spinner
             android:id="@+id/spCardLimit"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_below="@+id/spCardRare"
             android:layout_toRightOf="@+id/tvCardLimit" />
@@ -153,7 +153,7 @@
 
         <EditText
             android:id="@+id/etCardAttack"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_below="@+id/spCardLimit"
             android:layout_toRightOf="@+id/tvCardAttack" />
@@ -169,7 +169,7 @@
 
         <EditText
             android:id="@+id/etCardDefense"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_below="@+id/etCardAttack"
             android:layout_toRightOf="@+id/tvCardDefense" />
@@ -185,7 +185,7 @@
 
         <Spinner
             android:id="@+id/spCardEffect"
-            android:layout_width="fill_parent"
+            android:layout_width="match_parent"
             android:layout_height="48dip"
             android:layout_below="@+id/etCardDefense"
             android:layout_toRightOf="@+id/tvCardEffect" />

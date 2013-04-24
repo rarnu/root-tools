@@ -5,9 +5,8 @@ import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.List;
 
-import android.app.Activity;
 import android.content.ContentUris;
-import android.content.CursorLoader;
+import android.content.Context;
 import android.database.Cursor;
 
 import com.yugioh.android.R;
@@ -16,15 +15,15 @@ import com.yugioh.android.define.FieldDefine;
 
 public class YugiohUtils {
 
-	public static void closeDatabase(Activity activity) {
-		activity.getContentResolver().query(
+	public static void closeDatabase(Context context) {
+		context.getContentResolver().query(
 				ContentUris.withAppendedId(YugiohProvider.CONTENT_URI,
 						YugiohProvider.ACTIONID_CLOSEDATABASE), null, null,
 				null, null);
 	}
 
-	public static CardInfo getOneCard(Activity activity, int cardId) {
-		Cursor cursor = activity.getContentResolver().query(
+	public static CardInfo getOneCard(Context context, int cardId) {
+		Cursor cursor = context.getContentResolver().query(
 				ContentUris.withAppendedId(YugiohProvider.CONTENT_URI, cardId),
 				null, null, null, null);
 		CardInfo info = null;
@@ -42,8 +41,8 @@ public class YugiohUtils {
 		return info;
 	}
 
-	public static int getLastCardId(Activity activity) {
-		Cursor cursor = activity.getContentResolver().query(
+	public static int getLastCardId(Context context) {
+		Cursor cursor = context.getContentResolver().query(
 				ContentUris.withAppendedId(YugiohProvider.CONTENT_URI,
 						YugiohProvider.ACTIONID_CARDCOUNT), null, null, null,
 				null);
@@ -58,15 +57,13 @@ public class YugiohUtils {
 		return count;
 	}
 
-	public static List<String> getEffectList(Activity activity) {
+	public static List<String> getEffectList(Context context) {
 		List<String> result = null;
 
-		CursorLoader cl = new CursorLoader(activity,
+		Cursor c = context.getContentResolver().query(
 				ContentUris.withAppendedId(YugiohProvider.CONTENT_URI,
 						YugiohProvider.ACTIONID_EFFECTLIST), null, null, null,
 				null);
-
-		Cursor c = cl.loadInBackground();
 
 		if (c != null) {
 			result = new ArrayList<String>();
@@ -81,14 +78,14 @@ public class YugiohUtils {
 		return result;
 	}
 
-	public static Cursor getLatest100(Activity activity) {
-		return activity
+	public static Cursor getLatest100(Context context) {
+		return context
 				.getContentResolver()
 				.query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI,
 						YugiohProvider.ACTIONID_TOP100), null, null, null, null);
 	}
 
-	public static Cursor getCards(Activity activity, String cardType,
+	public static Cursor getCards(Context context, String cardType,
 			String cardAttribute, int cardLevel, String cardRace,
 			String cardName, String cardEffect, String cardAtk, String cardDef,
 			String cardRare, String cardBelongs, String cardLimit,
@@ -101,7 +98,7 @@ public class YugiohUtils {
 			argCnt++;
 		}
 		if (cardTunner != 0) {
-			if (cardType.contains(activity.getString(R.string.monster))) {
+			if (cardType.contains(context.getString(R.string.monster))) {
 				if (cardTunner == 1) {
 					where += " and SCDCardType like ?";
 				} else {
@@ -167,8 +164,8 @@ public class YugiohUtils {
 			argId++;
 		}
 		if (cardTunner != 0) {
-			if (cardType.contains(activity.getString(R.string.monster))) {
-				args[argId] = "%" + activity.getString(R.string.tunner) + "%";
+			if (cardType.contains(context.getString(R.string.monster))) {
+				args[argId] = "%" + context.getString(R.string.tunner) + "%";
 				argId++;
 			}
 		}
@@ -228,7 +225,7 @@ public class YugiohUtils {
 			argId++;
 		}
 
-		return activity
+		return context
 				.getContentResolver()
 				.query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI,
 						YugiohProvider.ACTIONID_SEARCH),
@@ -238,14 +235,14 @@ public class YugiohUtils {
 
 	}
 
-	public static Cursor getBannedCards(Activity activity) {
+	public static Cursor getBannedCards(Context context) {
 
 		String where = "SCCardBan=?";
-		String args[] = new String[] { activity.getResources().getString(
+		String args[] = new String[] { context.getResources().getString(
 				R.string.card_banned_pure) };
 		String sort = "ENCardType asc";
 
-		return activity
+		return context
 				.getContentResolver()
 				.query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI,
 						YugiohProvider.ACTIONID_SEARCH),
@@ -255,13 +252,13 @@ public class YugiohUtils {
 
 	}
 
-	public static Cursor getLimit1Cards(Activity activity) {
+	public static Cursor getLimit1Cards(Context context) {
 		String where = "SCCardBan=?";
-		String args[] = new String[] { activity.getResources().getString(
+		String args[] = new String[] { context.getResources().getString(
 				R.string.card_limit1_pure) };
 		String sort = "ENCardType asc";
 
-		return activity
+		return context
 				.getContentResolver()
 				.query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI,
 						YugiohProvider.ACTIONID_SEARCH),
@@ -270,13 +267,13 @@ public class YugiohUtils {
 								FieldDefine.DataFields[10] }, where, args, sort);
 	}
 
-	public static Cursor getLimit2Cards(Activity activity) {
+	public static Cursor getLimit2Cards(Context context) {
 		String where = "SCCardBan=?";
-		String args[] = new String[] { activity.getResources().getString(
+		String args[] = new String[] { context.getResources().getString(
 				R.string.card_limit2_pure) };
 		String sort = "ENCardType asc";
 
-		return activity
+		return context
 				.getContentResolver()
 				.query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI,
 						YugiohProvider.ACTIONID_SEARCH),
@@ -285,9 +282,9 @@ public class YugiohUtils {
 								FieldDefine.DataFields[10] }, where, args, sort);
 	}
 
-	public static Cursor getAssignedCards(Activity activity, String union) {
+	public static Cursor getAssignedCards(Context context, String union) {
 		String where = "CardID in (" + union + ")";
-		return activity
+		return context
 				.getContentResolver()
 				.query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI,
 						YugiohProvider.ACTIONID_SEARCH),

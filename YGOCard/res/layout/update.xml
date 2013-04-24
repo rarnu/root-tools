@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:layout_width="match_parent" android:layout_height="match_parent"
 	android:background="@color/white">
 
 	<RelativeLayout android:id="@+id/layUpdateTop"
-		android:layout_width="fill_parent" android:layout_height="48dip"
+		android:layout_width="match_parent" android:layout_height="48dip"
 		android:background="@drawable/bottombar">
 
 		<Button android:id="@+id/btnUpdateLeft" android:layout_width="48dip"
@@ -14,7 +14,7 @@
 			android:textSize="11dip" />
 
 		<TextView android:id="@+id/tvUpdatePageName"
-			android:layout_width="fill_parent" android:layout_height="fill_parent"
+			android:layout_width="match_parent" android:layout_height="match_parent"
 			android:layout_toRightOf="@+id/btnLeft" android:textColor="@color/white"
 			android:textSize="20dip" android:gravity="center"
 			android:layout_marginRight="36dip" android:text="@string/page_update" />

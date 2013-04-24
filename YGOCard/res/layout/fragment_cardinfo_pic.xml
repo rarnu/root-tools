@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="fill_parent" android:layout_height="fill_parent"
+	android:layout_width="match_parent" android:layout_height="match_parent"
 	android:layout_above="@+id/layCardBottom" android:layout_below="@+id/layCardTop"
 	android:layout_margin="4dip">
 
-	<RelativeLayout android:layout_width="fill_parent"
-		android:layout_height="fill_parent" android:background="@color/gray">
+	<RelativeLayout android:layout_width="match_parent"
+		android:layout_height="match_parent" android:background="@color/gray">
 
-		<RelativeLayout android:layout_width="fill_parent"
-			android:layout_height="fill_parent" android:layout_margin="1dip"
+		<RelativeLayout android:layout_width="match_parent"
+			android:layout_height="match_parent" android:layout_margin="1dip"
 			android:background="@color/white">
 
 			<ImageView android:id="@+id/ivImage" android:layout_width="240dip"

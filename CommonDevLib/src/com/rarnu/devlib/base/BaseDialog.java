@@ -5,7 +5,7 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Window;
 
-import com.rarnu.devlib.base.inner.InnerFragment;
+import com.rarnu.devlib.base.intf.InnerIntf;
 
 public abstract class BaseDialog extends Activity {
 
@@ -25,7 +25,7 @@ public abstract class BaseDialog extends Activity {
 		getFragmentManager()
 				.beginTransaction()
 				.replace(android.R.id.content, bf,
-						((InnerFragment) bf).getTagText()).commit();
+						((InnerIntf) bf).getTagText()).commit();
 	}
 
 	public abstract boolean getCondition();

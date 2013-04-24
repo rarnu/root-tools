@@ -2,8 +2,9 @@ package com.yugioh.android.fragments;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
@@ -29,14 +30,6 @@ public class SearchFragment extends BaseFragment implements
 
 	public SearchFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
-	}
-
-	@Override
-	public void onAttach(Activity activity) {
-		super.onAttach(activity);
-		String tag = getString(R.string.page_search);
-		tagText = tag;
-		tabTitle = tag;
 	}
 
 	@Override
@@ -84,50 +77,76 @@ public class SearchFragment extends BaseFragment implements
 		setSpinner(spCardTunner, CardConstDefine.DEFID_CARDTUNNER);
 	}
 
-	private void setSpinner(Spinner sp, int type) {
-		List<String> list = null;
-		switch (type) {
-		case CardConstDefine.DEFID_CARDEFFECT:
-			list = YugiohUtils.getEffectList(getActivity());
-			break;
-		case CardConstDefine.DEFID_CARDRACE:
-			list = CardConstDefine.getCardRace();
-			break;
-		case CardConstDefine.DEFID_CARDBELONGS:
-			list = CardConstDefine.getCardBelongs();
-			break;
-		case CardConstDefine.DEFID_CARDTYPE:
-			list = CardConstDefine.getCardType();
-			break;
+	private void setSpinner(final Spinner sp, final int type) {
+		sp.setOnItemSelectedListener(this);
+		
+		final Handler hSpin = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					@SuppressWarnings("unchecked")
+					List<String> list = (List<String>)msg.obj;
+					if (list != null) {
+						list.add(0, getResources().getString(R.string.search_na));
+						ArrayAdapter<String> adapter = new ArrayAdapter<String>(
+								getActivity(), R.layout.item_spin, list);
+						sp.setAdapter(adapter);
+						sp.setSelection(0);
+					}
+				}
+				super.handleMessage(msg);
+			}
+		};
+		
+		new Thread(new Runnable() {
+			
+			@Override
+			public void run() {
+				List<String> list = null;
+				switch (type) {
+				case CardConstDefine.DEFID_CARDEFFECT:
+					list = YugiohUtils.getEffectList(getActivity());
+					break;
+				case CardConstDefine.DEFID_CARDRACE:
+					list = CardConstDefine.getCardRace();
+					break;
+				case CardConstDefine.DEFID_CARDBELONGS:
+					list = CardConstDefine.getCardBelongs();
+					break;
+				case CardConstDefine.DEFID_CARDTYPE:
+					list = CardConstDefine.getCardType();
+					break;
 
-		case CardConstDefine.DEFID_CARDATTRITUBE:
-			list = CardConstDefine.getCardAttribute();
-			break;
+				case CardConstDefine.DEFID_CARDATTRITUBE:
+					list = CardConstDefine.getCardAttribute();
+					break;
 
-		case CardConstDefine.DEFID_CARDLEVEL:
-			list = CardConstDefine.getCardLevel();
-			break;
+				case CardConstDefine.DEFID_CARDLEVEL:
+					list = CardConstDefine.getCardLevel();
+					break;
 
-		case CardConstDefine.DEFID_CARDRARE:
-			list = CardConstDefine.getCardCare();
-			break;
+				case CardConstDefine.DEFID_CARDRARE:
+					list = CardConstDefine.getCardCare();
+					break;
 
-		case CardConstDefine.DEFID_CARDLIMIT:
-			list = CardConstDefine.getCardLimit();
-			break;
-		case CardConstDefine.DEFID_CARDTUNNER:
-			list = CardConstDefine.getCardTunner();
-			break;
+				case CardConstDefine.DEFID_CARDLIMIT:
+					list = CardConstDefine.getCardLimit();
+					break;
+				case CardConstDefine.DEFID_CARDTUNNER:
+					list = CardConstDefine.getCardTunner();
+					break;
 
-		}
-		if (list != null) {
-			list.add(0, getResources().getString(R.string.search_na));
-			ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-					getActivity(), R.layout.spinitem, list);
-			sp.setAdapter(adapter);
-			sp.setSelection(0);
-			sp.setOnItemSelectedListener(this);
-		}
+				}
+				
+				Message msg = new Message();
+				msg.what = 1;
+				msg.obj = list;
+				hSpin.sendMessage(msg);
+				
+			}
+		}).start();
+		
+		
 	}
 
 	@Override

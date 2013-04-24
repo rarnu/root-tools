@@ -10,6 +10,7 @@ import android.view.Window;
 import android.widget.RelativeLayout;
 
 import com.rarnu.devlib.R;
+import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.devlib.utils.UIUtils;
 
@@ -51,7 +52,7 @@ public abstract class InnerActivity extends Activity implements
 	public void replace() {
 		Fragment bf = replaceFragment();
 		getFragmentManager().beginTransaction()
-				.replace(getReplaceId(), bf, ((InnerFragment) bf).getTagText())
+				.replace(getReplaceId(), bf, ((InnerIntf) bf).getTagText())
 				.commit();
 	}
 

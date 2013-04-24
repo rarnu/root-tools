@@ -6,7 +6,7 @@ import android.app.FragmentTransaction;
 import android.content.Intent;
 
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.base.inner.InnerFragment;
+import com.rarnu.devlib.base.intf.InnerIntf;
 
 public class FragmentStarter {
 
@@ -16,7 +16,7 @@ public class FragmentStarter {
 			activity.getFragmentManager()
 					.beginTransaction()
 					.replace(R.id.fragmentDetail, fContent,
-							((InnerFragment) fContent).getTagText())
+							((InnerIntf) fContent).getTagText())
 					.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_FADE)
 					.commit();
 		} else {

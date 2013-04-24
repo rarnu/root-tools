@@ -1,6 +1,8 @@
 package com.yugioh.android.fragments;
 
 import android.content.Intent;
+import android.content.Loader;
+import android.content.Loader.OnLoadCompleteListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -17,26 +19,31 @@ import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.FieldDefine;
+import com.yugioh.android.loader.LimitLoader;
 
-public class NewCardFragment extends BaseFragment implements
-		OnItemClickListener {
+public class LimitDetailFragment extends BaseFragment implements
+		OnItemClickListener, OnLoadCompleteListener<Cursor> {
 
-	ListView lvNewCard;
-	Cursor cNewCard;
-	SimpleCursorAdapter adapterNewCard;
+	private int detailType;
 
-	public NewCardFragment(String tagText, String tabTitle) {
+	ListView lvLimitCard;
+	Cursor cLimit;
+	SimpleCursorAdapter adapterLimit;
+	LimitLoader loaderLimit;
+
+	public LimitDetailFragment(String tagText, String tabTitle, int detailType) {
 		super(tagText, tabTitle);
+		this.detailType = detailType;
 	}
 
 	@Override
 	protected int getBarTitle() {
-		return R.string.lm_newcard;
+		return R.string.lm_banned;
 	}
 
 	@Override
 	protected int getBarTitleWithPath() {
-		return R.string.lm_newcard;
+		return R.string.lm_banned;
 	}
 
 	@Override
@@ -46,7 +53,7 @@ public class NewCardFragment extends BaseFragment implements
 
 	@Override
 	protected int getFragmentLayoutResId() {
-		return R.layout.fragment_newcard;
+		return R.layout.fragment_limit_detail;
 	}
 
 	@Override
@@ -56,25 +63,19 @@ public class NewCardFragment extends BaseFragment implements
 
 	@Override
 	protected void initComponents() {
-		lvNewCard = (ListView) innerView.findViewById(R.id.lvNewCard);
-
+		lvLimitCard = (ListView) innerView.findViewById(R.id.lvLimitCard);
+		loaderLimit = new LimitLoader(getActivity(), detailType);
 	}
 
 	@Override
 	protected void initEvents() {
-		lvNewCard.setOnItemClickListener(this);
+		lvLimitCard.setOnItemClickListener(this);
+		loaderLimit.registerListener(0, this);
 	}
 
 	@Override
 	protected void initLogic() {
-		cNewCard = YugiohUtils.getLatest100(getActivity());
-		adapterNewCard = new SimpleCursorAdapter(getActivity(),
-				R.layout.item_card, cNewCard,
-				new String[] { FieldDefine.DataFields[5],
-						FieldDefine.DataFields[10] }, new int[] {
-						R.id.tvCardName, R.id.tvCardType },
-				CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-		lvNewCard.setAdapter(adapterNewCard);
+		loaderLimit.startLoading();
 	}
 
 	@Override
@@ -90,12 +91,26 @@ public class NewCardFragment extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		cNewCard.moveToPosition(position);
-		int cardId = cNewCard.getInt(0);
+		cLimit.moveToPosition(position);
+		int cardId = cLimit.getInt(0);
 		Intent inCardInfo = new Intent(getActivity(), CardInfoActivity.class);
 		CardInfo info = YugiohUtils.getOneCard(getActivity(), cardId);
 		inCardInfo.putExtra("cardinfo", info);
 		startActivity(inCardInfo);
+	}
+
+	@Override
+	public void onLoadComplete(Loader<Cursor> loader, Cursor data) {
+		if (data != null) {
+			cLimit = data;
+			adapterLimit = new SimpleCursorAdapter(getActivity(),
+					R.layout.item_card, cLimit, new String[] {
+							FieldDefine.DataFields[5],
+							FieldDefine.DataFields[10] }, new int[] {
+							R.id.tvCardName, R.id.tvCardType },
+					CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+			lvLimitCard.setAdapter(adapterLimit);
+		}
 
 	}
 

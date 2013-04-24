@@ -10,10 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 
+import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.devlib.common.UIInstance;
 
 public abstract class InnerFragment extends Fragment implements
-		OnGlobalLayoutListener {
+		OnGlobalLayoutListener, InnerIntf {
 
 	protected View innerView = null;
 	protected Bundle innerBundle = null;
@@ -21,6 +22,7 @@ public abstract class InnerFragment extends Fragment implements
 	protected String tagText;
 	protected String tabTitle;
 
+	@Override
 	public String getTagText() {
 		return tagText;
 	}

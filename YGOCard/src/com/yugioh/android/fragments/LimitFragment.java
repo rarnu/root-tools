@@ -1,17 +1,27 @@
 package com.yugioh.android.fragments;
 
+import java.util.List;
+
+import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
 
-import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.devlib.base.BaseTabFragment;
 import com.yugioh.android.R;
 
-public class LimitFragment extends BaseFragment {
+public class LimitFragment extends BaseTabFragment {
 
 	public LimitFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}
 	
+	@Override
+	public void initFragmentList(List<Fragment> listFragment) {
+		listFragment.add(new LimitDetailFragment(getString(R.tag.tag_main_limit_banned), getString(R.string.card_banned_pure), 0));
+		listFragment.add(new LimitDetailFragment(getString(R.tag.tag_main_limit_limit1), getString(R.string.card_limit1_pure), 1));
+		listFragment.add(new LimitDetailFragment(getString(R.tag.tag_main_limit_limit2), getString(R.string.card_limit2_pure), 2));
+	}
+
 	@Override
 	protected int getBarTitle() {
 		return R.string.lm_banned;
@@ -28,29 +38,8 @@ public class LimitFragment extends BaseFragment {
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
-		return R.layout.fragment_limit;
-	}
-
-	@Override
 	protected String getMainActivityName() {
 		return "";
-	}
-
-	@Override
-	protected void initComponents() {
-
-
-	}
-
-	@Override
-	protected void initEvents() {
-
-	}
-
-	@Override
-	protected void initLogic() {
-
 	}
 
 	@Override

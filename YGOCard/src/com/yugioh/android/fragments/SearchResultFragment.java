@@ -1,6 +1,8 @@
 package com.yugioh.android.fragments;
 
 import android.content.Intent;
+import android.content.Loader;
+import android.content.Loader.OnLoadCompleteListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
@@ -19,15 +21,18 @@ import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.FieldDefine;
+import com.yugioh.android.loader.SearchLoader;
 
 public class SearchResultFragment extends BaseFragment implements
-		OnItemClickListener {
+		OnItemClickListener, OnLoadCompleteListener<Cursor> {
 
 	Cursor cSearchResult;
 	SimpleCursorAdapter adapterSearchResult;
 
 	ListView lvList;
 	TextView tvListNoCard;
+
+	SearchLoader loaderSearch;
 
 	public SearchResultFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -77,37 +82,14 @@ public class SearchResultFragment extends BaseFragment implements
 	@Override
 	protected void onGetNewArguments(Bundle bn) {
 
-		String cardType = bn.getString("cardType");
-		String cardAttribute = bn.getString("cardAttribute");
-		int cardLevel = bn.getInt("cardLevel");
-		String cardRace = bn.getString("cardRace");
-		String cardName = bn.getString("cardName");
-		String cardEffect = bn.getString("cardEffect");
-		String cardAtk = bn.getString("cardAtk");
-		String cardDef = bn.getString("cardDef");
-		String cardRare = bn.getString("cardRare");
-		String cardBelongs = bn.getString("cardBelongs");
-		String cardLimit = bn.getString("cardLimit");
-		int cardTunner = bn.getInt("cardTunner");
-
-		cSearchResult = YugiohUtils.getCards(getActivity(), cardType,
-				cardAttribute, cardLevel, cardRace, cardName, cardEffect,
-				cardAtk, cardDef, cardRare, cardBelongs, cardLimit, cardTunner);
-
-		adapterSearchResult = new SimpleCursorAdapter(getActivity(),
-				R.layout.item_card, cSearchResult,
-				new String[] { FieldDefine.DataFields[5],
-						FieldDefine.DataFields[10] }, new int[] {
-						R.id.tvCardName, R.id.tvCardType },
-				CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-		lvList.setAdapter(adapterSearchResult);
-		tvListNoCard
-				.setVisibility(adapterSearchResult.getCount() == 0 ? View.VISIBLE
-						: View.GONE);
-
 		BaseTabFragment btf = (BaseTabFragment) getFragmentManager()
 				.findFragmentByTag(getString(R.tag.tag_main));
 		btf.setTabPosition(1);
+
+		loaderSearch = new SearchLoader(getActivity(), bn);
+		loaderSearch.registerListener(0, this);
+		loaderSearch.startLoading();
+
 	}
 
 	@Override
@@ -124,6 +106,25 @@ public class SearchResultFragment extends BaseFragment implements
 	@Override
 	protected String getCustomTitle() {
 		return null;
+	}
+
+	@Override
+	public void onLoadComplete(Loader<Cursor> loader, Cursor data) {
+		if (data != null) {
+			cSearchResult = data;
+			adapterSearchResult = new SimpleCursorAdapter(getActivity(),
+					R.layout.item_card, cSearchResult, new String[] {
+							FieldDefine.DataFields[5],
+							FieldDefine.DataFields[10] }, new int[] {
+							R.id.tvCardName, R.id.tvCardType },
+					CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+			lvList.setAdapter(adapterSearchResult);
+			tvListNoCard
+					.setVisibility(adapterSearchResult.getCount() == 0 ? View.VISIBLE
+							: View.GONE);
+
+		}
+
 	}
 
 }

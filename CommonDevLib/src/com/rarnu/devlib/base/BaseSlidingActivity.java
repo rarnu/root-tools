@@ -10,7 +10,7 @@ import android.widget.FrameLayout;
 
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.base.inner.InnerActivity;
-import com.rarnu.devlib.base.inner.InnerFragment;
+import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.devlib.common.IFragments;
 import com.rarnu.devlib.common.ISliding;
 import com.rarnu.devlib.component.SlidingMenu;
@@ -96,7 +96,7 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 	public void replaceMenu() {
 		Fragment bf = replaceMenuFragment();
 		getFragmentManager().beginTransaction()
-				.replace(R.id.menu, bf, ((InnerFragment) bf).getTagText())
+				.replace(R.id.menu, bf, ((InnerIntf) bf).getTagText())
 				.commit();
 	}
 
@@ -104,7 +104,7 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 		Fragment bf = replaceSecondMenuFragment();
 		getFragmentManager()
 				.beginTransaction()
-				.replace(R.id.second_menu, bf, ((InnerFragment) bf).getTagText())
+				.replace(R.id.second_menu, bf, ((InnerIntf) bf).getTagText())
 				.commit();
 	}
 
