@@ -2,11 +2,13 @@ package com.yugioh.android;
 
 import android.app.Fragment;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import com.rarnu.devlib.base.BaseSlidingActivity;
 import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.devlib.utils.UIUtils;
+import com.yugioh.android.fragments.DeckFragment;
 import com.yugioh.android.fragments.DuelToolFragment;
 import com.yugioh.android.fragments.LeftMenuFragment;
 import com.yugioh.android.fragments.LimitFragment;
@@ -76,7 +78,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 	}
 
 	@Override
-	public void switchPage(int page) {
+	public void switchPage(int page, boolean needToggle) {
 		if (currentPage != page) {
 			currentPage = page;
 			Fragment f = getCurrentFragment(currentPage);
@@ -87,7 +89,9 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 								((InnerFragment) f).getTagText()).commit();
 			}
 		}
-		toggle();
+		if (needToggle) {
+			toggle();
+		}
 	}
 
 	private Fragment getCurrentFragment(int page) {
@@ -106,10 +110,24 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 			f = new NewCardFragment(getString(R.tag.tag_main_newcard), "");
 			break;
 		case 3:
+			// DECK
+			f = new DeckFragment(getString(R.tag.tag_main_deck), "");
+			break;
+		case 4:
 			// DUEL TOOL
 			f = new DuelToolFragment(getString(R.tag.tag_main_dueltool), "");
 			break;
 		}
 		return f;
 	}
+
+	@Override
+	public boolean onKeyDown(int keyCode, KeyEvent event) {
+		if (currentPage != 0 && keyCode == KeyEvent.KEYCODE_BACK) {
+			switchPage(0, false);
+			return true;
+		}
+		return super.onKeyDown(keyCode, event);
+	}
+
 }

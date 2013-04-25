@@ -8,6 +8,7 @@
     <item name="tag_main_limit_limit1" type="tag">tag_main_limit_limit1</item>
     <item name="tag_main_limit_limit2" type="tag">tag_main_limit_limit2</item>
     <item name="tag_main_newcard" type="tag">tag_main_newcard</item>
+    <item name="tag_main_deck" type="tag">tag_main_deck</item>
     <item name="tag_main_dueltool" type="tag">tag_main_dueltool</item>
     
     <item name="tag_card" type="tag">tag_card</item>

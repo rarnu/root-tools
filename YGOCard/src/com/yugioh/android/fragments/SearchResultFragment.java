@@ -81,7 +81,7 @@ public class SearchResultFragment extends BaseFragment implements
 
 	@Override
 	protected void onGetNewArguments(Bundle bn) {
-
+		tvListNoCard.setText(R.string.list_nocard_searching);
 		BaseTabFragment btf = (BaseTabFragment) getFragmentManager()
 				.findFragmentByTag(getString(R.tag.tag_main));
 		btf.setTabPosition(1);
@@ -122,6 +122,7 @@ public class SearchResultFragment extends BaseFragment implements
 			tvListNoCard
 					.setVisibility(adapterSearchResult.getCount() == 0 ? View.VISIBLE
 							: View.GONE);
+			tvListNoCard.setText(R.string.list_nocard);
 
 		}
 

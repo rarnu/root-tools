@@ -6,20 +6,20 @@ import android.view.Menu;
 import com.rarnu.devlib.base.BaseFragment;
 import com.yugioh.android.R;
 
-public class DuelToolFragment extends BaseFragment {
+public class DeckFragment extends BaseFragment {
 
-	public DuelToolFragment(String tagText, String tabTitle) {
+	public DeckFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}
-	
+
 	@Override
 	protected int getBarTitle() {
-		return R.string.lm_tool;
+		return R.string.lm_deck;
 	}
 
 	@Override
 	protected int getBarTitleWithPath() {
-		return R.string.lm_tool;
+		return R.string.lm_deck;
 	}
 
 	@Override
@@ -29,7 +29,7 @@ public class DuelToolFragment extends BaseFragment {
 
 	@Override
 	protected int getFragmentLayoutResId() {
-		return R.layout.fragment_tool;
+		return R.layout.fragment_deck;
 	}
 
 	@Override
@@ -39,7 +39,6 @@ public class DuelToolFragment extends BaseFragment {
 
 	@Override
 	protected void initComponents() {
-
 
 	}
 
@@ -61,18 +60,6 @@ public class DuelToolFragment extends BaseFragment {
 	@Override
 	protected void onGetNewArguments(Bundle arg0) {
 
-	}
-	
-	@Override
-	public void onPause() {
-		// TODO: backup data
-		super.onPause();
-	}
-	
-	@Override
-	public void onResume() {
-		super.onResume();
-		// TODO: restore data
 	}
 
 }

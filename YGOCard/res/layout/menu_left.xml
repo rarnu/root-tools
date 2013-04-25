@@ -21,21 +21,22 @@
             android:id="@+id/tvLeftTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/ivLogo"
             android:gravity="left|center_vertical"
             android:paddingBottom="7dip"
             android:paddingTop="8dip"
             android:text="@string/empty"
-            android:layout_toRightOf="@+id/ivLogo"
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="18dp" />
 
-        <RelativeLayout
+        <ImageView
             android:id="@+id/laySplit"
             android:layout_width="match_parent"
-            android:layout_height="3px"
+            android:layout_height="2dip"
             android:layout_below="@+id/tvLeftTitle"
-            android:background="@android:color/holo_blue_light" >
-        </RelativeLayout>
+            android:background="?android:attr/actionModeSplitBackground"
+            android:scaleType="fitStart" >
+        </ImageView>
     </RelativeLayout>
 
     <ListView

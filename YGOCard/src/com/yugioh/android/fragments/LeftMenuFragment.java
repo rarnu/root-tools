@@ -54,6 +54,7 @@ public class LeftMenuFragment extends BaseFragment implements
 		listCard.add(getString(R.string.lm_search));
 		listCard.add(getString(R.string.lm_banned));
 		listCard.add(getString(R.string.lm_newcard));
+		listCard.add(getString(R.string.lm_deck));
 		listCard.add(getString(R.string.lm_tool));
 		listExit = new ArrayList<String>();
 		listExit.add(getString(R.string.lm_exit));
@@ -103,7 +104,7 @@ public class LeftMenuFragment extends BaseFragment implements
 		switch (parent.getId()) {
 		case R.id.lvCard:
 			// switch page
-			((IMainIntf) getActivity()).switchPage(position);
+			((IMainIntf) getActivity()).switchPage(position, true);
 			break;
 		case R.id.lvExit:
 			getActivity().finish();
