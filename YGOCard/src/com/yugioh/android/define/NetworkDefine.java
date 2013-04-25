@@ -6,4 +6,6 @@ public class NetworkDefine {
 	
 	public static final String URL_APK = "http://rarnu.7thgen.info/yugioh/YuGiOhCard.apk";
 	public static final String URL_DATA = "http://rarnu.7thgen.info/yugioh/yugioh.db";
+	
+	public static final String URL_CARD_IMAGE_FMT = "http://p.ocgsoft.cn/%d.jpg";
 }

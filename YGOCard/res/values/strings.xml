@@ -70,7 +70,7 @@
     <string name="list_nocard">没有卡片，请进行搜索</string>
     <string name="list_nocard_searching">正在搜索卡片，请稍候...</string>
     <string name="card_noadjust">这张卡片没有调整</string>
-    <string name="card_nopic">这张卡片没有图片，请下载卡图</string>
+    <string name="card_nopic">这张卡片没有图片\n请点击下载卡图</string>
     <string name="card_banned_pure">禁止卡</string>
     <string name="card_limit1_pure">限制卡</string>
     <string name="card_limit2_pure">准限制卡</string>

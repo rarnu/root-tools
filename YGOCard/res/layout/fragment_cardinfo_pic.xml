@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-	android:layout_width="match_parent" android:layout_height="match_parent"
-	android:layout_above="@+id/layCardBottom" android:layout_below="@+id/layCardTop"
-	android:layout_margin="4dip">
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
 
-	<RelativeLayout android:layout_width="match_parent"
-		android:layout_height="match_parent" android:background="@color/gray">
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="240dip"
+        android:layout_height="345dip"
+        android:layout_centerInParent="true" />
 
-		<RelativeLayout android:layout_width="match_parent"
-			android:layout_height="match_parent" android:layout_margin="1dip"
-			android:background="@color/white">
+    <TextView
+        android:id="@+id/tvNoPic"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:text="@string/card_nopic"
+        android:gravity="center"
+        android:textColor="?android:attr/textColorPrimary" />
+    <ProgressBar android:id="@+id/pbDownload"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="32dip"
+        android:layout_centerInParent="true"
+        style="@android:style/Widget.ProgressBar.Horizontal"
+        android:visibility="gone"/>
 
-			<ImageView android:id="@+id/ivImage" android:layout_width="240dip"
-				android:layout_height="345dip" android:layout_centerInParent="true" />
-			<TextView android:id="@+id/tvNoPic" android:layout_width="wrap_content"
-				android:layout_height="wrap_content" android:layout_centerInParent="true"
-				android:text="@string/card_nopic" />
-		</RelativeLayout>
-	</RelativeLayout>
 </RelativeLayout>
