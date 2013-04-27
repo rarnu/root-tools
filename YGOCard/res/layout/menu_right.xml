@@ -28,6 +28,23 @@
             android:scaleType="fitStart" >
         </ImageView>
     </RelativeLayout>
+    
+    <ListView
+        android:id="@+id/lvSettings"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layLeftMenuHead"
+        android:divider="@color/shadow"
+        android:dividerHeight="1px" >
+    </ListView>
+
+    <RelativeLayout
+        android:id="@+id/laySplit2"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_below="@+id/lvSettings"
+        android:background="@color/shadow" >
+    </RelativeLayout>
 
     <RelativeLayout
         android:id="@+id/laySplit3"

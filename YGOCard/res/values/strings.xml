@@ -2,6 +2,7 @@
 <resources>
 
     <string name="app_name">游戏王卡片查询器</string>
+    <string name="data_name">卡片数据包</string>
     <string name="app_version">v1.1.2 release</string>
     <string name="limit_date">2012年03月01日 禁止限制卡表</string>
     <string name="top100_date">最新卡片 100 张</string>
@@ -38,6 +39,10 @@
     <string name="lm_exit">退出</string>
     
     <!-- right menu -->
+    
+    <string name="rm_update">检查新版本</string>
+    <string name="rm_fitable">系统适配度</string>
+    <string name="rm_feedback">信息反馈</string>
     <string name="rm_about">关于本软件</string>
 
     <!-- items -->
@@ -163,11 +168,20 @@
 
     <!-- update -->
     <string name="update_start">开始更新</string>
-    <string name="update_downloading">正在下载更新</string>
+    <string name="update_checking">正在检查更新，请稍候...</string>
+    <string name="update_downloading">正在下载更新，关闭窗口将丢失下载任务，确定要关闭?</string>
+    <string name="update_no_apk">卡片查询器无需更新</string>
+    <string name="update_no_data">卡片数据库无需更新</string>
+    <string name="update_no">没有需要更新的内容</string>
+    <string name="update_apk_fmt" formatted="false">卡片查询器有更新，最新版本: %s</string>
+    <string name="update_data_fmt" formatted="false">卡片数据库有更新，新增卡片 %d 张</string>
     <string name="update_finish">完成更新</string>
     <string name="update_apk">主程序</string>
     <string name="update_data">数据包</string>
+    <string name="update_renew">更新</string>
+    <string name="update_install">安装</string>
     <string name="update_task" formatted="false">剩余任务: %d</string>
+    <string name="update_data_finished">本次更新包含了数据库的更新，请重新启动本软件以启用新的数据库</string>
     <string name="msg_no_database">没有找到数据库文件，请下载并放于 /sdcard/.yugioh/ 下，然后重新启动本软件</string>
     <string name="msg_not_impl">该功能暂未实现，请静候新版本哦~</string>
 

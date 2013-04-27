@@ -56,12 +56,12 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 	};
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.clean_deprecated_hosts;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.clean_deprecated_hosts;
 	}
 
@@ -202,7 +202,7 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

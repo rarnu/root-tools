@@ -143,12 +143,12 @@ public class BusyboxFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.busybox;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.busybox_with_path;
 	}
 
@@ -211,7 +211,7 @@ public class BusyboxFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

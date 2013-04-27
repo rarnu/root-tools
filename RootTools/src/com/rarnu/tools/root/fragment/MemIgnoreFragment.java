@@ -47,12 +47,12 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 	};
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.kill_ignore_list;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.kill_ignore_list;
 	}
 
@@ -179,7 +179,7 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

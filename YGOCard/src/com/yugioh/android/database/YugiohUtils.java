@@ -22,6 +22,13 @@ public class YugiohUtils {
 				null, null);
 	}
 
+	public static void newDatabase(Context context) {
+		context.getContentResolver().query(
+				ContentUris.withAppendedId(YugiohProvider.CONTENT_URI,
+						YugiohProvider.ACTIONID_NEWDATABASE), null, null, null,
+				null);
+	}
+
 	public static CardInfo getOneCard(Context context, int cardId) {
 		Cursor cursor = context.getContentResolver().query(
 				ContentUris.withAppendedId(YugiohProvider.CONTENT_URI, cardId),

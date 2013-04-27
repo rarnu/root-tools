@@ -309,4 +309,9 @@ public class IndexFragment extends BasePreferenceFragment implements
 		return R.xml.main;
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

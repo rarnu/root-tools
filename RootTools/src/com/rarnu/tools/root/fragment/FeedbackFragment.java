@@ -85,12 +85,12 @@ public class FeedbackFragment extends BaseFragment {
 	}
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.feedback;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.feedback_with_path;
 	}
 
@@ -136,7 +136,7 @@ public class FeedbackFragment extends BaseFragment {
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

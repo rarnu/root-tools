@@ -62,12 +62,12 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 	};
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.func7_title;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.func7_title_with_path;
 	}
 
@@ -349,7 +349,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

@@ -80,12 +80,12 @@ public class SysappFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.func1_title;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.func1_title_with_path;
 	}
 
@@ -246,7 +246,7 @@ public class SysappFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

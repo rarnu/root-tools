@@ -41,12 +41,12 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 	MenuItem menuRefresh;
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.func4_title;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.func4_title_with_path;
 	}
 
@@ -165,7 +165,7 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

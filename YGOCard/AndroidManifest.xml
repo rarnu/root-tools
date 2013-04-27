@@ -32,10 +32,28 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
+        <activity
+            android:name=".UpdateActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".CoinDiceActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/Transparent"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".AboutActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
 
         <provider
             android:name="com.yugioh.android.database.YugiohProvider"
-            android:authorities="com.yugioh.card" />
+            android:authorities="com.yugioh.card"
+            android:exported="true" />
     </application>
 
 </manifest>

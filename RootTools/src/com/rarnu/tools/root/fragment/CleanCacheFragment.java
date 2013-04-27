@@ -49,12 +49,12 @@ public class CleanCacheFragment extends BaseFragment implements
 	MenuItem itemSearch;
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.func6_title;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.func6_title_with_path;
 	}
 
@@ -261,7 +261,7 @@ public class CleanCacheFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

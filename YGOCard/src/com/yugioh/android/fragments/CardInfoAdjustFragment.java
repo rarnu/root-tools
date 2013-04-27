@@ -20,12 +20,12 @@ public class CardInfoAdjustFragment extends BaseFragment {
 	}
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return 0;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return 0;
 	}
 
@@ -72,7 +72,7 @@ public class CardInfoAdjustFragment extends BaseFragment {
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		String title = null;
 		if (info != null) {
 			title = info.getSCCardName();

@@ -37,12 +37,12 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	List<CompInfo> lstComponentInfo = null;
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.component_list;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.component_list;
 	}
 
@@ -177,7 +177,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

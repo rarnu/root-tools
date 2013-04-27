@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dip" >
+
+    <RelativeLayout
+        android:id="@+id/layUpdateApk"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TextView
+            android:id="@+id/tvApk"
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:gravity="left|center_vertical"
+            android:text="@string/app_name"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnUpdateApk"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:text="@string/update_renew" />
+
+        <TextView
+            android:id="@+id/tvApkInfo"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_below="@+id/tvApk"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:gravity="left|center_vertical"
+            android:textColor="?android:attr/textColorSecondary" />
+
+        <ProgressBar
+            android:id="@+id/pbDownlaodingApk"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_below="@+id/tvApk"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/laySplit"
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_below="@+id/layUpdateApk"
+        android:layout_marginTop="8dip"
+        android:background="?android:attr/actionModeSplitBackground"
+        android:scaleType="fitStart" >
+    </ImageView>
+
+    <RelativeLayout
+        android:id="@+id/layUpdateData"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/laySplit"
+        android:layout_marginTop="8dip" >
+
+        <TextView
+            android:id="@+id/tvData"
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:gravity="left|center_vertical"
+            android:text="@string/data_name"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textStyle="bold" />
+
+        <Button
+            android:id="@+id/btnUpdateData"
+            android:layout_width="wrap_content"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:text="@string/update_renew" />
+
+        <TextView
+            android:id="@+id/tvDataInfo"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_below="@+id/tvData"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:gravity="left|center_vertical"
+            android:textColor="?android:attr/textColorSecondary" />
+
+        <ProgressBar
+            android:id="@+id/pbDownlaodingData"
+            style="?android:attr/progressBarStyleHorizontal"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_below="@+id/tvData"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/laySplit2"
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_below="@+id/layUpdateData"
+        android:layout_marginTop="8dip"
+        android:background="?android:attr/actionModeSplitBackground"
+        android:scaleType="fitStart" >
+    </ImageView>
+
+</RelativeLayout>

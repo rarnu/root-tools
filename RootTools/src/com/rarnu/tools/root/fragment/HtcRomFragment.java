@@ -38,12 +38,12 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 	MenuItem itemClean;
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.clean_htc_rom;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.clean_htc_rom_with_path;
 	}
 
@@ -237,7 +237,7 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

@@ -62,12 +62,12 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 	}
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.about;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.about_with_path;
 	}
 
@@ -192,7 +192,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 }

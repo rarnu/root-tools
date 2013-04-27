@@ -36,10 +36,7 @@ public class YugiohDatabase {
 		} catch (Exception e) {
 
 		}
-		if (actionId == YugiohProvider.ACTIONID_CLOSEDATABASE) {
-			database.close();
-			return null;
-		} else	if (actionId == YugiohProvider.ACTIONID_CARDCOUNT) {
+		if (actionId == YugiohProvider.ACTIONID_CARDCOUNT) {
 			return database.rawQuery("select CardID from YGODATA order by CardID desc limit 0,1", null);
 		} else if (actionId == YugiohProvider.ACTIONID_EFFECTLIST) {
 			return database.rawQuery("select * from YGOEFFECT", null);
@@ -58,6 +55,10 @@ public class YugiohDatabase {
 			return null;
 		}
 
+	}
+	
+	public void close() {
+		database.close();
 	}
 
 }

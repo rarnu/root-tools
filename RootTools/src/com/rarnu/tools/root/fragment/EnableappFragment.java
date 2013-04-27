@@ -48,12 +48,12 @@ public class EnableappFragment extends BaseFragment implements
 	MenuItem itemRefresh;
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.func2_title;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.func2_title_with_path;
 	}
 
@@ -225,7 +225,7 @@ public class EnableappFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

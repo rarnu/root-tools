@@ -39,12 +39,12 @@ public class RecommandFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.short_recommand;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.short_recommand_with_path;
 	}
 
@@ -115,7 +115,7 @@ public class RecommandFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

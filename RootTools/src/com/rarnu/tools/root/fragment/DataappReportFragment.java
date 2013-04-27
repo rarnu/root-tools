@@ -20,12 +20,12 @@ public class DataappReportFragment extends BasePopupFragment {
 	GridView gvReport;
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.operation_result;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.operation_result;
 	}
 
@@ -79,7 +79,7 @@ public class DataappReportFragment extends BasePopupFragment {
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

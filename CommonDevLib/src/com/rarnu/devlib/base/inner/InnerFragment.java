@@ -1,5 +1,6 @@
 package com.rarnu.devlib.base.inner;
 
+import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,6 +21,7 @@ public abstract class InnerFragment extends Fragment implements
 
 	protected String tagText;
 	protected String tabTitle;
+	protected ActionBar bar;
 
 	@Override
 	public String getTagText() {
@@ -56,22 +58,25 @@ public abstract class InnerFragment extends Fragment implements
 		super.onActivityCreated(savedInstanceState);
 		innerBundle = getArguments();
 		initLogic();
-		if (getCustomTitle() == null || getCustomTitle().equals("")) {
-			if (UIInstance.dualPane) {
-				getActivity().getActionBar().setTitle(getBarTitleWithPath());
+		if (getActivity().getActionBar() != null) {
+			if (getCustomTitle() == null || getCustomTitle().equals("")) {
+				if (UIInstance.dualPane) {
+					getActivity().getActionBar()
+							.setTitle(getBarTitleWithPath());
+				} else {
+					getActivity().getActionBar().setTitle(getBarTitle());
+				}
 			} else {
-				getActivity().getActionBar().setTitle(getBarTitle());
+				getActivity().getActionBar().setTitle(getCustomTitle());
 			}
-		} else {
-			getActivity().getActionBar().setTitle(getCustomTitle());
 		}
 	}
 
-	protected abstract int getBarTitle();
+	public abstract int getBarTitle();
 
-	protected abstract int getBarTitleWithPath();
+	public abstract int getBarTitleWithPath();
 
-	protected abstract String getCustomTitle();
+	public abstract String getCustomTitle();
 
 	protected abstract void initComponents();
 
@@ -100,10 +105,12 @@ public abstract class InnerFragment extends Fragment implements
 
 	@Override
 	public void onPause() {
-		if (getCustomTitle() == null || getCustomTitle().equals("")) {
-			getActivity().setTitle(getBarTitle());
-		} else {
-			getActivity().getActionBar().setTitle(getCustomTitle());
+		if (getActivity().getActionBar() != null) {
+			if (getCustomTitle() == null || getCustomTitle().equals("")) {
+				getActivity().getActionBar().setTitle(getBarTitle());
+			} else {
+				getActivity().getActionBar().setTitle(getCustomTitle());
+			}
 		}
 		super.onPause();
 	}

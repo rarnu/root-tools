@@ -22,12 +22,12 @@ public class MainFragment extends BaseTabFragment {
 	MenuItem itemReset;
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.app_name;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.app_name;
 	}
 
@@ -81,7 +81,7 @@ public class MainFragment extends BaseTabFragment {
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

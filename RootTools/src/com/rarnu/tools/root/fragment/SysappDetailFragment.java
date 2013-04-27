@@ -48,12 +48,12 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	PackageInfo pinfo = null;
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.sysapp_name;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.sysapp_name;
 	}
 
@@ -246,7 +246,7 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

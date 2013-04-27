@@ -51,7 +51,7 @@ public class SplashActivity extends Activity {
 		setContentView(R.layout.layout_splash);
 		tvVersion = (TextView) findViewById(R.id.tvVersion);
 
-		String ver = String.format(getString(R.string.app_ver),
+		String ver = getString(R.string.app_ver,
 				DeviceUtils.getAppVersionName(this));
 		if (GlobalInstance.DEBUG) {
 			ver += getString(R.string.app_debug);

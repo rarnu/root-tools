@@ -18,4 +18,6 @@
     
     <item name="tag_menu_left" type="tag">tag_menu_left</item>
     <item name="tag_menu_right" type="tag">tag_menu_right</item>
+    <item name="tag_menu_right_upfate" type="tag">tag_menu_right_upfate</item>
+    <item name="tag_menu_right_about" type="tag">tag_menu_right_about</item>
 </resources>

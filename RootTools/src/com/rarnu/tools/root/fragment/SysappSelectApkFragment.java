@@ -47,12 +47,12 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 	MenuItem itemUp;
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.sysapp_select;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.sysapp_select;
 	}
 
@@ -217,7 +217,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

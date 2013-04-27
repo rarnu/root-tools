@@ -37,12 +37,12 @@ public class HostEditFragment extends BasePopupFragment {
 	}
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.manual_edit_hosts;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.manual_edit_hosts;
 	}
 
@@ -140,7 +140,7 @@ public class HostEditFragment extends BasePopupFragment {
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

@@ -50,12 +50,12 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements
 	};
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.custom_app_clean;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.custom_app_clean;
 	}
 
@@ -183,7 +183,7 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		return null;
 	}
 

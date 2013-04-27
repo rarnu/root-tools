@@ -12,7 +12,10 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.ImageView;
+
+import com.rarnu.devlib.common.DownloadInfo;
 
 public class DownloadUtils {
 
@@ -20,7 +23,23 @@ public class DownloadUtils {
 	public static final int WHAT_DOWNLOAD_PROGRESS = 2;
 	public static final int WHAT_DOWNLOAD_FINISH = 3;
 
-	private static List<String> listDownloading = new ArrayList<String>();
+	private static List<DownloadInfo> listDownloading = new ArrayList<DownloadInfo>();
+
+	public static void stopDownloadTask(String localDir, final String localFile) {
+		final String filePath = localDir + localFile;
+		for (int i = 0; i < listDownloading.size(); i++) {
+			if (listDownloading.get(i).fileName.equals(filePath)) {
+				try {
+					listDownloading.get(i).thread.wait(5000);
+					listDownloading.get(i).thread.interrupt();
+				} catch (Exception e) {
+					Log.e("stopDownloadTask", e.getMessage());
+				}
+				listDownloading.remove(i);
+				break;
+			}
+		}
+	}
 
 	public static void downloadFileT(final Context context, final ImageView iv,
 			final String url, String localDir, final String localFile,
@@ -60,25 +79,44 @@ public class DownloadUtils {
 
 						}
 					}
+					for (int i = 0; i < listDownloading.size(); i++) {
+						if (listDownloading.get(i).fileName.equals(filePath)) {
+							listDownloading.remove(i);
+							break;
+						}
+					}
 				}
 				super.handleMessage(msg);
 			}
 		};
 
-		new Thread(new Runnable() {
+		final Thread tDownload = new Thread(new Runnable() {
 			@Override
 			public void run() {
+
 				downloadFile(url, filePath, hProgress);
 				hImage.sendEmptyMessage(1);
 			}
-		}).start();
+		});
+
+		DownloadInfo info = new DownloadInfo();
+		info.fileName = filePath;
+		info.thread = tDownload;
+
+		boolean hasTask = false;
+		for (DownloadInfo di : listDownloading) {
+			if (di.fileName.equals(info.fileName)) {
+				hasTask = true;
+				break;
+			}
+		}
+		if (!hasTask) {
+			listDownloading.add(info);
+			tDownload.start();
+		}
 	}
 
 	public static void downloadFile(String address, String localFile, Handler h) {
-		if (listDownloading.indexOf(localFile) != -1) {
-			return;
-		}
-		listDownloading.add(localFile);
 
 		File fTmp = new File(localFile);
 		if (fTmp.exists()) {
@@ -94,11 +132,15 @@ public class DownloadUtils {
 			InputStream in = con.getInputStream();
 			filesize = con.getContentLength();
 			if (h != null) {
-				Message msg = new Message();
-				msg.what = WHAT_DOWNLOAD_START;
-				msg.arg1 = position;
-				msg.arg2 = filesize;
-				h.sendMessage(msg);
+				try {
+					Message msg = new Message();
+					msg.what = WHAT_DOWNLOAD_START;
+					msg.arg1 = position;
+					msg.arg2 = filesize;
+					h.sendMessage(msg);
+				} catch (Exception e) {
+
+				}
 			}
 			File fileOut = new File(localFile + ".tmp");
 			FileOutputStream out = new FileOutputStream(fileOut);
@@ -109,27 +151,35 @@ public class DownloadUtils {
 				position += c;
 
 				if (h != null) {
-					Message msg = new Message();
-					msg.what = WHAT_DOWNLOAD_PROGRESS;
-					msg.arg1 = position;
-					msg.arg2 = filesize;
-					h.sendMessage(msg);
+					try {
+						Message msg = new Message();
+						msg.what = WHAT_DOWNLOAD_PROGRESS;
+						msg.arg1 = position;
+						msg.arg2 = filesize;
+						h.sendMessage(msg);
+					} catch (Exception e) {
+
+					}
 				}
 			}
 			in.close();
 			out.close();
 			fileOut.renameTo(fTmp);
 			if (h != null) {
-				Message msg = new Message();
-				msg.what = WHAT_DOWNLOAD_FINISH;
-				msg.arg1 = 0;
-				msg.arg2 = filesize;
-				h.sendMessage(msg);
+				try {
+					Message msg = new Message();
+					msg.what = WHAT_DOWNLOAD_FINISH;
+					msg.arg1 = 0;
+					msg.arg2 = filesize;
+					h.sendMessage(msg);
+				} catch (Exception e) {
+
+				}
 			}
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
-		listDownloading.remove(localFile);
+
 	}
 
 }

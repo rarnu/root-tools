@@ -35,12 +35,12 @@ public class CardInfoPictureFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return 0;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return 0;
 	}
 
@@ -95,7 +95,7 @@ public class CardInfoPictureFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public String getCustomTitle() {
 		String title = null;
 		if (info != null) {
 			title = info.getSCCardName();
@@ -117,11 +117,6 @@ public class CardInfoPictureFragment extends BaseFragment implements
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
 			case DownloadUtils.WHAT_DOWNLOAD_START:
-				pbDownload.setMax(msg.arg2);
-				pbDownload.setProgress(msg.arg1);
-				pbDownload.setVisibility(View.VISIBLE);
-				tvNoPic.setVisibility(View.GONE);
-				break;
 			case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
 				pbDownload.setMax(msg.arg2);
 				pbDownload.setProgress(msg.arg1);
@@ -136,6 +131,9 @@ public class CardInfoPictureFragment extends BaseFragment implements
 	};
 
 	private void doDownloadT() {
+		pbDownload.setProgress(0);
+		pbDownload.setVisibility(View.VISIBLE);
+		tvNoPic.setVisibility(View.GONE);
 		String url = String.format(NetworkDefine.URL_CARD_IMAGE_FMT,
 				info.getCardID() - 1);
 		String localDir = PathDefine.PICTURE_PATH;

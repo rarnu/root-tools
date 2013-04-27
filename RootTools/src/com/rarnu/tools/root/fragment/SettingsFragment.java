@@ -285,4 +285,9 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 		return R.xml.settings;
 	}
 
+	@Override
+	protected String getCustomTitle() {
+		return null;
+	}
+
 }

@@ -6,9 +6,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-public abstract class BaseDialogFragment extends Fragment {
+import com.rarnu.devlib.base.intf.InnerIntf;
+
+public abstract class BaseDialogFragment extends Fragment implements InnerIntf {
 
 	protected View innerView = null;
+	protected String tagText;
+
+	public BaseDialogFragment() {
+		super();
+	}
+
+	public BaseDialogFragment(String tagText) {
+		super();
+		this.tagText = tagText;
+	}
+
+	@Override
+	public String getTagText() {
+		return tagText;
+	}
 
 	@Override
 	public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -22,12 +39,11 @@ public abstract class BaseDialogFragment extends Fragment {
 	}
 
 	protected abstract void initComponents();
-	
+
 	protected abstract void initEvents();
 
 	protected abstract void initLogic();
 
 	protected abstract int getFragmentLayoutResId();
 
-	
 }
