@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BaseTabFragment;
+import com.yugioh.android.AboutActivity;
 import com.yugioh.android.CardInfoActivity;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
@@ -97,10 +98,15 @@ public class SearchResultFragment extends BaseFragment implements
 			long id) {
 		cSearchResult.moveToPosition(position);
 		int cardId = cSearchResult.getInt(0);
-		Intent inCardInfo = new Intent(getActivity(), CardInfoActivity.class);
-		CardInfo info = YugiohUtils.getOneCard(getActivity(), cardId);
-		inCardInfo.putExtra("cardinfo", info);
-		startActivity(inCardInfo);
+		if (cardId == 1) {
+			startActivity(new Intent(getActivity(), AboutActivity.class));
+		} else {
+			Intent inCardInfo = new Intent(getActivity(),
+					CardInfoActivity.class);
+			CardInfo info = YugiohUtils.getOneCard(getActivity(), cardId);
+			inCardInfo.putExtra("cardinfo", info);
+			startActivity(inCardInfo);
+		}
 	}
 
 	@Override

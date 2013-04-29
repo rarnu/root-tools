@@ -5,9 +5,21 @@
     android:padding="8dip" >
 
     <RelativeLayout
+        android:id="@+id/layNoDatabase"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" >
+        <TextView android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorPrimary"
+            android:text="@string/update_no_database"/>
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/layUpdateApk"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layNoDatabase" >
 
         <TextView
             android:id="@+id/tvApk"

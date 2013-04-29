@@ -44,6 +44,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layLeftMenuHead"
+        android:cacheColorHint="#00000000"
         android:divider="@color/shadow"
         android:dividerHeight="1px" >
     </ListView>
@@ -69,6 +70,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:cacheColorHint="#00000000"
         android:divider="@color/shadow"
         android:dividerHeight="1px" >
     </ListView>

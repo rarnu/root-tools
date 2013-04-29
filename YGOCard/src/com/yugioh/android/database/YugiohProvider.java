@@ -57,19 +57,24 @@ public class YugiohProvider extends ContentProvider {
 
 		}
 		if (actionId == YugiohProvider.ACTIONID_CLOSEDATABASE) {
-			database.close();
+			if (database != null) {
+				database.close();
+			}
 			return null;
 		} else if (actionId == YugiohProvider.ACTIONID_NEWDATABASE) {
 			try {
 				database = new YugiohDatabase(getContext());
 			} catch (Exception e) {
-				
+
 			}
 			return null;
 		} else {
-
-			return database.doQuery(uri, projection, selection, selectionArgs,
-					sortOrder);
+			if (database != null) {
+				return database.doQuery(uri, projection, selection,
+						selectionArgs, sortOrder);
+			} else {
+				return null;
+			}
 		}
 	}
 

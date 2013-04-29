@@ -15,6 +15,10 @@ public class YugiohDatabase {
 
 	private SQLiteDatabase database;
 
+	public static boolean isDatabaseFileExists() {
+		return new File(PathDefine.DATABASE_PATH).exists();
+	}
+
 	public YugiohDatabase(Context context) throws Exception {
 		// this.context = context;
 		String dbName = PathDefine.DATABASE_PATH;
@@ -37,7 +41,10 @@ public class YugiohDatabase {
 
 		}
 		if (actionId == YugiohProvider.ACTIONID_CARDCOUNT) {
-			return database.rawQuery("select CardID from YGODATA order by CardID desc limit 0,1", null);
+			return database
+					.rawQuery(
+							"select CardID from YGODATA order by CardID desc limit 0,1",
+							null);
 		} else if (actionId == YugiohProvider.ACTIONID_EFFECTLIST) {
 			return database.rawQuery("select * from YGOEFFECT", null);
 		} else if (actionId == YugiohProvider.ACTIONID_TOP100) {
@@ -56,7 +63,7 @@ public class YugiohDatabase {
 		}
 
 	}
-	
+
 	public void close() {
 		database.close();
 	}

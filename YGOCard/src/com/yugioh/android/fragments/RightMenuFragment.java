@@ -5,6 +5,8 @@ import java.util.List;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -24,6 +26,7 @@ import com.yugioh.android.classes.RightMenuItem;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.intf.IMenuIntf;
 import com.yugioh.android.utils.DeviceUtils;
+import com.yugioh.android.utils.UpdateUtils;
 
 public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 		OnItemClickListener {
@@ -79,10 +82,22 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 		lvAbout.setOnItemClickListener(this);
 		lvSettings.setOnItemClickListener(this);
 	}
+	
+	final Handler hUpdate = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				updateInfo = (UpdateInfo) msg.obj;
+				updateMenu(updateInfo);
+				
+			}
+			super.handleMessage(msg);
+		}
+	};
 
 	@Override
 	protected void initLogic() {
-
+		UpdateUtils.checkUpdateT(getActivity(), hUpdate);
 	}
 
 	@Override

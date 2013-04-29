@@ -2,6 +2,9 @@ package com.yugioh.android.fragments;
 
 import java.io.File;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -11,30 +14,36 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.Button;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.utils.DownloadUtils;
 import com.rarnu.devlib.utils.FileUtils;
+import com.rarnu.devlib.utils.ZipUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.UpdateInfo;
+import com.yugioh.android.database.YugiohDatabase;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.NetworkDefine;
 import com.yugioh.android.define.PathDefine;
 import com.yugioh.android.intf.IDestroyCallback;
+import com.yugioh.android.intf.IMenuIntf;
 import com.yugioh.android.intf.IUpdateIntf;
 
 public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 		android.view.View.OnClickListener {
 
-	final String dbSource = PathDefine.DOWNLOAD_PATH + PathDefine.DATA_NAME;
+	final String dbSource = PathDefine.DOWNLOAD_PATH + PathDefine.DATA_ZIP;
 	final String apkSource = PathDefine.DOWNLOAD_PATH + PathDefine.APK_NAME;
 
 	Button btnUpdateApk, btnUpdateData;
 	TextView tvApkInfo, tvDataInfo;
 	ProgressBar pbDownlaodingApk, pbDownlaodingData;
+	RelativeLayout layUpdateApk, layNoDatabase;
 
 	UpdateInfo updateInfo = null;
+	boolean hasData = YugiohDatabase.isDatabaseFileExists();
 
 	public UpdateFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -67,6 +76,10 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 
 	@Override
 	protected void initComponents() {
+		layUpdateApk = (RelativeLayout) innerView
+				.findViewById(R.id.layUpdateApk);
+		layNoDatabase = (RelativeLayout) innerView
+				.findViewById(R.id.layNoDatabase);
 		btnUpdateApk = (Button) innerView.findViewById(R.id.btnUpdateApk);
 		btnUpdateData = (Button) innerView.findViewById(R.id.btnUpdateData);
 		tvApkInfo = (TextView) innerView.findViewById(R.id.tvApkInfo);
@@ -92,36 +105,52 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 		updateInfo = (UpdateInfo) getActivity().getIntent()
 				.getSerializableExtra("update");
 		updateCurrentStatus();
+		updateDisabled(true);
 	}
 
 	private void updateCurrentStatus() {
+
 		tvApkInfo.setVisibility(View.VISIBLE);
 		tvDataInfo.setVisibility(View.VISIBLE);
-		switch (updateInfo.getUpdateApk()) {
-		case -1:
-			tvApkInfo.setText(getString(R.string.update_apk_fmt,
-					updateInfo.getApkVersion()));
-			btnUpdateApk.setText(R.string.update_install);
-			break;
-		case 0:
-			tvApkInfo.setText(R.string.update_no_apk);
-			btnUpdateApk.setText(R.string.update_renew);
-			break;
-		default:
-			tvApkInfo.setText(getString(R.string.update_apk_fmt,
-					updateInfo.getApkVersion()));
-			btnUpdateApk.setText(R.string.update_renew);
-			break;
+		if (hasData) {
+			switch (updateInfo.getUpdateApk()) {
+			case -1:
+				tvApkInfo.setText(getString(R.string.update_apk_fmt,
+						updateInfo.getApkVersion()));
+				btnUpdateApk.setText(R.string.update_install);
+				break;
+			case 0:
+				tvApkInfo.setText(R.string.update_no_apk);
+				btnUpdateApk.setText(R.string.update_renew);
+				break;
+			default:
+				tvApkInfo.setText(getString(R.string.update_apk_fmt,
+						updateInfo.getApkVersion()));
+				btnUpdateApk.setText(R.string.update_renew);
+				break;
 
+			}
 		}
 		switch (updateInfo.getUpdateData()) {
 		case 0:
 			tvDataInfo.setText(R.string.update_no_data);
 			break;
 		default:
-			tvDataInfo.setText(getString(R.string.update_data_fmt,
-					updateInfo.getNewCard()));
+			if (!hasData) {
+				tvDataInfo.setText(R.string.update_data_full);
+			} else {
+				tvDataInfo.setText(getString(R.string.update_data_fmt,
+						updateInfo.getNewCard()));
+			}
 			break;
+		}
+
+		if (!hasData) {
+			layUpdateApk.setVisibility(View.GONE);
+			layNoDatabase.setVisibility(View.VISIBLE);
+		} else {
+			layUpdateApk.setVisibility(View.VISIBLE);
+			layNoDatabase.setVisibility(View.GONE);
 		}
 
 	}
@@ -150,8 +179,12 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 					pbDownlaodingApk.setVisibility(View.GONE);
 					((IUpdateIntf) getActivity()).setInProgress(false);
 					updateInfo.setUpdateApk(-1);
+					((IMenuIntf) getFragmentManager().findFragmentByTag(
+							getString(R.tag.tag_menu_right)))
+							.updateMenu(updateInfo);
 					updateCurrentStatus();
 					updateDisabled(true);
+
 				} catch (Exception e) {
 
 				}
@@ -171,24 +204,67 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 				pbDownlaodingData.setProgress(msg.arg1);
 				break;
 			case DownloadUtils.WHAT_DOWNLOAD_FINISH:
-				try {
-					YugiohUtils.closeDatabase(getActivity());
-					FileUtils.copyFile(dbSource, PathDefine.DATABASE_PATH);
-					FileUtils.deleteFile(dbSource);
-					YugiohUtils.newDatabase(getActivity());
-					pbDownlaodingData.setVisibility(View.GONE);
-					((IUpdateIntf) getActivity()).setInProgress(false);
-					updateInfo.setUpdateData(0);
-					updateCurrentStatus();
-					updateDisabled(true);
-				} catch (Exception e) {
-
-				}
+				unzipDataT();
 				break;
 			}
 			super.handleMessage(msg);
 		};
 	};
+
+	private Handler hUnzip = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+
+				pbDownlaodingData.setVisibility(View.GONE);
+				((IUpdateIntf) getActivity()).setInProgress(false);
+				updateInfo.setUpdateData(0);
+				if (hasData) {
+					((IMenuIntf) getFragmentManager().findFragmentByTag(
+							getString(R.tag.tag_menu_right)))
+							.updateMenu(updateInfo);
+				}
+				updateCurrentStatus();
+				updateDisabled(true);
+				if (!hasData) {
+					confirmClose();
+				}
+			}
+			super.handleMessage(msg);
+		};
+	};
+
+	private void unzipDataT() {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					YugiohUtils.closeDatabase(getActivity());
+					ZipUtils.upZipFile(new File(dbSource), PathDefine.ROOT_PATH);
+					FileUtils.deleteFile(dbSource);
+					YugiohUtils.newDatabase(getActivity());
+					hUnzip.sendEmptyMessage(1);
+				} catch (Exception e) {
+
+				}
+
+			}
+		}).start();
+
+	}
+
+	private void confirmClose() {
+		new AlertDialog.Builder(getActivity()).setTitle(R.string.hint)
+				.setMessage(R.string.update_download_data_finish)
+				.setPositiveButton(R.string.ok, new OnClickListener() {
+					@Override
+					public void onClick(DialogInterface dialog, int which) {
+						getActivity().finish();
+					}
+				}).show();
+	}
 
 	private void installApk() {
 		File fApk = new File(apkSource);
@@ -222,22 +298,22 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 			break;
 		case R.id.btnUpdateData:
 			((IUpdateIntf) getActivity()).setUpdateFile(
-					PathDefine.DOWNLOAD_PATH, PathDefine.DATA_NAME);
+					PathDefine.DOWNLOAD_PATH, PathDefine.DATA_ZIP);
 			tvDataInfo.setVisibility(View.GONE);
 			FileUtils.deleteFile(dbSource);
 			pbDownlaodingData.setVisibility(View.VISIBLE);
 			DownloadUtils.downloadFileT(getActivity(), null,
 					NetworkDefine.URL_DATA, PathDefine.DOWNLOAD_PATH,
-					PathDefine.DATA_NAME, hDataTask);
+					PathDefine.DATA_ZIP, hDataTask);
 			break;
 		}
 	}
 
 	private void updateDisabled(boolean enabled) {
-		if (!enabled) {
-			btnUpdateApk.setEnabled(false);
-			btnUpdateData.setEnabled(false);
-		} else {
+		btnUpdateApk.setEnabled(false);
+		btnUpdateData.setEnabled(false);
+		if (enabled) {
+
 			if (updateInfo.getUpdateApk() != 0) {
 				btnUpdateApk.setEnabled(true);
 			}
@@ -245,7 +321,6 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 				btnUpdateData.setEnabled(true);
 			}
 		}
-
 	}
 
 	@Override

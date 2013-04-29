@@ -6,8 +6,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.KeyEvent;
 
 import com.rarnu.devlib.base.BaseSlidingActivity;
@@ -15,6 +13,7 @@ import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.devlib.utils.UIUtils;
 import com.yugioh.android.classes.UpdateInfo;
+import com.yugioh.android.database.YugiohDatabase;
 import com.yugioh.android.fragments.DeckFragment;
 import com.yugioh.android.fragments.DuelToolFragment;
 import com.yugioh.android.fragments.LeftMenuFragment;
@@ -23,35 +22,26 @@ import com.yugioh.android.fragments.MainFragment;
 import com.yugioh.android.fragments.NewCardFragment;
 import com.yugioh.android.fragments.RightMenuFragment;
 import com.yugioh.android.intf.IMainIntf;
-import com.yugioh.android.intf.IMenuIntf;
-import com.yugioh.android.utils.UpdateUtils;
 
 public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
 	int currentPage = 0;
 
-	final Handler hUpdate = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			if (msg.what == 1) {
-				UpdateInfo ui = (UpdateInfo) msg.obj;
-				Fragment fRight = getFragmentManager().findFragmentByTag(
-						getString(R.tag.tag_menu_right));
-				if (fRight != null) {
-					((IMenuIntf) fRight).updateMenu(ui);
-				}
-			}
-			super.handleMessage(msg);
-		}
-	};
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		UIUtils.initDisplayMetrics(this, getWindowManager(), false);
 		super.onCreate(savedInstanceState);
-
 		registerReceiver(receiverClose, filterClose);
-		UpdateUtils.checkUpdateT(this, hUpdate);
+
+		if (!YugiohDatabase.isDatabaseFileExists()) {
+			UpdateInfo updateInfo = new UpdateInfo();
+			updateInfo.setUpdateApk(0);
+			updateInfo.setUpdateData(1);
+			Intent inUpdate = new Intent(this, UpdateActivity.class);
+			inUpdate.putExtra("update", updateInfo);
+			startActivity(inUpdate);
+			finish();
+		}
 	}
 
 	@Override

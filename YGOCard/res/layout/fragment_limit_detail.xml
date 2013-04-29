@@ -8,6 +8,7 @@
         android:id="@+id/lvLimitCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cacheColorHint="#00000000" />
+        android:cacheColorHint="#00000000"
+        android:fastScrollEnabled="true" />
 
 </RelativeLayout>
