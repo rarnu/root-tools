@@ -1,5 +1,5 @@
 <?php
-include "./database.php";
+include "../database/database.php";
 
 // upload.php?name={1}&package_name={2}&main_activity={3}&unix_name={4}
 // [attach:FILES("icon")] [attach:FILES("apk")]

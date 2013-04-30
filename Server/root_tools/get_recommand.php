@@ -1,6 +1,6 @@
 <?php
 
-include "database.php";
+include "../database/database.php";
 
 // get_recommand.php
 

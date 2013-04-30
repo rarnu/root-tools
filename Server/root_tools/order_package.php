@@ -1,6 +1,6 @@
 <?php
 include "navbar.php";
-include "database.php";
+include "../database/database.php";
 
 function DoGenerateTable() {
 	$sql = "select id, name, app_order from root_tools_recommand order by app_order asc";
@@ -34,8 +34,8 @@ function DoGenerateTable() {
       }
 </style>
 
-<link href="common/bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="common/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="../common/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="../common/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
 <script language="javascript">
 function changeOrder(id, app_order) {

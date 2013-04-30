@@ -21,8 +21,8 @@ include('navbar.php');
       }
 </style>
 
-<link href="common/bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="common/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="../common/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="../common/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
 </head>
 
@@ -31,10 +31,9 @@ include('navbar.php');
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
         
-        <div class="alert alert-error">Upload Failed</div>
-	<div class="alert">You must fill the NAME, PACKAGE NAME, MAIN ACTIVITY and UNIX NAME field.</div>
+        <div class="alert alert-error">Change Order Failed</div>
         <p>
-          <a class="btn btn-large btn-danger" href="index.php">Back</a>
+          <a class="btn btn-large btn-danger" href="order_package.php">Back</a>
         </p>
              
       </div>

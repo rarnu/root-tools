@@ -1,6 +1,6 @@
 <?php
 include "navbar.php";
-include "database.php";
+include "../database/database.php";
 
 function DoGenerateTable() {
 	$sql = "select id, name, package_name, main_activity from root_tools_recommand order by id asc";
@@ -34,8 +34,8 @@ function DoGenerateTable() {
       }
 </style>
 
-<link href="common/bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="common/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="../common/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="../common/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
 <script language="javascript">
 var id_del = 0;

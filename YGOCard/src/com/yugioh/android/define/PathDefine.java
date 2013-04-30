@@ -11,11 +11,13 @@ public class PathDefine {
 	public static final String DATABASE_PATH = ROOT_PATH + DATA_NAME;
 	public static final String PICTURE_PATH = ROOT_PATH + "images/";
 	public static final String DOWNLOAD_PATH = ROOT_PATH + "downloads/";
+	public static final String RECOMMAND_PATH = ROOT_PATH + "recommand/";
 	
 	static {
 		mkdir(ROOT_PATH);
 		mkdir(PICTURE_PATH);
 		mkdir(DOWNLOAD_PATH);
+		mkdir(RECOMMAND_PATH);
 	}
 	
 	private static void mkdir(String path) {

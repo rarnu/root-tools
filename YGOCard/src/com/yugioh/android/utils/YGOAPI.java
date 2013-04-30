@@ -1,20 +1,20 @@
 package com.yugioh.android.utils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.apache.http.protocol.HTTP;
+import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
 
 import com.rarnu.devlib.utils.HttpRequest;
+import com.yugioh.android.classes.RecommandInfo;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.define.NetworkDefine;
 
 public class YGOAPI {
-
-	public static final int MSG_DOWNLOAD_START = 10;
-	public static final int MSG_DOWNLOAD_PROGRESS = 11;
-	public static final int MSG_DOWNLOAD_FINISH = 12;
-	public static final int MSG_DOWNLOAD_ERROR = 19;
 
 	public static UpdateInfo findUpdate(Context context, int lastCardId) {
 		String param = String.format(NetworkDefine.UPDATE_PARAM_FMT,
@@ -36,4 +36,28 @@ public class YGOAPI {
 
 	}
 
+	public static List<RecommandInfo> getRecommands() {
+		List<RecommandInfo> list = null;
+		try {
+			String ret = HttpRequest.get(NetworkDefine.RECOMMAND_URL, "",
+					HTTP.UTF_8);
+			JSONObject json = new JSONObject(ret);
+			JSONArray jarr = json.getJSONArray("data");
+			list = new ArrayList<RecommandInfo>();
+			for (int i = 0; i < jarr.length(); i++) {
+				RecommandInfo item = new RecommandInfo();
+				item.id = jarr.getJSONObject(i).getInt("id");
+				item.name = jarr.getJSONObject(i).getString("name");
+				item.jumpMode = jarr.getJSONObject(i).getInt("jump_mode");
+				item.jumpUrl = jarr.getJSONObject(i).getString("jump_url");
+				item.jumpText = jarr.getJSONObject(i).getString("jump_text");
+				item.imagePath = jarr.getJSONObject(i).getString("image_name");
+				item.bigQR = jarr.getJSONObject(i).getString("big_qr");
+				list.add(item);
+			}
+		} catch (Exception e) {
+
+		}
+		return list;
+	}
 }

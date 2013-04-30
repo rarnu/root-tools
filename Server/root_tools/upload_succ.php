@@ -21,8 +21,8 @@ include('navbar.php');
       }
 </style>
 
-<link href="common/bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="common/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="../common/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="../common/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
 </head>
 
@@ -30,10 +30,10 @@ include('navbar.php');
  <div class="container">
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-        
-     	<div class="alert alert-error">Delete Package Failed</div>
+
+        <div class="alert alert-success">Upload Finished</div>    
         <p>
-          <a class="btn btn-large btn-danger" href="manage_package.php">Back</a>
+          <a class="btn btn-large btn-success" href="upload_package.php">Back</a>
         </p>
              
       </div>

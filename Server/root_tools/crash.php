@@ -1,6 +1,6 @@
 <?php
 
-include "database.php";
+include "../database/database.php";
 
 $deviceId = $_POST["deviceId"];
 $module = $_POST["module"];

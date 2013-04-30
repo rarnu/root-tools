@@ -1,6 +1,6 @@
 <?php
 
-include "database.php";
+include "../database/database.php";
 
 // change_order.php?id={1}&app_order={2}
 $id=$_GET["id"];

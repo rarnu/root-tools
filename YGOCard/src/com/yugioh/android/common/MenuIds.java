@@ -8,4 +8,5 @@ public class MenuIds {
 	public static final int MENUID_RESET = Menu.FIRST + 2;
 	public static final int MENUID_RESET_DUEL = Menu.FIRST + 3;
 	public static final int MENUID_UPDATE = Menu.FIRST + 4;
+	public static final int MENUID_SHARE = Menu.FIRST + 5;
 }

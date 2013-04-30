@@ -1,6 +1,6 @@
 <?php
 
-include "database.php";
+include "../database/database.php";
 
 $deviceId = $_GET["deviceId"];
 $module = $_GET["module"];

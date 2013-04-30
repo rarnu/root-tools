@@ -13,6 +13,7 @@
     <string name="cancel">取消</string>
     <string name="hint">提示</string>
     <string name="back">返回</string>
+    <string name="share">分享</string>
 
     <!-- page -->
     <string name="page_home">卡片查询器</string>
@@ -184,5 +185,8 @@
     <string name="update_data_finished">本次更新包含了数据库的更新，请重新启动本软件以启用新的数据库</string>
     <string name="msg_no_database">没有找到数据库文件，请下载并放于 /sdcard/.yugioh/ 下，然后重新启动本软件</string>
     <string name="msg_not_impl">该功能暂未实现，请静候新版本哦~</string>
+    
+    <!-- jump -->
+    <string name="jump_jump">跳转</string>
 
 </resources>

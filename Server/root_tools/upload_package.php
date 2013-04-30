@@ -21,8 +21,8 @@ include('navbar.php');
       }
 </style>
 
-<link href="common/bootstrap/css/bootstrap.css" rel="stylesheet">
-<link href="common/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
+<link href="../common/bootstrap/css/bootstrap.css" rel="stylesheet">
+<link href="../common/bootstrap/css/bootstrap-responsive.css" rel="stylesheet">
 
 </head>
 

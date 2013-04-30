@@ -5,13 +5,17 @@ import java.util.List;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 
 import com.rarnu.devlib.base.BaseTabFragment;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
+import com.yugioh.android.common.MenuIds;
 
 public class CardInfoFragment extends BaseTabFragment {
 
+	MenuItem itemShare;
+	
 	public CardInfoFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}
@@ -43,7 +47,9 @@ public class CardInfoFragment extends BaseTabFragment {
 
 	@Override
 	protected void initMenu(Menu menu) {
-
+		itemShare = menu.add(0, MenuIds.MENUID_SHARE, 99, R.string.share);
+		itemShare.setIcon(android.R.drawable.ic_menu_share);
+		itemShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	}
 
 	@Override

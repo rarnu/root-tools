@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
+import android.content.Loader;
+import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -21,15 +23,19 @@ import com.yugioh.android.AboutActivity;
 import com.yugioh.android.MainActivity;
 import com.yugioh.android.R;
 import com.yugioh.android.UpdateActivity;
+import com.yugioh.android.adapter.RecommandAdapter;
 import com.yugioh.android.adapter.RightMenuAdapter;
+import com.yugioh.android.classes.RecommandInfo;
 import com.yugioh.android.classes.RightMenuItem;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.intf.IMenuIntf;
+import com.yugioh.android.loader.RecommandLoader;
 import com.yugioh.android.utils.DeviceUtils;
+import com.yugioh.android.utils.RecommandUtils;
 import com.yugioh.android.utils.UpdateUtils;
 
 public class RightMenuFragment extends BaseFragment implements IMenuIntf,
-		OnItemClickListener {
+		OnItemClickListener, OnLoadCompleteListener<List<RecommandInfo>> {
 
 	ListView lvAbout, lvSettings;
 	List<String> listAbout;
@@ -37,6 +43,10 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 	List<RightMenuItem> listSettings;
 	RightMenuAdapter adapterSettings;
 	UpdateInfo updateInfo;
+	ListView lvRecommand;
+	List<RecommandInfo> listRecommand;
+	RecommandLoader loaderRecommand;
+	RecommandAdapter adapterRecommand;
 
 	public RightMenuFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -54,6 +64,7 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 
 	@Override
 	protected void initComponents() {
+		lvRecommand = (ListView) innerView.findViewById(R.id.lvRecommand);
 		lvSettings = (ListView) innerView.findViewById(R.id.lvSettings);
 		lvAbout = (ListView) innerView.findViewById(R.id.lvAbout);
 		listAbout = new ArrayList<String>();
@@ -75,21 +86,28 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 		listSettings.add(itemFit);
 		adapterSettings = new RightMenuAdapter(getActivity(), listSettings);
 		lvSettings.setAdapter(adapterSettings);
+
+		loaderRecommand = new RecommandLoader(getActivity());
+		listRecommand = new ArrayList<RecommandInfo>();
+		adapterRecommand = new RecommandAdapter(getActivity(), listRecommand);
+		lvRecommand.setAdapter(adapterRecommand);
 	}
 
 	@Override
 	protected void initEvents() {
 		lvAbout.setOnItemClickListener(this);
 		lvSettings.setOnItemClickListener(this);
+		lvRecommand.setOnItemClickListener(this);
+		loaderRecommand.registerListener(0, this);
 	}
-	
+
 	final Handler hUpdate = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
 				updateInfo = (UpdateInfo) msg.obj;
 				updateMenu(updateInfo);
-				
+
 			}
 			super.handleMessage(msg);
 		}
@@ -98,6 +116,7 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 	@Override
 	protected void initLogic() {
 		UpdateUtils.checkUpdateT(getActivity(), hUpdate);
+		loaderRecommand.startLoading();
 	}
 
 	@Override
@@ -148,6 +167,20 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 				break;
 			}
 			break;
+		case R.id.lvRecommand:
+			doRecommand(listRecommand.get(position));
+			break;
+		}
+	}
+	
+	private void doRecommand(RecommandInfo info) {
+		switch (info.jumpMode) {
+		case 0:
+			RecommandUtils.showUrlRecommand(getActivity(), info);
+			break;
+		case 1:
+			RecommandUtils.showTextRecommand(getActivity(), info);
+			break;
 		}
 	}
 
@@ -165,6 +198,16 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 		}
 		adapterSettings.setNewList(listSettings);
 
+	}
+
+	@Override
+	public void onLoadComplete(Loader<List<RecommandInfo>> loader,
+			List<RecommandInfo> data) {
+		listRecommand.clear();
+		if (data != null) {
+			listRecommand.addAll(data);
+		}
+		adapterRecommand.setNewList(listRecommand);
 	}
 
 }
