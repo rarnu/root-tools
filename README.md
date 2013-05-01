@@ -29,3 +29,7 @@ how to compile:
    $ ant debug
    $ adb install $(ROOT_TOOLS_SRC)/bin/RootTools-debug.apk
 ```
+6) signature(necessary for publish)
+```
+   java -jar signapk.jar rarnu.x509.pem rarnu.pk8 <InputApkName> <OutoutApkName>
+```

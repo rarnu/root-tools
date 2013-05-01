@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.yugioh.android"
     android:versionCode="20"
-    android:versionName="v2.0.0" >
+    android:versionName="ver 2.0.0" >
 
     <uses-sdk
         android:minSdkVersion="15"
