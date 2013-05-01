@@ -14,6 +14,10 @@ import com.yugioh.android.common.MenuIds;
 
 public class MainFragment extends BaseTabFragment {
 
+	public MainFragment() {
+		super();
+	}
+	
 	public MainFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}
@@ -53,7 +57,7 @@ public class MainFragment extends BaseTabFragment {
 		Bundle bn = new Bundle();
 
 		BaseFragment fSearch = (BaseFragment) getFragmentManager()
-				.findFragmentByTag(getString(R.tag.tag_main_search));
+				.findFragmentByTag(this.getString(R.tag.tag_main_search));
 
 		switch (item.getItemId()) {
 		case MenuIds.MENUID_SEARCH:
@@ -87,11 +91,11 @@ public class MainFragment extends BaseTabFragment {
 
 	@Override
 	public void initFragmentList(List<Fragment> listFragment) {
-		listFragment.add(new SearchFragment(getString(R.tag.tag_main_search),
-				getString(R.string.page_search)));
+		listFragment.add(new SearchFragment(this.getString(R.tag.tag_main_search),
+				this.getString(R.string.page_search)));
 		listFragment
-				.add(new SearchResultFragment(getString(R.tag.tag_main_result),
-						getString(R.string.page_list)));
+				.add(new SearchResultFragment(this.getString(R.tag.tag_main_result),
+						this.getString(R.string.page_list)));
 	}
 
 }

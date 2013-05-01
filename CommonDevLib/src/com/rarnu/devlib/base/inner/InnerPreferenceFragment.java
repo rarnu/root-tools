@@ -79,17 +79,17 @@ public abstract class InnerPreferenceFragment extends PreferenceFragment
 		}
 	}
 
-	@Override
-	public void onPause() {
-		if (getActivity().getActionBar() != null) {
-			if (getCustomTitle() == null || getCustomTitle().equals("")) {
-				getActivity().getActionBar().setTitle(getBarTitle());
-			} else {
-				getActivity().getActionBar().setTitle(getCustomTitle());
-			}
-		}
-		super.onPause();
-	}
+//	@Override
+//	public void onPause() {
+//		if (getActivity().getActionBar() != null) {
+//			if (getCustomTitle() == null || getCustomTitle().equals("")) {
+//				getActivity().getActionBar().setTitle(getBarTitle());
+//			} else {
+//				getActivity().getActionBar().setTitle(getCustomTitle());
+//			}
+//		}
+//		super.onPause();
+//	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

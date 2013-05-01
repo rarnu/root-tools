@@ -219,11 +219,6 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 				pbDownlaodingData.setVisibility(View.GONE);
 				((IUpdateIntf) getActivity()).setInProgress(false);
 				updateInfo.setUpdateData(0);
-				if (hasData) {
-					((IMenuIntf) getFragmentManager().findFragmentByTag(
-							getString(R.tag.tag_menu_right)))
-							.updateMenu(updateInfo);
-				}
 				updateCurrentStatus();
 				updateDisabled(true);
 				if (!hasData) {
