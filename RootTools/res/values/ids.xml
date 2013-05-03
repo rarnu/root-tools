@@ -2,6 +2,7 @@
 <resources>
     <string name="id_sysapp">id_sysapp</string>
     <string name="id_sysappenabled">id_sysappenabled</string>
+    <string name="id_hardupdate">id_hardupdate</string>
     <string name="id_component">id_component</string>
     <string name="id_root">id_root</string>
     <string name="id_cleanhtc">id_cleanhtc</string>

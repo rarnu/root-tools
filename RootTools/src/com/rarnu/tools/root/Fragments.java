@@ -13,6 +13,7 @@ import com.rarnu.tools.root.fragment.CustomCleanManagerFragment;
 import com.rarnu.tools.root.fragment.DataappReportFragment;
 import com.rarnu.tools.root.fragment.EnableappFragment;
 import com.rarnu.tools.root.fragment.FeedbackFragment;
+import com.rarnu.tools.root.fragment.HardUpdateFragment;
 import com.rarnu.tools.root.fragment.HostAddFragment;
 import com.rarnu.tools.root.fragment.HostDeprecatedFragment;
 import com.rarnu.tools.root.fragment.HostEditFragment;
@@ -58,6 +59,7 @@ public class Fragments {
 	private static RestoreFragment fRestore = null;
 	private static CustomCleanManagerFragment fCustomClean = null;
 	private static TerminalFragment fTerminal = null;
+	private static HardUpdateFragment fHardUpdate = null;
 
 	public static Fragment getFragment(String name) {
 		Fragment f = null;
@@ -191,37 +193,17 @@ public class Fragments {
 				fTerminal = new TerminalFragment();
 			}
 			f = fTerminal;
+		} else if (name.equals(FragmentNameConst.FN_HARD_UPDATE)) {
+			if (fHardUpdate == null) {
+				fHardUpdate = new HardUpdateFragment();
+			}
+			f = fHardUpdate;
 		}
 		return f;
 	}
 
 	public static void loadFragments() {
-//		fIndex = new IndexFragment();
-//		fFeedback = new FeedbackFragment();
-//		fAbout = new AboutFragment();
-//		fBusybox = new BusyboxFragment();
-//		fSysapp = new SysappFragment();
-//		fSysappDetail = new SysappDetailFragment();
-//		fSysappSelectApk = new SysappSelectApkFragment();
-//		fSettings = new SettingsFragment();
-//		fCleanCache = new CleanCacheFragment();
-//		fEnableapp = new EnableappFragment();
-//		fHtcRom = new HtcRomFragment();
-//		fComp = new CompFragment();
-//		fCompPackageInfo = new CompPackageInfoFragment();
-//		fMem = new MemFragment();
-//		fMemProcess = new MemProcessFragment();
-//		fHost = new HostFragment();
-//		fHostAdd = new HostAddFragment();
-//		fMemIgnore = new MemIgnoreFragment();
-//		fHostEdit = new HostEditFragment();
-//		fHostDeprecated = new HostDeprecatedFragment();
-//		fRecommand = new RecommandFragment();
-//		fDataappReport = new DataappReportFragment();
-//		fBackup = new BackupFragment();
-//		fRestore = new RestoreFragment();
-//		fCustumClean = new CustomCleanManagerFragment();
-//		fTerminal = new TerminalFragment();
+
 	}
 
 	public static void releaseFragments() {
@@ -250,5 +232,6 @@ public class Fragments {
 		fRestore = null;
 		fCustomClean = null;
 		fTerminal = null;
+		fHardUpdate = null;
 	}
 }

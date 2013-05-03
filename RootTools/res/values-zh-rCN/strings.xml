@@ -71,6 +71,8 @@
     <string name="func9_func">杂项功能</string>
     <string name="func_terminal">终端模拟器</string>
     <string name="func_terminal_with_path">RootTools &gt; 终端模拟器</string>
+    <string name="func_hardupdate">强制升级</string>
+    <string name="func_hardupdate_with_path">RootTools &gt; 强制升级</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="check_network_status">检查网络状况</string>
@@ -244,6 +246,7 @@
     <string name="share_body">RootTools可以帮助您管理您的手机，实现对系统的完全掌控，请点击下载: http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk</string>
     <string name="summary_sysapp">安装或卸载系统内的应用程序</string>
     <string name="summary_sysappenabled">禁用或启动指定的应用程序</string>
+    <string name="summary_hardupdate">强制升级因签名不一致无法升级的应用</string>
     <string name="summary_component">禁用或启动应用程序内的可选组件</string>
     <string name="summary_cleanhtc">清理 ROM，批量删除指定应用程序</string>
     <string name="summary_backup">备份应用程序以及私有数据</string>

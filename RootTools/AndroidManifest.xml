@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rarnu.tools.root"
-    android:versionCode="38"
-    android:versionName="4.3.2" >
+    android:versionCode="39"
+    android:versionName="4.3.3" >
 
-    <uses-sdk android:minSdkVersion="14"
+    <uses-sdk
+        android:minSdkVersion="14"
         android:targetSdkVersion="15" />
 
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -15,7 +16,7 @@
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
     <uses-permission android:name="android.permission.ROOT_TOOLS" />
-    
+
     <permission
         android:name="android.permission.ROOT_TOOLS"
         android:icon="@drawable/icon"
@@ -172,6 +173,11 @@
             android:name=".fragmentactivity.TerminalActivity"
             android:label="@string/func_terminal"
             android:windowSoftInputMode="adjustResize|stateVisible" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.HardUpdateActivity"
+            android:label="@string/func_hardupdate"
+            android:windowSoftInputMode="stateHidden" >
         </activity>
 
         <service

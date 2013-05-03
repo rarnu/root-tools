@@ -24,6 +24,7 @@ import com.rarnu.tools.root.fragmentactivity.CompMainActivity;
 import com.rarnu.tools.root.fragmentactivity.DataBackupActivity;
 import com.rarnu.tools.root.fragmentactivity.DataRestoreActivity;
 import com.rarnu.tools.root.fragmentactivity.EnableappMainActivity;
+import com.rarnu.tools.root.fragmentactivity.HardUpdateActivity;
 import com.rarnu.tools.root.fragmentactivity.HostMainActivity;
 import com.rarnu.tools.root.fragmentactivity.HtcRomActivity;
 import com.rarnu.tools.root.fragmentactivity.MemMainActivity;
@@ -40,7 +41,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 		OnPreferenceClickListener {
 
 	PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefRoot,
-			prefHtcRom;
+			prefHtcRom, prefHardUpdate;
 	PreferenceEx prefBackup, prefRestore;
 	PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik;
 	PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
@@ -57,6 +58,8 @@ public class IndexFragment extends BasePreferenceFragment implements
 		prefSysApp.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_BANNED);
 		prefSysAppEnabled.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
+				: PreferenceEx.STATE_BANNED);
+		prefHardUpdate.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_BANNED);
 		prefComponent.setStatus(isRooted ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_BANNED);
@@ -95,6 +98,8 @@ public class IndexFragment extends BasePreferenceFragment implements
 				: PreferenceEx.STATE_WARNING);
 		prefSysAppEnabled.setStatus(ready ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_WARNING);
+		prefHardUpdate.setStatus(ready ? PreferenceEx.STATE_NORMAL
+				: PreferenceEx.STATE_WARNING);
 		prefRoot.setStatus(ready ? PreferenceEx.STATE_NORMAL
 				: PreferenceEx.STATE_WARNING);
 		prefBackup.setStatus(ready ? PreferenceEx.STATE_NORMAL
@@ -124,6 +129,12 @@ public class IndexFragment extends BasePreferenceFragment implements
 					EnableappMainActivity.class,
 					Fragments.getFragment(FragmentNameConst.FN_ENABLEAPP));
 
+		} else if (preference.getKey()
+				.equals(getString(R.string.id_hardupdate))) {
+			UIInstance.currentFragment = 16;
+			FragmentStarter.showContent(getActivity(),
+					HardUpdateActivity.class,
+					Fragments.getFragment(FragmentNameConst.FN_HARD_UPDATE));
 		} else if (preference.getKey().equals(getString(R.string.id_component))) {
 			UIInstance.currentFragment = 3;
 			FragmentStarter.showContent(getActivity(), CompMainActivity.class,
@@ -246,6 +257,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 	protected void initComponents() {
 		prefSysApp = (PreferenceEx) findPreference(getString(R.string.id_sysapp));
 		prefSysAppEnabled = (PreferenceEx) findPreference(getString(R.string.id_sysappenabled));
+		prefHardUpdate = (PreferenceEx) findPreference(getString(R.string.id_hardupdate));
 		prefComponent = (PreferenceEx) findPreference(getString(R.string.id_component));
 		prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
 		prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
@@ -269,6 +281,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 	protected void initEvents() {
 		prefSysApp.setOnPreferenceClickListener(this);
 		prefSysAppEnabled.setOnPreferenceClickListener(this);
+		prefHardUpdate.setOnPreferenceClickListener(this);
 		prefComponent.setOnPreferenceClickListener(this);
 		prefRoot.setOnPreferenceClickListener(this);
 		prefHtcRom.setOnPreferenceClickListener(this);

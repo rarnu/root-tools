@@ -71,6 +71,8 @@
     <string name="func9_func">雜項功能</string>
     <string name="func_terminal">終端模擬器</string>
     <string name="func_terminal_with_path">RootTools &gt; 終端模擬器</string>
+    <string name="func_hardupdate">強制升級</string>
+    <string name="func_hardupdate_with_path">RootTools &gt; 強制升級</string>
     <string name="backup_data">備份應用程式的數據</string>
     <string name="restore_data">還原應用程式的數據</string>
     <string name="check_network_status">檢查網路狀況</string>
@@ -244,6 +246,7 @@
     <string name="share_body">RootTools可以幫助您管理Android設備, 實現對系統完全掌控，下載請點擊: http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk</string>
     <string name="summary_sysapp">安裝或移除系統內的應用程式</string>
     <string name="summary_sysappenabled">禁用或啓用指定的應用程式</string>
+    <string name="summary_hardupdate">強制升級因籤名不一致無法升級的應用程式</string>
     <string name="summary_component">禁用或啓用應用程式內的可選組件</string>
     <string name="summary_cleanhtc">清理 ROM，批量移除指定的應用程序</string>
     <string name="summary_backup">備份應用程式以及私人數據</string>
@@ -259,4 +262,5 @@
     <string name="restore_empty">沒有可以還原的內容, 請先到&lt;font color=\'#6495ED\'&gt;備份應用數據&lt;/font&gt;中進行備份操作</string>
     <string name="hosts_too_big">Hosts 檔案太大, 無法編輯</string>
     <string name="service_is_running">當前服務正在執行中，如果強迫其停止將引起內存異常，確定要禁用這個服務嗎？</string>
+
 </resources>

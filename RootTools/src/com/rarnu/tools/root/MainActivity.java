@@ -179,6 +179,8 @@ public class MainActivity extends BaseMainActivity {
 			return Fragments.getFragment(FragmentNameConst.FN_RESTORE);
 		case 15:
 			return Fragments.getFragment(FragmentNameConst.FN_TERMINAL);
+		case 16:
+			return Fragments.getFragment(FragmentNameConst.FN_HARD_UPDATE);
 		default:
 			return Fragments.getFragment(FragmentNameConst.FN_ABOUT);
 		}

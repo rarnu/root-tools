@@ -71,6 +71,8 @@
     <string name="func9_func">Miscellaneous</string>
     <string name="func_terminal">Terminal Emulator</string>
     <string name="func_terminal_with_path">RootTools &gt; Terminal Emulator</string>
+    <string name="func_hardupdate">Force Update</string>
+    <string name="func_hardupdate_with_path">RootTools &gt; Force Update</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>
@@ -244,6 +246,7 @@
     <string name="share_body">RootTools can help to manage your Android phone, download here: http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk</string>
     <string name="summary_sysapp">Install/Uninstall system apps</string>
     <string name="summary_sysappenabled">Enable/Disable installed apps</string>
+    <string name="summary_hardupdate">Update the apps with different signature</string>
     <string name="summary_component">Enable/Disable components in apps</string>
     <string name="summary_cleanhtc">Clean ROM and batch delete apps</string>
     <string name="summary_backup">Backup apps and private data</string>
