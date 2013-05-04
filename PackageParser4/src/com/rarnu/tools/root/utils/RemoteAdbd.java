@@ -23,7 +23,7 @@ public class RemoteAdbd {
 
 	public static boolean isRemoteConnected() {
 		boolean rc = false;
-		CommandResult ret = RootUtils.runCommand(GET_PORT, true);
+		CommandResult ret = RootUtils.runCommand(GET_PORT, true, null);
 		if (ret.error.equals("")) {
 			String port = ret.result;
 			if (port.equals("5555")) {
@@ -35,18 +35,18 @@ public class RemoteAdbd {
 
 	public static boolean switchAdbd(boolean isStop) {
 		boolean r = true;
-		CommandResult ret = RootUtils.runCommand((isStop ? SET_PORT_USB : SET_PORT), true);
+		CommandResult ret = RootUtils.runCommand((isStop ? SET_PORT_USB : SET_PORT), true, null);
 		if (!ret.error.equals("")) {
 			r = false;
 		}
 		if (r) {
-			ret = RootUtils.runCommand(STOP_ADBD, true);
+			ret = RootUtils.runCommand(STOP_ADBD, true, null);
 			if (!ret.error.equals("")) {
 				r = false;
 			}
 		}
 		if (r) {
-			ret = RootUtils.runCommand(START_ADBD, true);
+			ret = RootUtils.runCommand(START_ADBD, true, null);
 			if (!ret.error.equals("")) {
 				r = false;
 			}

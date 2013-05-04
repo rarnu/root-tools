@@ -29,10 +29,10 @@ public class BusyboxUtils {
 		}
 		result = RootUtils.runCommand(String.format(
 				"cat %sbusybox > /system/xbin/busybox", DirHelper.BUSYBOX_DIR),
-				true);
-		result = RootUtils.runCommand("chmod 777 /system/xbin/busybox", true);
+				true, null);
+		result = RootUtils.runCommand("chmod 777 /system/xbin/busybox", true, null);
 		result = RootUtils.runCommand(
-				"/system/xbin/busybox --install -s /system/xbin", true);
+				"/system/xbin/busybox --install -s /system/xbin", true, null);
 		if (!result.error.equals("")) {
 			return false;
 		}
@@ -49,7 +49,7 @@ public class BusyboxUtils {
 		}
 		result = RootUtils.runCommand(String.format(
 				"cat %sSuperuser_%s.apk > /system/app/Superuser.apk",
-				DirHelper.BUSYBOX_DIR, (isICS ? "ics" : "old")), true);
+				DirHelper.BUSYBOX_DIR, (isICS ? "ics" : "old")), true, null);
 		if (!result.error.equals("")) {
 			return false;
 		}
@@ -63,8 +63,8 @@ public class BusyboxUtils {
 		result = RootUtils
 				.runCommand(
 						"busybox find /system/xbin -type l | busybox xargs rm -r",
-						true);
-		result = RootUtils.runCommand("rm /system/xbin/busybox", true);
+						true, null);
+		result = RootUtils.runCommand("rm /system/xbin/busybox", true, null);
 		if (!result.error.equals("")) {
 			return false;
 		}
@@ -75,9 +75,9 @@ public class BusyboxUtils {
 
 	public static boolean removeSuperuser() {
 
-		RootUtils.runCommand("rm /system/app/Superuser.*", true);
-		RootUtils.runCommand("rm /system/app/SuperSU.*", true);
-		RootUtils.runCommand("rm /system/app/SuperSU_Pro.*", true);
+		RootUtils.runCommand("rm /system/app/Superuser.*", true, null);
+		RootUtils.runCommand("rm /system/app/SuperSU.*", true, null);
+		RootUtils.runCommand("rm /system/app/SuperSU_Pro.*", true, null);
 		return true;
 	}
 

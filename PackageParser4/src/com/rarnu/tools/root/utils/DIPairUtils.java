@@ -16,12 +16,12 @@ public class DIPairUtils {
 
 	public static List<HostRecordInfo> getHostList() {
 		List<HostRecordInfo> result = null;
-		
+
 		File fHost = new File(HOST_PATH);
-		if (fHost.length() > 1024*10) {
+		if (fHost.length() > 1024 * 10) {
 			return null;
 		}
-		
+
 		try {
 			List<String> lst = FileUtils.readFile(HOST_PATH);
 			result = listToList(lst);
@@ -42,9 +42,10 @@ public class DIPairUtils {
 			String fn = DirHelper.HOSTS_DIR + "hosts";
 			FileUtils.rewriteFile(fn, hosts);
 			String cmd = String.format("busybox cp %s /system/etc/", fn);
-			CommandResult result = RootUtils.runCommand(cmd, true);
+			CommandResult result = RootUtils.runCommand(cmd, true, null);
 			if (result.error.equals("")) {
-				result = RootUtils.runCommand("chmod 644 /system/etc/hosts", true);
+				result = RootUtils.runCommand("chmod 644 /system/etc/hosts",
+						true, null);
 			}
 			return result.error.equals("");
 		} catch (Exception e) {
@@ -66,10 +67,12 @@ public class DIPairUtils {
 		addLocalHostToPos0(list);
 	}
 
-	private static boolean hostExists(List<HostRecordInfo> baseList, HostRecordInfo info) {
+	private static boolean hostExists(List<HostRecordInfo> baseList,
+			HostRecordInfo info) {
 		boolean ret = false;
 		for (int i = 0; i < baseList.size(); i++) {
-			if (baseList.get(i).ip.equals(info.ip) && baseList.get(i).domain.equals(info.domain)) {
+			if (baseList.get(i).ip.equals(info.ip)
+					&& baseList.get(i).domain.equals(info.domain)) {
 				ret = true;
 				break;
 			}
@@ -130,7 +133,8 @@ public class DIPairUtils {
 		}
 	}
 
-	public static List<HostRecordInfo> toPairList(String domain, List<Address> rrList) {
+	public static List<HostRecordInfo> toPairList(String domain,
+			List<Address> rrList) {
 		List<HostRecordInfo> result = null;
 		if (rrList != null) {
 			if (rrList.size() > 0) {
@@ -162,5 +166,4 @@ public class DIPairUtils {
 		return result;
 	}
 
-	
 }

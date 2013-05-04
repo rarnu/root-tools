@@ -9,7 +9,7 @@ public class MemoryUtils {
 	public static MemoryInfo getMemoryInfo() {
 
 		MemoryInfo ret = null;
-		CommandResult result = RootUtils.runCommand("busybox free", false);
+		CommandResult result = RootUtils.runCommand("busybox free", false, null);
 		if (result != null) {
 			if (result.error.equals("")) {
 				ret = new MemoryInfo();
@@ -35,15 +35,15 @@ public class MemoryUtils {
 	}
 
 	public static void killProcess(int pid) {
-		RootUtils.runCommand(String.format("kill %d", pid), true);
+		RootUtils.runCommand(String.format("kill %d", pid), true, null);
 	}
 
 	public static void dropCache() {
-		RootUtils.runCommand("echo 3 > /proc/sys/vm/drop_caches", true);
+		RootUtils.runCommand("echo 3 > /proc/sys/vm/drop_caches", true, null);
 		try {
 			Thread.sleep(1000);
 		} catch (InterruptedException e) {
 		}
-		RootUtils.runCommand("echo 0 > /proc/sys/vm/drop_caches", true);
+		RootUtils.runCommand("echo 0 > /proc/sys/vm/drop_caches", true, null);
 	}
 }

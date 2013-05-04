@@ -19,12 +19,14 @@ public class DalvikUtils {
 	// return 0 and more for cleaned count
 	public static int cleanDalvik() {
 
-		CommandResult cmdResult = RootUtils.runCommand("ls /data/dalvik-cache/", true);
+		CommandResult cmdResult = RootUtils.runCommand(
+				"ls /data/dalvik-cache/", true, null);
 		if (!cmdResult.error.equals("")) {
 			return -1;
 		}
 
-		String str = cmdResult.result.replace("@", "/").replace("/classes.dex", "");
+		String str = cmdResult.result.replace("@", "/").replace("/classes.dex",
+				"");
 		String[] dalvikStr = str.split("\n");
 
 		File fClean = null;
@@ -36,19 +38,21 @@ public class DalvikUtils {
 				fClean = new File(s);
 				if (!fClean.exists()) {
 					dalvikName = s.replace("/", "@");
-					cleanResult = RootUtils.runCommand(String.format("rm -r /data/dalvik-cache/%s*", dalvikName), true);
+					cleanResult = RootUtils.runCommand(String.format(
+							"rm -r /data/dalvik-cache/%s*", dalvikName), true,
+							null);
 					if (!cleanResult.error.equals("")) {
 						return -1;
 					} else {
 						cleanCount++;
 					}
-					
+
 				}
 			}
 		}
 		return cleanCount;
 	}
-	
+
 	public static void doCleanDalvikT(final Context context, final View view,
 			final Preference pref) {
 

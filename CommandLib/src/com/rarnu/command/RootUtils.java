@@ -1,8 +1,9 @@
 package com.rarnu.command;
 
-import java.io.DataInputStream;
+import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
+import java.io.InputStreamReader;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -72,19 +73,21 @@ public class RootUtils {
 
 	public static boolean isWrongRoot() {
 		// -rwsr-sr-x
-		String suStat = runCommand("ls -l " + SU_PATH, false).result
-				+ runCommand("ls -l " + SU_PATH_X, false).result;
+		String suStat = runCommand("ls -l " + SU_PATH, false, null).result
+				+ runCommand("ls -l " + SU_PATH_X, false, null).result;
 
 		return ((!suStat.contains("-rwsr-sr-x")) && (!suStat
 				.contains("-rwsr-xr-x")));
 	}
 
-	public static CommandResult runCommand(String command, boolean root) {
+	public static CommandResult runCommand(String command, boolean root, ReadLineCallback callback) {
 
 		Process process = null;
 		DataOutputStream os = null;
-		DataInputStream stdout = null;
-		DataInputStream stderr = null;
+		BufferedReader brOut = null;
+		BufferedReader brErr = null;
+//		DataInputStream stdout = null;
+//		DataInputStream stderr = null;
 		CommandResult ret = new CommandResult();
 		try {
 			StringBuffer output = new StringBuffer();
@@ -98,14 +101,23 @@ public class RootUtils {
 			} else {
 				process = Runtime.getRuntime().exec(command);
 			}
-			stdout = new DataInputStream(process.getInputStream());
+
+			// stdout = new DataInputStream(process.getInputStream());
 			String line;
-			while ((line = stdout.readLine()) != null) {
+			brOut = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			while ((line = brOut.readLine()) != null) {
 				output.append(line).append('\n');
+				if (callback != null) {
+					callback.onReadLine(line);
+				}
 			}
-			stderr = new DataInputStream(process.getErrorStream());
-			while ((line = stderr.readLine()) != null) {
+			brErr = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			// stderr = new DataInputStream(process.getErrorStream());
+			while ((line = brErr.readLine()) != null) {
 				error.append(line).append('\n');
+				if (callback != null) {
+					callback.onReadError(line);
+				}
 			}
 			process.waitFor();
 			ret.result = output.toString().trim();
@@ -118,11 +130,17 @@ public class RootUtils {
 				if (os != null) {
 					os.close();
 				}
-				if (stdout != null) {
-					stdout.close();
+//				if (stdout != null) {
+//					stdout.close();
+//				}
+//				if (stderr != null) {
+//					stderr.close();
+//				}
+				if (brOut != null) {
+					brOut.close();
 				}
-				if (stderr != null) {
-					stderr.close();
+				if (brErr != null) {
+					brErr.close();
 				}
 			} catch (Exception e) {
 				ret.result = "";
@@ -168,7 +186,7 @@ public class RootUtils {
 
 	public static String buildMountCommand() {
 		String retstr = "";
-		CommandResult ret = runCommand("mount", false);
+		CommandResult ret = runCommand("mount", false, null);
 		if (ret.error.equals("")) {
 			String[] mt = ret.result.split("\n");
 			for (String m : mt) {
@@ -198,7 +216,7 @@ public class RootUtils {
 
 	public static void mountRW() {
 		String cmd = buildMountCommand();
-		runCommand(cmd, true);
+		runCommand(cmd, true, null);
 	}
 
 	private static boolean isSettingsContainsSU() {

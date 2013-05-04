@@ -17,7 +17,7 @@ public class ProcessUtils {
 
 		List<MemProcessInfo> ret = null;
 
-		CommandResult result = RootUtils.runCommand("toolbox ps", false);
+		CommandResult result = RootUtils.runCommand("toolbox ps", false, null);
 		int position = 0;
 		if (result != null) {
 			if (result.error.equals("")) {

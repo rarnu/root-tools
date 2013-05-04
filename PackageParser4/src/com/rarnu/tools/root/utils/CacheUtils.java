@@ -15,7 +15,7 @@ public class CacheUtils {
 		List<CacheInfo> result = null;
 
 		CommandResult cmdResult = RootUtils.runCommand(
-				"busybox find /data/data/ -name \"cache\"", true);
+				"busybox find /data/data/ -name \"cache\"", true, null);
 		if (cmdResult.error.equals("") && cmdResult.result.equals("")) {
 			return result;
 		}
@@ -23,7 +23,7 @@ public class CacheUtils {
 		cmdResult = RootUtils
 				.runCommand(
 						"busybox find /data/data/ -name \"cache\" | busybox xargs du -s",
-						true);
+						true, null);
 		if (cmdResult.error.equals("")) {
 			String cacheString = cmdResult.result;
 			cacheString = cacheString.replace("\t", " ");
@@ -51,13 +51,13 @@ public class CacheUtils {
 	public static boolean cleanCache(CacheInfo info) {
 		String path = "rm -r /data/data/%s/cache";
 		CommandResult result = RootUtils.runCommand(
-				String.format(path, info.namespace), true);
+				String.format(path, info.namespace), true, null);
 		return result.error.equals("");
 	}
 
 	public static boolean cleanAllCache() {
 		String cmd = "busybox find /data/data/ -name \"cache\" | busybox xargs rm -r";
-		CommandResult result = RootUtils.runCommand(cmd, true);
+		CommandResult result = RootUtils.runCommand(cmd, true, null);
 		return result.error.equals("");
 	}
 

@@ -8,7 +8,6 @@ import android.content.pm.PackageInfo;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
-import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.utils.FileUtils;
 import com.yugioh.android.classes.DeviceInfo;
 
@@ -193,7 +192,4 @@ public class DeviceUtils {
 		return result;
 	}
 
-	public static void reboot() {
-		RootUtils.runCommand("busybox reboot -f", true);
-	}
 }

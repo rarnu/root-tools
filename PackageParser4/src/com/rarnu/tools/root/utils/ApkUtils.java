@@ -93,7 +93,7 @@ public class ApkUtils {
 	public static String getDataSize(String path) {
 		String ret = "";
 		CommandResult result = RootUtils.runCommand("busybox du -s " + path,
-				true);
+				true, null);
 		if (result.error.equals("")) {
 			ret = result.result;
 			ret = ret.substring(0, ret.indexOf('\t'));
@@ -104,18 +104,18 @@ public class ApkUtils {
 	public static boolean backupSystemApp(String path) {
 		String fn = path.substring(0, path.length() - 3) + "*";
 		CommandResult result = RootUtils.runCommand("busybox cp " + fn + " "
-				+ DirHelper.SYSAPP_DIR, true);
+				+ DirHelper.SYSAPP_DIR, true, null);
 		return result.error.equals("");
 	}
 
 	public static boolean deleteSystemApp(String path) {
 		String fn = path.substring(0, path.length() - 3) + "*";
-		CommandResult result = RootUtils.runCommand("rm " + fn, true);
+		CommandResult result = RootUtils.runCommand("rm " + fn, true, null);
 		return result.error.equals("");
 	}
 
 	public static boolean deleteSystemAppData(String ns) {
-		CommandResult result = RootUtils.runCommand("rm -r " + ns, true);
+		CommandResult result = RootUtils.runCommand("rm -r " + ns, true, null);
 		return result.error.equals("");
 	}
 
@@ -123,10 +123,10 @@ public class ApkUtils {
 		String fn = path.substring(0, path.length() - 3) + "*";
 		String onlyApkName = path.substring(path.lastIndexOf("/") + 1);
 		CommandResult result = RootUtils.runCommand("busybox cp -r " + fn
-				+ " /system/app/", true);
+				+ " /system/app/", true, null);
 		if (result.error.equals("")) {
 			result = RootUtils.runCommand("chmod 644 /system/app/"
-					+ onlyApkName, true);
+					+ onlyApkName, true, null);
 		}
 		return result.error.equals("");
 	}
@@ -426,30 +426,30 @@ public class ApkUtils {
 			} else {
 				String delCmd = String.format("rm -r " + DirHelper.DATAAPP_DIR
 						+ "%s*", path);
-				RootUtils.runCommand(delCmd, true);
+				RootUtils.runCommand(delCmd, true, null);
 			}
 		}
 
 		// delete cache before backup
 		String cmd = String.format("rm -r /data/data/%s/cache", path);
-		RootUtils.runCommand(cmd, true);
+		RootUtils.runCommand(cmd, true, null);
 
 		cmd = String.format("busybox cp -r /data/data/%s "
 				+ DirHelper.DATAAPP_DIR, path);
-		CommandResult result = RootUtils.runCommand(cmd, true);
+		CommandResult result = RootUtils.runCommand(cmd, true, null);
 
 		cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
 				+ "%s/ -name \"cache\" | busybox xargs rm -r", path);
-		RootUtils.runCommand(cmd, true);
+		RootUtils.runCommand(cmd, true, null);
 		cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
 				+ "%s/ -name \"lib\" | busybox xargs rm -r", path);
-		RootUtils.runCommand(cmd, true);
+		RootUtils.runCommand(cmd, true, null);
 		cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
 				+ "%s/ -name \"webview*\" | busybox xargs rm -r", path);
-		RootUtils.runCommand(cmd, true);
+		RootUtils.runCommand(cmd, true, null);
 		cmd = String.format(
 				"busybox cp %s " + DirHelper.DATAAPP_DIR + "%s.apk", apk, path);
-		result = RootUtils.runCommand(cmd, true);
+		result = RootUtils.runCommand(cmd, true, null);
 
 		if (result.error.equals("")) {
 			info.log = context.getResources().getString(R.string.backup_ok);
@@ -471,7 +471,7 @@ public class ApkUtils {
 		CommandResult result = null;
 		if (GlobalInstance.reinstallApk) {
 			try {
-				result = RootUtils.runCommand(cmd, true);
+				result = RootUtils.runCommand(cmd, true, null);
 			} catch (Throwable th) {
 				result = new CommandResult();
 				result.result = "error";
@@ -484,12 +484,12 @@ public class ApkUtils {
 		if (result.result.toLowerCase().equals("success")) {
 			cmd = String.format("busybox cp -r " + DirHelper.DATAAPP_DIR
 					+ "%s /data/data/", packageName);
-			result = RootUtils.runCommand(cmd, true);
+			result = RootUtils.runCommand(cmd, true, null);
 			if (result.error.equals("")) {
 
 				cmd = String.format("busybox chmod -R 777 /data/data/%s/*",
 						packageName);
-				result = RootUtils.runCommand(cmd, true);
+				result = RootUtils.runCommand(cmd, true, null);
 				if (result.error.equals("")) {
 					info.log = context.getResources().getString(
 							R.string.restore_ok);
@@ -517,18 +517,18 @@ public class ApkUtils {
 	public static void deleteBackupData(String packageName) {
 		String cmd = String.format("busybox rm -r " + DirHelper.DATAAPP_DIR
 				+ "%s*", packageName);
-		RootUtils.runCommand(cmd, true);
+		RootUtils.runCommand(cmd, true, null);
 	}
 
 	public static void deleteAllBackupData() {
 		RootUtils.runCommand("busybox rm -r " + DirHelper.DATAAPP_DIR + "*",
-				true);
+				true, null);
 	}
 
 	public static boolean uninstallApk(String packageName) {
 		try {
 			CommandResult cmdRet = RootUtils.runCommand(
-					String.format("pm uninstall %s", packageName), true);
+					String.format("pm uninstall %s", packageName), true, null);
 			return cmdRet.error.equals("");
 		} catch (Exception e) {
 			return false;
@@ -590,7 +590,7 @@ public class ApkUtils {
 
 	public static void setInstallLocation(int location) {
 		RootUtils.runCommand(
-				"pm set-install-location " + String.valueOf(location), true);
+				"pm set-install-location " + String.valueOf(location), true, null);
 	}
 
 	public static void openApp(Context context, String packageName) {

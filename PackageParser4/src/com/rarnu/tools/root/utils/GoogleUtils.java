@@ -6,14 +6,15 @@ import java.util.List;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 
-
 public class GoogleUtils {
 
 	public static String getGoogleAccount() {
 		String GMAIL_FILE = "/data/data/com.google.android.gm/shared_prefs/Gmail.xml";
 		String TEMP_GMAIL_FILE = DirHelper.TEMP_DIR + "Gmail.xml";
-		
-		CommandResult result = RootUtils.runCommand(String.format("busybox cp %s %s", GMAIL_FILE, DirHelper.TEMP_DIR), true);
+
+		CommandResult result = RootUtils
+				.runCommand(String.format("busybox cp %s %s", GMAIL_FILE,
+						DirHelper.TEMP_DIR), true, null);
 		if (!result.error.equals("")) {
 			return "";
 		}
@@ -22,7 +23,8 @@ public class GoogleUtils {
 			List<String> lstGmail = FileUtils.readFile(TEMP_GMAIL_FILE);
 			for (String s : lstGmail) {
 				if (s.contains("active-account")) {
-					ret = s.replace("<string name=\"active-account\">", "").replace("</string>", "").trim();
+					ret = s.replace("<string name=\"active-account\">", "")
+							.replace("</string>", "").trim();
 					break;
 				}
 			}

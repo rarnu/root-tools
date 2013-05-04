@@ -194,6 +194,6 @@ public class DeviceUtils {
 	}
 
 	public static void reboot() {
-		RootUtils.runCommand("busybox reboot -f", true);
+		RootUtils.runCommand("busybox reboot -f", true, null);
 	}
 }

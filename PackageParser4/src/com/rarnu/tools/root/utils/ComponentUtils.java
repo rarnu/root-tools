@@ -33,14 +33,16 @@ public class ComponentUtils {
 			filePath = dest + source.replace(DirHelper.ENABLEAPP_DIR_DATA, "");
 		}
 		try {
-			CommandResult cmdRet = RootUtils.runCommand(
-					String.format("busybox cp %s %s", source, dest), true);
+			CommandResult cmdRet = RootUtils
+					.runCommand(
+							String.format("busybox cp %s %s", source, dest),
+							true, null);
 			if (cmdRet.error.equals("")) {
 				cmdRet = RootUtils.runCommand(String.format("rm %s", source),
-						true);
+						true, null);
 				if (cmdRet.error.equals("")) {
-					cmdRet = RootUtils
-							.runCommand("chmod 644 " + filePath, true);
+					cmdRet = RootUtils.runCommand("chmod 644 " + filePath,
+							true, null);
 				}
 				info.filePath = filePath;
 			}
@@ -64,11 +66,13 @@ public class ComponentUtils {
 			return false;
 		}
 		try {
-			CommandResult cmdRet = RootUtils.runCommand(
-					String.format("busybox cp %s %s", source, dest), true);
+			CommandResult cmdRet = RootUtils
+					.runCommand(
+							String.format("busybox cp %s %s", source, dest),
+							true, null);
 			if (cmdRet.error.equals("")) {
 				cmdRet = RootUtils.runCommand(String.format("rm %s", source),
-						true);
+						true, null);
 				info.filePath = filePath;
 			}
 			return cmdRet.error.equals("");
@@ -85,7 +89,7 @@ public class ComponentUtils {
 			RootUtils.runCommand(
 					String.format("pm enable '%s/%s'",
 							receiverName.getPackageName(),
-							receiverName.getClassName()), true);
+							receiverName.getClassName()), true, null);
 
 			return GlobalInstance.pm.getComponentEnabledSetting(receiverName) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
 		} catch (Throwable th) {
@@ -100,7 +104,7 @@ public class ComponentUtils {
 			RootUtils.runCommand(
 					String.format("pm disable '%s/%s'",
 							receiverName.getPackageName(),
-							receiverName.getClassName()), true);
+							receiverName.getClassName()), true, null);
 			return GlobalInstance.pm.getComponentEnabledSetting(receiverName) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
 		} catch (Throwable th) {
 			return false;

@@ -27,7 +27,7 @@ public class MiscUtils {
 	}
 
 	public static String getSecondSdcardPath(boolean hasSplit) {
-		CommandResult ret = RootUtils.runCommand("mount", false);
+		CommandResult ret = RootUtils.runCommand("mount", false, null);
 		String[] lines = ret.result.split("\n");
 
 		String systemSdcard = Environment.getExternalStorageDirectory()

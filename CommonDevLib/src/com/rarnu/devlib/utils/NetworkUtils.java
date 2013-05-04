@@ -23,7 +23,8 @@ public class NetworkUtils {
 
 	private static void initConnectManager(Context context) {
 		if (cmgr == null) {
-			cmgr = (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
+			cmgr = (ConnectivityManager) context
+					.getSystemService(Context.CONNECTIVITY_SERVICE);
 		}
 	}
 
@@ -31,7 +32,7 @@ public class NetworkUtils {
 		initConnectManager(context);
 		return cmgr.getActiveNetworkInfo();
 	}
-	
+
 	@SuppressWarnings("deprecation")
 	public static String ping(String hostname) {
 		String pingResult = "timeout";
@@ -68,7 +69,7 @@ public class NetworkUtils {
 	public static String testNetworkSpeed(Context context) {
 
 		CommandResult cmdResult = RootUtils.runCommand(
-				"ping -c 5 -s 1024 www.163.com", false);
+				"ping -c 5 -s 1024 www.163.com", false, null);
 		if (!cmdResult.error.equals("")) {
 			return "";
 		}
@@ -120,7 +121,7 @@ public class NetworkUtils {
 		String speedStr = new DecimalFormat("#.##").format(speed);
 		return String.format("%sK/s", speedStr);
 	}
-	
+
 	public static String getNetworkStatusDesc(final Context context) {
 
 		if (GlobalInstance.loadingNetwork) {
@@ -176,15 +177,17 @@ public class NetworkUtils {
 		}
 		return context.getString(R.string.network_unknown);
 	}
-	
+
 	public static void doGetNetworkInfoT(final Context context) {
 		new Thread(new Runnable() {
 
 			@Override
 			public void run() {
 				GlobalInstance.loadingNetwork = true;
-				GlobalInstance.networkInfo = NetworkUtils.getNetworkInfo(context);
-				GlobalInstance.networkSpeed = NetworkUtils.testNetworkSpeed(context);
+				GlobalInstance.networkInfo = NetworkUtils
+						.getNetworkInfo(context);
+				GlobalInstance.networkSpeed = NetworkUtils
+						.testNetworkSpeed(context);
 				GlobalInstance.loadingNetwork = false;
 
 			}
