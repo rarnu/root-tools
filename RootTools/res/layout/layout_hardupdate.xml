@@ -7,7 +7,16 @@
         android:id="@+id/lvHardUpdate"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fastScrollEnabled="true" >
+        android:layout_above="@+id/progressScanApk"
+        android:fastScrollEnabled="true"
+        android:visibility="gone" >
     </ListView>
+
+    <com.rarnu.devlib.component.DataProgressBar
+        android:id="@+id/progressScanApk"
+        android:layout_width="match_parent"
+        android:layout_height="24dip"
+        android:layout_alignParentBottom="true"
+        android:visibility="gone" />
 
 </RelativeLayout>

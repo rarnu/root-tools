@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.List;
 
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
@@ -98,13 +99,33 @@ public class DeviceUtils {
 		return val;
 	}
 
-	public static int getAppVersionCode(Context context) {
+	public static int getAppVersionCode(Context context, String filePath) {
 		int versionCode = 0;
 		try {
-			PackageInfo pi = GlobalInstance.pm.getPackageInfo(
-					context.getPackageName(), 0);
+			PackageInfo pi = GlobalInstance.pm.getPackageArchiveInfo(filePath,
+					0);
 			versionCode = pi.versionCode;
+		} catch (Exception e) {
 
+		}
+		return versionCode;
+	}
+
+	public static int getAppVersionCode(Context context) {
+		return getAppVersionCode(context, (ApplicationInfo) null);
+	}
+
+	public static int getAppVersionCode(Context context, ApplicationInfo info) {
+		int versionCode = 0;
+		String packageName = "";
+		if (info != null) {
+			packageName = info.packageName;
+		} else {
+			packageName = context.getPackageName();
+		}
+		try {
+			PackageInfo pi = GlobalInstance.pm.getPackageInfo(packageName, 0);
+			versionCode = pi.versionCode;
 		} catch (Exception e) {
 
 		}
@@ -112,10 +133,19 @@ public class DeviceUtils {
 	}
 
 	public static String getAppVersionName(Context context) {
+		return getAppVersionName(context, null);
+	}
+
+	public static String getAppVersionName(Context context, ApplicationInfo info) {
 		String versionName = "";
+		String packageName = "";
+		if (info != null) {
+			packageName = info.packageName;
+		} else {
+			packageName = context.getPackageName();
+		}
 		try {
-			PackageInfo pi = GlobalInstance.pm.getPackageInfo(
-					context.getPackageName(), 0);
+			PackageInfo pi = GlobalInstance.pm.getPackageInfo(packageName, 0);
 			versionName = pi.versionName;
 
 		} catch (Exception e) {

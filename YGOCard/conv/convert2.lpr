@@ -3,8 +3,9 @@ program convert2;
 {$mode objfpc}{$H+}
 
 uses
+  Interfaces,
   process,
-  Classes, SysUtils, CustApp, CsvDocument, Sqlite3DS;
+  Classes, SysUtils, CustApp, CsvDocument, Sqlite3DS, FileUtil;
 
 type
 
@@ -31,6 +32,7 @@ procedure ExecuteCommand(cmd, path: string);
 var
   AProcess: TProcess;
 begin
+
   WriteLn(cmd);
   AProcess := TProcess.Create(nil);
   AProcess.CurrentDirectory := path;

@@ -128,8 +128,11 @@
     <string name="delete_system_app">您确定要删除此系统应用程序？若是不明确应用的作用，请将其保留，以防不测。按“确定”删除应用程序，按“取消”保留。</string>
     <string name="install_apk" formatted="false">确定要将 %s 安装到系统内吗？按“确定”进行安装，按“取消”不安装。</string>
     <string name="installing">正在安装系统应用程序，请稍候…</string>
+    <string name="installing_updating_app">正在安装应用程序，请稍候...</string>
     <string name="install_ok">安装系统应用程序成功</string>
     <string name="install_fail">安装系统应用程序失败</string>
+    <string name="install_update_apk_ok">安装应用程序成功</string>
+    <string name="install_update_apk_fail">安装应用程序失败</string>
     <string name="no_sdcard_found">没有找到 SD 卡，请确保 SD 卡已正确置入手机，然后重试</string>
     <string name="btn_backup" formatted="false">备份(%d)</string>
     <string name="btn_restore" formatted="false">还原(%d)</string>
@@ -262,4 +265,12 @@
     <string name="restore_empty">没有可以还原的内容，请先到&lt;font color=\'#6495ED\'&gt;备份应用数据&lt;/font&gt;中进行备份操作</string>
     <string name="hosts_too_big">Hosts 文件太大，无法编辑</string>
     <string name="service_is_running">这个服务正在运行中，如果强行停止可能会引起内存错误。按“确定”禁用服务，按“取消”不做操作。</string>
+	<string name="btn_update">升级</string>
+	<string name="btn_update_install">安装</string>
+	<string name="btn_scan_apk">扫描 APK</string>
+	<string name="proc_scaning_apk">正在扫描 SD 卡中的 APK，请稍候...</string>
+	<string name="apkstat_3">未安装</string>
+	<string name="apkstat_2">无需升级</string>
+	<string name="apkstat_1">签名不同，需强制升级</string>
+	<string name="apkstat_0">可以正常升级</string>
 </resources>

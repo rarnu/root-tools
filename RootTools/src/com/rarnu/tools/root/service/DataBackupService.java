@@ -47,10 +47,9 @@ public class DataBackupService extends BaseService {
 					.getApplicationLabel(list.get(i).info).toString());
 			sendBroadcast(inBackupProgress);
 
-			ApkUtils.backupData(getApplicationContext(), GlobalInstance.pm
-					.getApplicationLabel(list.get(i).info).toString(), list
-					.get(i).info.sourceDir, list.get(i).info.packageName, list
-					.get(i));
+			ApkUtils.backupData(getApplicationContext(),
+					list.get(i).info.sourceDir, list.get(i).info.packageName,
+					list.get(i));
 
 		}
 

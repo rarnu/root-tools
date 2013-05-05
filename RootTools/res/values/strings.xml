@@ -128,8 +128,11 @@
     <string name="delete_system_app">Are you sure to delete this system app? Please keep it if you are not sure how it works.</string>
     <string name="install_apk" formatted="false">Are you sure to install %s into system?</string>
     <string name="installing">Installing system app, please wait...</string>
+    <string name="installing_updating_app">Installing app, please wait...</string>
     <string name="install_ok">Install system app finished</string>
     <string name="install_fail">Install system app failed</string>
+    <string name="install_update_apk_ok">Install app finished</string>
+    <string name="install_update_apk_fail">Install app failed</string>
     <string name="no_sdcard_found">No SDCard found, please check the SDCard and try agagin.</string>
     <string name="btn_backup" formatted="false">Backup(%d)</string>
     <string name="btn_restore" formatted="false">Restore(%d)</string>
@@ -262,4 +265,12 @@
     <string name="restore_empty">No app for restoring, please goto &lt;font color=\'#6495ED\'&gt;Backup Data&lt;/font&gt; and backup some apps</string>
     <string name="hosts_too_big">Hosts file too big, cannot edit</string>
 	<string name="service_is_running">This service is running, and it will cause the memory exception if you kill it right now. Are you sure to disable it?</string>
+	<string name="btn_update">Update</string>
+	<string name="btn_update_install">Install</string>
+	<string name="btn_scan_apk">Scan APK</string>
+	<string name="proc_scaning_apk">Scaning APKs from SDCard, please wait...</string>
+	<string name="apkstat_3">Not installed</string>
+	<string name="apkstat_2">No need to update</string>
+	<string name="apkstat_1">Different signature, need force update</string>
+	<string name="apkstat_0">Can be updated normally</string>
 </resources>

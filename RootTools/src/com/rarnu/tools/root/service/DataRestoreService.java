@@ -48,11 +48,8 @@ public class DataRestoreService extends BaseService {
 					.getApplicationLabel(list.get(i).info).toString());
 			sendBroadcast(inRestoreProgress);
 
-			ApkUtils.restoreData(
-					getApplicationContext(),
-					ApkUtils.getLabelFromPackage(getApplicationContext(),
-							list.get(i).info), list.get(i).info.packageName,
-					list.get(i));
+			ApkUtils.restoreData(getApplicationContext(),
+					list.get(i).info.packageName, list.get(i));
 
 		}
 

@@ -10,6 +10,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.util.Log;
 
 public class RootUtils {
 
@@ -80,14 +81,19 @@ public class RootUtils {
 				.contains("-rwsr-xr-x")));
 	}
 
-	public static CommandResult runCommand(String command, boolean root, ReadLineCallback callback) {
+	public static CommandResult runCommand(String command, boolean root) {
+		return runCommand(command, root, null);
+	}
 
+	public static CommandResult runCommand(String command, boolean root,
+			CommandCallback callback) {
+		Log.e("runCommand", command);
 		Process process = null;
 		DataOutputStream os = null;
 		BufferedReader brOut = null;
 		BufferedReader brErr = null;
-//		DataInputStream stdout = null;
-//		DataInputStream stderr = null;
+		// DataInputStream stdout = null;
+		// DataInputStream stderr = null;
 		CommandResult ret = new CommandResult();
 		try {
 			StringBuffer output = new StringBuffer();
@@ -104,14 +110,17 @@ public class RootUtils {
 
 			// stdout = new DataInputStream(process.getInputStream());
 			String line;
-			brOut = new BufferedReader(new InputStreamReader(process.getInputStream()));
+			brOut = new BufferedReader(new InputStreamReader(
+					process.getInputStream()));
 			while ((line = brOut.readLine()) != null) {
 				output.append(line).append('\n');
+				Log.e("runCommand", line);
 				if (callback != null) {
 					callback.onReadLine(line);
 				}
 			}
-			brErr = new BufferedReader(new InputStreamReader(process.getErrorStream()));
+			brErr = new BufferedReader(new InputStreamReader(
+					process.getErrorStream()));
 			// stderr = new DataInputStream(process.getErrorStream());
 			while ((line = brErr.readLine()) != null) {
 				error.append(line).append('\n');
@@ -130,12 +139,12 @@ public class RootUtils {
 				if (os != null) {
 					os.close();
 				}
-//				if (stdout != null) {
-//					stdout.close();
-//				}
-//				if (stderr != null) {
-//					stderr.close();
-//				}
+				// if (stdout != null) {
+				// stdout.close();
+				// }
+				// if (stderr != null) {
+				// stderr.close();
+				// }
 				if (brOut != null) {
 					brOut.close();
 				}
@@ -147,7 +156,9 @@ public class RootUtils {
 				ret.error = e.getMessage();
 			}
 		}
-
+		if (callback != null) {
+			callback.onCommandFinish();
+		}
 		return ret;
 	}
 

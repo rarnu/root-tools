@@ -19,6 +19,7 @@ public class DirHelper {
 	public static final String TEMP_DIR = ROOT_DIR + "tmp/";
 	public static final String ERROR_DIR = ROOT_DIR + "error/";
 	public static final String ICON_DIR = ROOT_DIR + "icon/";
+	public static final String FORCE_UPDATE_DIR = ROOT_DIR + "force_update/";
 
 	public static void makeDir() {
 		makeDir(ROOT_DIR);
@@ -32,9 +33,8 @@ public class DirHelper {
 		makeDir(TEMP_DIR);
 		makeDir(ERROR_DIR);
 		makeDir(ICON_DIR);
+		makeDir(FORCE_UPDATE_DIR);
 	}
-
-	
 
 	private static void makeDir(String path) {
 		File fDir = new File(path);

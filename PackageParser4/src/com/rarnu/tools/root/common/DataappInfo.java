@@ -7,8 +7,12 @@ public class DataappInfo {
 	public int type;
 	public boolean checked;
 	public String log;
+	public String localPath;
+	public int apkStatus;
 	
 	// 0: succ | 1: exists | 2: fail
 	public int logId;
 	public int position;
+	
+	public boolean installing = false;
 }

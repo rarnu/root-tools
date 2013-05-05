@@ -128,8 +128,11 @@
     <string name="delete_system_app">您確定要移除此系統應用程式?若不明確應用的作用,請將其保留。</string>
     <string name="install_apk" formatted="false">確定要將 %s 安裝到系統內嗎?</string>
     <string name="installing">正在安裝系統應用程式, 請稍候...</string>
+    <string name="installing_updating_app">正在安裝應用程式，請稍候...</string>
     <string name="install_ok">安裝系統應用程式完畢</string>
     <string name="install_fail">安裝系統應用程式失敗</string>
+    <string name="install_update_apk_ok">安装应用程序完畢</string>
+    <string name="install_update_apk_fail">安裝應用程式失敗</string>
     <string name="no_sdcard_found">沒有掛載 SD 卡, 請保證 SD 卡已正確置入設備</string>
     <string name="btn_backup" formatted="false">備份(%d)</string>
     <string name="btn_restore" formatted="false">還原(%d)</string>
@@ -262,5 +265,12 @@
     <string name="restore_empty">沒有可以還原的內容, 請先到&lt;font color=\'#6495ED\'&gt;備份應用數據&lt;/font&gt;中進行備份操作</string>
     <string name="hosts_too_big">Hosts 檔案太大, 無法編輯</string>
     <string name="service_is_running">當前服務正在執行中，如果強迫其停止將引起內存異常，確定要禁用這個服務嗎？</string>
-
+	<string name="btn_update">升級</string>
+	<string name="btn_update_install">安裝</string>
+	<string name="btn_scan_apk">掃描 APK</string>
+	<string name="proc_scaning_apk">正在掃描 SD 卡內的 APK，請稍候...</string>
+	<string name="apkstat_3">未安裝</string>
+	<string name="apkstat_2">無需升級</string>
+	<string name="apkstat_1">籤名不同，需強制升級</string>
+	<string name="apkstat_0">可以正常升級</string>
 </resources>

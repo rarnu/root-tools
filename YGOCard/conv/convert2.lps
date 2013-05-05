@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="7">
+    <Units Count="8">
       <Unit0>
         <Filename Value="convert2.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -11,8 +11,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="27"/>
-        <CursorPos X="6" Y="38"/>
+        <TopLine Value="10"/>
+        <CursorPos X="41" Y="21"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -49,27 +49,33 @@
       <Unit5>
         <Filename Value="/usr/share/fpcsrc/2.6.0/packages/fcl-process/src/process.pp"/>
         <UnitName Value="process"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="102"/>
         <CursorPos X="15" Y="114"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="/usr/share/fpcsrc/2.6.0/packages/fcl-process/src/unix/process.inc"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="340"/>
         <CursorPos X="3" Y="308"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit6>
+      <Unit7>
+        <Filename Value="/usr/share/lazarus/1.0.8/lcl/interfaces/gtk2/interfaces.pas"/>
+        <UnitName Value="Interfaces"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="25" Y="13"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit7>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="25" HistoryIndex="24">
+    <JumpHistory Count="24" HistoryIndex="23">
       <Position1>
         <Filename Value="convert2.lpr"/>
         <Caret Line="7" Column="53" TopLine="1"/>
@@ -147,29 +153,25 @@
         <Caret Line="36" Column="12" TopLine="24"/>
       </Position19>
       <Position20>
-        <Filename Value="/usr/share/fpcsrc/2.6.0/packages/fcl-process/src/process.pp"/>
-        <Caret Line="139" Column="14" TopLine="127"/>
+        <Filename Value="convert2.lpr"/>
+        <Caret Line="35" Column="37" TopLine="24"/>
       </Position20>
       <Position21>
         <Filename Value="convert2.lpr"/>
-        <Caret Line="35" Column="37" TopLine="24"/>
+        <Caret Line="82" Column="76" TopLine="63"/>
       </Position21>
       <Position22>
-        <Filename Value="/usr/share/fpcsrc/2.6.0/packages/fcl-process/src/process.pp"/>
-        <Caret Line="139" Column="14" TopLine="127"/>
+        <Filename Value="convert2.lpr"/>
+        <Caret Line="37" Column="27" TopLine="27"/>
       </Position22>
       <Position23>
-        <Filename Value="/usr/share/fpcsrc/2.6.0/packages/fcl-process/src/process.pp"/>
-        <Caret Line="375" Column="3" TopLine="370"/>
+        <Filename Value="convert2.lpr"/>
+        <Caret Line="34" Column="3" TopLine="28"/>
       </Position23>
       <Position24>
         <Filename Value="convert2.lpr"/>
-        <Caret Line="82" Column="76" TopLine="63"/>
+        <Caret Line="6" Column="11" TopLine="1"/>
       </Position24>
-      <Position25>
-        <Filename Value="convert2.lpr"/>
-        <Caret Line="37" Column="27" TopLine="27"/>
-      </Position25>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

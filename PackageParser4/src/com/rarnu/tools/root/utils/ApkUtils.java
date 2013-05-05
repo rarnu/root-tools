@@ -12,6 +12,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.content.pm.PackageParser;
 import android.content.pm.ResolveInfo;
@@ -22,7 +23,9 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
+import com.rarnu.command.CommandCallback;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu.root.pp4.R;
@@ -131,6 +134,34 @@ public class ApkUtils {
 		return result.error.equals("");
 	}
 
+	public static boolean installApp(DataappInfo info) {
+		return installApp(info.localPath);
+	}
+
+	public static boolean installApp(String filePath) {
+		CommandResult result = RootUtils.runCommand(
+				"pm install -r " + filePath, true);
+		return result.result.toLowerCase().contains("success");
+	}
+
+	public static boolean forceInstallApp(Context context, DataappInfo info) {
+		boolean ret = false;
+		try {
+			ApplicationInfo newinfo = ApkUtils
+					.getAppInfoFromPackage(info.localPath);
+			String packageName = newinfo.packageName;
+
+			backupData(context, info.localPath, packageName,
+					DirHelper.FORCE_UPDATE_DIR, info);
+			RootUtils.runCommand("pm uninstall " + packageName, true);
+			restoreData(context, packageName, DirHelper.FORCE_UPDATE_DIR, info);
+			ret = true;
+		} catch (Exception e) {
+
+		}
+		return ret;
+	}
+
 	public static boolean isAndroidApp(String path) {
 		boolean ret = false;
 		for (String s : AppNameConst.systemApps) {
@@ -218,9 +249,15 @@ public class ApkUtils {
 
 	public static String getLabelFromPackage(Context context,
 			ApplicationInfo info) {
+		return getLabelFromPackage(context, info, DirHelper.DATAAPP_DIR
+				+ info.packageName + ".apk");
+	}
+
+	public static String getLabelFromPackage(Context context,
+			ApplicationInfo info, String fileName) {
 		Resources res = context.getResources();
 		AssetManager assetMag = new AssetManager();
-		assetMag.addAssetPath(DirHelper.DATAAPP_DIR + info.packageName + ".apk");
+		assetMag.addAssetPath(fileName);
 		res = new Resources(assetMag, res.getDisplayMetrics(),
 				res.getConfiguration());
 		try {
@@ -236,13 +273,19 @@ public class ApkUtils {
 
 	public static Drawable getIconFromPackage(Context context,
 			ApplicationInfo info) {
-		
+		return getIconFromPackage(context, info, DirHelper.DATAAPP_DIR
+				+ info.packageName + ".apk");
+	}
+
+	public static Drawable getIconFromPackage(Context context,
+			ApplicationInfo info, String fileName) {
+
 		Resources res = context.getResources();
 		if (info == null) {
 			return res.getDrawable(android.R.drawable.sym_def_app_icon);
 		}
 		AssetManager assmgr = new AssetManager();
-		assmgr.addAssetPath(DirHelper.DATAAPP_DIR + info.packageName + ".apk");
+		assmgr.addAssetPath(fileName);
 		res = new Resources(assmgr, res.getDisplayMetrics(),
 				res.getConfiguration());
 		try {
@@ -411,10 +454,14 @@ public class ApkUtils {
 		return res;
 	}
 
-	public static void backupData(Context context, String name, String apk,
-			String path, DataappInfo info) {
+	public static void backupData(Context context, String apk, String path,
+			String savePath, DataappInfo info) {
+
+		if (savePath == null) {
+			savePath = DirHelper.DATAAPP_DIR;
+		}
 		info.type = 1;
-		String apkName = String.format(DirHelper.DATAAPP_DIR + "%s.apk", path);
+		String apkName = String.format(savePath + "%s.apk", path);
 		File apkFile = new File(apkName);
 		if (apkFile.exists()) {
 			if (!GlobalInstance.overrideBackuped) {
@@ -424,8 +471,8 @@ public class ApkUtils {
 				operationLog.add(info);
 				return;
 			} else {
-				String delCmd = String.format("rm -r " + DirHelper.DATAAPP_DIR
-						+ "%s*", path);
+				String delCmd = String
+						.format("rm -r " + savePath + "%s*", path);
 				RootUtils.runCommand(delCmd, true, null);
 			}
 		}
@@ -434,21 +481,19 @@ public class ApkUtils {
 		String cmd = String.format("rm -r /data/data/%s/cache", path);
 		RootUtils.runCommand(cmd, true, null);
 
-		cmd = String.format("busybox cp -r /data/data/%s "
-				+ DirHelper.DATAAPP_DIR, path);
+		cmd = String.format("busybox cp -r /data/data/%s " + savePath, path);
 		CommandResult result = RootUtils.runCommand(cmd, true, null);
 
-		cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
+		cmd = String.format("busybox find " + savePath
 				+ "%s/ -name \"cache\" | busybox xargs rm -r", path);
 		RootUtils.runCommand(cmd, true, null);
-		cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
+		cmd = String.format("busybox find " + savePath
 				+ "%s/ -name \"lib\" | busybox xargs rm -r", path);
 		RootUtils.runCommand(cmd, true, null);
-		cmd = String.format("busybox find " + DirHelper.DATAAPP_DIR
+		cmd = String.format("busybox find " + savePath
 				+ "%s/ -name \"webview*\" | busybox xargs rm -r", path);
 		RootUtils.runCommand(cmd, true, null);
-		cmd = String.format(
-				"busybox cp %s " + DirHelper.DATAAPP_DIR + "%s.apk", apk, path);
+		cmd = String.format("busybox cp %s " + savePath + "%s.apk", apk, path);
 		result = RootUtils.runCommand(cmd, true, null);
 
 		if (result.error.equals("")) {
@@ -463,11 +508,19 @@ public class ApkUtils {
 		}
 	}
 
-	public static void restoreData(Context context, String name,
-			String packageName, DataappInfo info) {
+	public static void backupData(Context context, String apk, String path,
+			DataappInfo info) {
+		backupData(context, apk, path, null, info);
+	}
+
+	public static void restoreData(Context context, String packageName,
+			String savePath, DataappInfo info) {
+		if (savePath == null) {
+			savePath = DirHelper.DATAAPP_DIR;
+		}
 		info.type = 2;
-		String cmd = String.format("pm install -r " + DirHelper.DATAAPP_DIR
-				+ "%s.apk", packageName);
+		String cmd = String.format("pm install -r " + savePath + "%s.apk",
+				packageName);
 		CommandResult result = null;
 		if (GlobalInstance.reinstallApk) {
 			try {
@@ -482,8 +535,8 @@ public class ApkUtils {
 		}
 
 		if (result.result.toLowerCase().equals("success")) {
-			cmd = String.format("busybox cp -r " + DirHelper.DATAAPP_DIR
-					+ "%s /data/data/", packageName);
+			cmd = String.format("busybox cp -r " + savePath + "%s /data/data/",
+					packageName);
 			result = RootUtils.runCommand(cmd, true, null);
 			if (result.error.equals("")) {
 
@@ -512,6 +565,11 @@ public class ApkUtils {
 			info.logId = 2;
 			operationLog.add(info);
 		}
+	}
+
+	public static void restoreData(Context context, String packageName,
+			DataappInfo info) {
+		restoreData(context, packageName, null, info);
 	}
 
 	public static void deleteBackupData(String packageName) {
@@ -590,7 +648,8 @@ public class ApkUtils {
 
 	public static void setInstallLocation(int location) {
 		RootUtils.runCommand(
-				"pm set-install-location " + String.valueOf(location), true, null);
+				"pm set-install-location " + String.valueOf(location), true,
+				null);
 	}
 
 	public static void openApp(Context context, String packageName) {
@@ -620,5 +679,49 @@ public class ApkUtils {
 			intent.setComponent(cn);
 			context.startActivity(intent);
 		}
+	}
+
+	public static void scanApksInSdcard(final CommandCallback callback) {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				String cmd = "busybox find /sdcard/ -name \"*.apk\"";
+				CommandResult ret = RootUtils.runCommand(cmd, true, callback);
+				Log.e("scanApksInSdcard", ret.result);
+			}
+		}).start();
+	}
+
+	/**
+	 * getApkFileStatus
+	 * 
+	 * @param newinfo
+	 * @return status with the new application info<br>
+	 *         return 0: installed with same signature<br>
+	 *         return 1: installed with different signature<br>
+	 *         return 2: no need update<br>
+	 *         return 3: not installed
+	 */
+	public static int getApkFileStatus(Context context, DataappInfo newinfo) {
+		String packageName = newinfo.info.packageName;
+		ApplicationInfo installedInfo = null;
+		try {
+			installedInfo = GlobalInstance.pm
+					.getApplicationInfo(packageName, 0);
+		} catch (NameNotFoundException e) {
+
+		}
+		if (installedInfo == null) {
+			return 3;
+		}
+		int newVer = DeviceUtils.getAppVersionCode(context, newinfo.localPath);
+		int oldVer = DeviceUtils.getAppVersionCode(context, installedInfo);
+		if (newVer <= oldVer) {
+			return 2;
+		}
+		int compare = GlobalInstance.pm.checkSignatures(newinfo.info.uid,
+				installedInfo.uid);
+		return (compare == PackageManager.SIGNATURE_MATCH ? 0 : 1);
 	}
 }
