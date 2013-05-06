@@ -30,10 +30,11 @@ public class SearchLoader extends BaseCursorLoader {
 		String cardBelongs = bn.getString("cardBelongs");
 		String cardLimit = bn.getString("cardLimit");
 		int cardTunner = bn.getInt("cardTunner");
+		String cardEffectText = bn.getString("cardEffectText");
 
 		Cursor cSearchResult = YugiohUtils.getCards(getContext(), cardType,
 				cardAttribute, cardLevel, cardRace, cardName, cardEffect,
-				cardAtk, cardDef, cardRare, cardBelongs, cardLimit, cardTunner);
+				cardAtk, cardDef, cardRare, cardBelongs, cardLimit, cardTunner, cardEffectText);
 		return cSearchResult;
 	}
 

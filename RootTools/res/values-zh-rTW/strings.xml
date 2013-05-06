@@ -273,4 +273,5 @@
 	<string name="apkstat_2">無需升級</string>
 	<string name="apkstat_1">籤名不同，需強制升級</string>
 	<string name="apkstat_0">可以正常升級</string>
+	<string name="tv_refresh_apk">點擊 &lt;font color=\'#6495ED\'&gt;刷新&lt;/font&gt; 將掃描 SD 卡內的所有 APK 檔案</string>
 </resources>

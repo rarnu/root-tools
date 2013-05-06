@@ -155,6 +155,8 @@ public class ApkUtils {
 					DirHelper.FORCE_UPDATE_DIR, info);
 			RootUtils.runCommand("pm uninstall " + packageName, true);
 			restoreData(context, packageName, DirHelper.FORCE_UPDATE_DIR, info);
+			RootUtils.runCommand("rm -r " + DirHelper.FORCE_UPDATE_DIR
+					+ packageName + "*", true);
 			ret = true;
 		} catch (Exception e) {
 

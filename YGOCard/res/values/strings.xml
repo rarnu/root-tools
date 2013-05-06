@@ -65,6 +65,7 @@
     <string name="search_attack">攻击力</string>
     <string name="search_defense">守备力</string>
     <string name="search_effect">效果种类</string>
+    <string name="search_effect_text">效果关键字</string>
     <string name="search_search">搜索卡片</string>
     <string name="search_reset">条件复位</string>
     <string name="search_na">不限</string>
@@ -185,6 +186,7 @@
     <string name="update_data_finished">本次更新包含了数据库的更新，请重新启动本软件以启用新的数据库</string>
     <string name="msg_no_database">没有找到数据库文件，请下载并放于 /sdcard/.yugioh/ 下，然后重新启动本软件</string>
     <string name="msg_not_impl">该功能暂未实现，请静候新版本哦~</string>
+    <string name="slow_query_hint">此条件将使搜索变慢</string>
     
     <!-- jump -->
     <string name="jump_jump">跳转</string>

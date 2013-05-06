@@ -25,7 +25,7 @@ public class SearchFragment extends BaseFragment implements
 	Spinner spCardEffect, spCardRace, spCardBelongs, spCardType,
 			spCardAttribute, spCardLevel, spCardRare, spCardLimit,
 			spCardTunner;
-	EditText etCardName, etCardAttack, etCardDefense;
+	EditText etCardName, etCardAttack, etCardDefense, etEffectText;
 
 	public SearchFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -46,6 +46,7 @@ public class SearchFragment extends BaseFragment implements
 		etCardName = (EditText) innerView.findViewById(R.id.etCardName);
 		etCardAttack = (EditText) innerView.findViewById(R.id.etCardAttack);
 		etCardDefense = (EditText) innerView.findViewById(R.id.etCardDefense);
+		etEffectText = (EditText) innerView.findViewById(R.id.etEffectText);
 		spCardEffect = (Spinner) innerView.findViewById(R.id.spCardEffect);
 		spCardRace = (Spinner) innerView.findViewById(R.id.spCardRace);
 		spCardBelongs = (Spinner) innerView.findViewById(R.id.spCardBelongs);
@@ -205,6 +206,8 @@ public class SearchFragment extends BaseFragment implements
 		}
 
 		int cardTunner = spCardTunner.getSelectedItemPosition();
+		
+		String cardEffectText = etEffectText.getText().toString();
 
 		Bundle bn = new Bundle();
 		bn.putString("cardType", cardType);
@@ -219,6 +222,7 @@ public class SearchFragment extends BaseFragment implements
 		bn.putString("cardBelongs", cardBelongs);
 		bn.putString("cardLimit", cardLimit);
 		bn.putInt("cardTunner", cardTunner);
+		bn.putString("cardEffectText", cardEffectText);
 
 		InnerFragment bfSearchResult = (InnerFragment) getFragmentManager()
 				.findFragmentByTag(getString(R.tag.tag_main_result));
@@ -238,6 +242,7 @@ public class SearchFragment extends BaseFragment implements
 		etCardName.setText("");
 		etCardAttack.setText("");
 		etCardDefense.setText("");
+		etEffectText.setText("");
 	}
 
 	@Override

@@ -20,6 +20,15 @@
             android:textSize="18dp" />
 
         <ImageView
+            android:id="@+id/imgSettings"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dip"
+            android:src="@android:drawable/ic_menu_preferences" />
+
+        <ImageView
             android:id="@+id/laySplit"
             android:layout_width="match_parent"
             android:layout_height="2dip"

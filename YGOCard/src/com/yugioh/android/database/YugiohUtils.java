@@ -96,7 +96,7 @@ public class YugiohUtils {
 			String cardAttribute, int cardLevel, String cardRace,
 			String cardName, String cardEffect, String cardAtk, String cardDef,
 			String cardRare, String cardBelongs, String cardLimit,
-			int cardTunner) {
+			int cardTunner, String cardEffectText) {
 
 		int argCnt = 0;
 		String where = "1=1";
@@ -161,6 +161,10 @@ public class YugiohUtils {
 		}
 		if (!cardLimit.equals("")) {
 			where += " and SCCardBan=?";
+			argCnt++;
+		}
+		if (!cardEffectText.equals("")) {
+			where += " and SCCardDepict like ?";
 			argCnt++;
 		}
 
@@ -229,6 +233,11 @@ public class YugiohUtils {
 		}
 		if (!cardLimit.equals("")) {
 			args[argId] = cardLimit;
+			argId++;
+		}
+
+		if (!cardEffectText.equals("")) {
+			args[argId] = "%" + cardEffectText + "%";
 			argId++;
 		}
 

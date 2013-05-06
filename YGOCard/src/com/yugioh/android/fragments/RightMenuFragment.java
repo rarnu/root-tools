@@ -12,9 +12,11 @@ import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import com.rarnu.devlib.utils.UIUtils;
 import com.yugioh.android.AboutActivity;
 import com.yugioh.android.MainActivity;
 import com.yugioh.android.R;
+import com.yugioh.android.SettingsActivity;
 import com.yugioh.android.UpdateActivity;
 import com.yugioh.android.adapter.RecommandAdapter;
 import com.yugioh.android.adapter.RightMenuAdapter;
@@ -36,7 +39,7 @@ import com.yugioh.android.utils.RecommandUtils;
 import com.yugioh.android.utils.UpdateUtils;
 
 public class RightMenuFragment extends BaseFragment implements IMenuIntf,
-		OnItemClickListener, OnLoadCompleteListener<List<RecommandInfo>> {
+		OnItemClickListener, OnLoadCompleteListener<List<RecommandInfo>>, OnClickListener {
 
 	ListView lvAbout, lvSettings;
 	List<String> listAbout;
@@ -48,6 +51,7 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 	List<RecommandInfo> listRecommand;
 	RecommandLoader loaderRecommand;
 	RecommandAdapter adapterRecommand;
+	ImageView imgSettings;
 
 	public RightMenuFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -65,6 +69,7 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 
 	@Override
 	protected void initComponents() {
+		imgSettings = (ImageView) innerView.findViewById(R.id.imgSettings);
 		lvRecommand = (ListView) innerView.findViewById(R.id.lvRecommand);
 		lvSettings = (ListView) innerView.findViewById(R.id.lvSettings);
 		lvAbout = (ListView) innerView.findViewById(R.id.lvAbout);
@@ -100,6 +105,7 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 		lvSettings.setOnItemClickListener(this);
 		lvRecommand.setOnItemClickListener(this);
 		loaderRecommand.registerListener(0, this);
+		imgSettings.setOnClickListener(this);
 	}
 
 	final Handler hUpdate = new Handler() {
@@ -215,6 +221,16 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 			listRecommand.addAll(data);
 		}
 		adapterRecommand.setNewList(listRecommand);
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.imgSettings:
+			startActivity(new Intent(getActivity(), SettingsActivity.class));
+			break;
+		}
+		
 	}
 
 }

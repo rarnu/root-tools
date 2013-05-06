@@ -6,10 +6,12 @@ import java.util.List;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.Html;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.command.CommandCallback;
@@ -28,6 +30,7 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
 	DataProgressBar progressScanApk;
 	HardUpdateAdapter adapter;
 	List<DataappInfo> list;
+	TextView tvEmptyHint;
 
 	MenuItem itemRefresh;
 
@@ -118,6 +121,9 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
 		list = new ArrayList<DataappInfo>();
 		adapter = new HardUpdateAdapter(getActivity(), list, hButtonClick);
 		lvHardUpdate.setAdapter(adapter);
+		tvEmptyHint = (TextView) innerView.findViewById(R.id.tvEmptyHint);
+		tvEmptyHint.setText(Html.fromHtml(getString(R.string.tv_refresh_apk)));
+		tvEmptyHint.setVisibility(View.VISIBLE);
 	}
 
 	@Override
@@ -152,6 +158,7 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MenuItemIds.MENU_REFRESH:
+			tvEmptyHint.setVisibility(View.GONE);
 			progressScanApk.setAppName(getString(R.string.proc_scaning_apk));
 			progressScanApk.setVisibility(View.VISIBLE);
 			lvHardUpdate.setVisibility(View.VISIBLE);

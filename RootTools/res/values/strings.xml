@@ -273,4 +273,5 @@
 	<string name="apkstat_2">No need to update</string>
 	<string name="apkstat_1">Different signature, need force update</string>
 	<string name="apkstat_0">Can be updated normally</string>
+	<string name="tv_refresh_apk">Click &lt;font color=\'#6495ED\'&gt;Refresh&lt;/font&gt; to scan APK files in your SDCard</string>
 </resources>
