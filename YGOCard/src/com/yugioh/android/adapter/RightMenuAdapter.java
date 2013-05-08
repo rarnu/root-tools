@@ -14,10 +14,6 @@ import com.yugioh.android.classes.RightMenuItem;
 
 public class RightMenuAdapter extends BaseAdapter<RightMenuItem> {
 
-	private static final int[] fits = new int[] { R.drawable.c0, R.drawable.c1,
-			R.drawable.c2, R.drawable.c3, R.drawable.c4, R.drawable.c5,
-			R.drawable.c6, R.drawable.c7, R.drawable.c8, R.drawable.c9 };
-
 	public RightMenuAdapter(Context context, List<RightMenuItem> list) {
 		super(context, list);
 	}
@@ -48,9 +44,6 @@ public class RightMenuAdapter extends BaseAdapter<RightMenuItem> {
 					holder.ivImg
 							.setImageResource(android.R.drawable.ic_menu_upload);
 				}
-				break;
-			case 1:
-				holder.ivImg.setImageResource(fits[item.value]);
 				break;
 			}
 		}

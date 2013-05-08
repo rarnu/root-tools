@@ -7,11 +7,14 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
+import com.yugioh.android.common.Config;
 
 public class CardInfoCardFragment extends BaseFragment {
 
 	TextView tvInfo;
 	CardInfo info;
+
+	int fontSize = -1;
 
 	public CardInfoCardFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -41,8 +44,14 @@ public class CardInfoCardFragment extends BaseFragment {
 	protected void initLogic() {
 		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
 				"cardinfo");
-		
+
 		tvInfo.setText(buildCardInfo(info));
+
+		fontSize = Config.cfgGetFontSize(getActivity());
+		if (fontSize == -1) {
+			fontSize = (int) tvInfo.getTextSize();
+		}
+		tvInfo.setTextSize(fontSize);
 	}
 
 	private String buildCardInfo(CardInfo info) {

@@ -159,12 +159,16 @@
     <string name="pref_data_s">检查本软件对存储空间的占用</string>
     <string name="pref_weibo">绑定新浪微博</string>
     <string name="pref_weibo_s">使用新浪微博帐号进行卡片分享</string>
-    <string name="pref_data_msg">数据位于 /sdcard/.yugioh/, 已占用空间 %d MB</string>
+    <string name="pref_data_msg">数据存储占用</string>
     <string name="pref_fit_s0">适配度过低，也许无法正常使用</string>
     <string name="pref_fit_s1">适配度较低，部分功能可能无法正常使用</string>
     <string name="pref_fit_s2">适配度良好，所有功能均可正常使用</string>
     <string name="pref_fit_s3">适配度优秀，所有功能均可正常使用且流畅</string>
-
+	<string name="st_font_size">字体大小</string>
+	<string name="st_font_smaller">&lt;</string>
+	<string name="st_font_bigger">&gt;</string>
+	<string name="st_font_demo">囧</string>
+    
     <!-- update -->
     <string name="update_start">开始更新</string>
     <string name="update_no_database">您的设备上没有安装卡片数据库，点击“更新”按钮后将为您下载并安装它，安装完毕后请重新启动本软件</string>

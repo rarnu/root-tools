@@ -8,12 +8,15 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
+import com.yugioh.android.common.Config;
 
 public class CardInfoAdjustFragment extends BaseFragment {
 
 	CardInfo info;
 	TextView tvAdjust;
 	TextView tvNoAdjust;
+	
+	int fontSize = -1;
 
 	public CardInfoAdjustFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -49,6 +52,12 @@ public class CardInfoAdjustFragment extends BaseFragment {
 		tvAdjust.setText(info.getCardAdjust());
 		tvNoAdjust.setVisibility((info.getCardAdjust() == null || info
 				.getCardAdjust().trim().equals("")) ? View.VISIBLE : View.GONE);
+		
+		fontSize = Config.cfgGetFontSize(getActivity());
+		if (fontSize == -1) {
+			fontSize = (int) tvAdjust.getTextSize();
+		}
+		tvAdjust.setTextSize(fontSize);
 	}
 
 	@Override

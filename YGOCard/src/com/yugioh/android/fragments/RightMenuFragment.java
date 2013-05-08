@@ -21,7 +21,6 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.utils.UIUtils;
 import com.yugioh.android.AboutActivity;
 import com.yugioh.android.MainActivity;
 import com.yugioh.android.R;
@@ -34,7 +33,6 @@ import com.yugioh.android.classes.RightMenuItem;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.intf.IMenuIntf;
 import com.yugioh.android.loader.RecommandLoader;
-import com.yugioh.android.utils.DeviceUtils;
 import com.yugioh.android.utils.RecommandUtils;
 import com.yugioh.android.utils.UpdateUtils;
 
@@ -85,11 +83,11 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 		itemUpdate.name = getString(R.string.rm_update);
 		itemUpdate.value = 0;
 		listSettings.add(itemUpdate);
-		RightMenuItem itemFit = new RightMenuItem();
-		itemFit.type = 1;
-		itemFit.name = getString(R.string.rm_fitable);
-		itemFit.value = DeviceUtils.getFitable(UIUtils.getDM());
-		listSettings.add(itemFit);
+//		RightMenuItem itemFit = new RightMenuItem();
+//		itemFit.type = 1;
+//		itemFit.name = getString(R.string.rm_fitable);
+//		itemFit.value = DeviceUtils.getFitable(UIUtils.getDM());
+//		listSettings.add(itemFit);
 		adapterSettings = new RightMenuAdapter(getActivity(), listSettings);
 		lvSettings.setAdapter(adapterSettings);
 

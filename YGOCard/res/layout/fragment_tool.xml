@@ -67,7 +67,7 @@
     <EditText
         android:id="@+id/etP1Life"
         android:layout_width="match_parent"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/tvP1Oper"
         android:layout_toLeftOf="@+id/btnP1Add"
         android:maxLines="1"
@@ -77,23 +77,25 @@
     <Button
         android:id="@+id/btnP1Add"
         android:layout_width="60dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/tvP1Oper"
         android:layout_toLeftOf="@+id/btnP1Minus"
-        android:text="@string/tool_plus" />
+        android:text="@string/tool_plus"
+        android:textColor="#FF00FF00" />
 
     <Button
         android:id="@+id/btnP1Minus"
         android:layout_width="60dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/tvP1Oper"
         android:layout_toLeftOf="@+id/btnP1Set"
-        android:text="@string/tool_minus" />
+        android:text="@string/tool_minus"
+        android:textColor="@color/red" />
 
     <Button
         android:id="@+id/btnP1Set"
         android:layout_width="60dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tvP1Oper"
         android:text="@string/tool_set" />
@@ -101,14 +103,14 @@
     <Button
         android:id="@+id/btnP1Half"
         android:layout_width="75dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/etP1Life"
         android:text="@string/tool_half" />
 
     <Button
         android:id="@+id/btnP1Double"
         android:layout_width="75dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/etP1Life"
         android:layout_toRightOf="@+id/btnP1Half"
         android:text="@string/tool_double" />
@@ -116,20 +118,18 @@
     <Button
         android:id="@+id/btnP1Divide"
         android:layout_width="75dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/etP1Life"
         android:layout_toRightOf="@+id/btnP1Double"
-        android:text="@string/tool_divide"
-        android:textColor="@color/red" />
+        android:text="@string/tool_divide" />
 
     <Button
         android:id="@+id/btnP1Opt"
         android:layout_width="75dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/etP1Life"
         android:layout_toRightOf="@+id/btnP1Divide"
-        android:text="@string/tool_opt"
-        android:textColor="@color/red" />
+        android:text="@string/tool_opt" />
 
     <TextView
         android:id="@+id/tvSplit2"
@@ -156,7 +156,7 @@
     <EditText
         android:id="@+id/etP2Life"
         android:layout_width="match_parent"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/tvP2Oper"
         android:layout_toLeftOf="@+id/btnP2Add"
         android:maxLines="1"
@@ -166,23 +166,25 @@
     <Button
         android:id="@+id/btnP2Add"
         android:layout_width="60dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/tvP2Oper"
         android:layout_toLeftOf="@+id/btnP2Minus"
-        android:text="@string/tool_plus" />
+        android:text="@string/tool_plus"
+        android:textColor="#FF00FF00" />
 
     <Button
         android:id="@+id/btnP2Minus"
         android:layout_width="60dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/tvP2Oper"
         android:layout_toLeftOf="@+id/btnP2Set"
-        android:text="@string/tool_minus" />
+        android:text="@string/tool_minus"
+        android:textColor="@color/red" />
 
     <Button
         android:id="@+id/btnP2Set"
         android:layout_width="60dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/tvP2Oper"
         android:text="@string/tool_set" />
@@ -190,14 +192,14 @@
     <Button
         android:id="@+id/btnP2Half"
         android:layout_width="75dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/etP2Life"
         android:text="@string/tool_half" />
 
     <Button
         android:id="@+id/btnP2Double"
         android:layout_width="75dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/etP2Life"
         android:layout_toRightOf="@+id/btnP2Half"
         android:text="@string/tool_double" />
@@ -205,20 +207,18 @@
     <Button
         android:id="@+id/btnP2Divide"
         android:layout_width="75dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/etP2Life"
         android:layout_toRightOf="@+id/btnP2Double"
-        android:text="@string/tool_divide"
-        android:textColor="@color/red" />
+        android:text="@string/tool_divide" />
 
     <Button
         android:id="@+id/btnP2Opt"
         android:layout_width="75dip"
-        android:layout_height="40dip"
+        android:layout_height="48dip"
         android:layout_below="@+id/etP2Life"
         android:layout_toRightOf="@+id/btnP2Divide"
-        android:text="@string/tool_opt"
-        android:textColor="@color/red" />
+        android:text="@string/tool_opt" />
 
     <TextView
         android:id="@+id/tvSplit3"
@@ -236,13 +236,13 @@
         <Button
             android:id="@+id/btnCoin"
             android:layout_width="80dip"
-            android:layout_height="40dip"
+            android:layout_height="48dip"
             android:text="@string/tool_coin" />
 
         <Button
             android:id="@+id/btnDice"
             android:layout_width="80dip"
-            android:layout_height="40dip"
+            android:layout_height="48dip"
             android:layout_toRightOf="@+id/btnCoin"
             android:text="@string/tool_dice" />
     </RelativeLayout>
