@@ -1,5 +1,6 @@
 package com.rarnu.devlib.utils;
 
+import java.io.BufferedOutputStream;
 import java.io.BufferedReader;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -11,15 +12,20 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Context;
+import android.os.Handler;
+import android.os.Message;
 
 public class FileUtils {
 
-	private static FileOutputStream fs;
-
+	public static final int WHAT_COPY_START = 1;
+	public static final int WHAT_COPY_PROGRESS = 2;
+	public static final int WHAT_COPY_FINISH = 3;
+	
 	public static boolean mkdir(String path) {
 		boolean ret = false;
 		File myDir = new File(path);
@@ -98,26 +104,51 @@ public class FileUtils {
 		}
 	}
 
-	public static void copyFile(String source, String dest) throws IOException {
-		int bytesum = 0;
-		int byteread = 0;
+	public static void copyFile(String source, String dest, Handler hProgress) throws IOException {
+		
 		File oldFile = new File(source);
 		if (oldFile.exists()) {
-			InputStream inStream = new FileInputStream(source);
-			fs = new FileOutputStream(dest);
-			byte[] buffer = new byte[1444];
-			while ((byteread = inStream.read(buffer)) != -1) {
-				bytesum += byteread;
-				System.out.println(bytesum);
-				fs.write(buffer, 0, byteread);
+			InputStream is = new FileInputStream(source);
+			FileOutputStream fs = new FileOutputStream(dest);
+			
+			int size = is.available();
+			if (hProgress != null) {
+				Message msg = new Message();
+				msg.what = WHAT_COPY_START;
+				msg.arg1 = 0;
+				msg.arg2 = size;
+				hProgress.sendMessage(msg);
 			}
-			inStream.close();
+			int count = 0;
+			int n = 0;
+	
+			byte[] buffer = new byte[1444];
+			while ((n = is.read(buffer)) != -1) {
+				fs.write(buffer, 0, n);
+				count += n;
+				if (hProgress != null) {
+					Message msg = new Message();
+					msg.what = WHAT_COPY_PROGRESS;
+					msg.arg1 = count;
+					msg.arg2 = size;
+					hProgress.sendMessage(msg);
+				}
+			}
+			is.close();
+			fs.close();
+			if (hProgress != null) {
+				Message msg = new Message();
+				msg.what = WHAT_COPY_FINISH;
+				msg.arg1 = 0;
+				msg.arg2 = 0;
+				hProgress.sendMessage(msg);
+			}
 		}
 	}
 
 	public static void copyFolder(String source, String dest)
 			throws IOException {
-		(new File(dest)).mkdirs();
+		new File(dest).mkdirs();
 		File a = new File(source);
 		String[] file = a.list();
 		File temp = null;
@@ -149,8 +180,8 @@ public class FileUtils {
 
 	}
 
-	public static void moveFile(String source, String dest) throws IOException {
-		copyFile(source, dest);
+	public static void moveFile(String source, String dest, Handler hProgress) throws IOException {
+		copyFile(source, dest, hProgress);
 		deleteFile(source);
 
 	}
@@ -200,6 +231,61 @@ public class FileUtils {
 		arrayOutputStream.close();
 		String text = new String(arrayOutputStream.toByteArray());
 		return text.trim();
+	}
+	
+	public static boolean copyAssetFile(Context context, String fileName, String saveDir, Handler hProgress) {
+		File fBusybox = new File(saveDir);
+		if (!fBusybox.exists()) {
+			fBusybox.mkdirs();
+		}
+		try {
+			byte[] buffer = new byte[8192];
+
+			File dest = new File(saveDir + fileName);
+
+			if (dest.exists()) {
+				dest.delete();
+			}
+
+			InputStream is = context.getAssets().open(fileName);
+			OutputStream fos = new BufferedOutputStream(new FileOutputStream(
+					dest));
+			
+			int count = 0;
+			int size = is.available();
+			if (hProgress != null) {
+				Message msg = new Message();
+				msg.what = WHAT_COPY_START;
+				msg.arg1 = 0;
+				msg.arg2 = size;
+				hProgress.sendMessage(msg);
+			}
+			int n;
+			while ((n = is.read(buffer, 0, buffer.length)) != -1) {
+				fos.write(buffer, 0, n);
+				count += n;
+				if (hProgress != null) {
+					Message msg = new Message();
+					msg.what = WHAT_COPY_PROGRESS;
+					msg.arg1 = count;
+					msg.arg2 = size;
+					hProgress.sendMessage(msg);
+				}
+			}
+
+			is.close();
+			fos.close();
+			if (hProgress != null) {
+				Message msg = new Message();
+				msg.what = WHAT_COPY_FINISH;
+				msg.arg1 = 0;
+				msg.arg2 = 0;
+				hProgress.sendMessage(msg);
+			}
+			return true;
+		} catch (Exception ex) {
+			return false;
+		}
 	}
 
 	public static String readFile(Context context, String path)
