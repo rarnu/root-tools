@@ -1,0 +1,7 @@
+.classpath
+bin/
+gen/
+.settings/
+*.apk
+x86_64-linux/
+i386-linux/
