@@ -4,7 +4,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 
-import com.rarnu.devlib.utils.NetworkUtils;
+import com.rarnu.utils.NetworkUtils;
 
 public class NetworkReceiver extends BroadcastReceiver {
 

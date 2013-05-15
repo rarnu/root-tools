@@ -8,9 +8,9 @@ import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import com.rarnu.devlib.utils.HttpRequest;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.common.UpdateInfo;
+import com.rarnu.utils.HttpRequest;
 
 public class MobileApi {
 

@@ -18,9 +18,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.utils.DownloadUtils;
-import com.rarnu.devlib.utils.FileUtils;
-import com.rarnu.devlib.utils.ZipUtils;
+import com.rarnu.utils.DownloadUtils;
+import com.rarnu.utils.FileUtils;
+import com.rarnu.utils.ZipUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.database.YugiohDatabase;

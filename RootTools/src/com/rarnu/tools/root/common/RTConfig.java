@@ -2,7 +2,7 @@ package com.rarnu.tools.root.common;
 
 import android.content.Context;
 
-import com.rarnu.devlib.utils.ConfigUtils;
+import com.rarnu.utils.ConfigUtils;
 
 public class RTConfig {
 	

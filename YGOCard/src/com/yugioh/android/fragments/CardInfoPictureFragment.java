@@ -15,7 +15,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.utils.DownloadUtils;
+import com.rarnu.utils.DownloadUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.define.NetworkDefine;

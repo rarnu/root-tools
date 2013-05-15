@@ -4,9 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.rarnu.devlib.base.BaseNotifyReceiver;
-import com.rarnu.devlib.utils.NotificationUtils;
 import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.fragmentactivity.DataappReportActivity;
+import com.rarnu.utils.NotificationUtils;
 
 public class NotifyReceiver extends BaseNotifyReceiver {
 

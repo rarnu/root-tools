@@ -1,4 +1,4 @@
-package com.rarnu.devlib.utils;
+package com.rarnu.utils;
 
 import android.content.Context;
 import android.content.res.ColorStateList;

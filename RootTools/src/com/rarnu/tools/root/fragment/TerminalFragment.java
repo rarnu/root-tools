@@ -5,14 +5,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.utils.MiscUtils;
-import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.terminal.EmulatorView;
 import com.rarnu.terminal.session.ShellTermSession;
 import com.rarnu.terminal.session.TermSession;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.MenuItemIds;
+import com.rarnu.utils.MiscUtils;
+import com.rarnu.utils.UIUtils;
 
 public class TerminalFragment extends BaseFragment {
 

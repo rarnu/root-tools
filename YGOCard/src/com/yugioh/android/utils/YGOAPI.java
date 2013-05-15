@@ -9,7 +9,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 
-import com.rarnu.devlib.utils.HttpRequest;
+import com.rarnu.utils.HttpRequest;
 import com.yugioh.android.classes.RecommandInfo;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.define.NetworkDefine;

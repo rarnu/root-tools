@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.rarnu.devlib.base.BaseAdapter;
-import com.rarnu.devlib.utils.DownloadUtils;
+import com.rarnu.utils.DownloadUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.RecommandInfo;
 import com.yugioh.android.define.NetworkDefine;

@@ -1,4 +1,4 @@
-package com.rarnu.devlib.utils;
+package com.rarnu.utils;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,8 +12,6 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.GridView;
 import android.widget.ListView;
-
-import com.rarnu.devlib.R;
 
 public class UIUtils {
 

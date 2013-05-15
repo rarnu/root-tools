@@ -13,6 +13,10 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
 public class RootUtils {
+	
+	public static final int LEVEL_ROOTED = 2;
+	public static final int LEVEL_HALF_ROOTED = 1;
+	public static final int LEVEL_NO_ROOT = 0;
 
 	private static final String SU_PATH = "/system/bin/su";
 	private static final String SU_PATH_X = "/system/xbin/su";
@@ -66,10 +70,10 @@ public class RootUtils {
 	public static int hasRoot() {
 		boolean hasSU = findSU();
 		if (!hasSU) {
-			return 0;
+			return LEVEL_NO_ROOT;
 		}
 		boolean hasSuperUser = findSuperUser();
-		return hasSuperUser ? 2 : 1;
+		return hasSuperUser ? LEVEL_ROOTED : LEVEL_HALF_ROOTED;
 	}
 
 	public static boolean isWrongRoot() {

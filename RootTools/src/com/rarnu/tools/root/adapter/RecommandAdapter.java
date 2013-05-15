@@ -9,12 +9,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseAdapter;
-import com.rarnu.devlib.utils.DownloadUtils;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.holder.RecommandAdapterHolder;
 import com.rarnu.tools.root.utils.DirHelper;
+import com.rarnu.utils.DownloadUtils;
 
 public class RecommandAdapter extends BaseAdapter<RecommandInfo> {
 

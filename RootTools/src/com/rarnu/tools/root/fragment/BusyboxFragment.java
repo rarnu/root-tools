@@ -18,13 +18,13 @@ import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.BlockListView;
 import com.rarnu.devlib.component.DataProgressBar;
-import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.BusyboxAdapter;
 import com.rarnu.tools.root.common.BusyboxInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.BusyboxUtils;
+import com.rarnu.utils.UIUtils;
 
 public class BusyboxFragment extends BaseFragment implements
 		OnItemClickListener {

@@ -2,7 +2,7 @@ package com.yugioh.android.common;
 
 import android.content.Context;
 
-import com.rarnu.devlib.utils.ConfigUtils;
+import com.rarnu.utils.ConfigUtils;
 
 public class Config {
 

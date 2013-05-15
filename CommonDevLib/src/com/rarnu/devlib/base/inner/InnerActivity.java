@@ -11,8 +11,8 @@ import android.widget.RelativeLayout;
 
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.base.intf.InnerIntf;
-import com.rarnu.devlib.utils.DrawableUtils;
-import com.rarnu.devlib.utils.UIUtils;
+import com.rarnu.utils.DrawableUtils;
+import com.rarnu.utils.UIUtils;
 
 public abstract class InnerActivity extends Activity implements
 		OnGlobalLayoutListener {

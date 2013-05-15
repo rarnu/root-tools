@@ -10,11 +10,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseAdapter;
-import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.SysappInfo;
 import com.rarnu.tools.root.holder.SysappAdapterHolder;
+import com.rarnu.utils.DrawableUtils;
 
 public class SysappAdapter extends BaseAdapter<SysappInfo> {
 

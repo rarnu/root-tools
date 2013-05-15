@@ -1,4 +1,4 @@
-package com.rarnu.devlib.utils;
+package com.rarnu.utils;
 
 import java.io.BufferedOutputStream;
 import java.io.BufferedReader;

@@ -11,10 +11,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseAdapter;
-import com.rarnu.devlib.utils.DrawableUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.holder.CompPackageAdapterHolder;
+import com.rarnu.utils.DrawableUtils;
 
 public class CompPackageAdapter extends BaseAdapter<PackageInfo> {
 

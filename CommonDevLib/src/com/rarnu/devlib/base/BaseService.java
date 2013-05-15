@@ -8,7 +8,7 @@ import android.os.IBinder;
 import android.os.Message;
 
 import com.rarnu.devlib.common.Actions;
-import com.rarnu.devlib.utils.NotificationUtils;
+import com.rarnu.utils.NotificationUtils;
 
 public abstract class BaseService extends Service {
 
@@ -67,7 +67,6 @@ public abstract class BaseService extends Service {
 		final Handler h = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
-
 				if (msg.what == 1) {
 					operating = false;
 					fiIntent();

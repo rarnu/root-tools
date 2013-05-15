@@ -1,4 +1,4 @@
-package com.rarnu.devlib.utils;
+package com.rarnu.utils;
 
 import android.app.Notification;
 import android.app.NotificationManager;

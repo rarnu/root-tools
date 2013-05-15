@@ -8,7 +8,7 @@ import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.rarnu.devlib.base.BaseActivity;
-import com.rarnu.devlib.utils.DownloadUtils;
+import com.rarnu.utils.DownloadUtils;
 import com.yugioh.android.fragments.UpdateFragment;
 import com.yugioh.android.intf.IDestroyCallback;
 import com.yugioh.android.intf.IUpdateIntf;

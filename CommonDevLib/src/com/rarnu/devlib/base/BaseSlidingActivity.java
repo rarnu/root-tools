@@ -14,9 +14,9 @@ import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.devlib.common.IFragments;
 import com.rarnu.devlib.common.ISliding;
 import com.rarnu.devlib.component.SlidingMenu;
-import com.rarnu.devlib.utils.DrawableUtils;
-import com.rarnu.devlib.utils.SlidingHelper;
-import com.rarnu.devlib.utils.UIUtils;
+import com.rarnu.devlib.helper.SlidingHelper;
+import com.rarnu.utils.DrawableUtils;
+import com.rarnu.utils.UIUtils;
 
 public abstract class BaseSlidingActivity extends InnerActivity implements
 		ISliding, IFragments {

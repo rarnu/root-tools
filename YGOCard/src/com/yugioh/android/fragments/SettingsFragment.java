@@ -9,7 +9,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.utils.UIUtils;
+import com.rarnu.utils.UIUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.common.Config;
 import com.yugioh.android.utils.DeviceUtils;

@@ -11,7 +11,7 @@ import android.view.KeyEvent;
 import com.rarnu.devlib.base.BaseSlidingActivity;
 import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.component.SlidingMenu;
-import com.rarnu.devlib.utils.UIUtils;
+import com.rarnu.utils.UIUtils;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.database.YugiohDatabase;
 import com.yugioh.android.fragments.DeckFragment;

@@ -1,4 +1,4 @@
-package com.rarnu.devlib.utils;
+package com.rarnu.devlib.helper;
 
 import android.app.Activity;
 import android.os.Bundle;

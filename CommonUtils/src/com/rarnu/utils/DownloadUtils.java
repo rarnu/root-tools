@@ -1,4 +1,4 @@
-package com.rarnu.devlib.utils;
+package com.rarnu.utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,7 +15,7 @@ import android.os.Message;
 import android.util.Log;
 import android.widget.ImageView;
 
-import com.rarnu.devlib.common.DownloadInfo;
+import com.rarnu.utils.common.DownloadInfo;
 
 public class DownloadUtils {
 

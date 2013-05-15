@@ -17,14 +17,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.devlib.base.BasePopupFragment;
-import com.rarnu.devlib.utils.DrawableUtils;
-import com.rarnu.devlib.utils.UIUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.CompAdapter;
 import com.rarnu.tools.root.common.CompInfo;
 import com.rarnu.tools.root.utils.ComponentUtils;
+import com.rarnu.utils.DrawableUtils;
+import com.rarnu.utils.UIUtils;
 
 public class CompPackageInfoFragment extends BasePopupFragment implements
 		OnItemLongClickListener {

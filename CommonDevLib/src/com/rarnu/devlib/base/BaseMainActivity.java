@@ -19,8 +19,8 @@ import com.rarnu.devlib.R;
 import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.devlib.common.IFragments;
 import com.rarnu.devlib.common.UIInstance;
-import com.rarnu.devlib.utils.DrawableUtils;
-import com.rarnu.devlib.utils.UIUtils;
+import com.rarnu.utils.DrawableUtils;
+import com.rarnu.utils.UIUtils;
 
 public abstract class BaseMainActivity extends Activity implements IFragments {
 

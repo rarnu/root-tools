@@ -1,4 +1,4 @@
-package com.rarnu.devlib.utils;
+package com.rarnu.utils;
 
 import java.io.DataInputStream;
 import java.text.DecimalFormat;
@@ -13,9 +13,8 @@ import android.net.NetworkInfo;
 
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
-import com.rarnu.devlib.R;
-import com.rarnu.devlib.common.GlobalInstance;
-import com.rarnu.devlib.common.PingInfo;
+import com.rarnu.utils.common.GlobalInstance;
+import com.rarnu.utils.common.PingInfo;
 
 public class NetworkUtils {
 

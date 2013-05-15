@@ -18,7 +18,6 @@ import android.widget.Toast;
 
 import com.rarnu.devlib.base.BasePopupFragment;
 import com.rarnu.devlib.component.DataProgressBar;
-import com.rarnu.devlib.utils.NetworkUtils;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.HostsAdapter;
@@ -26,6 +25,7 @@ import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.loader.HostsLoader;
 import com.rarnu.tools.root.utils.DIPairUtils;
+import com.rarnu.utils.NetworkUtils;
 
 public class HostDeprecatedFragment extends BasePopupFragment implements
 		OnLoadCompleteListener<List<HostRecordInfo>> {

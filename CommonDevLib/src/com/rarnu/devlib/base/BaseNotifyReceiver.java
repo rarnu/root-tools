@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.rarnu.devlib.common.Actions;
-import com.rarnu.devlib.utils.NotificationUtils;
+import com.rarnu.utils.NotificationUtils;
 
 public abstract class BaseNotifyReceiver extends BroadcastReceiver {
 

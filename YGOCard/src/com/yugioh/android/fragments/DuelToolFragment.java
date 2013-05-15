@@ -12,8 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.utils.ConfigUtils;
-import com.rarnu.devlib.utils.UIUtils;
+import com.rarnu.utils.ConfigUtils;
+import com.rarnu.utils.UIUtils;
 import com.yugioh.android.CoinDiceActivity;
 import com.yugioh.android.R;
 import com.yugioh.android.common.MenuIds;

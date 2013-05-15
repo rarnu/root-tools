@@ -1,4 +1,4 @@
-package com.rarnu.devlib.common;
+package com.rarnu.utils.common;
 
 public class PingInfo {
 	public int byteCount;

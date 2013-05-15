@@ -16,8 +16,6 @@ import android.widget.ShareActionProvider;
 
 import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseMainActivity;
-import com.rarnu.devlib.utils.ImageUtils;
-import com.rarnu.devlib.utils.NetworkUtils;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.common.MenuItemIds;
@@ -27,6 +25,8 @@ import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.UpdateUtils;
+import com.rarnu.utils.ImageUtils;
+import com.rarnu.utils.NetworkUtils;
 
 public class MainActivity extends BaseMainActivity {
 

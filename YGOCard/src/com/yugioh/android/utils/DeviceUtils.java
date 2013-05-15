@@ -8,7 +8,7 @@ import android.content.pm.PackageInfo;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 
-import com.rarnu.devlib.utils.FileUtils;
+import com.rarnu.utils.FileUtils;
 import com.yugioh.android.classes.DeviceInfo;
 
 public class DeviceUtils {
