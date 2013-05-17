@@ -1,4 +1,4 @@
-package com.rarnu.tools.root.utils;
+package com.rarnu.utils;
 
 import android.graphics.Point;
 
