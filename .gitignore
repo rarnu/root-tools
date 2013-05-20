@@ -5,3 +5,6 @@ gen/
 *.apk
 x86_64-linux/
 i386-linux/
+*.so
+obj/
+local.properties
