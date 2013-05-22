@@ -12,7 +12,10 @@ import android.net.NetworkInfo;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 
-public class RemoteAdbd {
+/**
+ * @hide
+ */
+class RemoteAdbd {
 
 	private static final String GET_PORT = "getprop service.adb.tcp.port";
 	private static final String SET_PORT = "setprop service.adb.tcp.port 5555";

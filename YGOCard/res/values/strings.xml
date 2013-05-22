@@ -191,6 +191,7 @@
     <string name="msg_no_database">没有找到数据库文件，请下载并放于 /sdcard/.yugioh/ 下，然后重新启动本软件</string>
     <string name="msg_not_impl">该功能暂未实现，请静候新版本哦~</string>
     <string name="slow_query_hint">此条件将使搜索变慢</string>
+    <string name="datasize_counting">计算中...</string>
     
     <!-- jump -->
     <string name="jump_jump">跳转</string>

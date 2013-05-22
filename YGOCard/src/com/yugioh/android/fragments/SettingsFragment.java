@@ -1,6 +1,8 @@
 package com.yugioh.android.fragments;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -9,9 +11,11 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.UIUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.common.Config;
+import com.yugioh.android.define.PathDefine;
 import com.yugioh.android.utils.DeviceUtils;
 
 public class SettingsFragment extends BaseFragment implements OnClickListener {
@@ -70,6 +74,33 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 			fontSize = (int) tvFontDemo.getTextSize();
 		}
 		tvFontDemo.setTextSize(fontSize);
+		getDirSizeT();
+	}
+
+	private void getDirSizeT() {
+		final Handler hSize = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					tvData.setText(String.format("%d MB", (Long) msg.obj));
+				}
+				super.handleMessage(msg);
+			}
+		};
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				Long size = FileUtils.getDirSize(PathDefine.ROOT_PATH);
+				size /= (1024 * 1024);
+				Message msg = new Message();
+				msg.what = 1;
+				msg.obj = size;
+				hSize.sendMessage(msg);
+			}
+		}).start();
+
 	}
 
 	@Override
@@ -110,5 +141,5 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 	public Bundle getFragmentState() {
 		return null;
 	}
-	
+
 }

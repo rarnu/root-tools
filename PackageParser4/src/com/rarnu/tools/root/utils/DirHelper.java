@@ -1,7 +1,5 @@
 package com.rarnu.tools.root.utils;
 
-import java.io.File;
-
 import android.os.Environment;
 
 public class DirHelper {
@@ -37,9 +35,6 @@ public class DirHelper {
 	}
 
 	private static void makeDir(String path) {
-		File fDir = new File(path);
-		if (!fDir.exists()) {
-			fDir.mkdirs();
-		}
+		FileUtils.mkdir(path);
 	}
 }

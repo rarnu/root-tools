@@ -25,7 +25,7 @@ public class FileUtils {
 	public static final int WHAT_COPY_START = 1;
 	public static final int WHAT_COPY_PROGRESS = 2;
 	public static final int WHAT_COPY_FINISH = 3;
-	
+
 	public static boolean mkdir(String path) {
 		boolean ret = false;
 		File myDir = new File(path);
@@ -104,13 +104,14 @@ public class FileUtils {
 		}
 	}
 
-	public static void copyFile(String source, String dest, Handler hProgress) throws IOException {
-		
+	public static void copyFile(String source, String dest, Handler hProgress)
+			throws IOException {
+
 		File oldFile = new File(source);
 		if (oldFile.exists()) {
 			InputStream is = new FileInputStream(source);
 			FileOutputStream fs = new FileOutputStream(dest);
-			
+
 			int size = is.available();
 			if (hProgress != null) {
 				Message msg = new Message();
@@ -121,7 +122,7 @@ public class FileUtils {
 			}
 			int count = 0;
 			int n = 0;
-	
+
 			byte[] buffer = new byte[1444];
 			while ((n = is.read(buffer)) != -1) {
 				fs.write(buffer, 0, n);
@@ -180,7 +181,8 @@ public class FileUtils {
 
 	}
 
-	public static void moveFile(String source, String dest, Handler hProgress) throws IOException {
+	public static void moveFile(String source, String dest, Handler hProgress)
+			throws IOException {
 		copyFile(source, dest, hProgress);
 		deleteFile(source);
 
@@ -232,8 +234,9 @@ public class FileUtils {
 		String text = new String(arrayOutputStream.toByteArray());
 		return text.trim();
 	}
-	
-	public static boolean copyAssetFile(Context context, String fileName, String saveDir, Handler hProgress) {
+
+	public static boolean copyAssetFile(Context context, String fileName,
+			String saveDir, Handler hProgress) {
 		File fBusybox = new File(saveDir);
 		if (!fBusybox.exists()) {
 			fBusybox.mkdirs();
@@ -250,7 +253,7 @@ public class FileUtils {
 			InputStream is = context.getAssets().open(fileName);
 			OutputStream fos = new BufferedOutputStream(new FileOutputStream(
 					dest));
-			
+
 			int count = 0;
 			int size = is.available();
 			if (hProgress != null) {
@@ -310,11 +313,11 @@ public class FileUtils {
 			list = (List<?>) objectInputStream.readObject();
 			objectInputStream.close();
 		} catch (Exception e) {
-			
+
 		}
 		return list;
 	}
-	
+
 	public static void saveListToFile(List<?> list, String path) {
 		try {
 			FileOutputStream outStream = new FileOutputStream(path);
@@ -323,8 +326,32 @@ public class FileUtils {
 			objectOutputStream.writeObject(list);
 			outStream.close();
 		} catch (Exception e) {
-			
+
 		}
 	}
 	
+	public static long getDirSize(String path) {
+		return getDirSize(new File(path));
+	}
+
+	public static long getDirSize(File dir) {
+		if (dir == null) {
+			return 0;
+		}
+		if (!dir.isDirectory()) {
+			return 0;
+		}
+		long dirSize = 0;
+		File[] files = dir.listFiles();
+		for (File file : files) {
+			if (file.isFile()) {
+				dirSize += file.length();
+			} else if (file.isDirectory()) {
+				dirSize += file.length();
+				dirSize += getDirSize(file);
+			}
+		}
+		return dirSize;
+	}
+
 }
