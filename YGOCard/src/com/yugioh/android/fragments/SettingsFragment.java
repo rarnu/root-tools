@@ -16,7 +16,7 @@ import com.yugioh.android.utils.DeviceUtils;
 
 public class SettingsFragment extends BaseFragment implements OnClickListener {
 
-	// TODO: font settings
+	// font settings
 
 	private static final int[] fits = new int[] { R.drawable.c0, R.drawable.c1,
 			R.drawable.c2, R.drawable.c3, R.drawable.c4, R.drawable.c5,

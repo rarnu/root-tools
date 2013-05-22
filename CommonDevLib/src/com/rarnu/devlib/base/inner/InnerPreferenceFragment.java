@@ -13,6 +13,7 @@ public abstract class InnerPreferenceFragment extends PreferenceFragment
 
 	protected String tagText;
 	protected String tabTitle;
+	protected Bundle innerBundle = null;
 
 	@Override
 	public String getTagText() {
@@ -36,9 +37,15 @@ public abstract class InnerPreferenceFragment extends PreferenceFragment
 	@Override
 	public void onActivityCreated(Bundle savedInstanceState) {
 		super.onActivityCreated(savedInstanceState);
+		innerBundle = getArguments();
 		initComponents();
 		initEvents();
 		initLogic();
+	}
+	
+	public void setNewArguments(Bundle bn) {
+		innerBundle = getArguments();
+		onGetNewArguments(bn);
 	}
 
 	@Override
