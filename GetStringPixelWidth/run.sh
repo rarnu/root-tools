@@ -3,7 +3,9 @@
 STR=$1
 
 ip=`./gspw -fn ubuntu -fs 20 -s "$STR" -e w`
-echo "width:"$ip
+w=$(((1280 - $ip) / 2))
+echo "width:"$w
+
 
 
 

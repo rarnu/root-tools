@@ -85,11 +85,11 @@ type
     sh := bmp.Canvas.GetTextHeight(s);
     if e = 'w' then
     begin
-      WriteLn(IntToStr(sw));
+      Write(IntToStr(sw));
     end
     else if e = 'h' then
     begin
-      WriteLn(IntToStr(sh));
+      Write(IntToStr(sh));
     end;
 
     bmp.Free;
