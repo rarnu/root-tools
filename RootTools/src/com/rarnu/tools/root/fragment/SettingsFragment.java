@@ -3,6 +3,7 @@ package com.rarnu.tools.root.fragment;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.view.Menu;
@@ -42,12 +43,12 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 	MutaxReceiver receiver;
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.cat_settings;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.settings_with_path;
 	}
 
@@ -64,7 +65,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 
 		prefAllowDeleteLevel0 = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_allow_delete_level_0));
 		prefAlsoDeleteData = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_also_delete_data));
@@ -85,7 +86,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
@@ -124,7 +125,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		initConfigValues();
 	}
 
@@ -259,7 +260,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		prefAllowDeleteLevel0.setOnCheckboxClickListener(this);
 		prefAlsoDeleteData.setOnCheckboxClickListener(this);
 		prefBackupBeforeDelete.setOnCheckboxClickListener(this);
@@ -276,17 +277,27 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected int getPreferenceLayoutId() {
+	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public int getFragmentLayoutResId() {
 		return R.xml.settings;
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public void onGetNewArguments(Bundle bn) {
+
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

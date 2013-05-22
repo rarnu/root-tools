@@ -50,38 +50,38 @@ public class SearchResultFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		lvList = (ListView) innerView.findViewById(R.id.lvList);
 		tvListNoCard = (TextView) innerView.findViewById(R.id.tvListNoCard);
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvList.setOnItemClickListener(this);
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_search_result;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		tvListNoCard.setText(R.string.list_nocard_searching);
 		BaseTabFragment btf = (BaseTabFragment) getFragmentManager()
 				.findFragmentByTag(getString(R.tag.tag_main));
@@ -132,6 +132,11 @@ public class SearchResultFragment extends BaseFragment implements
 
 		}
 
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

@@ -37,23 +37,23 @@ public class CoinDiceFragment extends BaseFragment implements OnClickListener {
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_coindice;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		imgCoinDice = (ImageView) innerView.findViewById(R.id.imgCoinDice);
 
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		imgCoinDice.setOnClickListener(this);
 	}
 
@@ -69,7 +69,7 @@ public class CoinDiceFragment extends BaseFragment implements OnClickListener {
 	};
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		type = getActivity().getIntent().getIntExtra("type", 0);
 		if (type == 0) {
 			getActivity().finish();
@@ -102,12 +102,12 @@ public class CoinDiceFragment extends BaseFragment implements OnClickListener {
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -182,6 +182,11 @@ public class CoinDiceFragment extends BaseFragment implements OnClickListener {
 		} catch (Exception e) {
 
 		}
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

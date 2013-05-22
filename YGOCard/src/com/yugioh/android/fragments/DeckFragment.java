@@ -28,38 +28,43 @@ public class DeckFragment extends BaseFragment {
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_deck;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 
 	}
 
 	@Override
-	protected void initMenu(Menu arg0) {
+	public void initMenu(Menu arg0) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle arg0) {
+	public void onGetNewArguments(Bundle arg0) {
 
 	}
 
+	@Override
+	public Bundle getFragmentState() {
+		return null;
+	}
+	
 }

@@ -192,7 +192,7 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		appIcon = (ImageView) innerView.findViewById(R.id.appIcon);
 		appName = (TextView) innerView.findViewById(R.id.appName);
 		appVersion = (TextView) innerView.findViewById(R.id.appVersion);
@@ -214,39 +214,44 @@ public class SysappDetailFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_sysapp_detail;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		showAppInfo();
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		btnDelete.setOnClickListener(this);
 		btnAddToCleanList.setOnClickListener(this);
 
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

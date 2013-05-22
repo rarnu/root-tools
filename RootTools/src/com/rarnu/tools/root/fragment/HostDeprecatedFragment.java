@@ -66,7 +66,7 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		lvDeprecatedHosts = (ListView) innerView
 				.findViewById(R.id.lvDeprecatedHosts);
 		gvDeprecatedHosts = (GridView) innerView
@@ -86,7 +86,7 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		doStartLoad();
 	}
 
@@ -97,12 +97,12 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_host_deprecated;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemScan = menu.add(0, MenuItemIds.MENU_SCAN, 99, R.string.scan);
 		itemScan.setIcon(android.R.drawable.ic_menu_manage);
 		itemScan.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -187,22 +187,27 @@ public class HostDeprecatedFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		loader.registerListener(0, this);
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

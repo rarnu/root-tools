@@ -58,7 +58,7 @@ public class EnableappFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 
 		lvEnableApp = (ListView) innerView.findViewById(R.id.lvEnableApp);
 		progressEnableapp = (DataProgressBar) innerView
@@ -72,12 +72,12 @@ public class EnableappFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_enableapp;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -203,29 +203,34 @@ public class EnableappFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		doStartLoad();
 
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvEnableApp.setOnItemLongClickListener(this);
 		loader.registerListener(0, this);
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

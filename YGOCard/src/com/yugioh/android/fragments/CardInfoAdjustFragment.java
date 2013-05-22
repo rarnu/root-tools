@@ -33,18 +33,18 @@ public class CardInfoAdjustFragment extends BaseFragment {
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		tvAdjust = (TextView) innerView.findViewById(R.id.tvAdjust);
 		tvNoAdjust = (TextView) innerView.findViewById(R.id.tvNoAdjust);
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		
 		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
 				"cardinfo");
@@ -61,22 +61,22 @@ public class CardInfoAdjustFragment extends BaseFragment {
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_cardinfo_adjust;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -87,6 +87,11 @@ public class CardInfoAdjustFragment extends BaseFragment {
 			title = info.getSCCardName();
 		}
 		return title;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

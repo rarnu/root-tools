@@ -95,7 +95,7 @@ public class FeedbackFragment extends BaseFragment {
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		etFeedback = (EditText) innerView.findViewById(R.id.etFeedback);
 		progressFeedback = (DataProgressBar) innerView
 				.findViewById(R.id.progressFeedback);
@@ -103,12 +103,12 @@ public class FeedbackFragment extends BaseFragment {
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_user_feedback;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSend = menu.add(0, MenuItemIds.MENU_SEND, 99, R.string.send);
 		itemSend.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		itemSend.setIcon(android.R.drawable.ic_menu_send);
@@ -116,27 +116,32 @@ public class FeedbackFragment extends BaseFragment {
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

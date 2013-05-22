@@ -49,40 +49,40 @@ public class NewCardFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_newcard;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		lvNewCard = (ListView) innerView.findViewById(R.id.lvNewCard);
 		loaderNewcard = new NewCardLoader(getActivity());
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvNewCard.setOnItemClickListener(this);
 		loaderNewcard.registerListener(0, this);
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		loaderNewcard.startLoading();
 
 	}
 
 	@Override
-	protected void initMenu(Menu arg0) {
+	public void initMenu(Menu arg0) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle arg0) {
+	public void onGetNewArguments(Bundle arg0) {
 
 	}
 
@@ -111,6 +111,11 @@ public class NewCardFragment extends BaseFragment implements
 			lvNewCard.setAdapter(adapterNewCard);
 		}
 
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

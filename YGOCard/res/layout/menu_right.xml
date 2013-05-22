@@ -6,7 +6,7 @@
     <RelativeLayout
         android:id="@+id/layLeftMenuHead"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="?android:attr/actionBarSize" >
 
         <TextView
             android:id="@+id/tvRightTitle"
@@ -32,7 +32,7 @@
             android:id="@+id/laySplit"
             android:layout_width="match_parent"
             android:layout_height="2dip"
-            android:layout_below="@+id/tvRightTitle"
+            android:layout_alignParentBottom="true"
             android:background="?android:attr/actionModeSplitBackground"
             android:scaleType="fitStart" >
         </ImageView>

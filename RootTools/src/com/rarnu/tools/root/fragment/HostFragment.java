@@ -72,7 +72,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		barHosts = (DataBar) innerView.findViewById(R.id.barHosts);
 		progressHosts = (DataProgressBar) innerView
 				.findViewById(R.id.progressHosts);
@@ -87,7 +87,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		doStartLoad();
 
 	}
@@ -99,12 +99,12 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_hosts;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -331,7 +331,7 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		barHosts.getButton1().setOnClickListener(this);
 		barHosts.getButton2().setOnClickListener(this);
 		barHosts.getCheckBox().setOnClickListener(this);
@@ -339,17 +339,22 @@ public class HostFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

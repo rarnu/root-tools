@@ -36,12 +36,12 @@ public class MainFragment extends BaseTabFragment {
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSearch = menu.add(0, MenuIds.MENUID_SEARCH, 98,
 				R.string.search_search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
@@ -80,7 +80,7 @@ public class MainFragment extends BaseTabFragment {
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -96,6 +96,11 @@ public class MainFragment extends BaseTabFragment {
 		listFragment
 				.add(new SearchResultFragment(this.getString(R.tag.tag_main_result),
 						this.getString(R.string.page_list)));
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

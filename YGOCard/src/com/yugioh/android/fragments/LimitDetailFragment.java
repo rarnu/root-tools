@@ -52,39 +52,39 @@ public class LimitDetailFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_limit_detail;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		lvLimitCard = (ListView) innerView.findViewById(R.id.lvLimitCard);
 		loaderLimit = new LimitLoader(getActivity(), detailType);
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvLimitCard.setOnItemClickListener(this);
 		loaderLimit.registerListener(0, this);
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		loaderLimit.startLoading();
 	}
 
 	@Override
-	protected void initMenu(Menu arg0) {
+	public void initMenu(Menu arg0) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle arg0) {
+	public void onGetNewArguments(Bundle arg0) {
 
 	}
 
@@ -112,6 +112,11 @@ public class LimitDetailFragment extends BaseFragment implements
 			lvLimitCard.setAdapter(adapterLimit);
 		}
 
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

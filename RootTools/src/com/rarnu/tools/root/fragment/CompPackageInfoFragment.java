@@ -47,7 +47,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		ivAppIcon = (ImageView) innerView.findViewById(R.id.ivAppIcon);
 		tvAppName = (TextView) innerView.findViewById(R.id.tvAppName);
 		tvAppPackage = (TextView) innerView.findViewById(R.id.tvAppPackage);
@@ -56,7 +56,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		fillComponentList();
 
 	}
@@ -92,12 +92,12 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_comp_packageinfo;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
@@ -162,22 +162,27 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvReceiver.setOnItemLongClickListener(this);
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

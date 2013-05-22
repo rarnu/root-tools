@@ -74,7 +74,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		barData = (DataBar) innerView.findViewById(R.id.barData);
 		progressData = (DataProgressBar) innerView
 				.findViewById(R.id.progressData);
@@ -94,12 +94,12 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		doStartLoad();
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_backup;
 	}
 
@@ -117,7 +117,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
 				R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
@@ -292,7 +292,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		barData.getButton1().setOnClickListener(this);
 		barData.getButton2().setOnClickListener(this);
 		barData.getCheckBox().setOnClickListener(this);
@@ -302,17 +302,22 @@ public class BackupFragment extends BaseFragment implements OnClickListener,
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 }

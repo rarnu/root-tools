@@ -57,7 +57,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		lvFiles = (ListView) innerView.findViewById(R.id.lvApk);
 		tvPath = (TextView) innerView.findViewById(R.id.tvPath);
 		pbShowing = (ProgressBar) innerView.findViewById(R.id.pbShowing);
@@ -65,7 +65,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_sysapp_selectapk;
 	}
 
@@ -182,7 +182,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -197,27 +197,32 @@ public class SysappSelectApkFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		showDirT(currentDir);
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvFiles.setOnItemClickListener(this);
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

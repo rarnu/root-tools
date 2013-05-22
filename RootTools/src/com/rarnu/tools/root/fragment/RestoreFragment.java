@@ -93,7 +93,7 @@ public class RestoreFragment extends BaseFragment implements
 	};
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		barBackData = (DataBar) innerView.findViewById(R.id.barBackData);
 		progressBackData = (DataProgressBar) innerView
 				.findViewById(R.id.progressBackData);
@@ -112,17 +112,17 @@ public class RestoreFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		doStartLoad();
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_restore;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
 				R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
@@ -358,7 +358,7 @@ public class RestoreFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvBackData.setOnItemLongClickListener(this);
 		barBackData.getButton1().setOnClickListener(this);
 		barBackData.getButton2().setOnClickListener(this);
@@ -368,17 +368,22 @@ public class RestoreFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 }

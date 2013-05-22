@@ -71,7 +71,7 @@ public class HostAddFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 
 		lvAddHosts = (ListView) innerView.findViewById(R.id.lvAddHosts);
 		barAddHosts = (DataBar) innerView.findViewById(R.id.barAddHosts);
@@ -97,17 +97,17 @@ public class HostAddFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		adapter.notifyDataSetChanged();
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_host_add;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
 				R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
@@ -261,7 +261,7 @@ public class HostAddFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		barAddHosts.getButton1().setOnClickListener(this);
 		barAddHosts.getButton2().setOnClickListener(this);
 		btnCom.setOnClickListener(this);
@@ -280,17 +280,22 @@ public class HostAddFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

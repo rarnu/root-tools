@@ -3,7 +3,6 @@
     android:id="@+id/layoutMain"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="?android:attr/detailsElementBackground"
     android:baselineAligned="false"
     android:orientation="vertical" >
 

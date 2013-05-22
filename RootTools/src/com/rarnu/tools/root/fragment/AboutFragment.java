@@ -72,7 +72,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		tvAppVersion = (TextView) innerView.findViewById(R.id.tvAppVersion);
 		tvDebug = (TextView) innerView.findViewById(R.id.tvDebug);
 		lstAbout = (BlockListView) innerView.findViewById(R.id.lstAbout);
@@ -92,17 +92,17 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_about;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		showAppVersion();
 		showDebugStatus();
 		fitableClick = 0;
@@ -175,24 +175,29 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lstAbout.setOnItemClickListener(this);
 		lstEoe.setOnItemClickListener(this);
 
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 }

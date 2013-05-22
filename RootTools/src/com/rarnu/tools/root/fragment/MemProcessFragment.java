@@ -1,6 +1,8 @@
 package com.rarnu.tools.root.fragment;
 
 import android.app.Activity;
+import android.os.Bundle;
+import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
@@ -23,7 +25,7 @@ public class MemProcessFragment extends BaseDialogFragment implements
 	Button btnCancel, btnKill, btnIgnore;
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		ImgIcon = (ImageView) innerView.findViewById(R.id.ImgIcon);
 		tvName = (TextView) innerView.findViewById(R.id.tvName);
 		tvNamespace = (TextView) innerView.findViewById(R.id.tvNamespace);
@@ -37,14 +39,14 @@ public class MemProcessFragment extends BaseDialogFragment implements
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		showProcessInfo();
 		showIgnoreStatus();
 
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_mem_process;
 	}
 
@@ -146,10 +148,45 @@ public class MemProcessFragment extends BaseDialogFragment implements
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		btnCancel.setOnClickListener(this);
 		btnKill.setOnClickListener(this);
 		btnIgnore.setOnClickListener(this);
+	}
+
+	@Override
+	public int getBarTitle() {
+		return 0;
+	}
+
+	@Override
+	public int getBarTitleWithPath() {
+		return 0;
+	}
+
+	@Override
+	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public String getMainActivityName() {
+		return "";
+	}
+
+	@Override
+	public void initMenu(Menu menu) {
+		
+	}
+
+	@Override
+	public void onGetNewArguments(Bundle bn) {
+		
+	}
+
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

@@ -38,18 +38,23 @@ public class LimitFragment extends BaseTabFragment {
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initMenu(Menu arg0) {
+	public void initMenu(Menu arg0) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle arg0) {
+	public void onGetNewArguments(Bundle arg0) {
 
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

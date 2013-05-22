@@ -32,7 +32,7 @@ public class LeftMenuFragment extends BaseFragment implements
 	public LeftMenuFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}
-	
+
 	@Override
 	public int getBarTitle() {
 		return R.string.app_name;
@@ -44,7 +44,7 @@ public class LeftMenuFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		lvCard = (ListView) innerView.findViewById(R.id.lvCard);
 		lvExit = (ListView) innerView.findViewById(R.id.lvExit);
 		tvLeftTitle = (TextView) innerView.findViewById(R.id.tvLeftTitle);
@@ -68,33 +68,33 @@ public class LeftMenuFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvCard.setOnItemClickListener(this);
 		lvExit.setOnItemClickListener(this);
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.menu_left;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -121,11 +121,16 @@ public class LeftMenuFragment extends BaseFragment implements
 	@Override
 	protected void onLayoutReady() {
 		super.onLayoutReady();
-		lpLogo = new RelativeLayout.LayoutParams(
-				RelativeLayout.LayoutParams.WRAP_CONTENT, tvLeftTitle
-				.getHeight());
-		ivLogo.setLayoutParams(lpLogo);
-		ivLogo.setVisibility(View.VISIBLE);
+		// lpLogo = new RelativeLayout.LayoutParams(
+		// RelativeLayout.LayoutParams.WRAP_CONTENT, tvLeftTitle
+		// .getHeight());
+		// ivLogo.setLayoutParams(lpLogo);
+		// ivLogo.setVisibility(View.VISIBLE);
+	}
+
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

@@ -53,17 +53,17 @@ public class DuelToolFragment extends BaseFragment implements OnClickListener {
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_tool;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		tvPlayer1Life = (TextView) innerView.findViewById(R.id.tvPlayer1Life);
 		tvPlayer2Life = (TextView) innerView.findViewById(R.id.tvPlayer2Life);
 		etP1Life = (EditText) innerView.findViewById(R.id.etP1Life);
@@ -92,7 +92,7 @@ public class DuelToolFragment extends BaseFragment implements OnClickListener {
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		btnP1Add.setOnClickListener(this);
 		btnP2Add.setOnClickListener(this);
 		btnP1Minus.setOnClickListener(this);
@@ -133,12 +133,12 @@ public class DuelToolFragment extends BaseFragment implements OnClickListener {
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		restoreLifePoints();
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemResetDuel = menu.add(0, MenuIds.MENUID_RESET_DUEL, 99,
 				R.string.tool_reset);
 		itemResetDuel.setIcon(android.R.drawable.ic_menu_revert);
@@ -159,7 +159,7 @@ public class DuelToolFragment extends BaseFragment implements OnClickListener {
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -348,6 +348,11 @@ public class DuelToolFragment extends BaseFragment implements OnClickListener {
 		} else {
 			tv.setTextColor(0xFFFF8C00);
 		}
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

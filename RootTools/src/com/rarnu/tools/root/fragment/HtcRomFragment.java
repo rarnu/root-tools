@@ -60,7 +60,7 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		lstRomCleaner = (ListView) innerView.findViewById(R.id.lstRomCleaner);
 		progressHtcRom = (DataProgressBar) innerView
 				.findViewById(R.id.progressHtcRom);
@@ -72,12 +72,12 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_htcrom;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemClean = menu.add(0, MenuItemIds.MENU_CLEAN, 99,
 				R.string.clean);
 		itemClean.setIcon(android.R.drawable.ic_menu_delete);
@@ -173,7 +173,7 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		list.clear();
 		list.add(buildRomInfo(R.string.itm_custom, R.string.itmdesc_custom));
 		list.add(buildRomInfo(R.string.itm_car, R.string.itmdesc_car));
@@ -221,23 +221,28 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		receiver.setOnReceiveMessage(this);
 		
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

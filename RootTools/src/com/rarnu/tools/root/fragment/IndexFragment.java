@@ -2,6 +2,7 @@ package com.rarnu.tools.root.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
 import android.view.Menu;
@@ -244,17 +245,17 @@ public class IndexFragment extends BasePreferenceFragment implements
 	}
 
 	@Override
-	protected int getBarTitle() {
+	public int getBarTitle() {
 		return R.string.app_name;
 	}
 
 	@Override
-	protected int getBarTitleWithPath() {
+	public int getBarTitleWithPath() {
 		return R.string.app_name;
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		prefSysApp = (PreferenceEx) findPreference(getString(R.string.id_sysapp));
 		prefSysAppEnabled = (PreferenceEx) findPreference(getString(R.string.id_sysappenabled));
 		prefHardUpdate = (PreferenceEx) findPreference(getString(R.string.id_hardupdate));
@@ -278,7 +279,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		prefSysApp.setOnPreferenceClickListener(this);
 		prefSysAppEnabled.setOnPreferenceClickListener(this);
 		prefHardUpdate.setOnPreferenceClickListener(this);
@@ -302,28 +303,38 @@ public class IndexFragment extends BasePreferenceFragment implements
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		showFunctionalEnabledTags();
 
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected int getPreferenceLayoutId() {
+	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public int getFragmentLayoutResId() {
 		return R.xml.main;
 	}
 
 	@Override
-	protected String getCustomTitle() {
+	public void onGetNewArguments(Bundle bn) {
+		
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

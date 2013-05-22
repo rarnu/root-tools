@@ -31,13 +31,13 @@ import com.yugioh.android.adapter.RightMenuAdapter;
 import com.yugioh.android.classes.RecommandInfo;
 import com.yugioh.android.classes.RightMenuItem;
 import com.yugioh.android.classes.UpdateInfo;
-import com.yugioh.android.intf.IMenuIntf;
 import com.yugioh.android.loader.RecommandLoader;
 import com.yugioh.android.utils.RecommandUtils;
 import com.yugioh.android.utils.UpdateUtils;
 
-public class RightMenuFragment extends BaseFragment implements IMenuIntf,
-		OnItemClickListener, OnLoadCompleteListener<List<RecommandInfo>>, OnClickListener {
+public class RightMenuFragment extends BaseFragment implements
+		OnItemClickListener, OnLoadCompleteListener<List<RecommandInfo>>,
+		OnClickListener {
 
 	ListView lvAbout, lvSettings;
 	List<String> listAbout;
@@ -66,7 +66,7 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		imgSettings = (ImageView) innerView.findViewById(R.id.imgSettings);
 		lvRecommand = (ListView) innerView.findViewById(R.id.lvRecommand);
 		lvSettings = (ListView) innerView.findViewById(R.id.lvSettings);
@@ -83,11 +83,6 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 		itemUpdate.name = getString(R.string.rm_update);
 		itemUpdate.value = 0;
 		listSettings.add(itemUpdate);
-//		RightMenuItem itemFit = new RightMenuItem();
-//		itemFit.type = 1;
-//		itemFit.name = getString(R.string.rm_fitable);
-//		itemFit.value = DeviceUtils.getFitable(UIUtils.getDM());
-//		listSettings.add(itemFit);
 		adapterSettings = new RightMenuAdapter(getActivity(), listSettings);
 		lvSettings.setAdapter(adapterSettings);
 
@@ -98,7 +93,7 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvAbout.setOnItemClickListener(this);
 		lvSettings.setOnItemClickListener(this);
 		lvRecommand.setOnItemClickListener(this);
@@ -119,10 +114,10 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 	};
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		loaderRecommand.startLoading();
 	}
-	
+
 	@Override
 	public void onResume() {
 		super.onResume();
@@ -131,22 +126,22 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.menu_right;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -183,7 +178,7 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 			break;
 		}
 	}
-	
+
 	private void doRecommand(RecommandInfo info) {
 		switch (info.jumpMode) {
 		case 0:
@@ -200,15 +195,13 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 		return null;
 	}
 
-	@Override
-	public void updateMenu(UpdateInfo updateInfo) {
+	private void updateMenu(UpdateInfo updateInfo) {
 		this.updateInfo = updateInfo;
 		if (updateInfo != null) {
 			listSettings.get(0).value = updateInfo.getUpdateApk()
 					+ updateInfo.getUpdateData();
 		}
 		adapterSettings.setNewList(listSettings);
-
 	}
 
 	@Override
@@ -228,7 +221,12 @@ public class RightMenuFragment extends BaseFragment implements IMenuIntf,
 			startActivity(new Intent(getActivity(), SettingsActivity.class));
 			break;
 		}
-		
+
+	}
+
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

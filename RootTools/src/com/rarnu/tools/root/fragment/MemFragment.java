@@ -66,7 +66,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		progressMemory = (DataProgressBar) innerView
 				.findViewById(R.id.progressMemory);
 		tvProcessInfo = (TextView) innerView.findViewById(R.id.tvProcessInfo);
@@ -91,17 +91,17 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		doStartLoad();
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_memory;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -335,23 +335,28 @@ public class MemFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvMemory.setOnItemClickListener(this);
 		loader.registerListener(0, this);
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

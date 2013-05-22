@@ -30,24 +30,24 @@ public class DataappReportFragment extends BasePopupFragment {
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		lvReport = (ListView) innerView.findViewById(R.id.lvReport);
 		gvReport = (GridView) innerView.findViewById(R.id.gvReport);
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		showReport();
 
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_dataapp_report;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
@@ -64,22 +64,27 @@ public class DataappReportFragment extends BasePopupFragment {
 	}
 
 	@Override
-	protected void initEvents() {
-		
+	public void initEvents() {
+
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
-		
+	public void onGetNewArguments(Bundle bn) {
+
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

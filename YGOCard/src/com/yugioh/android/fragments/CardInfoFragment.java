@@ -46,12 +46,12 @@ public class CardInfoFragment extends BaseTabFragment {
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemShare = menu.add(0, MenuIds.MENUID_SHARE, 99, R.string.share);
 		itemShare.setIcon(android.R.drawable.ic_menu_share);
 		itemShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -72,7 +72,7 @@ public class CardInfoFragment extends BaseTabFragment {
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -98,6 +98,11 @@ public class CardInfoFragment extends BaseTabFragment {
 				.add(new CardInfoPictureFragment(getString(R.tag.tag_card_pic),
 						getString(R.string.page_picture)));
 
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

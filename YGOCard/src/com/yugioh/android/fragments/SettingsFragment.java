@@ -45,7 +45,7 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		ivFitable = (ImageView) innerView.findViewById(R.id.ivFitable);
 		btnBigger = (Button) innerView.findViewById(R.id.btnBigger);
 		btnSmaller = (Button) innerView.findViewById(R.id.btnSmaller);
@@ -54,14 +54,14 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		btnBigger.setOnClickListener(this);
 		btnSmaller.setOnClickListener(this);
 
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		ivFitable
 				.setImageResource(fits[DeviceUtils.getFitable(UIUtils.getDM())]);
 
@@ -73,22 +73,22 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_settings;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -106,4 +106,9 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 		Config.cfgSetFontSize(getActivity(), fontSize);
 	}
 
+	@Override
+	public Bundle getFragmentState() {
+		return null;
+	}
+	
 }

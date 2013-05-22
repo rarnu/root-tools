@@ -57,20 +57,20 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		gvIgnore = (GridView) innerView.findViewById(R.id.gvIgnore);
 		lvIgnore = (ListView) innerView.findViewById(R.id.lvIgnore);
 		barIgnore = (DataBar) innerView.findViewById(R.id.barIgnore);
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		loadIgnore();
 		showIgnoreSelectedCount();
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_mem_ignore;
 	}
 
@@ -156,12 +156,12 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		barIgnore.getButton1().setOnClickListener(this);
 		barIgnore.getButton2().setOnClickListener(this);
 		barIgnore.getCheckBox().setOnClickListener(this);
@@ -169,17 +169,22 @@ public class MemIgnoreFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

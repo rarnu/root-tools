@@ -28,7 +28,6 @@ import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.NetworkDefine;
 import com.yugioh.android.define.PathDefine;
 import com.yugioh.android.intf.IDestroyCallback;
-import com.yugioh.android.intf.IMenuIntf;
 import com.yugioh.android.intf.IUpdateIntf;
 
 public class UpdateFragment extends BaseFragment implements IDestroyCallback,
@@ -65,17 +64,17 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_update;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		layUpdateApk = (RelativeLayout) innerView
 				.findViewById(R.id.layUpdateApk);
 		layNoDatabase = (RelativeLayout) innerView
@@ -91,13 +90,13 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		btnUpdateApk.setOnClickListener(this);
 		btnUpdateData.setOnClickListener(this);
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		File fDownload = new File(PathDefine.DOWNLOAD_PATH);
 		if (!fDownload.exists()) {
 			fDownload.mkdirs();
@@ -156,12 +155,12 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -179,9 +178,6 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 					pbDownlaodingApk.setVisibility(View.GONE);
 					((IUpdateIntf) getActivity()).setInProgress(false);
 					updateInfo.setUpdateApk(-1);
-					((IMenuIntf) getFragmentManager().findFragmentByTag(
-							getString(R.tag.tag_menu_right)))
-							.updateMenu(updateInfo);
 					updateCurrentStatus();
 					updateDisabled(true);
 
@@ -323,6 +319,11 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 		hApkTask = null;
 		hDataTask = null;
 
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

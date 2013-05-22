@@ -1,6 +1,5 @@
 package com.rarnu.devlib.base.inner;
 
-import android.app.ActionBar;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -21,7 +20,6 @@ public abstract class InnerFragment extends Fragment implements
 
 	protected String tagText;
 	protected String tabTitle;
-	protected ActionBar bar;
 
 	@Override
 	public String getTagText() {
@@ -72,26 +70,6 @@ public abstract class InnerFragment extends Fragment implements
 		}
 	}
 
-	public abstract int getBarTitle();
-
-	public abstract int getBarTitleWithPath();
-
-	public abstract String getCustomTitle();
-
-	protected abstract void initComponents();
-
-	protected abstract void initEvents();
-
-	protected abstract void initLogic();
-
-	protected abstract int getFragmentLayoutResId();
-
-	protected abstract String getMainActivityName();
-
-	protected abstract void initMenu(Menu menu);
-
-	protected abstract void onGetNewArguments(Bundle bn);
-
 	public void setNewArguments(Bundle bn) {
 		innerBundle = getArguments();
 		onGetNewArguments(bn);
@@ -102,18 +80,6 @@ public abstract class InnerFragment extends Fragment implements
 		super.onCreate(savedInstanceState);
 		setHasOptionsMenu(true);
 	}
-
-//	@Override
-//	public void onPause() {
-//		if (getActivity().getActionBar() != null) {
-//			if (getCustomTitle() == null || getCustomTitle().equals("")) {
-//				getActivity().getActionBar().setTitle(getBarTitle());
-//			} else {
-//				getActivity().getActionBar().setTitle(getCustomTitle());
-//			}
-//		}
-//		super.onPause();
-//	}
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater) {

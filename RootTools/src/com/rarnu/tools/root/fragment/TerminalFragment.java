@@ -31,7 +31,7 @@ public class TerminalFragment extends BaseFragment {
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		emu = (EmulatorView) innerView.findViewById(R.id.emu);
 
 		session = new ShellTermSession("");
@@ -50,27 +50,27 @@ public class TerminalFragment extends BaseFragment {
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_terminal;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSendCtrl = menu.add(0, MenuItemIds.MENU_SEND_CTRL, 98,
 				R.string.send_ctrl);
 		itemSendCtrl.setTitle(R.string.ctrl);
@@ -105,12 +105,17 @@ public class TerminalFragment extends BaseFragment {
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

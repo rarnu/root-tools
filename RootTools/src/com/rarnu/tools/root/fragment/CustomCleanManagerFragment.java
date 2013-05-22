@@ -60,7 +60,7 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		gvCustomClean = (GridView) innerView.findViewById(R.id.gvCustomClean);
 		lvCustomClean = (ListView) innerView.findViewById(R.id.lvCustomClean);
 		barCustomClean = (DataBar) innerView.findViewById(R.id.barCustomClean);
@@ -68,13 +68,13 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		loadCustomClean();
 		showSelectedCount();
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_custom_clean_manager;
 	}
 
@@ -161,29 +161,34 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		barCustomClean.getButton1().setOnClickListener(this);
 		barCustomClean.getButton2().setOnClickListener(this);
 		barCustomClean.getCheckBox().setOnClickListener(this);
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

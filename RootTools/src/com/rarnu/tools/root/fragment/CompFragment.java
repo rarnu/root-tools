@@ -51,7 +51,7 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		progressComp = (DataProgressBar) innerView
 				.findViewById(R.id.progressComp);
 		lvComp = (ListView) innerView.findViewById(R.id.lvComp);
@@ -63,12 +63,12 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		doStartLoad();
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_comp;
 	}
 
@@ -79,7 +79,7 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
 				R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
@@ -149,23 +149,28 @@ public class CompFragment extends BaseFragment implements OnItemClickListener,
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lvComp.setOnItemClickListener(this);
 		loader.registerListener(0, this);
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

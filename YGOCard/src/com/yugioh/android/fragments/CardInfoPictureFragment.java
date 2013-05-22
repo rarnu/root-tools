@@ -45,19 +45,19 @@ public class CardInfoPictureFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		ivImage = (ImageView) innerView.findViewById(R.id.ivImage);
 		tvNoPic = (TextView) innerView.findViewById(R.id.tvNoPic);
 		pbDownload = (ProgressBar) innerView.findViewById(R.id.pbDownload);
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		tvNoPic.setOnClickListener(this);
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
 				"cardinfo");
 		String picName = PathDefine.PICTURE_PATH
@@ -75,22 +75,22 @@ public class CardInfoPictureFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_cardinfo_pic;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -140,6 +140,11 @@ public class CardInfoPictureFragment extends BaseFragment implements
 		String localFile = String.format("%d.jpg", info.getCardID() - 1);
 		DownloadUtils.downloadFileT(getActivity(), ivImage, url, localDir,
 				localFile, hDownloadProgress);
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }

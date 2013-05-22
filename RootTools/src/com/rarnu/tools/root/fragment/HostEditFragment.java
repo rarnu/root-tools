@@ -47,24 +47,24 @@ public class HostEditFragment extends BasePopupFragment {
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		etEditHosts = (EditText) innerView.findViewById(R.id.etEditHosts);
 		tvTooBigHint = (TextView) innerView.findViewById(R.id.tvTooBigHint);
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		loadHosts();
 
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_host_edit;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemSave = menu.add(0, MenuItemIds.MENU_SAVE, 99, R.string.save);
 		itemSave.setIcon(android.R.drawable.ic_menu_save);
 		itemSave.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -125,22 +125,27 @@ public class HostEditFragment extends BasePopupFragment {
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

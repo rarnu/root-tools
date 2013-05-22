@@ -153,7 +153,7 @@ public class BusyboxFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		lstBusybox = (BlockListView) innerView.findViewById(R.id.lstBusybox);
 		progressBusybox = (DataProgressBar) innerView
 				.findViewById(R.id.progressBusybox);
@@ -166,19 +166,19 @@ public class BusyboxFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_busybox;
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemHelp = menu.add(0, MenuItemIds.MENU_HELP, 99, R.string.help);
 		itemHelp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		itemHelp.setIcon(android.R.drawable.ic_menu_help);
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		checkStatus();
 	}
 
@@ -196,22 +196,27 @@ public class BusyboxFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 		lstBusybox.setOnItemClickListener(this);
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

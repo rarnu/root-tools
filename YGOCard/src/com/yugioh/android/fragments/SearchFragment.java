@@ -42,7 +42,7 @@ public class SearchFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		etCardName = (EditText) innerView.findViewById(R.id.etCardName);
 		etCardAttack = (EditText) innerView.findViewById(R.id.etCardAttack);
 		etCardDefense = (EditText) innerView.findViewById(R.id.etCardDefense);
@@ -60,12 +60,12 @@ public class SearchFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 		setSpinner(spCardEffect, CardConstDefine.DEFID_CARDEFFECT);
 		setSpinner(spCardRace, CardConstDefine.DEFID_CARDRACE);
 		setSpinner(spCardBelongs, CardConstDefine.DEFID_CARDBELONGS);
@@ -150,17 +150,17 @@ public class SearchFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.fragment_search;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 
 	}
 
@@ -246,7 +246,7 @@ public class SearchFragment extends BaseFragment implements
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 		if (bn.getString("data").equals("search")) {
 			doSearchCard();
 		} else if (bn.getString("data").equals("reset")) {
@@ -271,6 +271,11 @@ public class SearchFragment extends BaseFragment implements
 
 	@Override
 	public String getCustomTitle() {
+		return null;
+	}
+	
+	@Override
+	public Bundle getFragmentState() {
 		return null;
 	}
 

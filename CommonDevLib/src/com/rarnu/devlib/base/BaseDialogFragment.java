@@ -38,12 +38,4 @@ public abstract class BaseDialogFragment extends Fragment implements InnerIntf {
 		return innerView;
 	}
 
-	protected abstract void initComponents();
-
-	protected abstract void initEvents();
-
-	protected abstract void initLogic();
-
-	protected abstract int getFragmentLayoutResId();
-
 }

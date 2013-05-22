@@ -114,7 +114,7 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
 	}
 
 	@Override
-	protected void initComponents() {
+	public void initComponents() {
 		lvHardUpdate = (ListView) innerView.findViewById(R.id.lvHardUpdate);
 		progressScanApk = (DataProgressBar) innerView
 				.findViewById(R.id.progressScanApk);
@@ -127,27 +127,27 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
 	}
 
 	@Override
-	protected void initEvents() {
+	public void initEvents() {
 
 	}
 
 	@Override
-	protected void initLogic() {
+	public void initLogic() {
 
 	}
 
 	@Override
-	protected int getFragmentLayoutResId() {
+	public int getFragmentLayoutResId() {
 		return R.layout.layout_hardupdate;
 	}
 
 	@Override
-	protected String getMainActivityName() {
+	public String getMainActivityName() {
 		return MainActivity.class.getName();
 	}
 
 	@Override
-	protected void initMenu(Menu menu) {
+	public void initMenu(Menu menu) {
 		itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99,
 				R.string.refresh);
 		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
@@ -172,7 +172,7 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
 	}
 
 	@Override
-	protected void onGetNewArguments(Bundle bn) {
+	public void onGetNewArguments(Bundle bn) {
 
 	}
 
@@ -225,6 +225,11 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
 	public void onCommandFinish() {
 		hFinish.sendEmptyMessage(1);
 
+	}
+
+	@Override
+	public Bundle getFragmentState() {
+		return null;
 	}
 
 }
