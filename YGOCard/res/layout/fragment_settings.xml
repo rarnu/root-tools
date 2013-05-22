@@ -18,7 +18,7 @@
         android:layout_height="48dip"
         android:layout_alignParentRight="true"
         android:text="@string/st_font_bigger"
-        android:background="@drawable/button_font_style" />
+        android:background="@drawable/button_style" />
 
     <TextView
         android:id="@+id/tvFontDemo"
@@ -34,7 +34,7 @@
         android:layout_height="48dip"
         android:layout_toLeftOf="@+id/tvFontDemo"
         android:text="@string/st_font_smaller"
-        android:background="@drawable/button_font_style" />
+        android:background="@drawable/button_style" />
 
     <RelativeLayout
         android:id="@+id/laySplit1"
