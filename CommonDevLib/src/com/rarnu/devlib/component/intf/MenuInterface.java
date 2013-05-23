@@ -1,10 +1,10 @@
-package com.rarnu.devlib.component.event;
+package com.rarnu.devlib.component.intf;
 
 import android.graphics.Canvas;
 import android.graphics.drawable.Drawable;
 import android.view.View;
 
-import com.rarnu.devlib.component.CustomViewBehind;
+import com.rarnu.devlib.component.tools.CustomViewBehind;
 
 public interface MenuInterface {
 

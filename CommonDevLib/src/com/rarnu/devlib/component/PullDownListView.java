@@ -20,8 +20,8 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.common.Actions;
-import com.rarnu.devlib.component.event.OnPullDownListener;
-import com.rarnu.devlib.component.event.OnScrollOverListener;
+import com.rarnu.devlib.component.intf.OnPullDownListener;
+import com.rarnu.devlib.component.intf.OnScrollOverListener;
 
 public class PullDownListView extends LinearLayout implements OnScrollOverListener {
 

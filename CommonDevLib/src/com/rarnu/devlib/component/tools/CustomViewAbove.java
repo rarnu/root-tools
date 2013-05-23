@@ -1,4 +1,4 @@
-package com.rarnu.devlib.component;
+package com.rarnu.devlib.component.tools;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,9 +20,10 @@ import android.view.ViewGroup;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
 
-import com.rarnu.devlib.component.event.OnClosedListener;
-import com.rarnu.devlib.component.event.OnOpenedListener;
-import com.rarnu.devlib.component.event.OnPageChangeListener;
+import com.rarnu.devlib.component.SlidingMenu;
+import com.rarnu.devlib.component.intf.OnClosedListener;
+import com.rarnu.devlib.component.intf.OnOpenedListener;
+import com.rarnu.devlib.component.intf.OnPageChangeListener;
 
 public class CustomViewAbove extends ViewGroup {
 

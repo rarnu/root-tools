@@ -14,7 +14,7 @@ import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.devlib.common.IFragments;
 import com.rarnu.devlib.common.ISliding;
 import com.rarnu.devlib.component.SlidingMenu;
-import com.rarnu.devlib.helper.SlidingHelper;
+import com.rarnu.devlib.component.tools.SlidingHelper;
 import com.rarnu.utils.DrawableUtils;
 import com.rarnu.utils.UIUtils;
 

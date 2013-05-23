@@ -24,12 +24,14 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.component.event.CanvasTransformer;
-import com.rarnu.devlib.component.event.OnCloseListener;
-import com.rarnu.devlib.component.event.OnClosedListener;
-import com.rarnu.devlib.component.event.OnOpenListener;
-import com.rarnu.devlib.component.event.OnOpenedListener;
-import com.rarnu.devlib.component.event.OnPageChangeListener;
+import com.rarnu.devlib.component.intf.CanvasTransformer;
+import com.rarnu.devlib.component.intf.OnCloseListener;
+import com.rarnu.devlib.component.intf.OnClosedListener;
+import com.rarnu.devlib.component.intf.OnOpenListener;
+import com.rarnu.devlib.component.intf.OnOpenedListener;
+import com.rarnu.devlib.component.intf.OnPageChangeListener;
+import com.rarnu.devlib.component.tools.CustomViewAbove;
+import com.rarnu.devlib.component.tools.CustomViewBehind;
 
 public class SlidingMenu extends RelativeLayout {
 

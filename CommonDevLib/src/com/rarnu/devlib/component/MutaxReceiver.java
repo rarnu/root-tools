@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
-import com.rarnu.devlib.component.event.OnReceiveMessage;
+import com.rarnu.devlib.component.intf.OnReceiveMessage;
 
 public class MutaxReceiver extends BroadcastReceiver {
 

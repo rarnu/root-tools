@@ -6,7 +6,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.rarnu.devlib.base.BaseAdapter;
+import com.rarnu.devlib.base.adapter.BaseAdapter;
 import com.rarnu.tools.root.R;
 
 public class PartnerAdapter extends BaseAdapter<Object> {

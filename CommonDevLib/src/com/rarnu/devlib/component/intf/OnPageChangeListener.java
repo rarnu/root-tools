@@ -1,4 +1,4 @@
-package com.rarnu.devlib.component.event;
+package com.rarnu.devlib.component.intf;
 
 public interface OnPageChangeListener {
 	public void onPageScrolled(int position, float positionOffset,

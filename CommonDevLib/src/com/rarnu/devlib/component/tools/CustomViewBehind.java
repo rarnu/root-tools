@@ -1,4 +1,4 @@
-package com.rarnu.devlib.component;
+package com.rarnu.devlib.component.tools;
 
 import android.content.Context;
 import android.graphics.Bitmap;
@@ -13,7 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.component.event.CanvasTransformer;
+import com.rarnu.devlib.component.SlidingMenu;
+import com.rarnu.devlib.component.intf.CanvasTransformer;
 
 public class CustomViewBehind extends ViewGroup {
 

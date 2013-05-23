@@ -1,4 +1,4 @@
-package com.rarnu.devlib.component.event;
+package com.rarnu.devlib.component.intf;
 
 import android.view.MotionEvent;
 

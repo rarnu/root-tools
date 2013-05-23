@@ -1,4 +1,4 @@
-package com.rarnu.devlib.base.inner;
+package com.rarnu.devlib.base.adapter;
 
 import java.util.List;
 

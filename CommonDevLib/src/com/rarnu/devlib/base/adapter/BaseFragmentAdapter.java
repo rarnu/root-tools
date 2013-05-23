@@ -1,8 +1,7 @@
-package com.rarnu.devlib.base;
+package com.rarnu.devlib.base.adapter;
 
 import java.util.List;
 
-import com.rarnu.devlib.base.inner.FragmentPagerAdapter;
 
 import android.app.Fragment;
 import android.app.FragmentManager;
