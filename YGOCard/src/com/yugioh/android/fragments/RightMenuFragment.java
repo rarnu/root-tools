@@ -9,7 +9,6 @@ import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -121,7 +120,6 @@ public class RightMenuFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		Log.e("onResume", "UpdateUtils.checkUpdateT");
 		UpdateUtils.checkUpdateT(getActivity(), hUpdate);
 	}
 

@@ -12,7 +12,6 @@ import android.content.Context;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.ImageView;
 
 import com.rarnu.utils.common.DownloadInfo;
@@ -33,7 +32,7 @@ public class DownloadUtils {
 					listDownloading.get(i).thread.wait(5000);
 					listDownloading.get(i).thread.interrupt();
 				} catch (Exception e) {
-					Log.e("stopDownloadTask", e.getMessage());
+					
 				}
 				listDownloading.remove(i);
 				break;

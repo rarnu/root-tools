@@ -52,4 +52,198 @@
         <attr name="use_default_controller" format="boolean" />
     </declare-styleable>
 
+    <attr name="absListViewStyle" format="reference" />
+    <attr name="listViewStyle" format="reference" />
+
+    <declare-styleable name="PinterestLikeAdapterView">
+        <attr name="plaColumnNumber" format="integer" />
+        <attr name="plaLandscapeColumnNumber" format="integer" />
+        <attr name="plaColumnPaddingLeft" format="dimension" />
+        <attr name="plaColumnPaddingRight" format="dimension" />
+    </declare-styleable>
+    <declare-styleable name="View">
+        <attr name="id" format="reference" />
+        <attr name="tag" format="string" />
+        <attr name="scrollX" format="dimension" />
+        <attr name="scrollY" format="dimension" />
+        <attr name="padding" format="dimension" />
+        <attr name="paddingLeft" format="dimension" />
+        <attr name="paddingTop" format="dimension" />
+        <attr name="paddingRight" format="dimension" />
+        <attr name="paddingBottom" format="dimension" />
+        <attr name="paddingStart" format="dimension" />
+        <attr name="paddingEnd" format="dimension" />
+        <attr name="focusable" format="boolean" />
+        <attr name="focusableInTouchMode" format="boolean" />
+        <attr name="visibility">
+            <enum name="visible" value="0" />
+            <enum name="invisible" value="1" />
+            <enum name="gone" value="2" />
+        </attr>
+        <attr name="fitsSystemWindows" format="boolean" />
+        <attr name="scrollbars">
+            <flag name="none" value="0x00000000" />
+            <flag name="horizontal" value="0x00000100" />
+            <flag name="vertical" value="0x00000200" />
+        </attr>
+        <attr name="scrollbarStyle">
+            <enum name="insideOverlay" value="0x0" />
+            <enum name="insideInset" value="0x01000000" />
+            <enum name="outsideOverlay" value="0x02000000" />
+            <enum name="outsideInset" value="0x03000000" />
+        </attr>
+        <attr name="isScrollContainer" format="boolean" />
+        <attr name="fadeScrollbars" format="boolean" />
+        <attr name="scrollbarFadeDuration" format="integer" />
+        <attr name="scrollbarDefaultDelayBeforeFade" format="integer" />
+        <attr name="scrollbarSize" format="dimension" />
+        <attr name="scrollbarThumbHorizontal" format="reference" />
+        <attr name="scrollbarThumbVertical" format="reference" />
+        <attr name="scrollbarTrackHorizontal" format="reference" />
+        <attr name="scrollbarTrackVertical" format="reference" />
+        <attr name="scrollbarAlwaysDrawHorizontalTrack" format="boolean" />
+        <attr name="scrollbarAlwaysDrawVerticalTrack" format="boolean" />
+        <attr name="fadingEdge">
+            <flag name="none" value="0x00000000" />
+            <flag name="horizontal" value="0x00001000" />
+            <flag name="vertical" value="0x00002000" />
+        </attr>
+        <attr name="requiresFadingEdge">
+            <flag name="none" value="0x00000000" />
+            <flag name="horizontal" value="0x00001000" />
+            <flag name="vertical" value="0x00002000" />
+        </attr>
+        <attr name="fadingEdgeLength" format="dimension" />
+        <attr name="nextFocusLeft" format="reference" />
+        <attr name="nextFocusRight" format="reference" />
+        <attr name="nextFocusUp" format="reference" />
+        <attr name="nextFocusDown" format="reference" />
+        <attr name="nextFocusForward" format="reference" />
+        <attr name="clickable" format="boolean" />
+        <attr name="longClickable" format="boolean" />
+        <attr name="saveEnabled" format="boolean" />
+        <attr name="filterTouchesWhenObscured" format="boolean" />
+        <attr name="drawingCacheQuality">
+            <enum name="auto" value="0" />
+            <enum name="low" value="1" />
+            <enum name="high" value="2" />
+        </attr>
+        <attr name="keepScreenOn" format="boolean" />
+        <attr name="duplicateParentState" format="boolean" />
+        <attr name="minHeight" format="dimension" />
+        <attr name="minWidth" format="dimension" />
+        <attr name="soundEffectsEnabled" format="boolean" />
+        <attr name="hapticFeedbackEnabled" format="boolean" />
+        <attr name="contentDescription" format="string" localization="suggested" />
+        <attr name="onClick" format="string" />
+        <attr name="overScrollMode">
+            <enum name="always" value="0" />
+            <enum name="ifContentScrolls" value="1" />
+            <enum name="never" value="2" />
+        </attr>
+        <attr name="alpha" format="float" />
+        <attr name="translationX" format="dimension" />
+        <attr name="translationY" format="dimension" />
+        <attr name="transformPivotX" format="dimension" />
+        <attr name="transformPivotY" format="dimension" />
+        <attr name="rotation" format="float" />
+        <attr name="rotationX" format="float" />
+        <attr name="rotationY" format="float" />
+        <attr name="scaleX" format="float" />
+        <attr name="scaleY" format="float" />
+        <attr name="verticalScrollbarPosition">
+            <enum name="defaultPosition" value="0" />
+            <enum name="left" value="1" />
+            <enum name="right" value="2" />
+        </attr>
+        <attr name="layerType">
+            <enum name="none" value="0" />
+            <enum name="software" value="1" />
+            <enum name="hardware" value="2" />
+        </attr>
+        <attr name="layoutDirection">
+            <enum name="ltr" value="0" />
+            <enum name="rtl" value="1" />
+            <enum name="inherit" value="2" />
+            <enum name="locale" value="3" />
+        </attr>
+        <attr name="textDirection" format="integer">
+            <enum name="inherit" value="0" />
+            <enum name="firstStrong" value="1" />
+            <enum name="anyRtl" value="2" />
+            <enum name="ltr" value="3" />
+            <enum name="rtl" value="4" />
+            <enum name="locale" value="5" />
+        </attr>
+        <attr name="textAlignment" format="integer">
+            <enum name="inherit" value="0" />
+            <enum name="gravity" value="1" />
+            <enum name="textStart" value="2" />
+            <enum name="textEnd" value="3" />
+            <enum name="center" value="4" />
+            <enum name="viewStart" value="5" />
+            <enum name="viewEnd" value="6" />
+        </attr>
+        <attr name="importantForAccessibility" format="integer">
+            <enum name="auto" value="0" />
+            <enum name="yes" value="1" />
+            <enum name="no" value="2" />
+        </attr>
+        <attr name="accessibilityFocusable" format="integer">
+            <enum name="auto" value="0" />
+            <enum name="yes" value="1" />
+            <enum name="no" value="2" />
+        </attr>
+    </declare-styleable>
+    <declare-styleable name="ViewGroup">
+        <attr name="animateLayoutChanges" format="boolean" />
+        <attr name="clipChildren" format="boolean" />
+        <attr name="clipToPadding" format="boolean" />
+        <attr name="layoutAnimation" format="reference" />
+        <attr name="animationCache" format="boolean" />
+        <attr name="persistentDrawingCache">
+            <flag name="none" value="0x0" />
+            <flag name="animation" value="0x1" />
+            <flag name="scrolling" value="0x2" />
+            <flag name="all" value="0x3" />
+        </attr>
+        <attr name="alwaysDrawnWithCache" format="boolean" />
+        <attr name="addStatesFromChildren" format="boolean" />
+        <attr name="descendantFocusability">
+            <enum name="beforeDescendants" value="0" />
+            <enum name="afterDescendants" value="1" />
+            <enum name="blocksDescendants" value="2" />
+        </attr>
+        <attr name="splitMotionEvents" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="AbsListView">
+        <attr name="listSelector" format="color|reference" />
+        <attr name="drawSelectorOnTop" format="boolean" />
+        <attr name="stackFromBottom" format="boolean" />
+        <attr name="scrollingCache" format="boolean" />
+        <attr name="textFilterEnabled" format="boolean" />
+        <attr name="transcriptMode">
+            <enum name="disabled" value="0" />
+            <enum name="normal" value="1" />
+            <enum name="alwaysScroll" value="2" />
+        </attr>
+        <attr name="cacheColorHint" format="color" />
+        <attr name="fastScrollEnabled" format="boolean" />
+        <attr name="smoothScrollbar" format="boolean" />
+        <attr name="choiceMode">
+            <enum name="none" value="0" />
+            <enum name="singleChoice" value="1" />
+            <enum name="multipleChoice" value="2" />
+            <enum name="multipleChoiceModal" value="3" />
+        </attr>
+        <attr name="fastScrollAlwaysVisible" format="boolean" />
+    </declare-styleable>
+    <declare-styleable name="ListView">
+        <attr name="dividerHeight" format="dimension" />
+        <attr name="headerDividersEnabled" format="boolean" />
+        <attr name="footerDividersEnabled" format="boolean" />
+        <attr name="overScrollHeader" format="reference|color" />
+        <attr name="overScrollFooter" format="reference|color" />
+    </declare-styleable>
+
 </resources>

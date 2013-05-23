@@ -23,7 +23,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
-import android.util.Log;
 
 import com.rarnu.command.CommandCallback;
 import com.rarnu.command.CommandResult;
@@ -689,8 +688,7 @@ public class ApkUtils {
 			@Override
 			public void run() {
 				String cmd = "busybox find /sdcard/ -name \"*.apk\"";
-				CommandResult ret = RootUtils.runCommand(cmd, true, callback);
-				Log.e("scanApksInSdcard", ret.result);
+				RootUtils.runCommand(cmd, true, callback);
 			}
 		}).start();
 	}
