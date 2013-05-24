@@ -181,7 +181,6 @@ public abstract class InnerAbsListView extends InnerAdapterView<ListAdapter>
 		mSmoothScrollbarEnabled = enabled;
 	}
 
-	@ViewDebug.ExportedProperty
 	public boolean isSmoothScrollbarEnabled() {
 		return mSmoothScrollbarEnabled;
 	}
@@ -225,7 +224,6 @@ public abstract class InnerAbsListView extends InnerAdapterView<ListAdapter>
 				android.R.drawable.list_selector_background));
 	}
 
-	@ViewDebug.ExportedProperty
 	public boolean isStackFromBottom() {
 		return mStackFromBottom;
 	}

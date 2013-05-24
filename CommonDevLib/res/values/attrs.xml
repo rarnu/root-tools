@@ -245,5 +245,16 @@
         <attr name="overScrollHeader" format="reference|color" />
         <attr name="overScrollFooter" format="reference|color" />
     </declare-styleable>
+    <declare-styleable name="FlipView">
+        <attr name="orientation" format="enum">
+            <enum name="vertical" value="0" />
+            <enum name="horizontal" value="1" />
+        </attr>
+        <attr name="animationBitmapFormat" format="enum">
+            <enum name="ARGB_8888" value="0" />
+            <enum name="ARGB_4444" value="1" />
+            <enum name="RGB_565" value="2" />
+        </attr>
+    </declare-styleable>
 
 </resources>

@@ -99,8 +99,6 @@ public class CustomViewAbove extends ViewGroup {
 		final Context context = getContext();
 		mScroller = new Scroller(context, sInterpolator);
 		final ViewConfiguration configuration = ViewConfiguration.get(context);
-		// mTouchSlop = ViewConfigurationCompat
-		// .getScaledPagingTouchSlop(configuration);
 		mTouchSlop = configuration.getScaledPagingTouchSlop();
 		mMinimumVelocity = configuration.getScaledMinimumFlingVelocity();
 		mMaximumVelocity = configuration.getScaledMaximumFlingVelocity();
@@ -471,7 +469,6 @@ public class CustomViewAbove extends ViewGroup {
 	}
 
 	private int getPointerIndex(MotionEvent ev, int id) {
-		// int activePointerIndex = MotionEventCompat.findPointerIndex(ev, id);
 		int activePointerIndex = ev.findPointerIndex(id);
 		if (activePointerIndex == -1)
 			mActivePointerId = INVALID_POINTER;
