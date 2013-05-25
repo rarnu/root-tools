@@ -86,10 +86,11 @@ public class ActivityDatabse extends ContextWrapper {
 		}
 	}
 
-	public int updateStatus(int id, int status) {
-		ContentValues cv = new ContentValues();
-		cv.put("status", status);
-		return db.update(ACTIVITY_TABLE, cv, "_id=?",
-				new String[] { String.valueOf(id) });
+	public int updateStatus(ContentValues cv, String[] whereArgs) {
+		if (db != null) {
+			return db.update(ACTIVITY_TABLE, cv, "_id=?", whereArgs);
+		} else {
+			return 0;
+		}
 	}
 }

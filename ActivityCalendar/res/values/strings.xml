@@ -86,6 +86,7 @@
     <string name="menu_url">链接</string>
     <string name="menu_share">分享</string>
     <string name="menu_calendar">日历</string>
+    <string name="menu_activity">信息</string>
     
     <string name="toast_no_google_account">没有找到 Google 帐号,无法添加事件</string>
     <string name="toast_google_calendar">没有安装 Google Calendar</string>

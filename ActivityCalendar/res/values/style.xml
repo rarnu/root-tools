@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ZoeTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/ZoeActionBarStyle</item>
+        <item name="android:actionBarTabStyle">@style/ZoeActionBarTabStyle</item>
+    </style>
+
+    <style name="ZoeActionBarTabStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator_ab_holo</item>
+        <item name="android:paddingStart">16dip</item>
+        <item name="android:paddingEnd">16dip</item>
+    </style>
+
+    <style name="ZoeActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:backgroundStacked">#FFF3F3FA</item>
+    </style>
+
+</resources>

@@ -1,30 +1,27 @@
 package com.zoe.calendar.fragment;
 
+import java.util.List;
+
+import android.app.Fragment;
 import android.content.ComponentName;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.devlib.base.BaseTabFragment;
 import com.zoe.calendar.R;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.classes.GoogleCalendar;
 import com.zoe.calendar.common.MenuIds;
 import com.zoe.calendar.utils.GoogleCalendarUtils;
 
-public class DetailFragment extends BaseFragment {
+public class DetailFragment extends BaseTabFragment {
 
-	TextView tvTitle;
-	TextView tvLocation;
-	TextView tvContent;
-	ActivityItem item;
+	MenuItem miCalendar, miShare;
 	GoogleCalendar gc;
-
-	MenuItem miShare, miUrl, miMap, miCalendar;
+	ActivityItem actItem;
 
 	public DetailFragment(String tag) {
 		super(tag, "");
@@ -46,47 +43,24 @@ public class DetailFragment extends BaseFragment {
 	}
 
 	@Override
-	public void initComponents() {
-		tvTitle = (TextView) innerView.findViewById(R.id.tvTitle);
-		tvLocation = (TextView) innerView.findViewById(R.id.tvLocation);
-		tvContent = (TextView) innerView.findViewById(R.id.tvContent);
-		gc = GoogleCalendarUtils.getCalendars(getActivity());
-	}
-
-	@Override
-	public void initEvents() {
-
-	}
-
-	@Override
-	public void initLogic() {
-		item = (ActivityItem) getActivity().getIntent().getSerializableExtra(
-				"item");
-		tvTitle.setText(item.title);
-		tvLocation.setText(item.location);
-		tvContent.setText(item.content);
-	}
-
-	@Override
-	public int getFragmentLayoutResId() {
-		return R.layout.fragment_detail;
-	}
-
-	@Override
 	public String getMainActivityName() {
 		return "";
 	}
 
 	@Override
+	public void initComponents() {
+		super.initComponents();
+		gc = GoogleCalendarUtils.getCalendars(getActivity());
+	}
+
+	@Override
+	public void initLogic() {
+		actItem = (ActivityItem) getActivity().getIntent()
+				.getSerializableExtra("item");
+	}
+
+	@Override
 	public void initMenu(Menu menu) {
-		miMap = menu.add(0, MenuIds.MENU_MAP, 21, R.string.menu_map);
-		miMap.setIcon(R.drawable.abi_map);
-		miMap.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-		miUrl = menu.add(0, MenuIds.MENU_URL, 22, R.string.menu_url);
-		miUrl.setIcon(R.drawable.abi_url);
-		miUrl.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
 		miCalendar = menu.add(0, MenuIds.MENU_CALENDAR, 23,
 				R.string.menu_calendar);
 		miCalendar.setIcon(R.drawable.abi_calendar);
@@ -101,21 +75,16 @@ public class DetailFragment extends BaseFragment {
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case MenuIds.MENU_MAP:
-			break;
-		case MenuIds.MENU_URL:
-			startWebBrowser();
-			break;
 		case MenuIds.MENU_CALENDAR:
 			if (gc == null) {
 				Toast.makeText(getActivity(), R.string.toast_no_google_account,
 						Toast.LENGTH_LONG).show();
 				return true;
 			}
-			if (GoogleCalendarUtils.eventExists(getActivity(), gc, this.item)) {
-				GoogleCalendarUtils.deleteEvent(getActivity(), gc, this.item);
+			if (GoogleCalendarUtils.eventExists(getActivity(), gc, actItem)) {
+				GoogleCalendarUtils.deleteEvent(getActivity(), gc, actItem);
 			} else {
-				GoogleCalendarUtils.addEvent(getActivity(), gc, this.item);
+				GoogleCalendarUtils.addEvent(getActivity(), gc, actItem);
 			}
 			startCalendar();
 			break;
@@ -123,16 +92,6 @@ public class DetailFragment extends BaseFragment {
 			break;
 		}
 		return super.onOptionsItemSelected(item);
-	}
-	
-	private void startWebBrowser() {
-		try {
-			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setData(Uri.parse(item.url));
-			startActivity(intent);
-		} catch (Exception e) {
-			
-		}
 	}
 
 	private void startCalendar() {
@@ -156,6 +115,22 @@ public class DetailFragment extends BaseFragment {
 	@Override
 	public Bundle getFragmentState() {
 		return null;
+	}
+
+	@Override
+	public void initFragmentList(List<Fragment> listFragment) {
+		listFragment.add(new DetailInfoFragment(
+				getString(R.tag.fragment_detail_info),
+				getString(R.string.menu_activity)));
+		
+		listFragment.add(new DetailMapFragment(
+				getString(R.tag.fragment_detail_map),
+				getString(R.string.menu_map)));
+		
+		listFragment.add(new DetailWebFragment(
+				getString(R.tag.fragment_detail_web),
+				getString(R.string.menu_url)));
+
 	}
 
 }

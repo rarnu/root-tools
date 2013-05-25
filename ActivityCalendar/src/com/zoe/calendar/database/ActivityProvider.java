@@ -18,17 +18,7 @@ public class ActivityProvider extends ContentProvider {
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
-		int id = -1;
-		try {
-			id = (int) ContentUris.parseId(uri);
-		} catch (Exception e) {
-
-		}
-
-		if (id == -1) {
-			return 0;
-		}
-		return database.updateStatus(id, 0);
+		return 0;
 	}
 
 	@Override
@@ -74,7 +64,7 @@ public class ActivityProvider extends ContentProvider {
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
-		return 0;
+		return database.updateStatus(values, selectionArgs);
 	}
 
 }

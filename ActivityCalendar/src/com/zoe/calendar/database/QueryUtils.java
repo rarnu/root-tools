@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
@@ -56,8 +57,18 @@ public class QueryUtils {
 	}
 
 	public static int deleteActivity(Context context, int id) {
-		return context.getContentResolver().delete(
-				ContentUris.withAppendedId(ActivityProvider.CONTENT_URI, id),
-				null, null);
+		return updateActivity(context, id, 0);
+	}
+
+	public static int restoreActivity(Context context, int id) {
+		return updateActivity(context, id, 1);
+	}
+
+	private static int updateActivity(Context context, int id, int status) {
+		ContentValues cv = new ContentValues();
+		cv.put("status", status);
+		return context.getContentResolver().update(
+				ActivityProvider.CONTENT_URI, cv, null,
+				new String[] { String.valueOf(id) });
 	}
 }
