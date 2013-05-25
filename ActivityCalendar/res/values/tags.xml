@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="tag" name="fragment_main">main_fragment</item>
+    <item type="tag" name="fragment_left_menu">left_menu_frgment</item>
+    <item type="tag" name="fragment_detail">detail_fragment</item>
+    <item type="tag" name="fragment_settings">settings_fragment</item>
+    <item type="tag" name="fragment_city">city_fragment</item>
+</resources>

@@ -1,0 +1,35 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#FF333333" >
+
+    <RelativeLayout
+        android:id="@+id/layLeftMenuHead"
+        android:layout_width="match_parent"
+        android:layout_height="?android:attr/actionBarSize"
+        android:background="#FF111111" >
+
+        <TextView
+            android:id="@+id/tvLeftTitle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toRightOf="@+id/ivLogo"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="8dip"
+            android:text="上海"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:textSize="18dp" />
+    </RelativeLayout>
+    
+    <ListView
+        android:id="@+id/lvLeftCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layLeftMenuHead"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/shadow"
+        android:dividerHeight="1px" >
+    </ListView>
+
+</RelativeLayout>
