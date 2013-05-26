@@ -12,6 +12,7 @@ public class CalendarDays {
 	public int year = 0, month = 0;
 	public int lines = 0;
 	private Context context;
+	private int todayIndex = -1;
 
 	public CalendarDays(Context context) {
 		this.context = context;
@@ -51,6 +52,10 @@ public class CalendarDays {
 					|| (lstDays.size() % 7 == 6);
 			item.today = (cToday.get(Calendar.MONTH) == item.month)
 					&& (cToday.get(Calendar.DAY_OF_MONTH) == item.day);
+			item.selected = item.today;
+			if (item.today) {
+				todayIndex = lstDays.size();
+			}
 			LunarCalendarConvertUtil.parseLunarCalendar(item.year, item.month, item.day, lc);
 			item.chineseDay = lc.getChinaDayString(true);
 			lstDays.add(item);
@@ -63,6 +68,10 @@ public class CalendarDays {
 		lines = lstDays.size() > 35 ? 6 : 5;
 	}
 
+	public int getTodayIndex() {
+		return todayIndex;
+	}
+	
 	public CalendarDays getPriorMonth() {
 		int newMonth = month - 1;
 		int newYear = year;

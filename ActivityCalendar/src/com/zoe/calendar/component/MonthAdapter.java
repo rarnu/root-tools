@@ -17,8 +17,10 @@ public class MonthAdapter extends BaseAdapter {
 	private LayoutInflater inflater;
 	private CalendarDays days;
 	private int rowHeight = 0;
+	private Context context;
 
 	public MonthAdapter(Context context, CalendarDays days, int rowHeight) {
+		this.context = context;
 		this.inflater = LayoutInflater.from(context);
 		this.days = days;
 		this.rowHeight = rowHeight;
@@ -66,7 +68,7 @@ public class MonthAdapter extends BaseAdapter {
 		if (item != null) {
 			holder.tvDayTitle.setTextColor(Color.BLACK);
 			holder.tvLunar.setTextColor(Color.BLACK);
-			
+
 			holder.tvDayTitle.setText(item.day == 0 ? "" : String
 					.valueOf(item.day));
 			holder.tvDayTitle.setTextColor(item.highlight ? 0xff0099CC
@@ -76,10 +78,13 @@ public class MonthAdapter extends BaseAdapter {
 			if (item.today) {
 				holder.tvDayTitle.setTextColor(0xff009933);
 				holder.tvLunar.setTextColor(0xff009933);
-				holder.ivToday.setImageResource(R.drawable.today);
+
 			} else {
 				holder.ivToday.setImageDrawable(null);
 			}
+
+			holder.ivToday.setImageDrawable(item.selected ? context
+					.getResources().getDrawable(R.drawable.today) : null);
 		}
 		return v;
 	}

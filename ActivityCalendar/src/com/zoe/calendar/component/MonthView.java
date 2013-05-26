@@ -14,6 +14,7 @@ public class MonthView extends GridView implements OnItemClickListener {
 	private MonthAdapter adapter;
 
 	private DayClickListener listener;
+	private int monthIndex = 0;
 
 	public MonthView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -28,6 +29,10 @@ public class MonthView extends GridView implements OnItemClickListener {
 	public MonthView(Context context) {
 		super(context);
 		init();
+	}
+
+	public void setMonthIndex(int index) {
+		monthIndex = index;
 	}
 
 	public void setOnDayClickListener(DayClickListener listener) {
@@ -60,9 +65,31 @@ public class MonthView extends GridView implements OnItemClickListener {
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
 		Day d = days.lstDays.get(position);
-		if (listener != null) {
-			listener.onDayClick(d);
+		for (int i = 0; i < days.lstDays.size(); i++) {
+			days.lstDays.get(i).selected = false;
 		}
+		days.lstDays.get(position).selected = true;
+		adapter.notifyDataSetChanged();
+		if (listener != null) {
+			listener.onDayClick(monthIndex, position, d);
+		}
+	}
+
+	public void unselectAllButOne(final int index, final int position) {
+		postDelayed(new Runnable() {
+			@Override
+			public void run() {
+				for (int i = 0; i < days.lstDays.size(); i++) {
+					if (index != monthIndex) {
+						days.lstDays.get(i).selected = false;
+					} else {
+						days.lstDays.get(i).selected = (i == position);
+					}
+				}
+				adapter.notifyDataSetChanged();
+			}
+		}, 1000);
+
 	}
 
 }

@@ -54,20 +54,14 @@ public class DetailFragment extends BaseTabFragment {
 	}
 
 	@Override
-	public void initLogic() {
-		actItem = (ActivityItem) getActivity().getIntent()
-				.getSerializableExtra("item");
-	}
-
-	@Override
 	public void initMenu(Menu menu) {
 		miCalendar = menu.add(0, MenuIds.MENU_CALENDAR, 23,
 				R.string.menu_calendar);
-		miCalendar.setIcon(R.drawable.abi_calendar);
+		miCalendar.setIcon(android.R.drawable.ic_menu_agenda);
 		miCalendar.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		miShare = menu.add(0, MenuIds.MENU_SHARE, 24, R.string.menu_share);
-		miShare.setIcon(R.drawable.abi_share);
+		miShare.setIcon(android.R.drawable.ic_menu_share);
 		miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 	}
@@ -119,14 +113,19 @@ public class DetailFragment extends BaseTabFragment {
 
 	@Override
 	public void initFragmentList(List<Fragment> listFragment) {
+		actItem = (ActivityItem) getActivity().getIntent()
+				.getSerializableExtra("item");
+
 		listFragment.add(new DetailInfoFragment(
 				getString(R.tag.fragment_detail_info),
 				getString(R.string.menu_activity)));
-		
-		listFragment.add(new DetailMapFragment(
-				getString(R.tag.fragment_detail_map),
-				getString(R.string.menu_map)));
-		
+
+		if ((actItem.location != null) && (!actItem.location.equals(""))) {
+			listFragment.add(new DetailMapFragment(
+					getString(R.tag.fragment_detail_map),
+					getString(R.string.menu_map)));
+		}
+
 		listFragment.add(new DetailWebFragment(
 				getString(R.tag.fragment_detail_web),
 				getString(R.string.menu_url)));

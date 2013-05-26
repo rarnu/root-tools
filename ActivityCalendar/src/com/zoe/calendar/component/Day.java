@@ -8,6 +8,7 @@ public class Day {
 	public String chineseDay = "";
 	public boolean highlight = false;
 	public boolean today = false;
+	public boolean selected = false;
 	public String image = "";
 	public Object data = null;
 }

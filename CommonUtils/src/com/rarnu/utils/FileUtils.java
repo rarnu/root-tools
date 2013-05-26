@@ -10,6 +10,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
@@ -235,6 +236,21 @@ public class FileUtils {
 		return text.trim();
 	}
 
+	public static List<String> readAssertFileAsList(Context context,
+			String fileName) throws IOException {
+		InputStream is = context.getAssets().open(fileName);
+		InputStreamReader myStreamReader = new InputStreamReader(is);
+		BufferedReader myBufferedReader = new BufferedReader(myStreamReader);
+		String line;
+		List<String> fileText = new ArrayList<String>();
+		while ((line = myBufferedReader.readLine()) != null) {
+			fileText.add(line);
+		}
+		myBufferedReader.close();
+		myStreamReader.close();
+		return fileText;
+	}
+
 	public static boolean copyAssetFile(Context context, String fileName,
 			String saveDir, Handler hProgress) {
 		File fBusybox = new File(saveDir);
@@ -329,7 +345,7 @@ public class FileUtils {
 
 		}
 	}
-	
+
 	public static long getDirSize(String path) {
 		return getDirSize(new File(path));
 	}

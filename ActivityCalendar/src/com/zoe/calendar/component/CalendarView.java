@@ -19,11 +19,14 @@ public class CalendarView extends HScrollLayout implements
 	}
 
 	List<CalendarDays> listDays = new ArrayList<CalendarDays>();
-	MonthView mCurrent, mPrior, mNext;
 	OnCalendarChange calendarChange;
-
 	OnClickListener clickListener;
 	DayClickListener dayClickListener;
+	RelativeLayout layout;
+	MonthView[] mv;
+
+	int SelectedMonth = 0;
+	int SelectedPosition = -1;
 
 	public CalendarView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -43,43 +46,43 @@ public class CalendarView extends HScrollLayout implements
 		this.dayClickListener = listener;
 	}
 
-	private MonthView addMonth(CalendarDays days, int height, boolean first) {
-		RelativeLayout layout = new RelativeLayout(getContext());
+	private MonthView addMonth(int index, CalendarDays days, int height,
+			boolean first) {
+		layout = new RelativeLayout(getContext());
 		layout.setLayoutParams(new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.MATCH_PARENT,
 				RelativeLayout.LayoutParams.MATCH_PARENT));
 		layout.setClickable(true);
 		layout.setOnClickListener(clickListener);
-		MonthView m = new MonthView(getContext());
+		mv[index] = new MonthView(getContext());
 
 		RelativeLayout.LayoutParams lp = new RelativeLayout.LayoutParams(
 				RelativeLayout.LayoutParams.MATCH_PARENT,
 				RelativeLayout.LayoutParams.WRAP_CONTENT);
 		lp.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
-		m.setLayoutParams(lp);
-		m.setDays(days, height);
-		m.setFocusable(false);
-		m.setOnDayClickListener(this);
-		layout.addView(m);
+		mv[index].setMonthIndex(index);
+		mv[index].setLayoutParams(lp);
+		mv[index].setDays(days, height);
+		mv[index].setFocusable(false);
+		mv[index].setOnDayClickListener(this);
+		layout.addView(mv[index]);
 		if (first) {
 			addView(layout, 0);
 		} else {
 			addView(layout);
 		}
-		return m;
+		return mv[index];
 	}
 
 	public void setDate(List<CalendarDays> listDays, int height) {
+		SelectedMonth = 0;
+		SelectedPosition = listDays.get(0).getTodayIndex();
+		mv = new MonthView[listDays.size()];
 		this.listDays = listDays;
 		removeAllViews();
-		for (CalendarDays days : listDays) {
-			addMonth(days, height, false);
+		for (int i = 0; i < listDays.size(); i++) {
+			addMonth(i, listDays.get(i), height, false);
 		}
-		setToScreen(12);
-	}
-
-	public void gotoCurrentMonth() {
-		setToScreen(12);
 	}
 
 	public List<CalendarDays> getDate() {
@@ -92,6 +95,11 @@ public class CalendarView extends HScrollLayout implements
 
 	@Override
 	public void onScreenChange(View v, int screen) {
+		for (int i = 0; i < mv.length; i++) {
+			if (i != screen) {
+				mv[i].unselectAllButOne(SelectedMonth, SelectedPosition);
+			}
+		}
 		if (calendarChange != null) {
 			calendarChange.calendarChanged(listDays.get(screen));
 		}
@@ -99,9 +107,12 @@ public class CalendarView extends HScrollLayout implements
 	}
 
 	@Override
-	public void onDayClick(Day day) {
+	public void onDayClick(int monthIndex, int position, Day day) {
+		SelectedMonth = monthIndex;
+		SelectedPosition = position;
+
 		if (dayClickListener != null) {
-			dayClickListener.onDayClick(day);
+			dayClickListener.onDayClick(monthIndex, position, day);
 		}
 
 	}

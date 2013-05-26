@@ -8,12 +8,14 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.TextView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.common.ISliding;
 import com.zoe.calendar.CityActivity;
+import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.SettingsActivity;
 import com.zoe.calendar.adapter.LeftMenuAdapter;
@@ -22,6 +24,7 @@ import com.zoe.calendar.classes.LeftMenuItem;
 public class LeftMenuFragment extends BaseFragment implements
 		OnItemClickListener {
 
+	TextView tvLeftTitle;
 	ListView lvLeftCard;
 	LeftMenuAdapter adapter;
 	List<LeftMenuItem> list;
@@ -47,6 +50,7 @@ public class LeftMenuFragment extends BaseFragment implements
 
 	@Override
 	public void initComponents() {
+		tvLeftTitle = (TextView) innerView.findViewById(R.id.tvLeftTitle);
 		lvLeftCard = (ListView) innerView.findViewById(R.id.lvLeftCard);
 
 		String[] titles = getResources()
@@ -62,6 +66,14 @@ public class LeftMenuFragment extends BaseFragment implements
 		adapter = new LeftMenuAdapter(getActivity(), list);
 		lvLeftCard.setAdapter(adapter);
 
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		if (Global.city != null) {
+			tvLeftTitle.setText(Global.city);
+		}
 	}
 
 	@Override
@@ -91,7 +103,7 @@ public class LeftMenuFragment extends BaseFragment implements
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-
+		tvLeftTitle.setText(Global.city);
 	}
 
 	@Override

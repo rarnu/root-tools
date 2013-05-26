@@ -90,5 +90,10 @@
     
     <string name="toast_no_google_account">没有找到 Google 帐号,无法添加事件</string>
     <string name="toast_google_calendar">没有安装 Google Calendar</string>
+    <string name="city_located">定位到的城市</string>
+    <string name="city_select">手动选择城市</string>
+    <string name="city_filter_hint">输入城市名称或拼音来过滤</string>
+    <string name="city_not_found">没有定位到城市</string>
+    <string name="city_locating">正在定位...</string>
 
 </resources>

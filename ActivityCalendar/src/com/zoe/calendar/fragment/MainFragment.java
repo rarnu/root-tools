@@ -22,6 +22,7 @@ import com.rarnu.devlib.component.intf.RemoveListener;
 import com.rarnu.devlib.component.tools.DragController;
 import com.rarnu.utils.UIUtils;
 import com.zoe.calendar.DetailActivity;
+import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.adapter.ActivityAdapter;
 import com.zoe.calendar.classes.ActivityItem;
@@ -45,6 +46,8 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	List<CalendarDays> listDays;
 	TextView tvDate;
 	private int currentDayLines;
+
+	Day pointedDay;
 
 	public MainFragment(String tag) {
 		super(tag, "");
@@ -99,13 +102,25 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		initActivity();
 	}
 
+	@Override
+	public void onResume() {
+		super.onResume();
+		initPointedDay(pointedDay);
+	}
+
 	private void initActivity() {
 		Day currentDay = new Day();
 		Calendar cToday = Calendar.getInstance();
 		currentDay.year = cToday.get(Calendar.YEAR);
 		currentDay.month = cToday.get(Calendar.MONTH);
 		currentDay.day = cToday.get(Calendar.DAY_OF_MONTH);
-		onDayClick(currentDay);
+		onDayClick(0, 0, currentDay);
+	}
+
+	private void initPointedDay(Day day) {
+		if (day != null) {
+			onDayClick(0, 0, day);
+		}
 	}
 
 	private void initCalendar() {
@@ -152,7 +167,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-
+		initActivity();
 	}
 
 	@Override
@@ -169,9 +184,10 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	}
 
 	@Override
-	public void onDayClick(Day day) {
+	public void onDayClick(int monthIndex, int position, Day day) {
+		pointedDay = day;
 		List<ActivityItem> list = QueryUtils.queryActivity(getActivity(),
-				day.year, day.month + 1, day.day);
+				Global.city_pinyin, day.year, day.month + 1, day.day);
 		listActivity.clear();
 		if (list != null) {
 			listActivity.addAll(list);
@@ -194,15 +210,17 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			initActivity();
 		}
 	}
+
 	private DatabaseMsgReceiver receiverDatabase = new DatabaseMsgReceiver();
-	private IntentFilter filterDatabase = new IntentFilter(Actions.ACTION_LOAD_DATABASE_FINISH);
-	
+	private IntentFilter filterDatabase = new IntentFilter(
+			Actions.ACTION_LOAD_DATABASE_FINISH);
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		getActivity().registerReceiver(receiverDatabase, filterDatabase);
 	}
-	
+
 	@Override
 	public void onDestroy() {
 		getActivity().unregisterReceiver(receiverDatabase);
@@ -215,6 +233,6 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		Intent inDetail = new Intent(getActivity(), DetailActivity.class);
 		inDetail.putExtra("item", item);
 		startActivity(inDetail);
-		
+
 	}
 }

@@ -1,15 +1,30 @@
 package com.zoe.calendar.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.Menu;
 
+import com.baidu.mapapi.map.MapController;
+import com.baidu.mapapi.map.MapView;
+import com.baidu.platform.comapi.basestruct.GeoPoint;
 import com.rarnu.devlib.base.BaseFragment;
+import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.classes.ActivityItem;
+import com.zoe.calendar.common.Actions;
+import com.zoe.calendar.location.LocationProvider;
+import com.zoe.calendar.location.OverItemT;
 
 public class DetailMapFragment extends BaseFragment {
 
 	ActivityItem actItem;
+	MapView mvBaidu;
+	MapController mMapController;
+	LocationProvider locProvider;
 
 	public DetailMapFragment(String tag, String title) {
 		super(tag, title);
@@ -32,19 +47,26 @@ public class DetailMapFragment extends BaseFragment {
 
 	@Override
 	public void initComponents() {
-
+		mvBaidu = (MapView) innerView.findViewById(R.id.mvBaidu);
+		locProvider = new LocationProvider(getActivity());
+		mMapController = mvBaidu.getController();
+		GeoPoint centerpt = mvBaidu.getMapCenter();
+		mMapController.enableClick(true);
+		mMapController.setZoom(mvBaidu.getMaxZoomLevel() - 1);
+		mMapController.setCenter(centerpt);
+		mvBaidu.setDoubleClickZooming(true);
 	}
 
 	@Override
 	public void initEvents() {
-
+		mvBaidu.setOnTouchListener(null);
 	}
 
 	@Override
 	public void initLogic() {
 		actItem = (ActivityItem) getActivity().getIntent()
 				.getSerializableExtra("item");
-
+		locProvider.searchAddress(Global.city, actItem.location);
 	}
 
 	@Override
@@ -72,4 +94,42 @@ public class DetailMapFragment extends BaseFragment {
 		return null;
 	}
 
+	class GeoPoiReceiver extends BroadcastReceiver {
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+
+			GeoPoint point = new GeoPoint(intent.getIntExtra("lat", 0),
+					intent.getIntExtra("lng", 0));
+
+			mMapController.animateTo(point);
+
+			Drawable marker = getResources().getDrawable(R.drawable.icon_mark);
+			marker.setBounds(0, 0, marker.getIntrinsicWidth(),
+					marker.getIntrinsicHeight());
+			mvBaidu.getOverlays().clear();
+			mvBaidu.getOverlays().add(
+					new OverItemT(marker, getActivity(), point, intent
+							.getStringExtra("addr"), mvBaidu));
+			mvBaidu.refresh();
+
+		}
+
+	}
+
+	private GeoPoiReceiver receiverGeoPoi = new GeoPoiReceiver();
+	private IntentFilter filterGeoPoi = new IntentFilter(
+			Actions.ACTION_RECEIVE_GEOPOI);
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		getActivity().registerReceiver(receiverGeoPoi, filterGeoPoi);
+	}
+
+	@Override
+	public void onDestroy() {
+		getActivity().unregisterReceiver(receiverGeoPoi);
+		super.onDestroy();
+	}
 }

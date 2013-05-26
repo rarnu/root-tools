@@ -12,15 +12,15 @@ import com.zoe.calendar.classes.ActivityItem;
 
 public class QueryUtils {
 
-	public static List<ActivityItem> queryActivity(Context context, int year,
-			int month, int day) {
+	public static List<ActivityItem> queryActivity(Context context,
+			String city, int year, int month, int day) {
 		Cursor c = context
 				.getContentResolver()
 				.query(ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
 						ActivityProvider.ACTIONID_QUERY),
 						null,
-						"year=? and ((start_month=? and start_day=?) or (end_month=? and end_day=?)) and status=1",
-						new String[] { String.valueOf(year),
+						"city=? and year=? and ((start_month=? and start_day=?) or (end_month=? and end_day=?)) and status=1",
+						new String[] { city, String.valueOf(year),
 								String.valueOf(month), String.valueOf(day),
 								String.valueOf(month), String.valueOf(day) },
 						null);

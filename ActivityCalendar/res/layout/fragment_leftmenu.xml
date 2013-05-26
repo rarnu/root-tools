@@ -17,7 +17,6 @@
             android:layout_toRightOf="@+id/ivLogo"
             android:gravity="left|center_vertical"
             android:paddingLeft="8dip"
-            android:text="上海"
             android:textColor="?android:attr/textColorPrimaryInverse"
             android:textSize="18dp" />
     </RelativeLayout>
