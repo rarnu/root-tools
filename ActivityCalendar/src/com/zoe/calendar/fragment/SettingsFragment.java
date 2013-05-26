@@ -8,6 +8,10 @@ import com.zoe.calendar.R;
 
 public class SettingsFragment extends BaseFragment {
 
+	// TODO: settings
+	// TODO: about
+	// TODO: contact us
+	
 	public SettingsFragment(String tag) {
 		super(tag, "");
 	}

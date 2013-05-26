@@ -186,14 +186,12 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 					|| city.equals(getString(R.string.city_not_found))) {
 				return;
 			}
-			for (CityItem ci : listCity) {
-				if (city.startsWith(ci.name)) {
-					Global.city = ci.name;
-					Global.city_pinyin = ci.pinyin.toLowerCase();
-					Config.setCity(getActivity(), Global.city);
-					Config.setCityPinyin(getActivity(), Global.city_pinyin);
-					break;
-				}
+			CityItem ci = CityUtils.findCity(city);
+			if (ci != null) {
+				Global.city = ci.name;
+				Global.city_pinyin = ci.pinyin.toLowerCase();
+				Config.setCity(getActivity(), Global.city);
+				Config.setCityPinyin(getActivity(), Global.city_pinyin);
 			}
 			getActivity().finish();
 			break;

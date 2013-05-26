@@ -95,11 +95,7 @@ public class CalendarView extends HScrollLayout implements
 
 	@Override
 	public void onScreenChange(View v, int screen) {
-		for (int i = 0; i < mv.length; i++) {
-			if (i != screen) {
-				mv[i].unselectAllButOne(SelectedMonth, SelectedPosition);
-			}
-		}
+
 		if (calendarChange != null) {
 			calendarChange.calendarChanged(listDays.get(screen));
 		}
@@ -117,4 +113,11 @@ public class CalendarView extends HScrollLayout implements
 
 	}
 
+	public void setSelection(int index) {
+		for (int i = 0; i < mv.length; i++) {
+			if (i != index) {
+				mv[i].changeSelection(index, SelectedPosition);
+			}
+		}
+	}
 }

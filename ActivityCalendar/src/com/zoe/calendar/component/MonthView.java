@@ -75,8 +75,8 @@ public class MonthView extends GridView implements OnItemClickListener {
 		}
 	}
 
-	public void unselectAllButOne(final int index, final int position) {
-		postDelayed(new Runnable() {
+	public void changeSelection(final int index, final int position) {
+		post(new Runnable() {
 			@Override
 			public void run() {
 				for (int i = 0; i < days.lstDays.size(); i++) {
@@ -88,7 +88,7 @@ public class MonthView extends GridView implements OnItemClickListener {
 				}
 				adapter.notifyDataSetChanged();
 			}
-		}, 1000);
+		});
 
 	}
 

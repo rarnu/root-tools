@@ -20,6 +20,7 @@ public class MainActivity extends BaseSlidingActivity {
 		super.onCreate(savedInstanceState);
 		Global.city = Config.getCity(this);
 		Global.city_pinyin = Config.getCityPinyin(this);
+		Global.dataTimestamp = Config.getLastTimestamp(this);
 
 		if (Global.city.equals("")) {
 			startActivityForResult(new Intent(this, CityActivity.class), 0);

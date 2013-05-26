@@ -11,19 +11,23 @@ import android.database.Cursor;
 import com.zoe.calendar.classes.ActivityItem;
 
 public class QueryUtils {
+	
+	public static void mergeData(Context context, List<ActivityItem> list) {
+		// TODO: merge data
+	}
 
 	public static List<ActivityItem> queryActivity(Context context,
-			String city, int year, int month, int day) {
+			String city, int year, int month, int day, int status) {
 		Cursor c = context
 				.getContentResolver()
 				.query(ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
 						ActivityProvider.ACTIONID_QUERY),
 						null,
-						"city=? and year=? and ((start_month=? and start_day=?) or (end_month=? and end_day=?)) and status=1",
+						"city=? and year=? and ((start_month=? and start_day=?) or (end_month=? and end_day=?)) and status=?",
 						new String[] { city, String.valueOf(year),
 								String.valueOf(month), String.valueOf(day),
-								String.valueOf(month), String.valueOf(day) },
-						null);
+								String.valueOf(month), String.valueOf(day),
+								String.valueOf(status) }, null);
 		List<ActivityItem> list = null;
 		if (c != null) {
 			list = new ArrayList<ActivityItem>();

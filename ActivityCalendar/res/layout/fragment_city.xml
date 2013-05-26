@@ -50,7 +50,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/etCityFilter"
         android:divider="@null"
-        android:dividerHeight="1dip" >
+        android:dividerHeight="1dip"
+        android:fastScrollEnabled="true" >
     </ListView>
 
 </RelativeLayout>

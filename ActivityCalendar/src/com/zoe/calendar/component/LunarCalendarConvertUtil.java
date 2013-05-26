@@ -38,20 +38,16 @@ public class LunarCalendarConvertUtil {
 			0x00, 0x02, 0x00, 0x06, 0x00, 0x00, 0x05, 0x00, 0x00, 0x03, 0x00,
 			0x07, 0x00, 0x00, 0x16, 0x00, 0x00, 0x05, 0x00, 0x00, 0x02, 0x00,
 			0x07, 0x00, 0x00, 0x15, 0x00, 0x00 };
-	
-	public final static double[] lunar_20th_century_C=new double[]{
-	    6.11,20.84,4.6295,19.4599,6.3826,21.4155,
-	    5.59,20.888,6.318,21.86,6.5,22.20,
-	    7.928,23.65, 8.38,23.95,8.44,23.822,
-	    9.098,24.218, 8.218,23.08,7.9,22.60
-	};
-	
-	public final static double[] lunar_21th_century_C=new double[]{
-	    5.4055,20.12,3.87,18.73,5.63,20.646,
-	    4.81,20.1,5.52,21.04,5.678,21.37,
-	    7.108,22.83,7.5,23.13,7.646,23.042,
-	    8.318,23.438,7.438,22.36,7.18,21.94,
-    };
+
+	public final static double[] lunar_20th_century_C = new double[] { 6.11,
+			20.84, 4.6295, 19.4599, 6.3826, 21.4155, 5.59, 20.888, 6.318,
+			21.86, 6.5, 22.20, 7.928, 23.65, 8.38, 23.95, 8.44, 23.822, 9.098,
+			24.218, 8.218, 23.08, 7.9, 22.60 };
+
+	public final static double[] lunar_21th_century_C = new double[] { 5.4055,
+			20.12, 3.87, 18.73, 5.63, 20.646, 4.81, 20.1, 5.52, 21.04, 5.678,
+			21.37, 7.108, 22.83, 7.5, 23.13, 7.646, 23.042, 8.318, 23.438,
+			7.438, 22.36, 7.18, 21.94, };
 
 	private final static int baseYear = 1900;
 
@@ -67,13 +63,12 @@ public class LunarCalendarConvertUtil {
 
 	private static SimpleDateFormat simpleLunarCalendarDateFormat = new SimpleDateFormat(
 			"yyyy-MM-dd");
-	
+
 	static {
 		try {
-			baseDayTime = simpleLunarCalendarDateFormat.parse(baseDay).getTime();
+			baseDayTime = simpleLunarCalendarDateFormat.parse(baseDay)
+					.getTime();
 		} catch (ParseException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 	}
 
@@ -132,7 +127,8 @@ public class LunarCalendarConvertUtil {
 			return;
 		}
 
-		int offsetDayNum = (int) ((presentDate.getTime() - baseDayTime) / 86400000L);;
+		int offsetDayNum = (int) ((presentDate.getTime() - baseDayTime) / 86400000L);
+		;
 
 		int lunarYear = 0;
 		int lunarMonth = 0;
@@ -182,7 +178,5 @@ public class LunarCalendarConvertUtil {
 		lunarCalendar.solarMonth = month;
 		lunarCalendar.solarDay = day;
 	}
-
-
 
 }

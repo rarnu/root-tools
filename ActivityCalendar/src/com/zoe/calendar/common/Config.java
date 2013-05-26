@@ -18,12 +18,12 @@ public class Config {
 		ConfigUtils.setStringConfig(context, KEY_CITY, city);
 	}
 
-	public static int getLastTimestamp(Context context) {
-		return ConfigUtils.getIntConfig(context, KEY_LAST_TIMESTAMP, 0);
+	public static long getLastTimestamp(Context context) {
+		return ConfigUtils.getLongConfig(context, KEY_LAST_TIMESTAMP, 0L);
 	}
 
-	public static void setLastTimestamp(Context context, int timestamp) {
-		ConfigUtils.setIntConfig(context, KEY_LAST_TIMESTAMP, timestamp);
+	public static void setLastTimestamp(Context context, long timestamp) {
+		ConfigUtils.setLongConfig(context, KEY_LAST_TIMESTAMP, timestamp);
 	}
 
 	public static String getCityPinyin(Context context) {

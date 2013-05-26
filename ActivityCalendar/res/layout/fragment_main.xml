@@ -25,8 +25,19 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/vpCalendar"
+        android:layout_marginTop="4dip"
         android:divider="@null"
-        android:dividerHeight="1dip"
-        android:layout_marginTop="4dip" />
+        android:dividerHeight="1dip" />
+
+    <ImageView
+        android:id="@+id/ivTrash"
+        android:layout_width="32dip"
+        android:layout_height="32dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_margin="16dip"
+        android:contentDescription="@null"
+        android:src="@android:drawable/ic_menu_delete"
+        android:visibility="gone" />
 
 </RelativeLayout>

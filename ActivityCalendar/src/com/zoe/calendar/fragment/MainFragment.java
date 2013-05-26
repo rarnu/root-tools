@@ -11,8 +11,10 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -35,13 +37,14 @@ import com.zoe.calendar.component.DayClickListener;
 import com.zoe.calendar.database.QueryUtils;
 
 public class MainFragment extends BaseFragment implements OnCalendarChange,
-		DayClickListener, RemoveListener, OnItemClickListener {
+		DayClickListener, RemoveListener, OnItemClickListener, OnClickListener {
 
 	CalendarView vpCalendar;
 	DragListView lvCalender;
 	DragController mController;
 	ActivityAdapter adapterActivity;
 	List<ActivityItem> listActivity;
+	ImageView ivTrash;
 
 	List<CalendarDays> listDays;
 	TextView tvDate;
@@ -73,6 +76,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		vpCalendar = (CalendarView) innerView.findViewById(R.id.vpCalendar);
 		lvCalender = (DragListView) innerView.findViewById(R.id.lvCalendar);
 		tvDate = (TextView) innerView.findViewById(R.id.tvDate);
+		ivTrash = (ImageView) innerView.findViewById(R.id.ivTrash);
 
 		mController = new DragController(lvCalender);
 		mController.setRemoveEnabled(true);
@@ -94,6 +98,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		lvCalender.setOnTouchListener(mController);
 		lvCalender.setRemoveListener(this);
 		lvCalender.setOnItemClickListener(this);
+		ivTrash.setOnClickListener(this);
 	}
 
 	@Override
@@ -187,12 +192,19 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	public void onDayClick(int monthIndex, int position, Day day) {
 		pointedDay = day;
 		List<ActivityItem> list = QueryUtils.queryActivity(getActivity(),
-				Global.city_pinyin, day.year, day.month + 1, day.day);
+				Global.city_pinyin, day.year, day.month + 1, day.day, 1);
 		listActivity.clear();
 		if (list != null) {
 			listActivity.addAll(list);
 		}
 		adapterActivity.setNewList(listActivity);
+
+		List<ActivityItem> listRemoved = QueryUtils.queryActivity(
+				getActivity(), Global.city_pinyin, day.year, day.month + 1,
+				day.day, 0);
+		ivTrash.setVisibility((listRemoved == null || listRemoved.size() == 0) ? View.GONE
+				: View.VISIBLE);
+		vpCalendar.setSelection(monthIndex);
 	}
 
 	@Override
@@ -201,6 +213,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		QueryUtils.deleteActivity(getActivity(), item._id);
 		listActivity.remove(which);
 		adapterActivity.notifyDataSetChanged();
+		ivTrash.setVisibility(View.VISIBLE);
 	}
 
 	class DatabaseMsgReceiver extends BroadcastReceiver {
@@ -234,5 +247,15 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		inDetail.putExtra("item", item);
 		startActivity(inDetail);
 
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.ivTrash:
+			// TODO: restore deleted data
+			break;
+		}
+		
 	}
 }

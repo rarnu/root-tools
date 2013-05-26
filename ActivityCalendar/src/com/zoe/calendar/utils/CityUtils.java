@@ -11,18 +11,36 @@ import com.zoe.calendar.classes.CityItem;
 
 public class CityUtils {
 
+	private static List<CityItem> listCities = new ArrayList<CityItem>();
+
 	public static List<CityItem> loadCity(Context context) {
-		List<CityItem> list = null;
+
+		if (listCities.size() != 0) {
+			return listCities;
+		}
+
+		listCities.clear();
 		try {
 			List<String> listCity = FileUtils.readAssertFileAsList(context,
 					"city");
-			list = new ArrayList<CityItem>();
+			listCities = new ArrayList<CityItem>();
 			for (String s : listCity) {
-				list.add(new CityItem(s.substring(0, s.indexOf("=")), s
+				listCities.add(new CityItem(s.substring(0, s.indexOf("=")), s
 						.substring(s.indexOf("=") + 1)));
 			}
 		} catch (IOException e) {
 		}
-		return list;
+		return listCities;
+	}
+
+	public static CityItem findCity(String city) {
+		CityItem item = null;
+		for (CityItem ci : listCities) {
+			if (city.startsWith(ci.name)) {
+				item = ci;
+				break;
+			}
+		}
+		return item;
 	}
 }

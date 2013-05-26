@@ -89,6 +89,7 @@ public class DetailFragment extends BaseTabFragment {
 	}
 
 	private void startCalendar() {
+		// TODO: goto the pointed day directly
 		try {
 			Intent intent = new Intent();
 
