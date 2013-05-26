@@ -3,11 +3,14 @@
 
     <item name="fragment_main" type="tag">main_fragment</item>
     <item name="fragment_left_menu" type="tag">left_menu_frgment</item>
+    <item name="fragment_right_motion" type="tag">right_motion_fragment</item>
     <item name="fragment_detail" type="tag">detail_fragment</item>
     <item name="fragment_detail_info" type="tag">detail_info_fragment</item>
     <item name="fragment_detail_web" type="tag">detail_web_fragment</item>
     <item name="fragment_detail_map" type="tag">detail_map_fragment</item>
     <item name="fragment_settings" type="tag">settings_fragment</item>
     <item name="fragment_city" type="tag">city_fragment</item>
+    <item name="fragment_restore" type="tag">restore_fragment</item>
+    <item name="fragment_feedback" type="tag">feedback_fragment</item>
 
 </resources>

@@ -5,6 +5,9 @@
     <string name="detail_name">活动详情</string>
     <string name="settings_name">系统设置</string>
     <string name="city_name">选择城市</string>
+    <string name="restore_name">已删除的活动</string>
+    <string name="feedback_name">用户反馈</string>
+    
     <string name="chineseNumber1">一</string>
     <string name="chineseNumber2">二</string>
     <string name="chineseNumber3">三</string>
@@ -95,5 +98,17 @@
     <string name="city_filter_hint">输入城市名称或拼音来过滤</string>
     <string name="city_not_found">没有定位到城市</string>
     <string name="city_locating">正在定位...</string>
-
+    
+    <string name="settings_type">活动类型</string>
+    <string name="settings_on">ON</string>
+    <string name="settings_off">OFF</string>
+    <string name="settings_about">关于我们</string>
+    <string name="settings_contact_us">联系我们</string>
+    <string name="settings_contact_hint">建议或者活动推荐，留言告诉我们吧：）\n我们会笑眯眯的人工查看～\n\n如果方便，留下邮箱吧～</string>
+    <string name="restore_slide">滑动项目可以还原活动</string>
+    <string name="settings_send">发送</string>
+    <string name="settings_no_feedback">写点什么吧,空的不能发送哦～</string>
+    <string name="settings_sent">已发送反馈,感谢支持哦～</string>
+    
+	<string name="motion_title">我的运动</string>
 </resources>

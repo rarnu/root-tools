@@ -5,4 +5,15 @@
         <item>城市</item>
         <item>设置</item>
     </string-array>
+    
+    <string-array name="settings_types">
+        <item>展览</item>
+        <item>旅行</item>
+        <item>演讲</item>
+        <item>运动</item>
+        <item>阅读</item>
+        <item>电影</item>
+        <item>科技</item>
+        <item>其他</item>
+    </string-array>
 </resources>

@@ -20,12 +20,29 @@
             android:textColor="?android:attr/textColorPrimaryInverse"
             android:textSize="18dp" />
     </RelativeLayout>
-    
+
     <ListView
         android:id="@+id/lvLeftCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layLeftMenuHead"
+        android:cacheColorHint="#00000000"
+        android:divider="@color/shadow"
+        android:dividerHeight="1px" >
+    </ListView>
+
+    <TextView
+        android:id="@+id/splitFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="1px"
+        android:layout_above="@+id/lvFeedback"
+        android:background="@color/shadow" />
+
+    <ListView
+        android:id="@+id/lvFeedback"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
         android:cacheColorHint="#00000000"
         android:divider="@color/shadow"
         android:dividerHeight="1px" >

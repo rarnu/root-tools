@@ -15,6 +15,7 @@ import android.widget.ListView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.common.ISliding;
 import com.zoe.calendar.CityActivity;
+import com.zoe.calendar.FeedbackActivity;
 import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.SettingsActivity;
@@ -28,6 +29,10 @@ public class LeftMenuFragment extends BaseFragment implements
 	ListView lvLeftCard;
 	LeftMenuAdapter adapter;
 	List<LeftMenuItem> list;
+
+	ListView lvFeedback;
+	LeftMenuAdapter adapterFeedback;
+	List<LeftMenuItem> listFeedback;
 
 	public LeftMenuFragment(String tag) {
 		super(tag, "");
@@ -66,6 +71,13 @@ public class LeftMenuFragment extends BaseFragment implements
 		adapter = new LeftMenuAdapter(getActivity(), list);
 		lvLeftCard.setAdapter(adapter);
 
+		lvFeedback = (ListView) innerView.findViewById(R.id.lvFeedback);
+		listFeedback = new ArrayList<LeftMenuItem>();
+		listFeedback.add(new LeftMenuItem(getString(R.string.feedback_name),
+				android.R.drawable.ic_menu_info_details));
+		adapterFeedback = new LeftMenuAdapter(getActivity(), listFeedback);
+		lvFeedback.setAdapter(adapterFeedback);
+
 	}
 
 	@Override
@@ -79,6 +91,7 @@ public class LeftMenuFragment extends BaseFragment implements
 	@Override
 	public void initEvents() {
 		lvLeftCard.setOnItemClickListener(this);
+		lvFeedback.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -113,14 +126,25 @@ public class LeftMenuFragment extends BaseFragment implements
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		switch (position) {
-		case 0:
+		switch (parent.getId()) {
+		case R.id.lvLeftCard:
+			switch (position) {
+			case 0:
+				break;
+			case 1:
+				startActivity(new Intent(getActivity(), CityActivity.class));
+				break;
+			case 2:
+				startActivity(new Intent(getActivity(), SettingsActivity.class));
+				break;
+			}
 			break;
-		case 1:
-			startActivity(new Intent(getActivity(), CityActivity.class));
-			break;
-		case 2:
-			startActivity(new Intent(getActivity(), SettingsActivity.class));
+		case R.id.lvFeedback:
+			switch (position) {
+			case 0:
+				startActivity(new Intent(getActivity(), FeedbackActivity.class));
+				break;
+			}
 			break;
 		}
 

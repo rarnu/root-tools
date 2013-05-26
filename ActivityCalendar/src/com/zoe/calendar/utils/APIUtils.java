@@ -19,7 +19,7 @@ public class APIUtils {
 	}
 
 	public static void feedback(String feedback) {
-		// TODO: feedback
+		// TODO: send feedback in a thread
 	}
 
 }

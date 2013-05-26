@@ -26,6 +26,7 @@ import com.rarnu.utils.UIUtils;
 import com.zoe.calendar.DetailActivity;
 import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
+import com.zoe.calendar.RestoreActivity;
 import com.zoe.calendar.adapter.ActivityAdapter;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.common.Actions;
@@ -253,9 +254,12 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.ivTrash:
-			// TODO: restore deleted data
+			startActivity(new Intent(getActivity(), RestoreActivity.class)
+					.putExtra("year", pointedDay.year)
+					.putExtra("month", pointedDay.month)
+					.putExtra("day", pointedDay.day));
 			break;
 		}
-		
+
 	}
 }

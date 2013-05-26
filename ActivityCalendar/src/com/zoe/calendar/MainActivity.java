@@ -11,6 +11,7 @@ import com.rarnu.utils.UIUtils;
 import com.zoe.calendar.common.Config;
 import com.zoe.calendar.fragment.LeftMenuFragment;
 import com.zoe.calendar.fragment.MainFragment;
+import com.zoe.calendar.fragment.RightMotionFragment;
 
 public class MainActivity extends BaseSlidingActivity {
 
@@ -22,10 +23,19 @@ public class MainActivity extends BaseSlidingActivity {
 		Global.city_pinyin = Config.getCityPinyin(this);
 		Global.dataTimestamp = Config.getLastTimestamp(this);
 
+		for (int i = 0; i < Global.settingTypes.length; i++) {
+			Global.settingTypes[i] = Config.getSettingType(this, i);
+		}
+
 		if (Global.city.equals("")) {
 			startActivityForResult(new Intent(this, CityActivity.class), 0);
 		}
 
+		initWeather();
+	}
+
+	private void initWeather() {
+		// TODO: weather
 	}
 
 	@Override
@@ -64,7 +74,7 @@ public class MainActivity extends BaseSlidingActivity {
 
 	@Override
 	public Fragment replaceSecondMenuFragment() {
-		return null;
+		return new RightMotionFragment(getString(R.tag.fragment_right_motion));
 	}
 
 	@Override
@@ -84,7 +94,7 @@ public class MainActivity extends BaseSlidingActivity {
 
 	@Override
 	public int getSlideMode() {
-		return SlidingMenu.LEFT;
+		return SlidingMenu.LEFT_RIGHT;
 	}
 
 	@Override

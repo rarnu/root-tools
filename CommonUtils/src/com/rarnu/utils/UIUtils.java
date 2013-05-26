@@ -295,11 +295,10 @@ public class UIUtils {
 		lv.setLayoutParams(lp);
 	}
 
-	public static void makeGridViewFullSize(GridView gv, int itemHeight) {
+	public static void makeGridViewFullSize(GridView gv, int itemHeight, int rowNum) {
 		int itemCount = gv.getAdapter().getCount();
-		int columns = gv.getNumColumns();
-		int lines = (int) (itemCount / columns);
-		if (itemCount % columns != 0) {
+		int lines = (int) (itemCount / rowNum);
+		if (itemCount % rowNum != 0) {
 			lines++;
 		}
 		ViewGroup.LayoutParams lp = gv.getLayoutParams();
