@@ -3,8 +3,6 @@ package com.zoe.calendar.fragment;
 import java.util.List;
 
 import android.app.Fragment;
-import android.content.ComponentName;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -90,16 +88,18 @@ public class DetailFragment extends BaseTabFragment {
 
 	private void startCalendar() {
 		// TODO: goto the pointed day directly
-		try {
-			Intent intent = new Intent();
-
-			intent.setComponent(new ComponentName("com.android.calendar",
-					"com.android.calendar.LaunchActivity"));
-			startActivity(intent);
-		} catch (Exception e) {
-			Toast.makeText(getActivity(), R.string.toast_google_calendar,
-					Toast.LENGTH_LONG).show();
-		}
+		// TODO: do not do this now, only shows that added or deleted with BIG
+		// dialogs
+		// try {
+		// Intent intent = new Intent();
+		//
+		// intent.setComponent(new ComponentName("com.android.calendar",
+		// "com.android.calendar.LaunchActivity"));
+		// startActivity(intent);
+		// } catch (Exception e) {
+		// Toast.makeText(getActivity(), R.string.toast_google_calendar,
+		// Toast.LENGTH_LONG).show();
+		// }
 	}
 
 	@Override

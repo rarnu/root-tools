@@ -111,4 +111,5 @@
     <string name="settings_sent">已发送反馈,感谢支持哦～</string>
     
 	<string name="motion_title">我的运动</string>
+	<string name="ab_loading">正在加载...</string>
 </resources>
