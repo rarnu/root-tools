@@ -30,6 +30,14 @@
         android:dividerHeight="1dip" />
 
     <ImageView
+        android:id="@+id/ivActivityHint"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/vpCalendar"
+        android:layout_marginTop="4dip"
+        android:scaleType="centerInside" />
+
+    <ImageView
         android:id="@+id/ivTrash"
         android:layout_width="40dip"
         android:layout_height="40dip"

@@ -11,5 +11,14 @@
         android:padding="4dip"
         android:text="@string/update_hint"
         android:textColor="?android:attr/textColorPrimaryInverse" />
+    
+    <TextView android:id="@+id/tvUpdateText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="?android:attr/textColorPrimary"
+        android:text="@string/update_text"
+        android:layout_below="@+id/tvHint"
+        android:textSize="18sp"
+        android:padding="32dip"/>
 
 </RelativeLayout>

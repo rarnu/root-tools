@@ -117,8 +117,7 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 	@Override
 	public void onUpdateFound(UpdateInfo update) {
 		if (update != null) {
-			// TODO update.url;
-			startActivity(new Intent(this, UpdateDialog.class));
+			startActivity(new Intent(this, UpdateDialog.class).putExtra("url", update.url));
 		}
 
 	}

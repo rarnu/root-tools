@@ -8,6 +8,7 @@ import com.zoe.calendar.R;
 
 public class UpdateDialogFragment extends BaseDialogFragment {
 
+	// TODO: update
 	public UpdateDialogFragment(String tag) {
 		super(tag);
 	}
@@ -39,7 +40,7 @@ public class UpdateDialogFragment extends BaseDialogFragment {
 
 	@Override
 	public void initLogic() {
-
+		String url = getActivity().getIntent().getStringExtra("url");
 	}
 
 	@Override

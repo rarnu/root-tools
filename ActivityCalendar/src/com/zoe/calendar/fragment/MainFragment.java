@@ -56,6 +56,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	CalendarView vpCalendar;
 	DragListView lvCalender;
+	ImageView ivActivityHint;
 	DragController mController;
 	ActivityAdapter adapterActivity;
 	List<ActivityItem> listActivity;
@@ -104,6 +105,8 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	public void initComponents() {
 		vpCalendar = (CalendarView) innerView.findViewById(R.id.vpCalendar);
 		lvCalender = (DragListView) innerView.findViewById(R.id.lvCalendar);
+		ivActivityHint = (ImageView) innerView
+				.findViewById(R.id.ivActivityHint);
 		tvDate = (TextView) innerView.findViewById(R.id.tvDate);
 		ivTrash = (ImageView) innerView.findViewById(R.id.ivTrash);
 
@@ -120,7 +123,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		lvCalender.setAdapter(adapterActivity);
 
 		initActionBar();
-		initWeather();
+
 	}
 
 	private void initActionBar() {
@@ -152,6 +155,8 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	private void initWeather() {
 		if (Global.city == null || Global.city.equals("")) {
+			tvTemp.setText(R.string.weather_cannot_get);
+			ivWeather.setImageResource(R.drawable.weather_0);
 			return;
 		}
 
@@ -159,7 +164,12 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
-					APIUtils.getWeather(msg.arg1, MainFragment.this);
+					if (msg.arg1 != 0) {
+						APIUtils.getWeather(msg.arg1, MainFragment.this);
+					} else {
+						tvTemp.setText(R.string.weather_cannot_get);
+						ivWeather.setImageResource(R.drawable.weather_0);
+					}
 				}
 				super.handleMessage(msg);
 			}
@@ -170,12 +180,15 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			public void run() {
 				CityUtils.loadCityCode(getActivity());
 				CityCodeItem item = CityUtils.findCityCode(Global.city);
+				Message msg = new Message();
+				msg.what = 1;
 				if (item != null) {
-					Message msg = new Message();
-					msg.what = 1;
 					msg.arg1 = item.code;
-					hWeather.sendMessage(msg);
+				} else {
+					msg.arg1 = 0;
 				}
+
+				hWeather.sendMessage(msg);
 			}
 		}).start();
 
@@ -203,6 +216,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		if (!Global.synced) {
 			Global.synced = true;
 			downloadNewDataT();
+
 		}
 		initPointedDay(pointedDay);
 	}
@@ -301,6 +315,30 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		ivTrash.setVisibility((listRemoved == null || listRemoved.size() == 0) ? View.GONE
 				: View.VISIBLE);
 		vpCalendar.setSelection(monthIndex);
+
+		changeAtivityHintStatus(day);
+
+	}
+
+	private void changeAtivityHintStatus(Day day) {
+		if (day.isBeforeToday()) {
+			ivActivityHint.setImageResource(R.drawable.activity_1);
+			ivActivityHint.setVisibility(View.VISIBLE);
+			lvCalender.setVisibility(View.GONE);
+		} else if (day.isAfter60Days()) {
+			ivActivityHint.setImageResource(R.drawable.activity_2);
+			ivActivityHint.setVisibility(View.VISIBLE);
+			lvCalender.setVisibility(View.GONE);
+		} else {
+			if (listActivity.size() == 0) {
+				ivActivityHint.setImageResource(R.drawable.activity_0);
+				ivActivityHint.setVisibility(View.VISIBLE);
+				lvCalender.setVisibility(View.GONE);
+			} else {
+				ivActivityHint.setVisibility(View.GONE);
+				lvCalender.setVisibility(View.VISIBLE);
+			}
+		}
 	}
 
 	@Override
@@ -310,6 +348,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		listActivity.remove(which);
 		adapterActivity.notifyDataSetChanged();
 		ivTrash.setVisibility(View.VISIBLE);
+		changeAtivityHintStatus(pointedDay);
 	}
 
 	class DatabaseMsgReceiver extends BroadcastReceiver {
@@ -374,7 +413,9 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		isDownloading = true;
 		btnSync.setBackgroundResource(R.drawable.btn_syncing_style);
 		animSync.start();
-		
+
+		initWeather();
+
 		final Handler hFinishDownload = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
@@ -382,6 +423,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 					isDownloading = false;
 					animSync.cancel();
 					btnSync.setBackgroundResource(R.drawable.btn_sync_style);
+					animSync.cancel();
 					initPointedDay(pointedDay);
 				}
 				super.handleMessage(msg);
@@ -411,8 +453,50 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	public void onGetWeather(WeatherInfo weather) {
 		this.weather = weather;
 		tvTemp.setText(weather.temp);
-		// TODO: convert weather to image
+		// convert weather to image
+		if (isAdded()) {
+			showWeatherImage();
+		} else {
 
+			final Handler hShowWeather = new Handler() {
+				@Override
+				public void handleMessage(Message msg) {
+					if (msg.what == 1) {
+						showWeatherImage();
+					}
+					super.handleMessage(msg);
+				}
+			};
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					while (!isAdded()) {
+						try {
+							Thread.sleep(500);
+						} catch (Exception e) {
+
+						}
+					}
+					hShowWeather.sendEmptyMessage(1);
+
+				}
+			}).start();
+		}
+
+	}
+
+	private void showWeatherImage() {
+		String w = weather.weather;
+		if (w.contains(getString(R.string.weather_snow))) {
+			ivWeather.setImageResource(R.drawable.weather_4);
+		} else if (w.contains(getString(R.string.weather_rain))) {
+			ivWeather.setImageResource(R.drawable.weather_3);
+		} else if (w.contains(getString(R.string.weather_cloud))) {
+			ivWeather.setImageResource(R.drawable.weather_2);
+		} else {
+			ivWeather.setImageResource(R.drawable.weather_1);
+		}
 	}
 
 }

@@ -41,7 +41,15 @@ public class CityUtils {
 		}
 		listCityCodes.clear();
 		try {
-			// TODO: load city codes
+			// load city codes
+			List<String> listCode = FileUtils.readAssertFileAsList(context,
+					"citycode");
+			listCityCodes = new ArrayList<CityCodeItem>();
+			for (String s : listCode) {
+				listCityCodes.add(new CityCodeItem(s.substring(0,
+						s.indexOf("=")), Integer.parseInt(s.substring(s
+						.indexOf("=") + 1))));
+			}
 		} catch (Exception e) {
 
 		}

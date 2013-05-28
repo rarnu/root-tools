@@ -28,7 +28,7 @@
             android:layout_height="28dip"
             android:layout_centerHorizontal="true"
             android:contentDescription="@null"
-            android:src="@drawable/weather_1" />
+            android:src="@drawable/weather_0" />
 
         <TextView
             android:id="@+id/tvTemp"

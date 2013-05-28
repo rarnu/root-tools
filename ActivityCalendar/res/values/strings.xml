@@ -113,5 +113,12 @@
 	<string name="motion_title">我的运动</string>
 	<string name="ab_loading">正在加载...</string>
 	
+	<string name="weather_cannot_get">无法获取天气</string>
+	<string name="weather_snow">雪</string>
+	<string name="weather_rain">雨</string>
+	<string name="weather_cloud">阴</string>
+	<string name="weather_sunny">晴</string>
+	
 	<string name="update_hint">发现新版本</string>
+	<string name="update_text">活动日历有新版本了,更多有趣更多实用,赶紧下载吧～</string>
 </resources>

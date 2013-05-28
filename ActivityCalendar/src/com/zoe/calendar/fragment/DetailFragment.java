@@ -2,6 +2,7 @@ package com.zoe.calendar.fragment;
 
 import java.util.List;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
 import android.os.Bundle;
 import android.view.Menu;
@@ -20,6 +21,12 @@ public class DetailFragment extends BaseTabFragment {
 	MenuItem miCalendar, miShare;
 	GoogleCalendar gc;
 	ActivityItem actItem;
+
+	@Override
+	public void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		gc = GoogleCalendarUtils.getCalendars(getActivity());
+	}
 
 	public DetailFragment(String tag) {
 		super(tag, "");
@@ -46,20 +53,19 @@ public class DetailFragment extends BaseTabFragment {
 	}
 
 	@Override
-	public void initComponents() {
-		super.initComponents();
-		gc = GoogleCalendarUtils.getCalendars(getActivity());
-	}
-
-	@Override
 	public void initMenu(Menu menu) {
 		miCalendar = menu.add(0, MenuIds.MENU_CALENDAR, 23,
 				R.string.menu_calendar);
-		miCalendar.setIcon(android.R.drawable.ic_menu_agenda);
+		if (gc != null
+				&& GoogleCalendarUtils.eventExists(getActivity(), gc, actItem)) {
+			miCalendar.setIcon(R.drawable.ic_calendar_cancel);
+		} else {
+			miCalendar.setIcon(R.drawable.ic_calendar);
+		}
 		miCalendar.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		miShare = menu.add(0, MenuIds.MENU_SHARE, 24, R.string.menu_share);
-		miShare.setIcon(android.R.drawable.ic_menu_share);
+		miShare.setIcon(R.drawable.ic_share_dropdown);
 		miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 	}
@@ -75,31 +81,26 @@ public class DetailFragment extends BaseTabFragment {
 			}
 			if (GoogleCalendarUtils.eventExists(getActivity(), gc, actItem)) {
 				GoogleCalendarUtils.deleteEvent(getActivity(), gc, actItem);
+				miCalendar.setIcon(R.drawable.ic_calendar);
+				startCalendar(true);
 			} else {
 				GoogleCalendarUtils.addEvent(getActivity(), gc, actItem);
+				miCalendar.setIcon(R.drawable.ic_calendar_cancel);
+				startCalendar(false);
 			}
-			startCalendar();
 			break;
 		case MenuIds.MENU_SHARE:
+			// TODO: share event
 			break;
 		}
 		return super.onOptionsItemSelected(item);
 	}
 
-	private void startCalendar() {
-		// goto the pointed day directly
-		// TODO: do not do this now, only shows that added or deleted with BIG
-		// dialogs
-		// try {
-		// Intent intent = new Intent();
-		//
-		// intent.setComponent(new ComponentName("com.android.calendar",
-		// "com.android.calendar.LaunchActivity"));
-		// startActivity(intent);
-		// } catch (Exception e) {
-		// Toast.makeText(getActivity(), R.string.toast_google_calendar,
-		// Toast.LENGTH_LONG).show();
-		// }
+	private void startCalendar(boolean delete) {
+		// TODO: hint add or delete event
+		new AlertDialog.Builder(getActivity()).setTitle("Hint")
+				.setMessage(delete ? "Deleted" : "Added")
+				.setPositiveButton("OK", null).show();
 	}
 
 	@Override

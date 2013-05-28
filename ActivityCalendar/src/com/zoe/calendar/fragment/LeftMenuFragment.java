@@ -74,7 +74,7 @@ public class LeftMenuFragment extends BaseFragment implements
 		lvFeedback = (ListView) innerView.findViewById(R.id.lvFeedback);
 		listFeedback = new ArrayList<LeftMenuItem>();
 		listFeedback.add(new LeftMenuItem(getString(R.string.feedback_name),
-				android.R.drawable.ic_menu_info_details));
+				R.drawable.left_icon_4));
 		adapterFeedback = new LeftMenuAdapter(getActivity(), listFeedback);
 		lvFeedback.setAdapter(adapterFeedback);
 
