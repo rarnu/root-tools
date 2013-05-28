@@ -62,6 +62,12 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustResize" >
         </activity>
+        <activity
+            android:name=".dialog.UpdateDialog"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
 
         <provider
             android:name="com.zoe.calendar.database.ActivityProvider"

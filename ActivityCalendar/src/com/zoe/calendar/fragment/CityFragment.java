@@ -193,6 +193,7 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 				Config.setCity(getActivity(), Global.city);
 				Config.setCityPinyin(getActivity(), Global.city_pinyin);
 			}
+			Global.synced = false;
 			getActivity().finish();
 			break;
 		}
@@ -205,6 +206,7 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 		Global.city_pinyin = item.pinyin.toLowerCase();
 		Config.setCity(getActivity(), Global.city);
 		Config.setCityPinyin(getActivity(), Global.city_pinyin);
+		Global.synced = false;
 		getActivity().finish();
 	}
 

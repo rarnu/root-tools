@@ -12,5 +12,6 @@
     <item name="fragment_city" type="tag">city_fragment</item>
     <item name="fragment_restore" type="tag">restore_fragment</item>
     <item name="fragment_feedback" type="tag">feedback_fragment</item>
+    <item name="fragment_update_dialog" type="tag">update_dialog_fragment</item>
 
 </resources>

@@ -10,5 +10,6 @@ public class Global {
 	public static boolean[] settingTypes = new boolean[8];
 
 	public static BDLocation location = null;
+	public static boolean synced = false;
 
 }

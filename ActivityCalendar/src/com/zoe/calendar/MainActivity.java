@@ -10,6 +10,7 @@ import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.utils.UIUtils;
 import com.zoe.calendar.classes.UpdateInfo;
 import com.zoe.calendar.common.Config;
+import com.zoe.calendar.dialog.UpdateDialog;
 import com.zoe.calendar.fragment.LeftMenuFragment;
 import com.zoe.calendar.fragment.MainFragment;
 import com.zoe.calendar.fragment.RightMotionFragment;
@@ -117,6 +118,7 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 	public void onUpdateFound(UpdateInfo update) {
 		if (update != null) {
 			// TODO update.url;
+			startActivity(new Intent(this, UpdateDialog.class));
 		}
 
 	}

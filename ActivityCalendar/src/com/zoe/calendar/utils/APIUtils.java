@@ -53,7 +53,7 @@ public class APIUtils {
 		// set last timestamp
 		List<ActivityItem> list = null;
 
-		long timestamp = Config.getLastTimestamp(context);
+		long timestamp = Config.getLastTimestamp(context, city);
 		String url = BASE_URL + "activities";
 		String param = String.format("city=%s&last_timestamp=%d", city,
 				timestamp);
@@ -64,7 +64,7 @@ public class APIUtils {
 			JSONArray jData = json.getJSONArray("data");
 			if (jData != null && jData.length() != 0) {
 				// load
-				Config.setLastTimestamp(context, newTimestamp);
+				Config.setLastTimestamp(context, city, newTimestamp);
 				list = new ArrayList<ActivityItem>();
 				for (int i = 0; i < jData.length(); i++) {
 					RemoteActivityItem ri = new RemoteActivityItem();

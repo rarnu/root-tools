@@ -112,4 +112,6 @@
     
 	<string name="motion_title">我的运动</string>
 	<string name="ab_loading">正在加载...</string>
+	
+	<string name="update_hint">发现新版本</string>
 </resources>

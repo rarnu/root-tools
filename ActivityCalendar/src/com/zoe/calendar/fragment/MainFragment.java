@@ -80,7 +80,6 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	int selectedMonth = 0;
 	int selectedDay = 0;
-	boolean synced = false;
 
 	public MainFragment(String tag) {
 		super(tag, "");
@@ -201,8 +200,8 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (!synced) {
-			synced = true;
+		if (!Global.synced) {
+			Global.synced = true;
 			downloadNewDataT();
 		}
 		initPointedDay(pointedDay);
