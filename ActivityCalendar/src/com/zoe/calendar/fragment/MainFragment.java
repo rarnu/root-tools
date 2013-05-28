@@ -142,13 +142,12 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		ivWeather = (ImageView) actionBarView.findViewById(R.id.ivWeather);
 		tvTemp = (TextView) actionBarView.findViewById(R.id.tvTemp);
 		btnSync = (Button) actionBarView.findViewById(R.id.btnSync);
+		btnSync.setBackgroundResource(R.drawable.btn_sync_style);
+		animSync = AnimateUtils.getRotateAnimation();
+		btnSync.setAnimation(animSync);
 
 		layWeather.setOnClickListener(this);
 		btnSync.setOnClickListener(this);
-
-		animSync = AnimateUtils.getRotateAnimation();
-
-		btnSync.setAnimation(animSync);
 
 	}
 
@@ -376,6 +375,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		isDownloading = true;
 		btnSync.setBackgroundResource(R.drawable.btn_syncing_style);
 		animSync.start();
+		
 		final Handler hFinishDownload = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
