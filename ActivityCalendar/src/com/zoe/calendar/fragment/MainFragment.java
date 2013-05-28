@@ -4,16 +4,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
+import android.app.ActionBar;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
+import android.view.Gravity;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.animation.RotateAnimation;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -29,6 +36,8 @@ import com.zoe.calendar.R;
 import com.zoe.calendar.RestoreActivity;
 import com.zoe.calendar.adapter.ActivityAdapter;
 import com.zoe.calendar.classes.ActivityItem;
+import com.zoe.calendar.classes.CityCodeItem;
+import com.zoe.calendar.classes.WeatherInfo;
 import com.zoe.calendar.common.Actions;
 import com.zoe.calendar.component.CalendarDays;
 import com.zoe.calendar.component.CalendarView;
@@ -36,9 +45,14 @@ import com.zoe.calendar.component.CalendarView.OnCalendarChange;
 import com.zoe.calendar.component.Day;
 import com.zoe.calendar.component.DayClickListener;
 import com.zoe.calendar.database.QueryUtils;
+import com.zoe.calendar.utils.APIUtils;
+import com.zoe.calendar.utils.APIUtils.WeatherCallback;
+import com.zoe.calendar.utils.AnimateUtils;
+import com.zoe.calendar.utils.CityUtils;
 
 public class MainFragment extends BaseFragment implements OnCalendarChange,
-		DayClickListener, RemoveListener, OnItemClickListener, OnClickListener {
+		DayClickListener, RemoveListener, OnItemClickListener, OnClickListener,
+		WeatherCallback {
 
 	CalendarView vpCalendar;
 	DragListView lvCalender;
@@ -52,6 +66,21 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	private int currentDayLines;
 
 	Day pointedDay;
+
+	ActionBar bar;
+	View actionBarView;
+	RelativeLayout layWeather;
+	ImageView ivWeather;
+	TextView tvTemp;
+	Button btnSync;
+	RotateAnimation animSync;
+
+	WeatherInfo weather;
+	boolean isDownloading = false;
+
+	int selectedMonth = 0;
+	int selectedDay = 0;
+	boolean synced = false;
 
 	public MainFragment(String tag) {
 		super(tag, "");
@@ -90,6 +119,68 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		listActivity = new ArrayList<ActivityItem>();
 		adapterActivity = new ActivityAdapter(getActivity(), listActivity);
 		lvCalender.setAdapter(adapterActivity);
+
+		initActionBar();
+		initWeather();
+	}
+
+	private void initActionBar() {
+		bar = getActivity().getActionBar();
+		actionBarView = LayoutInflater.from(getActivity()).inflate(
+				R.layout.actionbar_custom, null);
+		ActionBar.LayoutParams alp = new ActionBar.LayoutParams(
+				ActionBar.LayoutParams.WRAP_CONTENT,
+				ActionBar.LayoutParams.WRAP_CONTENT);
+		alp.gravity = Gravity.END;
+		int flags = ActionBar.DISPLAY_SHOW_CUSTOM;
+		int change = bar.getDisplayOptions() ^ flags;
+		bar.setCustomView(actionBarView, alp);
+		bar.setDisplayOptions(change, flags);
+
+		layWeather = (RelativeLayout) actionBarView
+				.findViewById(R.id.layWeather);
+		ivWeather = (ImageView) actionBarView.findViewById(R.id.ivWeather);
+		tvTemp = (TextView) actionBarView.findViewById(R.id.tvTemp);
+		btnSync = (Button) actionBarView.findViewById(R.id.btnSync);
+
+		layWeather.setOnClickListener(this);
+		btnSync.setOnClickListener(this);
+
+		animSync = AnimateUtils.getRotateAnimation();
+
+		btnSync.setAnimation(animSync);
+
+	}
+
+	private void initWeather() {
+		if (Global.city == null || Global.city.equals("")) {
+			return;
+		}
+
+		final Handler hWeather = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					APIUtils.getWeather(msg.arg1, MainFragment.this);
+				}
+				super.handleMessage(msg);
+			}
+		};
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				CityUtils.loadCityCode(getActivity());
+				CityCodeItem item = CityUtils.findCityCode(Global.city);
+				if (item != null) {
+					Message msg = new Message();
+					msg.what = 1;
+					msg.arg1 = item.code;
+					hWeather.sendMessage(msg);
+				}
+			}
+		}).start();
+
 	}
 
 	@Override
@@ -111,6 +202,10 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	@Override
 	public void onResume() {
 		super.onResume();
+		if (!synced) {
+			synced = true;
+			downloadNewDataT();
+		}
 		initPointedDay(pointedDay);
 	}
 
@@ -125,7 +220,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	private void initPointedDay(Day day) {
 		if (day != null) {
-			onDayClick(0, 0, day);
+			onDayClick(selectedMonth, selectedDay, day);
 		}
 	}
 
@@ -191,6 +286,8 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	@Override
 	public void onDayClick(int monthIndex, int position, Day day) {
+		selectedMonth = monthIndex;
+		selectedDay = position;
 		pointedDay = day;
 		List<ActivityItem> list = QueryUtils.queryActivity(getActivity(),
 				Global.city_pinyin, day.year, day.month + 1, day.day, 1);
@@ -259,7 +356,64 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 					.putExtra("month", pointedDay.month)
 					.putExtra("day", pointedDay.day));
 			break;
+		case R.id.btnSync:
+			downloadNewDataT();
+			break;
+		case R.id.layWeather:
+			// TODO: show weather info
+			break;
 		}
 
 	}
+
+	private void downloadNewDataT() {
+		if (Global.city_pinyin == null || Global.city_pinyin.equals("")) {
+			return;
+		}
+		if (isDownloading) {
+			return;
+		}
+		isDownloading = true;
+		btnSync.setBackgroundResource(R.drawable.btn_syncing_style);
+		animSync.start();
+		final Handler hFinishDownload = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					isDownloading = false;
+					animSync.cancel();
+					btnSync.setBackgroundResource(R.drawable.btn_sync_style);
+					initPointedDay(pointedDay);
+				}
+				super.handleMessage(msg);
+			}
+		};
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				Message msg = new Message();
+				msg.what = 1;
+				List<ActivityItem> newList = APIUtils.downloadData(
+						getActivity(), Global.city_pinyin);
+				if (newList != null) {
+					QueryUtils.mergeData(getActivity(), newList);
+					msg.arg1 = 1;
+				} else {
+					msg.arg1 = 0;
+				}
+				hFinishDownload.sendMessage(msg);
+			}
+		}).start();
+	}
+
+	@Override
+	public void onGetWeather(WeatherInfo weather) {
+		this.weather = weather;
+		tvTemp.setText(weather.temp);
+		// TODO: convert weather to image
+
+	}
+
 }

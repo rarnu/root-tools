@@ -39,7 +39,8 @@
             android:paddingRight="16dip"
             android:paddingTop="8dip"
             android:textColor="#FF666666"
-            android:textSize="20sp" />
+            android:textSize="20sp"
+            android:autoLink="all" />
     </RelativeLayout>
 
 </ScrollView>

@@ -28,6 +28,7 @@ public class ActivityProvider extends ContentProvider {
 
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
+		database.insert(values);
 		return null;
 	}
 

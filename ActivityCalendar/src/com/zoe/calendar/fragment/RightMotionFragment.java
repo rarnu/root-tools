@@ -5,15 +5,18 @@ import android.view.Menu;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.zoe.calendar.R;
+import com.zoe.calendar.common.Config;
 
 public class RightMotionFragment extends BaseFragment {
 
 	// TODO: motion
 	
+	private int[] motions;
+
 	public RightMotionFragment(String tag) {
 		super(tag, "");
 	}
-	
+
 	@Override
 	public int getBarTitle() {
 		return R.string.app_name;
@@ -36,7 +39,10 @@ public class RightMotionFragment extends BaseFragment {
 
 	@Override
 	public void initEvents() {
-
+		motions = new int[10];
+		for (int i = 0; i < motions.length; i++) {
+			motions[i] = Config.getMotion(getActivity(), i);
+		}
 
 	}
 

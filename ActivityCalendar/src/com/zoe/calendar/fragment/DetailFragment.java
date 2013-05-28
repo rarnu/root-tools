@@ -87,7 +87,7 @@ public class DetailFragment extends BaseTabFragment {
 	}
 
 	private void startCalendar() {
-		// TODO: goto the pointed day directly
+		// goto the pointed day directly
 		// TODO: do not do this now, only shows that added or deleted with BIG
 		// dialogs
 		// try {

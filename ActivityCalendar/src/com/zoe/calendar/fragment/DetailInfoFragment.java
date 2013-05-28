@@ -2,6 +2,7 @@ package com.zoe.calendar.fragment;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
@@ -48,11 +49,14 @@ public class DetailInfoFragment extends BaseFragment {
 
 	@Override
 	public void initLogic() {
-		actItem = (ActivityItem) getActivity().getIntent().getSerializableExtra(
-				"item");
+		actItem = (ActivityItem) getActivity().getIntent()
+				.getSerializableExtra("item");
 		tvTitle.setText(actItem.title);
 		tvLocation.setText(actItem.location);
 		tvContent.setText(actItem.content);
+		tvLocation.setVisibility(actItem.location.equals("") ? View.GONE
+				: View.VISIBLE);
+
 	}
 
 	@Override

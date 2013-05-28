@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.rarnu.utils.FileUtils;
 import com.zoe.calendar.common.Actions;
@@ -38,7 +37,6 @@ public class ActivityDatabse extends ContextWrapper {
 			db = SQLiteDatabase.openDatabase(DB_FILE_NAME, null,
 					SQLiteDatabase.OPEN_READWRITE);
 		} catch (Exception e) {
-			Log.e("ActivityDatabse", e.getMessage());
 			db = null;
 		}
 
@@ -92,5 +90,9 @@ public class ActivityDatabse extends ContextWrapper {
 		} else {
 			return 0;
 		}
+	}
+	
+	public long insert(ContentValues cv) {
+		return db.insert(ACTIVITY_TABLE, null, cv);
 	}
 }

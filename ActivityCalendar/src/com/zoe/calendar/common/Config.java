@@ -10,6 +10,7 @@ public class Config {
 	private static final String KEY_CITY_PINYIN = "key_city_pinyin";
 	private static final String KEY_LAST_TIMESTAMP = "key_last_timestamp";
 	private static final String KEY_SETTING_TYPE = "key_setting_type_%d";
+	private static final String KEY_MOTION = "key_motion_%d";
 
 	public static String getCity(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_CITY, "");
@@ -43,5 +44,15 @@ public class Config {
 	public static void setSettingType(Context context, int index, boolean value) {
 		ConfigUtils.setBooleanConfig(context,
 				String.format(KEY_SETTING_TYPE, index), value);
+	}
+
+	public static int getMotion(Context context, int index) {
+		return ConfigUtils.getIntConfig(context,
+				String.format(KEY_MOTION, index), 0);
+	}
+
+	public static void setMotion(Context context, int index, int value) {
+		ConfigUtils.setIntConfig(context, String.format(KEY_MOTION, index),
+				value);
 	}
 }

@@ -3,6 +3,7 @@ package com.zoe.calendar.database;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.ContentResolver;
 import android.content.ContentUris;
 import android.content.ContentValues;
 import android.content.Context;
@@ -11,9 +12,37 @@ import android.database.Cursor;
 import com.zoe.calendar.classes.ActivityItem;
 
 public class QueryUtils {
-	
+
 	public static void mergeData(Context context, List<ActivityItem> list) {
-		// TODO: merge data
+		// merge data
+		try {
+			ContentResolver cr = context.getContentResolver();
+			for (ActivityItem item : list) {
+				ContentValues values = new ContentValues();
+				values.put("_id", item._id);
+				values.put("city", item.city);
+				values.put("year", item.year);
+				values.put("start_month", item.startMonth);
+				values.put("start_day", item.startDay);
+				values.put("end_month", item.endMonth);
+				values.put("end_day", item.endDay);
+				values.put("start_hour", item.startHour);
+				values.put("start_minute", item.startMinute);
+				values.put("end_hour", item.endHour);
+				values.put("end_minute", item.endMinute);
+				values.put("title", item.title);
+				values.put("url", item.url);
+				values.put("source", item.source);
+				values.put("location", item.location);
+				values.put("weight", item.weight);
+				values.put("tags", item.tags);
+				values.put("content", item.content);
+				values.put("status", item.status);
+				cr.insert(ActivityProvider.CONTENT_URI, values);
+			}
+		} catch (Throwable th) {
+
+		}
 	}
 
 	public static List<ActivityItem> queryActivity(Context context,

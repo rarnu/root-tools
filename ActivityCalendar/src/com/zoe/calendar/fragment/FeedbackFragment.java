@@ -76,7 +76,7 @@ public class FeedbackFragment extends BaseFragment {
 				Toast.makeText(getActivity(), R.string.settings_no_feedback,
 						Toast.LENGTH_SHORT).show();
 			} else {
-				APIUtils.feedback(feedback);
+				APIUtils.feedback(getActivity(), feedback);
 				Toast.makeText(getActivity(), R.string.settings_sent,
 						Toast.LENGTH_LONG).show();
 				getActivity().finish();

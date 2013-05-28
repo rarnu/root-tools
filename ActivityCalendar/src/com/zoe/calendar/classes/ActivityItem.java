@@ -74,4 +74,60 @@ public class ActivityItem implements Serializable {
 		return time;
 	}
 
+	public static ActivityItem fromRemote(RemoteActivityItem ri) {
+		ActivityItem item = new ActivityItem();
+		item._id = ri._id;
+		item.city = ri.city;
+		String rStartDate = ri.startDate;
+		String[] starts = rStartDate.split("-");
+		item.year = Integer.parseInt(starts[0]);
+		item.startMonth = Integer.parseInt(starts[1]);
+		item.startDay = Integer.parseInt(starts[2]);
+		String rStartTime = ri.startTime;
+		if (rStartTime.equals("")) {
+			item.startMinute = -1;
+			item.startHour = -1;
+		} else {
+			String[] startTimes = rStartTime.split(":");
+			item.startHour = Integer.parseInt(startTimes[0]);
+			item.startMinute = Integer.parseInt(startTimes[1]);
+		}
+		String rEndDate = ri.endDate;
+		if (rEndDate.equals("")) {
+			item.endMonth = item.startMonth;
+			item.endDay = item.startDay;
+		} else {
+			String[] ends = rEndDate.split("-");
+			item.endMonth = Integer.parseInt(ends[1]);
+			item.endDay = Integer.parseInt(ends[2]);
+		}
+		String rEndTime = ri.endTime;
+		if (rEndTime.equals("")) {
+			item.endHour = -1;
+			item.endMinute = -1;
+		} else {
+			String[] endTimes = rEndTime.split(":");
+			item.endHour = Integer.parseInt(endTimes[0]);
+			item.endMinute = Integer.parseInt(endTimes[1]);
+		}
+		item.title = ri.title;
+		item.url = ri.url;
+		item.source = ri.source;
+		if (item.source == null) {
+			item.source = "";
+		}
+		item.location = ri.location;
+		if (item.location == null) {
+			item.location = "";
+		}
+		item.weight = ri.weight;
+		item.tags = ri.tags;
+		if (item.tags == null) {
+			item.tags = "";
+		}
+		item.content = ri.content;
+		item.status = 1;
+		return item;
+		
+	}
 }

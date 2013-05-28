@@ -8,6 +8,7 @@ import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
@@ -25,7 +26,6 @@ public class HttpRequest {
 	public static String post(String host, List<BasicNameValuePair> params,
 			String encoding) {
 		HttpPost httpPost = new HttpPost(host);
-
 		try {
 			UrlEncodedFormEntity p_entity = new UrlEncodedFormEntity(params,
 					encoding);
@@ -36,6 +36,18 @@ public class HttpRequest {
 
 		return executeForResult(httpPost, encoding);
 
+	}
+
+	// post a string directly
+	public static String post(String host, String param, String encoding) {
+		HttpPost httpPost = new HttpPost();
+		try {
+			StringEntity p_entity = new StringEntity(param, encoding);
+			httpPost.setEntity(p_entity);
+		} catch (UnsupportedEncodingException e) {
+		}
+
+		return executeForResult(httpPost, encoding);
 	}
 
 	public static String get(String host, String params, String encoding) {
@@ -57,6 +69,7 @@ public class HttpRequest {
 			HttpResponse response = client.execute(request);
 			String result = "";
 			int statusCode = response.getStatusLine().getStatusCode();
+
 			if (statusCode == 200) {
 				result = EntityUtils.toString(response.getEntity(), encoding);
 			}
