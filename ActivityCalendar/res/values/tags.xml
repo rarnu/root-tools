@@ -13,5 +13,7 @@
     <item name="fragment_restore" type="tag">restore_fragment</item>
     <item name="fragment_feedback" type="tag">feedback_fragment</item>
     <item name="fragment_update_dialog" type="tag">update_dialog_fragment</item>
+    <item name="fragment_event_dialog" type="tag">event_dialog_fragment</item>
+    <item name="fragment_weather_dialog" type="tag">weather_dialog_fragment</item>
 
 </resources>

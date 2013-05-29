@@ -1,25 +1,24 @@
 package com.zoe.calendar.fragment;
 
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
-import android.widget.Toast;
+import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseDialogFragment;
 import com.zoe.calendar.R;
+import com.zoe.calendar.classes.WeatherInfo;
 
-public class UpdateDialogFragment extends BaseDialogFragment implements
+public class WeatherDialogFragment extends BaseDialogFragment implements
 		OnClickListener {
 
-	Button btnOK, btnCancel;
-	String url = "";
+	Button btnOK;
+	TextView tvWeatherText;
 
 	// update
-	public UpdateDialogFragment(String tag) {
+	public WeatherDialogFragment(String tag) {
 		super(tag);
 	}
 
@@ -41,23 +40,29 @@ public class UpdateDialogFragment extends BaseDialogFragment implements
 	@Override
 	public void initComponents() {
 		btnOK = (Button) innerView.findViewById(R.id.btnOK);
-		btnCancel = (Button) innerView.findViewById(R.id.btnCancel);
+		tvWeatherText = (TextView) innerView.findViewById(R.id.tvWeatherText);
 	}
 
 	@Override
 	public void initEvents() {
 		btnOK.setOnClickListener(this);
-		btnCancel.setOnClickListener(this);
 	}
 
 	@Override
 	public void initLogic() {
-		url = getActivity().getIntent().getStringExtra("url");
+		WeatherInfo weather = (WeatherInfo) getActivity().getIntent().getSerializableExtra("weather");
+		// TODO: show weather info
+		if (weather != null) {
+			
+		} else {
+			
+		}
+		
 	}
 
 	@Override
 	public int getFragmentLayoutResId() {
-		return R.layout.dialog_update;
+		return R.layout.dialog_weather;
 	}
 
 	@Override
@@ -82,21 +87,6 @@ public class UpdateDialogFragment extends BaseDialogFragment implements
 
 	@Override
 	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btnOK:
-			if (url == null || url.equals("")) {
-				Toast.makeText(getActivity(), R.string.update_no_url,
-						Toast.LENGTH_LONG).show();
-			} else {
-				Intent inUpdate = new Intent(Intent.ACTION_VIEW);
-				inUpdate.setData(Uri.parse(url));
-				startActivity(inUpdate);
-			}
-			break;
-		case R.id.btnCancel:
-
-			break;
-		}
 		getActivity().finish();
 
 	}

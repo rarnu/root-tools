@@ -11,13 +11,13 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu.utils.DeviceUtilsLite;
 import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.HttpRequest;
+import com.zoe.calendar.Global;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.classes.RemoteActivityItem;
 import com.zoe.calendar.classes.UpdateInfo;
@@ -61,10 +61,11 @@ public class APIUtils {
 			String ret = HttpRequest.get(url, param, HTTP.UTF_8);
 			JSONObject json = new JSONObject(ret);
 			long newTimestamp = json.getLong("timestamp");
+			Global.newTimestamp = newTimestamp;
 			JSONArray jData = json.getJSONArray("data");
 			if (jData != null && jData.length() != 0) {
 				// load
-				Config.setLastTimestamp(context, city, newTimestamp);
+
 				list = new ArrayList<ActivityItem>();
 				for (int i = 0; i < jData.length(); i++) {
 					RemoteActivityItem ri = new RemoteActivityItem();
@@ -91,12 +92,11 @@ public class APIUtils {
 					}
 					ri.tags = tags;
 					list.add(ActivityItem.fromRemote(ri));
-					Log.e("APIUtils", String.format("get from server: %d-%s",
-							ri._id, ri.title));
+
 				}
+
 			}
 		} catch (Exception e) {
-			Log.e("Error", e.getMessage());
 		}
 
 		return list;

@@ -121,4 +121,16 @@
 	
 	<string name="update_hint">发现新版本</string>
 	<string name="update_text">活动日历有新版本了,更多有趣更多实用,赶紧下载吧～</string>
+	<string name="update_ok">升级</string>
+	<string name="update_cancel">取消</string>
+	<string name="update_no_url">没有找到下载链接，升级已取消</string>
+	
+	<string name="event_hint">日历</string>
+	<string name="event_added">已添加当前活动到日历</string>
+	<string name="event_deleted">已从日历中移除当前活动</string>
+	<string name="event_ok">确定</string>
+	
+	<string name="weather_hint">天气详情</string>
+	
+	<string name="crash_terminate">非常抱歉，软件出现了重大错误，即将被关闭，您可以重启本软件，然后将错误反馈给我们</string>
 </resources>

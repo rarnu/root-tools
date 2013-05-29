@@ -6,6 +6,7 @@ import android.util.Log;
 import com.baidu.mapapi.BMapManager;
 import com.baidu.mapapi.MKGeneralListener;
 import com.baidu.mapapi.map.MKEvent;
+import com.zoe.calendar.location.LocationProvider;
 
 public class ActivityApplication extends Application implements
 		MKGeneralListener {
@@ -20,12 +21,23 @@ public class ActivityApplication extends Application implements
 	public void onCreate() {
 		super.onCreate();
 		mInstance = this;
+
+		Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler(
+				this));
+
 		initEngineManager();
+
+		Global.locProvider = new LocationProvider(this);
+		Global.locProvider.start();
 
 	}
 
 	@Override
 	public void onTerminate() {
+		if (Global.locProvider != null) {
+			Global.locProvider.close();
+			Global.locProvider = null;
+		}
 		if (mBMapManager != null) {
 			mBMapManager.destroy();
 			mBMapManager = null;

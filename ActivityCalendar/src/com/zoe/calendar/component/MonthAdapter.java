@@ -62,6 +62,7 @@ public class MonthAdapter extends BaseAdapter {
 			holder.ivToday = (ImageView) v.findViewById(R.id.ivToday);
 			holder.tvDayTitle = (TextView) v.findViewById(R.id.tvDaytitle);
 			holder.tvLunar = (TextView) v.findViewById(R.id.tvLunar);
+			// holder.ivClick = (ImageView) v.findViewById(R.id.ivClick);
 			v.setTag(holder);
 		}
 		Day item = days.lstDays.get(position);
@@ -85,6 +86,7 @@ public class MonthAdapter extends BaseAdapter {
 
 			holder.ivToday.setImageDrawable(item.selected ? context
 					.getResources().getDrawable(R.drawable.today) : null);
+			
 		}
 		return v;
 	}

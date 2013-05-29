@@ -38,7 +38,11 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 		initUpdate();
 	}
 
-	
+	@Override
+	protected void onDestroy() {
+		Global.synced = false;
+		super.onDestroy();
+	}
 
 	private void initUpdate() {
 		APIUtils.checkUpdate(this, this);
@@ -117,9 +121,9 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 	@Override
 	public void onUpdateFound(UpdateInfo update) {
 		if (update != null) {
-			startActivity(new Intent(this, UpdateDialog.class).putExtra("url", update.url));
+			startActivity(new Intent(this, UpdateDialog.class).putExtra("url",
+					update.url));
 		}
-
 	}
 
 }

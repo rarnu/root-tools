@@ -2,8 +2,8 @@ package com.zoe.calendar.fragment;
 
 import java.util.List;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -14,6 +14,7 @@ import com.zoe.calendar.R;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.classes.GoogleCalendar;
 import com.zoe.calendar.common.MenuIds;
+import com.zoe.calendar.dialog.EventDialog;
 import com.zoe.calendar.utils.GoogleCalendarUtils;
 
 public class DetailFragment extends BaseTabFragment {
@@ -25,6 +26,8 @@ public class DetailFragment extends BaseTabFragment {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
+		actItem = (ActivityItem) getActivity().getIntent()
+				.getSerializableExtra("item");
 		gc = GoogleCalendarUtils.getCalendars(getActivity());
 	}
 
@@ -97,10 +100,9 @@ public class DetailFragment extends BaseTabFragment {
 	}
 
 	private void startCalendar(boolean delete) {
-		// TODO: hint add or delete event
-		new AlertDialog.Builder(getActivity()).setTitle("Hint")
-				.setMessage(delete ? "Deleted" : "Added")
-				.setPositiveButton("OK", null).show();
+		// hint add or delete event
+		startActivity(new Intent(getActivity(), EventDialog.class).putExtra(
+				"deleted", delete));
 	}
 
 	@Override
@@ -115,8 +117,6 @@ public class DetailFragment extends BaseTabFragment {
 
 	@Override
 	public void initFragmentList(List<Fragment> listFragment) {
-		actItem = (ActivityItem) getActivity().getIntent()
-				.getSerializableExtra("item");
 
 		listFragment.add(new DetailInfoFragment(
 				getString(R.tag.fragment_detail_info),

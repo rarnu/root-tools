@@ -1,5 +1,7 @@
 package com.zoe.calendar.component;
 
+import com.zoe.calendar.R;
+
 import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -42,6 +44,7 @@ public class MonthView extends GridView implements OnItemClickListener {
 	private void init() {
 		setNumColumns(7);
 		setOnItemClickListener(this);
+		setSelector(R.drawable.grid_style);
 	}
 
 	@Override

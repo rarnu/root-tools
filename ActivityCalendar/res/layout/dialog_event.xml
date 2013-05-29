@@ -10,16 +10,16 @@
         android:layout_height="wrap_content"
         android:background="#FF0099CC"
         android:padding="4dip"
-        android:text="@string/update_hint"
+        android:text="@string/event_hint"
         android:textColor="?android:attr/textColorPrimaryInverse" />
 
     <TextView
-        android:id="@+id/tvUpdateText"
+        android:id="@+id/tvEventText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvHint"
         android:padding="24dip"
-        android:text="@string/update_text"
+        android:text="@string/event_added"
         android:textColor="?android:attr/textColorPrimary"
         android:textSize="18sp" />
 
@@ -27,25 +27,16 @@
         android:id="@+id/layButtons"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvUpdateText"
+        android:layout_below="@+id/tvEventText"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal" >
 
         <Button
             android:id="@+id/btnOK"
-            android:layout_width="80dip"
+            android:layout_width="100dip"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_common_style"
-            android:text="@string/update_ok"
-            android:textColor="?android:attr/textColorPrimaryInverse" />
-
-        <Button
-            android:id="@+id/btnCancel"
-            android:layout_width="80dip"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="16dip"
-            android:background="@drawable/btn_common_style"
-            android:text="@string/update_cancel"
+            android:text="@string/event_ok"
             android:textColor="?android:attr/textColorPrimaryInverse" />
     </LinearLayout>
 

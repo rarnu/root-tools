@@ -13,40 +13,39 @@ import com.zoe.calendar.classes.ActivityItem;
 
 public class QueryUtils {
 
-	public static void mergeData(Context context, List<ActivityItem> list) {
+	public static void mergeData(Context context, List<ActivityItem> list)
+			throws Exception {
 		// merge data
-		try {
-			ContentResolver cr = context.getContentResolver();
-			for (ActivityItem item : list) {
-				ContentValues values = new ContentValues();
-				values.put("_id", item._id);
-				values.put("city", item.city);
-				values.put("year", item.year);
-				values.put("start_month", item.startMonth);
-				values.put("start_day", item.startDay);
-				values.put("end_month", item.endMonth);
-				values.put("end_day", item.endDay);
-				values.put("start_hour", item.startHour);
-				values.put("start_minute", item.startMinute);
-				values.put("end_hour", item.endHour);
-				values.put("end_minute", item.endMinute);
-				values.put("title", item.title);
-				values.put("url", item.url);
-				values.put("source", item.source);
-				values.put("location", item.location);
-				values.put("weight", item.weight);
-				values.put("tags", item.tags);
-				values.put("content", item.content);
-				values.put("status", item.status);
-				cr.insert(ActivityProvider.CONTENT_URI, values);
-			}
-		} catch (Throwable th) {
-
+		ContentResolver cr = context.getContentResolver();
+		for (ActivityItem item : list) {
+			ContentValues values = new ContentValues();
+			values.put("_id", item._id);
+			values.put("city", item.city);
+			values.put("year", item.year);
+			values.put("start_month", item.startMonth);
+			values.put("start_day", item.startDay);
+			values.put("end_month", item.endMonth);
+			values.put("end_day", item.endDay);
+			values.put("start_hour", item.startHour);
+			values.put("start_minute", item.startMinute);
+			values.put("end_hour", item.endHour);
+			values.put("end_minute", item.endMinute);
+			values.put("title", item.title);
+			values.put("url", item.url);
+			values.put("source", item.source);
+			values.put("location", item.location);
+			values.put("weight", item.weight);
+			values.put("tags", item.tags);
+			values.put("content", item.content);
+			values.put("status", item.status);
+			cr.insert(ActivityProvider.CONTENT_URI, values);
 		}
+
 	}
 
 	public static List<ActivityItem> queryActivity(Context context,
-			String city, int year, int month, int day, int status) {
+			String city, int year, int month, int day, int status)
+			throws Exception {
 		Cursor c = context
 				.getContentResolver()
 				.query(ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
@@ -89,15 +88,16 @@ public class QueryUtils {
 		return list;
 	}
 
-	public static int deleteActivity(Context context, int id) {
+	public static int deleteActivity(Context context, int id) throws Exception {
 		return updateActivity(context, id, 0);
 	}
 
-	public static int restoreActivity(Context context, int id) {
+	public static int restoreActivity(Context context, int id) throws Exception {
 		return updateActivity(context, id, 1);
 	}
 
-	private static int updateActivity(Context context, int id, int status) {
+	private static int updateActivity(Context context, int id, int status)
+			throws Exception {
 		ContentValues cv = new ContentValues();
 		cv.put("status", status);
 		return context.getContentResolver().update(

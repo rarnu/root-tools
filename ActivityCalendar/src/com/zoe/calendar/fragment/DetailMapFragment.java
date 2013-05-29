@@ -16,7 +16,6 @@ import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.common.Actions;
-import com.zoe.calendar.location.LocationProvider;
 import com.zoe.calendar.location.OverItemT;
 
 public class DetailMapFragment extends BaseFragment {
@@ -24,7 +23,6 @@ public class DetailMapFragment extends BaseFragment {
 	ActivityItem actItem;
 	MapView mvBaidu;
 	MapController mMapController;
-	LocationProvider locProvider;
 
 	public DetailMapFragment(String tag, String title) {
 		super(tag, title);
@@ -48,7 +46,6 @@ public class DetailMapFragment extends BaseFragment {
 	@Override
 	public void initComponents() {
 		mvBaidu = (MapView) innerView.findViewById(R.id.mvBaidu);
-		locProvider = new LocationProvider(getActivity());
 		mMapController = mvBaidu.getController();
 		GeoPoint centerpt = mvBaidu.getMapCenter();
 		mMapController.enableClick(true);
@@ -66,7 +63,7 @@ public class DetailMapFragment extends BaseFragment {
 	public void initLogic() {
 		actItem = (ActivityItem) getActivity().getIntent()
 				.getSerializableExtra("item");
-		locProvider.searchAddress(Global.city, actItem.location);
+		Global.locProvider.searchAddress(Global.city, actItem.location);
 	}
 
 	@Override

@@ -2,7 +2,6 @@ package com.zoe.calendar.location;
 
 import android.content.Context;
 import android.content.Intent;
-import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -42,30 +41,28 @@ public class LocationProvider implements BDLocationListener, MKSearchListener {
 		option.setPoiExtraInfo(true);
 		option.setAddrType("all");
 		mLocClient.setLocOption(option);
-		Log.e("LocationProvider", "START");
 	}
 
 	public void start() {
 		mLocClient.start();
 		mLocClient.requestLocation();
-		Log.e("LocationProvider", "requestLocation");
 	}
 
 	public void close() {
+
 		mLocClient.stop();
 	}
 
 	@Override
 	public void onReceiveLocation(BDLocation loc) {
-		Log.e("LocationProvider", "onReceiveLocation");
 		Global.location = loc;
 		if (loc != null) {
 			if (Global.city == null || Global.city.equals("")) {
 				Global.city = loc.getCity();
 			}
-			close();
+			mContext.sendBroadcast(new Intent(Actions.ACTION_RECEIVE_LOCATION));
 		}
-		mContext.sendBroadcast(new Intent(Actions.ACTION_RECEIVE_LOCATION));
+
 	}
 
 	@Override
@@ -80,14 +77,14 @@ public class LocationProvider implements BDLocationListener, MKSearchListener {
 	@Override
 	public void onGetAddrResult(MKAddrInfo res, int error) {
 		if (error != 0) {
-			Log.e("onGetAddrResult", String.format("Error; %d", error));
 			return;
 		}
-
-		mContext.sendBroadcast(new Intent(Actions.ACTION_RECEIVE_GEOPOI)
-				.putExtra("lat", res.geoPt.getLatitudeE6())
-				.putExtra("lng", res.geoPt.getLongitudeE6())
-				.putExtra("addr", res.strAddr));
+		if (res != null && res.geoPt != null) {
+			mContext.sendBroadcast(new Intent(Actions.ACTION_RECEIVE_GEOPOI)
+					.putExtra("lat", res.geoPt.getLatitudeE6())
+					.putExtra("lng", res.geoPt.getLongitudeE6())
+					.putExtra("addr", res.strAddr));
+		}
 
 	}
 

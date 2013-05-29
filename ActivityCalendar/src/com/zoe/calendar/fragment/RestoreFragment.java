@@ -73,13 +73,17 @@ public class RestoreFragment extends BaseFragment implements RemoveListener {
 		year = getActivity().getIntent().getIntExtra("year", 0);
 		month = getActivity().getIntent().getIntExtra("month", 0);
 		day = getActivity().getIntent().getIntExtra("day", 0);
-		List<ActivityItem> listRemoved = QueryUtils.queryActivity(
-				getActivity(), Global.city_pinyin, year, month + 1, day, 0);
-		listActivity.clear();
-		if (listRemoved != null) {
-			listActivity.addAll(listRemoved);
+		try {
+			List<ActivityItem> listRemoved = QueryUtils.queryActivity(
+					getActivity(), Global.city_pinyin, year, month + 1, day, 0);
+			listActivity.clear();
+			if (listRemoved != null) {
+				listActivity.addAll(listRemoved);
+			}
+			adapterActivity.setNewList(listActivity);
+		} catch (Exception e) {
+
 		}
-		adapterActivity.setNewList(listActivity);
 	}
 
 	@Override
@@ -110,9 +114,13 @@ public class RestoreFragment extends BaseFragment implements RemoveListener {
 	@Override
 	public void remove(int which) {
 		ActivityItem item = listActivity.get(which);
-		QueryUtils.restoreActivity(getActivity(), item._id);
-		listActivity.remove(which);
-		adapterActivity.notifyDataSetChanged();
+		try {
+			QueryUtils.restoreActivity(getActivity(), item._id);
+			listActivity.remove(which);
+			adapterActivity.notifyDataSetChanged();
+		} catch (Exception e) {
+		}
+
 		if (listActivity.size() == 0) {
 			getActivity().finish();
 		}

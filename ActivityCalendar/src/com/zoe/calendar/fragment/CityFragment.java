@@ -28,7 +28,6 @@ import com.zoe.calendar.adapter.CityAdapter;
 import com.zoe.calendar.classes.CityItem;
 import com.zoe.calendar.common.Actions;
 import com.zoe.calendar.common.Config;
-import com.zoe.calendar.location.LocationProvider;
 import com.zoe.calendar.utils.CityUtils;
 
 public class CityFragment extends BaseFragment implements OnClickListener,
@@ -37,7 +36,6 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 	TextView tvCityValue;
 	EditText etCityFilter;
 	ListView lvCities;
-	private LocationProvider locProvider;
 
 	List<CityItem> listCity;
 	CityAdapter adapterCity;
@@ -98,8 +96,6 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 
 	@Override
 	public void initLogic() {
-		locProvider = new LocationProvider(getActivity());
-		locProvider.start();
 		loadCityListT();
 	}
 

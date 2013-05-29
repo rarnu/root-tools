@@ -39,12 +39,14 @@ import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.classes.CityCodeItem;
 import com.zoe.calendar.classes.WeatherInfo;
 import com.zoe.calendar.common.Actions;
+import com.zoe.calendar.common.Config;
 import com.zoe.calendar.component.CalendarDays;
 import com.zoe.calendar.component.CalendarView;
 import com.zoe.calendar.component.CalendarView.OnCalendarChange;
 import com.zoe.calendar.component.Day;
 import com.zoe.calendar.component.DayClickListener;
 import com.zoe.calendar.database.QueryUtils;
+import com.zoe.calendar.dialog.WeatherDialog;
 import com.zoe.calendar.utils.APIUtils;
 import com.zoe.calendar.utils.APIUtils.WeatherCallback;
 import com.zoe.calendar.utils.AnimateUtils;
@@ -155,8 +157,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	private void initWeather() {
 		if (Global.city == null || Global.city.equals("")) {
-			tvTemp.setText(R.string.weather_cannot_get);
-			ivWeather.setImageResource(R.drawable.weather_0);
+			noWeatherInfo();
 			return;
 		}
 
@@ -167,8 +168,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 					if (msg.arg1 != 0) {
 						APIUtils.getWeather(msg.arg1, MainFragment.this);
 					} else {
-						tvTemp.setText(R.string.weather_cannot_get);
-						ivWeather.setImageResource(R.drawable.weather_0);
+						noWeatherInfo();
 					}
 				}
 				super.handleMessage(msg);
@@ -301,17 +301,25 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		selectedMonth = monthIndex;
 		selectedDay = position;
 		pointedDay = day;
-		List<ActivityItem> list = QueryUtils.queryActivity(getActivity(),
-				Global.city_pinyin, day.year, day.month + 1, day.day, 1);
+		List<ActivityItem> list = null;
+		try {
+			list = QueryUtils.queryActivity(getActivity(), Global.city_pinyin,
+					day.year, day.month + 1, day.day, 1);
+		} catch (Exception e) {
+
+		}
 		listActivity.clear();
 		if (list != null) {
 			listActivity.addAll(list);
 		}
 		adapterActivity.setNewList(listActivity);
+		List<ActivityItem> listRemoved = null;
+		try {
+			listRemoved = QueryUtils.queryActivity(getActivity(),
+					Global.city_pinyin, day.year, day.month + 1, day.day, 0);
+		} catch (Exception e) {
 
-		List<ActivityItem> listRemoved = QueryUtils.queryActivity(
-				getActivity(), Global.city_pinyin, day.year, day.month + 1,
-				day.day, 0);
+		}
 		ivTrash.setVisibility((listRemoved == null || listRemoved.size() == 0) ? View.GONE
 				: View.VISIBLE);
 		vpCalendar.setSelection(monthIndex);
@@ -344,11 +352,15 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	@Override
 	public void remove(int which) {
 		ActivityItem item = listActivity.get(which);
-		QueryUtils.deleteActivity(getActivity(), item._id);
-		listActivity.remove(which);
-		adapterActivity.notifyDataSetChanged();
-		ivTrash.setVisibility(View.VISIBLE);
-		changeAtivityHintStatus(pointedDay);
+		try {
+			QueryUtils.deleteActivity(getActivity(), item._id);
+			listActivity.remove(which);
+			adapterActivity.notifyDataSetChanged();
+			ivTrash.setVisibility(View.VISIBLE);
+			changeAtivityHintStatus(pointedDay);
+		} catch (Exception e) {
+
+		}
 	}
 
 	class DatabaseMsgReceiver extends BroadcastReceiver {
@@ -397,7 +409,11 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			downloadNewDataT();
 			break;
 		case R.id.layWeather:
-			// TODO: show weather info
+			// show weather info
+			if (weather != null) {
+				startActivity(new Intent(getActivity(), WeatherDialog.class)
+						.putExtra("weather", weather));
+			}
 			break;
 		}
 
@@ -411,8 +427,10 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			return;
 		}
 		isDownloading = true;
-		btnSync.setBackgroundResource(R.drawable.btn_syncing_style);
-		animSync.start();
+		if (btnSync != null) {
+			btnSync.setBackgroundResource(R.drawable.btn_syncing_style);
+			animSync.start();
+		}
 
 		initWeather();
 
@@ -421,9 +439,11 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 					isDownloading = false;
-					animSync.cancel();
-					btnSync.setBackgroundResource(R.drawable.btn_sync_style);
-					animSync.cancel();
+					if (btnSync != null) {
+						animSync.cancel();
+						btnSync.setBackgroundResource(R.drawable.btn_sync_style);
+						animSync.cancel();
+					}
 					initPointedDay(pointedDay);
 				}
 				super.handleMessage(msg);
@@ -439,7 +459,14 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 				List<ActivityItem> newList = APIUtils.downloadData(
 						getActivity(), Global.city_pinyin);
 				if (newList != null) {
-					QueryUtils.mergeData(getActivity(), newList);
+					try {
+						QueryUtils.mergeData(getActivity(), newList);
+						Config.setLastTimestamp(getActivity(),
+								Global.city_pinyin, Global.newTimestamp);
+						Global.newTimestamp = 0L;
+					} catch (Exception e) {
+
+					}
 					msg.arg1 = 1;
 				} else {
 					msg.arg1 = 0;
@@ -449,10 +476,24 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		}).start();
 	}
 
+	private void noWeatherInfo() {
+		tvTemp.setText(R.string.weather_cannot_get);
+		ivWeather.setImageResource(R.drawable.weather_0);
+	}
+
 	@Override
 	public void onGetWeather(WeatherInfo weather) {
 		this.weather = weather;
-		tvTemp.setText(weather.temp);
+		if (weather == null) {
+			noWeatherInfo();
+		}
+		if (tvTemp != null) {
+			try {
+				tvTemp.setText(weather.temp);
+			} catch (Exception e) {
+				noWeatherInfo();
+			}
+		}
 		// convert weather to image
 		if (isAdded()) {
 			showWeatherImage();
@@ -487,15 +528,21 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	}
 
 	private void showWeatherImage() {
-		String w = weather.weather;
-		if (w.contains(getString(R.string.weather_snow))) {
-			ivWeather.setImageResource(R.drawable.weather_4);
-		} else if (w.contains(getString(R.string.weather_rain))) {
-			ivWeather.setImageResource(R.drawable.weather_3);
-		} else if (w.contains(getString(R.string.weather_cloud))) {
-			ivWeather.setImageResource(R.drawable.weather_2);
-		} else {
-			ivWeather.setImageResource(R.drawable.weather_1);
+		if (ivWeather != null) {
+			try {
+				String w = weather.weather;
+				if (w.contains(getString(R.string.weather_snow))) {
+					ivWeather.setImageResource(R.drawable.weather_4);
+				} else if (w.contains(getString(R.string.weather_rain))) {
+					ivWeather.setImageResource(R.drawable.weather_3);
+				} else if (w.contains(getString(R.string.weather_cloud))) {
+					ivWeather.setImageResource(R.drawable.weather_2);
+				} else {
+					ivWeather.setImageResource(R.drawable.weather_1);
+				}
+			} catch (Exception e) {
+				noWeatherInfo();
+			}
 		}
 	}
 

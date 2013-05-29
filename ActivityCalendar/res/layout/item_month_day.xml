@@ -7,7 +7,16 @@
         android:id="@+id/ivToday"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:contentDescription="@null"
         android:scaleType="centerInside" />
+
+    <ImageView
+        android:id="@+id/ivClick"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:contentDescription="@null"
+        android:scaleType="centerInside"
+        android:src="@drawable/grid_pressed_style" />
 
     <TextView
         android:id="@+id/tvDaytitle"
