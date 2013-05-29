@@ -10,6 +10,7 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.rarnu.utils.FileUtils;
 import com.zoe.calendar.common.Actions;
@@ -19,7 +20,8 @@ public class ActivityDatabse extends ContextWrapper {
 	private String DB_FILE_PATH = "";
 	private String DB_FILE_NAME = "";
 	SQLiteDatabase db;
-	private static final String ACTIVITY_TABLE = "activity";
+	public static final String ACTIVITY_TABLE = "activity";
+	public static final String MOTION_TABLE = "motion";
 
 	public ActivityDatabse(Context context) {
 		super(context);
@@ -75,10 +77,16 @@ public class ActivityDatabse extends ContextWrapper {
 		}).start();
 	}
 
-	public Cursor query(String selection, String[] selectionArgs) {
+	public Cursor query(String table, String selection, String[] selectionArgs) {
+		// Log.e("query", selectionArgs.toString());
 		if (db != null) {
-			return db.query(true, ACTIVITY_TABLE, null, selection,
-					selectionArgs, null, null, null, null);
+			if (table.equals(MOTION_TABLE)) {
+				return db.query(table, null, selection, selectionArgs, null,
+						null, "_id desc", "0, 10");
+			} else {
+				return db.query(true, table, null, selection, selectionArgs,
+						null, null, null, null);
+			}
 		} else {
 			return null;
 		}
@@ -91,8 +99,47 @@ public class ActivityDatabse extends ContextWrapper {
 			return 0;
 		}
 	}
-	
-	public long insert(ContentValues cv) {
-		return db.insert(ACTIVITY_TABLE, null, cv);
+
+	public int updateMotion(ContentValues cv, String where, String[] whereArgs) {
+		if (db != null) {
+			return db.update(MOTION_TABLE, cv, where, whereArgs);
+		} else {
+			return 0;
+		}
+	}
+
+	public long insert(String table, ContentValues cv) {
+		if (db != null) {
+			if (table.equals(MOTION_TABLE)) {
+				cv.put("_id", generateId(MOTION_TABLE));
+				return db.insert(table, null, cv);
+			} else {
+				return db.insert(table, null, cv);
+			}
+		} else {
+			return 0L;
+		}
+	}
+
+	private int generateId(String table) {
+		if (db != null) {
+			Cursor c = db.query(table, new String[] { "_id" }, null, null,
+					null, null, "_id desc", "0,1");
+			int id = 0;
+			if (c == null) {
+				id = 1;
+			} else {
+				c.moveToFirst();
+				while (!c.isAfterLast()) {
+					id = c.getInt(0);
+					break;
+				}
+				id++;
+				c.close();
+			}
+			return id;
+		} else {
+			return 0;
+		}
 	}
 }

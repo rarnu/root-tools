@@ -46,6 +46,7 @@ import com.zoe.calendar.component.CalendarView.OnCalendarChange;
 import com.zoe.calendar.component.Day;
 import com.zoe.calendar.component.DayClickListener;
 import com.zoe.calendar.database.QueryUtils;
+import com.zoe.calendar.dialog.WeatherDialog;
 import com.zoe.calendar.utils.APIUtils;
 import com.zoe.calendar.utils.APIUtils.WeatherCallback;
 import com.zoe.calendar.utils.AnimateUtils;
@@ -357,6 +358,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			adapterActivity.notifyDataSetChanged();
 			ivTrash.setVisibility(View.VISIBLE);
 			changeAtivityHintStatus(pointedDay);
+			// TODO: toast hint
 		} catch (Exception e) {
 
 		}
@@ -409,12 +411,12 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			break;
 		case R.id.layWeather:
 			// show weather info
-//			if (weather != null) {
-//				if ((weather.index_d != null) && (!weather.index_d.equals(""))) {
-//					startActivity(new Intent(getActivity(), WeatherDialog.class)
-//							.putExtra("weather", weather));
-//				}
-//			}
+			if (weather != null) {
+				if ((weather.index_d != null) && (!weather.index_d.equals(""))) {
+					startActivity(new Intent(getActivity(), WeatherDialog.class)
+							.putExtra("weather", weather));
+				}
+			}
 			break;
 		}
 

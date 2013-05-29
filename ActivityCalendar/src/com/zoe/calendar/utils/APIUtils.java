@@ -11,6 +11,7 @@ import org.json.JSONObject;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
@@ -220,13 +221,12 @@ public class APIUtils {
 				weather.temp = jWeather.getString("temp1");
 				weather.weather = jWeather.getString("weather1");
 				weather.wind = jWeather.getString("wind1");
-				weather.image_title = jWeather.getString("image_title1");
 				weather.index = jWeather.getString("index");
 				weather.index_d = jWeather.getString("index_d");
 
 			}
 		} catch (Exception e) {
-
+			Log.e("getWeather", e.getMessage());
 		}
 		return weather;
 	}

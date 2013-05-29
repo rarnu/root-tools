@@ -1,6 +1,7 @@
 package com.zoe.calendar.database;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import android.content.ContentResolver;
@@ -10,6 +11,7 @@ import android.content.Context;
 import android.database.Cursor;
 
 import com.zoe.calendar.classes.ActivityItem;
+import com.zoe.calendar.classes.MotionItem;
 
 public class QueryUtils {
 
@@ -38,7 +40,8 @@ public class QueryUtils {
 			values.put("tags", item.tags);
 			values.put("content", item.content);
 			values.put("status", item.status);
-			cr.insert(ActivityProvider.CONTENT_URI, values);
+			cr.insert(ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
+					ActivityProvider.ACTION_TABLE_ACTIVITY), values);
 		}
 
 	}
@@ -49,7 +52,7 @@ public class QueryUtils {
 		Cursor c = context
 				.getContentResolver()
 				.query(ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
-						ActivityProvider.ACTIONID_QUERY),
+						ActivityProvider.ACTION_TABLE_ACTIVITY),
 						null,
 						"city=? and year=? and ((start_month=? and start_day=?) or (end_month=? and end_day=?)) and status=?",
 						new String[] { city, String.valueOf(year),
@@ -101,7 +104,85 @@ public class QueryUtils {
 		ContentValues cv = new ContentValues();
 		cv.put("status", status);
 		return context.getContentResolver().update(
-				ActivityProvider.CONTENT_URI, cv, null,
+				ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
+						ActivityProvider.ACTION_TABLE_ACTIVITY), cv, null,
 				new String[] { String.valueOf(id) });
+	}
+
+	public static void initMotion(Context context) throws Exception {
+		Calendar c = Calendar.getInstance();
+		if (!motionExists(context)) {
+			ContentValues values = new ContentValues();
+			values.put("year", c.get(Calendar.YEAR));
+			values.put("month", c.get(Calendar.MONTH));
+			values.put("day", c.get(Calendar.DAY_OF_MONTH));
+			values.put("motion", 1);
+			context.getContentResolver().insert(
+					ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
+							ActivityProvider.ACTION_TABLE_MOTION), values);
+		}
+	}
+
+	public static void updateMotion(Context context, int motion)
+			throws Exception {
+		Calendar cal = Calendar.getInstance();
+		ContentValues values = new ContentValues();
+		values.put("motion", motion);
+		context.getContentResolver().update(
+				ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
+						ActivityProvider.ACTION_TABLE_MOTION),
+				values,
+				"year=? and month=? and day=?",
+				new String[] { String.valueOf(cal.get(Calendar.YEAR)),
+						String.valueOf(cal.get(Calendar.MONTH)),
+						String.valueOf(Calendar.DAY_OF_MONTH) });
+	}
+
+	public static List<MotionItem> queryMotion(Context context)
+			throws Exception {
+		Cursor c = context.getContentResolver().query(
+				ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
+						ActivityProvider.ACTION_TABLE_MOTION), null, null,
+				null, null);
+		List<MotionItem> list = null;
+		if (c != null) {
+			list = new ArrayList<MotionItem>();
+			c.moveToFirst();
+			while (!c.isAfterLast()) {
+				MotionItem item = new MotionItem();
+				item._id = c.getInt(0);
+				item.year = c.getInt(1);
+				item.month = c.getInt(2);
+				item.day = c.getInt(3);
+				item.motion = c.getInt(4);
+				list.add(item);
+				c.moveToNext();
+			}
+			c.close();
+		}
+		return list;
+	}
+
+	public static boolean motionExists(Context context) throws Exception {
+		// TODO: cannot get riht status here
+		Calendar cal = Calendar.getInstance();
+		Cursor c = context.getContentResolver().query(
+				ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
+						ActivityProvider.ACTION_TABLE_MOTION),
+				null,
+				"year=? and month=? and day=?",
+				new String[] { String.valueOf(cal.get(Calendar.YEAR)),
+						String.valueOf(cal.get(Calendar.MONTH)),
+						String.valueOf(Calendar.DAY_OF_MONTH) }, null);
+		boolean ret = false;
+		if (c != null) {
+			c.moveToFirst();
+			while (!c.isAfterLast()) {
+				ret = true;
+				c.moveToNext();
+			}
+			c.close();
+		}
+		return ret;
 	}
 }

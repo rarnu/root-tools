@@ -130,7 +130,13 @@
 	<string name="event_deleted">已从日历中移除当前活动</string>
 	<string name="event_ok">确定</string>
 	
-	<string name="weather_hint">天气详情</string>
+	<string name="weather_hint">今天天气</string>
+	<string name="weather_desc_fmt" formatted="false">天气: %s\n气温: %s\n风向: %s\n感觉: %s\n建议: %s</string>
+	
+	<string name="motion_count">今天的运动量是?</string>
+	<string name="motion_today">今天</string>
+	<string name="motion_past">过去</string>
+	<string name="motion_first_day" formatted="false">%d月%d日</string>
 	
 	<string name="crash_terminate">非常抱歉，软件出现了重大错误，即将被关闭，您可以重启本软件，然后将错误反馈给我们</string>
 </resources>

@@ -50,10 +50,13 @@ public class WeatherDialogFragment extends BaseDialogFragment implements
 
 	@Override
 	public void initLogic() {
-		WeatherInfo weather = (WeatherInfo) getActivity().getIntent().getSerializableExtra("weather");
-		// TODO: show weather info
-		tvWeatherText.setText(weather.index_d);
-		
+		WeatherInfo weather = (WeatherInfo) getActivity().getIntent()
+				.getSerializableExtra("weather");
+		// show weather info
+		String w = getString(R.string.weather_desc_fmt, weather.weather,
+				weather.temp, weather.wind, weather.index, weather.index_d);
+		tvWeatherText.setText(w);
+
 	}
 
 	@Override

@@ -92,6 +92,8 @@ type
     SQlite.SQL :=
       'CREATE TABLE ACTIVITY (_id int primary key, city text not null, year int not null, start_month int not null, start_day int not null, end_month int not null, end_day int not null, start_hour int not null, start_minute int not null, end_hour int not null, end_minute int not null, title text not null, url text, source text, location text, weight int, tags text, content text, status int not null)';
     SQlite.ExecSQL;
+    SQlite.SQL:= 'CREATE TABLE MOTION (_id int primary key, year int not null, month int not null, day int not null, motion int not null)';
+    SQlite.ExecSQL;
 
   end;
 
