@@ -46,7 +46,6 @@ import com.zoe.calendar.component.CalendarView.OnCalendarChange;
 import com.zoe.calendar.component.Day;
 import com.zoe.calendar.component.DayClickListener;
 import com.zoe.calendar.database.QueryUtils;
-import com.zoe.calendar.dialog.WeatherDialog;
 import com.zoe.calendar.utils.APIUtils;
 import com.zoe.calendar.utils.APIUtils.WeatherCallback;
 import com.zoe.calendar.utils.AnimateUtils;
@@ -410,10 +409,12 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			break;
 		case R.id.layWeather:
 			// show weather info
-			if (weather != null) {
-				startActivity(new Intent(getActivity(), WeatherDialog.class)
-						.putExtra("weather", weather));
-			}
+//			if (weather != null) {
+//				if ((weather.index_d != null) && (!weather.index_d.equals(""))) {
+//					startActivity(new Intent(getActivity(), WeatherDialog.class)
+//							.putExtra("weather", weather));
+//				}
+//			}
 			break;
 		}
 
@@ -486,13 +487,10 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		this.weather = weather;
 		if (weather == null) {
 			noWeatherInfo();
+			return;
 		}
 		if (tvTemp != null) {
-			try {
-				tvTemp.setText(weather.temp);
-			} catch (Exception e) {
-				noWeatherInfo();
-			}
+			tvTemp.setText(weather.temp);
 		}
 		// convert weather to image
 		if (isAdded()) {
@@ -520,7 +518,6 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 						}
 					}
 					hShowWeather.sendEmptyMessage(1);
-
 				}
 			}).start();
 		}
@@ -529,20 +526,17 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	private void showWeatherImage() {
 		if (ivWeather != null) {
-			try {
-				String w = weather.weather;
-				if (w.contains(getString(R.string.weather_snow))) {
-					ivWeather.setImageResource(R.drawable.weather_4);
-				} else if (w.contains(getString(R.string.weather_rain))) {
-					ivWeather.setImageResource(R.drawable.weather_3);
-				} else if (w.contains(getString(R.string.weather_cloud))) {
-					ivWeather.setImageResource(R.drawable.weather_2);
-				} else {
-					ivWeather.setImageResource(R.drawable.weather_1);
-				}
-			} catch (Exception e) {
-				noWeatherInfo();
+			String w = weather.weather;
+			if (w.contains(getString(R.string.weather_snow))) {
+				ivWeather.setImageResource(R.drawable.weather_4);
+			} else if (w.contains(getString(R.string.weather_rain))) {
+				ivWeather.setImageResource(R.drawable.weather_3);
+			} else if (w.contains(getString(R.string.weather_cloud))) {
+				ivWeather.setImageResource(R.drawable.weather_2);
+			} else {
+				ivWeather.setImageResource(R.drawable.weather_1);
 			}
+
 		}
 	}
 

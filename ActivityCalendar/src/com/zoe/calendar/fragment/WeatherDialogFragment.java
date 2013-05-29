@@ -52,11 +52,7 @@ public class WeatherDialogFragment extends BaseDialogFragment implements
 	public void initLogic() {
 		WeatherInfo weather = (WeatherInfo) getActivity().getIntent().getSerializableExtra("weather");
 		// TODO: show weather info
-		if (weather != null) {
-			
-		} else {
-			
-		}
+		tvWeatherText.setText(weather.index_d);
 		
 	}
 
