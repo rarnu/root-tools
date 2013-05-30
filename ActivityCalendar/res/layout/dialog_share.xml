@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="16dip" >
+
+    <TextView
+        android:id="@+id/tvHint"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#FF0099CC"
+        android:padding="4dip"
+        android:text="@string/share_title"
+        android:textColor="?android:attr/textColorPrimaryInverse" />
+
+    <ListView
+        android:id="@+id/lvShare"
+        android:layout_width="match_parent"
+        android:layout_height="100dip"
+        android:layout_below="@+id/tvHint"
+        android:divider="@null"
+        android:dividerHeight="1dip"
+        android:padding="8dip"
+        android:text="@string/event_added"
+        android:textColor="?android:attr/textColorPrimary"
+        android:textSize="18sp" />
+
+    <LinearLayout
+        android:id="@+id/layButtons"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/lvShare"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="16dip"
+        android:orientation="horizontal" >
+
+        <Button
+            android:id="@+id/btnBack"
+            android:layout_width="100dip"
+            android:layout_height="wrap_content"
+            android:background="@drawable/btn_common_style"
+            android:text="@string/share_back"
+            android:textColor="?android:attr/textColorPrimaryInverse" />
+    </LinearLayout>
+
+</RelativeLayout>

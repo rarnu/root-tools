@@ -15,5 +15,6 @@
     <item name="fragment_update_dialog" type="tag">update_dialog_fragment</item>
     <item name="fragment_event_dialog" type="tag">event_dialog_fragment</item>
     <item name="fragment_weather_dialog" type="tag">weather_dialog_fragment</item>
+    <item name="fragment_share_dialog" type="tag">share_dialog_fragment</item>
 
 </resources>

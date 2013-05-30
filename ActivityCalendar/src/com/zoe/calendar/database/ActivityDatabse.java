@@ -10,7 +10,6 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.rarnu.utils.FileUtils;
 import com.zoe.calendar.common.Actions;
@@ -25,7 +24,7 @@ public class ActivityDatabse extends ContextWrapper {
 
 	public ActivityDatabse(Context context) {
 		super(context);
-		DB_FILE_PATH = "/data/data/" + getPackageName() + "/database/";
+		DB_FILE_PATH = "/data/data/" + getPackageName() + "/databases/";
 		DB_FILE_NAME = DB_FILE_PATH + "activity.db";
 		if (!new File(DB_FILE_PATH).exists()) {
 			copyDatabaseT();
@@ -78,7 +77,7 @@ public class ActivityDatabse extends ContextWrapper {
 	}
 
 	public Cursor query(String table, String selection, String[] selectionArgs) {
-		// Log.e("query", selectionArgs.toString());
+
 		if (db != null) {
 			if (table.equals(MOTION_TABLE)) {
 				return db.query(table, null, selection, selectionArgs, null,

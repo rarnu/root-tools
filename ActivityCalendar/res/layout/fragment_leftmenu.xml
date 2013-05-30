@@ -35,17 +35,89 @@
         android:id="@+id/splitFeedback"
         android:layout_width="match_parent"
         android:layout_height="1px"
-        android:layout_above="@+id/lvFeedback"
+        android:layout_below="@+id/lvLeftCard"
         android:background="@color/shadow" />
 
-    <ListView
-        android:id="@+id/lvFeedback"
+    <RelativeLayout
+        android:id="@+id/layBottomMotion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/shadow"
-        android:dividerHeight="1px" >
-    </ListView>
+        android:layout_alignParentBottom="true" >
+
+        <RelativeLayout
+            android:id="@+id/layMoionTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layMotionHead" >
+
+            <TextView
+                android:id="@+id/tvSubTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|center_vertical"
+                android:padding="8dip"
+                android:text="@string/motion_count"
+                android:textColor="?android:attr/textColorPrimaryInverse"
+                android:textSize="16dp" />
+
+            <LinearLayout
+                android:id="@+id/layEat"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvSubTitle"
+                android:clickable="true"
+                android:focusable="true"
+                android:focusableInTouchMode="true"
+                android:paddingBottom="8dip"
+                android:paddingLeft="4dip"
+                android:paddingRight="4dip"
+                android:paddingTop="8dip" >
+            </LinearLayout>
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layMotionData"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layMoionTitle"
+            android:layout_marginTop="16dip" >
+
+            <RelativeLayout
+                android:id="@+id/layMotions"
+                android:layout_width="wrap_content"
+                android:layout_height="80dip"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="4dip"
+                android:layout_marginRight="4dip" >
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvSubLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dip"
+                android:layout_below="@+id/layMotions"
+                android:background="#FF666666" />
+
+            <TextView
+                android:id="@+id/tvFirstDay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvSubLine"
+                android:padding="4dip"
+                android:textColor="?android:attr/textColorPrimaryInverse"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/tvToday"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/tvSubLine"
+                android:padding="4dip"
+                android:text="@string/motion_today"
+                android:textColor="?android:attr/textColorPrimaryInverse"
+                android:textSize="12sp" />
+        </RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -62,7 +62,11 @@ public class APIUtils {
 			String ret = HttpRequest.get(url, param, HTTP.UTF_8);
 			JSONObject json = new JSONObject(ret);
 			long newTimestamp = json.getLong("timestamp");
-			Global.newTimestamp = newTimestamp;
+			if (city.equals("all")) {
+				Global.newAllTimestamp = newTimestamp;
+			} else {
+				Global.newTimestamp = newTimestamp;
+			}
 			JSONArray jData = json.getJSONArray("data");
 			if (jData != null && jData.length() != 0) {
 				// load
@@ -98,6 +102,7 @@ public class APIUtils {
 
 			}
 		} catch (Exception e) {
+			Log.e("downloadData:"+city, e.getMessage());
 		}
 
 		return list;

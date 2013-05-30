@@ -17,7 +17,7 @@
             android:paddingRight="16dip"
             android:paddingTop="8dip"
             android:textColor="#FF0099CC"
-            android:textSize="22sp" />
+            android:textSize="20sp" />
 
         <TextView
             android:id="@+id/tvLocation"
@@ -28,7 +28,7 @@
             android:paddingLeft="16dip"
             android:paddingRight="16dip"
             android:textColor="#FF666666"
-            android:textSize="20sp" />
+            android:textSize="18sp" />
 
         <TextView
             android:id="@+id/tvContent"
@@ -39,7 +39,7 @@
             android:paddingRight="16dip"
             android:paddingTop="8dip"
             android:textColor="#FF666666"
-            android:textSize="20sp"
+            android:textSize="18sp"
             android:autoLink="all" />
     </RelativeLayout>
 

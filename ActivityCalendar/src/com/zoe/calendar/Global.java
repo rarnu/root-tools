@@ -13,7 +13,10 @@ public class Global {
 	public static LocationProvider locProvider = null;
 	public static BDLocation location = null;
 	public static boolean synced = false;
-	
+
 	public static long newTimestamp = 0;
+	public static long newAllTimestamp = 0;
+
+	public static String iconFilePath = "";
 
 }

@@ -8,6 +8,15 @@
         android:minSdkVersion="14"
         android:targetSdkVersion="15" />
 
+    <permission
+        android:name="com.zoe.permission"
+        android:description="@string/permission_desc"
+        android:label="@string/permission_title"
+        android:permissionGroup="android.permission-group.APP_INFO"
+        android:protectionLevel="normal" >
+    </permission>
+
+    <uses-permission android:name="com.zoe.permission" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
@@ -77,6 +86,12 @@
         </activity>
         <activity
             android:name=".dialog.WeatherDialog"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".dialog.ShareDialog"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
             android:windowSoftInputMode="stateAlwaysHidden" >

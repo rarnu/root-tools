@@ -108,7 +108,7 @@
     <string name="restore_slide">滑动项目可以还原活动</string>
     <string name="settings_send">发送</string>
     <string name="settings_no_feedback">写点什么吧,空的不能发送哦～</string>
-    <string name="settings_sent">已发送反馈,感谢支持哦～</string>
+    <string name="settings_sent">已经发送，我会认真读，多谢你：）</string>
     
 	<string name="motion_title">我的运动</string>
 	<string name="ab_loading">正在加载...</string>
@@ -137,6 +137,13 @@
 	<string name="motion_today">今天</string>
 	<string name="motion_past">过去</string>
 	<string name="motion_first_day" formatted="false">%d月%d日</string>
+	
+	<string name="share_title">分享给朋友</string>
+	<string name="share_back">返回</string>
+	<string name="share_not_install" formatted="false">没有安装%s，请先安装再分享哦～</string>
+	
+	<string name="permission_title">权限说明</string>
+	<string name="permission_desc">活动日历的权限描述</string>
 	
 	<string name="crash_terminate">非常抱歉，软件出现了重大错误，即将被关闭，您可以重启本软件，然后将错误反馈给我们</string>
 </resources>

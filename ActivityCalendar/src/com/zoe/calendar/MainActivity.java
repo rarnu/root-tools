@@ -1,19 +1,25 @@
 package com.zoe.calendar;
 
+import java.io.File;
+
 import android.app.Fragment;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.Bitmap.CompressFormat;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 
+import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BaseSlidingActivity;
 import com.rarnu.devlib.component.SlidingMenu;
+import com.rarnu.utils.ImageUtils;
 import com.rarnu.utils.UIUtils;
 import com.zoe.calendar.classes.UpdateInfo;
 import com.zoe.calendar.common.Config;
 import com.zoe.calendar.dialog.UpdateDialog;
 import com.zoe.calendar.fragment.LeftMenuFragment;
 import com.zoe.calendar.fragment.MainFragment;
-import com.zoe.calendar.fragment.RightMotionFragment;
 import com.zoe.calendar.utils.APIUtils;
 import com.zoe.calendar.utils.APIUtils.UpdateCallback;
 
@@ -34,7 +40,7 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 		if (Global.city.equals("")) {
 			startActivityForResult(new Intent(this, CityActivity.class), 0);
 		}
-
+		extractIconT();
 		initUpdate();
 	}
 
@@ -46,6 +52,28 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 
 	private void initUpdate() {
 		APIUtils.checkUpdate(this, this);
+	}
+
+	private void extractIconT() {
+		Global.iconFilePath = "/data/data/" + getPackageName()
+				+ "/files/icon.png";
+		if (!new File(Global.iconFilePath).exists()) {
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					Bitmap eIco = BitmapFactory.decodeResource(getResources(),
+							R.drawable.ic_launcher);
+
+					ImageUtils.saveBitmapToFile(eIco, Global.iconFilePath,
+							CompressFormat.PNG);
+
+					RootUtils.runCommand("chmod 644 " + Global.iconFilePath,
+							false);
+
+				}
+			}).start();
+		}
 	}
 
 	@Override
@@ -85,7 +113,7 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 
 	@Override
 	public Fragment replaceSecondMenuFragment() {
-		return new RightMotionFragment(getString(R.tag.fragment_right_motion));
+		return null;
 	}
 
 	@Override
@@ -105,7 +133,7 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 
 	@Override
 	public int getSlideMode() {
-		return SlidingMenu.LEFT_RIGHT;
+		return SlidingMenu.LEFT;
 	}
 
 	@Override

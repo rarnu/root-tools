@@ -76,6 +76,22 @@ public class DragController extends FloatViewManager implements
 		setDragInitMode(dragInitMode);
 	}
 
+	public int getTouchSlop() {
+		return mTouchSlop;
+	}
+
+	public void setTouchSlop(int touchSlop) {
+		mTouchSlop = touchSlop;
+	}
+
+	public float getFlingSpeed() {
+		return mFlingSpeed;
+	}
+
+	public void setFlingSpeed(float flingSpeed) {
+		mFlingSpeed = flingSpeed;
+	}
+
 	public int getDragInitMode() {
 		return mDragInitMode;
 	}

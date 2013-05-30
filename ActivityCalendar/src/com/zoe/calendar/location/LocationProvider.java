@@ -35,7 +35,7 @@ public class LocationProvider implements BDLocationListener, MKSearchListener {
 		mSearch.init(ActivityApplication.getInstance().mBMapManager, this);
 
 		LocationClientOption option = new LocationClientOption();
-		option.setOpenGps(true);
+		option.setOpenGps(false);
 		option.setCoorType("bd09ll");
 		option.setScanSpan(5000);
 		option.setPoiExtraInfo(true);
@@ -49,7 +49,6 @@ public class LocationProvider implements BDLocationListener, MKSearchListener {
 	}
 
 	public void close() {
-
 		mLocClient.stop();
 	}
 

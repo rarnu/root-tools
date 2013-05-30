@@ -15,6 +15,7 @@ import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.classes.GoogleCalendar;
 import com.zoe.calendar.common.MenuIds;
 import com.zoe.calendar.dialog.EventDialog;
+import com.zoe.calendar.dialog.ShareDialog;
 import com.zoe.calendar.utils.GoogleCalendarUtils;
 
 public class DetailFragment extends BaseTabFragment {
@@ -93,7 +94,8 @@ public class DetailFragment extends BaseTabFragment {
 			}
 			break;
 		case MenuIds.MENU_SHARE:
-			// TODO: share event
+			// share event
+			startActivity(new Intent(getActivity(), ShareDialog.class));
 			break;
 		}
 		return super.onOptionsItemSelected(item);

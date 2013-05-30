@@ -55,6 +55,9 @@ public class RestoreFragment extends BaseFragment implements RemoveListener {
 		mController.setDragInitMode(DragController.ON_DRAG);
 		mController.setRemoveMode(DragController.FLING_REMOVE);
 		mController.setBackgroundColor(0x110099CC);
+		mController.setTouchSlop(100);
+		mController.setFlingSpeed(2000f);
+
 		lvRestore.setFloatViewManager(mController);
 		lvRestore.setDragEnabled(true);
 		listActivity = new ArrayList<ActivityItem>();

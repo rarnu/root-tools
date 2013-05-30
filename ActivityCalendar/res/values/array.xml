@@ -4,6 +4,7 @@
         <item>首页</item>
         <item>城市</item>
         <item>设置</item>
+        <item>反馈</item>
     </string-array>
     
     <string-array name="settings_types">
@@ -15,5 +16,27 @@
         <item>电影</item>
         <item>科技</item>
         <item>其他</item>
+    </string-array>
+    
+    <string-array name="share_titles">
+        <item>Google+</item>
+        <item>新浪微博</item>
+        <item>微信</item>
+        <item>朋友圈</item>
+    </string-array>
+    <string-array name="share_pacakges">
+        <item>com.google.android.apps.plus</item>
+        <item>com.sina.weibo</item>
+        <item>com.tencent.mm</item>
+    </string-array>
+    <string-array name="share_classes">
+        <item></item>
+        <item></item>
+        <item>com.tencent.mm.ui.tools.ShareImgUI</item>
+    </string-array>
+    <string-array name="share_texts">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
     </string-array>
 </resources>

@@ -54,7 +54,7 @@ public class QueryUtils {
 				.query(ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
 						ActivityProvider.ACTION_TABLE_ACTIVITY),
 						null,
-						"city=? and year=? and ((start_month=? and start_day=?) or (end_month=? and end_day=?)) and status=?",
+						"(city='all' or city=?) and year=? and ((start_month=? and start_day=?) or (end_month=? and end_day=?)) and status=?",
 						new String[] { city, String.valueOf(year),
 								String.valueOf(month), String.valueOf(day),
 								String.valueOf(month), String.valueOf(day),
@@ -116,7 +116,7 @@ public class QueryUtils {
 			values.put("year", c.get(Calendar.YEAR));
 			values.put("month", c.get(Calendar.MONTH));
 			values.put("day", c.get(Calendar.DAY_OF_MONTH));
-			values.put("motion", 1);
+			values.put("motion", 0);
 			context.getContentResolver().insert(
 					ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
 							ActivityProvider.ACTION_TABLE_MOTION), values);
@@ -135,7 +135,7 @@ public class QueryUtils {
 				"year=? and month=? and day=?",
 				new String[] { String.valueOf(cal.get(Calendar.YEAR)),
 						String.valueOf(cal.get(Calendar.MONTH)),
-						String.valueOf(Calendar.DAY_OF_MONTH) });
+						String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) });
 	}
 
 	public static List<MotionItem> queryMotion(Context context)
@@ -164,7 +164,8 @@ public class QueryUtils {
 	}
 
 	public static boolean motionExists(Context context) throws Exception {
-		// TODO: cannot get riht status here
+		// cannot get riht status here
+
 		Calendar cal = Calendar.getInstance();
 		Cursor c = context.getContentResolver().query(
 				ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
@@ -173,7 +174,7 @@ public class QueryUtils {
 				"year=? and month=? and day=?",
 				new String[] { String.valueOf(cal.get(Calendar.YEAR)),
 						String.valueOf(cal.get(Calendar.MONTH)),
-						String.valueOf(Calendar.DAY_OF_MONTH) }, null);
+						String.valueOf(cal.get(Calendar.DAY_OF_MONTH)) }, null);
 		boolean ret = false;
 		if (c != null) {
 			c.moveToFirst();

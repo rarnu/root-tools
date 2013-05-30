@@ -118,14 +118,15 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		mController.setDragInitMode(DragController.ON_DRAG);
 		mController.setRemoveMode(DragController.FLING_REMOVE);
 		mController.setBackgroundColor(0x110099CC);
+		mController.setTouchSlop(100);
+		mController.setFlingSpeed(2000f);
+
 		lvCalender.setFloatViewManager(mController);
 		lvCalender.setDragEnabled(true);
 		listActivity = new ArrayList<ActivityItem>();
 		adapterActivity = new ActivityAdapter(getActivity(), listActivity);
 		lvCalender.setAdapter(adapterActivity);
-
 		initActionBar();
-
 	}
 
 	private void initActionBar() {
@@ -133,8 +134,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		actionBarView = LayoutInflater.from(getActivity()).inflate(
 				R.layout.actionbar_custom, null);
 		ActionBar.LayoutParams alp = new ActionBar.LayoutParams(
-				ActionBar.LayoutParams.WRAP_CONTENT,
-				ActionBar.LayoutParams.WRAP_CONTENT);
+				UIUtils.dipToPx(150), UIUtils.getActionBarHeight());
 		alp.gravity = Gravity.END;
 		int flags = ActionBar.DISPLAY_SHOW_CUSTOM;
 		int change = bar.getDisplayOptions() ^ flags;
@@ -358,7 +358,6 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			adapterActivity.notifyDataSetChanged();
 			ivTrash.setVisibility(View.VISIBLE);
 			changeAtivityHintStatus(pointedDay);
-			// TODO: toast hint
 		} catch (Exception e) {
 
 		}
@@ -461,12 +460,20 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 				msg.what = 1;
 				List<ActivityItem> newList = APIUtils.downloadData(
 						getActivity(), Global.city_pinyin);
+				List<ActivityItem> newAllList = APIUtils.downloadData(
+						getActivity(), "all");
+				if (newList != null && newAllList != null) {
+					newList.addAll(newAllList);
+				}
 				if (newList != null) {
 					try {
 						QueryUtils.mergeData(getActivity(), newList);
 						Config.setLastTimestamp(getActivity(),
 								Global.city_pinyin, Global.newTimestamp);
+						Config.setLastTimestamp(getActivity(), "all",
+								Global.newAllTimestamp);
 						Global.newTimestamp = 0L;
+						Global.newAllTimestamp = 0L;
 					} catch (Exception e) {
 
 					}
