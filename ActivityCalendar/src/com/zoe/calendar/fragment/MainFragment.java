@@ -134,7 +134,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		actionBarView = LayoutInflater.from(getActivity()).inflate(
 				R.layout.actionbar_custom, null);
 		ActionBar.LayoutParams alp = new ActionBar.LayoutParams(
-				UIUtils.dipToPx(150), UIUtils.getActionBarHeight());
+				UIUtils.dipToPx(120), UIUtils.getActionBarHeight());
 		alp.gravity = Gravity.END;
 		int flags = ActionBar.DISPLAY_SHOW_CUSTOM;
 		int change = bar.getDisplayOptions() ^ flags;

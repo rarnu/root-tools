@@ -1,14 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="120dip"
-    android:layout_height="?android:attr/actionBarSize"
-    android:paddingRight="8dip" >
+    android:layout_height="?android:attr/actionBarSize" >
+
+    <Button
+        android:id="@+id/btnSync"
+        android:layout_width="40dip"
+        android:layout_height="40dip"
+        android:layout_centerVertical="true"
+        android:background="@drawable/btn_sync_style"
+        android:padding="8dip"
+        android:scaleType="centerInside" />
 
     <RelativeLayout
         android:id="@+id/layWeather"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_toLeftOf="@+id/btnSync"
+        android:layout_toRightOf="@+id/btnSync"
         android:paddingBottom="4dip"
         android:paddingLeft="8dip"
         android:paddingRight="8dip"
@@ -33,15 +41,5 @@
             android:textColor="?android:attr/textColorPrimary"
             android:textSize="10sp" />
     </RelativeLayout>
-
-    <Button
-        android:id="@+id/btnSync"
-        android:layout_width="40dip"
-        android:layout_height="40dip"
-        android:layout_alignParentRight="true"
-        android:layout_centerVertical="true"
-        android:background="@drawable/btn_sync_style"
-        android:padding="8dip"
-        android:scaleType="centerInside" />
 
 </RelativeLayout>

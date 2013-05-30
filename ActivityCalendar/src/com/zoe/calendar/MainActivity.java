@@ -27,6 +27,7 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
+		Global.synced = false;
 		UIUtils.initDisplayMetrics(this, getWindowManager(), false);
 		super.onCreate(savedInstanceState);
 		APIUtils.init(this);

@@ -29,6 +29,7 @@ public class ActivityAdapter extends BaseAdapter<ActivityItem> {
 			holder.tvLeftBLock = (TextView) v.findViewById(R.id.tvLeftBLock);
 			holder.tvTime = (TextView) v.findViewById(R.id.tvTime);
 			holder.tvTitle = (TextView) v.findViewById(R.id.tvTitle);
+
 			v.setTag(holder);
 		}
 		ActivityItem item = list.get(position);

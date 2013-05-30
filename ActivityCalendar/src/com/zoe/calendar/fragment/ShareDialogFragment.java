@@ -69,7 +69,7 @@ public class ShareDialogFragment extends BaseDialogFragment implements
 		}
 		adapter = new ShareAdapter(getActivity(), list);
 		lvShare.setAdapter(adapter);
-		UIUtils.makeListViewFullSize(lvShare, UIUtils.dipToPx(52));
+		UIUtils.makeListViewFullSize(lvShare, UIUtils.dipToPx(48));
 	}
 
 	@Override

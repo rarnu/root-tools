@@ -7,6 +7,10 @@ public class Global {
 
 	public static String city = "";
 	public static String city_pinyin = "";
+	
+	// weather state
+	public static long last_weather_timestamp = 0L;
+	
 
 	public static boolean[] settingTypes = new boolean[8];
 

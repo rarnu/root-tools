@@ -19,9 +19,9 @@
         android:layout_below="@+id/tvLocatedCity"
         android:gravity="left|center_vertical"
         android:paddingLeft="16dip"
+        android:text="@string/city_locating"
         android:textColor="#FF666666"
-        android:textSize="20sp"
-        android:text="@string/city_locating" />
+        android:textSize="20sp" />
 
     <TextView
         android:id="@+id/tvSelectCity"
@@ -37,8 +37,8 @@
         android:id="@+id/etCityFilter"
         android:layout_width="match_parent"
         android:layout_height="48dip"
-        android:gravity="left|bottom"
         android:layout_below="@+id/tvSelectCity"
+        android:gravity="left|bottom"
         android:hint="@string/city_filter_hint"
         android:maxLines="1"
         android:singleLine="true"
@@ -49,6 +49,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/etCityFilter"
+        android:cacheColorHint="@color/transparent"
         android:divider="@null"
         android:dividerHeight="1dip"
         android:fastScrollEnabled="true" >

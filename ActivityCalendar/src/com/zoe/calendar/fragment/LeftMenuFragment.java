@@ -51,6 +51,67 @@ public class LeftMenuFragment extends BaseFragment implements
 
 	int positionEater = 0;
 
+	Handler hShining = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				int idx = msg.arg1;
+				if (idx == 0) {
+					if (positionEater != 9) {
+						ivEat[9].setImageResource(R.drawable.bean);
+					}
+					if (positionEater != 0) {
+						ivEat[0].setImageResource(R.drawable.bean_gray_light);
+					}
+				} else {
+					if (idx != positionEater) {
+						if (idx < positionEater) {
+							ivEat[idx - 1]
+									.setImageResource(R.drawable.bean_gray);
+							ivEat[idx]
+									.setImageResource(R.drawable.bean_gray_light);
+						} else {
+							ivEat[idx].setImageResource(R.drawable.bean_light);
+							if ((idx - 1) != positionEater) {
+								ivEat[idx - 1]
+										.setImageResource(R.drawable.bean);
+							}
+						}
+					} else {
+						ivEat[idx - 1].setImageResource(R.drawable.bean_gray);
+
+					}
+				}
+
+			}
+			super.handleMessage(msg);
+		}
+	};
+
+	Thread tShining = new Thread(new Runnable() {
+
+		@Override
+		public void run() {
+			int shiningId = 0;
+			Message msg = null;
+			while (true) {
+				try {
+					Thread.sleep(200);
+				} catch (Exception e) {
+
+				}
+				msg = hShining.obtainMessage(1, shiningId, 0);
+				hShining.sendMessage(msg);
+
+				shiningId++;
+				if (shiningId > 9) {
+					shiningId = 0;
+				}
+			}
+
+		}
+	});
+
 	public LeftMenuFragment(String tag) {
 		super(tag, "");
 	}
@@ -289,69 +350,22 @@ public class LeftMenuFragment extends BaseFragment implements
 	}
 
 	private void startShiningThread() {
-		final Handler hShining = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					// ------x---
-					// 0123456789
-					int idx = msg.arg1;
-					if (idx == 0) {
-						if (positionEater != 9) {
-							ivEat[9].setImageResource(R.drawable.bean);
-						}
-						if (positionEater != 0) {
-							ivEat[0].setImageResource(R.drawable.bean_light);
-						}
-					} else {
-						if (idx != positionEater) {
-							if (idx < positionEater) {
-								ivEat[idx - 1]
-										.setImageResource(R.drawable.bean_gray);
-								ivEat[idx]
-										.setImageResource(R.drawable.bean_light);
-							} else {
-								ivEat[idx]
-										.setImageResource(R.drawable.bean_light);
-								if ((idx - 1) != positionEater) {
-									ivEat[idx - 1]
-											.setImageResource(R.drawable.bean);
-								}
-							}
-						} else {
-							ivEat[idx - 1]
-									.setImageResource(R.drawable.bean_gray);
 
-						}
-					}
+		if (!tShining.isAlive()) {
+			tShining.start();
+		}
+	}
 
-				}
-				super.handleMessage(msg);
-			}
-		};
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				int shiningId = 0;
-				Message msg = null;
-				while (true) {
-					try {
-						Thread.sleep(200);
-					} catch (Exception e) {
-
-					}
-					msg = hShining.obtainMessage(1, shiningId, 0);
-					hShining.sendMessage(msg);
-
-					shiningId++;
-					if (shiningId > 9) {
-						shiningId = 0;
-					}
-				}
+	@Override
+	public void onDestroy() {
+		if (tShining.isAlive()) {
+			try {
+				tShining.interrupt();
+			} catch (Exception e) {
 
 			}
-		}).start();
+		}
+		super.onDestroy();
 	}
 
 }

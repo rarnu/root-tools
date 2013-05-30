@@ -26,6 +26,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/vpCalendar"
         android:layout_marginTop="4dip"
+        android:cacheColorHint="@color/transparent"
         android:divider="@null"
         android:dividerHeight="1dip" />
 

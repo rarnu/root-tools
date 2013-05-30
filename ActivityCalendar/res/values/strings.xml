@@ -7,7 +7,6 @@
     <string name="city_name">选择城市</string>
     <string name="restore_name">已删除的活动</string>
     <string name="feedback_name">用户反馈</string>
-    
     <string name="chineseNumber1">一</string>
     <string name="chineseNumber2">二</string>
     <string name="chineseNumber3">三</string>
@@ -84,13 +83,11 @@
     <string name="christmas_day">圣诞节</string>
     <string name="month">月</string>
     <string name="zheng">正</string>
-    
     <string name="menu_map">地图</string>
     <string name="menu_url">链接</string>
     <string name="menu_share">分享</string>
     <string name="menu_calendar">日历</string>
     <string name="menu_activity">信息</string>
-    
     <string name="toast_no_google_account">没有找到 Google 帐号,无法添加事件</string>
     <string name="toast_google_calendar">没有安装 Google Calendar</string>
     <string name="city_located">定位到的城市</string>
@@ -98,7 +95,6 @@
     <string name="city_filter_hint">输入城市名称或拼音来过滤</string>
     <string name="city_not_found">没有定位到城市</string>
     <string name="city_locating">正在定位...</string>
-    
     <string name="settings_type">活动类型</string>
     <string name="settings_on">ON</string>
     <string name="settings_off">OFF</string>
@@ -109,41 +105,33 @@
     <string name="settings_send">发送</string>
     <string name="settings_no_feedback">写点什么吧,空的不能发送哦～</string>
     <string name="settings_sent">已经发送，我会认真读，多谢你：）</string>
-    
-	<string name="motion_title">我的运动</string>
-	<string name="ab_loading">正在加载...</string>
-	
-	<string name="weather_cannot_get">无法获取天气</string>
-	<string name="weather_snow">雪</string>
-	<string name="weather_rain">雨</string>
-	<string name="weather_cloud">阴</string>
-	<string name="weather_sunny">晴</string>
-	
-	<string name="update_hint">发现新版本</string>
-	<string name="update_text">活动日历有新版本了,更多有趣更多实用,赶紧下载吧～</string>
-	<string name="update_ok">升级</string>
-	<string name="update_cancel">取消</string>
-	<string name="update_no_url">没有找到下载链接，升级已取消</string>
-	
-	<string name="event_hint">日历</string>
-	<string name="event_added">已添加当前活动到日历</string>
-	<string name="event_deleted">已从日历中移除当前活动</string>
-	<string name="event_ok">确定</string>
-	
-	<string name="weather_hint">今天天气</string>
-	<string name="weather_desc_fmt" formatted="false">天气: %s\n气温: %s\n风向: %s\n感觉: %s\n建议: %s</string>
-	
-	<string name="motion_count">今天的运动量是?</string>
-	<string name="motion_today">今天</string>
-	<string name="motion_past">过去</string>
-	<string name="motion_first_day" formatted="false">%d月%d日</string>
-	
-	<string name="share_title">分享给朋友</string>
-	<string name="share_back">返回</string>
-	<string name="share_not_install" formatted="false">没有安装%s，请先安装再分享哦～</string>
-	
-	<string name="permission_title">权限说明</string>
-	<string name="permission_desc">活动日历的权限描述</string>
-	
-	<string name="crash_terminate">非常抱歉，软件出现了重大错误，即将被关闭，您可以重启本软件，然后将错误反馈给我们</string>
+    <string name="motion_title">我的运动</string>
+    <string name="ab_loading">未知天气</string>
+    <string name="weather_cannot_get">未知天气</string>
+    <string name="weather_snow">雪</string>
+    <string name="weather_rain">雨</string>
+    <string name="weather_cloud">阴</string>
+    <string name="weather_sunny">晴</string>
+    <string name="update_hint">发现新版本</string>
+    <string name="update_text">活动日历有新版本了,更多有趣更多实用,赶紧下载吧～</string>
+    <string name="update_ok">升级</string>
+    <string name="update_cancel">取消</string>
+    <string name="update_no_url">没有找到下载链接，升级已取消</string>
+    <string name="event_hint">日历</string>
+    <string name="event_added">已添加当前活动到日历</string>
+    <string name="event_deleted">已从日历中移除当前活动</string>
+    <string name="event_ok">确定</string>
+    <string name="weather_hint">今天天气</string>
+    <string name="weather_desc_fmt" formatted="false">天气: %s\n气温: %s\n风向: %s\n感觉: %s\n建议: %s</string>
+    <string name="motion_count">今天的运动量是?</string>
+    <string name="motion_today">今天</string>
+    <string name="motion_past">过去</string>
+    <string name="motion_first_day" formatted="false">%d月%d日</string>
+    <string name="share_title">分享给朋友</string>
+    <string name="share_back">返回</string>
+    <string name="share_not_install" formatted="false">没有安装%s，请先安装再分享哦～</string>
+    <string name="permission_title">权限说明</string>
+    <string name="permission_desc">活动日历的权限描述</string>
+    <string name="crash_terminate">非常抱歉，软件出现了重大错误，即将被关闭，您可以重启本软件，然后将错误反馈给我们</string>
+
 </resources>
