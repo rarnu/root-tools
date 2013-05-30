@@ -18,11 +18,12 @@
         android:layout_width="match_parent"
         android:layout_height="100dip"
         android:layout_below="@+id/tvHint"
+        android:layout_marginTop="8dip"
         android:cacheColorHint="@color/transparent"
         android:divider="@color/gray"
         android:dividerHeight="1dip"
-        android:paddingLeft="16dip"
-        android:paddingRight="16dip" />
+        android:paddingLeft="8dip"
+        android:paddingRight="8dip" />
 
     <LinearLayout
         android:id="@+id/layButtons"
