@@ -12,6 +12,8 @@ public class Config {
 	private static final String KEY_SETTING_TYPE = "key_setting_type_%d";
 	private static final String KEY_MOTION = "key_motion_%d";
 	private static final String KEY_LAST_WEATHER_TIMESTAMP = "key_last_weather_timestamp";
+	private static final String KEY_LAST_WEATHER_STRING = "key_last_weather_string";
+	private static final String KEY_LAST_WEATHER_TEMP = "key_last_weather_temp";
 
 	public static String getCity(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_CITY, "");
@@ -69,5 +71,27 @@ public class Config {
 			long value) {
 		ConfigUtils.setLongConfig(context, KEY_LAST_WEATHER_TIMESTAMP + "_"
 				+ city, value);
+	}
+
+	public static String getLastWeatherString(Context context, String city) {
+		return ConfigUtils.getStringConfig(context, KEY_LAST_WEATHER_STRING
+				+ "_" + city, "");
+	}
+
+	public static void setLastWeatherString(Context context, String city,
+			String value) {
+		ConfigUtils.setStringConfig(context, KEY_LAST_WEATHER_STRING + "_"
+				+ city, value);
+	}
+
+	public static String getLastWeatherTemp(Context context, String city) {
+		return ConfigUtils.getStringConfig(context, KEY_LAST_WEATHER_TEMP + "_"
+				+ city, "");
+	}
+
+	public static void setLastWeatherTemp(Context context, String city,
+			String value) {
+		ConfigUtils.setStringConfig(context,
+				KEY_LAST_WEATHER_TEMP + "_" + city, value);
 	}
 }

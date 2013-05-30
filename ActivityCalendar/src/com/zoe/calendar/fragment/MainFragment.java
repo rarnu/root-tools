@@ -51,6 +51,7 @@ import com.zoe.calendar.utils.APIUtils;
 import com.zoe.calendar.utils.APIUtils.WeatherCallback;
 import com.zoe.calendar.utils.AnimateUtils;
 import com.zoe.calendar.utils.CityUtils;
+import com.zoe.calendar.utils.WeatherUtils;
 
 public class MainFragment extends BaseFragment implements OnCalendarChange,
 		DayClickListener, RemoveListener, OnItemClickListener, OnClickListener,
@@ -495,9 +496,22 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	public void onGetWeather(WeatherInfo weather) {
 		this.weather = weather;
 		if (weather == null) {
-			noWeatherInfo();
+			weather = WeatherUtils.loadLocalWeather(getActivity());
+			this.weather = weather;
+			if (weather == null) {
+				noWeatherInfo();
+			} else {
+				if (tvTemp != null) {
+					tvTemp.setText(weather.temp);
+				}
+				showWeatherImage();
+			}
 			return;
 		}
+
+		WeatherUtils.saveWeather(getActivity(), weather,
+				System.currentTimeMillis());
+
 		if (tvTemp != null) {
 			tvTemp.setText(weather.temp);
 		}

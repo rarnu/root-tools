@@ -10,7 +10,8 @@ public class Global {
 	
 	// weather state
 	public static long last_weather_timestamp = 0L;
-	
+	public static String last_weather_string = "";
+	public static String last_weather_temp = "";
 
 	public static boolean[] settingTypes = new boolean[8];
 

@@ -12,8 +12,19 @@ public class DateUtils {
 		return millisecondsToDays(intervalMs);
 	}
 
+	public static int hoursBetween(Calendar cNow, Calendar cReturnHour) {
+		long nowMs = cNow.getTimeInMillis();
+		long returnMs = cReturnHour.getTimeInMillis();
+		long intervalMs = nowMs - returnMs;
+		return millissecondsToHours(intervalMs);
+	}
+
 	private static int millisecondsToDays(long intervalMs) {
 		return (int) (intervalMs / (1000 * 86400));
+	}
+
+	private static int millissecondsToHours(long intervalMs) {
+		return (int) (intervalMs / (1000 * 3600));
 	}
 
 	private static void setTimeToMidnight(Calendar calendar) {
