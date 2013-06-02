@@ -2,6 +2,7 @@ package com.zoe.calendar.location;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.baidu.location.BDLocation;
 import com.baidu.location.BDLocationListener;
@@ -57,7 +58,11 @@ public class LocationProvider implements BDLocationListener, MKSearchListener {
 		Global.location = loc;
 		if (loc != null) {
 			if (Global.city == null || Global.city.equals("")) {
-				Global.city = loc.getCity();
+				if ((loc.getCity() != null) && (!loc.getCity().equals(""))) {
+					Log.e("onReceiveLocation", "setCityName");
+					// Global.city = loc.getCity();
+					close();
+				}
 			}
 			mContext.sendBroadcast(new Intent(Actions.ACTION_RECEIVE_LOCATION));
 		}

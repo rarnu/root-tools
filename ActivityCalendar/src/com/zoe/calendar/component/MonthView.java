@@ -79,19 +79,15 @@ public class MonthView extends GridView implements OnItemClickListener {
 	}
 
 	public void changeSelection(final int index, final int position) {
-		post(new Runnable() {
-			@Override
-			public void run() {
-				for (int i = 0; i < days.lstDays.size(); i++) {
-					if (index != monthIndex) {
-						days.lstDays.get(i).selected = false;
-					} else {
-						days.lstDays.get(i).selected = (i == position);
-					}
-				}
-				adapter.notifyDataSetChanged();
+
+		for (int i = 0; i < days.lstDays.size(); i++) {
+			if (index != monthIndex) {
+				days.lstDays.get(i).selected = false;
+			} else {
+				days.lstDays.get(i).selected = (i == position);
 			}
-		});
+		}
+		adapter.notifyDataSetChanged();
 
 	}
 

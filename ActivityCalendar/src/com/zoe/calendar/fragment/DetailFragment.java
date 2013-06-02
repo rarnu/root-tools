@@ -95,7 +95,8 @@ public class DetailFragment extends BaseTabFragment {
 			break;
 		case MenuIds.MENU_SHARE:
 			// share event
-			startActivity(new Intent(getActivity(), ShareDialog.class));
+			startActivity(new Intent(getActivity(), ShareDialog.class)
+					.putExtra("item", actItem));
 			break;
 		}
 		return super.onOptionsItemSelected(item);

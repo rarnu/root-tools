@@ -21,6 +21,7 @@ import com.rarnu.utils.UIUtils;
 import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.adapter.ShareAdapter;
+import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.classes.ShareItem;
 
 public class ShareDialogFragment extends BaseDialogFragment implements
@@ -30,6 +31,7 @@ public class ShareDialogFragment extends BaseDialogFragment implements
 	Button btnBack;
 	ShareAdapter adapter;
 	List<ShareItem> list;
+	ActivityItem actItem;
 
 	public ShareDialogFragment(String tag) {
 		super(tag);
@@ -117,12 +119,14 @@ public class ShareDialogFragment extends BaseDialogFragment implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		ShareItem item = list.get(position);
+		actItem = (ActivityItem) getActivity().getIntent()
+				.getSerializableExtra("item");
 		Intent inShare = new Intent(Intent.ACTION_SEND);
 		inShare.setType("image/*");
 
 		inShare.putExtra(Intent.EXTRA_STREAM,
 				Uri.fromFile(new File(Global.iconFilePath)));
-		inShare.putExtra(Intent.EXTRA_TEXT, item.text);
+		inShare.putExtra(Intent.EXTRA_TEXT, item.text + actItem.url);
 		inShare.setPackage(item.packageName);
 		if ((item.className != null) && (!item.className.equals(""))) {
 			inShare.setClassName(item.packageName, item.className);

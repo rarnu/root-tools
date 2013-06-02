@@ -13,6 +13,7 @@ public class EventDialog extends BaseDialog {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setFinishOnTouchOutside(false);
+		setTitle(R.string.event_hint);
 	}
 	
 	@Override

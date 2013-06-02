@@ -7,6 +7,7 @@
     <string name="city_name">选择城市</string>
     <string name="restore_name">已删除的活动</string>
     <string name="feedback_name">用户反馈</string>
+    <string name="submit_name">提交活动</string>
     <string name="chineseNumber1">一</string>
     <string name="chineseNumber2">二</string>
     <string name="chineseNumber3">三</string>
@@ -132,6 +133,37 @@
     <string name="share_not_install" formatted="false">没有安装%s，请先安装再分享哦～</string>
     <string name="permission_title">权限说明</string>
     <string name="permission_desc">活动日历的权限描述</string>
+    
+    <string name="submit_title">标题</string>
+    <string name="submit_location">地址</string>
+    <string name="submit_start_datetime">开始</string>
+    <string name="submit_end_datetime">结束</string>
+    <string name="submit_url">链接</string>
+    <string name="submit_weight">人数</string>
+    <string name="submit_tags">标签</string>
+    <string name="submit_content">正文</string>
+    <string name="submit_tags_hint">标签之间以空格或逗号隔开</string>
+    <string name="submit_not_ready">提交活动的功能暂未开放, 请等待新版本</string>
+    <string name="subit_sel_date">点击选择日期</string>
+    <string name="submit_sel_time">点击选择时间</string>
+	<string name="submit_source">用户提交</string>
+	<string name="submit_must_fill">必须填写</string>
+	<string name="submit_must_has_title">必须填写标题</string>
+	<string name="submit_must_has_url">必须填写链接</string>
+	<string name="submit_must_has_datetime">必须选择起止时间</string>
+	<string name="submit_must_has_tags">必须选择至少一个标签</string>
+	<string name="submit_must_has_content">必须填写活动内容</string>
+	<string name="submit_done">活动已提交, 感谢您对活动日历的支持</string>
+	
+	<string name="tag_title">选择标签</string>
+	<string name="tag_close">关闭</string>
+	<string name="tag_already_added">标签已存在, 不能重复添加</string>
+	<string name="tag_too_much">一个活动最多只能拥有3个标签</string>
+	<string name="tag_other">其他</string>
+    
+    <string name="hint">提示</string>
+    <string name="isee">我知道了</string>
+    
     <string name="crash_terminate">非常抱歉，软件出现了重大错误，即将被关闭，您可以重启本软件，然后将错误反馈给我们</string>
 
 </resources>

@@ -17,8 +17,17 @@
             android:layout_toRightOf="@+id/ivLogo"
             android:gravity="left|center_vertical"
             android:paddingLeft="8dip"
+            android:text="@string/app_name"
             android:textColor="?android:attr/textColorPrimaryInverse"
             android:textSize="18dp" />
+
+        <Button
+            android:id="@+id/btnAddActivity"
+            android:layout_width="40dip"
+            android:layout_height="40dip"
+            android:layout_alignParentRight="true"
+            android:layout_margin="4dip"
+            android:background="@android:drawable/ic_menu_add" />
     </RelativeLayout>
 
     <ListView

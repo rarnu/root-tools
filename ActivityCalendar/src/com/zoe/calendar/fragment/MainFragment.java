@@ -12,6 +12,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -119,8 +120,8 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		mController.setDragInitMode(DragController.ON_DRAG);
 		mController.setRemoveMode(DragController.FLING_REMOVE);
 		mController.setBackgroundColor(0x110099CC);
-		mController.setTouchSlop(100);
-		mController.setFlingSpeed(2000f);
+		mController.setTouchSlop(150);
+		mController.setFlingSpeed(500f);
 
 		lvCalender.setFloatViewManager(mController);
 		lvCalender.setDragEnabled(true);
@@ -214,12 +215,19 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	@Override
 	public void onResume() {
 		super.onResume();
+
+		if ((Global.city != null) && (!Global.city.equals(""))) {
+			Log.e("MainFragment onResume", Global.city);
+			bar.setTitle(Global.city);
+		}
 		if (!Global.synced) {
 			Global.synced = true;
 			downloadNewDataT();
 
 		}
+
 		initPointedDay(pointedDay);
+
 	}
 
 	private void initActivity() {
@@ -548,18 +556,20 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	}
 
 	private void showWeatherImage() {
-		if (ivWeather != null) {
-			String w = weather.weather;
-			if (w.contains(getString(R.string.weather_snow))) {
-				ivWeather.setImageResource(R.drawable.weather_4);
-			} else if (w.contains(getString(R.string.weather_rain))) {
-				ivWeather.setImageResource(R.drawable.weather_3);
-			} else if (w.contains(getString(R.string.weather_cloud))) {
-				ivWeather.setImageResource(R.drawable.weather_2);
-			} else {
-				ivWeather.setImageResource(R.drawable.weather_1);
-			}
+		if (isAdded()) {
+			if (ivWeather != null) {
+				String w = weather.weather;
+				if (w.contains(getString(R.string.weather_snow))) {
+					ivWeather.setImageResource(R.drawable.weather_4);
+				} else if (w.contains(getString(R.string.weather_rain))) {
+					ivWeather.setImageResource(R.drawable.weather_3);
+				} else if (w.contains(getString(R.string.weather_cloud))) {
+					ivWeather.setImageResource(R.drawable.weather_2);
+				} else {
+					ivWeather.setImageResource(R.drawable.weather_1);
+				}
 
+			}
 		}
 	}
 

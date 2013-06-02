@@ -1,6 +1,5 @@
 package com.zoe.calendar.utils;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,12 +12,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.rarnu.command.CommandResult;
-import com.rarnu.command.RootUtils;
 import com.rarnu.utils.DeviceUtilsLite;
-import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.HttpRequest;
 import com.zoe.calendar.Global;
+import com.zoe.calendar.R;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.classes.RemoteActivityItem;
 import com.zoe.calendar.classes.UpdateInfo;
@@ -28,26 +25,6 @@ import com.zoe.calendar.common.Config;
 public class APIUtils {
 
 	private static final String BASE_URL = "http://huodongrili.com/";
-	private static String CURL_PATH = "";
-
-	public static void init(final Context context) {
-		final String curlPath = "/data/data/" + context.getPackageName()
-				+ "/bin/";
-		if (!new File(curlPath).exists()) {
-			new File(curlPath).mkdirs();
-		}
-		CURL_PATH = curlPath + "curl";
-		if (!new File(CURL_PATH).exists()) {
-			new Thread(new Runnable() {
-
-				@Override
-				public void run() {
-					FileUtils.copyAssetFile(context, "curl", curlPath, null);
-					RootUtils.runCommand("chmod 755 " + CURL_PATH, false);
-				}
-			}).start();
-		}
-	}
 
 	public static List<ActivityItem> downloadData(final Context context,
 			final String city) {
@@ -95,6 +72,9 @@ public class APIUtils {
 								.getString(j)
 								+ "|";
 					}
+					if (tags.equals("")) {
+						tags = context.getString(R.string.tag_other) + "|";
+					}
 					ri.tags = tags;
 					list.add(ActivityItem.fromRemote(ri));
 
@@ -102,7 +82,7 @@ public class APIUtils {
 
 			}
 		} catch (Exception e) {
-			Log.e("downloadData:"+city, e.getMessage());
+
 		}
 
 		return list;
@@ -179,6 +159,36 @@ public class APIUtils {
 		}).start();
 	}
 
+	public static void submitNewActivity(final Context context,
+			final String title, final String location, final String url,
+			final String startDate, final String startTime,
+			final String endDate, final String endTime, final int weight,
+			final String[] tags, final String content, final String source) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				String json_fmt = "title:\"%s\",location:\"%s\",url:\"%s\",start_date:\"%s\",start_time:\"%s\",end_date:\"%s\",end_time:\"%s\",weight:%d,source:\"%s\",tags:[%s],content:\"%s\"";
+				String tagstr = "";
+				for (String s : tags) {
+					tagstr += String.format("\"%s\",", s);
+				}
+				if (tagstr.length() != 0 && tagstr.endsWith(",")) {
+					tagstr = tagstr.substring(0, tagstr.length() - 1);
+				}
+				String json = String.format(json_fmt, title, location, url,
+						startDate, startTime, endDate, endTime, weight, source,
+						tagstr, content);
+
+				// the temp method for submit a new activity
+				String device = DeviceUtilsLite.getDeviceUniqueId(context);
+				curl_feedback(json, device);
+
+			}
+		}).start();
+	}
+
 	public interface WeatherCallback {
 		void onGetWeather(WeatherInfo weather);
 	}
@@ -224,6 +234,7 @@ public class APIUtils {
 			if (jWeather != null) {
 				weather = new WeatherInfo();
 				weather.temp = jWeather.getString("temp1");
+				weather.temp = weather.temp.replace("℃", "") + "℃";
 				weather.weather = jWeather.getString("weather1");
 				weather.wind = jWeather.getString("wind1");
 				weather.index = jWeather.getString("index");
@@ -238,18 +249,16 @@ public class APIUtils {
 
 	private static String curl_feedback(String feedback, String deviceId) {
 		String ret = "";
-		if (new File(CURL_PATH).exists()) {
-			try {
-				String cmd = CURL_PATH
-						+ String.format(
-								" -d {\"data\":\"%s\",\"device_id\":\"%s\"} "
-										+ BASE_URL + "feedback/", feedback,
-								deviceId);
-				CommandResult cmdRet = RootUtils.runCommand(cmd, false);
-				ret = cmdRet.result;
-			} catch (Exception e) {
-
-			}
+		feedback = feedback.replace("\"", "\\\"").replace("/", "\\/");
+		try {
+			String data = String.format(
+					"{\"data\":\"%s\",\"device_id\":\"%s\"}", feedback,
+					deviceId);
+			ret = HttpRequest.simplePost(BASE_URL + "feedback/", data,
+					HTTP.UTF_8);
+			Log.e("curl_feedback", ret);
+		} catch (Exception e) {
+			Log.e("curl_feedback", e.getMessage());
 		}
 		return ret;
 	}

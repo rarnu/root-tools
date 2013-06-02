@@ -119,6 +119,8 @@ public class SettingsFragment extends BaseFragment implements
 		Global.settingTypes[position] = checked;
 		Config.setSettingType(getActivity(), position, checked);
 		adapterType.notifyDataSetChanged();
+
+		Global.filteredTagsString = Config.loadFiltedString(getActivity());
 	}
 
 }

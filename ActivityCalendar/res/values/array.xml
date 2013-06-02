@@ -10,11 +10,12 @@
     <string-array name="settings_types">
         <item>展览</item>
         <item>旅行</item>
-        <item>演讲</item>
+        <item>讲座</item>
         <item>运动</item>
         <item>阅读</item>
         <item>电影</item>
         <item>科技</item>
+        <item>演出</item>
         <item>其他</item>
     </string-array>
     <string-array name="share_titles">
@@ -33,9 +34,9 @@
         <item>com.tencent.mm.ui.tools.ShareImgUI</item>
     </string-array>
     <string-array name="share_texts">
-        <item>1</item>
-        <item>2</item>
-        <item>3</item>
+        <item>I Love it </item>
+        <item>这个貌似很有趣，我想去 </item>
+        <item>啊呜～我觉得这个不错 </item>
     </string-array>
 
 </resources>

@@ -25,24 +25,36 @@ import com.zoe.calendar.utils.APIUtils.UpdateCallback;
 
 public class MainActivity extends BaseSlidingActivity implements UpdateCallback {
 
+	// TODO: first start
+
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Global.synced = false;
 		UIUtils.initDisplayMetrics(this, getWindowManager(), false);
+
 		super.onCreate(savedInstanceState);
-		APIUtils.init(this);
+
 		Global.city = Config.getCity(this);
 		Global.city_pinyin = Config.getCityPinyin(this);
+
+		if (Global.city.equals("")) {
+			startActivityForResult(new Intent(this, CityActivity.class), 0);
+		}
+
+		if (Config.getIsFirstStart(this)) {
+			Config.setIsFirstStart(this, false);
+			startActivity(new Intent(this, NewbieActivity.class));
+		}
+
+		Global.filteredTagsString = Config.loadFiltedString(this);
 
 		for (int i = 0; i < Global.settingTypes.length; i++) {
 			Global.settingTypes[i] = Config.getSettingType(this, i);
 		}
 
-		if (Global.city.equals("")) {
-			startActivityForResult(new Intent(this, CityActivity.class), 0);
-		}
 		extractIconT();
 		initUpdate();
+
 	}
 
 	@Override
@@ -139,7 +151,7 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 
 	@Override
 	public int getIcon() {
-		return R.drawable.ic_launcher;
+		return R.drawable.ic_logo;
 	}
 
 	@Override

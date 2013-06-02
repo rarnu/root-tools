@@ -40,13 +40,14 @@
 
     <ImageView
         android:id="@+id/ivTrash"
-        android:layout_width="48dip"
-        android:layout_height="48dip"
+        android:layout_width="56dip"
+        android:layout_height="56dip"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
         android:layout_margin="8dip"
+        android:clickable="true"
         android:contentDescription="@null"
-        android:padding="4dip"
+        android:padding="8dip"
         android:src="@android:drawable/ic_menu_delete"
         android:visibility="gone" />
 

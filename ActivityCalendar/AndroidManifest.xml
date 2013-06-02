@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.zoe.calendar"
     android:versionCode="200000"
-    android:versionName="2.0" >
+    android:versionName="2.0.1" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -16,7 +16,6 @@
         android:protectionLevel="normal" >
     </permission>
 
-    <uses-permission android:name="com.zoe.permission" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.READ_CALENDAR" />
     <uses-permission android:name="android.permission.WRITE_CALENDAR" />
@@ -35,7 +34,15 @@
         android:allowBackup="true"
         android:icon="@drawable/ic_launcher"
         android:label="@string/app_name"
+        android:largeHeap="true"
         android:theme="@style/ZoeTheme" >
+        <meta-data
+            android:name="author"
+            android:value="rarnu" />
+        <meta-data
+            android:name="signature"
+            android:value="rarnu" />
+
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -73,27 +80,44 @@
             android:windowSoftInputMode="adjustResize" >
         </activity>
         <activity
+            android:name=".SubmitActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden|adjustResize" >
+        </activity>
+        <activity
             android:name=".dialog.UpdateDialog"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".dialog.EventDialog"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".dialog.WeatherDialog"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
         <activity
             android:name=".dialog.ShareDialog"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".dialog.TagDialog"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.Dialog"
+            android:windowSoftInputMode="stateAlwaysHidden" >
+        </activity>
+        <activity
+            android:name=".NewbieActivity"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.NoActionBar.Fullscreen"
             android:windowSoftInputMode="stateAlwaysHidden" >
         </activity>
 

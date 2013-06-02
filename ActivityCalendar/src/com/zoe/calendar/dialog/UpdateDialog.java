@@ -13,8 +13,9 @@ public class UpdateDialog extends BaseDialog {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setFinishOnTouchOutside(false);
+		setTitle(R.string.update_hint);
 	}
-	
+
 	@Override
 	public boolean getCondition() {
 		return false;

@@ -13,7 +13,7 @@ public class Global {
 	public static String last_weather_string = "";
 	public static String last_weather_temp = "";
 
-	public static boolean[] settingTypes = new boolean[8];
+	public static boolean[] settingTypes = new boolean[9];
 
 	public static LocationProvider locProvider = null;
 	public static BDLocation location = null;
@@ -23,5 +23,7 @@ public class Global {
 	public static long newAllTimestamp = 0;
 
 	public static String iconFilePath = "";
+	
+	public static String filteredTagsString = "";
 
 }

@@ -44,7 +44,7 @@
         android:singleLine="true"
         android:textSize="14sp" />
 
-    <ListView
+    <GridView
         android:id="@+id/lvCities"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -52,7 +52,8 @@
         android:cacheColorHint="@color/transparent"
         android:divider="@null"
         android:dividerHeight="1dip"
-        android:fastScrollEnabled="true" >
-    </ListView>
+        android:fastScrollEnabled="true"
+        android:numColumns="2" >
+    </GridView>
 
 </RelativeLayout>

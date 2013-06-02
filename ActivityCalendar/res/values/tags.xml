@@ -16,5 +16,9 @@
     <item name="fragment_event_dialog" type="tag">event_dialog_fragment</item>
     <item name="fragment_weather_dialog" type="tag">weather_dialog_fragment</item>
     <item name="fragment_share_dialog" type="tag">share_dialog_fragment</item>
+    <item name="fragment_tag_dialog" type="tag">tag_dialog_fragment</item>
+    <item name="fragment_not_implemented_dialog" type="tag">not_implemented_dialog_fragment</item>
+    <item name="fragment_newbie" type="tag">newbie_fragment</item>
+    <item name="fragment_submit" type="tag">submit_fragment</item>
 
 </resources>

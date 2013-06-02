@@ -5,15 +5,15 @@ import android.os.Bundle;
 
 import com.rarnu.devlib.base.BaseDialog;
 import com.zoe.calendar.R;
-import com.zoe.calendar.fragment.ShareDialogFragment;
+import com.zoe.calendar.fragment.TagDialogFrament;
 
-public class ShareDialog extends BaseDialog {
+public class TagDialog extends BaseDialog {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setFinishOnTouchOutside(false);
-		setTitle(R.string.share_title);
+		setTitle(R.string.tag_title);
 	}
 
 	@Override
@@ -23,7 +23,7 @@ public class ShareDialog extends BaseDialog {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new ShareDialogFragment(getString(R.tag.fragment_share_dialog));
+		return new TagDialogFrament(getString(R.tag.fragment_tag_dialog));
 	}
 
 }

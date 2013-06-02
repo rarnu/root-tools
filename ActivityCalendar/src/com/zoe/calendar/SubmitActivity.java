@@ -3,9 +3,9 @@ package com.zoe.calendar;
 import android.app.Fragment;
 
 import com.rarnu.devlib.base.BaseActivity;
-import com.zoe.calendar.fragment.CityFragment;
+import com.zoe.calendar.fragment.SubmitFragment;
 
-public class CityActivity extends BaseActivity {
+public class SubmitActivity extends BaseActivity {
 
 	@Override
 	public int getIcon() {
@@ -14,7 +14,7 @@ public class CityActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new CityFragment(getString(R.tag.fragment_city));
+		return new SubmitFragment(getString(R.tag.fragment_submit));
 	}
 
 }

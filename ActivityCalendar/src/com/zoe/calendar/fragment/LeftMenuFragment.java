@@ -11,15 +11,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnTouchListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ImageView.ScaleType;
-import android.widget.ListView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.common.ISliding;
@@ -29,13 +31,14 @@ import com.zoe.calendar.FeedbackActivity;
 import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.SettingsActivity;
+import com.zoe.calendar.SubmitActivity;
 import com.zoe.calendar.adapter.LeftMenuAdapter;
 import com.zoe.calendar.classes.LeftMenuItem;
 import com.zoe.calendar.classes.MotionItem;
 import com.zoe.calendar.database.QueryUtils;
 
 public class LeftMenuFragment extends BaseFragment implements
-		OnItemClickListener, OnTouchListener {
+		OnItemClickListener, OnTouchListener, OnClickListener {
 
 	TextView tvLeftTitle;
 	ListView lvLeftCard;
@@ -50,6 +53,8 @@ public class LeftMenuFragment extends BaseFragment implements
 	RelativeLayout layMotions;
 
 	int positionEater = 0;
+
+	Button btnAddActivity;
 
 	Handler hShining = new Handler() {
 		@Override
@@ -135,6 +140,7 @@ public class LeftMenuFragment extends BaseFragment implements
 	public void initComponents() {
 		tvLeftTitle = (TextView) innerView.findViewById(R.id.tvLeftTitle);
 		lvLeftCard = (ListView) innerView.findViewById(R.id.lvLeftCard);
+		btnAddActivity = (Button) innerView.findViewById(R.id.btnAddActivity);
 
 		String[] titles = getResources()
 				.getStringArray(R.array.title_left_menu);
@@ -170,43 +176,63 @@ public class LeftMenuFragment extends BaseFragment implements
 	@Override
 	public void onResume() {
 		super.onResume();
-		if (Global.city != null) {
-			tvLeftTitle.setText(Global.city);
-		}
-		rebuildUI();
+		rebuildUIT();
 	}
 
 	@Override
 	public void initEvents() {
 		lvLeftCard.setOnItemClickListener(this);
 		layEat.setOnTouchListener(this);
+		btnAddActivity.setOnClickListener(this);
 	}
 
-	private void rebuildUI() {
-		try {
-			QueryUtils.initMotion(getActivity());
-		} catch (Exception e) {
-		}
-		try {
-			listMotion = QueryUtils.queryMotion(getActivity());
-			if (listMotion != null) {
-				while (listMotion.size() < 10) {
-					listMotion.add(new MotionItem());
+	private Handler hDelayUI = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+
+				buildMotionBoard();
+				if (listMotion != null && listMotion.size() != 0) {
+					if (listMotion.get(listMotion.size() - 1)._id == -1) {
+						tvFirstDay.setText(R.string.motion_past);
+					} else {
+						tvFirstDay
+								.setText(getString(
+										R.string.motion_first_day,
+										listMotion.get(listMotion.size() - 1).month + 1,
+										listMotion.get(listMotion.size() - 1).day));
+					}
 				}
+				startShiningThread();
+
 			}
-		} catch (Exception e) {
-		}
-		buildMotionBoard();
-		if (listMotion != null && listMotion.size() != 0) {
-			if (listMotion.get(listMotion.size() - 1)._id == -1) {
-				tvFirstDay.setText(R.string.motion_past);
-			} else {
-				tvFirstDay.setText(getString(R.string.motion_first_day,
-						listMotion.get(listMotion.size() - 1).month + 1,
-						listMotion.get(listMotion.size() - 1).day));
+			super.handleMessage(msg);
+		};
+	};
+
+	private void rebuildUIT() {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					QueryUtils.initMotion(getActivity());
+				} catch (Exception e) {
+				}
+				try {
+					listMotion = QueryUtils.queryMotion(getActivity());
+					if (listMotion != null) {
+						while (listMotion.size() < 10) {
+							listMotion.add(new MotionItem());
+						}
+					}
+				} catch (Exception e) {
+				}
+				hDelayUI.sendEmptyMessage(1);
 			}
-		}
-		startShiningThread();
+		}).start();
+
 	}
 
 	private void buildMotionBoard() {
@@ -366,6 +392,16 @@ public class LeftMenuFragment extends BaseFragment implements
 			}
 		}
 		super.onDestroy();
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btnAddActivity:
+			startActivity(new Intent(getActivity(), SubmitActivity.class));
+			break;
+		}
+
 	}
 
 }

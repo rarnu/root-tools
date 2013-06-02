@@ -1,31 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent">
 
-    <TextView
-        android:id="@+id/tvWeatherText"
+    <GridView
+        android:id="@+id/gvTags"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:padding="24dip"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="18sp" />
+        android:layout_marginLeft="16dip"
+        android:layout_marginRight="16dip"
+        android:cacheColorHint="@color/transparent"
+        android:numColumns="3" />
 
     <LinearLayout
         android:id="@+id/layButtons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvWeatherText"
+        android:layout_below="@+id/gvTags"
         android:layout_centerHorizontal="true"
         android:orientation="horizontal"
         android:padding="4dip" >
 
         <Button
-            android:id="@+id/btnOK"
+            android:id="@+id/btnCancel"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@drawable/btn_common_style"
-            android:text="@string/event_ok"
+            android:text="@string/tag_close"
             android:textColor="?android:attr/textColorPrimaryInverse" />
     </LinearLayout>
 

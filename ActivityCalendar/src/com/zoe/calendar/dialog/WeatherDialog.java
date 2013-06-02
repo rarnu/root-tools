@@ -13,6 +13,7 @@ public class WeatherDialog extends BaseDialog {
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setFinishOnTouchOutside(false);
+		setTitle(R.string.weather_hint);
 	}
 
 	@Override

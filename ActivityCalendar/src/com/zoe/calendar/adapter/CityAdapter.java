@@ -16,29 +16,45 @@ public class CityAdapter extends BaseAdapter<CityItem> {
 	public CityAdapter(Context context, List<CityItem> list) {
 		super(context, list);
 	}
+	
+	@Override
+	public boolean isEnabled(int position) {
+		return !list.get(position).pinyin.trim().equals("");
+	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
 		View v = convertView;
-		if (v == null) {
+		CityItem item = list.get(position);
+		if (item.pinyin.equals("")) {
+			v = inflater.inflate(R.layout.item_city_section, parent, false);
+		} else {
 			v = inflater.inflate(R.layout.item_city_select, parent, false);
 		}
-		CityHolder holder = (CityHolder) v.getTag();
-		if (holder == null) {
-			holder = new CityHolder();
-			holder.tvCityValue = (TextView) v.findViewById(R.id.tvCityValue);
-			v.setTag(holder);
-		}
-		CityItem item = list.get(position);
-		if (item != null) {
-			holder.tvCityValue.setText(item.name);
+		if (v instanceof TextView) {
+			((TextView) v).setText(item.name);
+		} else {
+			CityHolder holder = (CityHolder) v.getTag();
+			if (holder == null) {
+				holder = new CityHolder();
+				holder.tvCityValue = (TextView) v
+						.findViewById(R.id.tvCityValue);
+				v.setTag(holder);
+			}
+			if (item != null) {
+				holder.tvCityValue.setText(item.name);
+			}
 		}
 		return v;
 	}
 
 	@Override
 	public String getValueText(CityItem item) {
-		return item.name + item.pinyin.toLowerCase();
+		if (item.pinyin.equals("")) {
+			return "";
+		} else {
+			return item.name + item.pinyin.toLowerCase();
+		}
 	}
 
 }

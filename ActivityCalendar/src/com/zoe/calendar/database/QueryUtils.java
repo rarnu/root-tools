@@ -10,6 +10,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
+import com.zoe.calendar.Global;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.classes.MotionItem;
 
@@ -83,12 +84,26 @@ public class QueryUtils {
 				item.weight = c.getInt(15);
 				item.tags = c.getString(16);
 				item.content = c.getString(17);
-				list.add(item);
+				if (!isFilted(item)) {
+					list.add(item);
+				}
 				c.moveToNext();
 			}
 			c.close();
 		}
 		return list;
+	}
+
+	private static boolean isFilted(ActivityItem item) {
+		boolean ret = true;
+		String[] tags = item.tags.split("\\|");
+		for (String s : tags) {
+			if (Global.filteredTagsString.contains(s)) {
+				ret = false;
+				break;
+			}
+		}
+		return ret;
 	}
 
 	public static int deleteActivity(Context context, int id) throws Exception {

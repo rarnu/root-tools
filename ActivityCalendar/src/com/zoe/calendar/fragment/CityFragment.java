@@ -18,7 +18,7 @@ import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.EditText;
-import android.widget.ListView;
+import android.widget.GridView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
@@ -35,7 +35,7 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 
 	TextView tvCityValue;
 	EditText etCityFilter;
-	ListView lvCities;
+	GridView lvCities;
 
 	List<CityItem> listCity;
 	CityAdapter adapterCity;
@@ -63,7 +63,7 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 	public void initComponents() {
 		tvCityValue = (TextView) innerView.findViewById(R.id.tvCityValue);
 		etCityFilter = (EditText) innerView.findViewById(R.id.etCityFilter);
-		lvCities = (ListView) innerView.findViewById(R.id.lvCities);
+		lvCities = (GridView) innerView.findViewById(R.id.lvCities);
 		listCity = new ArrayList<CityItem>();
 		adapterCity = new CityAdapter(getActivity(), listCity);
 		lvCities.setAdapter(adapterCity);
@@ -92,6 +92,12 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 				adapterCity.filter(s.toString());
 			}
 		});
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		setLocatedCity();
 	}
 
 	@Override
@@ -148,12 +154,15 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (Global.location != null) {
+			setLocatedCity();
+		}
+	}
 
-				tvCityValue.setText(Global.location.getCity());
-			} else {
-				tvCityValue.setText(R.string.city_not_found);
-			}
+	private void setLocatedCity() {
+		if (Global.location != null) {
+			tvCityValue.setText(Global.location.getCity());
+		} else {
+			tvCityValue.setText(R.string.city_not_found);
 		}
 	}
 
@@ -197,7 +206,10 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View v, int position, long id) {
-		CityItem item = listCity.get(position);
+		CityItem item = (CityItem) lvCities.getItemAtPosition(position);
+		if (item.pinyin.equals("")) {
+			return;
+		}
 		Global.city = item.name;
 		Global.city_pinyin = item.pinyin.toLowerCase();
 		Config.setCity(getActivity(), Global.city);

@@ -9,7 +9,7 @@ public class RestoreActivity extends BaseActivity {
 
 	@Override
 	public int getIcon() {
-		return R.drawable.ic_launcher;
+		return R.drawable.ic_logo;
 	}
 
 	@Override

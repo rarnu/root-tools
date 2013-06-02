@@ -3,6 +3,7 @@ package com.zoe.calendar.common;
 import android.content.Context;
 
 import com.rarnu.utils.ConfigUtils;
+import com.zoe.calendar.R;
 
 public class Config {
 
@@ -14,6 +15,7 @@ public class Config {
 	private static final String KEY_LAST_WEATHER_TIMESTAMP = "key_last_weather_timestamp";
 	private static final String KEY_LAST_WEATHER_STRING = "key_last_weather_string";
 	private static final String KEY_LAST_WEATHER_TEMP = "key_last_weather_temp";
+	private static final String KEY_IS_FIRST_START = "key_is_first_start";
 
 	public static String getCity(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_CITY, "");
@@ -93,5 +95,25 @@ public class Config {
 			String value) {
 		ConfigUtils.setStringConfig(context,
 				KEY_LAST_WEATHER_TEMP + "_" + city, value);
+	}
+
+	public static boolean getIsFirstStart(Context context) {
+		return ConfigUtils.getBooleanConfig(context, KEY_IS_FIRST_START, true);
+	}
+
+	public static void setIsFirstStart(Context context, boolean value) {
+		ConfigUtils.setBooleanConfig(context, KEY_IS_FIRST_START, value);
+	}
+
+	public static String loadFiltedString(Context context) {
+		String[] str = context.getResources().getStringArray(
+				R.array.settings_types);
+		String ret = "";
+		for (int i = 0; i < str.length; i++) {
+			if (getSettingType(context, i)) {
+				ret += str[i];
+			}
+		}
+		return ret;
 	}
 }

@@ -1,23 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:paddingBottom="16dip" >
-
-    <TextView
-        android:id="@+id/tvHint"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="#FF0099CC"
-        android:padding="4dip"
-        android:text="@string/update_hint"
-        android:textColor="?android:attr/textColorPrimaryInverse" />
+    android:layout_height="match_parent" >
 
     <TextView
         android:id="@+id/tvUpdateText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/tvHint"
         android:padding="24dip"
         android:text="@string/update_text"
         android:textColor="?android:attr/textColorPrimary"
@@ -25,25 +14,28 @@
 
     <LinearLayout
         android:id="@+id/layButtons"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvUpdateText"
         android:layout_centerHorizontal="true"
-        android:orientation="horizontal" >
+        android:orientation="horizontal"
+        android:padding="4dip" >
 
         <Button
             android:id="@+id/btnOK"
-            android:layout_width="80dip"
+            android:layout_width="0px"
             android:layout_height="wrap_content"
+            android:layout_weight="1"
             android:background="@drawable/btn_common_style"
             android:text="@string/update_ok"
             android:textColor="?android:attr/textColorPrimaryInverse" />
 
         <Button
             android:id="@+id/btnCancel"
-            android:layout_width="80dip"
+            android:layout_width="0px"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="16dip"
+            android:layout_marginLeft="4dip"
+            android:layout_weight="1"
             android:background="@drawable/btn_common_style"
             android:text="@string/update_cancel"
             android:textColor="?android:attr/textColorPrimaryInverse" />
