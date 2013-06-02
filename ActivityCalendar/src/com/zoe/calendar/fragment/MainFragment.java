@@ -12,7 +12,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -217,7 +216,6 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		super.onResume();
 
 		if ((Global.city != null) && (!Global.city.equals(""))) {
-			Log.e("MainFragment onResume", Global.city);
 			bar.setTitle(Global.city);
 		}
 		if (!Global.synced) {

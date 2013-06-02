@@ -15,7 +15,7 @@ import com.zoe.calendar.R;
 public class NewbieFragment extends BaseFragment implements OnClickListener {
 
 	Button btnStart;
-	ImageView imgTop, imgBottom;
+	ImageView imgTop, imgBottom, imgTop2;
 
 	public NewbieFragment(String tag) {
 		super(tag, "");
@@ -41,6 +41,7 @@ public class NewbieFragment extends BaseFragment implements OnClickListener {
 		imgTop = (ImageView) innerView.findViewById(R.id.imgTop);
 		imgBottom = (ImageView) innerView.findViewById(R.id.imgBottom);
 		btnStart = (Button) innerView.findViewById(R.id.btnStart);
+		imgTop2 = (ImageView) innerView.findViewById(R.id.imgTop2);
 
 		RelativeLayout.LayoutParams rlpTop = (RelativeLayout.LayoutParams) imgTop
 				.getLayoutParams();
@@ -51,11 +52,17 @@ public class NewbieFragment extends BaseFragment implements OnClickListener {
 				.getLayoutParams();
 		rlpBottom.height = UIUtils.getWidth() * 5 / 36;
 		imgBottom.setLayoutParams(rlpBottom);
+		
+		RelativeLayout.LayoutParams rlpTop2 = (RelativeLayout.LayoutParams) imgTop2.getLayoutParams();
+		rlpTop2.height = UIUtils.getWidth();
+		imgTop2.setLayoutParams(rlpTop2);
 
 		RelativeLayout.LayoutParams rlpStart = (RelativeLayout.LayoutParams) btnStart
 				.getLayoutParams();
 		rlpStart.height = UIUtils.getWidth() * 8 / 45;
 		btnStart.setLayoutParams(rlpStart);
+		
+		
 	}
 
 	@Override
