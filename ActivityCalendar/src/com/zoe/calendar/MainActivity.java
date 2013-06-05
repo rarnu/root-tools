@@ -25,8 +25,6 @@ import com.zoe.calendar.utils.APIUtils.UpdateCallback;
 
 public class MainActivity extends BaseSlidingActivity implements UpdateCallback {
 
-	// TODO: first start
-
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		Global.synced = false;

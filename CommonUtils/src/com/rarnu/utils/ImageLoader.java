@@ -67,6 +67,7 @@ public class ImageLoader {
 			InputStream is = conn.getInputStream();
 			OutputStream os = new FileOutputStream(f);
 			copyStream(is, os);
+			is.close();
 			os.close();
 			bitmap = decodeFile(f);
 			return bitmap;
@@ -107,6 +108,7 @@ public class ImageLoader {
 			FileInputStream stream2 = new FileInputStream(f);
 			Bitmap bitmap = BitmapFactory.decodeStream(stream2, null, o2);
 			stream2.close();
+			stream1.close();
 			return bitmap;
 		} catch (Exception e) {
 		}
