@@ -22,7 +22,7 @@ public class MergeView extends RelativeLayout {
 	private int ySize = -1;
 
 	BlockView[] views = null;
-	
+
 	private int padding = 0;
 
 	public MergeView(Context context, AttributeSet attrs, int defStyle) {
@@ -58,7 +58,7 @@ public class MergeView extends RelativeLayout {
 		setLayoutParams(vglp);
 		resize();
 	}
-	
+
 	public void setPadding(int padding) {
 		this.padding = padding;
 	}
@@ -89,18 +89,17 @@ public class MergeView extends RelativeLayout {
 
 		for (BlockView bv : views) {
 			RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(
-					xSize * bv.xsize, ySize * bv.ysize);
+					xSize * bv.xsize + ((bv.xsize - 1) * padding), ySize
+							* bv.ysize + ((bv.ysize - 1) * padding));
 			if (bv.below != -1) {
 				rllp.addRule(RelativeLayout.BELOW, bv.below);
-			} else {
-				rllp.topMargin = padding;
 			}
 			if (bv.toRightOf != -1) {
 				rllp.addRule(RelativeLayout.RIGHT_OF, bv.toRightOf);
-			} else {
-				rllp.leftMargin = padding;
 			}
-			
+			rllp.topMargin = padding;
+			rllp.leftMargin = padding;
+
 			bv.setId(bv.id);
 			bv.setLayoutParams(rllp);
 			addView(bv);
