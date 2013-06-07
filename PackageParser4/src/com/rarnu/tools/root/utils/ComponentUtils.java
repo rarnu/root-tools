@@ -111,7 +111,7 @@ public class ComponentUtils {
 		}
 	}
 
-	public static Object /* PackageParser.Package */parsePackageInfo(
+	public static PackageParser.Package parsePackageInfo(
 			PackageInfo info, DisplayMetrics dm) {
 		String fileAbsPath = info.applicationInfo.publicSourceDir;
 		PackageParser packageParser = new PackageParser(fileAbsPath);
@@ -121,8 +121,7 @@ public class ComponentUtils {
 		return pkg;
 	}
 
-	public static List<CompInfo> getPackageRSList(Object obj) {
-		PackageParser.Package pkg = (PackageParser.Package) obj;
+	public static List<CompInfo> getPackageRSList(PackageParser.Package pkg) {
 		List<CompInfo> lstComponentInfo = new ArrayList<CompInfo>();
 
 		List<PackageParser.Activity> lstReceiver = pkg.receivers;
@@ -147,8 +146,7 @@ public class ComponentUtils {
 		return lstComponentInfo;
 	}
 
-	public static ComponentName getPackageComponentName(Object obj) {
-		PackageParser.Component<?> comp = (PackageParser.Component<?>) obj;
+	public static ComponentName getPackageComponentName(PackageParser.Component<?> comp) {
 		return comp.getComponentName();
 	}
 

@@ -7,7 +7,7 @@ import com.rarnu.tools.root.utils.ComponentUtils;
 
 public class CompInfo {
 
-	public Object /* PackageParser.Component<?> */component;
+	public PackageParser.Component<?> component;
 	public boolean enabled;
 	public int position;
 	public String fullPackageName;
