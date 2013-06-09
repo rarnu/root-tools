@@ -5,6 +5,7 @@ import java.util.List;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageParser;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.view.Menu;
@@ -76,7 +77,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements
 			tvAppName.setTextColor(Color.RED);
 		}
 
-		Object /* PackageParser.Package */pkg = ComponentUtils
+		PackageParser.Package pkg = ComponentUtils
 				.parsePackageInfo(GlobalInstance.currentComp, UIUtils.getDM());
 		if (pkg == null) {
 			Toast.makeText(getActivity(), R.string.no_package_info_found,
