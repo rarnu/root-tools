@@ -78,8 +78,8 @@ public class MergeView extends RelativeLayout {
 		if (views == null) {
 			return;
 		}
-		int width = realWidth - (padding * 2);
-		int height = realHeight - (padding * 2);
+		int width = realWidth - (padding * (columnCount + 1));
+		int height = realHeight - (padding * (rowCount + 1));
 
 		Log.e("resize", String.format("w:%d h:%d", realWidth, realHeight));
 
