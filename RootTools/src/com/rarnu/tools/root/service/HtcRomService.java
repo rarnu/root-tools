@@ -110,7 +110,6 @@ public class HtcRomService extends BaseService {
 			deleteApplication("com.htc.idlescreen.socialnetwork");
 		}
 		if (command.charAt(9) == '1') {
-			deleteApplication("com.google.android.apps.plus");
 			deleteApplication("com.google.android.youtube");
 			deleteApplication("com.htc.picasa");
 			deleteApplication("com.google.android.voicesearch");

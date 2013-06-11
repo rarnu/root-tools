@@ -2,6 +2,7 @@ package com.rarnu.tools.root.receiver;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 
 import com.rarnu.devlib.base.BaseNotifyReceiver;
 import com.rarnu.tools.root.common.RTConsts;
@@ -12,6 +13,7 @@ public class NotifyReceiver extends BaseNotifyReceiver {
 
 	@Override
 	public void onReceiveNotify(Context context, int id) {
+		Log.e("onReceiveNotify", String.valueOf(id));
 		NotificationUtils.cancalAllNotification(context, new int[] {
 				RTConsts.NOTIFY_ID_HTC_ROM, RTConsts.NOTIFY_ID_BACKUP,
 				RTConsts.NOTIFY_ID_RESTORE, RTConsts.NOTIFY_PROC_BACKUP,
