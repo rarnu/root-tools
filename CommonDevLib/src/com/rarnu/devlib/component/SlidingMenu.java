@@ -345,7 +345,6 @@ public class SlidingMenu extends RelativeLayout {
 		setAboveOffset(i);
 	}
 
-	@SuppressWarnings("deprecation")
 	public void setBehindWidth(int i) {
 		int width;
 		Display display = ((WindowManager) getContext().getSystemService(

@@ -1,9 +1,11 @@
 RootTools
 ========
 
+the tool for rooted android devices
+
 # how to compile
 
-1) get the froyo jar with full source
+1) get the icecreamsandwich jar with full source
 ```
    $ wget http://rarnu.7thgen.info/downloads/icecreamsandwich15.jar
 ```
