@@ -23,6 +23,7 @@ import com.zoe.calendar.R;
 import com.zoe.calendar.adapter.ShareAdapter;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.classes.ShareItem;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class ShareDialogFragment extends BaseDialogFragment implements
 		OnClickListener, OnItemClickListener {
@@ -32,6 +33,11 @@ public class ShareDialogFragment extends BaseDialogFragment implements
 	ShareAdapter adapter;
 	List<ShareItem> list;
 	ActivityItem actItem;
+	
+	public ShareDialogFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_share_dialog);
+	}
 
 	public ShareDialogFragment(String tag) {
 		super(tag);

@@ -79,7 +79,7 @@ public class UpdateActivity extends BaseActivity implements IUpdateIntf {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new UpdateFragment(getString(R.tag.tag_menu_right_upfate), "");
+		return new UpdateFragment();
 	}
 
 	@Override

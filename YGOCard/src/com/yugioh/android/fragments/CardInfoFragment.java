@@ -17,10 +17,17 @@ import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.common.MenuIds;
 import com.yugioh.android.define.PathDefine;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class CardInfoFragment extends BaseTabFragment {
 
 	MenuItem itemShare;
+
+	public CardInfoFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_card);
+		tabTitle = "";
+	}
 
 	public CardInfoFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -88,18 +95,12 @@ public class CardInfoFragment extends BaseTabFragment {
 	@Override
 	public void initFragmentList(List<Fragment> listFragment) {
 
-		listFragment.add(new CardInfoCardFragment(
-				getString(R.tag.tag_card_info),
-				getString(R.string.page_cardinfo)));
-		listFragment.add(new CardInfoAdjustFragment(
-				getString(R.tag.tag_card_adjust),
-				getString(R.string.page_cardadjust)));
-		listFragment
-				.add(new CardInfoPictureFragment(getString(R.tag.tag_card_pic),
-						getString(R.string.page_picture)));
+		listFragment.add(new CardInfoCardFragment());
+		listFragment.add(new CardInfoAdjustFragment());
+		listFragment.add(new CardInfoPictureFragment());
 
 	}
-	
+
 	@Override
 	public Bundle getFragmentState() {
 		return null;

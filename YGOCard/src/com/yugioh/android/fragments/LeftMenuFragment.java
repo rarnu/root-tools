@@ -18,6 +18,7 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.yugioh.android.MainActivity;
 import com.yugioh.android.R;
 import com.yugioh.android.intf.IMainIntf;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class LeftMenuFragment extends BaseFragment implements
 		OnItemClickListener {
@@ -29,6 +30,11 @@ public class LeftMenuFragment extends BaseFragment implements
 	TextView tvLeftTitle;
 	RelativeLayout.LayoutParams lpLogo = null;
 
+	public LeftMenuFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_menu_left);
+	}
+	
 	public LeftMenuFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}

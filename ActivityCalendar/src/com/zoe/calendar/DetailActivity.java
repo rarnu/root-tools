@@ -14,7 +14,7 @@ public class DetailActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new DetailFragment(getString(R.tag.fragment_detail));
+		return new DetailFragment();
 	}
 
 }

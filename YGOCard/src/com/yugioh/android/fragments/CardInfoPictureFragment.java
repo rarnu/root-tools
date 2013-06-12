@@ -20,6 +20,7 @@ import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.define.NetworkDefine;
 import com.yugioh.android.define.PathDefine;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class CardInfoPictureFragment extends BaseFragment implements
 		OnClickListener {
@@ -29,6 +30,12 @@ public class CardInfoPictureFragment extends BaseFragment implements
 	ImageView ivImage;
 	TextView tvNoPic;
 	ProgressBar pbDownload;
+	
+	public CardInfoPictureFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_card_pic);
+		tabTitle = ResourceUtils.getString(R.string.page_picture);
+	}
 
 	public CardInfoPictureFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);

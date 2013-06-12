@@ -51,6 +51,7 @@ import com.zoe.calendar.utils.APIUtils;
 import com.zoe.calendar.utils.APIUtils.WeatherCallback;
 import com.zoe.calendar.utils.AnimateUtils;
 import com.zoe.calendar.utils.CityUtils;
+import com.zoe.calendar.utils.ResourceUtils;
 import com.zoe.calendar.utils.WeatherUtils;
 
 public class MainFragment extends BaseFragment implements OnCalendarChange,
@@ -85,6 +86,11 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	int selectedMonth = 0;
 	int selectedDay = 0;
 
+	public MainFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_main);
+	}
+	
 	public MainFragment(String tag) {
 		super(tag, "");
 	}

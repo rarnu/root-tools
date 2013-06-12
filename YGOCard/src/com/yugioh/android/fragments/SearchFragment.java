@@ -18,6 +18,7 @@ import com.rarnu.devlib.base.inner.InnerFragment;
 import com.yugioh.android.R;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.CardConstDefine;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class SearchFragment extends BaseFragment implements
 		OnItemSelectedListener {
@@ -26,6 +27,12 @@ public class SearchFragment extends BaseFragment implements
 			spCardAttribute, spCardLevel, spCardRare, spCardLimit,
 			spCardTunner;
 	EditText etCardName, etCardAttack, etCardDefense, etEffectText;
+
+	public SearchFragment() {
+		super();
+		tabTitle = ResourceUtils.getString(R.string.page_search);
+		tagText = ResourceUtils.getString(R.tag.tag_main_search);
+	}
 
 	public SearchFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -79,15 +86,16 @@ public class SearchFragment extends BaseFragment implements
 
 	private void setSpinner(final Spinner sp, final int type) {
 		sp.setOnItemSelectedListener(this);
-		
+
 		final Handler hSpin = new Handler() {
 			@Override
 			public void handleMessage(Message msg) {
 				if (msg.what == 1) {
 					@SuppressWarnings("unchecked")
-					List<String> list = (List<String>)msg.obj;
+					List<String> list = (List<String>) msg.obj;
 					if (list != null) {
-						list.add(0, getResources().getString(R.string.search_na));
+						list.add(0, getResources()
+								.getString(R.string.search_na));
 						ArrayAdapter<String> adapter = new ArrayAdapter<String>(
 								getActivity(), R.layout.item_spin, list);
 						sp.setAdapter(adapter);
@@ -97,9 +105,9 @@ public class SearchFragment extends BaseFragment implements
 				super.handleMessage(msg);
 			}
 		};
-		
+
 		new Thread(new Runnable() {
-			
+
 			@Override
 			public void run() {
 				List<String> list = null;
@@ -137,16 +145,15 @@ public class SearchFragment extends BaseFragment implements
 					break;
 
 				}
-				
+
 				Message msg = new Message();
 				msg.what = 1;
 				msg.obj = list;
 				hSpin.sendMessage(msg);
-				
+
 			}
 		}).start();
-		
-		
+
 	}
 
 	@Override
@@ -206,7 +213,7 @@ public class SearchFragment extends BaseFragment implements
 		}
 
 		int cardTunner = spCardTunner.getSelectedItemPosition();
-		
+
 		String cardEffectText = etEffectText.getText().toString();
 
 		Bundle bn = new Bundle();
@@ -273,7 +280,7 @@ public class SearchFragment extends BaseFragment implements
 	public String getCustomTitle() {
 		return null;
 	}
-	
+
 	@Override
 	public Bundle getFragmentState() {
 		return null;

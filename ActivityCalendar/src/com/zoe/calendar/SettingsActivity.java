@@ -14,7 +14,7 @@ public class SettingsActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new SettingsFragment(getString(R.tag.fragment_settings));
+		return new SettingsFragment();
 	}
 
 }

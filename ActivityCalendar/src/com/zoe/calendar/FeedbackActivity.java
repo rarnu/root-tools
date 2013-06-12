@@ -14,7 +14,7 @@ public class FeedbackActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new FeedbackFragment(getString(R.tag.fragment_feedback));
+		return new FeedbackFragment();
 	}
 
 }

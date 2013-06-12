@@ -23,7 +23,7 @@ public class UpdateDialog extends BaseDialog {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new UpdateDialogFragment(getString(R.tag.fragment_update_dialog));
+		return new UpdateDialogFragment();
 	}
 
 }

@@ -31,6 +31,7 @@ import com.zoe.calendar.common.MenuIds;
 import com.zoe.calendar.dialog.TagDialog;
 import com.zoe.calendar.utils.APIUtils;
 import com.zoe.calendar.utils.DateUtils;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class SubmitFragment extends BaseFragment implements OnClickListener {
 
@@ -46,6 +47,11 @@ public class SubmitFragment extends BaseFragment implements OnClickListener {
 	boolean isStartDateSet = false, isStartTimeSet = false,
 			isEndDateSet = false, isEndTimeSet = false;
 
+	public SubmitFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_submit);
+	}
+	
 	public SubmitFragment(String tag) {
 		super(tag, "");
 	}

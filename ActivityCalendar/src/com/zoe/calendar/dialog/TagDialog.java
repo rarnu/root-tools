@@ -23,7 +23,7 @@ public class TagDialog extends BaseDialog {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new TagDialogFrament(getString(R.tag.fragment_tag_dialog));
+		return new TagDialogFrament();
 	}
 
 }

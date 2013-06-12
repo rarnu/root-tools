@@ -9,11 +9,17 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseDialogFragment;
 import com.yugioh.android.R;
 import com.yugioh.android.utils.DeviceUtils;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class AboutFragment extends BaseDialogFragment {
 
 	TextView tvVersion, tvAboutDate;
-	
+
+	public AboutFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_menu_right_about);
+	}
+
 	public AboutFragment(String tagText) {
 		super(tagText);
 	}
@@ -39,11 +45,12 @@ public class AboutFragment extends BaseDialogFragment {
 		tvVersion.setText(DeviceUtils.getAppVersionName(getActivity()));
 		String releaseDate = "";
 		try {
-			ApplicationInfo appInfo = getActivity().getPackageManager().getApplicationInfo(getActivity().getPackageName(),
-					PackageManager.GET_META_DATA);
-			
+			ApplicationInfo appInfo = getActivity().getPackageManager()
+					.getApplicationInfo(getActivity().getPackageName(),
+							PackageManager.GET_META_DATA);
+
 			releaseDate = appInfo.metaData.getString("release-date");
-			
+
 		} catch (Exception e) {
 		}
 		tvAboutDate.setText(getString(R.string.about_date_fmt, releaseDate));
@@ -71,12 +78,12 @@ public class AboutFragment extends BaseDialogFragment {
 
 	@Override
 	public void initMenu(Menu menu) {
-		
+
 	}
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-		
+
 	}
 
 	@Override

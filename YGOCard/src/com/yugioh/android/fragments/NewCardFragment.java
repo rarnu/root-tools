@@ -20,6 +20,7 @@ import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.FieldDefine;
 import com.yugioh.android.loader.NewCardLoader;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class NewCardFragment extends BaseFragment implements
 		OnItemClickListener, OnLoadCompleteListener<Cursor> {
@@ -29,6 +30,11 @@ public class NewCardFragment extends BaseFragment implements
 	SimpleCursorAdapter adapterNewCard;
 	NewCardLoader loaderNewcard;
 
+	public NewCardFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_main_newcard);
+	}
+	
 	public NewCardFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}

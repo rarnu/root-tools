@@ -17,6 +17,7 @@ import com.zoe.calendar.R;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.common.Actions;
 import com.zoe.calendar.location.OverItemT;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class DetailMapFragment extends BaseFragment {
 
@@ -24,6 +25,12 @@ public class DetailMapFragment extends BaseFragment {
 	MapView mvBaidu;
 	MapController mMapController;
 
+	public DetailMapFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_detail_map);
+		tabTitle = ResourceUtils.getString(R.string.menu_map);
+	}
+	
 	public DetailMapFragment(String tag, String title) {
 		super(tag, title);
 	}

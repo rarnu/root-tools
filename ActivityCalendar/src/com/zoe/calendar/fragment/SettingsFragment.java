@@ -21,6 +21,7 @@ import com.zoe.calendar.R;
 import com.zoe.calendar.adapter.SettingsTypeAdapter;
 import com.zoe.calendar.classes.SettingTypeItem;
 import com.zoe.calendar.common.Config;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class SettingsFragment extends BaseFragment implements
 		OnItemClickListener {
@@ -29,7 +30,12 @@ public class SettingsFragment extends BaseFragment implements
 	List<SettingTypeItem> listType;
 	GridView gvType;
 	TextView tvAboutValue;
-
+	
+	public SettingsFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_settings);
+	}
+	
 	public SettingsFragment(String tag) {
 		super(tag, "");
 	}

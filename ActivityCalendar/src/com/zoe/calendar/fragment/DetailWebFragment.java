@@ -11,12 +11,19 @@ import android.webkit.WebViewClient;
 import com.rarnu.devlib.base.BaseFragment;
 import com.zoe.calendar.R;
 import com.zoe.calendar.classes.ActivityItem;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class DetailWebFragment extends BaseFragment {
 
 	ActivityItem actItem;
 
 	WebView wvUrl;
+
+	public DetailWebFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_detail_web);
+		tabTitle = ResourceUtils.getString(R.string.menu_url);
+	}
 
 	public DetailWebFragment(String tag, String title) {
 		super(tag, title);

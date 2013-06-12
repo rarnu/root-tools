@@ -23,6 +23,7 @@ import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.FieldDefine;
 import com.yugioh.android.loader.SearchLoader;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class SearchResultFragment extends BaseFragment implements
 		OnItemClickListener, OnLoadCompleteListener<Cursor> {
@@ -34,6 +35,12 @@ public class SearchResultFragment extends BaseFragment implements
 	TextView tvListNoCard;
 
 	SearchLoader loaderSearch;
+
+	public SearchResultFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_main_result);
+		tabTitle = ResourceUtils.getString(R.string.page_list);
+	}
 
 	public SearchResultFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
@@ -133,7 +140,7 @@ public class SearchResultFragment extends BaseFragment implements
 		}
 
 	}
-	
+
 	@Override
 	public Bundle getFragmentState() {
 		return null;

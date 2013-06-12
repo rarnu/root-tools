@@ -14,7 +14,7 @@ public class AboutActivity extends BaseDialog {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new AboutFragment(getString(R.tag.tag_menu_right_about));
+		return new AboutFragment();
 	}
 
 }

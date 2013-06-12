@@ -10,11 +10,17 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.zoe.calendar.R;
 import com.zoe.calendar.common.MenuIds;
 import com.zoe.calendar.utils.APIUtils;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class FeedbackFragment extends BaseFragment {
 
 	EditText etFeedback;
 	MenuItem miSend;
+	
+	public FeedbackFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_feedback);
+	}
 
 	public FeedbackFragment(String tag) {
 		super(tag, "");

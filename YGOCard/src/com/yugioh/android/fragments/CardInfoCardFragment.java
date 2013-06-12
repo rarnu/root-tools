@@ -8,6 +8,7 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.common.Config;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class CardInfoCardFragment extends BaseFragment {
 
@@ -16,6 +17,12 @@ public class CardInfoCardFragment extends BaseFragment {
 
 	int fontSize = -1;
 
+	public CardInfoCardFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_card_info);
+		tabTitle = ResourceUtils.getString(R.string.page_cardinfo);
+	}
+	
 	public CardInfoCardFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}

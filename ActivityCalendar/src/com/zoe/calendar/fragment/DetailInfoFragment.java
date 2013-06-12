@@ -8,6 +8,7 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.zoe.calendar.R;
 import com.zoe.calendar.classes.ActivityItem;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class DetailInfoFragment extends BaseFragment {
 
@@ -16,6 +17,12 @@ public class DetailInfoFragment extends BaseFragment {
 	TextView tvContent;
 	ActivityItem actItem;
 
+	public DetailInfoFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_detail_info);
+		tabTitle = ResourceUtils.getString(R.string.menu_activity);
+	}
+	
 	public DetailInfoFragment(String tag, String title) {
 		super(tag, title);
 	}

@@ -15,7 +15,7 @@ public class NewbieActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new NewbieFragment(getString(R.tag.fragment_newbie));
+		return new NewbieFragment();
 	}
 
 	@Override

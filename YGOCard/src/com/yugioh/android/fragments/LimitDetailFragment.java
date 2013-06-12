@@ -24,16 +24,19 @@ import com.yugioh.android.loader.LimitLoader;
 public class LimitDetailFragment extends BaseFragment implements
 		OnItemClickListener, OnLoadCompleteListener<Cursor> {
 
-	private int detailType;
+	protected int detailType;
 
 	ListView lvLimitCard;
 	Cursor cLimit;
 	SimpleCursorAdapter adapterLimit;
 	LimitLoader loaderLimit;
 
-	public LimitDetailFragment(String tagText, String tabTitle, int detailType) {
+	public LimitDetailFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
-		this.detailType = detailType;
+	}
+	
+	public LimitDetailFragment() {
+		super();
 	}
 
 	@Override

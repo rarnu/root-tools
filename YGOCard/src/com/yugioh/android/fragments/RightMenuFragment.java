@@ -32,6 +32,7 @@ import com.yugioh.android.classes.RightMenuItem;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.loader.RecommandLoader;
 import com.yugioh.android.utils.RecommandUtils;
+import com.yugioh.android.utils.ResourceUtils;
 import com.yugioh.android.utils.UpdateUtils;
 
 public class RightMenuFragment extends BaseFragment implements
@@ -49,6 +50,11 @@ public class RightMenuFragment extends BaseFragment implements
 	RecommandLoader loaderRecommand;
 	RecommandAdapter adapterRecommand;
 	ImageView imgSettings;
+	
+	public RightMenuFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_menu_right);
+	}
 
 	public RightMenuFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);

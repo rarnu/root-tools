@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseDialogFragment;
 import com.zoe.calendar.R;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class UpdateDialogFragment extends BaseDialogFragment implements
 		OnClickListener {
@@ -18,6 +19,11 @@ public class UpdateDialogFragment extends BaseDialogFragment implements
 	Button btnOK, btnCancel;
 	String url = "";
 
+	public UpdateDialogFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_update_dialog);
+	}
+	
 	// update
 	public UpdateDialogFragment(String tag) {
 		super(tag);

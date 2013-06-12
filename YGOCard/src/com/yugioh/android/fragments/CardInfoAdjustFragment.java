@@ -9,6 +9,7 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.common.Config;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class CardInfoAdjustFragment extends BaseFragment {
 
@@ -17,6 +18,13 @@ public class CardInfoAdjustFragment extends BaseFragment {
 	TextView tvNoAdjust;
 	
 	int fontSize = -1;
+	
+	public CardInfoAdjustFragment() {
+		super();
+		tabTitle = ResourceUtils.getString(R.string.page_cardadjust);
+		tagText = ResourceUtils.getString(R.tag.tag_card_adjust);
+		
+	}
 
 	public CardInfoAdjustFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);

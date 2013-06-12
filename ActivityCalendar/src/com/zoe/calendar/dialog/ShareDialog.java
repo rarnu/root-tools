@@ -23,7 +23,7 @@ public class ShareDialog extends BaseDialog {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new ShareDialogFragment(getString(R.tag.fragment_share_dialog));
+		return new ShareDialogFragment();
 	}
 
 }

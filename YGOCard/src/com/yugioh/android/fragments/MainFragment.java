@@ -11,13 +11,15 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BaseTabFragment;
 import com.yugioh.android.R;
 import com.yugioh.android.common.MenuIds;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class MainFragment extends BaseTabFragment {
 
 	public MainFragment() {
 		super();
+		tagText = ResourceUtils.getString(R.tag.tag_main);
 	}
-	
+
 	public MainFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}
@@ -91,13 +93,10 @@ public class MainFragment extends BaseTabFragment {
 
 	@Override
 	public void initFragmentList(List<Fragment> listFragment) {
-		listFragment.add(new SearchFragment(this.getString(R.tag.tag_main_search),
-				this.getString(R.string.page_search)));
-		listFragment
-				.add(new SearchResultFragment(this.getString(R.tag.tag_main_result),
-						this.getString(R.string.page_list)));
+		listFragment.add(new SearchFragment());
+		listFragment.add(new SearchResultFragment());
 	}
-	
+
 	@Override
 	public Bundle getFragmentState() {
 		return null;

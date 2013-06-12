@@ -36,6 +36,7 @@ import com.zoe.calendar.adapter.LeftMenuAdapter;
 import com.zoe.calendar.classes.LeftMenuItem;
 import com.zoe.calendar.classes.MotionItem;
 import com.zoe.calendar.database.QueryUtils;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class LeftMenuFragment extends BaseFragment implements
 		OnItemClickListener, OnTouchListener, OnClickListener {
@@ -117,6 +118,11 @@ public class LeftMenuFragment extends BaseFragment implements
 		}
 	});
 
+	public LeftMenuFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_left_menu);
+	}
+	
 	public LeftMenuFragment(String tag) {
 		super(tag, "");
 	}

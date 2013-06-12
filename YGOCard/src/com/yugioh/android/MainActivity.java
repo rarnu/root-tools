@@ -22,6 +22,7 @@ import com.yugioh.android.fragments.MainFragment;
 import com.yugioh.android.fragments.NewCardFragment;
 import com.yugioh.android.fragments.RightMenuFragment;
 import com.yugioh.android.intf.IMainIntf;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
@@ -30,6 +31,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 	@Override
 	public void onCreate(Bundle savedInstanceState) {
 		UIUtils.initDisplayMetrics(this, getWindowManager(), false);
+		ResourceUtils.init(this);
 		super.onCreate(savedInstanceState);
 		registerReceiver(receiverClose, filterClose);
 
@@ -62,12 +64,12 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
 	@Override
 	public Fragment replaceMenuFragment() {
-		return new LeftMenuFragment(getString(R.tag.tag_menu_left), "");
+		return new LeftMenuFragment();
 	}
 
 	@Override
 	public Fragment replaceSecondMenuFragment() {
-		return new RightMenuFragment(getString(R.tag.tag_menu_right), "");
+		return new RightMenuFragment();
 	}
 
 	@Override
@@ -97,7 +99,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new MainFragment(getString(R.tag.tag_main), "");
+		return new MainFragment();
 	}
 
 	@Override
@@ -124,23 +126,23 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 		switch (page) {
 		case 0:
 			// MAIN
-			f = new MainFragment(getString(R.tag.tag_main), "");
+			f = new MainFragment();
 			break;
 		case 1:
 			// LIMIT
-			f = new LimitFragment(getString(R.tag.tag_main_limit), "");
+			f = new LimitFragment();
 			break;
 		case 2:
 			// NEW CARD
-			f = new NewCardFragment(getString(R.tag.tag_main_newcard), "");
+			f = new NewCardFragment();
 			break;
 		case 3:
 			// DECK
-			f = new DeckFragment(getString(R.tag.tag_main_deck), "");
+			f = new DeckFragment();
 			break;
 		case 4:
 			// DUEL TOOL
-			f = new DuelToolFragment(getString(R.tag.tag_main_dueltool), "");
+			f = new DuelToolFragment();
 			break;
 		}
 		return f;

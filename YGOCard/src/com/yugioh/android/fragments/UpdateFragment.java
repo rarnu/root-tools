@@ -29,6 +29,7 @@ import com.yugioh.android.define.NetworkDefine;
 import com.yugioh.android.define.PathDefine;
 import com.yugioh.android.intf.IDestroyCallback;
 import com.yugioh.android.intf.IUpdateIntf;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 		android.view.View.OnClickListener {
@@ -44,6 +45,11 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback,
 	UpdateInfo updateInfo = null;
 	boolean hasData = YugiohDatabase.isDatabaseFileExists();
 
+	public UpdateFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_menu_right_upfate);
+	}
+	
 	public UpdateFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}

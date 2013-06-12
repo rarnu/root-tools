@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseDialogFragment;
 import com.zoe.calendar.R;
 import com.zoe.calendar.classes.WeatherInfo;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class WeatherDialogFragment extends BaseDialogFragment implements
 		OnClickListener {
@@ -17,6 +18,11 @@ public class WeatherDialogFragment extends BaseDialogFragment implements
 	Button btnOK;
 	TextView tvWeatherText;
 
+	public WeatherDialogFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_weather_dialog);
+	}
+	
 	// update
 	public WeatherDialogFragment(String tag) {
 		super(tag);

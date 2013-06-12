@@ -14,7 +14,7 @@ public class CityActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new CityFragment(getString(R.tag.fragment_city));
+		return new CityFragment();
 	}
 
 }

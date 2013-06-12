@@ -11,12 +11,17 @@ import android.widget.RelativeLayout;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.UIUtils;
 import com.zoe.calendar.R;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class NewbieFragment extends BaseFragment implements OnClickListener {
 
 	Button btnStart;
 	ImageView imgTop, imgBottom, imgTop2;
 
+	public NewbieFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_newbie);
+	}
 	public NewbieFragment(String tag) {
 		super(tag, "");
 	}

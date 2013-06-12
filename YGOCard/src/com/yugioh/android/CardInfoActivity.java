@@ -14,6 +14,6 @@ public class CardInfoActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new CardInfoFragment(getString(R.tag.tag_card), "");
+		return new CardInfoFragment();
 	}
 }

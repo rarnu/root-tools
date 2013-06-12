@@ -14,7 +14,7 @@ public class SubmitActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new SubmitFragment(getString(R.tag.fragment_submit));
+		return new SubmitFragment();
 	}
 
 }

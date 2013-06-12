@@ -29,6 +29,7 @@ import com.zoe.calendar.classes.CityItem;
 import com.zoe.calendar.common.Actions;
 import com.zoe.calendar.common.Config;
 import com.zoe.calendar.utils.CityUtils;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class CityFragment extends BaseFragment implements OnClickListener,
 		OnItemClickListener {
@@ -39,6 +40,11 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 
 	List<CityItem> listCity;
 	CityAdapter adapterCity;
+
+	public CityFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_city);
+	}
 
 	public CityFragment(String tag) {
 		super(tag, "");

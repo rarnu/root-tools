@@ -15,6 +15,7 @@ import com.zoe.calendar.R;
 import com.zoe.calendar.adapter.ActivityAdapter;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.database.QueryUtils;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class RestoreFragment extends BaseFragment implements RemoveListener {
 
@@ -26,6 +27,11 @@ public class RestoreFragment extends BaseFragment implements RemoveListener {
 	DragController mController;
 	ActivityAdapter adapterActivity;
 	List<ActivityItem> listActivity;
+	
+	public RestoreFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_restore);
+	}
 
 	public RestoreFragment(String tag) {
 		super(tag, "");

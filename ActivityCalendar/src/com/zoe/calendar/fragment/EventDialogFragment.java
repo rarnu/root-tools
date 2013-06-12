@@ -9,12 +9,18 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseDialogFragment;
 import com.zoe.calendar.R;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class EventDialogFragment extends BaseDialogFragment implements
 		OnClickListener {
 
 	Button btnOK;
 	TextView tvEventText;
+
+	public EventDialogFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_event_dialog);
+	}
 
 	// update
 	public EventDialogFragment(String tag) {

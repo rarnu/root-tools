@@ -23,8 +23,7 @@ public class WeatherDialog extends BaseDialog {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new WeatherDialogFragment(
-				getString(R.tag.fragment_weather_dialog));
+		return new WeatherDialogFragment();
 	}
 
 }

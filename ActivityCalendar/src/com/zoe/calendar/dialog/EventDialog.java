@@ -23,7 +23,7 @@ public class EventDialog extends BaseDialog {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new EventDialogFragment(getString(R.tag.fragment_event_dialog));
+		return new EventDialogFragment();
 	}
 
 }

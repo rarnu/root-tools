@@ -17,6 +17,7 @@ import com.zoe.calendar.common.MenuIds;
 import com.zoe.calendar.dialog.EventDialog;
 import com.zoe.calendar.dialog.ShareDialog;
 import com.zoe.calendar.utils.GoogleCalendarUtils;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class DetailFragment extends BaseTabFragment {
 
@@ -30,6 +31,11 @@ public class DetailFragment extends BaseTabFragment {
 		actItem = (ActivityItem) getActivity().getIntent()
 				.getSerializableExtra("item");
 		gc = GoogleCalendarUtils.getCalendars(getActivity());
+	}
+
+	public DetailFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_detail);
 	}
 
 	public DetailFragment(String tag) {
@@ -121,19 +127,13 @@ public class DetailFragment extends BaseTabFragment {
 	@Override
 	public void initFragmentList(List<Fragment> listFragment) {
 
-		listFragment.add(new DetailInfoFragment(
-				getString(R.tag.fragment_detail_info),
-				getString(R.string.menu_activity)));
+		listFragment.add(new DetailInfoFragment());
 
 		if ((actItem.location != null) && (!actItem.location.equals(""))) {
-			listFragment.add(new DetailMapFragment(
-					getString(R.tag.fragment_detail_map),
-					getString(R.string.menu_map)));
+			listFragment.add(new DetailMapFragment());
 		}
 
-		listFragment.add(new DetailWebFragment(
-				getString(R.tag.fragment_detail_web),
-				getString(R.string.menu_url)));
+		listFragment.add(new DetailWebFragment());
 
 	}
 

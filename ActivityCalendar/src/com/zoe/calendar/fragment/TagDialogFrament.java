@@ -18,6 +18,7 @@ import com.rarnu.devlib.base.BaseDialogFragment;
 import com.rarnu.utils.UIUtils;
 import com.zoe.calendar.R;
 import com.zoe.calendar.adapter.TagsTypeAdapter;
+import com.zoe.calendar.utils.ResourceUtils;
 
 public class TagDialogFrament extends BaseDialogFragment implements
 		OnClickListener, OnItemClickListener {
@@ -27,6 +28,10 @@ public class TagDialogFrament extends BaseDialogFragment implements
 	TagsTypeAdapter adapter;
 	List<String> listType;
 
+	public TagDialogFrament() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.fragment_tag_dialog);
+	}
 	public TagDialogFrament(String tag) {
 		super(tag);
 	}

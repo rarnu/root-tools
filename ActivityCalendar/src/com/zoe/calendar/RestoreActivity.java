@@ -14,7 +14,7 @@ public class RestoreActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new RestoreFragment(getString(R.tag.fragment_restore));
+		return new RestoreFragment();
 	}
 
 }

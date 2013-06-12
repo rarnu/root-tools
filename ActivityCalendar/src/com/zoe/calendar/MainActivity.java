@@ -21,6 +21,7 @@ import com.zoe.calendar.dialog.UpdateDialog;
 import com.zoe.calendar.fragment.LeftMenuFragment;
 import com.zoe.calendar.fragment.MainFragment;
 import com.zoe.calendar.utils.APIUtils;
+import com.zoe.calendar.utils.ResourceUtils;
 import com.zoe.calendar.utils.APIUtils.UpdateCallback;
 
 public class MainActivity extends BaseSlidingActivity implements UpdateCallback {
@@ -29,6 +30,7 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 	public void onCreate(Bundle savedInstanceState) {
 		Global.synced = false;
 		UIUtils.initDisplayMetrics(this, getWindowManager(), false);
+		ResourceUtils.init(this);
 
 		super.onCreate(savedInstanceState);
 
@@ -119,7 +121,7 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 
 	@Override
 	public Fragment replaceMenuFragment() {
-		return new LeftMenuFragment(getString(R.tag.fragment_left_menu));
+		return new LeftMenuFragment();
 	}
 
 	@Override
@@ -154,7 +156,7 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 
 	@Override
 	public Fragment replaceFragment() {
-		return new MainFragment(getString(R.tag.fragment_main));
+		return new MainFragment();
 	}
 
 	@Override

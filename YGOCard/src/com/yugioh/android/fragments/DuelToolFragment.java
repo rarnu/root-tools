@@ -17,6 +17,7 @@ import com.rarnu.utils.UIUtils;
 import com.yugioh.android.CoinDiceActivity;
 import com.yugioh.android.R;
 import com.yugioh.android.common.MenuIds;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class DuelToolFragment extends BaseFragment implements OnClickListener {
 
@@ -33,6 +34,11 @@ public class DuelToolFragment extends BaseFragment implements OnClickListener {
 
 	MenuItem itemResetDuel;
 
+	public DuelToolFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_main_dueltool);
+	}
+	
 	public DuelToolFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}

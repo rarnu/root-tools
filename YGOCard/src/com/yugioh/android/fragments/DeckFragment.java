@@ -5,9 +5,15 @@ import android.view.Menu;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.yugioh.android.R;
+import com.yugioh.android.utils.ResourceUtils;
 
 public class DeckFragment extends BaseFragment {
 
+	public DeckFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_main_deck);
+	}
+	
 	public DeckFragment(String tagText, String tabTitle) {
 		super(tagText, tabTitle);
 	}
