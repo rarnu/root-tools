@@ -307,9 +307,18 @@ public class FileUtils {
 		}
 	}
 
-	public static String readFile(Context context, String path)
+	public static String readInnerFile(Context context, String path)
 			throws IOException {
 		InputStream is = context.openFileInput(path);
+		return readFileStream(is);
+	}
+
+	public static String readFileString(String path) throws IOException {
+		InputStream is = new FileInputStream(path);
+		return readFileStream(is);
+	}
+
+	private static String readFileStream(InputStream is) throws IOException {
 		byte[] bytes = new byte[1024];
 		ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
 		while (is.read(bytes) != -1) {

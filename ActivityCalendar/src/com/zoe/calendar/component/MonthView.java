@@ -1,6 +1,6 @@
 package com.zoe.calendar.component;
 
-import com.zoe.calendar.R;
+import java.util.List;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -9,6 +9,9 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+
+import com.zoe.calendar.R;
+import com.zoe.calendar.classes.CalendarItem;
 
 public class MonthView extends GridView implements OnItemClickListener {
 
@@ -89,6 +92,10 @@ public class MonthView extends GridView implements OnItemClickListener {
 		}
 		adapter.notifyDataSetChanged();
 
+	}
+	
+	public void setCalendarItem(List<CalendarItem> listItems) {
+		adapter.setCalendarItem(listItems);
 	}
 
 }

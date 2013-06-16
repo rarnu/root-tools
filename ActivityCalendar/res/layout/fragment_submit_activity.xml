@@ -26,12 +26,32 @@
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="?android:attr/textColorPrimary" />
+        
+        <TextView
+            android:id="@+id/tvCity"
+            android:layout_width="50dip"
+            android:layout_height="48dip"
+            android:layout_below="@+id/tvTitle"
+            android:gravity="left|center_vertical"
+            android:text="@string/submit_city"
+            android:textColor="#FF666666"
+            android:textSize="16dip" />
+        
+        <EditText
+            android:id="@+id/etCity"
+            android:layout_width="match_parent"
+            android:layout_height="48dip"
+            android:layout_below="@+id/etTitle"
+            android:layout_toRightOf="@+id/tvCity"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="?android:attr/textColorPrimary" />
 
         <TextView
             android:id="@+id/tvLocation"
             android:layout_width="50dip"
             android:layout_height="48dip"
-            android:layout_below="@+id/tvTitle"
+            android:layout_below="@+id/tvCity"
             android:gravity="left|center_vertical"
             android:text="@string/submit_location"
             android:textColor="#FF666666"
@@ -41,7 +61,7 @@
             android:id="@+id/etLocation"
             android:layout_width="match_parent"
             android:layout_height="48dip"
-            android:layout_below="@+id/etTitle"
+            android:layout_below="@+id/etCity"
             android:layout_toRightOf="@+id/tvLocation"
             android:maxLines="1"
             android:singleLine="true"

@@ -1,7 +1,10 @@
 package com.zoe.calendar.component;
 
+import java.util.List;
+
 import android.content.Context;
 import android.graphics.Color;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -11,6 +14,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.zoe.calendar.R;
+import com.zoe.calendar.classes.CalendarItem;
 
 public class MonthAdapter extends BaseAdapter {
 
@@ -19,11 +23,35 @@ public class MonthAdapter extends BaseAdapter {
 	private int rowHeight = 0;
 	private Context context;
 
+	private List<CalendarItem> listCalendar = null;
+
 	public MonthAdapter(Context context, CalendarDays days, int rowHeight) {
 		this.context = context;
 		this.inflater = LayoutInflater.from(context);
 		this.days = days;
 		this.rowHeight = rowHeight;
+	}
+
+	public void setCalendarItem(List<CalendarItem> listCalendar) {
+		this.listCalendar = listCalendar;
+		Log.e("MonthAdapter", "setCalendarItem");
+		this.notifyDataSetChanged();
+	}
+
+	private String getCalenderItem(int year, int month, int day) {
+		String ret = "";
+		if (listCalendar != null) {
+			for (int i = 0; i < listCalendar.size(); i++) {
+				if (listCalendar.get(i).year == year
+						&& listCalendar.get(i).month == month
+						&& listCalendar.get(i).day == day) {
+					ret = listCalendar.get(i).text;
+					break;
+				}
+			}
+		}
+
+		return ret;
 	}
 
 	@Override
@@ -74,7 +102,16 @@ public class MonthAdapter extends BaseAdapter {
 					.valueOf(item.day));
 			holder.tvDayTitle.setTextColor(item.highlight ? 0xff0099CC
 					: Color.BLACK);
-			holder.tvLunar.setText(item.chineseDay);
+
+			String calItemText = getCalenderItem(item.year, item.month,
+					item.day);
+			if (calItemText.equals("")) {
+				holder.tvLunar.setText(item.chineseDay);
+				holder.tvLunar.setTextColor(Color.BLACK);
+			} else {
+				holder.tvLunar.setText(calItemText);
+				holder.tvLunar.setTextColor(0xff0099CC);
+			}
 
 			if (item.today) {
 				holder.tvDayTitle.setTextColor(0xff009933);
@@ -86,7 +123,7 @@ public class MonthAdapter extends BaseAdapter {
 
 			holder.ivToday.setImageDrawable(item.selected ? context
 					.getResources().getDrawable(R.drawable.today) : null);
-			
+
 		}
 		return v;
 	}

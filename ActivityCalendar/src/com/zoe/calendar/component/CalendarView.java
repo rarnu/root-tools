@@ -10,6 +10,7 @@ import android.widget.RelativeLayout;
 
 import com.rarnu.devlib.component.HScrollLayout;
 import com.rarnu.devlib.component.intf.OnScreenChangeListener;
+import com.zoe.calendar.classes.CalendarItem;
 
 public class CalendarView extends HScrollLayout implements
 		OnScreenChangeListener, DayClickListener {
@@ -118,6 +119,12 @@ public class CalendarView extends HScrollLayout implements
 			if (i != index) {
 				mv[i].changeSelection(index, SelectedPosition);
 			}
+		}
+	}
+	
+	public void setCalendarItems(List<CalendarItem> listItems) {
+		for (int i=0; i<mv.length; i++) {
+			mv[i].setCalendarItem(listItems);
 		}
 	}
 }

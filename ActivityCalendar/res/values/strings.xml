@@ -135,6 +135,7 @@
     <string name="permission_desc">活动日历的权限描述</string>
     
     <string name="submit_title">标题</string>
+    <string name="submit_city">城市</string>
     <string name="submit_location">地址</string>
     <string name="submit_start_datetime">开始</string>
     <string name="submit_end_datetime">结束</string>

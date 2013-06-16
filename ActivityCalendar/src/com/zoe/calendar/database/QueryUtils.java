@@ -55,7 +55,7 @@ public class QueryUtils {
 				.query(ContentUris.withAppendedId(ActivityProvider.CONTENT_URI,
 						ActivityProvider.ACTION_TABLE_ACTIVITY),
 						null,
-						"(city='all' or city=?) and year=? and ((start_month=? and start_day=?) or (end_month=? and end_day=?)) and status=?",
+						"(city='all' or city=?) and year=? and ((start_month>=? and start_day>=?) and (end_month<=? and end_day<=?)) and status=?",
 						new String[] { city, String.valueOf(year),
 								String.valueOf(month), String.valueOf(day),
 								String.valueOf(month), String.valueOf(day),

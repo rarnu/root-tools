@@ -1,7 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-
-    <string name="permission_title">Permission Description</string>
-    <string name="permission_desc">活动日历的权限描述</string>
-
-</resources>

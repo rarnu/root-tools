@@ -1,5 +1,6 @@
 package com.zoe.calendar.utils;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -13,11 +14,14 @@ import android.os.Message;
 import android.util.Log;
 
 import com.rarnu.utils.DeviceUtilsLite;
+import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.HttpRequest;
 import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.classes.ActivityItem;
+import com.zoe.calendar.classes.CalendarItem;
 import com.zoe.calendar.classes.RemoteActivityItem;
+import com.zoe.calendar.classes.RemoteCalendarItem;
 import com.zoe.calendar.classes.UpdateInfo;
 import com.zoe.calendar.classes.WeatherInfo;
 import com.zoe.calendar.common.Config;
@@ -86,6 +90,61 @@ public class APIUtils {
 		}
 
 		return list;
+	}
+
+	public static List<CalendarItem> downloadCalendarItem(final Context context) {
+		long timestamp = Config.getLastCalendarTimestamp(context);
+		String url = BASE_URL + "calendar";
+		String param = String.format("last_timestamp=%d", timestamp);
+
+		String calendarFileName = "/data/data/" + context.getPackageName()
+				+ "/calendar.json";
+
+		try {
+			String ret = HttpRequest.get(url, param, HTTP.UTF_8);
+			JSONObject json = new JSONObject(ret);
+			long newTimestamp = json.getLong("timestamp");
+			JSONArray jData = json.getJSONArray("data");
+
+			if (jData != null && jData.length() != 0) {
+				// load
+				Config.setLastCalendarTimestamp(context, newTimestamp);
+				FileUtils.rewriteFile(calendarFileName, ret);
+			}
+		} catch (Exception e) {
+
+		}
+		try {
+			return parseCalendarItem(context, calendarFileName);
+		} catch (Exception e) {
+			Log.e("parseCalendarItem", e.getMessage());
+			return null;
+		}
+	}
+
+	private static List<CalendarItem> parseCalendarItem(Context context,
+			String jsonFile) throws Exception {
+
+		if (!new File(jsonFile).exists()) {
+			return null;
+		}
+
+		String jsonstr = FileUtils.readFileString(jsonFile);
+		JSONObject json = new JSONObject(jsonstr);
+		JSONArray jData = json.getJSONArray("data");
+		List<CalendarItem> list = null;
+
+		if (jData != null && jData.length() != 0) {
+			list = new ArrayList<CalendarItem>();
+			for (int i = 0; i < jData.length(); i++) {
+				RemoteCalendarItem ci = new RemoteCalendarItem();
+				ci.date = jData.getJSONObject(i).getString("date");
+				ci.text = jData.getJSONObject(i).getString("name");
+				list.add(CalendarItem.fromRemote(ci));
+			}
+		}
+		return list;
+
 	}
 
 	public interface UpdateCallback {
@@ -160,8 +219,8 @@ public class APIUtils {
 	}
 
 	public static void submitNewActivity(final Context context,
-			final String title, final String location, final String url,
-			final String startDate, final String startTime,
+			final String title, final String city, final String location,
+			final String url, final String startDate, final String startTime,
 			final String endDate, final String endTime, final int weight,
 			final String[] tags, final String content, final String source) {
 
@@ -169,7 +228,7 @@ public class APIUtils {
 
 			@Override
 			public void run() {
-				String json_fmt = "title:\"%s\",location:\"%s\",url:\"%s\",start_date:\"%s\",start_time:\"%s\",end_date:\"%s\",end_time:\"%s\",weight:%d,source:\"%s\",tags:[%s],content:\"%s\"";
+				String json_fmt = "title:\"%s\",city:\"%s\",location:\"%s\",url:\"%s\",start_date:\"%s\",start_time:\"%s\",end_date:\"%s\",end_time:\"%s\",weight:%d,source:\"%s\",tags:[%s],content:\"%s\"";
 				String tagstr = "";
 				for (String s : tags) {
 					tagstr += String.format("\"%s\",", s);
@@ -177,9 +236,9 @@ public class APIUtils {
 				if (tagstr.length() != 0 && tagstr.endsWith(",")) {
 					tagstr = tagstr.substring(0, tagstr.length() - 1);
 				}
-				String json = String.format(json_fmt, title, location, url,
-						startDate, startTime, endDate, endTime, weight, source,
-						tagstr, content);
+				String json = String.format(json_fmt, title, city, location,
+						url, startDate, startTime, endDate, endTime, weight,
+						source, tagstr, content);
 
 				// the temp method for submit a new activity
 				String device = DeviceUtilsLite.getDeviceUniqueId(context);

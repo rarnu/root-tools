@@ -26,6 +26,7 @@ import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.UIUtils;
+import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.common.MenuIds;
 import com.zoe.calendar.dialog.TagDialog;
@@ -37,7 +38,7 @@ public class SubmitFragment extends BaseFragment implements OnClickListener {
 
 	MenuItem miSend;
 
-	EditText etTitle, etLocation;
+	EditText etTitle, etLocation, etCity;
 	Button dpStart, tpStart, dpEnd, tpEnd;
 	EditText etLink, etWeight, etContent;
 	LinearLayout layTags;
@@ -51,7 +52,7 @@ public class SubmitFragment extends BaseFragment implements OnClickListener {
 		super();
 		tagText = ResourceUtils.getString(R.tag.fragment_submit);
 	}
-	
+
 	public SubmitFragment(String tag) {
 		super(tag, "");
 	}
@@ -88,6 +89,7 @@ public class SubmitFragment extends BaseFragment implements OnClickListener {
 
 		layTags = (LinearLayout) innerView.findViewById(R.id.layTags);
 		etTitle = (EditText) innerView.findViewById(R.id.etTitle);
+		etCity = (EditText) innerView.findViewById(R.id.etCity);
 		etLocation = (EditText) innerView.findViewById(R.id.etLocation);
 		etLink = (EditText) innerView.findViewById(R.id.etLink);
 		etWeight = (EditText) innerView.findViewById(R.id.etWeight);
@@ -107,7 +109,7 @@ public class SubmitFragment extends BaseFragment implements OnClickListener {
 
 	@Override
 	public void initLogic() {
-		// startActivity(new Intent(getActivity(), NotImplementedDialog.class));
+		etCity.setHint(Global.city);
 	}
 
 	@Override
@@ -141,6 +143,10 @@ public class SubmitFragment extends BaseFragment implements OnClickListener {
 	private void submitNewActivity() {
 		// check data
 		String title = etTitle.getText().toString();
+		String city = etCity.getText().toString();
+		if (city.equals("")) {
+			city = Global.city;
+		}
 		String location = etLocation.getText().toString();
 		String url = etLink.getText().toString();
 		String startDate = DateUtils.formatDate(cStart);
@@ -200,7 +206,7 @@ public class SubmitFragment extends BaseFragment implements OnClickListener {
 		} catch (Exception e) {
 
 		}
-		APIUtils.submitNewActivity(getActivity(), title, location, url,
+		APIUtils.submitNewActivity(getActivity(), title, city, location, url,
 				startDate, startTime, endDate, endTime, weight, tags, content,
 				source);
 		Toast.makeText(getActivity(), R.string.submit_done, Toast.LENGTH_LONG)

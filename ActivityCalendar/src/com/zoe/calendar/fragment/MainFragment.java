@@ -36,6 +36,7 @@ import com.zoe.calendar.R;
 import com.zoe.calendar.RestoreActivity;
 import com.zoe.calendar.adapter.ActivityAdapter;
 import com.zoe.calendar.classes.ActivityItem;
+import com.zoe.calendar.classes.CalendarItem;
 import com.zoe.calendar.classes.CityCodeItem;
 import com.zoe.calendar.classes.WeatherInfo;
 import com.zoe.calendar.common.Actions;
@@ -64,6 +65,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	DragController mController;
 	ActivityAdapter adapterActivity;
 	List<ActivityItem> listActivity;
+	List<CalendarItem> listCalendar;
 	ImageView ivTrash;
 
 	List<CalendarDays> listDays;
@@ -90,7 +92,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		super();
 		tagText = ResourceUtils.getString(R.tag.fragment_main);
 	}
-	
+
 	public MainFragment(String tag) {
 		super(tag, "");
 	}
@@ -227,6 +229,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 		if (!Global.synced) {
 			Global.synced = true;
 			downloadNewDataT();
+			downloadCalendarItemT();
 
 		}
 
@@ -346,6 +349,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			ivActivityHint.setImageResource(R.drawable.activity_1);
 			ivActivityHint.setVisibility(View.VISIBLE);
 			lvCalender.setVisibility(View.GONE);
+			ivTrash.setVisibility(View.GONE);
 		} else if (day.isAfter60Days()) {
 			ivActivityHint.setImageResource(R.drawable.activity_2);
 			ivActivityHint.setVisibility(View.VISIBLE);
@@ -420,6 +424,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			break;
 		case R.id.btnSync:
 			downloadNewDataT();
+			downloadCalendarItemT();
 			break;
 		case R.id.layWeather:
 			// show weather info
@@ -432,6 +437,29 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 			break;
 		}
 
+	}
+
+	private void downloadCalendarItemT() {
+		// download calendar item
+		final Handler hCalendarItem = new Handler() {
+			@Override
+			public void handleMessage(Message msg) {
+				if (msg.what == 1) {
+					if (listCalendar != null) {
+						vpCalendar.setCalendarItems(listCalendar);
+					}
+				}
+				super.handleMessage(msg);
+			}
+		};
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				listCalendar = APIUtils.downloadCalendarItem(getActivity());
+				hCalendarItem.sendEmptyMessage(1);
+			}
+		}).start();
 	}
 
 	private void downloadNewDataT() {

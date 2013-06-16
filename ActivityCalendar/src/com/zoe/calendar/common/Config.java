@@ -10,6 +10,7 @@ public class Config {
 	private static final String KEY_CITY = "key_city";
 	private static final String KEY_CITY_PINYIN = "key_city_pinyin";
 	private static final String KEY_LAST_TIMESTAMP = "key_last_timestamp";
+	private static final String KEY_LAST_CALENDAR_TIMESTAMP = "key_last_calendar_timestamp";
 	private static final String KEY_SETTING_TYPE = "key_setting_type_%d";
 	private static final String KEY_MOTION = "key_motion_%d";
 	private static final String KEY_LAST_WEATHER_TIMESTAMP = "key_last_weather_timestamp";
@@ -35,7 +36,15 @@ public class Config {
 		ConfigUtils.setLongConfig(context, KEY_LAST_TIMESTAMP + "_" + city,
 				timestamp);
 	}
+	
+	public static long getLastCalendarTimestamp(Context context) {
+		return ConfigUtils.getLongConfig(context, KEY_LAST_CALENDAR_TIMESTAMP, 0L);
+	}
 
+	public static void setLastCalendarTimestamp(Context context, long timestamp) {
+		ConfigUtils.setLongConfig(context, KEY_LAST_CALENDAR_TIMESTAMP, timestamp);
+	}
+	
 	public static String getCityPinyin(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_CITY_PINYIN, "");
 	}
