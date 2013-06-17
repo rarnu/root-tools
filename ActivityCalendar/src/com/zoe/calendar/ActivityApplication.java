@@ -1,4 +1,4 @@
-﻿package com.zoe.calendar;
+package com.zoe.calendar;
 
 import android.app.Application;
 import android.util.Log;
@@ -22,8 +22,7 @@ public class ActivityApplication extends Application implements
 		super.onCreate();
 		mInstance = this;
 
-//		Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler(
-//				this));
+        // Thread.setDefaultUncaughtExceptionHandler(new GlobalExceptionHandler(this));
 
 		initEngineManager();
 
