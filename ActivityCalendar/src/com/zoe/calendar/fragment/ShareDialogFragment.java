@@ -1,11 +1,9 @@
 package com.zoe.calendar.fragment;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -18,7 +16,6 @@ import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseDialogFragment;
 import com.rarnu.utils.UIUtils;
-import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.adapter.ShareAdapter;
 import com.zoe.calendar.classes.ActivityItem;
@@ -33,7 +30,7 @@ public class ShareDialogFragment extends BaseDialogFragment implements
 	ShareAdapter adapter;
 	List<ShareItem> list;
 	ActivityItem actItem;
-	
+
 	public ShareDialogFragment() {
 		super();
 		tagText = ResourceUtils.getString(R.tag.fragment_share_dialog);
@@ -130,9 +127,10 @@ public class ShareDialogFragment extends BaseDialogFragment implements
 		Intent inShare = new Intent(Intent.ACTION_SEND);
 		inShare.setType("image/*");
 
-		inShare.putExtra(Intent.EXTRA_STREAM,
-				Uri.fromFile(new File(Global.iconFilePath)));
-		inShare.putExtra(Intent.EXTRA_TEXT, item.text + actItem.url);
+//		inShare.putExtra(Intent.EXTRA_STREAM,
+//				Uri.fromFile(new File(Global.iconFilePath)));
+		inShare.putExtra(Intent.EXTRA_TEXT,
+				String.format(item.text, actItem.url));
 		inShare.setPackage(item.packageName);
 		if ((item.className != null) && (!item.className.equals(""))) {
 			inShare.setClassName(item.packageName, item.className);

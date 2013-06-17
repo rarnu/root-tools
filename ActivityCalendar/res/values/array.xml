@@ -37,10 +37,10 @@
         <item></item>
     </string-array>
     <string-array name="share_texts">
-        <item>I Love it </item>
-        <item>这个貌似很有趣，我想去 </item>
-        <item>啊呜～我觉得这个不错 </item>
-        <item>推荐这个活动 </item>
+        <item formatted="false">Let\'s go do something special %s</item>
+        <item formatted="false">%s 这个超赞～大喊大叫亢奋ing～ 组队一起去吧！</item>
+        <item formatted="false">%s 看过来！看过来！ 一起去！一起去！</item>
+        <item formatted="false">%s 高高兴兴扭啊扭～ 一起去一起去～</item>
     </string-array>
 
 </resources>
