@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Color;
 import android.graphics.Rect;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
@@ -34,6 +35,12 @@ public class BlockView extends RelativeLayout {
 
 	ScaleAnimation saBig, saSmall;
 
+	public interface ItemClickListener {
+		void onItemClick(int index);
+	}
+
+	private ItemClickListener listener = null;
+
 	public interface FocusCallback {
 		void onFocusChanged(boolean focused, int index);
 	}
@@ -57,6 +64,10 @@ public class BlockView extends RelativeLayout {
 
 	public void setFocusCallback(FocusCallback callback) {
 		this.callback = callback;
+	}
+
+	public void setItemClickListener(ItemClickListener listener) {
+		this.listener = listener;
 	}
 
 	private void init() {
@@ -83,6 +94,16 @@ public class BlockView extends RelativeLayout {
 	}
 
 	@Override
+	public boolean onTouchEvent(MotionEvent event) {
+		if (event.getAction() == MotionEvent.ACTION_UP) {
+			if (listener != null) {
+				listener.onItemClick(getId());
+			}
+		}
+		return super.onTouchEvent(event);
+	}
+
+	@Override
 	protected void onFocusChanged(boolean gainFocus, int direction,
 			Rect previouslyFocusedRect) {
 		super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
@@ -99,6 +120,14 @@ public class BlockView extends RelativeLayout {
 			startAnimation(saSmall);
 		}
 
+	}
+
+	public void setBackground(int id, int bgres) {
+		findViewById(id).setBackgroundResource(bgres);
+	}
+
+	public void setBackgroundColor(int id, int color) {
+		findViewById(id).setBackgroundColor(color);
 	}
 
 }

@@ -6,6 +6,8 @@ import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
+import com.rarnu.devlib.component.BlockView.ItemClickListener;
+
 public class MergeView extends RelativeLayout {
 
 	private static final int DEFAULT_WIDTH = ViewGroup.LayoutParams.MATCH_PARENT;
@@ -56,7 +58,6 @@ public class MergeView extends RelativeLayout {
 		realWidth = width;
 		realHeight = height;
 		setLayoutParams(vglp);
-		resize();
 	}
 
 	public void setPadding(int padding) {
@@ -66,15 +67,14 @@ public class MergeView extends RelativeLayout {
 	public void setGridSize(int columnCount, int rowCount) {
 		this.columnCount = columnCount;
 		this.rowCount = rowCount;
-		resize();
 	}
 
-	public void setViews(BlockView[] views) {
+	public void setViews(BlockView[] views, ItemClickListener listener) {
 		this.views = views;
-		resize();
+		resize(listener);
 	}
 
-	private void resize() {
+	private void resize(ItemClickListener listener) {
 		if (views == null) {
 			return;
 		}
@@ -102,6 +102,7 @@ public class MergeView extends RelativeLayout {
 
 			bv.setId(bv.id);
 			bv.setLayoutParams(rllp);
+			bv.setItemClickListener(listener);
 			addView(bv);
 		}
 	}
