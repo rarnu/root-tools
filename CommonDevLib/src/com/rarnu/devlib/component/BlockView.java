@@ -6,6 +6,7 @@ import android.graphics.Rect;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.animation.ScaleAnimation;
 import android.widget.RelativeLayout;
 
@@ -16,7 +17,7 @@ import com.rarnu.utils.AnimateUtils;
  * must use in MergeView
  * 
  */
-public class BlockView extends RelativeLayout {
+public class BlockView extends RelativeLayout implements OnClickListener {
 
 	public int id;
 	// will merge grids?
@@ -74,6 +75,7 @@ public class BlockView extends RelativeLayout {
 		setFocusable(true);
 		setFocusableInTouchMode(true);
 		setClickable(true);
+		setOnClickListener(this);
 
 		saBig = AnimateUtils.getScaleAnimation(1.0F, scaleFactor,
 				intervalFactor, true);
@@ -128,6 +130,13 @@ public class BlockView extends RelativeLayout {
 
 	public void setBackgroundColor(int id, int color) {
 		findViewById(id).setBackgroundColor(color);
+	}
+
+	@Override
+	public void onClick(View v) {
+		if (listener != null) {
+			listener.onItemClick(getId());
+		}
 	}
 
 }
