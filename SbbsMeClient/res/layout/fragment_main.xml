@@ -4,10 +4,24 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <ListView
-        android:id="@+id/lvPosts"
+    <com.rarnu.devlib.component.PullDownListView
+        android:id="@+id/lvPullDown"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
-    </ListView>
+        android:layout_height="match_parent"
+        android:layout_marginTop="4dip" />
+
+    <TextView
+        android:id="@+id/tvLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="64dip"
+        android:background="#DD0099cc"
+        android:gravity="center"
+        android:padding="16dip"
+        android:text="@string/loading"
+        android:textColor="@color/white"
+        android:visibility="gone" >
+    </TextView>
 
 </RelativeLayout>

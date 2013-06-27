@@ -34,7 +34,7 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
 	public static final int WHAT_SET_HEADER_HEIGHT = 4;
 	public static final int WHAT_DID_MORE = 5;
 
-	private static final int DEFAULT_HEADER_VIEW_HEIGHT = 105;
+	private static final int DEFAULT_HEADER_VIEW_HEIGHT = 120;
 
 	private View mHeaderView;
 	private LayoutParams mHeaderViewParams;

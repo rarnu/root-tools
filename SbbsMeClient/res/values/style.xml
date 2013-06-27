@@ -8,6 +8,7 @@
 
     <style name="SbbsMeActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">#FF33B5E5</item>
+        <item name="android:titleTextStyle">@style/SbbsMeActionBarTitleStyle</item>
         <item name="android:backgroundStacked">#FF0099CC</item>
     </style>
 
@@ -15,6 +16,10 @@
         <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
+    </style>
+
+    <style name="SbbsMeActionBarTitleStyle" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
+        <item name="android:textColor">@color/white</item>
     </style>
 
 </resources>

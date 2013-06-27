@@ -8,4 +8,6 @@
     <string name="lm_hottags">Hot Tags</string>
     <string name="lm_ongithub">On Github</string>
     <string name="lm_exit">Exit</string>
+    
+    <string name="loading">Loading...</string>
 </resources>
