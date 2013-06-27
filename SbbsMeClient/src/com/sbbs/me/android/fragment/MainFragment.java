@@ -3,14 +3,15 @@ package com.sbbs.me.android.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.Menu;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
@@ -18,42 +19,21 @@ import com.rarnu.devlib.component.PullDownListView;
 import com.rarnu.devlib.component.intf.OnPullDownListener;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
+import com.sbbs.me.android.ArticleActivity;
+import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
-import com.sbbs.me.android.api.SbbsMeArticle;
+import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
 
 public class MainFragment extends BaseFragment implements
-		OnLoadCompleteListener<List<SbbsMeArticle>>, OnPullDownListener {
+		OnLoadCompleteListener<List<SbbsMeBlock>>, OnPullDownListener,
+		OnItemClickListener {
 
 	PullDownListView lvPullDown;
-
 	SbbsArticleLoader loader;
-	List<SbbsMeArticle> list;
 	SbbsMeArticleAdapter adapter;
 	TextView tvLoading;
-
-	private Handler hRefresh = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case PullDownListView.WHAT_DID_REFRESH: {
-				adapter.notifyDataSetChanged();
-				lvPullDown.notifyDidRefresh();
-				break;
-			}
-
-			case PullDownListView.WHAT_DID_MORE: {
-				adapter.notifyDataSetChanged();
-				lvPullDown.notifyDidMore();
-				break;
-			}
-			}
-
-		}
-
-	};
 
 	public MainFragment() {
 		super();
@@ -79,26 +59,32 @@ public class MainFragment extends BaseFragment implements
 	public void initComponents() {
 		lvPullDown = (PullDownListView) innerView.findViewById(R.id.lvPullDown);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
-		list = new ArrayList<SbbsMeArticle>();
-		adapter = new SbbsMeArticleAdapter(getActivity(), list);
+		if (Global.listArticle == null) {
+			Global.listArticle = new ArrayList<SbbsMeBlock>();
+		}
+		adapter = new SbbsMeArticleAdapter(getActivity(), Global.listArticle);
 		lvPullDown.getListView().setAdapter(adapter);
 		loader = new SbbsArticleLoader(getActivity());
 		lvPullDown.enableAutoFetchMore(false, 1);
 		lvPullDown.setOnPullDownListener(this);
-		
+
 		lvPullDown.getListView().setDivider(new ColorDrawable(0xFFc5eaf8));
 		lvPullDown.getListView().setDividerHeight(UIUtils.dipToPx(1));
 	}
 
 	@Override
 	public void initEvents() {
+		lvPullDown.getListView().setOnItemClickListener(this);
 		loader.registerListener(0, this);
 	}
 
 	@Override
 	public void initLogic() {
-		tvLoading.setVisibility(View.VISIBLE);
-		loader.startLoading();
+
+		if (Global.listArticle.size() == 0) {
+			tvLoading.setVisibility(View.VISIBLE);
+			loader.startLoading();
+		}
 		lvPullDown.notifyDidLoad();
 	}
 
@@ -129,49 +115,35 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void onRefresh() {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(500);
-				} catch (InterruptedException e) {
-				}
-				Message msg = new Message();
-				msg.what = PullDownListView.WHAT_DID_REFRESH;
-				hRefresh.sendMessage(msg);
-			}
-		}).start();
+		loader.startLoading();
 	}
 
 	@Override
 	public void onMore() {
-		// new Thread(new Runnable() {
-		//
-		// @Override
-		// public void run() {
-		// try {
-		// Thread.sleep(1000);
-		// } catch (InterruptedException e) {
-		// e.printStackTrace();
-		// }
-		// Message msg = new Message();
-		// msg.what = PullDownListView.WHAT_DID_MORE;
-		// hRefresh.sendMessage(msg);
-		// }
-		// }).start();
 
 	}
 
 	@Override
-	public void onLoadComplete(Loader<List<SbbsMeArticle>> loader,
-			List<SbbsMeArticle> data) {
-		list.clear();
+	public void onLoadComplete(Loader<List<SbbsMeBlock>> loader,
+			List<SbbsMeBlock> data) {
+		Global.listArticle.clear();
 		if (data != null) {
-			list.addAll(data);
+			Global.listArticle.addAll(data);
 		}
-		adapter.setNewList(list);
+
+		adapter.setNewList(Global.listArticle);
 		tvLoading.setVisibility(View.GONE);
+		lvPullDown.notifyDidRefresh();
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		final SbbsMeBlock item = (SbbsMeBlock) lvPullDown.getListView()
+				.getItemAtPosition(position);
+
+		startActivity(new Intent(getActivity(), ArticleActivity.class)
+				.putExtra("articleId", item.Id));
 	}
 
 }

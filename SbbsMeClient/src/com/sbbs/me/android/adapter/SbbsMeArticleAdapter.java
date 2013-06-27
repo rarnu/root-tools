@@ -10,11 +10,11 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.base.adapter.BaseAdapter;
 import com.sbbs.me.android.R;
-import com.sbbs.me.android.api.SbbsMeArticle;
+import com.sbbs.me.android.api.SbbsMeBlock;
 
-public class SbbsMeArticleAdapter extends BaseAdapter<SbbsMeArticle> {
+public class SbbsMeArticleAdapter extends BaseAdapter<SbbsMeBlock> {
 
-	public SbbsMeArticleAdapter(Context context, List<SbbsMeArticle> list) {
+	public SbbsMeArticleAdapter(Context context, List<SbbsMeBlock> list) {
 		super(context, list);
 	}
 
@@ -31,7 +31,7 @@ public class SbbsMeArticleAdapter extends BaseAdapter<SbbsMeArticle> {
 			holder.tvBody = (TextView) v.findViewById(R.id.tvBody);
 			v.setTag(holder);
 		}
-		SbbsMeArticle item = list.get(position);
+		SbbsMeBlock item = list.get(position);
 		if (item != null) {
 			holder.tvSubject.setText(item.Subject);
 			holder.tvBody.setText(Html.fromHtml(item.Body));
@@ -40,7 +40,7 @@ public class SbbsMeArticleAdapter extends BaseAdapter<SbbsMeArticle> {
 	}
 
 	@Override
-	public String getValueText(SbbsMeArticle item) {
+	public String getValueText(SbbsMeBlock item) {
 		// TODO Auto-generated method stub
 		return null;
 	}

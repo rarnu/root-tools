@@ -2,4 +2,9 @@
 <resources>
     <item name="tag_main_fragment" type="tag">tag_main_fragment</item>
     <item name="tag_menu_left" type="tag">tag_menu_left</item>
+    <item name="tag_postnew_fragment" type="tag">tag_postnew_fragment</item>
+    <item name="tag_recent_fragment" type="tag">tag_recent_fragment</item>
+    <item name="tag_hottags_fragment" type="tag">tag_hottags_fragment</item>
+    <item name="tag_ongithub_fragment" type="tag">tag_ongithub_fragment</item>
+    <item name="tag_article_fragment" type="tag">tag_article_fragment</item>
 </resources>

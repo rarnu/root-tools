@@ -5,6 +5,9 @@ import java.util.List;
 
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.ListView;
@@ -12,17 +15,19 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
+import com.sbbs.me.android.IMainIntf;
 import com.sbbs.me.android.R;
 
-public class LeftMenuFragment extends BaseFragment {
+public class LeftMenuFragment extends BaseFragment implements
+		OnItemClickListener {
 
 	ListView lvMenu, lvExit;
 	TextView tvLeftTitle;
 	ImageView ivLogo;
-	
+
 	List<String> listMenu, listExit;
 	ArrayAdapter<String> adapterMenu, adapterExit;
-	
+
 	public LeftMenuFragment() {
 		super();
 		tagText = ResourceUtils.getString(R.tag.tag_menu_left);
@@ -68,8 +73,8 @@ public class LeftMenuFragment extends BaseFragment {
 
 	@Override
 	public void initEvents() {
-		// TODO Auto-generated method stub
-
+		lvMenu.setOnItemClickListener(this);
+		lvExit.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -90,20 +95,30 @@ public class LeftMenuFragment extends BaseFragment {
 
 	@Override
 	public void initMenu(Menu menu) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-		// TODO Auto-generated method stub
 
 	}
 
 	@Override
 	public Bundle getFragmentState() {
-		// TODO Auto-generated method stub
 		return null;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		switch (parent.getId()) {
+		case R.id.lvMenu:
+			((IMainIntf) getActivity()).switchPage(position, true);
+			break;
+		case R.id.lvExit:
+			getActivity().finish();
+			break;
+		}
 	}
 
 }

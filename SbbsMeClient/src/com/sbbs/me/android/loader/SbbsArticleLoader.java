@@ -6,17 +6,17 @@ import android.content.Context;
 
 import com.rarnu.devlib.base.BaseLoader;
 import com.sbbs.me.android.api.SbbsMeAPI;
-import com.sbbs.me.android.api.SbbsMeArticle;
+import com.sbbs.me.android.api.SbbsMeBlock;
 
-public class SbbsArticleLoader extends BaseLoader<SbbsMeArticle> {
+public class SbbsArticleLoader extends BaseLoader<SbbsMeBlock> {
 
 	public SbbsArticleLoader(Context context) {
 		super(context);
 	}
 
 	@Override
-	public List<SbbsMeArticle> loadInBackground() {
-		List<SbbsMeArticle> list = null;
+	public List<SbbsMeBlock> loadInBackground() {
+		List<SbbsMeBlock> list = null;
 		try {
 			list = SbbsMeAPI.getArticles();
 		} catch (Exception e) {

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string name="app_name">SbbsMe</string>
+    <string name="article_name">View Article</string>
     
     <string name="lm_home">Home</string>
     <string name="lm_postnew">Post New</string>
