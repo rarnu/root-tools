@@ -4,7 +4,7 @@
     android:layout_height="48dip"
     android:gravity="left|center_vertical"
     android:paddingLeft="16dip"
-    android:textColor="?android:attr/textColorPrimary"
+    android:textColor="@color/gray"
     android:textSize="18dp" >
 
 </TextView>
