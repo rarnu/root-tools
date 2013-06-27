@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <style name="SbbsMeTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarStyle">@style/SbbsMeActionBarStyle</item>
+        <item name="android:actionBarTabTextStyle">@style/SbbsMeTabTextStyle</item>
+    </style>
+
+    <style name="SbbsMeActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
+        <item name="android:background">#FF33B5E5</item>
+        <item name="android:backgroundStacked">#FF0099CC</item>
+    </style>
+
+    <style name="SbbsMeTabTextStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabText">
+        <item name="android:textColor">?android:attr/textColorPrimaryInverse</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textStyle">normal</item>
+    </style>
+
+</resources>

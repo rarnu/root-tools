@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">SbbsMe</string>
+    
+    <string name="lm_home">Home</string>
+    <string name="lm_postnew">Post New</string>
+    <string name="lm_recent">Recent</string>
+    <string name="lm_hottags">Hot Tags</string>
+    <string name="lm_ongithub">On Github</string>
+    <string name="lm_exit">Exit</string>
+</resources>
