@@ -8,6 +8,8 @@ import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -65,9 +67,8 @@ public class MainFragment extends BaseFragment implements
 		adapter = new SbbsMeArticleAdapter(getActivity(), Global.listArticle);
 		lvPullDown.getListView().setAdapter(adapter);
 		loader = new SbbsBlockLoader(getActivity());
-		lvPullDown.enableAutoFetchMore(false, 1);
+		lvPullDown.enableAutoFetchMore(true, 1);
 		lvPullDown.setOnPullDownListener(this);
-
 		lvPullDown.getListView().setDivider(new ColorDrawable(0xFFc5eaf8));
 		lvPullDown.getListView().setDividerHeight(UIUtils.dipToPx(1));
 	}
@@ -120,8 +121,30 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void onMore() {
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				try {
+					Thread.sleep(500);
+				} catch (Exception e) {
+
+				}
+				hDid.sendEmptyMessage(1);
+			}
+		}).start();
 
 	}
+
+	private Handler hDid = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				lvPullDown.notifyDidMore();
+			}
+			super.handleMessage(msg);
+		};
+	};
 
 	@Override
 	public void onLoadComplete(Loader<List<SbbsMeBlock>> loader,

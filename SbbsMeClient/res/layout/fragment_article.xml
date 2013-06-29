@@ -6,13 +6,14 @@
     <ScrollView
         android:id="@+id/sv"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" >
+        android:layout_height="match_parent"
+        android:padding="8dip" >
 
-        <LinearLayout
+        <RelativeLayout
             android:id="@+id/layArticle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
-        </LinearLayout>
+        </RelativeLayout>
     </ScrollView>
 
 </RelativeLayout>

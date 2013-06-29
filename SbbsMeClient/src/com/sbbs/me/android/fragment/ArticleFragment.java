@@ -1,5 +1,7 @@
 package com.sbbs.me.android.fragment;
 
+import org.markdown4j.Markdown4jProcessor;
+
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
@@ -7,10 +9,12 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
+import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeArticle;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
@@ -18,7 +22,7 @@ import com.sbbs.me.android.loader.SbbsArticleLoader;
 public class ArticleFragment extends BaseFragment implements
 		OnLoadCompleteListener<SbbsMeArticle> {
 
-	LinearLayout layArticle;
+	RelativeLayout layArticle;
 	SbbsArticleLoader loader;
 	SbbsMeArticle article = null;
 
@@ -44,7 +48,7 @@ public class ArticleFragment extends BaseFragment implements
 
 	@Override
 	public void initComponents() {
-		layArticle = (LinearLayout) innerView.findViewById(R.id.layArticle);
+		layArticle = (RelativeLayout) innerView.findViewById(R.id.layArticle);
 
 		loader = new SbbsArticleLoader(getActivity());
 	}
@@ -98,24 +102,58 @@ public class ArticleFragment extends BaseFragment implements
 	}
 
 	private void buildUI() {
+
+		int viewId = 100000;
+
 		if (article.main_block != null) {
-			addTextView(article.main_block.Body);
+			if (getActivity() != null && getActivity().getActionBar() != null) {
+				getActivity().getActionBar().setTitle(
+						article.main_block.Subject);
+			}
+			addTextView(article.main_block.Body, viewId,
+					article.main_block.Format.equals("Markdown"));
+			viewId++;
 		}
 
 		if (article.sub_blocks != null) {
 			for (int i = 0; i < article.sub_blocks.size(); i++) {
-				addTextView(article.sub_blocks.get(i).Body);
+				addTextView(article.sub_blocks.get(i).Body, viewId,
+						article.sub_blocks.get(i).Format.equals("Markdown"));
+				viewId++;
 			}
 		}
 
 	}
 
-	private void addTextView(String htmlText) {
-		TextView layMain = new TextView(getActivity());
-		layMain.setLayoutParams(new LinearLayout.LayoutParams(
-				LinearLayout.LayoutParams.MATCH_PARENT,
-				LinearLayout.LayoutParams.WRAP_CONTENT));
-		layMain.setText(Html.fromHtml(htmlText));
-		layArticle.addView(layMain);
+	private void addTextView(String htmlText, int viewId, boolean isMarkdown) {
+		Log.e("addTextView", htmlText);
+		if (getActivity() != null) {
+			TextView layMain = new TextView(getActivity());
+			layMain.setId(viewId);
+			RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(
+					LinearLayout.LayoutParams.MATCH_PARENT,
+					LinearLayout.LayoutParams.WRAP_CONTENT);
+			if (viewId > 100000) {
+				rllp.addRule(RelativeLayout.BELOW, viewId - 1);
+			}
+			rllp.bottomMargin = UIUtils.dipToPx(4);
+			layMain.setLayoutParams(rllp);
+			try {
+				layMain.setText(Html
+						.fromHtml(isMarkdown ? (new Markdown4jProcessor()
+								.process(htmlText)) : htmlText));
+
+			} catch (Exception e) {
+				Log.e("Mrkdown", e.getMessage());
+			}
+			layMain.setFocusable(true);
+			layMain.setClickable(true);
+			layMain.setTextSize(18);
+			layMain.setTextColor(0xFF808080);
+
+			layMain.setBackgroundResource(R.drawable.selector_article);
+			layArticle.addView(layMain);
+			layArticle.postInvalidate();
+		}
 	}
 }
