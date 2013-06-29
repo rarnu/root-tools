@@ -23,10 +23,16 @@ the tool for rooted android devices
    $ android update project -n CommandLib -p . -t android-15
    $ android update project -n CommonUtils -p . -t android-15
    $ android update project -n CommonDevLib -p . -t android-15
+   $ android update project -n Emulator -p . -t android-15
    $ android update project -n PackageParser4 -p . -t android-15
    $ android update project -n RootTools -p . -t android-15
 ```
-5) build and install
+5) build emulator so
+```
+    $ cd Emulator
+    $ ndk-build clean && ndk-build
+```
+6) build and install
 ```
    $ cd $(PROJECT)/RootTools
    $ ant debug
