@@ -11,12 +11,12 @@ import org.json.JSONObject;
 
 public class SbbsMeArticle {
 
-	SbbsMeBlock main_block;
-	List<SbbsMeBlock> sub_blocks;
-	Map<String, List<SbbsMeBlock>> left_blocks;
-	Map<String, List<SbbsMeBlock>> right_blocks;
-	List<SbbsMeTag> tags;
-	Map<String, String> users;
+	public SbbsMeBlock main_block;
+	public List<SbbsMeBlock> sub_blocks;
+	public Map<String, List<SbbsMeBlock>> left_blocks;
+	public Map<String, List<SbbsMeBlock>> right_blocks;
+	public List<SbbsMeTag> tags;
+	public Map<String, String> users;
 
 	public static SbbsMeArticle fromJson(JSONObject json) throws Exception {
 		SbbsMeArticle article = new SbbsMeArticle();

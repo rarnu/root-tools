@@ -24,14 +24,14 @@ import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
 import com.sbbs.me.android.api.SbbsMeBlock;
-import com.sbbs.me.android.loader.SbbsArticleLoader;
+import com.sbbs.me.android.loader.SbbsBlockLoader;
 
 public class MainFragment extends BaseFragment implements
 		OnLoadCompleteListener<List<SbbsMeBlock>>, OnPullDownListener,
 		OnItemClickListener {
 
 	PullDownListView lvPullDown;
-	SbbsArticleLoader loader;
+	SbbsBlockLoader loader;
 	SbbsMeArticleAdapter adapter;
 	TextView tvLoading;
 
@@ -64,7 +64,7 @@ public class MainFragment extends BaseFragment implements
 		}
 		adapter = new SbbsMeArticleAdapter(getActivity(), Global.listArticle);
 		lvPullDown.getListView().setAdapter(adapter);
-		loader = new SbbsArticleLoader(getActivity());
+		loader = new SbbsBlockLoader(getActivity());
 		lvPullDown.enableAutoFetchMore(false, 1);
 		lvPullDown.setOnPullDownListener(this);
 

@@ -1,28 +1,33 @@
 package com.sbbs.me.android.loader;
 
-import java.util.List;
-
 import android.content.Context;
+import android.util.Log;
 
-import com.rarnu.devlib.base.BaseLoader;
+import com.rarnu.devlib.base.BaseClassLoader;
 import com.sbbs.me.android.api.SbbsMeAPI;
-import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.api.SbbsMeArticle;
 
-public class SbbsArticleLoader extends BaseLoader<SbbsMeBlock> {
+public class SbbsArticleLoader extends BaseClassLoader<SbbsMeArticle> {
+
+	private String articleId;
 
 	public SbbsArticleLoader(Context context) {
 		super(context);
 	}
 
-	@Override
-	public List<SbbsMeBlock> loadInBackground() {
-		List<SbbsMeBlock> list = null;
-		try {
-			list = SbbsMeAPI.getArticles();
-		} catch (Exception e) {
+	public void setArticleId(String article) {
+		this.articleId = article;
+	}
 
+	@Override
+	public SbbsMeArticle loadInBackground() {
+		SbbsMeArticle article = null;
+		try {
+			article = SbbsMeAPI.getArticle(articleId);
+		} catch (Exception e) {
+			Log.e("loadInBackground", e.getMessage());
 		}
-		return list;
+		return article;
 	}
 
 }
