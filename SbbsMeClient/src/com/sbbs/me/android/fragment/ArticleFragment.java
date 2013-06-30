@@ -88,13 +88,13 @@ public class ArticleFragment extends BaseFragment implements
 		miShare = menu.add(0, MenuIds.MENU_ID_SHARE, 99, R.string.share);
 		miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		miShare.setIcon(android.R.drawable.ic_menu_share);
-//		
-//		ShareActionProvider actionProvider = new ShareActionProvider(
-//				getActivity());
-//		miShare.setActionProvider(actionProvider);
-//		actionProvider
-//				.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
-//		actionProvider.setShareIntent(createShareIntent());
+		//
+		// ShareActionProvider actionProvider = new ShareActionProvider(
+		// getActivity());
+		// miShare.setActionProvider(actionProvider);
+		// actionProvider
+		// .setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+		// actionProvider.setShareIntent(createShareIntent());
 	}
 
 	private Intent createShareIntent() {
@@ -172,7 +172,7 @@ public class ArticleFragment extends BaseFragment implements
 			layMain.setTextSize(18);
 			layMain.setTextColor(0xFF808080);
 
-			layMain.setBackgroundResource(R.drawable.selector_article);
+			layMain.setBackgroundResource(R.drawable.article_list_selector);
 			layArticle.addView(layMain);
 			layArticle.postInvalidate();
 		}
