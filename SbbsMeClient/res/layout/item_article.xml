@@ -1,26 +1,29 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:background="@drawable/article_list_selector" >
 
     <TextView
         android:id="@+id/tvSubject"
         android:layout_width="match_parent"
         android:layout_height="28dip"
+        android:ellipsize="end"
         android:gravity="left|center_vertical"
+        android:maxLines="1"
         android:paddingLeft="8dip"
-        android:text="TEST"
-        android:textColor="#FF0099CC"
-        android:textSize="20sp" />
-    
-    <TextView android:id="@+id/tvBody"
+        android:singleLine="true"
+        android:textColor="@color/gray"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/tvSubject"
         android:gravity="left|top"
         android:paddingLeft="16dip"
-        android:textColor="@color/grey"
-        android:textSize="16sp"
-        android:layout_below="@+id/tvSubject"
-        android:text="TEST"/>
+        android:textColor="@color/lightgray"
+        android:textSize="16sp" />
 
 </RelativeLayout>

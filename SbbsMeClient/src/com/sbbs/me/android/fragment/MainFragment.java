@@ -6,11 +6,11 @@ import java.util.List;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -26,6 +26,7 @@ import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsBlockLoader;
 
 public class MainFragment extends BaseFragment implements
@@ -36,6 +37,8 @@ public class MainFragment extends BaseFragment implements
 	SbbsBlockLoader loader;
 	SbbsMeArticleAdapter adapter;
 	TextView tvLoading;
+	
+	MenuItem miUser;
 
 	public MainFragment() {
 		super();
@@ -69,8 +72,12 @@ public class MainFragment extends BaseFragment implements
 		loader = new SbbsBlockLoader(getActivity());
 		lvPullDown.enableAutoFetchMore(true, 1);
 		lvPullDown.setOnPullDownListener(this);
-		lvPullDown.getListView().setDivider(new ColorDrawable(0xFFc5eaf8));
-		lvPullDown.getListView().setDividerHeight(UIUtils.dipToPx(1));
+
+		int devide = UIUtils.dipToPx(8);
+		lvPullDown.getListView().setDivider(null);
+		lvPullDown.getListView().setDividerHeight(devide);
+
+		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
 	}
 
 	@Override
@@ -101,7 +108,9 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void initMenu(Menu menu) {
-
+		miUser = menu.add(0, MenuIds.MENU_ID_USER, 99, R.string.login);
+		miUser.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		miUser.setIcon(android.R.drawable.ic_menu_report_image);
 	}
 
 	@Override

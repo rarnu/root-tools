@@ -11,4 +11,7 @@
     <string name="lm_exit">Exit</string>
     
     <string name="loading">Loading...</string>
+    <string name="share">Share</string>
+    <string name="login">Login</string>
+    <string name="logout">Logout</string>
 </resources>

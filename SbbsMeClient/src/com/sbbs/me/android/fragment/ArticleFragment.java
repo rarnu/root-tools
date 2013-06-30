@@ -2,12 +2,14 @@ package com.sbbs.me.android.fragment;
 
 import org.markdown4j.Markdown4jProcessor;
 
+import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -17,6 +19,7 @@ import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeArticle;
+import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
 
 public class ArticleFragment extends BaseFragment implements
@@ -25,6 +28,8 @@ public class ArticleFragment extends BaseFragment implements
 	RelativeLayout layArticle;
 	SbbsArticleLoader loader;
 	SbbsMeArticle article = null;
+
+	MenuItem miShare;
 
 	public ArticleFragment() {
 		super();
@@ -80,7 +85,23 @@ public class ArticleFragment extends BaseFragment implements
 
 	@Override
 	public void initMenu(Menu menu) {
+		miShare = menu.add(0, MenuIds.MENU_ID_SHARE, 99, R.string.share);
+		miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		miShare.setIcon(android.R.drawable.ic_menu_share);
+//		
+//		ShareActionProvider actionProvider = new ShareActionProvider(
+//				getActivity());
+//		miShare.setActionProvider(actionProvider);
+//		actionProvider
+//				.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+//		actionProvider.setShareIntent(createShareIntent());
+	}
 
+	private Intent createShareIntent() {
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.setType("image/*");
+		// shareIntent.putExtra(Intent.EXTRA_TEXT, article.main_block.Subject);
+		return shareIntent;
 	}
 
 	@Override

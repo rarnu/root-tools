@@ -5,9 +5,16 @@ import android.os.Bundle;
 
 import com.rarnu.devlib.base.BaseActivity;
 import com.sbbs.me.android.fragment.ArticleFragment;
+import com.sbbs.me.android.utils.CustomUIUtils;
 
 public class ArticleActivity extends BaseActivity {
 
+	@Override
+	protected void onCreate(Bundle savedInstanceState) {
+		super.onCreate(savedInstanceState);
+		CustomUIUtils.customActionBarHome(bar);
+	}
+	
 	@Override
 	public int getIcon() {
 		return R.drawable.ic_launcher;
