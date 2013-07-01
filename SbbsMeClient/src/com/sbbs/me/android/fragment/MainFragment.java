@@ -24,6 +24,7 @@ import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.ArticleActivity;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.SelectLoginActivity;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
 import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.consts.MenuIds;
@@ -111,6 +112,16 @@ public class MainFragment extends BaseFragment implements
 		miUser = menu.add(0, MenuIds.MENU_ID_USER, 99, R.string.login);
 		miUser.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		miUser.setIcon(android.R.drawable.ic_menu_report_image);
+	}
+	
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case MenuIds.MENU_ID_USER:
+			startActivity(new Intent(getActivity(), SelectLoginActivity.class));
+			break;
+		}
+		return true;
 	}
 
 	@Override
