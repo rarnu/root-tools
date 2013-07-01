@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.protocol.HTTP;
+import org.eclipse.egit.github.core.Repository;
+import org.eclipse.egit.github.core.service.RepositoryService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
@@ -38,5 +40,23 @@ public class SbbsMeAPI {
 		Log.e("getArticle", ret);
 		article = SbbsMeArticle.fromJson(new JSONObject(ret));
 		return article;
+	}
+	
+	public static List<Repository> getRepos() {
+		List<Repository> list = null;
+		RepositoryService service = new RepositoryService();
+		Repository mobileRepo = new Repository();
+		Repository webRepo = new Repository();
+		try {
+			mobileRepo = service.getRepository("rarnu", "root-tools");
+			webRepo = service.getRepository("zhuangbiaowei", "sbbsme");
+		} catch (Exception e) {
+		}
+		Log.e("getMobileRepo", mobileRepo.getName());
+		Log.e("getWebRepo", webRepo.getName());
+		list = new ArrayList<Repository>();
+		list.add(mobileRepo);
+		list.add(webRepo);
+		return list;
 	}
 }
