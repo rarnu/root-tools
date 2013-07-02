@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.RelativeLayout;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
@@ -18,7 +18,7 @@ import com.sbbs.me.android.utils.SinaOAuth.SinaUserCallback;
 public class SelectLoginFragment extends BaseFragment implements
 		OnClickListener, SinaUserCallback {
 
-	Button btnWeibo;
+	RelativeLayout btnGoogle, btnGithub, btnWeibo;
 
 	public SelectLoginFragment() {
 		super();
@@ -27,12 +27,12 @@ public class SelectLoginFragment extends BaseFragment implements
 
 	@Override
 	public int getBarTitle() {
-		return 0;
+		return R.string.oauth_login;
 	}
 
 	@Override
 	public int getBarTitleWithPath() {
-		return 0;
+		return R.string.oauth_login;
 	}
 
 	@Override
@@ -42,12 +42,16 @@ public class SelectLoginFragment extends BaseFragment implements
 
 	@Override
 	public void initComponents() {
-		btnWeibo = (Button) innerView.findViewById(R.id.btnWeibo);
+		btnGoogle = (RelativeLayout) innerView.findViewById(R.id.btnGoogle);
+		btnGithub = (RelativeLayout) innerView.findViewById(R.id.btnGithub);
+		btnWeibo = (RelativeLayout) innerView.findViewById(R.id.btnWeibo);
 
 	}
 
 	@Override
 	public void initEvents() {
+		btnGoogle.setOnClickListener(this);
+		btnGithub.setOnClickListener(this);
 		btnWeibo.setOnClickListener(this);
 	}
 
@@ -83,8 +87,17 @@ public class SelectLoginFragment extends BaseFragment implements
 
 	@Override
 	public void onClick(View v) {
-		SinaOAuth auth = new SinaOAuth(getActivity(), this);
-		auth.sendSinaOauth();
+		switch (v.getId()) {
+		case R.id.btnGoogle:
+			break;
+		case R.id.btnGithub:
+			break;
+		case R.id.btnWeibo:
+			SinaOAuth auth = new SinaOAuth(getActivity(), this);
+			auth.sendSinaOauth();
+			break;
+		}
+
 	}
 
 	@Override

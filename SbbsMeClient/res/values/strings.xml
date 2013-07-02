@@ -15,4 +15,5 @@
     <string name="share">Share</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+    <string name="oauth_login">OAuth Login</string>
 </resources>
