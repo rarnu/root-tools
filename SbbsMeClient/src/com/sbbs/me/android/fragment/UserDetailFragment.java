@@ -1,13 +1,20 @@
 package com.sbbs.me.android.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
 
-public class UserDetailFragment extends BaseFragment {
+public class UserDetailFragment extends BaseFragment implements OnClickListener {
+
+	Button btnLogout;
 
 	public UserDetailFragment() {
 		super();
@@ -31,12 +38,12 @@ public class UserDetailFragment extends BaseFragment {
 
 	@Override
 	public void initComponents() {
-
+		btnLogout = (Button) innerView.findViewById(R.id.btnLogout);
 	}
 
 	@Override
 	public void initEvents() {
-
+		btnLogout.setOnClickListener(this);
 	}
 
 	@Override
@@ -67,6 +74,18 @@ public class UserDetailFragment extends BaseFragment {
 	@Override
 	public Bundle getFragmentState() {
 		return null;
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btnLogout:
+			Intent inRet = new Intent();
+			inRet.putExtra("action", 1);
+			getActivity().setResult(Activity.RESULT_OK, inRet);
+			getActivity().finish();
+			break;
+		}
 	}
 
 }

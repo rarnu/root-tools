@@ -245,7 +245,7 @@ public class MainFragment extends BaseFragment implements
 			return;
 		}
 		switch (requestCode) {
-		case 0:
+		case 0: {
 			int type = data.getIntExtra("type", 0);
 			switch (type) {
 			case 0:
@@ -265,10 +265,17 @@ public class MainFragment extends BaseFragment implements
 
 				break;
 			}
-
+		}
 			break;
-		case 1:
-			// TODO: return from detail 
+		case 1: {
+			int action = data.getIntExtra("action", 0);
+			if (action == 1) {
+				Config.setAccountType(getActivity(), -1);
+				Config.setSinaUserId(getActivity(), 0L);
+				Config.setUserId(getActivity(), "");
+				miUser.setIcon(android.R.drawable.ic_menu_report_image);
+			}
+		}
 			break;
 		}
 	}
