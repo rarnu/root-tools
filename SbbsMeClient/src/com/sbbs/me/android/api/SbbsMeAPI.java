@@ -15,11 +15,9 @@ import com.rarnu.utils.HttpRequest;
 
 public class SbbsMeAPI {
 
-	private static final String BASE_URL = "http://sbbs.me/";
+	private static final String BASE_URL = "http://sbbs.me/api/";
 	private static final String ARTICLES_URL = BASE_URL + "articles";
 	private static final String ARTICLE_URL = BASE_URL + "article/";
-
-	// http://sbbs.me/article/51cbea1b60e794c629000019
 
 	public static List<SbbsMeBlock> getArticles() throws Exception {
 		List<SbbsMeBlock> list = null;

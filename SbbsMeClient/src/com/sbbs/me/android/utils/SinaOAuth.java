@@ -60,6 +60,7 @@ public class SinaOAuth {
 
 			@Override
 			public void onComplete(Bundle result) {
+				
 				String token = result.getString("access_token");
 				String expires_in = result.getString("expires_in");
 				accessToken = new Oauth2AccessToken(token, expires_in);
@@ -94,6 +95,7 @@ public class SinaOAuth {
 
 			@Override
 			public void onComplete(String result) {
+				Log.e("onComplete", result);
 				long uid = 0L;
 				try {
 					JSONObject json = new JSONObject(result);

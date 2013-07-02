@@ -10,6 +10,7 @@ import android.text.Html;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -28,6 +29,7 @@ public class ArticleFragment extends BaseFragment implements
 	RelativeLayout layArticle;
 	SbbsArticleLoader loader;
 	SbbsMeArticle article = null;
+	TextView tvLoading;
 
 	MenuItem miShare;
 
@@ -54,7 +56,7 @@ public class ArticleFragment extends BaseFragment implements
 	@Override
 	public void initComponents() {
 		layArticle = (RelativeLayout) innerView.findViewById(R.id.layArticle);
-
+		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 		loader = new SbbsArticleLoader(getActivity());
 	}
 
@@ -68,6 +70,7 @@ public class ArticleFragment extends BaseFragment implements
 		String id = getArguments().getString("articleId");
 		Log.e("initLogic", id);
 
+		tvLoading.setVisibility(View.VISIBLE);
 		loader.setArticleId(id);
 		loader.startLoading();
 
@@ -120,6 +123,7 @@ public class ArticleFragment extends BaseFragment implements
 		if (article != null) {
 			buildUI();
 		}
+		tvLoading.setVisibility(View.GONE);
 	}
 
 	private void buildUI() {
