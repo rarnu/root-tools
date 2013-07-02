@@ -1,5 +1,7 @@
 package com.sbbs.me.android.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -9,17 +11,20 @@ import android.widget.Button;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
-import com.sbbs.me.android.utils.OAuthUtils;
+import com.sbbs.me.android.api.SbbsMeSinaUser;
+import com.sbbs.me.android.utils.SinaOAuth;
+import com.sbbs.me.android.utils.SinaOAuth.SinaUserCallback;
 
-public class SelectLoginFragment extends BaseFragment implements OnClickListener {
+public class SelectLoginFragment extends BaseFragment implements
+		OnClickListener, SinaUserCallback {
 
 	Button btnWeibo;
-	
+
 	public SelectLoginFragment() {
 		super();
 		tagText = ResourceUtils.getString(R.tag.tag_select_login_fragment);
 	}
-	
+
 	@Override
 	public int getBarTitle() {
 		return 0;
@@ -78,7 +83,17 @@ public class SelectLoginFragment extends BaseFragment implements OnClickListener
 
 	@Override
 	public void onClick(View v) {
-		OAuthUtils.sendSinaOauth(getActivity());
+		SinaOAuth auth = new SinaOAuth(getActivity(), this);
+		auth.sendSinaOauth();
+	}
+
+	@Override
+	public void onGetSinaUser(SbbsMeSinaUser user) {
+		Intent inRet = new Intent();
+		inRet.putExtra("type", 2);
+		inRet.putExtra("user", user);
+		getActivity().setResult(Activity.RESULT_OK, inRet);
+		getActivity().finish();
 	}
 
 }

@@ -3,9 +3,11 @@ package com.sbbs.me.android.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -25,21 +27,27 @@ import com.sbbs.me.android.ArticleActivity;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.SelectLoginActivity;
+import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.api.SbbsMeSinaUser;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsBlockLoader;
+import com.sbbs.me.android.utils.Config;
+import com.sbbs.me.android.utils.SinaOAuth;
+import com.sbbs.me.android.utils.SinaOAuth.SinaUserCallback;
 
 public class MainFragment extends BaseFragment implements
 		OnLoadCompleteListener<List<SbbsMeBlock>>, OnPullDownListener,
-		OnItemClickListener {
+		OnItemClickListener, SinaUserCallback {
 
 	PullDownListView lvPullDown;
 	SbbsBlockLoader loader;
 	SbbsMeArticleAdapter adapter;
 	TextView tvLoading;
-	
+
 	MenuItem miUser;
+	SinaOAuth so;
 
 	public MainFragment() {
 		super();
@@ -79,6 +87,8 @@ public class MainFragment extends BaseFragment implements
 		lvPullDown.getListView().setDividerHeight(devide);
 
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
+
+		so = new SinaOAuth(getActivity(), this);
 	}
 
 	@Override
@@ -112,13 +122,52 @@ public class MainFragment extends BaseFragment implements
 		miUser = menu.add(0, MenuIds.MENU_ID_USER, 99, R.string.login);
 		miUser.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		miUser.setIcon(android.R.drawable.ic_menu_report_image);
+		loadUserInfo();
 	}
-	
+
+	private void loadUserInfo() {
+		int type = Config.getAccountType(getActivity());
+		switch (type) {
+		case 0:
+			// google
+			break;
+		case 1:
+			// github
+			break;
+		case 2:
+			long sinaUserId = Config.getSinaUserId(getActivity());
+			if (sinaUserId != 0L) {
+				so.getSinaUserInfo(sinaUserId);
+			}
+			break;
+		}
+	}
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MenuIds.MENU_ID_USER:
-			startActivity(new Intent(getActivity(), SelectLoginActivity.class));
+			int type = Config.getAccountType(getActivity());
+			String userId = "";
+			switch (type) {
+			case 0:
+				// google
+				break;
+			case 1:
+				// github
+				break;
+			case 2:
+				long sinaUserId = Config.getSinaUserId(getActivity());
+				userId = String.valueOf(sinaUserId);
+				break;
+			}
+			if (userId.equals("")) {
+				startActivityForResult(new Intent(getActivity(),
+						SelectLoginActivity.class), 0);
+			} else {
+				startActivityForResult(new Intent(getActivity(),
+						UserDetailActivity.class), 1);
+			}
 			break;
 		}
 		return true;
@@ -187,6 +236,64 @@ public class MainFragment extends BaseFragment implements
 
 		startActivity(new Intent(getActivity(), ArticleActivity.class)
 				.putExtra("articleId", item.Id));
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode,
+			final Intent data) {
+		if (resultCode != Activity.RESULT_OK) {
+			return;
+		}
+		switch (requestCode) {
+		case 0:
+			int type = data.getIntExtra("type", 0);
+			switch (type) {
+			case 0:
+				// google
+				break;
+			case 1:
+				// github
+				break;
+			case 2:
+				new Thread(new Runnable() {
+					@Override
+					public void run() {
+						onGetSinaUser((SbbsMeSinaUser) data
+								.getSerializableExtra("user"));
+					}
+				}).start();
+
+				break;
+			}
+
+			break;
+		case 1:
+			// TODO: return from detail 
+			break;
+		}
+	}
+
+	final Handler hSetHead = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				miUser.setIcon((Drawable) msg.obj);
+
+			}
+			super.handleMessage(msg);
+		}
+	};
+
+	@Override
+	public void onGetSinaUser(final SbbsMeSinaUser user) {
+
+		Drawable d = so.getUserHead(user.avatar_large);
+
+		Message msg = new Message();
+		msg.what = 1;
+		msg.obj = d;
+		hSetHead.sendMessage(msg);
+
 	}
 
 }

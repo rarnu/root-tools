@@ -1,11 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
-    
-    <Button android:id="@+id/btnWeibo"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Weibo"/>
+    android:layout_height="wrap_content"
+    android:orientation="horizontal" >
 
-</RelativeLayout>
+    <Button
+        android:id="@+id/btnGoogle"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/action_button_style"
+        android:text="Google" />
+
+    <Button
+        android:id="@+id/btnGithub"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/action_button_style"
+        android:text="Github" />
+
+    <Button
+        android:id="@+id/btnWeibo"
+        android:layout_width="0px"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:background="@drawable/action_button_style"
+        android:text="Weibo" />
+
+</LinearLayout>

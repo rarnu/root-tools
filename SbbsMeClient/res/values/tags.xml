@@ -8,4 +8,5 @@
     <item name="tag_ongithub_fragment" type="tag">tag_ongithub_fragment</item>
     <item name="tag_article_fragment" type="tag">tag_article_fragment</item>
     <item name="tag_select_login_fragment" type="tag">tag_select_login_fragment</item>
+    <item name="tag_user_detail_fragment" type="tag">tag_user_detail_fragment</item>
 </resources>

@@ -17,10 +17,13 @@ import android.graphics.ColorMatrix;
 import android.graphics.ColorMatrixColorFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
+import android.graphics.PixelFormat;
 import android.graphics.PorterDuff.Mode;
 import android.graphics.PorterDuffXfermode;
 import android.graphics.Rect;
 import android.graphics.RectF;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 
 public class ImageUtils {
 
@@ -213,6 +216,46 @@ public class ImageUtils {
 		Canvas c = new Canvas(colorBmp);
 		c.drawBitmap(bmp, 0, 0, p);
 		return colorBmp;
+	}
+
+	public static Bitmap zoomImage(Bitmap bmp, double newWidth, double newHeight) {
+		float width = bmp.getWidth();
+		float height = bmp.getHeight();
+		Matrix matrix = new Matrix();
+		float scaleWidth = ((float) newWidth) / width;
+		float scaleHeight = ((float) newHeight) / height;
+		matrix.postScale(scaleWidth, scaleHeight);
+		Bitmap bitmap = Bitmap.createBitmap(bmp, 0, 0, (int) width,
+				(int) height, matrix, true);
+		return bitmap;
+	}
+
+	public static Bitmap drawableToBitmap(Drawable drawable) {
+
+		int w = drawable.getIntrinsicWidth();
+		int h = drawable.getIntrinsicHeight();
+
+		Bitmap.Config config = drawable.getOpacity() != PixelFormat.OPAQUE ? Bitmap.Config.ARGB_8888
+				: Bitmap.Config.RGB_565;
+
+		Bitmap bitmap = Bitmap.createBitmap(w, h, config);
+		Canvas canvas = new Canvas(bitmap);
+		drawable.setBounds(0, 0, w, h);
+		drawable.draw(canvas);
+		return bitmap;
+	}
+
+	public static Drawable zoomDrawable(Drawable drawable, int w, int h) {
+		int width = drawable.getIntrinsicWidth();
+		int height = drawable.getIntrinsicHeight();
+		Bitmap oldbmp = drawableToBitmap(drawable);
+		Matrix matrix = new Matrix();
+		float sx = ((float) w / width);
+		float sy = ((float) h / height);
+		matrix.postScale(sx, sy);
+		Bitmap newbmp = Bitmap.createBitmap(oldbmp, 0, 0, width, height,
+				matrix, true);
+		return new BitmapDrawable(newbmp);
 	}
 
 }
