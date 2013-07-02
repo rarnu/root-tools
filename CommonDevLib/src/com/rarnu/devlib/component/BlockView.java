@@ -28,6 +28,7 @@ public class BlockView extends RelativeLayout implements OnClickListener {
 	// relative
 	public int below = -1;
 	public int toRightOf = -1;
+	public String extraData = "";
 
 	private float scaleFactor = 1.05F;
 	private int intervalFactor = 150;
@@ -37,7 +38,7 @@ public class BlockView extends RelativeLayout implements OnClickListener {
 	ScaleAnimation saBig, saSmall;
 
 	public interface ItemClickListener {
-		void onItemClick(int index);
+		void onItemClick(int id, String data);
 	}
 
 	private ItemClickListener listener = null;
@@ -99,7 +100,7 @@ public class BlockView extends RelativeLayout implements OnClickListener {
 	public boolean onTouchEvent(MotionEvent event) {
 		if (event.getAction() == MotionEvent.ACTION_UP) {
 			if (listener != null) {
-				listener.onItemClick(getId());
+				listener.onItemClick(getId(), extraData);
 			}
 		}
 		return super.onTouchEvent(event);
@@ -135,7 +136,7 @@ public class BlockView extends RelativeLayout implements OnClickListener {
 	@Override
 	public void onClick(View v) {
 		if (listener != null) {
-			listener.onItemClick(getId());
+			listener.onItemClick(getId(), extraData);
 		}
 	}
 

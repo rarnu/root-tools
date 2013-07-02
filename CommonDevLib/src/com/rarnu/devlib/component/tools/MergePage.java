@@ -81,6 +81,7 @@ public class MergePage {
 			v[i].index = pageIndex[i];
 			v[i].xsize = pageX[i];
 			v[i].ysize = pageY[i];
+			v[i].extraData = pageData[i];
 			v[i].setFocusCallback(callback);
 			parseExtra(v[i], keys, ids, pageData[i], option);
 		}
