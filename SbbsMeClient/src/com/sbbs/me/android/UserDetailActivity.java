@@ -17,7 +17,7 @@ public class UserDetailActivity extends BaseActivity {
 
 	@Override
 	public int getIcon() {
-		return R.drawable.ic_launcher;
+		return R.drawable.inner_logo;
 	}
 
 	@Override

@@ -18,6 +18,7 @@ public class SbbsMeAPI {
 	private static final String BASE_URL = "http://sbbs.me/api/";
 	private static final String ARTICLES_URL = BASE_URL + "articles";
 	private static final String ARTICLE_URL = BASE_URL + "article/";
+	// private static final String POST_BLOCK_URL = BASE_URL + "post/";
 
 	public static List<SbbsMeBlock> getArticles() throws Exception {
 		List<SbbsMeBlock> list = null;
@@ -39,7 +40,7 @@ public class SbbsMeAPI {
 		article = SbbsMeArticle.fromJson(new JSONObject(ret));
 		return article;
 	}
-	
+
 	public static List<Repository> getRepos() {
 		List<Repository> list = null;
 		RepositoryService service = new RepositoryService();

@@ -78,7 +78,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
 	@Override
 	public int getIcon() {
-		return R.drawable.ic_launcher;
+		return R.drawable.inner_logo;
 	}
 
 	@Override
