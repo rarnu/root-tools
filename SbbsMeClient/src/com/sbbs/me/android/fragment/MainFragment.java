@@ -255,14 +255,7 @@ public class MainFragment extends BaseFragment implements
 				// github
 				break;
 			case 2:
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						onGetSinaUser((SbbsMeSinaUser) data
-								.getSerializableExtra("user"));
-					}
-				}).start();
-
+				so.sendSinaOauth();
 				break;
 			}
 		}

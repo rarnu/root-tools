@@ -2,7 +2,9 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="SbbsMeTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarItemBackground">@drawable/action_button_style</item>
         <item name="android:actionBarStyle">@style/SbbsMeActionBarStyle</item>
+        <item name="android:actionBarTabStyle">@style/SbbsMeActionBarTabStyle</item>
         <item name="android:actionBarTabTextStyle">@style/SbbsMeTabTextStyle</item>
         <item name="android:actionButtonStyle">@style/SbbsMeActionButtonStyle</item>
     </style>
@@ -10,11 +12,12 @@
     <style name="SbbsMeActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">
         <item name="android:background">@color/google_light_green</item>
         <item name="android:titleTextStyle">@style/SbbsMeActionBarTitleStyle</item>
-        <item name="android:backgroundStacked">@color/google_dark_green</item>
+        <item name="android:backgroundStacked">@drawable/ab_stacked</item>
+        <item name="android:backgroundSplit">@drawable/ab_bottom</item>
     </style>
 
     <style name="SbbsMeTabTextStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabText">
-        <item name="android:textColor">@color/white</item>
+        <item name="android:textColor">@color/gray</item>
         <item name="android:textSize">16sp</item>
         <item name="android:textStyle">normal</item>
     </style>
@@ -25,6 +28,10 @@
 
     <style name="SbbsMeActionButtonStyle" parent="@android:style/Widget.Holo.Light.ActionButton">
         <item name="android:background">@drawable/action_button_style</item>
+    </style>
+
+    <style name="SbbsMeActionBarTabStyle" parent="@android:style/Widget.Holo.Light.ActionBar.TabView">
+        <item name="android:background">@drawable/tab_indicator</item>
     </style>
 
 </resources>

@@ -16,4 +16,7 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="oauth_login">OAuth Login</string>
+    
+    <string name="project_sbbs_me">Sbbs.Me</string>
+    <string name="project_android">Android</string>
 </resources>

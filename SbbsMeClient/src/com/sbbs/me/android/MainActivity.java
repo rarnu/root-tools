@@ -13,7 +13,7 @@ import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.fragment.HotTagsFragment;
 import com.sbbs.me.android.fragment.LeftMenuFragment;
 import com.sbbs.me.android.fragment.MainFragment;
-import com.sbbs.me.android.fragment.OnGithubFragment;
+import com.sbbs.me.android.fragment.OnGithubTabFragment;
 import com.sbbs.me.android.fragment.PostNewFragment;
 import com.sbbs.me.android.fragment.RecentFragment;
 import com.sbbs.me.android.utils.CustomUIUtils;
@@ -63,7 +63,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
 	@Override
 	public int getAboveTouchMode() {
-		return SlidingMenu.TOUCHMODE_FULLSCREEN;
+		return SlidingMenu.TOUCHMODE_MARGIN;
 	}
 
 	@Override
@@ -156,10 +156,10 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 		case 4:
 			// on github
 			f = getFragmentManager().findFragmentByTag(
-					getString(R.tag.tag_ongithub_fragment));
+					getString(R.tag.tag_ongithub_tab_fragment));
 			if (f == null) {
-				Log.e("getCurrentFragment", "new OnGithubFragment()");
-				f = new OnGithubFragment();
+				Log.e("getCurrentFragment", "new OnGithubTabFragment()");
+				f = new OnGithubTabFragment();
 			}
 			break;
 		}

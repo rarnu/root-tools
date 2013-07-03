@@ -27,20 +27,26 @@ import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeGithubAdapter;
 import com.sbbs.me.android.loader.SbbsGithubLoader;
 
-public class OnGithubFragment extends BaseFragment implements 
-		OnLoadCompleteListener<List<Repository>>, OnPullDownListener, 
+public class OnGithubFragment extends BaseFragment implements
+		OnLoadCompleteListener<List<Repository>>, OnPullDownListener,
 		OnItemClickListener {
 
 	PullDownListView repoPullDown;
 	SbbsGithubLoader loader;
 	SbbsMeGithubAdapter adapter;
 	TextView repoLoading;
-	
-	public OnGithubFragment() {
+	int type = 0;
+
+	public OnGithubFragment(int type) {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_ongithub_fragment);
+		this.type = type;
+		tagText = ResourceUtils
+				.getString(type == 0 ? R.tag.tag_ongithub_fragment_sbbs
+						: R.tag.tag_ongithub_fragment_android);
+		tabTitle = ResourceUtils.getString(type == 0 ? R.string.project_sbbs_me
+				: R.string.project_android);
 	}
-	
+
 	@Override
 	public int getBarTitle() {
 		return R.string.lm_ongithub;
@@ -59,7 +65,8 @@ public class OnGithubFragment extends BaseFragment implements
 	@Override
 	public void initComponents() {
 
-		repoPullDown = (PullDownListView) innerView.findViewById(R.id.repoPullDown);
+		repoPullDown = (PullDownListView) innerView
+				.findViewById(R.id.repoPullDown);
 		repoLoading = (TextView) innerView.findViewById(R.id.repoLoading);
 		if (Global.listRepos == null) {
 			Global.listRepos = new ArrayList<Repository>();
@@ -81,7 +88,7 @@ public class OnGithubFragment extends BaseFragment implements
 
 	@Override
 	public void initLogic() {
-		
+
 		if (Global.listRepos.size() == 0) {
 			repoLoading.setVisibility(View.VISIBLE);
 			loader.startLoading();
@@ -120,7 +127,7 @@ public class OnGithubFragment extends BaseFragment implements
 		repoLoading.setVisibility(View.GONE);
 		repoPullDown.notifyDidRefresh();
 	}
-	
+
 	@Override
 	public Bundle getFragmentState() {
 		return null;
@@ -134,19 +141,19 @@ public class OnGithubFragment extends BaseFragment implements
 	@Override
 	public void onMore() {
 		new Thread(new Runnable() {
-			
+
 			@Override
-			public void run(){
+			public void run() {
 				try {
 					Thread.sleep(500);
 				} catch (Exception e) {
-					
+
 				}
 				hDid.sendEmptyMessage(1);
 			}
 		}).start();
 	}
-	
+
 	private Handler hDid = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -160,10 +167,11 @@ public class OnGithubFragment extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {/*
-		final SbbsMeGithub item = (SbbsMeGithub) repoPullDown.getListView()
-				.getItemAtPosition(position);
-
-		startActivity(new Intent(getActivity(), ArticleActivity.class)
-				.putExtra());*/
+					 * final SbbsMeGithub item = (SbbsMeGithub)
+					 * repoPullDown.getListView() .getItemAtPosition(position);
+					 * 
+					 * startActivity(new Intent(getActivity(),
+					 * ArticleActivity.class) .putExtra());
+					 */
 	}
 }

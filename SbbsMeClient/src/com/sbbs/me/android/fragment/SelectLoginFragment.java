@@ -11,12 +11,9 @@ import android.widget.RelativeLayout;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
-import com.sbbs.me.android.api.SbbsMeSinaUser;
-import com.sbbs.me.android.utils.SinaOAuth;
-import com.sbbs.me.android.utils.SinaOAuth.SinaUserCallback;
 
 public class SelectLoginFragment extends BaseFragment implements
-		OnClickListener, SinaUserCallback {
+		OnClickListener {
 
 	RelativeLayout btnGoogle, btnGithub, btnWeibo;
 
@@ -87,26 +84,20 @@ public class SelectLoginFragment extends BaseFragment implements
 
 	@Override
 	public void onClick(View v) {
+		Intent inRet = new Intent();
 		switch (v.getId()) {
 		case R.id.btnGoogle:
+			inRet.putExtra("type", 0);
 			break;
 		case R.id.btnGithub:
+			inRet.putExtra("type", 1);
 			break;
 		case R.id.btnWeibo:
-			SinaOAuth auth = new SinaOAuth(getActivity(), this);
-			auth.sendSinaOauth();
+			inRet.putExtra("type", 2);
 			break;
 		}
-
-	}
-
-	@Override
-	public void onGetSinaUser(SbbsMeSinaUser user) {
-		Intent inRet = new Intent();
-		inRet.putExtra("type", 2);
-		inRet.putExtra("user", user);
 		getActivity().setResult(Activity.RESULT_OK, inRet);
 		getActivity().finish();
-	}
 
+	}
 }
