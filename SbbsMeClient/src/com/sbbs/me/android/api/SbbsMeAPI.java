@@ -5,6 +5,10 @@ import java.util.List;
 
 import org.apache.http.protocol.HTTP;
 import org.eclipse.egit.github.core.Repository;
+import org.eclipse.egit.github.core.RepositoryCommit;
+import org.eclipse.egit.github.core.Tree;
+import org.eclipse.egit.github.core.service.CommitService;
+import org.eclipse.egit.github.core.service.DataService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -57,5 +61,18 @@ public class SbbsMeAPI {
 		list.add(mobileRepo);
 		list.add(webRepo);
 		return list;
+	}
+	
+	public static SbbsMeCodeTree getCodeTree(String userName, 
+			String repoName) throws Exception 
+	{
+		RepositoryService repoService = new RepositoryService();
+		Repository repo = repoService.getRepository(userName, repoName);
+		CommitService commitService = new CommitService();
+		List<RepositoryCommit> repoCommits = commitService.getCommits(repo);
+		DataService dataService = new DataService();
+		Tree tree = dataService.getTree(repo, repoCommits.get(0).getSha());
+		SbbsMeCodeTree codeTree = new SbbsMeCodeTree(tree);
+		return codeTree;
 	}
 }
