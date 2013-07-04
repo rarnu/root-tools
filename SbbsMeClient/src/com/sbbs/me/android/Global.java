@@ -10,9 +10,13 @@ public class Global {
 
 	public static List<SbbsMeBlock> listArticle = null;
 	public static List<Repository> listRepos = null;
-	
+
 	public static void releaseAll() {
-		listArticle = null;
-		listRepos = null;
+		if (listArticle != null) {
+			listArticle.clear();
+		}
+		if (listRepos != null) {
+			listRepos.clear();
+		}
 	}
 }

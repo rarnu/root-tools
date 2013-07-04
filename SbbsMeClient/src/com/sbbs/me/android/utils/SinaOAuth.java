@@ -10,7 +10,6 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
 
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.ImageUtils;
@@ -95,7 +94,6 @@ public class SinaOAuth {
 
 			@Override
 			public void onComplete(String result) {
-				Log.e("onComplete", result);
 				long uid = 0L;
 				try {
 					JSONObject json = new JSONObject(result);
@@ -127,7 +125,6 @@ public class SinaOAuth {
 
 			@Override
 			public void onComplete(String result) {
-				Log.e("getSinaUserInfo", result);
 				try {
 					sinaUser = SbbsMeSinaUser.fromJson(new JSONObject(result));
 				} catch (Exception e) {

@@ -299,18 +299,11 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void onGetSinaUser(final SbbsMeSinaUser user) {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				Drawable d = sinaOAuth.getUserHead(user.avatar_large);
-				Message msg = new Message();
-				msg.what = 1;
-				msg.obj = d;
-				hSetHead.sendMessage(msg);
-			}
-		}).start();
-
+		Drawable d = sinaOAuth.getUserHead(user.avatar_large);
+		Message msg = new Message();
+		msg.what = 1;
+		msg.obj = d;
+		hSetHead.sendMessage(msg);
 	}
 
 	@Override
