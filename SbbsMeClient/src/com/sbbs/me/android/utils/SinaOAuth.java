@@ -59,14 +59,12 @@ public class SinaOAuth {
 
 			@Override
 			public void onComplete(Bundle result) {
-				
+
 				String token = result.getString("access_token");
 				String expires_in = result.getString("expires_in");
 				accessToken = new Oauth2AccessToken(token, expires_in);
 				Config.setAccountType(mContext, 2);
-				if (accessToken.isSessionValid()) {
-					AccessTokenKeeper.keepAccessToken(mContext, accessToken);
-				}
+				AccessTokenKeeper.keepAccessToken(mContext, accessToken);
 				getSinaAccountInfo();
 			}
 
@@ -111,7 +109,8 @@ public class SinaOAuth {
 	public void getSinaUserInfo(String uid) {
 		accessToken = AccessTokenKeeper.readAccessToken(mContext);
 		UsersAPI api = new UsersAPI(accessToken);
-		api.show(uid, new RequestListener() {
+		long longUid = Long.parseLong(uid);
+		api.show(longUid, new RequestListener() {
 
 			@Override
 			public void onIOException(IOException error) {

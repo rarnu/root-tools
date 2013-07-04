@@ -3,6 +3,7 @@ package com.sbbs.me.android.dialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.net.Uri;
+import android.util.Log;
 import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -37,10 +38,13 @@ public class GoogleOAuthDialog extends Dialog {
 		wvGoogleAuth.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
+				Log.e("shouldOverrideUrlLoading", url);
 				if (url.startsWith("http://sbbs.me/auth/google_oauth2/callback")) {
 					Config.setAccountType(mContext, 0);
 					parseUrl(url);
-					dismiss();
+					if (isShowing()) {
+						dismiss();
+					}
 				}
 				return super.shouldOverrideUrlLoading(view, url);
 			}

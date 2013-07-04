@@ -39,6 +39,10 @@ public class GoogleOAuth {
 		dialog.show();
 	}
 
+	public void getGoogleUserInfoViaOAuth() {
+		new GoogleOAuthDialog(mContext, clientId, callbackUrl, this);
+	}
+
 	public void getGoogleUserInfo(final String token) {
 
 		new Thread(new Runnable() {

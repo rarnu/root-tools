@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -137,8 +138,9 @@ public class MainFragment extends BaseFragment implements
 			// google
 			String googleUserId = Config.getGoogleUserId(getActivity());
 			if (!googleUserId.equals("")) {
-				googleOAuth.getGoogleUserInfo(Config
-						.getGoogleAccessToken(getActivity()));
+				googleOAuth.getGoogleUserInfoViaOAuth();
+				// googleOAuth.getGoogleUserInfo(Config
+				// .getGoogleAccessToken(getActivity()));
 			}
 			break;
 		case 1:
@@ -299,20 +301,27 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void onGetSinaUser(final SbbsMeSinaUser user) {
-		Drawable d = sinaOAuth.getUserHead(user.avatar_large);
-		Message msg = new Message();
-		msg.what = 1;
-		msg.obj = d;
-		hSetHead.sendMessage(msg);
+		if (user != null) {
+			Log.e("onGetSinaUser", user.toString());
+			Drawable d = sinaOAuth.getUserHead(user.avatar_large);
+			Message msg = new Message();
+			msg.what = 1;
+			msg.obj = d;
+			hSetHead.sendMessage(msg);
+		} else {
+			sinaOAuth.sendSinaOauth();
+		}
 	}
 
 	@Override
 	public void onGetGoogleUser(SbbsMeGoogleUser user) {
-		Drawable d = googleOAuth.getUserHead(user.picture);
-		Message msg = new Message();
-		msg.what = 1;
-		msg.obj = d;
-		hSetHead.sendMessage(msg);
+		if (user != null) {
+			Drawable d = googleOAuth.getUserHead(user.picture);
+			Message msg = new Message();
+			msg.what = 1;
+			msg.obj = d;
+			hSetHead.sendMessage(msg);
+		}
 	}
 
 }
