@@ -1,7 +1,8 @@
-Weibo2::Config*.*api_key *=* "259989602"
-Weibo2::Config*.*api_secret *=* "6144e89c9898bfada3fd3971b400d205"
-Weibo2::Config*.*redirect_uri *=* "http://sbbs.me/weibo/callback"
-	client *=* Weibo2::Client*.*new
-	redirect client*.*auth_code*.*authorize_url
+Weibo
+	api_key *=* "259989602"
+	api_secret *=* "6144e89c9898bfada3fd3971b400d205"
+	redirect_uri *=* "http://sbbs.me/weibo/callback"
 	
 provider :google_oauth2, '876356697116.apps.googleusercontent.com', 'Sc9hk9vgfb5nQCYCSG1niCoM', {}
+
+https://accounts.google.com/o/oauth2/auth?state=%2Fprofile&redirect_uri=https%3A%2F%2Foauth2-login-demo.appspot.com%2Fcode&response_type=code&client_id=812741506391.apps.googleusercontent.com&approval_prompt=force&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile

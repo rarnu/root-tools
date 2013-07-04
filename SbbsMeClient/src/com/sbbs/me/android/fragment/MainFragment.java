@@ -30,16 +30,19 @@ import com.sbbs.me.android.SelectLoginActivity;
 import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.api.SbbsMeGoogleUser;
 import com.sbbs.me.android.api.SbbsMeSinaUser;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsBlockLoader;
 import com.sbbs.me.android.utils.Config;
+import com.sbbs.me.android.utils.GoogleOAuth;
+import com.sbbs.me.android.utils.GoogleOAuth.GoogleUserCallback;
 import com.sbbs.me.android.utils.SinaOAuth;
 import com.sbbs.me.android.utils.SinaOAuth.SinaUserCallback;
 
 public class MainFragment extends BaseFragment implements
 		OnLoadCompleteListener<List<SbbsMeBlock>>, OnPullDownListener,
-		OnItemClickListener, SinaUserCallback {
+		OnItemClickListener, SinaUserCallback, GoogleUserCallback {
 
 	PullDownListView lvPullDown;
 	SbbsBlockLoader loader;
@@ -47,7 +50,8 @@ public class MainFragment extends BaseFragment implements
 	TextView tvLoading;
 
 	MenuItem miUser;
-	SinaOAuth so;
+	SinaOAuth sinaOAuth;
+	GoogleOAuth googleOAuth;
 
 	public MainFragment() {
 		super();
@@ -88,7 +92,8 @@ public class MainFragment extends BaseFragment implements
 
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
 
-		so = new SinaOAuth(getActivity(), this);
+		sinaOAuth = new SinaOAuth(getActivity(), this);
+		googleOAuth = new GoogleOAuth(getActivity(), this);
 	}
 
 	@Override
@@ -130,14 +135,19 @@ public class MainFragment extends BaseFragment implements
 		switch (type) {
 		case 0:
 			// google
+			String googleUserId = Config.getGoogleUserId(getActivity());
+			if (!googleUserId.equals("")) {
+				googleOAuth.getGoogleUserInfo(Config
+						.getGoogleAccessToken(getActivity()));
+			}
 			break;
 		case 1:
 			// github
 			break;
 		case 2:
-			long sinaUserId = Config.getSinaUserId(getActivity());
-			if (sinaUserId != 0L) {
-				so.getSinaUserInfo(sinaUserId);
+			String sinaUserId = Config.getSinaUserId(getActivity());
+			if (!sinaUserId.equals("")) {
+				sinaOAuth.getSinaUserInfo(sinaUserId);
 			}
 			break;
 		}
@@ -152,13 +162,15 @@ public class MainFragment extends BaseFragment implements
 			switch (type) {
 			case 0:
 				// google
+				String googleUserId = Config.getGoogleUserId(getActivity());
+				userId = googleUserId;
 				break;
 			case 1:
 				// github
 				break;
 			case 2:
-				long sinaUserId = Config.getSinaUserId(getActivity());
-				userId = String.valueOf(sinaUserId);
+				String sinaUserId = Config.getSinaUserId(getActivity());
+				userId = sinaUserId;
 				break;
 			}
 			if (userId.equals("")) {
@@ -250,12 +262,13 @@ public class MainFragment extends BaseFragment implements
 			switch (type) {
 			case 0:
 				// google
+				googleOAuth.sendGoogleOauth();
 				break;
 			case 1:
 				// github
 				break;
 			case 2:
-				so.sendSinaOauth();
+				sinaOAuth.sendSinaOauth();
 				break;
 			}
 		}
@@ -264,7 +277,7 @@ public class MainFragment extends BaseFragment implements
 			int action = data.getIntExtra("action", 0);
 			if (action == 1) {
 				Config.setAccountType(getActivity(), -1);
-				Config.setSinaUserId(getActivity(), 0L);
+				Config.setSinaUserId(getActivity(), "");
 				Config.setUserId(getActivity(), "");
 				miUser.setIcon(android.R.drawable.ic_menu_report_image);
 			}
@@ -286,14 +299,27 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void onGetSinaUser(final SbbsMeSinaUser user) {
+		new Thread(new Runnable() {
 
-		Drawable d = so.getUserHead(user.avatar_large);
+			@Override
+			public void run() {
+				Drawable d = sinaOAuth.getUserHead(user.avatar_large);
+				Message msg = new Message();
+				msg.what = 1;
+				msg.obj = d;
+				hSetHead.sendMessage(msg);
+			}
+		}).start();
 
+	}
+
+	@Override
+	public void onGetGoogleUser(SbbsMeGoogleUser user) {
+		Drawable d = googleOAuth.getUserHead(user.picture);
 		Message msg = new Message();
 		msg.what = 1;
 		msg.obj = d;
 		hSetHead.sendMessage(msg);
-
 	}
 
 }

@@ -100,8 +100,8 @@ public class SinaOAuth {
 				try {
 					JSONObject json = new JSONObject(result);
 					uid = json.getLong("uid");
-					Config.setSinaUserId(mContext, uid);
-					getSinaUserInfo(uid);
+					Config.setSinaUserId(mContext, String.valueOf(uid));
+					getSinaUserInfo(String.valueOf(uid));
 				} catch (JSONException e) {
 
 				}
@@ -110,7 +110,7 @@ public class SinaOAuth {
 		});
 	}
 
-	public void getSinaUserInfo(long uid) {
+	public void getSinaUserInfo(String uid) {
 		accessToken = AccessTokenKeeper.readAccessToken(mContext);
 		UsersAPI api = new UsersAPI(accessToken);
 		api.show(uid, new RequestListener() {
