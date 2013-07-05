@@ -2,6 +2,7 @@
 <resources xmlns:android="http://schemas.android.com/apk/res/android">
 
     <style name="SbbsMeTheme" parent="@android:style/Theme.Holo.Light">
+        <item name="android:actionBarItemBackground">@drawable/action_button_style</item>
         <item name="android:actionBarStyle">@style/SbbsMeActionBarStyle</item>
         <item name="android:actionBarTabStyle">@style/SbbsMeActionBarTabStyle</item>
         <item name="android:actionBarTabTextStyle">@style/SbbsMeTabTextStyle</item>

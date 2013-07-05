@@ -147,8 +147,13 @@ public class SinaOAuth {
 			DownloadUtils.downloadFile(url, headLocalName, null);
 		}
 
-		Drawable d = Drawable.createFromPath(headLocalName);
-		d = ImageUtils.zoomDrawable(d, 256, 256);
+		Drawable d = null;
+		try {
+			d = Drawable.createFromPath(headLocalName);
+			d = ImageUtils.zoomDrawable(d, 256, 256);
+		} catch (Exception e) {
+
+		}
 		return d;
 	}
 }

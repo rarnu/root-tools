@@ -11,7 +11,6 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -111,6 +110,7 @@ public class MainFragment extends BaseFragment implements
 			loader.startLoading();
 		}
 		lvPullDown.notifyDidLoad();
+		loadUserInfo();
 	}
 
 	@Override
@@ -128,7 +128,6 @@ public class MainFragment extends BaseFragment implements
 		miUser = menu.add(0, MenuIds.MENU_ID_USER, 99, R.string.login);
 		miUser.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		miUser.setIcon(android.R.drawable.ic_menu_report_image);
-		loadUserInfo();
 	}
 
 	private void loadUserInfo() {
@@ -139,8 +138,6 @@ public class MainFragment extends BaseFragment implements
 			String googleUserId = Config.getGoogleUserId(getActivity());
 			if (!googleUserId.equals("")) {
 				googleOAuth.getGoogleUserInfoViaOAuth();
-				// googleOAuth.getGoogleUserInfo(Config
-				// .getGoogleAccessToken(getActivity()));
 			}
 			break;
 		case 1:
@@ -292,8 +289,12 @@ public class MainFragment extends BaseFragment implements
 		@Override
 		public void handleMessage(Message msg) {
 			if (msg.what == 1) {
-				miUser.setIcon((Drawable) msg.obj);
-
+				if (miUser != null) {
+					Drawable d = (Drawable) msg.obj;
+					if (d != null) {
+						miUser.setIcon(d);
+					}
+				}
 			}
 			super.handleMessage(msg);
 		}
@@ -302,7 +303,6 @@ public class MainFragment extends BaseFragment implements
 	@Override
 	public void onGetSinaUser(final SbbsMeSinaUser user) {
 		if (user != null) {
-			Log.e("onGetSinaUser", user.toString());
 			Drawable d = sinaOAuth.getUserHead(user.avatar_large);
 			Message msg = new Message();
 			msg.what = 1;

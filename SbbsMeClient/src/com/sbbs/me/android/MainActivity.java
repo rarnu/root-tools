@@ -16,7 +16,6 @@ import com.sbbs.me.android.fragment.MainFragment;
 import com.sbbs.me.android.fragment.OnGithubTabFragment;
 import com.sbbs.me.android.fragment.PostNewFragment;
 import com.sbbs.me.android.fragment.RecentFragment;
-import com.sbbs.me.android.utils.CustomUIUtils;
 
 public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
@@ -27,7 +26,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 		UIUtils.initDisplayMetrics(this, getWindowManager(), false);
 		ResourceUtils.init(this);
 		super.onCreate(savedInstanceState);
-		CustomUIUtils.customActionBarHome(bar);
+		// CustomUIUtils.customActionBarHome(bar);
 	}
 
 	@Override
