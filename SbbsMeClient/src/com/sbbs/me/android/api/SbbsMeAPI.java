@@ -4,9 +4,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.http.protocol.HTTP;
+import org.eclipse.egit.github.core.Blob;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.RepositoryCommit;
-import org.eclipse.egit.github.core.Tree;
+import org.eclipse.egit.github.core.TreeEntry;
 import org.eclipse.egit.github.core.service.CommitService;
 import org.eclipse.egit.github.core.service.DataService;
 import org.eclipse.egit.github.core.service.RepositoryService;
@@ -63,16 +64,29 @@ public class SbbsMeAPI {
 		return list;
 	}
 	
-	public static SbbsMeCodeTree getCodeTree(String userName, 
-			String repoName) throws Exception 
+	public static List<TreeEntry> getCodeTree(String userName, 
+			String repoName, String sha) throws Exception 
 	{
+		List<TreeEntry> list = null;
 		RepositoryService repoService = new RepositoryService();
 		Repository repo = repoService.getRepository(userName, repoName);
 		CommitService commitService = new CommitService();
-		List<RepositoryCommit> repoCommits = commitService.getCommits(repo);
+		if ( sha == null ) {
+			List<RepositoryCommit> repoCommits = commitService.getCommits(repo);
+			sha = repoCommits.get(0).getSha();
+		}
 		DataService dataService = new DataService();
-		Tree tree = dataService.getTree(repo, repoCommits.get(0).getSha());
-		SbbsMeCodeTree codeTree = new SbbsMeCodeTree(tree);
-		return codeTree;
+		list = dataService.getTree(repo, sha).getTree();
+		return list;
+	}
+	
+	public static Blob getCodeView(String userName, 
+			String repoName, String sha) throws Exception
+	{
+		RepositoryService repoService = new RepositoryService();
+		Repository repo = repoService.getRepository(userName, repoName);
+		DataService dataService = new DataService();
+		Blob blob = dataService.getBlob(repo, sha);
+		return blob;
 	}
 }

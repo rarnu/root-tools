@@ -11,6 +11,7 @@ import java.util.TreeMap;
 import org.eclipse.egit.github.core.Tree;
 import org.eclipse.egit.github.core.TreeEntry;
 
+@Deprecated
 public class SbbsMeCodeTree {
 	
 	public static class Entry implements Comparable<Entry> {
