@@ -27,10 +27,12 @@ import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeGithubAdapter;
 import com.sbbs.me.android.loader.SbbsGithubLoader;
 
+@Deprecated
 public class OnGithubFragment extends BaseFragment implements
 		OnLoadCompleteListener<List<Repository>>, OnPullDownListener,
 		OnItemClickListener {
 
+	//not used
 	PullDownListView repoPullDown;
 	SbbsGithubLoader loader;
 	SbbsMeGithubAdapter adapter;
