@@ -23,13 +23,15 @@ public class SbbsCodeTreeLoader extends
 		this.sha = sha;
 	}
 	
+	public void setSha(String sha) {
+		this.sha = sha;
+	}
+	
 	@Override
 	public List<TreeEntry> loadInBackground(){
 		String userName = "zhuangbiaowei";
 		String repoName = "sbbsme";
-		if (repoType == 0) {
-			
-		} else if (repoType == 1) {
+		if (repoType == 1) {
 			userName = "rarnu";
 			repoName = "root-tools";
 		}

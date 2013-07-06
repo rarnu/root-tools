@@ -11,6 +11,7 @@ import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -40,6 +41,7 @@ public class GithubCodeTreeFragment extends BaseFragment
 	SbbsCodeTreeLoader loader;
 	SbbsMeTreeEntryAdapter adapter;
 	TextView treeLoading;
+	List<TreeEntry> listTreeEntry;
 	byte repoType = 0;
 	String sha;
 		
@@ -74,16 +76,18 @@ public class GithubCodeTreeFragment extends BaseFragment
 		treePullDown = (PullDownListView) innerView
 				.findViewById(R.id.treePullDown);
 		treeLoading = (TextView) innerView.findViewById(R.id.treeLoading);
-		if (Global.listTreeEntry == null) {
-			Global.listTreeEntry = new ArrayList<TreeEntry>();
+		if (listTreeEntry == null) {
+			listTreeEntry = new ArrayList<TreeEntry>();
 		}
-		adapter =  new SbbsMeTreeEntryAdapter(getActivity(), Global.listTreeEntry);
+		adapter =  new SbbsMeTreeEntryAdapter(getActivity(), listTreeEntry);
 		treePullDown.getListView().setAdapter(adapter);
-		loader = new SbbsCodeTreeLoader(getActivity(), repoType, sha);
+		
 		treePullDown.enableAutoFetchMore(true, 1);
 		treePullDown.setOnPullDownListener(this);
 		treePullDown.getListView().setDivider(new ColorDrawable(0xFFc5eaf8));
 		treePullDown.getListView().setDividerHeight(UIUtils.dipToPx(1));
+		
+		loader = new SbbsCodeTreeLoader(getActivity(), repoType, sha);
 	}
 
 	@Override
@@ -94,7 +98,7 @@ public class GithubCodeTreeFragment extends BaseFragment
 
 	@Override
 	public void initLogic() {
-		if (Global.listTreeEntry.size() == 0) {
+		if (listTreeEntry.size() == 0) {
 			treeLoading.setVisibility(View.VISIBLE);
 			loader.startLoading();
 		}
@@ -129,11 +133,11 @@ public class GithubCodeTreeFragment extends BaseFragment
 	@Override
 	public void onLoadComplete(Loader<List<TreeEntry>> loader,
 			List<TreeEntry> data) {
-		Global.listTreeEntry.clear();
+		listTreeEntry.clear();
 		if (data != null) {
-			Global.listTreeEntry.addAll(data);
+			listTreeEntry.addAll(data);
 		}
-		adapter.setNewList(Global.listTreeEntry);
+		adapter.setNewList(listTreeEntry);
 		treeLoading.setVisibility(View.GONE);
 		treePullDown.notifyDidRefresh();
 	}
@@ -143,16 +147,10 @@ public class GithubCodeTreeFragment extends BaseFragment
 			long id) {
 		final TreeEntry item = (TreeEntry) treePullDown.getListView()
 				.getItemAtPosition(position);
-		Bundle bn = new Bundle();
-		bn.putByte("repoType", repoType);
-		bn.putString("sha", item.getSha());
-		if (item.getType().equals(TYPE_BLOB)) {
-			startActivity(new Intent(getActivity(), 
-					CodeViewActivity.class).putExtras(bn));
-		} else if (item.getType().equals(TYPE_TREE)) {
-			startActivity(new Intent(getActivity(), 
-					CodeTreeActivity.class).putExtras(bn));
-		}
+		Log.e("onItemClick", item.getSha());
+		loader.setSha(item.getSha());
+		loader.startLoading();
+		
 	}
 
 	@Override

@@ -11,6 +11,7 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -29,6 +30,7 @@ import com.sbbs.me.android.R;
 import com.sbbs.me.android.SelectLoginActivity;
 import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
+import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.api.SbbsMeGoogleUser;
 import com.sbbs.me.android.api.SbbsMeSinaUser;
@@ -308,6 +310,11 @@ public class MainFragment extends BaseFragment implements
 			msg.what = 1;
 			msg.obj = d;
 			hSetHead.sendMessage(msg);
+			try {
+				SbbsMeAPI.login(String.valueOf(user.id), user.screen_name, "weibo", user.avatar_large);
+			} catch (Exception e) {
+				Log.e("onGetSinaUser", e.getMessage());
+			}
 		} else {
 			sinaOAuth.sendSinaOauth();
 		}
@@ -321,6 +328,11 @@ public class MainFragment extends BaseFragment implements
 			msg.what = 1;
 			msg.obj = d;
 			hSetHead.sendMessage(msg);
+			try {
+				SbbsMeAPI.login(user.id, user.name, "google", user.picture);
+			} catch (Exception e) {
+				Log.e("onGetGoogleUser", e.getMessage());
+			}
 		}
 	}
 

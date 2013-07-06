@@ -20,6 +20,8 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.util.EntityUtils;
 
+import android.util.Log;
+
 public class HttpRequest {
 
 	public static String simplePost(String host, String param, String encoding)
@@ -102,6 +104,7 @@ public class HttpRequest {
 			}
 			return result;
 		} catch (Exception e) {
+			Log.e("executeForResult", e.getMessage());
 			return "";
 		}
 	}
