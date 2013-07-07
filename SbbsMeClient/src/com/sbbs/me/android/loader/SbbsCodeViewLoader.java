@@ -33,7 +33,8 @@ public class SbbsCodeViewLoader extends
 		}
 		Blob blob = null;
 		try {
-			blob = SbbsMeAPI.getCodeView(userName, repoName, sha);
+			blob = SbbsMeAPI.getCodeView(userName, repoName,
+					sha, getContext());
 		} catch (Exception e) {
 			Log.e("getCodeView", e.getMessage());
 		}

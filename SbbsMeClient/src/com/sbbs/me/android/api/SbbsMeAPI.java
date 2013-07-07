@@ -10,16 +10,19 @@ import org.eclipse.egit.github.core.Blob;
 import org.eclipse.egit.github.core.Repository;
 import org.eclipse.egit.github.core.RepositoryCommit;
 import org.eclipse.egit.github.core.TreeEntry;
+import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.CommitService;
 import org.eclipse.egit.github.core.service.DataService;
 import org.eclipse.egit.github.core.service.RepositoryService;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import android.content.Context;
 import android.util.Log;
 
 import com.rarnu.utils.HttpRequest;
 import com.rarnu.utils.common.HttpRequestResponseData;
+import com.sbbs.me.android.utils.Config;
 
 public class SbbsMeAPI {
 
@@ -120,9 +123,11 @@ public class SbbsMeAPI {
 	}
 
 	public static List<TreeEntry> getCodeTree(String userName, String repoName,
-			String sha) throws Exception {
+			String sha, Context context) throws Exception {
 		List<TreeEntry> list = null;
-		RepositoryService repoService = new RepositoryService();
+		GitHubClient client = new GitHubClient();
+		client.setOAuth2Token(Config.getGithubAccessToken(context));
+		RepositoryService repoService = new RepositoryService(client);
 		Repository repo = repoService.getRepository(userName, repoName);
 		CommitService commitService = new CommitService();
 		if (sha == null) {
@@ -135,9 +140,11 @@ public class SbbsMeAPI {
 		return list;
 	}
 
-	public static Blob getCodeView(String userName, String repoName, String sha)
-			throws Exception {
-		RepositoryService repoService = new RepositoryService();
+	public static Blob getCodeView(String userName, String repoName, String sha,
+			Context context) throws Exception {
+		GitHubClient client = new GitHubClient();
+		client.setOAuth2Token(Config.getGithubAccessToken(context));
+		RepositoryService repoService = new RepositoryService(client);
 		Repository repo = repoService.getRepository(userName, repoName);
 		DataService dataService = new DataService();
 		Blob blob = dataService.getBlob(repo, sha);

@@ -38,7 +38,7 @@ public class SbbsCodeTreeLoader extends
 		List<TreeEntry> list = null;
 		try {
 			list = SbbsMeAPI.getCodeTree(userName,
-					repoName, sha);
+					repoName, sha, getContext());
 		} catch(Exception e) {
 			Log.e("getCodeTree", e.getMessage());
 		}
