@@ -5,19 +5,6 @@ Weibo
 	
 provider :google_oauth2, '876356697116.apps.googleusercontent.com', 'Sc9hk9vgfb5nQCYCSG1niCoM', {}
 
-https://accounts.google.com/o/oauth2/auth?state=%2Fprofile&redirect_uri=https%3A%2F%2Foauth2-login-demo.appspot.com%2Fcode&response_type=code&client_id=812741506391.apps.googleusercontent.com&approval_prompt=force&scope=https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.email+https%3A%2F%2Fwww.googleapis.com%2Fauth%2Fuserinfo.profile
-
-curl http://sbbs.me/api/login/2131/name -d "avatat=222&account_type=google"
-
-curl http://sbbs.me/api/article -d "subject=123&format=Markdown&txtBody=test&public=1&tags=1,2,3"
-
-curl http://sbbs.me/api/msgs/count
-curl http://sbbs.me/api/msgs
-
-curl http://sbbs.me/api/articles
-功能：返回所有文章列表
-返回值：JSON array
-	
 curl http://sbbs.me/unfollow_user/1756787011 -d from_user_id=1391292644
 功能：由from_user发起，不再关注id为xx的用户
 返回值："OK"
@@ -56,25 +43,9 @@ curl http://sbbs.me/api/add_left_block/b51d6d98e60e794a97c000005 -d "left_id=51d
 comment_type，目前有三个可选值：#00f,#f00,#056，代表连线的颜色
 返回值："please login" or "OK"
 
-curl http://sbbs.me/api/edit_block/b51d6d98e60e794a97c000005 -d "text=12312"
-功能：修改某个Block的内容
-返回值："please login" or "OK"
-
 curl http://sbbs.me/api/delete_block -d "id=b51d6d98e60e794a97c000005"
 功能：删除某个Block，甚至包括这个Block的所有sub Block
 返回值："please login" or "OK" or "OK_ALL"
-
-curl http://sbbs.me/api/comment_block/b51d6d98e60e794a97c000005 -d "text=123&comment_type=#00f&comment_title=title"
-功能：评论某个Block
-返回值："please login" or "OK"
-
-curl http://sbbs.me/api/append_block/b51d6d98e60e794a97c000005 -d "text=123"
-功能：在某个Block之后，添加一个Block
-返回值："please login" or "OK" or "another user"
-
-curl http://sbbs.me/api/article/51d6d98e60e794a97c000005
-功能：获取某篇文章的全部内容，以及左右Block
-返回值：JSON
 
 curl http://sbbs.me/api/block/51d6d98e60e794a97c000005
 功能：获取Block内容
@@ -82,3 +53,4 @@ curl http://sbbs.me/api/block/51d6d98e60e794a97c000005
 
 curl http://sbbs.me/api/login/1756787011/%E6%A9%99%E5%AD%90Infinity -d 'account_type=weibo&avatar=http%3A%2F%2Ftp4.sinaimg.cn%2F1756787011%2F180%2F1279902529%2F1'
 curl http://sbbs.me/api/msgs
+

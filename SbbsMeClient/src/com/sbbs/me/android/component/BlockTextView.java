@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.rarnu.utils.DownloadUtils;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.utils.MiscUtils;
 
 public class BlockTextView extends RelativeLayout {
@@ -18,6 +19,7 @@ public class BlockTextView extends RelativeLayout {
 	private View innerView;
 	private TextView tvText;
 	private ImageView ivIcon;
+	private SbbsMeBlock block;
 
 	public BlockTextView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -60,6 +62,14 @@ public class BlockTextView extends RelativeLayout {
 		String headLocalName = uid + ".jpg";
 		DownloadUtils.downloadFileT(getContext(), ivIcon, url, headLocalPath,
 				headLocalName, null);
+	}
+
+	public SbbsMeBlock getBlock() {
+		return block;
+	}
+
+	public void setBlock(SbbsMeBlock block) {
+		this.block = block;
 	}
 
 }

@@ -160,4 +160,115 @@ public class SbbsMeAPI {
 		}
 		return list;
 	}
+
+	/**
+	 * do need login
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
+	public static int getRecentMsgCount() throws Exception {
+		HttpRequestResponseData ret = HttpRequest.getWithData(BASE_URL
+				+ "msgs/count", "", cookieData.cookie, HTTP.UTF_8);
+		int retInt = 0;
+		try {
+			retInt = Integer.parseInt(ret.data);
+		} catch (Exception e) {
+
+		}
+		return retInt;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param subject
+	 * @param format
+	 * @param txtBody
+	 * @param isPublic
+	 * @param tags
+	 * @return blockId / "please login"
+	 */
+	public static String addNewArticle(String subject, String format,
+			String txtBody, boolean isPublic, String[] tags) {
+		// curl http://sbbs.me/api/article -d
+		// "subject=123&format=Markdown&txtBody=test&public=1&tags=1,2,3"
+		String tagStr = "";
+		if (tags != null && tags.length != 0) {
+			for (String t : tags) {
+				tagStr += t + ",";
+			}
+		}
+		tagStr = tagStr.substring(0, tagStr.length() - 1);
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("subject", subject));
+		params.add(new BasicNameValuePair("format", format));
+		params.add(new BasicNameValuePair("txtBody", txtBody));
+		params.add(new BasicNameValuePair("public", isPublic ? "1" : "0"));
+		params.add(new BasicNameValuePair("tags", tagStr));
+		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+				+ "article", params, cookieData.cookie, HTTP.UTF_8);
+		String retStr = ret.data;
+		return retStr;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param blockId
+	 * @param text
+	 * @return "OK" / "please login" / "another user"
+	 */
+	public static String appendBlock(String blockId, String text) {
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("text", text));
+		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+				+ "append_block/b" + blockId, params, cookieData.cookie,
+				HTTP.UTF_8);
+		String retStr = ret.data;
+		Log.e("appendBlock", retStr);
+		return retStr;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param blockId
+	 * @param text
+	 * @param title
+	 * @return "please login" / "OK"
+	 */
+	public static String commentBlock(String blockId, String text, String title) {
+		// curl http://sbbs.me/api/comment_block/b51d6d98e60e794a97c000005 -d
+		// "text=123&comment_type=#00f&comment_title=title"
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("text", text));
+		params.add(new BasicNameValuePair("comment_type", "#00f"));
+		params.add(new BasicNameValuePair("comment_title", "comment:" + title));
+		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+				+ "comment_block/b" + blockId, params, cookieData.cookie,
+				HTTP.UTF_8);
+		String retStr = ret.data;
+		Log.e("commentBlock", retStr);
+		return retStr;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param blockId
+	 * @param text
+	 * @return "please login" / "OK"
+	 */
+	public static String editBlock(String blockId, String text) {
+		// curl http://sbbs.me/api/edit_block/b51d6d98e60e794a97c000005 -d
+		// "text=12312"
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("text", text));
+		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+				+ "edit_block/b" + blockId, params, null, HTTP.UTF_8);
+		String retStr = ret.data;
+		Log.e("editBlock", retStr);
+		return retStr;
+	}
 }

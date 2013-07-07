@@ -9,14 +9,17 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeArticle;
 import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.component.BlockTextView;
@@ -25,7 +28,7 @@ import com.sbbs.me.android.loader.SbbsArticleLoader;
 import com.sbbs.me.android.utils.Config;
 
 public class ArticleFragment extends BaseFragment implements
-		OnLoadCompleteListener<SbbsMeArticle> {
+		OnLoadCompleteListener<SbbsMeArticle>, OnLongClickListener {
 
 	RelativeLayout layArticle;
 	SbbsArticleLoader loader;
@@ -96,7 +99,6 @@ public class ArticleFragment extends BaseFragment implements
 		miShare.setIcon(android.R.drawable.ic_menu_share);
 	}
 
-	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -180,9 +182,29 @@ public class ArticleFragment extends BaseFragment implements
 			} catch (Exception e) {
 				Log.e("Mrkdown", e.getMessage());
 			}
+			block.setBlock(item);
+			block.setOnLongClickListener(this);
 
 			layArticle.addView(block);
 			layArticle.postInvalidate();
 		}
+	}
+
+	@Override
+	public boolean onLongClick(View v) {
+		final SbbsMeBlock item = ((BlockTextView) v).getBlock();
+		Toast.makeText(getActivity(), item.Id, Toast.LENGTH_SHORT).show();
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				if (SbbsMeAPI.isLogin()) {
+					SbbsMeAPI.appendBlock(item.Id, "test_append_block");
+					// SbbsMeAPI.editBlock(item.Id, "test edit block api");
+
+				}
+			}
+		}).start();
+		return false;
 	}
 }
