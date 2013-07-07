@@ -4,11 +4,12 @@
     android:layout_height="fill_parent"
     android:orientation="vertical" >
 
-    <com.rarnu.devlib.component.PullDownListView
-        android:id="@+id/treePullDown"
+    <ListView 
+        android:id="@+id/treeList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="4dip" />
+        android:cacheColorHint="#00000000"
+        android:fastScrollEnabled="true" />
 
     <TextView
         android:id="@+id/treeLoading"

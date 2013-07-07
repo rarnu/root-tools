@@ -5,39 +5,33 @@ import java.util.List;
 
 import org.eclipse.egit.github.core.TreeEntry;
 
-import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
-import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.component.PullDownListView;
-import com.rarnu.devlib.component.intf.OnPullDownListener;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
-import com.sbbs.me.android.CodeTreeActivity;
 import com.sbbs.me.android.CodeViewActivity;
-import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeTreeEntryAdapter;
 import com.sbbs.me.android.loader.SbbsCodeTreeLoader;
 import static org.eclipse.egit.github.core.TreeEntry.TYPE_BLOB;
 import static org.eclipse.egit.github.core.TreeEntry.TYPE_TREE;
 
-@SuppressLint("ValidFragment")
 public class GithubCodeTreeFragment extends BaseFragment 
 		implements OnLoadCompleteListener<List<TreeEntry>>,
-		OnPullDownListener,OnItemClickListener {
+		OnItemClickListener {
 	
-	PullDownListView treePullDown;
+	ListView treeList;
 	SbbsCodeTreeLoader loader;
 	SbbsMeTreeEntryAdapter adapter;
 	TextView treeLoading;
@@ -73,36 +67,30 @@ public class GithubCodeTreeFragment extends BaseFragment
 
 	@Override
 	public void initComponents() {
-		treePullDown = (PullDownListView) innerView
-				.findViewById(R.id.treePullDown);
+		treeList = (ListView) innerView.findViewById(R.id.treeList);
 		treeLoading = (TextView) innerView.findViewById(R.id.treeLoading);
 		if (listTreeEntry == null) {
 			listTreeEntry = new ArrayList<TreeEntry>();
 		}
-		adapter =  new SbbsMeTreeEntryAdapter(getActivity(), listTreeEntry);
-		treePullDown.getListView().setAdapter(adapter);
-		
-		treePullDown.enableAutoFetchMore(true, 1);
-		treePullDown.setOnPullDownListener(this);
-		treePullDown.getListView().setDivider(new ColorDrawable(0xFFc5eaf8));
-		treePullDown.getListView().setDividerHeight(UIUtils.dipToPx(1));
-		
+		adapter = new SbbsMeTreeEntryAdapter(getActivity(), listTreeEntry);
+		treeList.setAdapter(adapter);
+		treeList.setDivider(null);
+		int devide = UIUtils.dipToPx(8);
+		treeList.setDividerHeight(devide);
+		treeList.setPadding(devide, devide, devide, devide);
 		loader = new SbbsCodeTreeLoader(getActivity(), repoType, sha);
 	}
 
 	@Override
 	public void initEvents() {
-		treePullDown.getListView().setOnItemClickListener(this);
+		treeList.setOnItemClickListener(this);
 		loader.registerListener(0, this);
 	}
 
 	@Override
 	public void initLogic() {
-		if (listTreeEntry.size() == 0) {
-			treeLoading.setVisibility(View.VISIBLE);
-			loader.startLoading();
-		}
-		treePullDown.notifyDidLoad();
+		treeLoading.setVisibility(View.VISIBLE);
+		loader.startLoading();
 	}
 
 	@Override
@@ -134,32 +122,27 @@ public class GithubCodeTreeFragment extends BaseFragment
 	public void onLoadComplete(Loader<List<TreeEntry>> loader,
 			List<TreeEntry> data) {
 		listTreeEntry.clear();
-		if (data != null) {
+		if ( data != null ) {
 			listTreeEntry.addAll(data);
+			adapter.setNewList(listTreeEntry);
 		}
-		adapter.setNewList(listTreeEntry);
 		treeLoading.setVisibility(View.GONE);
-		treePullDown.notifyDidRefresh();
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position, 
 			long id) {
-		final TreeEntry item = (TreeEntry) treePullDown.getListView()
-				.getItemAtPosition(position);
+		final TreeEntry item = listTreeEntry.get(position);
 		Log.e("onItemClick", item.getSha());
-		loader.setSha(item.getSha());
-		loader.startLoading();
-		
-	}
-
-	@Override
-	public void onRefresh() {
-		loader.startLoading();
-	}
-
-	@Override
-	public void onMore() {
-		
+		Bundle bn = new Bundle();
+		bn.putByte("repoType", repoType);
+		bn.putString("sha", item.getSha());
+		if ( item.getType().equals(TYPE_TREE) ) {
+			loader.setSha(item.getSha());
+			loader.startLoading();
+		} else if ( item.getType().equals(TYPE_BLOB) ) {
+			startActivity(new Intent(getActivity(), 
+					CodeViewActivity.class).putExtras(bn));
+		}
 	}
 }

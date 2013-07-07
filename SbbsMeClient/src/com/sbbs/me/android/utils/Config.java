@@ -10,7 +10,9 @@ public class Config {
 	private static final String KEY_SINA_USER_ID = "sina_user_id";
 	private static final String KEY_GOOGLE_USER_ID = "google_user_id";
 	private static final String KEY_GOOGLE_USER_ACCESS_TOKEN = "google_access_token";
+	private static final String KEY_GITHUB_USER_ACCESS_TOKEN = "github_access_token";
 	private static final String KEY_ACCOUNT_TYPE = "account_type";
+	private static final String KEY_GITHUB_USER_ID = "github_user_id";
 
 	public static String getUserId(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_USER_ID, "");
@@ -41,6 +43,20 @@ public class Config {
 		ConfigUtils.setStringConfig(context, KEY_GOOGLE_USER_ID, uid);
 		ConfigUtils.setStringConfig(context, KEY_GOOGLE_USER_ACCESS_TOKEN, token);
 		Config.setUserId(context, String.valueOf(uid));
+	}
+	
+	public static String getGithubUserId(Context context) {
+		return ConfigUtils.getStringConfig(context, KEY_GITHUB_USER_ID, "");
+	}
+	
+	public static String getGithubAccessToken(Context context) {
+		return ConfigUtils.getStringConfig(context, KEY_GITHUB_USER_ACCESS_TOKEN, "");
+	}
+	
+	public static void setGithubUserId(Context context, String uid, String token) {
+		ConfigUtils.setStringConfig(context, KEY_GITHUB_USER_ID, uid);
+		ConfigUtils.setStringConfig(context, KEY_GITHUB_USER_ACCESS_TOKEN, token);
+		Config.setUserId(context, uid);
 	}
 
 	/**

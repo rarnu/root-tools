@@ -15,6 +15,7 @@ public class SbbsGithubLoader extends BaseLoader<Repository> {
 		super(context);
 	}
 	
+	@SuppressWarnings("deprecation")
 	@Override
 	public List<Repository> loadInBackground(){
 		List<Repository> list = null;

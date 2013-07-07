@@ -6,7 +6,10 @@ import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.net.URLConnection;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Map.Entry;
 
 import org.apache.http.HttpResponse;
 import org.apache.http.client.CookieStore;
@@ -26,10 +29,15 @@ import com.rarnu.utils.common.HttpRequestResponseData;
 
 public class HttpRequest {
 
-	public static String simplePost(String host, String param, String encoding)
-			throws Exception {
+	public static String simplePostWithHeader(String host, String param, 
+			String encoding, Map<String, String> property) throws Exception {
 		URL url = new URL(host);
 		URLConnection conn = url.openConnection();
+		Iterator<Entry<String, String>> iter = property.entrySet().iterator();
+		while ( iter.hasNext() ) {
+			Map.Entry<String,String> entry = iter.next();
+			conn.addRequestProperty(entry.getKey(), entry.getValue());
+		}
 		conn.setDoOutput(true);
 		OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
 		osw.write(param);
@@ -46,6 +54,11 @@ public class HttpRequest {
 		br.close();
 		isr.close();
 		return result;
+	}
+	
+	public static String simplePost(String host, String param, String encoding)
+			throws Exception {
+		return simplePostWithHeader(host, param, encoding, null);
 	}
 
 	public static String post(String host, String getParams,
