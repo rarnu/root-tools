@@ -48,8 +48,7 @@ public class SbbsMeGithubAdapter extends BaseAdapter<Repository> {
 
 	@Override
 	public String getValueText(Repository item) {
-		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 }

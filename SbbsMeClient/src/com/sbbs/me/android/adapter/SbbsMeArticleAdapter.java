@@ -41,8 +41,7 @@ public class SbbsMeArticleAdapter extends BaseAdapter<SbbsMeBlock> {
 
 	@Override
 	public String getValueText(SbbsMeBlock item) {
-		// TODO Auto-generated method stub
-		return null;
+		return "";
 	}
 
 }

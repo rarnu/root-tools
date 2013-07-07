@@ -19,11 +19,27 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.rarnu.utils.HttpRequest;
+import com.rarnu.utils.common.HttpRequestResponseData;
 
 public class SbbsMeAPI {
 
 	private static final String BASE_URL = "http://sbbs.me/api/";
+	private static HttpRequestResponseData cookieData = null;
 
+	public static boolean isLogin() {
+		return cookieData != null;
+	}
+
+	/**
+	 * login
+	 * 
+	 * @param uid
+	 * @param name
+	 * @param accountType
+	 * @param avatar
+	 * @return
+	 * @throws Exception
+	 */
 	public static boolean login(String uid, String name, String accountType,
 			String avatar) throws Exception {
 		name = URLEncoder.encode(name, HTTP.UTF_8);
@@ -35,12 +51,12 @@ public class SbbsMeAPI {
 		List<BasicNameValuePair> param = new ArrayList<BasicNameValuePair>();
 		param.add(new BasicNameValuePair("account_type", accountType));
 		param.add(new BasicNameValuePair("avatar", avatar));
-		String ret = HttpRequest.post(
+		cookieData = HttpRequest.postWithHeader(
 				BASE_URL + String.format("login/%s/%s", uid, name), param,
-				HTTP.UTF_8);
+				null, HTTP.UTF_8);
 		boolean loginStatus = false;
 		try {
-			JSONObject json = new JSONObject(ret);
+			JSONObject json = new JSONObject(cookieData.data);
 			String id = json.getString("Id");
 			loginStatus = id.equals(uid);
 		} catch (Exception e) {
@@ -49,6 +65,12 @@ public class SbbsMeAPI {
 		return loginStatus;
 	}
 
+	/**
+	 * do NOT need login
+	 * 
+	 * @return
+	 * @throws Exception
+	 */
 	public static List<SbbsMeBlock> getArticles() throws Exception {
 		List<SbbsMeBlock> list = null;
 		String ret = HttpRequest.get(BASE_URL + "articles", "", HTTP.UTF_8);
@@ -62,6 +84,13 @@ public class SbbsMeAPI {
 		return list;
 	}
 
+	/**
+	 * do NOT need login
+	 * 
+	 * @param id
+	 * @return
+	 * @throws Exception
+	 */
 	public static SbbsMeArticle getArticle(String id) throws Exception {
 		SbbsMeArticle article = null;
 		String ret = HttpRequest
@@ -102,7 +131,7 @@ public class SbbsMeAPI {
 		}
 		DataService dataService = new DataService();
 		list = dataService.getTree(repo, sha).getTree();
-		
+
 		return list;
 	}
 
@@ -113,5 +142,22 @@ public class SbbsMeAPI {
 		DataService dataService = new DataService();
 		Blob blob = dataService.getBlob(repo, sha);
 		return blob;
+	}
+
+	/**
+	 * do need login
+	 */
+	public static List<SbbsMeMessage> getRecentMsg() throws Exception {
+		HttpRequestResponseData ret = HttpRequest.getWithData(
+				BASE_URL + "msgs", "", cookieData.cookie, HTTP.UTF_8);
+		JSONArray jarrData = new JSONArray(ret.data);
+		List<SbbsMeMessage> list = null;
+		if (jarrData != null && jarrData.length() != 0) {
+			list = new ArrayList<SbbsMeMessage>();
+			for (int i = 0; i < jarrData.length(); i++) {
+				list.add(SbbsMeMessage.fromString(jarrData.getString(i)));
+			}
+		}
+		return list;
 	}
 }
