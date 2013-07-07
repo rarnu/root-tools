@@ -39,7 +39,7 @@ public class GithubOAuthDialog extends Dialog {
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {
 				Log.e("shouldOverrideUrlLoading", url);
 				if (url.startsWith("http://sbbs.me/auth/github_oauth2/callback")) {
-					Config.setAccountType(mContext, 0);
+					Config.setAccountType(mContext, 1);
 					parseUrl(url);
 					if (isShowing()) {
 						dismiss();
@@ -48,7 +48,6 @@ public class GithubOAuthDialog extends Dialog {
 				return super.shouldOverrideUrlLoading(view, url);
 			}
 		});
-		
 		wvGithubAuth.loadUrl(String.format(accessUrl, this.clientId,
 				this.callbackUrl));
 	}
@@ -57,7 +56,6 @@ public class GithubOAuthDialog extends Dialog {
 		url = url.replace("#", "?");
 		Uri uri = Uri.parse(url);
 		String code = uri.getQueryParameter("code");
-		Log.e("github-code", code);
 		oauth.getGithubUserInfo(code);
 	}
 }
