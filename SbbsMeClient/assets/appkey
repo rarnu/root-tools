@@ -53,3 +53,4 @@ curl http://sbbs.me/api/block/51d6d98e60e794a97c000005
 
 curl http://sbbs.me/api/login/1756787011/%E6%A9%99%E5%AD%90Infinity -d 'account_type=weibo&avatar=http%3A%2F%2Ftp4.sinaimg.cn%2F1756787011%2F180%2F1279902529%2F1'
 curl http://sbbs.me/api/msgs
+

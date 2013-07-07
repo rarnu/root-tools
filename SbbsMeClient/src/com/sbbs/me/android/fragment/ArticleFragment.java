@@ -199,7 +199,8 @@ public class ArticleFragment extends BaseFragment implements
 			@Override
 			public void run() {
 				if (SbbsMeAPI.isLogin()) {
-					SbbsMeAPI.editBlock(item.Id, "test edit block api");
+					SbbsMeAPI.appendBlock(item.Id, "test_append_block");
+					// SbbsMeAPI.editBlock(item.Id, "test edit block api");
 
 				}
 			}

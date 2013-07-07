@@ -222,7 +222,7 @@ public class SbbsMeAPI {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("text", text));
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
-				+ "append_block/" + blockId, params, cookieData.cookie,
+				+ "append_block/b" + blockId, params, cookieData.cookie,
 				HTTP.UTF_8);
 		String retStr = ret.data;
 		Log.e("appendBlock", retStr);
@@ -245,7 +245,7 @@ public class SbbsMeAPI {
 		params.add(new BasicNameValuePair("comment_type", "#00f"));
 		params.add(new BasicNameValuePair("comment_title", "comment:" + title));
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
-				+ "comment_block/" + blockId, params, cookieData.cookie,
+				+ "comment_block/b" + blockId, params, cookieData.cookie,
 				HTTP.UTF_8);
 		String retStr = ret.data;
 		Log.e("commentBlock", retStr);
@@ -265,8 +265,7 @@ public class SbbsMeAPI {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("text", text));
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
-				+ "edit_block/" + blockId, params, null,
-				HTTP.UTF_8);
+				+ "edit_block/b" + blockId, params, null, HTTP.UTF_8);
 		String retStr = ret.data;
 		Log.e("editBlock", retStr);
 		return retStr;
