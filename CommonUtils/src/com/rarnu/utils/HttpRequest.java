@@ -39,7 +39,7 @@ public class HttpRequest {
 				encoding);
 		BufferedReader br = new BufferedReader(isr);
 		String content = null;
-		String result = null;
+		String result = "";
 		while ((content = br.readLine()) != null) {
 			result += content + "\n";
 		}
