@@ -9,11 +9,11 @@ import java.net.URLConnection;
 import java.util.List;
 
 import org.apache.http.HttpResponse;
+import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
-import org.apache.http.entity.StringEntity;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
@@ -21,6 +21,8 @@ import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.util.EntityUtils;
 
 import android.util.Log;
+
+import com.rarnu.utils.common.HttpRequestResponseData;
 
 public class HttpRequest {
 
@@ -62,26 +64,31 @@ public class HttpRequest {
 		} catch (UnsupportedEncodingException e) {
 
 		}
-
 		return executeForResult(httpPost, encoding);
-
 	}
 
-	// post a string directly
-	public static String post(String host, String param, String encoding) {
-		HttpPost httpPost = new HttpPost();
+	public static HttpRequestResponseData postWithHeader(String host,
+			List<BasicNameValuePair> params, CookieStore cookie, String encoding) {
+		HttpPost httpPost = new HttpPost(host);
 		try {
-			StringEntity p_entity = new StringEntity(param, encoding);
+			UrlEncodedFormEntity p_entity = new UrlEncodedFormEntity(params,
+					encoding);
 			httpPost.setEntity(p_entity);
 		} catch (UnsupportedEncodingException e) {
-		}
 
-		return executeForResult(httpPost, encoding);
+		}
+		return executeForData(httpPost, cookie, encoding);
 	}
 
 	public static String get(String host, String params, String encoding) {
 		HttpGet request = new HttpGet(host + "?" + params);
 		return executeForResult(request, encoding);
+	}
+
+	public static HttpRequestResponseData getWithData(String host,
+			String params, CookieStore cookie, String encoding) {
+		HttpGet request = new HttpGet(host + "?" + params);
+		return executeForData(request, cookie, encoding);
 	}
 
 	private static BasicHttpParams buildHttpParams() {
@@ -98,7 +105,6 @@ public class HttpRequest {
 			HttpResponse response = client.execute(request);
 			String result = "";
 			int statusCode = response.getStatusLine().getStatusCode();
-
 			if (statusCode == 200) {
 				result = EntityUtils.toString(response.getEntity(), encoding);
 			}
@@ -107,6 +113,29 @@ public class HttpRequest {
 			Log.e("executeForResult", e.getMessage());
 			return "";
 		}
+	}
+
+	private static HttpRequestResponseData executeForData(
+			HttpRequestBase request, CookieStore cookie, String encoding) {
+		HttpRequestResponseData data = null;
+		try {
+			DefaultHttpClient client = new DefaultHttpClient(buildHttpParams());
+			if (cookie != null) {
+				client.setCookieStore(cookie);
+			}
+			HttpResponse response = client.execute(request);
+			int statusCode = response.getStatusLine().getStatusCode();
+			if (statusCode == 200) {
+				data = new HttpRequestResponseData();
+				data.data = EntityUtils
+						.toString(response.getEntity(), encoding);
+				data.cookie = client.getCookieStore();
+			}
+		} catch (Exception e) {
+			Log.e("executeForResult", e.getMessage());
+
+		}
+		return data;
 	}
 
 }

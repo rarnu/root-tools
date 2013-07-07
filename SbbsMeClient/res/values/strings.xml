@@ -19,4 +19,6 @@
     
     <string name="project_sbbs_me">Sbbs.Me</string>
     <string name="project_android">Android</string>
+    <string name="msg_act_comment">commented on: </string>
+    <string name="msg_act_follow">followed you</string>
 </resources>

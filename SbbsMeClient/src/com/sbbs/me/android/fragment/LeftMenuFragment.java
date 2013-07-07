@@ -82,7 +82,6 @@ public class LeftMenuFragment extends BaseFragment implements
 
 	@Override
 	public void initLogic() {
-		// TODO Auto-generated method stub
 
 	}
 
