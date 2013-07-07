@@ -71,6 +71,7 @@ public class SbbsMeAPI {
 		return article;
 	}
 
+	@Deprecated
 	public static List<Repository> getRepos() {
 		List<Repository> list = null;
 		RepositoryService service = new RepositoryService();

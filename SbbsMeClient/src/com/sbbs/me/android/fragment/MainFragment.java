@@ -32,11 +32,14 @@ import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.api.SbbsMeGithubUser;
 import com.sbbs.me.android.api.SbbsMeGoogleUser;
 import com.sbbs.me.android.api.SbbsMeSinaUser;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsBlockLoader;
 import com.sbbs.me.android.utils.Config;
+import com.sbbs.me.android.utils.GithubOAuth;
+import com.sbbs.me.android.utils.GithubOAuth.GithubUserCallback;
 import com.sbbs.me.android.utils.GoogleOAuth;
 import com.sbbs.me.android.utils.GoogleOAuth.GoogleUserCallback;
 import com.sbbs.me.android.utils.SinaOAuth;
@@ -44,7 +47,8 @@ import com.sbbs.me.android.utils.SinaOAuth.SinaUserCallback;
 
 public class MainFragment extends BaseFragment implements
 		OnLoadCompleteListener<List<SbbsMeBlock>>, OnPullDownListener,
-		OnItemClickListener, SinaUserCallback, GoogleUserCallback {
+		OnItemClickListener, SinaUserCallback, GoogleUserCallback,
+		GithubUserCallback {
 
 	PullDownListView lvPullDown;
 	SbbsBlockLoader loader;
@@ -54,6 +58,7 @@ public class MainFragment extends BaseFragment implements
 	MenuItem miUser;
 	SinaOAuth sinaOAuth;
 	GoogleOAuth googleOAuth;
+	GithubOAuth githubOAuth;
 
 	public MainFragment() {
 		super();
@@ -96,6 +101,7 @@ public class MainFragment extends BaseFragment implements
 
 		sinaOAuth = new SinaOAuth(getActivity(), this);
 		googleOAuth = new GoogleOAuth(getActivity(), this);
+		githubOAuth = new GithubOAuth(getActivity(), this);
 	}
 
 	@Override
@@ -144,6 +150,10 @@ public class MainFragment extends BaseFragment implements
 			break;
 		case 1:
 			// github
+			String githubUserId = Config.getGithubUserId(getActivity());
+			if (!githubUserId.equals("")) {
+				githubOAuth.getGithubUserInfoViaOAuth();
+			}
 			break;
 		case 2:
 			String sinaUserId = Config.getSinaUserId(getActivity());
@@ -168,6 +178,7 @@ public class MainFragment extends BaseFragment implements
 				break;
 			case 1:
 				// github
+				
 				break;
 			case 2:
 				String sinaUserId = Config.getSinaUserId(getActivity());
@@ -266,7 +277,7 @@ public class MainFragment extends BaseFragment implements
 				googleOAuth.sendGoogleOauth();
 				break;
 			case 1:
-				// github
+				githubOAuth.sendGithubOauth();
 				break;
 			case 2:
 				sinaOAuth.sendSinaOauth();
@@ -334,6 +345,12 @@ public class MainFragment extends BaseFragment implements
 				Log.e("onGetGoogleUser", e.getMessage());
 			}
 		}
+	}
+
+	@Override
+	public void getGetGithubUser(SbbsMeGithubUser user) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }
