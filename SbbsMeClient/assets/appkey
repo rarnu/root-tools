@@ -43,10 +43,6 @@ curl http://sbbs.me/api/add_left_block/b51d6d98e60e794a97c000005 -d "left_id=51d
 comment_type，目前有三个可选值：#00f,#f00,#056，代表连线的颜色
 返回值："please login" or "OK"
 
-curl http://sbbs.me/api/delete_block -d "id=b51d6d98e60e794a97c000005"
-功能：删除某个Block，甚至包括这个Block的所有sub Block
-返回值："please login" or "OK" or "OK_ALL"
-
 curl http://sbbs.me/api/block/51d6d98e60e794a97c000005
 功能：获取Block内容
 返回值：JSON

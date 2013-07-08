@@ -4,9 +4,9 @@ import android.app.Fragment;
 import android.os.Bundle;
 
 import com.rarnu.devlib.base.BaseDialog;
-import com.sbbs.me.android.fragment.ArticleMenuFragment;
+import com.sbbs.me.android.fragment.ConfirmFragment;
 
-public class ArticleMenuDialog extends BaseDialog {
+public class ConfirmDialog extends BaseDialog {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -22,12 +22,13 @@ public class ArticleMenuDialog extends BaseDialog {
 	@Override
 	public Fragment replaceFragment() {
 		Bundle bn = new Bundle();
+		bn.putBoolean("ok", getIntent().getBooleanExtra("ok", true));
+		bn.putBoolean("cancel", getIntent().getBooleanExtra("cancel", true));
+		bn.putString("text", getIntent().getStringExtra("text"));
 		bn.putSerializable("item", getIntent().getSerializableExtra("item"));
-		bn.putBoolean("isMyArticle",
-				getIntent().getBooleanExtra("isMyArticle", false));
-		ArticleMenuFragment amf = new ArticleMenuFragment();
-		amf.setArguments(bn);
-		return amf;
+		ConfirmFragment cf = new ConfirmFragment();
+		cf.setArguments(bn);
+		return cf;
 	}
 
 }

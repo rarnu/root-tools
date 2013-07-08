@@ -7,6 +7,8 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -19,6 +21,7 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
+import com.sbbs.me.android.EditBlockActivity;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeArticle;
@@ -26,6 +29,7 @@ import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.dialog.ArticleMenuDialog;
+import com.sbbs.me.android.dialog.ConfirmDialog;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
 import com.sbbs.me.android.utils.Config;
 
@@ -136,6 +140,7 @@ public class ArticleFragment extends BaseFragment implements
 	private void buildUI() {
 
 		int viewId = 100000;
+		layArticle.removeAllViews();
 
 		if (article.main_block != null) {
 			if (getActivity() != null && getActivity().getActionBar() != null) {
@@ -196,8 +201,10 @@ public class ArticleFragment extends BaseFragment implements
 	public boolean onLongClick(View v) {
 		if (SbbsMeAPI.isLogin()) {
 			final SbbsMeBlock item = ((BlockTextView) v).getBlock();
-			startActivityForResult(new Intent(getActivity(),
-					ArticleMenuDialog.class).putExtra("id", item.Id).putExtra("isMyArticle", isMyArticle), 0);
+			startActivityForResult(
+					new Intent(getActivity(), ArticleMenuDialog.class)
+							.putExtra("item", item).putExtra("isMyArticle",
+									isMyArticle), 0);
 		}
 		return false;
 	}
@@ -209,24 +216,66 @@ public class ArticleFragment extends BaseFragment implements
 		}
 		switch (requestCode) {
 		case 0: {
-			String blockId = data.getStringExtra("id");
+			// action selection callback
+			SbbsMeBlock item = (SbbsMeBlock) data.getSerializableExtra("item");
 			int mode = data.getIntExtra("mode", -1);
-			switch (mode) {
-			case 0:
-				// append block
-				break;
-			case 1:
-				// comment block
-				break;
-			case 2:
-				// edit block
-				break;
-			case 3:
-				// delete block
-				break;
+			if (mode == 3) {
+				startActivityForResult(
+						new Intent(getActivity(), ConfirmDialog.class)
+								.putExtra("item", item)
+								.putExtra("ok", true)
+								.putExtra("cancel", true)
+								.putExtra("text",
+										getString(R.string.confirm_delete)), 2);
+			} else if (mode != -1) {
+				startActivityForResult(new Intent(getActivity(),
+						EditBlockActivity.class).putExtra("item", item)
+						.putExtra("mode", mode), 1);
 			}
 		}
 			break;
+		case 1: {
+			// edit block callback
+			loader.startLoading();
 		}
+			break;
+		case 2: {
+			// delete block callback
+			SbbsMeBlock item = (SbbsMeBlock) data.getSerializableExtra("item");
+			deleteBlock(item.Id);
+		}
+			break;
+		}
+	}
+
+	final Handler hDelete = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				String ret = (String) msg.obj;
+				if (ret.contains("OK")) {
+					tvLoading.setText(R.string.loading);
+					loader.startLoading();
+				} else {
+					tvLoading.setVisibility(View.GONE);
+				}
+			}
+			super.handleMessage(msg);
+		};
+	};
+
+	private void deleteBlock(final String blockId) {
+		tvLoading.setText(R.string.deleting);
+		tvLoading.setVisibility(View.VISIBLE);
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				Message msg = new Message();
+				msg.what = 1;
+				msg.obj = SbbsMeAPI.deleteBlock(blockId);
+				hDelete.sendMessage(msg);
+			}
+		}).start();
 	}
 }

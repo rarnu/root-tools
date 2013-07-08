@@ -116,7 +116,7 @@ public class ArticleMenuFragment extends BaseFragment implements
 	@Override
 	public void onClick(View v) {
 		Intent inRet = new Intent();
-		inRet.putExtra("id", getArguments().getString("id"));
+		inRet.putExtra("item", getArguments().getSerializable("item"));
 		switch (v.getId()) {
 		case R.id.btnAppendBlock:
 			inRet.putExtra("mode", 0);

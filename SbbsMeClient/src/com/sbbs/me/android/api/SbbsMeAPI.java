@@ -219,7 +219,11 @@ public class SbbsMeAPI {
 		params.add(new BasicNameValuePair("tags", tagStr));
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
 				+ "article", params, cookieData.cookie, HTTP.UTF_8);
-		String retStr = ret.data;
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("addNewArticle", retStr);
+		}
 		return retStr;
 	}
 
@@ -236,8 +240,11 @@ public class SbbsMeAPI {
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
 				+ "append_block/b" + blockId, params, cookieData.cookie,
 				HTTP.UTF_8);
-		String retStr = ret.data;
-		Log.e("appendBlock", retStr);
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("appendBlock", retStr);
+		}
 		return retStr;
 	}
 
@@ -259,8 +266,11 @@ public class SbbsMeAPI {
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
 				+ "comment_block/b" + blockId, params, cookieData.cookie,
 				HTTP.UTF_8);
-		String retStr = ret.data;
-		Log.e("commentBlock", retStr);
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("commentBlock", retStr);
+		}
 		return retStr;
 	}
 
@@ -277,9 +287,34 @@ public class SbbsMeAPI {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("text", text));
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
-				+ "edit_block/b" + blockId, params, null, HTTP.UTF_8);
-		String retStr = ret.data;
-		Log.e("editBlock", retStr);
+				+ "edit_block/b" + blockId, params, cookieData.cookie,
+				HTTP.UTF_8);
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("editBlock", retStr);
+		}
+		return retStr;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param blockId
+	 * @return "please login" / "OK" / "OK_ALL"
+	 */
+	public static String deleteBlock(String blockId) {
+		// curl http://sbbs.me/api/delete_block -d
+		// 'id=b51da641460e794d50e000003' -b cookie
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("id", "b" + blockId));
+		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+				+ "delete_block", params, cookieData.cookie, HTTP.UTF_8);
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("deleteBlock", retStr);
+		}
 		return retStr;
 	}
 }

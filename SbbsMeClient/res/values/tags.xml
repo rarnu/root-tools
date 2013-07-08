@@ -13,5 +13,6 @@
     <item name="tag_select_login_fragment" type="tag">tag_select_login_fragment</item>
     <item name="tag_user_detail_fragment" type="tag">tag_user_detail_fragment</item>
     <item name="tag_article_menu_fragment" type="tag">tag_article_menu_fragment</item>
-
+	<item name="tag_edit_block_fragment" type="tag">tag_edit_block_fragment</item>
+	<item name="tag_confirm_fragment" type="tag">tag_confirm_fragment</item>
 </resources>

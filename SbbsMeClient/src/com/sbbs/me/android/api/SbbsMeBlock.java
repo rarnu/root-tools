@@ -1,8 +1,12 @@
 package com.sbbs.me.android.api;
 
+import java.io.Serializable;
+
 import org.json.JSONObject;
 
-public class SbbsMeBlock {
+public class SbbsMeBlock implements Serializable {
+
+	private static final long serialVersionUID = -1669187137504440771L;
 
 	public String AuthorId;
 	public String Body;
@@ -18,10 +22,10 @@ public class SbbsMeBlock {
 	public String Type;
 	public String Updated_on;
 	public String _id;
-	
+
 	public static SbbsMeBlock fromJson(JSONObject json) throws Exception {
 		SbbsMeBlock block = new SbbsMeBlock();
-		
+
 		block.AuthorId = json.getString("AuthorId");
 		block.Body = json.getString("Body");
 		block.Created_on = json.getString("Created_on");

@@ -1,31 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+
     <string name="app_name">SbbsMe</string>
     <string name="article_name">View Article</string>
     <string name="userdetail_name">User Detail</string>
-    
     <string name="lm_home">Home</string>
     <string name="lm_postnew">Post New</string>
     <string name="lm_recent">Recent</string>
     <string name="lm_hottags">Hot Tags</string>
     <string name="lm_ongithub">On Github</string>
     <string name="lm_exit">Exit</string>
-    
     <string name="loading">Loading...</string>
+    <string name="sending">Sending...</string>
+    <string name="deleting">Deleting...</string>
+    <string name="format_html">Format: HTML</string>
+    <string name="format_markdown">Format: Markdown</string>
     <string name="share">Share</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="oauth_login">OAuth Login</string>
     <string name="article_menu">Menu</string>
-    
+    <string name="send">Send</string>
     <string name="project_sbbs_me">Sbbs.Me</string>
     <string name="project_android">Android</string>
     <string name="msg_act_comment">commented on: </string>
     <string name="msg_act_follow">followed you</string>
-    
     <string name="block">Block</string>
     <string name="block_append">Append\nBlock</string>
     <string name="block_comment">Comment\nBlock</string>
     <string name="block_edit">Edit\nBlock</string>
     <string name="block_delete">Delete\nBlock</string>
+    <string name="editblock_append">Append</string>
+    <string name="editblock_comment">Comment</string>
+    <string name="editblock_edit">Edit</string>
+    <string name="editblock_delete">Delete</string>
+    <string name="not_login">please login</string>
+    <string name="confirm">Confirm</string>
+    <string name="ok">OK</string>
+    <string name="cancel">Cancel</string>
+    <string name="confirm_delete">are you sure to delete the block?</string>
+
 </resources>
