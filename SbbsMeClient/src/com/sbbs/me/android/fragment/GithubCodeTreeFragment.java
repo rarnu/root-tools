@@ -43,8 +43,8 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		this.repoType = repoType;
 		this.sha = sha;
 		tagText = ResourceUtils
-				.getString(repoType == 0 ? R.tag.tag_ongithub_fragment_sbbs
-						: R.tag.tag_ongithub_fragment_android);
+				.getString(repoType == 0 ? R.tag.tag_codetree_fragment_sbbs
+						: R.tag.tag_codetree_fragment_android);
 		tabTitle = ResourceUtils
 				.getString(repoType == 0 ? R.string.project_sbbs_me
 						: R.string.project_android);

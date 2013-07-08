@@ -65,16 +65,13 @@ public class GithubOAuth {
 				try {
 					ret = HttpRequest.simplePostWithHeader(githubTokenApi, 
 							params, HTTP.UTF_8, property);
-				} catch (Exception e1) {
-					Log.e("post-token-error", e1.getMessage());
+				} catch (Exception e) {
 				}
 				try {
 					JSONObject s = new JSONObject(ret);
 					access_token = s.getString("access_token");
 				} catch (Exception e) {
-					Log.e("json-error", e.getMessage());
 				}
-				Log.e("github-token", access_token);
 				GitHubClient client = new GitHubClient();
 				client.setOAuth2Token(access_token);
 				UserService us = new UserService(client);
@@ -83,7 +80,6 @@ public class GithubOAuth {
 					user = us.getUser();
 				} catch (IOException e) {
 				}
-				Log.e("User-info-email", user.getEmail());
 				Config.setGithubUserId(mContext, 
 						String.valueOf(user.getId()), access_token);
 				if (callback != null) {

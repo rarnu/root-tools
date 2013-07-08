@@ -54,6 +54,10 @@ public class BlockTextView extends RelativeLayout {
 	public void setText(String html) {
 		tvText.setText(Html.fromHtml(html));
 	}
+	
+	public void setCodeContent(String contents) {
+		tvText.setText(contents);
+	}
 
 	public void setHeadImageUrl(String uid, String html) {
 		String url = MiscUtils.extractHeadUrl(html);

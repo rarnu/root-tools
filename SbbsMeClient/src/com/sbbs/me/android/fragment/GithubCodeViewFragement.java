@@ -35,8 +35,8 @@ public class GithubCodeViewFragement extends BaseFragment implements
 		this.repoType = repoType;
 		this.sha = sha;
 		tagText = ResourceUtils
-				.getString(repoType == 0 ? R.tag.tag_ongithub_fragment_sbbs
-						: R.tag.tag_ongithub_fragment_android);
+				.getString(repoType == 0 ? R.tag.tag_codeview_fragment_sbbs
+						: R.tag.tag_codeview_fragment_android);
 		tabTitle = ResourceUtils.getString(repoType == 0 ? R.string.project_sbbs_me
 				: R.string.project_android);
 	}
@@ -121,8 +121,11 @@ public class GithubCodeViewFragement extends BaseFragment implements
 			}
 			rllp.bottomMargin = UIUtils.dipToPx(4);
 			block.setLayoutParams(rllp);
-			byte[] contents = EncodingUtils.fromBase64( blob.getContent());
-			block.setText( new String(contents) );
+			String content = blob.getContent();
+			if (content == null)
+				content = "";
+			byte[] contents = EncodingUtils.fromBase64(content);
+			block.setCodeContent( new String(contents) );
 			layBlob.addView(block);
 			layBlob.postInvalidate();
 			viewId++;

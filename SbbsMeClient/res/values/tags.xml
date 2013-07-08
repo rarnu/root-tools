@@ -7,8 +7,10 @@
     <item name="tag_recent_fragment" type="tag">tag_recent_fragment</item>
     <item name="tag_hottags_fragment" type="tag">tag_hottags_fragment</item>
     <item name="tag_ongithub_tab_fragment" type="tag">tag_ongithub_tab_fragment</item>
-    <item name="tag_ongithub_fragment_sbbs" type="tag">tag_ongithub_fragment_sbbs</item>
-    <item name="tag_ongithub_fragment_android" type="tag">tag_ongithub_fragment_android</item>
+    <item name="tag_codetree_fragment_sbbs" type="tag">tag_codetree_fragment_sbbs</item>
+    <item name="tag_codeview_fragment_sbbs" type="tag">tag_codeview_fragment_sbbs</item>
+    <item name="tag_codetree_fragment_android" type="tag">tag_codetree_fragment_android</item>
+    <item name="tag_codeview_fragment_android" type="tag">tag_codeview_fragment_android</item>
     <item name="tag_article_fragment" type="tag">tag_article_fragment</item>
     <item name="tag_select_login_fragment" type="tag">tag_select_login_fragment</item>
     <item name="tag_user_detail_fragment" type="tag">tag_user_detail_fragment</item>

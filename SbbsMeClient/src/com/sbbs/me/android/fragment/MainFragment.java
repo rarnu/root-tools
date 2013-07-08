@@ -365,6 +365,8 @@ public class MainFragment extends BaseFragment implements
 			} catch (Exception e) {
 				Log.e("onGithubUser", e.getMessage());
 			}*/
+		} else {
+			githubOAuth.sendGithubOauth();
 		}
 	}
 
