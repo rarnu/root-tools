@@ -33,7 +33,12 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".SelectLoginActivity"
+            android:name=".dialog.SelectLoginDialog"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
+        </activity>
+        <activity
+            android:name=".dialog.ArticleMenuDialog"
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
         </activity>
@@ -47,7 +52,6 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>
-        
         <activity
             android:name=".CodeTreeActivity"
             android:screenOrientation="portrait"

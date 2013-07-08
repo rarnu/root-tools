@@ -13,25 +13,25 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
 
-public class SelectLoginFragment extends BaseFragment implements
-		OnClickListener {
+public class ArticleMenuFragment extends BaseFragment implements OnClickListener {
 
-	RelativeLayout btnGoogle, btnGithub, btnWeibo;
 	ImageView ivCloseDialog;
+	RelativeLayout btnAppendBlock, btnCommentBlock, btnEditBlock,
+			btnDeleteBlock;
 
-	public SelectLoginFragment() {
+	public ArticleMenuFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_select_login_fragment);
+		tagText = ResourceUtils.getString(R.tag.tag_article_menu_fragment);
 	}
 
 	@Override
 	public int getBarTitle() {
-		return R.string.oauth_login;
+		return R.string.article_menu;
 	}
 
 	@Override
 	public int getBarTitleWithPath() {
-		return R.string.oauth_login;
+		return R.string.article_menu;
 	}
 
 	@Override
@@ -41,17 +41,19 @@ public class SelectLoginFragment extends BaseFragment implements
 
 	@Override
 	public void initComponents() {
-		btnGoogle = (RelativeLayout) innerView.findViewById(R.id.btnGoogle);
-		btnGithub = (RelativeLayout) innerView.findViewById(R.id.btnGithub);
-		btnWeibo = (RelativeLayout) innerView.findViewById(R.id.btnWeibo);
+		btnAppendBlock = (RelativeLayout) innerView.findViewById(R.id.btnAppendBlock);
+		btnCommentBlock = (RelativeLayout) innerView.findViewById(R.id.btnCommentBlock);
+		btnEditBlock = (RelativeLayout) innerView.findViewById(R.id.btnEditBlock);
+		btnDeleteBlock = (RelativeLayout) innerView.findViewById(R.id.btnDeleteBlock);
 		ivCloseDialog = (ImageView) innerView.findViewById(R.id.ivCloseDialog);
 	}
 
 	@Override
 	public void initEvents() {
-		btnGoogle.setOnClickListener(this);
-		btnGithub.setOnClickListener(this);
-		btnWeibo.setOnClickListener(this);
+		btnAppendBlock.setOnClickListener(this);
+		btnCommentBlock.setOnClickListener(this);
+		btnEditBlock.setOnClickListener(this);
+		btnDeleteBlock.setOnClickListener(this);
 		ivCloseDialog.setOnClickListener(this);
 	}
 
@@ -62,7 +64,7 @@ public class SelectLoginFragment extends BaseFragment implements
 
 	@Override
 	public int getFragmentLayoutResId() {
-		return R.layout.dialog_select_login;
+		return R.layout.dialog_article_menu;
 	}
 
 	@Override
@@ -88,22 +90,25 @@ public class SelectLoginFragment extends BaseFragment implements
 	@Override
 	public void onClick(View v) {
 		Intent inRet = new Intent();
+		inRet.putExtra("id", getArguments().getString("id"));
 		switch (v.getId()) {
-		case R.id.btnGoogle:
-			inRet.putExtra("type", 0);
+		case R.id.btnAppendBlock:
+			inRet.putExtra("mode", 0);
 			break;
-		case R.id.btnGithub:
-			inRet.putExtra("type", 1);
+		case R.id.btnCommentBlock:
+			inRet.putExtra("mode", 1);
 			break;
-		case R.id.btnWeibo:
-			inRet.putExtra("type", 2);
+		case R.id.btnEditBlock:
+			inRet.putExtra("mode", 2);
+			break;
+		case R.id.btnDeleteBlock:
+			inRet.putExtra("mode", 3);
 			break;
 		case R.id.ivCloseDialog:
 			getActivity().finish();
 			return;
 		}
 		getActivity().setResult(Activity.RESULT_OK, inRet);
-		getActivity().finish();
-
 	}
+
 }

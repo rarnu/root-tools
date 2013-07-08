@@ -16,9 +16,16 @@
     <string name="login">Login</string>
     <string name="logout">Logout</string>
     <string name="oauth_login">OAuth Login</string>
+    <string name="article_menu">Menu</string>
     
     <string name="project_sbbs_me">Sbbs.Me</string>
     <string name="project_android">Android</string>
     <string name="msg_act_comment">commented on: </string>
     <string name="msg_act_follow">followed you</string>
+    
+    <string name="block">Block</string>
+    <string name="block_append">Append\nBlock</string>
+    <string name="block_comment">Comment\nBlock</string>
+    <string name="block_edit">Edit\nBlock</string>
+    <string name="block_delete">Delete\nBlock</string>
 </resources>

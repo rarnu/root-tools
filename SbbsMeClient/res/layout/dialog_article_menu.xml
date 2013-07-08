@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="match_parent" >
 
     <RelativeLayout
         android:id="@+id/layHead"
@@ -14,6 +14,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:adjustViewBounds="true"
+            android:contentDescription="@null"
             android:scaleType="fitStart"
             android:visibility="gone" />
 
@@ -24,9 +25,19 @@
             android:layout_toRightOf="@+id/ivLogo"
             android:gravity="left|center_vertical"
             android:paddingLeft="8dip"
-            android:text="@string/oauth_login"
+            android:text="@string/block"
             android:textColor="@color/white"
-            android:textSize="18dp" />
+            android:textSize="18sp" />
+
+        <ImageView
+            android:id="@+id/ivCloseDialog"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:contentDescription="@null"
+            android:padding="4dip"
+            android:scaleType="centerInside"
+            android:src="@android:drawable/ic_menu_revert" />
     </RelativeLayout>
 
     <LinearLayout
@@ -37,51 +48,63 @@
         android:padding="8dip" >
 
         <RelativeLayout
-            android:id="@+id/btnGoogle"
+            android:id="@+id/btnAppendBlock"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/action_button_style"
             android:clickable="true" >
 
-            <ImageView
-                android:layout_width="92dip"
-                android:layout_height="92dip"
-                android:layout_centerInParent="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/google" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/block_append" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/btnGithub"
+            android:id="@+id/btnCommentBlock"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/action_button_style"
             android:clickable="true" >
 
-            <ImageView
-                android:layout_width="92dip"
-                android:layout_height="92dip"
-                android:layout_centerInParent="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/github" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/block_comment" />
         </RelativeLayout>
 
         <RelativeLayout
-            android:id="@+id/btnWeibo"
+            android:id="@+id/btnEditBlock"
             android:layout_width="0px"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:background="@drawable/action_button_style"
             android:clickable="true" >
 
-            <ImageView
-                android:layout_width="92dip"
-                android:layout_height="92dip"
-                android:layout_centerInParent="true"
-                android:scaleType="centerInside"
-                android:src="@drawable/weibo" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/block_edit" />
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/btnDeleteBlock"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/action_button_style"
+            android:clickable="true" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/block_delete" />
         </RelativeLayout>
     </LinearLayout>
 

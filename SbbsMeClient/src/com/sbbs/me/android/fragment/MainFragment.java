@@ -29,7 +29,6 @@ import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.ArticleActivity;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
-import com.sbbs.me.android.SelectLoginActivity;
 import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
 import com.sbbs.me.android.api.SbbsMeAPI;
@@ -37,6 +36,7 @@ import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.api.SbbsMeGoogleUser;
 import com.sbbs.me.android.api.SbbsMeSinaUser;
 import com.sbbs.me.android.consts.MenuIds;
+import com.sbbs.me.android.dialog.SelectLoginDialog;
 import com.sbbs.me.android.loader.SbbsBlockLoader;
 import com.sbbs.me.android.utils.Config;
 import com.sbbs.me.android.utils.GithubOAuth;
@@ -189,7 +189,7 @@ public class MainFragment extends BaseFragment implements
 			}
 			if (userId.equals("")) {
 				startActivityForResult(new Intent(getActivity(),
-						SelectLoginActivity.class), 0);
+						SelectLoginDialog.class), 0);
 			} else {
 				startActivityForResult(new Intent(getActivity(),
 						UserDetailActivity.class), 1);
@@ -290,6 +290,7 @@ public class MainFragment extends BaseFragment implements
 		case 1: {
 			int action = data.getIntExtra("action", 0);
 			if (action == 1) {
+				SbbsMeAPI.logout();
 				Config.setAccountType(getActivity(), -1);
 				Config.setSinaUserId(getActivity(), "");
 				Config.setUserId(getActivity(), "");

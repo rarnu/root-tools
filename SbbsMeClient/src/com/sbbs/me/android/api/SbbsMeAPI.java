@@ -68,6 +68,10 @@ public class SbbsMeAPI {
 		return loginStatus;
 	}
 
+	public static void logout() {
+		cookieData = null;
+	}
+
 	/**
 	 * do NOT need login
 	 * 
@@ -140,8 +144,8 @@ public class SbbsMeAPI {
 		return list;
 	}
 
-	public static Blob getCodeView(String userName, String repoName, String sha,
-			Context context) throws Exception {
+	public static Blob getCodeView(String userName, String repoName,
+			String sha, Context context) throws Exception {
 		GitHubClient client = new GitHubClient();
 		client.setOAuth2Token(Config.getGithubAccessToken(context));
 		RepositoryService repoService = new RepositoryService(client);

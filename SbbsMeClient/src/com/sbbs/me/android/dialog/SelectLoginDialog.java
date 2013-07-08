@@ -1,4 +1,4 @@
-package com.sbbs.me.android;
+package com.sbbs.me.android.dialog;
 
 import android.app.Fragment;
 import android.os.Bundle;
@@ -6,7 +6,7 @@ import android.os.Bundle;
 import com.rarnu.devlib.base.BaseDialog;
 import com.sbbs.me.android.fragment.SelectLoginFragment;
 
-public class SelectLoginActivity extends BaseDialog {
+public class SelectLoginDialog extends BaseDialog {
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

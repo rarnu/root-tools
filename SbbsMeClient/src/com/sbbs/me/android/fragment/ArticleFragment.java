@@ -2,6 +2,8 @@ package com.sbbs.me.android.fragment;
 
 import org.markdown4j.Markdown4jProcessor;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
@@ -13,7 +15,6 @@ import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
@@ -24,6 +25,7 @@ import com.sbbs.me.android.api.SbbsMeArticle;
 import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.consts.MenuIds;
+import com.sbbs.me.android.dialog.ArticleMenuDialog;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
 import com.sbbs.me.android.utils.Config;
 
@@ -192,19 +194,39 @@ public class ArticleFragment extends BaseFragment implements
 
 	@Override
 	public boolean onLongClick(View v) {
-		final SbbsMeBlock item = ((BlockTextView) v).getBlock();
-		Toast.makeText(getActivity(), item.Id, Toast.LENGTH_SHORT).show();
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				if (SbbsMeAPI.isLogin()) {
-					SbbsMeAPI.appendBlock(item.Id, "test_append_block");
-					// SbbsMeAPI.editBlock(item.Id, "test edit block api");
-
-				}
-			}
-		}).start();
+		if (SbbsMeAPI.isLogin()) {
+			final SbbsMeBlock item = ((BlockTextView) v).getBlock();
+			startActivityForResult(new Intent(getActivity(),
+					ArticleMenuDialog.class).putExtra("id", item.Id), 0);
+		}
 		return false;
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode != Activity.RESULT_OK) {
+			return;
+		}
+		switch (requestCode) {
+		case 0: {
+			String blockId = data.getStringExtra("id");
+			int mode = data.getIntExtra("mode", -1);
+			switch (mode) {
+			case 0:
+				// append block
+				break;
+			case 1:
+				// comment block
+				break;
+			case 2:
+				// edit block
+				break;
+			case 3:
+				// delete block
+				break;
+			}
+		}
+			break;
+		}
 	}
 }
