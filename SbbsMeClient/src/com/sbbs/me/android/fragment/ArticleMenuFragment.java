@@ -8,16 +8,19 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
 
-public class ArticleMenuFragment extends BaseFragment implements OnClickListener {
+public class ArticleMenuFragment extends BaseFragment implements
+		OnClickListener {
 
 	ImageView ivCloseDialog;
 	RelativeLayout btnAppendBlock, btnCommentBlock, btnEditBlock,
 			btnDeleteBlock;
+	TextView tvAppendBlock, tvCommentBlock, tvEditBlock, tvDeleteBlock;
 
 	public ArticleMenuFragment() {
 		super();
@@ -41,11 +44,34 @@ public class ArticleMenuFragment extends BaseFragment implements OnClickListener
 
 	@Override
 	public void initComponents() {
-		btnAppendBlock = (RelativeLayout) innerView.findViewById(R.id.btnAppendBlock);
-		btnCommentBlock = (RelativeLayout) innerView.findViewById(R.id.btnCommentBlock);
-		btnEditBlock = (RelativeLayout) innerView.findViewById(R.id.btnEditBlock);
-		btnDeleteBlock = (RelativeLayout) innerView.findViewById(R.id.btnDeleteBlock);
+		btnAppendBlock = (RelativeLayout) innerView
+				.findViewById(R.id.btnAppendBlock);
+		btnCommentBlock = (RelativeLayout) innerView
+				.findViewById(R.id.btnCommentBlock);
+		btnEditBlock = (RelativeLayout) innerView
+				.findViewById(R.id.btnEditBlock);
+		btnDeleteBlock = (RelativeLayout) innerView
+				.findViewById(R.id.btnDeleteBlock);
 		ivCloseDialog = (ImageView) innerView.findViewById(R.id.ivCloseDialog);
+		tvAppendBlock = (TextView) innerView.findViewById(R.id.tvAppendBlock);
+		tvCommentBlock = (TextView) innerView.findViewById(R.id.tvCommentBlock);
+		tvEditBlock = (TextView) innerView.findViewById(R.id.tvEditBlock);
+		tvDeleteBlock = (TextView) innerView.findViewById(R.id.tvDeleteBlock);
+
+		boolean isMyArticle = getArguments().getBoolean("isMyArticle", false);
+		btnAppendBlock.setEnabled(isMyArticle);
+		btnEditBlock.setEnabled(isMyArticle);
+		btnDeleteBlock.setEnabled(isMyArticle);
+
+		if (!isMyArticle) {
+			tvAppendBlock.setTextColor(getResources().getColor(
+					R.color.lightgrey));
+			tvEditBlock
+					.setTextColor(getResources().getColor(R.color.lightgrey));
+			tvDeleteBlock.setTextColor(getResources().getColor(
+					R.color.lightgrey));
+		}
+
 	}
 
 	@Override
@@ -109,6 +135,7 @@ public class ArticleMenuFragment extends BaseFragment implements OnClickListener
 			return;
 		}
 		getActivity().setResult(Activity.RESULT_OK, inRet);
+		getActivity().finish();
 	}
 
 }

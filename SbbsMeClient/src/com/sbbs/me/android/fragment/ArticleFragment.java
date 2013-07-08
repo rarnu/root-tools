@@ -197,7 +197,7 @@ public class ArticleFragment extends BaseFragment implements
 		if (SbbsMeAPI.isLogin()) {
 			final SbbsMeBlock item = ((BlockTextView) v).getBlock();
 			startActivityForResult(new Intent(getActivity(),
-					ArticleMenuDialog.class).putExtra("id", item.Id), 0);
+					ArticleMenuDialog.class).putExtra("id", item.Id).putExtra("isMyArticle", isMyArticle), 0);
 		}
 		return false;
 	}

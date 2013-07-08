@@ -23,6 +23,7 @@ public class ArticleMenuDialog extends BaseDialog {
 	public Fragment replaceFragment() {
 		Bundle bn = new Bundle();
 		bn.putString("id", getIntent().getStringExtra("id"));
+		bn.putBoolean("isMyArticle", getIntent().getBooleanExtra("isMyArticle", false));
 		ArticleMenuFragment amf = new ArticleMenuFragment();
 		amf.setArguments(bn);
 		return amf;
