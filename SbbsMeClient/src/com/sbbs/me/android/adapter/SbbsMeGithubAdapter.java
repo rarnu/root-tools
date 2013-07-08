@@ -12,6 +12,7 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
 import com.sbbs.me.android.R;
 
+@Deprecated
 public class SbbsMeGithubAdapter extends BaseAdapter<Repository> {
 
 	public SbbsMeGithubAdapter(Context context, List<Repository> list) {

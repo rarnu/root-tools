@@ -1,8 +1,9 @@
 package com.sbbs.me.android.fragment;
 
-import org.eclipse.egit.github.core.Blob;
 
-import android.annotation.SuppressLint;
+import org.eclipse.egit.github.core.Blob;
+import org.eclipse.egit.github.core.util.EncodingUtils;
+
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
@@ -19,7 +20,6 @@ import com.sbbs.me.android.R;
 import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.loader.SbbsCodeViewLoader;
 
-@SuppressLint("ValidFragment")
 public class GithubCodeViewFragement extends BaseFragment implements 
 		OnLoadCompleteListener<Blob> {
 
@@ -121,7 +121,8 @@ public class GithubCodeViewFragement extends BaseFragment implements
 			}
 			rllp.bottomMargin = UIUtils.dipToPx(4);
 			block.setLayoutParams(rllp);
-			block.setText(blob.getContent());
+			byte[] contents = EncodingUtils.fromBase64( blob.getContent());
+			block.setText( new String(contents) );
 			layBlob.addView(block);
 			layBlob.postInvalidate();
 			viewId++;
