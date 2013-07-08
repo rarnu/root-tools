@@ -14,7 +14,7 @@
         android:paddingLeft="8dip"
         android:singleLine="true"
         android:textColor="@color/gray"
-        android:textSize="18sp" />
+        android:textSize="16sp" />
 
     <TextView
         android:id="@+id/tvAction"
@@ -31,9 +31,10 @@
         android:layout_width="match_parent"
         android:layout_height="32dip"
         android:layout_below="@+id/tvName"
+        android:layout_marginTop="-8dip"
         android:gravity="right|center_vertical"
         android:paddingRight="16dip"
         android:textColor="@color/google_dark_green"
-        android:textSize="16sp" />
+        android:textSize="18sp" />
 
 </RelativeLayout>

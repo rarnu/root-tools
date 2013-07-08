@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.WebSettings.LayoutAlgorithm;
 
 public class GithubOAuthDialog extends Dialog {
 
@@ -34,6 +35,7 @@ public class GithubOAuthDialog extends Dialog {
 		this.callbackUrl = callbackUrl;
 		
 		wvGithubAuth = (WebView) findViewById(R.id.wvGithubAuth);
+		wvGithubAuth.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
 		wvGithubAuth.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {

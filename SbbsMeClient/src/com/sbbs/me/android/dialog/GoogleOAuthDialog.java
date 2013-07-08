@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.Window;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+import android.webkit.WebSettings.LayoutAlgorithm;
 
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.utils.Config;
@@ -35,6 +36,8 @@ public class GoogleOAuthDialog extends Dialog {
 		this.callbackUrl = callbackUrl;
 
 		wvGoogleAuth = (WebView) findViewById(R.id.wvGoogleAuth);
+		wvGoogleAuth.getSettings().setLayoutAlgorithm(
+				LayoutAlgorithm.SINGLE_COLUMN);
 		wvGoogleAuth.setWebViewClient(new WebViewClient() {
 			@Override
 			public boolean shouldOverrideUrlLoading(WebView view, String url) {

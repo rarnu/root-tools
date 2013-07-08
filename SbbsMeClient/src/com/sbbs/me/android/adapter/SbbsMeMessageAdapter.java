@@ -35,7 +35,7 @@ public class SbbsMeMessageAdapter extends BaseAdapter<SbbsMeMessage> {
 		if (item != null) {
 			holder.tvName.setText(item.name);
 			if (item.actionType == 0) {
-				holder.tvAction.setText(R.string.msg_act_comment);
+				holder.tvAction.setText(item.actionText);
 				holder.tvSubject.setText(item.postSubject);
 				holder.tvSubject.setVisibility(View.VISIBLE);
 			} else {

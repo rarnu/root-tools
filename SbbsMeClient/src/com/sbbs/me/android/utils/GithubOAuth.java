@@ -82,29 +82,10 @@ public class GithubOAuth {
 				try {
 					user = us.getUser();
 				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
 				}
 				Log.e("User-info-email", user.getEmail());
 				Config.setGithubUserId(mContext, 
 						String.valueOf(user.getId()), access_token);
-				/*
-				String result = "";
-				try {
-					result = HttpRequest.get(githubUserApi,
-							"access_token=" + access_token, HTTP.UTF_8);
-				} catch (Exception e1) {
-					Log.e("get-error", e1.getMessage());
-				}
-				Log.e("github-user-res", result);
-				try {
-					Log.e("before-json-parser",result);
-					JSONObject user = new JSONObject(result);
-					Log.e("github-user-login", user.getString("login"));
-					Log.e("github-user-id", user.getString("id"));
-				} catch (Exception e) {
-					Log.e("user-info-json-parser-error", e.getMessage());
-				}*/
 				if (callback != null) {
 					callback.onGetGithubUser(user);
 				}

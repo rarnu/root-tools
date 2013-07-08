@@ -27,10 +27,9 @@ import com.sbbs.me.android.loader.SbbsCodeTreeLoader;
 import static org.eclipse.egit.github.core.TreeEntry.TYPE_BLOB;
 import static org.eclipse.egit.github.core.TreeEntry.TYPE_TREE;
 
-public class GithubCodeTreeFragment extends BaseFragment 
-		implements OnLoadCompleteListener<List<TreeEntry>>,
-		OnItemClickListener {
-	
+public class GithubCodeTreeFragment extends BaseFragment implements
+		OnLoadCompleteListener<List<TreeEntry>>, OnItemClickListener {
+
 	ListView treeList;
 	SbbsCodeTreeLoader loader;
 	SbbsMeTreeEntryAdapter adapter;
@@ -38,7 +37,7 @@ public class GithubCodeTreeFragment extends BaseFragment
 	List<TreeEntry> listTreeEntry;
 	byte repoType = 0;
 	String sha;
-		
+
 	public GithubCodeTreeFragment(byte repoType, String sha) {
 		super();
 		this.repoType = repoType;
@@ -46,8 +45,9 @@ public class GithubCodeTreeFragment extends BaseFragment
 		tagText = ResourceUtils
 				.getString(repoType == 0 ? R.tag.tag_ongithub_fragment_sbbs
 						: R.tag.tag_ongithub_fragment_android);
-		tabTitle = ResourceUtils.getString(repoType == 0 ? R.string.project_sbbs_me
-				: R.string.project_android);
+		tabTitle = ResourceUtils
+				.getString(repoType == 0 ? R.string.project_sbbs_me
+						: R.string.project_android);
 	}
 
 	@Override
@@ -105,12 +105,12 @@ public class GithubCodeTreeFragment extends BaseFragment
 
 	@Override
 	public void initMenu(Menu menu) {
-		
+
 	}
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-		
+
 	}
 
 	@Override
@@ -122,7 +122,7 @@ public class GithubCodeTreeFragment extends BaseFragment
 	public void onLoadComplete(Loader<List<TreeEntry>> loader,
 			List<TreeEntry> data) {
 		listTreeEntry.clear();
-		if ( data != null ) {
+		if (data != null) {
 			listTreeEntry.addAll(data);
 			adapter.setNewList(listTreeEntry);
 		}
@@ -130,19 +130,19 @@ public class GithubCodeTreeFragment extends BaseFragment
 	}
 
 	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position, 
+	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		final TreeEntry item = listTreeEntry.get(position);
 		Log.e("onItemClick", item.getSha());
 		Bundle bn = new Bundle();
 		bn.putByte("repoType", repoType);
 		bn.putString("sha", item.getSha());
-		if ( item.getType().equals(TYPE_TREE) ) {
+		if (item.getType().equals(TYPE_TREE)) {
 			loader.setSha(item.getSha());
 			loader.startLoading();
-		} else if ( item.getType().equals(TYPE_BLOB) ) {
-			startActivity(new Intent(getActivity(), 
-					CodeViewActivity.class).putExtras(bn));
+		} else if (item.getType().equals(TYPE_BLOB)) {
+			startActivity(new Intent(getActivity(), CodeViewActivity.class)
+					.putExtras(bn));
 		}
 	}
 }

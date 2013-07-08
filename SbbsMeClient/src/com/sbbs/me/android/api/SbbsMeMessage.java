@@ -1,11 +1,9 @@
 package com.sbbs.me.android.api;
 
-
 public class SbbsMeMessage {
 
 	/*
-	 * 橙子Infinity comment to your post: comment:测试新浪微博登录.
-	 * 何晓杰 now follow you.
+	 * 橙子Infinity comment to your post: comment:测试新浪微博登录. 何晓杰 now follow you.
 	 * 橙子Infinity append to post a new block: 测试新浪微博登录.
 	 */
 	/**
@@ -26,6 +24,9 @@ public class SbbsMeMessage {
 		str = str.substring(str.indexOf("'") + 2);
 		message.name = str.substring(0, str.indexOf("<"));
 		if (message.actionType == 0) {
+			str = str.substring(str.indexOf("</a>") + "</a>".length());
+			message.actionText = str.substring(0,
+					str.indexOf("<a href='/post/"));
 			str = str.substring(str.indexOf("<a href='/post/")
 					+ "<a href='/post/".length());
 			message.postId = str.substring(0, str.indexOf("'"));
