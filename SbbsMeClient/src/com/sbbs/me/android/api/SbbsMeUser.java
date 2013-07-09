@@ -12,7 +12,7 @@ public class SbbsMeUser implements Serializable {
 	public String Email;
 	public String Id;
 	public String Name;
-	public int Type;
+	public String Type;
 	public String Updated_on;
 	public String _id;
 
@@ -23,7 +23,7 @@ public class SbbsMeUser implements Serializable {
 		user.Email = json.getString("Email");
 		user.Id = json.getString("Id");
 		user.Name = json.getString("Name");
-		user.Type = json.getInt("Type");
+		user.Type = json.getString("Type");
 		user.Updated_on = json.getString("Updated_on");
 		user._id = json.getString("_id");
 		return user;
