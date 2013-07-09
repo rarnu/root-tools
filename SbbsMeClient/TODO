@@ -5,26 +5,6 @@ Weibo
 	
 provider :google_oauth2, '876356697116.apps.googleusercontent.com', 'Sc9hk9vgfb5nQCYCSG1niCoM', {}
 
-curl http://sbbs.me/unfollow_user/1756787011 -d from_user_id=1391292644
-功能：由from_user发起，不再关注id为xx的用户
-返回值："OK"
-
-curl http://sbbs.me/follow_user/1756787011 -d from_user_id=1391292644
-功能：由from_user发起，关注id为xx的用户
-返回值："OK"
-
-curl http://sbbs.me/api/cache/5057dd6208158ecd3b000001 -X DELETE
-功能：删除某个Block中当前用户的Cache Content
-返回值：""
-
-curl http://sbbs.me/api/cache/5057dd6208158ecd3b000001 -d "subject=123&body=456"
-功能：缓存某个Block中当前用户的Cache Content
-返回值：""
-
-curl http://sbbs.me/api/cache/5057dd6208158ecd3b000001
-功能：获取缓存的某个Block中当前用户的Cache Content
-返回值：checked content
-
 curl http://sbbs.me/api/delete_link -d "id=b51d6d98e60e794a97c000005&left_id=bl51d6d98260e794a97c000004"
 功能：删除两个Block之间的关联关系；
 51d6d98e60e794a97c000005,51d6d98260e794a97c000004，是实际的ID号，b，b1这样的前缀，是页面显示上的需要。
@@ -43,10 +23,16 @@ curl http://sbbs.me/api/add_left_block/b51d6d98e60e794a97c000005 -d "left_id=51d
 comment_type，目前有三个可选值：#00f,#f00,#056，代表连线的颜色
 返回值："please login" or "OK"
 
-curl http://sbbs.me/api/block/51d6d98e60e794a97c000005
-功能：获取Block内容
-返回值：JSON
-
 curl http://sbbs.me/api/login/1756787011/%E6%A9%99%E5%AD%90Infinity -d 'account_type=weibo&avatar=http%3A%2F%2Ftp4.sinaimg.cn%2F1756787011%2F180%2F1279902529%2F1'
 curl http://sbbs.me/api/msgs
 
+1. 获取用户信息
+2. 删除文章的main_block时，删除其所有子block，界面需刷新
+3. 用户信息展示
+4. 持久化本次登录状态，重新进入mainFragment时不刷新头像
+5. block展示
+6. hot tags展示
+7. recent跳入文章展示
+8. 发布新文章
+9. 关注/取消关注
+10. 分享

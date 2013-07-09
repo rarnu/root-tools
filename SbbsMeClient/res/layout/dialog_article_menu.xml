@@ -34,6 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:background="@drawable/action_button_style"
+            android:clickable="true"
             android:contentDescription="@null"
             android:padding="4dip"
             android:scaleType="centerInside"
@@ -44,71 +46,92 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layHead"
-        android:orientation="horizontal"
+        android:orientation="vertical"
         android:padding="8dip" >
 
         <RelativeLayout
             android:id="@+id/btnAppendBlock"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="56dip"
             android:background="@drawable/action_button_style"
             android:clickable="true" >
 
             <TextView
                 android:id="@+id/tvAppendBlock"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/block_append" />
+                android:text="@string/block_append"
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/btnCommentBlock"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="56dip"
             android:background="@drawable/action_button_style"
             android:clickable="true" >
 
             <TextView
                 android:id="@+id/tvCommentBlock"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/block_comment" />
+                android:text="@string/block_comment"
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/btnEditBlock"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="56dip"
             android:background="@drawable/action_button_style"
             android:clickable="true" >
 
             <TextView
                 android:id="@+id/tvEditBlock"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/block_edit" />
+                android:text="@string/block_edit"
+                android:textSize="16sp" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/btnDeleteBlock"
-            android:layout_width="0px"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
+            android:layout_width="match_parent"
+            android:layout_height="56dip"
             android:background="@drawable/action_button_style"
             android:clickable="true" >
 
             <TextView
                 android:id="@+id/tvDeleteBlock"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/block_delete" />
+                android:text="@string/block_delete"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:background="@color/google_light_green" />
+
+        <RelativeLayout
+            android:id="@+id/btnViewUser"
+            android:layout_width="match_parent"
+            android:layout_height="56dip"
+            android:background="@drawable/action_button_style"
+            android:clickable="true" >
+
+            <TextView
+                android:id="@+id/tvDeleteBlock"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:text="@string/block_user"
+                android:textSize="16sp" />
         </RelativeLayout>
     </LinearLayout>
 

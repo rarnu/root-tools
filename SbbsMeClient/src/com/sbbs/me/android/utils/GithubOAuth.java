@@ -1,12 +1,10 @@
 package com.sbbs.me.android.utils;
 
 import java.io.File;
-import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
 import org.apache.http.protocol.HTTP;
-import org.eclipse.egit.github.core.User;
 import org.eclipse.egit.github.core.client.GitHubClient;
 import org.eclipse.egit.github.core.service.UserService;
 import org.json.JSONObject;
@@ -19,76 +17,71 @@ import android.util.Log;
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.HttpRequest;
 import com.rarnu.utils.ImageUtils;
-import com.sbbs.me.android.api.SbbsMeGoogleUser;
+import com.sbbs.me.android.api.SbbsMeGithubUser;
 import com.sbbs.me.android.dialog.GithubOAuthDialog;
 
 public class GithubOAuth {
 
 	public interface GithubUserCallback {
-		void onGetGithubUser(User user);
+		void onGetGithubUser(SbbsMeGithubUser user);
 	}
-	
+
 	private Context mContext;
-	public SbbsMeGoogleUser githubUser = null;
+	public SbbsMeGithubUser githubUser = null;
 	private GithubUserCallback callback;
 	private final String clientId = "afc5146525f2f6342057";
 	private final String clientSecret = "7fa3196428c6051e293c3a931935c6b3da87d6a1";
 	private final String callbackUrl = "http://sbbs.me/auth/github_oauth2/callback";
 	String githubTokenApi = "https://github.com/login/oauth/access_token";
 	String githubUserApi = "https://api.github.com/user";
-	
+
 	public GithubOAuth(Context context, GithubUserCallback callback) {
 		this.mContext = context;
 		this.callback = callback;
 	}
-	
+
 	public void sendGithubOauth() {
 		GithubOAuthDialog dialog = new GithubOAuthDialog(mContext, clientId,
 				callbackUrl, this);
 		dialog.show();
 	}
-	
+
 	public void getGithubUserInfoViaOAuth() {
 		new GithubOAuthDialog(mContext, clientId, callbackUrl, this);
 	}
-	
+
 	public void getGithubUserInfo(final String code) {
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				Map<String, String> property = new HashMap<String, String>();
-				property.put("accept", "application/json");
-				String access_token = "";
-				String params = "client_id=" + clientId + "&client_secret=" 
-						+ clientSecret + "&code=" + code;
-				String ret = "";
 				try {
-					ret = HttpRequest.simplePostWithHeader(githubTokenApi, 
+					Map<String, String> property = new HashMap<String, String>();
+					property.put("accept", "application/json");
+					String access_token = "";
+					String params = String.format(
+							"client_id=%s&client_secret=%s&code=%s", clientId,
+							clientSecret, code);
+					String ret = "";
+					ret = HttpRequest.simplePostWithHeader(githubTokenApi,
 							params, HTTP.UTF_8, property);
-				} catch (Exception e) {
-				}
-				try {
 					JSONObject s = new JSONObject(ret);
 					access_token = s.getString("access_token");
+					GitHubClient client = new GitHubClient();
+					client.setOAuth2Token(access_token);
+					UserService us = new UserService(client);
+					githubUser = SbbsMeGithubUser.fromParent(us.getUser());
+					Config.setGithubUserId(mContext,
+							String.valueOf(githubUser.getId()), access_token);
+					if (callback != null) {
+						callback.onGetGithubUser(githubUser);
+					}
 				} catch (Exception e) {
-				}
-				GitHubClient client = new GitHubClient();
-				client.setOAuth2Token(access_token);
-				UserService us = new UserService(client);
-				User user = null;
-				try {
-					user = us.getUser();
-				} catch (IOException e) {
-				}
-				Config.setGithubUserId(mContext, 
-						String.valueOf(user.getId()), access_token);
-				if (callback != null) {
-					callback.onGetGithubUser(user);
+					Log.e("getGithubUserInfo", e.getMessage());
 				}
 			}
 		}).start();
 	}
-	
+
 	public Drawable getUserHead(String url) {
 		Log.e("head-url", url);
 		String headLocalPath = Environment.getExternalStorageDirectory()

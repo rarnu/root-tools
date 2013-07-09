@@ -3,6 +3,7 @@ package com.sbbs.me.android.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -11,10 +12,12 @@ import android.widget.Button;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.utils.Config;
 
 public class UserDetailFragment extends BaseFragment implements OnClickListener {
 
 	Button btnLogout;
+	boolean isShowingMyAccount = false;
 
 	public UserDetailFragment() {
 		super();
@@ -48,7 +51,10 @@ public class UserDetailFragment extends BaseFragment implements OnClickListener 
 
 	@Override
 	public void initLogic() {
-
+		String myUsrId = Config.getUserId(getActivity());
+		String userId = getArguments().getString("user", "");
+		isShowingMyAccount = myUsrId.equals(userId);
+		Log.e("isShowingMyAccount", isShowingMyAccount ? "TRUE" : "FALSE");
 	}
 
 	@Override

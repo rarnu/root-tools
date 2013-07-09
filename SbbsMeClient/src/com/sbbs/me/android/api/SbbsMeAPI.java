@@ -257,8 +257,6 @@ public class SbbsMeAPI {
 	 * @return "please login" / "OK"
 	 */
 	public static String commentBlock(String blockId, String text, String title) {
-		// curl http://sbbs.me/api/comment_block/b51d6d98e60e794a97c000005 -d
-		// "text=123&comment_type=#00f&comment_title=title"
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("text", text));
 		params.add(new BasicNameValuePair("comment_type", "#00f"));
@@ -282,8 +280,6 @@ public class SbbsMeAPI {
 	 * @return "please login" / "OK"
 	 */
 	public static String editBlock(String blockId, String text) {
-		// curl http://sbbs.me/api/edit_block/b51d6d98e60e794a97c000005 -d
-		// "text=12312"
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("text", text));
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
@@ -304,8 +300,6 @@ public class SbbsMeAPI {
 	 * @return "please login" / "OK" / "OK_ALL"
 	 */
 	public static String deleteBlock(String blockId) {
-		// curl http://sbbs.me/api/delete_block -d
-		// 'id=b51da641460e794d50e000003' -b cookie
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("id", "b" + blockId));
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
@@ -316,5 +310,111 @@ public class SbbsMeAPI {
 			Log.e("deleteBlock", retStr);
 		}
 		return retStr;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param myUserId
+	 * @param followUserId
+	 * @return "OK"
+	 */
+	public static String followUser(String myUserId, String followUserId) {
+		// curl http://sbbs.me/follow_user/1756787011 -d from_user_id=1391292644
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("from_user_id", myUserId));
+		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+				+ "follow_user/" + followUserId, params, cookieData.cookie,
+				HTTP.UTF_8);
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("followUser", retStr);
+		}
+		return retStr;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param myUserId
+	 * @param unfollowUserId
+	 * @return "OK"
+	 */
+	public static String unfollowUser(String myUserId, String unfollowUserId) {
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("from_user_id", myUserId));
+		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+				+ "unfollow_user/" + unfollowUserId, params, cookieData.cookie,
+				HTTP.UTF_8);
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("followUser", retStr);
+		}
+		return retStr;
+	}
+
+	/**
+	 * do NOT need login
+	 * 
+	 * @param blockId
+	 * @return
+	 */
+	public static SbbsMeBlock getBlock(String blockId) {
+
+		SbbsMeBlock block = null;
+		String ret = HttpRequest.get(BASE_URL + "block/b" + blockId, "",
+				HTTP.UTF_8);
+		Log.e("getBlock", ret);
+		try {
+			block = SbbsMeBlock.fromJson(new JSONObject(ret));
+		} catch (Exception e) {
+		}
+		return block;
+	}
+
+	/**
+	 * do NOT need login
+	 * 
+	 * @param myUserId
+	 * @param otherUserId
+	 * @return 0: no relationship<br>
+	 *         1: I followed other<br>
+	 *         2: other followed me<br>
+	 *         3: both
+	 */
+	public static int getFollowStatus(String myUserId, String otherUserId) {
+		String ret = HttpRequest.get(BASE_URL + "follow/" + myUserId + "/"
+				+ otherUserId, "", HTTP.UTF_8);
+		int retInt = 0;
+		if ((ret != null) && (!ret.equals(""))) {
+			if (ret.equals("both")) {
+				retInt = 3;
+			} else if (ret.equals("to")) {
+				retInt = 2;
+			} else if (ret.equals("from")) {
+				retInt = 1;
+			}
+		}
+		return retInt;
+	}
+
+	/**
+	 * do NOT need login
+	 * 
+	 * @param userId
+	 * @return
+	 */
+	public static SbbsMeUser getUser(String userId) {
+		SbbsMeUser user = null;
+		String ret = HttpRequest.get(BASE_URL + "user/" + userId, "",
+				HTTP.UTF_8);
+		Log.e("getUser", ret);
+		try {
+			user = SbbsMeUser.fromJson(new JSONObject(ret));
+		} catch (Exception e) {
+		}
+		return user;
 	}
 }

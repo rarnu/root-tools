@@ -3,8 +3,6 @@ package com.sbbs.me.android.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.eclipse.egit.github.core.User;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.Loader;
@@ -33,6 +31,7 @@ import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.api.SbbsMeGithubUser;
 import com.sbbs.me.android.api.SbbsMeGoogleUser;
 import com.sbbs.me.android.api.SbbsMeSinaUser;
 import com.sbbs.me.android.consts.MenuIds;
@@ -325,12 +324,11 @@ public class MainFragment extends BaseFragment implements
 			msg.obj = d;
 			hSetHead.sendMessage(msg);
 			try {
-				SbbsMeAPI.login(String.valueOf(user.id), user.screen_name, "weibo", user.avatar_large);
+				SbbsMeAPI.login(String.valueOf(user.id), user.screen_name,
+						"weibo", user.avatar_large);
 			} catch (Exception e) {
 				Log.e("onGetSinaUser", e.getMessage());
 			}
-		} else {
-			sinaOAuth.sendSinaOauth();
 		}
 	}
 
@@ -351,22 +349,19 @@ public class MainFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void onGetGithubUser(User user) {
+	public void onGetGithubUser(SbbsMeGithubUser user) {
 		if (user != null) {
-			Drawable d = githubOAuth.getUserHead(user.getAvatarUrl());
+			Drawable d = githubOAuth.getUserHead(user.avatarUrl);
 			Message msg = new Message();
 			msg.what = 1;
 			msg.obj = d;
 			hSetHead.sendMessage(msg);
-			/*
 			try {
-				SbbsMeAPI.login(String.valueOf(user.getId()), 
-						user.getName(), "github", user.getAvatarUrl());
+				SbbsMeAPI.login(String.valueOf(user.id), user.name, "github",
+						user.avatarUrl);
 			} catch (Exception e) {
-				Log.e("onGithubUser", e.getMessage());
-			}*/
-		} else {
-			githubOAuth.sendGithubOauth();
+				Log.e("onGetGithubUser", e.getMessage());
+			}
 		}
 	}
 

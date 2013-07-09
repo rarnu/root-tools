@@ -19,7 +19,7 @@ public class ArticleMenuFragment extends BaseFragment implements
 
 	ImageView ivCloseDialog;
 	RelativeLayout btnAppendBlock, btnCommentBlock, btnEditBlock,
-			btnDeleteBlock;
+			btnDeleteBlock, btnViewUser;
 	TextView tvAppendBlock, tvCommentBlock, tvEditBlock, tvDeleteBlock;
 
 	public ArticleMenuFragment() {
@@ -52,6 +52,7 @@ public class ArticleMenuFragment extends BaseFragment implements
 				.findViewById(R.id.btnEditBlock);
 		btnDeleteBlock = (RelativeLayout) innerView
 				.findViewById(R.id.btnDeleteBlock);
+		btnViewUser = (RelativeLayout) innerView.findViewById(R.id.btnViewUser);
 		ivCloseDialog = (ImageView) innerView.findViewById(R.id.ivCloseDialog);
 		tvAppendBlock = (TextView) innerView.findViewById(R.id.tvAppendBlock);
 		tvCommentBlock = (TextView) innerView.findViewById(R.id.tvCommentBlock);
@@ -80,6 +81,7 @@ public class ArticleMenuFragment extends BaseFragment implements
 		btnCommentBlock.setOnClickListener(this);
 		btnEditBlock.setOnClickListener(this);
 		btnDeleteBlock.setOnClickListener(this);
+		btnViewUser.setOnClickListener(this);
 		ivCloseDialog.setOnClickListener(this);
 	}
 
@@ -129,6 +131,9 @@ public class ArticleMenuFragment extends BaseFragment implements
 			break;
 		case R.id.btnDeleteBlock:
 			inRet.putExtra("mode", 3);
+			break;
+		case R.id.btnViewUser:
+			inRet.putExtra("mode", 4);
 			break;
 		case R.id.ivCloseDialog:
 			getActivity().finish();

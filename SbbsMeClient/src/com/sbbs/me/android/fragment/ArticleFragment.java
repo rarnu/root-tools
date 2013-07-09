@@ -23,6 +23,7 @@ import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.EditBlockActivity;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeArticle;
 import com.sbbs.me.android.api.SbbsMeBlock;
@@ -219,19 +220,31 @@ public class ArticleFragment extends BaseFragment implements
 			// action selection callback
 			SbbsMeBlock item = (SbbsMeBlock) data.getSerializableExtra("item");
 			int mode = data.getIntExtra("mode", -1);
-			if (mode == 3) {
-				startActivityForResult(
-						new Intent(getActivity(), ConfirmDialog.class)
-								.putExtra("item", item)
-								.putExtra("ok", true)
-								.putExtra("cancel", true)
-								.putExtra("text",
-										getString(R.string.confirm_delete)), 2);
-			} else if (mode != -1) {
-				startActivityForResult(new Intent(getActivity(),
-						EditBlockActivity.class).putExtra("item", item)
-						.putExtra("mode", mode), 1);
+			if (mode != -1) {
+				switch (mode) {
+				case 3:
+					startActivityForResult(
+							new Intent(getActivity(), ConfirmDialog.class)
+									.putExtra("item", item)
+									.putExtra("ok", true)
+									.putExtra("cancel", true)
+									.putExtra("text",
+											getString(R.string.confirm_delete)),
+							2);
+					break;
+				case 4:
+					startActivity(new Intent(getActivity(),
+							UserDetailActivity.class).putExtra("user",
+							item.AuthorId));
+					break;
+				default:
+					startActivityForResult(new Intent(getActivity(),
+							EditBlockActivity.class).putExtra("item", item)
+							.putExtra("mode", mode), 1);
+					break;
+				}
 			}
+
 		}
 			break;
 		case 1: {

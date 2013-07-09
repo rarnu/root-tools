@@ -26,10 +26,11 @@
     <string name="msg_act_comment">commented on: </string>
     <string name="msg_act_follow">followed you</string>
     <string name="block">Block</string>
-    <string name="block_append">Append\nBlock</string>
-    <string name="block_comment">Comment\nBlock</string>
-    <string name="block_edit">Edit\nBlock</string>
-    <string name="block_delete">Delete\nBlock</string>
+    <string name="block_append">Append Block</string>
+    <string name="block_comment">Comment Block</string>
+    <string name="block_edit">Edit Block</string>
+    <string name="block_delete">Delete Block</string>
+    <string name="block_user">View User</string>
     <string name="editblock_append">Append</string>
     <string name="editblock_comment">Comment</string>
     <string name="editblock_edit">Edit</string>

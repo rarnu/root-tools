@@ -21,7 +21,11 @@ public class UserDetailActivity extends BaseActivity {
 
 	@Override
 	public Fragment replaceFragment() {
-		return new UserDetailFragment();
+		Bundle bn = new Bundle();
+		bn.putString("user", getIntent().getStringExtra("user"));
+		UserDetailFragment udf = new UserDetailFragment();
+		udf.setArguments(bn);
+		return udf;
 	}
 
 }

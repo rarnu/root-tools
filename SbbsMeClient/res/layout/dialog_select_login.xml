@@ -34,6 +34,8 @@
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
+            android:background="@drawable/action_button_style"
+            android:clickable="true"
             android:contentDescription="@null"
             android:padding="4dip"
             android:scaleType="centerInside"

@@ -3,6 +3,7 @@ package com.sbbs.me.android.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
@@ -21,6 +22,7 @@ import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeMessageAdapter;
 import com.sbbs.me.android.api.SbbsMeMessage;
 import com.sbbs.me.android.loader.SbbsMessageLoader;
@@ -151,7 +153,8 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 		if (message.actionType == 0) {
 			// TODO: view article
 		} else {
-			// TODO: view user
+			startActivity(new Intent(getActivity(), UserDetailActivity.class)
+					.putExtra("user", message.userId));
 		}
 	}
 
