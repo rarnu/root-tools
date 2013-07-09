@@ -201,22 +201,16 @@ public class SbbsMeAPI {
 	 * @return blockId / "please login"
 	 */
 	public static String addNewArticle(String subject, String format,
-			String txtBody, boolean isPublic, String[] tags) {
+			String txtBody, boolean isPublic, String tags) {
 		// curl http://sbbs.me/api/article -d
 		// "subject=123&format=Markdown&txtBody=test&public=1&tags=1,2,3"
-		String tagStr = "";
-		if (tags != null && tags.length != 0) {
-			for (String t : tags) {
-				tagStr += t + ",";
-			}
-		}
-		tagStr = tagStr.substring(0, tagStr.length() - 1);
+		
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("subject", subject));
 		params.add(new BasicNameValuePair("format", format));
 		params.add(new BasicNameValuePair("txtBody", txtBody));
 		params.add(new BasicNameValuePair("public", isPublic ? "1" : "0"));
-		params.add(new BasicNameValuePair("tags", tagStr));
+		params.add(new BasicNameValuePair("tags", tags));
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
 				+ "article", params, cookieData.cookie, HTTP.UTF_8);
 		String retStr = "";

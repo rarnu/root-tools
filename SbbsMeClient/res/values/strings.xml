@@ -41,4 +41,14 @@
     <string name="cancel">Cancel</string>
     <string name="confirm_delete">are you sure to delete the block?</string>
 
+    <string name="post_subject">Subject</string>
+    <string name="post_tags">Tags, separated by commas</string>
+    <string name="post_public">Public</string>
+    <string name="post_private">Private</string>
+    <string name="post_format">Format</string>
+    <string name="post_content">Article content</string>
+    <string name="post_markdown">Markdown</string>
+    <string name="post_html">HTML</string>
+    <string name="post_check_empty">Subject and content cannot be empty</string>
+    <string name="post_error"></string>
 </resources>

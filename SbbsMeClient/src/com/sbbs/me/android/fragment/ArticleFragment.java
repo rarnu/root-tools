@@ -22,6 +22,7 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.EditBlockActivity;
+import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.api.SbbsMeAPI;
@@ -134,12 +135,14 @@ public class ArticleFragment extends BaseFragment implements
 					.getUserId(getActivity()));
 			Log.e("isMyArticle", (isMyArticle ? "TRUE" : "FALSE"));
 			buildUI();
+		} else {
+			doArticleAndClose();
 		}
 		tvLoading.setVisibility(View.GONE);
 	}
 
 	private void buildUI() {
-
+		int blockCount = 0;
 		int viewId = 100000;
 		layArticle.removeAllViews();
 
@@ -151,19 +154,29 @@ public class ArticleFragment extends BaseFragment implements
 
 			addBlock(article.main_block,
 					article.users.get(article.main_block.AuthorId), viewId);
+			blockCount++;
 			viewId++;
 		}
 
 		if (article.sub_blocks != null) {
 			for (int i = 0; i < article.sub_blocks.size(); i++) {
-
 				addBlock(article.sub_blocks.get(i),
 						article.users.get(article.sub_blocks.get(i).AuthorId),
 						viewId);
+				blockCount++;
 				viewId++;
 			}
 		}
+		if (blockCount == 0) {
+			doArticleAndClose();
+		}
 
+	}
+	
+	private void doArticleAndClose() {
+		Global.autoRefreshTag = true;
+		getActivity().setResult(Activity.RESULT_OK);
+		getActivity().finish();
 	}
 
 	private void addBlock(SbbsMeBlock item, String headUrl, int viewId) {

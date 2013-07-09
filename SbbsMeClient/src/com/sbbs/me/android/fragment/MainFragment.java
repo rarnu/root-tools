@@ -113,7 +113,8 @@ public class MainFragment extends BaseFragment implements
 	@Override
 	public void initLogic() {
 
-		if (Global.listArticle.size() == 0) {
+		if (Global.listArticle.size() == 0 || Global.autoRefreshTag) {
+			Global.autoRefreshTag = false;
 			tvLoading.setVisibility(View.VISIBLE);
 			loader.startLoading();
 		}
@@ -259,8 +260,9 @@ public class MainFragment extends BaseFragment implements
 		final SbbsMeBlock item = (SbbsMeBlock) lvPullDown.getListView()
 				.getItemAtPosition(position);
 
-		startActivity(new Intent(getActivity(), ArticleActivity.class)
-				.putExtra("articleId", item.Id));
+		startActivityForResult(
+				new Intent(getActivity(), ArticleActivity.class).putExtra(
+						"articleId", item.Id), 2);
 	}
 
 	@Override
@@ -294,6 +296,14 @@ public class MainFragment extends BaseFragment implements
 				Config.setSinaUserId(getActivity(), "");
 				Config.setUserId(getActivity(), "");
 				miUser.setIcon(android.R.drawable.ic_menu_report_image);
+			}
+		}
+			break;
+		case 2: {
+			if (Global.autoRefreshTag) {
+				Global.autoRefreshTag = false;
+				tvLoading.setVisibility(View.VISIBLE);
+				loader.startLoading();
 			}
 		}
 			break;

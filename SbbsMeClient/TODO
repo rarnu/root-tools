@@ -27,12 +27,10 @@ curl http://sbbs.me/api/login/1756787011/%E6%A9%99%E5%AD%90Infinity -d 'account_
 curl http://sbbs.me/api/msgs
 
 1. 获取用户信息
-2. 删除文章的main_block时，删除其所有子block，界面需刷新
 3. 用户信息展示
 4. 持久化本次登录状态，重新进入mainFragment时不刷新头像
 5. block展示
 6. hot tags展示
 7. recent跳入文章展示
-8. 发布新文章
 9. 关注/取消关注
 10. 分享

@@ -25,6 +25,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 	public void onCreate(Bundle savedInstanceState) {
 		UIUtils.initDisplayMetrics(this, getWindowManager(), false);
 		ResourceUtils.init(this);
+		Global.autoRefreshTag = true;
 		super.onCreate(savedInstanceState);
 		// CustomUIUtils.customActionBarHome(bar);
 	}

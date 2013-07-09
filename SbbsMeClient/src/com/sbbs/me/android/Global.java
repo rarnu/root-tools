@@ -9,6 +9,7 @@ import com.sbbs.me.android.api.SbbsMeMessage;
 
 public class Global {
 
+	public static boolean autoRefreshTag = false;
 	public static List<SbbsMeBlock> listArticle = null;
 	public static List<SbbsMeMessage> listMessage = null;
 	public static List<Repository> listRepos = null;
