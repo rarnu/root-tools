@@ -1,6 +1,7 @@
 package com.sbbs.me.android.fragment;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import org.eclipse.egit.github.core.TreeEntry;
@@ -37,11 +38,13 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 	List<TreeEntry> listTreeEntry;
 	byte repoType = 0;
 	String sha;
+	HashMap<String, String> parentSha;
 
 	public GithubCodeTreeFragment(byte repoType, String sha) {
 		super();
 		this.repoType = repoType;
 		this.sha = sha;
+		this.parentSha = new HashMap<String, String>();
 		tagText = ResourceUtils
 				.getString(repoType == 0 ? R.tag.tag_codetree_fragment_sbbs
 						: R.tag.tag_codetree_fragment_android);
@@ -133,14 +136,21 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		final TreeEntry item = listTreeEntry.get(position);
-		Log.e("onItemClick", item.getSha());
-		Bundle bn = new Bundle();
-		bn.putByte("repoType", repoType);
-		bn.putString("sha", item.getSha());
+		if (item.getSha() != null) {
+			Log.e("onItemClick", item.getSha());
+		}
+		if (!this.parentSha.containsKey(item.getSha())) {
+			this.parentSha.put(item.getSha(), this.sha);
+		}
+		this.sha = item.getSha();
 		if (item.getType().equals(TYPE_TREE)) {
-			loader.setSha(item.getSha());
+			loader.setSha(this.sha);
+			loader.setParentSha(this.parentSha);
 			loader.startLoading();
 		} else if (item.getType().equals(TYPE_BLOB)) {
+			Bundle bn = new Bundle();
+			bn.putByte("repoType", repoType);
+			bn.putString("sha", item.getSha());
 			startActivity(new Intent(getActivity(), CodeViewActivity.class)
 					.putExtras(bn));
 		}
