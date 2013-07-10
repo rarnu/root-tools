@@ -1,5 +1,6 @@
 package com.sbbs.me.android.fragment;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,6 +21,7 @@ import com.rarnu.devlib.component.PullDownListView;
 import com.rarnu.devlib.component.intf.OnPullDownListener;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
+import com.sbbs.me.android.BlockActivity;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeMessageAdapter;
@@ -159,7 +161,9 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 			long id) {
 		SbbsMeMessage message = listMessage.get(position);
 		if (message.actionType == 0) {
-			// TODO: view article
+			startActivity(new Intent(getActivity(), BlockActivity.class)
+					.putExtra("blockId", message.postId).putExtra("item",
+							(Serializable) null));
 		} else {
 			startActivity(new Intent(getActivity(), UserDetailActivity.class)
 					.putExtra("user", message.userId));

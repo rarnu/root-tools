@@ -17,4 +17,5 @@
     <item name="tag_article_menu_fragment" type="tag">tag_article_menu_fragment</item>
 	<item name="tag_edit_block_fragment" type="tag">tag_edit_block_fragment</item>
 	<item name="tag_confirm_fragment" type="tag">tag_confirm_fragment</item>
+	<item name="tag_block_fragment" type="tag">tag_block_fragment</item>
 </resources>
