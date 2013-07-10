@@ -45,21 +45,11 @@ public class SbbsCodeTreeLoader extends
 			repoName = "root-tools";
 		}
 		List<TreeEntry> list = null;
-		if (sha != null) {
-			Log.e("load tree with sha=>", sha);
-		} else {
-			Log.e("current null", "egg ache");
-		}
 		try {
 			list = SbbsMeAPI.getCodeTree(userName,
 					repoName, sha, getContext());
 		} catch(Exception e) {
 			Log.e("getCodeTree", e.getMessage());
-		}
-		if (sha != null && parentSha.get(sha) != null) {
-			Log.e("current sha parent", parentSha.get(sha));
-		} else {
-			Log.e("current sha parent", "null");
 		}
 		if (list != null && sha != null 
 				&& parentSha.containsKey(sha)) {

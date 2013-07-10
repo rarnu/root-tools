@@ -130,16 +130,15 @@ public class SbbsMeAPI {
 			String sha, Context context) throws Exception {
 		List<TreeEntry> list = null;
 		GitHubClient client = new GitHubClient();
-		Log.e("github-token", Config.getGithubAccessToken(context));
 		client.setOAuth2Token(Config.getGithubAccessToken(context));
 		RepositoryService repoService = new RepositoryService(client);
 		Repository repo = repoService.getRepository(userName, repoName);
-		CommitService commitService = new CommitService();
+		CommitService commitService = new CommitService(client);
 		if (sha == null) {
 			List<RepositoryCommit> repoCommits = commitService.getCommits(repo);
 			sha = repoCommits.get(0).getSha();
 		}
-		DataService dataService = new DataService();
+		DataService dataService = new DataService(client);
 		list = dataService.getTree(repo, sha).getTree();
 
 		return list;
@@ -148,11 +147,10 @@ public class SbbsMeAPI {
 	public static Blob getCodeView(String userName, String repoName,
 			String sha, Context context) throws Exception {
 		GitHubClient client = new GitHubClient();
-		Log.e("github-token", Config.getGithubAccessToken(context));
 		client.setOAuth2Token(Config.getGithubAccessToken(context));
 		RepositoryService repoService = new RepositoryService(client);
 		Repository repo = repoService.getRepository(userName, repoName);
-		DataService dataService = new DataService();
+		DataService dataService = new DataService(client);
 		Blob blob = dataService.getBlob(repo, sha);
 		return blob;
 	}
