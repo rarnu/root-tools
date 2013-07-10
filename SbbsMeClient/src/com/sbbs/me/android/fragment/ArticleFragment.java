@@ -13,6 +13,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -21,6 +22,7 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
+import com.sbbs.me.android.BlockActivity;
 import com.sbbs.me.android.EditBlockActivity;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
@@ -36,7 +38,8 @@ import com.sbbs.me.android.loader.SbbsArticleLoader;
 import com.sbbs.me.android.utils.Config;
 
 public class ArticleFragment extends BaseFragment implements
-		OnLoadCompleteListener<SbbsMeArticle>, OnLongClickListener {
+		OnLoadCompleteListener<SbbsMeArticle>, OnLongClickListener,
+		OnClickListener {
 
 	RelativeLayout layArticle;
 	SbbsArticleLoader loader;
@@ -107,7 +110,7 @@ public class ArticleFragment extends BaseFragment implements
 		miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		miShare.setIcon(android.R.drawable.ic_menu_share);
 	}
-	
+
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -117,7 +120,6 @@ public class ArticleFragment extends BaseFragment implements
 		}
 		return true;
 	}
-
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
@@ -207,6 +209,7 @@ public class ArticleFragment extends BaseFragment implements
 			}
 			block.setBlock(item);
 			block.setOnLongClickListener(this);
+			block.setOnClickListener(this);
 
 			layArticle.addView(block);
 			layArticle.postInvalidate();
@@ -305,5 +308,13 @@ public class ArticleFragment extends BaseFragment implements
 				hDelete.sendMessage(msg);
 			}
 		}).start();
+	}
+
+	@Override
+	public void onClick(View v) {
+		final SbbsMeBlock item = ((BlockTextView) v).getBlock();
+		startActivityForResult(new Intent(getActivity(), BlockActivity.class)
+				.putExtra("item", item).putExtra("blockId", item.Id), 3);
+
 	}
 }
