@@ -7,11 +7,6 @@ import com.rarnu.devlib.base.BaseActivity;
 import com.sbbs.me.android.fragment.GithubCodeViewFragement;
 
 public class CodeViewActivity extends BaseActivity{
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-	}
 	
 	@Override
 	public int getIcon() {

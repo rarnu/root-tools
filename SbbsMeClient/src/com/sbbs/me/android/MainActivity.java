@@ -10,6 +10,7 @@ import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
+import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.fragment.HotTagsFragment;
 import com.sbbs.me.android.fragment.LeftMenuFragment;
 import com.sbbs.me.android.fragment.MainFragment;
@@ -27,11 +28,11 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 		ResourceUtils.init(this);
 		Global.autoRefreshTag = true;
 		super.onCreate(savedInstanceState);
-		// CustomUIUtils.customActionBarHome(bar);
 	}
 
 	@Override
 	protected void onDestroy() {
+		SbbsMeAPI.logout();
 		Global.releaseAll();
 		super.onDestroy();
 	}

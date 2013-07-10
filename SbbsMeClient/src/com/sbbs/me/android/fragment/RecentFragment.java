@@ -20,10 +20,10 @@ import com.rarnu.devlib.component.PullDownListView;
 import com.rarnu.devlib.component.intf.OnPullDownListener;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
-import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeMessageAdapter;
+import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeMessage;
 import com.sbbs.me.android.loader.SbbsMessageLoader;
 
@@ -34,6 +34,7 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 	PullDownListView lvPullDown;
 	TextView tvLoading;
 	SbbsMeMessageAdapter adapter;
+	List<SbbsMeMessage> listMessage;
 
 	public RecentFragment() {
 		super();
@@ -59,10 +60,10 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 	public void initComponents() {
 		lvPullDown = (PullDownListView) innerView.findViewById(R.id.lvPullDown);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
-		if (Global.listMessage == null) {
-			Global.listMessage = new ArrayList<SbbsMeMessage>();
+		if (listMessage == null) {
+			listMessage = new ArrayList<SbbsMeMessage>();
 		}
-		adapter = new SbbsMeMessageAdapter(getActivity(), Global.listMessage);
+		adapter = new SbbsMeMessageAdapter(getActivity(), listMessage);
 		lvPullDown.getListView().setAdapter(adapter);
 		loader = new SbbsMessageLoader(getActivity());
 		lvPullDown.enableAutoFetchMore(true, 1);
@@ -83,7 +84,14 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 
 	@Override
 	public void initLogic() {
-		if (Global.listMessage.size() == 0) {
+
+		if (!SbbsMeAPI.isLogin()) {
+			lvPullDown.setEnabled(false);
+			lvPullDown.getListView().setEnabled(false);
+			tvLoading.setText(R.string.not_login);
+			tvLoading.setVisibility(View.VISIBLE);
+
+		} else if (listMessage.size() == 0) {
 			tvLoading.setVisibility(View.VISIBLE);
 			loader.startLoading();
 		}
@@ -149,7 +157,7 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		SbbsMeMessage message = Global.listMessage.get(position);
+		SbbsMeMessage message = listMessage.get(position);
 		if (message.actionType == 0) {
 			// TODO: view article
 		} else {
@@ -161,12 +169,12 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 	@Override
 	public void onLoadComplete(Loader<List<SbbsMeMessage>> loader,
 			List<SbbsMeMessage> data) {
-		Global.listMessage.clear();
+		listMessage.clear();
 		if (data != null) {
-			Global.listMessage.addAll(data);
+			listMessage.addAll(data);
 		}
 
-		adapter.setNewList(Global.listMessage);
+		adapter.setNewList(listMessage);
 		tvLoading.setVisibility(View.GONE);
 		lvPullDown.notifyDidRefresh();
 	}

@@ -50,5 +50,7 @@
     <string name="post_markdown">Markdown</string>
     <string name="post_html">HTML</string>
     <string name="post_check_empty">Subject and content cannot be empty</string>
-    <string name="post_error"></string>
+    <string name="post_error">post block error</string>
+    
+    <string name="not_login">please login first</string>
 </resources>

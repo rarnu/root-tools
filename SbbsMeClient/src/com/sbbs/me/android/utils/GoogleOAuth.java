@@ -11,7 +11,6 @@ import android.os.Environment;
 
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.HttpRequest;
-import com.rarnu.utils.ImageUtils;
 import com.sbbs.me.android.api.SbbsMeGoogleUser;
 import com.sbbs.me.android.dialog.GoogleOAuthDialog;
 
@@ -73,18 +72,10 @@ public class GoogleOAuth {
 			new File(headLocalPath).mkdirs();
 		}
 		String headLocalName = headLocalPath + "mygooglehead.jpg";
-
+		Config.setHeadPath(mContext, headLocalName);
 		if (!new File(headLocalName).exists()) {
 			DownloadUtils.downloadFile(url, headLocalName, null);
 		}
-
-		Drawable d = null;
-		try {
-			d = Drawable.createFromPath(headLocalName);
-			d = ImageUtils.zoomDrawable(d, 256, 256);
-		} catch (Exception e) {
-
-		}
-		return d;
+		return MiscUtils.loadUserHeadFromFile(headLocalName);
 	}
 }

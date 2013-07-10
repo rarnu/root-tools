@@ -53,6 +53,7 @@ public class UserDetailFragment extends BaseFragment implements OnClickListener 
 	public void initLogic() {
 		String myUsrId = Config.getUserId(getActivity());
 		String userId = getArguments().getString("user", "");
+		int accType = Config.getAccountType(getActivity());
 		isShowingMyAccount = myUsrId.equals(userId);
 		Log.e("isShowingMyAccount", isShowingMyAccount ? "TRUE" : "FALSE");
 	}

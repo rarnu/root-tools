@@ -9,12 +9,6 @@ import com.sbbs.me.android.fragment.UserDetailFragment;
 public class UserDetailActivity extends BaseActivity {
 
 	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		// CustomUIUtils.customActionBarHome(bar);
-	}
-
-	@Override
 	public int getIcon() {
 		return R.drawable.inner_logo;
 	}

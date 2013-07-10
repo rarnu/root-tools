@@ -12,7 +12,6 @@ import android.os.Bundle;
 import android.os.Environment;
 
 import com.rarnu.utils.DownloadUtils;
-import com.rarnu.utils.ImageUtils;
 import com.sbbs.me.android.api.SbbsMeSinaUser;
 import com.weibo.sdk.android.Oauth2AccessToken;
 import com.weibo.sdk.android.Weibo;
@@ -143,17 +142,11 @@ public class SinaOAuth {
 			new File(headLocalPath).mkdirs();
 		}
 		String headLocalName = headLocalPath + "mysinahead.jpg";
+		Config.setHeadPath(mContext, headLocalName);
 		if (!new File(headLocalName).exists()) {
 			DownloadUtils.downloadFile(url, headLocalName, null);
 		}
 
-		Drawable d = null;
-		try {
-			d = Drawable.createFromPath(headLocalName);
-			d = ImageUtils.zoomDrawable(d, 256, 256);
-		} catch (Exception e) {
-
-		}
-		return d;
+		return MiscUtils.loadUserHeadFromFile(headLocalName);
 	}
 }

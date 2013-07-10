@@ -7,12 +7,6 @@ import com.rarnu.devlib.base.BaseActivity;
 import com.sbbs.me.android.fragment.ArticleFragment;
 
 public class ArticleActivity extends BaseActivity {
-
-	@Override
-	protected void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		// CustomUIUtils.customActionBarHome(bar);
-	}
 	
 	@Override
 	public int getIcon() {

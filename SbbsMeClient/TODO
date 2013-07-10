@@ -28,7 +28,6 @@ curl http://sbbs.me/api/msgs
 
 1. 获取用户信息
 3. 用户信息展示
-4. 持久化本次登录状态，重新进入mainFragment时不刷新头像
 5. block展示
 6. hot tags展示
 7. recent跳入文章展示

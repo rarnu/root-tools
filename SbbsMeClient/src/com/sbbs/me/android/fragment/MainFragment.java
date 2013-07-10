@@ -42,6 +42,7 @@ import com.sbbs.me.android.utils.GithubOAuth;
 import com.sbbs.me.android.utils.GithubOAuth.GithubUserCallback;
 import com.sbbs.me.android.utils.GoogleOAuth;
 import com.sbbs.me.android.utils.GoogleOAuth.GoogleUserCallback;
+import com.sbbs.me.android.utils.MiscUtils;
 import com.sbbs.me.android.utils.SinaOAuth;
 import com.sbbs.me.android.utils.SinaOAuth.SinaUserCallback;
 
@@ -119,7 +120,9 @@ public class MainFragment extends BaseFragment implements
 			loader.startLoading();
 		}
 		lvPullDown.notifyDidLoad();
-		loadUserInfo();
+		if (!SbbsMeAPI.isLogin()) {
+			loadUserInfo();
+		}
 	}
 
 	@Override
@@ -137,6 +140,13 @@ public class MainFragment extends BaseFragment implements
 		miUser = menu.add(0, MenuIds.MENU_ID_USER, 99, R.string.login);
 		miUser.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		miUser.setIcon(android.R.drawable.ic_menu_report_image);
+		if (SbbsMeAPI.isLogin()) {
+			Message msg = new Message();
+			msg.what = 1;
+			msg.obj = MiscUtils.loadUserHeadFromFile(Config
+					.getHeadPath(getActivity()));
+			hSetHead.sendMessage(msg);
+		}
 	}
 
 	private void loadUserInfo() {

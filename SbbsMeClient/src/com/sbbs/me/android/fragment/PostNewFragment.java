@@ -15,6 +15,7 @@ import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.IMainIntf;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsArticleSender;
 
@@ -69,7 +70,11 @@ public class PostNewFragment extends BaseFragment implements
 
 	@Override
 	public void initLogic() {
-
+		setFragmentEnabled(SbbsMeAPI.isLogin());
+		if (!SbbsMeAPI.isLogin()) {
+			tvStatus.setText(R.string.not_login);
+			tvStatus.setVisibility(View.VISIBLE);
+		}
 	}
 
 	@Override
@@ -96,6 +101,8 @@ public class PostNewFragment extends BaseFragment implements
 		miSend = menu.add(0, MenuIds.MENU_ID_SEND, 99, R.string.send);
 		miSend.setIcon(android.R.drawable.ic_menu_send);
 		miSend.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		
+		setFragmentEnabled(SbbsMeAPI.isLogin());
 	}
 
 	@Override
@@ -142,12 +149,16 @@ public class PostNewFragment extends BaseFragment implements
 	}
 
 	private void setFragmentEnabled(boolean enabled) {
-		etSubject.setEnabled(enabled);
-		etTags.setEnabled(enabled);
-		etContent.setEnabled(enabled);
-		miFormat.setEnabled(enabled);
-		miPublic.setEnabled(enabled);
-		miSend.setEnabled(enabled);
+		if (etSubject != null) {
+			etSubject.setEnabled(enabled);
+			etTags.setEnabled(enabled);
+			etContent.setEnabled(enabled);
+		}
+		if (miFormat != null) {
+			miFormat.setEnabled(enabled);
+			miPublic.setEnabled(enabled);
+			miSend.setEnabled(enabled);
+		}
 	}
 
 	@Override

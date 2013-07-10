@@ -13,6 +13,15 @@ public class Config {
 	private static final String KEY_GITHUB_USER_ACCESS_TOKEN = "github_access_token";
 	private static final String KEY_ACCOUNT_TYPE = "account_type";
 	private static final String KEY_GITHUB_USER_ID = "github_user_id";
+	private static final String KEY_HEAD_PATH = "head_path";
+
+	public static String getHeadPath(Context context) {
+		return ConfigUtils.getStringConfig(context, KEY_HEAD_PATH, "");
+	}
+
+	public static void setHeadPath(Context context, String value) {
+		ConfigUtils.setStringConfig(context, KEY_HEAD_PATH, value);
+	}
 
 	public static String getUserId(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_USER_ID, "");
@@ -34,28 +43,32 @@ public class Config {
 	public static String getGoogleUserId(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_GOOGLE_USER_ID, "");
 	}
-	
+
 	public static String getGoogleAccessToken(Context context) {
-		return ConfigUtils.getStringConfig(context, KEY_GOOGLE_USER_ACCESS_TOKEN, "");
+		return ConfigUtils.getStringConfig(context,
+				KEY_GOOGLE_USER_ACCESS_TOKEN, "");
 	}
 
 	public static void setGoogleUserId(Context context, String uid, String token) {
 		ConfigUtils.setStringConfig(context, KEY_GOOGLE_USER_ID, uid);
-		ConfigUtils.setStringConfig(context, KEY_GOOGLE_USER_ACCESS_TOKEN, token);
+		ConfigUtils.setStringConfig(context, KEY_GOOGLE_USER_ACCESS_TOKEN,
+				token);
 		Config.setUserId(context, String.valueOf(uid));
 	}
-	
+
 	public static String getGithubUserId(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_GITHUB_USER_ID, "");
 	}
-	
+
 	public static String getGithubAccessToken(Context context) {
-		return ConfigUtils.getStringConfig(context, KEY_GITHUB_USER_ACCESS_TOKEN, "");
+		return ConfigUtils.getStringConfig(context,
+				KEY_GITHUB_USER_ACCESS_TOKEN, "");
 	}
-	
+
 	public static void setGithubUserId(Context context, String uid, String token) {
 		ConfigUtils.setStringConfig(context, KEY_GITHUB_USER_ID, uid);
-		ConfigUtils.setStringConfig(context, KEY_GITHUB_USER_ACCESS_TOKEN, token);
+		ConfigUtils.setStringConfig(context, KEY_GITHUB_USER_ACCESS_TOKEN,
+				token);
 		Config.setUserId(context, uid);
 	}
 
