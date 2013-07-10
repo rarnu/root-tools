@@ -270,9 +270,8 @@ public class MainFragment extends BaseFragment implements
 		final SbbsMeBlock item = (SbbsMeBlock) lvPullDown.getListView()
 				.getItemAtPosition(position);
 
-		startActivityForResult(
-				new Intent(getActivity(), ArticleActivity.class).putExtra(
-						"articleId", item.Id), 2);
+		startActivityForResult(new Intent(getActivity(), ArticleActivity.class)
+				.putExtra("articleId", item.Id).putExtra("item", item), 2);
 	}
 
 	@Override

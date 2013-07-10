@@ -30,6 +30,6 @@ curl http://sbbs.me/api/msgs
 3. 用户信息展示
 5. block展示
 6. hot tags展示
-7. recent跳入文章展示
+7. recent跳入block展示
 9. 关注/取消关注
 10. 分享

@@ -17,6 +17,7 @@ public class ArticleActivity extends BaseActivity {
 	public Fragment replaceFragment() {
 		Bundle bn = new Bundle();
 		bn.putString("articleId", getIntent().getStringExtra("articleId"));
+		bn.putSerializable("item", getIntent().getSerializableExtra("item"));
 		ArticleFragment af = new ArticleFragment();
 		af.setArguments(bn);
 		return af;

@@ -2,6 +2,8 @@ package com.sbbs.me.android.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.Loader;
+import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -12,12 +14,17 @@ import android.widget.Button;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.api.SbbsMeUser;
+import com.sbbs.me.android.loader.SbbsUserLoader;
 import com.sbbs.me.android.utils.Config;
 
-public class UserDetailFragment extends BaseFragment implements OnClickListener {
+public class UserDetailFragment extends BaseFragment implements
+		OnClickListener, OnLoadCompleteListener<SbbsMeUser> {
 
 	Button btnLogout;
 	boolean isShowingMyAccount = false;
+
+	SbbsUserLoader loader;
 
 	public UserDetailFragment() {
 		super();
@@ -42,11 +49,14 @@ public class UserDetailFragment extends BaseFragment implements OnClickListener 
 	@Override
 	public void initComponents() {
 		btnLogout = (Button) innerView.findViewById(R.id.btnLogout);
+
+		loader = new SbbsUserLoader(getActivity());
 	}
 
 	@Override
 	public void initEvents() {
 		btnLogout.setOnClickListener(this);
+		loader.registerListener(0, this);
 	}
 
 	@Override
@@ -56,6 +66,8 @@ public class UserDetailFragment extends BaseFragment implements OnClickListener 
 		int accType = Config.getAccountType(getActivity());
 		isShowingMyAccount = myUsrId.equals(userId);
 		Log.e("isShowingMyAccount", isShowingMyAccount ? "TRUE" : "FALSE");
+
+		loader.startLoading();
 	}
 
 	@Override
@@ -93,6 +105,12 @@ public class UserDetailFragment extends BaseFragment implements OnClickListener 
 			getActivity().finish();
 			break;
 		}
+	}
+
+	@Override
+	public void onLoadComplete(Loader<SbbsMeUser> loader, SbbsMeUser data) {
+		// TODO: loaded user data
+
 	}
 
 }

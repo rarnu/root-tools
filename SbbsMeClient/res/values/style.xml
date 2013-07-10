@@ -7,6 +7,16 @@
         <item name="android:actionBarTabStyle">@style/SbbsMeActionBarTabStyle</item>
         <item name="android:actionBarTabTextStyle">@style/SbbsMeTabTextStyle</item>
         <item name="android:actionButtonStyle">@style/SbbsMeActionButtonStyle</item>
+        <item name="android:popupMenuStyle">@style/SbbsMePopupMenu</item>
+        <item name="android:dropDownListViewStyle">@style/SbbsMeDropDownListView</item>
+    </style>
+
+    <style name="SbbsMePopupMenu" parent="android:style/Widget.Holo.Light.ListPopupWindow">
+        <item name="android:popupBackground">@drawable/action_button_style</item>
+    </style>
+
+    <style name="SbbsMeDropDownListView" parent="android:style/Widget.Holo.ListView.DropDown">
+        <item name="android:listSelector">@drawable/action_button_style</item>
     </style>
 
     <style name="SbbsMeActionBarStyle" parent="@android:style/Widget.Holo.Light.ActionBar">

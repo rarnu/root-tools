@@ -44,6 +44,7 @@ public class ArticleFragment extends BaseFragment implements
 	TextView tvLoading;
 
 	MenuItem miShare;
+	SbbsMeBlock shareBlock;
 
 	boolean isMyArticle = false;
 
@@ -82,7 +83,7 @@ public class ArticleFragment extends BaseFragment implements
 	@Override
 	public void initLogic() {
 		String id = getArguments().getString("articleId");
-		Log.e("initLogic", id);
+		shareBlock = (SbbsMeBlock) getArguments().getSerializable("item");
 
 		tvLoading.setVisibility(View.VISIBLE);
 		loader.setArticleId(id);
@@ -106,7 +107,7 @@ public class ArticleFragment extends BaseFragment implements
 		miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 		miShare.setIcon(android.R.drawable.ic_menu_share);
 	}
-
+	
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
@@ -116,6 +117,7 @@ public class ArticleFragment extends BaseFragment implements
 		}
 		return true;
 	}
+
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
@@ -172,7 +174,7 @@ public class ArticleFragment extends BaseFragment implements
 		}
 
 	}
-	
+
 	private void doArticleAndClose() {
 		Global.autoRefreshTag = true;
 		getActivity().setResult(Activity.RESULT_OK);

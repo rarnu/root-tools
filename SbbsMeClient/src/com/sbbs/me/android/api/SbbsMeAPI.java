@@ -204,7 +204,7 @@ public class SbbsMeAPI {
 			String txtBody, boolean isPublic, String tags) {
 		// curl http://sbbs.me/api/article -d
 		// "subject=123&format=Markdown&txtBody=test&public=1&tags=1,2,3"
-		
+
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("subject", subject));
 		params.add(new BasicNameValuePair("format", format));
@@ -410,5 +410,28 @@ public class SbbsMeAPI {
 		} catch (Exception e) {
 		}
 		return user;
+	}
+
+	/**
+	 * do NOT need login
+	 * 
+	 * @return
+	 */
+	public static List<SbbsMeTag> getTags() {
+		List<SbbsMeTag> list = null;
+		String ret = HttpRequest.get(BASE_URL + "tags", "", HTTP.UTF_8);
+		Log.e("getTags", ret);
+		try {
+			JSONArray jarrTags = new JSONArray(ret);
+			if (jarrTags != null && jarrTags.length() != 0) {
+				list = new ArrayList<SbbsMeTag>();
+				for (int i = 0; i < jarrTags.length(); i++) {
+					list.add(SbbsMeTag.fromJson(jarrTags.getJSONObject(i)));
+				}
+			}
+		} catch (Exception e) {
+
+		}
+		return list;
 	}
 }
