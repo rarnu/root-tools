@@ -202,7 +202,7 @@ public class MainFragment extends BaseFragment implements
 						SelectLoginDialog.class), 0);
 			} else {
 				startActivityForResult(new Intent(getActivity(),
-						UserDetailActivity.class), 1);
+						UserDetailActivity.class).putExtra("user", userId), 1);
 			}
 			break;
 		}

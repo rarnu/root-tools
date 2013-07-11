@@ -10,13 +10,15 @@ import com.sbbs.me.android.api.SbbsMeUser;
 public class SbbsUserLoader extends BaseClassLoader<SbbsMeUser> {
 
 	private String userId;
+	private String myUserId;
 
 	public SbbsUserLoader(Context context) {
 		super(context);
 	}
 
-	public void setUserId(String userId) {
+	public void setUserId(String myUserId, String userId) {
 		this.userId = userId;
+		this.myUserId = myUserId;
 	}
 
 	@Override
@@ -24,6 +26,7 @@ public class SbbsUserLoader extends BaseClassLoader<SbbsMeUser> {
 		SbbsMeUser user = null;
 		try {
 			user = SbbsMeAPI.getUser(userId);
+			user.followStatus = SbbsMeAPI.getFollowStatus(myUserId, userId);
 		} catch (Exception e) {
 			Log.e("loadInBackground", e.getMessage());
 		}

@@ -5,13 +5,18 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
+import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeUser;
@@ -23,7 +28,10 @@ public class UserDetailFragment extends BaseFragment implements
 
 	Button btnLogout;
 	boolean isShowingMyAccount = false;
+	int accType = 0;
 
+	ImageView ivHead;
+	TextView tvUserName, tvAccountTypeValue, tvLoading;
 	SbbsUserLoader loader;
 
 	public UserDetailFragment() {
@@ -48,7 +56,12 @@ public class UserDetailFragment extends BaseFragment implements
 
 	@Override
 	public void initComponents() {
+		ivHead = (ImageView) innerView.findViewById(R.id.ivHead);
+		tvUserName = (TextView) innerView.findViewById(R.id.tvUserName);
+		tvAccountTypeValue = (TextView) innerView
+				.findViewById(R.id.tvAccountTypeValue);
 		btnLogout = (Button) innerView.findViewById(R.id.btnLogout);
+		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 
 		loader = new SbbsUserLoader(getActivity());
 	}
@@ -63,11 +76,14 @@ public class UserDetailFragment extends BaseFragment implements
 	public void initLogic() {
 		String myUsrId = Config.getUserId(getActivity());
 		String userId = getArguments().getString("user", "");
-		int accType = Config.getAccountType(getActivity());
+		accType = Config.getAccountType(getActivity());
 		isShowingMyAccount = myUsrId.equals(userId);
-		Log.e("isShowingMyAccount", isShowingMyAccount ? "TRUE" : "FALSE");
+		btnLogout.setVisibility(isShowingMyAccount ? View.VISIBLE : View.GONE);
 
+		tvLoading.setVisibility(View.VISIBLE);
+		loader.setUserId(myUsrId, userId);
 		loader.startLoading();
+
 	}
 
 	@Override
@@ -109,8 +125,25 @@ public class UserDetailFragment extends BaseFragment implements
 
 	@Override
 	public void onLoadComplete(Loader<SbbsMeUser> loader, SbbsMeUser data) {
-		// TODO: loaded user data
+		tvLoading.setVisibility(View.GONE);
+		if (data != null) {
 
+			Log.e("onLoadComplete",
+					String.format("follow:%d", data.followStatus));
+
+			tvUserName.setText(data.Name);
+			tvAccountTypeValue.setText(data.Type);
+
+			String headLocalPath = Environment.getExternalStorageDirectory()
+					.getPath() + "/.sbbs/";
+			String headLocalName = data.Id + ".jpg";
+			DownloadUtils.downloadFileT(getActivity(), ivHead, data.AvatarURL,
+					headLocalPath, headLocalName, null);
+		} else {
+			Toast.makeText(getActivity(), R.string.user_error,
+					Toast.LENGTH_LONG).show();
+			getActivity().finish();
+		}
 	}
 
 }

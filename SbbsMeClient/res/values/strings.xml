@@ -54,4 +54,6 @@
     <string name="post_error">post block error</string>
     
     <string name="not_login">please login first</string>
+    <string name="user_account_type">Account type: </string>
+    <string name="user_error">Cannot get user information</string>
 </resources>

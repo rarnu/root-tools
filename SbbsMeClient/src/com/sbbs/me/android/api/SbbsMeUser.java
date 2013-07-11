@@ -15,6 +15,8 @@ public class SbbsMeUser implements Serializable {
 	public String Type;
 	public String Updated_on;
 	public String _id;
+	
+	public int followStatus;
 
 	public static SbbsMeUser fromJson(JSONObject json) throws Exception {
 		SbbsMeUser user = new SbbsMeUser();

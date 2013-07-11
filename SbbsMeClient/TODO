@@ -23,11 +23,6 @@ curl http://sbbs.me/api/add_left_block/b51d6d98e60e794a97c000005 -d "left_id=51d
 comment_type，目前有三个可选值：#00f,#f00,#056，代表连线的颜色
 返回值："please login" or "OK"
 
-curl http://sbbs.me/api/login/1756787011/%E6%A9%99%E5%AD%90Infinity -d 'account_type=weibo&avatar=http%3A%2F%2Ftp4.sinaimg.cn%2F1756787011%2F180%2F1279902529%2F1'
-curl http://sbbs.me/api/msgs
-
-1. 获取用户信息
-3. 用户信息展示
 5. block展示
 9. 关注/取消关注
 10. 分享

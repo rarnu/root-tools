@@ -157,7 +157,8 @@ public class ArticleFragment extends BaseFragment implements
 			}
 
 			addBlock(article.main_block,
-					article.users.get(article.main_block.AuthorId), viewId);
+					article.users.get(article.main_block.AuthorId), viewId,
+					true);
 			blockCount++;
 			viewId++;
 		}
@@ -166,7 +167,7 @@ public class ArticleFragment extends BaseFragment implements
 			for (int i = 0; i < article.sub_blocks.size(); i++) {
 				addBlock(article.sub_blocks.get(i),
 						article.users.get(article.sub_blocks.get(i).AuthorId),
-						viewId);
+						viewId, false);
 				blockCount++;
 				viewId++;
 			}
@@ -179,11 +180,14 @@ public class ArticleFragment extends BaseFragment implements
 
 	private void doArticleAndClose() {
 		Global.autoRefreshTag = true;
-		getActivity().setResult(Activity.RESULT_OK);
-		getActivity().finish();
+		if (getActivity() != null) {
+			getActivity().setResult(Activity.RESULT_OK);
+			getActivity().finish();
+		}
 	}
 
-	private void addBlock(SbbsMeBlock item, String headUrl, int viewId) {
+	private void addBlock(SbbsMeBlock item, String headUrl, int viewId,
+			boolean needHead) {
 
 		String userId = item.AuthorId;
 		String htmlText = item.Body;
@@ -203,9 +207,11 @@ public class ArticleFragment extends BaseFragment implements
 			try {
 				block.setText(isMarkdown ? (new Markdown4jProcessor()
 						.process(htmlText)) : htmlText);
-				block.setHeadImageUrl(userId, headUrl);
+				if (needHead) {
+					block.setHeadImageUrl(userId, headUrl);
+				}
 			} catch (Exception e) {
-				Log.e("Mrkdown", e.getMessage());
+
 			}
 			block.setBlock(item);
 			block.setOnLongClickListener(this);
