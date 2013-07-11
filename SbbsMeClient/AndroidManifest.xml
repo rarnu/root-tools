@@ -82,6 +82,10 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateVisible|adjustResize" >
         </activity>
+        <provider
+            android:name="com.sbbs.me.android.database.GithubProvider"
+            android:authorities="com.sbbsme.github"
+            android:exported="true" />
     </application>
 
 </manifest>
