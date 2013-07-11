@@ -10,9 +10,37 @@
         android:padding="8dip" >
 
         <RelativeLayout
-            android:id="@+id/layBlock"
             android:layout_width="match_parent"
             android:layout_height="wrap_content" >
+
+            <RelativeLayout
+                android:id="@+id/layBlock"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content" >
+            </RelativeLayout>
+
+            <TextView
+                android:id="@+id/tvReply"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layBlock"
+                android:text="@string/block_comment"
+                android:textColor="@color/google_light_green" />
+
+            <TextView
+                android:id="@+id/tvSplitLine"
+                android:layout_width="match_parent"
+                android:layout_height="2dip"
+                android:layout_below="@+id/tvReply"
+                android:background="@color/google_light_green" />
+
+            <RelativeLayout
+                android:id="@+id/layComment"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvSplitLine"
+                android:layout_marginTop="8dip" >
+            </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
 

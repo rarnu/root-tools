@@ -16,7 +16,6 @@ public class BlockActivity extends BaseActivity {
 	@Override
 	public Fragment replaceFragment() {
 		Bundle bn = new Bundle();
-		bn.putString("blockId", getIntent().getStringExtra("blockId"));
 		bn.putSerializable("item", getIntent().getSerializableExtra("item"));
 		BlockFragment bf = new BlockFragment();
 		bf.setArguments(bn);

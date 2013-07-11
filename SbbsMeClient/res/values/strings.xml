@@ -41,7 +41,6 @@
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>
     <string name="confirm_delete">are you sure to delete the block?</string>
-
     <string name="post_subject">Subject</string>
     <string name="post_tags">Tags, separated by commas</string>
     <string name="post_public">Public</string>
@@ -52,8 +51,9 @@
     <string name="post_html">HTML</string>
     <string name="post_check_empty">Subject and content cannot be empty</string>
     <string name="post_error">post block error</string>
-    
     <string name="not_login">please login first</string>
     <string name="user_account_type">Account type: </string>
     <string name="user_error">Cannot get user information</string>
+    <string name="block_comment">Comments</string>
+
 </resources>

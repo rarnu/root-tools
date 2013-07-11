@@ -93,6 +93,7 @@ public class SbbsMeAPI {
 
 	/**
 	 * do NOT need login
+	 * 
 	 * @param tagId
 	 * @return
 	 * @throws Exception
@@ -168,7 +169,7 @@ public class SbbsMeAPI {
 		if (jarrData != null && jarrData.length() != 0) {
 			list = new ArrayList<SbbsMeMessage>();
 			for (int i = 0; i < jarrData.length(); i++) {
-				list.add(SbbsMeMessage.fromString(jarrData.getString(i)));
+				list.add(0, SbbsMeMessage.fromString(jarrData.getString(i)));
 			}
 		}
 		return list;

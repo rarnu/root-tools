@@ -96,7 +96,7 @@ public class SbbsMeArticle {
 			}
 		}
 
-		return null;
+		return list;
 	}
 
 }

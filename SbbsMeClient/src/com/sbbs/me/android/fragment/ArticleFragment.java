@@ -282,6 +282,14 @@ public class ArticleFragment extends BaseFragment implements
 			deleteBlock(item.Id);
 		}
 			break;
+		case 3: {
+			// view block callback
+			if (Global.autoLoadArticleTag) {
+				Global.autoLoadArticleTag = false;
+				loader.startLoading();
+			}
+		}
+			break;
 		}
 	}
 
@@ -319,8 +327,10 @@ public class ArticleFragment extends BaseFragment implements
 	@Override
 	public void onClick(View v) {
 		final SbbsMeBlock item = ((BlockTextView) v).getBlock();
-		startActivityForResult(new Intent(getActivity(), BlockActivity.class)
-				.putExtra("item", item).putExtra("blockId", item.Id), 3);
+		Global.passArticle = article;
+		startActivityForResult(
+				new Intent(getActivity(), BlockActivity.class).putExtra("item",
+						item), 3);
 
 	}
 }
