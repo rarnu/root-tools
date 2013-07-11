@@ -93,6 +93,27 @@ public class SbbsMeAPI {
 
 	/**
 	 * do NOT need login
+	 * @param tagId
+	 * @return
+	 * @throws Exception
+	 */
+	public static List<SbbsMeBlock> getArticlesViaTag(String tagId)
+			throws Exception {
+		List<SbbsMeBlock> list = null;
+		String ret = HttpRequest.get(BASE_URL + "articles/tag/" + tagId, "",
+				HTTP.UTF_8);
+		JSONArray jArr = new JSONArray(ret);
+		if (jArr != null && jArr.length() != 0) {
+			list = new ArrayList<SbbsMeBlock>();
+			for (int i = 0; i < jArr.length(); i++) {
+				list.add(SbbsMeBlock.fromJson(jArr.getJSONObject(i)));
+			}
+		}
+		return list;
+	}
+
+	/**
+	 * do NOT need login
 	 * 
 	 * @param id
 	 * @return
@@ -355,16 +376,13 @@ public class SbbsMeAPI {
 	 * @param blockId
 	 * @return
 	 */
-	public static SbbsMeBlock getBlock(String blockId) {
+	public static SbbsMeBlock getBlock(String blockId) throws Exception {
 
 		SbbsMeBlock block = null;
 		String ret = HttpRequest.get(BASE_URL + "block/b" + blockId, "",
 				HTTP.UTF_8);
 		Log.e("getBlock", ret);
-		try {
-			block = SbbsMeBlock.fromJson(new JSONObject(ret));
-		} catch (Exception e) {
-		}
+		block = SbbsMeBlock.fromJson(new JSONObject(ret));
 		return block;
 	}
 
@@ -400,15 +418,12 @@ public class SbbsMeAPI {
 	 * @param userId
 	 * @return
 	 */
-	public static SbbsMeUser getUser(String userId) {
+	public static SbbsMeUser getUser(String userId) throws Exception {
 		SbbsMeUser user = null;
 		String ret = HttpRequest.get(BASE_URL + "user/" + userId, "",
 				HTTP.UTF_8);
 		Log.e("getUser", ret);
-		try {
-			user = SbbsMeUser.fromJson(new JSONObject(ret));
-		} catch (Exception e) {
-		}
+		user = SbbsMeUser.fromJson(new JSONObject(ret));
 		return user;
 	}
 
@@ -417,21 +432,18 @@ public class SbbsMeAPI {
 	 * 
 	 * @return
 	 */
-	public static List<SbbsMeTag> getTags() {
+	public static List<SbbsMeTag> getTags() throws Exception {
 		List<SbbsMeTag> list = null;
 		String ret = HttpRequest.get(BASE_URL + "tags", "", HTTP.UTF_8);
 		Log.e("getTags", ret);
-		try {
-			JSONArray jarrTags = new JSONArray(ret);
-			if (jarrTags != null && jarrTags.length() != 0) {
-				list = new ArrayList<SbbsMeTag>();
-				for (int i = 0; i < jarrTags.length(); i++) {
-					list.add(SbbsMeTag.fromJson(jarrTags.getJSONObject(i)));
-				}
+		JSONArray jarrTags = new JSONArray(ret);
+		if (jarrTags != null && jarrTags.length() != 0) {
+			list = new ArrayList<SbbsMeTag>();
+			for (int i = 0; i < jarrTags.length(); i++) {
+				list.add(SbbsMeTag.fromJson(jarrTags.getJSONObject(i)));
 			}
-		} catch (Exception e) {
-
 		}
+
 		return list;
 	}
 }

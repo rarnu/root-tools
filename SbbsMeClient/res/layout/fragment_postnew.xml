@@ -3,43 +3,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ScrollView
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dip" >
+        android:layout_above="@+id/tvStatus"
+        android:orientation="vertical" >
 
-        <LinearLayout
+        <EditText
+            android:id="@+id/etSubject"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" >
+            android:layout_height="48dip"
+            android:background="@drawable/edit_text_style"
+            android:hint="@string/post_subject"
+            android:maxLines="1"
+            android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/etSubject"
-                android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:background="@drawable/edit_text_style"
-                android:hint="@string/post_subject"
-                android:maxLines="1"
-                android:singleLine="true" />
+        <EditText
+            android:id="@+id/etTags"
+            android:layout_width="match_parent"
+            android:layout_height="48dip"
+            android:background="@drawable/edit_text_style"
+            android:hint="@string/post_tags"
+            android:maxLines="1"
+            android:singleLine="true" />
 
-            <EditText
-                android:id="@+id/etTags"
-                android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:background="@drawable/edit_text_style"
-                android:hint="@string/post_tags"
-                android:maxLines="1"
-                android:singleLine="true" />
-
-            <EditText
-                android:id="@+id/etContent"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/edit_text_style"
-                android:gravity="left|top"
-                android:hint="@string/post_content" />
-        </LinearLayout>
-    </ScrollView>
+        <EditText
+            android:id="@+id/etContent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@drawable/edit_text_style"
+            android:gravity="left|top"
+            android:hint="@string/post_content" />
+    </LinearLayout>
 
     <TextView
         android:id="@+id/tvStatus"
