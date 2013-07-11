@@ -8,3 +8,8 @@ i386-linux/
 *.so
 obj/
 local.properties
+*.log
+*.swp
+build.xml
+lint.xml
+
