@@ -128,25 +128,6 @@ public class SbbsMeAPI {
 		return article;
 	}
 
-	@Deprecated
-	public static List<Repository> getRepos() {
-		List<Repository> list = null;
-		RepositoryService service = new RepositoryService();
-		Repository mobileRepo = new Repository();
-		Repository webRepo = new Repository();
-		try {
-			mobileRepo = service.getRepository("rarnu", "root-tools");
-			webRepo = service.getRepository("zhuangbiaowei", "sbbsme");
-		} catch (Exception e) {
-		}
-		Log.e("getMobileRepo", mobileRepo.getName());
-		Log.e("getWebRepo", webRepo.getName());
-		list = new ArrayList<Repository>();
-		list.add(mobileRepo);
-		list.add(webRepo);
-		return list;
-	}
-
 	public static List<TreeEntry> getCodeTree(String userName, String repoName,
 			String sha, Context context) throws Exception {
 		List<TreeEntry> list = null;
