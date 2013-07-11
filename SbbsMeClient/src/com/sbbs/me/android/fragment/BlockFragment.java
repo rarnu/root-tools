@@ -6,12 +6,13 @@ import org.markdown4j.Markdown4jProcessor;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.Loader;
+import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.view.View.OnLongClickListener;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -19,26 +20,22 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
-import com.sbbs.me.android.BlockActivity;
-import com.sbbs.me.android.EditBlockActivity;
+import com.sbbs.me.android.ArticleActivity;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
-import com.sbbs.me.android.UserDetailActivity;
-import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeArticle;
 import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.component.BlockTextView;
-import com.sbbs.me.android.dialog.ArticleMenuDialog;
-import com.sbbs.me.android.dialog.ConfirmDialog;
-import com.sbbs.me.android.utils.Config;
+import com.sbbs.me.android.loader.SbbsArticleLoader;
 
-public class BlockFragment extends BaseFragment implements OnLongClickListener,
-		OnClickListener {
+public class BlockFragment extends BaseFragment implements OnClickListener,
+		OnLoadCompleteListener<SbbsMeArticle> {
 
 	String blockId;
 	SbbsMeBlock block;
 	SbbsMeArticle article;
 	List<SbbsMeBlock> listComment;
+	SbbsArticleLoader loader;
 
 	RelativeLayout layBlock, layComment;
 	TextView tvLoading;
@@ -72,11 +69,12 @@ public class BlockFragment extends BaseFragment implements OnLongClickListener,
 		layBlock = (RelativeLayout) innerView.findViewById(R.id.layBlock);
 		layComment = (RelativeLayout) innerView.findViewById(R.id.layComment);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
+		loader = new SbbsArticleLoader(getActivity());
 	}
 
 	@Override
 	public void initEvents() {
-
+		loader.registerListener(0, this);
 	}
 
 	@Override
@@ -84,21 +82,9 @@ public class BlockFragment extends BaseFragment implements OnLongClickListener,
 		block = (SbbsMeBlock) getArguments().getSerializable("item");
 		blockId = block.Id;
 		article = Global.passArticle;
+		loader.setArticleId(article.main_block.Id);
 		Log.e("block", blockId);
-
-		listComment = article.right_blocks.get(blockId);
-
-		addBlock(block, article.users.get(article.main_block.AuthorId), 100000,
-				true, layBlock);
-		if (listComment != null && listComment.size() != 0) {
-			int viewId = 110000;
-			for (int i = 0; i < listComment.size(); i++) {
-				addBlock(listComment.get(i),
-						article.users.get(listComment.get(i).AuthorId), viewId,
-						true, layComment);
-				viewId++;
-			}
-		}
+		buildUI();
 	}
 
 	@Override
@@ -123,6 +109,24 @@ public class BlockFragment extends BaseFragment implements OnLongClickListener,
 	@Override
 	public Bundle getFragmentState() {
 		return null;
+	}
+
+	private void buildUI() {
+		layBlock.removeAllViews();
+		layComment.removeAllViews();
+		listComment = article.right_blocks.get(blockId);
+
+		addBlock(block, article.users.get(article.main_block.AuthorId), 100000,
+				true, layBlock);
+		if (listComment != null && listComment.size() != 0) {
+			int viewId = 110000;
+			for (int i = 0; i < listComment.size(); i++) {
+				addBlock(listComment.get(i),
+						article.users.get(listComment.get(i).AuthorId), viewId,
+						true, layComment);
+				viewId++;
+			}
+		}
 	}
 
 	private void addBlock(SbbsMeBlock item, String headUrl, int viewId,
@@ -153,8 +157,6 @@ public class BlockFragment extends BaseFragment implements OnLongClickListener,
 
 			}
 			block.setBlock(item);
-			block.setOnLongClickListener(this);
-
 			if (parent.getId() == R.id.layComment) {
 				block.setOnClickListener(this);
 			}
@@ -165,81 +167,44 @@ public class BlockFragment extends BaseFragment implements OnLongClickListener,
 	}
 
 	@Override
-	public boolean onLongClick(View v) {
-		if (SbbsMeAPI.isLogin()) {
-			final SbbsMeBlock item = ((BlockTextView) v).getBlock();
-			boolean isMyArticle = Config.getUserId(getActivity()).equals(
-					item.AuthorId);
-			startActivityForResult(
-					new Intent(getActivity(), ArticleMenuDialog.class)
-							.putExtra("item", item).putExtra("isMyArticle",
-									isMyArticle), 0);
-		}
-		return false;
-	}
-
-	@Override
 	public void onClick(View v) {
 		final SbbsMeBlock item = ((BlockTextView) v).getBlock();
-		Global.passArticle = article;
-		startActivityForResult(
-				new Intent(getActivity(), BlockActivity.class).putExtra("item",
-						item), 3);
-
+		Log.e("onClick", String.format("right:%d", item.RightBlockCount));
+		startActivityForResult(new Intent(getActivity(), ArticleActivity.class)
+				.putExtra("articleId", item.Id).putExtra("item", item), 0);
 	}
 
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
-		if (resultCode != Activity.RESULT_OK) {
-			return;
-		}
 		switch (requestCode) {
 		case 0: {
-			// action selection callback
-			SbbsMeBlock item = (SbbsMeBlock) data.getSerializableExtra("item");
-			int mode = data.getIntExtra("mode", -1);
-			if (mode != -1) {
-				switch (mode) {
-				case 3:
-					startActivityForResult(
-							new Intent(getActivity(), ConfirmDialog.class)
-									.putExtra("item", item)
-									.putExtra("ok", true)
-									.putExtra("cancel", true)
-									.putExtra("text",
-											getString(R.string.confirm_delete)),
-							2);
-					break;
-				case 4:
-					startActivity(new Intent(getActivity(),
-							UserDetailActivity.class).putExtra("user",
-							item.AuthorId));
-					break;
-				default:
-					startActivityForResult(new Intent(getActivity(),
-							EditBlockActivity.class).putExtra("item", item)
-							.putExtra("mode", mode), 1);
-					break;
-				}
+			if (Global.autoCommentRefreshTag) {
+				Global.autoCommentRefreshTag = false;
+				tvLoading.setVisibility(View.VISIBLE);
+				loader.startLoading();
 			}
 		}
 			break;
-		case 1: {
-			// TODO: edit block callback
-
 		}
-			break;
-		case 2: {
-			// TODO: delete block callback
-			SbbsMeBlock item = (SbbsMeBlock) data.getSerializableExtra("item");
+	}
 
+	@Override
+	public void onLoadComplete(Loader<SbbsMeArticle> loader, SbbsMeArticle data) {
+		article = data;
+		if (article != null) {
+			buildUI();
+		} else {
+			doArticleAndClose();
 		}
-			break;
-		case 3: {
-			// TODO: more block callback
+		tvLoading.setVisibility(View.GONE);
+	}
 
-		}
-			break;
+	private void doArticleAndClose() {
+		Global.autoRefreshTag = true;
+		Global.autoLoadArticleTag = true;
+		if (getActivity() != null) {
+			getActivity().setResult(Activity.RESULT_OK);
+			getActivity().finish();
 		}
 	}
 

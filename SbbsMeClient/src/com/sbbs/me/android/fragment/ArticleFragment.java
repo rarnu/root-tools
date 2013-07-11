@@ -273,11 +273,14 @@ public class ArticleFragment extends BaseFragment implements
 			break;
 		case 1: {
 			// edit block callback
+			Global.autoCommentRefreshTag = true;
+			tvLoading.setVisibility(View.VISIBLE);
 			loader.startLoading();
 		}
 			break;
 		case 2: {
 			// delete block callback
+			Global.autoCommentRefreshTag = true;
 			SbbsMeBlock item = (SbbsMeBlock) data.getSerializableExtra("item");
 			deleteBlock(item.Id);
 		}
@@ -286,6 +289,7 @@ public class ArticleFragment extends BaseFragment implements
 			// view block callback
 			if (Global.autoLoadArticleTag) {
 				Global.autoLoadArticleTag = false;
+				tvLoading.setVisibility(View.VISIBLE);
 				loader.startLoading();
 			}
 		}
@@ -327,10 +331,10 @@ public class ArticleFragment extends BaseFragment implements
 	@Override
 	public void onClick(View v) {
 		final SbbsMeBlock item = ((BlockTextView) v).getBlock();
-		Global.passArticle = article;
-		startActivityForResult(
-				new Intent(getActivity(), BlockActivity.class).putExtra("item",
-						item), 3);
-
+		if (item.RightBlockCount != 0) {
+			Global.passArticle = article;
+			startActivityForResult(new Intent(getActivity(),
+					BlockActivity.class).putExtra("item", item), 3);
+		}
 	}
 }
