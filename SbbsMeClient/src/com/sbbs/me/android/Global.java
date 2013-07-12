@@ -12,6 +12,7 @@ public class Global {
 
 	public static boolean autoRefreshTag = false;
 	public static boolean autoLoadArticleTag = false;
+	public static boolean autoCommentRefreshTag = false;
 	public static SbbsMeArticle passArticle = null;
 	public static List<SbbsMeBlock> listArticle = null;
 	public static List<SbbsMeTag> listTags = null;

@@ -23,7 +23,7 @@ curl http://sbbs.me/api/add_left_block/b51d6d98e60e794a97c000005 -d "left_id=51d
 comment_type，目前有三个可选值：#00f,#f00,#056，代表连线的颜色
 返回值："please login" or "OK"
 
-5. block展示
 9. 关注/取消关注
 10. 分享
 11. 无数据时的背景图片和刷新按钮
+12. 彩虹格子展示comment方案
