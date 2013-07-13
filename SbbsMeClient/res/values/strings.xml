@@ -4,6 +4,7 @@
     <string name="app_name">SbbsMe</string>
     <string name="article_name">View Article</string>
     <string name="block_name">View Block</string>
+    <string name="comment_name">Comment</string>
     <string name="userdetail_name">User Detail</string>
     <string name="lm_home">Home</string>
     <string name="lm_postnew">Post New</string>

@@ -32,8 +32,11 @@
         android:layout_height="32dip"
         android:layout_below="@+id/tvName"
         android:layout_marginTop="-8dip"
+        android:ellipsize="end"
         android:gravity="right|center_vertical"
+        android:maxLines="1"
         android:paddingRight="16dip"
+        android:singleLine="true"
         android:textColor="@color/google_dark_green"
         android:textSize="18sp" />
 

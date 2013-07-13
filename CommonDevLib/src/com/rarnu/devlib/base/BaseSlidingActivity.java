@@ -65,8 +65,6 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 				.getSystemAttrDrawable(this,
 						DrawableUtils.DETAILS_ELEMENT_BACKGROUND) : null);
 
-		replaceMenu();
-
 		SlidingMenu sm = getSlidingMenu();
 		sm.setShadowWidth(15);
 		sm.setShadowDrawable(R.drawable.shadow);
@@ -75,7 +73,12 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 		sm.setTouchModeAbove(getAboveTouchMode());
 		sm.setTouchModeBehind(getBehindTouchMode());
 		sm.setMode(getSlideMode());
-		if (sm.getMode() == SlidingMenu.LEFT_RIGHT) {
+		if (sm.getMode() == SlidingMenu.LEFT
+				|| sm.getMode() == SlidingMenu.LEFT_RIGHT) {
+			replaceMenu();
+		}
+		if (sm.getMode() == SlidingMenu.LEFT_RIGHT
+				|| sm.getMode() == SlidingMenu.RIGHT) {
 			sm.setSecondaryMenu(R.layout.layout_second_menu_replacement);
 			((FrameLayout) findViewById(R.id.second_menu))
 					.setBackgroundDrawable(UIUtils.isFollowSystemBackground() ? DrawableUtils
@@ -96,14 +99,12 @@ public abstract class BaseSlidingActivity extends InnerActivity implements
 	public void replaceMenu() {
 		Fragment bf = replaceMenuFragment();
 		getFragmentManager().beginTransaction()
-				.replace(R.id.menu, bf, ((InnerIntf) bf).getTagText())
-				.commit();
+				.replace(R.id.menu, bf, ((InnerIntf) bf).getTagText()).commit();
 	}
 
 	public void replaceSecondMenu() {
 		Fragment bf = replaceSecondMenuFragment();
-		getFragmentManager()
-				.beginTransaction()
+		getFragmentManager().beginTransaction()
 				.replace(R.id.second_menu, bf, ((InnerIntf) bf).getTagText())
 				.commit();
 	}

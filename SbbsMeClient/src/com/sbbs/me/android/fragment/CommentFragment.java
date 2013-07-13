@@ -28,7 +28,7 @@ import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
 
-public class BlockFragment extends BaseFragment implements OnClickListener,
+public class CommentFragment extends BaseFragment implements OnClickListener,
 		OnLoadCompleteListener<SbbsMeArticle> {
 
 	String blockId;
@@ -37,12 +37,12 @@ public class BlockFragment extends BaseFragment implements OnClickListener,
 	List<SbbsMeBlock> listComment;
 	SbbsArticleLoader loader;
 
-	RelativeLayout layBlock, layComment;
+	RelativeLayout layComment;
 	TextView tvLoading;
 
-	public BlockFragment() {
+	public CommentFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_block_fragment);
+		tagText = ResourceUtils.getString(R.tag.tag_comment_fragment);
 	}
 
 	@Override
@@ -66,7 +66,6 @@ public class BlockFragment extends BaseFragment implements OnClickListener,
 
 	@Override
 	public void initComponents() {
-		layBlock = (RelativeLayout) innerView.findViewById(R.id.layBlock);
 		layComment = (RelativeLayout) innerView.findViewById(R.id.layComment);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 		loader = new SbbsArticleLoader(getActivity());
@@ -79,17 +78,12 @@ public class BlockFragment extends BaseFragment implements OnClickListener,
 
 	@Override
 	public void initLogic() {
-		block = (SbbsMeBlock) getArguments().getSerializable("item");
-		blockId = block.Id;
-		article = Global.passArticle;
-		loader.setArticleId(article.main_block.Id);
-		Log.e("block", blockId);
-		buildUI();
+
 	}
 
 	@Override
 	public int getFragmentLayoutResId() {
-		return R.layout.fragment_block;
+		return R.layout.fragment_comment;
 	}
 
 	@Override
@@ -103,7 +97,12 @@ public class BlockFragment extends BaseFragment implements OnClickListener,
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-
+		block = (SbbsMeBlock) bn.getSerializable("item");
+		blockId = block.Id;
+		article = Global.passArticle;
+		loader.setArticleId(article.main_block.Id);
+		Log.e("block", blockId);
+		buildUI();
 	}
 
 	@Override
@@ -112,12 +111,9 @@ public class BlockFragment extends BaseFragment implements OnClickListener,
 	}
 
 	private void buildUI() {
-		layBlock.removeAllViews();
 		layComment.removeAllViews();
 		listComment = article.right_blocks.get(blockId);
 
-		addBlock(block, article.users.get(article.main_block.AuthorId), 100000,
-				true, layBlock);
 		if (listComment != null && listComment.size() != 0) {
 			int viewId = 110000;
 			for (int i = 0; i < listComment.size(); i++) {

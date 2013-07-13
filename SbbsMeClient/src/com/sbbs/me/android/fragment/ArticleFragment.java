@@ -20,9 +20,9 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.devlib.base.BaseSlidingActivity;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
-import com.sbbs.me.android.BlockActivity;
 import com.sbbs.me.android.EditBlockActivity;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
@@ -333,8 +333,11 @@ public class ArticleFragment extends BaseFragment implements
 		final SbbsMeBlock item = ((BlockTextView) v).getBlock();
 		if (item.RightBlockCount != 0) {
 			Global.passArticle = article;
-			startActivityForResult(new Intent(getActivity(),
-					BlockActivity.class).putExtra("item", item), 3);
+			Bundle bn = new Bundle();
+			bn.putSerializable("item", item);
+			((BaseFragment) getFragmentManager().findFragmentByTag(
+					getString(R.tag.tag_comment_fragment))).setNewArguments(bn);
+			((BaseSlidingActivity) getActivity()).showSecondaryMenu();
 		}
 	}
 }
