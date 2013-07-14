@@ -35,7 +35,8 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/layRightMenuHead"
         android:layout_marginLeft="8dip"
-        android:padding="8dip" >
+        android:padding="8dip"
+        android:overScrollMode="never" >
 
         <RelativeLayout
             android:id="@+id/layComment"

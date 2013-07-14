@@ -36,7 +36,8 @@
         android:layout_below="@+id/layLeftMenuHead"
         android:cacheColorHint="@color/transparent"
         android:divider="@color/google_light_green"
-        android:dividerHeight="1px" >
+        android:dividerHeight="1px"
+        android:overScrollMode="never" >
     </ListView>
 
     <RelativeLayout
@@ -54,7 +55,8 @@
         android:layout_alignParentBottom="true"
         android:cacheColorHint="@color/transparent"
         android:divider="@color/google_light_green"
-        android:dividerHeight="1px" >
+        android:dividerHeight="1px"
+        android:overScrollMode="never" >
     </ListView>
 
 </RelativeLayout>

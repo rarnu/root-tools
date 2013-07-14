@@ -11,7 +11,8 @@
         android:fastScrollEnabled="true"
         android:divider="@null"
         android:dividerHeight="8dip"
-        android:padding="8dip" />
+        android:padding="8dip"
+        android:overScrollMode="never" />
 
     <TextView
         android:id="@+id/treeLoading"

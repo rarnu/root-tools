@@ -5,39 +5,31 @@
 
     <ImageView
         android:id="@+id/ivHead"
-        android:layout_width="48dip"
-        android:layout_height="48dip"
-        android:layout_margin="8dip" />
+        android:layout_width="56dip"
+        android:layout_height="56dip"
+        android:layout_marginLeft="32dip"
+        android:layout_marginTop="16dip" />
 
     <TextView
         android:id="@+id/tvUserName"
         android:layout_width="match_parent"
-        android:layout_height="48dip"
-        android:layout_margin="8dip"
+        android:layout_height="28dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginTop="16dip"
         android:layout_toRightOf="@+id/ivHead"
         android:gravity="left|center_vertical"
-        android:textSize="16sp" />
+        android:textSize="18sp"
+        android:textStyle="bold" />
 
     <TextView
         android:id="@+id/tvAccountType"
-        android:layout_width="wrap_content"
-        android:layout_height="48dip"
-        android:layout_below="@+id/ivHead"
-        android:layout_marginLeft="8dip"
-        android:layout_marginRight="8dip"
+        android:layout_width="match_parent"
+        android:layout_height="28dip"
+        android:layout_below="@+id/tvUserName"
+        android:layout_marginLeft="16dip"
+        android:layout_toRightOf="@+id/ivHead"
         android:gravity="left|center_vertical"
-        android:text="@string/user_account_type"
-        android:textSize="16sp" />
-
-    <TextView
-        android:id="@+id/tvAccountTypeValue"
-        android:layout_width="wrap_content"
-        android:layout_height="48dip"
-        android:layout_below="@+id/ivHead"
-        android:layout_marginRight="8dip"
-        android:layout_toRightOf="@+id/tvAccountType"
-        android:gravity="left|center_vertical"
-        android:textSize="16sp" />
+        android:textSize="14sp" />
 
     <TextView
         android:id="@+id/tvSplit"
@@ -46,14 +38,8 @@
         android:layout_below="@+id/tvAccountType"
         android:layout_marginLeft="8dip"
         android:layout_marginRight="8dip"
+        android:layout_marginTop="16dip"
         android:background="@color/google_light_green" />
-
-    <Button
-        android:id="@+id/btnLogout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/tvSplit"
-        android:text="Logout" />
 
     <TextView
         android:id="@+id/tvLoading"
