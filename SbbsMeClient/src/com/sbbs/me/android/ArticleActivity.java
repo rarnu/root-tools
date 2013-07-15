@@ -9,6 +9,7 @@ import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.fragment.ArticleFragment;
 import com.sbbs.me.android.fragment.CommentFragment;
+import com.sbbs.me.android.fragment.OriginPostFragment;
 
 public class ArticleActivity extends BaseSlidingActivity {
 	
@@ -39,7 +40,7 @@ public class ArticleActivity extends BaseSlidingActivity {
 
 	@Override
 	public Fragment replaceMenuFragment() {
-		return null;
+		return new OriginPostFragment();
 	}
 
 	@Override
@@ -64,7 +65,7 @@ public class ArticleActivity extends BaseSlidingActivity {
 
 	@Override
 	public int getSlideMode() {
-		return SlidingMenu.RIGHT;
+		return SlidingMenu.LEFT_RIGHT;
 	}
 
 	@Override

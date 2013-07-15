@@ -19,5 +19,6 @@
     <item name="tag_confirm_fragment" type="tag">tag_confirm_fragment</item>
     <item name="tag_comment_fragment" type="tag">tag_comment_fragment</item>
     <item name="tag_article_list_fragment" type="tag">tag_article_list_fragment</item>
+    <item name="tag_origin_post_fragment" type="tag">tag_origin_post_fragment</item>
 
 </resources>

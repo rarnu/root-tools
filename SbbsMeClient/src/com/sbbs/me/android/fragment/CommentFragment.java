@@ -2,8 +2,6 @@ package com.sbbs.me.android.fragment;
 
 import java.util.List;
 
-import org.markdown4j.Markdown4jProcessor;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.content.Loader;
@@ -13,20 +11,21 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
-import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.ArticleActivity;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeArticle;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.api.SbbsMeSideBlocks;
 import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
+import com.sbbs.me.android.utils.CustomUIUtils;
 
 public class CommentFragment extends BaseFragment implements OnClickListener,
 		OnLoadCompleteListener<SbbsMeArticle> {
@@ -116,49 +115,16 @@ public class CommentFragment extends BaseFragment implements OnClickListener,
 
 		if (listComment != null && listComment.size() != 0) {
 			int viewId = 110000;
+			SbbsMeSideBlocks sb = null;
 			for (int i = 0; i < listComment.size(); i++) {
-				addBlock(listComment.get(i),
-						article.users.get(listComment.get(i).AuthorId), viewId,
-						true, layComment);
+				sb = SbbsMeAPI.getSideBlocks(article, listComment.get(i).Id);
+				CustomUIUtils.addBlock(getActivity(), listComment.get(i),
+						sb.leftBlockCount, sb.rightBlockCount,
+						article.users.get(listComment.get(i).AuthorId),
+						layComment, viewId, 110000, true, this, null);
+
 				viewId++;
 			}
-		}
-	}
-
-	private void addBlock(SbbsMeBlock item, String headUrl, int viewId,
-			boolean needHead, RelativeLayout parent) {
-
-		String userId = item.AuthorId;
-		String htmlText = item.Body;
-		boolean isMarkdown = item.Format.equals("Markdown");
-
-		if (getActivity() != null) {
-			BlockTextView block = new BlockTextView(getActivity());
-			block.setId(viewId);
-			RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT);
-			if (viewId > 100000) {
-				rllp.addRule(RelativeLayout.BELOW, viewId - 1);
-			}
-			rllp.bottomMargin = UIUtils.dipToPx(4);
-			block.setLayoutParams(rllp);
-			try {
-				block.setText(isMarkdown ? (new Markdown4jProcessor()
-						.process(htmlText)) : htmlText);
-				if (needHead) {
-					block.setHeadImageUrl(userId, headUrl);
-				}
-			} catch (Exception e) {
-
-			}
-			block.setBlock(item);
-			if (parent.getId() == R.id.layComment) {
-				block.setOnClickListener(this);
-			}
-
-			parent.addView(block);
-			parent.postInvalidate();
 		}
 	}
 

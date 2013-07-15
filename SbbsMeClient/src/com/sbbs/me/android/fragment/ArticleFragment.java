@@ -1,6 +1,6 @@
 package com.sbbs.me.android.fragment;
 
-import org.markdown4j.Markdown4jProcessor;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -15,14 +15,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BaseSlidingActivity;
 import com.rarnu.utils.ResourceUtils;
-import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.EditBlockActivity;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
@@ -30,12 +28,14 @@ import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeArticle;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.api.SbbsMeSideBlocks;
 import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.dialog.ArticleMenuDialog;
 import com.sbbs.me.android.dialog.ConfirmDialog;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
 import com.sbbs.me.android.utils.Config;
+import com.sbbs.me.android.utils.CustomUIUtils;
 
 public class ArticleFragment extends BaseFragment implements
 		OnLoadCompleteListener<SbbsMeArticle>, OnLongClickListener,
@@ -155,19 +155,26 @@ public class ArticleFragment extends BaseFragment implements
 				getActivity().getActionBar().setTitle(
 						article.main_block.Subject);
 			}
-
-			addBlock(article.main_block,
-					article.users.get(article.main_block.AuthorId), viewId,
-					true);
+			SbbsMeSideBlocks sb = SbbsMeAPI.getSideBlocks(article,
+					article.main_block.Id);
+			CustomUIUtils.addBlock(getActivity(), article.main_block,
+					sb.leftBlockCount, sb.rightBlockCount,
+					article.users.get(article.main_block.AuthorId), layArticle,
+					viewId, 100000, true, this, this);
 			blockCount++;
 			viewId++;
 		}
 
 		if (article.sub_blocks != null) {
+			SbbsMeSideBlocks sb = null;
 			for (int i = 0; i < article.sub_blocks.size(); i++) {
-				addBlock(article.sub_blocks.get(i),
+				sb = SbbsMeAPI.getSideBlocks(article,
+						article.sub_blocks.get(i).Id);
+				CustomUIUtils.addBlock(getActivity(),
+						article.sub_blocks.get(i), sb.leftBlockCount,
+						sb.rightBlockCount,
 						article.users.get(article.sub_blocks.get(i).AuthorId),
-						viewId, false);
+						layArticle, viewId, 100000, false, this, this);
 				blockCount++;
 				viewId++;
 			}
@@ -183,42 +190,6 @@ public class ArticleFragment extends BaseFragment implements
 		if (getActivity() != null) {
 			getActivity().setResult(Activity.RESULT_OK);
 			getActivity().finish();
-		}
-	}
-
-	private void addBlock(SbbsMeBlock item, String headUrl, int viewId,
-			boolean needHead) {
-
-		String userId = item.AuthorId;
-		String htmlText = item.Body;
-		boolean isMarkdown = item.Format.equals("Markdown");
-
-		if (getActivity() != null) {
-			BlockTextView block = new BlockTextView(getActivity());
-			block.setId(viewId);
-			RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT);
-			if (viewId > 100000) {
-				rllp.addRule(RelativeLayout.BELOW, viewId - 1);
-			}
-			rllp.bottomMargin = UIUtils.dipToPx(4);
-			block.setLayoutParams(rllp);
-			try {
-				block.setText(isMarkdown ? (new Markdown4jProcessor()
-						.process(htmlText)) : htmlText);
-				if (needHead) {
-					block.setHeadImageUrl(userId, headUrl);
-				}
-			} catch (Exception e) {
-
-			}
-			block.setBlock(item);
-			block.setOnLongClickListener(this);
-			block.setOnClickListener(this);
-
-			layArticle.addView(block);
-			layArticle.postInvalidate();
 		}
 	}
 
@@ -330,14 +301,42 @@ public class ArticleFragment extends BaseFragment implements
 
 	@Override
 	public void onClick(View v) {
+		Log.e("onClick", "onClick");
 		final SbbsMeBlock item = ((BlockTextView) v).getBlock();
-		if (item.RightBlockCount != 0) {
-			Global.passArticle = article;
-			Bundle bn = new Bundle();
-			bn.putSerializable("item", item);
-			((BaseFragment) getFragmentManager().findFragmentByTag(
-					getString(R.tag.tag_comment_fragment))).setNewArguments(bn);
-			((BaseSlidingActivity) getActivity()).showSecondaryMenu();
+		Global.passArticle = article;
+
+		int touchPos = ((BlockTextView) v).getTouchedPosition();
+		switch (touchPos) {
+		case 0:
+			if (blockHasLeftBlock(item.Id)) {
+				Bundle bn = new Bundle();
+				bn.putSerializable("item", item);
+				((BaseFragment) getFragmentManager().findFragmentByTag(
+						getString(R.tag.tag_origin_post_fragment)))
+						.setNewArguments(bn);
+				((BaseSlidingActivity) getActivity()).showMenu();
+			}
+			break;
+		case 1:
+			if (item.RightBlockCount != 0) {
+				Bundle bn = new Bundle();
+				bn.putSerializable("item", item);
+				((BaseFragment) getFragmentManager().findFragmentByTag(
+						getString(R.tag.tag_comment_fragment)))
+						.setNewArguments(bn);
+				((BaseSlidingActivity) getActivity()).showSecondaryMenu();
+			}
+			break;
 		}
+	}
+
+	private boolean blockHasLeftBlock(String blockId) {
+		boolean retBool = false;
+
+		List<SbbsMeBlock> list = article.left_blocks.get(blockId);
+		if (list != null && list.size() != 0) {
+			retBool = true;
+		}
+		return retBool;
 	}
 }

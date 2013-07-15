@@ -92,6 +92,20 @@ public class SbbsMeAPI {
 		return list;
 	}
 
+	public static SbbsMeSideBlocks getSideBlocks(SbbsMeArticle article,
+			String blockId) {
+		SbbsMeSideBlocks sb = new SbbsMeSideBlocks();
+		List<SbbsMeBlock> listLeft = article.left_blocks.get(blockId);
+		List<SbbsMeBlock> listRight = article.right_blocks.get(blockId);
+		if (listLeft != null && listLeft.size() != 0) {
+			sb.leftBlockCount = listLeft.size();
+		}
+		if (listRight != null && listRight.size() != 0) {
+			sb.rightBlockCount = listRight.size();
+		}
+		return sb;
+	}
+
 	/**
 	 * do NOT need login
 	 * 
@@ -147,10 +161,9 @@ public class SbbsMeAPI {
 
 		return list;
 	}
-	
+
 	public static List<TreeEntry> getCodeTreeFromDB(String userName,
-			String repoName, String sha,
-			Context context) throws Exception {
+			String repoName, String sha, Context context) throws Exception {
 		List<TreeEntry> list = null;
 		list = GithubUtils.getTreeList(context, userName, repoName, sha);
 		return list;
