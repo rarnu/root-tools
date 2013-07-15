@@ -73,6 +73,7 @@ public class HotTagsFragment extends BaseFragment implements
 		lvPullDown.getListView().setDivider(null);
 		lvPullDown.getListView().setDividerHeight(devide);
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
+		lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
 	}
 
 	@Override

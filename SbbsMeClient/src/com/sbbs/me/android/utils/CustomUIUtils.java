@@ -6,6 +6,8 @@ import org.markdown4j.Markdown4jProcessor;
 
 import android.app.ActionBar;
 import android.content.Context;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -47,7 +49,8 @@ public class CustomUIUtils {
 		}
 	}
 
-	public static void addBlock(Context context, SbbsMeBlock item, int leftCount, int RightCount, String headUrl,
+	public static void addBlock(Context context, SbbsMeBlock item,
+			int leftCount, int RightCount, String headUrl,
 			RelativeLayout layout, int viewId, int baseViewId,
 			boolean needHead, View.OnClickListener click,
 			View.OnLongClickListener longClick) {
@@ -80,9 +83,14 @@ public class CustomUIUtils {
 			block.setBlock(item);
 			block.setOnLongClickListener(longClick);
 			block.setOnClickListener(click);
-			
+
 			layout.addView(block);
 			layout.postInvalidate();
 		}
+	}
+
+	public static Drawable getEdgeFadeEffect(Context context) {
+		return new ColorDrawable(context.getResources().getColor(
+				R.color.google_light_green));
 	}
 }

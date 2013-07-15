@@ -74,8 +74,8 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 		int devide = UIUtils.dipToPx(8);
 		lvPullDown.getListView().setDivider(null);
 		lvPullDown.getListView().setDividerHeight(devide);
-
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
+		lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
 	}
 
 	@Override

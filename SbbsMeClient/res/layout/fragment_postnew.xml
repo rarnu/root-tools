@@ -33,7 +33,8 @@
             android:layout_height="match_parent"
             android:background="@drawable/edit_text_style"
             android:gravity="left|top"
-            android:hint="@string/post_content" />
+            android:hint="@string/post_content"
+            android:overScrollMode="never" />
     </LinearLayout>
 
     <TextView

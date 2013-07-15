@@ -99,6 +99,8 @@ public class MainFragment extends BaseFragment implements
 		lvPullDown.getListView().setDividerHeight(devide);
 
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
+		lvPullDown.getListView().setSelector(R.color.transparent);
+		lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
 
 		sinaOAuth = new SinaOAuth(getActivity(), this);
 		googleOAuth = new GoogleOAuth(getActivity(), this);

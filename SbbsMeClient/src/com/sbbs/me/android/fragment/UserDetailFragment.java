@@ -8,9 +8,8 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -20,19 +19,20 @@ import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeUser;
+import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsUserLoader;
 import com.sbbs.me.android.utils.Config;
 
 public class UserDetailFragment extends BaseFragment implements
-		OnClickListener, OnLoadCompleteListener<SbbsMeUser> {
+		OnLoadCompleteListener<SbbsMeUser> {
 
-	Button btnLogout;
 	boolean isShowingMyAccount = false;
 	int accType = 0;
 
 	ImageView ivHead;
-	TextView tvUserName, tvAccountTypeValue, tvLoading;
+	TextView tvUserName, tvAccountType, tvLoading;
 	SbbsUserLoader loader;
+	MenuItem miLogout;
 
 	public UserDetailFragment() {
 		super();
@@ -58,9 +58,7 @@ public class UserDetailFragment extends BaseFragment implements
 	public void initComponents() {
 		ivHead = (ImageView) innerView.findViewById(R.id.ivHead);
 		tvUserName = (TextView) innerView.findViewById(R.id.tvUserName);
-		tvAccountTypeValue = (TextView) innerView
-				.findViewById(R.id.tvAccountTypeValue);
-		btnLogout = (Button) innerView.findViewById(R.id.btnLogout);
+		tvAccountType = (TextView) innerView.findViewById(R.id.tvAccountType);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 
 		loader = new SbbsUserLoader(getActivity());
@@ -68,7 +66,6 @@ public class UserDetailFragment extends BaseFragment implements
 
 	@Override
 	public void initEvents() {
-		btnLogout.setOnClickListener(this);
 		loader.registerListener(0, this);
 	}
 
@@ -78,7 +75,10 @@ public class UserDetailFragment extends BaseFragment implements
 		String userId = getArguments().getString("user", "");
 		accType = Config.getAccountType(getActivity());
 		isShowingMyAccount = myUsrId.equals(userId);
-		btnLogout.setVisibility(isShowingMyAccount ? View.VISIBLE : View.GONE);
+
+		if (miLogout != null) {
+			miLogout.setVisible(isShowingMyAccount);
+		}
 
 		tvLoading.setVisibility(View.VISIBLE);
 		loader.setUserId(myUsrId, userId);
@@ -98,7 +98,10 @@ public class UserDetailFragment extends BaseFragment implements
 
 	@Override
 	public void initMenu(Menu menu) {
-
+		miLogout = menu.add(0, MenuIds.MENU_ID_LOGOUT, 99, R.string.logout);
+		miLogout.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+		miLogout.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		miLogout.setVisible(isShowingMyAccount);
 	}
 
 	@Override
@@ -112,15 +115,16 @@ public class UserDetailFragment extends BaseFragment implements
 	}
 
 	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.btnLogout:
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case MenuIds.MENU_ID_LOGOUT:
 			Intent inRet = new Intent();
 			inRet.putExtra("action", 1);
 			getActivity().setResult(Activity.RESULT_OK, inRet);
 			getActivity().finish();
 			break;
 		}
+		return true;
 	}
 
 	@Override
@@ -132,7 +136,8 @@ public class UserDetailFragment extends BaseFragment implements
 					String.format("follow:%d", data.followStatus));
 
 			tvUserName.setText(data.Name);
-			tvAccountTypeValue.setText(data.Type);
+			tvAccountType.setText(getString(R.string.user_account_type,
+					data.Type));
 
 			String headLocalPath = Environment.getExternalStorageDirectory()
 					.getPath() + "/.sbbs/";

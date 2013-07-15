@@ -11,4 +11,6 @@ public class MenuIds {
 	public static final int MENU_ID_PULIC = Menu.FIRST + 4;
 	public static final int MENU_ID_FORMAT = Menu.FIRST + 5;
 	
+	public static final int MENU_ID_LOGOUT = Menu.FIRST + 6;
+	
 }
