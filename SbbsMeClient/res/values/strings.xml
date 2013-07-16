@@ -57,5 +57,13 @@
     <string name="user_account_type">account source: %s</string>
     <string name="user_error">Cannot get user information</string>
     <string name="block_comment">Comments</string>
+    <string name="no_data_refresh">No data loaded\nPress for refreshing</string>
+    <string name="no_data_cannot_refresh">No data loaded\nCannot refresh</string>
+    <string name="user_follow">Follow</string>
+    <string name="user_unfollow">Unfollow</string>
+    <string name="user_follow_0">No relationship found</string>
+    <string name="user_follow_1" formatted="false">I followed %s</string>
+    <string name="user_follow_2" formatted="false">%s followed me</string>
+    <string name="user_follow_3">we followed each other</string>
 
 </resources>

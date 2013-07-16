@@ -1,7 +1,6 @@
 package com.sbbs.me.android.loader;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.rarnu.devlib.base.BaseClassLoader;
 import com.sbbs.me.android.api.SbbsMeAPI;
@@ -28,7 +27,6 @@ public class SbbsUserLoader extends BaseClassLoader<SbbsMeUser> {
 			user = SbbsMeAPI.getUser(userId);
 			user.followStatus = SbbsMeAPI.getFollowStatus(myUserId, userId);
 		} catch (Exception e) {
-			Log.e("loadInBackground", e.getMessage());
 		}
 		return user;
 	}

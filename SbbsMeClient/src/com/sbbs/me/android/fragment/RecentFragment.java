@@ -12,6 +12,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -30,13 +31,14 @@ import com.sbbs.me.android.api.SbbsMeMessage;
 import com.sbbs.me.android.loader.SbbsMessageLoader;
 
 public class RecentFragment extends BaseFragment implements OnPullDownListener,
-		OnItemClickListener, OnLoadCompleteListener<List<SbbsMeMessage>> {
+		OnItemClickListener, OnLoadCompleteListener<List<SbbsMeMessage>>, OnClickListener {
 
 	SbbsMessageLoader loader;
 	PullDownListView lvPullDown;
 	TextView tvLoading;
 	SbbsMeMessageAdapter adapter;
 	List<SbbsMeMessage> listMessage;
+	TextView tvNodata;
 
 	public RecentFragment() {
 		super();
@@ -62,6 +64,7 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 	public void initComponents() {
 		lvPullDown = (PullDownListView) innerView.findViewById(R.id.lvPullDown);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
+		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
 		if (listMessage == null) {
 			listMessage = new ArrayList<SbbsMeMessage>();
 		}
@@ -81,6 +84,7 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 	@Override
 	public void initEvents() {
 		lvPullDown.getListView().setOnItemClickListener(this);
+		tvNodata.setOnClickListener(this);
 		loader.registerListener(0, this);
 	}
 
@@ -92,7 +96,8 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 			lvPullDown.getListView().setEnabled(false);
 			tvLoading.setText(R.string.not_login);
 			tvLoading.setVisibility(View.VISIBLE);
-
+			tvNodata.setText(R.string.no_data_cannot_refresh);
+			tvNodata.setVisibility(View.VISIBLE);
 		} else if (listMessage.size() == 0) {
 			tvLoading.setVisibility(View.VISIBLE);
 			loader.startLoading();
@@ -180,9 +185,22 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 			listMessage.addAll(data);
 		}
 
+		tvNodata.setVisibility(listMessage.size() == 0 ? View.VISIBLE
+				: View.GONE);
+		tvNodata.setText(R.string.no_data_refresh);
 		adapter.setNewList(listMessage);
 		tvLoading.setVisibility(View.GONE);
 		lvPullDown.notifyDidRefresh();
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.tvNodata:
+			tvLoading.setVisibility(View.VISIBLE);
+			loader.startLoading();
+			break;
+		}
 	}
 
 }

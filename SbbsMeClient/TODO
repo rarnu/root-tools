@@ -23,7 +23,9 @@ curl http://sbbs.me/api/add_left_block/b51d6d98e60e794a97c000005 -d "left_id=51d
 comment_type，目前有三个可选值：#00f,#f00,#056，代表连线的颜色
 返回值："please login" or "OK"
 
-9. 关注/取消关注
+http://sbbs.me/api/last_article/1391292644
+返回指定用户最后发表的一个block
+
 10. 分享
-11. 无数据时的背景图片和刷新按钮
 12. 彩虹格子展示comment方案
+13. 用户信息内，最后的block展示

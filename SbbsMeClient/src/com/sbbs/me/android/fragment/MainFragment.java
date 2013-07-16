@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -49,12 +50,13 @@ import com.sbbs.me.android.utils.SinaOAuth.SinaUserCallback;
 public class MainFragment extends BaseFragment implements
 		OnLoadCompleteListener<List<SbbsMeBlock>>, OnPullDownListener,
 		OnItemClickListener, SinaUserCallback, GoogleUserCallback,
-		GithubUserCallback {
+		GithubUserCallback, OnClickListener {
 
 	PullDownListView lvPullDown;
 	SbbsBlockLoader loader;
 	SbbsMeArticleAdapter adapter;
 	TextView tvLoading;
+	TextView tvNodata;
 
 	MenuItem miUser;
 	SinaOAuth sinaOAuth;
@@ -85,6 +87,8 @@ public class MainFragment extends BaseFragment implements
 	public void initComponents() {
 		lvPullDown = (PullDownListView) innerView.findViewById(R.id.lvPullDown);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
+		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
+
 		if (Global.listArticle == null) {
 			Global.listArticle = new ArrayList<SbbsMeBlock>();
 		}
@@ -110,6 +114,7 @@ public class MainFragment extends BaseFragment implements
 	@Override
 	public void initEvents() {
 		lvPullDown.getListView().setOnItemClickListener(this);
+		tvNodata.setOnClickListener(this);
 		loader.registerListener(0, this);
 	}
 
@@ -199,7 +204,8 @@ public class MainFragment extends BaseFragment implements
 				userId = sinaUserId;
 				break;
 			}
-			if (userId.equals("")) {
+
+			if (!SbbsMeAPI.isLogin()) {
 				startActivityForResult(new Intent(getActivity(),
 						SelectLoginDialog.class), 0);
 			} else {
@@ -260,7 +266,8 @@ public class MainFragment extends BaseFragment implements
 		if (data != null) {
 			Global.listArticle.addAll(data);
 		}
-
+		tvNodata.setVisibility(Global.listArticle.size() == 0 ? View.VISIBLE
+				: View.GONE);
 		adapter.setNewList(Global.listArticle);
 		tvLoading.setVisibility(View.GONE);
 		lvPullDown.notifyDidRefresh();
@@ -383,6 +390,16 @@ public class MainFragment extends BaseFragment implements
 			} catch (Exception e) {
 				Log.e("onGetGithubUser", e.getMessage());
 			}
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.tvNodata:
+			tvLoading.setVisibility(View.VISIBLE);
+			loader.startLoading();
+			break;
 		}
 	}
 

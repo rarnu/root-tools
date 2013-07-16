@@ -42,6 +42,30 @@
         android:background="@color/google_light_green" />
 
     <TextView
+        android:id="@+id/tvRelationship"
+        android:layout_width="match_parent"
+        android:layout_height="40dip"
+        android:layout_below="@+id/tvSplit"
+        android:layout_marginLeft="8dip"
+        android:layout_marginTop="16dip"
+        android:layout_toLeftOf="@+id/btnFollow"
+        android:gravity="left|center_vertical"
+        android:paddingLeft="24dip"
+        android:textColor="@color/google_light_green"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/btnFollow"
+        android:layout_width="90dip"
+        android:layout_height="40dip"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvSplit"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="16dip"
+        android:background="@drawable/action_button_style"
+        android:text="@string/user_unfollow" />
+
+    <TextView
         android:id="@+id/tvLoading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

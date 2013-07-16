@@ -100,9 +100,9 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 		int retInt = 2;
 		if (touchEvent != null) {
 			float xPos = touchEvent.getX();
-			if (xPos < (UIUtils.getWidth() / 3)) {
+			if (xPos < (UIUtils.getWidth() / 5 * 2)) {
 				retInt = 0;
-			} else if (xPos > (UIUtils.getWidth() / 3 * 2)) {
+			} else if (xPos > (UIUtils.getWidth() / 5 * 3)) {
 				retInt = 1;
 			}
 		}

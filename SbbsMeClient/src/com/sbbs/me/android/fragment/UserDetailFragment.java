@@ -6,10 +6,13 @@ import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.Environment;
-import android.util.Log;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -18,13 +21,14 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeUser;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsUserLoader;
 import com.sbbs.me.android.utils.Config;
 
 public class UserDetailFragment extends BaseFragment implements
-		OnLoadCompleteListener<SbbsMeUser> {
+		OnLoadCompleteListener<SbbsMeUser>, OnClickListener {
 
 	boolean isShowingMyAccount = false;
 	int accType = 0;
@@ -33,6 +37,11 @@ public class UserDetailFragment extends BaseFragment implements
 	TextView tvUserName, tvAccountType, tvLoading;
 	SbbsUserLoader loader;
 	MenuItem miLogout;
+	TextView tvRelationship;
+	Button btnFollow;
+	SbbsMeUser user;
+	String myUsrId;
+	String userId;
 
 	public UserDetailFragment() {
 		super();
@@ -60,6 +69,8 @@ public class UserDetailFragment extends BaseFragment implements
 		tvUserName = (TextView) innerView.findViewById(R.id.tvUserName);
 		tvAccountType = (TextView) innerView.findViewById(R.id.tvAccountType);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
+		tvRelationship = (TextView) innerView.findViewById(R.id.tvRelationship);
+		btnFollow = (Button) innerView.findViewById(R.id.btnFollow);
 
 		loader = new SbbsUserLoader(getActivity());
 	}
@@ -67,19 +78,21 @@ public class UserDetailFragment extends BaseFragment implements
 	@Override
 	public void initEvents() {
 		loader.registerListener(0, this);
+		btnFollow.setOnClickListener(this);
 	}
 
 	@Override
 	public void initLogic() {
-		String myUsrId = Config.getUserId(getActivity());
-		String userId = getArguments().getString("user", "");
+		myUsrId = Config.getUserId(getActivity());
+		userId = getArguments().getString("user", "");
 		accType = Config.getAccountType(getActivity());
 		isShowingMyAccount = myUsrId.equals(userId);
 
 		if (miLogout != null) {
 			miLogout.setVisible(isShowingMyAccount);
 		}
-
+		btnFollow.setVisibility(isShowingMyAccount ? View.GONE : View.VISIBLE);
+		btnFollow.setEnabled(false);
 		tvLoading.setVisibility(View.VISIBLE);
 		loader.setUserId(myUsrId, userId);
 		loader.startLoading();
@@ -130,15 +143,15 @@ public class UserDetailFragment extends BaseFragment implements
 	@Override
 	public void onLoadComplete(Loader<SbbsMeUser> loader, SbbsMeUser data) {
 		tvLoading.setVisibility(View.GONE);
+		user = data;
+		btnFollow.setEnabled(true);
 		if (data != null) {
-
-			Log.e("onLoadComplete",
-					String.format("follow:%d", data.followStatus));
 
 			tvUserName.setText(data.Name);
 			tvAccountType.setText(getString(R.string.user_account_type,
 					data.Type));
 
+			setFollowStatus(data.followStatus, data.Name);
 			String headLocalPath = Environment.getExternalStorageDirectory()
 					.getPath() + "/.sbbs/";
 			String headLocalName = data.Id + ".jpg";
@@ -151,4 +164,63 @@ public class UserDetailFragment extends BaseFragment implements
 		}
 	}
 
+	private void setFollowStatus(int stat, String name) {
+		switch (stat) {
+		case 0:
+			tvRelationship.setText(R.string.user_follow_0);
+			btnFollow.setText(R.string.user_follow);
+			break;
+		case 1:
+			tvRelationship.setText(getString(R.string.user_follow_1, name));
+			btnFollow.setText(R.string.user_unfollow);
+			break;
+		case 2:
+			tvRelationship.setText(getString(R.string.user_follow_2, name));
+			btnFollow.setText(R.string.user_follow);
+			break;
+		case 3:
+			tvRelationship.setText(R.string.user_follow_3);
+			btnFollow.setText(R.string.user_unfollow);
+			break;
+
+		}
+
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btnFollow:
+			if (user != null) {
+				userOperationT(user.followStatus == 0 || user.followStatus == 2);
+			}
+			break;
+		}
+	}
+
+	final Handler hUserOper = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				loader.startLoading();
+			}
+			super.handleMessage(msg);
+		};
+	};
+
+	private void userOperationT(final boolean follow) {
+		btnFollow.setEnabled(false);
+		tvLoading.setVisibility(View.VISIBLE);
+		new Thread(new Runnable() {
+			@Override
+			public void run() {
+				if (follow) {
+					SbbsMeAPI.followUser(myUsrId, userId);
+				} else {
+					SbbsMeAPI.unfollowUser(myUsrId, userId);
+				}
+				hUserOper.sendEmptyMessage(1);
+			}
+		}).start();
+	}
 }

@@ -11,6 +11,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -29,12 +30,13 @@ import com.sbbs.me.android.loader.SbbsTagLoader;
 
 public class HotTagsFragment extends BaseFragment implements
 		OnPullDownListener, OnItemClickListener,
-		OnLoadCompleteListener<List<SbbsMeTag>> {
+		OnLoadCompleteListener<List<SbbsMeTag>>, OnClickListener {
 
 	PullDownListView lvPullDown;
 	SbbsTagLoader loader;
 	SbbsMeTagAdapter adapter;
 	TextView tvLoading;
+	TextView tvNodata;
 
 	public HotTagsFragment() {
 		super();
@@ -60,6 +62,8 @@ public class HotTagsFragment extends BaseFragment implements
 	public void initComponents() {
 		lvPullDown = (PullDownListView) innerView.findViewById(R.id.lvPullDown);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
+		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
+
 		if (Global.listTags == null) {
 			Global.listTags = new ArrayList<SbbsMeTag>();
 		}
@@ -79,6 +83,7 @@ public class HotTagsFragment extends BaseFragment implements
 	@Override
 	public void initEvents() {
 		lvPullDown.getListView().setOnItemClickListener(this);
+		tvNodata.setOnClickListener(this);
 		loader.registerListener(0, this);
 	}
 
@@ -163,10 +168,22 @@ public class HotTagsFragment extends BaseFragment implements
 		if (data != null) {
 			Global.listTags.addAll(data);
 		}
+		tvNodata.setVisibility(Global.listTags.size() == 0 ? View.VISIBLE
+				: View.GONE);
 
 		adapter.setNewList(Global.listTags);
 		tvLoading.setVisibility(View.GONE);
 		lvPullDown.notifyDidRefresh();
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.tvNodata:
+			tvLoading.setVisibility(View.VISIBLE);
+			loader.startLoading();
+			break;
+		}
 	}
 
 }
