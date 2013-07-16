@@ -1,6 +1,5 @@
 package com.sbbs.me.android.fragment;
 
-
 import org.eclipse.egit.github.core.Blob;
 import org.eclipse.egit.github.core.util.EncodingUtils;
 
@@ -20,7 +19,7 @@ import com.sbbs.me.android.R;
 import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.loader.SbbsCodeViewLoader;
 
-public class GithubCodeViewFragement extends BaseFragment implements 
+public class GithubCodeViewFragement extends BaseFragment implements
 		OnLoadCompleteListener<Blob> {
 
 	RelativeLayout layBlob;
@@ -29,7 +28,7 @@ public class GithubCodeViewFragement extends BaseFragment implements
 	TextView blobLoading;
 	byte repoType = 0;
 	String sha;
-	
+
 	public GithubCodeViewFragement(byte repoType, String sha) {
 		super();
 		this.repoType = repoType;
@@ -37,10 +36,11 @@ public class GithubCodeViewFragement extends BaseFragment implements
 		tagText = ResourceUtils
 				.getString(repoType == 0 ? R.tag.tag_codeview_fragment_sbbs
 						: R.tag.tag_codeview_fragment_android);
-		tabTitle = ResourceUtils.getString(repoType == 0 ? R.string.project_sbbs_me
-				: R.string.project_android);
+		tabTitle = ResourceUtils
+				.getString(repoType == 0 ? R.string.project_sbbs_me
+						: R.string.project_android);
 	}
-	
+
 	@Override
 	public int getBarTitle() {
 		return R.string.lm_ongithub;
@@ -86,12 +86,12 @@ public class GithubCodeViewFragement extends BaseFragment implements
 
 	@Override
 	public void initMenu(Menu menu) {
-		
+
 	}
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-		
+
 	}
 
 	@Override
@@ -102,10 +102,12 @@ public class GithubCodeViewFragement extends BaseFragment implements
 	@Override
 	public void onLoadComplete(Loader<Blob> loader, Blob data) {
 		blob = data;
-		if (blob != null) {
-			buildUI();
+		if (getActivity() != null) {
+			if (blob != null) {
+				buildUI();
+			}
+			blobLoading.setVisibility(View.GONE);
 		}
-		blobLoading.setVisibility(View.GONE);
 	}
 
 	private void buildUI() {
@@ -125,7 +127,7 @@ public class GithubCodeViewFragement extends BaseFragment implements
 			if (content == null)
 				content = "";
 			byte[] contents = EncodingUtils.fromBase64(content);
-			block.setCodeContent( new String(contents) );
+			block.setCodeContent(new String(contents));
 			layBlob.addView(block);
 			layBlob.postInvalidate();
 			viewId++;

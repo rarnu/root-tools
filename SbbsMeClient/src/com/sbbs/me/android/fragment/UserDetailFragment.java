@@ -14,6 +14,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -26,6 +27,7 @@ import com.sbbs.me.android.api.SbbsMeUser;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsUserLoader;
 import com.sbbs.me.android.utils.Config;
+import com.sbbs.me.android.utils.CustomUIUtils;
 
 public class UserDetailFragment extends BaseFragment implements
 		OnLoadCompleteListener<SbbsMeUser>, OnClickListener {
@@ -42,6 +44,7 @@ public class UserDetailFragment extends BaseFragment implements
 	SbbsMeUser user;
 	String myUsrId;
 	String userId;
+	RelativeLayout layLastPost;
 
 	public UserDetailFragment() {
 		super();
@@ -71,6 +74,7 @@ public class UserDetailFragment extends BaseFragment implements
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 		tvRelationship = (TextView) innerView.findViewById(R.id.tvRelationship);
 		btnFollow = (Button) innerView.findViewById(R.id.btnFollow);
+		layLastPost = (RelativeLayout) innerView.findViewById(R.id.layLastPost);
 
 		loader = new SbbsUserLoader(getActivity());
 	}
@@ -142,25 +146,30 @@ public class UserDetailFragment extends BaseFragment implements
 
 	@Override
 	public void onLoadComplete(Loader<SbbsMeUser> loader, SbbsMeUser data) {
-		tvLoading.setVisibility(View.GONE);
 		user = data;
-		btnFollow.setEnabled(true);
-		if (data != null) {
+		if (getActivity() != null) {
+			tvLoading.setVisibility(View.GONE);
+			btnFollow.setEnabled(true);
+			if (data != null) {
+				tvUserName.setText(data.Name);
+				tvAccountType.setText(getString(R.string.user_account_type,
+						data.Type));
 
-			tvUserName.setText(data.Name);
-			tvAccountType.setText(getString(R.string.user_account_type,
-					data.Type));
-
-			setFollowStatus(data.followStatus, data.Name);
-			String headLocalPath = Environment.getExternalStorageDirectory()
-					.getPath() + "/.sbbs/";
-			String headLocalName = data.Id + ".jpg";
-			DownloadUtils.downloadFileT(getActivity(), ivHead, data.AvatarURL,
-					headLocalPath, headLocalName, null);
-		} else {
-			Toast.makeText(getActivity(), R.string.user_error,
-					Toast.LENGTH_LONG).show();
-			getActivity().finish();
+				setFollowStatus(data.followStatus, data.Name);
+				if (data.lastBlock != null) {
+					CustomUIUtils.addBlock(getActivity(), data.lastBlock, 0, 0,
+							"", layLastPost, 130000, 130000, false, null, null);
+				}
+				String headLocalPath = Environment
+						.getExternalStorageDirectory().getPath() + "/.sbbs/";
+				String headLocalName = data.Id + ".jpg";
+				DownloadUtils.downloadFileT(getActivity(), ivHead,
+						data.AvatarURL, headLocalPath, headLocalName, null);
+			} else {
+				Toast.makeText(getActivity(), R.string.user_error,
+						Toast.LENGTH_LONG).show();
+				getActivity().finish();
+			}
 		}
 	}
 

@@ -66,6 +66,29 @@
         android:text="@string/user_unfollow" />
 
     <TextView
+        android:id="@+id/tvSplit2"
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_below="@+id/tvRelationship"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="16dip"
+        android:background="@color/google_light_green" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvSplit2"
+        android:padding="8dip" >
+
+        <RelativeLayout
+            android:id="@+id/layLastPost"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+        </RelativeLayout>
+    </ScrollView>
+
+    <TextView
         android:id="@+id/tvLoading"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

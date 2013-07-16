@@ -266,11 +266,13 @@ public class MainFragment extends BaseFragment implements
 		if (data != null) {
 			Global.listArticle.addAll(data);
 		}
-		tvNodata.setVisibility(Global.listArticle.size() == 0 ? View.VISIBLE
-				: View.GONE);
-		adapter.setNewList(Global.listArticle);
-		tvLoading.setVisibility(View.GONE);
-		lvPullDown.notifyDidRefresh();
+		if (getActivity() != null) {
+			tvNodata.setVisibility(Global.listArticle.size() == 0 ? View.VISIBLE
+					: View.GONE);
+			adapter.setNewList(Global.listArticle);
+			tvLoading.setVisibility(View.GONE);
+			lvPullDown.notifyDidRefresh();
+		}
 	}
 
 	@Override

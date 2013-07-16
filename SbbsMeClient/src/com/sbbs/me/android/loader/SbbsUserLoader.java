@@ -26,6 +26,7 @@ public class SbbsUserLoader extends BaseClassLoader<SbbsMeUser> {
 		try {
 			user = SbbsMeAPI.getUser(userId);
 			user.followStatus = SbbsMeAPI.getFollowStatus(myUserId, userId);
+			user.lastBlock = SbbsMeAPI.getLastBlockViaUser(userId);
 		} catch (Exception e) {
 		}
 		return user;

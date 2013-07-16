@@ -134,15 +134,17 @@ public class ArticleFragment extends BaseFragment implements
 	@Override
 	public void onLoadComplete(Loader<SbbsMeArticle> loader, SbbsMeArticle data) {
 		article = data;
-		if (article != null) {
-			isMyArticle = article.main_block.AuthorId.equals(Config
-					.getUserId(getActivity()));
-			Log.e("isMyArticle", (isMyArticle ? "TRUE" : "FALSE"));
-			buildUI();
-		} else {
-			doArticleAndClose();
+		if (getActivity() != null) {
+			if (article != null) {
+				isMyArticle = article.main_block.AuthorId.equals(Config
+						.getUserId(getActivity()));
+				Log.e("isMyArticle", (isMyArticle ? "TRUE" : "FALSE"));
+				buildUI();
+			} else {
+				doArticleAndClose();
+			}
+			tvLoading.setVisibility(View.GONE);
 		}
-		tvLoading.setVisibility(View.GONE);
 	}
 
 	private void buildUI() {

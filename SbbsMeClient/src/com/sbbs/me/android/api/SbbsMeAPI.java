@@ -450,4 +450,15 @@ public class SbbsMeAPI {
 
 		return list;
 	}
+
+	public static SbbsMeBlock getLastBlockViaUser(String userId)
+			throws Exception {
+		SbbsMeBlock block = null;
+		String ret = HttpRequest.get(BASE_URL + "last_article/" + userId, "",
+				HTTP.UTF_8);
+		if (ret != null && (!ret.equals("null"))) {
+			block = SbbsMeBlock.fromJson(new JSONObject(ret));
+		}
+		return block;
+	}
 }

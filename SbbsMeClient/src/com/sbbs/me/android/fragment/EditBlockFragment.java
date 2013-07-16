@@ -140,14 +140,16 @@ public class EditBlockFragment extends BaseFragment implements
 
 	@Override
 	public void onLoadComplete(Loader<String> loader, String data) {
-		etEditBlock.setEnabled(true);
-		if (data != null && data.equals("OK")) {
-			getActivity().setResult(Activity.RESULT_OK);
-			getActivity().finish();
+		if (getActivity() != null) {
+			etEditBlock.setEnabled(true);
+			if (data != null && data.equals("OK")) {
+				getActivity().setResult(Activity.RESULT_OK);
+				getActivity().finish();
 
-		} else {
-			Toast.makeText(getActivity(), R.string.post_error,
-					Toast.LENGTH_LONG).show();
+			} else {
+				Toast.makeText(getActivity(), R.string.post_error,
+						Toast.LENGTH_LONG).show();
+			}
 		}
 	}
 

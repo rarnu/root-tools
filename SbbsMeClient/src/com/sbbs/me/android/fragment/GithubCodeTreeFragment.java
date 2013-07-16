@@ -127,9 +127,11 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		listTreeEntry.clear();
 		if (data != null) {
 			listTreeEntry.addAll(data);
-			adapter.setNewList(listTreeEntry);
 		}
-		treeLoading.setVisibility(View.GONE);
+		if (getActivity() != null) {
+			adapter.setNewList(listTreeEntry);
+			treeLoading.setVisibility(View.GONE);
+		}
 	}
 
 	@Override

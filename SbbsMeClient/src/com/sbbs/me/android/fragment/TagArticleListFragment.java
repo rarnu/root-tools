@@ -116,8 +116,10 @@ public class TagArticleListFragment extends BaseFragment implements
 		if (data != null) {
 			listArticle.addAll(data);
 		}
-		adapter.setNewList(listArticle);
-		tvLoading.setVisibility(View.GONE);
+		if (getActivity() != null) {
+			adapter.setNewList(listArticle);
+			tvLoading.setVisibility(View.GONE);
+		}
 	}
 
 	@Override

@@ -101,7 +101,7 @@ public class PostNewFragment extends BaseFragment implements
 		miSend = menu.add(0, MenuIds.MENU_ID_SEND, 99, R.string.send);
 		miSend.setIcon(android.R.drawable.ic_menu_send);
 		miSend.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		
+
 		setFragmentEnabled(SbbsMeAPI.isLogin());
 	}
 
@@ -163,18 +163,19 @@ public class PostNewFragment extends BaseFragment implements
 
 	@Override
 	public void onLoadComplete(Loader<String> loader, String data) {
-		tvStatus.setVisibility(View.GONE);
-		setFragmentEnabled(true);
-		if ((data != null) && (!data.equals(""))) {
-			// 51dc1f0c60e7946505000001
-			if (data.length() == 24) {
-				Global.autoRefreshTag = true;
-				((IMainIntf) getActivity()).switchPage(0, false);
+		if (getActivity() != null) {
+			tvStatus.setVisibility(View.GONE);
+			setFragmentEnabled(true);
+			if ((data != null) && (!data.equals(""))) {
+				if (data.length() == 24) {
+					Global.autoRefreshTag = true;
+					((IMainIntf) getActivity()).switchPage(0, false);
 
+				}
+			} else {
+				Toast.makeText(getActivity(), R.string.post_error,
+						Toast.LENGTH_LONG).show();
 			}
-		} else {
-			Toast.makeText(getActivity(), R.string.post_error,
-					Toast.LENGTH_LONG).show();
 		}
 	}
 

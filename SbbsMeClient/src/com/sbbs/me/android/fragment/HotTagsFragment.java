@@ -168,12 +168,14 @@ public class HotTagsFragment extends BaseFragment implements
 		if (data != null) {
 			Global.listTags.addAll(data);
 		}
-		tvNodata.setVisibility(Global.listTags.size() == 0 ? View.VISIBLE
-				: View.GONE);
+		if (getActivity() != null) {
+			tvNodata.setVisibility(Global.listTags.size() == 0 ? View.VISIBLE
+					: View.GONE);
 
-		adapter.setNewList(Global.listTags);
-		tvLoading.setVisibility(View.GONE);
-		lvPullDown.notifyDidRefresh();
+			adapter.setNewList(Global.listTags);
+			tvLoading.setVisibility(View.GONE);
+			lvPullDown.notifyDidRefresh();
+		}
 	}
 
 	@Override

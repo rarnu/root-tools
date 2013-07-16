@@ -31,7 +31,8 @@ import com.sbbs.me.android.api.SbbsMeMessage;
 import com.sbbs.me.android.loader.SbbsMessageLoader;
 
 public class RecentFragment extends BaseFragment implements OnPullDownListener,
-		OnItemClickListener, OnLoadCompleteListener<List<SbbsMeMessage>>, OnClickListener {
+		OnItemClickListener, OnLoadCompleteListener<List<SbbsMeMessage>>,
+		OnClickListener {
 
 	SbbsMessageLoader loader;
 	PullDownListView lvPullDown;
@@ -184,13 +185,14 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 		if (data != null) {
 			listMessage.addAll(data);
 		}
-
-		tvNodata.setVisibility(listMessage.size() == 0 ? View.VISIBLE
-				: View.GONE);
-		tvNodata.setText(R.string.no_data_refresh);
-		adapter.setNewList(listMessage);
-		tvLoading.setVisibility(View.GONE);
-		lvPullDown.notifyDidRefresh();
+		if (getActivity() != null) {
+			tvNodata.setVisibility(listMessage.size() == 0 ? View.VISIBLE
+					: View.GONE);
+			tvNodata.setText(R.string.no_data_refresh);
+			adapter.setNewList(listMessage);
+			tvLoading.setVisibility(View.GONE);
+			lvPullDown.notifyDidRefresh();
+		}
 	}
 
 	@Override

@@ -153,12 +153,14 @@ public class CommentFragment extends BaseFragment implements OnClickListener,
 	@Override
 	public void onLoadComplete(Loader<SbbsMeArticle> loader, SbbsMeArticle data) {
 		article = data;
-		if (article != null) {
-			buildUI();
-		} else {
-			doArticleAndClose();
+		if (getActivity() != null) {
+			if (article != null) {
+				buildUI();
+			} else {
+				doArticleAndClose();
+			}
+			tvLoading.setVisibility(View.GONE);
 		}
-		tvLoading.setVisibility(View.GONE);
 	}
 
 	private void doArticleAndClose() {
