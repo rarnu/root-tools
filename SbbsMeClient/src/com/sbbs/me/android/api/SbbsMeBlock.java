@@ -33,7 +33,11 @@ public class SbbsMeBlock implements Serializable {
 		block.Id = json.getString("Id");
 		block.Order = json.getDouble("Order");
 		block.ParentId = json.getString("ParentId");
-		block.Public = json.getInt("Public");
+		try {
+			block.Public = json.getInt("Public");
+		} catch (Exception e) {
+			block.Public = 1;
+		}
 		block.RightBlockCount = json.getInt("RightBlockCount");
 		block.Status = json.getString("Status");
 		block.Subject = json.getString("Subject");

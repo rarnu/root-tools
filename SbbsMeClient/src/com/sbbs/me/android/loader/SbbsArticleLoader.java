@@ -1,6 +1,7 @@
 package com.sbbs.me.android.loader;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.rarnu.devlib.base.BaseClassLoader;
 import com.sbbs.me.android.api.SbbsMeAPI;
@@ -24,7 +25,7 @@ public class SbbsArticleLoader extends BaseClassLoader<SbbsMeArticle> {
 		try {
 			article = SbbsMeAPI.getArticle(articleId);
 		} catch (Exception e) {
-			
+			Log.e("loadInBackground", e.getMessage());
 		}
 		return article;
 	}

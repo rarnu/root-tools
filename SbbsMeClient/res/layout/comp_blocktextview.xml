@@ -21,19 +21,19 @@
         android:layout_margin="4dip"
         android:scaleType="centerInside" />
 
-    <TextView
-        android:id="@+id/tvLeft"
-        android:layout_width="16dip"
-        android:layout_height="16dip"
+    <com.sbbs.me.android.component.RainbowView
+        android:id="@+id/rvLeft"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:gravity="center" />
+        android:layout_marginBottom="24dip" />
 
-    <TextView
-        android:id="@+id/tvRight"
-        android:layout_width="16dip"
-        android:layout_height="16dip"
+    <com.sbbs.me.android.component.RainbowView
+        android:id="@+id/rvRight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_alignParentRight="true"
-        android:gravity="center" />
+        android:layout_marginBottom="24dip" />
 
 </RelativeLayout>

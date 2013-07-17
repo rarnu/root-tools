@@ -23,7 +23,7 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 	private TextView tvText;
 	private ImageView ivIcon;
 	private SbbsMeBlock block;
-	private TextView tvLeft, tvRight;
+	private RainbowView rvLeft, rvRight;
 
 	private MotionEvent touchEvent = null;
 
@@ -53,8 +53,8 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 
 		tvText = (TextView) innerView.findViewById(R.id.tvText);
 		ivIcon = (ImageView) innerView.findViewById(R.id.ivIcon);
-		tvLeft = (TextView) innerView.findViewById(R.id.tvLeft);
-		tvRight = (TextView) innerView.findViewById(R.id.tvRight);
+		rvLeft = (RainbowView) innerView.findViewById(R.id.rvLeft);
+		rvRight = (RainbowView) innerView.findViewById(R.id.rvRight);
 
 		setBackgroundResource(R.drawable.article_list_selector);
 		setFocusable(true);
@@ -110,10 +110,10 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 	}
 
 	public void setLeftRightCount(int left, int right) {
-		tvLeft.setText(String.valueOf(left));
-		tvRight.setText(String.valueOf(right));
-		tvLeft.setVisibility(left == 0 ? View.GONE : View.VISIBLE);
-		tvRight.setVisibility(right == 0 ? View.GONE : View.VISIBLE);
+		rvLeft.setBlockCount(left, 0);
+		rvRight.setBlockCount(right, 1);
+		rvLeft.setVisibility(left == 0 ? View.GONE : View.VISIBLE);
+		rvRight.setVisibility(right == 0 ? View.GONE : View.VISIBLE);
 	}
 
 }

@@ -24,5 +24,3 @@ comment_type，目前有三个可选值：#00f,#f00,#056，代表连线的颜色
 返回值："please login" or "OK"
 
 10. 分享
-12. 彩虹格子展示comment方案
-13. 用户信息内，最后的block展示
