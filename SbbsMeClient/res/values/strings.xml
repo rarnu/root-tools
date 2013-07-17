@@ -65,5 +65,6 @@
     <string name="user_follow_1" formatted="false">I followed %s</string>
     <string name="user_follow_2" formatted="false">%s followed me</string>
     <string name="user_follow_3">we followed each other</string>
+    <string name="share_fmt" formatted="false">Share article %s(http://sbbs.me/post/%s) from http://sbbs.me</string>
 
 </resources>

@@ -115,10 +115,19 @@ public class ArticleFragment extends BaseFragment implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MenuIds.MENU_ID_SHARE:
-			// TODO: share
+			share();
 			break;
 		}
 		return true;
+	}
+
+	private void share() {
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.setType("image/*");
+		String body = getString(R.string.share_fmt, article.main_block.Subject,
+				article.main_block.Id);
+		shareIntent.putExtra(Intent.EXTRA_TEXT, body);
+		startActivity(shareIntent);
 	}
 
 	@Override
