@@ -1,5 +1,8 @@
 package com.sbbs.me.android.fragment;
 
+import static org.eclipse.egit.github.core.TreeEntry.TYPE_BLOB;
+import static org.eclipse.egit.github.core.TreeEntry.TYPE_TREE;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -13,6 +16,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
@@ -20,20 +24,19 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
-import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.CodeViewActivity;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeTreeEntryAdapter;
 import com.sbbs.me.android.loader.SbbsCodeTreeLoader;
-import static org.eclipse.egit.github.core.TreeEntry.TYPE_BLOB;
-import static org.eclipse.egit.github.core.TreeEntry.TYPE_TREE;
 
 public class GithubCodeTreeFragment extends BaseFragment implements
-		OnLoadCompleteListener<List<TreeEntry>>, OnItemClickListener {
+		OnLoadCompleteListener<List<TreeEntry>>, OnItemClickListener,
+		OnClickListener {
 
 	ListView treeList;
 	SbbsCodeTreeLoader loader;
 	SbbsMeTreeEntryAdapter adapter;
+	TextView tvNodata;
 	TextView treeLoading;
 	List<TreeEntry> listTreeEntry;
 	byte repoType = 0;
@@ -77,17 +80,15 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		}
 		adapter = new SbbsMeTreeEntryAdapter(getActivity(), listTreeEntry);
 		treeList.setAdapter(adapter);
-		treeList.setDivider(null);
-		int devide = UIUtils.dipToPx(8);
-		treeList.setDividerHeight(devide);
-		treeList.setPadding(devide, devide, devide, devide);
 		loader = new SbbsCodeTreeLoader(getActivity(), repoType, sha);
+		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
 	}
 
 	@Override
 	public void initEvents() {
 		treeList.setOnItemClickListener(this);
 		loader.registerListener(0, this);
+		tvNodata.setOnClickListener(this);
 	}
 
 	@Override
@@ -129,6 +130,9 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 			listTreeEntry.addAll(data);
 		}
 		if (getActivity() != null) {
+			tvNodata.setEnabled(true);
+			tvNodata.setVisibility(listTreeEntry.size() == 0 ? View.VISIBLE
+					: View.GONE);
 			adapter.setNewList(listTreeEntry);
 			treeLoading.setVisibility(View.GONE);
 		}
@@ -155,6 +159,17 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 			bn.putString("sha", item.getSha());
 			startActivity(new Intent(getActivity(), CodeViewActivity.class)
 					.putExtras(bn));
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.tvNodata:
+			tvNodata.setEnabled(false);
+			treeLoading.setVisibility(View.VISIBLE);
+			loader.startLoading();
+			break;
 		}
 	}
 }

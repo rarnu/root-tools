@@ -5,22 +5,4 @@ Weibo
 	
 provider :google_oauth2, '876356697116.apps.googleusercontent.com', 'Sc9hk9vgfb5nQCYCSG1niCoM', {}
 
-curl http://sbbs.me/api/delete_link -d "id=b51d6d98e60e794a97c000005&left_id=bl51d6d98260e794a97c000004"
-功能：删除两个Block之间的关联关系；
-51d6d98e60e794a97c000005,51d6d98260e794a97c000004，是实际的ID号，b，b1这样的前缀，是页面显示上的需要。
-返回值："please login" or "OK"
-
-curl http://sbbs.me/api/clone_block/b51d6d98e60e794a97c000005  -d ""
-功能：克隆一个Block
-返回值："please login" or "OK"
-
-curl http://sbbs.me/api/add_exist_block/b51d6d98e60e794a97c000005 -d "exist_id=51d6d98260e794a97c000004"
-功能：在某个Block下，添加一个已经存在的Block
-返回值："please login" or "OK"
-
-curl http://sbbs.me/api/add_left_block/b51d6d98e60e794a97c000005 -d "left_id=51d6d98260e794a97c000004&comment_type=#00f"
-功能：在Block的左边添加一个已经存在的block
-comment_type，目前有三个可选值：#00f,#f00,#056，代表连线的颜色
-返回值："please login" or "OK"
-
-10. 分享
+1. 新手引导

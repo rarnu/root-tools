@@ -267,6 +267,7 @@ public class MainFragment extends BaseFragment implements
 			Global.listArticle.addAll(data);
 		}
 		if (getActivity() != null) {
+			tvNodata.setEnabled(true);
 			tvNodata.setVisibility(Global.listArticle.size() == 0 ? View.VISIBLE
 					: View.GONE);
 			adapter.setNewList(Global.listArticle);
@@ -399,6 +400,7 @@ public class MainFragment extends BaseFragment implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tvNodata:
+			tvNodata.setEnabled(false);
 			tvLoading.setVisibility(View.VISIBLE);
 			loader.startLoading();
 			break;

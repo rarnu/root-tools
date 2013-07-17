@@ -9,7 +9,6 @@ import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -115,7 +114,9 @@ public class ArticleFragment extends BaseFragment implements
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MenuIds.MENU_ID_SHARE:
-			share();
+			if (article != null) {
+				share();
+			}
 			break;
 		}
 		return true;
@@ -147,7 +148,6 @@ public class ArticleFragment extends BaseFragment implements
 			if (article != null) {
 				isMyArticle = article.main_block.AuthorId.equals(Config
 						.getUserId(getActivity()));
-				Log.e("isMyArticle", (isMyArticle ? "TRUE" : "FALSE"));
 				buildUI();
 			} else {
 				doArticleAndClose();
@@ -312,7 +312,6 @@ public class ArticleFragment extends BaseFragment implements
 
 	@Override
 	public void onClick(View v) {
-		Log.e("onClick", "onClick");
 		final SbbsMeBlock item = ((BlockTextView) v).getBlock();
 		Global.passArticle = article;
 

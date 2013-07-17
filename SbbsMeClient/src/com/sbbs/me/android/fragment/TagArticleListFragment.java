@@ -13,6 +13,7 @@ import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
@@ -119,6 +120,11 @@ public class TagArticleListFragment extends BaseFragment implements
 		if (getActivity() != null) {
 			adapter.setNewList(listArticle);
 			tvLoading.setVisibility(View.GONE);
+			if (listArticle.size() == 0) {
+				Toast.makeText(getActivity(), R.string.tag_no_article,
+						Toast.LENGTH_LONG).show();
+				getActivity().finish();
+			}
 		}
 	}
 
@@ -127,8 +133,8 @@ public class TagArticleListFragment extends BaseFragment implements
 			long id) {
 		final SbbsMeBlock item = listArticle.get(position);
 
-		startActivityForResult(new Intent(getActivity(), ArticleActivity.class)
-				.putExtra("articleId", item.Id).putExtra("item", item), 2);
+		startActivity(new Intent(getActivity(), ArticleActivity.class)
+				.putExtra("articleId", item.Id).putExtra("item", item));
 	}
 
 }

@@ -186,6 +186,7 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 			listMessage.addAll(data);
 		}
 		if (getActivity() != null) {
+			tvNodata.setEnabled(true);
 			tvNodata.setVisibility(listMessage.size() == 0 ? View.VISIBLE
 					: View.GONE);
 			tvNodata.setText(R.string.no_data_refresh);
@@ -199,6 +200,7 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tvNodata:
+			tvNodata.setEnabled(false);
 			tvLoading.setVisibility(View.VISIBLE);
 			loader.startLoading();
 			break;

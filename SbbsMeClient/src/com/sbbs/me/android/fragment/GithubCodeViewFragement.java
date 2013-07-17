@@ -1,23 +1,20 @@
 package com.sbbs.me.android.fragment;
 
 import org.eclipse.egit.github.core.Blob;
-import org.eclipse.egit.github.core.util.EncodingUtils;
 
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
-import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.R;
-import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.loader.SbbsCodeViewLoader;
+import com.sbbs.me.android.utils.CustomUIUtils;
 
 public class GithubCodeViewFragement extends BaseFragment implements
 		OnLoadCompleteListener<Blob> {
@@ -104,33 +101,11 @@ public class GithubCodeViewFragement extends BaseFragment implements
 		blob = data;
 		if (getActivity() != null) {
 			if (blob != null) {
-				buildUI();
+				CustomUIUtils.addBlock(getActivity(), data, 0, 0, "", layBlob,
+						210000, 210000, false, null, null);
 			}
 			blobLoading.setVisibility(View.GONE);
 		}
 	}
 
-	private void buildUI() {
-		int viewId = 100000;
-		if (getActivity() != null) {
-			BlockTextView block = new BlockTextView(getActivity());
-			block.setId(viewId);
-			RelativeLayout.LayoutParams rllp = new RelativeLayout.LayoutParams(
-					LinearLayout.LayoutParams.MATCH_PARENT,
-					LinearLayout.LayoutParams.WRAP_CONTENT);
-			if (viewId > 100000) {
-				rllp.addRule(RelativeLayout.BELOW, viewId - 1);
-			}
-			rllp.bottomMargin = UIUtils.dipToPx(4);
-			block.setLayoutParams(rllp);
-			String content = blob.getContent();
-			if (content == null)
-				content = "";
-			byte[] contents = EncodingUtils.fromBase64(content);
-			block.setCodeContent(new String(contents));
-			layBlob.addView(block);
-			layBlob.postInvalidate();
-			viewId++;
-		}
-	}
 }

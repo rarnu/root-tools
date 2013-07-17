@@ -169,6 +169,7 @@ public class HotTagsFragment extends BaseFragment implements
 			Global.listTags.addAll(data);
 		}
 		if (getActivity() != null) {
+			tvNodata.setEnabled(true);
 			tvNodata.setVisibility(Global.listTags.size() == 0 ? View.VISIBLE
 					: View.GONE);
 
@@ -182,6 +183,7 @@ public class HotTagsFragment extends BaseFragment implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tvNodata:
+			tvNodata.setEnabled(false);
 			tvLoading.setVisibility(View.VISIBLE);
 			loader.startLoading();
 			break;

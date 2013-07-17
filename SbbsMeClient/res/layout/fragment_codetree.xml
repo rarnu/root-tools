@@ -3,16 +3,29 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ListView 
+    <ListView
         android:id="@+id/treeList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:cacheColorHint="#00000000"
-        android:fastScrollEnabled="true"
         android:divider="@null"
         android:dividerHeight="8dip"
+        android:fastScrollEnabled="true"
+        android:overScrollMode="never"
+        android:padding="8dip" />
+
+    <TextView
+        android:id="@+id/tvNodata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.5"
         android:padding="8dip"
-        android:overScrollMode="never" />
+        android:text="@string/no_data_refresh"
+        android:textColor="@color/google_light_green"
+        android:textSize="18sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/treeLoading"

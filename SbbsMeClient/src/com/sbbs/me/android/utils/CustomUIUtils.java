@@ -1,7 +1,10 @@
 package com.sbbs.me.android.utils;
 
+import java.io.IOException;
 import java.lang.reflect.Field;
 
+import org.eclipse.egit.github.core.Blob;
+import org.eclipse.egit.github.core.util.EncodingUtils;
 import org.markdown4j.Markdown4jProcessor;
 
 import android.app.ActionBar;
@@ -58,6 +61,39 @@ public class CustomUIUtils {
 		String userId = item.AuthorId;
 		String htmlText = item.Body;
 		boolean isMarkdown = item.Format.equals("Markdown");
+		String text = "";
+		try {
+			text = isMarkdown ? (new Markdown4jProcessor().process(htmlText))
+					: htmlText;
+		} catch (IOException e) {
+		}
+		BlockTextView block = addBlock(context, text, false, userId, leftCount,
+				RightCount, headUrl, layout, viewId, baseViewId, needHead,
+				click, longClick);
+
+		block.setBlock(item);
+
+	}
+
+	public static void addBlock(Context context, Blob item, int leftCount,
+			int RightCount, String headUrl, RelativeLayout layout, int viewId,
+			int baseViewId, boolean needHead, View.OnClickListener click,
+			View.OnLongClickListener longClick) {
+
+		String content = item.getContent();
+		if (content == null)
+			content = "";
+		byte[] contents = EncodingUtils.fromBase64(content);
+		addBlock(context, new String(contents), true, "", leftCount,
+				RightCount, headUrl, layout, viewId, baseViewId, needHead,
+				click, longClick);
+	}
+
+	private static BlockTextView addBlock(Context context, String text,
+			boolean isCode, String userId, int leftCount, int RightCount,
+			String headUrl, RelativeLayout layout, int viewId, int baseViewId,
+			boolean needHead, View.OnClickListener click,
+			View.OnLongClickListener longClick) {
 
 		if (context != null) {
 			BlockTextView block = new BlockTextView(context);
@@ -70,22 +106,25 @@ public class CustomUIUtils {
 			}
 			rllp.bottomMargin = UIUtils.dipToPx(4);
 			block.setLayoutParams(rllp);
-			try {
-				block.setText(isMarkdown ? (new Markdown4jProcessor()
-						.process(htmlText)) : htmlText);
-				if (needHead) {
-					block.setHeadImageUrl(userId, headUrl);
-				}
-			} catch (Exception e) {
-
+			if (isCode) {
+				block.setCodeContent(text);
+			} else {
+				block.setText(text);
 			}
+
+			if (needHead) {
+				block.setHeadImageUrl(userId, headUrl);
+			}
+
 			block.setLeftRightCount(leftCount, RightCount);
-			block.setBlock(item);
 			block.setOnLongClickListener(longClick);
 			block.setOnClickListener(click);
 
 			layout.addView(block);
 			layout.postInvalidate();
+			return block;
+		} else {
+			return null;
 		}
 	}
 
