@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
-import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
@@ -25,6 +24,7 @@ import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeUser;
 import com.sbbs.me.android.consts.MenuIds;
+import com.sbbs.me.android.consts.PathDefine;
 import com.sbbs.me.android.loader.SbbsUserLoader;
 import com.sbbs.me.android.utils.Config;
 import com.sbbs.me.android.utils.CustomUIUtils;
@@ -160,8 +160,7 @@ public class UserDetailFragment extends BaseFragment implements
 					CustomUIUtils.addBlock(getActivity(), data.lastBlock, 0, 0,
 							"", layLastPost, 130000, 130000, false, null, null);
 				}
-				String headLocalPath = Environment
-						.getExternalStorageDirectory().getPath() + "/.sbbs/";
+				String headLocalPath = PathDefine.ROOT_PATH;
 				String headLocalName = data.Id + ".jpg";
 				DownloadUtils.downloadFileT(getActivity(), ivHead,
 						data.AvatarURL, headLocalPath, headLocalName, null);

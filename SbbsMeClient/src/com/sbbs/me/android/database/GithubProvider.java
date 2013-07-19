@@ -10,13 +10,12 @@ public class GithubProvider extends ContentProvider {
 
 	public static final Uri CONTENT_URI = Uri
 			.parse("content://com.sbbsme.github");
-	
+
 	public static final int ACTION_CLOSEDATABASE = -99;
-	public static final int ACTION_NEWDATABASE = -98;
-	public static final int ACTION_TREELIST = -3;
-	
+	public static final int ACTION_GITHUB_CACHE = 1;
+
 	private GithubDatabase database = null;
-	
+
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
 		return 0;
@@ -29,16 +28,28 @@ public class GithubProvider extends ContentProvider {
 
 	@Override
 	public Uri insert(Uri uri, ContentValues values) {
+		int actionId = -99;
+		try {
+			actionId = (int) ContentUris.parseId(uri);
+		} catch (Exception e) {
+
+		}
+		if (database != null) {
+			switch (actionId) {
+			case ACTION_GITHUB_CACHE:
+				database.insertOrUpdateGithubCache(values);
+				break;
+			}
+		}
 		return null;
 	}
 
 	@Override
 	public boolean onCreate() {
-		if (database == null) {
-			try {
-				database = new GithubDatabase();
-			} catch (Exception e) {
-			}
+		try {
+			database = new GithubDatabase();
+		} catch (Exception e) {
+
 		}
 		return (database != null);
 	}
@@ -50,28 +61,22 @@ public class GithubProvider extends ContentProvider {
 		try {
 			actionId = (int) ContentUris.parseId(uri);
 		} catch (Exception e) {
-			
+
 		}
-		if (actionId == GithubProvider.ACTION_CLOSEDATABASE) {
-			if (database != null) {
-				database.close();
-			}
-			return null;
-		} else if (actionId == GithubProvider.ACTION_NEWDATABASE) {
-			try {
-				database = new GithubDatabase();
-			} catch (Exception e) {
-				
-			}
-			return null;
-		} else {
-			if (database != null) {
-				return database.doQuery(uri, projection, selection,
-						selectionArgs, sortOrder);
-			} else {
-				return null;
+		Cursor c = null;
+		if (database != null) {
+			switch (actionId) {
+			case ACTION_GITHUB_CACHE:
+				c = database.queryGithubCache(selection, selectionArgs);
+				break;
+			case ACTION_CLOSEDATABASE:
+				if (database != null) {
+					database.closeDatabase();
+				}
+				break;
 			}
 		}
+		return c;
 	}
 
 	@Override
@@ -80,5 +85,4 @@ public class GithubProvider extends ContentProvider {
 		return 0;
 	}
 
-	
 }

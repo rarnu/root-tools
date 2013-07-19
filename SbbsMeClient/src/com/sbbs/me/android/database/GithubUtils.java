@@ -5,57 +5,62 @@ import java.util.List;
 
 import org.eclipse.egit.github.core.TreeEntry;
 
-import com.sbbs.me.android.consts.FieldDefine;
-
+import android.content.ContentResolver;
 import android.content.ContentUris;
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 
 public class GithubUtils {
 
-	public static void closeDatabase(Context context) {
-		context.getContentResolver().query(
-				ContentUris.withAppendedId(GithubProvider.CONTENT_URI,
-						GithubProvider.ACTION_CLOSEDATABASE), null,
-				null, null,null);
+	public static void saveTreeList(Context context, List<TreeEntry> list,
+			String parentSha, String repo) {
+		if (context != null && list != null) {
+			if (parentSha == null) {
+				parentSha = "";
+			}
+			ContentResolver cr = context.getContentResolver();
+			for (int i = 0; i < list.size(); i++) {
+				ContentValues cv = new ContentValues();
+				cv.put("sha", list.get(i).getSha());
+				cv.put("parent_sha", parentSha);
+				cv.put("path", list.get(i).getPath());
+				cv.put("type", list.get(i).getType());
+				cv.put("repo", repo);
+				cr.insert(ContentUris.withAppendedId(
+						GithubProvider.CONTENT_URI,
+						GithubProvider.ACTION_GITHUB_CACHE), cv);
+			}
+		}
 	}
-	
-	public static void newDatabase(Context context) {
-		context.getContentResolver().query(
-				ContentUris.withAppendedId(GithubProvider.CONTENT_URI,
-						GithubProvider.ACTION_NEWDATABASE), null,
-				null, null, null);
-	}
-	
-	public static List<TreeEntry> getTreeList(Context context, String userName, 
-			String repoName, String sha) {
+
+	public static List<TreeEntry> getTreeList(Context context, String repo,
+			String sha) {
 		List<TreeEntry> treeList = null;
-		if (!userName.equals("") && !repoName.equals("")
-				&& !sha.equals("")) {
-			String where = "UserName=? and RepoName=? and Sha=?";
-			String sort = "Order desc";
-			Cursor c = context.getContentResolver().query(
-					ContentUris.withAppendedId(GithubProvider.CONTENT_URI,
-							GithubProvider.ACTION_TREELIST),new String[] {userName,
-						repoName, sha}, where, null, sort);
+		if (!repo.equals("")) {
+			if (sha == null) {
+				sha = "";
+			}
+			Cursor c = context.getContentResolver()
+					.query(ContentUris.withAppendedId(
+							GithubProvider.CONTENT_URI,
+							GithubProvider.ACTION_GITHUB_CACHE), null,
+							"parent_sha=? and repo=?",
+							new String[] { sha, repo }, null);
 			if (c != null) {
 				treeList = new ArrayList<TreeEntry>();
 				c.moveToFirst();
 				while (!c.isAfterLast()) {
 					TreeEntry entry = new TreeEntry();
-					entry.setPath(c.getColumnName(c.
-							getColumnIndex(FieldDefine.TreeEntryFields[4])));
-					entry.setType(c.getColumnName(c.
-							getColumnIndex(FieldDefine.TreeEntryFields[5])));
+					entry.setSha(c.getString(c.getColumnIndex("sha")));
+					entry.setPath(c.getString(c.getColumnIndex("path")));
+					entry.setType(c.getString(c.getColumnIndex("type")));
 					treeList.add(entry);
 					c.moveToNext();
 				}
+				c.close();
 			}
 		}
 		return treeList;
-	}
-	
-	public static void saveTreeList() {
-		//TO DO...
 	}
 }

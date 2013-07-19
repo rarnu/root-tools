@@ -8,36 +8,34 @@ import java.util.List;
 import org.eclipse.egit.github.core.TreeEntry;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.rarnu.devlib.base.BaseLoader;
 import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.database.GithubUtils;
 
-public class SbbsCodeTreeLoader extends 
-		BaseLoader<TreeEntry> {
+public class SbbsCodeTreeLoader extends BaseLoader<TreeEntry> {
 
 	int repoType;
 	String sha;
 	HashMap<String, String> parentSha;
 
-	public SbbsCodeTreeLoader(Context context, 
-			int repoType, String sha) {
+	public SbbsCodeTreeLoader(Context context, int repoType, String sha) {
 		super(context);
 		this.repoType = repoType;
 		this.sha = sha;
 		this.parentSha = new HashMap<String, String>();
 	}
-	
+
 	public void setSha(String sha) {
 		this.sha = sha;
 	}
-	
+
 	public void setParentSha(HashMap<String, String> sha) {
 		this.parentSha = sha;
 	}
-	
+
 	@Override
-	public List<TreeEntry> loadInBackground(){
+	public List<TreeEntry> loadInBackground() {
 		String userName = "zhuangbiaowei";
 		String repoName = "sbbsme";
 		if (repoType == 1) {
@@ -46,13 +44,16 @@ public class SbbsCodeTreeLoader extends
 		}
 		List<TreeEntry> list = null;
 		try {
-			list = SbbsMeAPI.getCodeTree(userName,
-					repoName, sha, getContext());
-		} catch(Exception e) {
-			Log.e("TreeEntry", e.getMessage());
+			list = GithubUtils.getTreeList(getContext(), repoName, sha);
+			if (list == null || list.size() == 0) {
+				list = SbbsMeAPI.getCodeTree(userName, repoName, sha,
+						getContext());
+				GithubUtils.saveTreeList(getContext(), list, sha, repoName);
+			}
+		} catch (Exception e) {
+
 		}
-		if (list != null && sha != null 
-				&& parentSha.containsKey(sha)) {
+		if (list != null && sha != null && parentSha.containsKey(sha)) {
 			TreeEntry parent = new TreeEntry();
 			parent.setSha(parentSha.get(sha));
 			parent.setPath("..");

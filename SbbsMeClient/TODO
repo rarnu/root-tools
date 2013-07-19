@@ -6,3 +6,4 @@ Weibo
 provider :google_oauth2, '876356697116.apps.googleusercontent.com', 'Sc9hk9vgfb5nQCYCSG1niCoM', {}
 
 1. 新手引导
+2. 分享界面

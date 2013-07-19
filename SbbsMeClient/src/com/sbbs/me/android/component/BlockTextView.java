@@ -1,7 +1,6 @@
 package com.sbbs.me.android.component;
 
 import android.content.Context;
-import android.os.Environment;
 import android.text.Html;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
@@ -15,6 +14,7 @@ import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.consts.PathDefine;
 import com.sbbs.me.android.utils.MiscUtils;
 
 public class BlockTextView extends RelativeLayout implements OnTouchListener {
@@ -71,8 +71,7 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 
 	public void setHeadImageUrl(String uid, String html) {
 		String url = MiscUtils.extractHeadUrl(html);
-		String headLocalPath = Environment.getExternalStorageDirectory()
-				.getPath() + "/.sbbs/";
+		String headLocalPath = PathDefine.ROOT_PATH;
 		String headLocalName = uid + ".jpg";
 		DownloadUtils.downloadFileT(getContext(), ivIcon, url, headLocalPath,
 				headLocalName, null);

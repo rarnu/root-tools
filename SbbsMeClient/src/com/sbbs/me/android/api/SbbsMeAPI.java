@@ -22,7 +22,6 @@ import android.util.Log;
 
 import com.rarnu.utils.HttpRequest;
 import com.rarnu.utils.common.HttpRequestResponseData;
-import com.sbbs.me.android.database.GithubUtils;
 import com.sbbs.me.android.utils.Config;
 
 public class SbbsMeAPI {
@@ -159,13 +158,6 @@ public class SbbsMeAPI {
 		DataService dataService = new DataService(client);
 		list = dataService.getTree(repo, sha).getTree();
 
-		return list;
-	}
-
-	public static List<TreeEntry> getCodeTreeFromDB(String userName,
-			String repoName, String sha, Context context) throws Exception {
-		List<TreeEntry> list = null;
-		list = GithubUtils.getTreeList(context, userName, repoName, sha);
 		return list;
 	}
 
