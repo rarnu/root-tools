@@ -48,6 +48,11 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
         </activity>
         <activity
+            android:name=".dialog.ShareDialog"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
+        </activity>
+        <activity
             android:name=".ArticleActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >

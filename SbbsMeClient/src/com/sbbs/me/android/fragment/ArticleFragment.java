@@ -32,6 +32,7 @@ import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.dialog.ArticleMenuDialog;
 import com.sbbs.me.android.dialog.ConfirmDialog;
+import com.sbbs.me.android.dialog.ShareDialog;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
 import com.sbbs.me.android.utils.Config;
 import com.sbbs.me.android.utils.CustomUIUtils;
@@ -115,20 +116,14 @@ public class ArticleFragment extends BaseFragment implements
 		switch (item.getItemId()) {
 		case MenuIds.MENU_ID_SHARE:
 			if (article != null) {
-				share();
+				String body = getString(R.string.share_fmt,
+						article.main_block.Subject, article.main_block.Id);
+				startActivity(new Intent(getActivity(), ShareDialog.class)
+						.putExtra("body", body));
 			}
 			break;
 		}
 		return true;
-	}
-
-	private void share() {
-		Intent shareIntent = new Intent(Intent.ACTION_SEND);
-		shareIntent.setType("image/*");
-		String body = getString(R.string.share_fmt, article.main_block.Subject,
-				article.main_block.Id);
-		shareIntent.putExtra(Intent.EXTRA_TEXT, body);
-		startActivity(shareIntent);
 	}
 
 	@Override
