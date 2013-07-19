@@ -23,13 +23,11 @@ public class GithubCodeViewFragement extends BaseFragment implements
 	SbbsCodeViewLoader loader;
 	Blob blob = null;
 	TextView blobLoading;
-	byte repoType = 0;
-	String sha;
+	int repoType = 0;
 
-	public GithubCodeViewFragement(byte repoType, String sha) {
+	public GithubCodeViewFragement(int repoType) {
 		super();
 		this.repoType = repoType;
-		this.sha = sha;
 		tagText = ResourceUtils
 				.getString(repoType == 0 ? R.tag.tag_codeview_fragment_sbbs
 						: R.tag.tag_codeview_fragment_android);
@@ -57,6 +55,8 @@ public class GithubCodeViewFragement extends BaseFragment implements
 	public void initComponents() {
 		layBlob = (RelativeLayout) innerView.findViewById(R.id.layBlob);
 		blobLoading = (TextView) innerView.findViewById(R.id.blobLoading);
+
+		String sha = getArguments().getString("sha");
 		loader = new SbbsCodeViewLoader(getActivity(), repoType, sha);
 	}
 
@@ -101,8 +101,11 @@ public class GithubCodeViewFragement extends BaseFragment implements
 		blob = data;
 		if (getActivity() != null) {
 			if (blob != null) {
-				CustomUIUtils.addBlock(getActivity(), data, 0, 0, "", layBlob,
-						210000, 210000, false, null, null);
+				String path = getArguments().getString("path");
+				boolean isMarkdown = path.toLowerCase().endsWith(".md")
+						|| path.equals("README");
+				CustomUIUtils.addBlock(getActivity(), data, isMarkdown, 0, 0,
+						"", layBlob, 210000, 210000, false, null, null);
 			}
 			blobLoading.setVisibility(View.GONE);
 		}

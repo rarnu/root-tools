@@ -13,7 +13,6 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -39,14 +38,13 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 	TextView tvNodata;
 	TextView treeLoading;
 	List<TreeEntry> listTreeEntry;
-	byte repoType = 0;
 	String sha;
+	int repoType = 0;
 	HashMap<String, String> parentSha;
 
-	public GithubCodeTreeFragment(byte repoType, String sha) {
+	public GithubCodeTreeFragment(int repoType) {
 		super();
 		this.repoType = repoType;
-		this.sha = sha;
 		this.parentSha = new HashMap<String, String>();
 		tagText = ResourceUtils
 				.getString(repoType == 0 ? R.tag.tag_codetree_fragment_sbbs
@@ -80,7 +78,7 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		}
 		adapter = new SbbsMeTreeEntryAdapter(getActivity(), listTreeEntry);
 		treeList.setAdapter(adapter);
-		loader = new SbbsCodeTreeLoader(getActivity(), repoType, sha);
+		loader = new SbbsCodeTreeLoader(getActivity(), repoType, null);
 		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
 	}
 
@@ -130,6 +128,8 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 			listTreeEntry.addAll(data);
 		}
 		if (getActivity() != null) {
+			treeLoading.setVisibility(View.GONE);
+			treeList.setOnItemClickListener(this);
 			tvNodata.setEnabled(true);
 			tvNodata.setVisibility(listTreeEntry.size() == 0 ? View.VISIBLE
 					: View.GONE);
@@ -142,23 +142,21 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
 		final TreeEntry item = listTreeEntry.get(position);
-		if (item.getSha() != null) {
-			Log.e("onItemClick", item.getSha());
-		}
 		if (!this.parentSha.containsKey(item.getSha())) {
 			this.parentSha.put(item.getSha(), this.sha);
 		}
 		this.sha = item.getSha();
 		if (item.getType().equals(TYPE_TREE)) {
+			treeLoading.setVisibility(View.VISIBLE);
+			treeList.setOnItemClickListener(null);
 			loader.setSha(this.sha);
 			loader.setParentSha(this.parentSha);
 			loader.startLoading();
 		} else if (item.getType().equals(TYPE_BLOB)) {
-			Bundle bn = new Bundle();
-			bn.putByte("repoType", repoType);
-			bn.putString("sha", item.getSha());
 			startActivity(new Intent(getActivity(), CodeViewActivity.class)
-					.putExtras(bn));
+					.putExtra("repoType", repoType)
+					.putExtra("sha", item.getSha())
+					.putExtra("path", item.getPath()));
 		}
 	}
 

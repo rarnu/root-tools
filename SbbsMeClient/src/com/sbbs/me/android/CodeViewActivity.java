@@ -6,8 +6,8 @@ import android.os.Bundle;
 import com.rarnu.devlib.base.BaseActivity;
 import com.sbbs.me.android.fragment.GithubCodeViewFragement;
 
-public class CodeViewActivity extends BaseActivity{
-	
+public class CodeViewActivity extends BaseActivity {
+
 	@Override
 	public int getIcon() {
 		return R.drawable.inner_logo;
@@ -16,12 +16,10 @@ public class CodeViewActivity extends BaseActivity{
 	@Override
 	public Fragment replaceFragment() {
 		Bundle bn = new Bundle();
-		byte repoType = getIntent().getByteExtra("repoType", (byte)0);
-		String sha = getIntent().getStringExtra("sha");
-		bn.putByte("repoType", repoType);
-		bn.putString("sha", sha);
-		GithubCodeViewFragement blobView = 
-				new GithubCodeViewFragement(repoType, sha);
+		bn.putString("sha", getIntent().getStringExtra("sha"));
+		bn.putString("path", getIntent().getStringExtra("path"));
+		GithubCodeViewFragement blobView = new GithubCodeViewFragement(
+				getIntent().getIntExtra("repoType", 0));
 		blobView.setArguments(bn);
 		return blobView;
 	}

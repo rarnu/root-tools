@@ -8,6 +8,7 @@ import java.util.List;
 import org.eclipse.egit.github.core.TreeEntry;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.rarnu.devlib.base.BaseLoader;
 import com.sbbs.me.android.api.SbbsMeAPI;
@@ -15,12 +16,12 @@ import com.sbbs.me.android.api.SbbsMeAPI;
 public class SbbsCodeTreeLoader extends 
 		BaseLoader<TreeEntry> {
 
-	byte repoType;
+	int repoType;
 	String sha;
 	HashMap<String, String> parentSha;
 
 	public SbbsCodeTreeLoader(Context context, 
-			byte repoType, String sha) {
+			int repoType, String sha) {
 		super(context);
 		this.repoType = repoType;
 		this.sha = sha;
@@ -48,6 +49,7 @@ public class SbbsCodeTreeLoader extends
 			list = SbbsMeAPI.getCodeTree(userName,
 					repoName, sha, getContext());
 		} catch(Exception e) {
+			Log.e("TreeEntry", e.getMessage());
 		}
 		if (list != null && sha != null 
 				&& parentSha.containsKey(sha)) {

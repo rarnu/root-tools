@@ -54,10 +54,8 @@ public class OnGithubTabFragment extends BaseTabFragment {
 
 	@Override
 	public void initFragmentList(List<Fragment> listFragment) {
-		String sha = null;
-		String asha = null;
-		listFragment.add(new GithubCodeTreeFragment((byte)0, sha));
-		listFragment.add(new GithubCodeTreeFragment((byte)1, asha));
+		listFragment.add(new GithubCodeTreeFragment(0));
+		listFragment.add(new GithubCodeTreeFragment(1));
 	}
 
 }

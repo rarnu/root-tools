@@ -227,8 +227,6 @@ public class SbbsMeAPI {
 	 */
 	public static String addNewArticle(String subject, String format,
 			String txtBody, boolean isPublic, String tags) {
-		// curl http://sbbs.me/api/article -d
-		// "subject=123&format=Markdown&txtBody=test&public=1&tags=1,2,3"
 
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("subject", subject));
@@ -339,7 +337,6 @@ public class SbbsMeAPI {
 	 * @return "OK"
 	 */
 	public static String followUser(String myUserId, String followUserId) {
-		// curl http://sbbs.me/follow_user/1756787011 -d from_user_id=1391292644
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("from_user_id", myUserId));
 		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL

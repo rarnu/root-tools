@@ -9,10 +9,10 @@ import com.sbbs.me.android.api.SbbsMeAPI;
 
 public class SbbsCodeViewLoader extends BaseClassLoader<Blob> {
 
-	byte repoType;
+	int repoType;
 	String sha;
 
-	public SbbsCodeViewLoader(Context context, byte repoType, String sha) {
+	public SbbsCodeViewLoader(Context context, int repoType, String sha) {
 		super(context);
 		this.repoType = repoType;
 		this.sha = sha;

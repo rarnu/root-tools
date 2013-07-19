@@ -75,18 +75,31 @@ public class CustomUIUtils {
 
 	}
 
-	public static void addBlock(Context context, Blob item, int leftCount,
-			int RightCount, String headUrl, RelativeLayout layout, int viewId,
-			int baseViewId, boolean needHead, View.OnClickListener click,
+	public static void addBlock(Context context, Blob item, boolean isMarkdown,
+			int leftCount, int RightCount, String headUrl,
+			RelativeLayout layout, int viewId, int baseViewId,
+			boolean needHead, View.OnClickListener click,
 			View.OnLongClickListener longClick) {
-
 		String content = item.getContent();
 		if (content == null)
 			content = "";
 		byte[] contents = EncodingUtils.fromBase64(content);
-		addBlock(context, new String(contents), true, "", leftCount,
-				RightCount, headUrl, layout, viewId, baseViewId, needHead,
-				click, longClick);
+		String strEd = new String(contents);
+		if (isMarkdown) {
+			try {
+				strEd = new Markdown4jProcessor().process(strEd);
+				addBlock(context, strEd, false, "", leftCount,
+						RightCount, headUrl, layout, viewId, baseViewId, needHead,
+						click, longClick);
+			} catch (IOException e) {
+
+			}
+		} else {
+			addBlock(context, strEd, true, "", leftCount,
+					RightCount, headUrl, layout, viewId, baseViewId, needHead,
+					click, longClick);
+			
+		}
 	}
 
 	private static BlockTextView addBlock(Context context, String text,
