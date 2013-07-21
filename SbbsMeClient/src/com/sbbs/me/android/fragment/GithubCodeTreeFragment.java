@@ -26,11 +26,13 @@ import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.CodeViewActivity;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeTreeEntryAdapter;
+import com.sbbs.me.android.component.PathView;
+import com.sbbs.me.android.component.PathView.PathClickListener;
 import com.sbbs.me.android.loader.SbbsCodeTreeLoader;
 
 public class GithubCodeTreeFragment extends BaseFragment implements
 		OnLoadCompleteListener<List<TreeEntry>>, OnItemClickListener,
-		OnClickListener {
+		OnClickListener, PathClickListener {
 
 	ListView treeList;
 	SbbsCodeTreeLoader loader;
@@ -41,6 +43,7 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 	String sha;
 	int repoType = 0;
 	HashMap<String, String> parentSha;
+	PathView tvPath;
 
 	public GithubCodeTreeFragment(int repoType) {
 		super();
@@ -80,6 +83,7 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		treeList.setAdapter(adapter);
 		loader = new SbbsCodeTreeLoader(getActivity(), repoType, null);
 		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
+		tvPath = (PathView) innerView.findViewById(R.id.tvPath);
 	}
 
 	@Override
@@ -87,12 +91,18 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		treeList.setOnItemClickListener(this);
 		loader.registerListener(0, this);
 		tvNodata.setOnClickListener(this);
+		tvPath.setPathClickListener(this);
 	}
 
 	@Override
 	public void initLogic() {
 		treeLoading.setVisibility(View.VISIBLE);
 		loader.startLoading();
+		TreeEntry tr = new TreeEntry();
+		tr.setPath("root");
+		tr.setSha("");
+		tvPath.addPath(tr);
+		//tvPath.postInvalidate();
 	}
 
 	@Override
@@ -147,8 +157,15 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		}
 		this.sha = item.getSha();
 		if (item.getType().equals(TYPE_TREE)) {
+			if ( item.getPath().equals("..")) {
+				tvPath.upLevel();
+			} else {
+				tvPath.addPath(item);
+			}
+			treeLoading.setText("Loading...");
 			treeLoading.setVisibility(View.VISIBLE);
 			treeList.setOnItemClickListener(null);
+			loader.setRefresh(false);
 			loader.setSha(this.sha);
 			loader.setParentSha(this.parentSha);
 			loader.startLoading();
@@ -165,9 +182,30 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		switch (v.getId()) {
 		case R.id.tvNodata:
 			tvNodata.setEnabled(false);
+			treeLoading.setText("Loading...");
 			treeLoading.setVisibility(View.VISIBLE);
 			loader.startLoading();
 			break;
+		}
+	}
+
+	@Override
+	public void onPathClick(TreeEntry entry) {
+		if (entry.getSha().equals(this.sha)) {
+			treeLoading.setText("Updating...");
+			treeLoading.setVisibility(View.VISIBLE);
+			loader.setRefresh(true);
+			loader.startLoading();
+		} else {
+			loader.setRefresh(false);
+			tvPath.gotoPath(entry);
+			this.sha = entry.getSha();
+			treeLoading.setText("Loading..");
+			treeLoading.setVisibility(View.VISIBLE);
+			treeList.setOnItemClickListener(null);
+			loader.setSha(this.sha);
+			loader.setParentSha(this.parentSha);
+			loader.startLoading();
 		}
 	}
 }

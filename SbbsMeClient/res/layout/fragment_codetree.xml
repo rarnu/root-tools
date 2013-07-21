@@ -3,10 +3,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <com.sbbs.me.android.component.PathView
+        android:id="@+id/tvPath"
+        android:layout_width="match_parent"
+        android:layout_height="48dip" />
+    <TextView 
+        android:id="@+id/line"
+        android:layout_below="@+id/tvPath"
+        android:layout_height="1px"
+        android:layout_width="match_parent"
+        android:background="@color/google_light_green" />
+
     <ListView
         android:id="@+id/treeList"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_below="@+id/line"
         android:cacheColorHint="#00000000"
         android:divider="@null"
         android:dividerHeight="8dip"

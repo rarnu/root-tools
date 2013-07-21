@@ -18,12 +18,14 @@ public class SbbsCodeTreeLoader extends BaseLoader<TreeEntry> {
 	int repoType;
 	String sha;
 	HashMap<String, String> parentSha;
+	boolean refresh;
 
 	public SbbsCodeTreeLoader(Context context, int repoType, String sha) {
 		super(context);
 		this.repoType = repoType;
 		this.sha = sha;
 		this.parentSha = new HashMap<String, String>();
+		this.refresh = false;
 	}
 
 	public void setSha(String sha) {
@@ -32,6 +34,10 @@ public class SbbsCodeTreeLoader extends BaseLoader<TreeEntry> {
 
 	public void setParentSha(HashMap<String, String> sha) {
 		this.parentSha = sha;
+	}
+	
+	public void setRefresh(boolean refresh) {
+		this.refresh = refresh;
 	}
 
 	@Override
@@ -45,7 +51,7 @@ public class SbbsCodeTreeLoader extends BaseLoader<TreeEntry> {
 		List<TreeEntry> list = null;
 		try {
 			list = GithubUtils.getTreeList(getContext(), repoName, sha);
-			if (list == null || list.size() == 0) {
+			if (list == null || list.size() == 0 || refresh) {
 				list = SbbsMeAPI.getCodeTree(userName, repoName, sha,
 						getContext());
 				GithubUtils.saveTreeList(getContext(), list, sha, repoName);
