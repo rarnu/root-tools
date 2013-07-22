@@ -102,7 +102,6 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		tr.setPath("root");
 		tr.setSha("");
 		tvPath.addPath(tr);
-		//tvPath.postInvalidate();
 	}
 
 	@Override
@@ -138,13 +137,10 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 			listTreeEntry.addAll(data);
 		}
 		if (getActivity() != null) {
-			treeLoading.setVisibility(View.GONE);
-			treeList.setOnItemClickListener(this);
-			tvNodata.setEnabled(true);
 			tvNodata.setVisibility(listTreeEntry.size() == 0 ? View.VISIBLE
 					: View.GONE);
 			adapter.setNewList(listTreeEntry);
-			treeLoading.setVisibility(View.GONE);
+			endLoad();
 		}
 	}
 
@@ -157,18 +153,16 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		}
 		this.sha = item.getSha();
 		if (item.getType().equals(TYPE_TREE)) {
-			if ( item.getPath().equals("..")) {
+			if (item.getPath().equals("..")) {
 				tvPath.upLevel();
 			} else {
 				tvPath.addPath(item);
 			}
-			treeLoading.setText("Loading...");
-			treeLoading.setVisibility(View.VISIBLE);
-			treeList.setOnItemClickListener(null);
+			treeLoading.setText(R.string.loading);
 			loader.setRefresh(false);
 			loader.setSha(this.sha);
 			loader.setParentSha(this.parentSha);
-			loader.startLoading();
+			startLoad();
 		} else if (item.getType().equals(TYPE_BLOB)) {
 			startActivity(new Intent(getActivity(), CodeViewActivity.class)
 					.putExtra("repoType", repoType)
@@ -181,10 +175,8 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.tvNodata:
-			tvNodata.setEnabled(false);
-			treeLoading.setText("Loading...");
-			treeLoading.setVisibility(View.VISIBLE);
-			loader.startLoading();
+			treeLoading.setText(R.string.loading);
+			startLoad();
 			break;
 		}
 	}
@@ -192,20 +184,31 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 	@Override
 	public void onPathClick(TreeEntry entry) {
 		if (entry.getSha().equals(this.sha)) {
-			treeLoading.setText("Updating...");
-			treeLoading.setVisibility(View.VISIBLE);
+			treeLoading.setText(R.string.Updating);
 			loader.setRefresh(true);
-			loader.startLoading();
 		} else {
 			loader.setRefresh(false);
 			tvPath.gotoPath(entry);
 			this.sha = entry.getSha();
-			treeLoading.setText("Loading..");
-			treeLoading.setVisibility(View.VISIBLE);
-			treeList.setOnItemClickListener(null);
+			treeLoading.setText(R.string.loading);
 			loader.setSha(this.sha);
 			loader.setParentSha(this.parentSha);
-			loader.startLoading();
 		}
+		startLoad();
+	}
+
+	private void startLoad() {
+		tvNodata.setEnabled(false);
+		treeLoading.setVisibility(View.VISIBLE);
+		tvPath.setPathClickListener(null);
+		treeList.setOnItemClickListener(null);
+		loader.startLoading();
+	}
+
+	private void endLoad() {
+		tvNodata.setEnabled(true);
+		treeLoading.setVisibility(View.GONE);
+		tvPath.setPathClickListener(this);
+		treeList.setOnItemClickListener(this);
 	}
 }

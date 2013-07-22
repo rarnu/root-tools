@@ -52,8 +52,10 @@ public class PathView extends HorizontalScrollView implements OnClickListener {
 		addView(layBase);
 	}
 	
+	@Override
 	public void postInvalidate() {
-		this.buildUI();
+		super.postInvalidate();
+		buildUI();
 	}
 
 	private void buildUI() {
@@ -76,11 +78,11 @@ public class PathView extends HorizontalScrollView implements OnClickListener {
 			tv.setBackgroundResource(R.drawable.action_button_style);
 			tv.setTextColor(getResources().getColor(R.color.google_dark_green));
 			tv.setTextSize(16);
-			if (i + 1 < listPath.size()) {
+//			if (i + 1 < listPath.size()) {
 				tv.setText(listPath.get(i).getPath() + "/");
-			} else {
-				tv.setText(listPath.get(i).getPath());
-			}
+//			} else {
+//				tv.setText(listPath.get(i).getPath());
+//			}
 			tv.setTag(listPath.get(i));
 			tv.setOnClickListener(this);
 			layBase.addView(tv);
@@ -90,12 +92,12 @@ public class PathView extends HorizontalScrollView implements OnClickListener {
 
 	public void addPath(TreeEntry path) {
 		listPath.add(path);
-		this.postInvalidate();
+		postInvalidate();
 	}
 
 	public void upLevel() {
 		listPath.remove(listPath.size() - 1);
-		this.postInvalidate();
+		postInvalidate();
 	}
 
 	public void gotoPath(TreeEntry path) {
@@ -108,7 +110,7 @@ public class PathView extends HorizontalScrollView implements OnClickListener {
 		}
 		listPath.clear();
 		listPath.addAll(tmp);
-		this.postInvalidate();
+		postInvalidate();
 	}
 
 	public interface PathClickListener {
