@@ -1,6 +1,7 @@
 package com.rarnu.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.io.UnsupportedEncodingException;
@@ -26,16 +27,20 @@ import org.apache.http.util.EntityUtils;
 import android.util.Log;
 
 import com.rarnu.utils.common.HttpRequestResponseData;
+import com.rarnu.utils.http.FilePart;
+import com.rarnu.utils.http.MultipartEntity;
+import com.rarnu.utils.http.Part;
+import com.rarnu.utils.http.StringPart;
 
 public class HttpRequest {
 
-	public static String simplePostWithHeader(String host, String param, 
+	public static String simplePostWithHeader(String host, String param,
 			String encoding, Map<String, String> property) throws Exception {
 		URL url = new URL(host);
 		URLConnection conn = url.openConnection();
 		Iterator<Entry<String, String>> iter = property.entrySet().iterator();
-		while ( iter.hasNext() ) {
-			Map.Entry<String,String> entry = iter.next();
+		while (iter.hasNext()) {
+			Map.Entry<String, String> entry = iter.next();
 			conn.addRequestProperty(entry.getKey(), entry.getValue());
 		}
 		conn.setDoOutput(true);
@@ -55,7 +60,7 @@ public class HttpRequest {
 		isr.close();
 		return result;
 	}
-	
+
 	public static String simplePost(String host, String param, String encoding)
 			throws Exception {
 		return simplePostWithHeader(host, param, encoding, null);
@@ -80,6 +85,12 @@ public class HttpRequest {
 		return executeForResult(httpPost, encoding);
 	}
 
+	public static String postFile(String host, List<BasicNameValuePair> params,
+			List<String> files, String encoding) {
+		HttpPost httpPost = buildPostFileParts(host, params, files, encoding);
+		return executeForResult(httpPost, encoding);
+	}
+
 	public static HttpRequestResponseData postWithHeader(String host,
 			List<BasicNameValuePair> params, CookieStore cookie, String encoding) {
 		HttpPost httpPost = new HttpPost(host);
@@ -91,6 +102,35 @@ public class HttpRequest {
 
 		}
 		return executeForData(httpPost, cookie, encoding);
+	}
+
+	public static HttpRequestResponseData postFileWithHeader(String host,
+			List<BasicNameValuePair> params, List<String> files,
+			CookieStore cookie, String encoding) {
+		HttpPost httpPost = buildPostFileParts(host, params, files, encoding);
+		return executeForData(httpPost, cookie, encoding);
+	}
+
+	private static HttpPost buildPostFileParts(String host,
+			List<BasicNameValuePair> params, List<String> files, String encoding) {
+		HttpPost httpPost = new HttpPost(host);
+		try {
+			Part[] p = new Part[params.size() + files.size()];
+			for (int i = 0; i < params.size(); i++) {
+				p[i] = new StringPart(params.get(i).getName(), params.get(i)
+						.getValue(), encoding);
+			}
+			int idx = params.size();
+			for (int i = idx; i < p.length; i++) {
+				p[i] = new FilePart("file", new File(files.get(i - idx)),
+						"*/*", encoding);
+			}
+			MultipartEntity multipart = new MultipartEntity(p);
+			httpPost.setEntity(multipart);
+		} catch (Exception e) {
+
+		}
+		return httpPost;
 	}
 
 	public static String get(String host, String params, String encoding) {

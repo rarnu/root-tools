@@ -2,7 +2,6 @@ package com.sbbs.me.android.fragment;
 
 import java.util.List;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
@@ -15,6 +14,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.devlib.base.BaseSlidingActivity;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.ArticleActivity;
 import com.sbbs.me.android.Global;
@@ -130,6 +130,7 @@ public class CommentFragment extends BaseFragment implements OnClickListener,
 
 	@Override
 	public void onClick(View v) {
+		((BaseSlidingActivity) getActivity()).toggle();
 		final SbbsMeBlock item = ((BlockTextView) v).getBlock();
 		Log.e("onClick", String.format("right:%d", item.RightBlockCount));
 		startActivityForResult(new Intent(getActivity(), ArticleActivity.class)
@@ -156,19 +157,8 @@ public class CommentFragment extends BaseFragment implements OnClickListener,
 		if (getActivity() != null) {
 			if (article != null) {
 				buildUI();
-			} else {
-				doArticleAndClose();
 			}
 			tvLoading.setVisibility(View.GONE);
-		}
-	}
-
-	private void doArticleAndClose() {
-		Global.autoRefreshTag = true;
-		Global.autoLoadArticleTag = true;
-		if (getActivity() != null) {
-			getActivity().setResult(Activity.RESULT_OK);
-			getActivity().finish();
 		}
 	}
 

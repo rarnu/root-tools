@@ -30,8 +30,7 @@ public class SbbsBlockSender extends BaseClassLoader<String> {
 			ret = SbbsMeAPI.appendBlock(block.Id, text);
 			break;
 		case 1:
-			ret = SbbsMeAPI.commentBlock(block.Id, text, "comment:"
-					+ block.Subject);
+			ret = SbbsMeAPI.commentBlock(block.Id, text, block.Subject);
 			break;
 		case 2:
 			ret = SbbsMeAPI.editBlock(block.Id, text);

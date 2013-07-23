@@ -450,4 +450,25 @@ public class SbbsMeAPI {
 		}
 		return block;
 	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param userId
+	 * @param text
+	 * @return
+	 */
+	public static String feedback(String userId, String email, String text) {
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("text", text));
+		params.add(new BasicNameValuePair("email", email));
+		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+				+ "feedback/" + userId, params, cookieData.cookie, HTTP.UTF_8);
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("feedback", retStr);
+		}
+		return retStr;
+	}
 }
