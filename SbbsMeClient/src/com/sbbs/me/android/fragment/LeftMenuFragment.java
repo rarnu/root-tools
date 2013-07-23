@@ -3,6 +3,7 @@ package com.sbbs.me.android.fragment;
 import java.util.ArrayList;
 import java.util.List;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -15,6 +16,7 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
+import com.sbbs.me.android.AboutActivity;
 import com.sbbs.me.android.IMainIntf;
 import com.sbbs.me.android.R;
 
@@ -62,6 +64,7 @@ public class LeftMenuFragment extends BaseFragment implements
 		listMenu.add(getString(R.string.lm_hottags));
 		listMenu.add(getString(R.string.lm_ongithub));
 		listExit = new ArrayList<String>();
+		listExit.add(getString(R.string.lm_about));
 		listExit.add(getString(R.string.lm_exit));
 		adapterMenu = new ArrayAdapter<String>(getActivity(),
 				R.layout.item_menu, listMenu);
@@ -117,8 +120,17 @@ public class LeftMenuFragment extends BaseFragment implements
 		case R.id.lvMenu:
 			((IMainIntf) getActivity()).switchPage(position, true);
 			break;
-		case R.id.lvExit:
-			getActivity().finish();
+		case R.id.lvExit: {
+			switch (position) {
+			case 0:
+				startActivity(new Intent(getActivity(), AboutActivity.class));
+				break;
+			case 1:
+				getActivity().finish();
+				break;
+			}
+
+		}
 			break;
 		}
 	}

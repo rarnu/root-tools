@@ -41,10 +41,10 @@ public class MultipartEntity extends AbstractHttpEntity {
 
 	public MultipartEntity(Part[] parts, HttpParams params) {
 		if (parts == null) {
-			throw new IllegalArgumentException("parts cannot be null");
+			throw new IllegalArgumentException();
 		}
 		if (params == null) {
-			throw new IllegalArgumentException("params cannot be null");
+			throw new IllegalArgumentException();
 		}
 		this.parts = parts;
 		this.params = params;
@@ -106,7 +106,7 @@ public class MultipartEntity extends AbstractHttpEntity {
 
 	public InputStream getContent() throws IOException, IllegalStateException {
 		if (!isRepeatable() && this.contentConsumed) {
-			throw new IllegalStateException("Content has been consumed");
+			throw new IllegalStateException();
 		}
 		this.contentConsumed = true;
 

@@ -12,3 +12,5 @@ curl -d 'email=<email>&text=<feedback text>' http://sbbs.me/api/feedback/<userid
 
 
 1. 新手引导
+2. about
+3. upload images

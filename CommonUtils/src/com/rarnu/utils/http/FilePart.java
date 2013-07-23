@@ -25,7 +25,7 @@ public class FilePart extends PartBase {
 				charset == null ? "ISO-8859-1" : charset,
 				DEFAULT_TRANSFER_ENCODING);
 		if (partSource == null) {
-			throw new IllegalArgumentException("Source may not be null");
+			throw new IllegalArgumentException();
 		}
 		this.source = partSource;
 	}

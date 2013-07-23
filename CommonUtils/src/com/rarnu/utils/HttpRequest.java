@@ -86,7 +86,7 @@ public class HttpRequest {
 	}
 
 	public static String postFile(String host, List<BasicNameValuePair> params,
-			List<String> files, String encoding) {
+			List<BasicNameValuePair> files, String encoding) {
 		HttpPost httpPost = buildPostFileParts(host, params, files, encoding);
 		return executeForResult(httpPost, encoding);
 	}
@@ -105,14 +105,15 @@ public class HttpRequest {
 	}
 
 	public static HttpRequestResponseData postFileWithHeader(String host,
-			List<BasicNameValuePair> params, List<String> files,
+			List<BasicNameValuePair> params, List<BasicNameValuePair> files,
 			CookieStore cookie, String encoding) {
 		HttpPost httpPost = buildPostFileParts(host, params, files, encoding);
 		return executeForData(httpPost, cookie, encoding);
 	}
 
 	private static HttpPost buildPostFileParts(String host,
-			List<BasicNameValuePair> params, List<String> files, String encoding) {
+			List<BasicNameValuePair> params, List<BasicNameValuePair> files,
+			String encoding) {
 		HttpPost httpPost = new HttpPost(host);
 		try {
 			Part[] p = new Part[params.size() + files.size()];
@@ -122,8 +123,8 @@ public class HttpRequest {
 			}
 			int idx = params.size();
 			for (int i = idx; i < p.length; i++) {
-				p[i] = new FilePart("file", new File(files.get(i - idx)),
-						"*/*", encoding);
+				p[i] = new FilePart(files.get(i - idx).getName(), new File(
+						files.get(i - idx).getValue()), "*/*", encoding);
 			}
 			MultipartEntity multipart = new MultipartEntity(p);
 			httpPost.setEntity(multipart);

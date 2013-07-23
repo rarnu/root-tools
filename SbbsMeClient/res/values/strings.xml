@@ -12,7 +12,9 @@
     <string name="lm_recent">Recent</string>
     <string name="lm_hottags">Hot Tags</string>
     <string name="lm_ongithub">On Github</string>
+    <string name="lm_about">About</string>
     <string name="lm_exit">Exit</string>
+    <string name="feedback">Feedback</string>
     <string name="loading">Loading...</string>
     <string name="sending">Sending...</string>
     <string name="Updating">Updating...</string>
@@ -53,6 +55,9 @@
     <string name="post_markdown">Markdown</string>
     <string name="post_html">HTML</string>
     <string name="post_check_empty">Subject and content cannot be empty</string>
+    <string name="post_feedback_empty">Feedback cannot be empty</string>
+    <string name="post_feedback_ok">Feedback posted</string>
+    <string name="post_feedback_error">post Feedback error</string>
     <string name="post_error">post block error</string>
     <string name="not_login">please login first</string>
     <string name="user_account_type">account source: %s</string>
@@ -68,4 +73,5 @@
     <string name="user_follow_3">we followed each other</string>
     <string name="share_fmt" formatted="false">Share article %s(http://sbbs.me/post/%s) from http://sbbs.me</string>
 	<string name="tag_no_article">No article in this tag</string>
+	<string name="no_email_binded">no email binded</string>
 </resources>

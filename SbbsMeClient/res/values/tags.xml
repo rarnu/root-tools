@@ -21,5 +21,7 @@
     <item name="tag_article_list_fragment" type="tag">tag_article_list_fragment</item>
     <item name="tag_origin_post_fragment" type="tag">tag_origin_post_fragment</item>
     <item name="tag_share_fragment" type="tag">tag_share_fragment</item>
+    <item name="tag_about_fragment" type="tag">tag_about_fragment</item>
+    <item name="tag_feedback_fragment" type="tag">tag_feedback_fragment</item>
 
 </resources>
