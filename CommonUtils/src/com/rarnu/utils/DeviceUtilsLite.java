@@ -13,7 +13,19 @@ public class DeviceUtilsLite {
 	public static String getDeviceUniqueId(Context context) {
 		TelephonyManager tm = (TelephonyManager) context
 				.getSystemService(Context.TELEPHONY_SERVICE);
-		return tm.getDeviceId() + "_" + tm.getSubscriberId();
+		String did = tm.getDeviceId();
+		String sid = tm.getSubscriberId();
+		String uid = "";
+		if (did != null && !did.equals("")) {
+			uid += did;
+		}
+		if (sid != null && !sid.equals("")) {
+			uid += "_" + sid;
+		}
+		if (uid.equals("")) {
+			uid = "unknown";
+		}
+		return uid;
 	}
 
 	public static int getAppVersionCode(Context context, String filePath) {

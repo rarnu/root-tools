@@ -18,15 +18,19 @@ import org.json.JSONArray;
 import org.json.JSONObject;
 
 import android.content.Context;
+import android.text.format.DateFormat;
 import android.util.Log;
 
+import com.rarnu.utils.DeviceUtilsLite;
 import com.rarnu.utils.HttpRequest;
 import com.rarnu.utils.common.HttpRequestResponseData;
+import com.sbbs.me.android.utils.AccountUtils;
 import com.sbbs.me.android.utils.Config;
 
 public class SbbsMeAPI {
 
 	private static final String BASE_URL = "http://sbbs.me/api/";
+	private static final String LOG_URL = "http://rarnu.7thgen.info/sbbs/";
 	private static HttpRequestResponseData cookieData = null;
 
 	public static boolean isLogin() {
@@ -458,17 +462,49 @@ public class SbbsMeAPI {
 	 * @param text
 	 * @return
 	 */
-	public static String feedback(String userId, String email, String text) {
+	public static String feedback(Context context, String userId, String email,
+			String text) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("device", DeviceUtilsLite
+				.getDeviceUniqueId(context)));
+		params.add(new BasicNameValuePair("appver", String
+				.valueOf(DeviceUtilsLite.getAppVersionCode(context))));
+		params.add(new BasicNameValuePair("osver", String
+				.valueOf(android.os.Build.VERSION.SDK_INT)));
 		params.add(new BasicNameValuePair("text", text));
 		params.add(new BasicNameValuePair("email", email));
-		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
-				+ "feedback/" + userId, params, cookieData.cookie, HTTP.UTF_8);
-		String retStr = "";
-		if (ret != null) {
-			retStr = ret.data;
-			Log.e("feedback", retStr);
-		}
-		return retStr;
+		params.add(new BasicNameValuePair("userid", userId));
+		String ret = HttpRequest.post(LOG_URL + "write_feedback.php", params,
+				HTTP.UTF_8);
+		return ret;
+	}
+
+	public static void writeLogT(final Context context, final String action,
+			final String detail) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+				params.add(new BasicNameValuePair("device", DeviceUtilsLite
+						.getDeviceUniqueId(context)));
+				params.add(new BasicNameValuePair("appver", String
+						.valueOf(DeviceUtilsLite.getAppVersionCode(context))));
+				params.add(new BasicNameValuePair("osver", String
+						.valueOf(android.os.Build.VERSION.SDK_INT)));
+				params.add(new BasicNameValuePair("email", AccountUtils
+						.getBindedEmailAddress(context)));
+				params.add(new BasicNameValuePair("action", action));
+				params.add(new BasicNameValuePair("detail", detail));
+				params.add(new BasicNameValuePair("actiontime", DateFormat
+						.format("yyyyMMdd-hhmmss", System.currentTimeMillis())
+						.toString()));
+				String ret = HttpRequest.post(LOG_URL + "write_log.php",
+						params, HTTP.UTF_8);
+				Log.e("writeLogT", ret);
+			}
+		}).start();
+
 	}
 }

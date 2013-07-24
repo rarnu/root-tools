@@ -6,11 +6,29 @@ Weibo
 provider :google_oauth2, '876356697116.apps.googleusercontent.com', 'Sc9hk9vgfb5nQCYCSG1niCoM', {}
 
 
-curl -d 'email=<email>&text=<feedback text>' http://sbbs.me/api/feedback/<userid>
-用户反馈
-
-
-
-1. 新手引导
 2. about
 3. upload images
+4. 数据统计
+
+create table sbbs_log(
+	id int primary key auto_increment not null, 
+	device text not null, 
+	appver int not null, 
+	osver text not null,
+	email text, 
+	action text not null, 
+	detail text, 
+	actiontime text not null
+) character set utf8;
+
+create table sbbs_feedback(
+	id int primary key auto_increment, 
+	device text, 
+	appver int not null, 
+	osver text not null, 
+	email text, 
+	userid text, 
+	feedback text
+) character set utf8;
+
+select count(*) c from (select distinct device,osver,email from sbbs_log) a

@@ -1,6 +1,7 @@
 package com.sbbs.me.android.loader;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.rarnu.devlib.base.BaseClassLoader;
 import com.sbbs.me.android.api.SbbsMeAPI;
@@ -10,11 +11,11 @@ public class SbbsFeedbackSender extends BaseClassLoader<String> {
 	private String text;
 	private String userId;
 	private String email;
-	
+
 	public SbbsFeedbackSender(Context context) {
 		super(context);
 	}
-	
+
 	public void setFeedback(String userId, String email, String text) {
 		this.text = text;
 		this.userId = userId;
@@ -23,7 +24,8 @@ public class SbbsFeedbackSender extends BaseClassLoader<String> {
 
 	@Override
 	public String loadInBackground() {
-		String ret = SbbsMeAPI.feedback(userId, email, text);
+		String ret = SbbsMeAPI.feedback(getContext(), userId, email, text);
+		Log.e("SbbsFeedbackSender", ret);
 		return ret;
 	}
 
