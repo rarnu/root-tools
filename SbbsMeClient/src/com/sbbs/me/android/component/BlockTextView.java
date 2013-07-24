@@ -1,7 +1,14 @@
 package com.sbbs.me.android.component;
 
+import java.io.File;
+import java.util.List;
+
 import android.content.Context;
+import android.graphics.drawable.Drawable;
+import android.os.Handler;
+import android.os.Message;
 import android.text.Html;
+import android.text.Html.ImageGetter;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,6 +22,7 @@ import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.consts.PathDefine;
+import com.sbbs.me.android.utils.HtmlUtils;
 import com.sbbs.me.android.utils.MiscUtils;
 
 public class BlockTextView extends RelativeLayout implements OnTouchListener {
@@ -24,6 +32,7 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 	private ImageView ivIcon;
 	private SbbsMeBlock block;
 	private RainbowView rvLeft, rvRight;
+	private ImageGetter ig;
 
 	private MotionEvent touchEvent = null;
 
@@ -59,10 +68,23 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 		setBackgroundResource(R.drawable.article_list_selector);
 		setFocusable(true);
 		setClickable(true);
+
+		ig = new ImageGetter() {
+
+			@Override
+			public Drawable getDrawable(String source) {
+
+				Drawable d = Drawable.createFromPath(PathDefine.ROOT_PATH
+						+ MiscUtils.extractFileNameFromURL(source));
+				d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+				return d;
+			}
+		};
 	}
 
 	public void setText(String html) {
 		tvText.setText(Html.fromHtml(html));
+		checkAndDownloadImagesT(html);
 	}
 
 	public void setCodeContent(String contents) {
@@ -113,6 +135,39 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 		rvRight.setBlockCount(right, 1);
 		rvLeft.setVisibility(left == 0 ? View.GONE : View.VISIBLE);
 		rvRight.setVisibility(right == 0 ? View.GONE : View.VISIBLE);
+	}
+
+	private Handler hReloadBlock = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				String html = (String) msg.obj;
+				tvText.setText(Html.fromHtml(html, ig, null));
+			}
+			super.handleMessage(msg);
+		};
+	};
+
+	private void checkAndDownloadImagesT(final String html) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				List<String> imgs = HtmlUtils.getImages(html);
+				for (String s : imgs) {
+					String localFn = PathDefine.ROOT_PATH
+							+ MiscUtils.extractFileNameFromURL(s);
+					if (!new File(localFn).exists()) {
+						DownloadUtils.downloadFile(s, localFn, null);
+					}
+				}
+				Message msg = new Message();
+				msg.what = 1;
+				msg.obj = html;
+				hReloadBlock.sendMessage(msg);
+			}
+		}).start();
 	}
 
 }

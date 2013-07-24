@@ -4,8 +4,11 @@ import com.rarnu.utils.ImageUtils;
 
 import android.graphics.drawable.Drawable;
 
-
 public class MiscUtils {
+
+	public static String extractFileNameFromURL(String url) {
+		return url.substring(url.lastIndexOf("/") + 1);
+	}
 
 	public static String extractHeadUrl(String html) {
 		int startPos = html.indexOf("img src=\"") + 9;
@@ -13,7 +16,7 @@ public class MiscUtils {
 		head = head.substring(0, head.indexOf("\""));
 		return head;
 	}
-	
+
 	public static Drawable loadUserHeadFromFile(String headLocalName) {
 		Drawable d = null;
 		try {
