@@ -28,7 +28,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 		ResourceUtils.init(this);
 		Global.autoRefreshTag = true;
 		super.onCreate(savedInstanceState);
-		SbbsMeAPI.writeLogT(this, "start", "MainActivity");
+		
 	}
 
 	@Override

@@ -88,7 +88,6 @@ public class MainFragment extends BaseFragment implements
 		lvPullDown = (PullDownListView) innerView.findViewById(R.id.lvPullDown);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
-
 		if (Global.listArticle == null) {
 			Global.listArticle = new ArrayList<SbbsMeBlock>();
 		}

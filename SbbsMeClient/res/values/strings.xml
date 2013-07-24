@@ -74,4 +74,5 @@
     <string name="share_fmt" formatted="false">Share article %s(http://sbbs.me/post/%s) from http://sbbs.me</string>
 	<string name="tag_no_article">No article in this tag</string>
 	<string name="no_email_binded">no email binded</string>
+	<string name="crash_terminate">SbbsMe client crashed and will be terminated soon.</string>
 </resources>
