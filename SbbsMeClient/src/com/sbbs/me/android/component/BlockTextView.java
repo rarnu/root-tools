@@ -76,7 +76,10 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 
 				Drawable d = Drawable.createFromPath(PathDefine.ROOT_PATH
 						+ MiscUtils.extractFileNameFromURL(source));
-				d.setBounds(0, 0, d.getIntrinsicWidth(), d.getIntrinsicHeight());
+				if (d != null) {
+					d.setBounds(0, 0, d.getIntrinsicWidth(),
+							d.getIntrinsicHeight());
+				}
 				return d;
 			}
 		};

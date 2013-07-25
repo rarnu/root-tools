@@ -26,6 +26,7 @@ import com.rarnu.devlib.component.intf.OnPullDownListener;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.ArticleActivity;
+import com.sbbs.me.android.GalleryActivity;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.UserDetailActivity;
@@ -59,6 +60,7 @@ public class MainFragment extends BaseFragment implements
 	TextView tvNodata;
 
 	MenuItem miUser;
+	MenuItem miGallery;
 	SinaOAuth sinaOAuth;
 	GoogleOAuth googleOAuth;
 	GithubOAuth githubOAuth;
@@ -145,7 +147,12 @@ public class MainFragment extends BaseFragment implements
 	public void initMenu(Menu menu) {
 		miUser = menu.add(0, MenuIds.MENU_ID_USER, 99, R.string.login);
 		miUser.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		miUser.setIcon(android.R.drawable.ic_menu_report_image);
+		miUser.setIcon(android.R.drawable.ic_menu_myplaces);
+		miGallery = menu.add(0, MenuIds.MENU_ID_GALLERY, 98, R.string.gallery);
+		miGallery.setIcon(android.R.drawable.ic_menu_gallery);
+		miGallery.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		
+		miGallery.setEnabled(SbbsMeAPI.isLogin());
 		if (SbbsMeAPI.isLogin()) {
 			Message msg = new Message();
 			msg.what = 1;
@@ -211,6 +218,9 @@ public class MainFragment extends BaseFragment implements
 				startActivityForResult(new Intent(getActivity(),
 						UserDetailActivity.class).putExtra("user", userId), 1);
 			}
+			break;
+		case MenuIds.MENU_ID_GALLERY:
+			startActivity(new Intent(getActivity(), GalleryActivity.class));
 			break;
 		}
 		return true;
@@ -296,7 +306,6 @@ public class MainFragment extends BaseFragment implements
 			int type = data.getIntExtra("type", 0);
 			switch (type) {
 			case 0:
-				// google
 				googleOAuth.sendGoogleOauth();
 				break;
 			case 1:
@@ -340,6 +349,9 @@ public class MainFragment extends BaseFragment implements
 						miUser.setIcon(d);
 					}
 				}
+				if (miGallery != null) {
+					miGallery.setEnabled(SbbsMeAPI.isLogin());
+				}
 			}
 			super.handleMessage(msg);
 		}
@@ -352,13 +364,14 @@ public class MainFragment extends BaseFragment implements
 			Message msg = new Message();
 			msg.what = 1;
 			msg.obj = d;
-			hSetHead.sendMessage(msg);
+			
 			try {
 				SbbsMeAPI.login(String.valueOf(user.id), user.screen_name,
 						"weibo", user.avatar_large);
 			} catch (Exception e) {
 				Log.e("onGetSinaUser", e.getMessage());
 			}
+			hSetHead.sendMessage(msg);
 		}
 	}
 
@@ -369,12 +382,13 @@ public class MainFragment extends BaseFragment implements
 			Message msg = new Message();
 			msg.what = 1;
 			msg.obj = d;
-			hSetHead.sendMessage(msg);
+			
 			try {
 				SbbsMeAPI.login(user.id, user.name, "google", user.picture);
 			} catch (Exception e) {
 				Log.e("onGetGoogleUser", e.getMessage());
 			}
+			hSetHead.sendMessage(msg);
 		}
 	}
 
@@ -385,13 +399,14 @@ public class MainFragment extends BaseFragment implements
 			Message msg = new Message();
 			msg.what = 1;
 			msg.obj = d;
-			hSetHead.sendMessage(msg);
+			
 			try {
 				SbbsMeAPI.login(String.valueOf(user.id), user.name, "github",
 						user.avatarUrl);
 			} catch (Exception e) {
 				Log.e("onGetGithubUser", e.getMessage());
 			}
+			hSetHead.sendMessage(msg);
 		}
 	}
 

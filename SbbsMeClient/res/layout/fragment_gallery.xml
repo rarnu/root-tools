@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <GridView
+        android:id="@+id/gvImages"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:numColumns="3"
+        android:padding="8dip"
+        android:horizontalSpacing="8dip"
+        android:verticalSpacing="8dip" >
+    </GridView>
+
+</RelativeLayout>

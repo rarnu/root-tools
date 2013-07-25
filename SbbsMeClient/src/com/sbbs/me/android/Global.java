@@ -6,6 +6,7 @@ import org.eclipse.egit.github.core.Repository;
 
 import com.sbbs.me.android.api.SbbsMeArticle;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.api.SbbsMeImage;
 import com.sbbs.me.android.api.SbbsMeTag;
 
 public class Global {
@@ -17,6 +18,7 @@ public class Global {
 	public static List<SbbsMeBlock> listArticle = null;
 	public static List<SbbsMeTag> listTags = null;
 	public static List<Repository> listRepos = null;
+	public static List<SbbsMeImage> listImage = null;
 
 	public static void releaseAll() {
 		if (listArticle != null) {
@@ -27,6 +29,9 @@ public class Global {
 		}
 		if (listRepos != null) {
 			listRepos.clear();
+		}
+		if (listImage != null) {
+			listImage.clear();
 		}
 	}
 }

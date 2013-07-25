@@ -23,16 +23,11 @@ import com.rarnu.devlib.common.Actions;
 import com.rarnu.devlib.component.intf.OnPullDownListener;
 import com.rarnu.devlib.component.intf.OnScrollOverListener;
 
-public class PullDownListView extends LinearLayout implements OnScrollOverListener {
+public class PullDownListView extends LinearLayout implements
+		OnScrollOverListener {
 
 	private static final int START_PULL_DEVIATION = 50;
 	private static final int AUTO_INCREMENTAL = 10;
-
-	public static final int WHAT_DID_LOAD_DATA = 1;
-	public static final int WHAT_ON_REFRESH = 2;
-	public static final int WHAT_DID_REFRESH = 3;
-	public static final int WHAT_SET_HEADER_HEIGHT = 4;
-	public static final int WHAT_DID_MORE = 5;
 
 	private static final int DEFAULT_HEADER_VIEW_HEIGHT = 120;
 
@@ -75,15 +70,15 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
 	}
 
 	public void notifyDidLoad() {
-		mUIHandler.sendEmptyMessage(WHAT_DID_LOAD_DATA);
+		mUIHandler.sendEmptyMessage(Actions.WHAT_DID_LOAD_DATA);
 	}
 
 	public void notifyDidRefresh() {
-		mUIHandler.sendEmptyMessage(WHAT_DID_REFRESH);
+		mUIHandler.sendEmptyMessage(Actions.WHAT_DID_REFRESH);
 	}
 
 	public void notifyDidMore() {
-		mUIHandler.sendEmptyMessage(WHAT_DID_MORE);
+		mUIHandler.sendEmptyMessage(Actions.WHAT_DID_MORE);
 	}
 
 	public void setOnPullDownListener(OnPullDownListener listener) {
@@ -199,10 +194,10 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
 			}
 			mHeaderIncremental -= AUTO_INCREMENTAL;
 			if (mHeaderIncremental > 0) {
-				mUIHandler.sendEmptyMessage(WHAT_SET_HEADER_HEIGHT);
+				mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
 			} else {
 				mHeaderIncremental = 0;
-				mUIHandler.sendEmptyMessage(WHAT_SET_HEADER_HEIGHT);
+				mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
 				cancel();
 			}
 		}
@@ -218,13 +213,13 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
 			}
 			mHeaderIncremental -= AUTO_INCREMENTAL;
 			if (mHeaderIncremental > DEFAULT_HEADER_VIEW_HEIGHT) {
-				mUIHandler.sendEmptyMessage(WHAT_SET_HEADER_HEIGHT);
+				mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
 			} else {
 				mHeaderIncremental = DEFAULT_HEADER_VIEW_HEIGHT;
-				mUIHandler.sendEmptyMessage(WHAT_SET_HEADER_HEIGHT);
+				mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
 				if (!mIsRefreshing) {
 					mIsRefreshing = true;
-					mUIHandler.sendEmptyMessage(WHAT_ON_REFRESH);
+					mUIHandler.sendEmptyMessage(Actions.WHAT_ON_REFRESH);
 				}
 				cancel();
 			}
@@ -236,7 +231,7 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
 		@Override
 		public void handleMessage(Message msg) {
 			switch (msg.what) {
-			case WHAT_DID_LOAD_DATA: {
+			case Actions.WHAT_DID_LOAD_DATA: {
 				mHeaderViewParams.height = 0;
 				mHeaderLoadingView.setVisibility(View.GONE);
 				mHeaderTextView.setText(getContext().getString(
@@ -246,7 +241,7 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
 				return;
 			}
 
-			case WHAT_ON_REFRESH: {
+			case Actions.WHAT_ON_REFRESH: {
 				mHeaderArrowView.clearAnimation();
 				mHeaderArrowView.setVisibility(View.INVISIBLE);
 				mHeaderLoadingView.setVisibility(View.VISIBLE);
@@ -254,7 +249,7 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
 				return;
 			}
 
-			case WHAT_DID_REFRESH: {
+			case Actions.WHAT_DID_REFRESH: {
 				mIsRefreshing = false;
 				mHeaderViewState = HEADER_VIEW_STATE_IDLE;
 				mHeaderArrowView.setVisibility(View.VISIBLE);
@@ -264,12 +259,12 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
 				return;
 			}
 
-			case WHAT_SET_HEADER_HEIGHT: {
+			case Actions.WHAT_SET_HEADER_HEIGHT: {
 				setHeaderHeight(mHeaderIncremental);
 				return;
 			}
 
-			case WHAT_DID_MORE: {
+			case Actions.WHAT_DID_MORE: {
 				mIsFetchMoreing = false;
 				mFooterTextView.setText(getContext().getString(
 						R.string.list_more));

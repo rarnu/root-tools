@@ -24,7 +24,6 @@ public class PullDownScrollView extends ScrollView {
 			int defStyle) {
 		super(context, attrs, defStyle);
 		init(context);
-
 	}
 
 	private void init(Context context) {

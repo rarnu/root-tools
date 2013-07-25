@@ -23,5 +23,6 @@
     <item name="tag_share_fragment" type="tag">tag_share_fragment</item>
     <item name="tag_about_fragment" type="tag">tag_about_fragment</item>
     <item name="tag_feedback_fragment" type="tag">tag_feedback_fragment</item>
-
+	<item name="tag_gallery_fragment" type="tag">tag_gallery_fragment</item>
+	<item name="tag_select_picture_fragment" type="tag">tag_select_picture_fragment</item>
 </resources>

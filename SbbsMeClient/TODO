@@ -5,9 +5,27 @@ Weibo
 	
 provider :google_oauth2, '876356697116.apps.googleusercontent.com', 'Sc9hk9vgfb5nQCYCSG1niCoM', {}
 
+上传一张图片
+http://sbbs.me/api/upload_image
+登录后可调用
+POST参数：
+    file=<上传的文件>
+返回：成功返回服务器端的文件名（不需要完整路径），失败返回null
+
+删除一张图片
+http://sbbs.me/api/delete_image/<filename>
+登录后可调用
+filename参数为要删除的文件名，不带完整路径
+返回：成功返回OK，其他返回均判为失败
+
+获取用户上传的图片列表
+http://sbbs.me/api/get_images
+登录后可调用
+返回：用户所属的图片列表(完整路径，创建时间等字段)，以json数组传回
+    
 
 2. about
-3. upload images
+3. 相册
 4. 数据统计
 
 create table sbbs_log(
