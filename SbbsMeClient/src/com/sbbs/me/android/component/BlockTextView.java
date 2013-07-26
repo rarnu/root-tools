@@ -4,6 +4,9 @@ import java.io.File;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.os.Message;
@@ -35,6 +38,7 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 	private ImageGetter ig;
 
 	private MotionEvent touchEvent = null;
+	private BitmapFactory.Options bop = null;
 
 	public BlockTextView(Context context, AttributeSet attrs, int defStyle) {
 		super(context, attrs, defStyle);
@@ -69,13 +73,16 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 		setFocusable(true);
 		setClickable(true);
 
+		bop = new BitmapFactory.Options();
+		bop.inSampleSize = 2;
+
 		ig = new ImageGetter() {
 
 			@Override
 			public Drawable getDrawable(String source) {
-
-				Drawable d = Drawable.createFromPath(PathDefine.ROOT_PATH
-						+ MiscUtils.extractFileNameFromURL(source));
+				Bitmap bmp = BitmapFactory.decodeFile(PathDefine.ROOT_PATH
+						+ MiscUtils.extractFileNameFromURL(source), bop);
+				Drawable d = new BitmapDrawable(bmp);
 				if (d != null) {
 					d.setBounds(0, 0, d.getIntrinsicWidth(),
 							d.getIntrinsicHeight());

@@ -3,6 +3,7 @@ package com.sbbs.me.android.adapter;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.BitmapFactory;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.Animation;
@@ -22,6 +23,7 @@ public class SbbsMeGalleryAdapter extends BaseAdapter<SbbsMeImage> {
 	private int itemHeight;
 	private boolean isEditMode = false;
 	Animation animation = null;
+	BitmapFactory.Options bop = null;
 
 	public SbbsMeGalleryAdapter(Context context, List<SbbsMeImage> list,
 			int itemHeight) {
@@ -29,6 +31,8 @@ public class SbbsMeGalleryAdapter extends BaseAdapter<SbbsMeImage> {
 		this.itemHeight = itemHeight;
 		animation = AnimationUtils
 				.loadAnimation(context, R.animator.anim_shake);
+		bop = new BitmapFactory.Options();
+		bop.inSampleSize = 2;
 	}
 
 	public void setEditMode(boolean edit) {
@@ -59,7 +63,7 @@ public class SbbsMeGalleryAdapter extends BaseAdapter<SbbsMeImage> {
 		if (item != null) {
 			DownloadUtils.downloadFileT(context, holder.ivPic,
 					SbbsMeAPI.ROOT_URL + item.URL, PathDefine.ROOT_PATH,
-					item.FileName, null);
+					item.FileName, null, bop);
 			holder.ivDelete
 					.setVisibility(isEditMode ? View.VISIBLE : View.GONE);
 			holder.ivPic.setAnimation(isEditMode ? animation : null);

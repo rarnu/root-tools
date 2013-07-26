@@ -20,6 +20,7 @@ public class ExceptionThread implements UncaughtExceptionHandler {
 
 	@Override
 	public void uncaughtException(Thread thread, Throwable ex) {
+		
 		final String msg = ex.getMessage();
 		String err = "";
 		StackTraceElement[] ste = ex.getStackTrace();

@@ -32,7 +32,7 @@ public class DownloadUtils {
 					listDownloading.get(i).thread.wait(5000);
 					listDownloading.get(i).thread.interrupt();
 				} catch (Exception e) {
-					
+
 				}
 				listDownloading.remove(i);
 				break;
@@ -42,8 +42,7 @@ public class DownloadUtils {
 
 	public static void downloadFileT(final Context context, final ImageView iv,
 			final String url, String localDir, final String localFile,
-			final Handler hProgress) {
-
+			final Handler hProgress, final BitmapFactory.Options bop) {
 		if (!localDir.endsWith("/")) {
 			localDir += "/";
 		}
@@ -56,7 +55,14 @@ public class DownloadUtils {
 		File fImg = new File(filePath);
 		if (fImg.exists()) {
 			try {
-				iv.setImageBitmap(BitmapFactory.decodeFile(filePath));
+				if (iv != null) {
+					if (bop != null) {
+						iv.setImageBitmap(BitmapFactory.decodeFile(filePath,
+								bop));
+					} else {
+						iv.setImageBitmap(BitmapFactory.decodeFile(filePath));
+					}
+				}
 			} catch (Exception e) {
 
 			}
@@ -113,6 +119,12 @@ public class DownloadUtils {
 			listDownloading.add(info);
 			tDownload.start();
 		}
+	}
+
+	public static void downloadFileT(final Context context, final ImageView iv,
+			final String url, String localDir, final String localFile,
+			final Handler hProgress) {
+		downloadFileT(context, iv, url, localDir, localFile, hProgress, null);
 	}
 
 	public static void downloadFile(String address, String localFile, Handler h) {
