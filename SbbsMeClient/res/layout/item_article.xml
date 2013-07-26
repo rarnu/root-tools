@@ -21,7 +21,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/tvSubject"
+        android:ellipsize="end"
         android:gravity="left|top"
+        android:maxLines="5"
         android:paddingLeft="16dip"
         android:textColor="@color/lightgray"
         android:textSize="16sp" />

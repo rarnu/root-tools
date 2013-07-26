@@ -24,8 +24,6 @@ import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
 import org.apache.http.util.EntityUtils;
 
-import android.util.Log;
-
 import com.rarnu.utils.common.HttpRequestResponseData;
 import com.rarnu.utils.http.FilePart;
 import com.rarnu.utils.http.MultipartEntity;
@@ -139,7 +137,7 @@ public class HttpRequest {
 		return executeForResult(request, encoding);
 	}
 
-	public static HttpRequestResponseData getWithData(String host,
+	public static HttpRequestResponseData getWithHeader(String host,
 			String params, CookieStore cookie, String encoding) {
 		HttpGet request = new HttpGet(host + "?" + params);
 		return executeForData(request, cookie, encoding);
@@ -164,7 +162,6 @@ public class HttpRequest {
 			}
 			return result;
 		} catch (Exception e) {
-			Log.e("executeForResult", e.getMessage());
 			return "";
 		}
 	}
@@ -186,7 +183,6 @@ public class HttpRequest {
 				data.cookie = client.getCookieStore();
 			}
 		} catch (Exception e) {
-			Log.e("executeForResult", e.getMessage());
 
 		}
 		return data;

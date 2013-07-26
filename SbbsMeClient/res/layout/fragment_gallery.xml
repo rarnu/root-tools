@@ -7,10 +7,24 @@
         android:id="@+id/gvImages"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:horizontalSpacing="8dip"
         android:numColumns="3"
         android:padding="8dip"
-        android:horizontalSpacing="8dip"
         android:verticalSpacing="8dip" >
     </GridView>
+
+    <TextView
+        android:id="@+id/tvLoading"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="4dip"
+        android:background="@color/google_light_green"
+        android:gravity="center"
+        android:padding="4dip"
+        android:text="@string/loading"
+        android:textColor="@color/white"
+        android:visibility="gone" >
+    </TextView>
 
 </RelativeLayout>

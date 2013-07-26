@@ -28,6 +28,8 @@ http://sbbs.me/api/get_images
 3. 相册
 4. 数据统计
 
+http://sbbs.me/uploads/1756787011/51f1ddae60e7940d07000001.jpg
+
 create table sbbs_log(
 	id int primary key auto_increment not null, 
 	device text not null, 

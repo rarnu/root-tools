@@ -3,7 +3,6 @@ package com.sbbs.me.android.adapter;
 import java.util.List;
 
 import android.content.Context;
-import android.text.Html;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -34,7 +33,7 @@ public class SbbsMeArticleAdapter extends BaseAdapter<SbbsMeBlock> {
 		SbbsMeBlock item = list.get(position);
 		if (item != null) {
 			holder.tvSubject.setText(item.Subject);
-			holder.tvBody.setText(Html.fromHtml(item.Body));
+			holder.tvBody.setText(item.Body);
 		}
 		return v;
 	}

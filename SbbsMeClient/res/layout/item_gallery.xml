@@ -12,14 +12,15 @@
         android:contentDescription="@null"
         android:scaleType="centerInside" />
 
-    <TextView
-        android:id="@+id/tvPicName"
-        android:layout_width="match_parent"
-        android:layout_height="24dip"
-        android:layout_alignParentBottom="true"
-        android:background="#DD000000"
-        android:ellipsize="end"
-        android:gravity="center"
-        android:textColor="@color/white" />
+    <ImageView
+        android:id="@+id/ivDelete"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginRight="-8dip"
+        android:layout_marginTop="-8dip"
+        android:src="@android:drawable/ic_menu_close_clear_cancel"
+        android:visibility="gone" />
 
 </RelativeLayout>

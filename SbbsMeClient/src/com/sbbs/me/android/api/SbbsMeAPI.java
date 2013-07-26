@@ -29,6 +29,7 @@ import com.sbbs.me.android.utils.Config;
 
 public class SbbsMeAPI {
 
+	public static final String ROOT_URL = "http://sbbs.me/";
 	private static final String BASE_URL = "http://sbbs.me/api/";
 	private static final String LOG_URL = "http://rarnu.7thgen.info/sbbs/";
 	private static HttpRequestResponseData cookieData = null;
@@ -180,8 +181,8 @@ public class SbbsMeAPI {
 	 * do need login
 	 */
 	public static List<SbbsMeMessage> getRecentMsg() throws Exception {
-		HttpRequestResponseData ret = HttpRequest.getWithData(
-				BASE_URL + "msgs", "", cookieData.cookie, HTTP.UTF_8);
+		HttpRequestResponseData ret = HttpRequest.getWithHeader(BASE_URL
+				+ "msgs", "", cookieData.cookie, HTTP.UTF_8);
 		JSONArray jarrData = new JSONArray(ret.data);
 		List<SbbsMeMessage> list = null;
 		if (jarrData != null && jarrData.length() != 0) {
@@ -200,7 +201,7 @@ public class SbbsMeAPI {
 	 * @throws Exception
 	 */
 	public static int getRecentMsgCount() throws Exception {
-		HttpRequestResponseData ret = HttpRequest.getWithData(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.getWithHeader(BASE_URL
 				+ "msgs/count", "", cookieData.cookie, HTTP.UTF_8);
 		int retInt = 0;
 		try {
@@ -444,6 +445,13 @@ public class SbbsMeAPI {
 		return list;
 	}
 
+	/**
+	 * do NOT need login
+	 * 
+	 * @param userId
+	 * @return
+	 * @throws Exception
+	 */
 	public static SbbsMeBlock getLastBlockViaUser(String userId)
 			throws Exception {
 		SbbsMeBlock block = null;
@@ -453,6 +461,66 @@ public class SbbsMeAPI {
 			block = SbbsMeBlock.fromJson(new JSONObject(ret));
 		}
 		return block;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	public static String uploadImage(String fileName) {
+		List<BasicNameValuePair> files = new ArrayList<BasicNameValuePair>();
+		files.add(new BasicNameValuePair("file", fileName));
+		HttpRequestResponseData ret = HttpRequest.postFileWithHeader(BASE_URL
+				+ "upload_image", new ArrayList<BasicNameValuePair>(), files,
+				cookieData.cookie, HTTP.UTF_8);
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("uploadImage", retStr);
+		}
+		return retStr;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param fileName
+	 * @return
+	 */
+	public static String deleteImage(String fileId) {
+		Log.e("deleteImage", fileId);
+		HttpRequestResponseData ret = HttpRequest
+				.getWithHeader(BASE_URL + "delete_image/" + fileId, "",
+						cookieData.cookie, HTTP.UTF_8);
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("deleteImage", retStr);
+		}
+		return retStr;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @return
+	 */
+	public static List<SbbsMeImage> getImages() throws Exception {
+		HttpRequestResponseData ret = HttpRequest.getWithHeader(BASE_URL
+				+ "get_images", "", cookieData.cookie, HTTP.UTF_8);
+		List<SbbsMeImage> list = null;
+		if (ret != null) {
+			list = new ArrayList<SbbsMeImage>();
+			JSONArray jarrImage = new JSONArray(ret.data);
+			if (jarrImage != null && jarrImage.length() != 0) {
+				for (int i = 0; i < jarrImage.length(); i++) {
+					list.add(SbbsMeImage.fromJson(jarrImage.getJSONObject(i)));
+				}
+			}
+		}
+		return list;
 	}
 
 	/**

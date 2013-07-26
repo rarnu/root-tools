@@ -49,7 +49,7 @@
             android:layout_width="0px"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:background="@drawable/action_button_style"
+            android:background="@drawable/common_button_style"
             android:clickable="true" >
 
             <TextView
@@ -57,15 +57,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/ok" />
+                android:text="@string/ok"
+                android:textColor="@color/white" />
         </RelativeLayout>
 
         <RelativeLayout
             android:id="@+id/btnCancel"
             android:layout_width="0px"
             android:layout_height="match_parent"
+            android:layout_marginLeft="8dip"
             android:layout_weight="1"
-            android:background="@drawable/action_button_style"
+            android:background="@drawable/common_button_style"
             android:clickable="true" >
 
             <TextView
@@ -73,7 +75,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:text="@string/cancel" />
+                android:text="@string/cancel"
+                android:textColor="@color/white" />
         </RelativeLayout>
     </LinearLayout>
 

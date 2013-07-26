@@ -9,7 +9,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_margin="4dip"
-        android:background="@drawable/action_button_style"
-        android:text="@string/feedback" />
+        android:background="@drawable/common_button_style"
+        android:text="@string/feedback"
+        android:textColor="@color/white" />
 
 </RelativeLayout>

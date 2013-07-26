@@ -1,12 +1,18 @@
 package com.sbbs.me.android.fragment;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.Loader;
+import android.content.Loader.OnLoadCompleteListener;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.MediaStore;
 import android.util.Log;
 import android.view.Menu;
@@ -14,28 +20,41 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.GridView;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
-import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeGalleryAdapter;
+import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeImage;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.consts.PathDefine;
+import com.sbbs.me.android.dialog.ConfirmDialog;
 import com.sbbs.me.android.dialog.SelectPictureDialog;
+import com.sbbs.me.android.loader.SbbsGalleryLoader;
+import com.sbbs.me.android.utils.MiscUtils;
 
 public class GalleryFragment extends BaseFragment implements
-		OnItemClickListener {
+		OnItemClickListener, OnLoadCompleteListener<List<SbbsMeImage>>,
+		OnItemLongClickListener {
 
 	GridView gvImages;
 	MenuItem miAddImage;
 	SbbsMeGalleryAdapter adapter;
+	SbbsGalleryLoader loader;
+	List<SbbsMeImage> listImage = null;
+	TextView tvLoading;
 
 	String photoFileName = "";
 	File fTmp, fPhotoTmp = null;
+
+	boolean isSelectMode = false;
 
 	public GalleryFragment() {
 		super();
@@ -67,40 +86,36 @@ public class GalleryFragment extends BaseFragment implements
 	@Override
 	public void initComponents() {
 		gvImages = (GridView) innerView.findViewById(R.id.gvImages);
-		if (Global.listImage == null) {
-			Global.listImage = new ArrayList<SbbsMeImage>();
+		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
+		if (listImage == null) {
+			listImage = new ArrayList<SbbsMeImage>();
 		}
 
-		int itemHeight = (UIUtils.getWidth() - UIUtils.dipToPx(24)) / 2 / 4 * 3;
+		int itemHeight = (UIUtils.getWidth() - UIUtils.dipToPx(24)) / 4;
 
-		adapter = new SbbsMeGalleryAdapter(getActivity(), Global.listImage,
-				itemHeight);
+		adapter = new SbbsMeGalleryAdapter(getActivity(), listImage, itemHeight);
 		gvImages.setAdapter(adapter);
 
 		gvImages.setSelector(R.color.transparent);
 		gvImages.setOverScrollMode(View.OVER_SCROLL_NEVER);
+
+		loader = new SbbsGalleryLoader(getActivity());
 	}
 
 	@Override
 	public void initEvents() {
+		loader.registerListener(0, this);
 		gvImages.setOnItemClickListener(this);
+		gvImages.setOnItemLongClickListener(this);
 	}
 
 	@Override
 	public void initLogic() {
-		String[] urls = new String[] {
-				"http://rarnu.7thgen.info/sbbs/image/screen1.png",
-				"http://rarnu.7thgen.info/sbbs/image/screen2.png",
-				"http://rarnu.7thgen.info/sbbs/image/screen3.png",
-				"http://rarnu.7thgen.info/sbbs/image/screen4.png",
-				"http://rarnu.7thgen.info/sbbs/image/screen5.png" };
-		for (int i = 0; i < 5; i++) {
-			SbbsMeImage item = new SbbsMeImage();
-			item.Desc = String.format("Picture%d", i + 1);
-			item.Src = urls[i];
-			Global.listImage.add(item);
-		}
-		adapter.setNewList(Global.listImage);
+		isSelectMode = getArguments().getBoolean("select_mode", false);
+		tvLoading.setText(R.string.loading);
+		tvLoading.setVisibility(View.VISIBLE);
+		setFragmentEnabled(false);
+		loader.startLoading();
 	}
 
 	@Override
@@ -132,6 +147,15 @@ public class GalleryFragment extends BaseFragment implements
 		return true;
 	}
 
+	private void setFragmentEnabled(boolean enabled) {
+		if (miAddImage != null) {
+			miAddImage.setEnabled(enabled);
+		}
+		if (gvImages != null) {
+			gvImages.setEnabled(enabled);
+		}
+	}
+
 	@Override
 	public void onActivityResult(int requestCode, int resultCode, Intent data) {
 		if (resultCode != Activity.RESULT_OK) {
@@ -160,15 +184,88 @@ public class GalleryFragment extends BaseFragment implements
 		case 1:
 			if (fTmp.exists()) {
 				photoFileName = fTmp.getAbsolutePath();
-				Log.e("onActivityResult", photoFileName);
-				// TODO: finish get the image, upload
-
+				uploadImageT();
 			}
 			break;
 		case 2:
 			doCropPhoto(Uri.fromFile(fPhotoTmp));
 			break;
+		case 3:
+			SbbsMeImage item = (SbbsMeImage) data.getSerializableExtra("item");
+			deleteImageT(item.Id);
+			break;
 		}
+	}
+
+	private Handler hUpload = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				String url = (String) msg.obj;
+				if (!url.equals("")) {
+					try {
+						FileUtils.copyFile(photoFileName, PathDefine.ROOT_PATH
+								+ MiscUtils.extractFileNameFromURL(url), null);
+					} catch (IOException e) {
+
+					}
+					loader.startLoading();
+				} else {
+					setFragmentEnabled(true);
+					tvLoading.setVisibility(View.GONE);
+					Toast.makeText(getActivity(), R.string.upload_image_fail,
+							Toast.LENGTH_LONG).show();
+				}
+			} else if (msg.what == 2) {
+				String ret = (String) msg.obj;
+				Log.e("hUpload", ret);
+				if (ret.equals("OK")) {
+					loader.startLoading();
+				} else {
+					setFragmentEnabled(true);
+					tvLoading.setVisibility(View.GONE);
+					Toast.makeText(getActivity(), R.string.delete_image_fail,
+							Toast.LENGTH_LONG).show();
+				}
+			}
+			super.handleMessage(msg);
+		};
+	};
+
+	private void uploadImageT() {
+		setFragmentEnabled(false);
+		tvLoading.setText(R.string.uploading);
+		tvLoading.setVisibility(View.VISIBLE);
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				String url = SbbsMeAPI.uploadImage(photoFileName);
+				Message msg = new Message();
+				msg.what = 1;
+				msg.obj = url;
+				hUpload.sendMessage(msg);
+			}
+		}).start();
+
+	}
+
+	private void deleteImageT(final String fileId) {
+		setFragmentEnabled(false);
+		tvLoading.setText(R.string.deleting);
+		tvLoading.setVisibility(View.VISIBLE);
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				String ret = SbbsMeAPI.deleteImage(fileId);
+				Message msg = new Message();
+				msg.what = 2;
+				msg.obj = ret;
+				hUpload.sendMessage(msg);
+
+			}
+		}).start();
 	}
 
 	private void doChoosePhoto() {
@@ -198,19 +295,62 @@ public class GalleryFragment extends BaseFragment implements
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-
+		adapter.setEditMode(false);
 	}
 
 	@Override
 	public Bundle getFragmentState() {
-		return null;
+		Bundle bn = new Bundle();
+		bn.putBoolean("edit_mode", adapter.getEditMode());
+		return bn;
 	}
 
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		// TODO Auto-generated method stub
+		SbbsMeImage item = listImage.get(position);
+		if (isSelectMode) {
+			Intent inRet = new Intent();
+			inRet.putExtra("image", item.URL);
+			getActivity().setResult(Activity.RESULT_OK, inRet);
+			getActivity().finish();
+		} else {
+			if (adapter.getEditMode()) {
+				startActivityForResult(
+						new Intent(getActivity(), ConfirmDialog.class)
+								.putExtra("ok", true)
+								.putExtra("cancel", true)
+								.putExtra(
+										"text",
+										getString(R.string.confirm_delete_image))
+								.putExtra("item", item), 3);
+			} else {
+				// TODO: goto gallery view
+			}
+		}
+	}
 
+	@Override
+	public void onLoadComplete(Loader<List<SbbsMeImage>> loader,
+			List<SbbsMeImage> data) {
+		listImage.clear();
+		if (data != null) {
+			listImage.addAll(data);
+		}
+		if (getActivity() != null) {
+			adapter.setNewList(listImage);
+			tvLoading.setVisibility(View.GONE);
+			setFragmentEnabled(true);
+		}
+	}
+
+	@Override
+	public boolean onItemLongClick(AdapterView<?> parent, View view,
+			int position, long id) {
+		if (!isSelectMode) {
+			adapter.setEditMode(!adapter.getEditMode());
+		}
+		return true;
 	}
 
 }

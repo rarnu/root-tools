@@ -1,17 +1,22 @@
 package com.sbbs.me.android.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
+import com.sbbs.me.android.GalleryActivity;
 import com.sbbs.me.android.Global;
 import com.sbbs.me.android.IMainIntf;
 import com.sbbs.me.android.R;
@@ -20,11 +25,12 @@ import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsArticleSender;
 
 public class PostNewFragment extends BaseFragment implements
-		OnLoadCompleteListener<String> {
+		OnLoadCompleteListener<String>, OnClickListener {
 
 	MenuItem miSend;
-	MenuItem miPublic;
-	MenuItem miFormat;
+	Button btnPublic;
+	Button btnFormat;
+	Button btnAddImage;
 
 	String currentFormat = "Markdown";
 	boolean currentPublicMode = true;
@@ -59,6 +65,10 @@ public class PostNewFragment extends BaseFragment implements
 		etTags = (EditText) innerView.findViewById(R.id.etTags);
 		etContent = (EditText) innerView.findViewById(R.id.etContent);
 		tvStatus = (TextView) innerView.findViewById(R.id.tvStatus);
+		btnFormat = (Button) innerView.findViewById(R.id.btnFormat);
+		btnPublic = (Button) innerView.findViewById(R.id.btnPublic);
+		btnAddImage = (Button) innerView.findViewById(R.id.btnAddImage);
+
 		sender = new SbbsArticleSender(getActivity());
 
 	}
@@ -66,6 +76,9 @@ public class PostNewFragment extends BaseFragment implements
 	@Override
 	public void initEvents() {
 		sender.registerListener(0, this);
+		btnFormat.setOnClickListener(this);
+		btnPublic.setOnClickListener(this);
+		btnAddImage.setOnClickListener(this);
 	}
 
 	@Override
@@ -89,15 +102,6 @@ public class PostNewFragment extends BaseFragment implements
 
 	@Override
 	public void initMenu(Menu menu) {
-		miPublic = menu.add(0, MenuIds.MENU_ID_PULIC, 97, R.string.post_public);
-		miPublic.setTitle(R.string.post_public);
-		miPublic.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
-		miFormat = menu
-				.add(0, MenuIds.MENU_ID_FORMAT, 98, R.string.post_format);
-		miFormat.setTitle(R.string.post_markdown);
-		miFormat.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-
 		miSend = menu.add(0, MenuIds.MENU_ID_SEND, 99, R.string.send);
 		miSend.setIcon(android.R.drawable.ic_menu_send);
 		miSend.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -108,16 +112,6 @@ public class PostNewFragment extends BaseFragment implements
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
-		case MenuIds.MENU_ID_PULIC:
-			currentPublicMode = !currentPublicMode;
-			miPublic.setTitle(currentPublicMode ? R.string.post_public
-					: R.string.post_private);
-			break;
-		case MenuIds.MENU_ID_FORMAT:
-			currentFormat = currentFormat.equals("Markdown") ? "HTML"
-					: "Markdown";
-			miFormat.setTitle(currentFormat);
-			break;
 		case MenuIds.MENU_ID_SEND:
 			String subject = etSubject.getText().toString();
 			String tags = etTags.getText().toString();
@@ -153,10 +147,11 @@ public class PostNewFragment extends BaseFragment implements
 			etSubject.setEnabled(enabled);
 			etTags.setEnabled(enabled);
 			etContent.setEnabled(enabled);
+			btnAddImage.setEnabled(enabled);
+			btnFormat.setEnabled(enabled);
+			btnPublic.setEnabled(enabled);
 		}
-		if (miFormat != null) {
-			miFormat.setEnabled(enabled);
-			miPublic.setEnabled(enabled);
+		if (miSend != null) {
 			miSend.setEnabled(enabled);
 		}
 	}
@@ -166,16 +161,58 @@ public class PostNewFragment extends BaseFragment implements
 		if (getActivity() != null) {
 			tvStatus.setVisibility(View.GONE);
 			setFragmentEnabled(true);
-			if ((data != null) && (!data.equals(""))) {
-				if (data.length() == 24) {
-					Global.autoRefreshTag = true;
-					((IMainIntf) getActivity()).switchPage(0, false);
-
-				}
+			if ((data != null) && (data.equals("") || data.length() == 24)) {
+				Global.autoRefreshTag = true;
+				((IMainIntf) getActivity()).switchPage(0, false);
 			} else {
 				Toast.makeText(getActivity(), R.string.post_error,
 						Toast.LENGTH_LONG).show();
 			}
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btnFormat:
+			currentFormat = currentFormat.equals("Markdown") ? "HTML"
+					: "Markdown";
+			btnFormat.setText(currentFormat);
+			break;
+		case R.id.btnPublic:
+			currentPublicMode = !currentPublicMode;
+			btnPublic.setText(currentPublicMode ? R.string.post_public
+					: R.string.post_private);
+			break;
+		case R.id.btnAddImage:
+			startActivityForResult(new Intent(getActivity(),
+					GalleryActivity.class).putExtra("select_mode", true), 0);
+			break;
+		}
+
+	}
+
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode != Activity.RESULT_OK) {
+			return;
+		}
+
+		switch (requestCode) {
+		case 0:
+			if (currentFormat.equals("Markdown")) {
+				etContent.getText().insert(
+						etContent.getSelectionStart(),
+						String.format("![](%s%s)", SbbsMeAPI.ROOT_URL,
+								data.getStringExtra("image")));
+			} else {
+				etContent.getText().insert(
+						etContent.getSelectionStart(),
+						String.format("<img src=\"%s%s\" />",
+								SbbsMeAPI.ROOT_URL,
+								data.getStringExtra("image")));
+			}
+			break;
 		}
 	}
 

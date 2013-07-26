@@ -19,6 +19,7 @@
     <string name="sending">Sending...</string>
     <string name="Updating">Updating...</string>
     <string name="deleting">Deleting...</string>
+    <string name="uploading">Uploading...</string>
     <string name="format_html">Format: HTML</string>
     <string name="format_markdown">Format: Markdown</string>
     <string name="share">Share</string>
@@ -51,12 +52,13 @@
     <string name="confirm_delete">are you sure to delete the block?</string>
     <string name="post_subject">Subject</string>
     <string name="post_tags">Tags, separated by commas</string>
-    <string name="post_public">Public</string>
-    <string name="post_private">Private</string>
+    <string name="post_public">PUBLIC</string>
+    <string name="post_private">PRIVATE</string>
     <string name="post_format">Format</string>
     <string name="post_content">Article content</string>
-    <string name="post_markdown">Markdown</string>
+    <string name="post_markdown">MARKDOWN</string>
     <string name="post_html">HTML</string>
+    <string name="post_image">IMAGE</string>
     <string name="post_check_empty">Subject and content cannot be empty</string>
     <string name="post_feedback_empty">Feedback cannot be empty</string>
     <string name="post_feedback_ok">Feedback posted</string>
@@ -78,4 +80,7 @@
 	<string name="tag_no_article">No article in this tag</string>
 	<string name="no_email_binded">no email binded</string>
 	<string name="crash_terminate">SbbsMe client crashed and will be terminated soon.</string>
+	<string name="upload_image_fail">Upload image failed</string>
+	<string name="delete_image_fail">Delete image failed</string>
+	<string name="confirm_delete_image">Confirm deleting this picture?</string>
 </resources>

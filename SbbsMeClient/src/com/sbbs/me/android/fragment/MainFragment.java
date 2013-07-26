@@ -151,7 +151,7 @@ public class MainFragment extends BaseFragment implements
 		miGallery = menu.add(0, MenuIds.MENU_ID_GALLERY, 98, R.string.gallery);
 		miGallery.setIcon(android.R.drawable.ic_menu_gallery);
 		miGallery.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		
+
 		miGallery.setEnabled(SbbsMeAPI.isLogin());
 		if (SbbsMeAPI.isLogin()) {
 			Message msg = new Message();
@@ -220,7 +220,8 @@ public class MainFragment extends BaseFragment implements
 			}
 			break;
 		case MenuIds.MENU_ID_GALLERY:
-			startActivity(new Intent(getActivity(), GalleryActivity.class));
+			startActivity(new Intent(getActivity(), GalleryActivity.class)
+					.putExtra("select_mode", false));
 			break;
 		}
 		return true;
@@ -364,7 +365,7 @@ public class MainFragment extends BaseFragment implements
 			Message msg = new Message();
 			msg.what = 1;
 			msg.obj = d;
-			
+
 			try {
 				SbbsMeAPI.login(String.valueOf(user.id), user.screen_name,
 						"weibo", user.avatar_large);
@@ -382,7 +383,7 @@ public class MainFragment extends BaseFragment implements
 			Message msg = new Message();
 			msg.what = 1;
 			msg.obj = d;
-			
+
 			try {
 				SbbsMeAPI.login(user.id, user.name, "google", user.picture);
 			} catch (Exception e) {
@@ -399,7 +400,7 @@ public class MainFragment extends BaseFragment implements
 			Message msg = new Message();
 			msg.what = 1;
 			msg.obj = d;
-			
+
 			try {
 				SbbsMeAPI.login(String.valueOf(user.id), user.name, "github",
 						user.avatarUrl);

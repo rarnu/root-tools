@@ -27,6 +27,43 @@
             android:maxLines="1"
             android:singleLine="true" />
 
+        <LinearLayout
+            android:id="@+id/layFormat"
+            android:layout_width="match_parent"
+            android:layout_height="48dip"
+            android:orientation="horizontal"
+            android:padding="8dip" >
+
+            <Button
+                android:id="@+id/btnFormat"
+                android:layout_width="96dip"
+                android:layout_height="match_parent"
+                android:background="@drawable/common_button_style"
+                android:text="@string/post_markdown"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnPublic"
+                android:layout_width="96dip"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dip"
+                android:background="@drawable/common_button_style"
+                android:text="@string/post_public"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+
+            <Button
+                android:id="@+id/btnAddImage"
+                android:layout_width="96dip"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="8dip"
+                android:background="@drawable/common_button_style"
+                android:text="@string/post_image"
+                android:textColor="@color/white"
+                android:textSize="14sp" />
+        </LinearLayout>
+
         <EditText
             android:id="@+id/etContent"
             android:layout_width="match_parent"
