@@ -25,6 +25,7 @@
     <string name="share">Share</string>
     <string name="login">Login</string>
     <string name="logout">Logout</string>
+    <string name="not_login">Please login first</string>
     <string name="gallery">Gallery</string>
     <string name="upload_images">Upload Images</string>
     <string name="oauth_login">OAuth Login</string>

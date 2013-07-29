@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
 
@@ -65,6 +66,10 @@ public class MainFragment extends BaseFragment implements
 	GoogleOAuth googleOAuth;
 	GithubOAuth githubOAuth;
 
+	int page = 1;
+	private static final int PAGE_SIZE = 20;
+	boolean isBottom = false;
+
 	public MainFragment() {
 		super();
 		tagText = ResourceUtils.getString(R.tag.tag_main_fragment);
@@ -97,12 +102,10 @@ public class MainFragment extends BaseFragment implements
 		lvPullDown.getListView().setAdapter(adapter);
 		loader = new SbbsBlockLoader(getActivity());
 		lvPullDown.enableAutoFetchMore(true, 1);
-		lvPullDown.setOnPullDownListener(this);
 
 		int devide = UIUtils.dipToPx(8);
 		lvPullDown.getListView().setDivider(null);
 		lvPullDown.getListView().setDividerHeight(devide);
-
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
 		lvPullDown.getListView().setSelector(R.color.transparent);
 		lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
@@ -114,6 +117,7 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void initEvents() {
+		lvPullDown.setOnPullDownListener(this);
 		lvPullDown.getListView().setOnItemClickListener(this);
 		tvNodata.setOnClickListener(this);
 		loader.registerListener(0, this);
@@ -122,10 +126,23 @@ public class MainFragment extends BaseFragment implements
 	@Override
 	public void initLogic() {
 
+		page = 1;
+		isBottom = false;
 		if (Global.listArticle.size() == 0 || Global.autoRefreshTag) {
 			Global.autoRefreshTag = false;
 			tvLoading.setVisibility(View.VISIBLE);
+			loader.setPage(page, PAGE_SIZE);
 			loader.startLoading();
+		} else {
+			// keep the last PAGE_SIZE articles
+			if (Global.listArticle.size() > PAGE_SIZE) {
+				List<SbbsMeBlock> tmp = new ArrayList<SbbsMeBlock>();
+				for (int i = 0; i < PAGE_SIZE; i++) {
+					tmp.add(Global.listArticle.get(i));
+				}
+				Global.listArticle.clear();
+				Global.listArticle.addAll(tmp);
+			}
 		}
 		lvPullDown.notifyDidLoad();
 		if (!SbbsMeAPI.isLogin()) {
@@ -152,7 +169,6 @@ public class MainFragment extends BaseFragment implements
 		miGallery.setIcon(android.R.drawable.ic_menu_gallery);
 		miGallery.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
-		miGallery.setEnabled(SbbsMeAPI.isLogin());
 		if (SbbsMeAPI.isLogin()) {
 			Message msg = new Message();
 			msg.what = 1;
@@ -220,8 +236,13 @@ public class MainFragment extends BaseFragment implements
 			}
 			break;
 		case MenuIds.MENU_ID_GALLERY:
-			startActivity(new Intent(getActivity(), GalleryActivity.class)
-					.putExtra("select_mode", false));
+			if (SbbsMeAPI.isLogin()) {
+				startActivity(new Intent(getActivity(), GalleryActivity.class)
+						.putExtra("select_mode", false));
+			} else {
+				Toast.makeText(getActivity(), R.string.not_login,
+						Toast.LENGTH_LONG).show();
+			}
 			break;
 		}
 		return true;
@@ -239,43 +260,35 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void onRefresh() {
+		page = 1;
+		isBottom = false;
+		loader.setPage(page, PAGE_SIZE);
 		loader.startLoading();
 	}
 
 	@Override
 	public void onMore() {
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				try {
-					Thread.sleep(500);
-				} catch (Exception e) {
-
-				}
-				hDid.sendEmptyMessage(1);
-			}
-		}).start();
-
+		if (!isBottom) {
+			page++;
+			loader.setPage(page, PAGE_SIZE);
+			loader.startLoading();
+		} else {
+			lvPullDown.notifyDidMore();
+		}
 	}
-
-	private Handler hDid = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			if (msg.what == 1) {
-				lvPullDown.notifyDidMore();
-			}
-			super.handleMessage(msg);
-		};
-	};
 
 	@Override
 	public void onLoadComplete(Loader<List<SbbsMeBlock>> loader,
 			List<SbbsMeBlock> data) {
-		Global.listArticle.clear();
-		if (data != null) {
-			Global.listArticle.addAll(data);
+		if (page == 1) {
+			Global.listArticle.clear();
 		}
+		if (data != null && data.size() != 0) {
+			Global.listArticle.addAll(data);
+		} else {
+			isBottom = true;
+		}
+
 		if (getActivity() != null) {
 			tvNodata.setEnabled(true);
 			tvNodata.setVisibility(Global.listArticle.size() == 0 ? View.VISIBLE
@@ -283,6 +296,7 @@ public class MainFragment extends BaseFragment implements
 			adapter.setNewList(Global.listArticle);
 			tvLoading.setVisibility(View.GONE);
 			lvPullDown.notifyDidRefresh();
+			lvPullDown.notifyDidMore();
 		}
 	}
 
@@ -349,9 +363,6 @@ public class MainFragment extends BaseFragment implements
 					if (d != null) {
 						miUser.setIcon(d);
 					}
-				}
-				if (miGallery != null) {
-					miGallery.setEnabled(SbbsMeAPI.isLogin());
 				}
 			}
 			super.handleMessage(msg);

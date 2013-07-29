@@ -16,8 +16,7 @@ public class Global {
 	public static SbbsMeArticle passArticle = null;
 	public static List<SbbsMeBlock> listArticle = null;
 	public static List<SbbsMeTag> listTags = null;
-	public static List<Repository> listRepos = null;
-	
+	public static List<Repository> listRepos = null;	
 
 	public static void releaseAll() {
 		if (listArticle != null) {

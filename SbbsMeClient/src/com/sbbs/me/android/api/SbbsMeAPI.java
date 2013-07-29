@@ -84,9 +84,22 @@ public class SbbsMeAPI {
 	 * @throws Exception
 	 */
 	public static List<SbbsMeBlock> getArticles() throws Exception {
-		List<SbbsMeBlock> list = null;
 		String ret = HttpRequest.get(BASE_URL + "articles", "", HTTP.UTF_8);
-		JSONArray jArr = new JSONArray(ret);
+		return buildArticleList(ret);
+	}
+
+	public static List<SbbsMeBlock> getArticles(int page, int pageSize)
+			throws Exception {
+		String ret = HttpRequest.get(
+				BASE_URL + String.format("articles/%d/%d", page, pageSize), "",
+				HTTP.UTF_8);
+		return buildArticleList(ret);
+	}
+
+	private static List<SbbsMeBlock> buildArticleList(String jsonRet)
+			throws Exception {
+		List<SbbsMeBlock> list = null;
+		JSONArray jArr = new JSONArray(jsonRet);
 		if (jArr != null && jArr.length() != 0) {
 			list = new ArrayList<SbbsMeBlock>();
 			for (int i = 0; i < jArr.length(); i++) {
@@ -119,17 +132,18 @@ public class SbbsMeAPI {
 	 */
 	public static List<SbbsMeBlock> getArticlesViaTag(String tagId)
 			throws Exception {
-		List<SbbsMeBlock> list = null;
 		String ret = HttpRequest.get(BASE_URL + "articles/tag/" + tagId, "",
 				HTTP.UTF_8);
-		JSONArray jArr = new JSONArray(ret);
-		if (jArr != null && jArr.length() != 0) {
-			list = new ArrayList<SbbsMeBlock>();
-			for (int i = 0; i < jArr.length(); i++) {
-				list.add(SbbsMeBlock.fromJson(jArr.getJSONObject(i)));
-			}
-		}
-		return list;
+		return buildArticleList(ret);
+	}
+
+	public static List<SbbsMeBlock> getArticlesViaTag(String tagId, int page,
+			int pageSize) throws Exception {
+		String ret = HttpRequest.get(
+				BASE_URL
+						+ String.format("articles/tag/%s/%d/%d", tagId, page,
+								pageSize), "", HTTP.UTF_8);
+		return buildArticleList(ret);
 	}
 
 	/**
@@ -491,9 +505,8 @@ public class SbbsMeAPI {
 	 */
 	public static String deleteImage(String fileId) {
 		Log.e("deleteImage", fileId);
-		HttpRequestResponseData ret = HttpRequest
-				.getWithHeader(BASE_URL + "delete_image/" + fileId, "",
-						cookieData.cookie, HTTP.UTF_8);
+		HttpRequestResponseData ret = HttpRequest.getWithHeader(BASE_URL
+				+ "delete_image/" + fileId, "", cookieData.cookie, HTTP.UTF_8);
 		String retStr = "";
 		if (ret != null) {
 			retStr = ret.data;
@@ -512,14 +525,35 @@ public class SbbsMeAPI {
 				+ "get_images", "", cookieData.cookie, HTTP.UTF_8);
 		List<SbbsMeImage> list = null;
 		if (ret != null) {
+			list = buildImageList(ret.data);
+		}
+		return list;
+	}
+
+	public static List<SbbsMeImage> getImages(int page, int pageSize)
+			throws Exception {
+		HttpRequestResponseData ret = HttpRequest.getWithHeader(BASE_URL
+				+ String.format("get_images/%d/%d", page, pageSize), "",
+				cookieData.cookie, HTTP.UTF_8);
+		List<SbbsMeImage> list = null;
+		if (ret != null) {
+			list = buildImageList(ret.data);
+		}
+		return list;
+	}
+
+	private static List<SbbsMeImage> buildImageList(String jsonRet)
+			throws Exception {
+		List<SbbsMeImage> list = null;
+
+		JSONArray jarrImage = new JSONArray(jsonRet);
+		if (jarrImage != null && jarrImage.length() != 0) {
 			list = new ArrayList<SbbsMeImage>();
-			JSONArray jarrImage = new JSONArray(ret.data);
-			if (jarrImage != null && jarrImage.length() != 0) {
-				for (int i = 0; i < jarrImage.length(); i++) {
-					list.add(SbbsMeImage.fromJson(jarrImage.getJSONObject(i)));
-				}
+			for (int i = 0; i < jarrImage.length(); i++) {
+				list.add(SbbsMeImage.fromJson(jarrImage.getJSONObject(i)));
 			}
 		}
+
 		return list;
 	}
 

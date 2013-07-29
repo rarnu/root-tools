@@ -4,15 +4,11 @@
     android:layout_height="match_parent"
     android:background="@color/google_white_background" >
 
-    <ListView
+    <com.rarnu.devlib.component.PullDownListView
         android:id="@+id/lvArticle"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginTop="4dip"
-        android:divider="@null"
-        android:dividerHeight="8dip"
-        android:padding="8dip"
-        android:overScrollMode="never" />
+        android:layout_marginTop="4dip" />
 
     <TextView
         android:id="@+id/tvLoading"

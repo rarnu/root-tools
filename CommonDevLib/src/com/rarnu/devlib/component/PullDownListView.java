@@ -100,6 +100,10 @@ public class PullDownListView extends LinearLayout implements
 		mEnableAutoFetchMore = enable;
 	}
 
+	public void showAutoFetchMore(boolean show) {
+		mFooterView.setVisibility(show ? View.VISIBLE : View.GONE);
+	}
+
 	private void initHeaderViewAndFooterViewAndListView(Context context) {
 		setOrientation(LinearLayout.VERTICAL);
 		mHeaderView = LayoutInflater.from(context).inflate(

@@ -70,18 +70,20 @@ public class HotTagsFragment extends BaseFragment implements
 		adapter = new SbbsMeTagAdapter(getActivity(), Global.listTags);
 		lvPullDown.getListView().setAdapter(adapter);
 		loader = new SbbsTagLoader(getActivity());
-		lvPullDown.enableAutoFetchMore(true, 1);
-		lvPullDown.setOnPullDownListener(this);
+		lvPullDown.enableAutoFetchMore(false, 0);
+		lvPullDown.showAutoFetchMore(false);
 
 		int devide = UIUtils.dipToPx(8);
 		lvPullDown.getListView().setDivider(null);
 		lvPullDown.getListView().setDividerHeight(devide);
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
+		lvPullDown.getListView().setSelector(R.color.transparent);
 		lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
 	}
 
 	@Override
 	public void initEvents() {
+		lvPullDown.setOnPullDownListener(this);
 		lvPullDown.getListView().setOnItemClickListener(this);
 		tvNodata.setOnClickListener(this);
 		loader.registerListener(0, this);
