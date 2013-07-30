@@ -46,6 +46,7 @@ public class GalleryFragment extends BaseFragment implements
 
 	GridView gvImages;
 	MenuItem miAddImage;
+	MenuItem miRefresh;
 	SbbsMeGalleryAdapter adapter;
 	SbbsGalleryLoader loader;
 	List<SbbsMeImage> listImage = null;
@@ -134,6 +135,10 @@ public class GalleryFragment extends BaseFragment implements
 				R.string.upload_images);
 		miAddImage.setIcon(android.R.drawable.ic_menu_add);
 		miAddImage.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+
+		miRefresh = menu.add(0, MenuIds.MENU_ID_REFRESH, 98, R.string.refresh);
+		miRefresh.setIcon(android.R.drawable.ic_menu_rotate);
+		miRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 	}
 
 	@Override
@@ -143,6 +148,12 @@ public class GalleryFragment extends BaseFragment implements
 			startActivityForResult(new Intent(getActivity(),
 					SelectPictureDialog.class), 0);
 			break;
+		case MenuIds.MENU_ID_REFRESH:
+			tvLoading.setText(R.string.loading);
+			tvLoading.setVisibility(View.VISIBLE);
+			setFragmentEnabled(false);
+			loader.startLoading();
+			break;
 		}
 		return true;
 	}
@@ -150,6 +161,7 @@ public class GalleryFragment extends BaseFragment implements
 	private void setFragmentEnabled(boolean enabled) {
 		if (miAddImage != null) {
 			miAddImage.setEnabled(enabled);
+			miRefresh.setEnabled(enabled);
 		}
 		if (gvImages != null) {
 			gvImages.setEnabled(enabled);
@@ -325,7 +337,18 @@ public class GalleryFragment extends BaseFragment implements
 										getString(R.string.confirm_delete_image))
 								.putExtra("item", item), 3);
 			} else {
-				// TODO: goto gallery view
+				/*
+				 * ArrayList<String> listBundleFileName = new
+				 * ArrayList<String>(); ArrayList<String> listBundleUrl = new
+				 * ArrayList<String>(); for (int i = 0; i < listImage.size();
+				 * i++) { listBundleFileName.add(listImage.get(i).FileName);
+				 * listBundleUrl.add(listImage.get(i).URL); } startActivity(new
+				 * Intent(getActivity(), BigPictureActivity.class)
+				 * .putStringArrayListExtra("image", listBundleFileName)
+				 * .putStringArrayListExtra("url", listBundleUrl)
+				 * .putExtra("index", position) .putExtra("current_item",
+				 * item.FileName));
+				 */
 			}
 		}
 	}

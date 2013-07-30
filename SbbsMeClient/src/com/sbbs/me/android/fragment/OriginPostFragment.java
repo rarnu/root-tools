@@ -14,7 +14,7 @@ import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeArticle;
 import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.api.SbbsMeSideBlocks;
-import com.sbbs.me.android.utils.CustomUIUtils;
+import com.sbbs.me.android.utils.CustomUtils;
 
 public class OriginPostFragment extends BaseFragment {
 
@@ -91,7 +91,7 @@ public class OriginPostFragment extends BaseFragment {
 			SbbsMeSideBlocks sb = null;
 			for (int i = 0; i < listPost.size(); i++) {
 				sb = SbbsMeAPI.getSideBlocks(article, listPost.get(i).Id);
-				CustomUIUtils.addBlock(getActivity(), listPost.get(i),
+				CustomUtils.addBlock(getActivity(), listPost.get(i),
 						sb.leftBlockCount, sb.rightBlockCount,
 						article.users.get(listPost.get(i).AuthorId), layPost,
 						viewId, 120000, true, null, null);

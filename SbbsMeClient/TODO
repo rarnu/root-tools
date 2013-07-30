@@ -7,6 +7,7 @@ provider :google_oauth2, '876356697116.apps.googleusercontent.com', 'Sc9hk9vgfb5
 
 2. about
 4. 数据统计
+5. gallery view
 
 create table sbbs_log(
 	id int primary key auto_increment not null, 

@@ -63,7 +63,7 @@ public class DownloadUtils {
 						iv.setImageBitmap(BitmapFactory.decodeFile(filePath));
 					}
 				}
-			} catch (Exception e) {
+			} catch (Throwable th) {
 
 			}
 			return;

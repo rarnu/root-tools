@@ -14,7 +14,7 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.loader.SbbsCodeViewLoader;
-import com.sbbs.me.android.utils.CustomUIUtils;
+import com.sbbs.me.android.utils.CustomUtils;
 
 public class GithubCodeViewFragement extends BaseFragment implements
 		OnLoadCompleteListener<Blob> {
@@ -104,7 +104,7 @@ public class GithubCodeViewFragement extends BaseFragment implements
 				String path = getArguments().getString("path");
 				boolean isMarkdown = path.toLowerCase().endsWith(".md")
 						|| path.equals("README");
-				CustomUIUtils.addBlock(getActivity(), data, isMarkdown, 0, 0,
+				CustomUtils.addBlock(getActivity(), data, isMarkdown, 0, 0,
 						"", layBlob, 210000, 210000, false, null, null);
 			}
 			blobLoading.setVisibility(View.GONE);

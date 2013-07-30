@@ -75,11 +75,6 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
         <activity
-            android:name=".CodeTreeActivity"
-            android:screenOrientation="portrait"
-            android:windowSoftInputMode="stateHidden" >
-        </activity>
-        <activity
             android:name=".CodeViewActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
@@ -101,6 +96,11 @@
         </activity>
         <activity
             android:name=".GalleryActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".BigPictureActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
         </activity>

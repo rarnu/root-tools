@@ -25,7 +25,7 @@ import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.api.SbbsMeSideBlocks;
 import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
-import com.sbbs.me.android.utils.CustomUIUtils;
+import com.sbbs.me.android.utils.CustomUtils;
 
 public class CommentFragment extends BaseFragment implements OnClickListener,
 		OnLoadCompleteListener<SbbsMeArticle> {
@@ -118,7 +118,7 @@ public class CommentFragment extends BaseFragment implements OnClickListener,
 			SbbsMeSideBlocks sb = null;
 			for (int i = 0; i < listComment.size(); i++) {
 				sb = SbbsMeAPI.getSideBlocks(article, listComment.get(i).Id);
-				CustomUIUtils.addBlock(getActivity(), listComment.get(i),
+				CustomUtils.addBlock(getActivity(), listComment.get(i),
 						sb.leftBlockCount, sb.rightBlockCount,
 						article.users.get(listComment.get(i).AuthorId),
 						layComment, viewId, 110000, true, this, null);

@@ -35,7 +35,7 @@ import com.sbbs.me.android.dialog.ConfirmDialog;
 import com.sbbs.me.android.dialog.ShareDialog;
 import com.sbbs.me.android.loader.SbbsArticleLoader;
 import com.sbbs.me.android.utils.Config;
-import com.sbbs.me.android.utils.CustomUIUtils;
+import com.sbbs.me.android.utils.CustomUtils;
 
 public class ArticleFragment extends BaseFragment implements
 		OnLoadCompleteListener<SbbsMeArticle>, OnLongClickListener,
@@ -163,7 +163,7 @@ public class ArticleFragment extends BaseFragment implements
 			}
 			SbbsMeSideBlocks sb = SbbsMeAPI.getSideBlocks(article,
 					article.main_block.Id);
-			CustomUIUtils.addBlock(getActivity(), article.main_block,
+			CustomUtils.addBlock(getActivity(), article.main_block,
 					sb.leftBlockCount, sb.rightBlockCount,
 					article.users.get(article.main_block.AuthorId), layArticle,
 					viewId, 100000, true, this, this);
@@ -176,7 +176,7 @@ public class ArticleFragment extends BaseFragment implements
 			for (int i = 0; i < article.sub_blocks.size(); i++) {
 				sb = SbbsMeAPI.getSideBlocks(article,
 						article.sub_blocks.get(i).Id);
-				CustomUIUtils.addBlock(getActivity(),
+				CustomUtils.addBlock(getActivity(),
 						article.sub_blocks.get(i), sb.leftBlockCount,
 						sb.rightBlockCount,
 						article.users.get(article.sub_blocks.get(i).AuthorId),

@@ -27,7 +27,7 @@ import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.consts.PathDefine;
 import com.sbbs.me.android.loader.SbbsUserLoader;
 import com.sbbs.me.android.utils.Config;
-import com.sbbs.me.android.utils.CustomUIUtils;
+import com.sbbs.me.android.utils.CustomUtils;
 
 public class UserDetailFragment extends BaseFragment implements
 		OnLoadCompleteListener<SbbsMeUser>, OnClickListener {
@@ -157,7 +157,7 @@ public class UserDetailFragment extends BaseFragment implements
 
 				setFollowStatus(data.followStatus, data.Name);
 				if (data.lastBlock != null) {
-					CustomUIUtils.addBlock(getActivity(), data.lastBlock, 0, 0,
+					CustomUtils.addBlock(getActivity(), data.lastBlock, 0, 0,
 							"", layLastPost, 130000, 130000, false, null, null);
 				}
 				String headLocalPath = PathDefine.ROOT_PATH;

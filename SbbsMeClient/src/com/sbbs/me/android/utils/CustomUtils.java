@@ -8,6 +8,7 @@ import org.eclipse.egit.github.core.util.EncodingUtils;
 import org.markdown4j.Markdown4jProcessor;
 
 import android.app.ActionBar;
+import android.app.Fragment;
 import android.content.Context;
 import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
@@ -21,7 +22,7 @@ import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.component.BlockTextView;
 
-public class CustomUIUtils {
+public class CustomUtils {
 
 	public static void customActionBarHome(ActionBar bar) {
 		try {
@@ -88,17 +89,16 @@ public class CustomUIUtils {
 		if (isMarkdown) {
 			try {
 				strEd = new Markdown4jProcessor().process(strEd);
-				addBlock(context, strEd, false, "", leftCount,
-						RightCount, headUrl, layout, viewId, baseViewId, needHead,
-						click, longClick);
+				addBlock(context, strEd, false, "", leftCount, RightCount,
+						headUrl, layout, viewId, baseViewId, needHead, click,
+						longClick);
 			} catch (IOException e) {
 
 			}
 		} else {
-			addBlock(context, strEd, true, "", leftCount,
-					RightCount, headUrl, layout, viewId, baseViewId, needHead,
-					click, longClick);
-			
+			addBlock(context, strEd, true, "", leftCount, RightCount, headUrl,
+					layout, viewId, baseViewId, needHead, click, longClick);
+
 		}
 	}
 
@@ -144,5 +144,15 @@ public class CustomUIUtils {
 	public static Drawable getEdgeFadeEffect(Context context) {
 		return new ColorDrawable(context.getResources().getColor(
 				R.color.google_light_green));
+	}
+
+	public static void changeFragmentTag(Fragment f, String newTag) {
+		try {
+			Field fTag = Fragment.class.getDeclaredField("mTag");
+			fTag.setAccessible(true);
+			fTag.set(f, newTag);
+		} catch (Exception e) {
+
+		}
 	}
 }

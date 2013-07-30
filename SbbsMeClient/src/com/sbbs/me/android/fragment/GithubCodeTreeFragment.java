@@ -29,6 +29,7 @@ import com.sbbs.me.android.adapter.SbbsMeTreeEntryAdapter;
 import com.sbbs.me.android.component.PathView;
 import com.sbbs.me.android.component.PathView.PathClickListener;
 import com.sbbs.me.android.loader.SbbsCodeTreeLoader;
+import com.sbbs.me.android.utils.CustomUtils;
 
 public class GithubCodeTreeFragment extends BaseFragment implements
 		OnLoadCompleteListener<List<TreeEntry>>, OnItemClickListener,
@@ -44,18 +45,6 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 	int repoType = 0;
 	HashMap<String, String> parentSha;
 	PathView tvPath;
-
-	public GithubCodeTreeFragment(int repoType) {
-		super();
-		this.repoType = repoType;
-		this.parentSha = new HashMap<String, String>();
-		tagText = ResourceUtils
-				.getString(repoType == 0 ? R.tag.tag_codetree_fragment_sbbs
-						: R.tag.tag_codetree_fragment_android);
-		tabTitle = ResourceUtils
-				.getString(repoType == 0 ? R.string.project_sbbs_me
-						: R.string.project_android);
-	}
 
 	@Override
 	public int getBarTitle() {
@@ -74,11 +63,22 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 
 	@Override
 	public void initComponents() {
+		repoType = getArguments().getInt("repo_type", 0);
+		tagText = ResourceUtils
+				.getString(repoType == 0 ? R.tag.tag_codetree_fragment_sbbs
+						: R.tag.tag_codetree_fragment_android);
+		tabTitle = ResourceUtils
+				.getString(repoType == 0 ? R.string.project_sbbs_me
+						: R.string.project_android);
+		CustomUtils.changeFragmentTag(this, tagText);
+		getActivity().getActionBar().getTabAt(repoType).setText(tabTitle);
+
 		treeList = (ListView) innerView.findViewById(R.id.treeList);
 		treeLoading = (TextView) innerView.findViewById(R.id.treeLoading);
 		if (listTreeEntry == null) {
 			listTreeEntry = new ArrayList<TreeEntry>();
 		}
+		parentSha = new HashMap<String, String>();
 		adapter = new SbbsMeTreeEntryAdapter(getActivity(), listTreeEntry);
 		treeList.setAdapter(adapter);
 		loader = new SbbsCodeTreeLoader(getActivity(), repoType, null);
