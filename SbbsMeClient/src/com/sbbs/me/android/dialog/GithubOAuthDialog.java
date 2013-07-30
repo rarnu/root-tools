@@ -35,6 +35,8 @@ public class GithubOAuthDialog extends Dialog {
 		this.callbackUrl = callbackUrl;
 		
 		wvGithubAuth = (WebView) findViewById(R.id.wvGithubAuth);
+		wvGithubAuth.getSettings().setAppCacheEnabled(true);
+		wvGithubAuth.getSettings().setJavaScriptEnabled(true);
 		wvGithubAuth.getSettings().setLayoutAlgorithm(LayoutAlgorithm.SINGLE_COLUMN);
 		wvGithubAuth.setWebViewClient(new WebViewClient() {
 			@Override

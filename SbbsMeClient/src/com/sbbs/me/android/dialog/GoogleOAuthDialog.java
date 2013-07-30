@@ -36,6 +36,8 @@ public class GoogleOAuthDialog extends Dialog {
 		this.callbackUrl = callbackUrl;
 
 		wvGoogleAuth = (WebView) findViewById(R.id.wvGoogleAuth);
+		wvGoogleAuth.getSettings().setAppCacheEnabled(true);
+		wvGoogleAuth.getSettings().setJavaScriptEnabled(true);
 		wvGoogleAuth.getSettings().setLayoutAlgorithm(
 				LayoutAlgorithm.SINGLE_COLUMN);
 		wvGoogleAuth.setWebViewClient(new WebViewClient() {

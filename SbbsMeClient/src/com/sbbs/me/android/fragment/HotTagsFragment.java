@@ -93,6 +93,7 @@ public class HotTagsFragment extends BaseFragment implements
 	public void initLogic() {
 		if (Global.listTags.size() == 0) {
 			tvLoading.setVisibility(View.VISIBLE);
+			loader.setRefresh(false);
 			loader.startLoading();
 		}
 		lvPullDown.notifyDidLoad();
@@ -125,6 +126,7 @@ public class HotTagsFragment extends BaseFragment implements
 
 	@Override
 	public void onRefresh() {
+		loader.setRefresh(true);
 		loader.startLoading();
 
 	}
@@ -171,13 +173,18 @@ public class HotTagsFragment extends BaseFragment implements
 			Global.listTags.addAll(data);
 		}
 		if (getActivity() != null) {
-			tvNodata.setEnabled(true);
-			tvNodata.setVisibility(Global.listTags.size() == 0 ? View.VISIBLE
-					: View.GONE);
-
 			adapter.setNewList(Global.listTags);
-			tvLoading.setVisibility(View.GONE);
 			lvPullDown.notifyDidRefresh();
+
+			if (!((SbbsTagLoader) loader).isRefresh()) {
+				((SbbsTagLoader) loader).setRefresh(true);
+				loader.startLoading();
+			} else {
+				tvNodata.setEnabled(true);
+				tvNodata.setVisibility(Global.listTags.size() == 0 ? View.VISIBLE
+						: View.GONE);
+				tvLoading.setVisibility(View.GONE);
+			}
 		}
 	}
 

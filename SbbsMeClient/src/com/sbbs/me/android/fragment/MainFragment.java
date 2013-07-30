@@ -131,6 +131,7 @@ public class MainFragment extends BaseFragment implements
 		if (Global.listArticle.size() == 0 || Global.autoRefreshTag) {
 			Global.autoRefreshTag = false;
 			tvLoading.setVisibility(View.VISIBLE);
+			loader.setRefresh(false);
 			loader.setPage(page, PAGE_SIZE);
 			loader.startLoading();
 		} else {
@@ -262,6 +263,7 @@ public class MainFragment extends BaseFragment implements
 	public void onRefresh() {
 		page = 1;
 		isBottom = false;
+		loader.setRefresh(true);
 		loader.setPage(page, PAGE_SIZE);
 		loader.startLoading();
 	}
@@ -270,6 +272,7 @@ public class MainFragment extends BaseFragment implements
 	public void onMore() {
 		if (!isBottom) {
 			page++;
+			loader.setRefresh(true);
 			loader.setPage(page, PAGE_SIZE);
 			loader.startLoading();
 		} else {
@@ -290,13 +293,19 @@ public class MainFragment extends BaseFragment implements
 		}
 
 		if (getActivity() != null) {
-			tvNodata.setEnabled(true);
-			tvNodata.setVisibility(Global.listArticle.size() == 0 ? View.VISIBLE
-					: View.GONE);
 			adapter.setNewList(Global.listArticle);
-			tvLoading.setVisibility(View.GONE);
 			lvPullDown.notifyDidRefresh();
 			lvPullDown.notifyDidMore();
+
+			if (!((SbbsBlockLoader) loader).isRefresh()) {
+				((SbbsBlockLoader) loader).setRefresh(true);
+				loader.startLoading();
+			} else {
+				tvNodata.setEnabled(true);
+				tvNodata.setVisibility(Global.listArticle.size() == 0 ? View.VISIBLE
+						: View.GONE);
+				tvLoading.setVisibility(View.GONE);
+			}
 		}
 	}
 
@@ -347,6 +356,9 @@ public class MainFragment extends BaseFragment implements
 			if (Global.autoRefreshTag) {
 				Global.autoRefreshTag = false;
 				tvLoading.setVisibility(View.VISIBLE);
+				loader.setRefresh(true);
+				page = 1;
+				loader.setPage(page, PAGE_SIZE);
 				loader.startLoading();
 			}
 		}
@@ -428,6 +440,9 @@ public class MainFragment extends BaseFragment implements
 		case R.id.tvNodata:
 			tvNodata.setEnabled(false);
 			tvLoading.setVisibility(View.VISIBLE);
+			loader.setRefresh(true);
+			page = 1;
+			loader.setPage(page, PAGE_SIZE);
 			loader.startLoading();
 			break;
 		}

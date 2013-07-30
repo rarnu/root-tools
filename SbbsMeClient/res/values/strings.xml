@@ -86,4 +86,5 @@
 	<string name="upload_image_fail">Upload image failed</string>
 	<string name="delete_image_fail">Delete image failed</string>
 	<string name="confirm_delete_image">Confirm deleting this picture?</string>
+	<string name="no_picture">No image found, add some first.</string>
 </resources>

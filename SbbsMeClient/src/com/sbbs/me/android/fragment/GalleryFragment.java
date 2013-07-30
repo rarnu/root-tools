@@ -51,6 +51,7 @@ public class GalleryFragment extends BaseFragment implements
 	SbbsGalleryLoader loader;
 	List<SbbsMeImage> listImage = null;
 	TextView tvLoading;
+	TextView tvNodata;
 
 	String photoFileName = "";
 	File fTmp, fPhotoTmp = null;
@@ -60,13 +61,6 @@ public class GalleryFragment extends BaseFragment implements
 	public GalleryFragment() {
 		super();
 		tagText = ResourceUtils.getString(R.tag.tag_gallery_fragment);
-	}
-
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		super.onCreate(savedInstanceState);
-		fTmp = new File(PathDefine.ROOT_PATH + "tmp.jpg");
-		fPhotoTmp = new File(PathDefine.ROOT_PATH + "tmp_p.jpg");
 	}
 
 	@Override
@@ -86,8 +80,13 @@ public class GalleryFragment extends BaseFragment implements
 
 	@Override
 	public void initComponents() {
+		fTmp = new File(PathDefine.ROOT_PATH + "tmp.jpg");
+		fPhotoTmp = new File(PathDefine.ROOT_PATH + "tmp_p.jpg");
+
 		gvImages = (GridView) innerView.findViewById(R.id.gvImages);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
+		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
+
 		if (listImage == null) {
 			listImage = new ArrayList<SbbsMeImage>();
 		}
@@ -116,6 +115,7 @@ public class GalleryFragment extends BaseFragment implements
 		tvLoading.setText(R.string.loading);
 		tvLoading.setVisibility(View.VISIBLE);
 		setFragmentEnabled(false);
+		loader.setRefresh(false);
 		loader.startLoading();
 	}
 
@@ -152,6 +152,7 @@ public class GalleryFragment extends BaseFragment implements
 			tvLoading.setText(R.string.loading);
 			tvLoading.setVisibility(View.VISIBLE);
 			setFragmentEnabled(false);
+			loader.setRefresh(true);
 			loader.startLoading();
 			break;
 		}
@@ -221,6 +222,7 @@ public class GalleryFragment extends BaseFragment implements
 					} catch (IOException e) {
 
 					}
+					loader.setRefresh(true);
 					loader.startLoading();
 				} else {
 					setFragmentEnabled(true);
@@ -232,6 +234,7 @@ public class GalleryFragment extends BaseFragment implements
 				String ret = (String) msg.obj;
 				Log.e("hUpload", ret);
 				if (ret.equals("OK")) {
+					loader.setRefresh(true);
 					loader.startLoading();
 				} else {
 					setFragmentEnabled(true);
@@ -362,8 +365,15 @@ public class GalleryFragment extends BaseFragment implements
 		}
 		if (getActivity() != null) {
 			adapter.setNewList(listImage);
-			tvLoading.setVisibility(View.GONE);
-			setFragmentEnabled(true);
+			if (!((SbbsGalleryLoader) loader).isRefresh()) {
+				((SbbsGalleryLoader) loader).setRefresh(true);
+				loader.startLoading();
+			} else {
+				tvNodata.setVisibility(listImage.size() == 0 ? View.VISIBLE
+						: View.GONE);
+				tvLoading.setVisibility(View.GONE);
+				setFragmentEnabled(true);
+			}
 		}
 	}
 

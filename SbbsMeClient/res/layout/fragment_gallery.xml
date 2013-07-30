@@ -12,6 +12,19 @@
         android:padding="8dip"
         android:verticalSpacing="8dip" >
     </GridView>
+    
+    <TextView
+        android:id="@+id/tvNodata"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:lineSpacingMultiplier="1.5"
+        android:padding="8dip"
+        android:text="@string/no_picture"
+        android:textColor="@color/google_light_green"
+        android:textSize="18sp"
+        android:visibility="gone" />
 
     <TextView
         android:id="@+id/tvLoading"
