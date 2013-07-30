@@ -25,6 +25,10 @@ public class GithubCodeViewFragement extends BaseFragment implements
 	TextView blobLoading;
 	int repoType = 0;
 
+	public GithubCodeViewFragement() {
+		super();
+	}
+
 	public GithubCodeViewFragement(int repoType) {
 		super();
 		this.repoType = repoType;

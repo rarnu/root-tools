@@ -46,6 +46,22 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 	HashMap<String, String> parentSha;
 	PathView tvPath;
 
+	public GithubCodeTreeFragment() {
+		super();
+	}
+
+	public GithubCodeTreeFragment(int repoType) {
+		super();
+		this.repoType = repoType;
+		this.parentSha = new HashMap<String, String>();
+		tagText = ResourceUtils
+				.getString(repoType == 0 ? R.tag.tag_codetree_fragment_sbbs
+						: R.tag.tag_codetree_fragment_android);
+		tabTitle = ResourceUtils
+				.getString(repoType == 0 ? R.string.project_sbbs_me
+						: R.string.project_android);
+	}
+
 	@Override
 	public int getBarTitle() {
 		return R.string.lm_ongithub;
