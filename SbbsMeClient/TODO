@@ -31,3 +31,11 @@ create table sbbs_feedback(
 ) character set utf8;
 
 select count(*) c from (select distinct device,osver,email from sbbs_log) a
+
+create table sbbs_require (
+	id int primary key auto_increment, 
+	name text not null, 
+	body text not null, 
+	elevel int,				// 1-high, 2-normal, 3-low
+	stat int				// 1-need more info, 2-open, 3-listed, 4-rejected, 5-closed
+) character set utf8;

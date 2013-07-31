@@ -10,8 +10,6 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.AdapterView;
-import android.widget.AdapterView.OnItemClickListener;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
@@ -26,8 +24,7 @@ import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.api.SbbsMeWeibo;
 
-public class AboutFragment extends BaseFragment implements OnClickListener,
-		OnItemClickListener {
+public class AboutFragment extends BaseFragment implements OnClickListener {
 
 	Button btnFeedback;
 	TextView tvVersion;
@@ -64,6 +61,8 @@ public class AboutFragment extends BaseFragment implements OnClickListener,
 					Intent inOpenWebsite = new Intent(Intent.ACTION_VIEW);
 					inOpenWebsite.setData(Uri.parse(url));
 					startActivity(inOpenWebsite);
+					SbbsMeAPI.writeLogT(getActivity(),
+							SbbsMeLogs.LOG_ABOUT_WEIBO, url);
 				}
 			}
 			super.handleMessage(msg);
@@ -84,7 +83,6 @@ public class AboutFragment extends BaseFragment implements OnClickListener,
 	@Override
 	public void initEvents() {
 		btnFeedback.setOnClickListener(this);
-		lvWeibo.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -128,14 +126,6 @@ public class AboutFragment extends BaseFragment implements OnClickListener,
 			startActivity(new Intent(getActivity(), FeedbackActivity.class));
 			break;
 		}
-	}
-
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		// TODO: goto weibo
-		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_ABOUT_WEIBO, "");
-
 	}
 
 }
