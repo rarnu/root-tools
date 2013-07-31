@@ -36,6 +36,7 @@ import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeBlock;
 import com.sbbs.me.android.api.SbbsMeGithubUser;
 import com.sbbs.me.android.api.SbbsMeGoogleUser;
+import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.api.SbbsMeSinaUser;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.dialog.SelectLoginDialog;
@@ -149,6 +150,8 @@ public class MainFragment extends BaseFragment implements
 		if (!SbbsMeAPI.isLogin()) {
 			loadUserInfo();
 		}
+
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_HOME, "");
 	}
 
 	@Override
@@ -349,6 +352,7 @@ public class MainFragment extends BaseFragment implements
 				Config.setSinaUserId(getActivity(), "");
 				Config.setUserId(getActivity(), "");
 				miUser.setIcon(android.R.drawable.ic_menu_report_image);
+				SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_LOGOUT, "");
 			}
 		}
 			break;
@@ -376,6 +380,7 @@ public class MainFragment extends BaseFragment implements
 						miUser.setIcon(d);
 					}
 				}
+				SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_LOGIN, "");
 			}
 			super.handleMessage(msg);
 		}

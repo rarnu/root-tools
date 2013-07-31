@@ -27,6 +27,7 @@ import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeArticle;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.api.SbbsMeSideBlocks;
 import com.sbbs.me.android.component.BlockTextView;
 import com.sbbs.me.android.consts.MenuIds;
@@ -91,6 +92,7 @@ public class ArticleFragment extends BaseFragment implements
 		tvLoading.setVisibility(View.VISIBLE);
 		loader.setArticleId(id);
 		loader.startLoading();
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_ARTICLE, "");
 
 	}
 
@@ -176,9 +178,8 @@ public class ArticleFragment extends BaseFragment implements
 			for (int i = 0; i < article.sub_blocks.size(); i++) {
 				sb = SbbsMeAPI.getSideBlocks(article,
 						article.sub_blocks.get(i).Id);
-				CustomUtils.addBlock(getActivity(),
-						article.sub_blocks.get(i), sb.leftBlockCount,
-						sb.rightBlockCount,
+				CustomUtils.addBlock(getActivity(), article.sub_blocks.get(i),
+						sb.leftBlockCount, sb.rightBlockCount,
 						article.users.get(article.sub_blocks.get(i).AuthorId),
 						layArticle, viewId, 100000, false, this, this);
 				blockCount++;
@@ -303,6 +304,8 @@ public class ArticleFragment extends BaseFragment implements
 				hDelete.sendMessage(msg);
 			}
 		}).start();
+
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_BLOCK_DELETE, "");
 	}
 
 	@Override
@@ -314,12 +317,13 @@ public class ArticleFragment extends BaseFragment implements
 		switch (touchPos) {
 		case 0:
 			if (blockHasLeftBlock(item.Id)) {
-				Bundle bn = new Bundle();
-				bn.putSerializable("item", item);
-				((BaseFragment) getFragmentManager().findFragmentByTag(
-						getString(R.tag.tag_origin_post_fragment)))
-						.setNewArguments(bn);
-				((BaseSlidingActivity) getActivity()).showMenu();
+				// Bundle bn = new Bundle();
+				// bn.putSerializable("item", item);
+				// ((BaseFragment) getFragmentManager().findFragmentByTag(
+				// getString(R.tag.tag_origin_post_fragment)))
+				// .setNewArguments(bn);
+				// ((BaseSlidingActivity) getActivity()).showMenu();
+				getActivity().finish();
 			}
 			break;
 		case 1:

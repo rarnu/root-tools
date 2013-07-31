@@ -20,6 +20,8 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.ShareAdapter;
+import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMeLogs;
 
 public class ShareFragment extends BaseFragment implements OnClickListener,
 		OnItemClickListener {
@@ -66,6 +68,7 @@ public class ShareFragment extends BaseFragment implements OnClickListener,
 	public void initLogic() {
 		body = getArguments().getString("body");
 		getShareAppsT();
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_ARTICLE_SHARE, "");
 	}
 
 	private Handler hShowApp = new Handler() {

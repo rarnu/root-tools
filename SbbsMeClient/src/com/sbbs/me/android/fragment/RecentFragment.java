@@ -27,6 +27,7 @@ import com.sbbs.me.android.R;
 import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeMessageAdapter;
 import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.api.SbbsMeMessage;
 import com.sbbs.me.android.loader.SbbsMessageLoader;
 
@@ -104,6 +105,7 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 			loader.startLoading();
 		}
 		lvPullDown.notifyDidLoad();
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_RECENT, "");
 	}
 
 	@Override
@@ -176,6 +178,7 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 			startActivity(new Intent(getActivity(), UserDetailActivity.class)
 					.putExtra("user", message.userId));
 		}
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_RECENT_CLICK, "");
 	}
 
 	@Override

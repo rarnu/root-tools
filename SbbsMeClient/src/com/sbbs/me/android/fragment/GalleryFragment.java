@@ -33,6 +33,7 @@ import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeGalleryAdapter;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeImage;
+import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.consts.PathDefine;
 import com.sbbs.me.android.dialog.ConfirmDialog;
@@ -117,6 +118,7 @@ public class GalleryFragment extends BaseFragment implements
 		setFragmentEnabled(false);
 		loader.setRefresh(false);
 		loader.startLoading();
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_GALLERY, "");
 	}
 
 	@Override
@@ -222,14 +224,14 @@ public class GalleryFragment extends BaseFragment implements
 					} catch (IOException e) {
 
 					}
-					loader.setRefresh(true);
-					loader.startLoading();
 				} else {
 					setFragmentEnabled(true);
 					tvLoading.setVisibility(View.GONE);
 					Toast.makeText(getActivity(), R.string.upload_image_fail,
 							Toast.LENGTH_LONG).show();
 				}
+				loader.setRefresh(true);
+				loader.startLoading();
 			} else if (msg.what == 2) {
 				String ret = (String) msg.obj;
 				Log.e("hUpload", ret);
@@ -281,6 +283,8 @@ public class GalleryFragment extends BaseFragment implements
 
 			}
 		}).start();
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_GALLERY_DELETE_PHOTO,
+				"");
 	}
 
 	private void doChoosePhoto() {

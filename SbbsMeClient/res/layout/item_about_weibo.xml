@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="56dip"
+    android:background="@drawable/article_list_selector" >
+
+    <TextView
+        android:id="@+id/tvName"
+        android:layout_width="match_parent"
+        android:layout_height="28dip"
+        android:layout_toLeftOf="@+id/ivGithub"
+        android:gravity="left|center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/google_dark_green"
+        android:textSize="18sp" />
+
+    <TextView
+        android:id="@+id/tvDesc"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvName"
+        android:layout_toLeftOf="@+id/ivGithub"
+        android:gravity="left|center_vertical"
+        android:maxLines="1"
+        android:singleLine="true"
+        android:textColor="@color/gray"
+        android:textSize="12sp" />
+
+    <ImageView
+        android:id="@+id/ivGithub"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_centerVertical="true"
+        android:layout_toLeftOf="@+id/ivWeibo"
+        android:background="@drawable/action_button_style"
+        android:clickable="true"
+        android:contentDescription="@null"
+        android:focusable="true"
+        android:src="@drawable/github" />
+
+    <ImageView
+        android:id="@+id/ivWeibo"
+        android:layout_width="36dip"
+        android:layout_height="36dip"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:background="@drawable/action_button_style"
+        android:clickable="true"
+        android:contentDescription="@null"
+        android:focusable="true"
+        android:src="@drawable/weibo" />
+
+</RelativeLayout>

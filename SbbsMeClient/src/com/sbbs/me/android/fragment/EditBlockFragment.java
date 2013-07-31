@@ -17,6 +17,7 @@ import com.sbbs.me.android.GalleryActivity;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeBlock;
+import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsBlockSender;
 
@@ -88,7 +89,18 @@ public class EditBlockFragment extends BaseFragment implements
 			etEditBlock.setText(item.Body);
 			break;
 		}
-
+		
+		switch (mode) {
+		case 0:
+			SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_BLOCK_APPEND, "");
+			break;
+		case 1:
+			SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_BLOCK_COMMENT, "");
+			break;
+		case 2:
+			SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_BLOCK_EDIT, "");
+			break;
+		}
 	}
 
 	@Override

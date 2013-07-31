@@ -22,6 +22,7 @@ import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.api.SbbsMeUser;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.consts.PathDefine;
@@ -100,7 +101,7 @@ public class UserDetailFragment extends BaseFragment implements
 		tvLoading.setVisibility(View.VISIBLE);
 		loader.setUserId(myUsrId, userId);
 		loader.startLoading();
-
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_USER_DETAIL, "");
 	}
 
 	@Override
@@ -224,8 +225,10 @@ public class UserDetailFragment extends BaseFragment implements
 			public void run() {
 				if (follow) {
 					SbbsMeAPI.followUser(myUsrId, userId);
+					SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_FOLLOW_USER, "");
 				} else {
 					SbbsMeAPI.unfollowUser(myUsrId, userId);
+					SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_UNFOLLOW_USER, "");
 				}
 				hUserOper.sendEmptyMessage(1);
 			}

@@ -2,6 +2,8 @@
 <resources>
 
     <string name="app_name">SbbsMe</string>
+    <string name="app_name_about">Sbbs.Me Android</string>
+    <string name="app_version_about" formatted="false">Version: %s</string>
     <string name="article_name">View Article</string>
     <string name="block_name">View Block</string>
     <string name="comment_name">Comment</string>
@@ -83,7 +85,7 @@
 	<string name="tag_no_article">No article in this tag</string>
 	<string name="no_email_binded">no email binded</string>
 	<string name="crash_terminate">SbbsMe client crashed and will be terminated soon.</string>
-	<string name="upload_image_fail">Upload image failed</string>
+	<string name="upload_image_fail">Upload image seems failed, retrying...</string>
 	<string name="delete_image_fail">Delete image failed</string>
 	<string name="confirm_delete_image">Confirm deleting this picture?</string>
 	<string name="no_picture">No image found, add some first.</string>

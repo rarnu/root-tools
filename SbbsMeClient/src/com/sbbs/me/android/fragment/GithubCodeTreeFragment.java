@@ -26,6 +26,8 @@ import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.CodeViewActivity;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeTreeEntryAdapter;
+import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.component.PathView;
 import com.sbbs.me.android.component.PathView.PathClickListener;
 import com.sbbs.me.android.loader.SbbsCodeTreeLoader;
@@ -102,6 +104,7 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 		tr.setPath("root");
 		tr.setSha("");
 		tvPath.addPath(tr);
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_GITHUB_TAB, "");
 	}
 
 	@Override
@@ -169,6 +172,7 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 					.putExtra("sha", item.getSha())
 					.putExtra("path", item.getPath()));
 		}
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_GITHUB_CLICK, "");
 	}
 
 	@Override

@@ -46,8 +46,10 @@ public class SbbsBlockLoader extends BaseLoader<SbbsMeBlock> {
 							.loadListFromFile(PathDefine.CACHE_ARTICLE_LIST_PATH);
 				}
 			} else {
-				FileUtils.saveListToFile(list,
-						PathDefine.CACHE_ARTICLE_LIST_PATH);
+				if (page == 1) {
+					FileUtils.saveListToFile(list,
+							PathDefine.CACHE_ARTICLE_LIST_PATH);
+				}
 			}
 		} else {
 			list = (List<SbbsMeBlock>) FileUtils
@@ -56,8 +58,10 @@ public class SbbsBlockLoader extends BaseLoader<SbbsMeBlock> {
 				refresh = true;
 				list = SbbsMeAPI.getArticles(page, pageSize);
 				if (list != null && list.size() != 0) {
-					FileUtils.saveListToFile(list,
-							PathDefine.CACHE_ARTICLE_LIST_PATH);
+					if (page == 1) {
+						FileUtils.saveListToFile(list,
+								PathDefine.CACHE_ARTICLE_LIST_PATH);
+					}
 				}
 			}
 		}

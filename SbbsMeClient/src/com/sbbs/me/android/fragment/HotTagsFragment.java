@@ -25,6 +25,8 @@ import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.TagArticleListActivity;
 import com.sbbs.me.android.adapter.SbbsMeTagAdapter;
+import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.api.SbbsMeTag;
 import com.sbbs.me.android.loader.SbbsTagLoader;
 
@@ -97,6 +99,7 @@ public class HotTagsFragment extends BaseFragment implements
 			loader.startLoading();
 		}
 		lvPullDown.notifyDidLoad();
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_HOT_TAGS, "");
 	}
 
 	@Override
@@ -163,6 +166,7 @@ public class HotTagsFragment extends BaseFragment implements
 		SbbsMeTag item = Global.listTags.get(position);
 		startActivity(new Intent(getActivity(), TagArticleListActivity.class)
 				.putExtra("item", item));
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_HOT_TAGS_CLICK, "");
 	}
 
 	@Override

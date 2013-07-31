@@ -3,10 +3,62 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
+    <ImageView
+        android:id="@+id/ivIcon"
+        android:layout_width="56dip"
+        android:layout_height="56dip"
+        android:layout_marginLeft="32dip"
+        android:layout_marginTop="16dip"
+        android:contentDescription="@null"
+        android:src="@drawable/ic_launcher" />
+
+    <TextView
+        android:id="@+id/tvAppName"
+        android:layout_width="match_parent"
+        android:layout_height="28dip"
+        android:layout_marginLeft="16dip"
+        android:layout_marginTop="16dip"
+        android:layout_toRightOf="@+id/ivIcon"
+        android:gravity="left|center_vertical"
+        android:text="@string/app_name_about"
+        android:textSize="18sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tvVersion"
+        android:layout_width="match_parent"
+        android:layout_height="28dip"
+        android:layout_below="@+id/tvAppName"
+        android:layout_marginLeft="16dip"
+        android:layout_toRightOf="@+id/ivIcon"
+        android:gravity="left|center_vertical"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/tvSplit"
+        android:layout_width="match_parent"
+        android:layout_height="2dip"
+        android:layout_below="@+id/tvVersion"
+        android:layout_marginLeft="8dip"
+        android:layout_marginRight="8dip"
+        android:layout_marginTop="16dip"
+        android:background="@color/google_light_green" />
+
+    <ListView
+        android:id="@+id/lvWeibo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/btnFeedback"
+        android:layout_below="@+id/tvSplit"
+        android:divider="@null"
+        android:dividerHeight="8dip"
+        android:padding="8dip" >
+    </ListView>
+
     <Button
         android:id="@+id/btnFeedback"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dip"
         android:layout_alignParentBottom="true"
         android:layout_margin="4dip"
         android:background="@drawable/common_button_style"

@@ -9,6 +9,8 @@ import android.view.Menu;
 import com.rarnu.devlib.base.BaseTabFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMeLogs;
 
 public class OnGithubTabFragment extends BaseTabFragment {
 
@@ -65,6 +67,12 @@ public class OnGithubTabFragment extends BaseTabFragment {
 		GithubCodeTreeFragment gctf1 = new GithubCodeTreeFragment();
 		gctf1.setArguments(bn1);
 		listFragment.add(gctf1);
+	}
+	
+	@Override
+	public void initLogic() {
+		super.initLogic();
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_GITHUB, "");
 	}
 
 }

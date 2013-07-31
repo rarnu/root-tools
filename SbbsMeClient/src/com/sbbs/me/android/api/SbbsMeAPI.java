@@ -22,6 +22,7 @@ import android.text.format.DateFormat;
 import android.util.Log;
 
 import com.rarnu.utils.DeviceUtilsLite;
+import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.HttpRequest;
 import com.rarnu.utils.common.HttpRequestResponseData;
 import com.sbbs.me.android.utils.AccountUtils;
@@ -607,6 +608,25 @@ public class SbbsMeAPI {
 		String ret = HttpRequest.post(LOG_URL + "write_feedback.php", params,
 				HTTP.UTF_8);
 		return ret;
+	}
+
+	public static List<SbbsMeWeibo> getCredit(Context context) {
+		List<SbbsMeWeibo> list = null;
+		try {
+			String ret = FileUtils.readAssetFile(context, "weibo.json");
+			JSONArray jarrWeibo = new JSONArray(ret);
+			if (jarrWeibo != null && jarrWeibo.length() != 0) {
+				list = new ArrayList<SbbsMeWeibo>();
+				for (int i = 0; i < jarrWeibo.length(); i++) {
+					list.add(SbbsMeWeibo.fromJson(jarrWeibo.getJSONObject(i)));
+				}
+			}
+		} catch (Exception e) {
+
+		}
+
+		return list;
+
 	}
 
 	public static void writeLogT(final Context context, final String action,

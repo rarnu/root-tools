@@ -12,6 +12,8 @@ import android.widget.RelativeLayout;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMeLogs;
 
 public class SelectPictureFragment extends BaseFragment implements
 		OnClickListener {
@@ -90,9 +92,13 @@ public class SelectPictureFragment extends BaseFragment implements
 		switch (v.getId()) {
 		case R.id.btnCamera:
 			inRet.putExtra("type", 0);
+			SbbsMeAPI.writeLogT(getActivity(),
+					SbbsMeLogs.LOG_GALLERY_TAKE_PHOTO, "");
 			break;
 		case R.id.btnGallery:
 			inRet.putExtra("type", 1);
+			SbbsMeAPI.writeLogT(getActivity(),
+					SbbsMeLogs.LOG_GALLERY_CHOOSE_PHOTO, "");
 			break;
 		case R.id.ivCloseDialog:
 			getActivity().finish();

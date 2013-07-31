@@ -14,6 +14,7 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.loader.SbbsFeedbackSender;
 import com.sbbs.me.android.utils.AccountUtils;
@@ -67,6 +68,7 @@ public class FeedbackFragment extends BaseFragment implements
 			tvStatus.setText(R.string.not_login);
 			tvStatus.setVisibility(View.VISIBLE);
 		}
+		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_FEEDBACK, "");
 	}
 
 	@Override
@@ -103,6 +105,8 @@ public class FeedbackFragment extends BaseFragment implements
 			setFragmentEnabled(false);
 			tvStatus.setVisibility(View.VISIBLE);
 			sender.startLoading();
+			SbbsMeAPI
+					.writeLogT(getActivity(), SbbsMeLogs.LOG_FEEDBACK_SEND, "");
 			break;
 		}
 		return true;

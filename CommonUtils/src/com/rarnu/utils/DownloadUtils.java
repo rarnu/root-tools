@@ -77,10 +77,15 @@ public class DownloadUtils {
 					if (file.exists()) {
 						try {
 							if (iv != null) {
-								iv.setImageBitmap(BitmapFactory
-										.decodeFile(filePath));
+								if (bop != null) {
+									iv.setImageBitmap(BitmapFactory.decodeFile(
+											filePath, bop));
+								} else {
+									iv.setImageBitmap(BitmapFactory
+											.decodeFile(filePath));
+								}
 							}
-						} catch (Exception e) {
+						} catch (Throwable e) {
 
 						}
 					}
