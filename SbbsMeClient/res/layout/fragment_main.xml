@@ -37,4 +37,31 @@
         android:visibility="gone" >
     </TextView>
 
+    <RelativeLayout
+        android:id="@+id/layLogining"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:background="@color/google_light_green"
+        android:padding="4dip"
+        android:visibility="gone" >
+
+        <ProgressBar
+            android:id="@+id/pbLogining"
+            style="@android:style/Widget.ProgressBar.Small"
+            android:layout_width="16dip"
+            android:layout_height="16dip"
+            android:layout_centerVertical="true" />
+
+        <TextView
+            android:id="@+id/tvLogining"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@+id/pbLogining"
+            android:padding="4dip"
+            android:text="@string/login_progress"
+            android:textColor="@color/white"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
 </RelativeLayout>

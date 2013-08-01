@@ -1,26 +1,44 @@
 package com.sbbs.me.android.fragment;
 
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.markdown4j.Markdown4jProcessor;
+
 import android.app.Activity;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ImageView;
+import android.widget.ListView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
+import com.sbbs.me.android.adapter.SbbsMeArticleMenuObjectAdapter;
+import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMeArticleObject;
+import com.sbbs.me.android.api.SbbsMeBlock;
 
 public class ArticleMenuFragment extends BaseFragment implements
-		OnClickListener {
+		OnClickListener, OnItemClickListener {
 
 	ImageView ivCloseDialog;
 	RelativeLayout btnAppendBlock, btnCommentBlock, btnEditBlock,
 			btnDeleteBlock, btnViewUser;
 	TextView tvAppendBlock, tvCommentBlock, tvEditBlock, tvDeleteBlock;
+	ListView lvObject;
+	SbbsMeArticleMenuObjectAdapter adapter;
+	List<SbbsMeArticleObject> list;
+	TextView tvNoObject;
 
 	public ArticleMenuFragment() {
 		super();
@@ -58,6 +76,12 @@ public class ArticleMenuFragment extends BaseFragment implements
 		tvCommentBlock = (TextView) innerView.findViewById(R.id.tvCommentBlock);
 		tvEditBlock = (TextView) innerView.findViewById(R.id.tvEditBlock);
 		tvDeleteBlock = (TextView) innerView.findViewById(R.id.tvDeleteBlock);
+		lvObject = (ListView) innerView.findViewById(R.id.lvObject);
+		tvNoObject = (TextView) innerView.findViewById(R.id.tvNoObject);
+
+		list = new ArrayList<SbbsMeArticleObject>();
+		adapter = new SbbsMeArticleMenuObjectAdapter(getActivity(), list);
+		lvObject.setAdapter(adapter);
 
 		boolean isMyArticle = getArguments().getBoolean("isMyArticle", false);
 		btnAppendBlock.setEnabled(isMyArticle);
@@ -83,11 +107,27 @@ public class ArticleMenuFragment extends BaseFragment implements
 		btnDeleteBlock.setOnClickListener(this);
 		btnViewUser.setOnClickListener(this);
 		ivCloseDialog.setOnClickListener(this);
+		lvObject.setOnItemClickListener(this);
 	}
 
 	@Override
 	public void initLogic() {
-
+		SbbsMeBlock item = (SbbsMeBlock) getArguments().getSerializable("item");
+		boolean isMarkdown = item.Format.equals("Markdown");
+		String body = item.Body;
+		if (isMarkdown) {
+			try {
+				body = new Markdown4jProcessor().process(item.Body);
+			} catch (IOException e) {
+			}
+		}
+		list = SbbsMeAPI.getArticleObjects(body);
+		if (list != null) {
+			adapter.setNewList(list);
+		}
+		tvNoObject
+				.setVisibility((list == null || list.size() == 0) ? View.VISIBLE
+						: View.GONE);
 	}
 
 	@Override
@@ -141,6 +181,21 @@ public class ArticleMenuFragment extends BaseFragment implements
 		}
 		getActivity().setResult(Activity.RESULT_OK, inRet);
 		getActivity().finish();
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+		SbbsMeArticleObject item = list.get(position);
+		if (item.objType == 0) {
+			Intent inUrl = new Intent(Intent.ACTION_VIEW);
+			inUrl.setData(Uri.parse(item.url));
+			startActivity(inUrl);
+		} else if (item.objType == 1) {
+			// TODO: big picture
+
+		}
+
 	}
 
 }

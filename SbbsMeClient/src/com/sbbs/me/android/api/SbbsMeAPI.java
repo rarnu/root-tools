@@ -27,6 +27,8 @@ import com.rarnu.utils.HttpRequest;
 import com.rarnu.utils.common.HttpRequestResponseData;
 import com.sbbs.me.android.utils.AccountUtils;
 import com.sbbs.me.android.utils.Config;
+import com.sbbs.me.android.utils.HtmlUtils;
+import com.sbbs.me.android.utils.HtmlUtils.AHref;
 
 public class SbbsMeAPI {
 
@@ -629,6 +631,33 @@ public class SbbsMeAPI {
 
 	}
 
+	/**
+	 * do NOT need login
+	 * 
+	 * @param blockText
+	 * @return
+	 */
+	public static List<SbbsMeArticleObject> getArticleObjects(String blockText) {
+
+		List<SbbsMeArticleObject> list = new ArrayList<SbbsMeArticleObject>();
+		List<String> listImage = HtmlUtils.getImages(blockText);
+		if (listImage != null) {
+			for (int i = 0; i < listImage.size(); i++) {
+				list.add(new SbbsMeArticleObject(1, listImage.get(i), listImage
+						.get(i)));
+			}
+		}
+		List<AHref> listUrl = HtmlUtils.getUrls(blockText);
+		if (listUrl != null) {
+			for (int i = 0; i < listUrl.size(); i++) {
+				list.add(new SbbsMeArticleObject(0, listUrl.get(i).text,
+						listUrl.get(i).url));
+			}
+		}
+
+		return list;
+	}
+
 	public static void writeLogT(final Context context, final String action,
 			final String detail) {
 
@@ -650,9 +679,7 @@ public class SbbsMeAPI {
 				params.add(new BasicNameValuePair("actiontime", DateFormat
 						.format("yyyyMMdd-hhmmss", System.currentTimeMillis())
 						.toString()));
-				String ret = HttpRequest.post(LOG_URL + "write_log.php",
-						params, HTTP.UTF_8);
-				Log.e("writeLogT", ret);
+				HttpRequest.post(LOG_URL + "write_log.php", params, HTTP.UTF_8);
 			}
 		}).start();
 

@@ -1,13 +1,12 @@
+1. 查看文章内的链接
+2. 查看文章内的图片
+
 Weibo
 	api_key *=* "259989602"
 	api_secret *=* "6144e89c9898bfada3fd3971b400d205"
 	redirect_uri *=* "http://sbbs.me/weibo/callback"
 	
 provider :google_oauth2, '876356697116.apps.googleusercontent.com', 'Sc9hk9vgfb5nQCYCSG1niCoM', {}
-
-2. about
-4. 数据统计
-5. gallery view
 
 create table sbbs_log(
 	id int primary key auto_increment not null, 
@@ -37,5 +36,6 @@ create table sbbs_require (
 	name text not null, 
 	body text not null, 
 	elevel int,				// 1-high, 2-normal, 3-low
-	stat int				// 1-need more info, 2-open, 3-listed, 4-rejected, 5-closed
+	stat int,				// 1-need more info, 2-open, 3-listed, 4-rejected, 5-closed
+	version text
 ) character set utf8;

@@ -27,6 +27,7 @@
     <string name="share">Share</string>
     <string name="view_image">View Image</string>
     <string name="login">Login</string>
+    <string name="login_progress">Login progressing, please wait...</string>
     <string name="logout">Logout</string>
     <string name="not_login">Please login first</string>
     <string name="gallery">Gallery</string>
@@ -89,4 +90,5 @@
 	<string name="delete_image_fail">Delete image failed</string>
 	<string name="confirm_delete_image">Confirm deleting this picture?</string>
 	<string name="no_picture">No image found, add some first.</string>
+	<string name="no_object">No object found</string>
 </resources>

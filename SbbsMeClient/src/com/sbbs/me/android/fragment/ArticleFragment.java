@@ -16,6 +16,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BaseSlidingActivity;
@@ -208,8 +209,11 @@ public class ArticleFragment extends BaseFragment implements
 					new Intent(getActivity(), ArticleMenuDialog.class)
 							.putExtra("item", item).putExtra("isMyArticle",
 									isMyArticle), 0);
+		} else {
+			Toast.makeText(getActivity(), R.string.not_login, Toast.LENGTH_LONG)
+					.show();
 		}
-		return false;
+		return true;
 	}
 
 	@Override

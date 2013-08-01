@@ -3,12 +3,11 @@ package com.sbbs.me.android.utils;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import com.sbbs.me.android.R;
-
 import android.accounts.Account;
 import android.accounts.AccountManager;
 import android.content.Context;
-import android.util.Log;
+
+import com.sbbs.me.android.R;
 
 public class AccountUtils {
 
@@ -42,7 +41,6 @@ public class AccountUtils {
 		if (retStr.equals("")) {
 			retStr = context.getString(R.string.no_email_binded);
 		}
-		Log.e("getBindedEmailAddress", retStr);
 		return retStr;
 	}
 

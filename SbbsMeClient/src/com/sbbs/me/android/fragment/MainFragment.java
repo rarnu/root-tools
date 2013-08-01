@@ -17,6 +17,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
@@ -60,6 +61,7 @@ public class MainFragment extends BaseFragment implements
 	SbbsMeArticleAdapter adapter;
 	TextView tvLoading;
 	TextView tvNodata;
+	RelativeLayout layLogining;
 
 	MenuItem miUser;
 	MenuItem miGallery;
@@ -96,6 +98,7 @@ public class MainFragment extends BaseFragment implements
 		lvPullDown = (PullDownListView) innerView.findViewById(R.id.lvPullDown);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
+		layLogining = (RelativeLayout) innerView.findViewById(R.id.layLogining);
 		if (Global.listArticle == null) {
 			Global.listArticle = new ArrayList<SbbsMeBlock>();
 		}
@@ -189,6 +192,7 @@ public class MainFragment extends BaseFragment implements
 			// google
 			String googleUserId = Config.getGoogleUserId(getActivity());
 			if (!googleUserId.equals("")) {
+				layLogining.setVisibility(View.VISIBLE);
 				googleOAuth.getGoogleUserInfoViaOAuth();
 			}
 			break;
@@ -196,12 +200,14 @@ public class MainFragment extends BaseFragment implements
 			// github
 			String githubUserId = Config.getGithubUserId(getActivity());
 			if (!githubUserId.equals("")) {
+				layLogining.setVisibility(View.VISIBLE);
 				githubOAuth.getGithubUserInfoViaOAuth();
 			}
 			break;
 		case 2:
 			String sinaUserId = Config.getSinaUserId(getActivity());
 			if (!sinaUserId.equals("")) {
+				layLogining.setVisibility(View.VISIBLE);
 				sinaOAuth.getSinaUserInfo(sinaUserId);
 			}
 			break;
@@ -331,6 +337,7 @@ public class MainFragment extends BaseFragment implements
 		switch (requestCode) {
 		case 0: {
 			int type = data.getIntExtra("type", 0);
+			layLogining.setVisibility(View.VISIBLE);
 			switch (type) {
 			case 0:
 				googleOAuth.sendGoogleOauth();
@@ -351,7 +358,7 @@ public class MainFragment extends BaseFragment implements
 				Config.setAccountType(getActivity(), -1);
 				Config.setSinaUserId(getActivity(), "");
 				Config.setUserId(getActivity(), "");
-				miUser.setIcon(android.R.drawable.ic_menu_report_image);
+				miUser.setIcon(android.R.drawable.ic_menu_myplaces);
 				SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_LOGOUT, "");
 			}
 		}
@@ -380,6 +387,7 @@ public class MainFragment extends BaseFragment implements
 						miUser.setIcon(d);
 					}
 				}
+				layLogining.setVisibility(View.GONE);
 				SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_LOGIN, "");
 			}
 			super.handleMessage(msg);

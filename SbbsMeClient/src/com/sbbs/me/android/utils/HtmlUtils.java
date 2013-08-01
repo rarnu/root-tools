@@ -24,4 +24,46 @@ public class HtmlUtils {
 		}
 		return pics;
 	}
+
+	public static class AHref {
+		public String text;
+		public String url;
+
+		public AHref(String text, String url) {
+			this.text = text;
+			this.url = url;
+		}
+	}
+
+	public static List<AHref> getUrls(String html) {
+		List<String> listText = new ArrayList<String>();
+		List<String> listUrl = new ArrayList<String>();
+
+		String patternString = "\\s*(?i)href\\s*=\\s*(\"([^\"]*\")|'[^']*'|([^'\">\\s]+))"; // href
+		Pattern pattern = Pattern.compile(patternString,
+				Pattern.CASE_INSENSITIVE);
+		Matcher matcher = pattern.matcher(html);
+
+		while (matcher.find()) {
+			String link = matcher.group();
+			link = link.replaceAll("href\\s*=\\s*(['|\"]*)", "");
+			link = link.replaceAll("['|\"]", "");
+			link = link.trim();
+			listUrl.add(link);
+		}
+
+		String patternStrs = "(<a.+?>)(.+?)(</a>)";
+		pattern = Pattern.compile(patternStrs);
+		matcher = pattern.matcher(html);
+		while (matcher.find()) {
+			listText.add(matcher.group(2));
+		}
+		List<AHref> list = new ArrayList<AHref>();
+		for (int i = 0; i < listUrl.size(); i++) {
+			list.add(new AHref(listText.get(i), listUrl.get(i)));
+		}
+		return list;
+
+	}
+
 }

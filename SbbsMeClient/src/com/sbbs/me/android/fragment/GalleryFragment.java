@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import android.app.Activity;
 import android.content.Intent;
@@ -117,8 +119,18 @@ public class GalleryFragment extends BaseFragment implements
 		tvLoading.setVisibility(View.VISIBLE);
 		setFragmentEnabled(false);
 		loader.setRefresh(false);
-		loader.startLoading();
+
 		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_GALLERY, "");
+
+		final Timer tmrLoad = new Timer();
+		tmrLoad.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				tmrLoad.cancel();
+				loader.startLoading();
+			}
+		}, 250);
+
 	}
 
 	@Override
@@ -344,18 +356,7 @@ public class GalleryFragment extends BaseFragment implements
 										getString(R.string.confirm_delete_image))
 								.putExtra("item", item), 3);
 			} else {
-				/*
-				 * ArrayList<String> listBundleFileName = new
-				 * ArrayList<String>(); ArrayList<String> listBundleUrl = new
-				 * ArrayList<String>(); for (int i = 0; i < listImage.size();
-				 * i++) { listBundleFileName.add(listImage.get(i).FileName);
-				 * listBundleUrl.add(listImage.get(i).URL); } startActivity(new
-				 * Intent(getActivity(), BigPictureActivity.class)
-				 * .putStringArrayListExtra("image", listBundleFileName)
-				 * .putStringArrayListExtra("url", listBundleUrl)
-				 * .putExtra("index", position) .putExtra("current_item",
-				 * item.FileName));
-				 */
+				// TODO: big picture
 			}
 		}
 	}

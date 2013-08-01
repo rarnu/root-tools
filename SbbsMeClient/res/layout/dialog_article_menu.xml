@@ -42,97 +42,127 @@
             android:src="@android:drawable/ic_menu_revert" />
     </RelativeLayout>
 
-    <LinearLayout
+    <com.rarnu.devlib.component.HScrollLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layHead"
-        android:orientation="vertical"
-        android:padding="8dip" >
+        android:layout_height="298dip"
+        android:layout_below="@+id/layHead" >
 
-        <RelativeLayout
-            android:id="@+id/btnAppendBlock"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="56dip"
-            android:background="@drawable/action_button_style"
-            android:clickable="true" >
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layHead"
+            android:orientation="vertical"
+            android:padding="8dip" >
+
+            <RelativeLayout
+                android:id="@+id/btnAppendBlock"
+                android:layout_width="match_parent"
+                android:layout_height="56dip"
+                android:background="@drawable/action_button_style"
+                android:clickable="true" >
+
+                <TextView
+                    android:id="@+id/tvAppendBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/block_append"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btnCommentBlock"
+                android:layout_width="match_parent"
+                android:layout_height="56dip"
+                android:background="@drawable/action_button_style"
+                android:clickable="true" >
+
+                <TextView
+                    android:id="@+id/tvCommentBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/block_comment"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btnEditBlock"
+                android:layout_width="match_parent"
+                android:layout_height="56dip"
+                android:background="@drawable/action_button_style"
+                android:clickable="true" >
+
+                <TextView
+                    android:id="@+id/tvEditBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/block_edit"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+
+            <RelativeLayout
+                android:id="@+id/btnDeleteBlock"
+                android:layout_width="match_parent"
+                android:layout_height="56dip"
+                android:background="@drawable/action_button_style"
+                android:clickable="true" >
+
+                <TextView
+                    android:id="@+id/tvDeleteBlock"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/block_delete"
+                    android:textSize="16sp" />
+            </RelativeLayout>
 
             <TextView
-                android:id="@+id/tvAppendBlock"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/block_append"
-                android:textSize="16sp" />
-        </RelativeLayout>
+                android:layout_height="2dip"
+                android:background="@color/google_light_green" />
+
+            <RelativeLayout
+                android:id="@+id/btnViewUser"
+                android:layout_width="match_parent"
+                android:layout_height="56dip"
+                android:background="@drawable/action_button_style"
+                android:clickable="true" >
+
+                <TextView
+                    android:id="@+id/tvViewUser"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:text="@string/block_user"
+                    android:textSize="16sp" />
+            </RelativeLayout>
+        </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/btnCommentBlock"
             android:layout_width="match_parent"
-            android:layout_height="56dip"
-            android:background="@drawable/action_button_style"
-            android:clickable="true" >
+            android:layout_height="match_parent" >
 
-            <TextView
-                android:id="@+id/tvCommentBlock"
+            <ListView
+                android:id="@+id/lvObject"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/block_comment"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/btnEditBlock"
-            android:layout_width="match_parent"
-            android:layout_height="56dip"
-            android:background="@drawable/action_button_style"
-            android:clickable="true" >
+                android:divider="@null"
+                android:dividerHeight="1dip"
+                android:padding="8dip" >
+            </ListView>
 
             <TextView
-                android:id="@+id/tvEditBlock"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:id="@+id/tvNoObject"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
                 android:gravity="center"
-                android:text="@string/block_edit"
-                android:textSize="16sp" />
+                android:text="@string/no_object"
+                android:textColor="@color/google_light_green"
+                android:textSize="18sp" />
         </RelativeLayout>
-
-        <RelativeLayout
-            android:id="@+id/btnDeleteBlock"
-            android:layout_width="match_parent"
-            android:layout_height="56dip"
-            android:background="@drawable/action_button_style"
-            android:clickable="true" >
-
-            <TextView
-                android:id="@+id/tvDeleteBlock"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/block_delete"
-                android:textSize="16sp" />
-        </RelativeLayout>
-
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="2dip"
-            android:background="@color/google_light_green" />
-
-        <RelativeLayout
-            android:id="@+id/btnViewUser"
-            android:layout_width="match_parent"
-            android:layout_height="56dip"
-            android:background="@drawable/action_button_style"
-            android:clickable="true" >
-
-            <TextView
-                android:id="@+id/tvDeleteBlock"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:gravity="center"
-                android:text="@string/block_user"
-                android:textSize="16sp" />
-        </RelativeLayout>
-    </LinearLayout>
+    </com.rarnu.devlib.component.HScrollLayout>
 
 </RelativeLayout>
