@@ -1,24 +1,27 @@
 package com.sbbs.me.android.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.io.File;
 
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.component.EndlessViewPager;
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.R;
-import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.consts.PathDefine;
+import com.sbbs.me.android.utils.MiscUtils;
 
 public class BigPictureFragment extends BaseFragment {
 
-	EndlessViewPager evpPicture;
+	ImageView ivImage;
+	ProgressBar pbImage;
 
 	public BigPictureFragment() {
 		super();
@@ -42,7 +45,8 @@ public class BigPictureFragment extends BaseFragment {
 
 	@Override
 	public void initComponents() {
-		evpPicture = (EndlessViewPager) innerView.findViewById(R.id.evpPicture);
+		ivImage = (ImageView) innerView.findViewById(R.id.ivImage);
+		pbImage = (ProgressBar) innerView.findViewById(R.id.pbImage);
 	}
 
 	@Override
@@ -50,38 +54,41 @@ public class BigPictureFragment extends BaseFragment {
 
 	}
 
+	private Handler hProgress = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			switch (msg.what) {
+			case DownloadUtils.WHAT_DOWNLOAD_START:
+				pbImage.setMax(msg.arg2);
+				pbImage.setProgress(msg.arg1);
+				pbImage.setVisibility(View.VISIBLE);
+				break;
+			case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
+				pbImage.setMax(msg.arg2);
+				pbImage.setProgress(msg.arg1);
+				break;
+			case DownloadUtils.WHAT_DOWNLOAD_FINISH:
+				pbImage.setVisibility(View.GONE);
+				break;
+			}
+			super.handleMessage(msg);
+		};
+	};
+
 	@Override
 	public void initLogic() {
-		List<String> image = getArguments().getStringArrayList("image");
-		List<String> url = getArguments().getStringArrayList("url");
-		int index = getArguments().getInt("index", 0);
-		String currentItem = getArguments().getString("current_item");
-		if (image == null || image.size() == 0) {
-			getActivity().finish();
+		String image = getArguments().getString("image");
+		String localImage = PathDefine.ROOT_PATH
+				+ MiscUtils.extractFileNameFromURL(image);
+		if (!new File(localImage).exists()) {
+
+			DownloadUtils.downloadFileT(getActivity(), ivImage, image,
+					PathDefine.ROOT_PATH,
+					MiscUtils.extractFileNameFromURL(image), hProgress);
 		} else {
-			initViewPager(image, url, index, currentItem);
+			ivImage.setImageBitmap(BitmapFactory.decodeFile(localImage));
 		}
-	}
 
-	private void initViewPager(List<String> image, List<String> url, int index,
-			String currentItem) {
-		evpPicture.setEndless(image.size() != 1);
-		List<View> views = new ArrayList<View>();
-		for (int i = 0; i < image.size(); i++) {
-			ImageView iv = new ImageView(getActivity());
-			DownloadUtils.downloadFileT(getActivity(), iv, SbbsMeAPI.ROOT_URL
-					+ url.get(i), PathDefine.ROOT_PATH, image.get(i), null);
-			views.add(iv);
-		}
-		evpPicture.setData(views);
-		setCurrentItem(image, index, currentItem);
-	}
-
-	private void setCurrentItem(List<String> image, int index,
-			String currentItem) {
-
-		evpPicture.setCurrentItem(Integer.MAX_VALUE / 2
-				- (index % image.size()));
 	}
 
 	@Override

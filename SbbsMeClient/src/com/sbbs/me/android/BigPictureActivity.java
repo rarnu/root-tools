@@ -16,11 +16,7 @@ public class BigPictureActivity extends BaseActivity {
 	@Override
 	public Fragment replaceFragment() {
 		Bundle bn = new Bundle();
-		bn.putStringArrayList("image",
-				getIntent().getStringArrayListExtra("image"));
-		bn.putStringArrayList("url", getIntent().getStringArrayListExtra("url"));
-		bn.putInt("index", getIntent().getIntExtra("index", 0));
-		bn.putString("current_item", getIntent().getStringExtra("current_item"));
+		bn.putString("image", getIntent().getStringExtra("image"));
 		BigPictureFragment bpf = new BigPictureFragment();
 		bpf.setArguments(bn);
 		return bpf;

@@ -184,6 +184,12 @@ public class MainFragment extends BaseFragment implements
 			hSetHead.sendMessage(msg);
 		}
 	}
+	
+	private void setMenuLoginState(boolean login) {
+		if (miUser != null) {
+			miUser.setEnabled(!login);
+		}
+	}
 
 	private void loadUserInfo() {
 		int type = Config.getAccountType(getActivity());
@@ -193,6 +199,7 @@ public class MainFragment extends BaseFragment implements
 			String googleUserId = Config.getGoogleUserId(getActivity());
 			if (!googleUserId.equals("")) {
 				layLogining.setVisibility(View.VISIBLE);
+				setMenuLoginState(true);
 				googleOAuth.getGoogleUserInfoViaOAuth();
 			}
 			break;
@@ -201,6 +208,7 @@ public class MainFragment extends BaseFragment implements
 			String githubUserId = Config.getGithubUserId(getActivity());
 			if (!githubUserId.equals("")) {
 				layLogining.setVisibility(View.VISIBLE);
+				setMenuLoginState(true);
 				githubOAuth.getGithubUserInfoViaOAuth();
 			}
 			break;
@@ -208,6 +216,7 @@ public class MainFragment extends BaseFragment implements
 			String sinaUserId = Config.getSinaUserId(getActivity());
 			if (!sinaUserId.equals("")) {
 				layLogining.setVisibility(View.VISIBLE);
+				setMenuLoginState(true);
 				sinaOAuth.getSinaUserInfo(sinaUserId);
 			}
 			break;
@@ -338,6 +347,7 @@ public class MainFragment extends BaseFragment implements
 		case 0: {
 			int type = data.getIntExtra("type", 0);
 			layLogining.setVisibility(View.VISIBLE);
+			setMenuLoginState(true);
 			switch (type) {
 			case 0:
 				googleOAuth.sendGoogleOauth();
@@ -388,6 +398,7 @@ public class MainFragment extends BaseFragment implements
 					}
 				}
 				layLogining.setVisibility(View.GONE);
+				setMenuLoginState(false);
 				SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_LOGIN, "");
 			}
 			super.handleMessage(msg);

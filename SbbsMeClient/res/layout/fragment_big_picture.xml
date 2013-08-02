@@ -4,9 +4,21 @@
     android:layout_height="match_parent"
     android:background="@color/black" >
 
-    <com.rarnu.devlib.component.EndlessViewPager
-        android:id="@+id/evpPicture"
+    <ImageView
+        android:id="@+id/ivImage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:contentDescription="@null"
+        android:scaleType="centerInside" />
+
+    <ProgressBar
+        android:id="@+id/pbImage"
+        style="@android:style/Widget.ProgressBar.Horizontal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="16dip"
+        android:visibility="gone" />
 
 </RelativeLayout>

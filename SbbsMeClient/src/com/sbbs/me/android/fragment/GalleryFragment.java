@@ -356,7 +356,9 @@ public class GalleryFragment extends BaseFragment implements
 										getString(R.string.confirm_delete_image))
 								.putExtra("item", item), 3);
 			} else {
-				// TODO: big picture
+				// TODO: gallery view pictures
+				// startActivity(new Intent(getActivity(),
+				// BigPictureActivity.class).putExtra("image", item.URL));
 			}
 		}
 	}

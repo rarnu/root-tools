@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
+import com.sbbs.me.android.BigPictureActivity;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeArticleMenuObjectAdapter;
 import com.sbbs.me.android.api.SbbsMeAPI;
@@ -188,12 +189,16 @@ public class ArticleMenuFragment extends BaseFragment implements
 			long id) {
 		SbbsMeArticleObject item = list.get(position);
 		if (item.objType == 0) {
-			Intent inUrl = new Intent(Intent.ACTION_VIEW);
-			inUrl.setData(Uri.parse(item.url));
-			startActivity(inUrl);
-		} else if (item.objType == 1) {
-			// TODO: big picture
+			try {
+				Intent inUrl = new Intent(Intent.ACTION_VIEW);
+				inUrl.setData(Uri.parse(item.url));
+				startActivity(inUrl);
+			} catch (Exception e) {
 
+			}
+		} else if (item.objType == 1) {
+			startActivity(new Intent(getActivity(), BigPictureActivity.class)
+					.putExtra("image", item.url));
 		}
 
 	}
