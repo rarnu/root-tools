@@ -98,7 +98,11 @@ public class ApkUtils {
 				true, null);
 		if (result.error.equals("")) {
 			ret = result.result;
-			ret = ret.substring(0, ret.indexOf('\t'));
+			try {
+				ret = ret.substring(0, ret.indexOf('\t'));
+			} catch (Exception e) {
+				ret = "unknown";
+			}
 		}
 		return ret;
 	}

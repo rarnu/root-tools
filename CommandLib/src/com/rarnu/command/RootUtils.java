@@ -13,7 +13,7 @@ import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
 public class RootUtils {
-	
+
 	public static final int LEVEL_ROOTED = 2;
 	public static final int LEVEL_HALF_ROOTED = 1;
 	public static final int LEVEL_NO_ROOT = 0;
@@ -21,7 +21,8 @@ public class RootUtils {
 	private static final String SU_PATH = "/system/bin/su";
 	private static final String SU_PATH_X = "/system/xbin/su";
 	private static final String APP_PATH = "/system/app/";
-	private static final String BUSYBOX_PATH = "/system/xbin/busybox";
+	private static final String[] BUSYBOX_PATH = new String[] {
+			"/system/xbin/busybox", "/system/bin/busybox" };
 
 	private static final String[] SUPERUSER_PATH = new String[] {
 			"eu.chainfire.supersu", "eu.chainfire.supersu.pro",
@@ -37,7 +38,15 @@ public class RootUtils {
 	}
 
 	public static boolean hasBusybox() {
-		return openFile(BUSYBOX_PATH).exists();
+		boolean ret = false;
+
+		for (int i = 0; i < BUSYBOX_PATH.length; i++) {
+			ret = openFile(BUSYBOX_PATH[i]).exists();
+			if (ret) {
+				break;
+			}
+		}
+		return ret;
 	}
 
 	public static boolean hasSuperuser() {
