@@ -1,6 +1,7 @@
 package com.sbbs.me.android.utils;
 
 import com.rarnu.utils.ImageUtils;
+import com.rarnu.utils.UIUtils;
 
 import android.graphics.drawable.Drawable;
 
@@ -21,7 +22,8 @@ public class MiscUtils {
 		Drawable d = null;
 		try {
 			d = Drawable.createFromPath(headLocalName);
-			d = ImageUtils.zoomDrawable(d, 256, 256);
+			int height = UIUtils.getActionBarHeight();
+			d = ImageUtils.zoomDrawable(d, height, height);
 		} catch (Exception e) {
 
 		}

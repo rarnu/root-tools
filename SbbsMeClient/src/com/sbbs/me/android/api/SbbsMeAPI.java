@@ -36,6 +36,7 @@ public class SbbsMeAPI {
 	private static final String BASE_URL = "http://sbbs.me/api/";
 	private static final String LOG_URL = "http://rarnu.7thgen.info/sbbs/";
 	private static HttpRequestResponseData cookieData = null;
+	
 
 	public static boolean isLogin() {
 		return cookieData != null;

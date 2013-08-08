@@ -184,7 +184,7 @@ public class MainFragment extends BaseFragment implements
 			hSetHead.sendMessage(msg);
 		}
 	}
-	
+
 	private void setMenuLoginState(boolean login) {
 		if (miUser != null) {
 			miUser.setEnabled(!login);

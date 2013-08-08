@@ -41,6 +41,8 @@ public class ArticleMenuFragment extends BaseFragment implements
 	List<SbbsMeArticleObject> list;
 	TextView tvNoObject;
 
+	RelativeLayout layObject;
+
 	public ArticleMenuFragment() {
 		super();
 		tagText = ResourceUtils.getString(R.tag.tag_article_menu_fragment);
@@ -79,6 +81,7 @@ public class ArticleMenuFragment extends BaseFragment implements
 		tvDeleteBlock = (TextView) innerView.findViewById(R.id.tvDeleteBlock);
 		lvObject = (ListView) innerView.findViewById(R.id.lvObject);
 		tvNoObject = (TextView) innerView.findViewById(R.id.tvNoObject);
+		layObject = (RelativeLayout) innerView.findViewById(R.id.layObject);
 
 		list = new ArrayList<SbbsMeArticleObject>();
 		adapter = new SbbsMeArticleMenuObjectAdapter(getActivity(), list);

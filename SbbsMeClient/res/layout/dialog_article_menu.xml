@@ -48,6 +48,7 @@
         android:layout_below="@+id/layHead" >
 
         <LinearLayout
+            android:id="@+id/layMenu"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/layHead"
@@ -141,6 +142,7 @@
         </LinearLayout>
 
         <RelativeLayout
+            android:id="@+id/layObject"
             android:layout_width="match_parent"
             android:layout_height="match_parent" >
 

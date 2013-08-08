@@ -31,6 +31,7 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
+import com.sbbs.me.android.BigPictureActivity;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMeGalleryAdapter;
 import com.sbbs.me.android.api.SbbsMeAPI;
@@ -356,9 +357,9 @@ public class GalleryFragment extends BaseFragment implements
 										getString(R.string.confirm_delete_image))
 								.putExtra("item", item), 3);
 			} else {
-				// TODO: gallery view pictures
-				// startActivity(new Intent(getActivity(),
-				// BigPictureActivity.class).putExtra("image", item.URL));
+				startActivity(new Intent(getActivity(),
+						BigPictureActivity.class).putExtra("image",
+						SbbsMeAPI.ROOT_URL + item.URL));
 			}
 		}
 	}
