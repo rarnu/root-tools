@@ -28,6 +28,8 @@ import com.rarnu.utils.common.HttpRequestResponseData;
 import com.rarnu.utils.http.FilePart;
 import com.rarnu.utils.http.MultipartEntity;
 import com.rarnu.utils.http.Part;
+import com.rarnu.utils.http.ProgressedMultipartEntity;
+import com.rarnu.utils.http.ProgressedMultipartEntity.ProgressListener;
 import com.rarnu.utils.http.StringPart;
 
 public class HttpRequest {
@@ -36,10 +38,13 @@ public class HttpRequest {
 			String encoding, Map<String, String> property) throws Exception {
 		URL url = new URL(host);
 		URLConnection conn = url.openConnection();
-		Iterator<Entry<String, String>> iter = property.entrySet().iterator();
-		while (iter.hasNext()) {
-			Map.Entry<String, String> entry = iter.next();
-			conn.addRequestProperty(entry.getKey(), entry.getValue());
+		if (property != null) {
+			Iterator<Entry<String, String>> iter = property.entrySet()
+					.iterator();
+			while (iter.hasNext()) {
+				Map.Entry<String, String> entry = iter.next();
+				conn.addRequestProperty(entry.getKey(), entry.getValue());
+			}
 		}
 		conn.setDoOutput(true);
 		OutputStreamWriter osw = new OutputStreamWriter(conn.getOutputStream());
@@ -89,29 +94,53 @@ public class HttpRequest {
 		return executeForResult(httpPost, encoding);
 	}
 
-	public static HttpRequestResponseData postWithHeader(String host,
+	public static String postFileWithProgress(String host,
+			List<BasicNameValuePair> params, List<BasicNameValuePair> files,
+			String encoding, ProgressListener callback) {
+		HttpPost httpPost = buildPostFilePartsWithCallback(host, params, files,
+				encoding, callback);
+		return executeForResult(httpPost, encoding);
+	}
+
+	public static HttpRequestResponseData postWithCookie(String host,
 			List<BasicNameValuePair> params, CookieStore cookie, String encoding) {
 		HttpPost httpPost = new HttpPost(host);
 		try {
-			UrlEncodedFormEntity p_entity = new UrlEncodedFormEntity(params,
+			UrlEncodedFormEntity pEntity = new UrlEncodedFormEntity(params,
 					encoding);
-			httpPost.setEntity(p_entity);
+			httpPost.setEntity(pEntity);
 		} catch (UnsupportedEncodingException e) {
 
 		}
 		return executeForData(httpPost, cookie, encoding);
 	}
 
-	public static HttpRequestResponseData postFileWithHeader(String host,
+	public static HttpRequestResponseData postFileWithCookie(String host,
 			List<BasicNameValuePair> params, List<BasicNameValuePair> files,
 			CookieStore cookie, String encoding) {
 		HttpPost httpPost = buildPostFileParts(host, params, files, encoding);
 		return executeForData(httpPost, cookie, encoding);
 	}
 
+	public static HttpRequestResponseData postFileWithCookieAndProgress(
+			String host, List<BasicNameValuePair> params,
+			List<BasicNameValuePair> files, CookieStore cookie,
+			String encoding, ProgressListener callback) {
+		HttpPost httpPost = buildPostFilePartsWithCallback(host, params, files,
+				encoding, callback);
+		return executeForData(httpPost, cookie, encoding);
+	}
+
 	private static HttpPost buildPostFileParts(String host,
 			List<BasicNameValuePair> params, List<BasicNameValuePair> files,
 			String encoding) {
+		return buildPostFilePartsWithCallback(host, params, files, encoding,
+				null);
+	}
+
+	private static HttpPost buildPostFilePartsWithCallback(String host,
+			List<BasicNameValuePair> params, List<BasicNameValuePair> files,
+			String encoding, ProgressListener callback) {
 		HttpPost httpPost = new HttpPost(host);
 		try {
 			Part[] p = new Part[params.size() + files.size()];
@@ -124,7 +153,12 @@ public class HttpRequest {
 				p[i] = new FilePart(files.get(i - idx).getName(), new File(
 						files.get(i - idx).getValue()), "*/*", encoding);
 			}
-			MultipartEntity multipart = new MultipartEntity(p);
+			MultipartEntity multipart = null;
+			if (callback == null) {
+				multipart = new MultipartEntity(p);
+			} else {
+				multipart = new ProgressedMultipartEntity(p, callback);
+			}
 			httpPost.setEntity(multipart);
 		} catch (Exception e) {
 
@@ -137,7 +171,7 @@ public class HttpRequest {
 		return executeForResult(request, encoding);
 	}
 
-	public static HttpRequestResponseData getWithHeader(String host,
+	public static HttpRequestResponseData getWithCookie(String host,
 			String params, CookieStore cookie, String encoding) {
 		HttpGet request = new HttpGet(host + "?" + params);
 		return executeForData(request, cookie, encoding);

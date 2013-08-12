@@ -36,3 +36,14 @@ create table sbbs_require (
 	stat int,				// 1-need more info, 2-open, 3-listed, 4-rejected, 5-closed
 	version text
 ) character set utf8;
+
+create table sbbs_version (
+	id int primary key auto_increment,
+	type int not null default 0,		// 0-daily, 1-rc
+	version int not null,
+	version_name text not null,
+	update_log text not null,
+	size text not null,
+	public_time text not null,
+	url text not null
+) character set utf8;

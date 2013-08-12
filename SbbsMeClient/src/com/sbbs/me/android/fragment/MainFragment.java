@@ -65,6 +65,7 @@ public class MainFragment extends BaseFragment implements
 
 	MenuItem miUser;
 	MenuItem miGallery;
+	MenuItem miMessage;
 	SinaOAuth sinaOAuth;
 	GoogleOAuth googleOAuth;
 	GithubOAuth githubOAuth;
@@ -175,6 +176,10 @@ public class MainFragment extends BaseFragment implements
 		miGallery = menu.add(0, MenuIds.MENU_ID_GALLERY, 98, R.string.gallery);
 		miGallery.setIcon(android.R.drawable.ic_menu_gallery);
 		miGallery.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		miMessage = menu.add(0, MenuIds.MENU_ID_MESSAGE, 97, R.string.message);
+		miMessage.setIcon(MiscUtils.loadResIcon(getActivity(),
+				R.drawable.ic_menu_notifications));
+		miMessage.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
 
 		if (SbbsMeAPI.isLogin()) {
 			Message msg = new Message();
@@ -258,6 +263,14 @@ public class MainFragment extends BaseFragment implements
 			if (SbbsMeAPI.isLogin()) {
 				startActivity(new Intent(getActivity(), GalleryActivity.class)
 						.putExtra("select_mode", false));
+			} else {
+				Toast.makeText(getActivity(), R.string.not_login,
+						Toast.LENGTH_LONG).show();
+			}
+			break;
+		case MenuIds.MENU_ID_MESSAGE:
+			if (SbbsMeAPI.isLogin()) {
+				// TODO: show messages
 			} else {
 				Toast.makeText(getActivity(), R.string.not_login,
 						Toast.LENGTH_LONG).show();

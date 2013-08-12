@@ -15,5 +15,7 @@ public class MenuIds {
 	public static final int MENU_ID_GALLERY = Menu.FIRST + 7;
 	public static final int MENU_ID_UPLOAD_IMAGE = Menu.FIRST + 8;
 	public static final int MENU_ID_REFRESH = Menu.FIRST + 9;
+	
+	public static final int MENU_ID_MESSAGE = Menu.FIRST + 10;
 
 }

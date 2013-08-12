@@ -36,7 +36,6 @@ public class SbbsMeAPI {
 	private static final String BASE_URL = "http://sbbs.me/api/";
 	private static final String LOG_URL = "http://rarnu.7thgen.info/sbbs/";
 	private static HttpRequestResponseData cookieData = null;
-	
 
 	public static boolean isLogin() {
 		return cookieData != null;
@@ -66,7 +65,7 @@ public class SbbsMeAPI {
 			List<BasicNameValuePair> param = new ArrayList<BasicNameValuePair>();
 			param.add(new BasicNameValuePair("account_type", accountType));
 			param.add(new BasicNameValuePair("avatar", avatar));
-			cookieData = HttpRequest.postWithHeader(
+			cookieData = HttpRequest.postWithCookie(
 					BASE_URL + String.format("login/%s/%s", uid, name), param,
 					null, HTTP.UTF_8);
 
@@ -208,7 +207,7 @@ public class SbbsMeAPI {
 	public static List<SbbsMeMessage> getRecentMsg() {
 		List<SbbsMeMessage> list = null;
 		try {
-			HttpRequestResponseData ret = HttpRequest.getWithHeader(BASE_URL
+			HttpRequestResponseData ret = HttpRequest.getWithCookie(BASE_URL
 					+ "msgs", "", cookieData.cookie, HTTP.UTF_8);
 			JSONArray jarrData = new JSONArray(ret.data);
 
@@ -234,7 +233,7 @@ public class SbbsMeAPI {
 		int retInt = 0;
 
 		try {
-			HttpRequestResponseData ret = HttpRequest.getWithHeader(BASE_URL
+			HttpRequestResponseData ret = HttpRequest.getWithCookie(BASE_URL
 					+ "msgs/count", "", cookieData.cookie, HTTP.UTF_8);
 			retInt = Integer.parseInt(ret.data);
 		} catch (Exception e) {
@@ -262,7 +261,7 @@ public class SbbsMeAPI {
 		params.add(new BasicNameValuePair("txtBody", txtBody));
 		params.add(new BasicNameValuePair("public", isPublic ? "1" : "0"));
 		params.add(new BasicNameValuePair("tags", tags));
-		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.postWithCookie(BASE_URL
 				+ "article", params, cookieData.cookie, HTTP.UTF_8);
 		String retStr = "";
 		if (ret != null) {
@@ -282,7 +281,7 @@ public class SbbsMeAPI {
 	public static String appendBlock(String blockId, String text) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("text", text));
-		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.postWithCookie(BASE_URL
 				+ "append_block/b" + blockId, params, cookieData.cookie,
 				HTTP.UTF_8);
 		String retStr = "";
@@ -306,7 +305,7 @@ public class SbbsMeAPI {
 		params.add(new BasicNameValuePair("text", text));
 		params.add(new BasicNameValuePair("comment_type", "#00f"));
 		params.add(new BasicNameValuePair("comment_title", "comment:" + title));
-		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.postWithCookie(BASE_URL
 				+ "comment_block/b" + blockId, params, cookieData.cookie,
 				HTTP.UTF_8);
 		String retStr = "";
@@ -327,7 +326,7 @@ public class SbbsMeAPI {
 	public static String editBlock(String blockId, String text) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("text", text));
-		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.postWithCookie(BASE_URL
 				+ "edit_block/b" + blockId, params, cookieData.cookie,
 				HTTP.UTF_8);
 		String retStr = "";
@@ -347,7 +346,7 @@ public class SbbsMeAPI {
 	public static String deleteBlock(String blockId) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("id", "b" + blockId));
-		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.postWithCookie(BASE_URL
 				+ "delete_block", params, cookieData.cookie, HTTP.UTF_8);
 		String retStr = "";
 		if (ret != null) {
@@ -367,7 +366,7 @@ public class SbbsMeAPI {
 	public static String followUser(String myUserId, String followUserId) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("from_user_id", myUserId));
-		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.postWithCookie(BASE_URL
 				+ "follow_user/" + followUserId, params, cookieData.cookie,
 				HTTP.UTF_8);
 		String retStr = "";
@@ -388,7 +387,7 @@ public class SbbsMeAPI {
 	public static String unfollowUser(String myUserId, String unfollowUserId) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
 		params.add(new BasicNameValuePair("from_user_id", myUserId));
-		HttpRequestResponseData ret = HttpRequest.postWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.postWithCookie(BASE_URL
 				+ "unfollow_user/" + unfollowUserId, params, cookieData.cookie,
 				HTTP.UTF_8);
 		String retStr = "";
@@ -517,7 +516,7 @@ public class SbbsMeAPI {
 	public static String uploadImage(String fileName) {
 		List<BasicNameValuePair> files = new ArrayList<BasicNameValuePair>();
 		files.add(new BasicNameValuePair("file", fileName));
-		HttpRequestResponseData ret = HttpRequest.postFileWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.postFileWithCookie(BASE_URL
 				+ "upload_image", new ArrayList<BasicNameValuePair>(), files,
 				cookieData.cookie, HTTP.UTF_8);
 		String retStr = "";
@@ -536,7 +535,7 @@ public class SbbsMeAPI {
 	 */
 	public static String deleteImage(String fileId) {
 		Log.e("deleteImage", fileId);
-		HttpRequestResponseData ret = HttpRequest.getWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.getWithCookie(BASE_URL
 				+ "delete_image/" + fileId, "", cookieData.cookie, HTTP.UTF_8);
 		String retStr = "";
 		if (ret != null) {
@@ -552,7 +551,7 @@ public class SbbsMeAPI {
 	 * @return
 	 */
 	public static List<SbbsMeImage> getImages() {
-		HttpRequestResponseData ret = HttpRequest.getWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.getWithCookie(BASE_URL
 				+ "get_images", "", cookieData.cookie, HTTP.UTF_8);
 		List<SbbsMeImage> list = null;
 		if (ret != null) {
@@ -562,7 +561,7 @@ public class SbbsMeAPI {
 	}
 
 	public static List<SbbsMeImage> getImages(int page, int pageSize) {
-		HttpRequestResponseData ret = HttpRequest.getWithHeader(BASE_URL
+		HttpRequestResponseData ret = HttpRequest.getWithCookie(BASE_URL
 				+ String.format("get_images/%d/%d", page, pageSize), "",
 				cookieData.cookie, HTTP.UTF_8);
 		List<SbbsMeImage> list = null;
@@ -627,9 +626,7 @@ public class SbbsMeAPI {
 		} catch (Exception e) {
 
 		}
-
 		return list;
-
 	}
 
 	/**
@@ -657,6 +654,18 @@ public class SbbsMeAPI {
 		}
 
 		return list;
+	}
+
+	public static SbbsMeUpdate checkUpdate(int versionCode) {
+		SbbsMeUpdate update = null;
+		try {
+			String ret = HttpRequest.get(LOG_URL + "update.php",
+					String.format("version=%d", versionCode), HTTP.UTF_8);
+			update = SbbsMeUpdate.fromJson(new JSONObject(ret));
+		} catch (Exception e) {
+
+		}
+		return update;
 	}
 
 	public static void writeLogT(final Context context, final String action,
