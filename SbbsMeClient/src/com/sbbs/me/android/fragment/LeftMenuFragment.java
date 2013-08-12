@@ -63,6 +63,7 @@ public class LeftMenuFragment extends BaseFragment implements
 		listMenu.add(getString(R.string.lm_recent));
 		listMenu.add(getString(R.string.lm_hottags));
 		listMenu.add(getString(R.string.lm_ongithub));
+		listMenu.add(getString(R.string.lm_archievement));
 		listExit = new ArrayList<String>();
 		listExit.add(getString(R.string.lm_about));
 		listExit.add(getString(R.string.lm_exit));

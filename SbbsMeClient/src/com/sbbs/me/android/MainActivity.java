@@ -1,6 +1,7 @@
 package com.sbbs.me.android;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
@@ -11,12 +12,14 @@ import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.fragment.ArchievementFragment;
 import com.sbbs.me.android.fragment.HotTagsFragment;
 import com.sbbs.me.android.fragment.LeftMenuFragment;
 import com.sbbs.me.android.fragment.MainFragment;
 import com.sbbs.me.android.fragment.OnGithubTabFragment;
 import com.sbbs.me.android.fragment.PostNewFragment;
 import com.sbbs.me.android.fragment.RecentFragment;
+import com.sbbs.me.android.service.MessageService;
 
 public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
@@ -28,7 +31,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 		ResourceUtils.init(this);
 		Global.autoRefreshTag = true;
 		super.onCreate(savedInstanceState);
-		
+		startService(new Intent(this, MessageService.class));
 	}
 
 	@Override
@@ -162,6 +165,15 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 			if (f == null) {
 				Log.e("getCurrentFragment", "new OnGithubTabFragment()");
 				f = new OnGithubTabFragment();
+			}
+			break;
+		case 5:
+			// archievement
+			f = getFragmentManager().findFragmentByTag(
+					getString(R.tag.tag_archievement_fragment));
+			if (f == null) {
+				Log.e("getCurrentFragment", "new ArchievementFragment()");
+				f = new ArchievementFragment();
 			}
 			break;
 		}

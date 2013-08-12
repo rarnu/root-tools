@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.WRITE_APN_SETTINGS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <application
         android:name=".SbbsMeApplication"
@@ -105,9 +106,32 @@
             android:windowSoftInputMode="stateHidden" >
         </activity>
 
+        <service
+            android:name=".service.MessageService"
+            android:enabled="true"
+            android:exported="true" >
+        </service>
+
+        <receiver
+            android:name=".service.MessageReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.sbbs.me.action.check_message" />
+                <action android:name="com.sbbs.me.action.check_update" />
+            </intent-filter>
+        </receiver>
+        <receiver android:name=".service.BootReceiver" >
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+x
+        </receiver>
+
         <provider
             android:name=".database.GithubProvider"
             android:authorities="com.sbbsme.github"
+            android:enabled="true"
             android:exported="true" />
     </application>
 
