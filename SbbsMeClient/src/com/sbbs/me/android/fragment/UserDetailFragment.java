@@ -26,9 +26,11 @@ import com.sbbs.me.android.api.SbbsMeLogs;
 import com.sbbs.me.android.api.SbbsMeUser;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.consts.PathDefine;
+import com.sbbs.me.android.dialog.SendMessageDialog;
 import com.sbbs.me.android.loader.SbbsUserLoader;
 import com.sbbs.me.android.utils.Config;
 import com.sbbs.me.android.utils.CustomUtils;
+import com.sbbs.me.android.utils.MiscUtils;
 
 public class UserDetailFragment extends BaseFragment implements
 		OnLoadCompleteListener<SbbsMeUser>, OnClickListener {
@@ -39,13 +41,14 @@ public class UserDetailFragment extends BaseFragment implements
 	ImageView ivHead;
 	TextView tvUserName, tvAccountType, tvLoading;
 	SbbsUserLoader loader;
-	MenuItem miLogout;
+	Button btnLogout;
 	TextView tvRelationship;
 	Button btnFollow;
 	SbbsMeUser user;
 	String myUsrId;
 	String userId;
 	RelativeLayout layLastPost;
+	MenuItem miMessage;
 
 	public UserDetailFragment() {
 		super();
@@ -76,6 +79,7 @@ public class UserDetailFragment extends BaseFragment implements
 		tvRelationship = (TextView) innerView.findViewById(R.id.tvRelationship);
 		btnFollow = (Button) innerView.findViewById(R.id.btnFollow);
 		layLastPost = (RelativeLayout) innerView.findViewById(R.id.layLastPost);
+		btnLogout = (Button) innerView.findViewById(R.id.btnLogout);
 
 		loader = new SbbsUserLoader(getActivity());
 	}
@@ -84,6 +88,7 @@ public class UserDetailFragment extends BaseFragment implements
 	public void initEvents() {
 		loader.registerListener(0, this);
 		btnFollow.setOnClickListener(this);
+		btnLogout.setOnClickListener(this);
 	}
 
 	@Override
@@ -93,8 +98,9 @@ public class UserDetailFragment extends BaseFragment implements
 		accType = Config.getAccountType(getActivity());
 		isShowingMyAccount = myUsrId.equals(userId);
 
-		if (miLogout != null) {
-			miLogout.setVisible(isShowingMyAccount);
+		if (btnLogout != null) {
+			btnLogout.setVisibility(isShowingMyAccount ? View.VISIBLE
+					: View.GONE);
 		}
 		btnFollow.setVisibility(isShowingMyAccount ? View.GONE : View.VISIBLE);
 		btnFollow.setEnabled(false);
@@ -116,10 +122,27 @@ public class UserDetailFragment extends BaseFragment implements
 
 	@Override
 	public void initMenu(Menu menu) {
-		miLogout = menu.add(0, MenuIds.MENU_ID_LOGOUT, 99, R.string.logout);
-		miLogout.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
-		miLogout.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-		miLogout.setVisible(isShowingMyAccount);
+		miMessage = menu.add(0, MenuIds.MENU_ID_MESSAGE, 99, R.string.message);
+		miMessage.setIcon(MiscUtils.loadResIcon(getActivity(),
+				R.drawable.ic_menu_notifications));
+		miMessage.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+	}
+
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case MenuIds.MENU_ID_MESSAGE:
+			if (isShowingMyAccount) {
+				Toast.makeText(getActivity(),
+						R.string.cannot_send_message_to_self, Toast.LENGTH_LONG)
+						.show();
+			} else {
+				startActivity(new Intent(getActivity(), SendMessageDialog.class)
+						.putExtra("user", userId));
+			}
+			break;
+		}
+		return true;
 	}
 
 	@Override
@@ -130,19 +153,6 @@ public class UserDetailFragment extends BaseFragment implements
 	@Override
 	public Bundle getFragmentState() {
 		return null;
-	}
-
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case MenuIds.MENU_ID_LOGOUT:
-			Intent inRet = new Intent();
-			inRet.putExtra("action", 1);
-			getActivity().setResult(Activity.RESULT_OK, inRet);
-			getActivity().finish();
-			break;
-		}
-		return true;
 	}
 
 	@Override
@@ -204,6 +214,12 @@ public class UserDetailFragment extends BaseFragment implements
 				userOperationT(user.followStatus == 0 || user.followStatus == 2);
 			}
 			break;
+		case R.id.btnLogout:
+			Intent inRet = new Intent();
+			inRet.putExtra("action", 1);
+			getActivity().setResult(Activity.RESULT_OK, inRet);
+			getActivity().finish();
+			break;
 		}
 	}
 
@@ -225,10 +241,12 @@ public class UserDetailFragment extends BaseFragment implements
 			public void run() {
 				if (follow) {
 					SbbsMeAPI.followUser(myUsrId, userId);
-					SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_FOLLOW_USER, "");
+					SbbsMeAPI.writeLogT(getActivity(),
+							SbbsMeLogs.LOG_FOLLOW_USER, "");
 				} else {
 					SbbsMeAPI.unfollowUser(myUsrId, userId);
-					SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_UNFOLLOW_USER, "");
+					SbbsMeAPI.writeLogT(getActivity(),
+							SbbsMeLogs.LOG_UNFOLLOW_USER, "");
 				}
 				hUserOper.sendEmptyMessage(1);
 			}

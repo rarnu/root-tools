@@ -6,14 +6,15 @@ import android.content.ContentValues;
 import android.database.Cursor;
 import android.net.Uri;
 
-public class GithubProvider extends ContentProvider {
+public class PrivateMessageProvider extends ContentProvider {
 
 	public static final Uri CONTENT_URI = Uri
-			.parse("content://com.sbbsme.github");
+			.parse("content://com.sbbsme.message");
 
-	public static final int ACTION_GITHUB_CACHE = 1;
+	public static final int ACTION_MESSAGE = 1;
+	public static final int ACTION_LAST_MESSAGE_ID = 2;
 
-	private GithubDatabase database = null;
+	private PrivateMessageDatabase database = null;
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
@@ -35,8 +36,8 @@ public class GithubProvider extends ContentProvider {
 		}
 		if (database != null) {
 			switch (actionId) {
-			case ACTION_GITHUB_CACHE:
-				database.insertOrUpdateGithubCache(values);
+			case ACTION_MESSAGE:
+				database.insertMessage(values);
 				break;
 			}
 		}
@@ -46,7 +47,7 @@ public class GithubProvider extends ContentProvider {
 	@Override
 	public boolean onCreate() {
 		try {
-			database = new GithubDatabase();
+			database = new PrivateMessageDatabase();
 		} catch (Exception e) {
 
 		}
@@ -65,8 +66,11 @@ public class GithubProvider extends ContentProvider {
 		Cursor c = null;
 		if (database != null) {
 			switch (actionId) {
-			case ACTION_GITHUB_CACHE:
-				c = database.queryGithubCache(selection, selectionArgs);
+			case ACTION_MESSAGE:
+				c = database.queryMessage(selection, selectionArgs);
+				break;
+			case ACTION_LAST_MESSAGE_ID:
+				c = database.queryLastMessageId();
 				break;
 			}
 		}
@@ -76,6 +80,19 @@ public class GithubProvider extends ContentProvider {
 	@Override
 	public int update(Uri uri, ContentValues values, String selection,
 			String[] selectionArgs) {
+		int actionId = -99;
+		try {
+			actionId = (int) ContentUris.parseId(uri);
+		} catch (Exception e) {
+
+		}
+		if (database != null) {
+			switch (actionId) {
+			case ACTION_MESSAGE:
+				database.updateMessage(values, selection, selectionArgs);
+				break;
+			}
+		}
 		return 0;
 	}
 

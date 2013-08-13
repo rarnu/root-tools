@@ -116,6 +116,13 @@ public class SbbsMeAPI {
 		return list;
 	}
 
+	/**
+	 * do NOT need login
+	 * 
+	 * @param article
+	 * @param blockId
+	 * @return
+	 */
 	public static SbbsMeSideBlocks getSideBlocks(SbbsMeArticle article,
 			String blockId) {
 		SbbsMeSideBlocks sb = new SbbsMeSideBlocks();
@@ -128,6 +135,60 @@ public class SbbsMeAPI {
 			sb.rightBlockCount = listRight.size();
 		}
 		return sb;
+	}
+
+	/**
+	 * do need login
+	 * @param toUserId
+	 * @param format
+	 * @param body
+	 * @return OK | receiver user not exist | please login
+	 */
+	public static String sendMsg(String toUserId, String format, String body) {
+		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+		params.add(new BasicNameValuePair("format", format));
+		params.add(new BasicNameValuePair("body", body));
+		HttpRequestResponseData ret = HttpRequest
+				.postWithCookie(BASE_URL + "send_msg/" + toUserId, params,
+						cookieData.cookie, HTTP.UTF_8);
+		String retStr = "";
+		if (ret != null) {
+			retStr = ret.data;
+			Log.e("sendMsg", retStr);
+		}
+		return retStr;
+	}
+
+	/**
+	 * do need login
+	 * @param lastMsgId
+	 * @param page
+	 * @param pageSize
+	 * @return 
+	 */
+	public static List<SbbsMePrivateMessage> queryMsg(String lastMsgId,
+			int page, int pageSize) {
+		HttpRequestResponseData ret = HttpRequest.getWithCookie(
+				BASE_URL
+						+ String.format("query_msg/%s/%d/%d", lastMsgId, page,
+								pageSize), "", cookieData.cookie, HTTP.UTF_8);
+		List<SbbsMePrivateMessage> list = null;
+		if (ret != null) {
+			try {
+				Log.e("queryMsg", ret.data);
+				JSONArray jArr = new JSONArray(ret.data);
+				if (jArr != null && jArr.length() != 0) {
+					list = new ArrayList<SbbsMePrivateMessage>();
+					for (int i = 0; i < jArr.length(); i++) {
+						list.add(SbbsMePrivateMessage.fromJson(jArr
+								.getJSONObject(i)));
+					}
+				}
+			} catch (Exception e) {
+
+			}
+		}
+		return list;
 	}
 
 	/**
@@ -612,6 +673,12 @@ public class SbbsMeAPI {
 		return ret;
 	}
 
+	/**
+	 * local api, do NOT need login
+	 * 
+	 * @param context
+	 * @return
+	 */
 	public static List<SbbsMeWeibo> getCredit(Context context) {
 		List<SbbsMeWeibo> list = null;
 		try {
@@ -656,6 +723,12 @@ public class SbbsMeAPI {
 		return list;
 	}
 
+	/**
+	 * do NOT need login
+	 * 
+	 * @param versionCode
+	 * @return
+	 */
 	public static SbbsMeUpdate checkUpdate(int versionCode) {
 		SbbsMeUpdate update = null;
 		try {
@@ -668,6 +741,13 @@ public class SbbsMeAPI {
 		return update;
 	}
 
+	/**
+	 * do NOT need login
+	 * 
+	 * @param context
+	 * @param action
+	 * @param detail
+	 */
 	public static void writeLogT(final Context context, final String action,
 			final String detail) {
 

@@ -30,6 +30,7 @@ import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.ArticleActivity;
 import com.sbbs.me.android.GalleryActivity;
 import com.sbbs.me.android.Global;
+import com.sbbs.me.android.PrivateMessageActivity;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.UserDetailActivity;
 import com.sbbs.me.android.adapter.SbbsMeArticleAdapter;
@@ -270,7 +271,8 @@ public class MainFragment extends BaseFragment implements
 			break;
 		case MenuIds.MENU_ID_MESSAGE:
 			if (SbbsMeAPI.isLogin()) {
-				// TODO: show messages
+				startActivity(new Intent(getActivity(),
+						PrivateMessageActivity.class));
 			} else {
 				Toast.makeText(getActivity(), R.string.not_login,
 						Toast.LENGTH_LONG).show();

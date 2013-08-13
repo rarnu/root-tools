@@ -2,10 +2,6 @@ package com.sbbs.me.android.api;
 
 public class SbbsMeMessage {
 
-	/*
-	 * 橙子Infinity comment to your post: comment:测试新浪微博登录. 何晓杰 now follow you.
-	 * 橙子Infinity append to post a new block: 测试新浪微博登录.
-	 */
 	/**
 	 * 0:comment, 1:follow
 	 */

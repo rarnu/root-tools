@@ -93,4 +93,7 @@
 	<string name="confirm_delete_image">Confirm deleting this picture?</string>
 	<string name="no_picture">No image found, add some first.</string>
 	<string name="no_object">No object found</string>
+	<string name="empty_message">Cannot send an empty message</string>
+	<string name="send_message_failed">Send message failed</string>
+	<string name="cannot_send_message_to_self">Cannot send message to self</string>
 </resources>

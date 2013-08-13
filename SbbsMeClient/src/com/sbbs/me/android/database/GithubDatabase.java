@@ -16,16 +16,16 @@ public class GithubDatabase {
 	private static final String SQL_GITHUB_CACHE = "create table github_cache (sha text not null, parent_sha text not null, path text not null, type text not null, repo text not null)";
 
 	public static boolean isDatabaseFileExists() {
-		return new File(PathDefine.DATABASE_PATH).exists();
+		return new File(PathDefine.GITHUB_DATABASE_PATH).exists();
 	}
 
 	public GithubDatabase() throws Exception {
 		if (!isDatabaseFileExists()) {
 			database = SQLiteDatabase.openOrCreateDatabase(
-					PathDefine.DATABASE_PATH, null);
+					PathDefine.GITHUB_DATABASE_PATH, null);
 			database.execSQL(SQL_GITHUB_CACHE);
 		} else {
-			database = SQLiteDatabase.openDatabase(PathDefine.DATABASE_PATH,
+			database = SQLiteDatabase.openDatabase(PathDefine.GITHUB_DATABASE_PATH,
 					null, SQLiteDatabase.OPEN_READWRITE);
 		}
 	}

@@ -27,5 +27,6 @@
     <item name="tag_select_picture_fragment" type="tag">tag_select_picture_fragment</item>
     <item name="tag_big_picture_fragment" type="tag">tag_big_picture_fragment</item>
     <item name="tag_archievement_fragment" type="tag">tag_archievement_fragment</item>
-
+    <item name="tag_private_message_fragment" type="tag">tag_private_message_fragment</item>
+	<item name="tag_send_message_fragment" type="tag">tag_send_message_fragment</item>
 </resources>
