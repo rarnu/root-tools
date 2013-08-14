@@ -16,15 +16,27 @@
         android:maxHeight="100dip"
         android:scaleType="centerInside"
         android:src="@drawable/logo" />
-    
-    <TextView android:id="@+id/tvVersion"
+
+    <TextView
+        android:id="@+id/tvVersion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/ivLogo"
-        android:layout_marginTop="16dip"
-        android:layout_marginRight="16dip"
         android:layout_alignParentRight="true"
-        android:textColor="@color/white"/>
+        android:layout_below="@+id/ivLogo"
+        android:layout_marginRight="16dip"
+        android:layout_marginTop="16dip"
+        android:textColor="@color/white" />
+
+    <TextView
+        android:id="@+id/tvFitable"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/tvVersion"
+        android:layout_marginRight="16dip"
+        android:layout_marginTop="16dip"
+        android:text="@string/fit_43"
+        android:textColor="@color/greenyellow" />
 
     <TextView
         android:id="@+id/tvCopyright"
