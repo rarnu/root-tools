@@ -179,8 +179,8 @@ public class HttpRequest {
 
 	private static BasicHttpParams buildHttpParams() {
 		BasicHttpParams httpParams = new BasicHttpParams();
-		HttpConnectionParams.setConnectionTimeout(httpParams, 5000);
-		HttpConnectionParams.setSoTimeout(httpParams, 5000);
+		HttpConnectionParams.setConnectionTimeout(httpParams, 50000);
+		HttpConnectionParams.setSoTimeout(httpParams, 50000);
 		return httpParams;
 	}
 

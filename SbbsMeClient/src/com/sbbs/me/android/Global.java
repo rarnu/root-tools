@@ -10,6 +10,7 @@ import com.sbbs.me.android.api.SbbsMeTag;
 
 public class Global {
 
+	public static boolean canExit = false;
 	public static boolean autoRefreshTag = false;
 	public static boolean autoLoadArticleTag = false;
 	public static boolean autoCommentRefreshTag = false;

@@ -732,11 +732,13 @@ public class SbbsMeAPI {
 	public static SbbsMeUpdate checkUpdate(int versionCode) {
 		SbbsMeUpdate update = null;
 		try {
+			Log.e("checkUpdate", String.valueOf(versionCode));
 			String ret = HttpRequest.get(LOG_URL + "update.php",
 					String.format("version=%d", versionCode), HTTP.UTF_8);
+			Log.e("checkUpdate", "result:"+ret);
 			update = SbbsMeUpdate.fromJson(new JSONObject(ret));
 		} catch (Exception e) {
-
+			Log.e("checkUpdate:error", e.getMessage());
 		}
 		return update;
 	}

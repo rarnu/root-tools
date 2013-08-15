@@ -16,6 +16,7 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
+import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.AboutActivity;
 import com.sbbs.me.android.IMainIntf;
 import com.sbbs.me.android.R;
@@ -86,7 +87,8 @@ public class LeftMenuFragment extends BaseFragment implements
 
 	@Override
 	public void initLogic() {
-
+		UIUtils.makeListViewFullSize(lvMenu, UIUtils.dipToPx(49));
+		UIUtils.makeListViewFullSize(lvExit, UIUtils.dipToPx(49));
 	}
 
 	@Override
@@ -130,7 +132,6 @@ public class LeftMenuFragment extends BaseFragment implements
 				getActivity().finish();
 				break;
 			}
-
 		}
 			break;
 		}

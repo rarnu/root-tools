@@ -1,5 +1,7 @@
 package com.rarnu.utils;
 
+import java.io.Serializable;
+
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -29,7 +31,7 @@ public class NotificationUtils {
 
 	public static void showNotification(final Context context, final int id,
 			final int icon, final int title, final int desc,
-			final String action, final boolean canClose) {
+			final String action, final Serializable object, final boolean canClose) {
 		NotificationManager manager = (NotificationManager) context
 				.getSystemService(Context.NOTIFICATION_SERVICE);
 		try {
@@ -38,16 +40,25 @@ public class NotificationUtils {
 
 		}
 		Notification n = buildNotification(context, id, icon, title, desc,
-				action, canClose);
+				action, object, canClose);
 		manager.notify(id, n);
+	}
+
+	public static void showNotification(final Context context, final int id,
+			final int icon, final int title, final int desc,
+			final String action, final boolean canClose) {
+		showNotification(context, id, icon, title, desc, action, null, canClose);
 	}
 
 	public static Notification buildNotification(final Context context,
 			final int id, final int icon, final int title, final int desc,
-			final String action, final boolean canClose) {
+			final String action, Serializable object, final boolean canClose) {
 
 		Intent inMain = new Intent(action);
 		inMain.putExtra("id", id);
+		if (object != null) {
+			inMain.putExtra("object", object);
+		}
 		PendingIntent pMain = PendingIntent.getBroadcast(context, 0, inMain,
 				PendingIntent.FLAG_UPDATE_CURRENT);
 

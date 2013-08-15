@@ -242,6 +242,7 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item) {
+		Global.canExit = false;
 		switch (item.getItemId()) {
 		case MenuIds.MENU_ID_USER:
 			int type = Config.getAccountType(getActivity());
@@ -305,6 +306,7 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void onRefresh() {
+		Global.canExit = false;
 		page = 1;
 		setIsBottom(false);
 		loader.setRefresh(true);
@@ -314,6 +316,7 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void onMore() {
+		Global.canExit = false;
 		if (!isBottom) {
 			page++;
 			loader.setRefresh(true);
@@ -356,6 +359,7 @@ public class MainFragment extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
+		Global.canExit = false;
 		final SbbsMeBlock item = (SbbsMeBlock) lvPullDown.getListView()
 				.getItemAtPosition(position);
 
@@ -486,6 +490,7 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void onClick(View v) {
+		Global.canExit = false;
 		switch (v.getId()) {
 		case R.id.tvNodata:
 			tvNodata.setEnabled(false);

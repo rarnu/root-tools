@@ -60,7 +60,7 @@ public abstract class BaseService extends Service {
 
 		final Notification n = NotificationUtils.buildNotification(
 				getApplicationContext(), id, getIcon24(), proc_title,
-				proc_desc, Actions.ACTION_NOTIFY_NULL, false);
+				proc_desc, Actions.ACTION_NOTIFY_NULL, null, false);
 		if (showNotification()) {
 			startForeground(proc_id, n);
 		}

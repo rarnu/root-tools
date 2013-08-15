@@ -66,6 +66,11 @@
             android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
         </activity>
         <activity
+            android:name=".dialog.UpdateInfoDialog"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar" >
+        </activity>
+        <activity
             android:name=".ArticleActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateHidden" >
@@ -131,11 +136,18 @@
                 <action android:name="com.sbbs.me.action.check_update" />
             </intent-filter>
         </receiver>
+        <receiver
+            android:name=".service.UpdateReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.sbbs.action.update.click" />
+            </intent-filter>
+        </receiver>
         <receiver android:name=".service.BootReceiver" >
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
-x
         </receiver>
 
         <provider

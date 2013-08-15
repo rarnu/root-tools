@@ -29,34 +29,64 @@
             android:textSize="18dp" />
     </RelativeLayout>
 
-    <ListView
-        android:id="@+id/lvMenu"
+    <TextView
+        android:id="@+id/tvSplitLine"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="1dip"
         android:layout_below="@+id/layLeftMenuHead"
-        android:cacheColorHint="@color/transparent"
-        android:divider="@color/google_light_green"
-        android:dividerHeight="1px"
-        android:overScrollMode="never" >
-    </ListView>
+        android:background="@color/google_dark_green" />
 
-    <RelativeLayout
-        android:id="@+id/laySplit3"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_above="@+id/lvExit"
-        android:background="@color/google_light_green" >
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tvSplitLine" >
 
-    <ListView
-        android:id="@+id/lvExit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:cacheColorHint="@color/transparent"
-        android:divider="@color/google_light_green"
-        android:dividerHeight="1px"
-        android:overScrollMode="never" >
-    </ListView>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tvNav"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/layLeftMenuHead"
+                android:background="@color/google_light_green"
+                android:padding="4dip"
+                android:text="@string/split_nav"
+                android:textColor="@color/white" />
+
+            <ListView
+                android:id="@+id/lvMenu"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvNav"
+                android:cacheColorHint="@color/transparent"
+                android:divider="@color/google_light_green"
+                android:dividerHeight="1px"
+                android:overScrollMode="never" >
+            </ListView>
+
+            <TextView
+                android:id="@+id/tvOpt"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/lvMenu"
+                android:background="@color/google_light_green"
+                android:padding="4dip"
+                android:text="@string/split_opt"
+                android:textColor="@color/white" />
+
+            <ListView
+                android:id="@+id/lvExit"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvOpt"
+                android:cacheColorHint="@color/transparent"
+                android:divider="@color/google_light_green"
+                android:dividerHeight="1px"
+                android:overScrollMode="never" >
+            </ListView>
+        </RelativeLayout>
+    </ScrollView>
 
 </RelativeLayout>
