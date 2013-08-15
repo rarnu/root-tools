@@ -110,7 +110,7 @@ public class ArticleFragment extends BaseFragment implements
 	@Override
 	public void initMenu(Menu menu) {
 		miShare = menu.add(0, MenuIds.MENU_ID_SHARE, 99, R.string.share);
-		miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		miShare.setIcon(android.R.drawable.ic_menu_share);
 	}
 

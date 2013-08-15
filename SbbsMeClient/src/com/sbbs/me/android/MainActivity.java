@@ -91,13 +91,33 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 		return new MainFragment();
 	}
 
+	boolean donotCloseTag = false;
+	boolean returnToHome = false;
+
 	@Override
 	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (currentPage != 0 && keyCode == KeyEvent.KEYCODE_BACK) {
-			switchPage(0, false);
+		if (currentPage != 0 && keyCode == KeyEvent.KEYCODE_BACK
+				&& (!getSlidingMenu().isMenuShowing())) {
+			donotCloseTag = true;
+			returnToHome = true;
+			showMenu();
 			return true;
 		}
 		return super.onKeyDown(keyCode, event);
+	}
+
+	@Override
+	public boolean onKeyUp(int keyCode, KeyEvent event) {
+		if (donotCloseTag && keyCode == KeyEvent.KEYCODE_BACK) {
+			donotCloseTag = false;
+			return true;
+		}
+		if (returnToHome) {
+			returnToHome = false;
+			switchPage(0, true);
+			return true;
+		}
+		return super.onKeyUp(keyCode, event);
 	}
 
 	@Override

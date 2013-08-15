@@ -117,11 +117,11 @@ public class EditBlockFragment extends BaseFragment implements
 	public void initMenu(Menu menu) {
 		miSend = menu.add(0, MenuIds.MENU_ID_SEND, 99, R.string.send);
 		miSend.setIcon(android.R.drawable.ic_menu_send);
-		miSend.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		miSend.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 		miGallery = menu.add(0, MenuIds.MENU_ID_GALLERY, 98, R.string.gallery);
 		miGallery.setIcon(android.R.drawable.ic_menu_gallery);
-		miGallery.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		miGallery.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}
 
 	@Override

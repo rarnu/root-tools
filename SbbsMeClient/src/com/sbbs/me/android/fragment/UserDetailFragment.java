@@ -125,7 +125,7 @@ public class UserDetailFragment extends BaseFragment implements
 		miMessage = menu.add(0, MenuIds.MENU_ID_MESSAGE, 99, R.string.message);
 		miMessage.setIcon(MiscUtils.loadResIcon(getActivity(),
 				R.drawable.ic_menu_notifications));
-		miMessage.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		miMessage.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}
 
 	@Override

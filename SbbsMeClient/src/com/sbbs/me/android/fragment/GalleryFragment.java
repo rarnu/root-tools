@@ -149,11 +149,11 @@ public class GalleryFragment extends BaseFragment implements
 		miAddImage = menu.add(0, MenuIds.MENU_ID_UPLOAD_IMAGE, 99,
 				R.string.upload_images);
 		miAddImage.setIcon(android.R.drawable.ic_menu_add);
-		miAddImage.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		miAddImage.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
 		miRefresh = menu.add(0, MenuIds.MENU_ID_REFRESH, 98, R.string.refresh);
 		miRefresh.setIcon(android.R.drawable.ic_menu_rotate);
-		miRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		miRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}
 
 	@Override
