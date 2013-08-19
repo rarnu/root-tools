@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="8dip" >
+
+    <TextView
+        android:id="@+id/tvWhenToCharge"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:layout_toLeftOf="@+id/etCanCharge"
+        android:gravity="left|center_vertical"
+        android:text="@string/str_can_charge"
+        android:textColor="?android:attr/textColorPrimary" />
+
+    <EditText
+        android:id="@+id/etCanCharge"
+        android:layout_width="60dip"
+        android:layout_height="48dip"
+        android:layout_alignParentRight="true"
+        android:inputType="number"
+        android:maxLines="1"
+        android:singleLine="true" />
+
+    <TextView
+        android:id="@+id/tvWhenToFastCharge"
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:layout_below="@+id/tvWhenToCharge"
+        android:layout_toLeftOf="@+id/etCanFastCharge"
+        android:gravity="left|center_vertical"
+        android:text="@string/str_can_fast_cahrge" />
+
+    <EditText
+        android:id="@+id/etCanFastCharge"
+        android:layout_width="60dip"
+        android:layout_height="48dip"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/etCanCharge"
+        android:inputType="number"
+        android:maxLines="1"
+        android:singleLine="true" />
+
+</RelativeLayout>

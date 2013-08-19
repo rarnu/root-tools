@@ -23,7 +23,6 @@ public class UpdateReceiver extends BroadcastReceiver {
 			inUpdate.putExtra("update", update);
 			context.startActivity(inUpdate);
 		}
-
 	}
 
 }

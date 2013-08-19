@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="app_name">BatteryNotifier</string>
+    <string name="menu_settings">Settings</string>
+
+    <string name="b_status">Status</string>
+    
+    <string name="b_status_unknown">Unknown</string>
+    <string name="b_status_charging">Charging</string>
+    <string name="b_status_discharging">Discharging</string>
+    <string name="b_status_not_charging">Not Charging</string>
+    <string name="b_status_full">Full</string>
+    
+    <string name="b_health">Health</string>
+    <string name="b_health_unknown">Unknown</string>
+    <string name="b_health_good">Good</string>
+    <string name="b_health_overheat">Overheat</string>
+    <string name="b_health_dead">Dead</string>
+    <string name="b_health_over_voltage">Over Voltage</string>
+    <string name="b_health_unspecified_failure">Unspecified Failure</string>
+    <string name="b_health_cold">Cold</string>
+    
+    <string name="b_present">Present</string>
+    <string name="b_present_true">Exists</string>
+    <string name="b_present_false">Missing</string>
+    
+    <string name="b_level">Level</string>
+    <string name="b_scale">Scale</string>
+    
+    <string name="b_plugged">Plugged</string>
+    <string name="b_plugged_battery">Not plugged</string>
+    <string name="b_plugged_ac">AC</string>
+    <string name="b_plugged_usb">USB</string>
+    
+    <string name="b_voltage">Voltage</string>
+    <string name="b_temperature">Temperature</string>
+    <string name="b_technology">Technology</string>
+    
+    <string name="b_charger">Charger</string>
+    <string name="b_charger_valid">Valid</string>
+    <string name="b_charger_invalid">Invalid</string>
+    
+    <string name="str_can_charge">When to recharge after full charged</string>
+    <string name="str_can_fast_cahrge">When to fast charge your device</string>
+</resources>
