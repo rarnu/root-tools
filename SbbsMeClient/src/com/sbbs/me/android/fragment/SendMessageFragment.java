@@ -123,6 +123,8 @@ public class SendMessageFragment extends BaseFragment implements
 		if (getActivity() != null) {
 			setComponentEnabled(true);
 			if (data.equals("OK")) {
+				Toast.makeText(getActivity(), R.string.send_message_succ,
+						Toast.LENGTH_SHORT).show();
 				getActivity().finish();
 			} else {
 				Toast.makeText(getActivity(), R.string.send_message_failed,

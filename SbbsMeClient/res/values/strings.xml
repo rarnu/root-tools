@@ -95,6 +95,7 @@
 	<string name="no_object">No object found</string>
 	<string name="empty_message">Cannot send an empty message</string>
 	<string name="send_message_failed">Send message failed</string>
+	<string name="send_message_succ">Message sent</string>
 	<string name="cannot_send_message_to_self">Cannot send message to self</string>
 	<string name="exit_hint">Press back one more time to exit</string>
 	<string name="split_nav">Navigate</string>
@@ -102,4 +103,6 @@
 	<string name="notify_update_title">Sbbs.Me Update</string>
 	<string name="notify_update_desc">new version found, click for detail</string>
 	<string name="update">Update</string>
+	<string name="notify_message_title">Sbbs.Me Message</string>
+	<string name="notify_message_desc">You have received some messages</string>
 </resources>

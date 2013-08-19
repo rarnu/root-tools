@@ -14,6 +14,8 @@ public class Config {
 	private static final String KEY_ACCOUNT_TYPE = "account_type";
 	private static final String KEY_GITHUB_USER_ID = "github_user_id";
 	private static final String KEY_HEAD_PATH = "head_path";
+	private static final String KEY_AVATAR_URL = "avatar_url";
+	private static final String KEY_USER_NAME = "user_name";
 
 	public static String getHeadPath(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_HEAD_PATH, "");
@@ -89,5 +91,21 @@ public class Config {
 	 */
 	public static void setAccountType(Context context, int type) {
 		ConfigUtils.setIntConfig(context, KEY_ACCOUNT_TYPE, type);
+	}
+
+	public static void setAvatarUrl(Context context, String value) {
+		ConfigUtils.setStringConfig(context, KEY_AVATAR_URL, value);
+	}
+
+	public static String getAvatarUrl(Context context) {
+		return ConfigUtils.getStringConfig(context, KEY_AVATAR_URL, "");
+	}
+	
+	public static void setUserName(Context context, String value) {
+		ConfigUtils.setStringConfig(context, KEY_USER_NAME, value);
+	}
+	
+	public static String getUserName(Context context) {
+		return ConfigUtils.getStringConfig(context, KEY_USER_NAME, "");
 	}
 }

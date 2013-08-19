@@ -31,14 +31,14 @@ public class SbbsPrivateMessageLoader extends BaseLoader<SbbsMeUserLite> {
 	public List<SbbsMeUserLite> loadInBackground() {
 		List<SbbsMePrivateMessage> list = null;
 		if (refresh) {
-			list = SbbsMeAPI.queryMsg(lastMsgId, page, pageSize);
+			list = SbbsMeAPI.queryMessage(lastMsgId, page, pageSize);
 			if (list != null && list.size() != 0) {
 				PrivateMessageUtils.saveMessages(getContext(), list);
 			}
 		} else {
 			list = PrivateMessageUtils.queryMessages(getContext());
 			if (list == null || list.size() == 0) {
-				list = SbbsMeAPI.queryMsg(lastMsgId, page, pageSize);
+				list = SbbsMeAPI.queryMessage(lastMsgId, page, pageSize);
 				if (list != null && list.size() != 0) {
 					PrivateMessageUtils.saveMessages(getContext(), list);
 				}

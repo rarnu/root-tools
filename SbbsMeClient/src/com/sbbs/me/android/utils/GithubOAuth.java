@@ -71,6 +71,8 @@ public class GithubOAuth {
 					githubUser = SbbsMeGithubUser.fromParent(us.getUser());
 					Config.setGithubUserId(mContext,
 							String.valueOf(githubUser.getId()), access_token);
+					Config.setUserName(mContext, githubUser.name);
+					Config.setAvatarUrl(mContext, githubUser.avatarUrl);
 					if (callback != null) {
 						callback.onGetGithubUser(githubUser);
 					}

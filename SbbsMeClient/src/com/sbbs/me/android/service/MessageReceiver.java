@@ -1,5 +1,7 @@
 package com.sbbs.me.android.service;
 
+import java.util.List;
+
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -11,8 +13,11 @@ import com.rarnu.utils.DeviceUtilsLite;
 import com.rarnu.utils.NotificationUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMePrivateMessage;
 import com.sbbs.me.android.api.SbbsMeUpdate;
 import com.sbbs.me.android.consts.Actions;
+import com.sbbs.me.android.database.PrivateMessageUtils;
+import com.sbbs.me.android.utils.Config;
 
 public class MessageReceiver extends BroadcastReceiver {
 
@@ -20,10 +25,73 @@ public class MessageReceiver extends BroadcastReceiver {
 	public void onReceive(final Context context, final Intent intent) {
 		String action = intent.getAction();
 		if (action.equals(Actions.ACTION_CHECK_MESSAGE)) {
-			// TODO: check message
 			Log.e("MessageReceiver", Actions.ACTION_CHECK_MESSAGE);
+
+			final Handler hMessage = new Handler() {
+				@Override
+				public void handleMessage(Message msg) {
+					if (msg.what == 1) {
+						NotificationUtils.cancelNotication(context,
+								Actions.ACTION_NOTIFY_MESSAGE);
+						NotificationUtils
+								.showNotification(context,
+										Actions.ACTION_NOTIFY_MESSAGE,
+										R.drawable.logo48,
+										R.string.notify_message_title,
+										R.string.notify_message_desc,
+										Actions.ACTION_NOTIFY_MESSAGE_CLICK,
+										null, true);
+					}
+					super.handleMessage(msg);
+				}
+			};
+			new Thread(new Runnable() {
+
+				@Override
+				public void run() {
+					if (!SbbsMeAPI.isLogin()) {
+						try {
+							String uid = Config.getUserId(context);
+							if (!uid.equals("")) {
+								String accType = "";
+								int acc = Config.getAccountType(context);
+								switch (acc) {
+								case 0:
+									accType = "google";
+									break;
+								case 1:
+									accType = "github";
+									break;
+								case 2:
+									accType = "weibo";
+									break;
+								}
+								SbbsMeAPI.login(uid,
+										Config.getUserName(context), accType,
+										Config.getAvatarUrl(context));
+								Log.e("MessageReceiver", "loged-in");
+							}
+
+						} catch (Exception e) {
+							Log.e("MessageReceiver",
+									"login error: " + e.getMessage());
+						}
+					}
+					if (SbbsMeAPI.isLogin()) {
+						List<SbbsMePrivateMessage> list = SbbsMeAPI
+								.queryMessage(PrivateMessageUtils
+										.getLastMessageId(context), 1, 1);
+						if (list != null && list.size() != 0) {
+							Message msg = new Message();
+							msg.what = 1;
+							msg.obj = list;
+							hMessage.sendMessage(msg);
+						}
+					}
+				}
+			}).start();
+
 		} else if (action.equals(Actions.ACTION_CHECK_UPDATE)) {
-			// TODO: check update
 			Log.e("MessageReceiver", Actions.ACTION_CHECK_UPDATE);
 			final Handler hUpdate = new Handler() {
 				@Override

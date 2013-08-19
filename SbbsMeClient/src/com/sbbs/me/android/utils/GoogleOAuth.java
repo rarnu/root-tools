@@ -53,6 +53,8 @@ public class GoogleOAuth {
 				try {
 					user = SbbsMeGoogleUser.fromJson(new JSONObject(ret));
 					Config.setGoogleUserId(mContext, user.id, token);
+					Config.setUserName(mContext, user.name);
+					Config.setAvatarUrl(mContext, user.picture);
 				} catch (Exception e) {
 
 				}

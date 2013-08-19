@@ -125,6 +125,8 @@ public class SinaOAuth {
 			public void onComplete(String result) {
 				try {
 					sinaUser = SbbsMeSinaUser.fromJson(new JSONObject(result));
+					Config.setUserName(mContext, sinaUser.screen_name);
+					Config.setAvatarUrl(mContext, sinaUser.avatar_large);
 				} catch (Exception e) {
 
 				}

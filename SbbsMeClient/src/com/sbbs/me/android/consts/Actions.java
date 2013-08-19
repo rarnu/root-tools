@@ -7,5 +7,7 @@ public class Actions {
 	
 	public static final int ACTION_NOTIFY_UPDATE = 100000;
 	public static final String ACTION_NOTIFY_UPDATE_CLICK = "com.sbbs.action.update.click";
+	public static final int ACTION_NOTIFY_MESSAGE = 100001;
+	public static final String ACTION_NOTIFY_MESSAGE_CLICK = "com.sbbs.action.message.click";
 	
 }

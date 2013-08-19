@@ -139,6 +139,7 @@ public class SbbsMeAPI {
 
 	/**
 	 * do need login
+	 * 
 	 * @param toUserId
 	 * @param format
 	 * @param body
@@ -161,33 +162,70 @@ public class SbbsMeAPI {
 
 	/**
 	 * do need login
+	 * 
 	 * @param lastMsgId
 	 * @param page
 	 * @param pageSize
-	 * @return 
+	 * @return
 	 */
-	public static List<SbbsMePrivateMessage> queryMsg(String lastMsgId,
+	public static List<SbbsMePrivateMessage> queryMessage(String lastMsgId,
 			int page, int pageSize) {
+		Log.e("queryMessage", String.format("id:%s, page:%d, size:%d",
+				lastMsgId, page, pageSize));
 		HttpRequestResponseData ret = HttpRequest.getWithCookie(
 				BASE_URL
-						+ String.format("query_msg/%s/%d/%d", lastMsgId, page,
-								pageSize), "", cookieData.cookie, HTTP.UTF_8);
+						+ String.format("check_new_msg/%s/%d/%d", lastMsgId,
+								page, pageSize), "", cookieData.cookie,
+				HTTP.UTF_8);
 		List<SbbsMePrivateMessage> list = null;
 		if (ret != null) {
-			try {
-				Log.e("queryMsg", ret.data);
-				JSONArray jArr = new JSONArray(ret.data);
-				if (jArr != null && jArr.length() != 0) {
-					list = new ArrayList<SbbsMePrivateMessage>();
-					for (int i = 0; i < jArr.length(); i++) {
-						list.add(SbbsMePrivateMessage.fromJson(jArr
-								.getJSONObject(i)));
-					}
-				}
-			} catch (Exception e) {
-
-			}
+			list = buildPrivateMessageList(ret.data);
 		}
+		return list;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @param lastMsgId
+	 * @param userId
+	 * @param page
+	 * @param pageSize
+	 * @return
+	 */
+	public static List<SbbsMePrivateMessage> queryMessage(String lastMsgId,
+			String userId, int page, int pageSize) {
+		Log.e("queryMessage", String.format("id:%s, user:%s, page:%d, size:%d",
+				lastMsgId, userId, page, pageSize));
+		HttpRequestResponseData ret = HttpRequest.getWithCookie(
+				BASE_URL
+						+ String.format("check_new_msg/%s/%s/%d/%d", lastMsgId,
+								userId, page, pageSize), "", cookieData.cookie,
+				HTTP.UTF_8);
+		List<SbbsMePrivateMessage> list = null;
+		if (ret != null) {
+			list = buildPrivateMessageList(ret.data);
+		}
+		return list;
+	}
+
+	private static List<SbbsMePrivateMessage> buildPrivateMessageList(
+			String data) {
+		List<SbbsMePrivateMessage> list = null;
+		try {
+			Log.e("queryMsg", data);
+			JSONArray jArr = new JSONArray(data);
+			if (jArr != null && jArr.length() != 0) {
+				list = new ArrayList<SbbsMePrivateMessage>();
+				for (int i = 0; i < jArr.length(); i++) {
+					list.add(SbbsMePrivateMessage.fromJson(jArr
+							.getJSONObject(i)));
+				}
+			}
+		} catch (Exception e) {
+
+		}
+
 		return list;
 	}
 
@@ -735,7 +773,7 @@ public class SbbsMeAPI {
 			Log.e("checkUpdate", String.valueOf(versionCode));
 			String ret = HttpRequest.get(LOG_URL + "update.php",
 					String.format("version=%d", versionCode), HTTP.UTF_8);
-			Log.e("checkUpdate", "result:"+ret);
+			Log.e("checkUpdate", "result:" + ret);
 			update = SbbsMeUpdate.fromJson(new JSONObject(ret));
 		} catch (Exception e) {
 			Log.e("checkUpdate:error", e.getMessage());
