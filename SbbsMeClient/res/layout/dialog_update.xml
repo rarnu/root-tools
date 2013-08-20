@@ -31,16 +31,68 @@
     </RelativeLayout>
 
     <TextView
-        android:id="@+id/tvMessage"
+        android:id="@+id/tvSplitLine"
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:layout_below="@+id/layHead"
+        android:background="@color/google_dark_green" />
+
+    <ScrollView
+        android:id="@+id/svUpdateLog"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layHead"
-        android:padding="16dip" />
+        android:layout_below="@+id/tvSplitLine" >
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/tvInfo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvSplitLine"
+                android:background="@color/google_light_green"
+                android:padding="4dip"
+                android:text="@string/update_info"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvMessage"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvInfo"
+                android:paddingBottom="8dip"
+                android:paddingLeft="16dip"
+                android:paddingRight="16dip"
+                android:paddingTop="8dip" />
+
+            <TextView
+                android:id="@+id/tvLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvMessage"
+                android:background="@color/google_light_green"
+                android:padding="4dip"
+                android:text="@string/update_log"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvMessageLog"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvLog"
+                android:paddingBottom="8dip"
+                android:paddingLeft="16dip"
+                android:paddingRight="16dip"
+                android:paddingTop="8dip" />
+        </RelativeLayout>
+    </ScrollView>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dip"
-        android:layout_below="@+id/tvMessage"
+        android:layout_below="@+id/svUpdateLog"
         android:orientation="horizontal"
         android:padding="8dip" >
 

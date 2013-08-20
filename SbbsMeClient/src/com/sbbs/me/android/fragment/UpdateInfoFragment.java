@@ -16,7 +16,7 @@ import com.sbbs.me.android.api.SbbsMeUpdate;
 public class UpdateInfoFragment extends BaseFragment implements OnClickListener {
 
 	SbbsMeUpdate update;
-	TextView tvMessage;
+	TextView tvMessage, tvMessageLog;
 	RelativeLayout btnOK, btnCancel;
 
 	@Override
@@ -37,6 +37,7 @@ public class UpdateInfoFragment extends BaseFragment implements OnClickListener 
 	@Override
 	public void initComponents() {
 		tvMessage = (TextView) innerView.findViewById(R.id.tvMessage);
+		tvMessageLog = (TextView) innerView.findViewById(R.id.tvMessageLog);
 		btnOK = (RelativeLayout) innerView.findViewById(R.id.btnOK);
 		btnCancel = (RelativeLayout) innerView.findViewById(R.id.btnCancel);
 	}
@@ -50,6 +51,13 @@ public class UpdateInfoFragment extends BaseFragment implements OnClickListener 
 	@Override
 	public void initLogic() {
 		update = (SbbsMeUpdate) getArguments().getSerializable("update");
+		String message = getString(R.string.update_time, update.publicTime)
+				+ "\n";
+		message += getString(R.string.app_version_about, update.versionName)
+				+ "\n";
+		message += getString(R.string.update_size, update.size);
+		tvMessage.setText(message);
+		tvMessageLog.setText(update.updateLog);
 	}
 
 	@Override
@@ -86,7 +94,7 @@ public class UpdateInfoFragment extends BaseFragment implements OnClickListener 
 			break;
 		}
 		getActivity().finish();
-		
+
 	}
 
 }

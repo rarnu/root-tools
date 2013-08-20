@@ -4,6 +4,9 @@
     <string name="app_name">SbbsMe</string>
     <string name="app_name_about">Sbbs.Me Android</string>
     <string name="app_version_about" formatted="false">Version: %s</string>
+    <string name="update_size" formatted="false">Size: %s</string>
+    <string name="update_time" formatted="false">time: %s</string>
+    <string name="update_log">Update Log</string>
     <string name="article_name">View Article</string>
     <string name="block_name">View Block</string>
     <string name="comment_name">Comment</string>
@@ -103,6 +106,7 @@
 	<string name="notify_update_title">Sbbs.Me Update</string>
 	<string name="notify_update_desc">new version found, click for detail</string>
 	<string name="update">Update</string>
+	<string name="update_info">Information</string>
 	<string name="notify_message_title">Sbbs.Me Message</string>
 	<string name="notify_message_desc">You have received some messages</string>
 </resources>
