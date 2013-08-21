@@ -205,7 +205,9 @@ public class GalleryFragment extends BaseFragment implements
 			case 1:
 				doChoosePhoto();
 				break;
-
+			case 2:
+				// TODO: choose video
+				break;
 			}
 		}
 			break;

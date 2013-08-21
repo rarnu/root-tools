@@ -12,6 +12,18 @@
         android:contentDescription="@null"
         android:scaleType="centerInside" />
 
+    <TextView
+        android:id="@+id/tvType"
+        android:layout_width="16dip"
+        android:layout_height="16dip"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="4dip"
+        android:layout_marginRight="4dip"
+        android:background="@color/google_light_green"
+        android:gravity="center"
+        android:textColor="@color/white" />
+
     <ImageView
         android:id="@+id/ivDelete"
         android:layout_width="36dip"

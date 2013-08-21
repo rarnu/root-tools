@@ -10,12 +10,14 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AbsListView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import com.rarnu.devlib.base.adapter.BaseAdapter;
 import com.rarnu.utils.DownloadUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeImage;
+import com.sbbs.me.android.api.SbbsMeVideo;
 import com.sbbs.me.android.consts.PathDefine;
 
 public class SbbsMeGalleryAdapter extends BaseAdapter<SbbsMeImage> {
@@ -57,6 +59,7 @@ public class SbbsMeGalleryAdapter extends BaseAdapter<SbbsMeImage> {
 			holder = new SbbsMeGalleryHolder();
 			holder.ivPic = (ImageView) v.findViewById(R.id.ivPic);
 			holder.ivDelete = (ImageView) v.findViewById(R.id.ivDelete);
+			holder.tvType = (TextView) v.findViewById(R.id.tvType);
 			v.setTag(holder);
 		}
 		SbbsMeImage item = list.get(position);
@@ -67,6 +70,7 @@ public class SbbsMeGalleryAdapter extends BaseAdapter<SbbsMeImage> {
 			holder.ivDelete
 					.setVisibility(isEditMode ? View.VISIBLE : View.GONE);
 			holder.ivPic.setAnimation(isEditMode ? animation : null);
+			holder.tvType.setText((item instanceof SbbsMeVideo) ? "V" : "I");
 		}
 		return v;
 	}

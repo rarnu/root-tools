@@ -677,7 +677,15 @@ public class SbbsMeAPI {
 			if (jarrImage != null && jarrImage.length() != 0) {
 				list = new ArrayList<SbbsMeImage>();
 				for (int i = 0; i < jarrImage.length(); i++) {
-					list.add(SbbsMeImage.fromJson(jarrImage.getJSONObject(i)));
+					SbbsMeImage img = null;
+					if (jarrImage.getJSONObject(i).has("VideoType")) {
+						img = SbbsMeVideo.fromJson(jarrImage.getJSONObject(i));
+					} else {
+						img = SbbsMeImage.fromJson(jarrImage.getJSONObject(i));
+					}
+					if (img != null) {
+						list.add(img);
+					}
 				}
 			}
 		} catch (Exception e) {

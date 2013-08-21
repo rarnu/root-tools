@@ -80,6 +80,22 @@
                 android:scaleType="centerInside"
                 android:src="@drawable/tp_photos" />
         </RelativeLayout>
+        
+        <RelativeLayout
+            android:id="@+id/btnVideo"
+            android:layout_width="0px"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:background="@drawable/action_button_style"
+            android:clickable="true" >
+
+            <ImageView
+                android:layout_width="92dip"
+                android:layout_height="92dip"
+                android:layout_centerInParent="true"
+                android:scaleType="centerInside"
+                android:src="@drawable/tp_video" />
+        </RelativeLayout>
     </LinearLayout>
 
 </RelativeLayout>

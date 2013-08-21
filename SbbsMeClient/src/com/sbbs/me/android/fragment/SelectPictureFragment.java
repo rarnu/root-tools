@@ -18,7 +18,7 @@ import com.sbbs.me.android.api.SbbsMeLogs;
 public class SelectPictureFragment extends BaseFragment implements
 		OnClickListener {
 
-	RelativeLayout btnCamera, btnGallery;
+	RelativeLayout btnCamera, btnGallery, btnVideo;
 	ImageView ivCloseDialog;
 
 	public SelectPictureFragment() {
@@ -45,7 +45,7 @@ public class SelectPictureFragment extends BaseFragment implements
 	public void initComponents() {
 		btnCamera = (RelativeLayout) innerView.findViewById(R.id.btnCamera);
 		btnGallery = (RelativeLayout) innerView.findViewById(R.id.btnGallery);
-
+		btnVideo = (RelativeLayout) innerView.findViewById(R.id.btnVideo);
 		ivCloseDialog = (ImageView) innerView.findViewById(R.id.ivCloseDialog);
 	}
 
@@ -53,6 +53,7 @@ public class SelectPictureFragment extends BaseFragment implements
 	public void initEvents() {
 		btnCamera.setOnClickListener(this);
 		btnGallery.setOnClickListener(this);
+		btnVideo.setOnClickListener(this);
 		ivCloseDialog.setOnClickListener(this);
 	}
 
@@ -99,6 +100,11 @@ public class SelectPictureFragment extends BaseFragment implements
 			inRet.putExtra("type", 1);
 			SbbsMeAPI.writeLogT(getActivity(),
 					SbbsMeLogs.LOG_GALLERY_CHOOSE_PHOTO, "");
+			break;
+		case R.id.btnVideo:
+			inRet.putExtra("type", 2);
+			SbbsMeAPI.writeLogT(getActivity(),
+					SbbsMeLogs.LOG_GALLERY_CHOOSE_VIDEO, "");
 			break;
 		case R.id.ivCloseDialog:
 			getActivity().finish();

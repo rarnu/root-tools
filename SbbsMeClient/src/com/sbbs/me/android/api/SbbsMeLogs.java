@@ -20,6 +20,7 @@ public class SbbsMeLogs {
 	public static final String LOG_ARTICLE_SHARE = "article_share";
 	public static final String LOG_GALLERY_CHOOSE_PHOTO = "gallery_choose_photo";
 	public static final String LOG_GALLERY_TAKE_PHOTO = "gallery_take_photo";
+	public static final String LOG_GALLERY_CHOOSE_VIDEO = "gallery_choose_video";
 	public static final String LOG_GALLERY_DELETE_PHOTO = "gallery_delete_photo";
 	public static final String LOG_POST_NEW_SEND = "post_new_send";
 	public static final String LOG_RECENT_CLICK = "recent_click";
