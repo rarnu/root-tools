@@ -1,8 +1,11 @@
 package com.sbbs.me.android;
 
 import android.app.Fragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.widget.Toast;
@@ -12,9 +15,13 @@ import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.devlib.component.intf.OnCloseListener;
 import com.rarnu.devlib.component.intf.OnOpenListener;
+import com.rarnu.utils.DeviceUtilsLite;
+import com.rarnu.utils.NotificationUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.api.SbbsMeAPI;
+import com.sbbs.me.android.api.SbbsMeUpdate;
+import com.sbbs.me.android.consts.Actions;
 import com.sbbs.me.android.fragment.ArchievementFragment;
 import com.sbbs.me.android.fragment.HotTagsFragment;
 import com.sbbs.me.android.fragment.LeftMenuFragment;
@@ -39,6 +46,42 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf,
 		startService(new Intent(this, MessageService.class));
 		getSlidingMenu().setOnOpenListener(this);
 		getSlidingMenu().setOnCloseListener(this);
+		doCheckUpdateT(this);
+	}
+
+	final Handler hUpdate = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				SbbsMeUpdate update = (SbbsMeUpdate) msg.obj;
+				NotificationUtils.cancelNotication(MainActivity.this,
+						Actions.ACTION_NOTIFY_UPDATE);
+				NotificationUtils.showNotification(MainActivity.this,
+						Actions.ACTION_NOTIFY_UPDATE, R.drawable.logo48,
+						R.string.notify_update_title,
+						R.string.notify_update_desc,
+						Actions.ACTION_NOTIFY_UPDATE_CLICK, update, true);
+			}
+			super.handleMessage(msg);
+		};
+	};
+
+	private void doCheckUpdateT(final Context context) {
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				SbbsMeUpdate update = SbbsMeAPI.checkUpdate(DeviceUtilsLite
+						.getAppVersionCode(MainActivity.this));
+				if (update != null && update.needUpdate) {
+					Message msg = new Message();
+					msg.what = 1;
+					msg.obj = update;
+					hUpdate.sendMessage(msg);
+				}
+			}
+		}).start();
 	}
 
 	@Override

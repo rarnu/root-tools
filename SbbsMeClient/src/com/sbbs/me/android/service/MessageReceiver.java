@@ -9,12 +9,10 @@ import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
 
-import com.rarnu.utils.DeviceUtilsLite;
 import com.rarnu.utils.NotificationUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMePrivateMessage;
-import com.sbbs.me.android.api.SbbsMeUpdate;
 import com.sbbs.me.android.consts.Actions;
 import com.sbbs.me.android.database.PrivateMessageUtils;
 import com.sbbs.me.android.utils.Config;
@@ -26,8 +24,6 @@ public class MessageReceiver extends BroadcastReceiver {
 		String action = intent.getAction();
 		if (action.equals(Actions.ACTION_CHECK_MESSAGE)) {
 			doCheckMessage(context);
-		} else if (action.equals(Actions.ACTION_CHECK_UPDATE)) {
-			doCheckUpdate(context);
 		}
 	}
 
@@ -75,40 +71,6 @@ public class MessageReceiver extends BroadcastReceiver {
 						msg.obj = list;
 						hMessage.sendMessage(msg);
 					}
-				}
-			}
-		}).start();
-	}
-
-	private void doCheckUpdate(final Context context) {
-		final Handler hUpdate = new Handler() {
-			@Override
-			public void handleMessage(Message msg) {
-				if (msg.what == 1) {
-					SbbsMeUpdate update = (SbbsMeUpdate) msg.obj;
-					NotificationUtils.cancelNotication(context,
-							Actions.ACTION_NOTIFY_UPDATE);
-					NotificationUtils.showNotification(context,
-							Actions.ACTION_NOTIFY_UPDATE, R.drawable.logo48,
-							R.string.notify_update_title,
-							R.string.notify_update_desc,
-							Actions.ACTION_NOTIFY_UPDATE_CLICK, update, true);
-				}
-				super.handleMessage(msg);
-			};
-		};
-
-		new Thread(new Runnable() {
-
-			@Override
-			public void run() {
-				SbbsMeUpdate update = SbbsMeAPI.checkUpdate(DeviceUtilsLite
-						.getAppVersionCode(context));
-				if (update != null && update.needUpdate) {
-					Message msg = new Message();
-					msg.what = 1;
-					msg.obj = update;
-					hUpdate.sendMessage(msg);
 				}
 			}
 		}).start();

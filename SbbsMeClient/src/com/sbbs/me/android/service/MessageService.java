@@ -20,8 +20,6 @@ public class MessageService extends Service {
 		super.onCreate();
 		AlarmUtils.startAlarm(getApplicationContext(), AlarmManager.RTC, 0,
 				60 * 1000, Actions.ACTION_CHECK_MESSAGE);
-		AlarmUtils.startAlarm(getApplicationContext(), AlarmManager.RTC, 1,
-				60 * 1000 * 60 * 12, Actions.ACTION_CHECK_UPDATE);
 	}
 
 	@Override
@@ -33,8 +31,6 @@ public class MessageService extends Service {
 	public void onDestroy() {
 		AlarmUtils.cancelAlarm(getApplicationContext(), 0,
 				Actions.ACTION_CHECK_MESSAGE);
-		AlarmUtils.cancelAlarm(getApplicationContext(), 1,
-				Actions.ACTION_CHECK_UPDATE);
 		super.onDestroy();
 	}
 
