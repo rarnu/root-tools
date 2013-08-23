@@ -12,6 +12,7 @@ import android.net.Uri;
 
 import com.sbbs.me.android.api.SbbsMePrivateMessage;
 import com.sbbs.me.android.api.SbbsMeUserLite;
+import com.sbbs.me.android.utils.Config;
 
 public class PrivateMessageUtils {
 
@@ -139,15 +140,24 @@ public class PrivateMessageUtils {
 		return id;
 	}
 
-	public static List<SbbsMeUserLite> getMessageUsers(
+	public static List<SbbsMeUserLite> getMessageUsers(Context context,
 			List<SbbsMePrivateMessage> list) {
 		List<SbbsMeUserLite> ret = new ArrayList<SbbsMeUserLite>();
+		String myId = Config.getUserId(context);
 		if (list != null) {
 			for (int i = 0; i < list.size(); i++) {
-				SbbsMeUserLite user = new SbbsMeUserLite(list.get(i).ToUserId,
-						list.get(i).ToUserName);
-				if (ret.indexOf(user) == -1) {
-					ret.add(user);
+				SbbsMeUserLite user = null;
+				if (list.get(i).ToUserId.equals(myId)) {
+					user = new SbbsMeUserLite(list.get(i).FromUserId,
+							list.get(i).FromUserName);
+				} else {
+					user = new SbbsMeUserLite(list.get(i).ToUserId,
+							list.get(i).ToUserName);
+				}
+				if (user != null) {
+					if (ret.indexOf(user) == -1) {
+						ret.add(user);
+					}
 				}
 			}
 		}

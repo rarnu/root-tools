@@ -1,6 +1,5 @@
 package com.sbbs.me.android.utils;
 
-import java.io.File;
 import java.io.IOException;
 
 import org.json.JSONException;
@@ -10,9 +9,7 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 
-import com.rarnu.utils.DownloadUtils;
 import com.sbbs.me.android.api.SbbsMeSinaUser;
-import com.sbbs.me.android.consts.PathDefine;
 import com.weibo.sdk.android.Oauth2AccessToken;
 import com.weibo.sdk.android.Weibo;
 import com.weibo.sdk.android.WeiboAuthListener;
@@ -138,16 +135,6 @@ public class SinaOAuth {
 	}
 
 	public Drawable getUserHead(String url) {
-		String headLocalPath = PathDefine.ROOT_PATH;
-		if (!new File(headLocalPath).exists()) {
-			new File(headLocalPath).mkdirs();
-		}
-		String headLocalName = headLocalPath + "mysinahead.jpg";
-		Config.setHeadPath(mContext, headLocalName);
-		if (!new File(headLocalName).exists()) {
-			DownloadUtils.downloadFile(url, headLocalName, null);
-		}
-
-		return MiscUtils.loadUserHeadFromFile(headLocalName);
+		return MiscUtils.getUserHead(mContext, url, "mysinahead.jpg");
 	}
 }

@@ -100,12 +100,29 @@ public class Config {
 	public static String getAvatarUrl(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_AVATAR_URL, "");
 	}
-	
+
 	public static void setUserName(Context context, String value) {
 		ConfigUtils.setStringConfig(context, KEY_USER_NAME, value);
 	}
-	
+
 	public static String getUserName(Context context) {
 		return ConfigUtils.getStringConfig(context, KEY_USER_NAME, "");
+	}
+
+	public static String getAccountString(Context context) {
+		String accType = "";
+		int acc = Config.getAccountType(context);
+		switch (acc) {
+		case 0:
+			accType = "google";
+			break;
+		case 1:
+			accType = "github";
+			break;
+		case 2:
+			accType = "weibo";
+			break;
+		}
+		return accType;
 	}
 }

@@ -46,7 +46,7 @@ public class SbbsPrivateMessageLoader extends BaseLoader<SbbsMeUserLite> {
 		}
 		List<SbbsMeUserLite> listUser = null;
 		if (list != null) {
-			listUser = PrivateMessageUtils.getMessageUsers(list);
+			listUser = PrivateMessageUtils.getMessageUsers(getContext(), list);
 		}
 		return listUser;
 	}

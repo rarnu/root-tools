@@ -43,6 +43,7 @@ import com.sbbs.me.android.dialog.ConfirmDialog;
 import com.sbbs.me.android.dialog.SelectPictureDialog;
 import com.sbbs.me.android.loader.SbbsGalleryLoader;
 import com.sbbs.me.android.utils.MiscUtils;
+import com.sbbs.me.android.utils.UriUtils;
 
 public class GalleryFragment extends BaseFragment implements
 		OnItemClickListener, OnLoadCompleteListener<List<SbbsMeImage>>,
@@ -206,7 +207,7 @@ public class GalleryFragment extends BaseFragment implements
 				doChoosePhoto();
 				break;
 			case 2:
-				// TODO: choose video
+				doChooseVideo();
 				break;
 			}
 		}
@@ -223,6 +224,18 @@ public class GalleryFragment extends BaseFragment implements
 		case 3:
 			SbbsMeImage item = (SbbsMeImage) data.getSerializableExtra("item");
 			deleteImageT(item.Id);
+			break;
+		case 4:
+			// TODO: select video
+			Log.e("data", data.toString());
+			Uri  u = data.getData();
+			String filePath = "";
+			if (data.getDataString().startsWith("content://")) {
+				filePath = UriUtils.getRealFilePath(getActivity(), u);
+			} else if (data.getDataString().startsWith("file://")) {
+				filePath = data.getDataString().replace("file://", "");
+			}
+			Log.e("filePath", filePath);
 			break;
 		}
 	}
@@ -313,6 +326,12 @@ public class GalleryFragment extends BaseFragment implements
 		intent.putExtra("output", Uri.fromFile(fTmp));
 		intent.putExtra("outputFormat", "JPEG");
 		startActivityForResult(intent, 1);
+	}
+
+	private void doChooseVideo() {
+		Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+		intent.setType("video/*");
+		startActivityForResult(intent, 4);
 	}
 
 	private void doCropPhoto(Uri uri) {

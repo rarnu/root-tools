@@ -51,7 +51,7 @@ public class MessageReceiver extends BroadcastReceiver {
 					try {
 						String uid = Config.getUserId(context);
 						if (!uid.equals("")) {
-							String accType = getAccountType(context);
+							String accType = Config.getAccountString(context);
 							SbbsMeAPI.login(uid, Config.getUserName(context),
 									accType, Config.getAvatarUrl(context));
 							Log.e("MessageReceiver", "loged-in");
@@ -64,8 +64,10 @@ public class MessageReceiver extends BroadcastReceiver {
 				}
 				if (SbbsMeAPI.isLogin()) {
 					List<SbbsMePrivateMessage> list = SbbsMeAPI.queryMessage(
-							PrivateMessageUtils.getLastMessageId(context), 1, 1);
+							PrivateMessageUtils.getLastMessageId(context), 1,
+							100);
 					if (list != null && list.size() != 0) {
+						PrivateMessageUtils.saveMessages(context, list);
 						Message msg = new Message();
 						msg.what = 1;
 						msg.obj = list;
@@ -76,20 +78,5 @@ public class MessageReceiver extends BroadcastReceiver {
 		}).start();
 	}
 
-	private String getAccountType(final Context context) {
-		String accType = "";
-		int acc = Config.getAccountType(context);
-		switch (acc) {
-		case 0:
-			accType = "google";
-			break;
-		case 1:
-			accType = "github";
-			break;
-		case 2:
-			accType = "weibo";
-			break;
-		}
-		return accType;
-	}
+	
 }

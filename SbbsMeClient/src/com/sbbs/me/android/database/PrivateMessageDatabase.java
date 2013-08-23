@@ -21,14 +21,11 @@ public class PrivateMessageDatabase {
 	}
 
 	public PrivateMessageDatabase() throws Exception {
+		Log.e("PrivateMessageDatabase", "Create");
 		if (!isDatabaseFileExists()) {
 			database = SQLiteDatabase.openOrCreateDatabase(
 					PathDefine.MESSAGE_DATABASE_PATH, null);
-			try {
-				database.execSQL(SQL_MESSAGES);
-			} catch (Exception e) {
-				Log.e("PrivateMessageDatabase", e.getMessage());
-			}
+			database.execSQL(SQL_MESSAGES);
 		} else {
 			database = SQLiteDatabase.openDatabase(
 					PathDefine.MESSAGE_DATABASE_PATH, null,
@@ -62,7 +59,9 @@ public class PrivateMessageDatabase {
 
 	public void insertMessage(ContentValues cv) {
 		if (database != null) {
-			database.insert(TABLE_MESSAGES, null, cv);
+			if (!idExists(cv.getAsString("id"))) {
+				database.insert(TABLE_MESSAGES, null, cv);
+			}
 		}
 	}
 
@@ -76,6 +75,23 @@ public class PrivateMessageDatabase {
 		if (database != null) {
 			database.update(TABLE_MESSAGES, cv, where, whereArgs);
 		}
+	}
+
+	private boolean idExists(String id) {
+		boolean ret = false;
+		if (database != null) {
+			Cursor c = database.query(TABLE_MESSAGES, new String[] { "id" },
+					"id=?", new String[] { id }, null, null, null);
+			if (c != null) {
+				c.moveToFirst();
+				while (!c.isAfterLast()) {
+					ret = true;
+					c.moveToNext();
+				}
+				c.close();
+			}
+		}
+		return ret;
 	}
 
 }

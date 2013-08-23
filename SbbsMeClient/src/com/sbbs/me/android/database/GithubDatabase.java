@@ -25,8 +25,9 @@ public class GithubDatabase {
 					PathDefine.GITHUB_DATABASE_PATH, null);
 			database.execSQL(SQL_GITHUB_CACHE);
 		} else {
-			database = SQLiteDatabase.openDatabase(PathDefine.GITHUB_DATABASE_PATH,
-					null, SQLiteDatabase.OPEN_READWRITE);
+			database = SQLiteDatabase.openDatabase(
+					PathDefine.GITHUB_DATABASE_PATH, null,
+					SQLiteDatabase.OPEN_READWRITE);
 		}
 	}
 

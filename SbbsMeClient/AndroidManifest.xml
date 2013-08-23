@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.sbbs.me.android"
-    android:versionCode="6"
-    android:versionName="beta0.5.1" >
+    android:versionCode="7"
+    android:versionName="beta0.5.2" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -142,6 +142,14 @@
             android:exported="true" >
             <intent-filter>
                 <action android:name="com.sbbs.action.update.click" />
+            </intent-filter>
+        </receiver>
+        <receiver
+            android:name=".service.MessageClickReceiver"
+            android:enabled="true"
+            android:exported="true" >
+            <intent-filter>
+                <action android:name="com.sbbs.action.message.click" />
             </intent-filter>
         </receiver>
         <receiver android:name=".service.BootReceiver" >

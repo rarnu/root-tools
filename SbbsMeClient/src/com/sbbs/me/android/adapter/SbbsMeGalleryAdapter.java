@@ -70,7 +70,7 @@ public class SbbsMeGalleryAdapter extends BaseAdapter<SbbsMeImage> {
 			holder.ivDelete
 					.setVisibility(isEditMode ? View.VISIBLE : View.GONE);
 			holder.ivPic.setAnimation(isEditMode ? animation : null);
-			holder.tvType.setText((item instanceof SbbsMeVideo) ? "V" : "I");
+			holder.tvType.setText((item instanceof SbbsMeVideo) ? "V" : "G");
 		}
 		return v;
 	}

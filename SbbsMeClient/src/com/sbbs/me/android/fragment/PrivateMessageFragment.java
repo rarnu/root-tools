@@ -159,8 +159,9 @@ public class PrivateMessageFragment extends BaseFragment implements
 	@Override
 	public void onLoadComplete(Loader<List<SbbsMeUserLite>> loader,
 			List<SbbsMeUserLite> data) {
-		list.clear();
+		
 		if (data != null) {
+			list.clear();
 			list.addAll(data);
 		}
 		if (getActivity() != null) {

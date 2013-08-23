@@ -1,13 +1,17 @@
 package com.sbbs.me.android.utils;
 
+import java.io.File;
+
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 
+import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.ImageUtils;
 import com.rarnu.utils.UIUtils;
+import com.sbbs.me.android.consts.PathDefine;
 
 public class MiscUtils {
 
@@ -20,6 +24,19 @@ public class MiscUtils {
 		String head = html.substring(startPos);
 		head = head.substring(0, head.indexOf("\""));
 		return head;
+	}
+	
+	public static Drawable getUserHead(Context context, String url, String local) {
+		String headLocalPath = PathDefine.ROOT_PATH;
+		if (!new File(headLocalPath).exists()) {
+			new File(headLocalPath).mkdirs();
+		}
+		String headLocalName = headLocalPath + local;
+		Config.setHeadPath(context, headLocalName);
+		if (!new File(headLocalName).exists()) {
+			DownloadUtils.downloadFile(url, headLocalName, null);
+		}
+		return loadUserHeadFromFile(headLocalName);
 	}
 
 	public static Drawable loadUserHeadFromFile(String headLocalName) {

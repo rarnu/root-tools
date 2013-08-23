@@ -1,17 +1,13 @@
 package com.sbbs.me.android.utils;
 
-import java.io.File;
-
 import org.apache.http.protocol.HTTP;
 import org.json.JSONObject;
 
 import android.content.Context;
 import android.graphics.drawable.Drawable;
 
-import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.HttpRequest;
 import com.sbbs.me.android.api.SbbsMeGoogleUser;
-import com.sbbs.me.android.consts.PathDefine;
 import com.sbbs.me.android.dialog.GoogleOAuthDialog;
 
 public class GoogleOAuth {
@@ -67,16 +63,6 @@ public class GoogleOAuth {
 	}
 
 	public Drawable getUserHead(String url) {
-		url = url.replace("https://", "http://");
-		String headLocalPath = PathDefine.ROOT_PATH;
-		if (!new File(headLocalPath).exists()) {
-			new File(headLocalPath).mkdirs();
-		}
-		String headLocalName = headLocalPath + "mygooglehead.jpg";
-		Config.setHeadPath(mContext, headLocalName);
-		if (!new File(headLocalName).exists()) {
-			DownloadUtils.downloadFile(url, headLocalName, null);
-		}
-		return MiscUtils.loadUserHeadFromFile(headLocalName);
+		return MiscUtils.getUserHead(mContext, url, "mygooglehead.jpg");
 	}
 }

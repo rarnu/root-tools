@@ -1,6 +1,5 @@
 package com.sbbs.me.android.utils;
 
-import java.io.File;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,10 +12,8 @@ import android.content.Context;
 import android.graphics.drawable.Drawable;
 import android.util.Log;
 
-import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.HttpRequest;
 import com.sbbs.me.android.api.SbbsMeGithubUser;
-import com.sbbs.me.android.consts.PathDefine;
 import com.sbbs.me.android.dialog.GithubOAuthDialog;
 
 public class GithubOAuth {
@@ -84,16 +81,6 @@ public class GithubOAuth {
 	}
 
 	public Drawable getUserHead(String url) {
-		Log.e("head-url", url);
-		String headLocalPath = PathDefine.ROOT_PATH;
-		if (!new File(headLocalPath).exists()) {
-			new File(headLocalPath).mkdirs();
-		}
-		String headLocalName = headLocalPath + "mygithubhead.jpg";
-		Config.setHeadPath(mContext, headLocalName);
-		if (!new File(headLocalName).exists()) {
-			DownloadUtils.downloadFile(url, headLocalName, null);
-		}
-		return MiscUtils.loadUserHeadFromFile(headLocalName);
+		return MiscUtils.getUserHead(mContext, url, "mygithubhead.jpg");
 	}
 }

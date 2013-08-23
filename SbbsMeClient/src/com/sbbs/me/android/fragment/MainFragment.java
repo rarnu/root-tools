@@ -17,10 +17,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.RelativeLayout;
-import android.widget.Toast;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.PullDownListView;
@@ -153,7 +153,8 @@ public class MainFragment extends BaseFragment implements
 		}
 		lvPullDown.notifyDidLoad();
 		if (!SbbsMeAPI.isLogin()) {
-			loadUserInfo();
+			doAutoLoginT();
+			// loadUserInfo();
 		}
 
 		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_HOME, "");
@@ -208,36 +209,63 @@ public class MainFragment extends BaseFragment implements
 		}
 	}
 
-	private void loadUserInfo() {
-		int type = Config.getAccountType(getActivity());
-		switch (type) {
-		case 0:
-			// google
-			String googleUserId = Config.getGoogleUserId(getActivity());
-			if (!googleUserId.equals("")) {
-				layLogining.setVisibility(View.VISIBLE);
-				setMenuLoginState(true);
-				googleOAuth.getGoogleUserInfoViaOAuth();
+	private Handler hLogin = new Handler() {
+		@Override
+		public void handleMessage(Message msg) {
+			if (msg.what == 1) {
+				if (miUser != null) {
+					Drawable d = (Drawable) msg.obj;
+					if (d != null) {
+						miUser.setIcon(d);
+					}
+				}
+				layLogining.setVisibility(View.GONE);
+				setMenuLoginState(false);
+				SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_LOGIN, "");
 			}
-			break;
-		case 1:
-			// github
-			String githubUserId = Config.getGithubUserId(getActivity());
-			if (!githubUserId.equals("")) {
-				layLogining.setVisibility(View.VISIBLE);
-				setMenuLoginState(true);
-				githubOAuth.getGithubUserInfoViaOAuth();
+			super.handleMessage(msg);
+		};
+	};
+
+	private void doAutoLoginT() {
+		layLogining.setVisibility(View.VISIBLE);
+		setMenuLoginState(true);
+
+		new Thread(new Runnable() {
+
+			@Override
+			public void run() {
+				Message msg = new Message();
+				msg.what = 1;
+				if (!SbbsMeAPI.isLogin()) {
+					try {
+						String uid = Config.getUserId(getActivity());
+						if (!uid.equals("")) {
+							String accType = Config
+									.getAccountString(getActivity());
+							SbbsMeAPI.login(uid,
+									Config.getUserName(getActivity()), accType,
+									Config.getAvatarUrl(getActivity()));
+							Log.e("MessageReceiver", "loged-in");
+
+							if (SbbsMeAPI.isLogin()) {
+								String local = "my" + accType + "head.jpg";
+								Drawable d = MiscUtils.getUserHead(
+										getActivity(),
+										Config.getAvatarUrl(getActivity()),
+										local);
+								msg.obj = d;
+							}
+						}
+
+					} catch (Exception e) {
+
+					}
+				}
+
+				hLogin.sendMessage(msg);
 			}
-			break;
-		case 2:
-			String sinaUserId = Config.getSinaUserId(getActivity());
-			if (!sinaUserId.equals("")) {
-				layLogining.setVisibility(View.VISIBLE);
-				setMenuLoginState(true);
-				sinaOAuth.getSinaUserInfo(sinaUserId);
-			}
-			break;
-		}
+		}).start();
 	}
 
 	@Override
