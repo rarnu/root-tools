@@ -153,8 +153,9 @@ public class MainFragment extends BaseFragment implements
 		}
 		lvPullDown.notifyDidLoad();
 		if (!SbbsMeAPI.isLogin()) {
-			doAutoLoginT();
-			// loadUserInfo();
+			if (!Config.getUserId(getActivity()).equals("")) {
+				doAutoLoginT();
+			}
 		}
 
 		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_HOME, "");
@@ -209,24 +210,6 @@ public class MainFragment extends BaseFragment implements
 		}
 	}
 
-	private Handler hLogin = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			if (msg.what == 1) {
-				if (miUser != null) {
-					Drawable d = (Drawable) msg.obj;
-					if (d != null) {
-						miUser.setIcon(d);
-					}
-				}
-				layLogining.setVisibility(View.GONE);
-				setMenuLoginState(false);
-				SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_LOGIN, "");
-			}
-			super.handleMessage(msg);
-		};
-	};
-
 	private void doAutoLoginT() {
 		layLogining.setVisibility(View.VISIBLE);
 		setMenuLoginState(true);
@@ -237,33 +220,32 @@ public class MainFragment extends BaseFragment implements
 			public void run() {
 				Message msg = new Message();
 				msg.what = 1;
+				String accType = Config.getAccountString(getActivity());
+				String local = "my" + accType + "head.jpg";
 				if (!SbbsMeAPI.isLogin()) {
 					try {
 						String uid = Config.getUserId(getActivity());
 						if (!uid.equals("")) {
-							String accType = Config
-									.getAccountString(getActivity());
+
 							SbbsMeAPI.login(uid,
 									Config.getUserName(getActivity()), accType,
 									Config.getAvatarUrl(getActivity()));
-							Log.e("MessageReceiver", "loged-in");
 
 							if (SbbsMeAPI.isLogin()) {
-								String local = "my" + accType + "head.jpg";
-								Drawable d = MiscUtils.getUserHead(
-										getActivity(),
+								msg.obj = MiscUtils.getUserHead(getActivity(),
 										Config.getAvatarUrl(getActivity()),
 										local);
-								msg.obj = d;
 							}
 						}
 
 					} catch (Exception e) {
 
 					}
+				} else {
+					msg.obj = MiscUtils.getUserHead(getActivity(),
+							Config.getAvatarUrl(getActivity()), local);
 				}
-
-				hLogin.sendMessage(msg);
+				hSetHead.sendMessage(msg);
 			}
 		}).start();
 	}

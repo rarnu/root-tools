@@ -7,7 +7,6 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import com.rarnu.utils.NotificationUtils;
 import com.sbbs.me.android.R;
@@ -54,12 +53,9 @@ public class MessageReceiver extends BroadcastReceiver {
 							String accType = Config.getAccountString(context);
 							SbbsMeAPI.login(uid, Config.getUserName(context),
 									accType, Config.getAvatarUrl(context));
-							Log.e("MessageReceiver", "loged-in");
 						}
 
 					} catch (Exception e) {
-						Log.e("MessageReceiver",
-								"login error: " + e.getMessage());
 					}
 				}
 				if (SbbsMeAPI.isLogin()) {
