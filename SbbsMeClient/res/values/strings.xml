@@ -9,6 +9,7 @@
     <string name="update_log">Update Log</string>
     <string name="article_name">View Article</string>
     <string name="block_name">View Block</string>
+    <string name="view_message">View Message</string>
     <string name="comment_name">Comment</string>
     <string name="origin_post">OriginPost</string>
     <string name="userdetail_name">User Detail</string>

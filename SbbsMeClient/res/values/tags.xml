@@ -29,4 +29,5 @@
     <item name="tag_archievement_fragment" type="tag">tag_archievement_fragment</item>
     <item name="tag_private_message_fragment" type="tag">tag_private_message_fragment</item>
 	<item name="tag_send_message_fragment" type="tag">tag_send_message_fragment</item>
+	<item name="tag_view_message_fragment" type="tag">tag_view_message_fragment</item>
 </resources>

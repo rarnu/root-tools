@@ -14,9 +14,9 @@ public class MessageClickReceiver extends BroadcastReceiver {
 	public void onReceive(Context context, Intent intent) {
 		NotificationUtils.cancelNotication(context,
 				Actions.ACTION_NOTIFY_MESSAGE);
-
 		Intent inMessage = new Intent(context, PrivateMessageActivity.class);
-		inMessage.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+		inMessage.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP
+				| Intent.FLAG_ACTIVITY_NEW_TASK);
 		context.startActivity(inMessage);
 	}
 
