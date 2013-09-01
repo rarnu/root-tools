@@ -37,7 +37,7 @@ public class CalendarDays {
 		LunarCalendar lc = new LunarCalendar(context);
 
 		int day = c.get(Calendar.DAY_OF_WEEK) - 1;
-		day = day < 0 ? 7 + day : day;
+		day = day <= 0 ? 7 + day : day;
 		int dateOfMonth = c.getActualMaximum(Calendar.DATE);
 
 		lstDays.clear();
