@@ -27,7 +27,8 @@ public class RootUtils {
 	private static final String[] SUPERUSER_PATH = new String[] {
 			"eu.chainfire.supersu", "eu.chainfire.supersu.pro",
 			"com.noshufou.android.su", "com.miui.uac",
-			"com.lbe.security.shuame", "com.lbe.security.miui", "com.m0narx.su" };
+			"com.lbe.security.shuame", "com.lbe.security.miui",
+			"com.m0narx.su", "co.lvdou.superuser" };
 
 	private static final String SETTINGS_PACKAGE = "com.android.settings";
 
@@ -90,8 +91,7 @@ public class RootUtils {
 		String suStat = runCommand("ls -l " + SU_PATH, false, null).result
 				+ runCommand("ls -l " + SU_PATH_X, false, null).result;
 
-		return ((!suStat.contains("-rwsr-sr-x")) && (!suStat
-				.contains("-rwsr-xr-x")));
+		return !suStat.contains("sr");
 	}
 
 	public static CommandResult runCommand(String command, boolean root) {

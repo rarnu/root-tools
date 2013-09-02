@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 
 import com.rarnu.utils.NotificationUtils;
 import com.sbbs.me.android.R;
@@ -59,6 +60,7 @@ public class MessageReceiver extends BroadcastReceiver {
 					}
 				}
 				if (SbbsMeAPI.isLogin()) {
+					Log.e("MessageReceiver", PrivateMessageUtils.getLastMessageId(context));
 					List<SbbsMePrivateMessage> list = SbbsMeAPI.queryMessage(
 							PrivateMessageUtils.getLastMessageId(context), 1,
 							100);

@@ -9,6 +9,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 
 import com.sbbs.me.android.api.SbbsMePrivateMessage;
 import com.sbbs.me.android.api.SbbsMeUserLite;
@@ -27,6 +28,7 @@ public class PrivateMessageUtils {
 				for (int i = 0; i < list.size(); i++) {
 					ContentValues cv = new ContentValues();
 					cv.put("id", list.get(i).Id);
+					Log.e("saveMessages", list.get(i).Id);
 					cv.put("from_user_id", list.get(i).FromUserId);
 					cv.put("from_user_name", list.get(i).FromUserName);
 					cv.put("to_user_id", list.get(i).ToUserId);
@@ -155,10 +157,22 @@ public class PrivateMessageUtils {
 							list.get(i).ToUserName);
 				}
 				if (user != null) {
-					if (ret.indexOf(user) == -1) {
+					if (!isUserExists(ret, user)) {
 						ret.add(user);
 					}
 				}
+			}
+		}
+		return ret;
+	}
+
+	private static boolean isUserExists(List<SbbsMeUserLite> list,
+			SbbsMeUserLite user) {
+		boolean ret = false;
+		for (int i = 0; i < list.size(); i++) {
+			if (list.get(i).Id.equals(user.Id)) {
+				ret = true;
+				break;
 			}
 		}
 		return ret;
