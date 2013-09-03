@@ -19,6 +19,7 @@ public class ViewMessageActivity extends BaseActivity {
 		Bundle bn = new Bundle();
 		bn.putString("id", getIntent().getStringExtra("id"));
 		bn.putString("name", getIntent().getStringExtra("name"));
+		bn.putString("avatar", getIntent().getStringExtra("avatar"));
 		vmf.setArguments(bn);
 		return vmf;
 	}

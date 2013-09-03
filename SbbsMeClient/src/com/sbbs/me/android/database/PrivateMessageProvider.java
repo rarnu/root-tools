@@ -47,7 +47,7 @@ public class PrivateMessageProvider extends ContentProvider {
 	@Override
 	public boolean onCreate() {
 		try {
-			database = new PrivateMessageDatabase();
+			database = new PrivateMessageDatabase(getContext());
 		} catch (Exception e) {
 
 		}

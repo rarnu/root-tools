@@ -11,20 +11,26 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.adapter.BaseAdapter;
+import com.rarnu.utils.ImageLoader;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.api.SbbsMePrivateMessage;
-import com.sbbs.me.android.consts.PathDefine;
-import com.sbbs.me.android.utils.Config;
 
 public class SbbsMePrivateMessageAdapter extends
 		BaseAdapter<SbbsMePrivateMessage> {
 
 	private String myUserId;
+	private String userAvatar;
+	private String myAvatar;
+	private ImageLoader iLoader;
 
 	public SbbsMePrivateMessageAdapter(Context context,
-			List<SbbsMePrivateMessage> list, String myUserId) {
+			List<SbbsMePrivateMessage> list, String myUserId,
+			String userAvatarUrl, String myAvatarPath) {
 		super(context, list);
 		this.myUserId = myUserId;
+		this.userAvatar = userAvatarUrl;
+		this.myAvatar = myAvatarPath;
+		iLoader = new ImageLoader(context);
 	}
 
 	@Override
@@ -44,7 +50,6 @@ public class SbbsMePrivateMessageAdapter extends
 		}
 		SbbsMePrivateMessage item = list.get(position);
 		if (item != null) {
-			// TODO: set head
 			if (item.FromUserId.equals(myUserId)) {
 				// I sent
 				holder.tvMessage.setGravity(Gravity.RIGHT
@@ -52,18 +57,14 @@ public class SbbsMePrivateMessageAdapter extends
 				holder.ivMyHead.setVisibility(View.VISIBLE);
 				holder.ivUserHead.setVisibility(View.GONE);
 				holder.ivMyHead.setImageBitmap(BitmapFactory
-						.decodeFile(PathDefine.ROOT_PATH
-								+ String.format("my%shead.jpg",
-										Config.getAccountString(context))));
+						.decodeFile(myAvatar));
 			} else if (item.ToUserId.equals(myUserId)) {
 				// I received
 				holder.tvMessage.setGravity(Gravity.LEFT
 						| Gravity.CENTER_VERTICAL);
 				holder.ivMyHead.setVisibility(View.GONE);
 				holder.ivUserHead.setVisibility(View.VISIBLE);
-				holder.ivUserHead.setImageBitmap(BitmapFactory
-						.decodeFile(PathDefine.ROOT_PATH + item.FromUserId
-								+ ".jpg"));
+				iLoader.DisplayImage(userAvatar, holder.ivUserHead);
 			}
 			holder.tvMessage.setText(item.Body);
 		}

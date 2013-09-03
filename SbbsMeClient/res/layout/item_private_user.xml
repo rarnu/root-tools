@@ -15,5 +15,13 @@
         android:singleLine="true"
         android:textColor="@color/gray"
         android:textSize="16sp" />
+    
+    
+    <ImageView android:id="@+id/ivHead"
+        android:layout_width="24dip"
+        android:layout_height="24dip"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="8dip"/>
 
 </RelativeLayout>

@@ -38,7 +38,9 @@ public class DataBackupService extends BaseService {
 
 	@Override
 	public void doOperation(String command, Notification n) {
+		ApkUtils.clearOperationLog();
 		List<DataappInfo> list = ListUtils.getOperateList();
+		
 		inBackupProgress.putExtra("size", list.size());
 		for (int i = 0; i < list.size(); i++) {
 

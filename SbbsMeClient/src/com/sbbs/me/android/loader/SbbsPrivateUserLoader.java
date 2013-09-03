@@ -5,50 +5,41 @@ import java.util.List;
 import android.content.Context;
 
 import com.rarnu.devlib.base.BaseLoader;
+import com.rarnu.utils.FileUtils;
 import com.sbbs.me.android.api.SbbsMeAPI;
-import com.sbbs.me.android.api.SbbsMePrivateMessage;
-import com.sbbs.me.android.api.SbbsMeUserLite;
-import com.sbbs.me.android.database.PrivateMessageUtils;
+import com.sbbs.me.android.api.SbbsMeInboxUser;
+import com.sbbs.me.android.consts.PathDefine;
 
-public class SbbsPrivateUserLoader extends BaseLoader<SbbsMeUserLite> {
+public class SbbsPrivateUserLoader extends BaseLoader<SbbsMeInboxUser> {
 
-	private String lastMsgId;
-	private int page;
-	private int pageSize;
 	private boolean refresh = false;
 
 	public SbbsPrivateUserLoader(Context context) {
 		super(context);
 	}
-
-	public void setQuery(String lastMsgId, int page, int pageSize) {
-		this.lastMsgId = lastMsgId;
-		this.page = page;
-		this.pageSize = pageSize;
-	}
-
+	
+	@SuppressWarnings("unchecked")
 	@Override
-	public List<SbbsMeUserLite> loadInBackground() {
-		List<SbbsMePrivateMessage> list = null;
+	public List<SbbsMeInboxUser> loadInBackground() {
+		List<SbbsMeInboxUser> list = null;
 		if (refresh) {
-			list = SbbsMeAPI.queryMessage(lastMsgId, page, pageSize);
+			list = SbbsMeAPI.inbox();
 			if (list != null && list.size() != 0) {
-				PrivateMessageUtils.saveMessages(getContext(), list);
+				FileUtils.saveListToFile(list, PathDefine.CACHE_MSG_USER_LIST);
+			} else {
+				list = (List<SbbsMeInboxUser>) FileUtils.loadListFromFile(PathDefine.CACHE_MSG_USER_LIST);
 			}
 		} else {
-			list = PrivateMessageUtils.queryMessages(getContext());
+			list = (List<SbbsMeInboxUser>) FileUtils.loadListFromFile(PathDefine.CACHE_MSG_USER_LIST);
 			if (list == null || list.size() == 0) {
-				list = SbbsMeAPI.queryMessage(lastMsgId, page, pageSize);
+				refresh = true;
+				list = SbbsMeAPI.inbox();
 				if (list != null && list.size() != 0) {
-					PrivateMessageUtils.saveMessages(getContext(), list);
+					FileUtils.saveListToFile(list, PathDefine.CACHE_MSG_USER_LIST);
 				}
 			}
 		}
-		List<SbbsMeUserLite> listUser = null;
-		if (list != null) {
-			listUser = PrivateMessageUtils.getMessageUsers(getContext(), list);
-		}
-		return listUser;
+		return list;
 	}
 
 	public boolean isRefresh() {

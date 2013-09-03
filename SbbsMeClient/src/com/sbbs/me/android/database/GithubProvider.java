@@ -46,7 +46,7 @@ public class GithubProvider extends ContentProvider {
 	@Override
 	public boolean onCreate() {
 		try {
-			database = new GithubDatabase();
+			database = new GithubDatabase(getContext());
 		} catch (Exception e) {
 
 		}

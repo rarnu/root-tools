@@ -12,8 +12,6 @@ import android.net.Uri;
 import android.util.Log;
 
 import com.sbbs.me.android.api.SbbsMePrivateMessage;
-import com.sbbs.me.android.api.SbbsMeUserLite;
-import com.sbbs.me.android.utils.Config;
 
 public class PrivateMessageUtils {
 
@@ -142,39 +140,4 @@ public class PrivateMessageUtils {
 		return id;
 	}
 
-	public static List<SbbsMeUserLite> getMessageUsers(Context context,
-			List<SbbsMePrivateMessage> list) {
-		List<SbbsMeUserLite> ret = new ArrayList<SbbsMeUserLite>();
-		String myId = Config.getUserId(context);
-		if (list != null) {
-			for (int i = 0; i < list.size(); i++) {
-				SbbsMeUserLite user = null;
-				if (list.get(i).ToUserId.equals(myId)) {
-					user = new SbbsMeUserLite(list.get(i).FromUserId,
-							list.get(i).FromUserName);
-				} else {
-					user = new SbbsMeUserLite(list.get(i).ToUserId,
-							list.get(i).ToUserName);
-				}
-				if (user != null) {
-					if (!isUserExists(ret, user)) {
-						ret.add(user);
-					}
-				}
-			}
-		}
-		return ret;
-	}
-
-	private static boolean isUserExists(List<SbbsMeUserLite> list,
-			SbbsMeUserLite user) {
-		boolean ret = false;
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i).Id.equals(user.Id)) {
-				ret = true;
-				break;
-			}
-		}
-		return ret;
-	}
 }

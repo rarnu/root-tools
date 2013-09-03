@@ -1,4 +1,3 @@
-
 Weibo
 	api_key *=* "259989602"
 	api_secret *=* "6144e89c9898bfada3fd3971b400d205"
@@ -48,4 +47,7 @@ create table sbbs_version (
 	public_time text not null,
 	url text not null
 ) character set utf8;
+
+curl -d "account_type=weibo&avatar=http%3A%2F%2Ftp4.sinaimg.cn%2F1756787011%2F180%2F1279902529%2F1" http://sbbs.me/api/login/1756787011/%E6%A9%99%E5%AD%90Infinity -D cookie
+curl http://sbbs.me/api/get_private_msgs/1391292644/1/100 -b cookie
 

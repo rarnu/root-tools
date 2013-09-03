@@ -3,6 +3,7 @@ package com.sbbs.me.android.database;
 import java.io.File;
 
 import android.content.ContentValues;
+import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.util.Log;
@@ -12,23 +13,30 @@ import com.sbbs.me.android.consts.PathDefine;
 public class PrivateMessageDatabase {
 
 	private SQLiteDatabase database;
+	private static String databasePath = "";
 
 	private static final String TABLE_MESSAGES = "messages";
-	private static final String SQL_MESSAGES = "create table messages (_id integer primary key autoincrement, id integer not null, from_user_id text not null, from_user_name text not null, to_user_id text not null, to_user_name text not null, format text not null, body text not null, created_on text not null, read integer not null)";
+	private static final String SQL_MESSAGES = "create table messages (id integer not null, from_user_id text not null, from_user_name text not null, to_user_id text not null, to_user_name text not null, format text not null, body text not null, created_on text not null, read integer not null)";
 
 	public static boolean isDatabaseFileExists() {
-		return new File(PathDefine.MESSAGE_DATABASE_PATH).exists();
+		return new File(databasePath).exists();
 	}
 
-	public PrivateMessageDatabase() throws Exception {
-		Log.e("PrivateMessageDatabase", "Create");
+	public PrivateMessageDatabase(Context context) throws Exception {
+		databasePath = "/data/data/" + context.getPackageName() + "/databases/";
+		if (!new File(databasePath).exists()) {
+			new File(databasePath).mkdirs();
+		}
+		databasePath += PathDefine.MESSAGE_DATA_NAME;
+		Log.e("PrivateMessageDatabase", databasePath);
+
 		if (!isDatabaseFileExists()) {
-			database = SQLiteDatabase.openOrCreateDatabase(
-					PathDefine.MESSAGE_DATABASE_PATH, null);
+			Log.e("PrivateMessageDatabase", "Create");
+			database = SQLiteDatabase.openOrCreateDatabase(databasePath, null);
 			database.execSQL(SQL_MESSAGES);
 		} else {
-			database = SQLiteDatabase.openDatabase(
-					PathDefine.MESSAGE_DATABASE_PATH, null,
+			Log.e("PrivateMessageDatabase", "Open");
+			database = SQLiteDatabase.openDatabase(databasePath, null,
 					SQLiteDatabase.OPEN_READWRITE);
 		}
 	}
@@ -43,7 +51,7 @@ public class PrivateMessageDatabase {
 		Cursor c = null;
 		if (database != null) {
 			c = database.query(TABLE_MESSAGES, null, select, selectArgs, null,
-					null, "_id desc", "0,500");
+					null, "id desc", "0,500");
 		}
 		return c;
 	}

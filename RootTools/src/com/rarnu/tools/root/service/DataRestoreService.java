@@ -38,6 +38,7 @@ public class DataRestoreService extends BaseService {
 
 	@Override
 	public void doOperation(String command, Notification n) {
+		ApkUtils.clearOperationLog();
 		ApkUtils.setInstallLocation(ApkUtils.INSTALL_INTERNAL);
 		List<DataappInfo> list = ListUtils.getOperateList();
 		inRestoreProgress.putExtra("size", list.size());

@@ -2,6 +2,7 @@ package com.sbbs.me.android.api;
 
 import java.net.URLEncoder;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 import org.apache.http.message.BasicNameValuePair;
@@ -168,7 +169,7 @@ public class SbbsMeAPI {
 	 * @param pageSize
 	 * @return
 	 */
-	public static List<SbbsMePrivateMessage> queryMessage(String lastMsgId,
+	public static List<SbbsMePrivateMessage> checkNewMessage(String lastMsgId,
 			int page, int pageSize) {
 		Log.e("queryMessage", String.format("id:%s, page:%d, size:%d",
 				lastMsgId, page, pageSize));
@@ -193,18 +194,49 @@ public class SbbsMeAPI {
 	 * @param pageSize
 	 * @return
 	 */
-	public static List<SbbsMePrivateMessage> queryMessage(String lastMsgId,
-			String userId, int page, int pageSize) {
-		Log.e("queryMessage", String.format("id:%s, user:%s, page:%d, size:%d",
-				lastMsgId, userId, page, pageSize));
+	public static List<SbbsMePrivateMessage> getPrivateMessage(String userId,
+			int page, int pageSize) {
+		Log.e("getPrivateMessage", String.format("user:%s, page:%d, size:%d",
+				userId, page, pageSize));
 		HttpRequestResponseData ret = HttpRequest.getWithCookie(
 				BASE_URL
-						+ String.format("check_new_msg/%s/%s/%d/%d", lastMsgId,
-								userId, page, pageSize), "", cookieData.cookie,
+						+ String.format("get_private_msgs/%s/%d/%d", userId,
+								page, pageSize), "", cookieData.cookie,
 				HTTP.UTF_8);
 		List<SbbsMePrivateMessage> list = null;
 		if (ret != null) {
+			Log.e("getPrivateMessage", ret.data);
 			list = buildPrivateMessageList(ret.data);
+		}
+		return list;
+	}
+
+	/**
+	 * do need login
+	 * 
+	 * @return
+	 */
+	public static List<SbbsMeInboxUser> inbox() {
+		HttpRequestResponseData ret = HttpRequest.getWithCookie(BASE_URL
+				+ "inbox", "", cookieData.cookie, HTTP.UTF_8);
+		List<SbbsMeInboxUser> list = null;
+		if (ret != null) {
+			try {
+				JSONObject json = new JSONObject(ret.data);
+				list = new ArrayList<SbbsMeInboxUser>();
+				Iterator<?> iter = json.keys();
+				String userId = "";
+				JSONObject jobj = null;
+				while (iter.hasNext()) {
+					userId = (String) iter.next();
+					String jsonStr = json.getString(userId);
+					Log.e("inbox", jsonStr);
+					jobj = new JSONObject(jsonStr);
+					list.add(SbbsMeInboxUser.fromJson(jobj, userId));
+				}
+			} catch (Exception e) {
+				Log.e("inbox", e.getMessage());
+			}
 		}
 		return list;
 	}
@@ -213,7 +245,6 @@ public class SbbsMeAPI {
 			String data) {
 		List<SbbsMePrivateMessage> list = null;
 		try {
-			Log.e("queryMsg", data);
 			JSONArray jArr = new JSONArray(data);
 			if (jArr != null && jArr.length() != 0) {
 				list = new ArrayList<SbbsMePrivateMessage>();
@@ -263,7 +294,6 @@ public class SbbsMeAPI {
 		try {
 			String ret = HttpRequest.get(BASE_URL + "article/" + id, "",
 					HTTP.UTF_8);
-			Log.e("getArticle", ret);
 			article = SbbsMeArticle.fromJson(new JSONObject(ret));
 		} catch (Exception e) {
 

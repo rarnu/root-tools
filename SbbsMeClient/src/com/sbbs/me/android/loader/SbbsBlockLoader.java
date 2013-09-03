@@ -40,17 +40,16 @@ public class SbbsBlockLoader extends BaseLoader<SbbsMeBlock> {
 
 		if (refresh) {
 			list = SbbsMeAPI.getArticles(page, pageSize);
-			if (list == null || list.size() == 0) {
-				if (page == 1) {
+			if (page == 1) {
+				if (list == null || list.size() == 0) {
 					list = (List<SbbsMeBlock>) FileUtils
 							.loadListFromFile(PathDefine.CACHE_ARTICLE_LIST_PATH);
-				}
-			} else {
-				if (page == 1) {
+				} else {
 					FileUtils.saveListToFile(list,
 							PathDefine.CACHE_ARTICLE_LIST_PATH);
 				}
 			}
+
 		} else {
 			list = (List<SbbsMeBlock>) FileUtils
 					.loadListFromFile(PathDefine.CACHE_ARTICLE_LIST_PATH);

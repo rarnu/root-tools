@@ -60,10 +60,11 @@ public class MessageReceiver extends BroadcastReceiver {
 					}
 				}
 				if (SbbsMeAPI.isLogin()) {
-					Log.e("MessageReceiver", PrivateMessageUtils.getLastMessageId(context));
-					List<SbbsMePrivateMessage> list = SbbsMeAPI.queryMessage(
-							PrivateMessageUtils.getLastMessageId(context), 1,
-							100);
+					Log.e("MessageReceiver",
+							PrivateMessageUtils.getLastMessageId(context));
+					List<SbbsMePrivateMessage> list = SbbsMeAPI
+							.checkNewMessage(PrivateMessageUtils
+									.getLastMessageId(context), 1, 100);
 					if (list != null && list.size() != 0) {
 						PrivateMessageUtils.saveMessages(context, list);
 						Message msg = new Message();
@@ -76,5 +77,4 @@ public class MessageReceiver extends BroadcastReceiver {
 		}).start();
 	}
 
-	
 }

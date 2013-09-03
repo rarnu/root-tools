@@ -23,6 +23,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 
 import com.rarnu.command.CommandCallback;
 import com.rarnu.command.CommandResult;
@@ -530,6 +531,7 @@ public class ApkUtils {
 		if (GlobalInstance.reinstallApk) {
 			try {
 				result = RootUtils.runCommand(cmd, true, null);
+				Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
 			} catch (Throwable th) {
 				result = new CommandResult();
 				result.result = "error";
@@ -543,11 +545,13 @@ public class ApkUtils {
 			cmd = String.format("busybox cp -r " + savePath + "%s /data/data/",
 					packageName);
 			result = RootUtils.runCommand(cmd, true, null);
+			Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
 			if (result.error.equals("")) {
 
 				cmd = String.format("busybox chmod -R 777 /data/data/%s/*",
 						packageName);
 				result = RootUtils.runCommand(cmd, true, null);
+				Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
 				if (result.error.equals("")) {
 					info.log = context.getResources().getString(
 							R.string.restore_ok);

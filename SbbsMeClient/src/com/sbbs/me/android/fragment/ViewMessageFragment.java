@@ -17,13 +17,12 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.PullDownListView;
 import com.rarnu.devlib.component.intf.OnPullDownListener;
 import com.rarnu.utils.UIUtils;
-import com.sbbs.me.android.Global;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMePrivateMessageAdapter;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMePrivateMessage;
 import com.sbbs.me.android.consts.MenuIds;
-import com.sbbs.me.android.database.PrivateMessageUtils;
+import com.sbbs.me.android.consts.PathDefine;
 import com.sbbs.me.android.dialog.SendMessageDialog;
 import com.sbbs.me.android.loader.SbbsPrivateMessageLoader;
 import com.sbbs.me.android.utils.Config;
@@ -36,6 +35,7 @@ public class ViewMessageFragment extends BaseFragment implements
 	MenuItem miMessage;
 	String userId;
 	String userName;
+	String avatar;
 
 	PullDownListView lvPullDown;
 	TextView tvNodata;
@@ -66,13 +66,22 @@ public class ViewMessageFragment extends BaseFragment implements
 	@Override
 	public void initComponents() {
 
+		userId = getArguments().getString("id");
+		userName = getArguments().getString("name");
+		avatar = getArguments().getString("avatar");
+
 		lvPullDown = (PullDownListView) innerView.findViewById(R.id.lvPullDown);
 		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 
 		list = new ArrayList<SbbsMePrivateMessage>();
+
+		String myAvatarPath = PathDefine.ROOT_PATH
+				+ String.format("my%shead.jpg",
+						Config.getAccountString(getActivity()));
+
 		adapter = new SbbsMePrivateMessageAdapter(getActivity(), list,
-				Config.getUserId(getActivity()));
+				Config.getUserId(getActivity()), avatar, myAvatarPath);
 
 		lvPullDown.getListView().setAdapter(adapter);
 		loader = new SbbsPrivateMessageLoader(getActivity());
@@ -98,17 +107,12 @@ public class ViewMessageFragment extends BaseFragment implements
 		page = 1;
 		setIsBottom(false);
 
-		userId = getArguments().getString("id");
-		userName = getArguments().getString("name");
-
 		lvPullDown.notifyDidLoad();
 		if (SbbsMeAPI.isLogin()) {
 			tvNodata.setText(R.string.no_data_refresh);
 			tvLoading.setText(R.string.loading);
 			tvLoading.setVisibility(View.VISIBLE);
-			loader.setQuery(
-					PrivateMessageUtils.getLastMessageId(getActivity()),
-					userId, 1, PAGE_SIZE);
+			loader.setQuery(userId, page, PAGE_SIZE);
 			loader.setRefresh(false);
 			loader.startLoading();
 		} else {
@@ -178,9 +182,7 @@ public class ViewMessageFragment extends BaseFragment implements
 			tvLoading.setVisibility(View.VISIBLE);
 			loader.setRefresh(true);
 			page = 1;
-			loader.setQuery(
-					PrivateMessageUtils.getLastMessageId(getActivity()),
-					userId, page, PAGE_SIZE);
+			loader.setQuery(userId, page, PAGE_SIZE);
 			loader.setRefresh(false);
 			loader.startLoading();
 			break;
@@ -193,8 +195,7 @@ public class ViewMessageFragment extends BaseFragment implements
 		page = 1;
 		setIsBottom(false);
 		loader.setRefresh(true);
-		loader.setQuery(PrivateMessageUtils.getLastMessageId(getActivity()),
-				userId, page, PAGE_SIZE);
+		loader.setQuery(userId, page, PAGE_SIZE);
 		loader.startLoading();
 	}
 
@@ -203,9 +204,7 @@ public class ViewMessageFragment extends BaseFragment implements
 		if (!isBottom) {
 			page++;
 			loader.setRefresh(true);
-			loader.setQuery(
-					PrivateMessageUtils.getLastMessageId(getActivity()),
-					userId, page, 100);
+			loader.setQuery(userId, page, PAGE_SIZE);
 			loader.startLoading();
 		} else {
 			lvPullDown.notifyDidMore();
@@ -232,7 +231,7 @@ public class ViewMessageFragment extends BaseFragment implements
 				loader.startLoading();
 			} else {
 				tvNodata.setEnabled(true);
-				tvNodata.setVisibility(Global.listArticle.size() == 0 ? View.VISIBLE
+				tvNodata.setVisibility(list.size() == 0 ? View.VISIBLE
 						: View.GONE);
 				tvLoading.setVisibility(View.GONE);
 			}
