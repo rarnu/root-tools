@@ -277,4 +277,8 @@
 	<string name="apkstat_0">Can be updated normally</string>
 	<string name="tv_refresh_apk">Click &lt;font color=\'#6495ED\'&gt;Refresh&lt;/font&gt; to scan APK files in your SDCard</string>
 	<string name="fit_43">Android 4.3 supported</string>
+	<string name="disk_size_fmt" formatted="false">Size:%s</string>
+	<string name="disk_used_fmt" formatted="false">Used:%s</string>
+	<string name="disk_free_fmt" formatred="false">Free:%s</string>
+	<string name="disk_block_fmt" formatted="false">Blks:%s</string>
 </resources>

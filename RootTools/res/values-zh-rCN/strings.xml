@@ -276,4 +276,8 @@
 	<string name="apkstat_1">签名不同，需强制升级</string>
 	<string name="apkstat_0">可以正常升级</string>
 	<string name="tv_refresh_apk">点击 &lt;font color=\'#6495ED\'&gt;刷新&lt;/font&gt; 将扫描 SD 卡内的所有 APK 文件</string>
+	<string name="disk_size_fmt" formatted="false">大小:%s</string>
+	<string name="disk_used_fmt" formatted="false">已用:%s</string>
+	<string name="disk_free_fmt" formatred="false">空闲:%s</string>
+	<string name="disk_block_fmt" formatted="false">区块:%s</string>
 </resources>

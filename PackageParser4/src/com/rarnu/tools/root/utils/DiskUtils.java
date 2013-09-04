@@ -18,13 +18,24 @@ public class DiskUtils {
 			list = new ArrayList<DiskInfo>();
 			String strDi = "";
 			for (int i = 1; i < dis.length; i++) {
-				if (!dis[i].contains(".")) {
-					// skip apps installed on sdcard
-					strDi = dis[i].replaceAll("\\s+", " ");
-					list.add(DiskInfo.fromString(strDi));
+				strDi = dis[i].replaceAll("\\s+", " ");
+				DiskInfo info = DiskInfo.fromString(strDi);
+				if (info != null) {
+					list.add(info);
 				}
 			}
 		}
 		return list;
+	}
+
+	public static double stringToKbytes(String str) {
+		String sUnit = str.substring(str.length() - 1);
+		double size = Double.parseDouble(str.substring(0, str.length() - 1));
+		if (sUnit.equals("G")) {
+			size = size * 1024 * 1024;
+		} else if (sUnit.equals("M")) {
+			size = size * 1024;
+		}
+		return size;
 	}
 }
