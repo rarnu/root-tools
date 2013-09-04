@@ -6,7 +6,6 @@ public class SbbsMeInboxLastMessage {
 
 	public String Body;
 	public String Created_on;
-	public String Format;
 	public String FromUserId;
 	public String FromUserName;
 	public String Id;
@@ -19,7 +18,6 @@ public class SbbsMeInboxLastMessage {
 		SbbsMeInboxLastMessage msg = new SbbsMeInboxLastMessage();
 		msg.Body = json.getString("Body");
 		msg.Created_on = json.getString("Created_on");
-		msg.Format = json.getString("Format");
 		msg.FromUserId = json.getString("FromUserId");
 		msg.FromUserName = json.getString("FromUserName");
 		msg.Id = json.getString("Id");

@@ -10,7 +10,6 @@ public class SbbsMePrivateMessage {
 	public String FromUserName;
 	public String ToUserId;
 	public String ToUserName;
-	public String Format;
 	public String Body;
 	public String Created_on;
 
@@ -25,7 +24,6 @@ public class SbbsMePrivateMessage {
 		msg.FromUserName = json.getString("FromUserName");
 		msg.ToUserId = json.getString("ToUserId");
 		msg.ToUserName = json.getString("ToUserName");
-		msg.Format = json.getString("Format");
 		msg.Body = json.getString("Body");
 		msg.Created_on = json.getString("Created_on");
 		return msg;

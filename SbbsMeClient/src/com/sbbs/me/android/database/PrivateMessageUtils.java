@@ -31,7 +31,6 @@ public class PrivateMessageUtils {
 					cv.put("from_user_name", list.get(i).FromUserName);
 					cv.put("to_user_id", list.get(i).ToUserId);
 					cv.put("to_user_name", list.get(i).ToUserName);
-					cv.put("format", list.get(i).Format);
 					cv.put("body", list.get(i).Body);
 					cv.put("created_on", list.get(i).Created_on);
 					cv.put("read", 0);
@@ -86,7 +85,6 @@ public class PrivateMessageUtils {
 						.getColumnIndex("from_user_name"));
 				msg.ToUserId = c.getString(c.getColumnIndex("to_user_id"));
 				msg.ToUserName = c.getString(c.getColumnIndex("to_user_name"));
-				msg.Format = c.getString(c.getColumnIndex("format"));
 				msg.Body = c.getString(c.getColumnIndex("body"));
 				msg.Created_on = c.getString(c.getColumnIndex("created_on"));
 				msg.read = (c.getInt(c.getColumnIndex("read")) == 1);
