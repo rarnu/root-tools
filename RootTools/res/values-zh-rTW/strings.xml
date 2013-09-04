@@ -73,6 +73,8 @@
     <string name="func_terminal_with_path">RootTools &gt; 終端模擬器</string>
     <string name="func_hardupdate">強制升級</string>
     <string name="func_hardupdate_with_path">RootTools &gt; 強制升級</string>
+    <string name="func_diskinfo">磁碟信息</string>
+    <string name="func_diskinfo_with_path">RootTools &gt; 磁碟信息</string>
     <string name="backup_data">備份應用程式的數據</string>
     <string name="restore_data">還原應用程式的數據</string>
     <string name="check_network_status">檢查網路狀況</string>

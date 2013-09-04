@@ -46,6 +46,10 @@
         <com.rarnu.devlib.component.PreferenceEx
             android:key="@string/id_cleandalvik"
             android:title="@string/clean_dalvik" />
+        <com.rarnu.devlib.component.PreferenceEx
+            android:key="@string/id_diskinfo"
+            android:title="@string/diskinfo"
+            />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_other" >
         <com.rarnu.devlib.component.PreferenceEx

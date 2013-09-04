@@ -28,4 +28,5 @@ public class FragmentNameConst {
 	public static final String FN_CUSTOM_CLEAN = "customclean";
 	public static final String FN_TERMINAL = "terminal";
 	public static final String FN_HARD_UPDATE = "hardupdate";
+	public static final String FN_DISKINFO = "diskinfo";
 }

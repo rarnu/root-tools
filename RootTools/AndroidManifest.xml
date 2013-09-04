@@ -179,6 +179,11 @@
             android:label="@string/func_hardupdate"
             android:windowSoftInputMode="stateHidden" >
         </activity>
+        <activity
+            android:name=".fragmentactivity.DiskInfoActivity"
+            android:label="@string/func_diskinfo"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
 
         <service
             android:name=".service.HtcRomService"

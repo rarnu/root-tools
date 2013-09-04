@@ -13,6 +13,7 @@
     <string name="id_cleanmemory">id_cleanmemory</string>
     <string name="id_cleancache">id_cleancache</string>
     <string name="id_cleandalvik">id_cleandalvik</string>
+    <string name="id_diskinfo">id_diskinfo</string>
     
     <string name="id_hosts">id_hosts</string>
     <string name="id_scanmedia">id_scanmedia</string>

@@ -73,6 +73,8 @@
     <string name="func_terminal_with_path">RootTools &gt; Terminal Emulator</string>
     <string name="func_hardupdate">Force Update</string>
     <string name="func_hardupdate_with_path">RootTools &gt; Force Update</string>
+    <string name="func_diskinfo">Disk Information</string>
+    <string name="func_diskinfo_with_path">RootTools &gt; Disk Information</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>

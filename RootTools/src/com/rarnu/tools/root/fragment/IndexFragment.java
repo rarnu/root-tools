@@ -22,6 +22,7 @@ import com.rarnu.tools.root.fragmentactivity.CleanCacheMainActivity;
 import com.rarnu.tools.root.fragmentactivity.CompMainActivity;
 import com.rarnu.tools.root.fragmentactivity.DataBackupActivity;
 import com.rarnu.tools.root.fragmentactivity.DataRestoreActivity;
+import com.rarnu.tools.root.fragmentactivity.DiskInfoActivity;
 import com.rarnu.tools.root.fragmentactivity.EnableappMainActivity;
 import com.rarnu.tools.root.fragmentactivity.HardUpdateActivity;
 import com.rarnu.tools.root.fragmentactivity.HostMainActivity;
@@ -44,7 +45,8 @@ public class IndexFragment extends BasePreferenceFragment implements
 	PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefRoot,
 			prefHtcRom, prefHardUpdate;
 	PreferenceEx prefBackup, prefRestore;
-	PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik;
+	PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik,
+			prefDiskInfo;
 	PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
 	PreferenceEx prefFeedback, prefRecommand, prefAbout;
 	PreferenceEx prefTerminal;
@@ -180,6 +182,10 @@ public class IndexFragment extends BasePreferenceFragment implements
 				getString(R.string.id_cleandalvik))) {
 			DalvikUtils.doCleanDalvikT(getActivity(), getView(),
 					prefCleanDalvik);
+		} else if (preference.getKey().equals(getString(R.string.id_diskinfo))) {
+			UIInstance.currentFragment = 17;
+			FragmentStarter.showContent(getActivity(), DiskInfoActivity.class,
+					Fragments.getFragment(FragmentNameConst.FN_DISKINFO));
 		}
 
 		// other
@@ -267,6 +273,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 		prefCleanMemory = (PreferenceEx) findPreference(getString(R.string.id_cleanmemory));
 		prefCleanCache = (PreferenceEx) findPreference(getString(R.string.id_cleancache));
 		prefCleanDalvik = (PreferenceEx) findPreference(getString(R.string.id_cleandalvik));
+		prefDiskInfo = (PreferenceEx) findPreference(getString(R.string.id_diskinfo));
 		prefHosts = (PreferenceEx) findPreference(getString(R.string.id_hosts));
 		prefScanMedia = (PreferenceEx) findPreference(getString(R.string.id_scanmedia));
 		prefNetworkState = (PreferenceEx) findPreference(getString(R.string.id_network));
@@ -291,6 +298,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 		prefCleanMemory.setOnPreferenceClickListener(this);
 		prefCleanCache.setOnPreferenceClickListener(this);
 		prefCleanDalvik.setOnPreferenceClickListener(this);
+		prefDiskInfo.setOnPreferenceClickListener(this);
 		prefHosts.setOnPreferenceClickListener(this);
 		prefScanMedia.setOnPreferenceClickListener(this);
 		prefNetworkState.setOnPreferenceClickListener(this);
@@ -330,7 +338,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-		
+
 	}
 
 	@Override

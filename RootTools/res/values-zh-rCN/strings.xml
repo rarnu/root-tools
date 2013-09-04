@@ -73,6 +73,8 @@
     <string name="func_terminal_with_path">RootTools &gt; 终端模拟器</string>
     <string name="func_hardupdate">强制升级</string>
     <string name="func_hardupdate_with_path">RootTools &gt; 强制升级</string>
+    <string name="func_diskinfo">磁盘信息</string>
+    <string name="func_diskinfo_with_path">RootTools &gt; 磁盘信息</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="check_network_status">检查网络状况</string>

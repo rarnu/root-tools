@@ -27,6 +27,7 @@
     <string name="clean_dalvik_succ" formatted="false">清理 Dalvik 成功，本次共清除 %d 项</string>
     <string name="cleaning_dalvik">正在清理 Dalvik...</string>
     <string name="clean_dalvik">清理 Dalvik</string>
+    <string name="diskinfo">磁盘信息</string>
     <string name="eoe_title">优亿市场 www.eoemarket.com</string>
     <string name="eoe_desc">RootTools 唯一指定合作伙伴</string>
 
