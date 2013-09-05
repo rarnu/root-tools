@@ -16,10 +16,18 @@ import com.sbbs.me.android.api.SbbsMeInboxUser;
 public class SbbsMePrivateUserAdapter extends BaseAdapter<SbbsMeInboxUser> {
 
 	private ImageLoader iLoader;
+	private List<Boolean> listNewMessage;
 
-	public SbbsMePrivateUserAdapter(Context context, List<SbbsMeInboxUser> list) {
+	public SbbsMePrivateUserAdapter(Context context,
+			List<SbbsMeInboxUser> list, List<Boolean> listNewMessage) {
 		super(context, list);
+		this.listNewMessage = listNewMessage;
 		iLoader = new ImageLoader(context);
+	}
+	
+	public void setNewMessage(List<Boolean> listNewMessage) {
+		this.listNewMessage = listNewMessage;
+		this.notifyDataSetChanged();
 	}
 
 	@Override
@@ -33,12 +41,16 @@ public class SbbsMePrivateUserAdapter extends BaseAdapter<SbbsMeInboxUser> {
 			holder = new SbbsMePrivateUserHolder();
 			holder.tvName = (TextView) v.findViewById(R.id.tvName);
 			holder.ivHead = (ImageView) v.findViewById(R.id.ivHead);
+			holder.tvNew = (TextView) v.findViewById(R.id.tvNew);
 			v.setTag(holder);
 		}
 		SbbsMeInboxUser item = list.get(position);
 		if (item != null) {
 			iLoader.DisplayImage(item.Detail.AvatarURL, holder.ivHead);
 			holder.tvName.setText(item.Detail.Name);
+			holder.tvNew
+					.setVisibility(listNewMessage.get(position) ? View.VISIBLE
+							: View.GONE);
 		}
 		return v;
 	}

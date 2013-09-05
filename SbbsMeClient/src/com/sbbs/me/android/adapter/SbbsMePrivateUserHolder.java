@@ -7,5 +7,6 @@ public class SbbsMePrivateUserHolder {
 
 	public TextView tvName;
 	public ImageView ivHead;
+	public TextView tvNew;
 
 }

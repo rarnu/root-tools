@@ -13,6 +13,7 @@ public class PrivateMessageProvider extends ContentProvider {
 
 	public static final int ACTION_MESSAGE = 1;
 	public static final int ACTION_LAST_MESSAGE_ID = 2;
+	public static final int ACTION_QUERY_NEW = 3;
 
 	private PrivateMessageDatabase database = null;
 
@@ -71,6 +72,9 @@ public class PrivateMessageProvider extends ContentProvider {
 				break;
 			case ACTION_LAST_MESSAGE_ID:
 				c = database.queryLastMessageId();
+				break;
+			case ACTION_QUERY_NEW:
+				c = database.queryNew(selection, selectionArgs);
 				break;
 			}
 		}

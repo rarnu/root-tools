@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,6 +24,7 @@ import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMePrivateMessage;
 import com.sbbs.me.android.consts.MenuIds;
 import com.sbbs.me.android.consts.PathDefine;
+import com.sbbs.me.android.database.PrivateMessageUtils;
 import com.sbbs.me.android.dialog.SendMessageDialog;
 import com.sbbs.me.android.loader.SbbsPrivateMessageLoader;
 import com.sbbs.me.android.utils.Config;
@@ -79,6 +81,7 @@ public class ViewMessageFragment extends BaseFragment implements
 		String myAvatarPath = PathDefine.ROOT_PATH
 				+ String.format("my%shead.jpg",
 						Config.getAccountString(getActivity()));
+		Log.e("initComponents", myAvatarPath);
 
 		adapter = new SbbsMePrivateMessageAdapter(getActivity(), list,
 				Config.getUserId(getActivity()), avatar, myAvatarPath);
@@ -104,6 +107,7 @@ public class ViewMessageFragment extends BaseFragment implements
 
 	@Override
 	public void initLogic() {
+		PrivateMessageUtils.setReadState(getActivity(), userId, true);
 		page = 1;
 		setIsBottom(false);
 

@@ -24,6 +24,7 @@ import com.sbbs.me.android.ViewMessageActivity;
 import com.sbbs.me.android.adapter.SbbsMePrivateUserAdapter;
 import com.sbbs.me.android.api.SbbsMeAPI;
 import com.sbbs.me.android.api.SbbsMeInboxUser;
+import com.sbbs.me.android.database.PrivateMessageUtils;
 import com.sbbs.me.android.loader.SbbsPrivateUserLoader;
 
 public class PrivateMessageFragment extends BaseFragment implements
@@ -36,6 +37,7 @@ public class PrivateMessageFragment extends BaseFragment implements
 	SbbsPrivateUserLoader loader;
 	SbbsMePrivateUserAdapter adapter;
 	List<SbbsMeInboxUser> list;
+	List<Boolean> listNewMessage;
 
 	public PrivateMessageFragment() {
 		super();
@@ -64,7 +66,9 @@ public class PrivateMessageFragment extends BaseFragment implements
 		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 
 		list = new ArrayList<SbbsMeInboxUser>();
-		adapter = new SbbsMePrivateUserAdapter(getActivity(), list);
+		listNewMessage = new ArrayList<Boolean>();
+		adapter = new SbbsMePrivateUserAdapter(getActivity(), list,
+				listNewMessage);
 		lvPullDown.getListView().setAdapter(adapter);
 		loader = new SbbsPrivateUserLoader(getActivity());
 		lvPullDown.enableAutoFetchMore(false, 0);
@@ -85,6 +89,13 @@ public class PrivateMessageFragment extends BaseFragment implements
 		lvPullDown.setOnPullDownListener(this);
 		lvPullDown.getListView().setOnItemClickListener(this);
 		loader.registerListener(0, this);
+	}
+
+	@Override
+	public void onResume() {
+		super.onResume();
+		adapter.setNewMessage(PrivateMessageUtils.getNewMessageStatus(
+				getActivity(), list));
 	}
 
 	@Override
@@ -169,6 +180,8 @@ public class PrivateMessageFragment extends BaseFragment implements
 		}
 		if (getActivity() != null) {
 			adapter.setNewList(list);
+			adapter.setNewMessage(PrivateMessageUtils.getNewMessageStatus(
+					getActivity(), list));
 			lvPullDown.notifyDidRefresh();
 			lvPullDown.notifyDidMore();
 			if (!((SbbsPrivateUserLoader) loader).isRefresh()) {

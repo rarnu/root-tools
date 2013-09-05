@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.Uri;
 import android.util.Log;
 
+import com.sbbs.me.android.api.SbbsMeInboxUser;
 import com.sbbs.me.android.api.SbbsMePrivateMessage;
 
 public class PrivateMessageUtils {
@@ -98,7 +99,7 @@ public class PrivateMessageUtils {
 		return list;
 	}
 
-	public static void setReadState(Context context, String id, boolean read) {
+	public static void setReadState(Context context, String userId, boolean read) {
 		ContentValues cv = new ContentValues();
 		cv.put("read", (read ? 1 : 0));
 		if (context != null) {
@@ -107,7 +108,7 @@ public class PrivateMessageUtils {
 						ContentUris.withAppendedId(
 								PrivateMessageProvider.CONTENT_URI,
 								PrivateMessageProvider.ACTION_MESSAGE), cv,
-						"id=?", new String[] { id });
+						"from_user_id=?", new String[] { userId });
 			} catch (Exception e) {
 
 			}
@@ -136,6 +137,30 @@ public class PrivateMessageUtils {
 			}
 		}
 		return id;
+	}
+
+	public static List<Boolean> getNewMessageStatus(Context context,
+			List<SbbsMeInboxUser> list) {
+		List<Boolean> listRet = new ArrayList<Boolean>();
+		for (int i = 0; i < list.size(); i++) {
+			Cursor c = context.getContentResolver().query(
+					ContentUris.withAppendedId(
+							PrivateMessageProvider.CONTENT_URI,
+							PrivateMessageProvider.ACTION_QUERY_NEW), null,
+					"read=? and from_user_id=?",
+					new String[] { "0", list.get(i).UserId }, null);
+			boolean stat = false;
+			if (c != null) {
+				c.moveToFirst();
+				while (!c.isAfterLast()) {
+					stat = true;
+					c.moveToNext();
+				}
+				c.close();
+			}
+			listRet.add(stat);
+		}
+		return listRet;
 	}
 
 }

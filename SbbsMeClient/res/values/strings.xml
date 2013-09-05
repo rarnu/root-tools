@@ -110,4 +110,5 @@
 	<string name="update_info">Information</string>
 	<string name="notify_message_title">Sbbs.Me Message</string>
 	<string name="notify_message_desc">You have received some messages</string>
+	<string name="new_message">NEW</string>
 </resources>

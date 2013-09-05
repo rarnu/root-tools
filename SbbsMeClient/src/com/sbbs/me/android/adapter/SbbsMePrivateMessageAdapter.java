@@ -4,6 +4,7 @@ import java.util.List;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.util.Log;
 import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ public class SbbsMePrivateMessageAdapter extends
 		this.myUserId = myUserId;
 		this.userAvatar = userAvatarUrl;
 		this.myAvatar = myAvatarPath;
+		Log.e("SbbsMePrivateMessageAdapter", myAvatar);
 		iLoader = new ImageLoader(context);
 	}
 

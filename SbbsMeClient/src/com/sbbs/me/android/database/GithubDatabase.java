@@ -16,7 +16,7 @@ public class GithubDatabase {
 	private static String databasePath = "";
 
 	private static final String TABLE_GITHUB_CACHE = "github_cache";
-	private static final String SQL_GITHUB_CACHE = "create table github_cache (sha text not null, parent_sha text not null, path text not null, type text not null, repo text not null)";
+	private static final String SQL_GITHUB_CACHE = "create table github_cache (sha text primary key, parent_sha text not null, path text not null, type text not null, repo text not null)";
 
 	public static boolean isDatabaseFileExists() {
 		return new File(databasePath).exists();

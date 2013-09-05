@@ -36,11 +36,11 @@ public class SbbsPrivateMessageLoader extends BaseLoader<SbbsMePrivateMessage> {
 				PrivateMessageUtils.saveMessages(getContext(), list);
 			} else {
 				if (page == 1) {
-					list = PrivateMessageUtils.queryMessages(getContext());
+					list = PrivateMessageUtils.queryMessages(getContext(), userId);
 				}
 			}
 		} else {
-			list = PrivateMessageUtils.queryMessages(getContext());
+			list = PrivateMessageUtils.queryMessages(getContext(), userId);
 			if (list == null || list.size() == 0) {
 				refresh = true;
 				list = SbbsMeAPI.getPrivateMessage(userId, page, pageSize);

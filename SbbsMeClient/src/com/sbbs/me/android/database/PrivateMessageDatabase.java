@@ -16,7 +16,7 @@ public class PrivateMessageDatabase {
 	private static String databasePath = "";
 
 	private static final String TABLE_MESSAGES = "messages";
-	private static final String SQL_MESSAGES = "create table messages (id integer not null, from_user_id text not null, from_user_name text not null, to_user_id text not null, to_user_name text not null, body text not null, created_on text not null, read integer not null)";
+	private static final String SQL_MESSAGES = "create table messages (id integer primary key, from_user_id text not null, from_user_name text not null, to_user_id text not null, to_user_name text not null, body text not null, created_on text not null, read integer not null)";
 
 	public static boolean isDatabaseFileExists() {
 		return new File(databasePath).exists();
@@ -61,6 +61,14 @@ public class PrivateMessageDatabase {
 		if (database != null) {
 			c = database.query(TABLE_MESSAGES, new String[] { "id" }, null,
 					null, null, null, "id desc", "0,1");
+		}
+		return c;
+	}
+	
+	public Cursor queryNew(String selection, String[] args) {
+		Cursor c = null;
+		if (database != null) {
+			c = database.query(TABLE_MESSAGES, new String[]{"read"}, selection, args, null, null, null);
 		}
 		return c;
 	}
