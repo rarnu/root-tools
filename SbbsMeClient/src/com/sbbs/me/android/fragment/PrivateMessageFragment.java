@@ -80,7 +80,7 @@ public class PrivateMessageFragment extends BaseFragment implements
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
 		lvPullDown.getListView().setSelector(R.color.transparent);
 		lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
-
+		lvPullDown.getListView().setFocusableInTouchMode(false);
 	}
 
 	@Override
@@ -182,6 +182,7 @@ public class PrivateMessageFragment extends BaseFragment implements
 			adapter.setNewList(list);
 			adapter.setNewMessage(PrivateMessageUtils.getNewMessageStatus(
 					getActivity(), list));
+			lvPullDown.getListView().setSelected(false);
 			lvPullDown.notifyDidRefresh();
 			lvPullDown.notifyDidMore();
 			if (!((SbbsPrivateUserLoader) loader).isRefresh()) {

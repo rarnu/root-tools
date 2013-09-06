@@ -115,6 +115,7 @@ public class MainFragment extends BaseFragment implements
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
 		lvPullDown.getListView().setSelector(R.color.transparent);
 		lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
+		lvPullDown.getListView().setFocusableInTouchMode(false);
 
 		sinaOAuth = new SinaOAuth(getActivity(), this);
 		googleOAuth = new GoogleOAuth(getActivity(), this);
@@ -351,6 +352,7 @@ public class MainFragment extends BaseFragment implements
 
 		if (getActivity() != null) {
 			adapter.setNewList(Global.listArticle);
+			lvPullDown.getListView().setSelected(false);
 			lvPullDown.notifyDidRefresh();
 			lvPullDown.notifyDidMore();
 

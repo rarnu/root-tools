@@ -51,7 +51,7 @@ public class PrivateMessageDatabase {
 		Cursor c = null;
 		if (database != null) {
 			c = database.query(TABLE_MESSAGES, null, select, selectArgs, null,
-					null, "id desc", "0,500");
+					null, "id desc", "0,100");
 		}
 		return c;
 	}

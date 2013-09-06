@@ -81,6 +81,7 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 		lvPullDown.getListView().setDividerHeight(devide);
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
 		lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
+		lvPullDown.getListView().setFocusableInTouchMode(false);
 	}
 
 	@Override
@@ -195,6 +196,7 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 			tvNodata.setText(R.string.no_data_refresh);
 			adapter.setNewList(listMessage);
 			tvLoading.setVisibility(View.GONE);
+			lvPullDown.getListView().setSelected(false);
 			lvPullDown.notifyDidRefresh();
 		}
 	}

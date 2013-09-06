@@ -96,6 +96,7 @@ public class ViewMessageFragment extends BaseFragment implements
 		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
 		lvPullDown.getListView().setSelector(R.color.transparent);
 		lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
+		lvPullDown.getListView().setFocusableInTouchMode(false);
 	}
 
 	@Override
@@ -228,6 +229,7 @@ public class ViewMessageFragment extends BaseFragment implements
 		}
 		if (getActivity() != null) {
 			adapter.setNewList(list);
+			lvPullDown.getListView().setSelected(false);
 			lvPullDown.notifyDidRefresh();
 			lvPullDown.notifyDidMore();
 			if (!((SbbsPrivateMessageLoader) loader).isRefresh()) {
