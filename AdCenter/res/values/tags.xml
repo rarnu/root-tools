@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <item name="tag_main" type="tag">tag_main</item>
+    <item name="tag_left_menu" type="tag">tag_left_menu</item>
+    <item name="tag_user" type="tag">tag_user</item>
+    <item name="tag_cash" type="tag">tag_cash</item>
+	<item name="tag_help" type="tag">tag_help</item>
+</resources>

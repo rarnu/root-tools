@@ -59,10 +59,14 @@ public abstract class InnerFragment extends Fragment implements
 		if (getActivity().getActionBar() != null) {
 			if (getCustomTitle() == null || getCustomTitle().equals("")) {
 				if (UIInstance.dualPane) {
-					getActivity().getActionBar()
-							.setTitle(getBarTitleWithPath());
+					if (getBarTitleWithPath() != 0) {
+						getActivity().getActionBar().setTitle(
+								getBarTitleWithPath());
+					}
 				} else {
-					getActivity().getActionBar().setTitle(getBarTitle());
+					if (getBarTitle() != 0) {
+						getActivity().getActionBar().setTitle(getBarTitle());
+					}
 				}
 			} else {
 				getActivity().getActionBar().setTitle(getCustomTitle());

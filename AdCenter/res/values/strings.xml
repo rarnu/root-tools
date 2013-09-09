@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">小牛广告</string>
+    <string name="menu">菜单</string>
+    <string name="area">大区</string>
+    <string name="user">用户</string>
+    <string name="user_help">使用帮助</string>
+    <string name="user_account">用户帐户</string>
+    <string name="user_cash">货币结算</string>
+    <string name="btn_select">确认选择</string>
+    <string name="answer_right" formatted="false">恭喜您答对了, 您获得了 %s</string>
+    <string name="answer_wrong">您答错了</string>
+</resources>
