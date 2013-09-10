@@ -10,7 +10,10 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.rarnu.adcenter.classes.AdItem;
+import com.rarnu.adcenter.classes.CommonResult;
+import com.rarnu.adcenter.classes.LoginItem;
 import com.rarnu.adcenter.classes.QuestItem;
+import com.rarnu.adcenter.classes.UserItem;
 import com.rarnu.utils.HttpRequest;
 
 public class AdAPI {
@@ -61,5 +64,44 @@ public class AdAPI {
 		HttpRequest.get(HOST + "record_quest.php", String.format(
 				"id=%d&mac=%s&user_id=%d&right=%s", adId, mac, userId,
 				(right ? "true" : "false")), HTTP.UTF_8);
+	}
+
+	public static LoginItem login(String account, String passwd, String mac) {
+		String ret = HttpRequest.get(HOST + "login.php", String.format(
+				"account=%s&passwd=%s&mac=%s", account, passwd, mac),
+				HTTP.UTF_8);
+		LoginItem item = null;
+		try {
+			item = LoginItem.fromJson(new JSONObject(ret));
+		} catch (Exception e) {
+
+		}
+		return item;
+	}
+
+	public static UserItem getUser(int id) {
+		String ret = HttpRequest.get(HOST + "get_user.php",
+				String.format("id=%d", id), HTTP.UTF_8);
+		UserItem item = null;
+		try {
+			item = UserItem.fromJson(new JSONObject(ret));
+		} catch (Exception e) {
+
+		}
+		return item;
+	}
+
+	public static CommonResult register(String account, String passwd,
+			String name, String mac) {
+		String ret = HttpRequest.get(HOST + "register.php", String.format(
+				"account=%s&passwd=%s&name=%s&mac=%s", account, passwd, name,
+				mac), HTTP.UTF_8);
+		CommonResult item = null;
+		try {
+			item = CommonResult.fromJson(new JSONObject(ret));
+		} catch (Exception e) {
+
+		}
+		return item;
 	}
 }

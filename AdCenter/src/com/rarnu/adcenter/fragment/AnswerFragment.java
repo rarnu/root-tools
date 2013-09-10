@@ -17,6 +17,7 @@ import com.rarnu.adcenter.R;
 import com.rarnu.adcenter.api.AdAPI;
 import com.rarnu.adcenter.classes.QuestItem;
 import com.rarnu.devlib.base.BaseDialogFragment;
+import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 
 public class AnswerFragment extends BaseDialogFragment implements
@@ -32,6 +33,11 @@ public class AnswerFragment extends BaseDialogFragment implements
 	int[] radioIds = new int[] { 100001, 100002, 100003, 100004, 100005,
 			100006, 100007, 100008, 100009, 100010 };
 
+	public AnswerFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_answer);
+	}
+	
 	@Override
 	public int getBarTitle() {
 		return 0;

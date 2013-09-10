@@ -62,4 +62,33 @@ public class AdDatabase {
 			}
 		}
 	}
+
+	public void login(ContentValues cv) {
+		if (database != null) {
+			try {
+				database.insert(TABLE_USER, null, cv);
+			} catch (Exception e) {
+
+			}
+		}
+	}
+
+	public void logout(String selection, String[] args) {
+		if (database != null) {
+			try {
+				database.delete(TABLE_USER, selection, args);
+			} catch (Exception e) {
+
+			}
+		}
+	}
+
+	public Cursor queryUser(String selection, String[] args) {
+		Cursor c = null;
+		if (database != null) {
+			c = database.query(TABLE_USER, null, selection, args, null, null,
+					null);
+		}
+		return c;
+	}
 }

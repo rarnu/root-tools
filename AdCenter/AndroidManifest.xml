@@ -38,6 +38,16 @@
             android:theme="@style/Theme.HalfDialog.Adcenter"
             android:windowSoftInputMode="stateHidden" >
         </activity>
+        <activity
+            android:name=".LoginActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".RegisterActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
 
         <provider
             android:name=".database.AdProvider"

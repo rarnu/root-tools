@@ -16,6 +16,10 @@ public class AdProvider extends ContentProvider {
 	public static final int ACTION_QUERY_AD_QUESTED = 1;
 	public static final int ACTION_SET_AD_QUESTED = 2;
 	public static final int ACTION_SAVE_ADS = 3;
+	
+	public static final int ACTION_LOGIN = 4;
+	public static final int ACTION_LOGOUT = 5;
+	public static final int ACTION_QUERY_USER = 6;
 
 	@Override
 	public boolean onCreate() {
@@ -36,6 +40,9 @@ public class AdProvider extends ContentProvider {
 			case ACTION_QUERY_AD_QUESTED:
 				c = database.queryAdQuested(selection, selectionArgs);
 				break;
+			case ACTION_QUERY_USER:
+				c = database.queryUser(selection, selectionArgs);
+				break;
 			}
 		}
 		return c;
@@ -54,6 +61,9 @@ public class AdProvider extends ContentProvider {
 			case ACTION_SAVE_ADS:
 				database.saveAd(values);
 				break;
+			case ACTION_LOGIN:
+				database.login(values);
+				break;
 			}
 		}
 		return null;
@@ -61,6 +71,14 @@ public class AdProvider extends ContentProvider {
 
 	@Override
 	public int delete(Uri uri, String selection, String[] selectionArgs) {
+		int action = (int) ContentUris.parseId(uri);
+		if (database != null) {
+			switch (action) {
+			case ACTION_LOGOUT:
+				database.logout(selection, selectionArgs);
+				break;
+			}
+		}
 		return 0;
 	}
 

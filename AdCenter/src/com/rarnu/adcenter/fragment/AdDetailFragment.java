@@ -22,6 +22,7 @@ import com.rarnu.adcenter.classes.QuestItem;
 import com.rarnu.adcenter.database.AdUtils;
 import com.rarnu.adcenter.loader.QuestLoader;
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.utils.ResourceUtils;
 
 public class AdDetailFragment extends BaseFragment implements OnClickListener,
 		OnLoadCompleteListener<QuestItem> {
@@ -31,6 +32,11 @@ public class AdDetailFragment extends BaseFragment implements OnClickListener,
 	WebView wv;
 	QuestLoader loader;
 	QuestItem quest;
+	
+	public AdDetailFragment() {
+		super();
+		tagText = ResourceUtils.getString(R.tag.tag_ad_detail);
+	}
 
 	@Override
 	public int getBarTitle() {

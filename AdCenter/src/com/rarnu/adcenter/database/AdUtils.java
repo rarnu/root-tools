@@ -11,6 +11,7 @@ import android.database.Cursor;
 import android.net.Uri;
 
 import com.rarnu.adcenter.classes.AdItem;
+import com.rarnu.adcenter.classes.UserItem;
 
 public class AdUtils {
 
@@ -61,5 +62,43 @@ public class AdUtils {
 			ret.add(getAdQuested(context, list.get(i).id));
 		}
 		return ret;
+	}
+
+	public static void login(Context context, UserItem user) {
+		ContentValues cv = new ContentValues();
+		cv.put("id", user.id);
+		cv.put("name", user.name);
+		cv.put("account", user.account);
+		cv.put("cash", user.cash);
+		context.getContentResolver().insert(
+				ContentUris.withAppendedId(AdProvider.CONTENT_URI,
+						AdProvider.ACTION_LOGIN), cv);
+	}
+
+	public static void logout(Context context, UserItem user) {
+		context.getContentResolver().delete(
+				ContentUris.withAppendedId(AdProvider.CONTENT_URI,
+						AdProvider.ACTION_LOGOUT), "id=?",
+				new String[] { String.valueOf(user.id) });
+	}
+
+	public static UserItem queryUser(Context context) {
+		UserItem user = null;
+		Cursor c = context.getContentResolver().query(
+				ContentUris.withAppendedId(AdProvider.CONTENT_URI,
+						AdProvider.ACTION_QUERY_USER), null, null, null, null);
+		if (c != null) {
+			c.moveToFirst();
+			user = new UserItem();
+			while (!c.isAfterLast()) {
+				user.id = c.getInt(c.getColumnIndex("id"));
+				user.account = c.getString(c.getColumnIndex("account"));
+				user.name = c.getString(c.getColumnIndex("name"));
+				user.cash = c.getInt(c.getColumnIndex("cash"));
+				c.moveToNext();
+			}
+			c.close();
+		}
+		return user;
 	}
 }

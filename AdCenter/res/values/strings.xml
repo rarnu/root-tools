@@ -4,10 +4,15 @@
     <string name="menu">菜单</string>
     <string name="area">大区</string>
     <string name="user">用户</string>
+    <string name="login">登录</string>
+    <string name="register">注册</string>
     <string name="user_help">使用帮助</string>
     <string name="user_account">用户帐户</string>
     <string name="user_cash">货币结算</string>
     <string name="btn_select">确认选择</string>
     <string name="answer_right" formatted="false">恭喜您答对了, 您获得了 %s</string>
     <string name="answer_wrong">您答错了</string>
+    <string name="account">帐户</string>
+    <string name="password">密码</string>
+    <string name="account_password_empty">帐户和密码不能为空</string>
 </resources>
