@@ -6,6 +6,7 @@
     <string name="user">用户</string>
     <string name="login">登录</string>
     <string name="register">注册</string>
+    <string name="refresh">刷新</string>
     <string name="user_help">使用帮助</string>
     <string name="user_account">用户帐户</string>
     <string name="user_cash">货币结算</string>
@@ -15,4 +16,6 @@
     <string name="account">帐户</string>
     <string name="password">密码</string>
     <string name="account_password_empty">帐户和密码不能为空</string>
+    <string name="loading">正在加载, 请稍候...</string>
+    <string name="my_cash">我的金币</string>
 </resources>

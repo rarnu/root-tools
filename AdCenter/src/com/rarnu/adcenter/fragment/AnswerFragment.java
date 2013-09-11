@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
@@ -28,7 +28,7 @@ public class AnswerFragment extends BaseDialogFragment implements
 	TextView tvDesc;
 	QuestItem quest;
 	RadioGroup rgAnswers;
-	Button btnSure;
+	ImageView btnSure;
 
 	int[] radioIds = new int[] { 100001, 100002, 100003, 100004, 100005,
 			100006, 100007, 100008, 100009, 100010 };
@@ -61,7 +61,7 @@ public class AnswerFragment extends BaseDialogFragment implements
 		tvQuestTitle = (TextView) innerView.findViewById(R.id.tvQuestTitle);
 		tvDesc = (TextView) innerView.findViewById(R.id.tvDesc);
 		rgAnswers = (RadioGroup) innerView.findViewById(R.id.rgAnswers);
-		btnSure = (Button) innerView.findViewById(R.id.btnSure);
+		btnSure = (ImageView) innerView.findViewById(R.id.btnSure);
 	}
 
 	@Override

@@ -8,16 +8,19 @@ import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.TextView;
 
 import com.rarnu.adcenter.AdDetailActivity;
 import com.rarnu.adcenter.Global;
 import com.rarnu.adcenter.R;
 import com.rarnu.adcenter.adapter.AdItemAdapter;
 import com.rarnu.adcenter.classes.AdItem;
+import com.rarnu.adcenter.common.MenuIds;
 import com.rarnu.adcenter.database.AdUtils;
 import com.rarnu.adcenter.loader.AdLoader;
 import com.rarnu.devlib.base.BaseFragment;
@@ -32,6 +35,9 @@ public class MainFragment extends BaseFragment implements
 	List<AdItem> list;
 	List<Boolean> listQuested;
 	AdLoader loader;
+	MenuItem itemRefresh;
+	int type = 0;
+	TextView tvLoading;
 
 	public MainFragment() {
 		super();
@@ -50,8 +56,7 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public String getCustomTitle() {
-		return getString(R.string.app_name) + " - "
-				+ getCurrentTitle(getArguments().getInt("area"));
+		return getString(R.string.app_name) + " - " + getCurrentTitle(type);
 	}
 
 	@Override
@@ -64,6 +69,7 @@ public class MainFragment extends BaseFragment implements
 				itemHeight);
 		gvAd.setAdapter(adapter);
 		loader = new AdLoader(getActivity());
+		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 	}
 
 	@Override
@@ -74,7 +80,9 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void initLogic() {
-		loader.setData(Global.MAC_ADDRESS, 1, 50, 0, "");
+		type = getArguments().getInt("area");
+		loader.setData(Global.MAC_ADDRESS, 1, 50, type, "");
+		tvLoading.setVisibility(View.VISIBLE);
 		loader.startLoading();
 	}
 
@@ -89,7 +97,7 @@ public class MainFragment extends BaseFragment implements
 		listQuested = AdUtils.getListQuestedState(getActivity(), list);
 		adapter.setNewQuestedList(listQuested);
 	}
-	
+
 	@Override
 	public String getMainActivityName() {
 		return "";
@@ -97,12 +105,29 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void initMenu(Menu menu) {
+		itemRefresh = menu.add(0, MenuIds.MENUID_REFRESH, 99, R.string.refresh);
+		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
+		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+	}
 
+	@Override
+	public boolean onOptionsItemSelected(MenuItem item) {
+		switch (item.getItemId()) {
+		case MenuIds.MENUID_REFRESH:
+			tvLoading.setVisibility(View.VISIBLE);
+			loader.startLoading();
+			break;
+		}
+		return true;
 	}
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-		setTitle(getCurrentTitle(bn.getInt("area")));
+		type = bn.getInt("area");
+		setTitle(getCurrentTitle(type));
+		loader.setData(Global.MAC_ADDRESS, 1, 50, type, "");
+		tvLoading.setVisibility(View.VISIBLE);
+		loader.startLoading();
 	}
 
 	private String getCurrentTitle(int index) {
@@ -125,8 +150,9 @@ public class MainFragment extends BaseFragment implements
 
 	@Override
 	public void onLoadComplete(Loader<List<AdItem>> loader, List<AdItem> data) {
+		list.clear();
+
 		if (data != null) {
-			list.clear();
 			list.addAll(data);
 			listQuested = AdUtils.getListQuestedState(getActivity(), list);
 		}
@@ -134,6 +160,7 @@ public class MainFragment extends BaseFragment implements
 			AdUtils.saveAds(getActivity(), list);
 			adapter.setNewList(list);
 			adapter.setNewQuestedList(listQuested);
+			tvLoading.setVisibility(View.GONE);
 		}
 
 	}

@@ -3,30 +3,48 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent" >
 
-    <ImageView
-        android:id="@+id/ivItem"
+    <RelativeLayout
+        android:id="@+id/layFrame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:background="@color/lightgray" >
 
-    <TextView
-        android:id="@+id/tvItem"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="4dip"
-        android:background="#DD000000"
-        android:gravity="center"
-        android:padding="2dip"
-        android:textColor="@color/white" />
-    
-    <TextView android:id="@+id/tvCost"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentRight="true"
-        android:layout_margin="2dip"
-        android:padding="2dip"
-        android:textColor="@color/red"
-        android:background="@color/yellow"/>
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="1dip"
+            android:background="@color/white" >
+
+            <ImageView
+                android:id="@+id/ivItem"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:contentDescription="@null"
+                android:scaleType="fitXY" />
+
+            <TextView
+                android:id="@+id/tvItem"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_margin="4dip"
+                android:background="@drawable/textview_background_adcenter"
+                android:gravity="center"
+                android:textColor="@color/white" />
+
+            <TextView
+                android:id="@+id/tvCost"
+                android:layout_width="16dip"
+                android:layout_height="16dip"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentTop="true"
+                android:layout_margin="2dip"
+                android:background="@drawable/money_bag"
+                android:gravity="center"
+                android:textColor="@color/yellow"
+                android:textSize="12sp"
+                android:textStyle="bold" />
+        </RelativeLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

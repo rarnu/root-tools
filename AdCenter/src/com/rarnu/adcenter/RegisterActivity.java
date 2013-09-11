@@ -2,20 +2,19 @@ package com.rarnu.adcenter;
 
 import android.app.Fragment;
 
+import com.rarnu.adcenter.fragment.RegisterFragment;
 import com.rarnu.devlib.base.BaseActivity;
 
 public class RegisterActivity extends BaseActivity {
 
 	@Override
 	public int getIcon() {
-		// TODO Auto-generated method stub
-		return 0;
+		return R.drawable.ic_launcher;
 	}
 
 	@Override
 	public Fragment replaceFragment() {
-		// TODO Auto-generated method stub
-		return null;
+		return new RegisterFragment();
 	}
 
 }

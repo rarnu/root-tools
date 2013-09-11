@@ -7,6 +7,7 @@ import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.webkit.WebChromeClient;
@@ -19,8 +20,10 @@ import com.rarnu.adcenter.AnswerActivity;
 import com.rarnu.adcenter.R;
 import com.rarnu.adcenter.classes.AdItem;
 import com.rarnu.adcenter.classes.QuestItem;
+import com.rarnu.adcenter.common.MenuIds;
 import com.rarnu.adcenter.database.AdUtils;
 import com.rarnu.adcenter.loader.QuestLoader;
+import com.rarnu.adcenter.utils.MiscUtils;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 
@@ -32,7 +35,8 @@ public class AdDetailFragment extends BaseFragment implements OnClickListener,
 	WebView wv;
 	QuestLoader loader;
 	QuestItem quest;
-	
+	MenuItem itemCash;
+
 	public AdDetailFragment() {
 		super();
 		tagText = ResourceUtils.getString(R.tag.tag_ad_detail);
@@ -95,9 +99,6 @@ public class AdDetailFragment extends BaseFragment implements OnClickListener,
 			}
 		});
 		loader.startLoading();
-		boolean quested = AdUtils.getAdQuested(getActivity(), item.id);
-		Log.e("quested", quested ? "TRUE" : "FALSE");
-		btnWebsite.setVisibility(quested ? View.GONE : View.VISIBLE);
 	}
 
 	@Override
@@ -112,7 +113,9 @@ public class AdDetailFragment extends BaseFragment implements OnClickListener,
 
 	@Override
 	public void initMenu(Menu menu) {
-
+		itemCash = menu.add(0, MenuIds.MENUID_CASH, 99, R.string.my_cash);
+		itemCash.setIcon(MiscUtils.loadResIcon(getActivity(), R.drawable.money_bag));
+		itemCash.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 	}
 
 	@Override
@@ -159,6 +162,9 @@ public class AdDetailFragment extends BaseFragment implements OnClickListener,
 		quest = data;
 		if (data != null) {
 			if (getActivity() != null) {
+				boolean quested = AdUtils.getAdQuested(getActivity(), item.id);
+				Log.e("quested", quested ? "TRUE" : "FALSE");
+				btnWebsite.setVisibility(quested ? View.GONE : View.VISIBLE);
 				btnWebsite.setText(data.quest);
 			}
 		}

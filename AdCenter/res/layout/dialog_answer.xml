@@ -21,25 +21,27 @@
             android:textColor="@color/white"
             android:textSize="18sp" />
 
-        <Button
+        <ImageView
             android:id="@+id/btnSure"
-            android:layout_width="40dip"
-            android:layout_height="40dip"
+            android:layout_width="?android:attr/actionBarSize"
+            android:layout_height="?android:attr/actionBarSize"
             android:layout_alignParentRight="true"
             android:layout_centerVertical="true"
-            android:layout_margin="4dip"
-            android:background="@android:drawable/ic_menu_send" />
+            android:background="@drawable/action_background_adcenter"
+            android:clickable="true"
+            android:scaleType="center"
+            android:src="@android:drawable/ic_menu_send" />
     </RelativeLayout>
 
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/layQuestTitle" >
+        android:layout_below="@+id/layQuestTitle"
+        android:padding="16dip" >
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:padding="8dip" >
+            android:layout_height="match_parent" >
 
             <TextView
                 android:id="@+id/tvDesc"

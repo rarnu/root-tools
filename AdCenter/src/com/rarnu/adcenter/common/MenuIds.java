@@ -5,4 +5,7 @@ import android.view.Menu;
 public class MenuIds {
 
 	public static final int MENUID_LOGIN = Menu.FIRST + 1;
+	public static final int MENUID_REFRESH = Menu.FIRST + 2;
+	public static final int MENUID_CASH = Menu.FIRST + 3;
+	
 }
