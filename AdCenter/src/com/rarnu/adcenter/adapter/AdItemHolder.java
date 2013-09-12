@@ -1,11 +1,12 @@
 package com.rarnu.adcenter.adapter;
 
-import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.rarnu.adcenter.component.GifView;
 
 public class AdItemHolder {
 
 	public TextView tvItem;
-	public ImageView ivItem;
+	public GifView ivItem;
 	public TextView tvCost;
 }

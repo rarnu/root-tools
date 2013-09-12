@@ -1,16 +1,21 @@
 package com.rarnu.adcenter.fragment;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
 import com.rarnu.adcenter.Global;
 import com.rarnu.adcenter.R;
+import com.rarnu.adcenter.RegisterActivity;
 import com.rarnu.adcenter.classes.LoginItem;
 import com.rarnu.adcenter.classes.UserItem;
 import com.rarnu.adcenter.common.MenuIds;
@@ -20,13 +25,14 @@ import com.rarnu.adcenter.loader.UserLoader;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 
-public class LoginFragment extends BaseFragment {
+public class LoginFragment extends BaseFragment implements OnClickListener {
 
 	EditText etAccount;
 	EditText etPassword;
 	LoginLoader loginLoader;
 	UserLoader userLoader;
 	MenuItem itemLogin;
+	Button btnRegister;
 
 	OnLoadCompleteListener<LoginItem> loginListener;
 	OnLoadCompleteListener<UserItem> userListener;
@@ -57,6 +63,7 @@ public class LoginFragment extends BaseFragment {
 		etPassword = (EditText) innerView.findViewById(R.id.etPassword);
 		loginLoader = new LoginLoader(getActivity());
 		userLoader = new UserLoader(getActivity());
+		btnRegister = (Button) innerView.findViewById(R.id.btnRegister);
 
 		loginListener = new OnLoadCompleteListener<LoginItem>() {
 			@Override
@@ -86,6 +93,7 @@ public class LoginFragment extends BaseFragment {
 	public void initEvents() {
 		loginLoader.registerListener(0, loginListener);
 		userLoader.registerListener(0, userListener);
+		btnRegister.setOnClickListener(this);
 	}
 
 	@Override
@@ -136,6 +144,25 @@ public class LoginFragment extends BaseFragment {
 	@Override
 	public Bundle getFragmentState() {
 		return null;
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.btnRegister:
+			startActivityForResult(new Intent(getActivity(),
+					RegisterActivity.class), 0);
+			break;
+		}
+	}
+	
+	@Override
+	public void onActivityResult(int requestCode, int resultCode, Intent data) {
+		if (resultCode == Activity.RESULT_OK) {
+			getActivity().setResult(Activity.RESULT_OK);
+			getActivity().finish();
+			return;
+		}
 	}
 
 }

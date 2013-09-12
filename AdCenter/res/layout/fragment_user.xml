@@ -4,6 +4,7 @@
     android:layout_height="match_parent" >
 
     <ScrollView
+        android:id="@+id/svUser"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:padding="16dip" >
@@ -24,8 +25,42 @@
                 android:layout_height="48dip"
                 android:layout_below="@+id/tvAccount"
                 android:gravity="left|center_vertical" />
+
+            <TextView
+                android:id="@+id/tvEmail"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvName"
+                android:gravity="left|center_vertical" />
+
+            <TextView
+                android:id="@+id/tvPhone"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvEmail"
+                android:gravity="left|center_vertical" />
+
+            <Button
+                android:id="@+id/btnLogout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvPhone"
+                android:layout_margin="16dip"
+                android:background="@drawable/button_background_adcenter"
+                android:text="@string/logout"
+                android:textColor="@color/white" />
         </RelativeLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btnLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:layout_margin="32dip"
+        android:background="@drawable/button_background_adcenter"
+        android:text="@string/login"
+        android:textColor="@color/white" />
 
     <TextView
         android:id="@+id/tvLoading"

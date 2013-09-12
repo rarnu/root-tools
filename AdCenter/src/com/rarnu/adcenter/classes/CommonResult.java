@@ -7,11 +7,11 @@ import org.json.JSONObject;
 public class CommonResult implements Serializable {
 
 	private static final long serialVersionUID = 3287251683696106184L;
-	public boolean result;
+	public int result;
 
 	public static CommonResult fromJson(JSONObject json) throws Exception {
 		CommonResult item = new CommonResult();
-		item.result = json.getInt("result") == 0;
+		item.result = json.getInt("result");
 		return item;
 	}
 }

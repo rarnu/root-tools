@@ -92,10 +92,10 @@ public class AdAPI {
 	}
 
 	public static CommonResult register(String account, String passwd,
-			String name, String mac) {
+			String name, String mac, String email, String phone, String qq) {
 		String ret = HttpRequest.get(HOST + "register.php", String.format(
-				"account=%s&passwd=%s&name=%s&mac=%s", account, passwd, name,
-				mac), HTTP.UTF_8);
+				"account=%s&passwd=%s&name=%s&mac=%s&email=%s&phone=%s&qq=%s",
+				account, passwd, name, mac, email, phone, qq), HTTP.UTF_8);
 		CommonResult item = null;
 		try {
 			item = CommonResult.fromJson(new JSONObject(ret));

@@ -6,13 +6,13 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.adcenter.R;
 import com.rarnu.adcenter.api.AdAPI;
 import com.rarnu.adcenter.classes.AdItem;
+import com.rarnu.adcenter.component.GifView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
 import com.rarnu.utils.ImageLoader;
 import com.rarnu.utils.UIUtils;
@@ -58,7 +58,7 @@ public class AdItemAdapter extends BaseAdapter<AdItem> {
 		AdItemHolder holder = (AdItemHolder) v.getTag();
 		if (holder == null) {
 			holder = new AdItemHolder();
-			holder.ivItem = (ImageView) v.findViewById(R.id.ivItem);
+			holder.ivItem = (GifView) v.findViewById(R.id.ivItem);
 			holder.tvItem = (TextView) v.findViewById(R.id.tvItem);
 			holder.tvCost = (TextView) v.findViewById(R.id.tvCost);
 			v.setTag(holder);

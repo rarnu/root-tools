@@ -79,7 +79,7 @@ public class AnswerFragment extends BaseDialogFragment implements
 			rb.setId(radioIds[i]);
 			rb.setText(quest.options[i]);
 			rb.setLayoutParams(new RadioGroup.LayoutParams(
-					RadioGroup.LayoutParams.MATCH_PARENT, UIUtils.dipToPx(48)));
+					RadioGroup.LayoutParams.MATCH_PARENT, UIUtils.dipToPx(32)));
 			rgAnswers.addView(rb);
 		}
 

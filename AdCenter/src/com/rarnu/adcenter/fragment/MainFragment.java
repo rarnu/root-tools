@@ -64,7 +64,7 @@ public class MainFragment extends BaseFragment implements
 		gvAd = (GridView) innerView.findViewById(R.id.gvAd);
 		list = new ArrayList<AdItem>();
 		listQuested = new ArrayList<Boolean>();
-		int itemHeight = UIUtils.getWidth() / 4;
+		int itemHeight = UIUtils.getWidth() / 3;
 		adapter = new AdItemAdapter(getActivity(), list, listQuested,
 				itemHeight);
 		gvAd.setAdapter(adapter);

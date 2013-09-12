@@ -25,6 +25,7 @@
                 android:layout_width="100dip"
                 android:layout_height="48dip"
                 android:layout_below="@+id/tvAccount"
+                android:layout_marginTop="8dip"
                 android:gravity="left|center_vertical"
                 android:text="@string/password"
                 android:textSize="18sp" />
@@ -40,8 +41,18 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dip"
                 android:layout_below="@+id/etAccount"
+                android:layout_marginTop="8dip"
                 android:layout_toRightOf="@+id/tvPassword"
                 android:inputType="textPassword" />
+            
+            <Button android:id="@+id/btnRegister"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/etPassword"
+                android:layout_marginTop="32dip"
+                android:background="@drawable/button_background_adcenter"
+                android:textColor="@color/white"
+                android:text="@string/no_account"/>
         </RelativeLayout>
     </ScrollView>
 

@@ -89,13 +89,13 @@ public class AdUtils {
 						AdProvider.ACTION_QUERY_USER), null, null, null, null);
 		if (c != null) {
 			c.moveToFirst();
-			user = new UserItem();
 			while (!c.isAfterLast()) {
+				user = new UserItem();
 				user.id = c.getInt(c.getColumnIndex("id"));
 				user.account = c.getString(c.getColumnIndex("account"));
 				user.name = c.getString(c.getColumnIndex("name"));
 				user.cash = c.getInt(c.getColumnIndex("cash"));
-				c.moveToNext();
+				break;
 			}
 			c.close();
 		}
