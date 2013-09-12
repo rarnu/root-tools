@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -34,6 +35,7 @@ public class UserFragment extends BaseFragment implements
 	TextView tvLoading;
 	UserLoader loader;
 	ScrollView svUser;
+	RelativeLayout layLogin;
 	Button btnLogin;
 	Button btnLogout;
 	
@@ -69,9 +71,10 @@ public class UserFragment extends BaseFragment implements
 		svUser = (ScrollView) innerView.findViewById(R.id.svUser);
 		btnLogin = (Button) innerView.findViewById(R.id.btnLogin);
 		btnLogout = (Button) innerView.findViewById(R.id.btnLogout);
+		layLogin = (RelativeLayout) innerView.findViewById(R.id.layLogin);
 		loader = new UserLoader(getActivity());
 	}
-
+	
 	@Override
 	public void initEvents() {
 		loader.registerListener(0, this);
@@ -84,13 +87,13 @@ public class UserFragment extends BaseFragment implements
 		loadUser();
 		if (user != null) {
 			svUser.setVisibility(View.VISIBLE);
-			btnLogin.setVisibility(View.GONE);
+			layLogin.setVisibility(View.GONE);
 			tvLoading.setVisibility(View.VISIBLE);
 			loader.setUserId(userId);
 			loader.startLoading();
 		} else {
 			svUser.setVisibility(View.GONE);
-			btnLogin.setVisibility(View.VISIBLE);
+			layLogin.setVisibility(View.VISIBLE);
 		}
 	}
 
@@ -131,7 +134,7 @@ public class UserFragment extends BaseFragment implements
 		switch (item.getItemId()) {
 		case MenuIds.MENUID_EDIT:
 			if (user != null) {
-				
+				// TODO: edit user
 			}
 			break;
 		}
@@ -165,7 +168,7 @@ public class UserFragment extends BaseFragment implements
 		user = null;
 		
 		svUser.setVisibility(View.GONE);
-		btnLogin.setVisibility(View.VISIBLE);
+		layLogin.setVisibility(View.VISIBLE);
 	}
 
 	@Override

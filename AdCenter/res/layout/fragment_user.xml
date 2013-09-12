@@ -52,15 +52,31 @@
         </RelativeLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/btnLogin"
-        android:layout_width="match_parent"
+    <RelativeLayout
+        android:id="@+id/layLogin"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:layout_margin="32dip"
-        android:background="@drawable/button_background_adcenter"
-        android:text="@string/login"
-        android:textColor="@color/white" />
+        android:layout_centerInParent="true" >
+
+        <TextView
+            android:id="@+id/tvLoginHint"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/not_login"
+            android:textSize="16sp"
+            android:layout_margin="32dip" />
+
+        <Button
+            android:id="@+id/btnLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvLoginHint"
+            android:layout_margin="32dip"
+            android:background="@drawable/button_background_adcenter"
+            android:text="@string/login"
+            android:textColor="@color/white" />
+    </RelativeLayout>
 
     <TextView
         android:id="@+id/tvLoading"

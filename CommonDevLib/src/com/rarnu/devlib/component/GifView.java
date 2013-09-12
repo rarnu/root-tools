@@ -1,4 +1,4 @@
-package com.rarnu.adcenter.component;
+package com.rarnu.devlib.component;
 
 import java.io.InputStream;
 
@@ -14,6 +14,10 @@ import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
+
+import com.rarnu.devlib.component.tools.GifAction;
+import com.rarnu.devlib.component.tools.GifDecoder;
+import com.rarnu.devlib.component.tools.GifFrame;
 
 public class GifView extends ImageView implements GifAction {
 

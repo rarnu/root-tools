@@ -56,11 +56,30 @@ public class AdDatabase {
 	public void saveAd(ContentValues cv) {
 		if (database != null) {
 			try {
-				database.insert(TABLE_AD, null, cv);
+				if (!adExists(cv.getAsInteger("id"))) {
+					database.insert(TABLE_AD, null, cv);
+				}
 			} catch (Exception e) {
 
 			}
 		}
+	}
+
+	private boolean adExists(int id) {
+		boolean ret = false;
+		if (database != null) {
+			Cursor c = database.query(TABLE_AD, new String[] { "id" }, "id=?",
+					new String[] { String.valueOf(id) }, null, null, null);
+			if (c != null) {
+				c.moveToFirst();
+				while (!c.isAfterLast()) {
+					ret = true;
+					break;
+				}
+				c.close();
+			}
+		}
+		return ret;
 	}
 
 	public void login(ContentValues cv) {

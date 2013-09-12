@@ -13,13 +13,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.GridView;
+import android.widget.ShareActionProvider;
 import android.widget.TextView;
 
 import com.rarnu.adcenter.AdDetailActivity;
 import com.rarnu.adcenter.Global;
+import com.rarnu.adcenter.LoginActivity;
 import com.rarnu.adcenter.R;
 import com.rarnu.adcenter.adapter.AdItemAdapter;
 import com.rarnu.adcenter.classes.AdItem;
+import com.rarnu.adcenter.classes.UserItem;
 import com.rarnu.adcenter.common.MenuIds;
 import com.rarnu.adcenter.database.AdUtils;
 import com.rarnu.adcenter.loader.AdLoader;
@@ -36,6 +39,7 @@ public class MainFragment extends BaseFragment implements
 	List<Boolean> listQuested;
 	AdLoader loader;
 	MenuItem itemRefresh;
+	MenuItem itemShare;
 	int type = 0;
 	TextView tvLoading;
 
@@ -108,6 +112,22 @@ public class MainFragment extends BaseFragment implements
 		itemRefresh = menu.add(0, MenuIds.MENUID_REFRESH, 99, R.string.refresh);
 		itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
 		itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		itemShare = menu.add(0, MenuIds.MENUID_SHARE, 100, R.string.share);
+		itemShare.setIcon(android.R.drawable.ic_menu_share);
+		itemShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+		ShareActionProvider sap = new ShareActionProvider(getActivity());
+		sap.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
+		sap.setShareIntent(getShareIntent());
+		itemShare.setActionProvider(sap);
+	}
+
+	private Intent getShareIntent() {
+		Intent shareIntent = new Intent(Intent.ACTION_SEND);
+		shareIntent.setType("image/*");
+		shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_body));
+		shareIntent.putExtra(Intent.EXTRA_SUBJECT,
+				getString(R.string.share_title));
+		return shareIntent;
 	}
 
 	@Override
@@ -168,11 +188,16 @@ public class MainFragment extends BaseFragment implements
 	@Override
 	public void onItemClick(AdapterView<?> parent, View view, int position,
 			long id) {
-		AdItem item = list.get(position);
-		Intent inDetail = new Intent(getActivity(), AdDetailActivity.class);
-		inDetail.putExtra("item", item);
-		startActivity(inDetail);
 
+		UserItem user = AdUtils.queryUser(getActivity());
+		if (user == null) {
+			startActivity(new Intent(getActivity(), LoginActivity.class));
+		} else {
+			AdItem item = list.get(position);
+			Intent inDetail = new Intent(getActivity(), AdDetailActivity.class);
+			inDetail.putExtra("item", item);
+			startActivity(inDetail);
+		}
 	}
 
 }

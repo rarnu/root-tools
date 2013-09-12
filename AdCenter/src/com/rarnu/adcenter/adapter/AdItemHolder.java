@@ -2,7 +2,7 @@ package com.rarnu.adcenter.adapter;
 
 import android.widget.TextView;
 
-import com.rarnu.adcenter.component.GifView;
+import com.rarnu.devlib.component.GifView;
 
 public class AdItemHolder {
 

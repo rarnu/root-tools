@@ -12,15 +12,14 @@ import android.widget.TextView;
 import com.rarnu.adcenter.R;
 import com.rarnu.adcenter.api.AdAPI;
 import com.rarnu.adcenter.classes.AdItem;
-import com.rarnu.adcenter.component.GifView;
+import com.rarnu.adcenter.utils.GifUtils;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
-import com.rarnu.utils.ImageLoader;
+import com.rarnu.devlib.component.GifView;
 import com.rarnu.utils.UIUtils;
 
 public class AdItemAdapter extends BaseAdapter<AdItem> {
 
 	private int itemHeight;
-	private ImageLoader imgLoader;
 	private List<Boolean> listQuested;
 	private RelativeLayout.LayoutParams alpQuested;
 	private RelativeLayout.LayoutParams alpMoney;
@@ -29,19 +28,21 @@ public class AdItemAdapter extends BaseAdapter<AdItem> {
 			List<Boolean> listQuested, int itemHeight) {
 		super(context, list);
 		this.itemHeight = itemHeight;
-		imgLoader = new ImageLoader(context);
 		this.listQuested = listQuested;
-		alpQuested = new RelativeLayout.LayoutParams(UIUtils.dipToPx(16), UIUtils.dipToPx(16));
-		alpMoney = new RelativeLayout.LayoutParams(UIUtils.dipToPx(24), UIUtils.dipToPx(24));
-		alpQuested.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+		alpQuested = new RelativeLayout.LayoutParams(UIUtils.dipToPx(16),
+				UIUtils.dipToPx(16));
+		alpMoney = new RelativeLayout.LayoutParams(UIUtils.dipToPx(24),
+				UIUtils.dipToPx(24));
+		alpQuested.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,
+				RelativeLayout.TRUE);
 		alpMoney.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
 		alpQuested.rightMargin = UIUtils.dipToPx(2);
 		alpQuested.topMargin = UIUtils.dipToPx(2);
 		alpMoney.rightMargin = UIUtils.dipToPx(2);
 		alpMoney.topMargin = UIUtils.dipToPx(2);
-		
+
 	}
-	
+
 	public void setNewQuestedList(List<Boolean> listQuested) {
 		this.listQuested = listQuested;
 		this.notifyDataSetChanged();
@@ -66,7 +67,7 @@ public class AdItemAdapter extends BaseAdapter<AdItem> {
 		AdItem item = list.get(position);
 		if (item != null) {
 			holder.tvItem.setText(item.title);
-			imgLoader.DisplayImage(AdAPI.IMAGE_HOST + item.image_url,
+			GifUtils.loadGifImage(AdAPI.IMAGE_HOST + item.image_url,
 					holder.ivItem);
 
 			if (listQuested.get(position)) {

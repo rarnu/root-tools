@@ -130,7 +130,6 @@ public class RegisterFragment extends BaseFragment {
 	public boolean onOptionsItemSelected(MenuItem item) {
 		switch (item.getItemId()) {
 		case MenuIds.MENUID_REGISTER:
-			// TODO:
 			String account = etAccount.getText().toString();
 			String passwd = etPassword.getText().toString();
 			String passwdRepeat = etRepeatPassword.getText().toString();

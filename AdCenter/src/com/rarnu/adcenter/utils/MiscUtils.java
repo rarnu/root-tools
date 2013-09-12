@@ -29,4 +29,12 @@ public class MiscUtils {
 		Drawable d = ImageUtils.zoomDrawable(drawable, height, height);
 		return d;
 	}
+
+	public static String getFileExtension(String path) {
+		return path.substring(path.lastIndexOf(".") + 1);
+	}
+
+	public static String getFileName(String path) {
+		return path.substring(path.lastIndexOf("/") + 1);
+	}
 }

@@ -1,4 +1,4 @@
-package com.rarnu.adcenter.component;
+package com.rarnu.devlib.component.tools;
 
 import java.io.ByteArrayInputStream;
 import java.io.File;
