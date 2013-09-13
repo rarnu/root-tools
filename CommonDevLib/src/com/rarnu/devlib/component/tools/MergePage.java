@@ -6,6 +6,7 @@ import org.json.JSONObject;
 
 import android.content.Context;
 import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -114,7 +115,9 @@ public class MergePage {
 								.decodeFile(uri, option));
 					}
 				} else if (subView instanceof VideoView) {
-					// TODO: video view
+					String rtspUrl = json.getString(keys[i]);
+					((VideoView) subView).setVideoURI(Uri.parse(rtspUrl));
+					((VideoView) subView).start();
 
 				} else if (subView instanceof TextView) {
 					((TextView) subView).setText(json.getString(keys[i]));

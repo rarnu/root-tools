@@ -110,4 +110,10 @@ public class AdDatabase {
 		}
 		return c;
 	}
+	
+	public void updateCash(ContentValues cv, String selection, String[] args) {
+		if (database != null) {
+			database.update(TABLE_USER, cv, selection, args);
+		}
+	}
 }

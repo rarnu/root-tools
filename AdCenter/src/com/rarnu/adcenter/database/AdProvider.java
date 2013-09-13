@@ -20,6 +20,7 @@ public class AdProvider extends ContentProvider {
 	public static final int ACTION_LOGIN = 4;
 	public static final int ACTION_LOGOUT = 5;
 	public static final int ACTION_QUERY_USER = 6;
+	public static final int ACTION_UPDATE_CASH = 7;
 
 	@Override
 	public boolean onCreate() {
@@ -91,6 +92,9 @@ public class AdProvider extends ContentProvider {
 			switch (action) {
 			case ACTION_SET_AD_QUESTED:
 				database.setAdQuested(values, selection, selectionArgs);
+				break;
+			case ACTION_UPDATE_CASH:
+				database.updateCash(values, selection, selectionArgs);
 				break;
 			}
 		}

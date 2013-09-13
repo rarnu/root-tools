@@ -10,6 +10,7 @@ import org.json.JSONObject;
 import android.util.Log;
 
 import com.rarnu.adcenter.classes.AdItem;
+import com.rarnu.adcenter.classes.CashItem;
 import com.rarnu.adcenter.classes.CommonResult;
 import com.rarnu.adcenter.classes.LoginItem;
 import com.rarnu.adcenter.classes.QuestItem;
@@ -102,6 +103,32 @@ public class AdAPI {
 		} catch (Exception e) {
 
 		}
+		return item;
+	}
+
+	public static CommonResult updateCash(int userId, int cash, int type) {
+		String ret = HttpRequest.get(HOST + "update_cash.php",
+				String.format("id=%d&cash=%d&type=%d", userId, cash, type),
+				HTTP.UTF_8);
+		CommonResult item = null;
+		try {
+			item = CommonResult.fromJson(new JSONObject(ret));
+		} catch (Exception e) {
+
+		}
+		return item;
+	}
+
+	public static CashItem getCash(int userId) {
+		String ret = HttpRequest.get(HOST + "get_cash.php",
+				String.format("id=%d", userId), HTTP.UTF_8);
+		CashItem item = null;
+		try {
+			item = CashItem.fromJson(new JSONObject(ret));
+		} catch (Exception e) {
+
+		}
+
 		return item;
 	}
 }

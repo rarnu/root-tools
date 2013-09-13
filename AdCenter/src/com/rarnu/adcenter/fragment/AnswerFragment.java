@@ -16,6 +16,8 @@ import com.rarnu.adcenter.Global;
 import com.rarnu.adcenter.R;
 import com.rarnu.adcenter.api.AdAPI;
 import com.rarnu.adcenter.classes.QuestItem;
+import com.rarnu.adcenter.classes.UserItem;
+import com.rarnu.adcenter.database.AdUtils;
 import com.rarnu.devlib.base.BaseDialogFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
@@ -37,7 +39,7 @@ public class AnswerFragment extends BaseDialogFragment implements
 		super();
 		tagText = ResourceUtils.getString(R.tag.tag_answer);
 	}
-	
+
 	@Override
 	public int getBarTitle() {
 		return 0;
@@ -149,9 +151,12 @@ public class AnswerFragment extends BaseDialogFragment implements
 
 			@Override
 			public void run() {
-				AdAPI.recordQuest(quest.ad_id, Global.MAC_ADDRESS,
-						Global.USER_ID, right);
-
+				UserItem user = AdUtils.queryUser(getActivity());
+				AdAPI.recordQuest(quest.ad_id, Global.MAC_ADDRESS, user.id,
+						right);
+				int cash = user.cash + quest.cost;
+				AdUtils.updateCash(getActivity(), user.id, cash);
+				AdAPI.updateCash(user.id, quest.cost, 0);
 			}
 		}).start();
 	}

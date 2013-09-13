@@ -101,4 +101,13 @@ public class AdUtils {
 		}
 		return user;
 	}
+
+	public static void updateCash(Context context, int userId, int cash) {
+		ContentValues cv = new ContentValues();
+		cv.put("cash", cash);
+		context.getContentResolver().update(
+				ContentUris.withAppendedId(AdProvider.CONTENT_URI,
+						AdProvider.ACTION_UPDATE_CASH), cv, "id=?",
+				new String[] { String.valueOf(userId) });
+	}
 }

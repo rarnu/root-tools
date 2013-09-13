@@ -26,6 +26,9 @@
     <string name="account_password_different">两次输入的密码不一致</string>
     <string name="loading">正在加载, 请稍候...</string>
     <string name="my_cash">我的金币</string>
+    <string name="my_money">我的现金</string>
+    <string name="exchange_rate">兑换汇率</string>
+    <string name="exchange_money">将金币兑换成现金</string>
     <string name="no_account">没有帐号? 点此进行注册</string>
     <string name="share_title">分享&lt;&lt;小牛广告&gt;&gt;</string>
     <string name="share_body">推荐使用小牛广告, 利用闲暇时间可以赚钱哦</string>
