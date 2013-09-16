@@ -28,7 +28,7 @@ public class RootUtils {
 			"eu.chainfire.supersu", "eu.chainfire.supersu.pro",
 			"com.noshufou.android.su", "com.miui.uac",
 			"com.lbe.security.shuame", "com.lbe.security.miui",
-			"com.m0narx.su", "co.lvdou.superuser" };
+			"com.m0narx.su", "co.lvdou.superuser", "com.mgyun.shua.su" };
 
 	private static final String SETTINGS_PACKAGE = "com.android.settings";
 
