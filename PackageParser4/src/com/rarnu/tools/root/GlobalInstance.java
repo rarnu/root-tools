@@ -25,6 +25,7 @@ public class GlobalInstance {
 	// data
 	public static boolean overrideBackuped = true;
 	public static boolean reinstallApk = true;
+	public static String backupPath = "";
 
 	// comp
 	public static PackageInfo currentComp = null;

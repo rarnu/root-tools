@@ -76,8 +76,9 @@ public class FileUtils {
 		}
 		myFileWriter.close();
 	}
-	
-	private static void writeFileByStream(File file, String text, boolean append, String encoding) throws IOException {
+
+	private static void writeFileByStream(File file, String text,
+			boolean append, String encoding) throws IOException {
 		FileOutputStream fos = new FileOutputStream(file, append);
 		OutputStreamWriter myWriter = new OutputStreamWriter(fos, encoding);
 		myWriter.write(text);
@@ -281,9 +282,9 @@ public class FileUtils {
 
 	public static boolean copyAssetFile(Context context, String fileName,
 			String saveDir, Handler hProgress) {
-		File fBusybox = new File(saveDir);
-		if (!fBusybox.exists()) {
-			fBusybox.mkdirs();
+		File fAsset = new File(saveDir);
+		if (!fAsset.exists()) {
+			fAsset.mkdirs();
 		}
 		try {
 			byte[] buffer = new byte[8192];

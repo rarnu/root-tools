@@ -26,6 +26,7 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataBar;
 import com.rarnu.devlib.component.DataProgressBar;
+import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.DataappAdapter;
@@ -108,7 +109,7 @@ public class RestoreFragment extends BaseFragment implements
 		receiver = new MutaxReceiver(Actions.ACTION_RESTORE,
 				Actions.ACTION_RESTORE_PROGRESS,
 				new String[] { Actions.ACTION_BACKUP });
-		
+
 	}
 
 	@Override
@@ -123,8 +124,7 @@ public class RestoreFragment extends BaseFragment implements
 
 	@Override
 	public void initMenu(Menu menu) {
-		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98,
-				R.string.search);
+		itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
 		itemSearch.setIcon(android.R.drawable.ic_menu_search);
 		itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 		SearchView sv = new SearchView(getActivity());
@@ -181,7 +181,7 @@ public class RestoreFragment extends BaseFragment implements
 						}).setNegativeButton(R.string.cancel, null).show();
 
 	}
-	
+
 	final Handler hDeleteBackup = new Handler() {
 		@Override
 		public void handleMessage(Message msg) {
@@ -200,11 +200,12 @@ public class RestoreFragment extends BaseFragment implements
 		lvBackData.setEnabled(false);
 		progressBackData.setAppName(getString(R.string.deleting));
 		progressBackData.setVisibility(View.VISIBLE);
-		
+
 		new Thread(new Runnable() {
 			@Override
 			public void run() {
-				ApkUtils.deleteBackupData(item.info.packageName);
+				ApkUtils.deleteBackupData(item.info.packageName,
+						GlobalInstance.backupPath);
 				Message msg = new Message();
 				msg.what = 1;
 				msg.obj = item;
@@ -246,7 +247,7 @@ public class RestoreFragment extends BaseFragment implements
 	}
 
 	private void doRestore() {
-		
+
 		setRestoreState(true);
 		List<DataappInfo> listOperate = new ArrayList<DataappInfo>();
 		for (int i = 0; i < listBackDataappAll.size(); i++) {
@@ -374,7 +375,7 @@ public class RestoreFragment extends BaseFragment implements
 
 	@Override
 	public void onGetNewArguments(Bundle bn) {
-		
+
 	}
 
 	@Override

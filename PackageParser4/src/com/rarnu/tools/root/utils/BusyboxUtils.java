@@ -20,6 +20,10 @@ public class BusyboxUtils {
 		return (a && b && c);
 	}
 
+	/**
+	 * @hide
+	 */
+	@Deprecated
 	public static boolean installBusybox(Context context) {
 
 		CommandResult result = null;
@@ -40,6 +44,10 @@ public class BusyboxUtils {
 
 	}
 
+	/**
+	 * @hide
+	 */
+	@Deprecated
 	public static boolean installSuperuser(Context context, boolean isICS) {
 
 		CommandResult result = null;
@@ -57,6 +65,10 @@ public class BusyboxUtils {
 
 	}
 
+	/**
+	 * @hide
+	 */
+	@Deprecated
 	public static boolean removeBusybox() {
 
 		CommandResult result = null;
@@ -73,6 +85,10 @@ public class BusyboxUtils {
 
 	}
 
+	/**
+	 * @hide
+	 */
+	@Deprecated
 	public static boolean removeSuperuser() {
 
 		RootUtils.runCommand("rm /system/app/Superuser.*", true, null);
@@ -81,6 +97,10 @@ public class BusyboxUtils {
 		return true;
 	}
 
+	/**
+	 * @hide
+	 */
+	@Deprecated
 	private static boolean copyBusybox(Context context) {
 		File fBusybox = new File(DirHelper.BUSYBOX_DIR);
 		if (!fBusybox.exists()) {
@@ -110,6 +130,10 @@ public class BusyboxUtils {
 		}
 	}
 
+	/**
+	 * @hide
+	 */
+	@Deprecated
 	private static boolean copySuperuser(Context context, String surfix) {
 		File fBusybox = new File(DirHelper.BUSYBOX_DIR);
 		if (!fBusybox.exists()) {

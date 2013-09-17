@@ -6,7 +6,6 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.rarnu.adcenter.R;
@@ -15,32 +14,17 @@ import com.rarnu.adcenter.classes.AdItem;
 import com.rarnu.adcenter.utils.GifUtils;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
 import com.rarnu.devlib.component.GifView;
-import com.rarnu.utils.UIUtils;
 
 public class AdItemAdapter extends BaseAdapter<AdItem> {
 
 	private int itemHeight;
 	private List<Boolean> listQuested;
-	private RelativeLayout.LayoutParams alpQuested;
-	private RelativeLayout.LayoutParams alpMoney;
 
 	public AdItemAdapter(Context context, List<AdItem> list,
 			List<Boolean> listQuested, int itemHeight) {
 		super(context, list);
 		this.itemHeight = itemHeight;
 		this.listQuested = listQuested;
-		alpQuested = new RelativeLayout.LayoutParams(UIUtils.dipToPx(16),
-				UIUtils.dipToPx(16));
-		alpMoney = new RelativeLayout.LayoutParams(UIUtils.dipToPx(24),
-				UIUtils.dipToPx(24));
-		alpQuested.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,
-				RelativeLayout.TRUE);
-		alpMoney.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
-		alpQuested.rightMargin = UIUtils.dipToPx(2);
-		alpQuested.topMargin = UIUtils.dipToPx(2);
-		alpMoney.rightMargin = UIUtils.dipToPx(2);
-		alpMoney.topMargin = UIUtils.dipToPx(2);
-
 	}
 
 	public void setNewQuestedList(List<Boolean> listQuested) {
@@ -62,6 +46,7 @@ public class AdItemAdapter extends BaseAdapter<AdItem> {
 			holder.ivItem = (GifView) v.findViewById(R.id.ivItem);
 			holder.tvItem = (TextView) v.findViewById(R.id.tvItem);
 			holder.tvCost = (TextView) v.findViewById(R.id.tvCost);
+			holder.tvCostValue = (TextView) v.findViewById(R.id.tvCostValue);
 			v.setTag(holder);
 		}
 		AdItem item = list.get(position);
@@ -71,13 +56,11 @@ public class AdItemAdapter extends BaseAdapter<AdItem> {
 					holder.ivItem);
 
 			if (listQuested.get(position)) {
-				holder.tvCost.setText("");
-				holder.tvCost.setLayoutParams(alpQuested);
 				holder.tvCost.setBackgroundResource(R.drawable.quested);
+				holder.tvCostValue.setText("");
 			} else {
-				holder.tvCost.setText(String.valueOf(item.cost));
-				holder.tvCost.setLayoutParams(alpMoney);
 				holder.tvCost.setBackgroundResource(R.drawable.money_bag);
+				holder.tvCostValue.setText(String.valueOf(item.cost));
 			}
 		}
 		return v;

@@ -1,5 +1,7 @@
 package com.rarnu.tools.root.fragment;
 
+import java.io.File;
+
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -29,6 +31,7 @@ import com.rarnu.tools.root.fragmentactivity.MemIgnoreActivity;
 import com.rarnu.tools.root.receiver.MutaxReceiver;
 import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
 import com.rarnu.tools.root.service.CleanBackupService;
+import com.rarnu.tools.root.utils.DirHelper;
 
 public class SettingsFragment extends InnerPreferenceFragment implements
 		OnReceiveMessage, OnClickListener, OnPreferenceClickListener {
@@ -38,7 +41,8 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 			prefKillProcessBeforeClean;
 
 	PreferenceEx prefKillIgnoreList, prefNameServer, prefManualEditHosts,
-			prefCleanDeprecated, prefDeleteAllBackupData, prefCustomAppClean;
+			prefCleanDeprecated, prefDeleteAllBackupData, prefCustomAppClean,
+			prefBackupPath;
 
 	MutaxReceiver receiver;
 
@@ -80,6 +84,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 		prefCleanDeprecated = (PreferenceEx) findPreference(getString(R.string.id_clean_deprecated_hosts));
 		prefDeleteAllBackupData = (PreferenceEx) findPreference(getString(R.string.id_delete_all_backup_data));
 		prefCustomAppClean = (PreferenceEx) findPreference(getString(R.string.id_custom_app_clean));
+		prefBackupPath = (PreferenceEx) findPreference(getString(R.string.id_backup_path));
 
 		receiver = new MutaxReceiver(Actions.ACTION_CLEANING_BACKUP, null, null);
 
@@ -140,7 +145,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 		prefKillProcessBeforeClean
 				.setStateChecked(GlobalInstance.killProcessBeforeClean);
 		prefNameServer.setSummary(GlobalInstance.nameServer);
-
+		prefBackupPath.setSummary(GlobalInstance.backupPath);
 	}
 
 	@Override
@@ -229,8 +234,57 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 			Intent inCustomClean = new Intent(getActivity(),
 					CustomCleanManagerActivity.class);
 			startActivity(inCustomClean);
+		} else if (key.equals(getString(R.string.id_backup_path))) {
+			changeBackupPath();
 		}
 		return true;
+	}
+
+	private void changeBackupPath() {
+		// set backup saving path
+		final EditText etPath = new EditText(getActivity());
+		etPath.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT,
+				LayoutParams.MATCH_PARENT));
+		etPath.setText(GlobalInstance.backupPath);
+		new AlertDialog.Builder(getActivity())
+				.setTitle(R.string.backup_path)
+				.setMessage(R.string.backup_path_hint)
+				.setView(etPath)
+				.setPositiveButton(R.string.ok,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								saveBackupPath(etPath.getText().toString());
+							}
+						})
+				.setNeutralButton(R.string.default_hint,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								saveBackupPath(DirHelper.DATAAPP_DIR);
+							}
+						}).setNegativeButton(R.string.cancel, null).show();
+
+	}
+	
+	private void saveBackupPath(String path) {
+		if (path.equals("")) {
+			path = DirHelper.DATAAPP_DIR;
+		}
+		if (!path.endsWith("/")) {
+			path += "/";
+		}
+		GlobalInstance.backupPath = path;
+		if (!new File(path).exists()) {
+			new File(path).mkdirs();
+		}
+		RTConfig.setBackupPath(getActivity(),
+				GlobalInstance.backupPath);
+		initConfigValues();
 	}
 
 	private void changeDnsServer() {
@@ -255,6 +309,18 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 								initConfigValues();
 
 							}
+						})
+				.setNeutralButton(R.string.default_hint,
+						new DialogInterface.OnClickListener() {
+
+							@Override
+							public void onClick(DialogInterface dialog,
+									int which) {
+								GlobalInstance.nameServer = "8.8.8.8";
+								RTConfig.setNameServer(getActivity(),
+										GlobalInstance.nameServer);
+								initConfigValues();
+							}
 						}).setNegativeButton(R.string.cancel, null).show();
 
 	}
@@ -273,6 +339,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements
 		prefCleanDeprecated.setOnPreferenceClickListener(this);
 		prefDeleteAllBackupData.setOnPreferenceClickListener(this);
 		prefCustomAppClean.setOnPreferenceClickListener(this);
+		prefBackupPath.setOnPreferenceClickListener(this);
 		receiver.setOnReceiveMessage(this);
 	}
 

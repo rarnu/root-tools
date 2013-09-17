@@ -42,15 +42,15 @@ public class DataRestoreService extends BaseService {
 		ApkUtils.setInstallLocation(ApkUtils.INSTALL_INTERNAL);
 		List<DataappInfo> list = ListUtils.getOperateList();
 		inRestoreProgress.putExtra("size", list.size());
+		String backupPath = GlobalInstance.backupPath;
 		for (int i = 0; i < list.size(); i++) {
 
 			inRestoreProgress.putExtra("position", i + 1);
 			inRestoreProgress.putExtra("name", GlobalInstance.pm
 					.getApplicationLabel(list.get(i).info).toString());
 			sendBroadcast(inRestoreProgress);
-
 			ApkUtils.restoreData(getApplicationContext(),
-					list.get(i).info.packageName, list.get(i));
+					list.get(i).info.packageName, backupPath, list.get(i));
 
 		}
 

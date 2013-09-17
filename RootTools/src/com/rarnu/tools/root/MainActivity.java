@@ -63,6 +63,7 @@ public class MainActivity extends BaseMainActivity {
 		GlobalInstance.killProcessBeforeClean = RTConfig
 				.getKillProcessBeforeClean(this);
 		GlobalInstance.nameServer = RTConfig.getNameServer(this);
+		GlobalInstance.backupPath = RTConfig.getBackupPath(this);
 	}
 
 	private void loadExcludeListT() {
@@ -182,6 +183,8 @@ public class MainActivity extends BaseMainActivity {
 			return Fragments.getFragment(FragmentNameConst.FN_HARD_UPDATE);
 		case 17:
 			return Fragments.getFragment(FragmentNameConst.FN_DISKINFO);
+		case 18:
+			return Fragments.getFragment(FragmentNameConst.FN_FILESYSTEM);
 		default:
 			return Fragments.getFragment(FragmentNameConst.FN_ABOUT);
 		}
@@ -209,9 +212,6 @@ public class MainActivity extends BaseMainActivity {
 
 	@Override
 	public void onHomeClick() {
-		// GlobalFragment.releaseFragments();
-		// oneTimeRun = false;
-		// finish();
 
 	}
 

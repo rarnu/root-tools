@@ -9,7 +9,6 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageManager.NameNotFoundException;
 import android.util.Log;
 
 public class RootUtils {
@@ -24,18 +23,21 @@ public class RootUtils {
 	private static final String[] BUSYBOX_PATH = new String[] {
 			"/system/xbin/busybox", "/system/bin/busybox" };
 
-	private static final String[] SUPERUSER_PATH = new String[] {
-			"eu.chainfire.supersu", "eu.chainfire.supersu.pro",
-			"com.noshufou.android.su", "com.miui.uac",
-			"com.lbe.security.shuame", "com.lbe.security.miui",
-			"com.m0narx.su", "co.lvdou.superuser", "com.mgyun.shua.su" };
+	private static String[] SUPERUSER_PATH = null;
 
 	private static final String SETTINGS_PACKAGE = "com.android.settings";
 
 	private static PackageManager pm = null;
 
+	/**
+	 * must call init before using it
+	 * 
+	 * @param context
+	 */
 	public static void init(Context context) {
 		pm = context.getPackageManager();
+		SUPERUSER_PATH = context.getResources().getStringArray(
+				R.array.super_user);
 	}
 
 	public static boolean hasBusybox() {
@@ -71,7 +73,7 @@ public class RootUtils {
 		ApplicationInfo info = null;
 		try {
 			info = pm.getApplicationInfo(packageName, 0);
-		} catch (NameNotFoundException e) {
+		} catch (Exception e) {
 			info = null;
 		}
 		return info != null;
@@ -105,8 +107,6 @@ public class RootUtils {
 		DataOutputStream os = null;
 		BufferedReader brOut = null;
 		BufferedReader brErr = null;
-		// DataInputStream stdout = null;
-		// DataInputStream stderr = null;
 		CommandResult ret = new CommandResult();
 		try {
 			StringBuffer output = new StringBuffer();
@@ -121,7 +121,6 @@ public class RootUtils {
 				process = Runtime.getRuntime().exec(command);
 			}
 
-			// stdout = new DataInputStream(process.getInputStream());
 			String line;
 			brOut = new BufferedReader(new InputStreamReader(
 					process.getInputStream()));
@@ -134,7 +133,6 @@ public class RootUtils {
 			}
 			brErr = new BufferedReader(new InputStreamReader(
 					process.getErrorStream()));
-			// stderr = new DataInputStream(process.getErrorStream());
 			while ((line = brErr.readLine()) != null) {
 				error.append(line).append('\n');
 				if (callback != null) {
@@ -152,12 +150,6 @@ public class RootUtils {
 				if (os != null) {
 					os.close();
 				}
-				// if (stdout != null) {
-				// stdout.close();
-				// }
-				// if (stderr != null) {
-				// stderr.close();
-				// }
 				if (brOut != null) {
 					brOut.close();
 				}

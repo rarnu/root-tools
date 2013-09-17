@@ -40,18 +40,18 @@ public class DataBackupService extends BaseService {
 	public void doOperation(String command, Notification n) {
 		ApkUtils.clearOperationLog();
 		List<DataappInfo> list = ListUtils.getOperateList();
-		
+
 		inBackupProgress.putExtra("size", list.size());
+		String backupPath = GlobalInstance.backupPath;
 		for (int i = 0; i < list.size(); i++) {
 
 			inBackupProgress.putExtra("position", i + 1);
 			inBackupProgress.putExtra("name", GlobalInstance.pm
 					.getApplicationLabel(list.get(i).info).toString());
 			sendBroadcast(inBackupProgress);
-
 			ApkUtils.backupData(getApplicationContext(),
 					list.get(i).info.sourceDir, list.get(i).info.packageName,
-					list.get(i));
+					backupPath, list.get(i));
 
 		}
 

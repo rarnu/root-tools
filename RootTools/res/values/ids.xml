@@ -14,6 +14,7 @@
     <string name="id_cleancache">id_cleancache</string>
     <string name="id_cleandalvik">id_cleandalvik</string>
     <string name="id_diskinfo">id_diskinfo</string>
+    <string name="id_filesystem">id_filesystem</string>
     
     <string name="id_hosts">id_hosts</string>
     <string name="id_scanmedia">id_scanmedia</string>
@@ -36,6 +37,7 @@
     <string name="id_override_backuped">id_override_backuped</string>
     <string name="id_reinstall_apk">id_reinstall_apk</string>
     <string name="id_delete_all_backup_data">id_delete_all_backup_data</string>
+    <string name="id_backup_path">id_backup_path</string>
     <string name="id_kill_process_before_clean">id_kill_process_before_clean</string>
     <string name="id_kill_ignore_list">id_kill_ignore_list</string>
     <string name="id_name_server">id_name_server</string>

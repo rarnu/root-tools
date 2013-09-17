@@ -6,6 +6,7 @@ import android.content.Intent;
 import com.rarnu.devlib.base.BaseService;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
+import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.utils.ApkUtils;
 
 public class CleanBackupService extends BaseService {
@@ -31,7 +32,8 @@ public class CleanBackupService extends BaseService {
 
 	@Override
 	public void doOperation(String command, Notification n) {
-		ApkUtils.deleteAllBackupData();
+		ApkUtils.deleteAllBackupData(RTConfig
+				.getBackupPath(getApplicationContext()));
 	}
 
 	@Override

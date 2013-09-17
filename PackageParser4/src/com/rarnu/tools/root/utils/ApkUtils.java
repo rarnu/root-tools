@@ -254,12 +254,18 @@ public class ApkUtils {
 	}
 
 	public static String getLabelFromPackage(Context context,
-			ApplicationInfo info) {
-		return getLabelFromPackage(context, info, DirHelper.DATAAPP_DIR
-				+ info.packageName + ".apk");
+			ApplicationInfo info, String path) {
+		return getLabelFromPackageFile(context, info, path + info.packageName
+				+ ".apk");
 	}
 
 	public static String getLabelFromPackage(Context context,
+			ApplicationInfo info) {
+		return getLabelFromPackageFile(context, info, DirHelper.DATAAPP_DIR
+				+ info.packageName + ".apk");
+	}
+
+	public static String getLabelFromPackageFile(Context context,
 			ApplicationInfo info, String fileName) {
 		Resources res = context.getResources();
 		AssetManager assetMag = new AssetManager();
@@ -278,12 +284,18 @@ public class ApkUtils {
 	}
 
 	public static Drawable getIconFromPackage(Context context,
-			ApplicationInfo info) {
-		return getIconFromPackage(context, info, DirHelper.DATAAPP_DIR
-				+ info.packageName + ".apk");
+			ApplicationInfo info, String path) {
+		return getIconFromPackageFile(context, info, path + info.packageName
+				+ ".apk");
 	}
 
 	public static Drawable getIconFromPackage(Context context,
+			ApplicationInfo info) {
+		return getIconFromPackageFile(context, info, DirHelper.DATAAPP_DIR
+				+ info.packageName + ".apk");
+	}
+
+	public static Drawable getIconFromPackageFile(Context context,
 			ApplicationInfo info, String fileName) {
 
 		Resources res = context.getResources();
@@ -437,16 +449,15 @@ public class ApkUtils {
 		return listDisabled;
 	}
 
-	public static List<DataappInfo> getBackupedApps(Context context) {
+	public static List<DataappInfo> getBackupedApps(Context context, String path) {
 		List<DataappInfo> res = new ArrayList<DataappInfo>();
-		File fBackupDir = new File(DirHelper.DATAAPP_DIR);
+		File fBackupDir = new File(path);
 		int position = 0;
 		if (fBackupDir.exists()) {
 			for (String s : fBackupDir.list()) {
 				if (s.toLowerCase().endsWith(".apk")) {
 					DataappInfo newinfo = new DataappInfo();
-					newinfo.info = getAppInfoFromPackage(DirHelper.DATAAPP_DIR
-							+ s);
+					newinfo.info = getAppInfoFromPackage(path + s);
 					newinfo.checked = false;
 					newinfo.position = position;
 					if (newinfo.info == null) {
@@ -458,6 +469,10 @@ public class ApkUtils {
 			}
 		}
 		return res;
+	}
+
+	public static List<DataappInfo> getBackupedApps(Context context) {
+		return getBackupedApps(context, DirHelper.DATAAPP_DIR);
 	}
 
 	public static void backupData(Context context, String apk, String path,
@@ -531,7 +546,8 @@ public class ApkUtils {
 		if (GlobalInstance.reinstallApk) {
 			try {
 				result = RootUtils.runCommand(cmd, true, null);
-				Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
+				Log.e("restoreData", String.format("ret:%s, err:%s",
+						result.result, result.error));
 			} catch (Throwable th) {
 				result = new CommandResult();
 				result.result = "error";
@@ -545,13 +561,15 @@ public class ApkUtils {
 			cmd = String.format("busybox cp -r " + savePath + "%s /data/data/",
 					packageName);
 			result = RootUtils.runCommand(cmd, true, null);
-			Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
+			Log.e("restoreData", String.format("ret:%s, err:%s", result.result,
+					result.error));
 			if (result.error.equals("")) {
 
 				cmd = String.format("busybox chmod -R 777 /data/data/%s/*",
 						packageName);
 				result = RootUtils.runCommand(cmd, true, null);
-				Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
+				Log.e("restoreData", String.format("ret:%s, err:%s",
+						result.result, result.error));
 				if (result.error.equals("")) {
 					info.log = context.getResources().getString(
 							R.string.restore_ok);
@@ -581,15 +599,22 @@ public class ApkUtils {
 		restoreData(context, packageName, null, info);
 	}
 
-	public static void deleteBackupData(String packageName) {
-		String cmd = String.format("busybox rm -r " + DirHelper.DATAAPP_DIR
-				+ "%s*", packageName);
+	public static void deleteBackupData(String packageName, String path) {
+		String cmd = String
+				.format("busybox rm -r " + path + "%s*", packageName);
 		RootUtils.runCommand(cmd, true, null);
 	}
 
+	public static void deleteBackupData(String packageName) {
+		deleteBackupData(packageName, DirHelper.DATAAPP_DIR);
+	}
+
+	public static void deleteAllBackupData(String path) {
+		RootUtils.runCommand("busybox rm -r " + path + "*", true, null);
+	}
+
 	public static void deleteAllBackupData() {
-		RootUtils.runCommand("busybox rm -r " + DirHelper.DATAAPP_DIR + "*",
-				true, null);
+		deleteAllBackupData(DirHelper.DATAAPP_DIR);
 	}
 
 	public static boolean uninstallApk(String packageName) {

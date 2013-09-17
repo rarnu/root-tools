@@ -12,7 +12,7 @@
     <string name="cat_settings">軟體設定</string>
     <string name="cat_system">系統優化</string>
     <string name="cat_backup">備份還原</string>
-    <string name="cat_memory">內存管理</string>
+    <string name="cat_memory">內存與存儲</string>
     <string name="cat_terminal">終端</string>
     <string name="cat_other">其他功能</string>
     <string name="cat_support">軟體支援</string>
@@ -75,6 +75,8 @@
     <string name="func_hardupdate_with_path">RootTools &gt; 強制升級</string>
     <string name="func_diskinfo">磁碟信息</string>
     <string name="func_diskinfo_with_path">RootTools &gt; 磁碟信息</string>
+    <string name="func_filesystem">檔案系統</string>
+    <string name="func_filesystem_with_path">RootTools &gt; 檔案系統</string>
     <string name="backup_data">備份應用程式的數據</string>
     <string name="restore_data">還原應用程式的數據</string>
     <string name="check_network_status">檢查網路狀況</string>
@@ -184,6 +186,7 @@
     <string name="btn_lookup">搜尋 IP</string>
     <string name="btn_common">常用</string>
     <string name="name_server">DNS 侍服器</string>
+    <string name="backup_path">備份路徑</string>
     <string name="manual_edit_hosts">手工編輯 Hosts</string>
     <string name="clean_deprecated_hosts">清除已失效的 Hosts</string>
     <string name="file_su">su</string>
@@ -217,6 +220,7 @@
     <string name="delete_all_backup_data">移除所有備份的數據</string>
     <string name="delete_all_backup_data_confirm">移除所有備份數據後, 將無法再恢復應用程式和數據，確定要移除嗎?</string>
     <string name="delete_all_backup_data_succ">已移除所有的備份數據</string>
+    <string name="set_backup_path">設定備份檔案路徑</string>
     <string name="change_package_status_fail">改變應用程式狀況失敗</string>
     <string name="cannot_change_package_status">無法改變指定應用程式的狀況</string>
     <string name="data_app_uninstall">選擇的應用是第三方應用, 無法禁用, 若按"確定"可以移除該應用。</string>
@@ -261,23 +265,26 @@
     <string name="summary_feedback">寫下您的意見和建議</string>
     <string name="summary_recommand">下載其他精品軟件以支援我們</string>
     <string name="name_server_hint">輸入搜尋 Hosts IP 時要使用的 DNS 侍服器地址, 默認爲 Google 提供的 DNS</string>
+    <string name="backup_path_hint">輸入用於保存備份檔案的全路徑</string>
     <string name="custom_clean_empty">沒有需要管理的內容, 請先到&lt;font color=\'#6495ED\'&gt;系統應用管理&lt;/font&gt;中增加要移除的應用程式</string>
     <string name="clean_cache_empty">沒有緩存的內容, 無需清理</string>
     <string name="backup_empty">沒有可以備份的內容, 請先安裝一些應用程式</string>
     <string name="restore_empty">沒有可以還原的內容, 請先到&lt;font color=\'#6495ED\'&gt;備份應用數據&lt;/font&gt;中進行備份操作</string>
     <string name="hosts_too_big">Hosts 檔案太大, 無法編輯</string>
     <string name="service_is_running">當前服務正在執行中，如果強迫其停止將引起內存異常，確定要禁用這個服務嗎？</string>
-	<string name="btn_update">升級</string>
-	<string name="btn_update_install">安裝</string>
-	<string name="btn_scan_apk">掃描 APK</string>
-	<string name="proc_scaning_apk">正在掃描 SD 卡內的 APK，請稍候...</string>
-	<string name="apkstat_3">未安裝</string>
-	<string name="apkstat_2">無需升級</string>
-	<string name="apkstat_1">籤名不同，需強制升級</string>
-	<string name="apkstat_0">可以正常升級</string>
-	<string name="tv_refresh_apk">點擊 &lt;font color=\'#6495ED\'&gt;刷新&lt;/font&gt; 將掃描 SD 卡內的所有 APK 檔案</string>
-	<string name="disk_size_fmt" formatted="false">大小:%s</string>
-	<string name="disk_used_fmt" formatted="false">已用:%s</string>
-	<string name="disk_free_fmt" formatred="false">空閒:%s</string>
-	<string name="disk_block_fmt" formatted="false">區塊:%s</string>
+    <string name="btn_update">升級</string>
+    <string name="btn_update_install">安裝</string>
+    <string name="btn_scan_apk">掃描 APK</string>
+    <string name="proc_scaning_apk">正在掃描 SD 卡內的 APK，請稍候...</string>
+    <string name="apkstat_3">未安裝</string>
+    <string name="apkstat_2">無需升級</string>
+    <string name="apkstat_1">籤名不同，需強制升級</string>
+    <string name="apkstat_0">可以正常升級</string>
+    <string name="tv_refresh_apk">點擊 &lt;font color=\'#6495ED\'&gt;刷新&lt;/font&gt; 將掃描 SD 卡內的所有 APK 檔案</string>
+    <string name="disk_size_fmt" formatted="false">大小:%s</string>
+    <string name="disk_used_fmt" formatted="false">已用:%s</string>
+    <string name="disk_free_fmt" formatred="false">空閒:%s</string>
+    <string name="disk_block_fmt" formatted="false">區塊:%s</string>
+    <string name="default_hint">默認</string>
+
 </resources>

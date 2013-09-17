@@ -67,9 +67,9 @@ public class DataappAdapter extends BaseAdapter<DataappInfo> {
 				holder.path.setText(item.info.dataDir);
 			} else {
 				holder.icon.setBackgroundDrawable(ApkUtils.getIconFromPackage(
-						v.getContext(), item.info));
+						v.getContext(), item.info, GlobalInstance.backupPath));
 				holder.name.setText(ApkUtils.getLabelFromPackage(
-						v.getContext(), item.info));
+						v.getContext(), item.info, GlobalInstance.backupPath));
 				holder.path.setText(item.info.packageName + ".apk");
 			}
 

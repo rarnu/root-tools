@@ -27,6 +27,10 @@
         <com.rarnu.devlib.component.PreferenceEx
             android:key="@string/id_delete_all_backup_data"
             android:title="@string/delete_all_backup_data" />
+        <com.rarnu.devlib.component.PreferenceEx
+            android:key="@string/id_backup_path"
+            android:title="@string/set_backup_path"
+            />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/func5_title" >
         <com.rarnu.devlib.component.CheckBoxPreferenceEx

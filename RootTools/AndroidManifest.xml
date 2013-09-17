@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.rarnu.tools.root"
-    android:versionCode="41"
-    android:versionName="4.6beta" >
+    android:versionCode="43"
+    android:versionName="4.7 beta" >
 
     <uses-sdk
         android:minSdkVersion="14"
@@ -182,6 +182,11 @@
         <activity
             android:name=".fragmentactivity.DiskInfoActivity"
             android:label="@string/func_diskinfo"
+            android:windowSoftInputMode="stateHidden" >
+        </activity>
+        <activity
+            android:name=".fragmentactivity.FileSystemActivity"
+            android:label="@string/func_filesystem"
             android:windowSoftInputMode="stateHidden" >
         </activity>
 

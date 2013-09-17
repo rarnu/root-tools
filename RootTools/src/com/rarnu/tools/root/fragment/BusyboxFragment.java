@@ -4,10 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -23,7 +20,6 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.BusyboxAdapter;
 import com.rarnu.tools.root.common.BusyboxInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.utils.BusyboxUtils;
 import com.rarnu.utils.UIUtils;
 
 public class BusyboxFragment extends BaseFragment implements
@@ -43,57 +39,6 @@ public class BusyboxFragment extends BaseFragment implements
 			break;
 		}
 		return true;
-	}
-
-	private Handler hReinstallBusybox = new Handler() {
-
-		@Override
-		public void handleMessage(Message msg) {
-			if (msg.what == 1) {
-				progressBusybox.setVisibility(View.GONE);
-				checkStatus();
-			}
-			super.handleMessage(msg);
-		}
-
-	};
-
-	private void doReinstallBusyboxT() {
-		progressBusybox.setAppName(getString(R.string.installing));
-		progressBusybox.setVisibility(View.VISIBLE);
-		new Thread(new Runnable() {
-			@Override
-			public void run() {
-				BusyboxUtils.removeBusybox();
-				BusyboxUtils.installBusybox(getActivity());
-				hReinstallBusybox.sendEmptyMessage(1);
-			}
-		}).start();
-	}
-
-	private void reinstallBusybox() {
-		int ret = RootUtils.hasRoot();
-		if (ret == 0) {
-			showSuStatus();
-			return;
-		}
-
-		new AlertDialog.Builder(getActivity())
-				.setTitle(R.string.hint)
-				.setMessage(
-						RootUtils.hasBusybox() ? R.string.confirm_reinstall_busybox
-								: R.string.confirm_install_busybox)
-				.setPositiveButton(R.string.ok,
-						new DialogInterface.OnClickListener() {
-
-							@Override
-							public void onClick(DialogInterface dialog,
-									int which) {
-								doReinstallBusyboxT();
-
-							}
-						}).setNegativeButton(R.string.cancel, null).show();
-
 	}
 
 	private void checkStatus() {
@@ -188,9 +133,6 @@ public class BusyboxFragment extends BaseFragment implements
 		switch (position) {
 		case 0:
 			showSuStatus();
-			break;
-		case 2:
-			reinstallBusybox();
 			break;
 		}
 	}

@@ -68,9 +68,9 @@ public class DataappReportAdapter extends BaseAdapter<DataappInfo> {
 
 			} else {
 				holder.icon.setBackgroundDrawable(ApkUtils.getIconFromPackage(
-						v.getContext(), item.info));
+						v.getContext(), item.info, GlobalInstance.backupPath));
 				holder.name.setText(ApkUtils.getLabelFromPackage(
-						v.getContext(), item.info));
+						v.getContext(), item.info, GlobalInstance.backupPath));
 				switch (item.logId) {
 				case 0:
 					holder.state.setText(R.string.rep_res_succ);

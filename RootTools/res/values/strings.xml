@@ -12,7 +12,7 @@
     <string name="cat_settings">Settings</string>
     <string name="cat_system">Optimization</string>
     <string name="cat_backup">Backup &amp; Restore</string>
-    <string name="cat_memory">Memory Management</string>
+    <string name="cat_memory">Memory &amp; Storage</string>
     <string name="cat_terminal">Terminal</string>
     <string name="cat_other">Other</string>
     <string name="cat_support">Support</string>
@@ -75,6 +75,8 @@
     <string name="func_hardupdate_with_path">RootTools &gt; Force Update</string>
     <string name="func_diskinfo">Disk Information</string>
     <string name="func_diskinfo_with_path">RootTools &gt; Disk Information</string>
+    <string name="func_filesystem">File System</string>
+    <string name="func_filesystem_with_path">RootTools &gt; File System</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>
@@ -184,6 +186,7 @@
     <string name="btn_lookup">Lookup IP</string>
     <string name="btn_common">Common</string>
     <string name="name_server">DNS Server</string>
+    <string name="backup_path">Backup Path</string>
     <string name="manual_edit_hosts">Manual EditHosts</string>
     <string name="clean_deprecated_hosts">Clean Deprecated Hosts</string>
     <string name="file_su">su</string>
@@ -217,6 +220,7 @@
     <string name="delete_all_backup_data">Delete All Backuped Data</string>
     <string name="delete_all_backup_data_confirm">Are you sure to delete all backuped data? You will be not able to restore apps anymore.</string>
     <string name="delete_all_backup_data_succ">All backuped data is deleted.</string>
+    <string name="set_backup_path">Set Backup Saving Path</string>
     <string name="change_package_status_fail">Change app status failed</string>
     <string name="cannot_change_package_status">Cannot change app\'s status</string>
     <string name="data_app_uninstall">Selected app is a 3rd-part app, cannnot be disabled. You may press "OK" for deleting it.</string>
@@ -261,6 +265,7 @@
     <string name="summary_feedback">Tell us your point</string>
     <string name="summary_recommand">Download the recommanded apps and support us</string>
     <string name="name_server_hint">Input the DNS server used by searching Hosts IP, default value is Google\'s DNS.</string>
+    <string name="backup_path_hint">Input the path you want to save the backup files.</string>
     <string name="custom_clean_empty">No apps to manage, please goto &lt;font color=\'#6495ED\'&gt;System App&lt;/font&gt; and add some apps</string>
     <string name="clean_cache_empty">No cache found</string>
     <string name="backup_empty">No app for backuping, install some first</string>
@@ -281,4 +286,5 @@
 	<string name="disk_used_fmt" formatted="false">Used:%s</string>
 	<string name="disk_free_fmt" formatred="false">Free:%s</string>
 	<string name="disk_block_fmt" formatted="false">Blks:%s</string>
+	<string name="default_hint">Default</string>
 </resources>
