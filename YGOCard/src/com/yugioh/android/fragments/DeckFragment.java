@@ -11,11 +11,7 @@ public class DeckFragment extends BaseFragment {
 
 	public DeckFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_main_deck);
-	}
-	
-	public DeckFragment(String tagText, String tabTitle) {
-		super(tagText, tabTitle);
+		tagText = ResourceUtils.getString(R.string.tag_main_deck);
 	}
 
 	@Override

@@ -53,11 +53,7 @@ public class RightMenuFragment extends BaseFragment implements
 	
 	public RightMenuFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_menu_right);
-	}
-
-	public RightMenuFragment(String tagText, String tabTitle) {
-		super(tagText, tabTitle);
+		tagText = ResourceUtils.getString(R.string.tag_menu_right);
 	}
 
 	@Override

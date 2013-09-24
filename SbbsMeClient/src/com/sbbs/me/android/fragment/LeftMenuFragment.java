@@ -33,7 +33,7 @@ public class LeftMenuFragment extends BaseFragment implements
 
 	public LeftMenuFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_menu_left);
+		tagText = ResourceUtils.getString(R.string.tag_menu_left);
 	}
 
 	@Override

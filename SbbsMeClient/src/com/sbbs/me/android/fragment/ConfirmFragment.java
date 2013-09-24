@@ -20,7 +20,7 @@ public class ConfirmFragment extends BaseFragment implements OnClickListener {
 
 	public ConfirmFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_confirm_fragment);
+		tagText = ResourceUtils.getString(R.string.tag_confirm_fragment);
 	}
 
 	@Override

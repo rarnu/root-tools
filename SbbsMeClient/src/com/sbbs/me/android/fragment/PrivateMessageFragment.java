@@ -41,7 +41,7 @@ public class PrivateMessageFragment extends BaseFragment implements
 
 	public PrivateMessageFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_private_message_fragment);
+		tagText = ResourceUtils.getString(R.string.tag_private_message_fragment);
 	}
 
 	@Override

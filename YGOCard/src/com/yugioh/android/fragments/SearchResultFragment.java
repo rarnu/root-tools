@@ -38,12 +38,8 @@ public class SearchResultFragment extends BaseFragment implements
 
 	public SearchResultFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_main_result);
+		tagText = ResourceUtils.getString(R.string.tag_main_result);
 		tabTitle = ResourceUtils.getString(R.string.page_list);
-	}
-
-	public SearchResultFragment(String tagText, String tabTitle) {
-		super(tagText, tabTitle);
 	}
 
 	@Override
@@ -91,7 +87,7 @@ public class SearchResultFragment extends BaseFragment implements
 	public void onGetNewArguments(Bundle bn) {
 		tvListNoCard.setText(R.string.list_nocard_searching);
 		BaseTabFragment btf = (BaseTabFragment) getFragmentManager()
-				.findFragmentByTag(getString(R.tag.tag_main));
+				.findFragmentByTag(getString(R.string.tag_main));
 		btf.setTabPosition(1);
 
 		loaderSearch = new SearchLoader(getActivity(), bn);

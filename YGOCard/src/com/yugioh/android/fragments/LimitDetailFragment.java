@@ -30,10 +30,6 @@ public class LimitDetailFragment extends BaseFragment implements
 	Cursor cLimit;
 	SimpleCursorAdapter adapterLimit;
 	LimitLoader loaderLimit;
-
-	public LimitDetailFragment(String tagText, String tabTitle) {
-		super(tagText, tabTitle);
-	}
 	
 	public LimitDetailFragment() {
 		super();

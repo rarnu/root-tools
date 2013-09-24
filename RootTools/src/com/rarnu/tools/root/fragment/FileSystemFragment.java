@@ -3,20 +3,28 @@ package com.rarnu.tools.root.fragment;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
+import android.widget.ListView;
 import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
 
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.MenuItemIds;
 
 public class FileSystemFragment extends BaseFragment implements
-		OnQueryTextListener {
+		OnQueryTextListener, OnItemClickListener {
 
 	MenuItem itemRefresh;
 	MenuItem itemSearch;
 	MenuItem itemUp;
+
+	ListView lvFiles;
+	DataProgressBar progressFiles;
 
 	@Override
 	public int getBarTitle() {
@@ -35,12 +43,15 @@ public class FileSystemFragment extends BaseFragment implements
 
 	@Override
 	public void initComponents() {
+		lvFiles = (ListView) innerView.findViewById(R.id.lvFiles);
+		progressFiles = (DataProgressBar) innerView
+				.findViewById(R.id.progressFiles);
 
 	}
 
 	@Override
 	public void initEvents() {
-
+		lvFiles.setOnItemClickListener(this);
 	}
 
 	@Override
@@ -85,6 +96,7 @@ public class FileSystemFragment extends BaseFragment implements
 			break;
 		case MenuItemIds.MENU_REFRESH:
 			// TODO: refresh
+			
 			break;
 		}
 		return true;
@@ -109,6 +121,12 @@ public class FileSystemFragment extends BaseFragment implements
 	public boolean onQueryTextChange(String newText) {
 		// adapter.getFilter().filter(newText);
 		return false;
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> parent, View view, int position,
+			long id) {
+
 	}
 
 }

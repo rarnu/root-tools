@@ -31,7 +31,7 @@ public class FeedbackFragment extends BaseFragment implements
 
 	public FeedbackFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_feedback_fragment);
+		tagText = ResourceUtils.getString(R.string.tag_feedback_fragment);
 	}
 
 	@Override

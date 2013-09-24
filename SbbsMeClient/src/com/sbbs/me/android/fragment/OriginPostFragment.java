@@ -26,7 +26,7 @@ public class OriginPostFragment extends BaseFragment {
 
 	public OriginPostFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_origin_post_fragment);
+		tagText = ResourceUtils.getString(R.string.tag_origin_post_fragment);
 	}
 
 	@Override

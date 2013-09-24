@@ -1,8 +1,5 @@
 package com.sbbs.me.android.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
@@ -13,10 +10,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.TextView;
-
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.PullDownListView;
 import com.rarnu.devlib.component.intf.OnPullDownListener;
+import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.adapter.SbbsMePrivateMessageAdapter;
@@ -30,219 +27,227 @@ import com.sbbs.me.android.loader.SbbsPrivateMessageLoader;
 import com.sbbs.me.android.utils.Config;
 import com.sbbs.me.android.utils.MiscUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class ViewMessageFragment extends BaseFragment implements
-		OnClickListener, OnPullDownListener,
-		OnLoadCompleteListener<List<SbbsMePrivateMessage>> {
+        OnClickListener, OnPullDownListener,
+        OnLoadCompleteListener<List<SbbsMePrivateMessage>> {
 
-	MenuItem miMessage;
-	String userId;
-	String userName;
-	String avatar;
+    MenuItem miMessage;
+    String userId;
+    String userName;
+    String avatar;
 
-	PullDownListView lvPullDown;
-	TextView tvNodata;
-	TextView tvLoading;
-	List<SbbsMePrivateMessage> list;
-	SbbsMePrivateMessageAdapter adapter;
-	SbbsPrivateMessageLoader loader;
+    PullDownListView lvPullDown;
+    TextView tvNodata;
+    TextView tvLoading;
+    List<SbbsMePrivateMessage> list;
+    SbbsMePrivateMessageAdapter adapter;
+    SbbsPrivateMessageLoader loader;
 
-	int page = 1;
-	private static final int PAGE_SIZE = 100;
-	boolean isBottom = false;
+    int page = 1;
+    private static final int PAGE_SIZE = 100;
+    boolean isBottom = false;
 
-	@Override
-	public int getBarTitle() {
-		return R.string.view_message;
-	}
+    public ViewMessageFragment() {
+        super();
+        tagText = ResourceUtils.getString(R.string.tag_view_message_fragment);
+    }
 
-	@Override
-	public int getBarTitleWithPath() {
-		return R.string.view_message;
-	}
+    @Override
+    public int getBarTitle() {
+        return R.string.view_message;
+    }
 
-	@Override
-	public String getCustomTitle() {
-		return null;
-	}
+    @Override
+    public int getBarTitleWithPath() {
+        return R.string.view_message;
+    }
 
-	@Override
-	public void initComponents() {
+    @Override
+    public String getCustomTitle() {
+        return null;
+    }
 
-		userId = getArguments().getString("id");
-		userName = getArguments().getString("name");
-		avatar = getArguments().getString("avatar");
+    @Override
+    public void initComponents() {
 
-		lvPullDown = (PullDownListView) innerView.findViewById(R.id.lvPullDown);
-		tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
-		tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
+        userId = getArguments().getString("id");
+        userName = getArguments().getString("name");
+        avatar = getArguments().getString("avatar");
 
-		list = new ArrayList<SbbsMePrivateMessage>();
+        lvPullDown = (PullDownListView) innerView.findViewById(R.id.lvPullDown);
+        tvNodata = (TextView) innerView.findViewById(R.id.tvNodata);
+        tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 
-		String myAvatarPath = PathDefine.ROOT_PATH
-				+ String.format("my%shead.jpg",
-						Config.getAccountString(getActivity()));
-		Log.e("initComponents", myAvatarPath);
+        list = new ArrayList<SbbsMePrivateMessage>();
 
-		adapter = new SbbsMePrivateMessageAdapter(getActivity(), list,
-				Config.getUserId(getActivity()), avatar, myAvatarPath);
+        String myAvatarPath = PathDefine.ROOT_PATH
+                + String.format("my%shead.jpg",
+                Config.getAccountString(getActivity()));
+        Log.e("initComponents", myAvatarPath);
 
-		lvPullDown.getListView().setAdapter(adapter);
-		loader = new SbbsPrivateMessageLoader(getActivity());
-		lvPullDown.enableAutoFetchMore(true, 1);
+        adapter = new SbbsMePrivateMessageAdapter(getActivity(), list,
+                Config.getUserId(getActivity()), avatar, myAvatarPath);
 
-		int devide = UIUtils.dipToPx(8);
-		lvPullDown.getListView().setDivider(null);
-		lvPullDown.getListView().setDividerHeight(devide);
-		lvPullDown.getListView().setPadding(devide, devide, devide, devide);
-		lvPullDown.getListView().setSelector(R.color.transparent);
-		lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
-		lvPullDown.getListView().setFocusableInTouchMode(false);
-	}
+        lvPullDown.getListView().setAdapter(adapter);
+        loader = new SbbsPrivateMessageLoader(getActivity());
+        lvPullDown.enableAutoFetchMore(true, 1);
 
-	@Override
-	public void initEvents() {
-		tvNodata.setOnClickListener(this);
-		lvPullDown.setOnPullDownListener(this);
-		loader.registerListener(0, this);
-	}
+        int devide = UIUtils.dipToPx(8);
+        lvPullDown.getListView().setDivider(null);
+        lvPullDown.getListView().setDividerHeight(devide);
+        lvPullDown.getListView().setPadding(devide, devide, devide, devide);
+        lvPullDown.getListView().setSelector(R.color.transparent);
+        lvPullDown.getListView().setOverScrollMode(View.OVER_SCROLL_NEVER);
+        lvPullDown.getListView().setFocusableInTouchMode(false);
+    }
 
-	@Override
-	public void initLogic() {
-		PrivateMessageUtils.setReadState(getActivity(), userId, true);
-		page = 1;
-		setIsBottom(false);
+    @Override
+    public void initEvents() {
+        tvNodata.setOnClickListener(this);
+        lvPullDown.setOnPullDownListener(this);
+        loader.registerListener(0, this);
+    }
 
-		lvPullDown.notifyDidLoad();
-		if (SbbsMeAPI.isLogin()) {
-			tvNodata.setText(R.string.no_data_refresh);
-			tvLoading.setText(R.string.loading);
-			tvLoading.setVisibility(View.VISIBLE);
-			loader.setQuery(userId, page, PAGE_SIZE);
-			loader.setRefresh(false);
-			loader.startLoading();
-		} else {
-			tvNodata.setText(R.string.no_data_cannot_refresh);
-			tvNodata.setVisibility(View.VISIBLE);
-			tvLoading.setText(R.string.not_login);
-			tvLoading.setVisibility(View.VISIBLE);
-		}
-	}
+    @Override
+    public void initLogic() {
+        PrivateMessageUtils.setReadState(getActivity(), userId, true);
+        page = 1;
+        setIsBottom(false);
 
-	private void setIsBottom(boolean bottom) {
-		isBottom = bottom;
-		if (isBottom) {
-			lvPullDown.enableAutoFetchMore(false, 0);
-			lvPullDown.showAutoFetchMore(false);
-		} else {
-			lvPullDown.enableAutoFetchMore(true, 1);
-			lvPullDown.showAutoFetchMore(true);
-		}
-	}
+        lvPullDown.notifyDidLoad();
+        if (SbbsMeAPI.isLogin()) {
+            tvNodata.setText(R.string.no_data_refresh);
+            tvLoading.setText(R.string.loading);
+            tvLoading.setVisibility(View.VISIBLE);
+            loader.setQuery(userId, page, PAGE_SIZE);
+            loader.setRefresh(false);
+            loader.startLoading();
+        } else {
+            tvNodata.setText(R.string.no_data_cannot_refresh);
+            tvNodata.setVisibility(View.VISIBLE);
+            tvLoading.setText(R.string.not_login);
+            tvLoading.setVisibility(View.VISIBLE);
+        }
+    }
 
-	@Override
-	public int getFragmentLayoutResId() {
-		return R.layout.fragment_view_message;
-	}
+    private void setIsBottom(boolean bottom) {
+        isBottom = bottom;
+        if (isBottom) {
+            lvPullDown.enableAutoFetchMore(false, 0);
+            lvPullDown.showAutoFetchMore(false);
+        } else {
+            lvPullDown.enableAutoFetchMore(true, 1);
+            lvPullDown.showAutoFetchMore(true);
+        }
+    }
 
-	@Override
-	public String getMainActivityName() {
-		return "";
-	}
+    @Override
+    public int getFragmentLayoutResId() {
+        return R.layout.fragment_view_message;
+    }
 
-	@Override
-	public void initMenu(Menu menu) {
-		miMessage = menu.add(0, MenuIds.MENU_ID_MESSAGE, 99, R.string.message);
-		miMessage.setIcon(MiscUtils.loadResIcon(getActivity(),
-				R.drawable.ic_menu_notifications));
-		miMessage.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-	}
+    @Override
+    public String getMainActivityName() {
+        return "";
+    }
 
-	@Override
-	public boolean onOptionsItemSelected(MenuItem item) {
-		switch (item.getItemId()) {
-		case MenuIds.MENU_ID_MESSAGE:
-			startActivity(new Intent(getActivity(), SendMessageDialog.class)
-					.putExtra("user", userId));
-			break;
-		}
-		return true;
-	}
+    @Override
+    public void initMenu(Menu menu) {
+        miMessage = menu.add(0, MenuIds.MENU_ID_MESSAGE, 99, R.string.message);
+        miMessage.setIcon(MiscUtils.loadResIcon(getActivity(),
+                R.drawable.ic_menu_notifications));
+        miMessage.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+    }
 
-	@Override
-	public void onGetNewArguments(Bundle bn) {
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MenuIds.MENU_ID_MESSAGE:
+                startActivity(new Intent(getActivity(), SendMessageDialog.class)
+                        .putExtra("user", userId));
+                break;
+        }
+        return true;
+    }
 
-	}
+    @Override
+    public void onGetNewArguments(Bundle bn) {
 
-	@Override
-	public Bundle getFragmentState() {
-		return null;
-	}
+    }
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.tvNodata:
-			tvNodata.setEnabled(false);
-			tvLoading.setText(R.string.loading);
-			tvLoading.setVisibility(View.VISIBLE);
-			loader.setRefresh(true);
-			page = 1;
-			loader.setQuery(userId, page, PAGE_SIZE);
-			loader.setRefresh(false);
-			loader.startLoading();
-			break;
-		}
-	}
+    @Override
+    public Bundle getFragmentState() {
+        return null;
+    }
 
-	@Override
-	public void onRefresh() {
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.tvNodata:
+                tvNodata.setEnabled(false);
+                tvLoading.setText(R.string.loading);
+                tvLoading.setVisibility(View.VISIBLE);
+                loader.setRefresh(true);
+                page = 1;
+                loader.setQuery(userId, page, PAGE_SIZE);
+                loader.setRefresh(false);
+                loader.startLoading();
+                break;
+        }
+    }
 
-		page = 1;
-		setIsBottom(false);
-		loader.setRefresh(true);
-		loader.setQuery(userId, page, PAGE_SIZE);
-		loader.startLoading();
-	}
+    @Override
+    public void onRefresh() {
 
-	@Override
-	public void onMore() {
-		if (!isBottom) {
-			page++;
-			loader.setRefresh(true);
-			loader.setQuery(userId, page, PAGE_SIZE);
-			loader.startLoading();
-		} else {
-			lvPullDown.notifyDidMore();
-		}
-	}
+        page = 1;
+        setIsBottom(false);
+        loader.setRefresh(true);
+        loader.setQuery(userId, page, PAGE_SIZE);
+        loader.startLoading();
+    }
 
-	@Override
-	public void onLoadComplete(Loader<List<SbbsMePrivateMessage>> loader,
-			List<SbbsMePrivateMessage> data) {
-		if (page == 1) {
-			list.clear();
-		}
-		if (data != null && data.size() != 0) {
-			list.addAll(data);
-		} else {
-			setIsBottom(true);
-		}
-		if (getActivity() != null) {
-			adapter.setNewList(list);
-			lvPullDown.getListView().setSelected(false);
-			lvPullDown.notifyDidRefresh();
-			lvPullDown.notifyDidMore();
-			if (!((SbbsPrivateMessageLoader) loader).isRefresh()) {
-				((SbbsPrivateMessageLoader) loader).setRefresh(true);
-				loader.startLoading();
-			} else {
-				tvNodata.setEnabled(true);
-				tvNodata.setVisibility(list.size() == 0 ? View.VISIBLE
-						: View.GONE);
-				tvLoading.setVisibility(View.GONE);
-			}
-		}
+    @Override
+    public void onMore() {
+        if (!isBottom) {
+            page++;
+            loader.setRefresh(true);
+            loader.setQuery(userId, page, PAGE_SIZE);
+            loader.startLoading();
+        } else {
+            lvPullDown.notifyDidMore();
+        }
+    }
 
-	}
+    @Override
+    public void onLoadComplete(Loader<List<SbbsMePrivateMessage>> loader,
+                               List<SbbsMePrivateMessage> data) {
+        if (page == 1) {
+            list.clear();
+        }
+        if (data != null && data.size() != 0) {
+            list.addAll(data);
+        } else {
+            setIsBottom(true);
+        }
+        if (getActivity() != null) {
+            adapter.setNewList(list);
+            lvPullDown.getListView().setSelected(false);
+            lvPullDown.notifyDidRefresh();
+            lvPullDown.notifyDidMore();
+            if (!((SbbsPrivateMessageLoader) loader).isRefresh()) {
+                ((SbbsPrivateMessageLoader) loader).setRefresh(true);
+                loader.startLoading();
+            } else {
+                tvNodata.setEnabled(true);
+                tvNodata.setVisibility(list.size() == 0 ? View.VISIBLE
+                        : View.GONE);
+                tvLoading.setVisibility(View.GONE);
+            }
+        }
+
+    }
 
 }

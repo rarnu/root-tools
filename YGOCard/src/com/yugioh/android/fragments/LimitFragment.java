@@ -14,11 +14,7 @@ public class LimitFragment extends BaseTabFragment {
 
 	public LimitFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_main_limit);
-	}
-
-	public LimitFragment(String tagText, String tabTitle) {
-		super(tagText, tabTitle);
+		tagText = ResourceUtils.getString(R.string.tag_main_limit);
 	}
 
 	@Override

@@ -12,4 +12,4 @@ local.properties
 *.swp
 build.xml
 lint.xml
-
+.idea/

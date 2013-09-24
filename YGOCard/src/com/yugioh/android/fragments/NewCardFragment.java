@@ -32,11 +32,7 @@ public class NewCardFragment extends BaseFragment implements
 
 	public NewCardFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_main_newcard);
-	}
-	
-	public NewCardFragment(String tagText, String tabTitle) {
-		super(tagText, tabTitle);
+		tagText = ResourceUtils.getString(R.string.tag_main_newcard);
 	}
 
 	@Override

@@ -31,11 +31,7 @@ public class SearchFragment extends BaseFragment implements
 	public SearchFragment() {
 		super();
 		tabTitle = ResourceUtils.getString(R.string.page_search);
-		tagText = ResourceUtils.getString(R.tag.tag_main_search);
-	}
-
-	public SearchFragment(String tagText, String tabTitle) {
-		super(tagText, tabTitle);
+		tagText = ResourceUtils.getString(R.string.tag_main_search);
 	}
 
 	@Override
@@ -232,7 +228,7 @@ public class SearchFragment extends BaseFragment implements
 		bn.putString("cardEffectText", cardEffectText);
 
 		InnerFragment bfSearchResult = (InnerFragment) getFragmentManager()
-				.findFragmentByTag(getString(R.tag.tag_main_result));
+				.findFragmentByTag(getString(R.string.tag_main_result));
 		bfSearchResult.setNewArguments(bn);
 	}
 

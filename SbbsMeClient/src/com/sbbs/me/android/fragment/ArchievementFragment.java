@@ -11,7 +11,7 @@ public class ArchievementFragment extends BaseFragment {
 
 	public ArchievementFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_archievement_fragment);
+		tagText = ResourceUtils.getString(R.string.tag_archievement_fragment);
 	}
 
 	@Override

@@ -17,11 +17,7 @@ public class AboutFragment extends BaseDialogFragment {
 
 	public AboutFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_menu_right_about);
-	}
-
-	public AboutFragment(String tagText) {
-		super(tagText);
+		tagText = ResourceUtils.getString(R.string.tag_menu_right_about);
 	}
 
 	@Override

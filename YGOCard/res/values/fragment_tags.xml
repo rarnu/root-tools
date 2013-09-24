@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
-<resources xmlns:android="http://schemas.android.com/apk/res/android">
-    <item name="tag_main" type="tag">tag_main</item>
-    <item name="tag_main_search" type="tag">tag_main_search</item>
-    <item name="tag_main_result" type="tag">tag_main_result</item>
-    <item name="tag_main_limit" type="tag">tag_main_limit</item>
-    <item name="tag_main_limit_banned" type="tag">tag_main_limit_banned</item>
-    <item name="tag_main_limit_limit1" type="tag">tag_main_limit_limit1</item>
-    <item name="tag_main_limit_limit2" type="tag">tag_main_limit_limit2</item>
-    <item name="tag_main_newcard" type="tag">tag_main_newcard</item>
-    <item name="tag_main_deck" type="tag">tag_main_deck</item>
-    <item name="tag_main_dueltool" type="tag">tag_main_dueltool</item>
-    
-    <item name="tag_card" type="tag">tag_card</item>
-    <item name="tag_card_info" type="tag">tag_card_info</item>
-    <item name="tag_card_adjust" type="tag">tag_card_adjust</item>
-    <item name="tag_card_pic" type="tag">tag_card_pic</item>
-    
-    <item name="tag_menu_left" type="tag">tag_menu_left</item>
-    <item name="tag_menu_right" type="tag">tag_menu_right</item>
-    <item name="tag_menu_right_upfate" type="tag">tag_menu_right_upfate</item>
-    <item name="tag_menu_right_about" type="tag">tag_menu_right_about</item>
+<resources>
+    <string name="tag_main">tag_main</string>
+    <string name="tag_main_search">tag_main_search</string>
+    <string name="tag_main_result">tag_main_result</string>
+    <string name="tag_main_limit">tag_main_limit</string>
+    <string name="tag_main_limit_banned">tag_main_limit_banned</string>
+    <string name="tag_main_limit_limit1">tag_main_limit_limit1</string>
+    <string name="tag_main_limit_limit2">tag_main_limit_limit2</string>
+    <string name="tag_main_newcard">tag_main_newcard</string>
+    <string name="tag_main_deck">tag_main_deck</string>
+    <string name="tag_main_dueltool">tag_main_dueltool</string>
+
+    <string name="tag_card">tag_card</string>
+    <string name="tag_card_info">tag_card_info</string>
+    <string name="tag_card_adjust">tag_card_adjust</string>
+    <string name="tag_card_pic">tag_card_pic</string>
+
+    <string name="tag_menu_left">tag_menu_left</string>
+    <string name="tag_menu_right">tag_menu_right</string>
+    <string name="tag_menu_right_upfate">tag_menu_right_upfate</string>
+    <string name="tag_menu_right_about">tag_menu_right_about</string>
 </resources>

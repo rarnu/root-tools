@@ -25,7 +25,7 @@ public class BigPictureFragment extends BaseFragment {
 
 	public BigPictureFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_big_picture_fragment);
+		tagText = ResourceUtils.getString(R.string.tag_big_picture_fragment);
 	}
 
 	@Override

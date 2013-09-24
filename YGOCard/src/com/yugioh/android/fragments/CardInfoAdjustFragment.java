@@ -22,12 +22,8 @@ public class CardInfoAdjustFragment extends BaseFragment {
 	public CardInfoAdjustFragment() {
 		super();
 		tabTitle = ResourceUtils.getString(R.string.page_cardadjust);
-		tagText = ResourceUtils.getString(R.tag.tag_card_adjust);
+		tagText = ResourceUtils.getString(R.string.tag_card_adjust);
 		
-	}
-
-	public CardInfoAdjustFragment(String tagText, String tabTitle) {
-		super(tagText, tabTitle);
 	}
 
 	@Override

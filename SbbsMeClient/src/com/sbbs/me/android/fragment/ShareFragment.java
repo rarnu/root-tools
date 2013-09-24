@@ -34,7 +34,7 @@ public class ShareFragment extends BaseFragment implements OnClickListener,
 
 	public ShareFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_share_fragment);
+		tagText = ResourceUtils.getString(R.string.tag_share_fragment);
 	}
 
 	@Override

@@ -17,11 +17,7 @@ public class MainFragment extends BaseTabFragment {
 
 	public MainFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_main);
-	}
-
-	public MainFragment(String tagText, String tabTitle) {
-		super(tagText, tabTitle);
+		tagText = ResourceUtils.getString(R.string.tag_main);
 	}
 
 	MenuItem itemSearch;
@@ -59,7 +55,7 @@ public class MainFragment extends BaseTabFragment {
 		Bundle bn = new Bundle();
 
 		BaseFragment fSearch = (BaseFragment) getFragmentManager()
-				.findFragmentByTag(this.getString(R.tag.tag_main_search));
+				.findFragmentByTag(this.getString(R.string.tag_main_search));
 
 		switch (item.getItemId()) {
 		case MenuIds.MENUID_SEARCH:

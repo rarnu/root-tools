@@ -34,7 +34,7 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 
 	public AboutFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_about_fragment);
+		tagText = ResourceUtils.getString(R.string.tag_about_fragment);
 	}
 
 	@Override

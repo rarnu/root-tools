@@ -42,7 +42,7 @@ public class HotTagsFragment extends BaseFragment implements
 
 	public HotTagsFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_hottags_fragment);
+		tagText = ResourceUtils.getString(R.string.tag_hottags_fragment);
 	}
 
 	@Override

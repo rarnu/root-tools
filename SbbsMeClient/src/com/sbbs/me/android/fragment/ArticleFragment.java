@@ -55,7 +55,7 @@ public class ArticleFragment extends BaseFragment implements
 
 	public ArticleFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.tag_article_fragment);
+		tagText = ResourceUtils.getString(R.string.tag_article_fragment);
 	}
 
 	@Override
@@ -335,7 +335,7 @@ public class ArticleFragment extends BaseFragment implements
 				Bundle bn = new Bundle();
 				bn.putSerializable("item", item);
 				((BaseFragment) getFragmentManager().findFragmentByTag(
-						getString(R.tag.tag_comment_fragment)))
+						getString(R.string.tag_comment_fragment)))
 						.setNewArguments(bn);
 				((BaseSlidingActivity) getActivity()).showSecondaryMenu();
 			}
