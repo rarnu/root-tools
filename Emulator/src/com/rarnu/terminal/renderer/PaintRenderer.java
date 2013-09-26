@@ -1,98 +1,91 @@
 package com.rarnu.terminal.renderer;
 
-import com.rarnu.terminal.utils.ColorScheme;
-
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.util.FloatMath;
+import com.rarnu.terminal.utils.ColorScheme;
 
 public class PaintRenderer extends BaseTextRenderer {
-	public PaintRenderer(int fontSize, ColorScheme scheme) {
-		super(scheme);
-		mTextPaint = new Paint();
-		mTextPaint.setTypeface(Typeface.MONOSPACE);
-		mTextPaint.setAntiAlias(true);
-		mTextPaint.setTextSize(fontSize);
+    private static final char[] EXAMPLE_CHAR = {'X'};
+    private Paint mTextPaint;
+    private float mCharWidth;
+    private int mCharHeight;
+    private int mCharAscent;
+    private int mCharDescent;
 
-		mCharHeight = (int) FloatMath.ceil(mTextPaint.getFontSpacing());
-		mCharAscent = (int) FloatMath.ceil(mTextPaint.ascent());
-		mCharDescent = mCharHeight + mCharAscent;
-		mCharWidth = mTextPaint.measureText(EXAMPLE_CHAR, 0, 1);
-	}
+    public PaintRenderer(int fontSize, ColorScheme scheme) {
+        super(scheme);
+        mTextPaint = new Paint();
+        mTextPaint.setTypeface(Typeface.MONOSPACE);
+        mTextPaint.setAntiAlias(true);
+        mTextPaint.setTextSize(fontSize);
 
-	public void drawTextRun(Canvas canvas, float x, float y, int lineOffset,
-			int runWidth, char[] text, int index, int count, boolean cursor,
-			int textStyle) {
-		int foreColor = TextStyle.decodeForeColor(textStyle);
-		int backColor = TextStyle.decodeBackColor(textStyle);
-		int effect = TextStyle.decodeEffect(textStyle);
+        mCharHeight = (int) FloatMath.ceil(mTextPaint.getFontSpacing());
+        mCharAscent = (int) FloatMath.ceil(mTextPaint.ascent());
+        mCharDescent = mCharHeight + mCharAscent;
+        mCharWidth = mTextPaint.measureText(EXAMPLE_CHAR, 0, 1);
+    }
 
-		boolean inverse = mReverseVideo
-				^ (effect & (TextStyle.fxInverse | TextStyle.fxItalic)) != 0;
-		if (inverse) {
-			int temp = foreColor;
-			foreColor = backColor;
-			backColor = temp;
-		}
+    public void drawTextRun(Canvas canvas, float x, float y, int lineOffset, int runWidth, char[] text, int index, int count, boolean cursor, int textStyle) {
+        int foreColor = TextStyle.decodeForeColor(textStyle);
+        int backColor = TextStyle.decodeBackColor(textStyle);
+        int effect = TextStyle.decodeEffect(textStyle);
 
-		if (cursor) {
-			backColor = TextStyle.ciCursor;
-		}
+        boolean inverse = mReverseVideo ^ (effect & (TextStyle.fxInverse | TextStyle.fxItalic)) != 0;
+        if (inverse) {
+            int temp = foreColor;
+            foreColor = backColor;
+            backColor = temp;
+        }
 
-		mTextPaint.setColor(mPalette[backColor]);
+        if (cursor) {
+            backColor = TextStyle.ciCursor;
+        }
 
-		float left = x + lineOffset * mCharWidth;
-		canvas.drawRect(left, y + mCharAscent - mCharDescent, left + runWidth
-				* mCharWidth, y, mTextPaint);
-		boolean invisible = (effect & TextStyle.fxInvisible) != 0;
-		if (!invisible) {
-			boolean bold = (effect & (TextStyle.fxBold | TextStyle.fxBlink)) != 0;
-			boolean underline = (effect & TextStyle.fxUnderline) != 0;
-			if (bold) {
-				mTextPaint.setFakeBoldText(true);
-			}
-			if (underline) {
-				mTextPaint.setUnderlineText(true);
-			}
-			if (foreColor < 8 && bold) {
-				mTextPaint.setColor(mPalette[foreColor + 8]);
-			} else {
-				mTextPaint.setColor(mPalette[foreColor]);
-			}
-			canvas.drawText(text, index, count, left, y - mCharDescent,
-					mTextPaint);
-			if (bold) {
-				mTextPaint.setFakeBoldText(false);
-			}
-			if (underline) {
-				mTextPaint.setUnderlineText(false);
-			}
-		}
-	}
+        mTextPaint.setColor(mPalette[backColor]);
 
-	public void drawCursor(Canvas canvas, float x, float y, int lineOffset,
-			int cursorMode) {
-		float left = x + lineOffset * mCharWidth;
-		drawCursorImp(canvas, left, y, mCharWidth, mCharHeight, cursorMode);
-	}
+        float left = x + lineOffset * mCharWidth;
+        canvas.drawRect(left, y + mCharAscent - mCharDescent, left + runWidth * mCharWidth, y, mTextPaint);
+        boolean invisible = (effect & TextStyle.fxInvisible) != 0;
+        if (!invisible) {
+            boolean bold = (effect & (TextStyle.fxBold | TextStyle.fxBlink)) != 0;
+            boolean underline = (effect & TextStyle.fxUnderline) != 0;
+            if (bold) {
+                mTextPaint.setFakeBoldText(true);
+            }
+            if (underline) {
+                mTextPaint.setUnderlineText(true);
+            }
+            if (foreColor < 8 && bold) {
+                mTextPaint.setColor(mPalette[foreColor + 8]);
+            } else {
+                mTextPaint.setColor(mPalette[foreColor]);
+            }
+            canvas.drawText(text, index, count, left, y - mCharDescent, mTextPaint);
+            if (bold) {
+                mTextPaint.setFakeBoldText(false);
+            }
+            if (underline) {
+                mTextPaint.setUnderlineText(false);
+            }
+        }
+    }
 
-	public int getCharacterHeight() {
-		return mCharHeight;
-	}
+    public void drawCursor(Canvas canvas, float x, float y, int lineOffset, int cursorMode) {
+        float left = x + lineOffset * mCharWidth;
+        drawCursorImp(canvas, left, y, mCharWidth, mCharHeight, cursorMode);
+    }
 
-	public float getCharacterWidth() {
-		return mCharWidth;
-	}
+    public int getCharacterHeight() {
+        return mCharHeight;
+    }
 
-	public int getTopMargin() {
-		return mCharDescent;
-	}
+    public float getCharacterWidth() {
+        return mCharWidth;
+    }
 
-	private Paint mTextPaint;
-	private float mCharWidth;
-	private int mCharHeight;
-	private int mCharAscent;
-	private int mCharDescent;
-	private static final char[] EXAMPLE_CHAR = { 'X' };
+    public int getTopMargin() {
+        return mCharDescent;
+    }
 }

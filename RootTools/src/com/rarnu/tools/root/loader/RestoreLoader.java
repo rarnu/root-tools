@@ -17,8 +17,7 @@ public class RestoreLoader extends BaseLoader<DataappInfo> {
 
 	@Override
 	public List<DataappInfo> loadInBackground() {
-		return ApkUtils
-				.getBackupedApps(getContext(), GlobalInstance.backupPath);
+		return ApkUtils.getBackupedApps(getContext(), GlobalInstance.backupPath);
 	}
 
 }

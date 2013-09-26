@@ -1,165 +1,135 @@
 package com.rarnu.devlib.component.tools;
 
-import java.lang.ref.WeakReference;
-
-import javax.microedition.khronos.opengles.GL10;
-
 import android.graphics.Bitmap;
 import android.view.View;
 
+import javax.microedition.khronos.opengles.GL10;
+import java.lang.ref.WeakReference;
+
 public class ViewDualCards {
 
-	private int index = -1;
-	private WeakReference<View> viewRef;
-	private Texture texture;
+    private int index = -1;
+    private WeakReference<View> viewRef;
+    private Texture texture;
+    private Bitmap screenshot;
+    private Card topCard = new Card();
+    private Card bottomCard = new Card();
+    private boolean orientationVertical = true;
 
-	private Bitmap screenshot;
+    public ViewDualCards(boolean orientationVertical) {
+        topCard.setOrientation(orientationVertical);
+        bottomCard.setOrientation(orientationVertical);
+        this.orientationVertical = orientationVertical;
+    }
 
-	private Card topCard = new Card();
-	private Card bottomCard = new Card();
+    public int getIndex() {
+        return index;
+    }
 
-	private boolean orientationVertical = true;
+    public View getView() {
+        return viewRef != null ? viewRef.get() : null;
+    }
 
-	public ViewDualCards(boolean orientationVertical) {
-		topCard.setOrientation(orientationVertical);
-		bottomCard.setOrientation(orientationVertical);
-		this.orientationVertical = orientationVertical;
-	}
+    synchronized void resetWithIndex(int index) {
+        this.index = index;
+        viewRef = null;
+        recycleScreenshot();
+        recycleTexture();
+    }
 
-	public int getIndex() {
-		return index;
-	}
+    synchronized boolean loadView(int index, View view, Bitmap.Config format) {
+        FlipUI.assertInMainThread();
 
-	public View getView() {
-		return viewRef != null ? viewRef.get() : null;
-	}
+        if (this.index == index && getView() == view && (screenshot != null || Texture.isValidTexture(texture))) {
+            return false;
+        }
 
-	synchronized void resetWithIndex(int index) {
-		this.index = index;
-		viewRef = null;
-		recycleScreenshot();
-		recycleTexture();
-	}
+        this.index = index;
+        viewRef = null;
+        recycleTexture();
+        if (view != null) {
+            viewRef = new WeakReference<View>(view);
+            recycleScreenshot();
+            screenshot = FlipUI.takeScreenshot(view, format);
+        } else {
+            recycleScreenshot();
+        }
 
-	synchronized boolean loadView(int index, View view, Bitmap.Config format) {
-		FlipUI.assertInMainThread();
+        return true;
+    }
 
-		if (this.index == index && getView() == view
-				&& (screenshot != null || Texture.isValidTexture(texture))) {
-			return false;
-		}
+    public Texture getTexture() {
+        return texture;
+    }
 
-		this.index = index;
-		viewRef = null;
-		recycleTexture();
-		if (view != null) {
-			viewRef = new WeakReference<View>(view);
-			recycleScreenshot();
-			screenshot = FlipUI.takeScreenshot(view, format);
-		} else {
-			recycleScreenshot();
-		}
+    public Bitmap getScreenshot() {
+        return screenshot;
+    }
 
-		return true;
-	}
+    public Card getTopCard() {
+        return topCard;
+    }
 
-	public Texture getTexture() {
-		return texture;
-	}
+    public Card getBottomCard() {
+        return bottomCard;
+    }
 
-	public Bitmap getScreenshot() {
-		return screenshot;
-	}
+    public synchronized void buildTexture(FlipRenderer renderer, GL10 gl) {
+        if (screenshot != null) {
+            if (texture != null) {
+                texture.destroy(gl);
+            }
+            texture = Texture.createTexture(screenshot, renderer, gl);
+            recycleScreenshot();
 
-	public Card getTopCard() {
-		return topCard;
-	}
+            topCard.setTexture(texture);
+            bottomCard.setTexture(texture);
 
-	public Card getBottomCard() {
-		return bottomCard;
-	}
+            final float viewHeight = texture.getContentHeight();
+            final float viewWidth = texture.getContentWidth();
+            final float textureHeight = texture.getHeight();
+            final float textureWidth = texture.getWidth();
 
-	public synchronized void buildTexture(FlipRenderer renderer, GL10 gl) {
-		if (screenshot != null) {
-			if (texture != null) {
-				texture.destroy(gl);
-			}
-			texture = Texture.createTexture(screenshot, renderer, gl);
-			recycleScreenshot();
+            if (orientationVertical) {
+                topCard.setCardVertices(new float[]{0f, viewHeight, 0f, 0f, viewHeight / 2.0f, 0f, viewWidth, viewHeight / 2f, 0f, viewWidth, viewHeight, 0f});
 
-			topCard.setTexture(texture);
-			bottomCard.setTexture(texture);
+                topCard.setTextureCoordinates(new float[]{0f, 0f, 0f, viewHeight / 2f / textureHeight, viewWidth / textureWidth, viewHeight / 2f / textureHeight, viewWidth / textureWidth, 0f});
 
-			final float viewHeight = texture.getContentHeight();
-			final float viewWidth = texture.getContentWidth();
-			final float textureHeight = texture.getHeight();
-			final float textureWidth = texture.getWidth();
+                bottomCard.setCardVertices(new float[]{0f, viewHeight / 2f, 0f, 0f, 0f, 0f, viewWidth, 0f, 0f, viewWidth, viewHeight / 2f, 0f});
 
-			if (orientationVertical) {
-				topCard.setCardVertices(new float[] { 0f, viewHeight, 0f, 0f,
-						viewHeight / 2.0f, 0f, viewWidth, viewHeight / 2f, 0f,
-						viewWidth, viewHeight, 0f });
+                bottomCard.setTextureCoordinates(new float[]{0f, viewHeight / 2f / textureHeight, 0f, viewHeight / textureHeight, viewWidth / textureWidth, viewHeight / textureHeight, viewWidth / textureWidth, viewHeight / 2f / textureHeight});
+            } else {
+                topCard.setCardVertices(new float[]{0f, viewHeight, 0f, 0f, 0f, 0f, viewWidth / 2f, 0f, 0f, viewWidth / 2f, viewHeight, 0f});
 
-				topCard.setTextureCoordinates(new float[] { 0f, 0f, 0f,
-						viewHeight / 2f / textureHeight,
-						viewWidth / textureWidth,
-						viewHeight / 2f / textureHeight,
-						viewWidth / textureWidth, 0f });
+                topCard.setTextureCoordinates(new float[]{0f, 0f, 0f, viewHeight / textureHeight, viewWidth / 2f / textureWidth, viewHeight / textureHeight, viewWidth / 2f / textureWidth, 0f});
 
-				bottomCard.setCardVertices(new float[] { 0f, viewHeight / 2f,
-						0f, 0f, 0f, 0f, viewWidth, 0f, 0f, viewWidth,
-						viewHeight / 2f, 0f });
+                bottomCard.setCardVertices(new float[]{viewWidth / 2f, viewHeight, 0f, viewWidth / 2f, 0f, 0f, viewWidth, 0f, 0f, viewWidth, viewHeight, 0f});
 
-				bottomCard.setTextureCoordinates(new float[] { 0f,
-						viewHeight / 2f / textureHeight, 0f,
-						viewHeight / textureHeight, viewWidth / textureWidth,
-						viewHeight / textureHeight, viewWidth / textureWidth,
-						viewHeight / 2f / textureHeight });
-			} else {
-				topCard.setCardVertices(new float[] { 0f, viewHeight, 0f, 0f,
-						0f, 0f, viewWidth / 2f, 0f, 0f, viewWidth / 2f,
-						viewHeight, 0f });
+                bottomCard.setTextureCoordinates(new float[]{viewWidth / 2f / textureWidth, 0f, viewWidth / 2f / textureWidth, viewHeight / textureHeight, viewWidth / textureWidth, viewHeight / textureHeight, viewWidth / textureWidth, 0f});
+            }
 
-				topCard.setTextureCoordinates(new float[] { 0f, 0f, 0f,
-						viewHeight / textureHeight,
-						viewWidth / 2f / textureWidth,
-						viewHeight / textureHeight,
-						viewWidth / 2f / textureWidth, 0f });
+        }
+    }
 
-				bottomCard.setCardVertices(new float[] { viewWidth / 2f,
-						viewHeight, 0f, viewWidth / 2f, 0f, 0f, viewWidth, 0f,
-						0f, viewWidth, viewHeight, 0f });
+    public synchronized void abandonTexture() {
+        texture = null;
+    }
 
-				bottomCard.setTextureCoordinates(new float[] {
-						viewWidth / 2f / textureWidth, 0f,
-						viewWidth / 2f / textureWidth,
-						viewHeight / textureHeight, viewWidth / textureWidth,
-						viewHeight / textureHeight, viewWidth / textureWidth,
-						0f });
-			}
+    @Override
+    public String toString() {
+        return "ViewDualCards: (" + index + ", view: " + getView() + ")";
+    }
 
-		}
-	}
+    private void recycleScreenshot() {
+        FlipUI.recycleBitmap(screenshot);
+        screenshot = null;
+    }
 
-	public synchronized void abandonTexture() {
-		texture = null;
-	}
-
-	@Override
-	public String toString() {
-		return "ViewDualCards: (" + index + ", view: " + getView() + ")";
-	}
-
-	private void recycleScreenshot() {
-		FlipUI.recycleBitmap(screenshot);
-		screenshot = null;
-	}
-
-	private void recycleTexture() {
-		if (texture != null) {
-			texture.postDestroy();
-			texture = null;
-		}
-	}
+    private void recycleTexture() {
+        if (texture != null) {
+            texture.postDestroy();
+            texture = null;
+        }
+    }
 
 }

@@ -5,27 +5,26 @@ import java.io.InputStream;
 
 public class ByteArrayPartSource implements PartSource {
 
-	private String fileName;
+    private String fileName;
+    private byte[] bytes;
 
-	private byte[] bytes;
+    public ByteArrayPartSource(String fileName, byte[] bytes) {
 
-	public ByteArrayPartSource(String fileName, byte[] bytes) {
+        this.fileName = fileName;
+        this.bytes = bytes;
 
-		this.fileName = fileName;
-		this.bytes = bytes;
+    }
 
-	}
+    public long getLength() {
+        return bytes.length;
+    }
 
-	public long getLength() {
-		return bytes.length;
-	}
+    public String getFileName() {
+        return fileName;
+    }
 
-	public String getFileName() {
-		return fileName;
-	}
-
-	public InputStream createInputStream() {
-		return new ByteArrayInputStream(bytes);
-	}
+    public InputStream createInputStream() {
+        return new ByteArrayInputStream(bytes);
+    }
 
 }

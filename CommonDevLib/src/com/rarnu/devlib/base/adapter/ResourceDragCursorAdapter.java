@@ -2,15 +2,15 @@ package com.rarnu.devlib.base.adapter;
 
 import android.content.Context;
 import android.database.Cursor;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.LayoutInflater;
 
 public abstract class ResourceDragCursorAdapter extends BaseDragCursorAdapter {
     private int mLayout;
     private int mDropDownLayout;
     private LayoutInflater mInflater;
-    
+
     public ResourceDragCursorAdapter(Context context, int layout, Cursor c, boolean autoRequery) {
         super(context, c, autoRequery);
         init(context, layout);
@@ -20,9 +20,9 @@ public abstract class ResourceDragCursorAdapter extends BaseDragCursorAdapter {
         super(context, c, flags);
         init(context, layout);
     }
-    
+
     private void init(Context context, int layout) {
-    	mLayout = mDropDownLayout = layout;
+        mLayout = mDropDownLayout = layout;
         mInflater = LayoutInflater.from(context);
     }
 

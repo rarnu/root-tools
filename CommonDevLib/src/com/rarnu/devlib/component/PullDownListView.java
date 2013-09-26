@@ -1,8 +1,5 @@
 package com.rarnu.devlib.component;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import android.content.Context;
 import android.content.Intent;
 import android.os.Handler;
@@ -17,380 +14,358 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 import android.widget.TextView;
-
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.common.Actions;
 import com.rarnu.devlib.component.intf.OnPullDownListener;
 import com.rarnu.devlib.component.intf.OnScrollOverListener;
 
-public class PullDownListView extends LinearLayout implements
-		OnScrollOverListener {
+import java.util.Timer;
+import java.util.TimerTask;
 
-	private static final int START_PULL_DEVIATION = 50;
-	private static final int AUTO_INCREMENTAL = 10;
+public class PullDownListView extends LinearLayout implements OnScrollOverListener {
 
-	private static final int DEFAULT_HEADER_VIEW_HEIGHT = 120;
+    private static final int START_PULL_DEVIATION = 50;
+    private static final int AUTO_INCREMENTAL = 10;
+    private static final int DEFAULT_HEADER_VIEW_HEIGHT = 120;
+    private static final int HEADER_VIEW_STATE_IDLE = 0;
+    private static final int HEADER_VIEW_STATE_NOT_OVER_HEIGHT = 1;
+    private static final int HEADER_VIEW_STATE_OVER_HEIGHT = 2;
+    private View mHeaderView;
+    private LayoutParams mHeaderViewParams;
+    private TextView mHeaderTextView;
+    private ImageView mHeaderArrowView;
+    private View mHeaderLoadingView;
+    private View mFooterView;
+    private TextView mFooterTextView;
+    private View mFooterLoadingView;
+    private ScrollOverListView mListView;
+    private OnPullDownListener mOnPullDownListener;
+    private RotateAnimation mRotateOTo180Animation;
+    private RotateAnimation mRotate180To0Animation;
+    private int mHeaderIncremental;
+    private float mMotionDownLastY;
+    private boolean mIsDown;
+    private boolean mIsRefreshing;
+    private boolean mIsFetchMoreing;
+    private boolean mIsPullUpDone;
+    private boolean mEnableAutoFetchMore;
+    private int mHeaderViewState = HEADER_VIEW_STATE_IDLE;
+    private Handler mUIHandler = new Handler() {
 
-	private View mHeaderView;
-	private LayoutParams mHeaderViewParams;
-	private TextView mHeaderTextView;
-	private ImageView mHeaderArrowView;
-	private View mHeaderLoadingView;
-	private View mFooterView;
-	private TextView mFooterTextView;
-	private View mFooterLoadingView;
-	private ScrollOverListView mListView;
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case Actions.WHAT_DID_LOAD_DATA: {
+                    mHeaderViewParams.height = 0;
+                    mHeaderLoadingView.setVisibility(View.GONE);
+                    mHeaderTextView.setText(getContext().getString(R.string.list_pull_refresh));
+                    mHeaderArrowView.setVisibility(View.VISIBLE);
+                    showFooterView();
+                    return;
+                }
 
-	private OnPullDownListener mOnPullDownListener;
-	private RotateAnimation mRotateOTo180Animation;
-	private RotateAnimation mRotate180To0Animation;
+                case Actions.WHAT_ON_REFRESH: {
+                    mHeaderArrowView.clearAnimation();
+                    mHeaderArrowView.setVisibility(View.INVISIBLE);
+                    mHeaderLoadingView.setVisibility(View.VISIBLE);
+                    mOnPullDownListener.onRefresh();
+                    return;
+                }
 
-	private int mHeaderIncremental;
-	private float mMotionDownLastY;
+                case Actions.WHAT_DID_REFRESH: {
+                    mIsRefreshing = false;
+                    mHeaderViewState = HEADER_VIEW_STATE_IDLE;
+                    mHeaderArrowView.setVisibility(View.VISIBLE);
+                    mHeaderLoadingView.setVisibility(View.GONE);
+                    setHeaderHeight(0);
+                    showFooterView();
+                    return;
+                }
 
-	private boolean mIsDown;
-	private boolean mIsRefreshing;
-	private boolean mIsFetchMoreing;
-	private boolean mIsPullUpDone;
-	private boolean mEnableAutoFetchMore;
+                case Actions.WHAT_SET_HEADER_HEIGHT: {
+                    setHeaderHeight(mHeaderIncremental);
+                    return;
+                }
 
-	private static final int HEADER_VIEW_STATE_IDLE = 0;
-	private static final int HEADER_VIEW_STATE_NOT_OVER_HEIGHT = 1;
-	private static final int HEADER_VIEW_STATE_OVER_HEIGHT = 2;
-	private int mHeaderViewState = HEADER_VIEW_STATE_IDLE;
+                case Actions.WHAT_DID_MORE: {
+                    mIsFetchMoreing = false;
+                    mFooterTextView.setText(getContext().getString(R.string.list_more));
+                    mFooterLoadingView.setVisibility(View.GONE);
+                }
+            }
+        }
 
-	public PullDownListView(Context context, AttributeSet attrs) {
-		super(context, attrs);
-		initHeaderViewAndFooterViewAndListView(context);
-	}
+    };
 
-	public PullDownListView(Context context) {
-		super(context);
-		initHeaderViewAndFooterViewAndListView(context);
-	}
+    public PullDownListView(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        initHeaderViewAndFooterViewAndListView(context);
+    }
 
-	public void notifyDidLoad() {
-		mUIHandler.sendEmptyMessage(Actions.WHAT_DID_LOAD_DATA);
-	}
+    public PullDownListView(Context context) {
+        super(context);
+        initHeaderViewAndFooterViewAndListView(context);
+    }
 
-	public void notifyDidRefresh() {
-		mUIHandler.sendEmptyMessage(Actions.WHAT_DID_REFRESH);
-	}
+    public void notifyDidLoad() {
+        mUIHandler.sendEmptyMessage(Actions.WHAT_DID_LOAD_DATA);
+    }
 
-	public void notifyDidMore() {
-		mUIHandler.sendEmptyMessage(Actions.WHAT_DID_MORE);
-	}
+    public void notifyDidRefresh() {
+        mUIHandler.sendEmptyMessage(Actions.WHAT_DID_REFRESH);
+    }
 
-	public void setOnPullDownListener(OnPullDownListener listener) {
-		mOnPullDownListener = listener;
-	}
+    public void notifyDidMore() {
+        mUIHandler.sendEmptyMessage(Actions.WHAT_DID_MORE);
+    }
 
-	public ListView getListView() {
-		return mListView;
-	}
+    public void setOnPullDownListener(OnPullDownListener listener) {
+        mOnPullDownListener = listener;
+    }
 
-	public void enableAutoFetchMore(boolean enable, int index) {
-		if (enable) {
-			mListView.setBottomPosition(index);
-			mFooterLoadingView.setVisibility(View.GONE);
-		} else {
-			mFooterTextView.setText(getContext().getString(R.string.list_more));
-			mFooterLoadingView.setVisibility(View.GONE);
-		}
-		mEnableAutoFetchMore = enable;
-	}
+    public ListView getListView() {
+        return mListView;
+    }
 
-	public void showAutoFetchMore(boolean show) {
-		mFooterView.setVisibility(show ? View.VISIBLE : View.GONE);
-	}
+    public void enableAutoFetchMore(boolean enable, int index) {
+        if (enable) {
+            mListView.setBottomPosition(index);
+            mFooterLoadingView.setVisibility(View.GONE);
+        } else {
+            mFooterTextView.setText(getContext().getString(R.string.list_more));
+            mFooterLoadingView.setVisibility(View.GONE);
+        }
+        mEnableAutoFetchMore = enable;
+    }
 
-	private void initHeaderViewAndFooterViewAndListView(Context context) {
-		setOrientation(LinearLayout.VERTICAL);
-		mHeaderView = LayoutInflater.from(context).inflate(
-				R.layout.pulldown_header, null);
-		mHeaderViewParams = new LayoutParams(LayoutParams.MATCH_PARENT,
-				LayoutParams.WRAP_CONTENT);
-		addView(mHeaderView, 0, mHeaderViewParams);
+    public void showAutoFetchMore(boolean show) {
+        mFooterView.setVisibility(show ? View.VISIBLE : View.GONE);
+    }
 
-		mHeaderTextView = (TextView) mHeaderView
-				.findViewById(R.id.pulldown_header_text);
-		mHeaderArrowView = (ImageView) mHeaderView
-				.findViewById(R.id.pulldown_header_arrow);
-		mHeaderLoadingView = mHeaderView
-				.findViewById(R.id.pulldown_header_loading);
+    private void initHeaderViewAndFooterViewAndListView(Context context) {
+        setOrientation(LinearLayout.VERTICAL);
+        mHeaderView = LayoutInflater.from(context).inflate(R.layout.pulldown_header, null);
+        mHeaderViewParams = new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.WRAP_CONTENT);
+        addView(mHeaderView, 0, mHeaderViewParams);
 
-		mRotateOTo180Animation = new RotateAnimation(0, 180,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-				0.5f);
-		mRotateOTo180Animation.setDuration(250);
-		mRotateOTo180Animation.setFillAfter(true);
+        mHeaderTextView = (TextView) mHeaderView.findViewById(R.id.pulldown_header_text);
+        mHeaderArrowView = (ImageView) mHeaderView.findViewById(R.id.pulldown_header_arrow);
+        mHeaderLoadingView = mHeaderView.findViewById(R.id.pulldown_header_loading);
 
-		mRotate180To0Animation = new RotateAnimation(180, 0,
-				Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF,
-				0.5f);
-		mRotate180To0Animation.setDuration(250);
-		mRotate180To0Animation.setFillAfter(true);
+        mRotateOTo180Animation = new RotateAnimation(0, 180, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        mRotateOTo180Animation.setDuration(250);
+        mRotateOTo180Animation.setFillAfter(true);
 
-		mFooterView = LayoutInflater.from(context).inflate(
-				R.layout.pulldown_footer, null);
-		mFooterTextView = (TextView) mFooterView
-				.findViewById(R.id.pulldown_footer_text);
-		mFooterLoadingView = mFooterView
-				.findViewById(R.id.pulldown_footer_loading);
-		mFooterView.setOnClickListener(new OnClickListener() {
-			@Override
-			public void onClick(View v) {
-				if (!mIsFetchMoreing) {
-					mIsFetchMoreing = true;
-					mFooterLoadingView.setVisibility(View.VISIBLE);
-					mOnPullDownListener.onMore();
-				}
-			}
-		});
+        mRotate180To0Animation = new RotateAnimation(180, 0, Animation.RELATIVE_TO_SELF, 0.5f, Animation.RELATIVE_TO_SELF, 0.5f);
+        mRotate180To0Animation.setDuration(250);
+        mRotate180To0Animation.setFillAfter(true);
 
-		mListView = new ScrollOverListView(context);
-		mListView.setOnScrollOverListener(this);
-		mListView.setCacheColorHint(0);
-		addView(mListView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+        mFooterView = LayoutInflater.from(context).inflate(R.layout.pulldown_footer, null);
+        mFooterTextView = (TextView) mFooterView.findViewById(R.id.pulldown_footer_text);
+        mFooterLoadingView = mFooterView.findViewById(R.id.pulldown_footer_loading);
+        mFooterView.setOnClickListener(new OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (!mIsFetchMoreing) {
+                    mIsFetchMoreing = true;
+                    mFooterLoadingView.setVisibility(View.VISIBLE);
+                    mOnPullDownListener.onMore();
+                }
+            }
+        });
 
-		mOnPullDownListener = new OnPullDownListener() {
-			@Override
-			public void onRefresh() {
-			}
+        mListView = new ScrollOverListView(context);
+        mListView.setOnScrollOverListener(this);
+        mListView.setCacheColorHint(0);
+        addView(mListView, LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
 
-			@Override
-			public void onMore() {
-			}
-		};
-	}
+        mOnPullDownListener = new OnPullDownListener() {
+            @Override
+            public void onRefresh() {
+            }
 
-	private void checkHeaderViewState() {
-		if (mHeaderViewParams.height >= DEFAULT_HEADER_VIEW_HEIGHT) {
-			if (mHeaderViewState == HEADER_VIEW_STATE_OVER_HEIGHT)
-				return;
-			mHeaderViewState = HEADER_VIEW_STATE_OVER_HEIGHT;
-			mHeaderTextView.setText(getContext().getString(
-					R.string.list_release_refresh));
-			mHeaderArrowView.startAnimation(mRotateOTo180Animation);
-		} else {
-			if (mHeaderViewState == HEADER_VIEW_STATE_NOT_OVER_HEIGHT
-					|| mHeaderViewState == HEADER_VIEW_STATE_IDLE)
-				return;
-			mHeaderViewState = HEADER_VIEW_STATE_NOT_OVER_HEIGHT;
-			mHeaderTextView.setText(getContext().getString(
-					R.string.list_pull_refresh));
-			mHeaderArrowView.startAnimation(mRotate180To0Animation);
-		}
-	}
+            @Override
+            public void onMore() {
+            }
+        };
+    }
 
-	private void setHeaderHeight(final int height) {
-		mHeaderIncremental = height;
-		mHeaderViewParams.height = height;
-		mHeaderView.setLayoutParams(mHeaderViewParams);
-	}
+    private void checkHeaderViewState() {
+        if (mHeaderViewParams.height >= DEFAULT_HEADER_VIEW_HEIGHT) {
+            if (mHeaderViewState == HEADER_VIEW_STATE_OVER_HEIGHT) {
+                return;
+            }
+            mHeaderViewState = HEADER_VIEW_STATE_OVER_HEIGHT;
+            mHeaderTextView.setText(getContext().getString(R.string.list_release_refresh));
+            mHeaderArrowView.startAnimation(mRotateOTo180Animation);
+        } else {
+            if (mHeaderViewState == HEADER_VIEW_STATE_NOT_OVER_HEIGHT || mHeaderViewState == HEADER_VIEW_STATE_IDLE) {
+                return;
+            }
+            mHeaderViewState = HEADER_VIEW_STATE_NOT_OVER_HEIGHT;
+            mHeaderTextView.setText(getContext().getString(R.string.list_pull_refresh));
+            mHeaderArrowView.startAnimation(mRotate180To0Animation);
+        }
+    }
 
-	class HideHeaderViewTask extends TimerTask {
-		@Override
-		public void run() {
-			if (mIsDown) {
-				cancel();
-				return;
-			}
-			mHeaderIncremental -= AUTO_INCREMENTAL;
-			if (mHeaderIncremental > 0) {
-				mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
-			} else {
-				mHeaderIncremental = 0;
-				mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
-				cancel();
-			}
-		}
-	}
+    private void setHeaderHeight(final int height) {
+        mHeaderIncremental = height;
+        mHeaderViewParams.height = height;
+        mHeaderView.setLayoutParams(mHeaderViewParams);
+    }
 
-	class ShowHeaderViewTask extends TimerTask {
+    private void showFooterView() {
+        if (mListView.getFooterViewsCount() == 0 && isFillScreenItem()) {
+            mListView.addFooterView(mFooterView);
+            mListView.setAdapter(mListView.getAdapter());
+        }
+    }
 
-		@Override
-		public void run() {
-			if (mIsDown) {
-				cancel();
-				return;
-			}
-			mHeaderIncremental -= AUTO_INCREMENTAL;
-			if (mHeaderIncremental > DEFAULT_HEADER_VIEW_HEIGHT) {
-				mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
-			} else {
-				mHeaderIncremental = DEFAULT_HEADER_VIEW_HEIGHT;
-				mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
-				if (!mIsRefreshing) {
-					mIsRefreshing = true;
-					mUIHandler.sendEmptyMessage(Actions.WHAT_ON_REFRESH);
-				}
-				cancel();
-			}
-		}
-	}
+    private boolean isFillScreenItem() {
+        final int firstVisiblePosition = mListView.getFirstVisiblePosition();
+        final int lastVisiblePostion = mListView.getLastVisiblePosition() - mListView.getFooterViewsCount();
+        final int visibleItemCount = lastVisiblePostion - firstVisiblePosition + 1;
+        final int totalItemCount = mListView.getCount() - mListView.getFooterViewsCount();
 
-	private Handler mUIHandler = new Handler() {
+        if (visibleItemCount < totalItemCount) {
+            return true;
+        }
+        return false;
+    }
 
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case Actions.WHAT_DID_LOAD_DATA: {
-				mHeaderViewParams.height = 0;
-				mHeaderLoadingView.setVisibility(View.GONE);
-				mHeaderTextView.setText(getContext().getString(
-						R.string.list_pull_refresh));
-				mHeaderArrowView.setVisibility(View.VISIBLE);
-				showFooterView();
-				return;
-			}
+    @Override
+    public boolean onListViewTopAndPullDown(int delta) {
 
-			case Actions.WHAT_ON_REFRESH: {
-				mHeaderArrowView.clearAnimation();
-				mHeaderArrowView.setVisibility(View.INVISIBLE);
-				mHeaderLoadingView.setVisibility(View.VISIBLE);
-				mOnPullDownListener.onRefresh();
-				return;
-			}
+        if (mIsRefreshing || mListView.getCount() - mListView.getFooterViewsCount() == 0) {
+            return false;
+        }
 
-			case Actions.WHAT_DID_REFRESH: {
-				mIsRefreshing = false;
-				mHeaderViewState = HEADER_VIEW_STATE_IDLE;
-				mHeaderArrowView.setVisibility(View.VISIBLE);
-				mHeaderLoadingView.setVisibility(View.GONE);
-				setHeaderHeight(0);
-				showFooterView();
-				return;
-			}
+        Intent inEnableScroll = new Intent(Actions.ACTION_SCROLL_MESSAGE);
+        inEnableScroll.putExtra("scroll", false);
+        getContext().sendBroadcast(inEnableScroll);
 
-			case Actions.WHAT_SET_HEADER_HEIGHT: {
-				setHeaderHeight(mHeaderIncremental);
-				return;
-			}
+        int absDelta = Math.abs(delta);
+        final int i = (int) Math.ceil((double) absDelta / 2);
 
-			case Actions.WHAT_DID_MORE: {
-				mIsFetchMoreing = false;
-				mFooterTextView.setText(getContext().getString(
-						R.string.list_more));
-				mFooterLoadingView.setVisibility(View.GONE);
-			}
-			}
-		}
+        mHeaderIncremental += i;
+        if (mHeaderIncremental >= 0) {
+            setHeaderHeight(mHeaderIncremental);
+            checkHeaderViewState();
+        }
+        return true;
+    }
 
-	};
+    @Override
+    public boolean onListViewBottomAndPullUp(int delta) {
+        if (!mEnableAutoFetchMore || mIsFetchMoreing)
+            return false;
 
-	private void showFooterView() {
-		if (mListView.getFooterViewsCount() == 0 && isFillScreenItem()) {
-			mListView.addFooterView(mFooterView);
-			mListView.setAdapter(mListView.getAdapter());
-		}
-	}
+        if (isFillScreenItem()) {
+            mIsFetchMoreing = true;
+            mFooterTextView.setText(getContext().getString(R.string.list_loading));
+            mFooterLoadingView.setVisibility(View.VISIBLE);
+            mOnPullDownListener.onMore();
+            return true;
+        }
+        return false;
+    }
 
-	private boolean isFillScreenItem() {
-		final int firstVisiblePosition = mListView.getFirstVisiblePosition();
-		final int lastVisiblePostion = mListView.getLastVisiblePosition()
-				- mListView.getFooterViewsCount();
-		final int visibleItemCount = lastVisiblePostion - firstVisiblePosition
-				+ 1;
-		final int totalItemCount = mListView.getCount()
-				- mListView.getFooterViewsCount();
+    @Override
+    public boolean onMotionDown(MotionEvent ev) {
+        mIsDown = true;
+        mIsPullUpDone = false;
+        mMotionDownLastY = ev.getRawY();
+        return false;
+    }
 
-		if (visibleItemCount < totalItemCount)
-			return true;
-		return false;
-	}
+    @Override
+    public boolean onMotionMove(MotionEvent ev, int delta) {
+        if (mIsPullUpDone) {
+            return true;
+        }
 
-	@Override
-	public boolean onListViewTopAndPullDown(int delta) {
+        final int absMotionY = (int) Math.abs(ev.getRawY() - mMotionDownLastY);
+        if (absMotionY < START_PULL_DEVIATION) {
+            return true;
+        }
 
-		if (mIsRefreshing
-				|| mListView.getCount() - mListView.getFooterViewsCount() == 0)
-			return false;
+        final int absDelta = Math.abs(delta);
+        final int i = (int) Math.ceil((double) absDelta / 2);
 
-		Intent inEnableScroll = new Intent(Actions.ACTION_SCROLL_MESSAGE);
-		inEnableScroll.putExtra("scroll", false);
-		getContext().sendBroadcast(inEnableScroll);
+        if (mHeaderViewParams.height > 0 && delta < 0) {
+            mHeaderIncremental -= i;
+            if (mHeaderIncremental > 0) {
+                setHeaderHeight(mHeaderIncremental);
+                checkHeaderViewState();
+            } else {
+                mHeaderViewState = HEADER_VIEW_STATE_IDLE;
+                mHeaderIncremental = 0;
+                setHeaderHeight(mHeaderIncremental);
+                mIsPullUpDone = true;
+            }
+            return true;
+        }
+        return false;
+    }
 
-		int absDelta = Math.abs(delta);
-		final int i = (int) Math.ceil((double) absDelta / 2);
+    @Override
+    public boolean onMotionUp(MotionEvent ev) {
+        mIsDown = false;
+        if (mHeaderViewParams.height > 0) {
+            int x = mHeaderIncremental - DEFAULT_HEADER_VIEW_HEIGHT;
+            Timer timer = new Timer(true);
+            if (x < 0) {
+                timer.scheduleAtFixedRate(new HideHeaderViewTask(), 0, 10);
+            } else {
+                timer.scheduleAtFixedRate(new ShowHeaderViewTask(), 0, 10);
+            }
+            Intent inEnableScroll = new Intent(Actions.ACTION_SCROLL_MESSAGE);
+            inEnableScroll.putExtra("scroll", true);
+            getContext().sendBroadcast(inEnableScroll);
+            return true;
+        }
+        return false;
+    }
 
-		mHeaderIncremental += i;
-		if (mHeaderIncremental >= 0) {
-			setHeaderHeight(mHeaderIncremental);
-			checkHeaderViewState();
-		}
-		return true;
-	}
+    class HideHeaderViewTask extends TimerTask {
+        @Override
+        public void run() {
+            if (mIsDown) {
+                cancel();
+                return;
+            }
+            mHeaderIncremental -= AUTO_INCREMENTAL;
+            if (mHeaderIncremental > 0) {
+                mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
+            } else {
+                mHeaderIncremental = 0;
+                mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
+                cancel();
+            }
+        }
+    }
 
-	@Override
-	public boolean onListViewBottomAndPullUp(int delta) {
-		if (!mEnableAutoFetchMore || mIsFetchMoreing)
-			return false;
+    class ShowHeaderViewTask extends TimerTask {
 
-		if (isFillScreenItem()) {
-			mIsFetchMoreing = true;
-			mFooterTextView.setText(getContext().getString(
-					R.string.list_loading));
-			mFooterLoadingView.setVisibility(View.VISIBLE);
-			mOnPullDownListener.onMore();
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean onMotionDown(MotionEvent ev) {
-		mIsDown = true;
-		mIsPullUpDone = false;
-		mMotionDownLastY = ev.getRawY();
-		return false;
-	}
-
-	@Override
-	public boolean onMotionMove(MotionEvent ev, int delta) {
-		if (mIsPullUpDone)
-			return true;
-
-		final int absMotionY = (int) Math.abs(ev.getRawY() - mMotionDownLastY);
-		if (absMotionY < START_PULL_DEVIATION)
-			return true;
-
-		final int absDelta = Math.abs(delta);
-		final int i = (int) Math.ceil((double) absDelta / 2);
-
-		if (mHeaderViewParams.height > 0 && delta < 0) {
-			mHeaderIncremental -= i;
-			if (mHeaderIncremental > 0) {
-				setHeaderHeight(mHeaderIncremental);
-				checkHeaderViewState();
-			} else {
-				mHeaderViewState = HEADER_VIEW_STATE_IDLE;
-				mHeaderIncremental = 0;
-				setHeaderHeight(mHeaderIncremental);
-				mIsPullUpDone = true;
-			}
-			return true;
-		}
-		return false;
-	}
-
-	@Override
-	public boolean onMotionUp(MotionEvent ev) {
-		mIsDown = false;
-		if (mHeaderViewParams.height > 0) {
-			int x = mHeaderIncremental - DEFAULT_HEADER_VIEW_HEIGHT;
-			Timer timer = new Timer(true);
-			if (x < 0) {
-				timer.scheduleAtFixedRate(new HideHeaderViewTask(), 0, 10);
-			} else {
-				timer.scheduleAtFixedRate(new ShowHeaderViewTask(), 0, 10);
-			}
-			Intent inEnableScroll = new Intent(Actions.ACTION_SCROLL_MESSAGE);
-			inEnableScroll.putExtra("scroll", true);
-			getContext().sendBroadcast(inEnableScroll);
-			return true;
-		}
-		return false;
-	}
+        @Override
+        public void run() {
+            if (mIsDown) {
+                cancel();
+                return;
+            }
+            mHeaderIncremental -= AUTO_INCREMENTAL;
+            if (mHeaderIncremental > DEFAULT_HEADER_VIEW_HEIGHT) {
+                mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
+            } else {
+                mHeaderIncremental = DEFAULT_HEADER_VIEW_HEIGHT;
+                mUIHandler.sendEmptyMessage(Actions.WHAT_SET_HEADER_HEIGHT);
+                if (!mIsRefreshing) {
+                    mIsRefreshing = true;
+                    mUIHandler.sendEmptyMessage(Actions.WHAT_ON_REFRESH);
+                }
+                cancel();
+            }
+        }
+    }
 
 }

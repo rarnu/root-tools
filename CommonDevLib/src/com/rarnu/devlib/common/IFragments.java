@@ -2,7 +2,7 @@ package com.rarnu.devlib.common;
 
 public interface IFragments {
 
-	void loadFragments();
+    void loadFragments();
 
-	void releaseFragments();
+    void releaseFragments();
 }

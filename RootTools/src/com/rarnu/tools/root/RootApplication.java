@@ -6,28 +6,26 @@ import android.content.pm.PackageManager;
 
 public class RootApplication extends Application {
 
-	@Override
-	public void onCreate() {
-		super.onCreate();
-		try {
-			ApplicationInfo appInfo = getPackageManager().getApplicationInfo(getPackageName(),
-					PackageManager.GET_META_DATA);
-			
-			boolean msg = appInfo.metaData.getBoolean("debug");
-			GlobalInstance.DEBUG = msg;
-		} catch (Exception e) {
-			GlobalInstance.DEBUG = false;
-		}
+    @Override
+    public void onCreate() {
+        super.onCreate();
+        try {
+            ApplicationInfo appInfo = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);
 
-		if (!GlobalInstance.DEBUG) {
-			Thread.setDefaultUncaughtExceptionHandler(new RootUncaughtExceptionHandler(
-					this));
-		}
-	}
+            boolean msg = appInfo.metaData.getBoolean("debug");
+            GlobalInstance.DEBUG = msg;
+        } catch (Exception e) {
+            GlobalInstance.DEBUG = false;
+        }
 
-	@Override
-	public void onTerminate() {
-		super.onTerminate();
-	}
+        if (!GlobalInstance.DEBUG) {
+            Thread.setDefaultUncaughtExceptionHandler(new RootUncaughtExceptionHandler(this));
+        }
+    }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+    }
 
 }

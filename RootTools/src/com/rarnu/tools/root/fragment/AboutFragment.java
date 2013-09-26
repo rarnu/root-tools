@@ -1,9 +1,5 @@
 package com.rarnu.tools.root.fragment;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Locale;
-
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,7 +8,6 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
-
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.BlockListView;
 import com.rarnu.tools.root.GlobalInstance;
@@ -26,178 +21,159 @@ import com.rarnu.tools.root.utils.UpdateUtils;
 import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.UIUtils;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Locale;
+
 public class AboutFragment extends BaseFragment implements OnItemClickListener {
 
-	TextView tvAppVersion, tvDebug;
-	BlockListView lstAbout, lstEoe;
-	TextView tvAbout;
+    TextView tvAppVersion, tvDebug;
+    BlockListView lstAbout, lstEoe;
+    TextView tvAbout;
+    AboutAdapter adapter = null;
+    List<AboutInfo> list = null;
+    PartnerAdapter adapterEoe = null;
+    List<Object> listEoe = null;
+    int fitable = 5;
+    int fitableClick = 0;
 
-	AboutAdapter adapter = null;
-	List<AboutInfo> list = null;
+    private void showDebugStatus() {
+        tvDebug.setVisibility(GlobalInstance.DEBUG ? View.VISIBLE : View.GONE);
+    }
 
-	PartnerAdapter adapterEoe = null;
-	List<Object> listEoe = null;
+    private void showAppVersion() {
+        tvAppVersion.setText(DeviceUtils.getAppVersionName(getActivity()));
+    }
 
-	int fitable = 5;
-	int fitableClick = 0;
+    private int getSystemFitable() {
 
-	private void showDebugStatus() {
-		tvDebug.setVisibility(GlobalInstance.DEBUG ? View.VISIBLE : View.GONE);
-	}
+        fitable = DeviceUtils.getFitable(UIUtils.getDM());
+        if (fitable < 1) {
+            fitable = 1;
+        }
+        if (fitable > 9) {
+            fitable = 9;
+        }
+        return fitable;
+    }
 
-	private void showAppVersion() {
-		tvAppVersion.setText(DeviceUtils.getAppVersionName(getActivity()));
-	}
+    @Override
+    public int getBarTitle() {
+        return R.string.about;
+    }
 
-	private int getSystemFitable() {
+    @Override
+    public int getBarTitleWithPath() {
+        return R.string.about_with_path;
+    }
 
-		fitable = DeviceUtils.getFitable(UIUtils.getDM());
-		if (fitable < 1) {
-			fitable = 1;
-		}
-		if (fitable > 9) {
-			fitable = 9;
-		}
-		return fitable;
-	}
+    @Override
+    public void initComponents() {
+        tvAppVersion = (TextView) innerView.findViewById(R.id.tvAppVersion);
+        tvDebug = (TextView) innerView.findViewById(R.id.tvDebug);
+        lstAbout = (BlockListView) innerView.findViewById(R.id.lstAbout);
+        lstEoe = (BlockListView) innerView.findViewById(R.id.lstEoe);
+        tvAbout = (TextView) innerView.findViewById(R.id.tvAbout);
 
-	@Override
-	public int getBarTitle() {
-		return R.string.about;
-	}
+        lstAbout.setItemHeight(UIUtils.dipToPx(56));
+        lstEoe.setItemHeight(UIUtils.dipToPx(64));
 
-	@Override
-	public int getBarTitleWithPath() {
-		return R.string.about_with_path;
-	}
+        list = new ArrayList<AboutInfo>();
+        adapter = new AboutAdapter(getActivity(), list);
+        lstAbout.setAdapter(adapter);
+        listEoe = new ArrayList<Object>();
+        listEoe.add(new Object());
+        adapterEoe = new PartnerAdapter(getActivity(), listEoe);
+        lstEoe.setAdapter(adapterEoe);
+    }
 
-	@Override
-	public void initComponents() {
-		tvAppVersion = (TextView) innerView.findViewById(R.id.tvAppVersion);
-		tvDebug = (TextView) innerView.findViewById(R.id.tvDebug);
-		lstAbout = (BlockListView) innerView.findViewById(R.id.lstAbout);
-		lstEoe = (BlockListView) innerView.findViewById(R.id.lstEoe);
-		tvAbout = (TextView) innerView.findViewById(R.id.tvAbout);
+    @Override
+    public int getFragmentLayoutResId() {
+        return R.layout.layout_about;
+    }
 
-		lstAbout.setItemHeight(UIUtils.dipToPx(56));
-		lstEoe.setItemHeight(UIUtils.dipToPx(64));
+    @Override
+    public void initMenu(Menu menu) {
 
-		list = new ArrayList<AboutInfo>();
-		adapter = new AboutAdapter(getActivity(), list);
-		lstAbout.setAdapter(adapter);
-		listEoe = new ArrayList<Object>();
-		listEoe.add(new Object());
-		adapterEoe = new PartnerAdapter(getActivity(), listEoe);
-		lstEoe.setAdapter(adapterEoe);
-	}
+    }
 
-	@Override
-	public int getFragmentLayoutResId() {
-		return R.layout.layout_about;
-	}
+    @Override
+    public void initLogic() {
+        showAppVersion();
+        showDebugStatus();
+        fitableClick = 0;
 
-	@Override
-	public void initMenu(Menu menu) {
+        list.clear();
+        list.add(buildAboutInfo(R.string.check_update, -1));
+        list.add(buildAboutInfo(R.string.how_to_use, -1));
+        list.add(buildAboutInfo(R.string.system_fitable, getSystemFitable()));
 
-	}
+        adapter.setNewList(list);
+        lstAbout.resize();
+        lstEoe.resize();
 
-	@Override
-	public void initLogic() {
-		showAppVersion();
-		showDebugStatus();
-		fitableClick = 0;
+        String lang = Locale.getDefault().getLanguage();
+        String country = Locale.getDefault().getCountry();
 
-		list.clear();
-		list.add(buildAboutInfo(R.string.check_update, -1));
-		list.add(buildAboutInfo(R.string.how_to_use, -1));
-		list.add(buildAboutInfo(R.string.system_fitable, getSystemFitable()));
+        String aboutText = "";
+        try {
+            if (lang.equals("zh")) {
+                aboutText = FileUtils.readAssetFile(getActivity(), country.equals("TW") ? "about_zh_TW" : "about_zh_CN");
+            } else {
+                aboutText = FileUtils.readAssetFile(getActivity(), "about");
+            }
+        } catch (Exception e) {
 
-		adapter.setNewList(list);
-		lstAbout.resize();
-		lstEoe.resize();
+        }
+        tvAbout.setText(aboutText);
+    }
 
-		String lang = Locale.getDefault().getLanguage();
-		String country = Locale.getDefault().getCountry();
+    private AboutInfo buildAboutInfo(int resTitle, int fitable) {
+        AboutInfo info = new AboutInfo();
+        info.title = getString(resTitle);
+        info.fitable = fitable;
+        return info;
+    }
 
-		String aboutText = "";
-		try {
-			if (lang.equals("zh")) {
-				if (country.equals("TW")) {
-					aboutText = FileUtils.readAssetFile(getActivity(),
-							"about_zh_TW");
-				} else {
-					aboutText = FileUtils.readAssetFile(getActivity(),
-							"about_zh_CN");
-				}
-			} else {
-				aboutText = FileUtils.readAssetFile(getActivity(), "about");
-			}
-		} catch (Exception e) {
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        if (parent.getAdapter() instanceof PartnerAdapter) {
+            Intent inEoe = new Intent(Intent.ACTION_VIEW);
+            inEoe.setData(Uri.parse("http://eoemarket.com/"));
+            startActivity(inEoe);
+        } else {
+            switch (position) {
+                case 0:
+                    UpdateUtils.showUpdateInfo(getActivity());
+                    break;
+            }
+        }
+    }
 
-		}
-		tvAbout.setText(aboutText);
-	}
+    @Override
+    public void initEvents() {
+        lstAbout.setOnItemClickListener(this);
+        lstEoe.setOnItemClickListener(this);
 
-	private AboutInfo buildAboutInfo(int resTitle, int fitable) {
-		AboutInfo info = new AboutInfo();
-		info.title = getString(resTitle);
-		info.fitable = fitable;
-		return info;
-	}
+    }
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		if (parent.getAdapter() instanceof PartnerAdapter) {
-			Intent inEoe = new Intent(Intent.ACTION_VIEW);
-			inEoe.setData(Uri.parse("http://eoemarket.com/"));
-			startActivity(inEoe);
-		} else {
-			switch (position) {
-			case 0:
-				UpdateUtils.showUpdateInfo(getActivity());
-				break;
-			case 1:
-//				FragmentStarter.showContent(getActivity(), HelpActivity.class,
-//						GlobalFragment.fIntro);
-				break;
-			case 2:
-				/*
-				 * if (!GlobalInstance.DEBUG) { fitableClick++; if (fitableClick
-				 * == 10) { fitableClick = 0; Intent inEgg = new
-				 * Intent(getActivity(), EggActivity.class);
-				 * startActivity(inEgg); } }
-				 */
+    @Override
+    public String getMainActivityName() {
+        return MainActivity.class.getName();
+    }
 
-				break;
-			}
-		}
-	}
+    @Override
+    public void onGetNewArguments(Bundle bn) {
 
-	@Override
-	public void initEvents() {
-		lstAbout.setOnItemClickListener(this);
-		lstEoe.setOnItemClickListener(this);
+    }
 
-	}
+    @Override
+    public String getCustomTitle() {
+        return null;
+    }
 
-	@Override
-	public String getMainActivityName() {
-		return MainActivity.class.getName();
-	}
-
-	@Override
-	public void onGetNewArguments(Bundle bn) {
-
-	}
-
-	@Override
-	public String getCustomTitle() {
-		return null;
-	}
-
-	@Override
-	public Bundle getFragmentState() {
-		return null;
-	}
+    @Override
+    public Bundle getFragmentState() {
+        return null;
+    }
 }

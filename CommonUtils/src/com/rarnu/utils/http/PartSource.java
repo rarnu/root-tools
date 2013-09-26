@@ -5,10 +5,10 @@ import java.io.InputStream;
 
 public interface PartSource {
 
-	long getLength();
+    long getLength();
 
-	String getFileName();
+    String getFileName();
 
-	InputStream createInputStream() throws IOException;
+    InputStream createInputStream() throws IOException;
 
 }

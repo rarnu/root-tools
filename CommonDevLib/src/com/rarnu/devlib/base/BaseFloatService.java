@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
-
 import com.rarnu.devlib.component.FloatWindow;
 
 /**
@@ -13,36 +12,36 @@ import com.rarnu.devlib.component.FloatWindow;
  */
 public abstract class BaseFloatService extends Service {
 
-	FloatWindow fv;
-	View view;
+    FloatWindow fv;
+    View view;
 
-	@Override
-	public IBinder onBind(Intent intent) {
-		return null;
-	}
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
 
-	@Override
-	public void onDestroy() {
-		fv.hide();
-		super.onDestroy();
-	}
+    @Override
+    public void onDestroy() {
+        fv.hide();
+        super.onDestroy();
+    }
 
-	public abstract int getViewResId();
+    public abstract int getViewResId();
 
-	public abstract void initView(View view);
+    public abstract void initView(View view);
 
-	public abstract int getX();
+    public abstract int getX();
 
-	public abstract int getY();
+    public abstract int getY();
 
-	@Override
-	public int onStartCommand(Intent intent, int flags, int startId) {
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
 
-		LayoutInflater inflater = LayoutInflater.from(this);
-		view = inflater.inflate(getViewResId(), null);
-		initView(view);
-		fv = new FloatWindow(this, view);
-		fv.show(getX(), getY());
-		return super.onStartCommand(intent, flags, startId);
-	}
+        LayoutInflater inflater = LayoutInflater.from(this);
+        view = inflater.inflate(getViewResId(), null);
+        initView(view);
+        fv = new FloatWindow(this, view);
+        fv.show(getX(), getY());
+        return super.onStartCommand(intent, flags, startId);
+    }
 }

@@ -2,277 +2,260 @@ package com.rarnu.devlib.component;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.view.MotionEvent;
-import android.view.VelocityTracker;
-import android.view.View;
-import android.view.ViewConfiguration;
-import android.view.ViewGroup;
+import android.view.*;
 import android.widget.Scroller;
-
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.component.intf.OnScreenChangeListener;
 import com.rarnu.devlib.component.intf.OnScreenTouchListener;
 
 public class HScrollLayout extends ViewGroup {
 
-	private boolean enableScroll = true;
-	private Scroller mScroller;
-	private VelocityTracker mVelocityTracker;
+    private static final int TOUCH_STATE_REST = 0;
+    private static final int TOUCH_STATE_SCROLLING = 1;
+    private static final int SNAP_VELOCITY = 600;
+    private boolean enableScroll = true;
+    private Scroller mScroller;
+    private VelocityTracker mVelocityTracker;
+    private int mCurScreen;
+    private int mDefaultScreen = 0;
+    private OnScreenChangeListener screenChangeListener;
+    private OnScreenTouchListener touchListener;
+    private int mTouchState = TOUCH_STATE_REST;
+    private int mTouchSlop;
+    private float mLastMotionX;
 
-	private int mCurScreen;
-	private int mDefaultScreen = 0;
+    public HScrollLayout(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
+    }
 
-	private OnScreenChangeListener screenChangeListener;
-	private OnScreenTouchListener touchListener;
+    public HScrollLayout(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
 
-	private static final int TOUCH_STATE_REST = 0;
-	private static final int TOUCH_STATE_SCROLLING = 1;
+        mScroller = new Scroller(context);
 
-	private static final int SNAP_VELOCITY = 600;
+        mCurScreen = mDefaultScreen;
+        mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop() * 4;
 
-	private int mTouchState = TOUCH_STATE_REST;
-	private int mTouchSlop;
-	private float mLastMotionX;
+        setTouchState(TOUCH_STATE_REST);
+    }
 
-	public HScrollLayout(Context context, AttributeSet attrs) {
-		this(context, attrs, 0);
-	}
+    @Override
+    protected void onLayout(boolean changed, int l, int t, int r, int b) {
 
-	public HScrollLayout(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
+        int childLeft = 0;
+        final int childCount = getChildCount();
 
-		mScroller = new Scroller(context);
+        for (int i = 0; i < childCount; i++) {
+            final View childView = getChildAt(i);
+            if (childView.getVisibility() != View.GONE) {
+                final int childWidth = childView.getMeasuredWidth();
 
-		mCurScreen = mDefaultScreen;
-		mTouchSlop = ViewConfiguration.get(getContext()).getScaledTouchSlop() * 4;
+                childView.layout(childLeft, 0, childLeft + childWidth, childView.getMeasuredHeight());
+                childLeft += childWidth;
+            }
+        }
 
-		setTouchState(TOUCH_STATE_REST);
-	}
+    }
 
-	@Override
-	protected void onLayout(boolean changed, int l, int t, int r, int b) {
+    @Override
+    protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
+        super.onMeasure(widthMeasureSpec, heightMeasureSpec);
 
-		int childLeft = 0;
-		final int childCount = getChildCount();
+        final int width = MeasureSpec.getSize(widthMeasureSpec);
+        final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
+        if (widthMode != MeasureSpec.EXACTLY) {
+            throw new IllegalStateException(getContext().getString(R.string.exception_not_exactly_mode));
+        }
 
-		for (int i = 0; i < childCount; i++) {
-			final View childView = getChildAt(i);
-			if (childView.getVisibility() != View.GONE) {
-				final int childWidth = childView.getMeasuredWidth();
+        final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
+        if (heightMode != MeasureSpec.EXACTLY) {
+            throw new IllegalStateException(getContext().getString(R.string.exception_not_exactly_mode));
+        }
 
-				childView.layout(childLeft, 0, childLeft + childWidth,
-						childView.getMeasuredHeight());
-				childLeft += childWidth;
-			}
-		}
+        final int count = getChildCount();
+        for (int i = 0; i < count; i++) {
+            getChildAt(i).measure(widthMeasureSpec, heightMeasureSpec);
+        }
+        scrollTo(mCurScreen * width, 0);
+    }
 
-	}
+    public void snapToDestination() {
+        final int screenWidth = getWidth();
+        final int destScreen = (getScrollX() + screenWidth / 2) / screenWidth;
+        snapToScreen(destScreen);
+    }
 
-	@Override
-	protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
-		super.onMeasure(widthMeasureSpec, heightMeasureSpec);
+    public void snapToScreen(int whichScreen) {
+        whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
+        if (getScrollX() != (whichScreen * getWidth())) {
 
-		final int width = MeasureSpec.getSize(widthMeasureSpec);
-		final int widthMode = MeasureSpec.getMode(widthMeasureSpec);
-		if (widthMode != MeasureSpec.EXACTLY) {
-			throw new IllegalStateException(getContext().getString(
-					R.string.exception_not_exactly_mode));
-		}
+            final int delta = whichScreen * getWidth() - getScrollX();
+            mScroller.startScroll(getScrollX(), 0, delta, 0, Math.abs(delta) * 2);
+            mCurScreen = whichScreen;
+            invalidate();
 
-		final int heightMode = MeasureSpec.getMode(heightMeasureSpec);
-		if (heightMode != MeasureSpec.EXACTLY) {
-			throw new IllegalStateException(getContext().getString(
-					R.string.exception_not_exactly_mode));
-		}
+            if (screenChangeListener != null) {
+                screenChangeListener.onScreenChange(this, mCurScreen);
+            }
+        }
+    }
 
-		final int count = getChildCount();
-		for (int i = 0; i < count; i++) {
-			getChildAt(i).measure(widthMeasureSpec, heightMeasureSpec);
-		}
-		scrollTo(mCurScreen * width, 0);
-	}
+    public void setToScreen(int whichScreen) {
+        whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
+        mCurScreen = whichScreen;
+        scrollTo(whichScreen * getWidth(), 0);
+    }
 
-	public void snapToDestination() {
-		final int screenWidth = getWidth();
-		final int destScreen = (getScrollX() + screenWidth / 2) / screenWidth;
-		snapToScreen(destScreen);
-	}
+    public int getCurScreen() {
+        return mCurScreen;
+    }
 
-	public void snapToScreen(int whichScreen) {
-		whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
-		if (getScrollX() != (whichScreen * getWidth())) {
+    @Override
+    public void computeScroll() {
 
-			final int delta = whichScreen * getWidth() - getScrollX();
-			mScroller.startScroll(getScrollX(), 0, delta, 0,
-					Math.abs(delta) * 2);
-			mCurScreen = whichScreen;
-			invalidate();
+        if (mScroller.computeScrollOffset()) {
+            scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
+            postInvalidate();
+        }
+    }
 
-			if (screenChangeListener != null) {
-				screenChangeListener.onScreenChange(this, mCurScreen);
-			}
-		}
-	}
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
 
-	public void setToScreen(int whichScreen) {
-		whichScreen = Math.max(0, Math.min(whichScreen, getChildCount() - 1));
-		mCurScreen = whichScreen;
-		scrollTo(whichScreen * getWidth(), 0);
-	}
+        if (!enableScroll) {
+            return super.onTouchEvent(event);
+        }
+        if (mVelocityTracker == null) {
+            mVelocityTracker = VelocityTracker.obtain();
+        }
+        mVelocityTracker.addMovement(event);
 
-	public int getCurScreen() {
-		return mCurScreen;
-	}
+        final int action = event.getAction();
+        final float x = event.getX();
 
-	@Override
-	public void computeScroll() {
+        switch (action) {
+            case MotionEvent.ACTION_DOWN:
 
-		if (mScroller.computeScrollOffset()) {
-			scrollTo(mScroller.getCurrX(), mScroller.getCurrY());
-			postInvalidate();
-		}
-	}
+                if (!mScroller.isFinished()) {
+                    mScroller.abortAnimation();
+                }
+                mLastMotionX = x;
+                return true;
 
-	@Override
-	public boolean onTouchEvent(MotionEvent event) {
+            case MotionEvent.ACTION_MOVE:
 
-		if (!enableScroll) {
-			return super.onTouchEvent(event);
-		}
-		if (mVelocityTracker == null) {
-			mVelocityTracker = VelocityTracker.obtain();
-		}
-		mVelocityTracker.addMovement(event);
+                int deltaX = (int) (mLastMotionX - x);
+                if (Math.abs(deltaX) > 10) {
+                    setTouchState(TOUCH_STATE_SCROLLING);
+                }
 
-		final int action = event.getAction();
-		final float x = event.getX();
+                mLastMotionX = x;
 
-		switch (action) {
-		case MotionEvent.ACTION_DOWN:
+                scrollBy(deltaX, 0);
+                return true;
 
-			if (!mScroller.isFinished()) {
-				mScroller.abortAnimation();
-			}
-			mLastMotionX = x;
-			return true;
+            case MotionEvent.ACTION_UP:
 
-		case MotionEvent.ACTION_MOVE:
+                final VelocityTracker velocityTracker = mVelocityTracker;
+                velocityTracker.computeCurrentVelocity(1000);
+                int velocityX = (int) velocityTracker.getXVelocity();
 
-			int deltaX = (int) (mLastMotionX - x);
-			if (Math.abs(deltaX) > 10) {
-				setTouchState(TOUCH_STATE_SCROLLING);
-			}
+                if (velocityX > SNAP_VELOCITY && mCurScreen > 0) {
 
-			mLastMotionX = x;
+                    snapToScreen(mCurScreen - 1);
+                } else if (velocityX < -SNAP_VELOCITY && mCurScreen < getChildCount() - 1) {
+                    snapToScreen(mCurScreen + 1);
+                } else {
+                    snapToDestination();
+                }
 
-			scrollBy(deltaX, 0);
-			return true;
+                if (mVelocityTracker != null) {
+                    mVelocityTracker.recycle();
+                    mVelocityTracker = null;
+                }
 
-		case MotionEvent.ACTION_UP:
+                setTouchState(TOUCH_STATE_REST);
+                return true;
+            case MotionEvent.ACTION_CANCEL:
+                setTouchState(TOUCH_STATE_REST);
+                return true;
+        }
 
-			final VelocityTracker velocityTracker = mVelocityTracker;
-			velocityTracker.computeCurrentVelocity(1000);
-			int velocityX = (int) velocityTracker.getXVelocity();
+        return false;
+    }
 
-			if (velocityX > SNAP_VELOCITY && mCurScreen > 0) {
+    @Override
+    public boolean onInterceptTouchEvent(MotionEvent ev) {
 
-				snapToScreen(mCurScreen - 1);
-			} else if (velocityX < -SNAP_VELOCITY
-					&& mCurScreen < getChildCount() - 1) {
-				snapToScreen(mCurScreen + 1);
-			} else {
-				snapToDestination();
-			}
+        if (!enableScroll) {
+            return super.onInterceptTouchEvent(ev);
+        }
+        final int action = ev.getAction();
+        if ((action == MotionEvent.ACTION_MOVE) && (mTouchState != TOUCH_STATE_REST)) {
+            return true;
+        }
 
-			if (mVelocityTracker != null) {
-				mVelocityTracker.recycle();
-				mVelocityTracker = null;
-			}
+        final float x = ev.getX();
 
-			setTouchState(TOUCH_STATE_REST);
-			return true;
-		case MotionEvent.ACTION_CANCEL:
-			setTouchState(TOUCH_STATE_REST);
-			return true;
-		}
+        switch (action) {
+            case MotionEvent.ACTION_MOVE:
+                final int xDiff = (int) Math.abs(mLastMotionX - x);
+                if (xDiff > mTouchSlop) {
+                    setTouchState(TOUCH_STATE_SCROLLING);
 
-		return false;
-	}
+                }
+                break;
 
-	@Override
-	public boolean onInterceptTouchEvent(MotionEvent ev) {
+            case MotionEvent.ACTION_DOWN:
+                mLastMotionX = x;
 
-		if (!enableScroll) {
-			return super.onInterceptTouchEvent(ev);
-		}
-		final int action = ev.getAction();
-		if ((action == MotionEvent.ACTION_MOVE)
-				&& (mTouchState != TOUCH_STATE_REST)) {
-			return true;
-		}
+                setTouchState(mScroller.isFinished() ? TOUCH_STATE_REST : TOUCH_STATE_SCROLLING);
+                break;
 
-		final float x = ev.getX();
+            case MotionEvent.ACTION_CANCEL:
+            case MotionEvent.ACTION_UP:
+                setTouchState(TOUCH_STATE_REST);
+                break;
+        }
 
-		switch (action) {
-		case MotionEvent.ACTION_MOVE:
-			final int xDiff = (int) Math.abs(mLastMotionX - x);
-			if (xDiff > mTouchSlop) {
-				setTouchState(TOUCH_STATE_SCROLLING);
+        return mTouchState != TOUCH_STATE_REST;
+    }
 
-			}
-			break;
+    private void setTouchState(int stat) {
+        mTouchState = stat;
+        if (touchListener != null) {
+            if (mTouchState == TOUCH_STATE_SCROLLING) {
+                touchListener.onActionScrolling(this);
+            }
+            if (mTouchState == TOUCH_STATE_REST) {
+                touchListener.onActionReset(this);
+            }
+        }
+    }
 
-		case MotionEvent.ACTION_DOWN:
-			mLastMotionX = x;
+    public OnScreenChangeListener getOnScreenChangeListener() {
+        return screenChangeListener;
+    }
 
-			setTouchState(mScroller.isFinished() ? TOUCH_STATE_REST
-					: TOUCH_STATE_SCROLLING);
-			break;
+    public void setOnScreenChangeListener(
+            OnScreenChangeListener screenChangeListener) {
+        this.screenChangeListener = screenChangeListener;
+    }
 
-		case MotionEvent.ACTION_CANCEL:
-		case MotionEvent.ACTION_UP:
-			setTouchState(TOUCH_STATE_REST);
-			break;
-		}
+    public OnScreenTouchListener getScreenTouchListener() {
+        return touchListener;
+    }
 
-		return mTouchState != TOUCH_STATE_REST;
-	}
+    public void setOnScreenTouchListener(OnScreenTouchListener touchListener) {
+        this.touchListener = touchListener;
+    }
 
-	private void setTouchState(int stat) {
-		mTouchState = stat;
-		if (touchListener != null) {
-			if (mTouchState == TOUCH_STATE_SCROLLING) {
-				touchListener.onActionScrolling(this);
-			}
-			if (mTouchState == TOUCH_STATE_REST) {
-				touchListener.onActionReset(this);
-			}
-		}
-	}
+    public boolean isEnableScroll() {
+        return enableScroll;
+    }
 
-	public OnScreenChangeListener getOnScreenChangeListener() {
-		return screenChangeListener;
-	}
-
-	public void setOnScreenChangeListener(
-			OnScreenChangeListener screenChangeListener) {
-		this.screenChangeListener = screenChangeListener;
-	}
-
-	public OnScreenTouchListener getScreenTouchListener() {
-		return touchListener;
-	}
-
-	public void setOnScreenTouchListener(OnScreenTouchListener touchListener) {
-		this.touchListener = touchListener;
-	}
-
-	public boolean isEnableScroll() {
-		return enableScroll;
-	}
-
-	public void setEnableScroll(boolean enableScroll) {
-		this.enableScroll = enableScroll;
-	}
+    public void setEnableScroll(boolean enableScroll) {
+        this.enableScroll = enableScroll;
+    }
 
 }

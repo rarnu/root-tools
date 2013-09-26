@@ -1,6 +1,9 @@
 package com.rarnu.terminal.utils;
 
 public class GrowableIntArray {
+    int[] mData;
+    int mLength;
+
     public GrowableIntArray(int initalCapacity) {
         mData = new int[initalCapacity];
         mLength = 0;
@@ -23,7 +26,4 @@ public class GrowableIntArray {
     public int at(int index) {
         return mData[index];
     }
-
-    int[] mData;
-    int mLength;
 }

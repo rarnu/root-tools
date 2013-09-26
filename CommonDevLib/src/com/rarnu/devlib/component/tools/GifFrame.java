@@ -4,21 +4,18 @@ import android.graphics.Bitmap;
 
 public class GifFrame {
 
-	public GifFrame(Bitmap im, int del) {
-		image = im;
-		delay = del;
-	}
+    public Bitmap image;
+    public int delay;
+    public String imageName = null;
+    public GifFrame nextFrame = null;
 
-	public GifFrame(String name, int del) {
-		imageName = name;
-		delay = del;
-	}
+    public GifFrame(Bitmap im, int del) {
+        image = im;
+        delay = del;
+    }
 
-	public Bitmap image;
-
-	public int delay;
-
-	public String imageName = null;
-
-	public GifFrame nextFrame = null;
+    public GifFrame(String name, int del) {
+        imageName = name;
+        delay = del;
+    }
 }

@@ -4,14 +4,14 @@ import android.view.MotionEvent;
 
 public interface OnScrollOverListener {
 
-		boolean onListViewTopAndPullDown(int delta);
+    boolean onListViewTopAndPullDown(int delta);
 
-		boolean onListViewBottomAndPullUp(int delta);
+    boolean onListViewBottomAndPullUp(int delta);
 
-		boolean onMotionDown(MotionEvent ev);
+    boolean onMotionDown(MotionEvent ev);
 
-		boolean onMotionMove(MotionEvent ev, int delta);
+    boolean onMotionMove(MotionEvent ev, int delta);
 
-		boolean onMotionUp(MotionEvent ev);
+    boolean onMotionUp(MotionEvent ev);
 
-	}
+}

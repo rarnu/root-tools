@@ -21,8 +21,7 @@ public class HostsSearchLoader extends BaseLoader<HostRecordInfo> {
 
 	@Override
 	public List<HostRecordInfo> loadInBackground() {
-		List<Address> listAddress = NSLookup.nslookup(domain,
-				GlobalInstance.nameServer);
+		List<Address> listAddress = NSLookup.nslookup(domain, GlobalInstance.nameServer);
 		return DIPairUtils.toPairList(domain, listAddress);
 	}
 

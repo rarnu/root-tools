@@ -13,15 +13,12 @@ public class SimpleDragCursorAdapter extends ResourceDragCursorAdapter {
 
     protected int[] mFrom;
     protected int[] mTo;
-
+    String[] mOriginalFrom;
     private int mStringConversionColumn = -1;
     private CursorToStringConverter mCursorToStringConverter;
     private ViewBinder mViewBinder;
 
-    String[] mOriginalFrom;
-
-    public SimpleDragCursorAdapter(Context context, int layout,
-            Cursor c, String[] from, int[] to, int flags) {
+    public SimpleDragCursorAdapter(Context context, int layout, Cursor c, String[] from, int[] to, int flags) {
         super(context, layout, c, flags);
         mTo = to;
         mOriginalFrom = from;
@@ -54,8 +51,7 @@ public class SimpleDragCursorAdapter extends ResourceDragCursorAdapter {
                     } else if (v instanceof ImageView) {
                         setViewImage((ImageView) v, text);
                     } else {
-                        throw new IllegalStateException(v.getClass().getName() + " is not a " +
-                                " view that can be bounds by this SimpleCursorAdapter");
+                        throw new IllegalStateException(v.getClass().getName() + " is not a view that can be bounds by this SimpleCursorAdapter");
                     }
                 }
             }

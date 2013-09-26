@@ -4,27 +4,27 @@ import android.os.Bundle;
 import android.view.Menu;
 
 public interface InnerIntf {
-	String getTagText();
+    String getTagText();
 
-	int getBarTitle();
+    int getBarTitle();
 
-	int getBarTitleWithPath();
+    int getBarTitleWithPath();
 
-	String getCustomTitle();
+    String getCustomTitle();
 
-	void initComponents();
+    void initComponents();
 
-	void initEvents();
+    void initEvents();
 
-	void initLogic();
+    void initLogic();
 
-	int getFragmentLayoutResId();
+    int getFragmentLayoutResId();
 
-	String getMainActivityName();
+    String getMainActivityName();
 
-	void initMenu(Menu menu);
+    void initMenu(Menu menu);
 
-	void onGetNewArguments(Bundle bn);
+    void onGetNewArguments(Bundle bn);
 
-	Bundle getFragmentState();
+    Bundle getFragmentState();
 }

@@ -1,7 +1,5 @@
 package com.rarnu.devlib.component;
 
-import java.io.InputStream;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -14,248 +12,237 @@ import android.os.SystemClock;
 import android.util.AttributeSet;
 import android.view.View;
 import android.widget.ImageView;
-
 import com.rarnu.devlib.component.tools.GifAction;
 import com.rarnu.devlib.component.tools.GifDecoder;
 import com.rarnu.devlib.component.tools.GifFrame;
 
+import java.io.InputStream;
+
 public class GifView extends ImageView implements GifAction {
 
-	private GifDecoder gifDecoder = null;
-	private Bitmap currentImage = null;
+    private GifDecoder gifDecoder = null;
+    private Bitmap currentImage = null;
+    private boolean isRun = true;
+    private boolean pause = false;
+    private DrawThread drawThread = null;
+    @SuppressWarnings("unused")
+    private Context context = null;
+    @SuppressWarnings("unused")
+    private boolean cacheImage = false;
+    private View backView = null;
+    private GifImageType animationType = GifImageType.SYNC_DECODER;
+    private Handler redrawHandler = new Handler() {
+        public void handleMessage(Message msg) {
+            try {
+                if (backView != null) {
+                    backView.setBackgroundDrawable(new BitmapDrawable(currentImage));
+                } else {
+                    drawImage();
+                }
+            } catch (Exception ex) {
 
-	private boolean isRun = true;
+            }
+        }
+    };
 
-	private boolean pause = false;
+    public GifView(Context context) {
+        super(context);
+        this.context = context;
+        setScaleType(ImageView.ScaleType.FIT_XY);
+    }
 
-	private DrawThread drawThread = null;
+    public GifView(Context context, AttributeSet attrs) {
+        this(context, attrs, 0);
 
-	@SuppressWarnings("unused")
-	private Context context = null;
+    }
 
-	@SuppressWarnings("unused")
-	private boolean cacheImage = false;
+    public GifView(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+        this.context = context;
 
-	private View backView = null;
+        setScaleType(ImageView.ScaleType.FIT_XY);
+    }
 
-	private GifImageType animationType = GifImageType.SYNC_DECODER;
+    private void setGifDecoderImage(byte[] gif) {
 
-	public enum GifImageType {
-		WAIT_FINISH(0), SYNC_DECODER(1), COVER(2);
+        if (gifDecoder == null) {
+            gifDecoder = new GifDecoder(this);
+        }
+        gifDecoder.setGifImage(gif);
+        gifDecoder.start();
+    }
 
-		GifImageType(int i) {
-			nativeInt = i;
-		}
+    private void setGifDecoderImage(InputStream is) {
 
-		final int nativeInt;
-	}
+        if (gifDecoder == null) {
+            gifDecoder = new GifDecoder(this);
+        }
+        gifDecoder.setGifImage(is);
+        gifDecoder.start();
 
-	public GifView(Context context) {
-		super(context);
-		this.context = context;
-		setScaleType(ImageView.ScaleType.FIT_XY);
-	}
+    }
 
-	public GifView(Context context, AttributeSet attrs) {
-		this(context, attrs, 0);
+    public void setAsBackground(View v) {
+        backView = v;
+    }
 
-	}
+    protected Parcelable onSaveInstanceState() {
+        super.onSaveInstanceState();
+        if (gifDecoder != null)
+            gifDecoder.free();
 
-	public GifView(Context context, AttributeSet attrs, int defStyle) {
-		super(context, attrs, defStyle);
-		this.context = context;
+        return null;
+    }
 
-		setScaleType(ImageView.ScaleType.FIT_XY);
-	}
+    public void setGifImage(byte[] gif) {
+        setGifDecoderImage(gif);
+    }
 
-	private void setGifDecoderImage(byte[] gif) {
+    public void setGifImage(InputStream is) {
+        setGifDecoderImage(is);
+    }
 
-		if (gifDecoder == null) {
-			gifDecoder = new GifDecoder(this);
-		}
-		gifDecoder.setGifImage(gif);
-		gifDecoder.start();
-	}
+    public void setGifImage(int resId) {
+        Resources r = getResources();
+        InputStream is = r.openRawResource(resId);
+        setGifDecoderImage(is);
+    }
 
-	private void setGifDecoderImage(InputStream is) {
+    public void destroy() {
+        if (gifDecoder != null)
+            gifDecoder.free();
+    }
 
-		if (gifDecoder == null) {
-			gifDecoder = new GifDecoder(this);
-		}
-		gifDecoder.setGifImage(is);
-		gifDecoder.start();
+    public void showCover() {
+        if (gifDecoder == null) {
+            return;
+        }
+        pause = true;
+        currentImage = gifDecoder.getImage();
+        invalidate();
+    }
 
-	}
+    public void showAnimation() {
+        if (pause) {
+            pause = false;
+        }
+    }
 
-	public void setAsBackground(View v) {
-		backView = v;
-	}
+    public void setGifImageType(GifImageType type) {
+        if (gifDecoder == null)
+            animationType = type;
+    }
 
-	protected Parcelable onSaveInstanceState() {
-		super.onSaveInstanceState();
-		if (gifDecoder != null)
-			gifDecoder.free();
+    public void parseOk(boolean parseStatus, int frameIndex) {
+        if (parseStatus) {
+            if (gifDecoder != null) {
+                switch (animationType) {
+                    case WAIT_FINISH:
+                        if (frameIndex == -1) {
+                            if (gifDecoder.getFrameCount() > 1) { // 当帧数大于1时，启动动画线程
+                                DrawThread dt = new DrawThread();
+                                dt.start();
+                            } else {
+                                reDraw();
+                            }
+                        }
+                        break;
+                    case COVER:
+                        if (frameIndex == 1) {
+                            currentImage = gifDecoder.getImage();
+                            reDraw();
+                        } else if (frameIndex == -1) {
+                            if (gifDecoder.getFrameCount() > 1) {
+                                if (drawThread == null) {
+                                    drawThread = new DrawThread();
+                                    drawThread.start();
+                                }
+                            } else {
+                                reDraw();
+                            }
+                        }
+                        break;
+                    case SYNC_DECODER:
+                        if (frameIndex == 1) {
+                            currentImage = gifDecoder.getImage();
+                            reDraw();
+                        } else if (frameIndex == -1) {
+                            reDraw();
+                        } else {
+                            if (drawThread == null) {
+                                drawThread = new DrawThread();
+                                drawThread.start();
+                            }
+                        }
+                        break;
+                }
 
-		return null;
-	}
+            }
 
-	public void setGifImage(byte[] gif) {
-		setGifDecoderImage(gif);
-	}
+        }
+    }
 
-	public void setGifImage(InputStream is) {
-		setGifDecoderImage(is);
-	}
+    private void reDraw() {
+        if (redrawHandler != null) {
+            Message msg = redrawHandler.obtainMessage();
+            redrawHandler.sendMessage(msg);
+        }
 
-	public void setGifImage(int resId) {
-		Resources r = getResources();
-		InputStream is = r.openRawResource(resId);
-		setGifDecoderImage(is);
-	}
+    }
 
-	public void destroy() {
-		if (gifDecoder != null)
-			gifDecoder.free();
-	}
+    private void drawImage() {
+        setImageBitmap(currentImage);
+        invalidate();
+    }
 
-	public void showCover() {
-		if (gifDecoder == null)
-			return;
-		pause = true;
-		currentImage = gifDecoder.getImage();
-		invalidate();
-	}
+    public enum GifImageType {
+        WAIT_FINISH(0), SYNC_DECODER(1), COVER(2);
+        final int nativeInt;
 
-	public void showAnimation() {
-		if (pause) {
-			pause = false;
-		}
-	}
+        GifImageType(int i) {
+            nativeInt = i;
+        }
+    }
 
-	public void setGifImageType(GifImageType type) {
-		if (gifDecoder == null)
-			animationType = type;
-	}
+    private class DrawThread extends Thread {
+        public void run() {
+            if (gifDecoder == null) {
+                return;
+            }
+            while (isRun) {
+                if (gifDecoder.getFrameCount() == 1) {
+                    GifFrame f = gifDecoder.next();
+                    currentImage = f.image;
+                    gifDecoder.free();
+                    reDraw();
 
-	public void parseOk(boolean parseStatus, int frameIndex) {
-		if (parseStatus) {
-			if (gifDecoder != null) {
-				switch (animationType) {
-				case WAIT_FINISH:
-					if (frameIndex == -1) {
-						if (gifDecoder.getFrameCount() > 1) { // 当帧数大于1时，启动动画线程
-							DrawThread dt = new DrawThread();
-							dt.start();
-						} else {
-							reDraw();
-						}
-					}
-					break;
-				case COVER:
-					if (frameIndex == 1) {
-						currentImage = gifDecoder.getImage();
-						reDraw();
-					} else if (frameIndex == -1) {
-						if (gifDecoder.getFrameCount() > 1) {
-							if (drawThread == null) {
-								drawThread = new DrawThread();
-								drawThread.start();
-							}
-						} else {
-							reDraw();
-						}
-					}
-					break;
-				case SYNC_DECODER:
-					if (frameIndex == 1) {
-						currentImage = gifDecoder.getImage();
-						reDraw();
-					} else if (frameIndex == -1) {
-						reDraw();
-					} else {
-						if (drawThread == null) {
-							drawThread = new DrawThread();
-							drawThread.start();
-						}
-					}
-					break;
-				}
+                    break;
+                }
+                if (pause == false) {
+                    GifFrame frame = gifDecoder.next();
 
-			} else {
-				
-			}
-
-		}
-	}
-
-	private void reDraw() {
-		if (redrawHandler != null) {
-			Message msg = redrawHandler.obtainMessage();
-			redrawHandler.sendMessage(msg);
-		}
-
-	}
-
-	private void drawImage() {
-		setImageBitmap(currentImage);
-		invalidate();
-	}
-
-	private Handler redrawHandler = new Handler() {
-		public void handleMessage(Message msg) {
-			try {
-				if (backView != null) {
-					backView.setBackgroundDrawable(new BitmapDrawable(
-							currentImage));
-				} else {
-					drawImage();
-				}
-			} catch (Exception ex) {
-				
-			}
-		}
-	};
-
-	private class DrawThread extends Thread {
-		public void run() {
-			if (gifDecoder == null) {
-				return;
-			}
-			while (isRun) {
-				if (gifDecoder.getFrameCount() == 1) {
-					// 如果单帧，不进行动画
-					GifFrame f = gifDecoder.next();
-					currentImage = f.image;
-					gifDecoder.free();
-					reDraw();
-
-					break;
-				}
-				if (pause == false) {
-					GifFrame frame = gifDecoder.next();
-
-					if (frame == null) {
-						SystemClock.sleep(50);
-						continue;
-					}
-					if (frame.image != null)
-						currentImage = frame.image;
-					else if (frame.imageName != null) {
-						currentImage = BitmapFactory
-								.decodeFile(frame.imageName);
-					}
-					long sp = frame.delay;
-					if (redrawHandler != null) {
-						reDraw();
-						SystemClock.sleep(sp);
-					} else {
-						break;
-					}
-				} else {
-					SystemClock.sleep(50);
-				}
-			}
-		}
-	}
+                    if (frame == null) {
+                        SystemClock.sleep(50);
+                        continue;
+                    }
+                    if (frame.image != null) {
+                        currentImage = frame.image;
+                    } else if (frame.imageName != null) {
+                        currentImage = BitmapFactory
+                                .decodeFile(frame.imageName);
+                    }
+                    long sp = frame.delay;
+                    if (redrawHandler != null) {
+                        reDraw();
+                        SystemClock.sleep(sp);
+                    } else {
+                        break;
+                    }
+                } else {
+                    SystemClock.sleep(50);
+                }
+            }
+        }
+    }
 
 }

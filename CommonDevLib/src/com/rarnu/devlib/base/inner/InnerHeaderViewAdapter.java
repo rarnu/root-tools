@@ -12,225 +12,216 @@ import java.util.ArrayList;
 
 public class InnerHeaderViewAdapter implements WrapperListAdapter, Filterable {
 
-	private final ListAdapter mAdapter;
-	ArrayList<InnerListView.FixedViewInfo> mHeaderViewInfos;
-	ArrayList<InnerListView.FixedViewInfo> mFooterViewInfos;
-	static final ArrayList<InnerListView.FixedViewInfo> EMPTY_INFO_LIST = new ArrayList<InnerListView.FixedViewInfo>();
+    static final ArrayList<InnerListView.FixedViewInfo> EMPTY_INFO_LIST = new ArrayList<InnerListView.FixedViewInfo>();
+    private final ListAdapter mAdapter;
+    private final boolean mIsFilterable;
+    ArrayList<InnerListView.FixedViewInfo> mHeaderViewInfos;
+    ArrayList<InnerListView.FixedViewInfo> mFooterViewInfos;
+    boolean mAreAllFixedViewsSelectable;
 
-	boolean mAreAllFixedViewsSelectable;
+    public InnerHeaderViewAdapter(ArrayList<InnerListView.FixedViewInfo> headerViewInfos, ArrayList<InnerListView.FixedViewInfo> footerViewInfos, ListAdapter adapter) {
+        mAdapter = adapter;
+        mIsFilterable = adapter instanceof Filterable;
 
-	private final boolean mIsFilterable;
+        if (headerViewInfos == null) {
+            mHeaderViewInfos = EMPTY_INFO_LIST;
+        } else {
+            mHeaderViewInfos = headerViewInfos;
+        }
 
-	public InnerHeaderViewAdapter(
-			ArrayList<InnerListView.FixedViewInfo> headerViewInfos,
-			ArrayList<InnerListView.FixedViewInfo> footerViewInfos,
-			ListAdapter adapter) {
-		mAdapter = adapter;
-		mIsFilterable = adapter instanceof Filterable;
+        if (footerViewInfos == null) {
+            mFooterViewInfos = EMPTY_INFO_LIST;
+        } else {
+            mFooterViewInfos = footerViewInfos;
+        }
 
-		if (headerViewInfos == null) {
-			mHeaderViewInfos = EMPTY_INFO_LIST;
-		} else {
-			mHeaderViewInfos = headerViewInfos;
-		}
+        mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos) && areAllListInfosSelectable(mFooterViewInfos);
+    }
 
-		if (footerViewInfos == null) {
-			mFooterViewInfos = EMPTY_INFO_LIST;
-		} else {
-			mFooterViewInfos = footerViewInfos;
-		}
+    public int getHeadersCount() {
+        return mHeaderViewInfos.size();
+    }
 
-		mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos)
-				&& areAllListInfosSelectable(mFooterViewInfos);
-	}
+    public int getFootersCount() {
+        return mFooterViewInfos.size();
+    }
 
-	public int getHeadersCount() {
-		return mHeaderViewInfos.size();
-	}
+    public boolean isEmpty() {
+        return mAdapter == null || mAdapter.isEmpty();
+    }
 
-	public int getFootersCount() {
-		return mFooterViewInfos.size();
-	}
+    private boolean areAllListInfosSelectable(ArrayList<InnerListView.FixedViewInfo> infos) {
+        if (infos != null) {
+            for (InnerListView.FixedViewInfo info : infos) {
+                if (!info.isSelectable) {
+                    return false;
+                }
+            }
+        }
+        return true;
+    }
 
-	public boolean isEmpty() {
-		return mAdapter == null || mAdapter.isEmpty();
-	}
+    public boolean removeHeader(View v) {
+        for (int i = 0; i < mHeaderViewInfos.size(); i++) {
+            InnerListView.FixedViewInfo info = mHeaderViewInfos.get(i);
+            if (info.view == v) {
+                mHeaderViewInfos.remove(i);
 
-	private boolean areAllListInfosSelectable(
-			ArrayList<InnerListView.FixedViewInfo> infos) {
-		if (infos != null) {
-			for (InnerListView.FixedViewInfo info : infos) {
-				if (!info.isSelectable) {
-					return false;
-				}
-			}
-		}
-		return true;
-	}
+                mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos) && areAllListInfosSelectable(mFooterViewInfos);
 
-	public boolean removeHeader(View v) {
-		for (int i = 0; i < mHeaderViewInfos.size(); i++) {
-			InnerListView.FixedViewInfo info = mHeaderViewInfos.get(i);
-			if (info.view == v) {
-				mHeaderViewInfos.remove(i);
+                return true;
+            }
+        }
 
-				mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos)
-						&& areAllListInfosSelectable(mFooterViewInfos);
+        return false;
+    }
 
-				return true;
-			}
-		}
+    public boolean removeFooter(View v) {
+        for (int i = 0; i < mFooterViewInfos.size(); i++) {
+            InnerListView.FixedViewInfo info = mFooterViewInfos.get(i);
+            if (info.view == v) {
+                mFooterViewInfos.remove(i);
 
-		return false;
-	}
+                mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos) && areAllListInfosSelectable(mFooterViewInfos);
 
-	public boolean removeFooter(View v) {
-		for (int i = 0; i < mFooterViewInfos.size(); i++) {
-			InnerListView.FixedViewInfo info = mFooterViewInfos.get(i);
-			if (info.view == v) {
-				mFooterViewInfos.remove(i);
+                return true;
+            }
+        }
 
-				mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos)
-						&& areAllListInfosSelectable(mFooterViewInfos);
+        return false;
+    }
 
-				return true;
-			}
-		}
+    public int getCount() {
+        if (mAdapter != null) {
+            return getFootersCount() + getHeadersCount() + mAdapter.getCount();
+        } else {
+            return getFootersCount() + getHeadersCount();
+        }
+    }
 
-		return false;
-	}
+    public boolean areAllItemsEnabled() {
+        if (mAdapter != null) {
+            return mAreAllFixedViewsSelectable && mAdapter.areAllItemsEnabled();
+        } else {
+            return true;
+        }
+    }
 
-	public int getCount() {
-		if (mAdapter != null) {
-			return getFootersCount() + getHeadersCount() + mAdapter.getCount();
-		} else {
-			return getFootersCount() + getHeadersCount();
-		}
-	}
+    public boolean isEnabled(int position) {
+        int numHeaders = getHeadersCount();
+        if (position < numHeaders) {
+            return mHeaderViewInfos.get(position).isSelectable;
+        }
 
-	public boolean areAllItemsEnabled() {
-		if (mAdapter != null) {
-			return mAreAllFixedViewsSelectable && mAdapter.areAllItemsEnabled();
-		} else {
-			return true;
-		}
-	}
+        final int adjPosition = position - numHeaders;
+        int adapterCount = 0;
+        if (mAdapter != null) {
+            adapterCount = mAdapter.getCount();
+            if (adjPosition < adapterCount) {
+                return mAdapter.isEnabled(adjPosition);
+            }
+        }
 
-	public boolean isEnabled(int position) {
-		int numHeaders = getHeadersCount();
-		if (position < numHeaders) {
-			return mHeaderViewInfos.get(position).isSelectable;
-		}
+        return mFooterViewInfos.get(adjPosition - adapterCount).isSelectable;
+    }
 
-		final int adjPosition = position - numHeaders;
-		int adapterCount = 0;
-		if (mAdapter != null) {
-			adapterCount = mAdapter.getCount();
-			if (adjPosition < adapterCount) {
-				return mAdapter.isEnabled(adjPosition);
-			}
-		}
+    public Object getItem(int position) {
 
-		return mFooterViewInfos.get(adjPosition - adapterCount).isSelectable;
-	}
+        int numHeaders = getHeadersCount();
+        if (position < numHeaders) {
+            return mHeaderViewInfos.get(position).data;
+        }
 
-	public Object getItem(int position) {
+        final int adjPosition = position - numHeaders;
+        int adapterCount = 0;
+        if (mAdapter != null) {
+            adapterCount = mAdapter.getCount();
+            if (adjPosition < adapterCount) {
+                return mAdapter.getItem(adjPosition);
+            }
+        }
 
-		int numHeaders = getHeadersCount();
-		if (position < numHeaders) {
-			return mHeaderViewInfos.get(position).data;
-		}
+        return mFooterViewInfos.get(adjPosition - adapterCount).data;
+    }
 
-		final int adjPosition = position - numHeaders;
-		int adapterCount = 0;
-		if (mAdapter != null) {
-			adapterCount = mAdapter.getCount();
-			if (adjPosition < adapterCount) {
-				return mAdapter.getItem(adjPosition);
-			}
-		}
+    public long getItemId(int position) {
+        int numHeaders = getHeadersCount();
+        if (mAdapter != null && position >= numHeaders) {
+            int adjPosition = position - numHeaders;
+            int adapterCount = mAdapter.getCount();
+            if (adjPosition < adapterCount) {
+                return mAdapter.getItemId(adjPosition);
+            }
+        }
+        return -1;
+    }
 
-		return mFooterViewInfos.get(adjPosition - adapterCount).data;
-	}
+    public boolean hasStableIds() {
+        if (mAdapter != null) {
+            return mAdapter.hasStableIds();
+        }
+        return false;
+    }
 
-	public long getItemId(int position) {
-		int numHeaders = getHeadersCount();
-		if (mAdapter != null && position >= numHeaders) {
-			int adjPosition = position - numHeaders;
-			int adapterCount = mAdapter.getCount();
-			if (adjPosition < adapterCount) {
-				return mAdapter.getItemId(adjPosition);
-			}
-		}
-		return -1;
-	}
+    public View getView(int position, View convertView, ViewGroup parent) {
 
-	public boolean hasStableIds() {
-		if (mAdapter != null) {
-			return mAdapter.hasStableIds();
-		}
-		return false;
-	}
+        int numHeaders = getHeadersCount();
+        if (position < numHeaders) {
+            return mHeaderViewInfos.get(position).view;
+        }
 
-	public View getView(int position, View convertView, ViewGroup parent) {
+        final int adjPosition = position - numHeaders;
+        int adapterCount = 0;
+        if (mAdapter != null) {
+            adapterCount = mAdapter.getCount();
+            if (adjPosition < adapterCount) {
+                return mAdapter.getView(adjPosition, convertView, parent);
+            }
+        }
 
-		int numHeaders = getHeadersCount();
-		if (position < numHeaders) {
-			return mHeaderViewInfos.get(position).view;
-		}
+        return mFooterViewInfos.get(adjPosition - adapterCount).view;
+    }
 
-		final int adjPosition = position - numHeaders;
-		int adapterCount = 0;
-		if (mAdapter != null) {
-			adapterCount = mAdapter.getCount();
-			if (adjPosition < adapterCount) {
-				return mAdapter.getView(adjPosition, convertView, parent);
-			}
-		}
+    public int getItemViewType(int position) {
+        int numHeaders = getHeadersCount();
+        if (mAdapter != null && position >= numHeaders) {
+            int adjPosition = position - numHeaders;
+            int adapterCount = mAdapter.getCount();
+            if (adjPosition < adapterCount) {
+                return mAdapter.getItemViewType(adjPosition);
+            }
+        }
 
-		return mFooterViewInfos.get(adjPosition - adapterCount).view;
-	}
+        return InnerAdapterView.ITEM_VIEW_TYPE_HEADER_OR_FOOTER;
+    }
 
-	public int getItemViewType(int position) {
-		int numHeaders = getHeadersCount();
-		if (mAdapter != null && position >= numHeaders) {
-			int adjPosition = position - numHeaders;
-			int adapterCount = mAdapter.getCount();
-			if (adjPosition < adapterCount) {
-				return mAdapter.getItemViewType(adjPosition);
-			}
-		}
+    public int getViewTypeCount() {
+        if (mAdapter != null) {
+            return mAdapter.getViewTypeCount();
+        }
+        return 1;
+    }
 
-		return InnerAdapterView.ITEM_VIEW_TYPE_HEADER_OR_FOOTER;
-	}
+    public void registerDataSetObserver(DataSetObserver observer) {
+        if (mAdapter != null) {
+            mAdapter.registerDataSetObserver(observer);
+        }
+    }
 
-	public int getViewTypeCount() {
-		if (mAdapter != null) {
-			return mAdapter.getViewTypeCount();
-		}
-		return 1;
-	}
+    public void unregisterDataSetObserver(DataSetObserver observer) {
+        if (mAdapter != null) {
+            mAdapter.unregisterDataSetObserver(observer);
+        }
+    }
 
-	public void registerDataSetObserver(DataSetObserver observer) {
-		if (mAdapter != null) {
-			mAdapter.registerDataSetObserver(observer);
-		}
-	}
+    public Filter getFilter() {
+        if (mIsFilterable) {
+            return ((Filterable) mAdapter).getFilter();
+        }
+        return null;
+    }
 
-	public void unregisterDataSetObserver(DataSetObserver observer) {
-		if (mAdapter != null) {
-			mAdapter.unregisterDataSetObserver(observer);
-		}
-	}
-
-	public Filter getFilter() {
-		if (mIsFilterable) {
-			return ((Filterable) mAdapter).getFilter();
-		}
-		return null;
-	}
-
-	public ListAdapter getWrappedAdapter() {
-		return mAdapter;
-	}
+    public ListAdapter getWrappedAdapter() {
+        return mAdapter;
+    }
 }
