@@ -8,6 +8,7 @@
     <string name="tag_main_limit_limit1">tag_main_limit_limit1</string>
     <string name="tag_main_limit_limit2">tag_main_limit_limit2</string>
     <string name="tag_main_newcard">tag_main_newcard</string>
+    <string name="tag_main_package">tag_main_package</string>
     <string name="tag_main_deck">tag_main_deck</string>
     <string name="tag_main_dueltool">tag_main_dueltool</string>
 
@@ -15,6 +16,10 @@
     <string name="tag_card_info">tag_card_info</string>
     <string name="tag_card_adjust">tag_card_adjust</string>
     <string name="tag_card_pic">tag_card_pic</string>
+
+    <string name="tag_package_list">tag_package_list</string>
+    <string name="tag_package_cards">tag_package_cards</string>
+    <string name="tag_deck_cards">tag_deck_cards</string>
 
     <string name="tag_menu_left">tag_menu_left</string>
     <string name="tag_menu_right">tag_menu_right</string>

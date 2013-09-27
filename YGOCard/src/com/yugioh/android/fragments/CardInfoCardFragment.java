@@ -4,16 +4,15 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.common.Config;
-import com.yugioh.android.utils.ResourceUtils;
 
 public class CardInfoCardFragment extends BaseFragment {
 
     TextView tvInfo;
     CardInfo info;
-
     int fontSize = -1;
 
     public CardInfoCardFragment() {
@@ -44,8 +43,7 @@ public class CardInfoCardFragment extends BaseFragment {
 
     @Override
     public void initLogic() {
-        info = (CardInfo) getActivity().getIntent().getSerializableExtra(
-                "cardinfo");
+        info = (CardInfo) getActivity().getIntent().getSerializableExtra("cardinfo");
 
         tvInfo.setText(buildCardInfo(info));
 
@@ -63,19 +61,10 @@ public class CardInfoCardFragment extends BaseFragment {
         sbInfo.append(buildInfoLine(R.string.english_name, info.getENCardName()));
         sbInfo.append(buildInfoLine(R.string.type, info.getSCCardType()));
 
-        if (info.getSCCardType().contains(
-                getResources().getString(R.string.monster))) {
+        if (info.getSCCardType().contains(getResources().getString(R.string.monster))) {
             sbInfo.append(buildInfoLine(R.string.split, ""));
-            sbInfo.append(buildInfoLine(R.string.attribute,
-                    info.getSCCardAttribute()));
-            sbInfo.append(buildInfoLine(
-                    R.string.level,
-                    String.format(
-                            "%d %s",
-                            info.getCardStarNum(),
-                            info.getSCCardType().contains(
-                                    getResources().getString(R.string.overlay)) ? getResources()
-                                    .getString(R.string.lad) : "")));
+            sbInfo.append(buildInfoLine(R.string.attribute, info.getSCCardAttribute()));
+            sbInfo.append(buildInfoLine(R.string.level, String.format("%d %s", info.getCardStarNum(), info.getSCCardType().contains(getResources().getString(R.string.overlay)) ? getResources().getString(R.string.lad) : "")));
             sbInfo.append(buildInfoLine(R.string.race, info.getSCCardRace()));
             sbInfo.append(buildInfoLine(R.string.attack, info.getCardAtk2()));
             sbInfo.append(buildInfoLine(R.string.defense, info.getCardDef2()));

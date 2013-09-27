@@ -4,98 +4,94 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.TextView;
-
 import com.rarnu.devlib.base.BaseFragment;
+import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.common.Config;
-import com.yugioh.android.utils.ResourceUtils;
 
 public class CardInfoAdjustFragment extends BaseFragment {
 
-	CardInfo info;
-	TextView tvAdjust;
-	TextView tvNoAdjust;
-	
-	int fontSize = -1;
-	
-	public CardInfoAdjustFragment() {
-		super();
-		tabTitle = ResourceUtils.getString(R.string.page_cardadjust);
-		tagText = ResourceUtils.getString(R.string.tag_card_adjust);
-		
-	}
+    CardInfo info;
+    TextView tvAdjust;
+    TextView tvNoAdjust;
+    int fontSize = -1;
 
-	@Override
-	public int getBarTitle() {
-		return 0;
-	}
+    public CardInfoAdjustFragment() {
+        super();
+        tabTitle = ResourceUtils.getString(R.string.page_cardadjust);
+        tagText = ResourceUtils.getString(R.string.tag_card_adjust);
 
-	@Override
-	public int getBarTitleWithPath() {
-		return 0;
-	}
+    }
 
-	@Override
-	public void initComponents() {
-		tvAdjust = (TextView) innerView.findViewById(R.id.tvAdjust);
-		tvNoAdjust = (TextView) innerView.findViewById(R.id.tvNoAdjust);
-	}
+    @Override
+    public int getBarTitle() {
+        return 0;
+    }
 
-	@Override
-	public void initEvents() {
+    @Override
+    public int getBarTitleWithPath() {
+        return 0;
+    }
 
-	}
+    @Override
+    public void initComponents() {
+        tvAdjust = (TextView) innerView.findViewById(R.id.tvAdjust);
+        tvNoAdjust = (TextView) innerView.findViewById(R.id.tvNoAdjust);
+    }
 
-	@Override
-	public void initLogic() {
-		
-		info = (CardInfo) getActivity().getIntent().getSerializableExtra(
-				"cardinfo");
-		
-		tvAdjust.setText(info.getCardAdjust());
-		tvNoAdjust.setVisibility((info.getCardAdjust() == null || info
-				.getCardAdjust().trim().equals("")) ? View.VISIBLE : View.GONE);
-		
-		fontSize = Config.cfgGetFontSize(getActivity());
-		if (fontSize == -1) {
-			fontSize = (int) tvAdjust.getTextSize();
-		}
-		tvAdjust.setTextSize(fontSize);
-	}
+    @Override
+    public void initEvents() {
 
-	@Override
-	public int getFragmentLayoutResId() {
-		return R.layout.fragment_cardinfo_adjust;
-	}
+    }
 
-	@Override
-	public String getMainActivityName() {
-		return "";
-	}
+    @Override
+    public void initLogic() {
 
-	@Override
-	public void initMenu(Menu menu) {
+        info = (CardInfo) getActivity().getIntent().getSerializableExtra("cardinfo");
 
-	}
+        tvAdjust.setText(info.getCardAdjust());
+        tvNoAdjust.setVisibility((info.getCardAdjust() == null || info.getCardAdjust().trim().equals("")) ? View.VISIBLE : View.GONE);
 
-	@Override
-	public void onGetNewArguments(Bundle bn) {
+        fontSize = Config.cfgGetFontSize(getActivity());
+        if (fontSize == -1) {
+            fontSize = (int) tvAdjust.getTextSize();
+        }
+        tvAdjust.setTextSize(fontSize);
+    }
 
-	}
+    @Override
+    public int getFragmentLayoutResId() {
+        return R.layout.fragment_cardinfo_adjust;
+    }
 
-	@Override
-	public String getCustomTitle() {
-		String title = null;
-		if (info != null) {
-			title = info.getSCCardName();
-		}
-		return title;
-	}
+    @Override
+    public String getMainActivityName() {
+        return "";
+    }
 
-	@Override
-	public Bundle getFragmentState() {
-		return null;
-	}
+    @Override
+    public void initMenu(Menu menu) {
+
+    }
+
+    @Override
+    public void onGetNewArguments(Bundle bn) {
+
+    }
+
+    @Override
+    public String getCustomTitle() {
+        String title = null;
+        if (info != null) {
+            title = info.getSCCardName();
+        }
+        return title;
+    }
+
+    @Override
+    public Bundle getFragmentState() {
+        return null;
+    }
 
 }

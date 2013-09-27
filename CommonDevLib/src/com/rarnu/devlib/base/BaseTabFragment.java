@@ -71,6 +71,7 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
         for (Fragment bf : listFragment) {
             listTags.add(((BaseFragment) bf).getTagText());
         }
+
         adapter = new BaseFragmentAdapter(getFragmentManager(), listFragment, listTags);
 
         pager.post(new Runnable() {
@@ -78,7 +79,6 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
             @Override
             public void run() {
                 pager.setAdapter(adapter);
-
             }
         });
 

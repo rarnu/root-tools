@@ -45,30 +45,30 @@ public class UpdateActivity extends BaseActivity implements IUpdateIntf {
     }
 
     private void confirmCloseUpdate() {
-        new AlertDialog.Builder(this).setTitle(R.string.hint)
+        new AlertDialog.Builder(this)
+                .setTitle(R.string.hint)
                 .setMessage(R.string.update_downloading)
                 .setPositiveButton(R.string.ok, new OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DownloadUtils.stopDownloadTask(localDir, localFile);
-                        ((IDestroyCallback) getFragmentManager()
-                                .findFragmentByTag(
-                                        getString(R.string.tag_menu_right_upfate)))
-                                .doDestroyHandler();
+                        ((IDestroyCallback) getFragmentManager().findFragmentByTag(getString(R.string.tag_menu_right_upfate))).doDestroyHandler();
                         finish();
 
                     }
-                }).setNegativeButton(R.string.cancel, null).show();
-    }
-
-    @Override
-    public void setInProgress(boolean inProgress) {
-        this.inProgress = inProgress;
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
     }
 
     @Override
     public boolean isInProgress() {
         return inProgress;
+    }
+
+    @Override
+    public void setInProgress(boolean inProgress) {
+        this.inProgress = inProgress;
     }
 
     @Override

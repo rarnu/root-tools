@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
           package="com.yugioh.android"
-          android:versionCode="30"
-          android:versionName="ver 2.0.6">
+          android:versionCode="31"
+          android:versionName="ver 2.1.0">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -18,7 +18,7 @@
             android:theme="@android:style/Theme.Holo">
         <meta-data
                 android:name="release-date"
-                android:value="2013.5.22"/>
+                android:value="2013.10.01"/>
 
         <activity
                 android:name=".MainActivity"
@@ -58,6 +58,15 @@
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity
+                android:name=".PackageCardsActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden"/>
+        <activity
+                android:name=".DeckCardActivity"
+                android:screenOrientation="portrait"
+                android:windowSoftInputMode="stateHidden"
+                />
 
         <provider
                 android:name="com.yugioh.android.database.YugiohProvider"

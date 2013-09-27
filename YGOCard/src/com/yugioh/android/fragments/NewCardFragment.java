@@ -1,6 +1,5 @@
 package com.yugioh.android.fragments;
 
-import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.database.Cursor;
@@ -12,112 +11,96 @@ import android.widget.AdapterView.OnItemClickListener;
 import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
-
 import com.rarnu.devlib.base.BaseFragment;
-import com.yugioh.android.CardInfoActivity;
+import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.R;
-import com.yugioh.android.classes.CardInfo;
-import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.FieldDefine;
 import com.yugioh.android.loader.NewCardLoader;
-import com.yugioh.android.utils.ResourceUtils;
+import com.yugioh.android.utils.MiscUtils;
 
-public class NewCardFragment extends BaseFragment implements
-		OnItemClickListener, OnLoadCompleteListener<Cursor> {
+public class NewCardFragment extends BaseFragment implements OnItemClickListener, OnLoadCompleteListener<Cursor> {
 
-	ListView lvNewCard;
-	Cursor cNewCard;
-	SimpleCursorAdapter adapterNewCard;
-	NewCardLoader loaderNewcard;
+    ListView lvNewCard;
+    Cursor cNewCard;
+    SimpleCursorAdapter adapterNewCard;
+    NewCardLoader loaderNewcard;
 
-	public NewCardFragment() {
-		super();
-		tagText = ResourceUtils.getString(R.string.tag_main_newcard);
-	}
+    public NewCardFragment() {
+        super();
+        tagText = ResourceUtils.getString(R.string.tag_main_newcard);
+    }
 
-	@Override
-	public int getBarTitle() {
-		return R.string.lm_newcard;
-	}
+    @Override
+    public int getBarTitle() {
+        return R.string.lm_newcard;
+    }
 
-	@Override
-	public int getBarTitleWithPath() {
-		return R.string.lm_newcard;
-	}
+    @Override
+    public int getBarTitleWithPath() {
+        return R.string.lm_newcard;
+    }
 
-	@Override
-	public String getCustomTitle() {
-		return null;
-	}
+    @Override
+    public String getCustomTitle() {
+        return null;
+    }
 
-	@Override
-	public int getFragmentLayoutResId() {
-		return R.layout.fragment_newcard;
-	}
+    @Override
+    public int getFragmentLayoutResId() {
+        return R.layout.fragment_newcard;
+    }
 
-	@Override
-	public String getMainActivityName() {
-		return "";
-	}
+    @Override
+    public String getMainActivityName() {
+        return "";
+    }
 
-	@Override
-	public void initComponents() {
-		lvNewCard = (ListView) innerView.findViewById(R.id.lvNewCard);
-		loaderNewcard = new NewCardLoader(getActivity());
-	}
+    @Override
+    public void initComponents() {
+        lvNewCard = (ListView) innerView.findViewById(R.id.lvNewCard);
+        loaderNewcard = new NewCardLoader(getActivity());
+    }
 
-	@Override
-	public void initEvents() {
-		lvNewCard.setOnItemClickListener(this);
-		loaderNewcard.registerListener(0, this);
-	}
+    @Override
+    public void initEvents() {
+        lvNewCard.setOnItemClickListener(this);
+        loaderNewcard.registerListener(0, this);
+    }
 
-	@Override
-	public void initLogic() {
-		loaderNewcard.startLoading();
+    @Override
+    public void initLogic() {
+        loaderNewcard.startLoading();
 
-	}
+    }
 
-	@Override
-	public void initMenu(Menu arg0) {
+    @Override
+    public void initMenu(Menu arg0) {
 
-	}
+    }
 
-	@Override
-	public void onGetNewArguments(Bundle arg0) {
+    @Override
+    public void onGetNewArguments(Bundle arg0) {
 
-	}
+    }
 
-	@Override
-	public void onItemClick(AdapterView<?> parent, View view, int position,
-			long id) {
-		cNewCard.moveToPosition(position);
-		int cardId = cNewCard.getInt(0);
-		Intent inCardInfo = new Intent(getActivity(), CardInfoActivity.class);
-		CardInfo info = YugiohUtils.getOneCard(getActivity(), cardId);
-		inCardInfo.putExtra("cardinfo", info);
-		startActivity(inCardInfo);
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        MiscUtils.openCardDetail(getActivity(), cNewCard, position);
+    }
 
-	}
+    @Override
+    public void onLoadComplete(Loader<Cursor> loader, Cursor data) {
+        if (data != null) {
+            cNewCard = data;
+            adapterNewCard = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cNewCard, new String[]{FieldDefine.DataFields[5], FieldDefine.DataFields[10]}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+            lvNewCard.setAdapter(adapterNewCard);
+        }
 
-	@Override
-	public void onLoadComplete(Loader<Cursor> loader, Cursor data) {
-		if (data != null) {
-			cNewCard = data;
-			adapterNewCard = new SimpleCursorAdapter(getActivity(),
-					R.layout.item_card, cNewCard, new String[] {
-							FieldDefine.DataFields[5],
-							FieldDefine.DataFields[10] }, new int[] {
-							R.id.tvCardName, R.id.tvCardType },
-					CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-			lvNewCard.setAdapter(adapterNewCard);
-		}
+    }
 
-	}
-	
-	@Override
-	public Bundle getFragmentState() {
-		return null;
-	}
+    @Override
+    public Bundle getFragmentState() {
+        return null;
+    }
 
 }

@@ -13,38 +13,38 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
-import com.yugioh.android.DeckCardActivity;
 import com.yugioh.android.PackageCardsActivity;
 import com.yugioh.android.R;
-import com.yugioh.android.adapter.DeckAdapter;
+import com.yugioh.android.adapter.PackageAdapter;
 import com.yugioh.android.classes.CardItems;
-import com.yugioh.android.classes.DeckItem;
-import com.yugioh.android.loader.DeckLoader;
+import com.yugioh.android.classes.PackageItem;
+import com.yugioh.android.loader.PackageLoader;
 import com.yugioh.android.utils.MiscUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class DeckFragment extends BaseFragment implements AdapterView.OnItemClickListener, Loader.OnLoadCompleteListener<List<DeckItem>> {
 
-    DeckAdapter adapter;
-    List<DeckItem> list;
-    ListView lvDeck;
-    TextView tvListNoDeck;
+public class PackageListFragment extends BaseFragment implements AdapterView.OnItemClickListener, Loader.OnLoadCompleteListener<List<PackageItem>> {
+
+    ListView lvPackage;
     TextView tvLoading;
-    DeckLoader loader;
-    private Handler hDeck = new Handler() {
+    PackageLoader loader;
+    PackageAdapter adapter;
+    TextView tvListNoPackage;
+    List<PackageItem> list;
+    private Handler hPack = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                lvDeck.setEnabled(true);
+                lvPackage.setEnabled(true);
                 tvLoading.setVisibility(View.GONE);
                 Bundle bn = new Bundle();
                 CardItems items = (CardItems) msg.obj;
                 if (items != null) {
                     bn.putIntArray("ids", items.cardIds);
                     bn.putString("pack", items.packageName);
-                    Intent inCards = new Intent(getActivity(), DeckCardActivity.class);
+                    Intent inCards = new Intent(getActivity(), PackageCardsActivity.class);
                     inCards.putExtras(bn);
                     startActivity(inCards);
                 } else {
@@ -55,19 +55,20 @@ public class DeckFragment extends BaseFragment implements AdapterView.OnItemClic
         }
     };
 
-    public DeckFragment() {
+    public PackageListFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_main_deck);
+        tagText = ResourceUtils.getString(R.string.tag_package_list);
+        tabTitle = ResourceUtils.getString(R.string.package_list);
     }
 
     @Override
     public int getBarTitle() {
-        return R.string.lm_deck;
+        return R.string.lm_package;
     }
 
     @Override
     public int getBarTitleWithPath() {
-        return R.string.lm_deck;
+        return R.string.lm_package;
     }
 
     @Override
@@ -76,8 +77,32 @@ public class DeckFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     @Override
+    public void initComponents() {
+        lvPackage = (ListView) innerView.findViewById(R.id.lvPackage);
+        tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
+        tvListNoPackage = (TextView) innerView.findViewById(R.id.tvListNoPackage);
+        loader = new PackageLoader(getActivity());
+        list = new ArrayList<PackageItem>();
+        adapter = new PackageAdapter(getActivity(), list);
+        lvPackage.setAdapter(adapter);
+    }
+
+    @Override
+    public void initEvents() {
+        lvPackage.setOnItemClickListener(this);
+        loader.registerListener(0, this);
+    }
+
+    @Override
+    public void initLogic() {
+        tvListNoPackage.setText(R.string.list_nocard_searching);
+        tvLoading.setVisibility(View.VISIBLE);
+        loader.startLoading();
+    }
+
+    @Override
     public int getFragmentLayoutResId() {
-        return R.layout.fragment_deck;
+        return R.layout.fragment_package_list;
     }
 
     @Override
@@ -86,37 +111,11 @@ public class DeckFragment extends BaseFragment implements AdapterView.OnItemClic
     }
 
     @Override
-    public void initComponents() {
-        lvDeck = (ListView) innerView.findViewById(R.id.lvDeck);
-        tvListNoDeck = (TextView) innerView.findViewById(R.id.tvListNoDeck);
-        tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
-        loader = new DeckLoader(getActivity());
-        list = new ArrayList<DeckItem>();
-        adapter = new DeckAdapter(getActivity(), list);
-        lvDeck.setAdapter(adapter);
+    public void initMenu(Menu menu) {
     }
 
     @Override
-    public void initEvents() {
-        loader.registerListener(0, this);
-        lvDeck.setOnItemClickListener(this);
-    }
-
-    @Override
-    public void initLogic() {
-        tvLoading.setVisibility(View.VISIBLE);
-        tvListNoDeck.setText(R.string.list_nocard_searching);
-        loader.startLoading();
-    }
-
-    @Override
-    public void initMenu(Menu arg0) {
-
-    }
-
-    @Override
-    public void onGetNewArguments(Bundle arg0) {
-
+    public void onGetNewArguments(Bundle bn) {
     }
 
     @Override
@@ -126,21 +125,21 @@ public class DeckFragment extends BaseFragment implements AdapterView.OnItemClic
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        lvDeck.setEnabled(false);
         tvLoading.setVisibility(View.VISIBLE);
-        DeckItem item = list.get(position);
-        MiscUtils.loadCardsDataT(1, item.id, hDeck);
+        lvPackage.setEnabled(false);
+        PackageItem item = list.get(position);
+        MiscUtils.loadCardsDataT(0, item.id, hPack);
     }
 
     @Override
-    public void onLoadComplete(Loader<List<DeckItem>> loader, List<DeckItem> data) {
+    public void onLoadComplete(Loader<List<PackageItem>> loader, List<PackageItem> data) {
         list.clear();
         if (data != null) {
             list.addAll(data);
             adapter.setNewList(list);
             tvLoading.setVisibility(View.GONE);
-            tvListNoDeck.setVisibility(list.size() == 0 ? View.VISIBLE : View.GONE);
-            tvListNoDeck.setText(R.string.deck_nocard);
+            tvListNoPackage.setVisibility(list.size() == 0 ? View.VISIBLE : View.GONE);
+            tvListNoPackage.setText(R.string.package_nocard);
         }
     }
 }

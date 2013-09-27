@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
+
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="8dip">
 
-    <ListView android:id="@+id/lvDeck"
+    <ListView android:id="@+id/lvPackage"
               android:layout_width="match_parent"
               android:layout_height="match_parent"
-              android:fadeScrollbars="true"
-              android:cacheColorHint="#00000000"/>
+              android:cacheColorHint="#00000000"
+              android:fastScrollEnabled="true"
+            />
 
     <TextView
-            android:id="@+id/tvListNoDeck"
+            android:id="@+id/tvListNoPackage"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="4dip"
-            android:text="@string/deck_nocard"
+            android:text="@string/package_nocard"
             android:textColor="?android:attr/textColorPrimary"/>
 
     <TextView android:id="@+id/tvLoading"

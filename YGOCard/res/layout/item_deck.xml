@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="48dip">
+
+    <TextView
+            android:id="@+id/tvDeckName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="4dip"
+            android:gravity="left|center_vertical"
+            android:layout_toLeftOf="@+id/tvDeckTitle"
+            android:textColor="?android:attr/textColorPrimary"/>
+
+    <TextView android:id="@+id/tvDeckType"
+              android:layout_width="wrap_content"
+              android:layout_height="match_parent"
+              android:layout_alignParentRight="true"
+              android:layout_marginRight="4dip"
+              android:textColor="?android:attr/textColorSecondary"
+              android:gravity="right|center_vertical"/>
+
+</RelativeLayout>

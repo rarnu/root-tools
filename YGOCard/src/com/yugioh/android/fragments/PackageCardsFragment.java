@@ -1,64 +1,70 @@
 package com.yugioh.android.fragments;
 
 import android.content.Loader;
-import android.content.Loader.OnLoadCompleteListener;
 import android.database.Cursor;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
 import android.widget.*;
-import android.widget.AdapterView.OnItemClickListener;
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.base.BaseTabFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.define.FieldDefine;
 import com.yugioh.android.loader.SearchLoader;
 import com.yugioh.android.utils.MiscUtils;
 
-public class SearchResultFragment extends BaseFragment implements OnItemClickListener, OnLoadCompleteListener<Cursor> {
 
+public class PackageCardsFragment extends BaseFragment implements Loader.OnLoadCompleteListener<Cursor>, AdapterView.OnItemClickListener {
+
+    ListView lvCards;
+    TextView tvListNoCard;
+    SearchLoader loader;
     Cursor cSearchResult;
     SimpleCursorAdapter adapterSearchResult;
-    ListView lvList;
-    TextView tvListNoCard;
-    SearchLoader loaderSearch;
 
-    public SearchResultFragment() {
+    public PackageCardsFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_main_result);
-        tabTitle = ResourceUtils.getString(R.string.page_list);
+        tagText = ResourceUtils.getString(R.string.tag_package_cards);
+        tabTitle = ResourceUtils.getString(R.string.package_cards);
     }
 
     @Override
     public int getBarTitle() {
-        return R.string.app_name;
+        return 0;
     }
 
     @Override
     public int getBarTitleWithPath() {
-        return R.string.app_name;
+        return 0;
+    }
+
+    @Override
+    public String getCustomTitle() {
+        return getArguments().getString("pack");
     }
 
     @Override
     public void initComponents() {
-        lvList = (ListView) innerView.findViewById(R.id.lvList);
+        lvCards = (ListView) innerView.findViewById(R.id.lvCards);
         tvListNoCard = (TextView) innerView.findViewById(R.id.tvListNoCard);
+        loader = new SearchLoader(getActivity(), getArguments());
     }
 
     @Override
     public void initEvents() {
-        lvList.setOnItemClickListener(this);
+        loader.registerListener(0, this);
+        lvCards.setOnItemClickListener(this);
     }
 
     @Override
     public void initLogic() {
-
+        tvListNoCard.setText(R.string.list_nocard_searching);
+        loader.startLoading();
     }
 
     @Override
     public int getFragmentLayoutResId() {
-        return R.layout.fragment_search_result;
+        return R.layout.fragment_package_cards;
     }
 
     @Override
@@ -68,28 +74,14 @@ public class SearchResultFragment extends BaseFragment implements OnItemClickLis
 
     @Override
     public void initMenu(Menu menu) {
-
     }
 
     @Override
     public void onGetNewArguments(Bundle bn) {
-        tvListNoCard.setText(R.string.list_nocard_searching);
-        BaseTabFragment btf = (BaseTabFragment) getFragmentManager().findFragmentByTag(getString(R.string.tag_main));
-        btf.setTabPosition(1);
-
-        loaderSearch = new SearchLoader(getActivity(), bn);
-        loaderSearch.registerListener(0, this);
-        loaderSearch.startLoading();
-
     }
 
     @Override
-    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        MiscUtils.openCardDetail(getActivity(), cSearchResult, position);
-    }
-
-    @Override
-    public String getCustomTitle() {
+    public Bundle getFragmentState() {
         return null;
     }
 
@@ -98,17 +90,14 @@ public class SearchResultFragment extends BaseFragment implements OnItemClickLis
         if (data != null) {
             cSearchResult = data;
             adapterSearchResult = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cSearchResult, new String[]{FieldDefine.DataFields[5], FieldDefine.DataFields[10]}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-            lvList.setAdapter(adapterSearchResult);
+            lvCards.setAdapter(adapterSearchResult);
             tvListNoCard.setVisibility(adapterSearchResult.getCount() == 0 ? View.VISIBLE : View.GONE);
-            tvListNoCard.setText(R.string.list_nocard);
-
+            tvListNoCard.setText(R.string.package_nocard);
         }
-
     }
 
     @Override
-    public Bundle getFragmentState() {
-        return null;
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        MiscUtils.openCardDetail(getActivity(), cSearchResult, position);
     }
-
 }

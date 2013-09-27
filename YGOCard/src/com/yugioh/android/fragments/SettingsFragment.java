@@ -11,11 +11,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.FileUtils;
-import com.rarnu.utils.UIUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.common.Config;
 import com.yugioh.android.define.PathDefine;
-import com.yugioh.android.utils.DeviceUtils;
 
 public class SettingsFragment extends BaseFragment implements OnClickListener {
 
@@ -63,7 +61,7 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 
     @Override
     public void initLogic() {
-        ivFitable.setImageResource(fits[DeviceUtils.getFitable(UIUtils.getDM())]);
+        ivFitable.setImageResource(fits[9]);
 
         fontSize = Config.cfgGetFontSize(getActivity());
         if (fontSize == -1) {

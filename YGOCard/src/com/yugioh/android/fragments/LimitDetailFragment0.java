@@ -1,7 +1,7 @@
 package com.yugioh.android.fragments;
 
 import com.yugioh.android.R;
-import com.yugioh.android.utils.ResourceUtils;
+import com.rarnu.utils.ResourceUtils;
 
 public class LimitDetailFragment0 extends LimitDetailFragment {
 

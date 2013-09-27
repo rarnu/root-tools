@@ -6,168 +6,185 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
-
+import android.widget.Toast;
 import com.rarnu.devlib.base.BaseSlidingActivity;
 import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.component.SlidingMenu;
+import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.database.YugiohDatabase;
-import com.yugioh.android.fragments.DeckFragment;
-import com.yugioh.android.fragments.DuelToolFragment;
-import com.yugioh.android.fragments.LeftMenuFragment;
-import com.yugioh.android.fragments.LimitFragment;
-import com.yugioh.android.fragments.MainFragment;
-import com.yugioh.android.fragments.NewCardFragment;
-import com.yugioh.android.fragments.RightMenuFragment;
+import com.yugioh.android.fragments.*;
 import com.yugioh.android.intf.IMainIntf;
-import com.yugioh.android.utils.ResourceUtils;
+import com.yugioh.android.utils.UpdateUtils;
 
 public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
-	int currentPage = 0;
+    public static final String ACTION_CLOSE_MAIN = "com.yugioh.android.close.main";
+    public CloseReceiver receiverClose = new CloseReceiver();
+    public IntentFilter filterClose = new IntentFilter(ACTION_CLOSE_MAIN);
+    int currentPage = 0;
+    private Handler hUpdate = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                UpdateInfo updateInfo = (UpdateInfo) msg.obj;
+                if (updateInfo != null) {
+                    int hasUpdate = updateInfo.getUpdateApk() + updateInfo.getUpdateData();
+                    if (hasUpdate != 0) {
+                        Toast.makeText(MainActivity.this, R.string.update_hint, Toast.LENGTH_LONG).show();
+                    }
+                }
 
-	@Override
-	public void onCreate(Bundle savedInstanceState) {
-		UIUtils.initDisplayMetrics(this, getWindowManager(), false);
-		ResourceUtils.init(this);
-		super.onCreate(savedInstanceState);
-		registerReceiver(receiverClose, filterClose);
+            }
+            super.handleMessage(msg);
+        }
+    };
 
-		if (!YugiohDatabase.isDatabaseFileExists()) {
-			UpdateInfo updateInfo = new UpdateInfo();
-			updateInfo.setUpdateApk(0);
-			updateInfo.setUpdateData(1);
-			Intent inUpdate = new Intent(this, UpdateActivity.class);
-			inUpdate.putExtra("update", updateInfo);
-			startActivity(inUpdate);
-			finish();
-		}
-	}
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        UIUtils.initDisplayMetrics(this, getWindowManager(), false);
+        ResourceUtils.init(this);
+        super.onCreate(savedInstanceState);
+        registerReceiver(receiverClose, filterClose);
 
-	@Override
-	protected void onDestroy() {
-		unregisterReceiver(receiverClose);
-		super.onDestroy();
-	}
+        if (!YugiohDatabase.isDatabaseFileExists()) {
+            UpdateInfo updateInfo = new UpdateInfo();
+            updateInfo.setUpdateApk(0);
+            updateInfo.setUpdateData(1);
+            Intent inUpdate = new Intent(this, UpdateActivity.class);
+            inUpdate.putExtra("update", updateInfo);
+            startActivity(inUpdate);
+            finish();
+        } else {
+            checkUpdate();
+        }
+    }
 
-	@Override
-	public void loadFragments() {
+    private void checkUpdate() {
+        UpdateUtils.checkUpdateT(this, hUpdate);
+    }
 
-	}
+    @Override
+    protected void onDestroy() {
+        unregisterReceiver(receiverClose);
+        super.onDestroy();
+    }
 
-	@Override
-	public void releaseFragments() {
+    @Override
+    public void loadFragments() {
 
-	}
+    }
 
-	@Override
-	public Fragment replaceMenuFragment() {
-		return new LeftMenuFragment();
-	}
+    @Override
+    public void releaseFragments() {
 
-	@Override
-	public Fragment replaceSecondMenuFragment() {
-		return new RightMenuFragment();
-	}
+    }
 
-	@Override
-	public int getBehindOffset() {
-		return UIUtils.dipToPx(150);
-	}
+    @Override
+    public Fragment replaceMenuFragment() {
+        return new LeftMenuFragment();
+    }
 
-	@Override
-	public int getAboveTouchMode() {
-		return SlidingMenu.TOUCHMODE_MARGIN;
-	}
+    @Override
+    public Fragment replaceSecondMenuFragment() {
+        return new RightMenuFragment();
+    }
 
-	@Override
-	public int getBehindTouchMode() {
-		return SlidingMenu.TOUCHMODE_MARGIN;
-	}
+    @Override
+    public int getBehindOffset() {
+        return UIUtils.dipToPx(150);
+    }
 
-	@Override
-	public int getSlideMode() {
-		return SlidingMenu.LEFT_RIGHT;
-	}
+    @Override
+    public int getAboveTouchMode() {
+        return SlidingMenu.TOUCHMODE_MARGIN;
+    }
 
-	@Override
-	public int getIcon() {
-		return R.drawable.icon;
-	}
+    @Override
+    public int getBehindTouchMode() {
+        return SlidingMenu.TOUCHMODE_MARGIN;
+    }
 
-	@Override
-	public Fragment replaceFragment() {
-		return new MainFragment();
-	}
+    @Override
+    public int getSlideMode() {
+        return SlidingMenu.LEFT_RIGHT;
+    }
 
-	@Override
-	public void switchPage(int page, boolean needToggle) {
-		if (currentPage != page) {
-			currentPage = page;
-			Fragment f = getCurrentFragment(currentPage);
-			if (!f.isAdded()) {
-				getFragmentManager()
-						.beginTransaction()
-						.replace(R.id.fReplacement, f,
-								((InnerFragment) f).getTagText()).commit();
-			}
-			getActionBar().setTitle(
-					getString(((InnerFragment) f).getBarTitle()));
-		}
-		if (needToggle) {
-			toggle();
-		}
-	}
+    @Override
+    public int getIcon() {
+        return R.drawable.icon;
+    }
 
-	private Fragment getCurrentFragment(int page) {
-		Fragment f = null;
-		switch (page) {
-		case 0:
-			// MAIN
-			f = new MainFragment();
-			break;
-		case 1:
-			// LIMIT
-			f = new LimitFragment();
-			break;
-		case 2:
-			// NEW CARD
-			f = new NewCardFragment();
-			break;
-		case 3:
-			// DECK
-			f = new DeckFragment();
-			break;
-		case 4:
-			// DUEL TOOL
-			f = new DuelToolFragment();
-			break;
-		}
-		return f;
-	}
+    @Override
+    public Fragment replaceFragment() {
+        return new MainFragment();
+    }
 
-	@Override
-	public boolean onKeyDown(int keyCode, KeyEvent event) {
-		if (currentPage != 0 && keyCode == KeyEvent.KEYCODE_BACK) {
-			switchPage(0, false);
-			return true;
-		}
-		return super.onKeyDown(keyCode, event);
-	}
+    @Override
+    public void switchPage(int page, boolean needToggle) {
+        if (currentPage != page) {
+            currentPage = page;
+            Fragment f = getCurrentFragment(currentPage);
+            if (!f.isAdded()) {
+                getFragmentManager().beginTransaction().replace(R.id.fReplacement, f, ((InnerFragment) f).getTagText()).commit();
+            }
+            getActionBar().setTitle(getString(((InnerFragment) f).getBarTitle()));
+        }
+        if (needToggle) {
+            toggle();
+        }
+    }
 
-	public static final String ACTION_CLOSE_MAIN = "com.yugioh.android.close.main";
+    private Fragment getCurrentFragment(int page) {
+        Fragment f = null;
+        switch (page) {
+            case 0:
+                // MAIN
+                f = new MainFragment();
+                break;
+            case 1:
+                // LIMIT
+                f = new LimitFragment();
+                break;
+            case 2:
+                // NEW CARD
+                f = new NewCardFragment();
+                break;
+            case 3:
+                // PACKAGE
+                f = new PackageListFragment();
+                break;
+            case 4:
+                // DECK
+                f = new DeckFragment();
+                break;
+            case 5:
+                // DUEL TOOL
+                f = new DuelToolFragment();
+                break;
+        }
+        return f;
+    }
 
-	public class CloseReceiver extends BroadcastReceiver {
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (currentPage != 0 && keyCode == KeyEvent.KEYCODE_BACK) {
+            switchPage(0, false);
+            return true;
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			MainActivity.this.finish();
-		}
-	}
+    public class CloseReceiver extends BroadcastReceiver {
 
-	public CloseReceiver receiverClose = new CloseReceiver();
-	public IntentFilter filterClose = new IntentFilter(ACTION_CLOSE_MAIN);
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            MainActivity.this.finish();
+        }
+    }
 
 }

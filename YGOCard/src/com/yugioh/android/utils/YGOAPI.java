@@ -1,63 +1,120 @@
 package com.yugioh.android.utils;
 
-import java.util.ArrayList;
-import java.util.List;
-
+import android.content.Context;
+import com.rarnu.utils.DeviceUtilsLite;
+import com.rarnu.utils.HttpRequest;
+import com.yugioh.android.classes.*;
+import com.yugioh.android.define.NetworkDefine;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
-import android.content.Context;
-
-import com.rarnu.utils.HttpRequest;
-import com.yugioh.android.classes.RecommandInfo;
-import com.yugioh.android.classes.UpdateInfo;
-import com.yugioh.android.define.NetworkDefine;
+import java.util.ArrayList;
+import java.util.List;
 
 public class YGOAPI {
 
-	public static UpdateInfo findUpdate(Context context, int lastCardId) {
-		String param = String.format(NetworkDefine.UPDATE_PARAM_FMT,
-				DeviceUtils.getAppVersionCode(context), lastCardId);
-		UpdateInfo ui = null;
-		try {
-			String jsonstr = HttpRequest.get(NetworkDefine.UPDATE_URL, param,
-					HTTP.UTF_8);
-			JSONObject json = new JSONObject(jsonstr);
-			ui = new UpdateInfo();
-			ui.setUpdateApk(json.getInt("apk"));
-			ui.setUpdateData(json.getInt("data"));
-			ui.setNewCard(json.getInt("newcard"));
-			ui.setApkVersion(json.getString("apkversion"));
-		} catch (Exception e) {
+    public static UpdateInfo findUpdate(Context context, int lastCardId) {
+        String param = String.format(NetworkDefine.UPDATE_PARAM_FMT, DeviceUtilsLite.getAppVersionCode(context), lastCardId);
+        UpdateInfo ui = null;
+        try {
+            String jsonstr = HttpRequest.get(NetworkDefine.UPDATE_URL, param, HTTP.UTF_8);
+            JSONObject json = new JSONObject(jsonstr);
+            ui = new UpdateInfo();
+            ui.setUpdateApk(json.getInt("apk"));
+            ui.setUpdateData(json.getInt("data"));
+            ui.setNewCard(json.getInt("newcard"));
+            ui.setApkVersion(json.getString("apkversion"));
+        } catch (Exception e) {
 
-		}
-		return ui;
+        }
+        return ui;
 
-	}
+    }
 
-	public static List<RecommandInfo> getRecommands() {
-		List<RecommandInfo> list = null;
-		try {
-			String ret = HttpRequest.get(NetworkDefine.RECOMMAND_URL, "",
-					HTTP.UTF_8);
-			JSONObject json = new JSONObject(ret);
-			JSONArray jarr = json.getJSONArray("data");
-			list = new ArrayList<RecommandInfo>();
-			for (int i = 0; i < jarr.length(); i++) {
-				RecommandInfo item = new RecommandInfo();
-				item.id = jarr.getJSONObject(i).getInt("id");
-				item.name = jarr.getJSONObject(i).getString("name");
-				item.jumpMode = jarr.getJSONObject(i).getInt("jump_mode");
-				item.jumpUrl = jarr.getJSONObject(i).getString("jump_url");
-				item.jumpText = jarr.getJSONObject(i).getString("jump_text");
-				item.imagePath = jarr.getJSONObject(i).getString("image_name");
-				item.bigQR = jarr.getJSONObject(i).getString("big_qr");
-				list.add(item);
-			}
-		} catch (Exception e) {
+    public static List<RecommandInfo> getRecommands() {
+        List<RecommandInfo> list = null;
+        try {
+            String ret = HttpRequest.get(NetworkDefine.RECOMMAND_URL, "", HTTP.UTF_8);
+            JSONObject json = new JSONObject(ret);
+            JSONArray jarr = json.getJSONArray("data");
+            list = new ArrayList<RecommandInfo>();
+            for (int i = 0; i < jarr.length(); i++) {
+                RecommandInfo item = new RecommandInfo();
+                item.id = jarr.getJSONObject(i).getInt("id");
+                item.name = jarr.getJSONObject(i).getString("name");
+                item.jumpMode = jarr.getJSONObject(i).getInt("jump_mode");
+                item.jumpUrl = jarr.getJSONObject(i).getString("jump_url");
+                item.jumpText = jarr.getJSONObject(i).getString("jump_text");
+                item.imagePath = jarr.getJSONObject(i).getString("image_name");
+                item.bigQR = jarr.getJSONObject(i).getString("big_qr");
+                list.add(item);
+            }
+        } catch (Exception e) {
 
-		}
-		return list;
-	}
+        }
+        return list;
+    }
+
+    public static List<PackageItem> getPackageList() {
+        List<PackageItem> list = null;
+        try {
+            String ret = HttpRequest.get(NetworkDefine.URL_OCGSOFT_GET_PACKAGE, "", HTTP.UTF_8);
+            JSONArray jarr = new JSONArray(ret);
+
+            list = new ArrayList<PackageItem>();
+            JSONObject jobj = null;
+            JSONArray jarrPkg = null;
+            for (int i = 0; i < jarr.length(); i++) {
+                jobj = jarr.getJSONObject(i);
+                list.add(new PackageItem(true, "", jobj.getString("serial")));
+                jarrPkg = jobj.getJSONArray("packages");
+                for (int j = 0; j < jarrPkg.length(); j++) {
+                    list.add(new PackageItem(false, jarrPkg.getJSONObject(j).getString("id"), jarrPkg.getJSONObject(j).getString("name")));
+                }
+            }
+        } catch (Exception e) {
+
+        }
+        return list;
+    }
+
+    public static CardItems getPackageCards(String id) {
+        CardItems item = null;
+        try {
+            String ret = HttpRequest.get(NetworkDefine.URL_OCGSOFT_GET_PACKAGE_CARD, String.format("id=%s", id), HTTP.UTF_8);
+            JSONObject json = new JSONObject(ret);
+            item = new CardItems();
+            item.packageName = json.getString("package");
+            JSONArray jarr = json.getJSONArray("cards");
+            item.cardIds = new int[jarr.length()];
+            for (int i = 0; i < jarr.length(); i++) {
+                item.cardIds[i] = jarr.getInt(i);
+            }
+        } catch (Exception e) {
+
+        }
+        return item;
+    }
+
+    public static List<DeckItem> getDeckList() {
+        // TODO: fake method
+        List<DeckItem> list = new ArrayList<DeckItem>();
+        list.add(new DeckItem("1", "DEMO1", "DEMO"));
+        list.add(new DeckItem("2", "DEMO2", "DEMO"));
+        list.add(new DeckItem("3", "DEMO3", "DEMO"));
+
+        return list;
+    }
+
+    public static CardItems getDeckCards(String id) {
+        // TODO: fake method
+        CardItems items = new CardItems();
+        items.packageName = id;
+        items.cardIds = new int[40];
+        for (int i = 0; i < 40; i++) {
+            items.cardIds[i] = i + 50;
+        }
+        return items;
+    }
 }

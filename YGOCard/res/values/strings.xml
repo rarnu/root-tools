@@ -32,6 +32,7 @@
     <string name="lm_search">卡片搜索</string>
     <string name="lm_banned">禁限卡表</string>
     <string name="lm_newcard">最新卡片</string>
+    <string name="lm_package">卡包</string>
     <string name="lm_deck">卡组</string>
     <string name="lm_tool">决斗工具</string>
     <string name="lm_exit">退出</string>
@@ -69,6 +70,16 @@
     <string name="search_search">搜索卡片</string>
     <string name="search_reset">条件复位</string>
     <string name="search_na">不限</string>
+
+    <!-- package -->
+    <string name="package_list">卡包列表</string>
+    <string name="package_cards">卡片内容</string>
+    <string name="package_nocard">没有卡片, 请先选定卡包</string>
+    <string name="package_cannot_load">无法加载卡包, 请稍后重试...</string>
+
+    <!-- deck -->
+    <string name="deck_nocard">没有找到卡组, 请稍后重试...</string>
+    <string name="deck_cannot_load">无法加载卡组, 请稍后重试...</string>
 
     <!-- list -->
     <string name="list_nocard">没有卡片，请进行搜索</string>
@@ -185,6 +196,7 @@
     <string name="update_data">数据包</string>
     <string name="update_renew">更新</string>
     <string name="update_install">安装</string>
+    <string name="update_hint">发现更新，请向右侧滑动来进入更新界面</string>
     <string name="update_task" formatted="false">剩余任务: %d</string>
     <string name="update_download_data_finish">卡片数据库下载完毕，重新启动本软件即可开始使用</string>
     <string name="update_data_finished">本次更新包含了数据库的更新，请重新启动本软件以启用新的数据库</string>

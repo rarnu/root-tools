@@ -1,10 +1,7 @@
 package com.yugioh.android.fragments;
 
-import java.io.File;
-
 import android.app.AlertDialog;
 import android.content.DialogInterface;
-import android.content.DialogInterface.OnClickListener;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -12,14 +9,15 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.FileUtils;
+import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.ZipUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.UpdateInfo;
@@ -29,303 +27,285 @@ import com.yugioh.android.define.NetworkDefine;
 import com.yugioh.android.define.PathDefine;
 import com.yugioh.android.intf.IDestroyCallback;
 import com.yugioh.android.intf.IUpdateIntf;
-import com.yugioh.android.utils.ResourceUtils;
 
-public class UpdateFragment extends BaseFragment implements IDestroyCallback,
-		android.view.View.OnClickListener {
+import java.io.File;
 
-	final String dbSource = PathDefine.DOWNLOAD_PATH + PathDefine.DATA_ZIP;
-	final String apkSource = PathDefine.DOWNLOAD_PATH + PathDefine.APK_NAME;
+public class UpdateFragment extends BaseFragment implements IDestroyCallback, OnClickListener {
 
-	Button btnUpdateApk, btnUpdateData;
-	TextView tvApkInfo, tvDataInfo;
-	ProgressBar pbDownlaodingApk, pbDownlaodingData;
-	RelativeLayout layUpdateApk, layNoDatabase;
+    final String dbSource = PathDefine.DOWNLOAD_PATH + PathDefine.DATA_ZIP;
+    final String apkSource = PathDefine.DOWNLOAD_PATH + PathDefine.APK_NAME;
+    Button btnUpdateApk, btnUpdateData;
+    TextView tvApkInfo, tvDataInfo;
+    ProgressBar pbDownlaodingApk, pbDownlaodingData;
+    RelativeLayout layUpdateApk, layNoDatabase;
+    UpdateInfo updateInfo = null;
+    boolean hasData = YugiohDatabase.isDatabaseFileExists();
+    private Handler hApkTask = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case DownloadUtils.WHAT_DOWNLOAD_START:
+                case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
+                    pbDownlaodingApk.setMax(msg.arg2);
+                    pbDownlaodingApk.setProgress(msg.arg1);
+                    break;
+                case DownloadUtils.WHAT_DOWNLOAD_FINISH:
+                    try {
+                        pbDownlaodingApk.setVisibility(View.GONE);
+                        ((IUpdateIntf) getActivity()).setInProgress(false);
+                        updateInfo.setUpdateApk(-1);
+                        updateCurrentStatus();
+                        updateDisabled(true);
 
-	UpdateInfo updateInfo = null;
-	boolean hasData = YugiohDatabase.isDatabaseFileExists();
+                    } catch (Exception e) {
 
-	public UpdateFragment() {
-		super();
-		tagText = ResourceUtils.getString(R.string.tag_menu_right_upfate);
-	}
+                    }
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+    private Handler hDataTask = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case DownloadUtils.WHAT_DOWNLOAD_START:
+                case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
+                    pbDownlaodingData.setMax(msg.arg2);
+                    pbDownlaodingData.setProgress(msg.arg1);
+                    break;
+                case DownloadUtils.WHAT_DOWNLOAD_FINISH:
+                    unzipDataT();
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+    private Handler hUnzip = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
 
-	@Override
-	public int getBarTitle() {
-		return R.string.page_update;
-	}
+                pbDownlaodingData.setVisibility(View.GONE);
+                ((IUpdateIntf) getActivity()).setInProgress(false);
+                updateInfo.setUpdateData(0);
+                updateCurrentStatus();
+                updateDisabled(true);
+                if (!hasData) {
+                    confirmClose();
+                }
+            }
+            super.handleMessage(msg);
+        }
+    };
 
-	@Override
-	public int getBarTitleWithPath() {
-		return R.string.page_update;
-	}
+    public UpdateFragment() {
+        super();
+        tagText = ResourceUtils.getString(R.string.tag_menu_right_upfate);
+    }
 
-	@Override
-	public String getCustomTitle() {
-		return null;
-	}
+    @Override
+    public int getBarTitle() {
+        return R.string.page_update;
+    }
 
-	@Override
-	public int getFragmentLayoutResId() {
-		return R.layout.fragment_update;
-	}
+    @Override
+    public int getBarTitleWithPath() {
+        return R.string.page_update;
+    }
 
-	@Override
-	public String getMainActivityName() {
-		return "";
-	}
+    @Override
+    public String getCustomTitle() {
+        return null;
+    }
 
-	@Override
-	public void initComponents() {
-		layUpdateApk = (RelativeLayout) innerView
-				.findViewById(R.id.layUpdateApk);
-		layNoDatabase = (RelativeLayout) innerView
-				.findViewById(R.id.layNoDatabase);
-		btnUpdateApk = (Button) innerView.findViewById(R.id.btnUpdateApk);
-		btnUpdateData = (Button) innerView.findViewById(R.id.btnUpdateData);
-		tvApkInfo = (TextView) innerView.findViewById(R.id.tvApkInfo);
-		tvDataInfo = (TextView) innerView.findViewById(R.id.tvDataInfo);
-		pbDownlaodingApk = (ProgressBar) innerView
-				.findViewById(R.id.pbDownlaodingApk);
-		pbDownlaodingData = (ProgressBar) innerView
-				.findViewById(R.id.pbDownlaodingData);
-	}
+    @Override
+    public int getFragmentLayoutResId() {
+        return R.layout.fragment_update;
+    }
 
-	@Override
-	public void initEvents() {
-		btnUpdateApk.setOnClickListener(this);
-		btnUpdateData.setOnClickListener(this);
-	}
+    @Override
+    public String getMainActivityName() {
+        return "";
+    }
 
-	@Override
-	public void initLogic() {
-		File fDownload = new File(PathDefine.DOWNLOAD_PATH);
-		if (!fDownload.exists()) {
-			fDownload.mkdirs();
-		}
-		updateInfo = (UpdateInfo) getActivity().getIntent()
-				.getSerializableExtra("update");
-		updateCurrentStatus();
-		updateDisabled(true);
-	}
+    @Override
+    public void initComponents() {
+        layUpdateApk = (RelativeLayout) innerView.findViewById(R.id.layUpdateApk);
+        layNoDatabase = (RelativeLayout) innerView.findViewById(R.id.layNoDatabase);
+        btnUpdateApk = (Button) innerView.findViewById(R.id.btnUpdateApk);
+        btnUpdateData = (Button) innerView.findViewById(R.id.btnUpdateData);
+        tvApkInfo = (TextView) innerView.findViewById(R.id.tvApkInfo);
+        tvDataInfo = (TextView) innerView.findViewById(R.id.tvDataInfo);
+        pbDownlaodingApk = (ProgressBar) innerView.findViewById(R.id.pbDownlaodingApk);
+        pbDownlaodingData = (ProgressBar) innerView.findViewById(R.id.pbDownlaodingData);
+    }
 
-	private void updateCurrentStatus() {
+    @Override
+    public void initEvents() {
+        btnUpdateApk.setOnClickListener(this);
+        btnUpdateData.setOnClickListener(this);
+    }
 
-		tvApkInfo.setVisibility(View.VISIBLE);
-		tvDataInfo.setVisibility(View.VISIBLE);
-		if (hasData) {
-			switch (updateInfo.getUpdateApk()) {
-			case -1:
-				tvApkInfo.setText(getString(R.string.update_apk_fmt,
-						updateInfo.getApkVersion()));
-				btnUpdateApk.setText(R.string.update_install);
-				break;
-			case 0:
-				tvApkInfo.setText(R.string.update_no_apk);
-				btnUpdateApk.setText(R.string.update_renew);
-				break;
-			default:
-				tvApkInfo.setText(getString(R.string.update_apk_fmt,
-						updateInfo.getApkVersion()));
-				btnUpdateApk.setText(R.string.update_renew);
-				break;
+    @Override
+    public void initLogic() {
+        File fDownload = new File(PathDefine.DOWNLOAD_PATH);
+        if (!fDownload.exists()) {
+            fDownload.mkdirs();
+        }
+        updateInfo = (UpdateInfo) getActivity().getIntent().getSerializableExtra("update");
+        updateCurrentStatus();
+        updateDisabled(true);
+    }
 
-			}
-		}
-		switch (updateInfo.getUpdateData()) {
-		case 0:
-			tvDataInfo.setText(R.string.update_no_data);
-			break;
-		default:
-			if (!hasData) {
-				tvDataInfo.setText(R.string.update_data_full);
-			} else {
-				tvDataInfo.setText(getString(R.string.update_data_fmt,
-						updateInfo.getNewCard()));
-			}
-			break;
-		}
+    private void updateCurrentStatus() {
 
-		if (!hasData) {
-			layUpdateApk.setVisibility(View.GONE);
-			layNoDatabase.setVisibility(View.VISIBLE);
-		} else {
-			layUpdateApk.setVisibility(View.VISIBLE);
-			layNoDatabase.setVisibility(View.GONE);
-		}
+        tvApkInfo.setVisibility(View.VISIBLE);
+        tvDataInfo.setVisibility(View.VISIBLE);
+        if (hasData) {
+            switch (updateInfo.getUpdateApk()) {
+                case -1:
+                    tvApkInfo.setText(getString(R.string.update_apk_fmt, updateInfo.getApkVersion()));
+                    btnUpdateApk.setText(R.string.update_install);
+                    break;
+                case 0:
+                    tvApkInfo.setText(R.string.update_no_apk);
+                    btnUpdateApk.setText(R.string.update_renew);
+                    break;
+                default:
+                    tvApkInfo.setText(getString(R.string.update_apk_fmt, updateInfo.getApkVersion()));
+                    btnUpdateApk.setText(R.string.update_renew);
+                    break;
 
-	}
+            }
+        }
+        switch (updateInfo.getUpdateData()) {
+            case 0:
+                tvDataInfo.setText(R.string.update_no_data);
+                break;
+            default:
+                if (!hasData) {
+                    tvDataInfo.setText(R.string.update_data_full);
+                } else {
+                    tvDataInfo.setText(getString(R.string.update_data_fmt, updateInfo.getNewCard()));
+                }
+                break;
+        }
 
-	@Override
-	public void initMenu(Menu menu) {
+        if (!hasData) {
+            layUpdateApk.setVisibility(View.GONE);
+            layNoDatabase.setVisibility(View.VISIBLE);
+        } else {
+            layUpdateApk.setVisibility(View.VISIBLE);
+            layNoDatabase.setVisibility(View.GONE);
+        }
 
-	}
+    }
 
-	@Override
-	public void onGetNewArguments(Bundle bn) {
+    @Override
+    public void initMenu(Menu menu) {
 
-	}
+    }
 
-	private Handler hApkTask = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case DownloadUtils.WHAT_DOWNLOAD_START:
-			case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
-				pbDownlaodingApk.setMax(msg.arg2);
-				pbDownlaodingApk.setProgress(msg.arg1);
-				break;
-			case DownloadUtils.WHAT_DOWNLOAD_FINISH:
-				try {
-					pbDownlaodingApk.setVisibility(View.GONE);
-					((IUpdateIntf) getActivity()).setInProgress(false);
-					updateInfo.setUpdateApk(-1);
-					updateCurrentStatus();
-					updateDisabled(true);
+    @Override
+    public void onGetNewArguments(Bundle bn) {
 
-				} catch (Exception e) {
+    }
 
-				}
-				break;
-			}
-			super.handleMessage(msg);
-		};
-	};
+    private void unzipDataT() {
 
-	private Handler hDataTask = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			switch (msg.what) {
-			case DownloadUtils.WHAT_DOWNLOAD_START:
-			case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
-				pbDownlaodingData.setMax(msg.arg2);
-				pbDownlaodingData.setProgress(msg.arg1);
-				break;
-			case DownloadUtils.WHAT_DOWNLOAD_FINISH:
-				unzipDataT();
-				break;
-			}
-			super.handleMessage(msg);
-		};
-	};
+        new Thread(new Runnable() {
 
-	private Handler hUnzip = new Handler() {
-		@Override
-		public void handleMessage(Message msg) {
-			if (msg.what == 1) {
+            @Override
+            public void run() {
+                try {
+                    YugiohUtils.closeDatabase(getActivity());
+                    ZipUtils.upZipFile(new File(dbSource), PathDefine.ROOT_PATH);
+                    FileUtils.deleteFile(dbSource);
+                    YugiohUtils.newDatabase(getActivity());
+                    hUnzip.sendEmptyMessage(1);
+                } catch (Exception e) {
 
-				pbDownlaodingData.setVisibility(View.GONE);
-				((IUpdateIntf) getActivity()).setInProgress(false);
-				updateInfo.setUpdateData(0);
-				updateCurrentStatus();
-				updateDisabled(true);
-				if (!hasData) {
-					confirmClose();
-				}
-			}
-			super.handleMessage(msg);
-		};
-	};
+                }
 
-	private void unzipDataT() {
+            }
+        }).start();
 
-		new Thread(new Runnable() {
+    }
 
-			@Override
-			public void run() {
-				try {
-					YugiohUtils.closeDatabase(getActivity());
-					ZipUtils.upZipFile(new File(dbSource), PathDefine.ROOT_PATH);
-					FileUtils.deleteFile(dbSource);
-					YugiohUtils.newDatabase(getActivity());
-					hUnzip.sendEmptyMessage(1);
-				} catch (Exception e) {
+    private void confirmClose() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.hint)
+                .setMessage(R.string.update_download_data_finish)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        getActivity().finish();
+                    }
+                })
+                .show();
+    }
 
-				}
+    private void installApk() {
+        File fApk = new File(apkSource);
+        if (fApk.exists()) {
+            Uri uri = Uri.fromFile(fApk);
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            intent.setDataAndType(uri, "application/vnd.android.package-archive");
+            startActivity(intent);
+        }
+    }
 
-			}
-		}).start();
+    @Override
+    public void onClick(View v) {
+        ((IUpdateIntf) getActivity()).setInProgress(true);
+        updateDisabled(false);
+        switch (v.getId()) {
+            case R.id.btnUpdateApk:
+                if (updateInfo.getUpdateApk() == -1) {
+                    installApk();
+                } else {
+                    ((IUpdateIntf) getActivity()).setUpdateFile(PathDefine.DOWNLOAD_PATH, PathDefine.APK_NAME);
+                    tvApkInfo.setVisibility(View.GONE);
+                    FileUtils.deleteFile(apkSource);
+                    pbDownlaodingApk.setVisibility(View.VISIBLE);
+                    DownloadUtils.downloadFileT(getActivity(), null, NetworkDefine.URL_APK, PathDefine.DOWNLOAD_PATH, PathDefine.APK_NAME, hApkTask);
+                }
+                break;
+            case R.id.btnUpdateData:
+                ((IUpdateIntf) getActivity()).setUpdateFile(PathDefine.DOWNLOAD_PATH, PathDefine.DATA_ZIP);
+                tvDataInfo.setVisibility(View.GONE);
+                FileUtils.deleteFile(dbSource);
+                pbDownlaodingData.setVisibility(View.VISIBLE);
+                DownloadUtils.downloadFileT(getActivity(), null, NetworkDefine.URL_DATA, PathDefine.DOWNLOAD_PATH, PathDefine.DATA_ZIP, hDataTask);
+                break;
+        }
+    }
 
-	}
+    private void updateDisabled(boolean enabled) {
+        btnUpdateApk.setEnabled(false);
+        btnUpdateData.setEnabled(false);
+        if (enabled) {
 
-	private void confirmClose() {
-		new AlertDialog.Builder(getActivity()).setTitle(R.string.hint)
-				.setMessage(R.string.update_download_data_finish)
-				.setPositiveButton(R.string.ok, new OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						getActivity().finish();
-					}
-				}).show();
-	}
+            if (updateInfo.getUpdateApk() != 0) {
+                btnUpdateApk.setEnabled(true);
+            }
+            if (updateInfo.getUpdateData() != 0) {
+                btnUpdateData.setEnabled(true);
+            }
+        }
+    }
 
-	private void installApk() {
-		File fApk = new File(apkSource);
-		if (fApk.exists()) {
-			Uri uri = Uri.fromFile(fApk);
-			Intent intent = new Intent(Intent.ACTION_VIEW);
-			intent.setDataAndType(uri,
-					"application/vnd.android.package-archive");
-			startActivity(intent);
-		}
-	}
+    @Override
+    public void doDestroyHandler() {
+        hApkTask = null;
+        hDataTask = null;
 
-	@Override
-	public void onClick(View v) {
-		((IUpdateIntf) getActivity()).setInProgress(true);
-		updateDisabled(false);
-		switch (v.getId()) {
-		case R.id.btnUpdateApk:
-			if (updateInfo.getUpdateApk() == -1) {
-				installApk();
-			} else {
-				((IUpdateIntf) getActivity()).setUpdateFile(
-						PathDefine.DOWNLOAD_PATH, PathDefine.APK_NAME);
-				tvApkInfo.setVisibility(View.GONE);
-				FileUtils.deleteFile(apkSource);
-				pbDownlaodingApk.setVisibility(View.VISIBLE);
-				DownloadUtils.downloadFileT(getActivity(), null,
-						NetworkDefine.URL_APK, PathDefine.DOWNLOAD_PATH,
-						PathDefine.APK_NAME, hApkTask);
-			}
-			break;
-		case R.id.btnUpdateData:
-			((IUpdateIntf) getActivity()).setUpdateFile(
-					PathDefine.DOWNLOAD_PATH, PathDefine.DATA_ZIP);
-			tvDataInfo.setVisibility(View.GONE);
-			FileUtils.deleteFile(dbSource);
-			pbDownlaodingData.setVisibility(View.VISIBLE);
-			DownloadUtils.downloadFileT(getActivity(), null,
-					NetworkDefine.URL_DATA, PathDefine.DOWNLOAD_PATH,
-					PathDefine.DATA_ZIP, hDataTask);
-			break;
-		}
-	}
+    }
 
-	private void updateDisabled(boolean enabled) {
-		btnUpdateApk.setEnabled(false);
-		btnUpdateData.setEnabled(false);
-		if (enabled) {
-
-			if (updateInfo.getUpdateApk() != 0) {
-				btnUpdateApk.setEnabled(true);
-			}
-			if (updateInfo.getUpdateData() != 0) {
-				btnUpdateData.setEnabled(true);
-			}
-		}
-	}
-
-	@Override
-	public void doDestroyHandler() {
-		hApkTask = null;
-		hDataTask = null;
-
-	}
-	
-	@Override
-	public Bundle getFragmentState() {
-		return null;
-	}
+    @Override
+    public Bundle getFragmentState() {
+        return null;
+    }
 
 }
