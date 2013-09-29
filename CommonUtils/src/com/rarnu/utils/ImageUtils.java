@@ -12,6 +12,26 @@ import java.io.*;
 
 public class ImageUtils {
 
+    public static Drawable loadActionBarIcon(Context context, int res) {
+        Drawable d = null;
+        try {
+            Bitmap bmp = BitmapFactory.decodeResource(context.getResources(),
+                    res);
+            d = new BitmapDrawable(bmp);
+            d = resizeActionIcon(d);
+        } catch (Exception e) {
+
+        }
+        return d;
+    }
+
+    private static Drawable resizeActionIcon(Drawable drawable) {
+        int heightBase = UIUtils.dipToPx(24);
+        int height = (int) (heightBase * UIUtils.getDensity());
+        Drawable d = ImageUtils.zoomDrawable(drawable, height, height);
+        return d;
+    }
+
     public static Bitmap getBitmapByAssets(Context context, String path) {
         Bitmap bitmap = null;
         InputStream in = null;

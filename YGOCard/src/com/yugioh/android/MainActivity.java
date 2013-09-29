@@ -162,11 +162,11 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
                 // PACKAGE
                 f = new PackageListFragment();
                 break;
-//            case 4:
-//                // DECK
-//                f = new DeckFragment();
-//                break;
             case 4:
+                // my fav
+                f = new FavFragment();
+                break;
+            case 5:
                 // DUEL TOOL
                 f = new DuelToolFragment();
                 break;

@@ -72,6 +72,9 @@
                 android:name="com.yugioh.android.database.YugiohProvider"
                 android:authorities="com.yugioh.card"
                 android:exported="true"/>
+        <provider android:name="com.yugioh.android.database.FavProvider"
+                  android:authorities="com.yugioh.fav"
+                  android:exported="true"/>
     </application>
 
 </manifest>

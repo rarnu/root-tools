@@ -11,6 +11,7 @@
     <string name="tag_main_package">tag_main_package</string>
     <string name="tag_main_deck">tag_main_deck</string>
     <string name="tag_main_dueltool">tag_main_dueltool</string>
+    <string name="tag_main_myfav">tag_main_myfav</string>
 
     <string name="tag_card">tag_card</string>
     <string name="tag_card_info">tag_card_info</string>

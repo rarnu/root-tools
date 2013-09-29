@@ -50,8 +50,8 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
         listCard.add(getString(R.string.lm_banned));        // 1
         listCard.add(getString(R.string.lm_newcard));       // 2
         listCard.add(getString(R.string.lm_package));       // 3
-        // listCard.add(getString(R.string.lm_deck));          // 4
-        listCard.add(getString(R.string.lm_tool));          // 4
+        listCard.add(getString(R.string.lm_myfav));          // 4
+        listCard.add(getString(R.string.lm_tool));          // 5
         listExit = new ArrayList<String>();
         listExit.add(getString(R.string.lm_exit));
         adapterCard = new ArrayAdapter<String>(getActivity(), R.layout.item_menu, listCard);
