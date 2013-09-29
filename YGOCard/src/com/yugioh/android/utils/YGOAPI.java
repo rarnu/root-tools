@@ -2,9 +2,11 @@ package com.yugioh.android.utils;
 
 import android.content.Context;
 import com.rarnu.utils.DeviceUtilsLite;
+import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.HttpRequest;
 import com.yugioh.android.classes.*;
 import com.yugioh.android.define.NetworkDefine;
+import com.yugioh.android.define.PathDefine;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -70,7 +72,7 @@ public class YGOAPI {
                 list.add(new PackageItem(true, "", jobj.getString("serial")));
                 jarrPkg = jobj.getJSONArray("packages");
                 for (int j = 0; j < jarrPkg.length(); j++) {
-                    list.add(new PackageItem(false, jarrPkg.getJSONObject(j).getString("id"), jarrPkg.getJSONObject(j).getString("name")));
+                    list.add(new PackageItem(false, jarrPkg.getJSONObject(j).getString("id"), jarrPkg.getJSONObject(j).getString("packname")));
                 }
             }
         } catch (Exception e) {
@@ -82,10 +84,10 @@ public class YGOAPI {
     public static CardItems getPackageCards(String id) {
         CardItems item = null;
         try {
-            String ret = HttpRequest.get(NetworkDefine.URL_OCGSOFT_GET_PACKAGE_CARD, String.format("id=%s", id), HTTP.UTF_8);
+            String ret = HttpRequest.get(String.format(NetworkDefine.URL_OCGSOFT_GET_PACKAGE_CARD, id), "", HTTP.UTF_8);
             JSONObject json = new JSONObject(ret);
             item = new CardItems();
-            item.packageName = json.getString("package");
+            item.packageName = json.getString("name");
             JSONArray jarr = json.getJSONArray("cards");
             item.cardIds = new int[jarr.length()];
             for (int i = 0; i < jarr.length(); i++) {

@@ -93,9 +93,11 @@ public class NewCardFragment extends BaseFragment implements OnItemClickListener
         if (data != null) {
             cNewCard = data;
             adapterNewCard = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cNewCard, new String[]{FieldDefine.DataFields[5], FieldDefine.DataFields[10]}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+
+        }
+        if (getActivity() != null) {
             lvNewCard.setAdapter(adapterNewCard);
         }
-
     }
 
     @Override

@@ -1,6 +1,9 @@
 package com.yugioh.android.classes;
 
-public class CardItems {
+import java.io.Serializable;
+
+public class CardItems implements Serializable {
+    public String id;
     public String packageName;
     public int[] cardIds;
 }

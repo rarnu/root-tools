@@ -20,4 +20,15 @@
             android:text="@string/package_nocard"
             android:textColor="?android:attr/textColorPrimary"/>
 
+    <TextView android:id="@+id/tvLoading"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:padding="4dip"
+              android:gravity="center"
+              android:layout_alignParentBottom="true"
+              android:text="@string/list_loading"
+              android:background="@android:color/holo_blue_light"
+              android:textColor="?android:attr/textColorPrimary"
+              android:visibility="gone"/>
+
 </RelativeLayout>

@@ -192,7 +192,9 @@ public class RightMenuFragment extends BaseFragment implements OnItemClickListen
         if (data != null) {
             listRecommand.addAll(data);
         }
-        adapterRecommand.setNewList(listRecommand);
+        if (getActivity() != null) {
+            adapterRecommand.setNewList(listRecommand);
+        }
     }
 
     @Override

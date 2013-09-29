@@ -13,7 +13,8 @@ public class NetworkDefine {
 	public static final String URL_DATA = BASE_URL + "download/yugioh.zip";
 
 	public static final String URL_CARD_IMAGE_FMT = "http://p.ocgsoft.cn/%d.jpg";
-    public static final String URL_OCGSOFT_BASE = "http://ocgsoft.cn/api/";
-    public static final String URL_OCGSOFT_GET_PACKAGE = URL_OCGSOFT_BASE + "packages";
-    public static final String URL_OCGSOFT_GET_PACKAGE_CARD = URL_OCGSOFT_BASE + "cards";
+    public static final String URL_OCGSOFT_BASE = "http://www.ourocg.cn/Api/";
+    public static final String URL_OCGSOFT_GET_PACKAGE = URL_OCGSOFT_BASE + "Package/list";
+    public static final String URL_OCGSOFT_GET_PACKAGE_CARD = URL_OCGSOFT_BASE + "Package/card/packid/%s";
+
 }

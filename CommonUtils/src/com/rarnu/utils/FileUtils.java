@@ -336,10 +336,7 @@ public class FileUtils {
     public static List<?> loadListFromFile(String path) {
         List<?> list = null;
         try {
-            FileInputStream freader = new FileInputStream(path);
-            ObjectInputStream objectInputStream = new ObjectInputStream(freader);
-            list = (List<?>) objectInputStream.readObject();
-            objectInputStream.close();
+            list = (List<?>) loadObjetFromFile(path);
         } catch (Exception e) {
 
         }
@@ -348,9 +345,30 @@ public class FileUtils {
 
     public static void saveListToFile(List<?> list, String path) {
         try {
+            saveObjectToFile(list, path);
+        } catch (Exception e) {
+
+        }
+    }
+
+    public static Object loadObjetFromFile(String path) {
+        Object obj = null;
+        try {
+            FileInputStream freader = new FileInputStream(path);
+            ObjectInputStream objectInputStream = new ObjectInputStream(freader);
+            obj = objectInputStream.readObject();
+            objectInputStream.close();
+        } catch (Exception e) {
+
+        }
+        return obj;
+    }
+
+    public static void saveObjectToFile(Object obj, String path) {
+        try {
             FileOutputStream outStream = new FileOutputStream(path);
             ObjectOutputStream objectOutputStream = new ObjectOutputStream(outStream);
-            objectOutputStream.writeObject(list);
+            objectOutputStream.writeObject(obj);
             outStream.close();
         } catch (Exception e) {
 

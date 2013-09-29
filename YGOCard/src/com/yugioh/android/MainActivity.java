@@ -17,6 +17,7 @@ import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.database.YugiohDatabase;
+import com.yugioh.android.define.PathDefine;
 import com.yugioh.android.fragments.*;
 import com.yugioh.android.intf.IMainIntf;
 import com.yugioh.android.utils.UpdateUtils;
@@ -48,6 +49,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
     public void onCreate(Bundle savedInstanceState) {
         UIUtils.initDisplayMetrics(this, getWindowManager(), false);
         ResourceUtils.init(this);
+        PathDefine.init();
         super.onCreate(savedInstanceState);
         registerReceiver(receiverClose, filterClose);
 
@@ -139,6 +141,8 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
         }
     }
 
+
+
     private Fragment getCurrentFragment(int page) {
         Fragment f = null;
         switch (page) {
@@ -158,11 +162,11 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
                 // PACKAGE
                 f = new PackageListFragment();
                 break;
+//            case 4:
+//                // DECK
+//                f = new DeckFragment();
+//                break;
             case 4:
-                // DECK
-                f = new DeckFragment();
-                break;
-            case 5:
                 // DUEL TOOL
                 f = new DuelToolFragment();
                 break;

@@ -98,10 +98,12 @@ public class SearchResultFragment extends BaseFragment implements OnItemClickLis
         if (data != null) {
             cSearchResult = data;
             adapterSearchResult = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cSearchResult, new String[]{FieldDefine.DataFields[5], FieldDefine.DataFields[10]}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        }
+
+        if (getActivity() != null) {
             lvList.setAdapter(adapterSearchResult);
             tvListNoCard.setVisibility(adapterSearchResult.getCount() == 0 ? View.VISIBLE : View.GONE);
             tvListNoCard.setText(R.string.list_nocard);
-
         }
 
     }

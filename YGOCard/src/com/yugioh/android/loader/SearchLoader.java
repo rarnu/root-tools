@@ -15,6 +15,10 @@ public class SearchLoader extends BaseCursorLoader {
         this.bn = bn;
     }
 
+    public void setBundle(Bundle bn) {
+        this.bn = bn;
+    }
+
     @Override
     public Cursor loadInBackground() {
         Cursor cSearchResult = null;

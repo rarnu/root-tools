@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:layout_margin="4dip"
-            android:text="@string/package_nocard"
+            android:text="@string/package_list_not_exist"
             android:textColor="?android:attr/textColorPrimary"/>
 
     <TextView android:id="@+id/tvLoading"
@@ -27,6 +27,7 @@
               android:padding="4dip"
               android:gravity="center"
               android:layout_alignParentBottom="true"
+              android:text="@string/list_loading"
               android:background="@android:color/holo_blue_light"
               android:textColor="?android:attr/textColorPrimary"
               android:visibility="gone"/>

@@ -14,7 +14,6 @@ import android.widget.Toast;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.DeckCardActivity;
-import com.yugioh.android.PackageCardsActivity;
 import com.yugioh.android.R;
 import com.yugioh.android.adapter.DeckAdapter;
 import com.yugioh.android.classes.CardItems;
@@ -129,7 +128,7 @@ public class DeckFragment extends BaseFragment implements AdapterView.OnItemClic
         lvDeck.setEnabled(false);
         tvLoading.setVisibility(View.VISIBLE);
         DeckItem item = list.get(position);
-        MiscUtils.loadCardsDataT(1, item.id, hDeck);
+        MiscUtils.loadCardsDataT(1, item.id, hDeck, false);
     }
 
     @Override
@@ -137,6 +136,9 @@ public class DeckFragment extends BaseFragment implements AdapterView.OnItemClic
         list.clear();
         if (data != null) {
             list.addAll(data);
+
+        }
+        if (getActivity() != null) {
             adapter.setNewList(list);
             tvLoading.setVisibility(View.GONE);
             tvListNoDeck.setVisibility(list.size() == 0 ? View.VISIBLE : View.GONE);

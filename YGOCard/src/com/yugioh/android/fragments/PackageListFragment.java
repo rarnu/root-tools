@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
@@ -18,6 +19,7 @@ import com.yugioh.android.R;
 import com.yugioh.android.adapter.PackageAdapter;
 import com.yugioh.android.classes.CardItems;
 import com.yugioh.android.classes.PackageItem;
+import com.yugioh.android.common.MenuIds;
 import com.yugioh.android.loader.PackageLoader;
 import com.yugioh.android.utils.MiscUtils;
 
@@ -33,6 +35,7 @@ public class PackageListFragment extends BaseFragment implements AdapterView.OnI
     PackageAdapter adapter;
     TextView tvListNoPackage;
     List<PackageItem> list;
+    MenuItem itemRefresh;
     private Handler hPack = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -44,6 +47,7 @@ public class PackageListFragment extends BaseFragment implements AdapterView.OnI
                 if (items != null) {
                     bn.putIntArray("ids", items.cardIds);
                     bn.putString("pack", items.packageName);
+                    bn.putString("id", items.id);
                     Intent inCards = new Intent(getActivity(), PackageCardsActivity.class);
                     inCards.putExtras(bn);
                     startActivity(inCards);
@@ -95,7 +99,7 @@ public class PackageListFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void initLogic() {
-        tvListNoPackage.setText(R.string.list_nocard_searching);
+        tvListNoPackage.setText(R.string.package_nocard_search);
         tvLoading.setVisibility(View.VISIBLE);
         loader.startLoading();
     }
@@ -112,6 +116,21 @@ public class PackageListFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void initMenu(Menu menu) {
+        itemRefresh = menu.add(0, MenuIds.MENUID_REFRESH, 99, R.string.refresh);
+        itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
+        itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MenuIds.MENUID_REFRESH:
+                tvLoading.setVisibility(View.VISIBLE);
+                loader.setRefresh(true);
+                loader.startLoading();
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -128,7 +147,7 @@ public class PackageListFragment extends BaseFragment implements AdapterView.OnI
         tvLoading.setVisibility(View.VISIBLE);
         lvPackage.setEnabled(false);
         PackageItem item = list.get(position);
-        MiscUtils.loadCardsDataT(0, item.id, hPack);
+        MiscUtils.loadCardsDataT(0, item.id, hPack, false);
     }
 
     @Override
@@ -136,10 +155,12 @@ public class PackageListFragment extends BaseFragment implements AdapterView.OnI
         list.clear();
         if (data != null) {
             list.addAll(data);
+        }
+        if (getActivity() != null) {
             adapter.setNewList(list);
             tvLoading.setVisibility(View.GONE);
             tvListNoPackage.setVisibility(list.size() == 0 ? View.VISIBLE : View.GONE);
-            tvListNoPackage.setText(R.string.package_nocard);
+            tvListNoPackage.setText(R.string.package_list_not_exist);
         }
     }
 }

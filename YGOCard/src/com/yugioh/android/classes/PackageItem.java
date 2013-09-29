@@ -1,6 +1,8 @@
 package com.yugioh.android.classes;
 
-public class PackageItem {
+import java.io.Serializable;
+
+public class PackageItem implements Serializable {
 
     public boolean isPackageTitle = false;
     public String id = "";
