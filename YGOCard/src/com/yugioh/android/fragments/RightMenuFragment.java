@@ -73,6 +73,7 @@ public class RightMenuFragment extends BaseFragment implements OnItemClickListen
         lvSettings = (ListView) innerView.findViewById(R.id.lvSettings);
         lvAbout = (ListView) innerView.findViewById(R.id.lvAbout);
         listAbout = new ArrayList<String>();
+        listAbout.add(getString(R.string.rm_feedback));
         listAbout.add(getString(R.string.rm_about));
         adapterAbout = new ArrayAdapter<String>(getActivity(), R.layout.item_menu, listAbout);
         lvAbout.setAdapter(adapterAbout);
@@ -152,6 +153,9 @@ public class RightMenuFragment extends BaseFragment implements OnItemClickListen
             case R.id.lvAbout:
                 switch (position) {
                     case 0:
+                        startActivity(new Intent(getActivity(), FeedbackActivity.class));
+                        break;
+                    case 1:
                         startActivity(new Intent(getActivity(), AboutActivity.class));
                         break;
                 }

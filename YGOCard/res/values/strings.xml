@@ -215,5 +215,11 @@
     <!-- jump -->
     <string name="jump_jump">跳转</string>
     <string name="refresh">刷新</string>
-
+    <string name="send">发送</string>
+    <string name="no_email_binded">没有绑定email</string>
+    <string name="hint_feedback">在这里写下你想对我们说的话</string>
+    <string name="sending">正在发送...</string>
+    <string name="empty_feedback">反馈信息不能为空</string>
+    <string name="feedback_send_ok">发送反馈信息成功</string>
+    <string name="feedback_send_fail">发送反馈信息失败</string>
 </resources>

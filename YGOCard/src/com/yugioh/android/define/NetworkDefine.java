@@ -5,6 +5,8 @@ public class NetworkDefine {
 	public static final String BASE_URL = "http://rarnu.7thgen.info/yugioh/";
 	public static final String UPDATE_URL = BASE_URL + "update.php";
 	public static final String UPDATE_PARAM_FMT = "ver=%d&cardid=%d";
+    public static final String FEEDBACK_URL = BASE_URL + "feedback.php";
+    public static final String FEEDBACK_PARAM_FMT = "id=%s&email=%s&text=%s&appver=%d&osver=%d";
 
 	public static final String RECOMMAND_URL = BASE_URL + "get_recommand.php";
 	public static final String RECOMMAND_IMAGE_URL = BASE_URL + "recommand/";

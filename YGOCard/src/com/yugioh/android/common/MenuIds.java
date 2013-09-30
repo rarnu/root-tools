@@ -11,4 +11,5 @@ public class MenuIds {
 	public static final int MENUID_SHARE = Menu.FIRST + 5;
     public static final int MENUID_REFRESH = Menu.FIRST + 6;
     public static final int MENUID_FAV = Menu.FIRST + 7;
+    public static final int MENUID_SEND = Menu.FIRST + 8;
 }

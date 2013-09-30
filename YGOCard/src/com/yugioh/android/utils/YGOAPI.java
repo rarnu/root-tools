@@ -1,16 +1,16 @@
 package com.yugioh.android.utils;
 
 import android.content.Context;
+import android.os.Build;
 import com.rarnu.utils.DeviceUtilsLite;
-import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.HttpRequest;
 import com.yugioh.android.classes.*;
 import com.yugioh.android.define.NetworkDefine;
-import com.yugioh.android.define.PathDefine;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -118,5 +118,21 @@ public class YGOAPI {
             items.cardIds[i] = i + 50;
         }
         return items;
+    }
+
+    public static boolean sendFeedback(Context context, String text) {
+        boolean ret = false;
+        try {
+            String deviceId = DeviceUtilsLite.getDeviceUniqueId(context);
+            String email = URLEncoder.encode(AccountUtils.getBindedEmailAddress(context), HTTP.UTF_8);
+            text = URLEncoder.encode(text, HTTP.UTF_8);
+            int appver = DeviceUtilsLite.getAppVersionCode(context);
+            int osver = Build.VERSION.SDK_INT;
+            String str = HttpRequest.get(NetworkDefine.FEEDBACK_URL, String.format(NetworkDefine.FEEDBACK_PARAM_FMT, deviceId, email, text, appver, osver), HTTP.UTF_8);
+            ret = !str.equals("0");
+        } catch (Exception e) {
+
+        }
+        return ret;
     }
 }

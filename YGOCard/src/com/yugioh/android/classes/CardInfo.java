@@ -4,7 +4,6 @@ import java.io.Serializable;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 
-@SuppressWarnings("serial")
 public class CardInfo implements Serializable {
 
 	private int _id;

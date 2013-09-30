@@ -141,8 +141,6 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
         }
     }
 
-
-
     private Fragment getCurrentFragment(int page) {
         Fragment f = null;
         switch (page) {
@@ -176,7 +174,10 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (currentPage != 0 && keyCode == KeyEvent.KEYCODE_BACK) {
+        if (keyCode == KeyEvent.KEYCODE_MENU) {
+            toggle();
+            return true;
+        } else if (currentPage != 0 && keyCode == KeyEvent.KEYCODE_BACK) {
             switchPage(0, false);
             return true;
         }
