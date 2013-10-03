@@ -35,10 +35,6 @@ public class IndexFragment extends BasePreferenceFragment implements
 
     public void showFunctionalEnabledTags() {
         boolean isRooted = RootUtils.hasSu();
-        boolean isWrongRooted = RootUtils.isWrongRoot();
-        if (isWrongRooted) {
-            isRooted = false;
-        }
         prefSysApp.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefSysAppEnabled.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefHardUpdate.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);

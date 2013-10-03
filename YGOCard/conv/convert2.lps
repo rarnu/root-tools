@@ -1,9 +1,9 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="8">
+    <Units Count="9">
       <Unit0>
         <Filename Value="convert2.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -11,8 +11,8 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="10"/>
-        <CursorPos X="41" Y="21"/>
+        <TopLine Value="90"/>
+        <CursorPos X="21" Y="103"/>
         <UsageCount Value="22"/>
         <Loaded Value="True"/>
       </Unit0>
@@ -64,18 +64,26 @@
       <Unit7>
         <Filename Value="/usr/share/lazarus/1.0.8/lcl/interfaces/gtk2/interfaces.pas"/>
         <UnitName Value="Interfaces"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="25" Y="13"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit7>
+      <Unit8>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-base/src/custapp.pp"/>
+        <UnitName Value="CustApp"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="45"/>
+        <CursorPos X="14" Y="61"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit8>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="24" HistoryIndex="23">
+    <JumpHistory Count="26" HistoryIndex="25">
       <Position1>
         <Filename Value="convert2.lpr"/>
         <Caret Line="7" Column="53" TopLine="1"/>
@@ -172,6 +180,15 @@
         <Filename Value="convert2.lpr"/>
         <Caret Line="6" Column="11" TopLine="1"/>
       </Position24>
+      <Position25>
+        <Filename Value="convert2.lpr"/>
+        <Caret Line="23" Column="45" TopLine="10"/>
+      </Position25>
+      <Position26>
+        <Filename Value="convert2.lpr"/>
+        <Caret Line="80" Column="12" TopLine="72"/>
+      </Position26>
     </JumpHistory>
   </ProjectSession>
+  <EditorMacros Count="0"/>
 </CONFIG>

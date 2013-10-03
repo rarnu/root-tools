@@ -48,8 +48,23 @@ public class YugiohUtils {
                 count = cursor.getInt(0);
                 break;
             }
+            cursor.close();
         }
         return count;
+    }
+
+    public static int getDatabaseVersion(Context context) {
+        Cursor c = context.getContentResolver().query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI, YugiohProvider.ACTIONID_VERSION), null, null, null, null);
+        int ver = 1;
+        if (c != null) {
+            c.moveToFirst();
+            while (!c.isAfterLast()) {
+                ver = c.getInt(c.getColumnIndex("ver"));
+                c.moveToNext();
+            }
+            c.close();
+        }
+        return ver;
     }
 
     public static List<String> getEffectList(Context context) {
@@ -64,6 +79,7 @@ public class YugiohUtils {
                 result.add(c.getString(c.getColumnIndex(FieldDefine.EffectFields[2])));
                 c.moveToNext();
             }
+            c.close();
         }
 
         return result;
@@ -71,6 +87,13 @@ public class YugiohUtils {
 
     public static Cursor getLatest100(Context context) {
         return context.getContentResolver().query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI, YugiohProvider.ACTIONID_TOP100), null, null, null, null);
+    }
+
+    public static Cursor getCardNames(Context context, String cardName) {
+        String where = "SCCardName like ? or CardOnceName like ? or CardAbbrName like ?";
+        String argStr = "%" + cardName + "%";
+        String[] args = new String[]{argStr, argStr, argStr};
+        return context.getContentResolver().query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI, YugiohProvider.ACTIONID_SEARCH), new String[]{FieldDefine.DataFields[0], FieldDefine.DataFields[5]}, where, args, null);
     }
 
     public static Cursor getCards(Context context, String cardType, String cardAttribute, int cardLevel, String cardRace, String cardName, String cardEffect, String cardAtk, String cardDef, String cardRare, String cardBelongs, String cardLimit, int cardTunner, String cardEffectText) {

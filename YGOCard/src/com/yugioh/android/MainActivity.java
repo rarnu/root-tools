@@ -1,10 +1,8 @@
 package com.yugioh.android;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
+import android.content.*;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +11,7 @@ import android.widget.Toast;
 import com.rarnu.devlib.base.BaseSlidingActivity;
 import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.component.SlidingMenu;
+import com.rarnu.utils.MiscUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 import com.yugioh.android.classes.UpdateInfo;
@@ -52,7 +51,19 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
         PathDefine.init();
         super.onCreate(savedInstanceState);
         registerReceiver(receiverClose, filterClose);
-
+        if (!MiscUtils.isSDCardExists()) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.hint)
+                    .setMessage(R.string.no_sdcard)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .show();
+            return;
+        }
         if (!YugiohDatabase.isDatabaseFileExists()) {
             UpdateInfo updateInfo = new UpdateInfo();
             updateInfo.setUpdateApk(0);
@@ -72,7 +83,11 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
     @Override
     protected void onDestroy() {
-        unregisterReceiver(receiverClose);
+        try {
+            unregisterReceiver(receiverClose);
+        } catch (Exception e) {
+
+        }
         super.onDestroy();
     }
 

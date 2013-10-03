@@ -1,87 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
 
     <RelativeLayout
-        android:id="@+id/layLeftMenuHead"
-        android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize" >
+            android:id="@+id/layLeftMenuHead"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize">
 
         <TextView
-            android:id="@+id/tvRightTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="left|center_vertical"
-            android:paddingBottom="7dip"
-            android:paddingTop="8dip"
-            android:text="@string/page_settings"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="18dp" />
+                android:id="@+id/tvRightTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|center_vertical"
+                android:paddingBottom="7dip"
+                android:paddingTop="8dip"
+                android:text="@string/page_settings"
+                android:textColor="?android:attr/textColorPrimary"
+                android:textSize="18dp"/>
 
         <ImageView
-            android:id="@+id/imgSettings"
-            android:layout_width="32dip"
-            android:layout_height="32dip"
-            android:layout_alignParentRight="true"
-            android:layout_centerVertical="true"
-            android:layout_marginRight="4dip"
-            android:src="@android:drawable/ic_menu_preferences" />
+                android:id="@+id/imgSettings"
+                android:layout_width="?android:attr/actionBarSize"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true"
+                android:background="@drawable/button_style"
+                android:clickable="true"
+                android:padding="8dip"
+                android:src="@android:drawable/ic_menu_preferences"/>
 
         <ImageView
-            android:id="@+id/laySplit"
-            android:layout_width="match_parent"
-            android:layout_height="2dip"
-            android:layout_alignParentBottom="true"
-            android:background="?android:attr/actionModeSplitBackground"
-            android:scaleType="fitStart" >
+                android:id="@+id/laySplit"
+                android:layout_width="match_parent"
+                android:layout_height="2dip"
+                android:layout_alignParentBottom="true"
+                android:background="?android:attr/actionModeSplitBackground"
+                android:scaleType="fitStart">
         </ImageView>
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/lvSettings"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layLeftMenuHead"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/shadow"
-        android:dividerHeight="1px" >
+            android:id="@+id/lvSettings"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layLeftMenuHead"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/shadow"
+            android:dividerHeight="1px">
     </ListView>
 
     <RelativeLayout
-        android:id="@+id/laySplit2"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_below="@+id/lvSettings"
-        android:background="@color/shadow" >
+            android:id="@+id/laySplit2"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/lvSettings"
+            android:background="@color/shadow">
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/lvRecommand"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/laySplit3"
-        android:layout_below="@+id/laySplit2"
-        android:cacheColorHint="#00000000"
-        android:divider="@null" >
+            android:id="@+id/lvRecommand"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/laySplit3"
+            android:layout_below="@+id/laySplit2"
+            android:cacheColorHint="#00000000"
+            android:divider="@null">
     </ListView>
 
     <RelativeLayout
-        android:id="@+id/laySplit3"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_above="@+id/lvAbout"
-        android:background="@color/shadow" >
+            android:id="@+id/laySplit3"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_above="@+id/lvAbout"
+            android:background="@color/shadow">
     </RelativeLayout>
 
     <ListView
-        android:id="@+id/lvAbout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/shadow"
-        android:dividerHeight="1px" >
+            android:id="@+id/lvAbout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:cacheColorHint="#00000000"
+            android:divider="@color/shadow"
+            android:dividerHeight="1px">
     </ListView>
 
 </RelativeLayout>

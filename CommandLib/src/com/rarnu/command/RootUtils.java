@@ -2,7 +2,6 @@ package com.rarnu.command;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.util.Log;
 
@@ -16,11 +15,9 @@ public class RootUtils {
     public static final int LEVEL_ROOTED = 2;
     public static final int LEVEL_HALF_ROOTED = 1;
     public static final int LEVEL_NO_ROOT = 0;
-    private static final String SU_PATH = "/system/bin/su";
-    private static final String SU_PATH_X = "/system/xbin/su";
+    private static final String[] SU_PATH = new String[]{"/system/bin/su", "/system/xbin/su"};
     private static final String APP_PATH = "/system/app/";
     private static final String[] BUSYBOX_PATH = new String[]{"/system/xbin/busybox", "/system/bin/busybox"};
-    private static final String SETTINGS_PACKAGE = "com.android.settings";
     private static String[] SUPERUSER_PATH = null;
     private static PackageManager pm = null;
 
@@ -75,12 +72,6 @@ public class RootUtils {
         }
         boolean hasSuperUser = findSuperUser();
         return hasSuperUser ? LEVEL_ROOTED : LEVEL_HALF_ROOTED;
-    }
-
-    public static boolean isWrongRoot() {
-        // -rwsr-sr-x
-        String suStat = runCommand("ls -l " + SU_PATH, false, null).result + runCommand("ls -l " + SU_PATH_X, false, null).result;
-        return !suStat.contains("sr");
     }
 
     public static CommandResult runCommand(String command, boolean root) {
@@ -169,9 +160,9 @@ public class RootUtils {
     }
 
     private static boolean findSU() {
-        boolean ret = openFile(SU_PATH).exists();
+        boolean ret = openFile(SU_PATH[0]).exists();
         if (!ret) {
-            ret = openFile(SU_PATH_X).exists();
+            ret = openFile(SU_PATH[1]).exists();
         }
         return ret;
     }
@@ -221,16 +212,12 @@ public class RootUtils {
 
     private static boolean isSettingsContainsSU() {
         boolean ret = false;
-        try {
-            PackageInfo pi = pm.getPackageInfo(SETTINGS_PACKAGE, 0);
-            String versionName = pi.versionName;
-            versionName = versionName.substring(0, versionName.lastIndexOf("."));
-            versionName = versionName.substring(versionName.lastIndexOf(".") + 1);
-            ret = (Integer.parseInt(versionName) >= 20130308);
-        } catch (Exception e) {
-
+        CommandResult result = runCommand("getprop ro.build.host", false);
+        if (result != null) {
+            if (result.result.toLowerCase().contains("cyanogenmod")) {
+                ret = true;
+            }
         }
-
         return ret;
     }
 }

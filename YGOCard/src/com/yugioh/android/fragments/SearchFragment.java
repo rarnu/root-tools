@@ -1,9 +1,13 @@
 package com.yugioh.android.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.InputType;
 import android.view.Menu;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -13,13 +17,15 @@ import android.widget.Spinner;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.utils.ResourceUtils;
+import com.yugioh.android.AutoNameActivity;
 import com.yugioh.android.R;
+import com.yugioh.android.common.Config;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.CardConstDefine;
 
 import java.util.List;
 
-public class SearchFragment extends BaseFragment implements OnItemSelectedListener {
+public class SearchFragment extends BaseFragment implements OnItemSelectedListener, View.OnTouchListener {
 
     Spinner spCardEffect, spCardRace, spCardBelongs, spCardType, spCardAttribute, spCardLevel, spCardRare, spCardLimit, spCardTunner;
     EditText etCardName, etCardAttack, etCardDefense, etEffectText;
@@ -55,6 +61,14 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
         spCardRare = (Spinner) innerView.findViewById(R.id.spCardRare);
         spCardLimit = (Spinner) innerView.findViewById(R.id.spCardLimit);
         spCardTunner = (Spinner) innerView.findViewById(R.id.spCardTunner);
+
+        etCardName.requestFocus();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setCardNameAutoName();
     }
 
     @Override
@@ -73,6 +87,7 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
         setSpinner(spCardRare, CardConstDefine.DEFID_CARDRARE);
         setSpinner(spCardLimit, CardConstDefine.DEFID_CARDLIMIT);
         setSpinner(spCardTunner, CardConstDefine.DEFID_CARDTUNNER);
+
     }
 
     private void setSpinner(final Spinner sp, final int type) {
@@ -272,4 +287,31 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
         return null;
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+        switch (requestCode) {
+            case 0:
+                etCardName.setText(data.getStringExtra("name"));
+                break;
+        }
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        switch (event.getAction()) {
+            case MotionEvent.ACTION_DOWN:
+                startActivityForResult(new Intent(getActivity(), AutoNameActivity.class).putExtra("name", etCardName.getText().toString()), 0);
+                break;
+        }
+        return true;
+    }
+
+    private void setCardNameAutoName() {
+        boolean auto = Config.cfgGetAutoName(getActivity());
+        etCardName.setInputType(auto ? InputType.TYPE_NULL : InputType.TYPE_CLASS_TEXT);
+        etCardName.setOnTouchListener(auto ? this : null);
+    }
 }

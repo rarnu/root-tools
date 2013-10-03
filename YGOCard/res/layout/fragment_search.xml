@@ -1,210 +1,209 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dip" >
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="8dip">
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
         <TextView
-            android:id="@+id/tvCardName"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_name"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardName"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_name"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <EditText
-            android:id="@+id/etCardName"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_toRightOf="@+id/tvCardName" />
+                android:id="@+id/etCardName"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_toRightOf="@+id/tvCardName"/>
 
         <TextView
-            android:id="@+id/tvCardBelongs"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardName"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_belongs"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardBelongs"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardName"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_belongs"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <Spinner
-            android:id="@+id/spCardBelongs"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/etCardName"
-            android:layout_toRightOf="@+id/tvCardBelongs" />
+                android:id="@+id/spCardBelongs"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/etCardName"
+                android:layout_toRightOf="@+id/tvCardBelongs"/>
 
         <TextView
-            android:id="@+id/tvCardType"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardBelongs"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_type"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardType"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardBelongs"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_type"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <Spinner
-            android:id="@+id/spCardType"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/spCardBelongs"
-            android:layout_toLeftOf="@+id/spCardTunner"
-            android:layout_toRightOf="@+id/tvCardType" />
+                android:id="@+id/spCardType"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/spCardBelongs"
+                android:layout_toLeftOf="@+id/spCardTunner"
+                android:layout_toRightOf="@+id/tvCardType"/>
 
         <Spinner
-            android:id="@+id/spCardTunner"
-            android:layout_width="110dip"
-            android:layout_height="48dip"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/spCardBelongs" />
+                android:id="@+id/spCardTunner"
+                android:layout_width="110dip"
+                android:layout_height="48dip"
+                android:layout_alignParentRight="true"
+                android:layout_below="@+id/spCardBelongs"/>
 
         <TextView
-            android:id="@+id/tvCardRace"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardType"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_race"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardRace"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardType"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_race"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <Spinner
-            android:id="@+id/spCardRace"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/spCardType"
-            android:layout_toRightOf="@+id/tvCardRace" />
+                android:id="@+id/spCardRace"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/spCardType"
+                android:layout_toRightOf="@+id/tvCardRace"/>
 
         <TextView
-            android:id="@+id/tvCardAttribute"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardRace"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_attribute"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardAttribute"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardRace"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_attribute"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <Spinner
-            android:id="@+id/spCardAttribute"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/spCardRace"
-            android:layout_toRightOf="@+id/tvCardAttribute" />
+                android:id="@+id/spCardAttribute"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/spCardRace"
+                android:layout_toRightOf="@+id/tvCardAttribute"/>
 
         <TextView
-            android:id="@+id/tvCardLevel"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardAttribute"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_level"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardLevel"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardAttribute"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_level"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <Spinner
-            android:id="@+id/spCardLevel"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/spCardAttribute"
-            android:layout_toRightOf="@+id/tvCardLevel" />
+                android:id="@+id/spCardLevel"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/spCardAttribute"
+                android:layout_toRightOf="@+id/tvCardLevel"/>
 
         <TextView
-            android:id="@+id/tvCardRare"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardLevel"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_rare"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardRare"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardLevel"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_rare"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <Spinner
-            android:id="@+id/spCardRare"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/spCardLevel"
-            android:layout_toRightOf="@+id/tvCardRare" />
+                android:id="@+id/spCardRare"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/spCardLevel"
+                android:layout_toRightOf="@+id/tvCardRare"/>
 
         <TextView
-            android:id="@+id/tvCardLimit"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardRare"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_limit"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardLimit"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardRare"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_limit"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <Spinner
-            android:id="@+id/spCardLimit"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/spCardRare"
-            android:layout_toRightOf="@+id/tvCardLimit" />
+                android:id="@+id/spCardLimit"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/spCardRare"
+                android:layout_toRightOf="@+id/tvCardLimit"/>
 
         <TextView
-            android:id="@+id/tvCardAttack"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardLimit"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_attack"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardAttack"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardLimit"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_attack"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <EditText
-            android:id="@+id/etCardAttack"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/spCardLimit"
-            android:layout_toRightOf="@+id/tvCardAttack" />
+                android:id="@+id/etCardAttack"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/spCardLimit"
+                android:layout_toRightOf="@+id/tvCardAttack"/>
 
         <TextView
-            android:id="@+id/tvCardDefense"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardAttack"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_defense"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardDefense"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardAttack"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_defense"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <EditText
-            android:id="@+id/etCardDefense"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/etCardAttack"
-            android:layout_toRightOf="@+id/tvCardDefense" />
+                android:id="@+id/etCardDefense"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/etCardAttack"
+                android:layout_toRightOf="@+id/tvCardDefense"/>
 
         <TextView
-            android:id="@+id/tvCardEffect"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardDefense"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_effect"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvCardEffect"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardDefense"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_effect"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <Spinner
-            android:id="@+id/spCardEffect"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/etCardDefense"
-            android:layout_toRightOf="@+id/tvCardEffect" />
+                android:id="@+id/spCardEffect"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/etCardDefense"
+                android:layout_toRightOf="@+id/tvCardEffect"/>
 
         <TextView
-            android:id="@+id/tvEffectText"
-            android:layout_width="70dip"
-            android:layout_height="48dip"
-            android:layout_below="@+id/tvCardEffect"
-            android:gravity="left|center_vertical"
-            android:text="@string/search_effect_text"
-            android:textColor="?android:attr/textColorPrimary" />
+                android:id="@+id/tvEffectText"
+                android:layout_width="70dip"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvCardEffect"
+                android:gravity="left|center_vertical"
+                android:text="@string/search_effect_text"
+                android:textColor="?android:attr/textColorPrimary"/>
 
         <EditText
-            android:id="@+id/etEffectText"
-            android:layout_width="match_parent"
-            android:layout_height="48dip"
-            android:layout_below="@+id/spCardEffect"
-            android:layout_toRightOf="@+id/tvEffectText" />
+                android:id="@+id/etEffectText"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/spCardEffect"
+                android:layout_toRightOf="@+id/tvEffectText"/>
     </RelativeLayout>
 
 </ScrollView>

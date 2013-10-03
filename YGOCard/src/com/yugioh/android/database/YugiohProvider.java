@@ -15,6 +15,7 @@ public class YugiohProvider extends ContentProvider {
     public static final int ACTIONID_EFFECTLIST = -3;
     public static final int ACTIONID_TOP100 = -2;
     public static final int ACTIONID_SEARCH = -1;
+    public static final int ACTIONID_VERSION = -5;
     private YugiohDatabase database = null;
 
     @Override
@@ -52,25 +53,29 @@ public class YugiohProvider extends ContentProvider {
         } catch (Exception e) {
 
         }
-        if (actionId == YugiohProvider.ACTIONID_CLOSEDATABASE) {
-            if (database != null) {
-                database.close();
-            }
-            return null;
-        } else if (actionId == YugiohProvider.ACTIONID_NEWDATABASE) {
-            try {
-                database = new YugiohDatabase(getContext());
-            } catch (Exception e) {
+        Cursor c = null;
+        if (database != null) {
+            switch (actionId) {
+                case YugiohProvider.ACTIONID_CLOSEDATABASE:
+                    database.close();
+                    break;
+                case YugiohProvider.ACTIONID_NEWDATABASE:
+                    try {
+                        database = new YugiohDatabase(getContext());
+                    } catch (Exception e) {
 
-            }
-            return null;
-        } else {
-            if (database != null) {
-                return database.doQuery(uri, projection, selection, selectionArgs, sortOrder);
-            } else {
-                return null;
+                    }
+                    break;
+                case YugiohProvider.ACTIONID_VERSION:
+                    c = database.doGetVersion();
+                    break;
+                default:
+                    c = database.doQuery(uri, projection, selection, selectionArgs, sortOrder);
+                    break;
             }
         }
+
+        return c;
     }
 
     @Override

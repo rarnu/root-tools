@@ -1,14 +1,2 @@
-* 1. Duel Tool
-* 2. Settings
-* 3. About
-* 4. recommanded
-* 5. Deck?
-* 6. update
-* 7. add icon beside update and fitable
-* 8. no data?
-* 9. click card 0, crash on return
-* 10. recommand server
-* 11. share card
-* 12. recommand jump
-13. count data size
-14. gesture zooming
+* 1. 数据库更新，加一张版本表
+2. 输入时自动提示最匹配的卡名

@@ -41,10 +41,9 @@ public class BusyboxFragment extends BaseFragment implements OnItemClickListener
 
     private void checkStatus() {
         boolean hasSu = RootUtils.hasSu();
-        boolean isWrong = RootUtils.isWrongRoot();
 
         list.clear();
-        list.add(buildBusyboxInfo(R.string.file_su, (hasSu ? (isWrong ? BusyboxInfo.STATE_WARNING : BusyboxInfo.STATE_NORMAL) : BusyboxInfo.STATE_BANNED)));
+        list.add(buildBusyboxInfo(R.string.file_su, (hasSu ? BusyboxInfo.STATE_NORMAL : BusyboxInfo.STATE_BANNED)));
         list.add(buildBusyboxInfo(R.string.file_super_user, (RootUtils.hasSuperuser() ? BusyboxInfo.STATE_NORMAL : BusyboxInfo.STATE_WARNING)));
         list.add(buildBusyboxInfo(R.string.file_busybox, (RootUtils.hasBusybox() ? BusyboxInfo.STATE_NORMAL : BusyboxInfo.STATE_WARNING)));
 
@@ -69,9 +68,7 @@ public class BusyboxFragment extends BaseFragment implements OnItemClickListener
 
     private void showSuStatus() {
         int ret = RootUtils.hasRoot();
-        if (RootUtils.isWrongRoot()) {
-            ret = 0;
-        }
+
         new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.hint)
                 .setMessage((ret == 0 ? R.string.no_root_permission : R.string.has_su_file))

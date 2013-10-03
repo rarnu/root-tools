@@ -2,6 +2,7 @@ package com.yugioh.android.utils;
 
 import android.content.Context;
 import android.os.Build;
+import android.util.Log;
 import com.rarnu.utils.DeviceUtilsLite;
 import com.rarnu.utils.HttpRequest;
 import com.yugioh.android.classes.*;
@@ -16,8 +17,9 @@ import java.util.List;
 
 public class YGOAPI {
 
-    public static UpdateInfo findUpdate(Context context, int lastCardId) {
-        String param = String.format(NetworkDefine.UPDATE_PARAM_FMT, DeviceUtilsLite.getAppVersionCode(context), lastCardId);
+    public static UpdateInfo findUpdate(Context context, int dbVer, int lastCardId) {
+        String param = String.format(NetworkDefine.UPDATE_PARAM_FMT, DeviceUtilsLite.getAppVersionCode(context), lastCardId, dbVer);
+        Log.e("findUpdate", param);
         UpdateInfo ui = null;
         try {
             String jsonstr = HttpRequest.get(NetworkDefine.UPDATE_URL, param, HTTP.UTF_8);

@@ -7,6 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
@@ -26,6 +27,8 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
     Button btnBigger, btnSmaller;
     TextView tvFontDemo;
     TextView tvData;
+    CheckBox chkAutoName;
+
     int fontSize = -1;
 
     @Override
@@ -50,13 +53,14 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
         btnSmaller = (Button) innerView.findViewById(R.id.btnSmaller);
         tvData = (TextView) innerView.findViewById(R.id.tvData);
         tvFontDemo = (TextView) innerView.findViewById(R.id.tvFontDemo);
+        chkAutoName = (CheckBox) innerView.findViewById(R.id.chkAutoName);
     }
 
     @Override
     public void initEvents() {
         btnBigger.setOnClickListener(this);
         btnSmaller.setOnClickListener(this);
-
+        chkAutoName.setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +73,7 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
         }
         tvFontDemo.setTextSize(fontSize);
         getDirSizeT();
+        chkAutoName.setChecked(Config.cfgGetAutoName(getActivity()));
     }
 
     private void getDirSizeT() {
@@ -126,6 +131,9 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
             case R.id.btnSmaller:
                 fontSize--;
                 break;
+            case R.id.chkAutoName:
+                Config.cfgSetAutoName(getActivity(), chkAutoName.isChecked());
+                return;
         }
         tvFontDemo.setTextSize(fontSize);
         Config.cfgSetFontSize(getActivity(), fontSize);

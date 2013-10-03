@@ -171,6 +171,7 @@
     <string name="pref_update">软件数据更新</string>
     <string name="pref_update_son">自动进行卡片数据更新</string>
     <string name="pref_update_soff">不允许进行卡片数据更新</string>
+    <string name="pref_auto_name">自动提示卡片名称</string>
     <string name="pref_fit">系统适配度</string>
     <string name="pref_fit_s">检查您的手机与本软件的适配程度</string>
     <string name="pref_data">检查数据</string>
@@ -222,4 +223,8 @@
     <string name="empty_feedback">反馈信息不能为空</string>
     <string name="feedback_send_ok">发送反馈信息成功</string>
     <string name="feedback_send_fail">发送反馈信息失败</string>
+    <string name="hint_cardname">请输入卡片名称来检索</string>
+
+
+    <string name="no_sdcard">没有找到 SD 卡，无法启动本软件</string>
 </resources>

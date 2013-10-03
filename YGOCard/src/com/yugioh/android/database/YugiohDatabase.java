@@ -21,8 +21,8 @@ public class YugiohDatabase {
         if (!fDb.exists()) {
             throw new Exception(context.getResources().getString(R.string.error_no_database));
         }
-
         database = SQLiteDatabase.openDatabase(dbName, null, SQLiteDatabase.OPEN_READONLY);
+
     }
 
     public static boolean isDatabaseFileExists() {
@@ -36,24 +36,46 @@ public class YugiohDatabase {
         } catch (Exception e) {
 
         }
-        if (actionId == YugiohProvider.ACTIONID_CARDCOUNT) {
-            return database.rawQuery("select CardID from YGODATA order by CardID desc limit 0,1", null);
-        } else if (actionId == YugiohProvider.ACTIONID_EFFECTLIST) {
-            return database.rawQuery("select * from YGOEFFECT", null);
-        } else if (actionId == YugiohProvider.ACTIONID_TOP100) {
-            return database.rawQuery("select _id, SCCardName, SCCardType from YGODATA order by _id desc limit 0,100 ", null);
-        } else if (actionId == YugiohProvider.ACTIONID_SEARCH) {
-            return database.query("YGODATA", projection, selection, selectionArgs, null, null, sortOrder);
-        } else if (actionId >= 0) {
-            return database.rawQuery("select * from YGODATA where CardID=?", new String[]{String.valueOf(actionId)});
-        } else {
-            return null;
+        Cursor c = null;
+        if (database != null) {
+            switch (actionId) {
+                case YugiohProvider.ACTIONID_CARDCOUNT:
+                    c = database.rawQuery("select CardID from YGODATA order by CardID desc limit 0,1", null);
+                    break;
+                case YugiohProvider.ACTIONID_EFFECTLIST:
+                    c = database.rawQuery("select * from YGOEFFECT", null);
+                    break;
+                case YugiohProvider.ACTIONID_TOP100:
+                    c = database.rawQuery("select _id, SCCardName, SCCardType from YGODATA order by _id desc limit 0,100 ", null);
+                    break;
+                case YugiohProvider.ACTIONID_SEARCH:
+                    c = database.query("YGODATA", projection, selection, selectionArgs, null, null, sortOrder);
+                    break;
+                default:
+                    if (actionId >= 0) {
+                        c = database.rawQuery("select * from YGODATA where CardID=?", new String[]{String.valueOf(actionId)});
+                    }
+            }
         }
-
+        return c;
     }
 
     public void close() {
-        database.close();
+        if (database != null) {
+            database.close();
+        }
+    }
+
+    public Cursor doGetVersion() {
+        Cursor c = null;
+        if (database != null) {
+            try {
+                c = database.rawQuery("select * from version", null);
+            } catch (Exception e) {
+
+            }
+        }
+        return c;
     }
 
 }
