@@ -60,7 +60,6 @@ public class RootUtils {
         try {
             info = pm.getApplicationInfo(packageName, 0);
         } catch (Exception e) {
-            info = null;
         }
         return info != null;
     }
