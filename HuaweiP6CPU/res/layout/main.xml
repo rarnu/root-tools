@@ -57,6 +57,33 @@
              android:layout_height="48dip"
              android:layout_below="@+id/spDdrFreq"
              android:layout_toRightOf="@+id/tvGpuFreq"/>
+    <TextView android:id="@+id/tvSplit"
+              android:layout_width="match_parent"
+              android:layout_height="1dip"
+              android:background="@android:color/holo_blue_light"
+              android:layout_below="@+id/tvGpuFreq"/>
+    <TextView android:id="@+id/tvProfile"
+              android:layout_width="100dip"
+              android:layout_height="48dip"
+              android:gravity="left|center_vertical"
+              android:layout_below="@+id/tvSplit"
+              android:textColor="?android:attr/textColorPrimary"
+              android:text="@string/profile"/>
+    <Spinner android:id="@+id/spProfile"
+             android:layout_width="match_parent"
+             android:layout_height="48dip"
+             android:layout_below="@+id/tvSplit"
+             android:layout_toRightOf="@+id/tvProfile"/>
+
+    <TextView android:id="@+id/tvApply"
+              android:layout_width="match_parent"
+              android:layout_height="wrap_content"
+              android:layout_below="@+id/tvProfile"
+              android:gravity="left|center_vertical"
+              android:layout_marginTop="8dip"
+              android:layout_marginLeft="16dip"
+              android:layout_marginRight="16dip"/>
+
 
     <TextView android:id="@+id/tvHint"
               android:layout_width="match_parent"
