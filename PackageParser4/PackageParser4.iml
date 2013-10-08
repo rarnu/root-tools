@@ -16,7 +16,7 @@
       </configuration>
     </facet>
   </component>
-  <component name="NewModuleRootManager" inherit-compiler-output="false">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
     <output url="file://$MODULE_DIR$/bin/classes" />
     <exclude-output />
     <content url="file://$MODULE_DIR$">

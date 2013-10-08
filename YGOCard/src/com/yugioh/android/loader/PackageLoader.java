@@ -21,6 +21,7 @@ public class PackageLoader extends BaseLoader<PackageItem> {
         this.refresh = refresh;
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public List<PackageItem> loadInBackground() {
         List<PackageItem> list = null;
