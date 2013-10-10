@@ -19,20 +19,26 @@ import com.rarnu.tools.root.adapter.SysappSelectApkAdapter;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.SysappSelectApkItem;
 import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.utils.ImageUtils;
 
 import java.io.File;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 public class SysappSelectApkFragment extends BasePopupFragment implements OnItemClickListener, OnQueryTextListener {
 
     public static String ApkFilePath = "";
-    private static String rootDir = Environment.getExternalStorageDirectory().getPath();
+    private static String rootDir = Environment.getExternalStorageDirectory().getAbsolutePath();
     final Handler hShowDir = new Handler() {
+
+        @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                lvFiles.setAdapter(adapter);
+                list = (List<SysappSelectApkItem>) msg.obj;
+                adapter.setNewList(list);
                 pbShowing.setVisibility(View.GONE);
                 lvFiles.setEnabled(true);
             }
@@ -47,6 +53,13 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
     ProgressBar pbShowing;
     MenuItem itemSearch;
     MenuItem itemUp;
+    List<SysappSelectApkItem> list;
+    private Comparator<SysappSelectApkItem> compApks = new Comparator<SysappSelectApkItem>() {
+        @Override
+        public int compare(SysappSelectApkItem lhs, SysappSelectApkItem rhs) {
+            return lhs.filename.compareTo(rhs.filename);
+        }
+    };
 
     @Override
     public int getBarTitle() {
@@ -63,7 +76,9 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
         lvFiles = (ListView) innerView.findViewById(R.id.lvApk);
         tvPath = (TextView) innerView.findViewById(R.id.tvPath);
         pbShowing = (ProgressBar) innerView.findViewById(R.id.pbShowing);
-
+        list = new ArrayList<SysappSelectApkItem>();
+        adapter = new SysappSelectApkAdapter(getActivity(), list);
+        lvFiles.setAdapter(adapter);
     }
 
     @Override
@@ -90,18 +105,19 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
                 getActivity().finish();
             } else {
                 canExit = true;
-                Toast.makeText(getActivity(), R.string.already_sdcard_root, Toast.LENGTH_LONG).show();
+                Toast.makeText(getActivity(), R.string.already_sdcard_root, Toast.LENGTH_SHORT).show();
             }
         }
     }
 
-    public void showDir(String dir) {
+    public List<SysappSelectApkItem> showDir(String dir) {
+        List<SysappSelectApkItem> listTemp = new ArrayList<SysappSelectApkItem>();
         try {
             File fDir = new File(dir);
             if (fDir.exists()) {
                 File[] files = fDir.listFiles();
                 if (files != null) {
-                    List<SysappSelectApkItem> list = new ArrayList<SysappSelectApkItem>();
+
                     for (File f : files) {
                         if (!f.getName().startsWith(".")) {
                             if (f.isDirectory() || f.getName().endsWith(".apk")) {
@@ -112,16 +128,19 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
                                 item.icon = f.isDirectory() ? 1 : 0;
                                 item.filename = f.getName();
                                 item.level = ApkUtils.getAppLevel(f.getAbsolutePath(), "");
-                                list.add(item);
+                                listTemp.add(item);
                             }
                         }
                     }
-                    adapter = new SysappSelectApkAdapter(getActivity(), list);
                 }
             }
         } catch (Throwable th) {
-            adapter = null;
+
         }
+        if (listTemp != null) {
+            Collections.sort(listTemp, compApks);
+        }
+        return listTemp;
     }
 
     public void showDirT(final String dir) {
@@ -132,8 +151,10 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
         new Thread(new Runnable() {
             @Override
             public void run() {
-                showDir(dir);
-                hShowDir.sendEmptyMessage(1);
+                Message msg = new Message();
+                msg.what = 1;
+                msg.obj = showDir(dir);
+                hShowDir.sendMessage(msg);
 
             }
         }).start();
@@ -175,7 +196,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
         itemSearch.setActionView(sv);
 
         itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 99, R.string.uplevel);
-        itemUp.setIcon(android.R.drawable.ic_menu_upload);
+        itemUp.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.up_level));
         itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
     }
@@ -197,7 +218,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
 
     @Override
     public void onGetNewArguments(Bundle bn) {
-
+        doUplevel();
     }
 
     @Override

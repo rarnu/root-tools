@@ -22,6 +22,7 @@ import com.rarnu.tools.root.common.CacheInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.loader.CleanCacheLoader;
 import com.rarnu.tools.root.utils.CacheUtils;
+import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +87,7 @@ public class CleanCacheFragment extends BaseFragment implements OnLoadCompleteLi
         itemSearch.setActionView(sv);
 
         menuRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
-        menuRefresh.setIcon(android.R.drawable.ic_menu_revert);
+        menuRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         menuRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         menuClean = menu.add(0, MenuItemIds.MENU_CLEAN, 100, R.string.clean);

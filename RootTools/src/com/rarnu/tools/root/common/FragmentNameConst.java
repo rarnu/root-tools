@@ -30,4 +30,5 @@ public class FragmentNameConst {
 	public static final String FN_HARD_UPDATE = "hardupdate";
 	public static final String FN_DISKINFO = "diskinfo";
 	public static final String FN_FILESYSTEM = "filesystem";
+    public static final String FN_POOL = "pool";
 }

@@ -30,6 +30,7 @@ import com.rarnu.tools.root.fragmentactivity.MemProcessActivity;
 import com.rarnu.tools.root.loader.ProcessLoader;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.MemoryUtils;
+import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +142,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener, On
         itemSearch.setActionView(sv);
 
         menuRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
-        menuRefresh.setIcon(android.R.drawable.ic_menu_revert);
+        menuRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         menuRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         menuClean = menu.add(0, MenuItemIds.MENU_CLEAN, 100, R.string.clean);

@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="array_file_system_item_menu">
+        <item>剪切</item>
+        <item>复制</item>
+        <item>删除</item>
+    </string-array>
+</resources>

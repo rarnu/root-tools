@@ -4,11 +4,11 @@ import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.NetworkInfo;
-import com.rarnu.tools.root.common.DeviceInfo;
-import com.rarnu.tools.root.common.MemProcessInfo;
-import com.rarnu.tools.root.common.SysappInfo;
-import com.rarnu.tools.root.common.UpdateInfo;
+import com.rarnu.tools.root.common.*;
 import com.rarnu.tools.root.utils.DeviceUtils;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class GlobalInstance {
 
@@ -29,6 +29,7 @@ public class GlobalInstance {
     public static int myPid = 0;
     public static boolean killProcessBeforeClean = true;
     public static MemProcessInfo currentMemoryProcess = null;
+    public static List<FileOperationInfo> listOperation = new ArrayList<FileOperationInfo>();
     // network
     public static boolean loadingNetwork = false;
     public static NetworkInfo networkInfo = null;
@@ -43,5 +44,6 @@ public class GlobalInstance {
     public static void init(Context context) {
         pm = context.getPackageManager();
         device = DeviceUtils.getDeviceInfo();
+        listOperation.clear();
     }
 }

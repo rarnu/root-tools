@@ -1,21 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/tvPath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightskyblue"
+            android:gravity="left|center_vertical"
+            android:padding="4dip"
+            android:textColor="@color/black"/>
 
     <ListView
-        android:id="@+id/lvFiles"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/progressFiles"
-        android:fastScrollEnabled="true" >
+            android:id="@+id/lvFiles"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/progressFiles"
+            android:fastScrollEnabled="true"
+            android:layout_below="@+id/tvPath">
     </ListView>
 
+
+
     <com.rarnu.devlib.component.DataProgressBar
-        android:id="@+id/progressFiles"
-        android:layout_width="match_parent"
-        android:layout_height="24dip"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone" />
+            android:id="@+id/progressFiles"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"/>
 
 </RelativeLayout>

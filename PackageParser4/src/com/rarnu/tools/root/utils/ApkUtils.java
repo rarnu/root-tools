@@ -673,25 +673,30 @@ public class ApkUtils {
      *         return 0: installed with same signature<br>
      *         return 1: installed with different signature<br>
      *         return 2: no need update<br>
-     *         return 3: not installed
+     *         return 3: not installed<br>
+     *         return 4: error
      */
     public static int getApkFileStatus(Context context, DataappInfo newinfo) {
-        String packageName = newinfo.info.packageName;
-        ApplicationInfo installedInfo = null;
         try {
-            installedInfo = GlobalInstance.pm.getApplicationInfo(packageName, 0);
-        } catch (NameNotFoundException e) {
+            String packageName = newinfo.info.packageName;
+            ApplicationInfo installedInfo = null;
+            try {
+                installedInfo = GlobalInstance.pm.getApplicationInfo(packageName, 0);
+            } catch (NameNotFoundException e) {
 
+            }
+            if (installedInfo == null) {
+                return 3;
+            }
+            int newVer = DeviceUtils.getAppVersionCode(context, newinfo.localPath);
+            int oldVer = DeviceUtils.getAppVersionCode(context, installedInfo);
+            if (newVer <= oldVer) {
+                return 2;
+            }
+            int compare = GlobalInstance.pm.checkSignatures(newinfo.info.uid, installedInfo.uid);
+            return (compare == PackageManager.SIGNATURE_MATCH ? 0 : 1);
+        } catch (Exception e) {
+            return 4;
         }
-        if (installedInfo == null) {
-            return 3;
-        }
-        int newVer = DeviceUtils.getAppVersionCode(context, newinfo.localPath);
-        int oldVer = DeviceUtils.getAppVersionCode(context, installedInfo);
-        if (newVer <= oldVer) {
-            return 2;
-        }
-        int compare = GlobalInstance.pm.checkSignatures(newinfo.info.uid, installedInfo.uid);
-        return (compare == PackageManager.SIGNATURE_MATCH ? 0 : 1);
     }
 }

@@ -35,6 +35,7 @@ public class Fragments {
     private static HardUpdateFragment fHardUpdate = null;
     private static DiskInfoFragment fDiskInfo = null;
     private static FileSystemFragment fFileSystem = null;
+    private static PoolFragment fPool = null;
 
     public static Fragment getFragment(String name) {
         releaseOtherFragment(name);
@@ -83,7 +84,6 @@ public class Fragments {
         }
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_MEM_PROCESS, MemProcessFragment.class, fMemProcess);
-
         }
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_HOST, HostFragment.class, fHost);
@@ -127,12 +127,14 @@ public class Fragments {
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_FILESYSTEM, FileSystemFragment.class, fFileSystem);
         }
+        if (f == null) {
+            f = getFragment(name, FragmentNameConst.FN_POOL, PoolFragment.class, fPool);
+        }
 
         return f;
     }
 
     private static Fragment getFragment(String name, String checkName, Class<?> fClass, Fragment f) {
-
         if (name.equals(checkName)) {
             if (f == null) {
                 try {
@@ -174,6 +176,7 @@ public class Fragments {
         fHardUpdate = null;
         fDiskInfo = null;
         fFileSystem = null;
+        fPool = null;
     }
 
     public static void releaseOtherFragment(String name) {
@@ -204,6 +207,7 @@ public class Fragments {
         doReleaseFragment(name, FragmentNameConst.FN_HARD_UPDATE, fHardUpdate);
         doReleaseFragment(name, FragmentNameConst.FN_DISKINFO, fDiskInfo);
         doReleaseFragment(name, FragmentNameConst.FN_FILESYSTEM, fFileSystem);
+        doReleaseFragment(name, FragmentNameConst.FN_POOL, fPool);
     }
 
     private static void doReleaseFragment(String name, String checkName, Fragment f) {

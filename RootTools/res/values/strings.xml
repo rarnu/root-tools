@@ -86,6 +86,7 @@
     <string name="na">N/A</string>
     <string name="version">Version </string>
     <string name="refresh">Refresh</string>
+    <string name="pool">Pool</string>
     <string name="help">Help</string>
     <string name="help_with_path">RootTools &gt; Help</string>
     <string name="save">Save</string>
@@ -172,6 +173,7 @@
     <string name="btn_delete" formatted="false">Delete(%d)</string>
     <string name="deleting">Deleting...</string>
     <string name="adding">Adding...</string>
+    <string name="delete_file">Delete selected file?</string>
     <string name="save_hosts_succ">Hosts saved</string>
     <string name="save_hosts_error">Error when saving Hosts</string>
     <string name="save_ignore_succ">Ignore list saved</string>
@@ -276,6 +278,7 @@
 	<string name="btn_update_install">Install</string>
 	<string name="btn_scan_apk">Scan APK</string>
 	<string name="proc_scaning_apk">Scaning APKs from SDCard, please wait...</string>
+    <string name="apkstat_4">Broken</string>
 	<string name="apkstat_3">Not installed</string>
 	<string name="apkstat_2">No need to update</string>
 	<string name="apkstat_1">Different signature, need force update</string>
@@ -287,4 +290,13 @@
 	<string name="disk_free_fmt" formatred="false">Free:%s</string>
 	<string name="disk_block_fmt" formatted="false">Blks:%s</string>
 	<string name="default_hint">Default</string>
+    <string name="fs_cut">Cut</string>
+    <string name="fs_copy">Copy</string>
+    <string name="mem_process">Process</string>
+    <string name="no_file_for_operating">No file for operating</string>
+    <string name="file_operating_exists">This file is already in operating pool</string>
+    <string name="file_moving">Moving file...</string>
+    <string name="file_copying">Copying file...</string>
+    <string name="file_operating_succ">File operating success</string>
+    <string name="file_operating_fail">file operating fail</string>
 </resources>

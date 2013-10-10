@@ -31,6 +31,7 @@ import com.rarnu.tools.root.fragmentactivity.SysappDetailActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappSelectApkActivity;
 import com.rarnu.tools.root.loader.SysappLoader;
 import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.utils.ImageUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -193,7 +194,7 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
         itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100, R.string.refresh);
-        itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
+        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
     }

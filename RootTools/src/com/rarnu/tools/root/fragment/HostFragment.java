@@ -25,6 +25,7 @@ import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.fragmentactivity.HostAddActivity;
 import com.rarnu.tools.root.loader.HostsLoader;
 import com.rarnu.tools.root.utils.DIPairUtils;
+import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -141,7 +142,7 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
         itemAdd.setEnabled(listHostsAll.size() != 0);
 
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100, R.string.refresh);
-        itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
+        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

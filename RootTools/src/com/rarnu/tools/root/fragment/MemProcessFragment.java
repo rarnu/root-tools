@@ -20,7 +20,8 @@ public class MemProcessFragment extends BaseDialogFragment implements OnClickLis
     ImageView ImgIcon;
     TextView tvName, tvNamespace, tvWarning;
     TextView tvPidValue, tvMemoryValue, tvUserValue;
-    Button btnCancel, btnKill, btnIgnore;
+    Button btnKill, btnIgnore;
+    ImageView btnCancel;
 
     @Override
     public void initComponents() {
@@ -31,7 +32,7 @@ public class MemProcessFragment extends BaseDialogFragment implements OnClickLis
         tvPidValue = (TextView) innerView.findViewById(R.id.tvPidValue);
         tvMemoryValue = (TextView) innerView.findViewById(R.id.tvMemoryValue);
         tvUserValue = (TextView) innerView.findViewById(R.id.tvUserValue);
-        btnCancel = (Button) innerView.findViewById(R.id.btnCancel);
+        btnCancel = (ImageView) innerView.findViewById(R.id.btnCancel);
         btnKill = (Button) innerView.findViewById(R.id.btnKill);
         btnIgnore = (Button) innerView.findViewById(R.id.btnIgnore);
     }

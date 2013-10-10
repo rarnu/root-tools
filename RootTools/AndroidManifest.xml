@@ -32,7 +32,7 @@
             android:theme="@android:style/Theme.Holo">
         <meta-data
                 android:name="debug"
-                android:value="true"/>
+                android:value="false"/>
 
         <activity
                 android:name=".SplashActivity"
@@ -119,6 +119,9 @@
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
+        <activity android:name=".fragmentactivity.PoolActivity"
+                  android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+                  android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
                 android:name=".fragmentactivity.HostMainActivity"
                 android:label="@string/func7_title"

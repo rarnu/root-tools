@@ -16,8 +16,7 @@ import java.util.List;
 
 public class SysappSelectApkAdapter extends BaseAdapter<SysappSelectApkItem> {
 
-    public SysappSelectApkAdapter(Context context,
-                                  List<SysappSelectApkItem> list) {
+    public SysappSelectApkAdapter(Context context, List<SysappSelectApkItem> list) {
         super(context, list);
     }
 
@@ -25,8 +24,8 @@ public class SysappSelectApkAdapter extends BaseAdapter<SysappSelectApkItem> {
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View v = convertView;
-        if (v != null) {
-            v = convertView;
+        if (v == null) {
+            v = inflater.inflate(R.layout.sysapp_file_item, parent, false);
         }
 
         SysappSelectApkAdapterHolder holder = (SysappSelectApkAdapterHolder) v.getTag();
@@ -39,7 +38,7 @@ public class SysappSelectApkAdapter extends BaseAdapter<SysappSelectApkItem> {
         SysappSelectApkItem item = list.get(position);
         if (item != null) {
             if (item.icon == 1) {
-                holder.imgIcon.setBackgroundDrawable(v.getResources().getDrawable(R.drawable.folder));
+                holder.imgIcon.setBackgroundDrawable(v.getResources().getDrawable(R.drawable.format_folder));
             } else {
                 holder.imgIcon.setBackgroundDrawable(item.iconImg);
             }

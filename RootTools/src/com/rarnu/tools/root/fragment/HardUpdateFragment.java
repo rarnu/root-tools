@@ -19,6 +19,7 @@ import com.rarnu.tools.root.adapter.HardUpdateAdapter;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -79,8 +80,10 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
                     newinfo.info = ApkUtils.getAppInfoFromPackage(line);
                     newinfo.apkStatus = ApkUtils.getApkFileStatus(getActivity(), newinfo);
                     newinfo.checked = false;
-                    list.add(newinfo);
-                    adapter.notifyDataSetChanged();
+                    if (newinfo.apkStatus != 4) {
+                        list.add(newinfo);
+                        adapter.notifyDataSetChanged();
+                    }
                 }
 
             }
@@ -90,6 +93,7 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
     private Handler hFinish = new Handler() {
         @Override
         public void handleMessage(Message msg) {
+            adapter.notifyDataSetChanged();
             progressScanApk.setVisibility(View.GONE);
             itemRefresh.setEnabled(true);
             adapter.setEnableButtons(true);
@@ -167,7 +171,7 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
     @Override
     public void initMenu(Menu menu) {
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
-        itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
+        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

@@ -47,20 +47,18 @@ public class RootUncaughtExceptionHandler implements Thread.UncaughtExceptionHan
     }
 
     private void sendReport(String msg, String stack) {
-        if (GlobalInstance.DEBUG) {
-            String path = DirHelper.ERROR_DIR + "log.txt";
-            File fError = new File(path);
-            try {
-                if (fError.exists()) {
-                    FileUtils.appendFile(path, msg + "\n" + stack + "\n\n");
-                } else {
-                    FileUtils.rewriteFile(path, msg + "\n" + stack + "\n\n");
-                }
-            } catch (Exception ex) {
 
+        String path = DirHelper.ERROR_DIR + "log.txt";
+        File fError = new File(path);
+        try {
+            if (fError.exists()) {
+                FileUtils.appendFile(path, msg + "\n" + stack + "\n\n");
+            } else {
+                FileUtils.rewriteFile(path, msg + "\n" + stack + "\n\n");
             }
-        }
+        } catch (Exception ex) {
 
+        }
 
     }
 }

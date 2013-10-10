@@ -86,6 +86,7 @@
     <string name="na">N/A</string>
     <string name="version">版本 </string>
     <string name="refresh">更新</string>
+    <string name="pool">操作池</string>
     <string name="help">幫助</string>
     <string name="help_with_path">RootTools &gt; 幫助</string>
     <string name="save">存檔</string>
@@ -172,6 +173,7 @@
     <string name="btn_delete" formatted="false">移除(%d)</string>
     <string name="deleting">正在移除...</string>
     <string name="adding">正在增加...</string>
+    <string name="delete_file">確認要刪除選定的檔案?</string>
     <string name="save_hosts_succ">已將當前編輯的 Hosts 存盤</string>
     <string name="save_hosts_error">存盤 Hosts 時發生了錯誤</string>
     <string name="save_ignore_succ">已將當前編輯的忽略列表存盤</string>
@@ -276,6 +278,7 @@
     <string name="btn_update_install">安裝</string>
     <string name="btn_scan_apk">掃描 APK</string>
     <string name="proc_scaning_apk">正在掃描 SD 卡內的 APK，請稍候...</string>
+    <string name="apkstat_4">已損壞</string>
     <string name="apkstat_3">未安裝</string>
     <string name="apkstat_2">無需升級</string>
     <string name="apkstat_1">籤名不同，需強制升級</string>
@@ -286,5 +289,13 @@
     <string name="disk_free_fmt" formatred="false">空閒:%s</string>
     <string name="disk_block_fmt" formatted="false">區塊:%s</string>
     <string name="default_hint">默認</string>
-
+    <string name="fs_cut">剪切</string>
+    <string name="fs_copy">復制</string>
+    <string name="mem_process">進程資訊</string>
+    <string name="no_file_for_operating">沒有需要操作的檔案</string>
+    <string name="file_operating_exists">檔案已在操作池內</string>
+    <string name="file_moving">正在移動檔案...</string>
+    <string name="file_copying">正在復制檔案...</string>
+    <string name="file_operating_succ">檔案操作成功</string>
+    <string name="file_operating_fail">檔案操作失敗</string>
 </resources>

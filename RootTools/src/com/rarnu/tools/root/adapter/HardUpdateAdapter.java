@@ -21,7 +21,7 @@ import java.util.List;
 public class HardUpdateAdapter extends BaseAdapter<DataappInfo> {
 
     private static int[] apkStat = new int[]{
-            R.string.apkstat_0, R.string.apkstat_1, R.string.apkstat_2, R.string.apkstat_3
+            R.string.apkstat_0, R.string.apkstat_1, R.string.apkstat_2, R.string.apkstat_3, R.string.apkstat_4
     };
     private Handler hButtonClick;
     private boolean enabledButtons;
@@ -56,8 +56,8 @@ public class HardUpdateAdapter extends BaseAdapter<DataappInfo> {
         }
         final DataappInfo item = list.get(position);
         if (item != null) {
-            holder.icon.setBackgroundDrawable(ApkUtils.getIconFromPackage(v.getContext(), item.info, item.localPath));
-            holder.name.setText(ApkUtils.getLabelFromPackage(v.getContext(), item.info, item.localPath));
+            holder.icon.setBackgroundDrawable(ApkUtils.getIconFromPackageFile(v.getContext(), item.info, item.localPath));
+            holder.name.setText(ApkUtils.getLabelFromPackageFile(v.getContext(), item.info, item.localPath));
             holder.path.setText(apkStat[item.apkStatus]);
             switch (item.apkStatus) {
                 case 0:
@@ -71,6 +71,10 @@ public class HardUpdateAdapter extends BaseAdapter<DataappInfo> {
                 case 3:
                     holder.update.setText(R.string.btn_update_install);
                     holder.update.setVisibility(View.VISIBLE);
+                    break;
+                case 4:
+                    holder.name.setText(item.localPath);
+                    holder.update.setVisibility(View.GONE);
                     break;
             }
 

@@ -15,6 +15,7 @@ import com.rarnu.tools.root.adapter.DiskInfoAdapter;
 import com.rarnu.tools.root.common.DiskInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.loader.DiskInfoLoader;
+import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -76,7 +77,7 @@ public class DiskInfoFragment extends BaseFragment implements OnLoadCompleteList
     @Override
     public void initMenu(Menu menu) {
         miRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
-        miRefresh.setIcon(android.R.drawable.ic_menu_revert);
+        miRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         miRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

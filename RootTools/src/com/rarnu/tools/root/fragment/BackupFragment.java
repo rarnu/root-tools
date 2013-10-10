@@ -26,6 +26,7 @@ import com.rarnu.tools.root.receiver.MutaxReceiver;
 import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
 import com.rarnu.tools.root.service.DataBackupService;
 import com.rarnu.tools.root.utils.ListUtils;
+import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -110,7 +111,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
         itemSearch.setActionView(sv);
 
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
-        itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
+        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

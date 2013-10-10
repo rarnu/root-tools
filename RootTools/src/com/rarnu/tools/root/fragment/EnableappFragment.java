@@ -21,6 +21,7 @@ import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.loader.EnableappLoader;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.ComponentUtils;
+import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -75,7 +76,7 @@ public class EnableappFragment extends BaseFragment implements OnItemLongClickLi
         itemSearch.setActionView(sv);
 
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
-        itemRefresh.setIcon(android.R.drawable.ic_menu_revert);
+        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
     }
