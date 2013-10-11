@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tag_server_fragment">tag_server_fragment</string>
+    <string name="tag_flow_fragment">tag_flow_fragment</string>
+    <string name="tag_cost_fragment">tag_cost_fragment</string>
+    <string name="tag_service_fragment">tag_service_fragment</string>
+    <string name="tag_settings_fragment">tag_settings_fragment</string>
+</resources>

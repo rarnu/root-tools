@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+    <ScrollView android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+        <RelativeLayout android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+            <TextView android:id="@+id/tvNotificationTitle"
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      android:padding="4dip"
+                      android:text="@string/settings_notification"
+                      android:background="@android:color/holo_blue_light"
+                      android:textColor="?android:attr/textColorPrimary"/>
+
+            <CheckBox android:id="@+id/chkServerDown"
+                      android:layout_width="match_parent"
+                      android:layout_height="48dip"
+                      android:gravity="left|center_vertical"
+                      android:text="@string/settings_server_down"
+                      android:layout_below="@+id/tvNotificationTitle"
+                      android:textColor="?android:attr/textColorPrimary"/>
+
+            <CheckBox android:id="@+id/chkDiskUsage"
+                      android:layout_width="wrap_content"
+                      android:layout_height="48dip"
+                      android:gravity="left|center_vertical"
+                      android:layout_below="@+id/chkServerDown"
+                      android:text="@string/settings_disk_usage"
+                      android:textColor="?android:attr/textColorPrimary"/>
+            <Button android:id="@+id/btnDiskUsage"
+                    android:layout_width="96dip"
+                    android:layout_height="48dip"
+                    android:layout_below="@+id/chkServerDown"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/button_style"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:text="90%"/>
+
+            <CheckBox android:id="@+id/chkFlowUsage"
+                      android:layout_width="wrap_content"
+                      android:layout_height="48dip"
+                      android:layout_below="@+id/chkDiskUsage"
+                      android:gravity="left|center_vertical"
+                      android:textColor="?android:attr/textColorPrimary"
+                      android:text="@string/settings_flow_usage"/>
+            <Button android:id="@+id/btnFlowUsage"
+                    android:layout_width="96dip"
+                    android:layout_height="48dip"
+                    android:layout_below="@+id/chkDiskUsage"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/button_style"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:text="90%"/>
+
+            <CheckBox android:id="@+id/chkCostUsage"
+                      android:layout_width="wrap_content"
+                      android:layout_height="48dip"
+                      android:layout_below="@+id/chkFlowUsage"
+                      android:gravity="left|center_vertical"
+                      android:textColor="?android:attr/textColorPrimary"
+                      android:text="@string/settings_cost_usage"/>
+
+            <Button android:id="@+id/btnCostUsage"
+                    android:layout_width="96dip"
+                    android:layout_height="48dip"
+                    android:layout_below="@+id/chkFlowUsage"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/button_style"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:text="95%"/>
+
+            <CheckBox android:id="@+id/chkServiceReceived"
+                      android:layout_width="wrap_content"
+                      android:layout_height="48dip"
+                      android:layout_below="@+id/chkCostUsage"
+                      android:textColor="?android:attr/textColorPrimary"
+                      android:gravity="left|center_vertical"
+                      android:text="@string/settings_service_received"/>
+
+            <CheckBox android:id="@+id/chkServiceRingtone"
+                      android:layout_width="wrap_content"
+                      android:layout_height="48dip"
+                      android:layout_below="@+id/chkServiceReceived"
+                      android:textColor="?android:attr/textColorPrimary"
+                      android:gravity="left|center_vertical"
+                      android:text="@string/settings_service_ringtone"
+                      android:layout_marginLeft="48dip"/>
+            <Button android:id="@+id/btnServiceRingtone"
+                    android:layout_width="96dip"
+                    android:layout_height="48dip"
+                    android:layout_below="@+id/chkServiceReceived"
+                    android:layout_alignParentRight="true"
+                    android:background="@drawable/button_style"
+                    android:textColor="?android:attr/textColorSecondary"
+                    android:text="@string/settings_service_ringtone_system"/>
+
+            <CheckBox android:id="@+id/chkServiceVibrate"
+                      android:layout_width="wrap_content"
+                      android:layout_height="48dip"
+                      android:layout_below="@+id/chkServiceRingtone"
+                      android:textColor="?android:attr/textColorPrimary"
+                      android:gravity="left|center_vertical"
+                      android:text="@string/settings_service_vibrate"
+                      android:layout_marginLeft="48dip"/>
+            <CheckBox android:id="@+id/chkServiceLED"
+                      android:layout_width="wrap_content"
+                      android:layout_height="48dip"
+                      android:layout_below="@+id/chkServiceVibrate"
+                      android:textColor="?android:attr/textColorPrimary"
+                      android:gravity="left|center_vertical"
+                      android:text="@string/settings_service_led"
+                      android:layout_marginLeft="48dip"/>
+        </RelativeLayout>
+    </ScrollView>
+
+
+</RelativeLayout>
+
