@@ -2,9 +2,6 @@ package com.rarnu.ucloud.android.fragment;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -12,9 +9,7 @@ import android.widget.ShareActionProvider;
 import com.rarnu.devlib.base.BaseTabFragment;
 import com.rarnu.ucloud.android.R;
 import com.rarnu.ucloud.android.common.MenuIds;
-import com.rarnu.utils.ImageUtils;
 
-import java.io.File;
 import java.util.List;
 
 public class MainFragment extends BaseTabFragment {
@@ -27,7 +22,7 @@ public class MainFragment extends BaseTabFragment {
         listFragment.add(new ServerFragment());
         listFragment.add(new FlowFragment());
         listFragment.add(new CostFragment());
-        listFragment.add(new ServiceFragment());
+        listFragment.add(new ChatFragment());
         listFragment.add(new SettingsFragment());
     }
 

@@ -1,19 +1,30 @@
 package com.rarnu.ucloud.android.fragment;
 
+import android.content.Loader;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.ucloud.android.R;
+import com.rarnu.ucloud.android.adapter.ServerAdapter;
 import com.rarnu.ucloud.android.common.MenuIds;
+import com.rarnu.ucloud.android.loader.ServerLoader;
+import com.rarnu.ucloud.android.pojo.ServerItem;
 import com.rarnu.utils.ImageUtils;
 import com.rarnu.utils.ResourceUtils;
+import com.rarnu.utils.UIUtils;
 
-public class ServerFragment extends BaseFragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class ServerFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<ServerItem>> {
 
     ListView lvServer;
     MenuItem miRefresh;
+    List<ServerItem> list;
+    ServerAdapter adapter;
+    ServerLoader loader;
 
     public ServerFragment() {
         super();
@@ -39,14 +50,24 @@ public class ServerFragment extends BaseFragment {
     @Override
     public void initComponents() {
         lvServer = (ListView) innerView.findViewById(R.id.lvServer);
+        list = new ArrayList<ServerItem>();
+
+        int itemHeight = (int) (UIUtils.getWidth() * 0.345D);
+
+        adapter = new ServerAdapter(getActivity(), list, itemHeight);
+        lvServer.setAdapter(adapter);
+        loader = new ServerLoader(getActivity());
     }
 
     @Override
     public void initEvents() {
+        loader.registerListener(0, this);
     }
 
     @Override
     public void initLogic() {
+        // loader.setUserToken(token);
+        loader.startLoading();
     }
 
     @Override
@@ -70,7 +91,7 @@ public class ServerFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MenuIds.MENUID_REFRESH:
-                // TODO: refresh
+                loader.startLoading();
                 break;
         }
         return true;
@@ -83,5 +104,16 @@ public class ServerFragment extends BaseFragment {
     @Override
     public Bundle getFragmentState() {
         return null;
+    }
+
+    @Override
+    public void onLoadComplete(Loader<List<ServerItem>> loader, List<ServerItem> data) {
+        list.clear();
+        if (data != null) {
+            list.addAll(data);
+        }
+        if (getActivity() != null) {
+            adapter.setNewList(list);
+        }
     }
 }
