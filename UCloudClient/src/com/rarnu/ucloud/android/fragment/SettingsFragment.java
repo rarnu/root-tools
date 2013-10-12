@@ -1,5 +1,7 @@
 package com.rarnu.ucloud.android.fragment;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -8,13 +10,16 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.ucloud.android.R;
+import com.rarnu.ucloud.android.UserActivity;
 import com.rarnu.ucloud.android.common.Config;
+import com.rarnu.ucloud.android.dialog.SeekDialog;
 import com.rarnu.utils.ResourceUtils;
 
 public class SettingsFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
     CheckBox chkServerDown, chkDiskUsage, chkFlowUsage, chkCostUsage, chkServiceReceived, chkServiceRingtone, chkServiceVibrate, chkServiceLED;
     Button btnDiskUsage, btnFlowUsage, btnCostUsage, btnServiceRingtone;
+    Button btnUserName, btnPassword, btnAccountInfo;
 
     public SettingsFragment() {
         super();
@@ -52,6 +57,10 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         btnFlowUsage = (Button) innerView.findViewById(R.id.btnFlowUsage);
         btnCostUsage = (Button) innerView.findViewById(R.id.btnCostUsage);
         btnServiceRingtone = (Button) innerView.findViewById(R.id.btnServiceRingtone);
+
+        btnUserName = (Button) innerView.findViewById(R.id.btnUserName);
+        btnPassword = (Button) innerView.findViewById(R.id.btnPassword);
+        btnAccountInfo = (Button) innerView.findViewById(R.id.btnAccountInfo);
     }
 
     @Override
@@ -68,6 +77,9 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         btnFlowUsage.setOnClickListener(this);
         btnCostUsage.setOnClickListener(this);
         btnServiceRingtone.setOnClickListener(this);
+        btnUserName.setOnClickListener(this);
+        btnPassword.setOnClickListener(this);
+        btnAccountInfo.setOnClickListener(this);
     }
 
     @Override
@@ -86,7 +98,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         chkServiceLED.setChecked(Config.getServiceLed(getActivity()));
 
         btnDiskUsage.setText(String.format("%d%%", Config.getDiskPercent(getActivity())));
-        btnFlowUsage.setText(String.format("%d%%", Config.getFLowPercent(getActivity())));
+        btnFlowUsage.setText(String.format("%d%%", Config.getFlowPercent(getActivity())));
         btnCostUsage.setText(String.format("%d%%", Config.getCostPercent(getActivity())));
         btnServiceRingtone.setText(Config.getRingtoneUri(getActivity()).equals("") ? R.string.settings_service_ringtone_system : R.string.settings_service_ringtone_custom);
 
@@ -171,14 +183,55 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
 
     @Override
     public void onClick(View v) {
+
+        Intent inSeek = new Intent(getActivity(), SeekDialog.class);
+
         switch (v.getId()) {
             case R.id.btnDiskUsage:
+                inSeek.putExtra("title", getString(R.string.settings_disk_usage));
+                inSeek.putExtra("progress", Config.getDiskPercent(getActivity()));
+                startActivityForResult(inSeek, 0);
                 break;
             case R.id.btnFlowUsage:
+                inSeek.putExtra("title", getString(R.string.settings_flow_usage));
+                inSeek.putExtra("progress", Config.getFlowPercent(getActivity()));
+                startActivityForResult(inSeek, 1);
                 break;
             case R.id.btnCostUsage:
+                inSeek.putExtra("title", getString(R.string.settings_cost_usage));
+                inSeek.putExtra("progress", Config.getCostPercent(getActivity()));
+                startActivityForResult(inSeek, 2);
                 break;
             case R.id.btnServiceRingtone:
+                break;
+            case R.id.btnUserName:
+                break;
+            case R.id.btnPassword:
+                break;
+            case R.id.btnAccountInfo:
+                startActivity(new Intent(getActivity(), UserActivity.class));
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (resultCode != Activity.RESULT_OK) {
+            return;
+        }
+
+        switch (requestCode) {
+            case 0:
+                Config.setDiskPercent(getActivity(), data.getIntExtra("progress", 0));
+                btnDiskUsage.setText(String.format("%d%%", Config.getDiskPercent(getActivity())));
+                break;
+            case 1:
+                Config.setFlowPercent(getActivity(), data.getIntExtra("progress", 0));
+                btnFlowUsage.setText(String.format("%d%%", Config.getFlowPercent(getActivity())));
+                break;
+            case 2:
+                Config.setCostPercent(getActivity(), data.getIntExtra("progress", 0));
+                btnCostUsage.setText(String.format("%d%%", Config.getCostPercent(getActivity())));
                 break;
         }
     }

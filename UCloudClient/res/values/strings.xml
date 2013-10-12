@@ -33,4 +33,6 @@
 
     <string name="chat_chatter">UCloud 001 号客服正在为您服务</string>
     <string name="chat_send">发送</string>
+
+    <string name="user_title">用户信息</string>
 </resources>

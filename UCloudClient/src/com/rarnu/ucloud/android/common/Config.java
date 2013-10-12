@@ -90,7 +90,7 @@ public class Config {
         ConfigUtils.setIntConfig(context, KEY_DISK_PERCENT, value);
     }
 
-    public static int getFLowPercent(Context context) {
+    public static int getFlowPercent(Context context) {
         return ConfigUtils.getIntConfig(context, KEY_FLOW_PERCENT, 90);
     }
 
