@@ -12,7 +12,7 @@
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
 
     <application android:label="@string/app_name" android:icon="@drawable/ic_launcher"
-                 android:theme="@android:style/Theme.Holo">
+                 android:theme="@android:style/Theme.Holo.Light">
         <activity android:name=".MainActivity"
                   android:label="@string/app_name"
                   android:screenOrientation="portrait"
@@ -28,7 +28,16 @@
         <activity android:name=".dialog.SeekDialog"
                   android:screenOrientation="portrait"
                   android:windowSoftInputMode="stateHidden"
-                  android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"/>
+                  android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+        <activity android:name=".dialog.LoginDialog"
+                  android:screenOrientation="portrait"
+                  android:windowSoftInputMode="stateHidden"
+                  android:theme="@android:style/Theme.Holo.Light.Dialog.NoActionBar"/>
+
+        <service android:name=".service.ServerStateService"
+                 android:enabled="true"
+                 android:exported="true"
+                />
 
         <receiver android:name=".service.BootReceiver"
                   android:enabled="true"

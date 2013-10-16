@@ -25,6 +25,7 @@ import com.rarnu.tools.root.common.FileOperationInfo;
 import com.rarnu.tools.root.common.FileSystemFileInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.fragmentactivity.PoolActivity;
+import com.rarnu.tools.root.fragmentactivity.TextEditorActivity;
 import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.ImageUtils;
 
@@ -39,6 +40,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
     MenuItem itemPool;
     MenuItem itemSearch;
     MenuItem itemUp;
+    MenuItem itemAdd;
     TextView tvPath;
     ListView lvFiles;
     DataProgressBar progressFiles;
@@ -140,16 +142,20 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
 
     @Override
     public void initMenu(Menu menu) {
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
+        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 97, R.string.search);
         itemSearch.setIcon(android.R.drawable.ic_menu_search);
         itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         SearchView sv = new SearchView(getActivity());
         sv.setOnQueryTextListener(this);
         itemSearch.setActionView(sv);
 
-        itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 99, R.string.uplevel);
+        itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 98, R.string.uplevel);
         itemUp.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.up_level));
         itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
+        itemAdd.setIcon(android.R.drawable.ic_menu_add);
+        itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         itemPool = menu.add(0, MenuItemIds.MENU_POOL, 100, R.string.pool);
         itemPool.setIcon(ImageUtils.loadActionBarIcon(getActivity(), GlobalInstance.listOperation.size() == 0 ? R.drawable.fs_gray : R.drawable.fs_light));
@@ -161,6 +167,9 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
         switch (item.getItemId()) {
             case MenuItemIds.MENU_UPLEVEL:
                 doUpLevel();
+                break;
+            case MenuItemIds.MENU_ADD:
+                doPrepareAddFile();
                 break;
             case MenuItemIds.MENU_POOL:
                 if (GlobalInstance.listOperation.size() != 0) {
@@ -195,6 +204,37 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                 break;
         }
         itemPool.setIcon(ImageUtils.loadActionBarIcon(getActivity(), GlobalInstance.listOperation.size() == 0 ? R.drawable.fs_gray : R.drawable.fs_light));
+    }
+
+    private void doPrepareAddFile() {
+        // add new file
+        final EditText etFileName = new EditText(getActivity());
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.file_input_name)
+                .setView(etFileName)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        String fileName = etFileName.getText().toString();
+                        if (!fileName.equals("")) {
+                            doAddFile(fileName);
+                        }
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+
+    private void doAddFile(String fileName) {
+        String fullPath = currentDir + "/" + fileName;
+        try {
+            FileUtils.rewriteFile(fullPath, "");
+            FileSystemFileInfo info = new FileSystemFileInfo(false, fileName, fullPath);
+            // TODO: fill icon
+            list.add(info);
+            adapter.setNewList(list);
+        } catch (Exception e) {
+        }
     }
 
     private void doCutFile(final FileOperationInfo info) {
@@ -374,12 +414,15 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                     public void onClick(DialogInterface dialog, int which) {
                         switch (which) {
                             case 0:
-                                doPrepareCutFile(item);
+                                doOpenAsText(item);
                                 break;
                             case 1:
-                                doPrepareCopyFile(item);
+                                doPrepareCutFile(item);
                                 break;
                             case 2:
+                                doPrepareCopyFile(item);
+                                break;
+                            case 3:
                                 doPrepareDeleteFile(item);
                                 break;
                         }
@@ -389,6 +432,20 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                 .show();
 
         return true;
+    }
+
+    private void doOpenAsText(final FileSystemFileInfo item) {
+        if (item.isDirectory) {
+            Toast.makeText(getActivity(), R.string.file_cannot_open_folder, Toast.LENGTH_SHORT).show();
+        } else {
+
+            if (item != null && item.mimeType != null && item.mimeType.startsWith("text/")) {
+                startActivity(new Intent(getActivity(), TextEditorActivity.class).putExtra("file", item.fullPath).putExtra("name", item.name));
+            } else {
+                Toast.makeText(getActivity(), R.string.file_not_text, Toast.LENGTH_SHORT).show();
+            }
+
+        }
     }
 
     private void doPrepareCutFile(final FileSystemFileInfo item) {

@@ -36,6 +36,7 @@ public class Fragments {
     private static DiskInfoFragment fDiskInfo = null;
     private static FileSystemFragment fFileSystem = null;
     private static PoolFragment fPool = null;
+    private static TextEditorFragment fTextEditor = null;
 
     public static Fragment getFragment(String name) {
         releaseOtherFragment(name);
@@ -130,6 +131,9 @@ public class Fragments {
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_POOL, PoolFragment.class, fPool);
         }
+        if (f == null) {
+            f = getFragment(name, FragmentNameConst.FN_TEXT_EDITOR, TextEditorFragment.class, fTextEditor);
+        }
 
         return f;
     }
@@ -177,6 +181,7 @@ public class Fragments {
         fDiskInfo = null;
         fFileSystem = null;
         fPool = null;
+        fTextEditor = null;
     }
 
     public static void releaseOtherFragment(String name) {
@@ -208,6 +213,7 @@ public class Fragments {
         doReleaseFragment(name, FragmentNameConst.FN_DISKINFO, fDiskInfo);
         doReleaseFragment(name, FragmentNameConst.FN_FILESYSTEM, fFileSystem);
         doReleaseFragment(name, FragmentNameConst.FN_POOL, fPool);
+        doReleaseFragment(name, FragmentNameConst.FN_TEXT_EDITOR, fTextEditor);
     }
 
     private static void doReleaseFragment(String name, String checkName, Fragment f) {

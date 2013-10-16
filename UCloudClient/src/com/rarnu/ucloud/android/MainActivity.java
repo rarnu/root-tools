@@ -1,10 +1,12 @@
 package com.rarnu.ucloud.android;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
 import com.rarnu.devlib.base.BaseActivity;
 import com.rarnu.ucloud.android.fragment.MainFragment;
+import com.rarnu.ucloud.android.service.ServerStateService;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 
@@ -17,6 +19,7 @@ public class MainActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         bar.setDisplayHomeAsUpEnabled(false);
 
+        startService(new Intent(this, ServerStateService.class));
     }
 
     @Override

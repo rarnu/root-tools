@@ -1,19 +1,29 @@
 package com.rarnu.ucloud.android.fragment;
 
+import android.content.Loader;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.ucloud.android.R;
+import com.rarnu.ucloud.android.adapter.FlowAdapter;
 import com.rarnu.ucloud.android.common.MenuIds;
+import com.rarnu.ucloud.android.loader.FlowLoader;
+import com.rarnu.ucloud.android.pojo.FlowItem;
 import com.rarnu.utils.ImageUtils;
 import com.rarnu.utils.ResourceUtils;
 
-public class FlowFragment extends BaseFragment {
+import java.util.ArrayList;
+import java.util.List;
+
+public class FlowFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<FlowItem>> {
 
     ListView lvFlow;
     MenuItem miRefresh;
+    FlowLoader loader;
+    FlowAdapter adapter;
+    List<FlowItem> list;
 
     public FlowFragment() {
         super();
@@ -39,14 +49,20 @@ public class FlowFragment extends BaseFragment {
     @Override
     public void initComponents() {
         lvFlow = (ListView) innerView.findViewById(R.id.lvFlow);
+        loader = new FlowLoader(getActivity());
+        list = new ArrayList<FlowItem>();
+        adapter = new FlowAdapter(getActivity(), list);
+        lvFlow.setAdapter(adapter);
     }
 
     @Override
     public void initEvents() {
+        loader.registerListener(0, this);
     }
 
     @Override
     public void initLogic() {
+        loader.startLoading();
     }
 
     @Override
@@ -70,7 +86,7 @@ public class FlowFragment extends BaseFragment {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MenuIds.MENUID_REFRESH:
-                // TODO: refresh
+                loader.startLoading();
                 break;
         }
         return true;
@@ -83,5 +99,17 @@ public class FlowFragment extends BaseFragment {
     @Override
     public Bundle getFragmentState() {
         return null;
+    }
+
+    @Override
+    public void onLoadComplete(Loader<List<FlowItem>> loader, List<FlowItem> data) {
+        list.clear();
+        if (data != null) {
+            list.addAll(data);
+        }
+
+        if (getActivity() != null) {
+            adapter.setNewList(list);
+        }
     }
 }

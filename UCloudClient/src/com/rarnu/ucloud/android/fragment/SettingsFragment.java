@@ -12,14 +12,15 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.ucloud.android.R;
 import com.rarnu.ucloud.android.UserActivity;
 import com.rarnu.ucloud.android.common.Config;
+import com.rarnu.ucloud.android.dialog.LoginDialog;
 import com.rarnu.ucloud.android.dialog.SeekDialog;
 import com.rarnu.utils.ResourceUtils;
 
 public class SettingsFragment extends BaseFragment implements CompoundButton.OnCheckedChangeListener, View.OnClickListener {
 
     CheckBox chkServerDown, chkDiskUsage, chkFlowUsage, chkCostUsage, chkServiceReceived, chkServiceRingtone, chkServiceVibrate, chkServiceLED;
-    Button btnDiskUsage, btnFlowUsage, btnCostUsage, btnServiceRingtone;
-    Button btnUserName, btnPassword, btnAccountInfo;
+    Button btnDiskUsage, btnFlowUsage, btnCostUsage;
+    Button btnLogin, btnAccountInfo;
 
     public SettingsFragment() {
         super();
@@ -56,10 +57,8 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         btnDiskUsage = (Button) innerView.findViewById(R.id.btnDiskUsage);
         btnFlowUsage = (Button) innerView.findViewById(R.id.btnFlowUsage);
         btnCostUsage = (Button) innerView.findViewById(R.id.btnCostUsage);
-        btnServiceRingtone = (Button) innerView.findViewById(R.id.btnServiceRingtone);
 
-        btnUserName = (Button) innerView.findViewById(R.id.btnUserName);
-        btnPassword = (Button) innerView.findViewById(R.id.btnPassword);
+        btnLogin = (Button) innerView.findViewById(R.id.btnLogin);
         btnAccountInfo = (Button) innerView.findViewById(R.id.btnAccountInfo);
     }
 
@@ -76,9 +75,7 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         btnDiskUsage.setOnClickListener(this);
         btnFlowUsage.setOnClickListener(this);
         btnCostUsage.setOnClickListener(this);
-        btnServiceRingtone.setOnClickListener(this);
-        btnUserName.setOnClickListener(this);
-        btnPassword.setOnClickListener(this);
+        btnLogin.setOnClickListener(this);
         btnAccountInfo.setOnClickListener(this);
     }
 
@@ -100,7 +97,6 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         btnDiskUsage.setText(String.format("%d%%", Config.getDiskPercent(getActivity())));
         btnFlowUsage.setText(String.format("%d%%", Config.getFlowPercent(getActivity())));
         btnCostUsage.setText(String.format("%d%%", Config.getCostPercent(getActivity())));
-        btnServiceRingtone.setText(Config.getRingtoneUri(getActivity()).equals("") ? R.string.settings_service_ringtone_system : R.string.settings_service_ringtone_custom);
 
         btnDiskUsage.setEnabled(chkDiskUsage.isChecked());
         btnFlowUsage.setEnabled(chkFlowUsage.isChecked());
@@ -109,11 +105,6 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
         chkServiceRingtone.setEnabled(chkServiceReceived.isChecked());
         chkServiceVibrate.setEnabled(chkServiceReceived.isChecked());
         chkServiceLED.setEnabled(chkServiceReceived.isChecked());
-        if (chkServiceReceived.isChecked()) {
-            btnServiceRingtone.setEnabled(chkServiceRingtone.isChecked());
-        } else {
-            btnServiceRingtone.setEnabled(false);
-        }
     }
 
     @Override
@@ -161,15 +152,9 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 chkServiceRingtone.setEnabled(isChecked);
                 chkServiceVibrate.setEnabled(isChecked);
                 chkServiceLED.setEnabled(isChecked);
-                if (isChecked) {
-                    btnServiceRingtone.setEnabled(chkServiceRingtone.isChecked());
-                } else {
-                    btnServiceRingtone.setEnabled(false);
-                }
                 Config.setNotifyServiceReceived(getActivity(), isChecked);
                 break;
             case R.id.chkServiceRingtone:
-                btnServiceRingtone.setEnabled(isChecked);
                 Config.setServiceRingtone(getActivity(), isChecked);
                 break;
             case R.id.chkServiceVibrate:
@@ -202,11 +187,8 @@ public class SettingsFragment extends BaseFragment implements CompoundButton.OnC
                 inSeek.putExtra("progress", Config.getCostPercent(getActivity()));
                 startActivityForResult(inSeek, 2);
                 break;
-            case R.id.btnServiceRingtone:
-                break;
-            case R.id.btnUserName:
-                break;
-            case R.id.btnPassword:
+            case R.id.btnLogin:
+                startActivityForResult(new Intent(getActivity(), LoginDialog.class), 3);
                 break;
             case R.id.btnAccountInfo:
                 startActivity(new Intent(getActivity(), UserActivity.class));

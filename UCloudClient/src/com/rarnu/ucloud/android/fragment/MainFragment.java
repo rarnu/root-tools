@@ -21,7 +21,6 @@ public class MainFragment extends BaseTabFragment {
     public void initFragmentList(List<Fragment> listFragment) {
         listFragment.add(new ServerFragment());
         listFragment.add(new FlowFragment());
-        listFragment.add(new CostFragment());
         listFragment.add(new ChatFragment());
         listFragment.add(new SettingsFragment());
     }

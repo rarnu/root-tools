@@ -4,7 +4,6 @@
 
     <string name="title_server_fragment">服务器</string>
     <string name="title_flow_fragment">流量</string>
-    <string name="title_cost_fragment">资费</string>
     <string name="title_chat_fragment">客服</string>
     <string name="title_settings_fragment">设置</string>
 
@@ -20,7 +19,9 @@
     <string name="settings_service_received">客服消息</string>
     <string name="settings_user_name">用户名</string>
     <string name="settings_password">密码</string>
-    <string name="settings_account_info">查看帐户信息</string>
+    <string name="settings_login">用户登录</string>
+    <string name="settings_user_login">点击此处登录</string>
+    <string name="settings_account_info">帐户信息</string>
 
     <string name="settings_service_ringtone">铃声</string>
     <string name="settings_service_vibrate">震动</string>

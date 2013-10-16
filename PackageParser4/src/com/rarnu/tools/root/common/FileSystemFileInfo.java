@@ -8,9 +8,6 @@ public class FileSystemFileInfo {
     public String name;
     public String fullPath;
     public String mimeType;
-    /**
-     *
-     */
     public int icon;
 
     public FileSystemFileInfo(boolean isDirectory, String name, String fullPath) {

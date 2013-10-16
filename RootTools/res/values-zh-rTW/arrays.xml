@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="array_file_system_item_menu">
+        <item>以文本打開</item>
         <item>剪切</item>
         <item>復制</item>
         <item>刪除</item>

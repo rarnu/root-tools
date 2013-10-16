@@ -24,4 +24,5 @@ public class MenuItemIds {
 	public static final int MENU_TOGGLE_INPUT_METHOD = Menu.FIRST + 13;
 
     public static final int MENU_POOL = Menu.FIRST + 14;
+    public static final int MENU_REVERT = Menu.FIRST + 15;
 }

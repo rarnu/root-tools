@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+    <RelativeLayout android:id="@+id/layHead"
+                    android:layout_width="match_parent"
+                    android:layout_height="?android:attr/actionBarSize">
+
+        <TextView android:id="@+id/tvTitle"
+                  android:layout_width="wrap_content"
+                  android:layout_height="wrap_content"
+                  android:layout_centerVertical="true"
+                  android:layout_marginLeft="8dip"
+                  android:textSize="18sp"
+                  android:textColor="?android:attr/textColorPrimary"
+                  android:text="@string/settings_login"/>
+
+        <ImageView android:id="@+id/btnSave"
+                   android:layout_width="?android:attr/actionBarSize"
+                   android:layout_height="?android:attr/actionBarSize"
+                   android:layout_toLeftOf="@+id/btnCancel"
+                   android:padding="8dip"
+                   android:background="@drawable/button_style"
+                   android:src="@android:drawable/ic_menu_save"
+                   android:contentDescription="@null"
+                />
+
+        <ImageView android:id="@+id/btnCancel"
+                   android:layout_width="?android:attr/actionBarSize"
+                   android:layout_height="?android:attr/actionBarSize"
+                   android:background="@drawable/button_style"
+                   android:padding="8dip"
+                   android:src="@android:drawable/ic_menu_close_clear_cancel"
+                   android:contentDescription="@null"
+                   android:layout_alignParentRight="true"
+
+                />
+    </RelativeLayout>
+
+    <RelativeLayout android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/layHead"
+                    android:padding="16dip">
+        <TextView android:id="@+id/tvUserName"
+                  android:layout_width="100dip"
+                  android:layout_height="48dip"
+                  android:gravity="left|center_vertical"
+                  android:textColor="?android:attr/textColorPrimary"
+                  android:text="@string/settings_user_name"/>
+        <EditText android:id="@+id/etUserName"
+                  android:layout_width="match_parent"
+                  android:layout_height="48dip"
+                  android:layout_toRightOf="@+id/tvUserName"
+                  android:singleLine="true"
+                  android:maxLines="1"/>
+        <TextView android:id="@+id/tvPassword"
+                  android:layout_width="100dip"
+                  android:layout_height="48dip"
+                  android:gravity="left|center_vertical"
+                  android:textColor="?android:attr/textColorPrimary"
+                  android:text="@string/settings_password"
+                  android:layout_below="@+id/tvUserName"/>
+        <EditText android:id="@+id/etPassword"
+                  android:layout_width="match_parent"
+                  android:layout_height="48dip"
+                  android:singleLine="true"
+                  android:maxLines="1"
+                  android:layout_toRightOf="@+id/tvPassword"
+                  android:layout_below="@+id/etUserName"
+                  android:inputType="textPassword"/>
+    </RelativeLayout>
+
+
+</RelativeLayout>

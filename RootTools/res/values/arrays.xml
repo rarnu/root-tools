@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <string-array name="array_file_system_item_menu">
+        <item>Open as Text</item>
         <item>Cut</item>
         <item>Copy</item>
         <item>Delete</item>

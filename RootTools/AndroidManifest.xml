@@ -32,7 +32,7 @@
             android:theme="@android:style/Theme.Holo">
         <meta-data
                 android:name="debug"
-                android:value="false"/>
+                android:value="true"/>
 
         <activity
                 android:name=".SplashActivity"
@@ -192,6 +192,8 @@
                 android:label="@string/func_filesystem"
                 android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity android:name=".fragmentactivity.TextEditorActivity"
+                  android:windowSoftInputMode="stateHidden"/>
 
         <service
                 android:name=".service.HtcRomService"

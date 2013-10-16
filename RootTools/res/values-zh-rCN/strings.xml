@@ -90,6 +90,7 @@
     <string name="help">帮助</string>
     <string name="help_with_path">RootTools &gt; 帮助</string>
     <string name="save">保存</string>
+    <string name="revert">恢复</string>
     <string name="send">发送</string>
     <string name="clean">清除</string>
     <string name="search">搜索</string>
@@ -298,4 +299,9 @@
     <string name="file_copying">正在复制文件...</string>
     <string name="file_operating_succ">文件操作成功</string>
     <string name="file_operating_fail">文件操作失败</string>
+    <string name="file_cannot_open_folder">不能打开一个目录</string>
+    <string name="file_not_text">不是文本文件</string>
+    <string name="file_save_succ">文件已保存</string>
+    <string name="file_save_fail">保存文件失败</string>
+    <string name="file_input_name">输入文件名</string>
 </resources>

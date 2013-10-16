@@ -90,14 +90,6 @@
                       android:gravity="left|center_vertical"
                       android:text="@string/settings_service_ringtone"
                       android:layout_marginLeft="48dip"/>
-            <Button android:id="@+id/btnServiceRingtone"
-                    android:layout_width="96dip"
-                    android:layout_height="48dip"
-                    android:layout_below="@+id/chkServiceReceived"
-                    android:layout_alignParentRight="true"
-                    android:background="@drawable/button_style"
-                    android:textColor="?android:attr/textColorSecondary"
-                    android:text="@string/settings_service_ringtone_system"/>
 
             <CheckBox android:id="@+id/chkServiceVibrate"
                       android:layout_width="wrap_content"
@@ -133,36 +125,23 @@
                       android:textColor="?android:attr/textColorPrimary"
                       android:text="@string/settings_user_name"
                       android:paddingLeft="8dip"/>
-            <TextView android:id="@+id/tvPassword"
-                      android:layout_width="wrap_content"
-                      android:layout_height="48dip"
-                      android:layout_below="@+id/tvUserName"
-                      android:gravity="left|center_vertical"
-                      android:textColor="?android:attr/textColorPrimary"
-                      android:text="@string/settings_password"
-                      android:paddingLeft="8dip"/>
-            <Button android:id="@+id/btnUserName"
-                    android:layout_width="200dip"
-                    android:layout_height="48dip"
-                    android:gravity="right|center_vertical"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tvAccountTitle"
-                    android:background="@drawable/button_style"/>
-            <Button android:id="@+id/btnPassword"
-                    android:layout_width="200dip"
-                    android:layout_height="48dip"
-                    android:gravity="right|center_vertical"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@+id/tvUserName"
-                    android:background="@drawable/button_style"/>
-            <Button android:id="@+id/btnAccountInfo"
+            <Button android:id="@+id/btnLogin"
                     android:layout_width="match_parent"
                     android:layout_height="48dip"
-                    android:layout_below="@+id/tvPassword"
-                    android:layout_marginLeft="64dip"
-                    android:layout_marginRight="64dip"
+                    android:layout_marginLeft="16dip"
+                    android:gravity="center"
+                    android:layout_toRightOf="@+id/tvUserName"
+                    android:layout_toLeftOf="@+id/btnAccountInfo"
+                    android:layout_below="@+id/tvAccountTitle"
                     android:background="@drawable/button_style"
-                    android:text="@string/settings_account_info"/>
+                    android:text="@string/settings_user_login"/>
+            <Button android:id="@+id/btnAccountInfo"
+                    android:layout_width="96dip"
+                    android:layout_height="48dip"
+                    android:layout_below="@+id/tvAccountTitle"
+                    android:background="@drawable/button_style"
+                    android:text="@string/settings_account_info"
+                    android:layout_alignParentRight="true"/>
         </RelativeLayout>
     </ScrollView>
 

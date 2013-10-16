@@ -4,4 +4,5 @@ public class ChatItem {
     public int id;
     public String text;
     public boolean fromChatter;
+    public String dateTime;
 }

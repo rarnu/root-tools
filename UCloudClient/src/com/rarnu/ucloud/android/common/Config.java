@@ -16,7 +16,8 @@ public class Config {
     private static final String KEY_DISK_PERCENT = "key_disk_percent";
     private static final String KEY_FLOW_PERCENT = "key_flow_percent";
     private static final String KEY_COST_PERCENT = "key_cost_percent";
-    private static final String KEY_RINGTONE_URI = "key_ringtone_uri";
+    private static final String KEY_USER_ACCOUNT = "key_user_account";
+    private static final String KEY_USER_TOKEN = "key_user_token";
 
     public static boolean getNotifyServerDown(Context context) {
         return ConfigUtils.getBooleanConfig(context, KEY_NOTIFY_SERVER_DOWN, true);
@@ -106,11 +107,19 @@ public class Config {
         ConfigUtils.setIntConfig(context, KEY_COST_PERCENT, value);
     }
 
-    public static String getRingtoneUri(Context context) {
-        return ConfigUtils.getStringConfig(context, KEY_RINGTONE_URI, "");
+    public static String getUserAccount(Context context) {
+        return ConfigUtils.getStringConfig(context, KEY_USER_ACCOUNT, "");
     }
 
-    public static void setRingtoneUri(Context context, String value) {
-        ConfigUtils.setStringConfig(context, KEY_RINGTONE_URI, value);
+    public static void setUserAccount(Context context, String value) {
+        ConfigUtils.setStringConfig(context, KEY_USER_ACCOUNT, value);
+    }
+
+    public static String getUserToken(Context context) {
+        return ConfigUtils.getStringConfig(context, KEY_USER_TOKEN, "");
+    }
+
+    public static void setUserToken(Context context, String value) {
+        ConfigUtils.setStringConfig(context, KEY_USER_TOKEN, value);
     }
 }
