@@ -89,8 +89,7 @@ public class ComponentUtils {
         }
     }
 
-    public static PackageParser.Package parsePackageInfo(
-            PackageInfo info, DisplayMetrics dm) {
+    public static PackageParser.Package parsePackageInfo(PackageInfo info, DisplayMetrics dm) {
         String fileAbsPath = info.applicationInfo.publicSourceDir;
         PackageParser packageParser = new PackageParser(fileAbsPath);
         File sourceFile = new File(fileAbsPath);
