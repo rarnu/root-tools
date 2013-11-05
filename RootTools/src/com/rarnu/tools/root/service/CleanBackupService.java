@@ -6,7 +6,7 @@ import com.rarnu.devlib.base.BaseService;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.RTConfig;
-import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.utils.BackupRestoreUtils;
 
 public class CleanBackupService extends BaseService {
 
@@ -31,7 +31,7 @@ public class CleanBackupService extends BaseService {
 
     @Override
     public void doOperation(String command, Notification n) {
-        ApkUtils.deleteAllBackupData(RTConfig.getBackupPath(getApplicationContext()));
+        BackupRestoreUtils.deleteAllBackupData(RTConfig.getBackupPath(getApplicationContext()));
     }
 
     @Override

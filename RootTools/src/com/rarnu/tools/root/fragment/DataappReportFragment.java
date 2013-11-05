@@ -9,7 +9,7 @@ import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.DataappReportAdapter;
 import com.rarnu.tools.root.common.DataappInfo;
-import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.utils.BackupRestoreUtils;
 
 import java.util.List;
 
@@ -51,7 +51,7 @@ public class DataappReportFragment extends BasePopupFragment {
     }
 
     private void showReport() {
-        List<DataappInfo> report = ApkUtils.getOperationLog();
+        List<DataappInfo> report = BackupRestoreUtils.getOperationLog();
         DataappReportAdapter adapter = new DataappReportAdapter(getActivity(), report);
         if (lvReport != null) {
             lvReport.setAdapter(adapter);

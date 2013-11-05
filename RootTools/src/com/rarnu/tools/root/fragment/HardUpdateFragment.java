@@ -19,6 +19,7 @@ import com.rarnu.tools.root.adapter.HardUpdateAdapter;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.utils.BackupRestoreUtils;
 import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
@@ -126,7 +127,7 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
 
             @Override
             public void run() {
-                boolean ret = force ? ApkUtils.forceInstallApp(getActivity(), info) : ApkUtils.installApp(info);
+                boolean ret = force ? BackupRestoreUtils.forceInstallApp(getActivity(), info) : ApkUtils.installApp(info);
                 Message msg = new Message();
                 msg.what = 1;
                 msg.arg1 = ret ? 0 : 1;

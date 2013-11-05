@@ -8,7 +8,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.FragmentNameConst;
-import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.utils.BackupRestoreUtils;
 import com.rarnu.tools.root.utils.ListUtils;
 
 import java.util.List;
@@ -37,7 +37,7 @@ public class DataBackupService extends BaseService {
 
     @Override
     public void doOperation(String command, Notification n) {
-        ApkUtils.clearOperationLog();
+        BackupRestoreUtils.clearOperationLog();
         List<DataappInfo> list = ListUtils.getOperateList();
 
         inBackupProgress.putExtra("size", list.size());
@@ -47,7 +47,7 @@ public class DataBackupService extends BaseService {
             inBackupProgress.putExtra("position", i + 1);
             inBackupProgress.putExtra("name", GlobalInstance.pm.getApplicationLabel(list.get(i).info).toString());
             sendBroadcast(inBackupProgress);
-            ApkUtils.backupData(getApplicationContext(), list.get(i).info.sourceDir, list.get(i).info.packageName, backupPath, list.get(i));
+            BackupRestoreUtils.backupData(getApplicationContext(), list.get(i).info.sourceDir, list.get(i).info.packageName, backupPath, list.get(i));
 
         }
 

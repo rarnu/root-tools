@@ -31,7 +31,7 @@ import com.rarnu.tools.root.loader.RestoreLoader;
 import com.rarnu.tools.root.receiver.MutaxReceiver;
 import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
 import com.rarnu.tools.root.service.DataRestoreService;
-import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.utils.BackupRestoreUtils;
 import com.rarnu.tools.root.utils.ListUtils;
 import com.rarnu.utils.ImageUtils;
 
@@ -187,7 +187,7 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ApkUtils.deleteBackupData(item.info.packageName, GlobalInstance.backupPath);
+                BackupRestoreUtils.deleteBackupData(item.info.packageName, GlobalInstance.backupPath);
                 Message msg = new Message();
                 msg.what = 1;
                 msg.obj = item;

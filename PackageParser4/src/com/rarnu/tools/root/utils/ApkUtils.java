@@ -12,7 +12,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import com.rarnu.command.CommandCallback;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
@@ -35,7 +34,6 @@ public class ApkUtils {
     public static final int INSTALL_INTERNAL = 1;
     public static final int INSTALL_SDCARD = 2;
     private static final String PACKAGE_URL = "http://rarnu.7thgen.info/root_tools/package/";
-    private static List<DataappInfo> operationLog = new ArrayList<DataappInfo>();
 
     public static List<SysappInfo> getSystemApps(Context context) {
         List<SysappInfo> res = new ArrayList<SysappInfo>();
@@ -140,22 +138,6 @@ public class ApkUtils {
         return result.result.toLowerCase().contains("success");
     }
 
-    public static boolean forceInstallApp(Context context, DataappInfo info) {
-        boolean ret = false;
-        try {
-            ApplicationInfo newinfo = ApkUtils.getAppInfoFromPackage(info.localPath);
-            String packageName = newinfo.packageName;
-
-            backupData(context, info.localPath, packageName, DirHelper.FORCE_UPDATE_DIR, info);
-            RootUtils.runCommand("pm uninstall " + packageName, true);
-            restoreData(context, packageName, DirHelper.FORCE_UPDATE_DIR, info);
-            RootUtils.runCommand("rm -r " + DirHelper.FORCE_UPDATE_DIR + packageName + "*", true);
-            ret = true;
-        } catch (Exception e) {
-
-        }
-        return ret;
-    }
 
     public static boolean isAndroidApp(String path) {
         boolean ret = false;
@@ -415,154 +397,6 @@ public class ApkUtils {
         return listDisabled;
     }
 
-    public static List<DataappInfo> getBackupedApps(Context context, String path) {
-        List<DataappInfo> res = new ArrayList<DataappInfo>();
-        File fBackupDir = new File(path);
-        int position = 0;
-        if (fBackupDir.exists()) {
-            for (String s : fBackupDir.list()) {
-                if (s.toLowerCase().endsWith(".apk")) {
-                    DataappInfo newinfo = new DataappInfo();
-                    newinfo.info = getAppInfoFromPackage(path + s);
-                    newinfo.checked = false;
-                    newinfo.position = position;
-                    if (newinfo.info == null) {
-                        continue;
-                    }
-                    res.add(newinfo);
-                    position++;
-                }
-            }
-        }
-        return res;
-    }
-
-    public static List<DataappInfo> getBackupedApps(Context context) {
-        return getBackupedApps(context, DirHelper.DATAAPP_DIR);
-    }
-
-    public static void backupData(Context context, String apk, String path, String savePath, DataappInfo info) {
-
-        if (savePath == null) {
-            savePath = DirHelper.DATAAPP_DIR;
-        }
-        info.type = 1;
-        String apkName = String.format(savePath + "%s.apk", path);
-        File apkFile = new File(apkName);
-        if (apkFile.exists()) {
-            if (!GlobalInstance.overrideBackuped) {
-                info.log = context.getResources().getString(R.string.backup_exists);
-                info.logId = 1;
-                operationLog.add(info);
-                return;
-            } else {
-                String delCmd = String.format("rm -r " + savePath + "%s*", path);
-                RootUtils.runCommand(delCmd, true, null);
-            }
-        }
-
-        // delete cache before backup
-        String cmd = String.format("rm -r /data/data/%s/cache", path);
-        RootUtils.runCommand(cmd, true, null);
-
-        cmd = String.format("busybox cp -r /data/data/%s " + savePath, path);
-        CommandResult result = RootUtils.runCommand(cmd, true, null);
-
-        cmd = String.format("busybox find " + savePath + "%s/ -name \"cache\" | busybox xargs rm -r", path);
-        RootUtils.runCommand(cmd, true, null);
-        cmd = String.format("busybox find " + savePath + "%s/ -name \"lib\" | busybox xargs rm -r", path);
-        RootUtils.runCommand(cmd, true, null);
-        cmd = String.format("busybox find " + savePath + "%s/ -name \"webview*\" | busybox xargs rm -r", path);
-        RootUtils.runCommand(cmd, true, null);
-        cmd = String.format("busybox cp %s " + savePath + "%s.apk", apk, path);
-        result = RootUtils.runCommand(cmd, true, null);
-
-        if (result.error.equals("")) {
-            info.log = context.getResources().getString(R.string.backup_ok);
-            info.logId = 0;
-            operationLog.add(info);
-
-        } else {
-            info.log = context.getResources().getString(R.string.backup_fail);
-            info.logId = 2;
-            operationLog.add(info);
-        }
-    }
-
-    public static void backupData(Context context, String apk, String path, DataappInfo info) {
-        backupData(context, apk, path, null, info);
-    }
-
-    public static void restoreData(Context context, String packageName, String savePath, DataappInfo info) {
-        if (savePath == null) {
-            savePath = DirHelper.DATAAPP_DIR;
-        }
-        info.type = 2;
-        String cmd = String.format("pm install -r " + savePath + "%s.apk", packageName);
-        CommandResult result = null;
-        if (GlobalInstance.reinstallApk) {
-            try {
-                result = RootUtils.runCommand(cmd, true, null);
-                Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
-            } catch (Throwable th) {
-                result = new CommandResult();
-                result.result = "error";
-            }
-        } else {
-            result = new CommandResult();
-            result.result = "success";
-        }
-
-        if (result.result.toLowerCase().equals("success")) {
-            cmd = String.format("busybox cp -r " + savePath + "%s /data/data/", packageName);
-            result = RootUtils.runCommand(cmd, true, null);
-            Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
-            if (result.error.equals("")) {
-
-                cmd = String.format("busybox chmod -R 777 /data/data/%s/*", packageName);
-                result = RootUtils.runCommand(cmd, true, null);
-                Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
-                if (result.error.equals("")) {
-                    info.log = context.getResources().getString(R.string.restore_ok);
-                    info.logId = 0;
-                    operationLog.add(info);
-                } else {
-                    info.log = context.getResources().getString(R.string.restore_fail);
-                    info.logId = 2;
-                    operationLog.add(info);
-                }
-            } else {
-                info.log = context.getResources().getString(R.string.restore_fail);
-                info.logId = 2;
-                operationLog.add(info);
-            }
-        } else {
-            info.log = context.getResources().getString(R.string.restore_fail);
-            info.logId = 2;
-            operationLog.add(info);
-        }
-    }
-
-    public static void restoreData(Context context, String packageName, DataappInfo info) {
-        restoreData(context, packageName, null, info);
-    }
-
-    public static void deleteBackupData(String packageName, String path) {
-        String cmd = String.format("busybox rm -r " + path + "%s*", packageName);
-        RootUtils.runCommand(cmd, true, null);
-    }
-
-    public static void deleteBackupData(String packageName) {
-        deleteBackupData(packageName, DirHelper.DATAAPP_DIR);
-    }
-
-    public static void deleteAllBackupData(String path) {
-        RootUtils.runCommand("busybox rm -r " + path + "*", true, null);
-    }
-
-    public static void deleteAllBackupData() {
-        deleteAllBackupData(DirHelper.DATAAPP_DIR);
-    }
 
     public static boolean uninstallApk(String packageName) {
         try {
@@ -573,13 +407,7 @@ public class ApkUtils {
         }
     }
 
-    public static void clearOperationLog() {
-        operationLog.clear();
-    }
 
-    public static List<DataappInfo> getOperationLog() {
-        return operationLog;
-    }
 
     public static boolean applicationInstalled(String namespace) {
         try {

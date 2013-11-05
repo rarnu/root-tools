@@ -7,6 +7,7 @@ import java.io.File;
 public class DirHelper {
 
     private static final String SDCARD = "/sdcard";
+    public static String SDCARD_DIR = "";
     public static String ROOT_DIR = "";
     public static String SYSAPP_DIR = "";
     public static String ENABLEAPP_DIR = "";
@@ -20,6 +21,9 @@ public class DirHelper {
     public static String ERROR_DIR = "";
     public static String ICON_DIR = "";
     public static String FORCE_UPDATE_DIR = "";
+
+    public static String DATA_SDCARD_DIR = "";
+    public static String OBB_SDCARD_DIR = "";
 
     public static void makeDir() {
         makeDir(ROOT_DIR);
@@ -41,11 +45,12 @@ public class DirHelper {
     }
 
     static {
-
-        ROOT_DIR = Environment.getExternalStorageDirectory().getPath() + "/.root_tools/";
+        SDCARD_DIR = Environment.getExternalStorageDirectory().getPath();
         if (new File(SDCARD).exists()) {
-            ROOT_DIR = SDCARD + "/.root_tools/";
+            SDCARD_DIR = SDCARD;
         }
+        ROOT_DIR = SDCARD_DIR + "/.root_tools/";
+
         SYSAPP_DIR = ROOT_DIR + "sysapp/";
         ENABLEAPP_DIR = ROOT_DIR + "enableapp/";
         ENABLEAPP_DIR_SYSTEM = ENABLEAPP_DIR + "system/";
@@ -58,5 +63,8 @@ public class DirHelper {
         ERROR_DIR = ROOT_DIR + "error/";
         ICON_DIR = ROOT_DIR + "icon/";
         FORCE_UPDATE_DIR = ROOT_DIR + "force_update/";
+
+        DATA_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath() + "/Android/data/";
+        OBB_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath() + "/Android/obb/";
     }
 }

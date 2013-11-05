@@ -1,13 +1,12 @@
 package com.rarnu.tools.root.loader;
 
-import java.util.List;
-
 import android.content.Context;
-
 import com.rarnu.devlib.base.BaseLoader;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.DataappInfo;
-import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.tools.root.utils.BackupRestoreUtils;
+
+import java.util.List;
 
 public class RestoreLoader extends BaseLoader<DataappInfo> {
 
@@ -17,7 +16,7 @@ public class RestoreLoader extends BaseLoader<DataappInfo> {
 
 	@Override
 	public List<DataappInfo> loadInBackground() {
-		return ApkUtils.getBackupedApps(getContext(), GlobalInstance.backupPath);
+		return BackupRestoreUtils.getBackupedApps(getContext(), GlobalInstance.backupPath);
 	}
 
 }

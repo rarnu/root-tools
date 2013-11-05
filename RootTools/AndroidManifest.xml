@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-          package="com.rarnu.tools.root"
-          android:versionCode="46"
-          android:versionName="4.7.3 beta">
+        package="com.rarnu.tools.root"
+        android:versionCode="48"
+        android:versionName="4.8.0 beta">
 
     <uses-sdk
             android:minSdkVersion="14"
-            android:targetSdkVersion="15"/>
+            android:targetSdkVersion="15" />
 
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
-    <uses-permission android:name="android.permission.ROOT_TOOLS"/>
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="android.permission.ROOT_TOOLS" />
 
     <permission
             android:name="android.permission.ROOT_TOOLS"
             android:icon="@drawable/icon"
             android:label="@string/app_name"
             android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
-            android:protectionLevel="dangerous"/>
+            android:protectionLevel="dangerous" />
 
     <application
             android:name=".RootApplication"
@@ -32,7 +32,7 @@
             android:theme="@android:style/Theme.Holo">
         <meta-data
                 android:name="debug"
-                android:value="true"/>
+                android:value="true" />
 
         <activity
                 android:name=".SplashActivity"
@@ -40,9 +40,9 @@
                 android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
                 android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -73,7 +73,7 @@
         <activity
                 android:name=".fragmentactivity.SysappDetailActivity"
                 android:label="@string/sysapp_name"
-                android:windowSoftInputMode="stateAlwaysHidden"/>
+                android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
                 android:name=".fragmentactivity.SysappSelectApkActivity"
                 android:label="@string/sysapp_select"
@@ -120,8 +120,8 @@
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity android:name=".fragmentactivity.PoolActivity"
-                  android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
-                  android:windowSoftInputMode="stateAlwaysHidden"/>
+                android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+                android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
                 android:name=".fragmentactivity.HostMainActivity"
                 android:label="@string/func7_title"
@@ -193,33 +193,33 @@
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".fragmentactivity.TextEditorActivity"
-                  android:windowSoftInputMode="stateHidden"/>
+                android:windowSoftInputMode="stateHidden" />
 
         <service
                 android:name=".service.HtcRomService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.DataBackupService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.DataRestoreService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.CleanBackupService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
 
         <receiver
                 android:name="com.rarnu.devlib.component.NetworkReceiver"
                 android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <receiver
                 android:name=".receiver.NotifyReceiver"
                 android:label="@string/app_name">
             <intent-filter>
-                <action android:name="com.rarnu.root.tools.notify"/>
+                <action android:name="com.rarnu.root.tools.notify" />
             </intent-filter>
         </receiver>
     </application>
