@@ -27,7 +27,7 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
     Button btnBigger, btnSmaller;
     TextView tvFontDemo;
     TextView tvData;
-    CheckBox chkAutoName;
+    CheckBox chkAutoName, chkAssignedCard;
 
     int fontSize = -1;
 
@@ -54,6 +54,7 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
         tvData = (TextView) innerView.findViewById(R.id.tvData);
         tvFontDemo = (TextView) innerView.findViewById(R.id.tvFontDemo);
         chkAutoName = (CheckBox) innerView.findViewById(R.id.chkAutoName);
+        chkAssignedCard = (CheckBox) innerView.findViewById(R.id.chkAssignedCard);
     }
 
     @Override
@@ -61,6 +62,7 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
         btnBigger.setOnClickListener(this);
         btnSmaller.setOnClickListener(this);
         chkAutoName.setOnClickListener(this);
+        chkAssignedCard.setOnClickListener(this);
     }
 
     @Override
@@ -74,6 +76,7 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
         tvFontDemo.setTextSize(fontSize);
         getDirSizeT();
         chkAutoName.setChecked(Config.cfgGetAutoName(getActivity()));
+        chkAssignedCard.setChecked(Config.cfgGetAssignedCard(getActivity()));
     }
 
     private void getDirSizeT() {
@@ -133,6 +136,9 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
                 break;
             case R.id.chkAutoName:
                 Config.cfgSetAutoName(getActivity(), chkAutoName.isChecked());
+                return;
+            case R.id.chkAssignedCard:
+                Config.cfgSetAssignedCard(getActivity(), chkAssignedCard.isChecked());
                 return;
         }
         tvFontDemo.setTextSize(fontSize);

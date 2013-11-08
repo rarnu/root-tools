@@ -172,6 +172,7 @@
     <string name="pref_update_son">自动进行卡片数据更新</string>
     <string name="pref_update_soff">不允许进行卡片数据更新</string>
     <string name="pref_auto_name">自动提示卡片名称</string>
+    <string name="pref_assigned_card">搜索时显示关联卡片</string>
     <string name="pref_fit">系统适配度</string>
     <string name="pref_fit_s">检查您的手机与本软件的适配程度</string>
     <string name="pref_data">检查数据</string>

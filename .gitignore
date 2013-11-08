@@ -12,6 +12,5 @@ local.properties
 *.swp
 build.xml
 lint.xml
-.idea/
 convert2
 out/

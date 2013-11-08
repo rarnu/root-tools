@@ -180,7 +180,6 @@ public class BackupRestoreUtils {
     }
 
     public static void restoreSdData(Context context, String packageName, String savePath) {
-        // TODO: restore sd data
         if (!new File(DirHelper.DATA_SDCARD_DIR).exists()) {
             new File(DirHelper.DATA_SDCARD_DIR).mkdirs();
         }
@@ -192,7 +191,6 @@ public class BackupRestoreUtils {
     }
 
     public static void restoreObbData(Context context, String packageName, String savePath) {
-        // TODO: restore obb data
         if (!new File(DirHelper.OBB_SDCARD_DIR).exists()) {
             new File(DirHelper.OBB_SDCARD_DIR).mkdirs();
         }
@@ -210,14 +208,6 @@ public class BackupRestoreUtils {
 
     public static void deleteBackupData(String packageName) {
         deleteBackupData(packageName, DirHelper.DATAAPP_DIR);
-    }
-
-    public static void deleteBackupSdData(String packageName, String path) {
-        // TODO: delete backup sd data
-    }
-
-    public static void deleteBackupObbData(String packageName, String path) {
-        // TODO: delete backup obb data
     }
 
     public static void deleteAllBackupData(String path) {

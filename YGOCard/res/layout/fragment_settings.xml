@@ -1,27 +1,50 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dip">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dip">
 
     <TextView android:id="@+id/tvAutoName"
-              android:layout_width="wrap_content"
-              android:layout_height="48dip"
-              android:gravity="left|center_vertical"
-              android:text="@string/pref_auto_name"
-              android:textColor="?android:attr/textColorPrimary"/>
+            android:layout_width="wrap_content"
+            android:layout_height="48dip"
+            android:gravity="left|center_vertical"
+            android:text="@string/pref_auto_name"
+            android:textColor="?android:attr/textColorPrimary" />
 
     <CheckBox android:id="@+id/chkAutoName"
-              android:layout_width="wrap_content"
-              android:layout_height="48dip"
-              android:layout_alignParentRight="true"
+            android:layout_width="wrap_content"
+            android:layout_height="48dip"
+            android:layout_alignParentRight="true"
+            />
+
+    <RelativeLayout
+            android:id="@+id/laySplit"
+            android:layout_width="match_parent"
+            android:layout_height="1px"
+            android:layout_below="@+id/tvAutoName"
+            android:background="@color/shadow">
+    </RelativeLayout>
+
+    <TextView android:id="@+id/tvAssignedCard"
+            android:layout_width="wrap_content"
+            android:layout_height="48dip"
+            android:gravity="left|center_vertical"
+            android:text="@string/pref_assigned_card"
+            android:textColor="?android:attr/textColorPrimary"
+            android:layout_below="@+id/laySplit" />
+
+    <CheckBox android:id="@+id/chkAssignedCard"
+            android:layout_width="wrap_content"
+            android:layout_height="48dip"
+            android:layout_below="@+id/laySplit"
+            android:layout_alignParentRight="true"
             />
 
     <RelativeLayout
             android:id="@+id/laySplit0"
             android:layout_width="match_parent"
             android:layout_height="1px"
-            android:layout_below="@+id/tvAutoName"
+            android:layout_below="@+id/tvAssignedCard"
             android:background="@color/shadow">
     </RelativeLayout>
 
@@ -32,7 +55,7 @@
             android:gravity="left|center_vertical"
             android:text="@string/st_font_size"
             android:textColor="?android:attr/textColorPrimary"
-            android:layout_below="@+id/laySplit0"/>
+            android:layout_below="@+id/laySplit0" />
 
     <Button
             android:id="@+id/btnBigger"
@@ -41,7 +64,7 @@
             android:layout_alignParentRight="true"
             android:text="@string/st_font_bigger"
             android:background="@drawable/button_style"
-            android:layout_below="@+id/laySplit0"/>
+            android:layout_below="@+id/laySplit0" />
 
     <TextView
             android:id="@+id/tvFontDemo"
@@ -50,7 +73,7 @@
             android:layout_toLeftOf="@+id/btnBigger"
             android:gravity="center"
             android:text="@string/st_font_demo"
-            android:layout_below="@+id/laySplit0"/>
+            android:layout_below="@+id/laySplit0" />
 
     <Button
             android:id="@+id/btnSmaller"
@@ -59,7 +82,7 @@
             android:layout_toLeftOf="@+id/tvFontDemo"
             android:text="@string/st_font_smaller"
             android:background="@drawable/button_style"
-            android:layout_below="@+id/laySplit0"/>
+            android:layout_below="@+id/laySplit0" />
 
     <RelativeLayout
             android:id="@+id/laySplit1"
@@ -76,7 +99,7 @@
             android:layout_below="@+id/laySplit1"
             android:gravity="left|center_vertical"
             android:text="@string/pref_data_msg"
-            android:textColor="?android:attr/textColorPrimary"/>
+            android:textColor="?android:attr/textColorPrimary" />
 
     <TextView
             android:id="@+id/tvData"
@@ -86,7 +109,7 @@
             android:layout_below="@+id/laySplit1"
             android:gravity="center"
             android:textColor="?android:attr/textColorSecondary"
-            android:text="@string/datasize_counting"/>
+            android:text="@string/datasize_counting" />
 
     <RelativeLayout
             android:id="@+id/laySplit2"
@@ -103,14 +126,14 @@
             android:layout_below="@+id/laySplit2"
             android:gravity="left|center_vertical"
             android:text="@string/pref_fit"
-            android:textColor="?android:attr/textColorPrimary"/>
+            android:textColor="?android:attr/textColorPrimary" />
     <ImageView android:id="@+id/ivFitable"
-               android:layout_width="48dip"
-               android:layout_height="48dip"
-               android:padding="8dip"
-               android:scaleType="centerInside"
-               android:layout_alignParentRight="true"
-               android:layout_below="@+id/laySplit2"/>
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:padding="8dip"
+            android:scaleType="centerInside"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/laySplit2" />
 
     <RelativeLayout
             android:id="@+id/laySplit3"
