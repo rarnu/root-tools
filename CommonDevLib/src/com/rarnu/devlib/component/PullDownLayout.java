@@ -20,7 +20,7 @@ public class PullDownLayout extends LinearLayout {
     private static final int REFRESHING = 4;
     public int mRefreshState;
     public Scroller scroller;
-    public ScrollView sv;
+    public android.widget.ScrollView sv;
     public int nowpull = -1;
     private View refreshView;
     private ImageView refreshIndicatorView;

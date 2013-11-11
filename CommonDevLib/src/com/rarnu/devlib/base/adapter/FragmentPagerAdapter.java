@@ -79,10 +79,11 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         if (mCurTransaction != null) {
             try {
                 mCurTransaction.commitAllowingStateLoss();
+                mCurTransaction = null;
                 mFragmentManager.executePendingTransactions();
             } catch (Exception e) {
+
             }
-            mCurTransaction = null;
         }
     }
 

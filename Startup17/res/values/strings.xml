@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">17Startup</string>
+    <string name="title_0">首页</string>
+    <string name="title_1">公司</string>
+    <string name="title_2">专辑</string>
+    <string name="title_3">人物</string>
+    <string name="title_4">投资</string>
+    <string name="title_5">招聘</string>
+    <string name="title_6">讨论</string>
+    <string name="title_7">新闻</string>
+    <string name="title_8">评论</string>
+</resources>

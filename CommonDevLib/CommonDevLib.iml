@@ -22,11 +22,11 @@
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" />
     </content>
-    <orderEntry type="jdk" jdkName="Android 4.0.3 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android 4.2.2 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="CommandLib" />
     <orderEntry type="module" module-name="CommonUtils" />
-    <orderEntry type="library" exported="" name="android-support-v4" level="application" />
+    <orderEntry type="library" exported="" name="android-support-v13" level="application" />
   </component>
 </module>
 

@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="tag_0">tag_home</string>
+    <string name="tag_1">tag_company</string>
+    <string name="tag_2">tag_album</string>
+    <string name="tag_3">tag_person</string>
+    <string name="tag_4">tag_invest</string>
+    <string name="tag_5">tag_recruitment</string>
+    <string name="tag_6">tag_discuss</string>
+    <string name="tag_7">tag_news</string>
+    <string name="tag_8">tag_comment</string>
+</resources>
