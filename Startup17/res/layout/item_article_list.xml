@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="64dip"
+        android:paddingLeft="4dip"
+        android:paddingRight="4dip">
+
+    <ImageView android:id="@+id/ivImage"
+            android:layout_width="80dip"
+            android:layout_height="56dip"
+            android:contentDescription="@null"
+            android:layout_centerVertical="true"
+            android:src="@drawable/ic_launcher"
+            android:scaleType="fitXY"/>
+
+    <TextView android:id="@+id/tvTitle"
+            android:layout_width="match_parent"
+            android:layout_height="32dip"
+            android:gravity="left|center_vertical"
+            android:paddingLeft="8dip"
+            android:textStyle="bold"
+            android:textColor="?android:attr/textColorPrimary"
+            android:layout_toRightOf="@+id/ivImage"
+            android:singleLine="true"
+            android:maxLines="1"
+            android:ellipsize="end"
+            android:textSize="14sp"/>
+
+    <TextView android:id="@+id/tvDesc"
+            android:layout_width="match_parent"
+            android:layout_height="32dip"
+            android:gravity="left|top"
+            android:maxLines="2"
+            android:paddingLeft="8dip"
+            android:ellipsize="end"
+            android:layout_toRightOf="@+id/ivImage"
+            android:layout_below="@+id/tvTitle"
+            android:layout_toLeftOf="@+id/tvDatetime"
+            android:textSize="12sp"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+    <TextView android:id="@+id/tvDatetime"
+            android:layout_width="wrap_content"
+            android:layout_height="32dip"
+            android:gravity="center_vertical"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvTitle"
+            android:textColor="?android:attr/textColorSecondary"
+            android:textSize="12sp"
+            />
+
+</RelativeLayout>
