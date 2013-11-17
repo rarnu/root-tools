@@ -24,6 +24,7 @@
         <item name="android:popupMenuStyle">@style/PopupMenu.Startup</item>
         <item name="android:dropDownListViewStyle">@style/DropDownListView.Startup</item>
         <item name="android:actionBarTabStyle">@style/ActionBarTabStyle.Startup</item>
+        <item name="android:actionBarTabTextStyle">@style/ActionBarTabTextStyle.Startup</item>
         <item name="android:actionDropDownStyle">@style/DropDownNav.Startup</item>
         <item name="android:actionBarStyle">@style/ActionBar.Solid.Startup</item>
         <item name="android:actionModeBackground">@drawable/cab_background_top_startup</item>
@@ -37,6 +38,7 @@
         <item name="android:backgroundStacked">@drawable/ab_stacked_solid_startup</item>
         <item name="android:backgroundSplit">@drawable/ab_background_textured_startup</item>
         <item name="android:progressBarStyle">@style/ProgressBar.Startup</item>
+        <item name="android:titleTextStyle">@style/ActionBar.Title.Startup</item>
     </style>
 
     <style name="ActionBar.Transparent.Startup" parent="@android:style/Widget.Holo.Light.ActionBar">
@@ -46,7 +48,11 @@
     </style>
 
     <style name="ActionBar.Title.Startup" parent="@android:style/TextAppearance.Holo.Widget.ActionBar.Title">
-        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <style name="ActionBarTabTextStyle.Startup" parent="@android:style/Widget.Holo.Light.ActionBar.TabText">
+        <item name="android:textColor">@color/startup</item>
     </style>
 
     <style name="PopupMenu.Startup" parent="@android:style/Widget.Holo.Light.ListPopupWindow">

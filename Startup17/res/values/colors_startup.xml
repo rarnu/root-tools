@@ -19,4 +19,5 @@
 
 <resources>
     <color name="pressed_startup">#CC99CC00</color>
+    <color name="startup">#FF669900</color>
 </resources>

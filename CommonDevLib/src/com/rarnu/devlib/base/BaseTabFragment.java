@@ -4,7 +4,9 @@ import android.app.ActionBar;
 import android.app.ActionBar.Tab;
 import android.app.ActionBar.TabListener;
 import android.app.Fragment;
+import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import com.rarnu.devlib.R;
@@ -72,7 +74,13 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
             listTags.add(((BaseFragment) bf).getTagText());
         }
 
-        adapter = new BaseFragmentAdapter(getChildFragmentManager(), listFragment, listTags);
+        FragmentManager fm = null;
+        if (Build.VERSION.SDK_INT >= 17) {
+            fm = getChildFragmentManager();
+        } else {
+            fm = getFragmentManager();
+        }
+        adapter = new BaseFragmentAdapter(fm, listFragment, listTags);
 
         pager.post(new Runnable() {
 
