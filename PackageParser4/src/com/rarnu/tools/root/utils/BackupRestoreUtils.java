@@ -2,7 +2,6 @@ package com.rarnu.tools.root.utils;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
-import android.util.Log;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu.root.pp4.R;
@@ -132,8 +131,7 @@ public class BackupRestoreUtils {
         CommandResult result = null;
         if (GlobalInstance.reinstallApk) {
             try {
-                result = RootUtils.runCommand(cmd, true, null);
-                Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
+                RootUtils.runCommand(cmd, true, null);
             } catch (Throwable th) {
                 result = new CommandResult();
                 result.result = "error";
@@ -146,12 +144,10 @@ public class BackupRestoreUtils {
         if (result.result.toLowerCase().equals("success")) {
             cmd = String.format("busybox cp -r " + savePath + "%s /data/data/", packageName);
             result = RootUtils.runCommand(cmd, true, null);
-            Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
             if (result.error.equals("")) {
 
                 cmd = String.format("busybox chmod -R 777 /data/data/%s/*", packageName);
                 result = RootUtils.runCommand(cmd, true, null);
-                Log.e("restoreData", String.format("ret:%s, err:%s", result.result, result.error));
                 if (result.error.equals("")) {
                     restoreSdData(context, packageName, savePath);
                     restoreObbData(context, packageName, savePath);

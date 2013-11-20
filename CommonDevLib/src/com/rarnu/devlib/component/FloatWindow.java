@@ -3,7 +3,6 @@ package com.rarnu.devlib.component;
 import android.content.Context;
 import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
@@ -74,7 +73,6 @@ public class FloatWindow extends View implements OnTouchListener {
 
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
-                Log.e("FloatWindow", "ACTION_DOWN");
                 lastDownTime = System.currentTimeMillis();
                 lastX = x;
                 lastY = y;
@@ -82,7 +80,6 @@ public class FloatWindow extends View implements OnTouchListener {
                 downY = y;
                 break;
             case MotionEvent.ACTION_MOVE:
-                Log.e("FloatWindow", "ACTION_MOVE");
                 wmParams.x += (int) (x - lastX);
                 wmParams.y += (int) (y - lastY);
                 windowMgr.updateViewLayout(view, wmParams);
@@ -94,7 +91,6 @@ public class FloatWindow extends View implements OnTouchListener {
                         if ((pressedTime - lastDownTime) > 1500) {
                             lastDownTime = 0L;
                             if (moveListener != null) {
-                                Log.e("FloatWindow", "onFloatWindowLongClick");
                                 moveListener.onFloatWindowLongClick();
                             }
                         }
@@ -102,18 +98,15 @@ public class FloatWindow extends View implements OnTouchListener {
                 }
                 break;
             case MotionEvent.ACTION_UP:
-                Log.e("FloatWindow", "ACTION_UP");
                 if (moveListener != null) {
                     moveListener.onPositionChanged(v, lastX, lastY);
                 }
                 upX = x;
                 upY = y;
                 if (Math.abs(upX - downX) < 10 && Math.abs(upY - downY) < 10) {
-                    Log.e("FloatWindow", "EVENT");
                     lastUpTime = System.currentTimeMillis();
                     if ((lastUpTime - lastDownTime) < 500) {
                         if (moveListener != null) {
-                            Log.e("FloatWindow", "onFloatWindowClick");
                             moveListener.onFloatWindowClick();
                         }
                     }

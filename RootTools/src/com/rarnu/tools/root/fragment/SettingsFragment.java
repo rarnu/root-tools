@@ -6,7 +6,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
-import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -174,10 +173,8 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
             RTConfig.setShowFloatWindow(getActivity(), GlobalInstance.showFloatWindow);
             initConfigValues();
             if (GlobalInstance.showFloatWindow) {
-                Log.e("SettingsFragment", "showFloatWindow");
                 FloatUtils.showFloatWindow(getActivity(), FloatWidgetService.class, 50, 50);
             } else {
-                Log.e("SettingsFragment", "hideFloatWindow");
                 FloatUtils.hideFloatWindow(getActivity(), FloatWidgetService.class);
             }
         } else if (key.equals(getString(R.string.id_allow_delete_level_0))) {

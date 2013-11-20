@@ -2,7 +2,6 @@ package com.rarnu.devlib.component;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 import com.rarnu.devlib.component.BlockView.ItemClickListener;
@@ -75,8 +74,6 @@ public class MergeView extends RelativeLayout {
         }
         int width = realWidth - (padding * (columnCount + 1));
         int height = realHeight - (padding * (rowCount + 1));
-
-        Log.e("resize", String.format("w:%d h:%d", realWidth, realHeight));
 
         xSize = width / columnCount;
         ySize = height / rowCount;

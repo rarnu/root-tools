@@ -1,6 +1,5 @@
 package com.rarnu.utils;
 
-import android.util.Log;
 import com.rarnu.utils.common.JsonNode;
 import com.rarnu.utils.common.JsonNode.FieldType;
 import org.json.JSONArray;
@@ -112,7 +111,6 @@ public class JsonUtils<T> {
 
     @SuppressWarnings("unchecked")
     private Object jsonToMap(JSONObject jobj, Class<?> cType, Class<?> genericType, Object obj, JsonNode node) throws Exception {
-        Log.e("jsonToMap", jobj.toString());
         Iterator<?> iter = jobj.keys();
         String key = "";
         while (iter.hasNext()) {

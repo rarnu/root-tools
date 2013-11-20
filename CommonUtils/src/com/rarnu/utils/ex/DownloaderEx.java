@@ -3,7 +3,6 @@ package com.rarnu.utils.ex;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.widget.ProgressBar;
 
 import java.io.File;
@@ -189,7 +188,6 @@ public abstract class DownloaderEx {
             InputStream is = null;
             try {
                 URL url = new URL(urlstr);
-                Log.e("MyThread", urlstr);
                 connection = (HttpURLConnection) url.openConnection();
                 connection.setConnectTimeout(30000);
                 connection.setRequestMethod("GET");
