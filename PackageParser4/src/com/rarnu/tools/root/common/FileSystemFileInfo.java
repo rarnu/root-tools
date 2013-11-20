@@ -9,12 +9,14 @@ public class FileSystemFileInfo {
     public String fullPath;
     public String mimeType;
     public int icon;
+    public String ext;
 
     public FileSystemFileInfo(boolean isDirectory, String name, String fullPath) {
         this.name = name;
         this.fullPath = fullPath;
         this.isDirectory = isDirectory;
         this.mimeType = getMimeType();
+        ext = fullPath.substring(fullPath.lastIndexOf(".")).toLowerCase();
     }
 
     private String getMimeType() {

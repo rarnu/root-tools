@@ -5,8 +5,10 @@ import android.content.Intent;
 
 public class FloatUtils {
 
-    public static void showFloatWindow(Context context, Class<?> service) {
+    public static void showFloatWindow(Context context, Class<?> service, int x, int y) {
         Intent inServiceFloat = new Intent(context, service);
+        inServiceFloat.putExtra("x", x);
+        inServiceFloat.putExtra("y", y);
         context.startService(inServiceFloat);
     }
 

@@ -10,6 +10,7 @@
     <string name="sysapp_select">選擇應用程式</string>
     <string name="settings">設定</string>
     <string name="cat_settings">軟體設定</string>
+    <string name="cat_global">全局設定</string>
     <string name="cat_system">系統優化</string>
     <string name="cat_backup">備份還原</string>
     <string name="cat_memory">內存與存儲</string>
@@ -41,6 +42,7 @@
     <string name="check_update">檢查更新</string>
     <string name="about">關於本軟體</string>
     <string name="about_with_path">RootTools &gt; 關於本軟體</string>
+    <string name="func0_title">顯示懸浮窗</string>
     <string name="func1">增加/移除\n系統應用</string>
     <string name="func1_title">系統應用管理</string>
     <string name="func1_title_with_path">RootTools &gt; 系統應用管理</string>
@@ -285,6 +287,7 @@
     <string name="apkstat_1">籤名不同，需強制升級</string>
     <string name="apkstat_0">可以正常升級</string>
     <string name="tv_refresh_apk">點擊 &lt;font color=\'#6495ED\'&gt;刷新&lt;/font&gt; 將掃描 SD 卡內的所有 APK 檔案</string>
+    <string name="fit_44">支援 Android 4.4</string>
     <string name="disk_size_fmt" formatted="false">大小:%s</string>
     <string name="disk_used_fmt" formatted="false">已用:%s</string>
     <string name="disk_free_fmt" formatred="false">空閒:%s</string>

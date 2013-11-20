@@ -52,6 +52,9 @@ public class RootUtils {
             ret = isSettingsContainsSU();
         }
 
+        if (!ret) {
+            ret = isBaiduRom();
+        }
         return ret;
     }
 
@@ -214,6 +217,17 @@ public class RootUtils {
         CommandResult result = runCommand("getprop ro.build.host", false);
         if (result != null) {
             if (result.result.toLowerCase().contains("cyanogenmod")) {
+                ret = true;
+            }
+        }
+        return ret;
+    }
+
+    private static boolean isBaiduRom() {
+        boolean ret = false;
+        CommandResult result = runCommand("getprop ro.product.manufacturer", false);
+        if (result != null) {
+            if (result.result.toLowerCase().contains("baidu")) {
                 ret = true;
             }
         }

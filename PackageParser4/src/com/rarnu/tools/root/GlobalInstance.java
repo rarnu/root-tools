@@ -14,6 +14,8 @@ public class GlobalInstance {
 
     public static boolean DEBUG = false;
     public static PackageManager pm = null;
+    // global
+    public static boolean showFloatWindow = false;
     // sysapp
     public static SysappInfo currentSysapp = null;
     public static boolean allowDeleteLevel0 = false;

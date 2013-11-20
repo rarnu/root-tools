@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -28,12 +29,15 @@ import com.rarnu.tools.root.fragmentactivity.MemIgnoreActivity;
 import com.rarnu.tools.root.receiver.MutaxReceiver;
 import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
 import com.rarnu.tools.root.service.CleanBackupService;
+import com.rarnu.tools.root.service.FloatWidgetService;
 import com.rarnu.tools.root.utils.DirHelper;
+import com.rarnu.utils.FloatUtils;
 
 import java.io.File;
 
 public class SettingsFragment extends InnerPreferenceFragment implements OnReceiveMessage, OnClickListener, OnPreferenceClickListener {
 
+    CheckBoxPreferenceEx prefShowFloatWindow;
     CheckBoxPreferenceEx prefAllowDeleteLevel0, prefAlsoDeleteData, prefBackupBeforeDelete, prefOverrideBackuped, prefReinstallApk, prefKillProcessBeforeClean;
     PreferenceEx prefKillIgnoreList, prefNameServer, prefManualEditHosts, prefCleanDeprecated, prefDeleteAllBackupData, prefCustomAppClean, prefBackupPath;
     MutaxReceiver receiver;
@@ -62,6 +66,8 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
 
     @Override
     public void initComponents() {
+
+        prefShowFloatWindow = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_show_float_window));
 
         prefAllowDeleteLevel0 = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_allow_delete_level_0));
         prefAlsoDeleteData = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_also_delete_data));
@@ -124,7 +130,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
     }
 
     private void initConfigValues() {
-
+        prefShowFloatWindow.setStateChecked(GlobalInstance.showFloatWindow);
         prefAllowDeleteLevel0.setStateChecked(GlobalInstance.allowDeleteLevel0);
         prefAlsoDeleteData.setStateChecked(GlobalInstance.alsoDeleteData);
         prefBackupBeforeDelete.setStateChecked(GlobalInstance.backupBeforeDelete);
@@ -163,7 +169,18 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
     public void onClick(View v) {
         String key = (String) v.getTag();
         CheckBox chk = (CheckBox) v;
-        if (key.equals(getString(R.string.id_allow_delete_level_0))) {
+        if (key.equals(getString(R.string.id_show_float_window))) {
+            GlobalInstance.showFloatWindow = chk.isChecked();
+            RTConfig.setShowFloatWindow(getActivity(), GlobalInstance.showFloatWindow);
+            initConfigValues();
+            if (GlobalInstance.showFloatWindow) {
+                Log.e("SettingsFragment", "showFloatWindow");
+                FloatUtils.showFloatWindow(getActivity(), FloatWidgetService.class, 50, 50);
+            } else {
+                Log.e("SettingsFragment", "hideFloatWindow");
+                FloatUtils.hideFloatWindow(getActivity(), FloatWidgetService.class);
+            }
+        } else if (key.equals(getString(R.string.id_allow_delete_level_0))) {
             GlobalInstance.allowDeleteLevel0 = chk.isChecked();
             RTConfig.setAllowDeleteLevel0(getActivity(), GlobalInstance.allowDeleteLevel0);
             initConfigValues();
@@ -294,6 +311,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
 
     @Override
     public void initEvents() {
+        prefShowFloatWindow.setOnCheckboxClickListener(this);
         prefAllowDeleteLevel0.setOnCheckboxClickListener(this);
         prefAlsoDeleteData.setOnCheckboxClickListener(this);
         prefBackupBeforeDelete.setOnCheckboxClickListener(this);

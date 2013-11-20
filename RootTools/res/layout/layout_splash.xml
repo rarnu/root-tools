@@ -35,7 +35,7 @@
         android:layout_below="@+id/tvVersion"
         android:layout_marginRight="16dip"
         android:layout_marginTop="16dip"
-        android:text="@string/fit_43"
+        android:text="@string/fit_44"
         android:textColor="@color/greenyellow" />
 
     <TextView
@@ -57,7 +57,7 @@
         android:layout_marginBottom="8dip"
         android:adjustViewBounds="true"
         android:contentDescription="@null"
-        android:maxHeight="60dip"
+        android:maxHeight="48dip"
         android:src="@drawable/logo_eoe" />
 
 </RelativeLayout>

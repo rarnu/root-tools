@@ -407,25 +407,69 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
     @Override
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         final FileSystemFileInfo item = (FileSystemFileInfo) lvFiles.getItemAtPosition(position);
+        int menu_id = R.array.array_file_system_item_menu;
+        if (item.ext.equals("txt")) {
+                              menu_id = R.array.array_file_system_item_menu_text;
+        }  else if (item.ext.equals("apk")) {
+            menu_id = R.array.array_file_system_item_menu_apk;
+        }
+        final int final_menu_id = menu_id;
         new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.filesystem)
-                .setItems(R.array.array_file_system_item_menu, new DialogInterface.OnClickListener() {
+                .setItems(menu_id, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        switch (which) {
-                            case 0:
-                                doOpenAsText(item);
+                        switch (final_menu_id) {
+                            case R.array.array_file_system_item_menu:
+                                switch (which) {
+                                    case 0:
+                                        doPrepareCutFile(item);
+                                        break;
+                                    case 1:
+                                        doPrepareCopyFile(item);
+                                        break;
+                                    case 2:
+                                        doPrepareDeleteFile(item);
+                                        break;
+                                }
                                 break;
-                            case 1:
-                                doPrepareCutFile(item);
+                            case R.array.array_file_system_item_menu_text:
+                                switch (which) {
+                                    case 0:
+                                        doOpenAsText(item);
+                                        break;
+                                    case 1:
+                                        doPrepareCutFile(item);
+                                        break;
+                                    case 2:
+                                        doPrepareCopyFile(item);
+                                        break;
+                                    case 3:
+                                        doPrepareDeleteFile(item);
+                                        break;
+                                }
                                 break;
-                            case 2:
-                                doPrepareCopyFile(item);
-                                break;
-                            case 3:
-                                doPrepareDeleteFile(item);
+                            case R.array.array_file_system_item_menu_apk:
+                                switch (which) {
+                                    case 0:
+                                        // TODO: install
+                                        break;
+                                    case 1:
+                                        // TODO: force install
+                                        break;
+                                    case 2:
+                                        doPrepareCutFile(item);
+                                        break;
+                                    case 3:
+                                        doPrepareCopyFile(item);
+                                        break;
+                                    case 4:
+                                        doPrepareDeleteFile(item);
+                                        break;
+                                }
                                 break;
                         }
+
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)

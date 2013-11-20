@@ -58,6 +58,7 @@ public class MainActivity extends BaseMainActivity {
 
     private void initConfig() {
         GlobalInstance.isFirstStart = RTConfig.getFirstStart(this);
+        GlobalInstance.showFloatWindow = RTConfig.getShowFloatWindow(this);
         GlobalInstance.allowDeleteLevel0 = RTConfig.getAllowDeleteLevel0(this);
         GlobalInstance.alsoDeleteData = RTConfig.getAlsoDeleteData(this);
         GlobalInstance.backupBeforeDelete = RTConfig.getBackupBeforeDelete(this);
