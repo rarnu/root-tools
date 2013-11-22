@@ -169,14 +169,24 @@ public class ApkUtils {
     }
 
     public static String installAppWithResult(String filePath) {
-        CommandResult result = RootUtils.runCommand("pm install -r "+filePath, true);
-        String ret = result.error;
-        return ret;
+        CommandResult result = RootUtils.runCommand("pm install -r " + filePath, true);
+        return result.error;
     }
 
     public static String forceInstallAppWithResult(String filePath) {
-        // TODO: force install
-        return "";
+        // change to package name
+        ApplicationInfo appInfo = getAppInfoFromPackage(filePath);
+        String fileName = appInfo.packageName + "-1.apk";
+        // force install
+
+        CommandResult result = RootUtils.runCommand(String.format("busybox cp %s /data/app/%s", filePath, fileName), true);
+        if (result.error.equals("")) {
+            result = RootUtils.runCommand(String.format("chmod 644 /data/app/%s", fileName), true);
+        }
+        if (result.error.equals("")) {
+            result = RootUtils.runCommand(String.format("chown system:system /data/app/%s", fileName), true);
+        }
+        return result.error;
     }
 
     public static boolean isAndroidApp(String path) {

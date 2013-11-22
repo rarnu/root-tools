@@ -131,7 +131,7 @@ public class BackupRestoreUtils {
         CommandResult result = null;
         if (GlobalInstance.reinstallApk) {
             try {
-                RootUtils.runCommand(cmd, true, null);
+                result = RootUtils.runCommand(cmd, true, null);
             } catch (Throwable th) {
                 result = new CommandResult();
                 result.result = "error";

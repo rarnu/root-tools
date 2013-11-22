@@ -88,12 +88,12 @@ public class FloatWidgetService extends BaseFloatService implements Loader.OnLoa
 
     @Override
     public int getX() {
-        return -1;
+        return GlobalInstance.floatWindowPosX;
     }
 
     @Override
     public int getY() {
-        return -1;
+        return GlobalInstance.floatWindowPosY;
     }
 
     @Override
