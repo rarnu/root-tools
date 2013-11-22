@@ -7,16 +7,18 @@ public class FileSystemFileInfo {
     public boolean isDirectory;
     public String name;
     public String fullPath;
-    public String mimeType;
+    public String mimeType = "";
     public int icon;
-    public String ext;
+    public String ext = "";
 
     public FileSystemFileInfo(boolean isDirectory, String name, String fullPath) {
         this.name = name;
         this.fullPath = fullPath;
         this.isDirectory = isDirectory;
         this.mimeType = getMimeType();
-        ext = fullPath.substring(fullPath.lastIndexOf(".")).toLowerCase();
+        if (fullPath.contains(".")) {
+            ext = fullPath.substring(fullPath.lastIndexOf(".")).toLowerCase();
+        }
     }
 
     private String getMimeType() {

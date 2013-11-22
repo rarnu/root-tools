@@ -125,6 +125,9 @@
         <activity android:name=".fragmentactivity.PoolActivity"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden"/>
+        <activity android:name=".fragmentactivity.InstallApkActivity"
+                android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+                android:windowSoftInputMode="stateAlwaysHidden"/>
         <activity
                 android:name=".fragmentactivity.HostMainActivity"
                 android:label="@string/func7_title"

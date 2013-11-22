@@ -24,6 +24,7 @@ import com.rarnu.tools.root.adapter.FileSystemAdapter;
 import com.rarnu.tools.root.common.FileOperationInfo;
 import com.rarnu.tools.root.common.FileSystemFileInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
+import com.rarnu.tools.root.fragmentactivity.InstallApkActivity;
 import com.rarnu.tools.root.fragmentactivity.PoolActivity;
 import com.rarnu.tools.root.fragmentactivity.TextEditorActivity;
 import com.rarnu.utils.FileUtils;
@@ -45,6 +46,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
     ListView lvFiles;
     DataProgressBar progressFiles;
     String currentDir = "/";
+    // String currentDir = Environment.getExternalStorageDirectory().getAbsolutePath();
     List<FileSystemFileInfo> list;
     FileSystemAdapter adapter;
     boolean canExit = false;
@@ -408,9 +410,9 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         final FileSystemFileInfo item = (FileSystemFileInfo) lvFiles.getItemAtPosition(position);
         int menu_id = R.array.array_file_system_item_menu;
-        if (item.ext.equals("txt")) {
-                              menu_id = R.array.array_file_system_item_menu_text;
-        }  else if (item.ext.equals("apk")) {
+        if (item.ext.equals(".txt")) {
+            menu_id = R.array.array_file_system_item_menu_text;
+        } else if (item.ext.equals(".apk")) {
             menu_id = R.array.array_file_system_item_menu_apk;
         }
         final int final_menu_id = menu_id;
@@ -452,10 +454,10 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                             case R.array.array_file_system_item_menu_apk:
                                 switch (which) {
                                     case 0:
-                                        // TODO: install
+                                        doInstall(item);
                                         break;
                                     case 1:
-                                        // TODO: force install
+                                        doForceInstall(item);
                                         break;
                                     case 2:
                                         doPrepareCutFile(item);
@@ -543,5 +545,15 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
+    }
+
+    private void doInstall(final FileSystemFileInfo item) {
+        // TODO: install
+        Intent inInstallApk = new Intent(getActivity(), InstallApkActivity.class);
+        startActivity(inInstallApk);
+    }
+
+    private void doForceInstall(final FileSystemFileInfo item) {
+        // TODO: force install
     }
 }

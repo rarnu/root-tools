@@ -32,4 +32,5 @@ public class FragmentNameConst {
 	public static final String FN_FILESYSTEM = "filesystem";
     public static final String FN_POOL = "pool";
     public static final String FN_TEXT_EDITOR = "texteditor";
+    public static final String FN_INSTALL_APK = "installapk";
 }

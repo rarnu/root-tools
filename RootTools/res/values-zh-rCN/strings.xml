@@ -309,4 +309,6 @@
     <string name="file_input_name">输入文件名</string>
     <string name="float_clean_fmt" formatted="false">清理完毕，共释放 %dM 内存</string>
     <string name="float_clean_error">清理内存时发生错误</string>
+    <string name="install_apk_title">安装应用程序</string>
+    <string name="installing_apk_fmt" formatted="false">正在安装 %s ...</string>
 </resources>

@@ -37,6 +37,7 @@ public class Fragments {
     private static FileSystemFragment fFileSystem = null;
     private static PoolFragment fPool = null;
     private static TextEditorFragment fTextEditor = null;
+    private static InstallApkFragment fInstallApk = null;
 
     public static Fragment getFragment(String name) {
         releaseOtherFragment(name);
@@ -134,6 +135,9 @@ public class Fragments {
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_TEXT_EDITOR, TextEditorFragment.class, fTextEditor);
         }
+        if (f == null) {
+            f = getFragment(name, FragmentNameConst.FN_INSTALL_APK, InstallApkFragment.class, fInstallApk);
+        }
 
         return f;
     }
@@ -182,6 +186,7 @@ public class Fragments {
         fFileSystem = null;
         fPool = null;
         fTextEditor = null;
+        fInstallApk = null;
     }
 
     public static void releaseOtherFragment(String name) {
@@ -214,6 +219,7 @@ public class Fragments {
         doReleaseFragment(name, FragmentNameConst.FN_FILESYSTEM, fFileSystem);
         doReleaseFragment(name, FragmentNameConst.FN_POOL, fPool);
         doReleaseFragment(name, FragmentNameConst.FN_TEXT_EDITOR, fTextEditor);
+        doReleaseFragment(name, FragmentNameConst.FN_INSTALL_APK, fInstallApk);
     }
 
     private static void doReleaseFragment(String name, String checkName, Fragment f) {
