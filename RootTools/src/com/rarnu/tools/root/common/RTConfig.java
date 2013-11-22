@@ -1,6 +1,7 @@
 package com.rarnu.tools.root.common;
 
 import android.content.Context;
+import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.utils.ConfigUtils;
 
@@ -113,6 +114,21 @@ public class RTConfig {
 
     public static void setBackupPath(Context context, String value) {
         ConfigUtils.setStringConfig(context, KEY_BACKUP_PATH, value);
+    }
+
+    public static void initConfig(Context context) {
+        GlobalInstance.isFirstStart = getFirstStart(context);
+        GlobalInstance.showFloatWindow = getShowFloatWindow(context);
+        GlobalInstance.floatWindowPosX = getFloatWindowPosX(context);
+        GlobalInstance.floatWindowPosY = getFloatWindowPosY(context);
+        GlobalInstance.allowDeleteLevel0 = getAllowDeleteLevel0(context);
+        GlobalInstance.alsoDeleteData = getAlsoDeleteData(context);
+        GlobalInstance.backupBeforeDelete = getBackupBeforeDelete(context);
+        GlobalInstance.overrideBackuped = getOverrideBackuped(context);
+        GlobalInstance.reinstallApk = getReinstallApk(context);
+        GlobalInstance.killProcessBeforeClean = getKillProcessBeforeClean(context);
+        GlobalInstance.nameServer = getNameServer(context);
+        GlobalInstance.backupPath = getBackupPath(context);
     }
 
 }

@@ -307,4 +307,6 @@
     <string name="file_save_succ">File saved</string>
     <string name="file_save_fail">Failed to save file</string>
     <string name="file_input_name">Input file name</string>
+    <string name="float_clean_fmt" formatted="false">Memory cleaned: %dM</string>
+    <string name="float_clean_error">Error when cleaning memory</string>
 </resources>

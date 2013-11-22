@@ -6,6 +6,7 @@ import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
@@ -17,7 +18,9 @@ import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConfig;
+import com.rarnu.tools.root.service.FloatWidgetService;
 import com.rarnu.tools.root.utils.*;
+import com.rarnu.utils.FloatUtils;
 import com.rarnu.utils.ImageUtils;
 import com.rarnu.utils.NetworkUtils;
 
@@ -38,6 +41,12 @@ public class MainActivity extends BaseMainActivity {
     };
     MenuItem actionItem;
 
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+
+    }
+
     private Intent createShareIntent() {
 
         String bmpName = DirHelper.ROOT_DIR + "icon.png";
@@ -56,24 +65,11 @@ public class MainActivity extends BaseMainActivity {
         return shareIntent;
     }
 
-    private void initConfig() {
-        GlobalInstance.isFirstStart = RTConfig.getFirstStart(this);
-        GlobalInstance.showFloatWindow = RTConfig.getShowFloatWindow(this);
-        GlobalInstance.allowDeleteLevel0 = RTConfig.getAllowDeleteLevel0(this);
-        GlobalInstance.alsoDeleteData = RTConfig.getAlsoDeleteData(this);
-        GlobalInstance.backupBeforeDelete = RTConfig.getBackupBeforeDelete(this);
-        GlobalInstance.overrideBackuped = RTConfig.getOverrideBackuped(this);
-        GlobalInstance.reinstallApk = RTConfig.getReinstallApk(this);
-        GlobalInstance.killProcessBeforeClean = RTConfig.getKillProcessBeforeClean(this);
-        GlobalInstance.nameServer = RTConfig.getNameServer(this);
-        GlobalInstance.backupPath = RTConfig.getBackupPath(this);
-    }
-
     private void loadExcludeListT() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                MemorySpecialList.loadExcludeList();
+                MemorySpecialList.loadExcludeList(MainActivity.this);
             }
         }).start();
     }
@@ -119,11 +115,17 @@ public class MainActivity extends BaseMainActivity {
         RootUtils.mountRW();
         loadExcludeListT();
         loadCustomPackageListT();
-        initConfig();
+        RTConfig.initConfig(this);
         if (GlobalInstance.isFirstStart) {
 
             GlobalInstance.isFirstStart = false;
             RTConfig.setFirstStart(this, GlobalInstance.isFirstStart);
+        }
+
+        if (GlobalInstance.showFloatWindow) {
+            if (!FloatWidgetService.isAlive) {
+                FloatUtils.showFloatWindow(this, FloatWidgetService.class, GlobalInstance.floatWindowPosX, GlobalInstance.floatWindowPosY);
+            }
         }
 
         loadNetworkStatus();

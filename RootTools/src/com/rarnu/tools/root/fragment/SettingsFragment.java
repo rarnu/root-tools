@@ -14,7 +14,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import com.rarnu.devlib.base.inner.InnerPreferenceFragment;
 import com.rarnu.devlib.component.CheckBoxPreferenceEx;
+import com.rarnu.devlib.component.MutaxReceiver;
 import com.rarnu.devlib.component.PreferenceEx;
+import com.rarnu.devlib.component.intf.OnReceiveMessage;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
@@ -25,8 +27,6 @@ import com.rarnu.tools.root.fragmentactivity.CustomCleanManagerActivity;
 import com.rarnu.tools.root.fragmentactivity.HostDeprecatedActivity;
 import com.rarnu.tools.root.fragmentactivity.HostEditActivity;
 import com.rarnu.tools.root.fragmentactivity.MemIgnoreActivity;
-import com.rarnu.tools.root.receiver.MutaxReceiver;
-import com.rarnu.tools.root.receiver.MutaxReceiver.OnReceiveMessage;
 import com.rarnu.tools.root.service.CleanBackupService;
 import com.rarnu.tools.root.service.FloatWidgetService;
 import com.rarnu.tools.root.utils.DirHelper;
@@ -173,7 +173,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
             RTConfig.setShowFloatWindow(getActivity(), GlobalInstance.showFloatWindow);
             initConfigValues();
             if (GlobalInstance.showFloatWindow) {
-                FloatUtils.showFloatWindow(getActivity(), FloatWidgetService.class, 50, 50);
+                FloatUtils.showFloatWindow(getActivity(), FloatWidgetService.class, GlobalInstance.floatWindowPosX, GlobalInstance.floatWindowPosY);
             } else {
                 FloatUtils.hideFloatWindow(getActivity(), FloatWidgetService.class);
             }

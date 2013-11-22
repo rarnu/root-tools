@@ -1,5 +1,6 @@
 package com.rarnu.tools.root.utils;
 
+import android.content.Context;
 import com.rarnu.tools.root.common.MemIgnoreInfo;
 
 import java.io.IOException;
@@ -20,7 +21,7 @@ public class MemorySpecialList {
 
         for (int i = 0; i < lstExclude.size(); i++) {
 
-            if (lstExclude.get(i).namespace.equals(ns)) {
+            if (lstExclude.get(i).namespace.contains(ns)) {
                 ret = i;
                 break;
             }
@@ -39,7 +40,7 @@ public class MemorySpecialList {
         return ret;
     }
 
-    public static void loadExcludeList() {
+    public static void loadExcludeList(Context context) {
         List<String> list = null;
         try {
             list = FileUtils.readFile(PATH_LIST);
@@ -57,8 +58,19 @@ public class MemorySpecialList {
         lstExclude.add(newIgnoreInfo("com.android.systemui", true));
         lstExclude.add(newIgnoreInfo("com.android.phone", true));
 
-        // htc
-        lstExclude.add(newIgnoreInfo("com.htc.launcher", true));
+        // launchers
+        List<String> listLauncher = ApkUtils.getLauncherPackageName(context);
+        if (listLauncher != null && listLauncher.size() != 0) {
+            for (int i = 0; i < listLauncher.size(); i++) {
+                lstExclude.add(newIgnoreInfo(listLauncher.get(i), true));
+            }
+        }
+
+        // miui
+        String factory = DeviceUtils.getBuildProp(DeviceUtils.RO_PRODUCT_MANUFACTURER);
+        if (factory.toLowerCase().contains("xiaomi")) {
+            addSpecialPackagesForMIUI();
+        }
 
         if (list != null && list.size() != 0) {
             for (String s : list) {
@@ -68,6 +80,10 @@ public class MemorySpecialList {
             }
         }
 
+    }
+
+    private static void addSpecialPackagesForMIUI() {
+        lstExclude.add(newIgnoreInfo("com.miui.providers.weather", true));
     }
 
     private static MemIgnoreInfo newIgnoreInfo(String ns, boolean locked) {

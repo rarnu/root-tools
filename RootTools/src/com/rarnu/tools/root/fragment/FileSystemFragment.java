@@ -230,7 +230,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
         try {
             FileUtils.rewriteFile(fullPath, "");
             FileSystemFileInfo info = new FileSystemFileInfo(false, fileName, fullPath);
-            // TODO: fill icon
+            info.icon = R.drawable.format_file;
             list.add(info);
             adapter.setNewList(list);
         } catch (Exception e) {

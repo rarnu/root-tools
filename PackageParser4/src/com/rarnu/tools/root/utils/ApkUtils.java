@@ -1,5 +1,6 @@
 package com.rarnu.tools.root.utils;
 
+import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
@@ -34,6 +35,35 @@ public class ApkUtils {
     public static final int INSTALL_INTERNAL = 1;
     public static final int INSTALL_SDCARD = 2;
     private static final String PACKAGE_URL = "http://rarnu.7thgen.info/root_tools/package/";
+
+    public static List<String> getLauncherPackageName(Context context) {
+        Intent inLauncher = new Intent(Intent.ACTION_MAIN);
+        inLauncher.addCategory(Intent.CATEGORY_HOME);
+        List<ResolveInfo> list = GlobalInstance.pm.queryIntentActivities(inLauncher, 0);
+        List<String> ret = null;
+        if (list != null && list.size() != 0) {
+            ret = new ArrayList<String>();
+            for (int i = 0; i < list.size(); i++) {
+                if (list.get(i).activityInfo != null) {
+                    ret.add(list.get(i).activityInfo.packageName);
+                }
+            }
+        }
+        return ret;
+
+    }
+
+    public static String getTopPackage(Context context) {
+        ActivityManager am = (ActivityManager) context.getSystemService(Context.ACTIVITY_SERVICE);
+        String ret = "";
+        try {
+            ComponentName cn = am.getRunningTasks(1).get(0).topActivity;
+            ret = cn.getPackageName();
+        } catch (Exception e) {
+
+        }
+        return ret;
+    }
 
     public static List<SysappInfo> getSystemApps(Context context) {
         List<SysappInfo> res = new ArrayList<SysappInfo>();
@@ -138,6 +168,16 @@ public class ApkUtils {
         return result.result.toLowerCase().contains("success");
     }
 
+    public static String installAppWithResult(String filePath) {
+        CommandResult result = RootUtils.runCommand("pm install -r "+filePath, true);
+        String ret = result.error;
+        return ret;
+    }
+
+    public static String forceInstallAppWithResult(String filePath) {
+        // TODO: force install
+        return "";
+    }
 
     public static boolean isAndroidApp(String path) {
         boolean ret = false;
@@ -408,7 +448,6 @@ public class ApkUtils {
     }
 
 
-
     public static boolean applicationInstalled(String namespace) {
         try {
             PackageInfo info = GlobalInstance.pm.getPackageInfo(namespace, 0);
@@ -455,6 +494,10 @@ public class ApkUtils {
     }
 
     public static void openApp(Context context, String packageName) {
+        openApp(context, packageName, false);
+    }
+
+    public static void openApp(Context context, String packageName, boolean newTask) {
         PackageInfo pi = null;
         try {
             pi = GlobalInstance.pm.getPackageInfo(packageName, 0);
@@ -478,6 +521,9 @@ public class ApkUtils {
             intent.addCategory(Intent.CATEGORY_LAUNCHER);
             ComponentName cn = new ComponentName(packageName, className);
             intent.setComponent(cn);
+            if (newTask) {
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            }
             context.startActivity(intent);
         }
     }

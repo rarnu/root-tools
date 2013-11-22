@@ -307,4 +307,6 @@
     <string name="file_save_succ">文件已保存</string>
     <string name="file_save_fail">保存文件失败</string>
     <string name="file_input_name">输入文件名</string>
+    <string name="float_clean_fmt" formatted="false">清理完毕，共释放 %dM 内存</string>
+    <string name="float_clean_error">清理内存时发生错误</string>
 </resources>

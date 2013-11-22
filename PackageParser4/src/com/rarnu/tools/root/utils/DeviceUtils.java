@@ -168,7 +168,7 @@ public class DeviceUtils {
             }
 
             if (factory.toLowerCase().contains("xiaomi")) {
-                result -= 1;
+                result += 1;
             }
         }
 

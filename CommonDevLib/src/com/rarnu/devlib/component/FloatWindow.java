@@ -99,7 +99,7 @@ public class FloatWindow extends View implements OnTouchListener {
                 break;
             case MotionEvent.ACTION_UP:
                 if (moveListener != null) {
-                    moveListener.onPositionChanged(v, lastX, lastY);
+                    moveListener.onPositionChanged(v, wmParams.x, wmParams.y);
                 }
                 upX = x;
                 upY = y;

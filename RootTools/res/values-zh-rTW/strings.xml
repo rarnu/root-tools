@@ -86,7 +86,7 @@
     <string name="close">關閉</string>
     <string name="unknown">未知</string>
     <string name="na">N/A</string>
-    <string name="version">版本 </string>
+    <string name="version">版本</string>
     <string name="refresh">更新</string>
     <string name="pool">操作池</string>
     <string name="help">幫助</string>
@@ -147,21 +147,21 @@
     <string name="override_backuped">允許重復備份</string>
     <string name="reinstall_apk">還原時重新安裝 APK</string>
     <string name="confirm_delete_backup">確定要移除備份的數據?</string>
-    <string name="backuping">正在備份: </string>
-    <string name="restoring">正在還原: </string>
+    <string name="backuping">正在備份:</string>
+    <string name="restoring">正在還原:</string>
     <string name="backuping_proc">正在備份, 請稍候...</string>
     <string name="restoring_proc">正在還原, 請稍候...</string>
     <string name="cleaning_proc">正在清理, 請稍候...</string>
     <string name="mutax_backup">正在備份, 不能進行還原</string>
     <string name="mutax_restore">正在還原, 不能進行備份</string>
     <string name="system_app">系統應用</string>
-    <string name="receiver_count">組件: </string>
-    <string name="permission_count">權限: </string>
+    <string name="receiver_count">組件:</string>
+    <string name="permission_count">權限:</string>
     <string name="operation_hint">長按可以切換啓用/禁用狀況</string>
     <string name="operation_failed">操作失敗, 組件的狀況不可被改變</string>
     <string name="registed_bcr">已注冊的組件</string>
     <string name="memory_usage_fmt" formatted="false">(總內存%dM/空閒%dM/共享%dM/緩衝%dM)</string>
-    <string name="process_count_fmt" formatted="false">進程數%d </string>
+    <string name="process_count_fmt" formatted="false">進程數%d</string>
     <string name="clean_memory">整理內存</string>
     <string name="cleaning_memory">正在整理內存...</string>
     <string name="cleaning_cache">正在清理緩存...</string>
@@ -205,7 +205,9 @@
     <string name="confirm_reinstall_superuser">當前設備已安裝了 Superuser.apk，確定要重新安裝嗎?</string>
     <string name="confirm_reinstall_busybox">當前設備已安裝了 busybox，確定要重新安裝嗎?</string>
     <string name="confirm_install_busybox">部分設備若是安裝了 busybox 後會無法啓動，安裝後風險自負。確定要安裝嗎？</string>
-    <string name="help_busybox">本功能將會檢測設備內是否包含 root 的關鍵文件，包括 su，Superuser.apk 以及 busybox。其中 busybox 是一個非常強大的工具庫，只有擁有 busybox，您才可以享受本軟體帶來的便利。</string>
+    <string name="help_busybox">本功能將會檢測設備內是否包含 root 的關鍵文件，包括 su，Superuser.apk 以及 busybox。其中 busybox 是一個非常強大的工具庫，只有擁有
+        busybox，您才可以享受本軟體帶來的便利。
+    </string>
     <string name="feedback_hint">請在此輸入您想告訴我們的話</string>
     <string name="empty_feedback">內容是空的, 不能發送</string>
     <string name="send_feedback_succ">發送反饋信息完畢</string>
@@ -219,7 +221,9 @@
     <string name="used_cache_size">系統緩存大小 %s</string>
     <string name="get_super_user">Super User</string>
     <string name="get_root_explorer">Root Explorer</string>
-    <string name="root_buybox_desc">本軟體並不提供爲設備獲取 Root 的功能，若提示無 Root 權限，請按照設備型號使用相應 Root 方案，相應的方案在各論壇均可以查詢。\n\n此處將檢查系統內是否已具備使用本應用程式的必備條件,。\n\n部分設備在獲取了 Root 後, 依然無法正常使用本應用程式, 這個情況下請給我們發送反饋。</string>
+    <string name="root_buybox_desc">本軟體並不提供爲設備獲取 Root 的功能，若提示無 Root 權限，請按照設備型號使用相應 Root
+        方案，相應的方案在各論壇均可以查詢。\n\n此處將檢查系統內是否已具備使用本應用程式的必備條件,。\n\n部分設備在獲取了 Root 後, 依然無法正常使用本應用程式, 這個情況下請給我們發送反饋。
+    </string>
     <string name="intent_open_error">無法找到指定的應用程式</string>
     <string name="no_package_info_found">指定的應用程式沒有對應的包信息</string>
     <string name="delete_all_backup_data">移除所有備份的數據</string>
@@ -257,7 +261,9 @@
     <string name="clean_htc_rom_confirm">確定要清理 ROM 嗎? 清理後不可以恢復。</string>
     <string name="no_clean_item_selected">沒有選擇要清除的項目</string>
     <string name="share_title">向您推薦一款優秀的應用程式《RootTools》</string>
-    <string name="share_body">RootTools可以幫助您管理Android設備, 實現對系統完全掌控，下載請點擊: http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk</string>
+    <string name="share_body">RootTools可以幫助您管理Android設備, 實現對系統完全掌控，下載請點擊:
+        http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk
+    </string>
     <string name="summary_sysapp">安裝或移除系統內的應用程式</string>
     <string name="summary_sysappenabled">禁用或啓用指定的應用程式</string>
     <string name="summary_hardupdate">強制升級因籤名不一致無法升級的應用程式</string>
@@ -271,7 +277,8 @@
     <string name="summary_recommand">下載其他精品軟件以支援我們</string>
     <string name="name_server_hint">輸入搜尋 Hosts IP 時要使用的 DNS 侍服器地址, 默認爲 Google 提供的 DNS</string>
     <string name="backup_path_hint">輸入用於保存備份檔案的全路徑</string>
-    <string name="custom_clean_empty">沒有需要管理的內容, 請先到&lt;font color=\'#6495ED\'&gt;系統應用管理&lt;/font&gt;中增加要移除的應用程式</string>
+    <string name="custom_clean_empty">沒有需要管理的內容, 請先到&lt;font color=\'#6495ED\'&gt;系統應用管理&lt;/font&gt;中增加要移除的應用程式
+    </string>
     <string name="clean_cache_empty">沒有緩存的內容, 無需清理</string>
     <string name="backup_empty">沒有可以備份的內容, 請先安裝一些應用程式</string>
     <string name="restore_empty">沒有可以還原的內容, 請先到&lt;font color=\'#6495ED\'&gt;備份應用數據&lt;/font&gt;中進行備份操作</string>
@@ -307,4 +314,6 @@
     <string name="file_save_succ">檔案已保存</string>
     <string name="file_save_fail">保存檔案失敗</string>
     <string name="file_input_name">輸入檔案名</string>
+    <string name="float_clean_fmt" formatted="false">清理完畢，共釋出 %dM 內存</string>
+    <string name="float_clean_error">清理內存時產生異常</string>
 </resources>
