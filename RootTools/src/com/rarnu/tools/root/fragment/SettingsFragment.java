@@ -173,7 +173,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
             RTConfig.setShowFloatWindow(getActivity(), GlobalInstance.showFloatWindow);
             initConfigValues();
             if (GlobalInstance.showFloatWindow) {
-                FloatUtils.showFloatWindow(getActivity(), FloatWidgetService.class, GlobalInstance.floatWindowPosX, GlobalInstance.floatWindowPosY);
+                FloatUtils.showFloatWindow(getActivity(), FloatWidgetService.class);
             } else {
                 FloatUtils.hideFloatWindow(getActivity(), FloatWidgetService.class);
             }

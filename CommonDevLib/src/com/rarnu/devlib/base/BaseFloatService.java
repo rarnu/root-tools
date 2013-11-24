@@ -42,22 +42,8 @@ public abstract class BaseFloatService extends Service implements FloatWindowLis
         view = inflater.inflate(getViewResId(), null);
         initView(view);
         fv = new FloatWindow(this, view, this);
-        int init_x = -1, init_y = -1;
-        if (intent != null) {
-            if (intent.hasExtra("x")) {
-                init_x = intent.getIntExtra("x", -1);
-            }
-            if (intent.hasExtra("y")) {
-                init_y = intent.getIntExtra("y", -1);
-            }
-        }
-
-        if (init_x == -1) {
-            init_x = getX();
-        }
-        if (init_y == -1) {
-            init_y = getY();
-        }
+        int init_x = getX();
+        int init_y = getY();
         fv.show(init_x, init_y);
         return super.onStartCommand(intent, flags, startId);
     }

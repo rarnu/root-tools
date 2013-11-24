@@ -124,7 +124,7 @@ public class MainActivity extends BaseMainActivity {
 
         if (GlobalInstance.showFloatWindow) {
             if (!FloatWidgetService.isAlive) {
-                FloatUtils.showFloatWindow(this, FloatWidgetService.class, GlobalInstance.floatWindowPosX, GlobalInstance.floatWindowPosY);
+                FloatUtils.showFloatWindow(this, FloatWidgetService.class);
             }
         }
 

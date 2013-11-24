@@ -27,7 +27,7 @@ public class BootReceiver extends BroadcastReceiver {
     private void showFloatWindow(Context context) {
         Log.e("RootTools", "BootReceiver.showFloatWindow");
         if (GlobalInstance.showFloatWindow) {
-            FloatUtils.showFloatWindow(context, FloatWidgetService.class, GlobalInstance.floatWindowPosX, GlobalInstance.floatWindowPosY);
+            FloatUtils.showFloatWindow(context, FloatWidgetService.class);
         }
     }
 }
