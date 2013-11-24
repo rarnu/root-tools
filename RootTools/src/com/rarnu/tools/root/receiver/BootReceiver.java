@@ -14,6 +14,7 @@ public class BootReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         Log.e("RootTools", "BootReceiver.onReceive");
+        GlobalInstance.init(context);
         String action = intent.getAction();
         if (action.equals(Intent.ACTION_BOOT_COMPLETED)) {
 

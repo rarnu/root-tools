@@ -86,7 +86,7 @@
     <string name="close">Close</string>
     <string name="unknown">Unknown</string>
     <string name="na">N/A</string>
-    <string name="version">Version </string>
+    <string name="version">Version</string>
     <string name="refresh">Refresh</string>
     <string name="pool">Pool</string>
     <string name="help">Help</string>
@@ -130,10 +130,14 @@
     <string name="delete_readonly">System is mounted readonly and cannot delete system app</string>
     <string name="mount_fail">Cannot remount writable, please check the ROOT permission</string>
     <string name="already_sdcard_root">Already in root folder, press "Back" one more time for cloing it</string>
-    <string name="delete_android_app">This app is necessary for Android System. Delete it will cause system exceptions. Are you sure to delete it?</string>
+    <string name="delete_android_app">This app is necessary for Android System. Delete it will cause system exceptions.
+        Are you sure to delete it?
+    </string>
     <string name="delete_google_app">This app is necessary for Google Services. Are you sure to delete it?</string>
     <string name="delete_htc_app">This app is necessary for HTC Sense. Are you sure to delete it?</string>
-    <string name="delete_system_app">Are you sure to delete this system app? Please keep it if you are not sure how it works.</string>
+    <string name="delete_system_app">Are you sure to delete this system app? Please keep it if you are not sure how it
+        works.
+    </string>
     <string name="install_apk" formatted="false">Are you sure to install %s into system?</string>
     <string name="installing">Installing system app, please wait...</string>
     <string name="installing_updating_app">Installing app, please wait...</string>
@@ -147,21 +151,21 @@
     <string name="override_backuped">Override Backuped Apps</string>
     <string name="reinstall_apk">Reinstall APK When Restoring</string>
     <string name="confirm_delete_backup">Are you sure to delete the backuped data?</string>
-    <string name="backuping">Backuping: </string>
-    <string name="restoring">Restoring: </string>
+    <string name="backuping">Backuping:</string>
+    <string name="restoring">Restoring:</string>
     <string name="backuping_proc">Backuping, please wait...</string>
     <string name="restoring_proc">Restoring, please wait...</string>
     <string name="cleaning_proc">Cleaning, please wait...</string>
     <string name="mutax_backup">Backuping, cannot do restore</string>
     <string name="mutax_restore">Restoring, cannot do backup</string>
     <string name="system_app">System App</string>
-    <string name="receiver_count">Component: </string>
-    <string name="permission_count">Permission: </string>
+    <string name="receiver_count">Component:</string>
+    <string name="permission_count">Permission:</string>
     <string name="operation_hint">Long press for change the enable/disable status.</string>
     <string name="operation_failed">Failed, cannot change component\'s status.</string>
     <string name="registed_bcr">Registed Components</string>
     <string name="memory_usage_fmt" formatted="false">(Total%dM/Free%dM/Shared%dM/Buffered%dM)</string>
-    <string name="process_count_fmt" formatted="false">Proc %d </string>
+    <string name="process_count_fmt" formatted="false">Proc %d</string>
     <string name="clean_memory">Clean Memory</string>
     <string name="cleaning_memory">Cleaning memory...</string>
     <string name="cleaning_cache">Cleaning cache...</string>
@@ -169,7 +173,8 @@
     <string name="pid">PID:</string>
     <string name="memory">Used:</string>
     <string name="user">User:</string>
-    <string name="c_kill_warning">Be careful that kill this process may cause system unstable or other problems.</string>
+    <string name="c_kill_warning">Be careful that kill this process may cause system unstable or other problems.
+    </string>
     <string name="kill">Kill</string>
     <string name="kill_process_before_clean">Kill Process before Clean Memory</string>
     <string name="kill_ignore_list">Ignore Process List</string>
@@ -198,19 +203,29 @@
     <string name="file_super_user">Superuser.apk</string>
     <string name="file_busybox">busybox</string>
     <string name="no_update_found">Already the last version</string>
-    <string name="update_found_info" formatted="false">Find new version %s, it will cost  %s for downloading. Are you sure to update it?</string>
+    <string name="update_found_info" formatted="false">Find new version %s, it will cost %s for downloading. Are you
+        sure to update it?
+    </string>
     <string name="host_hint">Input customized Hosts\ne.g. 127.0.0.1 localhost</string>
     <string name="no_root_permission">No ROOT permission, please get ROOT first</string>
-    <string name="has_su_file">SU detected, you may try using this app. Please try again ROOT your device if this app not work normally.</string>
+    <string name="has_su_file">SU detected, you may try using this app. Please try again ROOT your device if this app
+        not work normally.
+    </string>
     <string name="confirm_reinstall_superuser">Superuser.apk already installed. Are you sure to reinstall it?</string>
     <string name="confirm_reinstall_busybox">Busybox already installed. Are you sure to reinstall it?</string>
-    <string name="confirm_install_busybox">Some devices will be unable to start after installed busybox. Please ensure your own risk. Are you sure to install it?</string>
-    <string name="help_busybox">This will check your ROOT permission, include su, Superuser.apk and busybox. Busybox is a strong tool library and offers many functions. This app works on busybox normally installed.</string>
+    <string name="confirm_install_busybox">Some devices will be unable to start after installed busybox. Please ensure
+        your own risk. Are you sure to install it?
+    </string>
+    <string name="help_busybox">This will check your ROOT permission, include su, Superuser.apk and busybox. Busybox is
+        a strong tool library and offers many functions. This app works on busybox normally installed.
+    </string>
     <string name="feedback_hint">Input what you want to tell us here</string>
     <string name="empty_feedback">Cannot send empty text</string>
     <string name="send_feedback_succ">Send feedback finished</string>
     <string name="send_feedback_fail">Send feedback failed</string>
-    <string name="crash_terminate">Sorry, this application occurred an exception and will be closed automatically. You may restart it and report error to us.</string>
+    <string name="crash_terminate">Sorry, this application occurred an exception and will be closed automatically. You
+        may restart it and report error to us.
+    </string>
     <string name="no_host_for_add">No Hosts to add</string>
     <string name="confirm_clean_cache">Are you sure to clean the cache data?</string>
     <string name="clean_cache_failed">Clean cache failed</string>
@@ -219,16 +234,24 @@
     <string name="used_cache_size">Cache size %s</string>
     <string name="get_super_user">Super User</string>
     <string name="get_root_explorer">Root Explorer</string>
-    <string name="root_buybox_desc">The software will not provide the ROOT permission for the phone. If not prompt Root permission, please search the forums according to the phone model. \n\n Here will check the necessary conditions for using this app. You may install/reinstall SuperUser and busybox here. \n\nThis app will properly not work on some devices even rooted, and if you meeted this, please contact us by feedback.</string>
+    <string name="root_buybox_desc">The software will not provide the ROOT permission for the phone. If not prompt Root
+        permission, please search the forums according to the phone model. \n\n Here will check the necessary conditions
+        for using this app. You may install/reinstall SuperUser and busybox here. \n\nThis app will properly not work on
+        some devices even rooted, and if you meeted this, please contact us by feedback.
+    </string>
     <string name="intent_open_error">Cannot find app which response the intent</string>
     <string name="no_package_info_found">No package information for this app</string>
     <string name="delete_all_backup_data">Delete All Backuped Data</string>
-    <string name="delete_all_backup_data_confirm">Are you sure to delete all backuped data? You will be not able to restore apps anymore.</string>
+    <string name="delete_all_backup_data_confirm">Are you sure to delete all backuped data? You will be not able to
+        restore apps anymore.
+    </string>
     <string name="delete_all_backup_data_succ">All backuped data is deleted.</string>
     <string name="set_backup_path">Set Backup Saving Path</string>
     <string name="change_package_status_fail">Change app status failed</string>
     <string name="cannot_change_package_status">Cannot change app\'s status</string>
-    <string name="data_app_uninstall">Selected app is a 3rd-part app, cannnot be disabled. You may press "OK" for deleting it.</string>
+    <string name="data_app_uninstall">Selected app is a 3rd-part app, cannnot be disabled. You may press "OK" for
+        deleting it.
+    </string>
     <string name="cannot_uninstall_package">Cannot uninstall app</string>
     <string name="itm_custom">Customized Apps</string>
     <string name="itmdesc_custom">Remove the apps defined by user</string>
@@ -257,7 +280,9 @@
     <string name="clean_htc_rom_confirm">Are you sure to clean the ROM? This operation cannot be restored.</string>
     <string name="no_clean_item_selected">No clean item selected</string>
     <string name="share_title">Recommand you an excellent app: RootTools</string>
-    <string name="share_body">RootTools can help to manage your Android phone, download here: http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk</string>
+    <string name="share_body">RootTools can help to manage your Android phone, download here:
+        http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk
+    </string>
     <string name="summary_sysapp">Install/Uninstall system apps</string>
     <string name="summary_sysappenabled">Enable/Disable installed apps</string>
     <string name="summary_hardupdate">Update the apps with different signature</string>
@@ -269,30 +294,39 @@
     <string name="summary_scanmedia">Scan and refresh media library</string>
     <string name="summary_feedback">Tell us your point</string>
     <string name="summary_recommand">Download the recommanded apps and support us</string>
-    <string name="name_server_hint">Input the DNS server used by searching Hosts IP, default value is Google\'s DNS.</string>
+    <string name="name_server_hint">Input the DNS server used by searching Hosts IP, default value is Google\'s DNS.
+    </string>
     <string name="backup_path_hint">Input the path you want to save the backup files.</string>
-    <string name="custom_clean_empty">No apps to manage, please goto &lt;font color=\'#6495ED\'&gt;System App&lt;/font&gt; and add some apps</string>
+    <string name="custom_clean_empty">No apps to manage, please goto &lt;font color=\'#6495ED\'&gt;System App&lt;/font&gt;
+        and add some apps
+    </string>
     <string name="clean_cache_empty">No cache found</string>
     <string name="backup_empty">No app for backuping, install some first</string>
-    <string name="restore_empty">No app for restoring, please goto &lt;font color=\'#6495ED\'&gt;Backup Data&lt;/font&gt; and backup some apps</string>
+    <string name="restore_empty">No app for restoring, please goto &lt;font color=\'#6495ED\'&gt;Backup Data&lt;/font&gt;
+        and backup some apps
+    </string>
     <string name="hosts_too_big">Hosts file too big, cannot edit</string>
-	<string name="service_is_running">This service is running, and it will cause the memory exception if you kill it right now. Are you sure to disable it?</string>
-	<string name="btn_update">Update</string>
-	<string name="btn_update_install">Install</string>
-	<string name="btn_scan_apk">Scan APK</string>
-	<string name="proc_scaning_apk">Scaning APKs from SDCard, please wait...</string>
+    <string name="service_is_running">This service is running, and it will cause the memory exception if you kill it
+        right now. Are you sure to disable it?
+    </string>
+    <string name="btn_update">Update</string>
+    <string name="btn_update_install">Install</string>
+    <string name="btn_scan_apk">Scan APK</string>
+    <string name="proc_scaning_apk">Scaning APKs from SDCard, please wait...</string>
     <string name="apkstat_4">Broken</string>
-	<string name="apkstat_3">Not installed</string>
-	<string name="apkstat_2">No need to update</string>
-	<string name="apkstat_1">Different signature, need force update</string>
-	<string name="apkstat_0">Can be updated normally</string>
-	<string name="tv_refresh_apk">Click &lt;font color=\'#6495ED\'&gt;Refresh&lt;/font&gt; to scan APK files in your SDCard</string>
-	<string name="fit_44">Android 4.4 supported</string>
-	<string name="disk_size_fmt" formatted="false">Size:%s</string>
-	<string name="disk_used_fmt" formatted="false">Used:%s</string>
-	<string name="disk_free_fmt" formatred="false">Free:%s</string>
-	<string name="disk_block_fmt" formatted="false">Blks:%s</string>
-	<string name="default_hint">Default</string>
+    <string name="apkstat_3">Not installed</string>
+    <string name="apkstat_2">No need to update</string>
+    <string name="apkstat_1">Different signature, need force update</string>
+    <string name="apkstat_0">Can be updated normally</string>
+    <string name="tv_refresh_apk">Click &lt;font color=\'#6495ED\'&gt;Refresh&lt;/font&gt; to scan APK files in your
+        SDCard
+    </string>
+    <string name="fit_44">Android 4.4 supported</string>
+    <string name="disk_size_fmt" formatted="false">Size:%s</string>
+    <string name="disk_used_fmt" formatted="false">Used:%s</string>
+    <string name="disk_free_fmt" formatred="false">Free:%s</string>
+    <string name="disk_block_fmt" formatted="false">Blks:%s</string>
+    <string name="default_hint">Default</string>
     <string name="fs_cut">Cut</string>
     <string name="fs_copy">Copy</string>
     <string name="mem_process">Process</string>
@@ -311,4 +345,6 @@
     <string name="float_clean_error">Error when cleaning memory</string>
     <string name="install_apk_title">Install Application</string>
     <string name="installing_apk_fmt" formatted="false">Installing %s ...</string>
+    <string name="install_apk_finished" formatted="false">Package %s installed</string>
+    <string name="install_apk_failed" formatted="false">Install package failed, reason: &lt;font color=\"#FF0000\"&gt;%s&lt;/font&gt;</string>
 </resources>

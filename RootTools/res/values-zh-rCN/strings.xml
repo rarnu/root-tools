@@ -311,4 +311,6 @@
     <string name="float_clean_error">清理内存时发生错误</string>
     <string name="install_apk_title">安装应用程序</string>
     <string name="installing_apk_fmt" formatted="false">正在安装 %s ...</string>
+    <string name="install_apk_finished" formatted="false">已成功安装 %s</string>
+    <string name="install_apk_failed" formatted="false">安装失败，原因: &lt;font color=\"#FFFF0000\"&gt;%s&lt;/font&gt;</string>
 </resources>

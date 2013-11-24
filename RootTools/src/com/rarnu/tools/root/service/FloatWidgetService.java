@@ -27,15 +27,7 @@ import java.util.List;
 
 public class FloatWidgetService extends BaseFloatService implements Loader.OnLoadCompleteListener<List<MemProcessInfo>> {
 
-    ImageView ivLogo;
-    DotView dvClean;
-    ProcessLoader loader;
-    List<MemProcessInfo> listMemProcessAll;
-    MemoryInfo lastMemInfo = null;
-    boolean isInProcessing = false;
-
     public static boolean isAlive = false;
-
     final Handler hKillProc = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -57,7 +49,7 @@ public class FloatWidgetService extends BaseFloatService implements Loader.OnLoa
                 }
                 dvClean.stop(true);
                 dvClean.setVisibility(View.GONE);
-                ivLogo.setBackgroundResource(R.drawable.icon_float_48);
+                ivLogo.setBackgroundResource(R.drawable.icon36);
                 isInProcessing = false;
 
                 Toast.makeText(FloatWidgetService.this, releaseMem == -1 ? getString(R.string.float_clean_error) : getString(R.string.float_clean_fmt, releaseMem), Toast.LENGTH_SHORT).show();
@@ -66,6 +58,12 @@ public class FloatWidgetService extends BaseFloatService implements Loader.OnLoa
             super.handleMessage(msg);
         }
     };
+    ImageView ivLogo;
+    DotView dvClean;
+    ProcessLoader loader;
+    List<MemProcessInfo> listMemProcessAll;
+    MemoryInfo lastMemInfo = null;
+    boolean isInProcessing = false;
 
     @Override
     public int getViewResId() {
@@ -108,7 +106,7 @@ public class FloatWidgetService extends BaseFloatService implements Loader.OnLoa
     public void onFloatWindowClick() {
         if (!isInProcessing) {
             isInProcessing = true;
-            ivLogo.setBackgroundResource(R.drawable.icon_float_background_48);
+            ivLogo.setBackgroundResource(R.drawable.icon_background_36);
             dvClean.setBackgroundSize(UIUtils.dipToPx(32), UIUtils.dipToPx(32));
             dvClean.setVisibility(View.VISIBLE);
             dvClean.start(true);
@@ -121,6 +119,9 @@ public class FloatWidgetService extends BaseFloatService implements Loader.OnLoa
     @Override
     public void onFloatWindowLongClick() {
         if (!ApkUtils.getTopPackage(this).equals(getPackageName())) {
+            if (GlobalInstance.pm == null) {
+                GlobalInstance.init(this);
+            }
             ApkUtils.openApp(this, getPackageName(), true);
         }
     }

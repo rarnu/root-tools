@@ -40,9 +40,20 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/tvInstallingApk"
-                android:layout_marginTop="16dip"
+                android:layout_marginTop="24dip"
+
                 style="@android:style/Widget.Holo.ProgressBar.Horizontal"
                 android:indeterminate="true"/>
+        <Button android:id="@+id/btnOK"
+                android:layout_width="match_parent"
+                android:layout_height="48dip"
+                android:layout_below="@+id/tvInstallingApk"
+                android:layout_marginLeft="16dip"
+                android:layout_marginRight="16dip"
+                android:layout_marginTop="8dip"
+                android:visibility="gone"
+                android:background="@drawable/button_style"
+                android:text="@string/ok"/>
         <TextView android:layout_width="match_parent"
                 android:layout_height="16dip"
                 android:layout_below="@+id/pbInstalling"/>

@@ -548,12 +548,17 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
     }
 
     private void doInstall(final FileSystemFileInfo item) {
-        // TODO: install
-        Intent inInstallApk = new Intent(getActivity(), InstallApkActivity.class);
-        startActivity(inInstallApk);
+        doOpenInstallApk(item.fullPath, 0);
     }
 
     private void doForceInstall(final FileSystemFileInfo item) {
-        // TODO: force install
+        doOpenInstallApk(item.fullPath, 1);
+    }
+
+    private void doOpenInstallApk(final String filePath, int mode) {
+        Intent inInstall = new Intent(getActivity(), InstallApkActivity.class);
+        inInstall.putExtra("filePath", filePath);
+        inInstall.putExtra("mode", mode);
+        startActivity(inInstall);
     }
 }

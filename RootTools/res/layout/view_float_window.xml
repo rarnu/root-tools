@@ -10,7 +10,7 @@
             android:layout_width="40dip"
             android:layout_height="40dip"
             android:contentDescription="@null"
-            android:background="@drawable/icon_float_48"
+            android:background="@drawable/icon36"
             android:layout_margin="4dip"/>
 
     <com.rarnu.devlib.component.DotView
