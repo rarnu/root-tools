@@ -52,7 +52,6 @@
                 android:layout_marginRight="16dip"
                 android:layout_marginTop="8dip"
                 android:visibility="gone"
-                android:background="@drawable/button_style"
                 android:text="@string/ok"/>
         <TextView android:layout_width="match_parent"
                 android:layout_height="16dip"
