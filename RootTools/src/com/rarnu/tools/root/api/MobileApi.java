@@ -1,5 +1,6 @@
 package com.rarnu.tools.root.api;
 
+import android.util.Log;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.common.UpdateInfo;
 import com.rarnu.utils.HttpRequest;
@@ -20,7 +21,7 @@ public class MobileApi {
     private static final String UPDATE_URL = BASE_URL + "check_update.php";
     private static final String UPDATE_PARAM = "version=%d";
     private static final String FEEDBACK_URL = BASE_URL + "user_feedback.php";
-    private static final String FEEDBACK_PARAM = "deviceId=%s&module=%s&os_version=%s&mail=%s&build_desc=%s&comment=%s";
+    private static final String FEEDBACK_PARAM = "deviceId=%s&module=%s&os_version=%s&mail=%s&build_desc=%s&comment=%s&app_version=%s";
     private static final String RECOMMAND_URL = BASE_URL + "get_recommand.php";
 
     public static UpdateInfo checkUpdate(int version) {
@@ -40,14 +41,20 @@ public class MobileApi {
         return result;
     }
 
-    public static boolean userFeedback(String deviceId, String module, String osVersion, String mail, String buildDesc, String comment) {
+    public static boolean userFeedback(String deviceId, String module, String osVersion, String mail, String buildDesc, String comment, String appVersion) {
         boolean result = false;
         try {
+            module = URLEncoder.encode(module, HTTP.UTF_8);
+            osVersion = URLEncoder.encode(osVersion, HTTP.UTF_8);
+            buildDesc = URLEncoder.encode(buildDesc, HTTP.UTF_8);
             comment = URLEncoder.encode(comment, HTTP.UTF_8);
-            String ret = HttpRequest.get(FEEDBACK_URL, String.format(FEEDBACK_PARAM, deviceId, module, osVersion, mail, buildDesc, comment), HTTP.UTF_8);
+            appVersion = URLEncoder.encode(appVersion, HTTP.UTF_8);
+            String ret = HttpRequest.get(FEEDBACK_URL, String.format(FEEDBACK_PARAM, deviceId, module, osVersion, mail, buildDesc, comment, appVersion), HTTP.UTF_8);
+            Log.e("userFeedback", ret);
             JSONObject json = new JSONObject(ret);
             result = (json.getInt("result") != 0);
         } catch (Exception e) {
+            Log.e("userFeedback", e.getMessage());
             result = false;
         }
         return result;

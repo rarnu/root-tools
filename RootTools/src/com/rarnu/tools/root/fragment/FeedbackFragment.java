@@ -16,6 +16,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.DeviceUtils;
+import com.rarnu.utils.AccountUtils;
 
 public class FeedbackFragment extends BaseFragment {
 
@@ -63,7 +64,7 @@ public class FeedbackFragment extends BaseFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                boolean ret = MobileApi.userFeedback(DeviceUtils.getDeviceUniqueId(getActivity()), GlobalInstance.device.roProductModel, GlobalInstance.device.roBuildVersionSdk, "", GlobalInstance.device.roBuildDescription, comment);
+                boolean ret = MobileApi.userFeedback(DeviceUtils.getDeviceUniqueId(getActivity()), GlobalInstance.device.roProductModel, GlobalInstance.device.roBuildVersionSdk, AccountUtils.getBindedEmailAddress(getActivity()), GlobalInstance.device.roBuildDescription, comment, DeviceUtils.getAppVersionName(getActivity()));
                 Message msg = new Message();
                 msg.what = 1;
                 msg.arg1 = (ret ? 1 : 0);
