@@ -129,6 +129,7 @@ public class FloatWidgetService extends BaseFloatService implements Loader.OnLoa
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
         isAlive = true;
+        RTConfig.initConfig(this);
         return super.onStartCommand(intent, flags, startId);
     }
 

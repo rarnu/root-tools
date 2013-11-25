@@ -24,15 +24,17 @@ public class FeedbackFragment extends BaseFragment {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                if (msg.arg1 != 0) {
-                    Toast.makeText(getActivity(), R.string.send_feedback_succ, Toast.LENGTH_LONG).show();
-                    etFeedback.setText("");
-                } else {
-                    Toast.makeText(getActivity(), R.string.send_feedback_fail, Toast.LENGTH_LONG).show();
+                if (getActivity() != null) {
+                    if (msg.arg1 != 0) {
+                        Toast.makeText(getActivity(), R.string.send_feedback_succ, Toast.LENGTH_LONG).show();
+                        etFeedback.setText("");
+                    } else {
+                        Toast.makeText(getActivity(), R.string.send_feedback_fail, Toast.LENGTH_LONG).show();
+                    }
+                    progressFeedback.setVisibility(View.GONE);
+                    itemSend.setEnabled(true);
+                    etFeedback.setEnabled(true);
                 }
-                progressFeedback.setVisibility(View.GONE);
-                itemSend.setEnabled(true);
-                etFeedback.setEnabled(true);
             }
             super.handleMessage(msg);
         }
