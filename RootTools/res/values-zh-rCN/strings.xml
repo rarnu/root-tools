@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="app_name">RootTools</string>
+    <string name="app_name">掌优</string>
     <string name="app_ver" formatted="false">ver %s</string>
     <string name="app_debug">(DEBUG)</string>
     <string name="app_help">RootTools 使用说明</string>
