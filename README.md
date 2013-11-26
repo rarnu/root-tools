@@ -5,27 +5,27 @@ the tool for rooted android devices
 
 # how to compile
 
-1) get the icecreamsandwich jar with full source
+1) get the JelyBean jar with hidden APIs
 ```
-   $ wget http://rarnu.7thgen.info/downloads/icecreamsandwich15.jar
+   $ wget http://rarnu.7thgen.info/downloads/jellybean17.jar
 ```
-2) backup your android.jar in $(ANDROID_SDK)/platforms/android-15/
+2) backup your android.jar in $(ANDROID_SDK)/platforms/android-17/
 ```
-   $ mv $(ANDROID_SDK)/platforms/android-15/android.jar ./backup/
+   $ mv $(ANDROID_SDK)/platforms/android-17/android.jar ./backup/
 ```
 3) replace android.jar said above with the downloaded file
 ```
-   $ mv icecreamsandwich15.jar android.jar
-   $ cp android.jar $(ANDROID_SDK)/platforms/android-15/
+   $ mv jellybean17.jar android.jar
+   $ cp android.jar $(ANDROID_SDK)/platforms/android-17/
 ```
-4) import and fix CommandLib, CommonUtils, CommonDevLib, PackageParser4 and RootTools
+4) update following projects
 ```
-   $ android update project -n CommandLib -p . -t android-15
-   $ android update project -n CommonUtils -p . -t android-15
-   $ android update project -n CommonDevLib -p . -t android-15
-   $ android update project -n Emulator -p . -t android-15
-   $ android update project -n PackageParser4 -p . -t android-15
-   $ android update project -n RootTools -p . -t android-15
+   $ android update project -n CommandLib -p . -t android-17
+   $ android update project -n CommonUtils -p . -t android-17
+   $ android update project -n CommonDevLib -p . -t android-17
+   $ android update project -n Emulator -p . -t android-17
+   $ android update project -n PackageParser4 -p . -t android-17
+   $ android update project -n RootTools -p . -t android-17
 ```
 5) build emulator so
 ```
