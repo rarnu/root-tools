@@ -37,8 +37,12 @@ import java.io.File;
 public class SettingsFragment extends InnerPreferenceFragment implements OnReceiveMessage, OnClickListener, OnPreferenceClickListener {
 
     CheckBoxPreferenceEx prefShowFloatWindow;
-    CheckBoxPreferenceEx prefAllowDeleteLevel0, prefAlsoDeleteData, prefBackupBeforeDelete, prefOverrideBackuped, prefReinstallApk, prefKillProcessBeforeClean;
-    PreferenceEx prefKillIgnoreList, prefNameServer, prefManualEditHosts, prefCleanDeprecated, prefDeleteAllBackupData, prefCustomAppClean, prefBackupPath;
+    CheckBoxPreferenceEx prefAllowDeleteLevel0, prefAlsoDeleteData, prefBackupBeforeDelete;
+    PreferenceEx prefDeleteAllBackupData, prefCustomAppClean;
+    CheckBoxPreferenceEx prefOverrideBackuped, prefReinstallApk;
+    PreferenceEx prefBackupPath, prefBatchInstallPath;
+    CheckBoxPreferenceEx prefKillProcessBeforeClean;
+    PreferenceEx prefKillIgnoreList, prefNameServer, prefManualEditHosts, prefCleanDeprecated;
     MutaxReceiver receiver;
 
     @Override
@@ -82,6 +86,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
         prefDeleteAllBackupData = (PreferenceEx) findPreference(getString(R.string.id_delete_all_backup_data));
         prefCustomAppClean = (PreferenceEx) findPreference(getString(R.string.id_custom_app_clean));
         prefBackupPath = (PreferenceEx) findPreference(getString(R.string.id_backup_path));
+        prefBatchInstallPath = (PreferenceEx) findPreference(getString(R.string.id_batch_install_path));
 
         receiver = new MutaxReceiver(Actions.ACTION_CLEANING_BACKUP, null, null);
 
@@ -138,6 +143,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
         prefKillProcessBeforeClean.setStateChecked(GlobalInstance.killProcessBeforeClean);
         prefNameServer.setSummary(GlobalInstance.nameServer);
         prefBackupPath.setSummary(GlobalInstance.backupPath);
+        prefBatchInstallPath.setSummary(GlobalInstance.batchInstallPath);
     }
 
     @Override
@@ -227,6 +233,8 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
             startActivity(inCustomClean);
         } else if (key.equals(getString(R.string.id_backup_path))) {
             changeBackupPath();
+        } else if (key.equals(getString(R.string.id_batch_install_path))) {
+            changeBatchInstallPath();
         }
         return true;
     }
@@ -259,6 +267,32 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
 
     }
 
+    private void changeBatchInstallPath() {
+        final EditText etPath = new EditText(getActivity());
+        etPath.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        etPath.setText(GlobalInstance.batchInstallPath);
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.batch_install_path)
+                .setMessage(R.string.batch_install_path_hint)
+                .setView(etPath)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveBatchInstallPath(etPath.getText().toString());
+                    }
+                })
+                .setNeutralButton(R.string.default_hint, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveBatchInstallPath(DirHelper.BATCH_INSTALL_DIR);
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+
     private void saveBackupPath(String path) {
         if (path.equals("")) {
             path = DirHelper.DATAAPP_DIR;
@@ -272,6 +306,22 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
         }
         RTConfig.setBackupPath(getActivity(), GlobalInstance.backupPath);
         initConfigValues();
+    }
+
+    private void saveBatchInstallPath(String path) {
+        if (path.equals("")) {
+            path = DirHelper.BATCH_INSTALL_DIR;
+        }
+        if (!path.endsWith("/")) {
+            path += "/";
+        }
+        GlobalInstance.batchInstallPath = path;
+        if (!new File(path).exists()) {
+            new File(path).mkdirs();
+        }
+        RTConfig.setBatchInstallPath(getActivity(), GlobalInstance.batchInstallPath);
+        initConfigValues();
+
     }
 
     private void changeDnsServer() {
@@ -322,6 +372,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
         prefDeleteAllBackupData.setOnPreferenceClickListener(this);
         prefCustomAppClean.setOnPreferenceClickListener(this);
         prefBackupPath.setOnPreferenceClickListener(this);
+        prefBatchInstallPath.setOnPreferenceClickListener(this);
         receiver.setOnReceiveMessage(this);
     }
 

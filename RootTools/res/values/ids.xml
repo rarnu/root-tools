@@ -2,14 +2,15 @@
 <resources>
     <string name="id_sysapp">id_sysapp</string>
     <string name="id_sysappenabled">id_sysappenabled</string>
-    <string name="id_hardupdate">id_hardupdate</string>
     <string name="id_component">id_component</string>
     <string name="id_root">id_root</string>
     <string name="id_cleanhtc">id_cleanhtc</string>
     
     <string name="id_backup">id_backup</string>
     <string name="id_restore">id_restore</string>
-    
+    <string name="id_hardupdate">id_hardupdate</string>
+    <string name="id_batch_apps">id_batch_apps</string>
+
     <string name="id_cleanmemory">id_cleanmemory</string>
     <string name="id_cleancache">id_cleancache</string>
     <string name="id_cleandalvik">id_cleandalvik</string>
@@ -39,6 +40,7 @@
     <string name="id_reinstall_apk">id_reinstall_apk</string>
     <string name="id_delete_all_backup_data">id_delete_all_backup_data</string>
     <string name="id_backup_path">id_backup_path</string>
+    <string name="id_batch_install_path">id_batch_install_path</string>
     <string name="id_kill_process_before_clean">id_kill_process_before_clean</string>
     <string name="id_kill_ignore_list">id_kill_ignore_list</string>
     <string name="id_name_server">id_name_server</string>

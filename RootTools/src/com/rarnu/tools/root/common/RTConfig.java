@@ -14,6 +14,7 @@ public class RTConfig {
     private static final String KEY_OVERRIDE_BACKUPED = "override_backuped";
     private static final String KEY_REINSTALL_APK = "reinstall_apk";
     private static final String KEY_BACKUP_PATH = "backup_path";
+    private static final String KEY_BATCH_INSTALL_PATH = "batch_install_path";
     private static final String KEY_KILL_PROCESS_BEFORE_CLEAN = "kill_process_before_clean";
     private static final String KEY_NAME_SERVER = "name_server";
     private static final String KEY_FIRST_START = "first_start";
@@ -116,6 +117,14 @@ public class RTConfig {
         ConfigUtils.setStringConfig(context, KEY_BACKUP_PATH, value);
     }
 
+    public static String getBatchInstallPath(Context context) {
+        return ConfigUtils.getStringConfig(context, KEY_BATCH_INSTALL_PATH, DirHelper.BATCH_INSTALL_DIR);
+    }
+
+    public static void setBatchInstallPath(Context context, String value) {
+        ConfigUtils.setStringConfig(context, KEY_BATCH_INSTALL_PATH, value);
+    }
+
     public static void initConfig(Context context) {
         GlobalInstance.isFirstStart = getFirstStart(context);
         GlobalInstance.showFloatWindow = getShowFloatWindow(context);
@@ -129,6 +138,7 @@ public class RTConfig {
         GlobalInstance.killProcessBeforeClean = getKillProcessBeforeClean(context);
         GlobalInstance.nameServer = getNameServer(context);
         GlobalInstance.backupPath = getBackupPath(context);
+        GlobalInstance.batchInstallPath = getBatchInstallPath(context);
     }
 
 }

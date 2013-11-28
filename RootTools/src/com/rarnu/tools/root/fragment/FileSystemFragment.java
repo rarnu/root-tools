@@ -46,7 +46,6 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
     ListView lvFiles;
     DataProgressBar progressFiles;
     String currentDir = "/";
-    // String currentDir = Environment.getExternalStorageDirectory().getAbsolutePath();
     List<FileSystemFileInfo> list;
     FileSystemAdapter adapter;
     boolean canExit = false;
@@ -318,7 +317,9 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
 
     @Override
     public boolean onQueryTextChange(String newText) {
-        adapter.getFilter().filter(newText);
+        if (adapter != null) {
+            adapter.getFilter().filter(newText);
+        }
         return false;
     }
 

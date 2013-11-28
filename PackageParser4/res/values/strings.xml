@@ -6,6 +6,10 @@
     <string name="backup_fail">Backup failed</string>
     <string name="restore_ok">Restore finished</string>
     <string name="restore_fail">Restore failed</string>
+    <string name="install_ok">Install finished</string>
+    <string name="install_fail">Install failed</string>
+    <string name="uninstall_ok">Uninstall finished</string>
+    <string name="uninstall_fail">Uninstall failed</string>
     <string name="no_speed_tested">Cannot test network speed</string>
     <string name="ok">OK</string>
     <string name="cancel">Cancel</string>

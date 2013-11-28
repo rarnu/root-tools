@@ -24,7 +24,9 @@
 
     </RelativeLayout>
 
-    <RelativeLayout android:layout_width="match_parent"
+    <RelativeLayout
+            android:id="@+id/layProgress"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layHead"
             android:padding="16dip">
@@ -44,19 +46,24 @@
 
                 style="@android:style/Widget.Holo.ProgressBar.Horizontal"
                 android:indeterminate="true"/>
-        <Button android:id="@+id/btnOK"
-                android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:layout_below="@+id/tvInstallingApk"
-                android:layout_marginLeft="16dip"
-                android:layout_marginRight="16dip"
-                android:layout_marginTop="8dip"
-                android:visibility="gone"
-                android:text="@string/ok"/>
-        <TextView android:layout_width="match_parent"
-                android:layout_height="16dip"
-                android:layout_below="@+id/pbInstalling"/>
 
     </RelativeLayout>
+    <TextView
+            android:id="@+id/btnSplit"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_below="@+id/layProgress"
+            android:background="@android:drawable/divider_horizontal_dark"
+            android:gravity="left|top"/>
 
+    <Button android:id="@+id/btnOK"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnSplit"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:layout_marginTop="8dip"
+            android:visibility="gone"
+            android:text="@string/ok"
+            style="?android:attr/buttonBarButtonStyle"/>
 </RelativeLayout>

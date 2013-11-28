@@ -6,6 +6,10 @@
     <string name="backup_fail">備份失敗</string>
     <string name="restore_ok">還原成功</string>
     <string name="restore_fail">還原失敗</string>
+    <string name="install_ok">安裝成功</string>
+    <string name="install_fail">安裝失敗</string>
+    <string name="uninstall_ok">卸載成功</string>
+    <string name="uninstall_fail">卸載失敗</string>
     <string name="no_speed_tested">無法檢測網路速度</string>
     <string name="ok">確定</string>
     <string name="cancel">取消</string>

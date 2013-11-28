@@ -1,44 +1,44 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
         >
 
     <RelativeLayout android:id="@+id/layHead"
-                    android:layout_width="match_parent"
-                    android:layout_height="?android:attr/actionBarSize">
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize">
 
         <TextView android:id="@+id/tvHead"
-                  android:layout_width="wrap_content"
-                  android:layout_height="wrap_content"
-                  android:textSize="18sp"
-                  android:layout_centerVertical="true"
-                  android:layout_marginLeft="8dip"
-                  android:textColor="?android:attr/textColorPrimary"
-                  android:text="@string/mem_process"/>
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textSize="18sp"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="8dip"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/mem_process"/>
 
         <TextView android:layout_width="match_parent"
-                  android:layout_height="1dip"
-                  android:background="@android:color/holo_blue_light"
-                  android:layout_alignParentBottom="true"/>
+                android:layout_height="1dip"
+                android:background="@android:color/holo_blue_light"
+                android:layout_alignParentBottom="true"/>
 
         <ImageView android:id="@+id/btnCancel"
-                   android:layout_width="?android:attr/actionBarSize"
-                   android:layout_height="?android:attr/actionBarSize"
-                   android:layout_alignParentRight="true"
-                   android:contentDescription="@null"
-                   android:background="@drawable/button_style"
-                   android:src="@android:drawable/ic_menu_close_clear_cancel"
-                   android:padding="8dip"
-                   android:clickable="true"/>
+                android:layout_width="?android:attr/actionBarSize"
+                android:layout_height="?android:attr/actionBarSize"
+                android:layout_alignParentRight="true"
+                android:contentDescription="@null"
+                android:background="@drawable/button_style"
+                android:src="@android:drawable/ic_menu_close_clear_cancel"
+                android:padding="8dip"
+                android:clickable="true"/>
 
     </RelativeLayout>
 
     <RelativeLayout android:id="@+id/layDetail"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/layHead"
-                    android:padding="16dip">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layHead"
+            android:padding="16dip">
 
         <ImageView
                 android:id="@+id/ImgIcon"
@@ -156,41 +156,37 @@
                 android:textColor="@color/red"
                 android:visibility="gone"/>
 
-        <TextView
-                android:id="@+id/spl2"
-                android:layout_width="match_parent"
-                android:layout_height="1dip"
-                android:layout_below="@+id/tvWarning"
-                android:layout_marginTop="4dip"
-                android:background="@android:drawable/divider_horizontal_dark"
-                android:gravity="left|top"/>
-
-        <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/spl2"
-                android:layout_centerHorizontal="true"
-                android:layout_marginTop="8dip">
-
-            <Button
-                    android:id="@+id/btnKill"
-                    android:layout_width="120dip"
-                    android:layout_height="wrap_content"
-                    android:text="@string/kill"
-                    android:textSize="12sp"/>
-
-            <Button
-                    android:id="@+id/btnIgnore"
-                    android:layout_width="120dip"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dip"
-                    android:layout_toRightOf="@+id/btnKill"
-                    android:text="@string/add_ignore"
-                    android:textSize="12sp"/>
-
-        </RelativeLayout>
-
     </RelativeLayout>
 
+    <TextView
+            android:id="@+id/btnSplit"
+            android:layout_width="match_parent"
+            android:layout_height="1dip"
+            android:layout_below="@+id/layDetail"
+            android:background="@android:drawable/divider_horizontal_dark"
+            android:gravity="left|top"/>
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnSplit"
+            android:orientation="horizontal"
+            style="?android:attr/buttonBarStyle">
 
+        <Button
+                android:id="@+id/btnKill"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/kill"
+                style="?android:attr/buttonBarButtonStyle"/>
+
+        <Button
+                android:id="@+id/btnIgnore"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/add_ignore"
+                style="?android:attr/buttonBarButtonStyle"/>
+
+    </LinearLayout>
 </RelativeLayout>

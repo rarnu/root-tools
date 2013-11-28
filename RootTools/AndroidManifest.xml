@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="55"
-        android:versionName="5.0.3 beta">
+        android:versionCode="60"
+        android:versionName="5.1.0 beta">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -36,7 +36,7 @@
             android:theme="@android:style/Theme.Holo">
         <meta-data
                 android:name="debug"
-                android:value="false"/>
+                android:value="true"/>
 
         <activity
                 android:name=".SplashActivity"
@@ -45,7 +45,6 @@
                 android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
-
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
@@ -200,7 +199,12 @@
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity android:name=".fragmentactivity.TextEditorActivity"
-                android:windowSoftInputMode="stateHidden"/>
+                android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+                android:name=".fragmentactivity.BatchAppsActivity"
+                android:label="@string/func_batch_app"
+                android:windowSoftInputMode="stateHidden"></activity>
 
         <service
                 android:name=".service.HtcRomService"
@@ -213,6 +217,12 @@
                 android:label="@string/app_name"/>
         <service
                 android:name=".service.CleanBackupService"
+                android:label="@string/app_name"/>
+        <service
+                android:name=".service.BatchInstallService"
+                android:label="@string/app_name"/>
+        <service
+                android:name=".service.BatchUninstallService"
                 android:label="@string/app_name"/>
         <service
                 android:name=".service.FloatWidgetService"
@@ -238,6 +248,24 @@
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED"/>
             </intent-filter>
+        </receiver>
+        <receiver
+                android:name=".desktop.RootToolsWidget4x2"
+                android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_provider_4x2"/>
+        </receiver>
+        <receiver
+                android:name=".desktop.RootToolsWidget4x1"
+                android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
+            </intent-filter>
+            <meta-data android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_provider_4x1"/>
         </receiver>
     </application>
 

@@ -11,6 +11,7 @@ import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.utils.MiscUtils;
+import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
 
 import java.util.Timer;
@@ -23,6 +24,7 @@ public class SplashActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         UIUtils.initDisplayMetrics(this, getWindowManager(), true);
+        ResourceUtils.init(this);
         super.onCreate(savedInstanceState);
 
         RootUtils.init(this);

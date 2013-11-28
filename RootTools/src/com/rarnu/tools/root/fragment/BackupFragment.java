@@ -74,7 +74,8 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
         lvData.setAdapter(dataappAdapter);
         barData.setCheckBoxVisible(true);
         loader = new BackupLoader(getActivity());
-        receiver = new MutaxReceiver(Actions.ACTION_BACKUP, Actions.ACTION_BACKUP_PROGRESS, new String[]{Actions.ACTION_RESTORE});
+        receiver = new MutaxReceiver(Actions.ACTION_BACKUP, Actions.ACTION_BACKUP_PROGRESS,
+                new String[]{Actions.ACTION_RESTORE, Actions.ACTION_BATCH_INSTALL, Actions.ACTION_BATCH_UNINSTALL});
 
     }
 
@@ -163,9 +164,9 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
         getActivity().startService(inBackupService);
     }
 
-    private void setBackupState(boolean backup) {
-        dataappAdapter.setAdapterCheckable(!backup);
-        if (backup) {
+    private void setBackupState(boolean operating) {
+        dataappAdapter.setAdapterCheckable(!operating);
+        if (operating) {
             barData.setVisibility(View.GONE);
             progressData.setVisibility(View.VISIBLE);
 
@@ -175,12 +176,12 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
         }
     }
 
-    private void setOtherProcState(boolean restore) {
-        dataappAdapter.setAdapterCheckable(!restore);
-        if (restore) {
+    private void setOtherProcState(boolean operating) {
+        dataappAdapter.setAdapterCheckable(!operating);
+        if (operating) {
             barData.setVisibility(View.GONE);
             progressData.setVisibility(View.VISIBLE);
-            progressData.setAppName(getString(R.string.mutax_restore));
+            progressData.setAppName(getString(R.string.mutax_operating));
         } else {
             progressData.setVisibility(View.GONE);
         }

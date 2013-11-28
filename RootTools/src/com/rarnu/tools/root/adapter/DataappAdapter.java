@@ -1,6 +1,7 @@
 package com.rarnu.tools.root.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Handler;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -14,6 +15,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.holder.DataappAdapterHolder;
 import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.utils.DrawableUtils;
 
 import java.util.List;
 
@@ -64,11 +66,14 @@ public class DataappAdapter extends BaseAdapter<DataappInfo> {
             } else {
                 holder.icon.setBackgroundDrawable(ApkUtils.getIconFromPackage(v.getContext(), item.info, GlobalInstance.backupPath));
                 holder.name.setText(ApkUtils.getLabelFromPackage(v.getContext(), item.info, GlobalInstance.backupPath));
-                holder.path.setText(item.info.packageName + ".apk");
+                holder.path.setText(item.info.packageName);
             }
 
             holder.select.setEnabled(checkable);
-
+            holder.name.setTextColor(DrawableUtils.getTextColorPrimary(context));
+            if (item.installed) {
+                holder.name.setTextColor(Color.GREEN);
+            }
             holder.select.setOnClickListener(new OnClickListener() {
 
                 @Override

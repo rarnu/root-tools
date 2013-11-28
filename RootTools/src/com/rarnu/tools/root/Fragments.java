@@ -38,6 +38,7 @@ public class Fragments {
     private static PoolFragment fPool = null;
     private static TextEditorFragment fTextEditor = null;
     private static InstallApkFragment fInstallApk = null;
+    private static BatchAppsFragment fBatchApps = null;
 
     public static Fragment getFragment(String name) {
         releaseOtherFragment(name);
@@ -138,6 +139,9 @@ public class Fragments {
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_INSTALL_APK, InstallApkFragment.class, fInstallApk);
         }
+        if (f == null) {
+            f = getFragment(name, FragmentNameConst.FN_BATCH_APPS, BatchAppsFragment.class, fBatchApps);
+        }
 
         return f;
     }
@@ -187,6 +191,7 @@ public class Fragments {
         fPool = null;
         fTextEditor = null;
         fInstallApk = null;
+        fBatchApps = null;
     }
 
     public static void releaseOtherFragment(String name) {
@@ -220,6 +225,7 @@ public class Fragments {
         doReleaseFragment(name, FragmentNameConst.FN_POOL, fPool);
         doReleaseFragment(name, FragmentNameConst.FN_TEXT_EDITOR, fTextEditor);
         doReleaseFragment(name, FragmentNameConst.FN_INSTALL_APK, fInstallApk);
+        doReleaseFragment(name, FragmentNameConst.FN_BATCH_APPS, fBatchApps);
     }
 
     private static void doReleaseFragment(String name, String checkName, Fragment f) {

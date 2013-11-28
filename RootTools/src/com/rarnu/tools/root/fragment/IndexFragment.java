@@ -25,8 +25,8 @@ import com.rarnu.utils.NetworkUtils;
 public class IndexFragment extends BasePreferenceFragment implements
         OnPreferenceClickListener {
 
-    PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefRoot, prefHtcRom, prefHardUpdate;
-    PreferenceEx prefBackup, prefRestore;
+    PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefRoot, prefHtcRom;
+    PreferenceEx prefBackup, prefRestore, prefHardUpdate, prefBatchApps;
     PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik, prefDiskInfo, prefFileSystem;
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
     PreferenceEx prefFeedback, prefRecommand, prefAbout;
@@ -37,12 +37,15 @@ public class IndexFragment extends BasePreferenceFragment implements
         boolean isRooted = RootUtils.hasSu();
         prefSysApp.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefSysAppEnabled.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        prefHardUpdate.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefComponent.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRoot.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefHtcRom.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+
         prefBackup.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRestore.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+        prefHardUpdate.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+        prefBatchApps.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+
         prefCleanMemory.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefCleanCache.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefCleanDalvik.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
@@ -85,9 +88,6 @@ public class IndexFragment extends BasePreferenceFragment implements
             UIInstance.currentFragment = 2;
             FragmentStarter.showContent(getActivity(), EnableappMainActivity.class, Fragments.getFragment(FragmentNameConst.FN_ENABLEAPP));
 
-        } else if (preference.getKey().equals(getString(R.string.id_hardupdate))) {
-            UIInstance.currentFragment = 16;
-            FragmentStarter.showContent(getActivity(), HardUpdateActivity.class, Fragments.getFragment(FragmentNameConst.FN_HARD_UPDATE));
         } else if (preference.getKey().equals(getString(R.string.id_component))) {
             UIInstance.currentFragment = 3;
             FragmentStarter.showContent(getActivity(), CompMainActivity.class, Fragments.getFragment(FragmentNameConst.FN_COMP));
@@ -108,6 +108,12 @@ public class IndexFragment extends BasePreferenceFragment implements
         } else if (preference.getKey().equals(getString(R.string.id_restore))) {
             UIInstance.currentFragment = 14;
             FragmentStarter.showContent(getActivity(), DataRestoreActivity.class, Fragments.getFragment(FragmentNameConst.FN_RESTORE));
+        } else if (preference.getKey().equals(getString(R.string.id_hardupdate))) {
+            UIInstance.currentFragment = 16;
+            FragmentStarter.showContent(getActivity(), HardUpdateActivity.class, Fragments.getFragment(FragmentNameConst.FN_HARD_UPDATE));
+        } else if (preference.getKey().equals(getString(R.string.id_batch_apps))) {
+            UIInstance.currentFragment = 19;
+            FragmentStarter.showContent(getActivity(), BatchAppsActivity.class, Fragments.getFragment(FragmentNameConst.FN_BATCH_APPS));
         }
 
         // memory
@@ -193,12 +199,15 @@ public class IndexFragment extends BasePreferenceFragment implements
     public void initComponents() {
         prefSysApp = (PreferenceEx) findPreference(getString(R.string.id_sysapp));
         prefSysAppEnabled = (PreferenceEx) findPreference(getString(R.string.id_sysappenabled));
-        prefHardUpdate = (PreferenceEx) findPreference(getString(R.string.id_hardupdate));
         prefComponent = (PreferenceEx) findPreference(getString(R.string.id_component));
         prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
         prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
+
         prefBackup = (PreferenceEx) findPreference(getString(R.string.id_backup));
         prefRestore = (PreferenceEx) findPreference(getString(R.string.id_restore));
+        prefHardUpdate = (PreferenceEx) findPreference(getString(R.string.id_hardupdate));
+        prefBatchApps = (PreferenceEx) findPreference(getString(R.string.id_batch_apps));
+
         prefCleanMemory = (PreferenceEx) findPreference(getString(R.string.id_cleanmemory));
         prefCleanCache = (PreferenceEx) findPreference(getString(R.string.id_cleancache));
         prefCleanDalvik = (PreferenceEx) findPreference(getString(R.string.id_cleandalvik));
@@ -219,12 +228,15 @@ public class IndexFragment extends BasePreferenceFragment implements
     public void initEvents() {
         prefSysApp.setOnPreferenceClickListener(this);
         prefSysAppEnabled.setOnPreferenceClickListener(this);
-        prefHardUpdate.setOnPreferenceClickListener(this);
         prefComponent.setOnPreferenceClickListener(this);
         prefRoot.setOnPreferenceClickListener(this);
         prefHtcRom.setOnPreferenceClickListener(this);
+
         prefBackup.setOnPreferenceClickListener(this);
         prefRestore.setOnPreferenceClickListener(this);
+        prefHardUpdate.setOnPreferenceClickListener(this);
+        prefBatchApps.setOnPreferenceClickListener(this);
+
         prefCleanMemory.setOnPreferenceClickListener(this);
         prefCleanCache.setOnPreferenceClickListener(this);
         prefCleanDalvik.setOnPreferenceClickListener(this);

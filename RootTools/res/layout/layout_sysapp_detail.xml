@@ -1,262 +1,264 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="4dip" >
-
-    <ImageView
-        android:id="@+id/appIcon"
-        android:layout_width="48dip"
-        android:layout_height="48dip"
-        android:layout_marginLeft="4dip"
-        android:layout_marginTop="4dip"
-        android:contentDescription="@null" />
-
-    <TextView
-        android:id="@+id/appName"
-        android:layout_width="match_parent"
-        android:layout_height="36dip"
-        android:layout_marginLeft="4dip"
-        android:layout_toRightOf="@+id/appIcon"
-        android:ellipsize="end"
-        android:gravity="left|center_vertical"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textColor="?android:attr/textColorPrimary"
-        android:textSize="18sp" />
-
-    <TextView
-        android:id="@+id/appVersion"
-        android:layout_width="match_parent"
-        android:layout_height="20dip"
-        android:layout_below="@+id/appName"
-        android:layout_marginLeft="4dip"
-        android:layout_toRightOf="@+id/appIcon"
-        android:ellipsize="end"
-        android:gravity="left|center_vertical"
-        android:maxLines="1"
-        android:singleLine="true"
-        android:textSize="12sp" />
-
-    <Button
-        android:id="@+id/btnDelete"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/appVersion"
-        android:layout_marginLeft="48dip"
-        android:layout_marginRight="48dip"
-        android:text="@string/button_delete" />
-    
-    <Button
-        android:id="@+id/btnAddToCleanList"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/btnDelete"
-        android:layout_marginLeft="48dip"
-        android:layout_marginRight="48dip"
-        android:layout_marginTop="4dip"
-        android:text="@string/button_add_to_clean_list" />
-
-    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/btnAddToCleanList"
-        android:layout_marginTop="8dip" >
+        android:padding="4dip">
 
-        <RelativeLayout
+    <ImageView
+            android:id="@+id/appIcon"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:layout_marginLeft="4dip"
+            android:layout_marginTop="4dip"
+            android:contentDescription="@null"/>
+
+    <TextView
+            android:id="@+id/appName"
+            android:layout_width="match_parent"
+            android:layout_height="36dip"
+            android:layout_marginLeft="4dip"
+            android:layout_toRightOf="@+id/appIcon"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"/>
+
+    <TextView
+            android:id="@+id/appVersion"
+            android:layout_width="match_parent"
+            android:layout_height="20dip"
+            android:layout_below="@+id/appName"
+            android:layout_marginLeft="4dip"
+            android:layout_toRightOf="@+id/appIcon"
+            android:ellipsize="end"
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:textSize="12sp"/>
+
+    <Button
+            android:id="@+id/btnDelete"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="4dip" >
+            android:layout_below="@+id/appVersion"
+            android:layout_marginLeft="48dip"
+            android:layout_marginRight="48dip"
+            android:text="@string/button_delete"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+    <Button
+            android:id="@+id/btnAddToCleanList"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnDelete"
+            android:layout_marginLeft="48dip"
+            android:layout_marginRight="48dip"
+            android:layout_marginTop="4dip"
+            android:text="@string/button_add_to_clean_list"
+            style="?android:attr/buttonBarButtonStyle"/>
+
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/btnAddToCleanList"
+            android:layout_marginTop="8dip">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_margin="4dip">
 
             <RelativeLayout
-                android:id="@+id/layApkPath"
-                android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:clickable="false" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/textview_path"
-                    android:textColor="?android:attr/textColorPrimary" />
-
-                <TextView
-                    android:id="@+id/tvPathDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:paddingRight="8dip"
-                    android:textColor="@color/orange"
-                    android:textSize="12sp" />
-
-                <TextView
+                    android:id="@+id/layApkPath"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
+                    android:layout_height="48dip"
+                    android:clickable="false">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="8dip"
+                        android:text="@string/textview_path"
+                        android:textColor="?android:attr/textColorPrimary"/>
+
+                <TextView
+                        android:id="@+id/tvPathDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="8dip"
+                        android:textColor="@color/orange"
+                        android:textSize="12sp"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:drawable/divider_horizontal_dark"/>
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/layOdexPath"
-                android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:layout_below="@+id/layApkPath"
-                android:clickable="false" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/textview_odex"
-                    android:textColor="?android:attr/textColorPrimary" />
-
-                <TextView
-                    android:id="@+id/tvOdexDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:paddingRight="8dip"
-                    android:textColor="@color/orange"
-                    android:textSize="12sp" />
-
-                <TextView
+                    android:id="@+id/layOdexPath"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
+                    android:layout_height="48dip"
+                    android:layout_below="@+id/layApkPath"
+                    android:clickable="false">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="8dip"
+                        android:text="@string/textview_odex"
+                        android:textColor="?android:attr/textColorPrimary"/>
+
+                <TextView
+                        android:id="@+id/tvOdexDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="8dip"
+                        android:textColor="@color/orange"
+                        android:textSize="12sp"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:drawable/divider_horizontal_dark"/>
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/layFileSize"
-                android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:layout_below="@+id/layOdexPath"
-                android:clickable="false" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/textview_filesize"
-                    android:textColor="?android:attr/textColorPrimary" />
-
-                <TextView
-                    android:id="@+id/tvFileSizeDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:paddingRight="8dip"
-                    android:textColor="@color/orange"
-                    android:textSize="12sp" />
-
-                <TextView
+                    android:id="@+id/layFileSize"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
+                    android:layout_height="48dip"
+                    android:layout_below="@+id/layOdexPath"
+                    android:clickable="false">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="8dip"
+                        android:text="@string/textview_filesize"
+                        android:textColor="?android:attr/textColorPrimary"/>
+
+                <TextView
+                        android:id="@+id/tvFileSizeDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="8dip"
+                        android:textColor="@color/orange"
+                        android:textSize="12sp"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:drawable/divider_horizontal_dark"/>
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/layDataPath"
-                android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:layout_below="@+id/layFileSize"
-                android:clickable="false" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/textview_datapath"
-                    android:textColor="?android:attr/textColorPrimary" />
-
-                <TextView
-                    android:id="@+id/tvDataPathDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:paddingRight="8dip"
-                    android:textColor="@color/orange"
-                    android:textSize="12sp" />
-
-                <TextView
+                    android:id="@+id/layDataPath"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
+                    android:layout_height="48dip"
+                    android:layout_below="@+id/layFileSize"
+                    android:clickable="false">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="8dip"
+                        android:text="@string/textview_datapath"
+                        android:textColor="?android:attr/textColorPrimary"/>
+
+                <TextView
+                        android:id="@+id/tvDataPathDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="8dip"
+                        android:textColor="@color/orange"
+                        android:textSize="12sp"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:drawable/divider_horizontal_dark"/>
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/layDataSize"
-                android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:layout_below="@+id/layDataPath"
-                android:clickable="false" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/textview_datasize"
-                    android:textColor="?android:attr/textColorPrimary" />
-
-                <TextView
-                    android:id="@+id/tvDataSizeDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:paddingRight="8dip"
-                    android:textColor="@color/orange"
-                    android:textSize="12sp" />
-
-                <TextView
+                    android:id="@+id/layDataSize"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
+                    android:layout_height="48dip"
+                    android:layout_below="@+id/layDataPath"
+                    android:clickable="false">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="8dip"
+                        android:text="@string/textview_datasize"
+                        android:textColor="?android:attr/textColorPrimary"/>
+
+                <TextView
+                        android:id="@+id/tvDataSizeDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="8dip"
+                        android:textColor="@color/orange"
+                        android:textSize="12sp"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:drawable/divider_horizontal_dark"/>
             </RelativeLayout>
 
             <RelativeLayout
-                android:id="@+id/layShareUid"
-                android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:layout_below="@+id/layDataSize"
-                android:clickable="false" >
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerVertical="true"
-                    android:paddingLeft="8dip"
-                    android:text="@string/textview_library"
-                    android:textColor="?android:attr/textColorPrimary" />
-
-                <TextView
-                    android:id="@+id/tvSharedIdDetail"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_centerVertical="true"
-                    android:paddingRight="8dip"
-                    android:textColor="@color/orange"
-                    android:textSize="12sp" />
-
-                <TextView
+                    android:id="@+id/layShareUid"
                     android:layout_width="match_parent"
-                    android:layout_height="1dp"
-                    android:layout_alignParentBottom="true"
-                    android:background="@android:drawable/divider_horizontal_dark" />
+                    android:layout_height="48dip"
+                    android:layout_below="@+id/layDataSize"
+                    android:clickable="false">
+
+                <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_centerVertical="true"
+                        android:paddingLeft="8dip"
+                        android:text="@string/textview_library"
+                        android:textColor="?android:attr/textColorPrimary"/>
+
+                <TextView
+                        android:id="@+id/tvSharedIdDetail"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:paddingRight="8dip"
+                        android:textColor="@color/orange"
+                        android:textSize="12sp"/>
+
+                <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="1dp"
+                        android:layout_alignParentBottom="true"
+                        android:background="@android:drawable/divider_horizontal_dark"/>
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>

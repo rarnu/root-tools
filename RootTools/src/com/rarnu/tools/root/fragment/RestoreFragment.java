@@ -49,6 +49,7 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
                 backDataappAdapter.deleteItem(item);
                 progressBackData.setVisibility(View.GONE);
                 lvBackData.setEnabled(true);
+                tvEmptyHint.setVisibility(backDataappAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
             }
             super.handleMessage(msg);
         }
@@ -106,7 +107,8 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
         lvBackData.setAdapter(backDataappAdapter);
         barBackData.setCheckBoxVisible(true);
         loader = new RestoreLoader(getActivity());
-        receiver = new MutaxReceiver(Actions.ACTION_RESTORE, Actions.ACTION_RESTORE_PROGRESS, new String[]{Actions.ACTION_BACKUP});
+        receiver = new MutaxReceiver(Actions.ACTION_RESTORE, Actions.ACTION_RESTORE_PROGRESS,
+                new String[]{Actions.ACTION_BACKUP, Actions.ACTION_BATCH_INSTALL, Actions.ACTION_BATCH_UNINSTALL});
 
     }
 
@@ -196,9 +198,9 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
         }).start();
     }
 
-    private void setRestoreState(boolean resotre) {
-        backDataappAdapter.setAdapterCheckable(!resotre);
-        if (resotre) {
+    private void setRestoreState(boolean operating) {
+        backDataappAdapter.setAdapterCheckable(!operating);
+        if (operating) {
             barBackData.setVisibility(View.GONE);
             progressBackData.setVisibility(View.VISIBLE);
             lvBackData.setOnItemLongClickListener(null);
@@ -206,15 +208,16 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
             progressBackData.setVisibility(View.GONE);
             ListUtils.setListViewItemSelectedStatus(listBackDataappAll, backDataappAdapter, hSelectData, false);
             lvBackData.setOnItemLongClickListener(this);
+
         }
     }
 
-    private void setOtherProcState(boolean backup) {
-        backDataappAdapter.setAdapterCheckable(!backup);
-        if (backup) {
+    private void setOtherProcState(boolean operating) {
+        backDataappAdapter.setAdapterCheckable(!operating);
+        if (operating) {
             barBackData.setVisibility(View.GONE);
             progressBackData.setVisibility(View.VISIBLE);
-            progressBackData.setAppName(getString(R.string.mutax_backup));
+            progressBackData.setAppName(getString(R.string.mutax_operating));
             lvBackData.setOnItemLongClickListener(null);
         } else {
             progressBackData.setVisibility(View.GONE);
@@ -267,8 +270,7 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
     }
 
     @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view,
-                                   int position, long id) {
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         DataappInfo item = ((DataappInfo) lvBackData.getItemAtPosition(position));
         confirmDeleteBackup(item);
         return false;
@@ -279,6 +281,7 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
         progressBackData.setAppName(getString(R.string.loading));
         progressBackData.setProgress("");
         progressBackData.setVisibility(View.VISIBLE);
+        loader.setPath(GlobalInstance.backupPath);
         loader.startLoading();
     }
 
@@ -315,6 +318,7 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
         if (!operating) {
             Intent inRestoreService = new Intent(getActivity(), DataRestoreService.class);
             getActivity().stopService(inRestoreService);
+            doStartLoad();
         }
         setRestoreState(operating);
 

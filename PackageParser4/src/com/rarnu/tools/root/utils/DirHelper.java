@@ -14,6 +14,7 @@ public class DirHelper {
     public static String ENABLEAPP_DIR_SYSTEM = "";
     public static String ENABLEAPP_DIR_DATA = "";
     public static String DATAAPP_DIR = "";
+    public static String BATCH_INSTALL_DIR = "";
     public static String HOSTS_DIR = "";
     public static String BUSYBOX_DIR = "";
     public static String MEM_DIR = "";
@@ -21,7 +22,6 @@ public class DirHelper {
     public static String ERROR_DIR = "";
     public static String ICON_DIR = "";
     public static String FORCE_UPDATE_DIR = "";
-
     public static String DATA_SDCARD_DIR = "";
     public static String OBB_SDCARD_DIR = "";
 
@@ -38,6 +38,7 @@ public class DirHelper {
         makeDir(ERROR_DIR);
         makeDir(ICON_DIR);
         makeDir(FORCE_UPDATE_DIR);
+        makeDir(BATCH_INSTALL_DIR);
     }
 
     private static void makeDir(String path) {
@@ -63,6 +64,7 @@ public class DirHelper {
         ERROR_DIR = ROOT_DIR + "error/";
         ICON_DIR = ROOT_DIR + "icon/";
         FORCE_UPDATE_DIR = ROOT_DIR + "force_update/";
+        BATCH_INSTALL_DIR = SDCARD_DIR + "/install/";
 
         DATA_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath() + "/Android/data/";
         OBB_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath() + "/Android/obb/";

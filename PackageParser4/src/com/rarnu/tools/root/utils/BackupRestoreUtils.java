@@ -35,6 +35,8 @@ public class BackupRestoreUtils {
                     newinfo.info = ApkUtils.getAppInfoFromPackage(path + s);
                     newinfo.checked = false;
                     newinfo.position = position;
+                    newinfo.localPath = path + s;
+                    newinfo.installed = ApkUtils.isAppInstalled(newinfo.info.packageName);
                     if (newinfo.info == null) {
                         continue;
                     }
@@ -141,7 +143,7 @@ public class BackupRestoreUtils {
             result.result = "success";
         }
 
-        if (result.result.toLowerCase().equals("success")) {
+        if (result.result.toLowerCase().contains("success")) {
             cmd = String.format("busybox cp -r " + savePath + "%s /data/data/", packageName);
             result = RootUtils.runCommand(cmd, true, null);
             if (result.error.equals("")) {
@@ -228,6 +230,45 @@ public class BackupRestoreUtils {
         } catch (Exception e) {
 
         }
+        return ret;
+    }
+
+    public static boolean installApp(Context context, String path, DataappInfo info) {
+        // install
+        String cmd = String.format("pm install -r %s", path);
+        CommandResult result = RootUtils.runCommand(cmd, true, null);
+        info.log = context.getResources().getString(R.string.restore_fail);
+        info.logId = 2;
+
+        boolean ret = false;
+        if (result != null) {
+            if (result.result.toLowerCase().contains("success")) {
+                ret = true;
+                info.log = context.getResources().getString(R.string.restore_ok);
+                info.logId = 0;
+            }
+        }
+        operationLog.add(info);
+        return ret;
+    }
+
+    public static boolean uninstallApp(Context context, String packageName, DataappInfo info) {
+        // uninstall
+        String cmd = String.format("pm uninstall %s", packageName);
+        CommandResult result = RootUtils.runCommand(cmd, true, null);
+        info.appName = ApkUtils.getLabelFromPackage(context, info.info);
+        info.log = context.getResources().getString(R.string.restore_fail);
+        info.logId = 2;
+
+        boolean ret = false;
+        if (result != null) {
+            if (result.result.toLowerCase().contains("success")) {
+                ret = true;
+                info.log = context.getResources().getString(R.string.restore_ok);
+                info.logId = 0;
+            }
+        }
+        operationLog.add(info);
         return ret;
     }
 }

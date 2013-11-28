@@ -11,8 +11,8 @@
     <string name="settings">Settings</string>
     <string name="cat_settings">Settings</string>
     <string name="cat_global">Global</string>
-    <string name="cat_system">Optimization</string>
-    <string name="cat_backup">Backup &amp; Restore</string>
+    <string name="cat_system">System</string>
+    <string name="cat_apps">Applications</string>
     <string name="cat_memory">Memory &amp; Storage</string>
     <string name="cat_terminal">Terminal</string>
     <string name="cat_other">Other</string>
@@ -79,6 +79,8 @@
     <string name="func_diskinfo_with_path">RootTools &gt; Disk Information</string>
     <string name="func_filesystem">File System</string>
     <string name="func_filesystem_with_path">RootTools &gt; File System</string>
+    <string name="func_batch_app">Batch Apps</string>
+    <string name="func_batch_app_with_path">RootTools &gt; Batch Apps</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>
@@ -156,8 +158,9 @@
     <string name="backuping_proc">Backuping, please wait...</string>
     <string name="restoring_proc">Restoring, please wait...</string>
     <string name="cleaning_proc">Cleaning, please wait...</string>
-    <string name="mutax_backup">Backuping, cannot do restore</string>
-    <string name="mutax_restore">Restoring, cannot do backup</string>
+    <string name="installing_proc">Installing, please wait...</string>
+    <string name="uninstalling_proc">Uninstalling, pleast wait...</string>
+    <string name="mutax_operating">Othe module is in perating, please wait...</string>
     <string name="system_app">System App</string>
     <string name="receiver_count">Component:</string>
     <string name="permission_count">Permission:</string>
@@ -197,6 +200,7 @@
     <string name="btn_common">Common</string>
     <string name="name_server">DNS Server</string>
     <string name="backup_path">Backup Path</string>
+    <string name="batch_install_path">Batch Install Path</string>
     <string name="manual_edit_hosts">Manual EditHosts</string>
     <string name="clean_deprecated_hosts">Clean Deprecated Hosts</string>
     <string name="file_su">su</string>
@@ -247,6 +251,7 @@
     </string>
     <string name="delete_all_backup_data_succ">All backuped data is deleted.</string>
     <string name="set_backup_path">Set Backup Saving Path</string>
+    <string name="set_batch_install_path">Set Batch Install Path</string>
     <string name="change_package_status_fail">Change app status failed</string>
     <string name="cannot_change_package_status">Cannot change app\'s status</string>
     <string name="data_app_uninstall">Selected app is a 3rd-part app, cannnot be disabled. You may press "OK" for
@@ -281,11 +286,12 @@
     <string name="no_clean_item_selected">No clean item selected</string>
     <string name="share_title">Recommand you an excellent app: RootTools</string>
     <string name="share_body">RootTools can help to manage your Android phone, download here:
-        http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk
+        http://rarnu.7thgen.info/
     </string>
     <string name="summary_sysapp">Install/Uninstall system apps</string>
     <string name="summary_sysappenabled">Enable/Disable installed apps</string>
     <string name="summary_hardupdate">Update the apps with different signature</string>
+    <string name="summary_batch_apps">Install or uninstall apps in batch</string>
     <string name="summary_component">Enable/Disable components in apps</string>
     <string name="summary_cleanhtc">Clean ROM and batch delete apps</string>
     <string name="summary_backup">Backup apps and private data</string>
@@ -297,6 +303,7 @@
     <string name="name_server_hint">Input the DNS server used by searching Hosts IP, default value is Google\'s DNS.
     </string>
     <string name="backup_path_hint">Input the path you want to save the backup files.</string>
+    <string name="batch_install_path_hint">Input the path you want to put the apk files in.</string>
     <string name="custom_clean_empty">No apps to manage, please goto &lt;font color=\'#6495ED\'&gt;System App&lt;/font&gt;
         and add some apps
     </string>
@@ -305,6 +312,10 @@
     <string name="restore_empty">No app for restoring, please goto &lt;font color=\'#6495ED\'&gt;Backup Data&lt;/font&gt;
         and backup some apps
     </string>
+    <string name="install_empty" formatted="false">No app for installing, please put your APKs into &lt;font
+        color=\'#6495ED\'&gt;%s&lt;/font&gt; and try again
+    </string>
+    <string name="uninstall_empty">No app for uninstalling, please install some first</string>
     <string name="hosts_too_big">Hosts file too big, cannot edit</string>
     <string name="service_is_running">This service is running, and it will cause the memory exception if you kill it
         right now. Are you sure to disable it?
@@ -347,4 +358,10 @@
     <string name="installing_apk_fmt" formatted="false">Installing %s ...</string>
     <string name="install_apk_finished" formatted="false">Package %s installed</string>
     <string name="install_apk_failed" formatted="false">Install package failed, reason: &lt;font color=\"#FF0000\"&gt;%s&lt;/font&gt;</string>
+    <string name="install">Install</string>
+    <string name="uninstall">Uninstall</string>
+    <string name="installing">Installing:</string>
+    <string name="uninstalling">Uninstalling:</string>
+    <string name="install_fmt" formatted="false">Install(%d)</string>
+    <string name="uninstall_fmt" formatted="false">Uninstall(%d)</string>
 </resources>

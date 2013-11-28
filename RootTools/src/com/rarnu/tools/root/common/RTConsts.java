@@ -16,10 +16,14 @@ public class RTConsts {
 	public static final int NOTIFY_ID_BACKUP = 102;
 	public static final int NOTIFY_ID_RESTORE = 103;
 	public static final int NOTIFY_ID_CLEAN_BACKUP = 104;
+    public static final int NOTIFY_ID_BATCH_INSTALL = 105;
+    public static final int NOTIFY_ID_BATCH_UNINSTALL = 106;
 	
 	public static final int NOTIFY_PROC_BACKUP = 201;
 	public static final int NOTIFY_PROC_RESTORE = 202;
 	public static final int NOTIFY_PROC_HTC_ROM = 203;
 	public static final int NOTIFY_PROC_CLEAN_BACKUP = 204;
+    public static final int NOTIFY_PROC_BATCH_INSTALL = 205;
+    public static final int NOTIFY_PROC_BATCH_UNINSTALL = 206;
 
 }

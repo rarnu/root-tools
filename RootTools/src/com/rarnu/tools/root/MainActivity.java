@@ -177,6 +177,8 @@ public class MainActivity extends BaseMainActivity {
                 return Fragments.getFragment(FragmentNameConst.FN_DISKINFO);
             case 18:
                 return Fragments.getFragment(FragmentNameConst.FN_FILESYSTEM);
+            case 19:
+                return Fragments.getFragment(FragmentNameConst.FN_BATCH_APPS);
             default:
                 return Fragments.getFragment(FragmentNameConst.FN_ABOUT);
         }

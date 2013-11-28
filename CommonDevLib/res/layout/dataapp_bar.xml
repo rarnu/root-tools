@@ -1,38 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:padding="4dip" >
-
-    <RelativeLayout
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true" >
+        android:padding="4dip">
+
+    <LinearLayout android:id="@+id/layDataButton"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toLeftOf="@+id/chkSelAll"
+            android:orientation="horizontal"
+            style="?android:attr/buttonBarStyle">
+        <Button
+                android:id="@+id/barButton1"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle"/>
 
         <Button
-            android:id="@+id/barButton1"
-            android:layout_width="110dip"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:textSize="14sp" />
+                android:id="@+id/barButton2"
+                android:layout_width="0px"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:text="@string/cancel"
+                style="?android:attr/buttonBarButtonStyle"/>
 
-        <Button
-            android:id="@+id/barButton2"
-            android:layout_width="110dip"
-            android:layout_height="wrap_content"
-            android:layout_centerVertical="true"
-            android:layout_marginLeft="8dip"
-            android:layout_toRightOf="@+id/barButton1"
-            android:text="@string/cancel"
-            android:textSize="14sp" />
-    </RelativeLayout>
+    </LinearLayout>
 
     <CheckBox
-        android:id="@+id/chkSelAll"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_marginRight="8dip"
-        android:visibility="gone" />
+            android:id="@+id/chkSelAll"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dip"
+            android:layout_marginLeft="8dip"
+            android:layout_centerVertical="true"
+            android:visibility="gone"/>
 
 </RelativeLayout>

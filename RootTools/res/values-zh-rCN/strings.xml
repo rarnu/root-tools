@@ -4,15 +4,15 @@
     <string name="app_name">掌优</string>
     <string name="app_ver" formatted="false">ver %s</string>
     <string name="app_debug">(DEBUG)</string>
-    <string name="app_help">RootTools 使用说明</string>
+    <string name="app_help">掌优 使用说明</string>
     <string name="copyright">Copyright© Rarnu 2013.</string>
     <string name="sysapp_name">应用程序详情</string>
     <string name="sysapp_select">选择应用程序</string>
     <string name="settings">设置</string>
     <string name="cat_settings">软件设置</string>
     <string name="cat_global">全局设置</string>
-    <string name="cat_system">系统优化</string>
-    <string name="cat_backup">备份还原</string>
+    <string name="cat_system">系统</string>
+    <string name="cat_apps">应用程序</string>
     <string name="cat_memory">内存与存储</string>
     <string name="cat_terminal">终端</string>
     <string name="cat_other">其他功能</string>
@@ -20,12 +20,12 @@
     <string name="short_about">关于本软件</string>
     <string name="short_feedback">反馈</string>
     <string name="short_recommand">精品软件推荐</string>
-    <string name="short_recommand_with_path">RootTools &gt; 精品软件推荐</string>
+    <string name="short_recommand_with_path">掌优 &gt; 精品软件推荐</string>
     <string name="short_share">分享</string>
     <string name="component_list">组件状态列表</string>
     <string name="operation_result">操作结果</string>
     <string name="feedback">用户反馈</string>
-    <string name="feedback_with_path">RootTools &gt; 用户反馈</string>
+    <string name="feedback_with_path">掌优 &gt; 用户反馈</string>
     <string name="current_dir">当前目录</string>
     <string name="egg">Do you like eggs?</string>
     <string name="app_push">应用程序推荐</string>
@@ -34,51 +34,53 @@
     <string name="remote_adb">远程 ADB</string>
     <string name="change_boot_music">更换开机音乐</string>
     <string name="clean_htc_rom">清理 ROM</string>
-    <string name="clean_htc_rom_with_path">RootTools &gt; 清理 ROM</string>
+    <string name="clean_htc_rom_with_path">掌优 &gt; 清理 ROM</string>
     <string name="clean_htc_rom_finish">清理 ROM 完毕</string>
     <string name="busybox">Root &amp; Busybox</string>
-    <string name="busybox_with_path">RootTools &gt; Root &amp; Busybox</string>
-    <string name="settings_with_path">RootTools &gt; 软件设置</string>
+    <string name="busybox_with_path">掌优 &gt; Root &amp; Busybox</string>
+    <string name="settings_with_path">掌优 &gt; 软件设置</string>
     <string name="check_update">检查更新</string>
     <string name="about">关于本软件</string>
-    <string name="about_with_path">RootTools &gt; 关于本软件</string>
+    <string name="about_with_path">掌优 &gt; 关于本软件</string>
     <string name="func0_title">显示悬浮窗</string>
     <string name="func1">增加/删除\n系统应用</string>
     <string name="func1_title">系统应用管理</string>
-    <string name="func1_title_with_path">RootTools &gt; 系统应用管理</string>
+    <string name="func1_title_with_path">掌优 &gt; 系统应用管理</string>
     <string name="func2">启用/禁用\n应用程序</string>
     <string name="func2_title">可用性管理</string>
-    <string name="func2_title_with_path">RootTools &gt; 可用性管理</string>
+    <string name="func2_title_with_path">掌优 &gt; 可用性管理</string>
     <string name="func3">备份应用数据</string>
     <string name="func3_title">备份应用数据</string>
-    <string name="func3_title_with_path">RootTools &gt; 备份应用数据</string>
+    <string name="func3_title_with_path">掌优 &gt; 备份应用数据</string>
     <string name="func3p">还原应用数据</string>
     <string name="func3p_title">还原应用数据</string>
-    <string name="func3p_title_with_path">RootTools &gt; 还原应用数据</string>
+    <string name="func3p_title_with_path">掌优 &gt; 还原应用数据</string>
     <string name="func4">启用/禁用\n应用内组件</string>
     <string name="func4_title">应用组件管理</string>
-    <string name="func4_title_with_path">RootTools &gt; 应用组件管理</string>
+    <string name="func4_title_with_path">掌优 &gt; 应用组件管理</string>
     <string name="func5">清理内存</string>
     <string name="func5_title">清理内存</string>
-    <string name="func5_title_with_path">RootTools &gt; 清理内存</string>
+    <string name="func5_title_with_path">掌优 &gt; 清理内存</string>
     <string name="func6">清理缓存文件</string>
     <string name="func6_title">清理缓存文件</string>
-    <string name="func6_title_with_path">RootTools &gt; 清理缓存文件</string>
+    <string name="func6_title_with_path">掌优 &gt; 清理缓存文件</string>
     <string name="func7">修改 Hosts</string>
     <string name="func7_title">修改 Hosts</string>
-    <string name="func7_title_with_path">RootTools &gt; 修改 Hosts</string>
+    <string name="func7_title_with_path">掌优 &gt; 修改 Hosts</string>
     <string name="func8">ROOT\nBusybox</string>
     <string name="func8_title">Root &amp; Busybox</string>
     <string name="func9">杂项功能</string>
     <string name="func9_func">杂项功能</string>
     <string name="func_terminal">终端模拟器</string>
-    <string name="func_terminal_with_path">RootTools &gt; 终端模拟器</string>
+    <string name="func_terminal_with_path">掌优 &gt; 终端模拟器</string>
     <string name="func_hardupdate">强制升级</string>
-    <string name="func_hardupdate_with_path">RootTools &gt; 强制升级</string>
+    <string name="func_hardupdate_with_path">掌优 &gt; 强制升级</string>
     <string name="func_diskinfo">磁盘信息</string>
-    <string name="func_diskinfo_with_path">RootTools &gt; 磁盘信息</string>
+    <string name="func_diskinfo_with_path">掌优 &gt; 磁盘信息</string>
     <string name="func_filesystem">文件系统</string>
-    <string name="func_filesystem_with_path">RootTools &gt; 文件系统</string>
+    <string name="func_filesystem_with_path">掌优 &gt; 文件系统</string>
+    <string name="func_batch_app">批量应用操作</string>
+    <string name="func_batch_app_with_path">掌优 &gt; 批量应用操作</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="check_network_status">检查网络状况</string>
@@ -86,11 +88,11 @@
     <string name="close">关闭</string>
     <string name="unknown">未知</string>
     <string name="na">N/A</string>
-    <string name="version">版本 </string>
+    <string name="version">版本</string>
     <string name="refresh">刷新</string>
     <string name="pool">操作池</string>
     <string name="help">帮助</string>
-    <string name="help_with_path">RootTools &gt; 帮助</string>
+    <string name="help_with_path">掌优 &gt; 帮助</string>
     <string name="save">保存</string>
     <string name="revert">恢复</string>
     <string name="send">发送</string>
@@ -147,21 +149,22 @@
     <string name="override_backuped">允许重复备份</string>
     <string name="reinstall_apk">还原时重新安装 APK</string>
     <string name="confirm_delete_backup">确定要删除备份的数据？按“确定”删除，按“取消”不删除。</string>
-    <string name="backuping">正在备份: </string>
-    <string name="restoring">正在还原: </string>
+    <string name="backuping">正在备份:</string>
+    <string name="restoring">正在还原:</string>
     <string name="backuping_proc">正在备份，请稍候...</string>
     <string name="restoring_proc">正在还原，请稍候...</string>
     <string name="cleaning_proc">正在清理，请稍候...</string>
-    <string name="mutax_backup">正在备份，不能进行还原</string>
-    <string name="mutax_restore">正在还原，不能进行备份</string>
+    <string name="installing_proc">正在安装，请稍候...</string>
+    <string name="uninstalling_proc">正在卸载，请稍候...</string>
+    <string name="mutax_operating">其他模块正在操作，请稍候...</string>
     <string name="system_app">系统应用</string>
-    <string name="receiver_count">组件: </string>
-    <string name="permission_count">权限: </string>
+    <string name="receiver_count">组件:</string>
+    <string name="permission_count">权限:</string>
     <string name="operation_hint">长按可以切换启用/禁用状态</string>
     <string name="operation_failed">操作失败，该组件状态不可被改变</string>
     <string name="registed_bcr">已注册的组件</string>
     <string name="memory_usage_fmt" formatted="false">(总内存%dM/空余%dM/共享%dM/缓冲%dM)</string>
-    <string name="process_count_fmt" formatted="false">进程数%d </string>
+    <string name="process_count_fmt" formatted="false">进程数%d</string>
     <string name="clean_memory">清理内存</string>
     <string name="cleaning_memory">正在清理内存…</string>
     <string name="cleaning_cache">正在清理缓存…</string>
@@ -192,6 +195,7 @@
     <string name="btn_common">常用</string>
     <string name="name_server">DNS 服务器</string>
     <string name="backup_path">备份路径</string>
+    <string name="batch_install_path">批量安装路径</string>
     <string name="manual_edit_hosts">手动编辑 Hosts</string>
     <string name="clean_deprecated_hosts">清除已失效的 Hosts</string>
     <string name="file_su">su</string>
@@ -205,7 +209,9 @@
     <string name="confirm_reinstall_superuser">当前设备已安装了 Superuser.apk，确定要重新安装吗？按“确定”重新安装，按“取消”不安装。</string>
     <string name="confirm_reinstall_busybox">当前设备已安装了 busybox，确定要重新安装吗？按“确定”重新安装，按“取消”不安装。</string>
     <string name="confirm_install_busybox">部分设备在安装了 busybox 后将无法启动，安装后风险自负。按“确定”进行安装，按“取消”不安装。</string>
-    <string name="help_busybox">本功能将会检测设备内是否包含 root 的关键文件，包括 su，Superuser.apk 以及 busybox。其中 busybox 是一个非常强大的工具库，在拥有了 busybox 之后，您才可以顺畅的享受本软件带来的便利。</string>
+    <string name="help_busybox">本功能将会检测设备内是否包含 root 的关键文件，包括 su，Superuser.apk 以及 busybox。其中 busybox 是一个非常强大的工具库，在拥有了
+        busybox 之后，您才可以顺畅的享受本软件带来的便利。
+    </string>
     <string name="feedback_hint">请在此输入你想告诉我们的话</string>
     <string name="empty_feedback">内容为空，不能发送</string>
     <string name="send_feedback_succ">发送反馈信息成功</string>
@@ -219,13 +225,17 @@
     <string name="used_cache_size">系统缓存大小 %s</string>
     <string name="get_super_user">Super User</string>
     <string name="get_root_explorer">Root Explorer</string>
-    <string name="root_buybox_desc">本软件不提供为手机获取 Root 的功能，若是提示没有 Root 权限，请按手机型号不同，使用对应的 Root 方法，相关的方法在各大论坛可以查询。\n\n此处将检查系统内是否具备使用本软件的所需条件，除 su 外，不符合需求的条件将可以得到修正，右侧的对勾图标即表示指定项是符合需求的。\n\n有个别手机获取了 Root 之后，依然无法正常使用本软件，请给我们反馈。</string>
+    <string name="root_buybox_desc">本软件不提供为手机获取 Root 的功能，若是提示没有 Root 权限，请按手机型号不同，使用对应的 Root
+        方法，相关的方法在各大论坛可以查询。\n\n此处将检查系统内是否具备使用本软件的所需条件，除 su 外，不符合需求的条件将可以得到修正，右侧的对勾图标即表示指定项是符合需求的。\n\n有个别手机获取了 Root
+        之后，依然无法正常使用本软件，请给我们反馈。
+    </string>
     <string name="intent_open_error">无法找到指定的应用程序</string>
     <string name="no_package_info_found">指定的应用程序没有对应的包信息</string>
     <string name="delete_all_backup_data">删除所有备份的数据</string>
     <string name="delete_all_backup_data_confirm">删除所有备份数据后，将无法再恢复应用程序和存档数据，确定要执行删除操作吗？按“确定”删除，按“取消”不删除。</string>
     <string name="delete_all_backup_data_succ">已删除全部的备份数据</string>
     <string name="set_backup_path">设置备份文件路径</string>
+    <string name="set_batch_install_path">设备批量安装的文件路径</string>
     <string name="change_package_status_fail">改变应用程序状态失败</string>
     <string name="cannot_change_package_status">不能改变指定应用程序的状态</string>
     <string name="data_app_uninstall">选定的应用是第三方应用，无法禁用，按“确定”按钮可将其删除，按“取消”不做任何操作。</string>
@@ -256,11 +266,12 @@
     <string name="itmdesc_cm3rd">移除 Apollo, FileManager, Terminal 等</string>
     <string name="clean_htc_rom_confirm">确定要清理 ROM 吗？清理后不可恢复，确定要清理请按“确定”。</string>
     <string name="no_clean_item_selected">没有选定要清除的项目</string>
-    <string name="share_title">向您推荐一款好用的App《RootTools》</string>
-    <string name="share_body">RootTools可以帮助您管理您的手机，实现对系统的完全掌控，请点击下载: http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk</string>
+    <string name="share_title">向您推荐一款好用的App《掌优》</string>
+    <string name="share_body">掌优可以帮助您管理您的手机，实现对系统的完全掌控，请点击下载: http://rarnu.7thgen.info/</string>
     <string name="summary_sysapp">安装或卸载系统内的应用程序</string>
     <string name="summary_sysappenabled">禁用或启动指定的应用程序</string>
     <string name="summary_hardupdate">强制升级因签名不一致无法升级的应用</string>
+    <string name="summary_batch_apps">批量安装或卸载应用程序</string>
     <string name="summary_component">禁用或启动应用程序内的可选组件</string>
     <string name="summary_cleanhtc">清理 ROM，批量删除指定应用程序</string>
     <string name="summary_backup">备份应用程序以及私有数据</string>
@@ -271,28 +282,33 @@
     <string name="summary_recommand">下载其他精品软件以支持我们</string>
     <string name="name_server_hint">输入搜索 Hosts IP 时使用的 DNS 服务器地址，默认为 Google 提供的 DNS</string>
     <string name="backup_path_hint">输入保存备份文件的具体路径</string>
+    <string name="batch_install_path_hint">输入保存批量安装 APK 文件的路径</string>
     <string name="custom_clean_empty">没有需要管理的内容，请先到&lt;font color=\'#6495ED\'&gt;系统应用管理&lt;/font&gt;中添加要清除的应用程序</string>
     <string name="clean_cache_empty">没有缓存的内容，无需清理</string>
     <string name="backup_empty">没有可以备份的内容，请先安装一些应用</string>
     <string name="restore_empty">没有可以还原的内容，请先到&lt;font color=\'#6495ED\'&gt;备份应用数据&lt;/font&gt;中进行备份操作</string>
+    <string name="install_empty" formatted="false">没有可以安装的应用，请将您的 APK 放到 &lt;font color=\'#6495ED\'&gt;%s&lt;/font&gt;
+        目录内然后重试
+    </string>
+    <string name="uninstall_empty">没有可以卸载的应用，请先安装一些应用</string>
     <string name="hosts_too_big">Hosts 文件太大，无法编辑</string>
     <string name="service_is_running">这个服务正在运行中，如果强行停止可能会引起内存错误。按“确定”禁用服务，按“取消”不做操作。</string>
-	<string name="btn_update">升级</string>
-	<string name="btn_update_install">安装</string>
-	<string name="btn_scan_apk">扫描 APK</string>
-	<string name="proc_scaning_apk">正在扫描 SD 卡中的 APK，请稍候...</string>
+    <string name="btn_update">升级</string>
+    <string name="btn_update_install">安装</string>
+    <string name="btn_scan_apk">扫描 APK</string>
+    <string name="proc_scaning_apk">正在扫描 SD 卡中的 APK，请稍候...</string>
     <string name="apkstat_4">已损坏</string>
-	<string name="apkstat_3">未安装</string>
-	<string name="apkstat_2">无需升级</string>
-	<string name="apkstat_1">签名不同，需强制升级</string>
-	<string name="apkstat_0">可以正常升级</string>
-	<string name="tv_refresh_apk">点击 &lt;font color=\'#6495ED\'&gt;刷新&lt;/font&gt; 将扫描 SD 卡内的所有 APK 文件</string>
+    <string name="apkstat_3">未安装</string>
+    <string name="apkstat_2">无需升级</string>
+    <string name="apkstat_1">签名不同，需强制升级</string>
+    <string name="apkstat_0">可以正常升级</string>
+    <string name="tv_refresh_apk">点击 &lt;font color=\'#6495ED\'&gt;刷新&lt;/font&gt; 将扫描 SD 卡内的所有 APK 文件</string>
     <string name="fit_44">支持 Android 4.4</string>
-	<string name="disk_size_fmt" formatted="false">大小:%s</string>
-	<string name="disk_used_fmt" formatted="false">已用:%s</string>
-	<string name="disk_free_fmt" formatred="false">空闲:%s</string>
-	<string name="disk_block_fmt" formatted="false">区块:%s</string>
-	<string name="default_hint">默认</string>
+    <string name="disk_size_fmt" formatted="false">大小:%s</string>
+    <string name="disk_used_fmt" formatted="false">已用:%s</string>
+    <string name="disk_free_fmt" formatred="false">空闲:%s</string>
+    <string name="disk_block_fmt" formatted="false">区块:%s</string>
+    <string name="default_hint">默认</string>
     <string name="fs_cut">剪切</string>
     <string name="fs_copy">复制</string>
     <string name="mem_process">进程信息</string>
@@ -312,5 +328,12 @@
     <string name="install_apk_title">安装应用程序</string>
     <string name="installing_apk_fmt" formatted="false">正在安装 %s ...</string>
     <string name="install_apk_finished" formatted="false">已成功安装 %s</string>
-    <string name="install_apk_failed" formatted="false">安装失败，原因: &lt;font color=\"#FFFF0000\"&gt;%s&lt;/font&gt;</string>
+    <string name="install_apk_failed" formatted="false">安装失败，原因: &lt;font
+        color=\"#FFFF0000\"&gt;%s&lt;/font&gt;</string>
+    <string name="install">安装</string>
+    <string name="uninstall">卸载</string>
+    <string name="installing">正在安装:</string>
+    <string name="uninstalling">正发卸载:</string>
+    <string name="install_fmt" formatted="false">安装(%d)</string>
+    <string name="uninstall_fmt" formatted="false">卸载(%d)</string>
 </resources>

@@ -4,15 +4,15 @@
     <string name="app_name">掌優</string>
     <string name="app_ver" formatted="false">ver %s</string>
     <string name="app_debug">(DEBUG)</string>
-    <string name="app_help">RootTools 使用說明</string>
+    <string name="app_help">掌優 使用說明</string>
     <string name="copyright">Copyright© Rarnu 2013.</string>
     <string name="sysapp_name">應用程式詳細</string>
     <string name="sysapp_select">選擇應用程式</string>
     <string name="settings">設定</string>
     <string name="cat_settings">軟體設定</string>
     <string name="cat_global">全局設定</string>
-    <string name="cat_system">系統優化</string>
-    <string name="cat_backup">備份還原</string>
+    <string name="cat_system">系統</string>
+    <string name="cat_apps">應用程式</string>
     <string name="cat_memory">內存與存儲</string>
     <string name="cat_terminal">終端</string>
     <string name="cat_other">其他功能</string>
@@ -20,12 +20,12 @@
     <string name="short_about">關於本軟體</string>
     <string name="short_feedback">反饋</string>
     <string name="short_recommand">精品軟體推薦</string>
-    <string name="short_recommand_with_path">RootTools &gt; 精品軟體推薦</string>
+    <string name="short_recommand_with_path">掌優 &gt; 精品軟體推薦</string>
     <string name="short_share">分享</string>
     <string name="component_list">組件狀況列表</string>
     <string name="operation_result">操作結果</string>
     <string name="feedback">用戶反饋</string>
-    <string name="feedback_with_path">RootTools &gt; 用戶反饋</string>
+    <string name="feedback_with_path">掌優 &gt; 用戶反饋</string>
     <string name="current_dir">當前檔案夾</string>
     <string name="egg">Do you like eggs?</string>
     <string name="app_push">應用程式推薦</string>
@@ -34,51 +34,51 @@
     <string name="remote_adb">遠程 ADB</string>
     <string name="change_boot_music">更替開機音樂</string>
     <string name="clean_htc_rom">清理 ROM</string>
-    <string name="clean_htc_rom_with_path">RootTools &gt; 清理 ROM</string>
+    <string name="clean_htc_rom_with_path">掌優 &gt; 清理 ROM</string>
     <string name="clean_htc_rom_finish">清理 ROM 完畢</string>
     <string name="busybox">Root &amp; Busybox</string>
-    <string name="busybox_with_path">RootTools &gt; Root &amp; Busybox</string>
-    <string name="settings_with_path">RootTools &gt; 軟體設定</string>
+    <string name="busybox_with_path">掌優 &gt; Root &amp; Busybox</string>
+    <string name="settings_with_path">掌優 &gt; 軟體設定</string>
     <string name="check_update">檢查更新</string>
     <string name="about">關於本軟體</string>
-    <string name="about_with_path">RootTools &gt; 關於本軟體</string>
+    <string name="about_with_path">掌優 &gt; 關於本軟體</string>
     <string name="func0_title">顯示懸浮窗</string>
     <string name="func1">增加/移除\n系統應用</string>
     <string name="func1_title">系統應用管理</string>
-    <string name="func1_title_with_path">RootTools &gt; 系統應用管理</string>
+    <string name="func1_title_with_path">掌優 &gt; 系統應用管理</string>
     <string name="func2">啓用/禁用\n應用程式</string>
     <string name="func2_title">適用性管理</string>
-    <string name="func2_title_with_path">RootTools &gt; 適用性管理</string>
+    <string name="func2_title_with_path">掌優 &gt; 適用性管理</string>
     <string name="func3">備份應用數據</string>
     <string name="func3_title">備份應用數據</string>
-    <string name="func3_title_with_path">RootTools &gt; 備份應用數據</string>
+    <string name="func3_title_with_path">掌優 &gt; 備份應用數據</string>
     <string name="func3p">還原應用數據</string>
     <string name="func3p_title">還原應用數據</string>
-    <string name="func3p_title_with_path">RootTools &gt; 還原應用數據还</string>
+    <string name="func3p_title_with_path">掌優 &gt; 還原應用數據还</string>
     <string name="func4">啓用/禁用\n應用內組件</string>
     <string name="func4_title">應用組件管理</string>
-    <string name="func4_title_with_path">RootTools &gt; 應用組件管理</string>
+    <string name="func4_title_with_path">掌優 &gt; 應用組件管理</string>
     <string name="func5">整理內存</string>
     <string name="func5_title">整理內存</string>
-    <string name="func5_title_with_path">RootTools &gt; 整理內存</string>
+    <string name="func5_title_with_path">掌優 &gt; 整理內存</string>
     <string name="func6">整理緩存檔案</string>
     <string name="func6_title">整理緩存檔案</string>
-    <string name="func6_title_with_path">RootTools &gt; 整理緩存檔案</string>
+    <string name="func6_title_with_path">掌優 &gt; 整理緩存檔案</string>
     <string name="func7">編輯 Hosts</string>
     <string name="func7_title">編輯 Hosts</string>
-    <string name="func7_title_with_path">RootTools &gt; 編輯 Hosts</string>
+    <string name="func7_title_with_path">掌優 &gt; 編輯 Hosts</string>
     <string name="func8">ROOT\nBusybox</string>
     <string name="func8_title">Root &amp; Busybox</string>
     <string name="func9">雜項功能</string>
     <string name="func9_func">雜項功能</string>
     <string name="func_terminal">終端模擬器</string>
-    <string name="func_terminal_with_path">RootTools &gt; 終端模擬器</string>
+    <string name="func_terminal_with_path">掌優 &gt; 終端模擬器</string>
     <string name="func_hardupdate">強制升級</string>
-    <string name="func_hardupdate_with_path">RootTools &gt; 強制升級</string>
+    <string name="func_hardupdate_with_path">掌優 &gt; 強制升級</string>
     <string name="func_diskinfo">磁碟信息</string>
-    <string name="func_diskinfo_with_path">RootTools &gt; 磁碟信息</string>
+    <string name="func_diskinfo_with_path">掌優 &gt; 磁碟信息</string>
     <string name="func_filesystem">檔案系統</string>
-    <string name="func_filesystem_with_path">RootTools &gt; 檔案系統</string>
+    <string name="func_filesystem_with_path">掌優 &gt; 檔案系統</string>
     <string name="backup_data">備份應用程式的數據</string>
     <string name="restore_data">還原應用程式的數據</string>
     <string name="check_network_status">檢查網路狀況</string>
@@ -90,7 +90,7 @@
     <string name="refresh">更新</string>
     <string name="pool">操作池</string>
     <string name="help">幫助</string>
-    <string name="help_with_path">RootTools &gt; 幫助</string>
+    <string name="help_with_path">掌優 &gt; 幫助</string>
     <string name="save">存檔</string>
     <string name="revert">復原</string>
     <string name="send">發送</string>
@@ -152,8 +152,9 @@
     <string name="backuping_proc">正在備份, 請稍候...</string>
     <string name="restoring_proc">正在還原, 請稍候...</string>
     <string name="cleaning_proc">正在清理, 請稍候...</string>
-    <string name="mutax_backup">正在備份, 不能進行還原</string>
-    <string name="mutax_restore">正在還原, 不能進行備份</string>
+    <string name="installing_proc">正在安裝，請稍候...</string>
+    <string name="uninstalling_proc">正在卸載，請稍候...</string>
+    <string name="mutax_operating">其他模塊正在操作，請稍候...</string>
     <string name="system_app">系統應用</string>
     <string name="receiver_count">組件:</string>
     <string name="permission_count">權限:</string>
@@ -192,6 +193,7 @@
     <string name="btn_common">常用</string>
     <string name="name_server">DNS 侍服器</string>
     <string name="backup_path">備份路徑</string>
+    <string name="batch_install_path">批量安裝路徑</string>
     <string name="manual_edit_hosts">手工編輯 Hosts</string>
     <string name="clean_deprecated_hosts">清除已失效的 Hosts</string>
     <string name="file_su">su</string>
@@ -230,6 +232,7 @@
     <string name="delete_all_backup_data_confirm">移除所有備份數據後, 將無法再恢復應用程式和數據，確定要移除嗎?</string>
     <string name="delete_all_backup_data_succ">已移除所有的備份數據</string>
     <string name="set_backup_path">設定備份檔案路徑</string>
+    <string name="set_batch_install_path">設定批量安裝的檔案路徑</string>
     <string name="change_package_status_fail">改變應用程式狀況失敗</string>
     <string name="cannot_change_package_status">無法改變指定應用程式的狀況</string>
     <string name="data_app_uninstall">選擇的應用是第三方應用, 無法禁用, 若按"確定"可以移除該應用。</string>
@@ -260,13 +263,12 @@
     <string name="itmdesc_cm3rd">移除 Apollo, FileManager, Terminal 等</string>
     <string name="clean_htc_rom_confirm">確定要清理 ROM 嗎? 清理後不可以恢復。</string>
     <string name="no_clean_item_selected">沒有選擇要清除的項目</string>
-    <string name="share_title">向您推薦一款優秀的應用程式《RootTools》</string>
-    <string name="share_body">RootTools可以幫助您管理Android設備, 實現對系統完全掌控，下載請點擊:
-        http://rarnu.7thgen.info/root_tools/download/RootTools_4.2.2.apk
-    </string>
+    <string name="share_title">向您推薦一款優秀的應用程式《掌優》</string>
+    <string name="share_body">掌優可以幫助您管理Android設備, 實現對系統完全掌控，下載請點擊: http://rarnu.7thgen.info/</string>
     <string name="summary_sysapp">安裝或移除系統內的應用程式</string>
     <string name="summary_sysappenabled">禁用或啓用指定的應用程式</string>
     <string name="summary_hardupdate">強制升級因籤名不一致無法升級的應用程式</string>
+    <string name="summary_batch_apps">批量安裝或卸載應用程式</string>
     <string name="summary_component">禁用或啓用應用程式內的可選組件</string>
     <string name="summary_cleanhtc">清理 ROM，批量移除指定的應用程序</string>
     <string name="summary_backup">備份應用程式以及私人數據</string>
@@ -277,11 +279,16 @@
     <string name="summary_recommand">下載其他精品軟件以支援我們</string>
     <string name="name_server_hint">輸入搜尋 Hosts IP 時要使用的 DNS 侍服器地址, 默認爲 Google 提供的 DNS</string>
     <string name="backup_path_hint">輸入用於保存備份檔案的全路徑</string>
+    <string name="batch_install_path_hint">輸入用於保存批量安裝 APK 檔案的路徑</string>
     <string name="custom_clean_empty">沒有需要管理的內容, 請先到&lt;font color=\'#6495ED\'&gt;系統應用管理&lt;/font&gt;中增加要移除的應用程式
     </string>
     <string name="clean_cache_empty">沒有緩存的內容, 無需清理</string>
     <string name="backup_empty">沒有可以備份的內容, 請先安裝一些應用程式</string>
     <string name="restore_empty">沒有可以還原的內容, 請先到&lt;font color=\'#6495ED\'&gt;備份應用數據&lt;/font&gt;中進行備份操作</string>
+    <string name="install_empty" formatted="false">沒有可以安裝的應用，請將您的 APK 放到 &lt;font color=\'#6495ED\'&gt;%s&lt;/font&gt;
+        檔案夾內然後重試
+    </string>
+    <string name="uninstall_empty">沒有可以卸載的應用，請先安裝一些應用</string>
     <string name="hosts_too_big">Hosts 檔案太大, 無法編輯</string>
     <string name="service_is_running">當前服務正在執行中，如果強迫其停止將引起內存異常，確定要禁用這個服務嗎？</string>
     <string name="btn_update">升級</string>
@@ -321,4 +328,10 @@
     <string name="install_apk_finished" formatted="false">已成功安裝 %s</string>
     <string name="install_apk_failed" formatted="false">安裝失敗，原因: &lt;font
         color=\"#FFFF0000\"&gt;%s&lt;/font&gt;</string>
+    <string name="install">安裝</string>
+    <string name="uninstall">卸載</string>
+    <string name="installing">正在安裝:</string>
+    <string name="uninstalling">正在卸載:</string>
+    <string name="install_fmt" formatted="false">安裝(%d)</string>
+    <string name="uninstall_fmt" formatted="false">卸載(%d)</string>
 </resources>

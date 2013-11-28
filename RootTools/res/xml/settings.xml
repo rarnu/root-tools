@@ -21,7 +21,7 @@
                 android:key="@string/id_custom_app_clean"
                 android:title="@string/custom_app_clean"/>
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/cat_backup">
+    <PreferenceCategory android:title="@string/cat_apps">
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_override_backuped"
                 android:title="@string/override_backuped"/>
@@ -34,8 +34,10 @@
                 android:title="@string/delete_all_backup_data"/>
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_backup_path"
-                android:title="@string/set_backup_path"
-                />
+                android:title="@string/set_backup_path"/>
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_batch_install_path"
+                android:title="@string/set_batch_install_path"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/func5_title">
         <com.rarnu.devlib.component.CheckBoxPreferenceEx

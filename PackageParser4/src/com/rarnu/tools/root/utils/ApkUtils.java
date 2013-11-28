@@ -363,6 +363,7 @@ public class ApkUtils {
                 info.info = newInfo;
                 info.checked = false;
                 info.position = position;
+                info.installed = false;
                 res.add(info);
                 position++;
             }
@@ -447,7 +448,6 @@ public class ApkUtils {
         return listDisabled;
     }
 
-
     public static boolean uninstallApk(String packageName) {
         try {
             CommandResult cmdRet = RootUtils.runCommand(String.format("pm uninstall %s", packageName), true, null);
@@ -456,7 +456,6 @@ public class ApkUtils {
             return false;
         }
     }
-
 
     public static boolean applicationInstalled(String namespace) {
         try {
@@ -547,6 +546,16 @@ public class ApkUtils {
                 RootUtils.runCommand(cmd, true, callback);
             }
         }).start();
+    }
+
+    public static boolean isAppInstalled(String packageName) {
+        ApplicationInfo info = null;
+        try {
+            info = GlobalInstance.pm.getApplicationInfo(packageName, 0);
+        } catch (NameNotFoundException e) {
+
+        }
+        return info != null;
     }
 
     /**
