@@ -3,10 +3,9 @@ package com.rarnu.tools.root;
 import android.content.Context;
 import android.os.Looper;
 import android.widget.Toast;
-import com.rarnu.tools.root.utils.DirHelper;
-import com.rarnu.utils.FileUtils;
-
-import java.io.File;
+import com.rarnu.tools.root.api.MobileApi;
+import com.rarnu.tools.root.utils.DeviceUtils;
+import com.rarnu.utils.AccountUtils;
 
 public class RootUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
 
@@ -23,7 +22,7 @@ public class RootUncaughtExceptionHandler implements Thread.UncaughtExceptionHan
         String err = "";
         StackTraceElement[] ste = ex.getStackTrace();
         for (StackTraceElement e : ste) {
-            err += e.toString() + "\n";
+            err += e.toString() + "\n<br>";
         }
         final String transErr = err;
 
@@ -47,18 +46,13 @@ public class RootUncaughtExceptionHandler implements Thread.UncaughtExceptionHan
     }
 
     private void sendReport(String msg, String stack) {
-
-        String path = DirHelper.ERROR_DIR + "log.txt";
-        File fError = new File(path);
-        try {
-            if (fError.exists()) {
-                FileUtils.appendFile(path, msg + "\n" + stack + "\n\n");
-            } else {
-                FileUtils.rewriteFile(path, msg + "\n" + stack + "\n\n");
-            }
-        } catch (Exception ex) {
-
-        }
-
+        MobileApi.sendCrashLog(
+                DeviceUtils.getDeviceUniqueId(context),
+                GlobalInstance.device.roProductModel,
+                GlobalInstance.device.roBuildVersionSdk,
+                AccountUtils.getBindedEmailAddress(context),
+                GlobalInstance.device.roBuildDescription,
+                msg + "\n<br>" + stack,
+                DeviceUtils.getAppVersionName(context));
     }
 }

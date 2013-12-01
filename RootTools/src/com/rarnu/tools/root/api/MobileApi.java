@@ -1,9 +1,9 @@
 package com.rarnu.tools.root.api;
 
-import android.util.Log;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.common.UpdateInfo;
 import com.rarnu.utils.HttpRequest;
+import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -23,6 +23,7 @@ public class MobileApi {
     private static final String FEEDBACK_URL = BASE_URL + "user_feedback.php";
     private static final String FEEDBACK_PARAM = "deviceId=%s&module=%s&os_version=%s&mail=%s&build_desc=%s&comment=%s&app_version=%s";
     private static final String RECOMMAND_URL = BASE_URL + "get_recommand.php";
+    private static final String CRASH_URL = BASE_URL + "crash.php";
 
     public static UpdateInfo checkUpdate(int version) {
         UpdateInfo result = null;
@@ -50,12 +51,10 @@ public class MobileApi {
             comment = URLEncoder.encode(comment, HTTP.UTF_8);
             appVersion = URLEncoder.encode(appVersion, HTTP.UTF_8);
             String ret = HttpRequest.get(FEEDBACK_URL, String.format(FEEDBACK_PARAM, deviceId, module, osVersion, mail, buildDesc, comment, appVersion), HTTP.UTF_8);
-            Log.e("userFeedback", ret);
             JSONObject json = new JSONObject(ret);
             result = (json.getInt("result") != 0);
         } catch (Exception e) {
-            Log.e("userFeedback", e.getMessage());
-            result = false;
+
         }
         return result;
     }
@@ -82,6 +81,23 @@ public class MobileApi {
 
         }
         return result;
+    }
+
+    public static void sendCrashLog(String deviceId, String module, String osVersion, String mail, String buildDesc, String crash, String appVersion) {
+        boolean result = false;
+        try {
+            List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
+            params.add(new BasicNameValuePair("deviceId", deviceId));
+            params.add(new BasicNameValuePair("module", module));
+            params.add(new BasicNameValuePair("os_version", osVersion));
+            params.add(new BasicNameValuePair("mail", mail));
+            params.add(new BasicNameValuePair("build_desc", buildDesc));
+            params.add(new BasicNameValuePair("crash", crash));
+            params.add(new BasicNameValuePair("app_version", appVersion));
+            HttpRequest.post(CRASH_URL, params, HTTP.UTF_8);
+        } catch (Exception e) {
+
+        }
     }
 
 }
