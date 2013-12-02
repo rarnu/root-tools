@@ -364,4 +364,10 @@
     <string name="uninstalling">Uninstalling:</string>
     <string name="install_fmt" formatted="false">Install(%d)</string>
     <string name="uninstall_fmt" formatted="false">Uninstall(%d)</string>
+    <string name="widget_cleaning">Cleaning memory...</string>
+    <string name="widget_cleaning_finish">Cleaning memory finished</string>
+    <string name="widget_used_fmt" formatted="false">Used:%dM</string>
+    <string name="widget_free_fmt" formatted="false">Free:%dM</string>
+    <string name="widget_share_fmt" formatted="false">Share:%dM</string>
+    <string name="widget_buffer_fmt" formatted="false">Buffer:%dM</string>
 </resources>

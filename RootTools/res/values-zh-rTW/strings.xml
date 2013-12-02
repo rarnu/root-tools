@@ -334,4 +334,10 @@
     <string name="uninstalling">正在卸載:</string>
     <string name="install_fmt" formatted="false">安裝(%d)</string>
     <string name="uninstall_fmt" formatted="false">卸載(%d)</string>
+    <string name="widget_cleaning">正在清理內存...</string>
+    <string name="widget_cleaning_finish">清理內存完畢</string>
+    <string name="widget_used_fmt" formatted="false">已用:%dM</string>
+    <string name="widget_free_fmt" formatted="false">空閒:%dM</string>
+    <string name="widget_share_fmt" formatted="false">共享:%dM</string>
+    <string name="widget_buffer_fmt" formatted="false">緩存:%dM</string>
 </resources>
