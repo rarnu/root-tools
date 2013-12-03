@@ -509,6 +509,9 @@ public class ApkUtils {
     public static void openApp(Context context, String packageName, boolean newTask) {
         PackageInfo pi = null;
         try {
+            if (GlobalInstance.pm == null) {
+                GlobalInstance.init(context);
+            }
             pi = GlobalInstance.pm.getPackageInfo(packageName, 0);
         } catch (NameNotFoundException e) {
         }

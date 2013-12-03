@@ -60,11 +60,18 @@ public class AutoCleanMemoryService extends Service implements Loader.OnLoadComp
 
     @Override
     public int onStartCommand(Intent intent, int flags, int startId) {
+        flags = START_NOT_STICKY;
         isAlive = true;
         finishMessage = intent.getStringExtra("message");
         initView();
         loader.startLoading();
         return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        isAlive = false;
+        super.onDestroy();
     }
 
     @Override

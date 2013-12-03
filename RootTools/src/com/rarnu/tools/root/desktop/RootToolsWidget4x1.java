@@ -82,6 +82,7 @@ public class RootToolsWidget4x1 extends BaseAppWidget {
         } else if (action.equals(Actions.ACTION_WIDGET_LAUNCH)) {
             ApkUtils.openApp(context, context.getPackageName(), true);
         } else if (action.equals(Actions.ACTION_WIDGET_CLEAN_FINISH)) {
+            context.stopService(new Intent(context, AutoCleanMemoryService.class));
             Toast.makeText(context, R.string.widget_cleaning_finish, Toast.LENGTH_SHORT).show();
             showMemoryInfo(context, true);
         } else if (action.equals(Actions.ACTION_WIDGET_KEEP)) {
