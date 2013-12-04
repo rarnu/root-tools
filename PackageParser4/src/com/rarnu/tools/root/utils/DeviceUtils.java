@@ -28,6 +28,8 @@ public class DeviceUtils {
     public static final String RO_BOARD_PLATFORM = "ro.board.platform";
     public static final String RO_BUILD_DESCRIPTION = "ro.build.description";
     public static final String RO_PRODUCT_VERSION = "ro.product.version";
+    public static final String RO_MIUI_UI_VERSION_CODE = "ro.miui.ui.version.code";
+    public static final String RO_MIUI_UI_VERSION_NAME = "ro.miui.ui.version.name";
     private static final String BUILD_PROP = "/system/build.prop";
     private static List<String> buildProp = null;
 
@@ -168,7 +170,7 @@ public class DeviceUtils {
             }
 
             if (factory.toLowerCase().contains("xiaomi")) {
-                result += 1;
+                result++;
             }
         }
 
@@ -183,7 +185,7 @@ public class DeviceUtils {
             }
 
             if (module.toLowerCase().contains("zte")) {
-                result -= 1;
+                result--;
             }
             if (module.toLowerCase().contains("nexus")) {
                 result += 2;
@@ -192,7 +194,7 @@ public class DeviceUtils {
 
         String buildId = getBuildProp(RO_BUILD_ID);
         if (buildId.toLowerCase().contains("miui")) {
-            result += 1;
+            result++;
         }
 
         String cpu = getBuildProp(RO_PRODUCT_CPU_ABI);
@@ -200,6 +202,12 @@ public class DeviceUtils {
             result++;
         } else {
             result--;
+        }
+
+        String miuiCode = getBuildProp(RO_MIUI_UI_VERSION_CODE);
+        String miuiName = getBuildProp(RO_MIUI_UI_VERSION_NAME);
+        if (miuiCode != null && miuiName != null && !miuiCode.equals("") && !miuiName.equals("")) {
+            result++;
         }
 
         if (metric.widthPixels >= 480 && metric.heightPixels >= 800) {

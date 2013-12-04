@@ -39,9 +39,9 @@ public class ArticleListAdapter extends BaseAdapter<ArticleListItem> {
 
         ArticleListItem item = list.get(position);
         if (item != null) {
-            holder.tvTitle.setText(item.title);
+            holder.tvTitle.setText(item.name);
             holder.tvDesc.setText(item.desc);
-            holder.tvDatetime.setText(item.datetime);
+            holder.tvDatetime.setText(item.approved_time);
         }
 
         return v;

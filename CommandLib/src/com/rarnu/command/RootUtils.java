@@ -225,12 +225,14 @@ public class RootUtils {
 
     private static boolean isBaiduRom() {
         boolean ret = false;
-        CommandResult result = runCommand("getprop ro.product.manufacturer", false);
-        if (result != null) {
-            if (result.result.toLowerCase().contains("baidu")) {
-                ret = true;
-            }
+        try {
+            ApplicationInfo infoService = pm.getApplicationInfo("com.baidu.bsf.service", 0);
+            ApplicationInfo infoSystem = pm.getApplicationInfo("com.baidu.bsf.system", 0);
+            ret = (infoService != null && infoSystem != null);
+        } catch (Exception e) {
+
         }
+
         return ret;
     }
 }

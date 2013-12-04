@@ -68,7 +68,9 @@ public class MemorySpecialList {
 
         // miui
         String factory = DeviceUtils.getBuildProp(DeviceUtils.RO_PRODUCT_MANUFACTURER);
-        if (factory.toLowerCase().contains("xiaomi")) {
+        String miuiCode = DeviceUtils.getBuildProp(DeviceUtils.RO_MIUI_UI_VERSION_CODE);
+        String miuiName = DeviceUtils.getBuildProp(DeviceUtils.RO_MIUI_UI_VERSION_NAME);
+        if (factory.toLowerCase().contains("xiaomi") || (miuiCode != null && miuiName != null & !miuiCode.equals("") && !miuiName.equals(""))) {
             addSpecialPackagesForMIUI();
         }
 

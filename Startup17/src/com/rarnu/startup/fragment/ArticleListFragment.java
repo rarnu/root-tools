@@ -3,6 +3,7 @@ package com.rarnu.startup.fragment;
 import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
@@ -21,6 +22,14 @@ import java.util.List;
 
 public class ArticleListFragment extends BaseFragment implements AdapterView.OnItemClickListener, OnPullDownListener, Loader.OnLoadCompleteListener<List<ArticleListItem>> {
 
+    PullDownListView lvPulldown;
+    ArticleListAdapter adapter;
+    List<ArticleListItem> list;
+    ArticleListLoader loader;
+    int categoryId = 0;
+    int page = 1;
+    int pageSize = 20;
+    boolean isEnd = false;
     private int type = 0;
     private int[] tags = new int[]{
             R.string.tag_0, R.string.tag_1, R.string.tag_2,
@@ -32,11 +41,6 @@ public class ArticleListFragment extends BaseFragment implements AdapterView.OnI
             R.string.title_3, R.string.title_4, R.string.title_5,
             R.string.title_6, R.string.title_7, R.string.title_8
     };
-
-    PullDownListView lvPulldown;
-    ArticleListAdapter adapter;
-    List<ArticleListItem> list;
-    ArticleListLoader loader;
 
     @Override
     public int getBarTitle() {
@@ -74,6 +78,9 @@ public class ArticleListFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void initLogic() {
+        page = 1;
+        setIsEnd(false);
+        loader.setData(categoryId, page, pageSize);
         loader.startLoading();
         lvPulldown.notifyDidLoad();
     }
@@ -105,6 +112,7 @@ public class ArticleListFragment extends BaseFragment implements AdapterView.OnI
 
     public void setType(int type) {
         this.type = type;
+        categoryId = type;
         tagText = ResourceUtils.getString(tags[type]);
         tabTitle = ResourceUtils.getString(titles[type]);
     }
@@ -119,42 +127,49 @@ public class ArticleListFragment extends BaseFragment implements AdapterView.OnI
 
     @Override
     public void onRefresh() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(500);
-                    lvPulldown.notifyDidRefresh();
-                } catch (Exception e) {
-
-                }
-            }
-        }).start();
+        page = 1;
+        setIsEnd(false);
+        loader.setData(categoryId, page, pageSize);
+        loader.startLoading();
     }
 
     @Override
     public void onMore() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(500);
-                    lvPulldown.notifyDidMore();
-                } catch (Exception e) {
-
-                }
-            }
-        }).start();
+        if (!isEnd) {
+            page++;
+            loader.setData(categoryId, page, pageSize);
+            loader.startLoading();
+        } else {
+            lvPulldown.notifyDidMore();
+        }
     }
 
     @Override
     public void onLoadComplete(Loader<List<ArticleListItem>> loader, List<ArticleListItem> data) {
-        list.clear();
+        if (page == 1) {
+            list.clear();
+        }
         if (data != null) {
+            Log.e("onLoadComplete", "add all: " + data.size());
             list.addAll(data);
+        } else {
+            setIsEnd(true);
         }
         if (getActivity() != null) {
             adapter.setNewList(list);
+            lvPulldown.notifyDidRefresh();
+            lvPulldown.notifyDidMore();
+        }
+    }
+
+    private void setIsEnd(boolean end) {
+        isEnd = end;
+        if (isEnd) {
+            lvPulldown.enableAutoFetchMore(false, 0);
+            lvPulldown.showAutoFetchMore(false);
+        } else {
+            lvPulldown.enableAutoFetchMore(true, 1);
+            lvPulldown.showAutoFetchMore(true);
         }
     }
 }
