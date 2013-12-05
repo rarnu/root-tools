@@ -343,4 +343,5 @@
     <string name="widget_free_fmt" formatted="false">空闲:%dM</string>
     <string name="widget_share_fmt" formatted="false">共享:%dM</string>
     <string name="widget_buffer_fmt" formatted="false">缓存:%dM</string>
+    <string name="widget_used">已用内存</string>
 </resources>

@@ -47,7 +47,7 @@ public class RootToolsWidget1x1 extends BaseAppWidget {
         if (reinit) {
             reinit(context);
         }
-        setViewVisibility(context, R.id.wtv_mem_load_percent, View.VISIBLE);
+        setViewVisibility(context, R.id.wlay_percent, View.VISIBLE);
         setViewVisibility(context, R.id.wbtn_clean_disabled, View.GONE);
 
         setViewText(context, R.id.wtv_mem_load_percent, String.format("%d%%", percent));
@@ -67,7 +67,7 @@ public class RootToolsWidget1x1 extends BaseAppWidget {
         if (action.equals(Actions.ACTION_WIDGET_CLEAN)) {
             if (!AutoCleanMemoryService.isAlive) {
                 reinit(context);
-                setViewVisibility(context, R.id.wtv_mem_load_percent, View.GONE);
+                setViewVisibility(context, R.id.wlay_percent, View.GONE);
                 setViewVisibility(context, R.id.wbtn_clean_disabled, View.VISIBLE);
                 sync(context, RootToolsWidget1x1.class);
                 Toast.makeText(context, R.string.widget_cleaning, Toast.LENGTH_SHORT).show();

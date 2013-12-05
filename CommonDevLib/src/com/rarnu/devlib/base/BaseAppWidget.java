@@ -58,7 +58,6 @@ public abstract class BaseAppWidget extends AppWidgetProvider {
     public void onReceive(Context context, Intent intent) {
         super.onReceive(context, intent);
         String action = intent.getAction();
-        Log.e("BaseAppWidget", "onReceive: " + action);
         if (action != null) {
             if (!action.equals(AppWidgetManager.ACTION_APPWIDGET_UPDATE)
                     && !action.equals(AppWidgetManager.ACTION_APPWIDGET_DELETED)

@@ -371,4 +371,5 @@
     <string name="widget_free_fmt" formatted="false">Free:%dM</string>
     <string name="widget_share_fmt" formatted="false">Share:%dM</string>
     <string name="widget_buffer_fmt" formatted="false">Buffer:%dM</string>
+    <string name="widget_used">Used</string>
 </resources>
