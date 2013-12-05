@@ -129,21 +129,22 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
 
     @Override
     public void initMenu(Menu menu) {
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
+
+        itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 98, R.string.add);
+        itemAdd.setIcon(android.R.drawable.ic_menu_add);
+        itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        itemAdd.setEnabled(listHostsAll.size() != 0);
+
+        itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
+        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
+        itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 100, R.string.search);
         itemSearch.setIcon(android.R.drawable.ic_menu_search);
         itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         SearchView sv = new SearchView(getActivity());
         sv.setOnQueryTextListener(this);
         itemSearch.setActionView(sv);
-
-        itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
-        itemAdd.setIcon(android.R.drawable.ic_menu_add);
-        itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        itemAdd.setEnabled(listHostsAll.size() != 0);
-
-        itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100, R.string.refresh);
-        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
-        itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
     @Override

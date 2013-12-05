@@ -107,6 +107,7 @@
     <string name="add_ignore">加入忽略</string>
     <string name="remove_ignore">取消忽略</string>
     <string name="how_to_use">如何使用本软件</string>
+    <string name="build_team">开发团队</string>
     <string name="system_fitable">系统兼容性</string>
     <string name="testing">正在测试…</string>
     <string name="banned">系统正在操作，程序界面已被锁定</string>

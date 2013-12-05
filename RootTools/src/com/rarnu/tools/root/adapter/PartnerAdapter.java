@@ -9,23 +9,28 @@ import android.view.ViewGroup;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
 import com.rarnu.tools.root.R;
 
-public class PartnerAdapter extends BaseAdapter<Object> {
+public class PartnerAdapter extends BaseAdapter<Integer> {
 
-	public PartnerAdapter(Context context, List<Object> list) {
+	public PartnerAdapter(Context context, List<Integer> list) {
 		super(context, list);
 	}
 
 	@Override
 	public View getView(int position, View convertView, ViewGroup parent) {
-		View v = convertView;
-		if (v == null) {
-			v = inflater.inflate(R.layout.partner_item, parent, false);
-		}
+		View v = null;
+        switch (position) {
+            case 0:
+                v = inflater.inflate(R.layout.partner_item_eoe, parent, false);
+                break;
+            case 1:
+                v = inflater.inflate(R.layout.partner_item_ucloud, parent, false);
+                break;
+        }
 		return v;
 	}
 
 	@Override
-	public String getValueText(Object item) {
+	public String getValueText(Integer item) {
 		return "";
 	}
 

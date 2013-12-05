@@ -70,17 +70,20 @@ public class TerminalFragment extends BaseFragment {
 
     @Override
     public void initMenu(Menu menu) {
-        itemSendCtrl = menu.add(0, MenuItemIds.MENU_SEND_CTRL, 98, R.string.send_ctrl);
+
+        itemToggleInputMethod = menu.add(0, MenuItemIds.MENU_TOGGLE_INPUT_METHOD, 98, R.string.toggle_input_method);
+        itemToggleInputMethod.setIcon(android.R.drawable.ic_menu_sort_alphabetically);
+        itemToggleInputMethod.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        itemSendCtrl = menu.add(0, MenuItemIds.MENU_SEND_CTRL, 99, R.string.send_ctrl);
         itemSendCtrl.setTitle(R.string.ctrl);
         itemSendCtrl.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-        itemSendFn = menu.add(0, MenuItemIds.MENU_SEND_FN, 99, R.string.send_fn);
+        itemSendFn = menu.add(0, MenuItemIds.MENU_SEND_FN, 100, R.string.send_fn);
         itemSendFn.setTitle(R.string.fn);
         itemSendFn.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-        itemToggleInputMethod = menu.add(0, MenuItemIds.MENU_TOGGLE_INPUT_METHOD, 100, R.string.toggle_input_method);
-        itemToggleInputMethod.setIcon(android.R.drawable.ic_menu_sort_alphabetically);
-        itemToggleInputMethod.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
     }
 
     @Override

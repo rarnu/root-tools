@@ -47,7 +47,7 @@
             android:layout_alignParentRight="true"
             android:layout_below="@+id/tvTitle"
             android:textColor="?android:attr/textColorSecondary"
-            android:textSize="12sp"
+            android:textSize="10sp"
             />
 
 </RelativeLayout>

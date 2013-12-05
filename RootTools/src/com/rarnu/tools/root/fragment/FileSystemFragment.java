@@ -143,12 +143,9 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
 
     @Override
     public void initMenu(Menu menu) {
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 97, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        SearchView sv = new SearchView(getActivity());
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
+        itemPool = menu.add(0, MenuItemIds.MENU_POOL, 97, R.string.pool);
+        itemPool.setIcon(ImageUtils.loadActionBarIcon(getActivity(), GlobalInstance.listOperation.size() == 0 ? R.drawable.fs_gray : R.drawable.fs_light));
+        itemPool.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 98, R.string.uplevel);
         itemUp.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.up_level));
@@ -158,9 +155,12 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
         itemAdd.setIcon(android.R.drawable.ic_menu_add);
         itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-        itemPool = menu.add(0, MenuItemIds.MENU_POOL, 100, R.string.pool);
-        itemPool.setIcon(ImageUtils.loadActionBarIcon(getActivity(), GlobalInstance.listOperation.size() == 0 ? R.drawable.fs_gray : R.drawable.fs_light));
-        itemPool.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 100, R.string.search);
+        itemSearch.setIcon(android.R.drawable.ic_menu_search);
+        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        SearchView sv = new SearchView(getActivity());
+        sv.setOnQueryTextListener(this);
+        itemSearch.setActionView(sv);
     }
 
     @Override

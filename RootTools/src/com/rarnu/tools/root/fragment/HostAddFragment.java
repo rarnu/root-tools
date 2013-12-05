@@ -94,17 +94,18 @@ public class HostAddFragment extends BasePopupFragment implements OnClickListene
 
     @Override
     public void initMenu(Menu menu) {
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
+
+        itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 98, R.string.add);
+        itemAdd.setIcon(android.R.drawable.ic_menu_add);
+        itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 99, R.string.search);
         itemSearch.setIcon(android.R.drawable.ic_menu_search);
         itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         sv = new SearchView(getActivity());
         sv.setIconifiedByDefault(true);
         sv.setOnQueryTextListener(this);
         itemSearch.setActionView(sv);
-
-        itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 99, R.string.add);
-        itemAdd.setIcon(android.R.drawable.ic_menu_add);
-        itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
     }
 

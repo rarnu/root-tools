@@ -75,6 +75,7 @@ public class TextEditorFragment extends BasePopupFragment {
         itemSave = menu.add(0, MenuItemIds.MENU_SAVE, 98, R.string.save);
         itemSave.setIcon(android.R.drawable.ic_menu_save);
         itemSave.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
         itemRevert = menu.add(0, MenuItemIds.MENU_REVERT, 99, R.string.revert);
         itemRevert.setIcon(android.R.drawable.ic_menu_revert);
         itemRevert.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);

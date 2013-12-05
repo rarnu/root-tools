@@ -134,20 +134,21 @@ public class MemFragment extends BaseFragment implements OnItemClickListener, On
 
     @Override
     public void initMenu(Menu menu) {
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        SearchView sv = new SearchView(getActivity());
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
+
+        menuClean = menu.add(0, MenuItemIds.MENU_CLEAN, 98, R.string.clean);
+        menuClean.setIcon(android.R.drawable.ic_menu_delete);
+        menuClean.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         menuRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
         menuRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         menuRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-        menuClean = menu.add(0, MenuItemIds.MENU_CLEAN, 100, R.string.clean);
-        menuClean.setIcon(android.R.drawable.ic_menu_delete);
-        menuClean.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 100, R.string.search);
+        itemSearch.setIcon(android.R.drawable.ic_menu_search);
+        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        SearchView sv = new SearchView(getActivity());
+        sv.setOnQueryTextListener(this);
+        itemSearch.setActionView(sv);
 
     }
 

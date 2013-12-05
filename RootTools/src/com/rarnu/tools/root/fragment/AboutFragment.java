@@ -32,8 +32,8 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
     TextView tvAbout;
     AboutAdapter adapter = null;
     List<AboutInfo> list = null;
-    PartnerAdapter adapterEoe = null;
-    List<Object> listEoe = null;
+    PartnerAdapter adapterPartner = null;
+    List<Integer> listPartner = null;
     int fitable = 5;
     int fitableClick = 0;
 
@@ -81,10 +81,11 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
         list = new ArrayList<AboutInfo>();
         adapter = new AboutAdapter(getActivity(), list);
         lstAbout.setAdapter(adapter);
-        listEoe = new ArrayList<Object>();
-        listEoe.add(new Object());
-        adapterEoe = new PartnerAdapter(getActivity(), listEoe);
-        lstEoe.setAdapter(adapterEoe);
+        listPartner = new ArrayList<Integer>();
+        listPartner.add(0);
+        listPartner.add(1);
+        adapterPartner = new PartnerAdapter(getActivity(), listPartner);
+        lstEoe.setAdapter(adapterPartner);
     }
 
     @Override
@@ -105,7 +106,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 
         list.clear();
         list.add(buildAboutInfo(R.string.check_update, -1));
-        list.add(buildAboutInfo(R.string.how_to_use, -1));
+        list.add(buildAboutInfo(R.string.build_team, -1));
         list.add(buildAboutInfo(R.string.system_fitable, getSystemFitable()));
 
         adapter.setNewList(list);
@@ -138,14 +139,26 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         if (parent.getAdapter() instanceof PartnerAdapter) {
-            Intent inEoe = new Intent(Intent.ACTION_VIEW);
-            inEoe.setData(Uri.parse("http://eoemarket.com/"));
-            startActivity(inEoe);
+
+            Intent inWebsite = new Intent(Intent.ACTION_VIEW);
+            switch (position) {
+                case 0:
+                    inWebsite.setData(Uri.parse("http://eoemarket.com/"));
+                    break;
+                case 1:
+                    inWebsite.setData(Uri.parse("http://ucloud.cn/"));
+                    break;
+            }
+            startActivity(inWebsite);
         } else {
             switch (position) {
                 case 0:
                     UpdateUtils.showUpdateInfo(getActivity());
                     break;
+                case 1:
+                    // TODO: build team
+                    break;
+
             }
         }
     }

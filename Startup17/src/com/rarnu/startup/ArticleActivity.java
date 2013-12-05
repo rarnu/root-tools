@@ -16,6 +16,7 @@ public class ArticleActivity extends BaseActivity {
         ArticleFragment af = new ArticleFragment();
         Bundle bn = new Bundle();
         bn.putLong("id", getIntent().getLongExtra("id", 0L));
+        af.setArguments(bn);
         return af;
     }
 }

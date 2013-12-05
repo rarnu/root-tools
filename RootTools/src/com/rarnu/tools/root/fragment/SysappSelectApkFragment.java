@@ -190,17 +190,17 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
 
     @Override
     public void initMenu(Menu menu) {
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
+
+        itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 98, R.string.uplevel);
+        itemUp.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.up_level));
+        itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 99, R.string.search);
         itemSearch.setIcon(android.R.drawable.ic_menu_search);
         itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         SearchView sv = new SearchView(getActivity());
         sv.setOnQueryTextListener(this);
         itemSearch.setActionView(sv);
-
-        itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 99, R.string.uplevel);
-        itemUp.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.up_level));
-        itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
     }
 
     @Override

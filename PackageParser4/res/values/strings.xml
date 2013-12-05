@@ -33,6 +33,4 @@
     <string name="clean_dalvik">Clean Dalvik</string>
     <string name="diskinfo">Disk Information</string>
     <string name="filesystem">File System</string>
-    <string name="eoe_title">EOE Market / www.eoemarket.com</string>
-    <string name="eoe_desc">The unique partner of RootTools</string>
 </resources>

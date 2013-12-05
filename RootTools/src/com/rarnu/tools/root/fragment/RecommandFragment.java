@@ -4,6 +4,7 @@ import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -13,9 +14,11 @@ import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.RecommandAdapter;
+import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.loader.RecommandLoader;
 import com.rarnu.tools.root.utils.ApkUtils;
+import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,7 @@ public class RecommandFragment extends BaseFragment implements OnLoadCompleteLis
     List<RecommandInfo> lstRecommand = new ArrayList<RecommandInfo>();
     RecommandAdapter adapter = null;
     RecommandLoader loader = null;
+    MenuItem miRefresh;
 
     @Override
     public int getBarTitle() {
@@ -59,7 +63,19 @@ public class RecommandFragment extends BaseFragment implements OnLoadCompleteLis
 
     @Override
     public void initMenu(Menu menu) {
+        miRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100, R.string.refresh);
+        miRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
+        miRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MenuItemIds.MENU_REFRESH:
+                doStartLoad();
+                break;
+        }
+        return true;
     }
 
     private void doStartLoad() {
@@ -74,8 +90,10 @@ public class RecommandFragment extends BaseFragment implements OnLoadCompleteLis
         if (data != null) {
             lstRecommand.addAll(data);
         }
-        adapter.setNewList(lstRecommand);
-        progressRecommand.setVisibility(View.GONE);
+        if (getActivity() != null) {
+            adapter.setNewList(lstRecommand);
+            progressRecommand.setVisibility(View.GONE);
+        }
     }
 
     @Override

@@ -107,6 +107,7 @@
     <string name="add_ignore">Ignore</string>
     <string name="remove_ignore">Unignore</string>
     <string name="how_to_use">How to use</string>
+    <string name="build_team">Build Team</string>
     <string name="system_fitable">Compatibility</string>
     <string name="testing">Testing ...</string>
     <string name="banned">Operating, UI is locked</string>

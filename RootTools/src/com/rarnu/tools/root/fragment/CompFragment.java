@@ -75,16 +75,17 @@ public class CompFragment extends BaseFragment implements OnItemClickListener, O
 
     @Override
     public void initMenu(Menu menu) {
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
+
+        menuRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 98, R.string.refresh);
+        menuRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
+        menuRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 99, R.string.search);
         itemSearch.setIcon(android.R.drawable.ic_menu_search);
         itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         SearchView sv = new SearchView(getActivity());
         sv.setOnQueryTextListener(this);
         itemSearch.setActionView(sv);
-
-        menuRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
-        menuRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
-        menuRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
     }
 
