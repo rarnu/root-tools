@@ -15,4 +15,6 @@ lint.xml
 convert2
 out/
 .idea/workspace.xml
+.idea/modules.xml
+.idea/vcs.xml
 

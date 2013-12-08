@@ -25,7 +25,7 @@ import com.rarnu.utils.NetworkUtils;
 public class IndexFragment extends BasePreferenceFragment implements
         OnPreferenceClickListener {
 
-    PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefRoot, prefHtcRom;
+    PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefFirewall, prefRoot, prefHtcRom;
     PreferenceEx prefBackup, prefRestore, prefHardUpdate, prefBatchApps;
     PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik, prefDiskInfo, prefFileSystem;
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
@@ -38,6 +38,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefSysApp.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefSysAppEnabled.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefComponent.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+        prefFirewall.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRoot.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefHtcRom.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
 
@@ -69,6 +70,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefSysApp.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefSysAppEnabled.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefHardUpdate.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
+        prefFirewall.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRoot.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefBackup.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRestore.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
@@ -92,6 +94,9 @@ public class IndexFragment extends BasePreferenceFragment implements
             UIInstance.currentFragment = 3;
             FragmentStarter.showContent(getActivity(), CompMainActivity.class, Fragments.getFragment(FragmentNameConst.FN_COMP));
 
+        } else if (preference.getKey().equals(getString(R.string.id_firewall))) {
+            UIInstance.currentFragment = 20;
+            FragmentStarter.showContent(getActivity(), FirewallActivity.class, Fragments.getFragment(FragmentNameConst.FN_FIREWALL));
         } else if (preference.getKey().equals(getString(R.string.id_root))) {
             UIInstance.currentFragment = 4;
             FragmentStarter.showContent(getActivity(), BusyboxActivity.class, Fragments.getFragment(FragmentNameConst.FN_BUSYBOX));
@@ -200,6 +205,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefSysApp = (PreferenceEx) findPreference(getString(R.string.id_sysapp));
         prefSysAppEnabled = (PreferenceEx) findPreference(getString(R.string.id_sysappenabled));
         prefComponent = (PreferenceEx) findPreference(getString(R.string.id_component));
+        prefFirewall = (PreferenceEx) findPreference(getString(R.string.id_firewall));
         prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
         prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
 
@@ -229,6 +235,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefSysApp.setOnPreferenceClickListener(this);
         prefSysAppEnabled.setOnPreferenceClickListener(this);
         prefComponent.setOnPreferenceClickListener(this);
+        prefFirewall.setOnPreferenceClickListener(this);
         prefRoot.setOnPreferenceClickListener(this);
         prefHtcRom.setOnPreferenceClickListener(this);
 

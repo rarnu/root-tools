@@ -179,6 +179,8 @@ public class MainActivity extends BaseMainActivity {
                 return Fragments.getFragment(FragmentNameConst.FN_FILESYSTEM);
             case 19:
                 return Fragments.getFragment(FragmentNameConst.FN_BATCH_APPS);
+            case 20:
+                return Fragments.getFragment(FragmentNameConst.FN_FIREWALL);
             default:
                 return Fragments.getFragment(FragmentNameConst.FN_ABOUT);
         }
@@ -192,14 +194,14 @@ public class MainActivity extends BaseMainActivity {
     @Override
     public void initMenu(Menu menu) {
         menu.clear();
-        actionItem = menu.add(0, MenuItemIds.MENU_ID_SHARE, 0, R.string.short_share);
+        actionItem = menu.add(0, MenuItemIds.MENU_SHARE, 0, R.string.short_share);
         actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         actionItem.setIcon(android.R.drawable.ic_menu_share);
         ShareActionProvider actionProvider = new ShareActionProvider(this);
         actionItem.setActionProvider(actionProvider);
         actionProvider.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
         actionProvider.setShareIntent(createShareIntent());
-
+          `
     }
 
     @Override

@@ -39,6 +39,7 @@ public class Fragments {
     private static TextEditorFragment fTextEditor = null;
     private static InstallApkFragment fInstallApk = null;
     private static BatchAppsFragment fBatchApps = null;
+    private static FirewallFragment fFirewall = null;
 
     public static Fragment getFragment(String name) {
         releaseOtherFragment(name);
@@ -142,6 +143,9 @@ public class Fragments {
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_BATCH_APPS, BatchAppsFragment.class, fBatchApps);
         }
+        if (f == null) {
+            f = getFragment(name, FragmentNameConst.FN_FIREWALL, FirewallFragment.class, fFirewall);
+        }
 
         return f;
     }
@@ -192,6 +196,7 @@ public class Fragments {
         fTextEditor = null;
         fInstallApk = null;
         fBatchApps = null;
+        fFirewall = null;
     }
 
     public static void releaseOtherFragment(String name) {
@@ -226,6 +231,7 @@ public class Fragments {
         doReleaseFragment(name, FragmentNameConst.FN_TEXT_EDITOR, fTextEditor);
         doReleaseFragment(name, FragmentNameConst.FN_INSTALL_APK, fInstallApk);
         doReleaseFragment(name, FragmentNameConst.FN_BATCH_APPS, fBatchApps);
+        doReleaseFragment(name, FragmentNameConst.FN_FIREWALL, fFirewall);
     }
 
     private static void doReleaseFragment(String name, String checkName, Fragment f) {

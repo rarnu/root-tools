@@ -81,6 +81,8 @@
     <string name="func_filesystem_with_path">RootTools &gt; File System</string>
     <string name="func_batch_app">Batch Apps</string>
     <string name="func_batch_app_with_path">RootTools &gt; Batch Apps</string>
+    <string name="func_firewall">Firewall</string>
+    <string name="func_firewall_with_path">RootTools &gt; Firewall</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>
@@ -294,6 +296,7 @@
     <string name="summary_hardupdate">Update the apps with different signature</string>
     <string name="summary_batch_apps">Install or uninstall apps in batch</string>
     <string name="summary_component">Enable/Disable components in apps</string>
+    <string name="summary_firewall">Manage the network permission of apps</string>
     <string name="summary_cleanhtc">Clean ROM and batch delete apps</string>
     <string name="summary_backup">Backup apps and private data</string>
     <string name="summary_restore">Restore apps and private data</string>

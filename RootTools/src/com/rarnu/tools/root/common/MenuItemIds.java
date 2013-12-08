@@ -4,8 +4,8 @@ import android.view.Menu;
 
 public class MenuItemIds {
 
-	public static final int MENU_ID_SHARE = Menu.FIRST;
-	public static final int MENU_ID_SETTINGS = Menu.FIRST + 1;
+	public static final int MENU_SHARE = Menu.FIRST;
+	public static final int MENU_SETTINGS = Menu.FIRST + 1;
     public static final int MENU_SEND = Menu.FIRST + 2;
     public static final int MENU_HELP = Menu.FIRST + 3;
 	
@@ -25,4 +25,6 @@ public class MenuItemIds {
 
     public static final int MENU_POOL = Menu.FIRST + 14;
     public static final int MENU_REVERT = Menu.FIRST + 15;
+
+    public static final int MENU_APPLY = Menu.FIRST + 16;
 }

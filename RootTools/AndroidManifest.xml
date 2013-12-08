@@ -6,27 +6,27 @@
 
     <uses-sdk
             android:minSdkVersion="14"
-            android:targetSdkVersion="15"/>
+            android:targetSdkVersion="15" />
 
-    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
-    <uses-permission android:name="android.permission.ACCESS_SUPERUSER"/>
-    <uses-permission android:name="android.permission.GET_TASKS"/>
-    <uses-permission android:name="android.permission.ROOT_TOOLS"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED"/>
+    <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
+    <uses-permission android:name="android.permission.ACCESS_SUPERUSER" />
+    <uses-permission android:name="android.permission.GET_TASKS" />
+    <uses-permission android:name="android.permission.ROOT_TOOLS" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
     <permission
             android:name="android.permission.ROOT_TOOLS"
             android:icon="@drawable/icon"
             android:label="@string/app_name"
             android:permissionGroup="android.permission-group.SYSTEM_TOOLS"
-            android:protectionLevel="dangerous"/>
+            android:protectionLevel="dangerous" />
 
     <application
             android:name=".RootApplication"
@@ -36,7 +36,7 @@
             android:theme="@android:style/Theme.Holo">
         <meta-data
                 android:name="debug"
-                android:value="false"/>
+                android:value="false" />
 
         <activity
                 android:name=".SplashActivity"
@@ -44,8 +44,8 @@
                 android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
                 android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -76,7 +76,7 @@
         <activity
                 android:name=".fragmentactivity.SysappDetailActivity"
                 android:label="@string/sysapp_name"
-                android:windowSoftInputMode="stateAlwaysHidden"/>
+                android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
                 android:name=".fragmentactivity.SysappSelectApkActivity"
                 android:label="@string/sysapp_select"
@@ -122,12 +122,14 @@
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
-        <activity android:name=".fragmentactivity.PoolActivity"
+        <activity
+                android:name=".fragmentactivity.PoolActivity"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
-                android:windowSoftInputMode="stateAlwaysHidden"/>
-        <activity android:name=".fragmentactivity.InstallApkActivity"
+                android:windowSoftInputMode="stateAlwaysHidden" />
+        <activity
+                android:name=".fragmentactivity.InstallApkActivity"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
-                android:windowSoftInputMode="stateAlwaysHidden"/>
+                android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
                 android:name=".fragmentactivity.HostMainActivity"
                 android:label="@string/func7_title"
@@ -206,54 +208,59 @@
                 android:label="@string/func_batch_app"
                 android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity
+                android:name=".fragmentactivity.FirewallActivity"
+                android:label="@string/func_firewall"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
 
         <service
                 android:name=".service.HtcRomService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.DataBackupService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.DataRestoreService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.CleanBackupService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.BatchInstallService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.BatchUninstallService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.FloatWidgetService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.AutoCleanMemoryService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
         <service
                 android:name=".service.WidgetKeepService"
-                android:label="@string/app_name"/>
+                android:label="@string/app_name" />
 
         <receiver
                 android:name="com.rarnu.devlib.component.NetworkReceiver"
                 android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.net.conn.CONNECTIVITY_CHANGE"/>
+                <action android:name="android.net.conn.CONNECTIVITY_CHANGE" />
             </intent-filter>
         </receiver>
         <receiver
                 android:name=".receiver.NotifyReceiver"
                 android:label="@string/app_name">
             <intent-filter>
-                <action android:name="com.rarnu.root.tools.notify"/>
+                <action android:name="com.rarnu.root.tools.notify" />
             </intent-filter>
         </receiver>
         <receiver
                 android:name=".receiver.BootReceiver"
                 android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
             </intent-filter>
         </receiver>
 
@@ -261,29 +268,31 @@
                 android:name=".desktop.RootToolsWidget4x1"
                 android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="com.rarnu.root.tools.widget.clean"/>
-                <action android:name="com.rarnu.root.tools.widget.launch"/>
-                <action android:name="com.rarnu.root.tools.widget.clean.finish"/>
-                <action android:name="com.rarnu.root.tools.widget.keep"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.rarnu.root.tools.widget.clean" />
+                <action android:name="com.rarnu.root.tools.widget.launch" />
+                <action android:name="com.rarnu.root.tools.widget.clean.finish" />
+                <action android:name="com.rarnu.root.tools.widget.keep" />
 
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                    android:resource="@xml/widget_provider_4x1"/>
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_provider_4x1" />
         </receiver>
 
         <receiver
                 android:name=".desktop.RootToolsWidget1x1"
                 android:label="@string/app_name">
             <intent-filter>
-                <action android:name="android.appwidget.action.APPWIDGET_UPDATE"/>
-                <action android:name="com.rarnu.root.tools.widget.clean"/>
-                <action android:name="com.rarnu.root.tools.widget.clean.finish"/>
-                <action android:name="com.rarnu.root.tools.widget.keep"/>
+                <action android:name="android.appwidget.action.APPWIDGET_UPDATE" />
+                <action android:name="com.rarnu.root.tools.widget.clean" />
+                <action android:name="com.rarnu.root.tools.widget.clean.finish" />
+                <action android:name="com.rarnu.root.tools.widget.keep" />
 
             </intent-filter>
-            <meta-data android:name="android.appwidget.provider"
-                    android:resource="@xml/widget_provider_1x1"/>
+            <meta-data
+                    android:name="android.appwidget.provider"
+                    android:resource="@xml/widget_provider_1x1" />
         </receiver>
     </application>
 
