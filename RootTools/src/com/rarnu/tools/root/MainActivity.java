@@ -201,7 +201,7 @@ public class MainActivity extends BaseMainActivity {
         actionItem.setActionProvider(actionProvider);
         actionProvider.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
         actionProvider.setShareIntent(createShareIntent());
-          `
+
     }
 
     @Override
