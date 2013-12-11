@@ -7,6 +7,9 @@ import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 
 public class BuildTeamFragment extends BaseFragment {
+
+    // TODO: team information
+
     @Override
     public int getBarTitle() {
         return R.string.build_team;

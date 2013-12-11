@@ -7,7 +7,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
@@ -20,7 +19,6 @@ import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.BusyboxAdapter;
 import com.rarnu.tools.root.common.BusyboxInfo;
-import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.UIUtils;
@@ -34,7 +32,7 @@ public class BusyboxFragment extends BaseFragment implements OnItemClickListener
     BlockListView lstBusybox;
     List<BusyboxInfo> list = null;
     BusyboxAdapter adapter = null;
-    MenuItem itemHelp;
+
     Handler hInstall = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -44,16 +42,6 @@ public class BusyboxFragment extends BaseFragment implements OnItemClickListener
             super.handleMessage(msg);
         }
     };
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        switch (item.getItemId()) {
-            case MenuItemIds.MENU_HELP:
-                showHelp();
-                break;
-        }
-        return true;
-    }
 
     private void checkStatus() {
         boolean hasSu = RootUtils.hasSu();
@@ -73,14 +61,6 @@ public class BusyboxFragment extends BaseFragment implements OnItemClickListener
         info.title = getString(resTitle);
         info.state = state;
         return info;
-    }
-
-    private void showHelp() {
-        new AlertDialog.Builder(getActivity())
-                .setTitle(R.string.help)
-                .setMessage(R.string.help_busybox)
-                .setPositiveButton(R.string.ok, null)
-                .show();
     }
 
     private void showSuStatus() {
@@ -123,9 +103,7 @@ public class BusyboxFragment extends BaseFragment implements OnItemClickListener
 
     @Override
     public void initMenu(Menu menu) {
-        itemHelp = menu.add(0, MenuItemIds.MENU_HELP, 99, R.string.help);
-        itemHelp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        itemHelp.setIcon(android.R.drawable.ic_menu_help);
+
     }
 
     @Override

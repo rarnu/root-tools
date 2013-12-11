@@ -36,8 +36,8 @@
     <string name="clean_htc_rom">Clean ROM</string>
     <string name="clean_htc_rom_with_path">RootTools &gt; Clean ROM</string>
     <string name="clean_htc_rom_finish">Clean ROM finished.</string>
-    <string name="busybox">Root &amp; Busybox</string>
-    <string name="busybox_with_path">RootTools &gt; Root &amp; Busybox</string>
+    <string name="busybox">System Components</string>
+    <string name="busybox_with_path">RootTools &gt; System Components</string>
     <string name="settings_with_path">RootTools &gt; Settings</string>
     <string name="check_update">Check Update</string>
     <string name="about">About</string>
@@ -68,7 +68,7 @@
     <string name="func7_title">Edit Hosts</string>
     <string name="func7_title_with_path">RootTools &gt; Edit Hosts</string>
     <string name="func8">ROOT\nBusybox</string>
-    <string name="func8_title">Root &amp; Busybox</string>
+    <string name="func8_title">System Components</string>
     <string name="func9">Miscellaneous</string>
     <string name="func9_func">Miscellaneous</string>
     <string name="func_terminal">Terminal Emulator</string>
@@ -244,7 +244,7 @@
     <string name="get_root_explorer">Root Explorer</string>
     <string name="root_buybox_desc">The software will not provide the ROOT permission for the phone. If not prompt Root
         permission, please search the forums according to the phone model. \n\n Here will check the necessary conditions
-        for using this app. You may install/reinstall SuperUser and busybox here. \n\nThis app will properly not work on
+        for using this app. You may install busybox and iptables here. \n\nThis app will properly not work on
         some devices even rooted, and if you meeted this, please contact us by feedback.
     </string>
     <string name="intent_open_error">Cannot find app which response the intent</string>
@@ -288,8 +288,9 @@
     <string name="itmdesc_cm3rd">Remove Apollo, FileManager, Terminal etc.</string>
     <string name="clean_htc_rom_confirm">Are you sure to clean the ROM? This operation cannot be restored.</string>
     <string name="no_clean_item_selected">No clean item selected</string>
+    <string name="share">Share to friends</string>
     <string name="share_title">Recommand you an excellent app: RootTools</string>
-    <string name="share_body">RootTools (http://rarnu.7thgen.info/) can help to manage your Android phone.</string>
+    <string name="share_body">RootTools (http://rarnu.7thgen.info/d.php) can help to manage your Android phone.</string>
     <string name="summary_sysapp">Install/Uninstall system apps</string>
     <string name="summary_sysappenabled">Enable/Disable installed apps</string>
     <string name="summary_hardupdate">Update the apps with different signature</string>
@@ -360,7 +361,8 @@
     <string name="install_apk_title">Install Application</string>
     <string name="installing_apk_fmt" formatted="false">Installing %s ...</string>
     <string name="install_apk_finished" formatted="false">Package %s installed</string>
-    <string name="install_apk_failed" formatted="false">Install package failed, reason: &lt;font color=\"#FF0000\"&gt;%s&lt;/font&gt;</string>
+    <string name="install_apk_failed"
+            formatted="false">Install package failed, reason: &lt;font color=\"#FF0000\"&gt;%s&lt;/font&gt;</string>
     <string name="install">Install</string>
     <string name="uninstall">Uninstall</string>
     <string name="installing">Installing:</string>

@@ -36,8 +36,8 @@
     <string name="clean_htc_rom">清理 ROM</string>
     <string name="clean_htc_rom_with_path">掌优 &gt; 清理 ROM</string>
     <string name="clean_htc_rom_finish">清理 ROM 完毕</string>
-    <string name="busybox">Root &amp; Busybox</string>
-    <string name="busybox_with_path">掌优 &gt; Root &amp; Busybox</string>
+    <string name="busybox">系统组件</string>
+    <string name="busybox_with_path">掌优 &gt; 系统组件</string>
     <string name="settings_with_path">掌优 &gt; 软件设置</string>
     <string name="check_update">检查更新</string>
     <string name="about">关于本软件</string>
@@ -68,7 +68,7 @@
     <string name="func7_title">修改 Hosts</string>
     <string name="func7_title_with_path">掌优 &gt; 修改 Hosts</string>
     <string name="func8">ROOT\nBusybox</string>
-    <string name="func8_title">Root &amp; Busybox</string>
+    <string name="func8_title">系统组件</string>
     <string name="func9">杂项功能</string>
     <string name="func9_func">杂项功能</string>
     <string name="func_terminal">终端模拟器</string>
@@ -270,8 +270,9 @@
     <string name="itmdesc_cm3rd">移除 Apollo, FileManager, Terminal 等</string>
     <string name="clean_htc_rom_confirm">确定要清理 ROM 吗？清理后不可恢复，确定要清理请按“确定”。</string>
     <string name="no_clean_item_selected">没有选定要清除的项目</string>
+    <string name="share">分享给朋友</string>
     <string name="share_title">向您推荐一款好用的App《掌优》</string>
-    <string name="share_body">掌优(http://rarnu.7thgen.info/)可以帮助您管理您的手机，实现对系统的完全掌控</string>
+    <string name="share_body">掌优(http://rarnu.7thgen.info/d.php)可以帮助您管理您的手机，实现对系统的完全掌控</string>
     <string name="summary_sysapp">安装或卸载系统内的应用程序</string>
     <string name="summary_sysappenabled">禁用或启动指定的应用程序</string>
     <string name="summary_hardupdate">强制升级因签名不一致无法升级的应用</string>

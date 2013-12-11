@@ -2,29 +2,25 @@ package com.rarnu.tools.root;
 
 import android.app.Fragment;
 import android.content.Intent;
-import android.graphics.Bitmap;
-import android.graphics.Bitmap.CompressFormat;
-import android.graphics.BitmapFactory;
-import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ShareActionProvider;
 import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseMainActivity;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConfig;
+import com.rarnu.tools.root.fragmentactivity.ShareActivity;
 import com.rarnu.tools.root.service.FloatWidgetService;
-import com.rarnu.tools.root.utils.*;
+import com.rarnu.tools.root.utils.CustomPackageUtils;
+import com.rarnu.tools.root.utils.DeviceUtils;
+import com.rarnu.tools.root.utils.MemorySpecialList;
+import com.rarnu.tools.root.utils.UpdateUtils;
 import com.rarnu.utils.FloatUtils;
-import com.rarnu.utils.ImageUtils;
 import com.rarnu.utils.NetworkUtils;
-
-import java.io.File;
 
 public class MainActivity extends BaseMainActivity {
 
@@ -45,14 +41,6 @@ public class MainActivity extends BaseMainActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-    }
-
-    private Intent createShareIntent() {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("image/*");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_body));
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
-        return shareIntent;
     }
 
     private void loadExcludeListT() {
@@ -185,13 +173,20 @@ public class MainActivity extends BaseMainActivity {
     public void initMenu(Menu menu) {
         menu.clear();
         actionItem = menu.add(0, MenuItemIds.MENU_SHARE, 0, R.string.short_share);
-        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        actionItem.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         actionItem.setIcon(android.R.drawable.ic_menu_share);
-        ShareActionProvider actionProvider = new ShareActionProvider(this);
-        actionItem.setActionProvider(actionProvider);
-        actionProvider.setShareHistoryFileName(ShareActionProvider.DEFAULT_SHARE_HISTORY_FILE_NAME);
-        actionProvider.setShareIntent(createShareIntent());
 
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MenuItemIds.MENU_SHARE:
+                Intent inShare = new Intent(this, ShareActivity.class);
+                startActivity(inShare);
+                break;
+        }
+        return true;
     }
 
     @Override
