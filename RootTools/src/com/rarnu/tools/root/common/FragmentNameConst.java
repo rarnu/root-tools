@@ -37,4 +37,5 @@ public class FragmentNameConst {
     public static final String FN_BATCH_INSTALL = "batchinstall";
     public static final String FN_BATCH_UNINSTALL = "batchuninstall";
     public static final String FN_FIREWALL = "firewall";
+    public static final String FN_BUILD_TEAM = "buildteam";
 }

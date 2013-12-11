@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
+import com.rarnu.tools.root.utils.IptablesUtils;
 import com.rarnu.utils.MiscUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
@@ -29,6 +30,7 @@ public class SplashActivity extends Activity {
 
         RootUtils.init(this);
         GlobalInstance.init(this);
+        IptablesUtils.init();
 
         if (!MiscUtils.isSDCardExists()) {
 

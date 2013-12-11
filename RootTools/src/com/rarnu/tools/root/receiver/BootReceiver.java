@@ -7,6 +7,7 @@ import android.util.Log;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.service.FloatWidgetService;
+import com.rarnu.tools.root.utils.IptablesUtils;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.utils.FloatUtils;
 
@@ -21,6 +22,12 @@ public class BootReceiver extends BroadcastReceiver {
             MemorySpecialList.loadExcludeList(context);
             RTConfig.initConfig(context);
             showFloatWindow(context);
+
+            if (IptablesUtils.isEnabled(context)) {
+                if (!IptablesUtils.applySavedIptablesRules(context)) {
+                    IptablesUtils.setEnabled(context, false);
+                }
+            }
         }
     }
 

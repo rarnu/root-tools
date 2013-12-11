@@ -209,6 +209,7 @@
     <string name="file_su">su</string>
     <string name="file_super_user">Superuser.apk</string>
     <string name="file_busybox">busybox</string>
+    <string name="file_iptables">iptables</string>
     <string name="no_update_found">Already the last version</string>
     <string name="update_found_info" formatted="false">Find new version %s, it will cost %s for downloading. Are you
         sure to update it?
@@ -288,9 +289,7 @@
     <string name="clean_htc_rom_confirm">Are you sure to clean the ROM? This operation cannot be restored.</string>
     <string name="no_clean_item_selected">No clean item selected</string>
     <string name="share_title">Recommand you an excellent app: RootTools</string>
-    <string name="share_body">RootTools can help to manage your Android phone, download here:
-        http://rarnu.7thgen.info/
-    </string>
+    <string name="share_body">RootTools (http://rarnu.7thgen.info/) can help to manage your Android phone.</string>
     <string name="summary_sysapp">Install/Uninstall system apps</string>
     <string name="summary_sysappenabled">Enable/Disable installed apps</string>
     <string name="summary_hardupdate">Update the apps with different signature</string>
@@ -375,4 +374,10 @@
     <string name="widget_share_fmt" formatted="false">Share:%dM</string>
     <string name="widget_buffer_fmt" formatted="false">Buffer:%dM</string>
     <string name="widget_used">Used</string>
+    <string name="enable">Enable</string>
+    <string name="rules_applied">Rule applied</string>
+    <string name="rules_saved">Rule saved</string>
+    <string name="select_blacklist">Selected apps will be add to blacklist</string>
+    <string name="install_busybox_confirm">RootTools will install busybox for your device, confirm?</string>
+    <string name="install_iptables_confirm">RootTools will install iptables for your device, confirm?</string>
 </resources>

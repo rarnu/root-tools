@@ -16,6 +16,7 @@ import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.AboutAdapter;
 import com.rarnu.tools.root.adapter.PartnerAdapter;
 import com.rarnu.tools.root.common.AboutInfo;
+import com.rarnu.tools.root.fragmentactivity.BuildTeamActivity;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.UpdateUtils;
 import com.rarnu.utils.FileUtils;
@@ -156,7 +157,9 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
                     UpdateUtils.showUpdateInfo(getActivity());
                     break;
                 case 1:
-                    // TODO: build team
+                    // build team
+                    Intent inBuildTeam = new Intent(getActivity(), BuildTeamActivity.class);
+                    startActivity(inBuildTeam);
                     break;
 
             }

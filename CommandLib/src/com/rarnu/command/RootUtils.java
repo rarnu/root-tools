@@ -18,6 +18,8 @@ public class RootUtils {
     private static final String[] SU_PATH = new String[]{"/system/bin/su", "/system/xbin/su"};
     private static final String APP_PATH = "/system/app/";
     private static final String[] BUSYBOX_PATH = new String[]{"/system/xbin/busybox", "/system/bin/busybox"};
+    private static final String[] IPTABLES_PATH = new String[]{"/system/bin/iptables", "/system/xbin/iptables"};
+    private static final String[] IP6TABLES_PATH = new String[]{"/system/bin/ip6tables", "/system/xbin/ip6tables"};
     private static String[] SUPERUSER_PATH = null;
     private static PackageManager pm = null;
 
@@ -31,6 +33,17 @@ public class RootUtils {
 
         for (int i = 0; i < BUSYBOX_PATH.length; i++) {
             ret = openFile(BUSYBOX_PATH[i]).exists();
+            if (ret) {
+                break;
+            }
+        }
+        return ret;
+    }
+
+    public static boolean hasIptables() {
+        boolean ret = false;
+        for (int i=0; i<IPTABLES_PATH.length; i++) {
+            ret = openFile(IPTABLES_PATH[i]).exists() && openFile(IP6TABLES_PATH[i]).exists();
             if (ret) {
                 break;
             }

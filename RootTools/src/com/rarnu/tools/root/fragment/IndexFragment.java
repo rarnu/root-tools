@@ -19,6 +19,7 @@ import com.rarnu.tools.root.fragmentactivity.*;
 import com.rarnu.tools.root.utils.BusyboxUtils;
 import com.rarnu.tools.root.utils.DalvikUtils;
 import com.rarnu.tools.root.utils.DeviceUtils;
+import com.rarnu.tools.root.utils.IptablesUtils;
 import com.rarnu.utils.MiscUtils;
 import com.rarnu.utils.NetworkUtils;
 
@@ -66,7 +67,7 @@ public class IndexFragment extends BasePreferenceFragment implements
     }
 
     private void showBusyboxTag() {
-        boolean ready = BusyboxUtils.isSuBusyboxReady();
+        boolean ready = BusyboxUtils.isBusyboxReady();
         prefSysApp.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefSysAppEnabled.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefHardUpdate.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
@@ -78,6 +79,14 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefHosts.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefReboot.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefFileSystem.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
+        if (ready) {
+            showIptablesTag();
+        }
+    }
+
+    private void showIptablesTag() {
+        boolean ready = IptablesUtils.isIptablesReady();
+        prefFirewall.setStatus(ready? PreferenceEx.STATE_NORMAL: PreferenceEx.STATE_BANNED);
     }
 
     @Override

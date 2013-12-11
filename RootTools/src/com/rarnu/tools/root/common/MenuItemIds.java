@@ -27,4 +27,5 @@ public class MenuItemIds {
     public static final int MENU_REVERT = Menu.FIRST + 15;
 
     public static final int MENU_APPLY = Menu.FIRST + 16;
+    public static final int MENU_ENABLED = Menu.FIRST + 17;
 }

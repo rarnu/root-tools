@@ -204,6 +204,7 @@
     <string name="file_su">su</string>
     <string name="file_super_user">Superuser.apk</string>
     <string name="file_busybox">busybox</string>
+    <string name="file_iptables">iptables</string>
     <string name="no_update_found">當前已是最新版本, 無需更新</string>
     <string name="update_found_info" formatted="false">發現新版本 %s，下載更新將使用 %s 流量，確定要更新嗎?</string>
     <string name="host_hint">在此輸入自定義的 Hosts\n例如 127.0.0.1 localhost</string>
@@ -269,7 +270,7 @@
     <string name="clean_htc_rom_confirm">確定要清理 ROM 嗎? 清理後不可以恢復。</string>
     <string name="no_clean_item_selected">沒有選擇要清除的項目</string>
     <string name="share_title">向您推薦一款優秀的應用程式《掌優》</string>
-    <string name="share_body">掌優可以幫助您管理Android設備, 實現對系統完全掌控，下載請點擊: http://rarnu.7thgen.info/</string>
+    <string name="share_body">掌優(http://rarnu.7thgen.info/)可以幫助您管理Android設備, 實現對系統完全掌控</string>
     <string name="summary_sysapp">安裝或移除系統內的應用程式</string>
     <string name="summary_sysappenabled">禁用或啓用指定的應用程式</string>
     <string name="summary_hardupdate">強制升級因籤名不一致無法升級的應用程式</string>
@@ -347,4 +348,10 @@
     <string name="widget_share_fmt" formatted="false">共享:%dM</string>
     <string name="widget_buffer_fmt" formatted="false">緩存:%dM</string>
     <string name="widget_used">已用內存</string>
+    <string name="enable">啓用</string>
+    <string name="rules_applied">規則已被應用</string>
+    <string name="rules_saved">規則已保存</string>
+    <string name="select_blacklist">選定的應用將被加入黑名單</string>
+    <string name="install_busybox_confirm">掌優將爲您的設備安裝 busybox, 確認要安裝嗎?</string>
+    <string name="install_iptables_confirm">掌優將爲您的設備安裝 iptables, 確認要安裝嗎?</string>
 </resources>

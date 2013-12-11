@@ -4,17 +4,54 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+
+    <RelativeLayout android:id="@+id/layTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightskyblue"
+            android:padding="4dip">
+
+        <TextView android:id="@+id/tvTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/select_blacklist"
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                />
+        <ImageView android:id="@+id/ico_wifi"
+                android:layout_width="36dip"
+                android:layout_height="20dip"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="24dip"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_wifi"
+                android:scaleType="centerInside"/>
+
+        <ImageView android:id="@+id/ico_3g"
+                android:layout_width="36dip"
+                android:layout_height="20dip"
+                android:layout_centerVertical="true"
+                android:layout_toLeftOf="@+id/ico_wifi"
+                android:contentDescription="@null"
+                android:src="@drawable/ic_3g"
+                android:layout_marginRight="4dip"
+                android:scaleType="centerInside"/>
+
+    </RelativeLayout>
+
     <ListView android:id="@+id/lvFirewall"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fastScrollEnabled="true"
-            android:layout_above="@+id/progressFirewall" />
+            android:layout_above="@+id/progressFirewall"
+            android:layout_below="@+id/layTitle"/>
 
     <com.rarnu.devlib.component.DataProgressBar
             android:id="@+id/progressFirewall"
             android:layout_width="match_parent"
             android:layout_height="24dip"
             android:layout_alignParentBottom="true"
-            android:visibility="gone" />
+            android:visibility="gone"/>
 
 </RelativeLayout>

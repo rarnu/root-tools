@@ -48,18 +48,8 @@ public class MainActivity extends BaseMainActivity {
     }
 
     private Intent createShareIntent() {
-
-        String bmpName = DirHelper.ROOT_DIR + "icon.png";
-        File fIcon = new File(bmpName);
-        if (!fIcon.exists()) {
-            Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.drawable.icon);
-            ImageUtils.saveBitmapToFile(bmp, bmpName, CompressFormat.PNG);
-        }
-
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("image/*");
-        Uri uri = Uri.fromFile(fIcon);
-        shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_body));
         shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
         return shareIntent;
