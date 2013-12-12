@@ -24,10 +24,11 @@
 
     <string-array name="array_share_list">
         <item>com.tencent.mm</item>
-        <item>com.sina.weibo|com.sina.mfweibo</item>
+        <item>com.sina.*weibo</item>
         <item>com.google.android.talk</item>
         <item>com.google.android.apps.plus</item>
         <item>com.android.mms</item>
+        <item>com.*.mail</item>
     </string-array>
     <string-array name="array_share_class">
         <item>com.tencent.mm.ui.tools.ShareImageUI</item>
@@ -35,5 +36,14 @@
         <item></item>
         <item></item>
         <item></item>
+        <item></item>
+    </string-array>
+    <string-array name="array_share_system">
+        <item>false</item>
+        <item>false</item>
+        <item>false</item>
+        <item>false</item>
+        <item>true</item>
+        <item>true</item>
     </string-array>
 </resources>

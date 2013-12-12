@@ -1,17 +1,14 @@
 package com.rarnu.tools.root.common;
 
-import android.graphics.drawable.Drawable;
+import java.io.Serializable;
 
-public class ShareItem {
+public class ShareItem implements Serializable {
 
-    public Drawable icon;
     public String title;
-
     public String packageName;
     public String className;
 
-    public ShareItem(Drawable icon, String title, String packageName, String className) {
-        this.icon = icon;
+    public ShareItem(String title, String packageName, String className) {
         this.title = title;
         this.packageName = packageName;
         this.className = className;

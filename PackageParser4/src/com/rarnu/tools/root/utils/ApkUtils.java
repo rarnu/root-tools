@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import com.rarnu.command.CommandCallback;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
@@ -594,5 +595,39 @@ public class ApkUtils {
         } catch (Exception e) {
             return 4;
         }
+    }
+
+    public static ApplicationInfo findApplication(Context context, String regex, boolean system) {
+        ApplicationInfo info = null;
+        String cmd = "pm list packages -f ";
+        if (system) {
+            cmd += "| busybox grep /system/app ";
+        }
+        cmd += "| busybox grep " + regex;
+        CommandResult result = RootUtils.runCommand(cmd, true);
+        if (result != null) {
+            String ret = result.result;
+            String[] items = null;
+            if (ret.contains("\n")) {
+                items = ret.split("\n");
+            } else {
+                items = new String[]{ret};
+            }
+            String pkgName = "";
+            for (int i = 0; i < items.length; i++) {
+                pkgName = items[i].substring(items[i].indexOf("=") + 1);
+
+                try {
+                    info = GlobalInstance.pm.getApplicationInfo(pkgName, 0);
+                } catch (Exception e) {
+
+                }
+                if (info != null) {
+                    break;
+                }
+            }
+
+        }
+        return info;
     }
 }

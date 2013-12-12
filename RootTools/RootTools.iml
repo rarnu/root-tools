@@ -27,6 +27,15 @@
     <orderEntry type="module" module-name="CommonDevLib" />
     <orderEntry type="module" module-name="CommonUtils" />
     <orderEntry type="module" module-name="CommandLib" />
+    <orderEntry type="module-library" exported="">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/libammsdk.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>
 

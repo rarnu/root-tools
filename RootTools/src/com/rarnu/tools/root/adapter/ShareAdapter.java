@@ -6,6 +6,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
+import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.ShareItem;
 import com.rarnu.tools.root.holder.ShareHolder;
@@ -33,7 +34,11 @@ public class ShareAdapter extends BaseAdapter<ShareItem> {
         }
         ShareItem item = list.get(position);
         if (item != null) {
-            holder.ivShareIcon.setImageDrawable(item.icon);
+            try {
+                holder.ivShareIcon.setImageDrawable(GlobalInstance.pm.getApplicationIcon(item.packageName));
+            } catch (Exception e) {
+
+            }
             holder.tvShareTitle.setText(item.title);
         }
         return v;
