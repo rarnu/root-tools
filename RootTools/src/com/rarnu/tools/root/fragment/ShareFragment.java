@@ -134,7 +134,7 @@ public class ShareFragment extends BaseDialogFragment implements View.OnClickLis
         ShareItem item = list.get(position);
         for (int i = 0; i < sharePackage.length; i++) {
             if (item.packageName.matches(sharePackage[i])) {
-                ShareUtils.share(getActivity(), i, item, R.string.share_body);
+                ShareUtils.share(getActivity(), i, item);
             }
         }
         getActivity().finish();
