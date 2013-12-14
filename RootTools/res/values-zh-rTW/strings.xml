@@ -355,4 +355,5 @@
     <string name="select_blacklist">選定的應用將被加入黑名單</string>
     <string name="install_busybox_confirm">掌優將爲您的設備安裝 busybox, 確認要安裝嗎?</string>
     <string name="install_iptables_confirm">掌優將爲您的設備安裝 iptables, 確認要安裝嗎?</string>
+    <string name="binary_not_supportted">掌優僅支援 ARM 芯片，請自行尋找符合您的設備的二進制檔案</string>
 </resources>

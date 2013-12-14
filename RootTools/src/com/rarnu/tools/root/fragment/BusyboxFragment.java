@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
+import android.widget.Toast;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseFragment;
@@ -32,12 +33,13 @@ public class BusyboxFragment extends BaseFragment implements OnItemClickListener
     BlockListView lstBusybox;
     List<BusyboxInfo> list = null;
     BusyboxAdapter adapter = null;
-
     Handler hInstall = new Handler() {
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
                 checkStatus();
+                progressBusybox.setVisibility(View.GONE);
+                lstBusybox.setEnabled(true);
             }
             super.handleMessage(msg);
         }
@@ -176,71 +178,51 @@ public class BusyboxFragment extends BaseFragment implements OnItemClickListener
         boolean installIptables = (mode == 1);
 
         String abi = Build.CPU_ABI.toLowerCase();
-        int intAbi = 2;
-        if (abi.startsWith("mips")) {
-            intAbi = 0;
-        } else if (abi.startsWith("x86")) {
-            intAbi = 1;
+
+        if (abi.startsWith("arm")) {
+            if (installBusybox) {
+                doInstallBusyboxT();
+            }
+            if (installIptables) {
+                doInstallIptablesT();
+            }
+        } else {
+            Toast.makeText(getActivity(), R.string.binary_not_supportted, Toast.LENGTH_LONG).show();
         }
 
-        if (installBusybox) {
-            doInstallBusyboxT(intAbi);
-        }
-        if (installIptables) {
-            doInstallIptablesT(intAbi);
-        }
+
     }
 
-    private void doInstallBusyboxT(final int abi) {
+    private void doInstallBusyboxT() {
 
-        String fileName = "";
-        switch (abi) {
-            case 0:
-                fileName = "busybox_mips";
-                break;
-            case 1:
-                fileName = "busybox_x86";
-                break;
-            case 2:
-                fileName = "busybox_arm";
-                break;
-        }
+        String fileName = "busybox";
         doInstallT(fileName);
     }
 
-    private void doInstallIptablesT(final int abi) {
+    private void doInstallIptablesT() {
 
-        String fileName = "";
-        String fileName6 = "";
-        switch (abi) {
-            case 0:
-                fileName = "iptables_mips";
-                fileName6 = "ip6tables_mips";
-                break;
-            case 1:
-                fileName = "iptables_x86";
-                fileName6 = "ip6tables_x86";
-                break;
-            case 2:
-                fileName = "iptables_arm";
-                fileName6 = "ip6tables_arm";
-                break;
-        }
+        String fileName = "iptables";
+        String fileName6 = "ip6tables";
         doInstallT(fileName, fileName6);
     }
 
     private void doInstallT(final String... fileName) {
+
+        progressBusybox.setVisibility(View.VISIBLE);
+        progressBusybox.setAppName(getString(R.string.loading));
+        lstBusybox.setEnabled(false);
+
         new Thread(new Runnable() {
             @Override
             public void run() {
                 for (String fn : fileName) {
                     FileUtils.deleteFile(DirHelper.BUSYBOX_DIR + fn);
                     FileUtils.copyAssetFile(getActivity(), fn, DirHelper.BUSYBOX_DIR, null);
-                    String endFn = fn.substring(0, fn.indexOf("_"));
-                    String cmd = String.format("cat %s%s  /system/xbin/%s", DirHelper.BUSYBOX_DIR, fn, endFn);
+
+                    String cmd = String.format("cat %s%s > /system/xbin/%s", DirHelper.BUSYBOX_DIR, fn, fn);
                     CommandResult result = RootUtils.runCommand(cmd, true);
                     if (result.error.equals("")) {
-                        RootUtils.runCommand("chmod 755 /system/xbin/" + endFn, true);
+                        RootUtils.runCommand("chmod 755 /system/xbin/" + fn, true);
                     }
                 }
                 hInstall.sendEmptyMessage(1);

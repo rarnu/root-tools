@@ -382,4 +382,5 @@
     <string name="select_blacklist">Selected apps will be add to blacklist</string>
     <string name="install_busybox_confirm">RootTools will install busybox for your device, confirm?</string>
     <string name="install_iptables_confirm">RootTools will install iptables for your device, confirm?</string>
+    <string name="binary_not_supportted">RootTools only support for ARM chips, please try to find the binary file fit for your device.</string>
 </resources>
