@@ -4,7 +4,7 @@ public class FragmentNameConst {
     public static final String FN_INDEX = "index";
     public static final String FN_FEEDBACK = "feedback";
     public static final String FN_ABOUT = "about";
-    public static final String FN_BUSYBOX = "busybox";
+    public static final String FN_SYSTEM_COMPONENT = "systemcomponent";
     public static final String FN_SYSAPP = "sysapp";
     public static final String FN_SYSAPP_DETAIL = "sysappdetail";
     public static final String FN_SYSAPP_SELECTAPK = "sysappselectapk";

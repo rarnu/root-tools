@@ -86,7 +86,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 
     private void showIptablesTag() {
         boolean ready = IptablesUtils.isIptablesReady();
-        prefFirewall.setStatus(ready? PreferenceEx.STATE_NORMAL: PreferenceEx.STATE_BANNED);
+        prefFirewall.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
     }
 
     @Override
@@ -108,7 +108,7 @@ public class IndexFragment extends BasePreferenceFragment implements
             FragmentStarter.showContent(getActivity(), FirewallActivity.class, Fragments.getFragment(FragmentNameConst.FN_FIREWALL));
         } else if (preference.getKey().equals(getString(R.string.id_root))) {
             UIInstance.currentFragment = 4;
-            FragmentStarter.showContent(getActivity(), BusyboxActivity.class, Fragments.getFragment(FragmentNameConst.FN_BUSYBOX));
+            FragmentStarter.showContent(getActivity(), SystemComponentActivity.class, Fragments.getFragment(FragmentNameConst.FN_SYSTEM_COMPONENT));
 
         } else if (preference.getKey().equals(getString(R.string.id_cleanhtc))) {
             UIInstance.currentFragment = 5;

@@ -27,7 +27,7 @@ import com.rarnu.utils.UIUtils;
 import java.util.ArrayList;
 import java.util.List;
 
-public class BusyboxFragment extends BaseFragment implements OnItemClickListener {
+public class SystemComponentFragment extends BaseFragment implements OnItemClickListener {
 
     DataProgressBar progressBusybox;
     BlockListView lstBusybox;

@@ -9,7 +9,7 @@ public class Fragments {
     private static IndexFragment fIndex = null;
     private static FeedbackFragment fFeedback = null;
     private static AboutFragment fAbout = null;
-    private static BusyboxFragment fBusybox = null;
+    private static SystemComponentFragment fSystemComponent = null;
     private static SysappFragment fSysapp = null;
     private static SysappDetailFragment fSysappDetail = null;
     private static SysappSelectApkFragment fSysappSelectApk = null;
@@ -56,7 +56,7 @@ public class Fragments {
             f = getFragment(name, FragmentNameConst.FN_ABOUT, AboutFragment.class, fAbout);
         }
         if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_BUSYBOX, BusyboxFragment.class, fBusybox);
+            f = getFragment(name, FragmentNameConst.FN_SYSTEM_COMPONENT, SystemComponentFragment.class, fSystemComponent);
         }
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_SYSAPP, SysappFragment.class, fSysapp);
@@ -175,7 +175,7 @@ public class Fragments {
         fIndex = null;
         fFeedback = null;
         fAbout = null;
-        fBusybox = null;
+        fSystemComponent = null;
         fSysapp = null;
         fSysappDetail = null;
         fSysappSelectApk = null;
@@ -212,7 +212,7 @@ public class Fragments {
     public static void releaseOtherFragment(String name) {
         doReleaseFragment(name, FragmentNameConst.FN_FEEDBACK, fFeedback);
         doReleaseFragment(name, FragmentNameConst.FN_ABOUT, fAbout);
-        doReleaseFragment(name, FragmentNameConst.FN_BUSYBOX, fBusybox);
+        doReleaseFragment(name, FragmentNameConst.FN_SYSTEM_COMPONENT, fSystemComponent);
         doReleaseFragment(name, FragmentNameConst.FN_SYSAPP, fSysapp);
         doReleaseFragment(name, FragmentNameConst.FN_SYSAPP_DETAIL, fSysappDetail);
         doReleaseFragment(name, FragmentNameConst.FN_SYSAPP_SELECTAPK, fSysappSelectApk);

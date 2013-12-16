@@ -10,9 +10,11 @@ obj/
 local.properties
 *.log
 *.swp
+*.ini
 build.xml
 lint.xml
 convert2
+sm
 out/
 .idea/workspace.xml
 .idea/modules.xml

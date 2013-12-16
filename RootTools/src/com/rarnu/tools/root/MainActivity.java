@@ -125,7 +125,7 @@ public class MainActivity extends BaseMainActivity {
             case 3:
                 return Fragments.getFragment(FragmentNameConst.FN_COMP);
             case 4:
-                return Fragments.getFragment(FragmentNameConst.FN_BUSYBOX);
+                return Fragments.getFragment(FragmentNameConst.FN_SYSTEM_COMPONENT);
             case 5:
                 return Fragments.getFragment(FragmentNameConst.FN_HTCROM);
             case 6:
