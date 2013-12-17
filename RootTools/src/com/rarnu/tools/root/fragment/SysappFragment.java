@@ -55,7 +55,7 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
     List<SysappInfo> listSysappAll = new ArrayList<SysappInfo>();
     SysappAdapter sysappAdapter = null;
     SysappLoader loader = null;
-    MenuItem itemSearch;
+    SearchView sv;
     MenuItem itemAdd;
     MenuItem itemRefresh;
 
@@ -172,6 +172,7 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
         sysappAdapter = new SysappAdapter(getActivity(), listSysappAll);
         lvSysApp.setAdapter(sysappAdapter);
         loader = new SysappLoader(getActivity());
+        sv = (SearchView) innerView.findViewById(R.id.sv);
 
     }
 
@@ -190,14 +191,6 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
         itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 100, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        SearchView sv = new SearchView(getActivity());
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
-
     }
 
     @Override
@@ -209,6 +202,7 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
     public void initEvents() {
         lvSysApp.setOnItemClickListener(this);
         loader.registerListener(0, this);
+        sv.setOnQueryTextListener(this);
     }
 
     @Override

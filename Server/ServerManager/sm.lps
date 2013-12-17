@@ -21,204 +21,71 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_main"/>
         <IsVisibleTab Value="True"/>
-        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="99"/>
-        <CursorPos X="58" Y="113"/>
+        <TopLine Value="75"/>
+        <CursorPos X="40" Y="95"/>
         <UsageCount Value="26"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="unt_server.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unt_server"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="5"/>
         <CursorPos X="34" Y="67"/>
         <UsageCount Value="26"/>
-        <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="unt_expect.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unt_expect"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="15"/>
-        <CursorPos X="54" Y="48"/>
+        <TopLine Value="1"/>
+        <CursorPos X="30" Y="46"/>
         <UsageCount Value="26"/>
-        <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="unt_config.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unt_config"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="40"/>
-        <CursorPos X="24" Y="48"/>
+        <TopLine Value="21"/>
+        <CursorPos X="23" Y="31"/>
         <UsageCount Value="26"/>
-        <Loaded Value="True"/>
       </Unit4>
       <Unit5>
-        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-base/src/inifiles.pp"/>
-        <UnitName Value="IniFiles"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="142"/>
-        <CursorPos X="41" Y="142"/>
-        <UsageCount Value="10"/>
-      </Unit5>
-      <Unit6>
-        <Filename Value="/usr/lib/codetyphon/typhon/lcl/dialogs.pp"/>
-        <UnitName Value="Dialogs"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="482"/>
-        <CursorPos X="10" Y="494"/>
-        <UsageCount Value="10"/>
-      </Unit6>
-      <Unit7>
         <Filename Value="frm_config.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormConfig"/>
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_config"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="21"/>
+        <TopLine Value="1"/>
         <CursorPos X="9" Y="34"/>
         <UsageCount Value="21"/>
-        <Loaded Value="True"/>
-        <LoadedDesigner Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-base/src/inifiles.pp"/>
+        <UnitName Value="IniFiles"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="142"/>
+        <CursorPos X="41" Y="142"/>
+        <UsageCount Value="10"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="/usr/lib/codetyphon/typhon/lcl/dialogs.pp"/>
+        <UnitName Value="Dialogs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="482"/>
+        <CursorPos X="10" Y="494"/>
+        <UsageCount Value="10"/>
       </Unit7>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="30" HistoryIndex="29">
-      <Position1>
-        <Filename Value="unt_expect.pas"/>
-        <Caret Line="10" Column="20" TopLine="1"/>
-      </Position1>
-      <Position2>
-        <Filename Value="unt_config.pas"/>
-        <Caret Line="40" Column="14" TopLine="28"/>
-      </Position2>
-      <Position3>
-        <Filename Value="unt_expect.pas"/>
-        <Caret Line="11" Column="42" TopLine="1"/>
-      </Position3>
-      <Position4>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="50" Column="5" TopLine="28"/>
-      </Position4>
-      <Position5>
-        <Filename Value="unt_expect.pas"/>
-        <Caret Line="47" Column="112" TopLine="34"/>
-      </Position5>
-      <Position6>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="67" Column="18" TopLine="45"/>
-      </Position6>
-      <Position7>
-        <Filename Value="unt_expect.pas"/>
-        <Caret Line="48" Column="16" TopLine="29"/>
-      </Position7>
-      <Position8>
-        <Filename Value="unt_expect.pas"/>
-        <Caret Line="42" Column="5" TopLine="29"/>
-      </Position8>
-      <Position9>
-        <Filename Value="unt_expect.pas"/>
-        <Caret Line="47" Column="18" TopLine="28"/>
-      </Position9>
-      <Position10>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="68" Column="29" TopLine="52"/>
-      </Position10>
-      <Position11>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="69" Column="31" TopLine="52"/>
-      </Position11>
-      <Position12>
-        <Filename Value="unt_server.pas"/>
-        <Caret Line="11" Column="48" TopLine="9"/>
-      </Position12>
-      <Position13>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="68" Column="8" TopLine="51"/>
-      </Position13>
-      <Position14>
-        <Filename Value="unt_expect.pas"/>
-        <Caret Line="48" Column="54" TopLine="30"/>
-      </Position14>
-      <Position15>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="69" Column="5" TopLine="51"/>
-      </Position15>
-      <Position16>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="70" Column="27" TopLine="52"/>
-      </Position16>
-      <Position17>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="81" Column="20" TopLine="62"/>
-      </Position17>
-      <Position18>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="82" Column="88" TopLine="62"/>
-      </Position18>
-      <Position19>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="41" Column="26" TopLine="41"/>
-      </Position19>
-      <Position20>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="85" Column="17" TopLine="75"/>
-      </Position20>
-      <Position21>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="79" Column="17" TopLine="77"/>
-      </Position21>
-      <Position22>
-        <Filename Value="unt_config.pas"/>
-        <Caret Line="28" Column="77" TopLine="10"/>
-      </Position22>
-      <Position23>
-        <Filename Value="unt_config.pas"/>
-        <Caret Line="29" Column="81" TopLine="28"/>
-      </Position23>
-      <Position24>
-        <Filename Value="frm_config.pas"/>
-        <Caret Line="68" Column="3" TopLine="56"/>
-      </Position24>
-      <Position25>
-        <Filename Value="frm_config.pas"/>
-        <Caret Line="39" Column="1" TopLine="18"/>
-      </Position25>
-      <Position26>
-        <Filename Value="frm_config.pas"/>
-        <Caret Line="40" Column="1" TopLine="18"/>
-      </Position26>
-      <Position27>
-        <Filename Value="frm_config.pas"/>
-        <Caret Line="41" Column="1" TopLine="19"/>
-      </Position27>
-      <Position28>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="68" Column="27" TopLine="53"/>
-      </Position28>
-      <Position29>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="66" Column="33" TopLine="54"/>
-      </Position29>
-      <Position30>
-        <Filename Value="frm_main.pas"/>
-        <Caret Line="10" Column="15" TopLine="79"/>
-      </Position30>
-    </JumpHistory>
+    <JumpHistory Count="0" HistoryIndex="-1"/>
   </ProjectSession>
   <EditorMacros Count="0"/>
 </CONFIG>

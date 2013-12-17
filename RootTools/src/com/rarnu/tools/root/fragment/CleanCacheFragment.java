@@ -37,7 +37,7 @@ public class CleanCacheFragment extends BaseFragment implements OnLoadCompleteLi
     CacheAdapter adapterCache;
     CleanCacheLoader loader = null;
     MenuItem menuRefresh, menuClean;
-    MenuItem itemSearch;
+    SearchView sv;
     private Handler hCleanCache = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -65,6 +65,7 @@ public class CleanCacheFragment extends BaseFragment implements OnLoadCompleteLi
         progressCache = (DataProgressBar) innerView.findViewById(R.id.progressCache);
         tvCacheInfo = (TextView) innerView.findViewById(R.id.tvCacheInfo);
         tvEmptyHint = (TextView) innerView.findViewById(R.id.tvEmptyHint);
+        sv = (SearchView) innerView.findViewById(R.id.sv);
 
         adapterCache = new CacheAdapter(getActivity(), listCacheAll);
         lvCache.setAdapter(adapterCache);
@@ -88,12 +89,6 @@ public class CleanCacheFragment extends BaseFragment implements OnLoadCompleteLi
         menuRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         menuRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 100, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        SearchView sv = new SearchView(getActivity());
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
     }
 
     @Override
@@ -220,6 +215,7 @@ public class CleanCacheFragment extends BaseFragment implements OnLoadCompleteLi
     public void initEvents() {
         lvCache.setOnItemClickListener(this);
         loader.registerListener(0, this);
+        sv.setOnQueryTextListener(this);
     }
 
     @Override

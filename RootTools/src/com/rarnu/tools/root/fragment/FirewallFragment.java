@@ -6,6 +6,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.Toast;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
@@ -23,13 +24,14 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class FirewallFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<IptablePackageInfo>> {
+public class FirewallFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<IptablePackageInfo>>, SearchView.OnQueryTextListener {
 
     ListView lvFirewall;
     DataProgressBar progressFirewall;
     MenuItem miEnabled;
     MenuItem miRefresh;
     MenuItem miApply;
+    SearchView sv;
     List<IptablePackageInfo> list;
     IptablesAdapter adapter = null;
     FirewallLoader loader;
@@ -70,11 +72,13 @@ public class FirewallFragment extends BaseFragment implements Loader.OnLoadCompl
         list = new ArrayList<IptablePackageInfo>();
         adapter = new IptablesAdapter(getActivity(), list);
         lvFirewall.setAdapter(adapter);
+        sv = (SearchView) innerView.findViewById(R.id.sv);
     }
 
     @Override
     public void initEvents() {
         loader.registerListener(0, this);
+        sv.setOnQueryTextListener(this);
     }
 
     @Override
@@ -113,6 +117,8 @@ public class FirewallFragment extends BaseFragment implements Loader.OnLoadCompl
         miRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 100, R.string.refresh);
         miRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         miRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+
+
     }
 
     @Override
@@ -184,5 +190,18 @@ public class FirewallFragment extends BaseFragment implements Loader.OnLoadCompl
 
     private void purgeRules() {
         IptablesUtils.purgeIptables();
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (adapter != null) {
+            adapter.getFilter().filter(newText);
+        }
+        return true;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
     }
 }

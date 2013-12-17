@@ -62,7 +62,7 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
     DataappAdapter backDataappAdapter = null;
     RestoreLoader loader = null;
     MenuItem itemRefresh;
-    MenuItem itemSearch;
+    SearchView sv;
     MutaxReceiver receiver;
     private Handler hSelectData = new Handler() {
         @Override
@@ -103,6 +103,7 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
         lvBackData = (ListView) innerView.findViewById(R.id.lvBackData);
         tvEmptyHint = (TextView) innerView.findViewById(R.id.tvEmptyHint);
         tvEmptyHint.setText(Html.fromHtml(getString(R.string.restore_empty)));
+        sv = (SearchView) innerView.findViewById(R.id.sv);
         backDataappAdapter = new DataappAdapter(getActivity(), listBackDataappAll, hSelectData, 2);
         lvBackData.setAdapter(backDataappAdapter);
         barBackData.setCheckBoxVisible(true);
@@ -128,13 +129,6 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 98, R.string.refresh);
         itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 99, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        SearchView sv = new SearchView(getActivity());
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
     }
 
     @Override
@@ -343,6 +337,7 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
         barBackData.getCheckBox().setOnClickListener(this);
         loader.registerListener(0, this);
         receiver.setOnReceiveMessage(this);
+        sv.setOnQueryTextListener(this);
     }
 
     @Override

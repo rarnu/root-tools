@@ -39,7 +39,7 @@ import java.util.List;
 public class FileSystemFragment extends BaseFragment implements OnQueryTextListener, OnItemClickListener, AdapterView.OnItemLongClickListener {
 
     MenuItem itemPool;
-    MenuItem itemSearch;
+    SearchView sv;
     MenuItem itemUp;
     MenuItem itemAdd;
     TextView tvPath;
@@ -113,6 +113,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
         lvFiles = (ListView) innerView.findViewById(R.id.lvFiles);
         progressFiles = (DataProgressBar) innerView.findViewById(R.id.progressFiles);
         tvPath = (TextView) innerView.findViewById(R.id.tvPath);
+        sv = (SearchView) innerView.findViewById(R.id.sv);
 
         list = new ArrayList<FileSystemFileInfo>();
         adapter = new FileSystemAdapter(getActivity(), list);
@@ -124,6 +125,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
     public void initEvents() {
         lvFiles.setOnItemClickListener(this);
         lvFiles.setOnItemLongClickListener(this);
+        sv.setOnQueryTextListener(this);
     }
 
     @Override
@@ -155,12 +157,6 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
         itemAdd.setIcon(android.R.drawable.ic_menu_add);
         itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 100, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        SearchView sv = new SearchView(getActivity());
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
     }
 
     @Override
@@ -538,8 +534,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                         FileUtils.deleteFile(item.fullPath);
                         list.remove(item);
                         adapter.setNewList(list);
-                        if (itemSearch != null) {
-                            SearchView sv = (SearchView) itemSearch.getActionView();
+                        if (sv != null) {
                             adapter.filter(sv.getQuery().toString());
                         }
                     }

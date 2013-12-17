@@ -4,11 +4,17 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <SearchView android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:iconifiedByDefault="false"
+            android:focusable="false"/>
 
     <RelativeLayout android:id="@+id/layTitle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/lightskyblue"
+            android:layout_below="@+id/sv"
             android:padding="4dip">
 
         <TextView android:id="@+id/tvTitle"

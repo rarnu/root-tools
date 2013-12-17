@@ -41,7 +41,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
     DataappAdapter dataappAdapter = null;
     BackupLoader loader = null;
     MenuItem itemRefresh;
-    MenuItem itemSearch;
+    SearchView sv;
     MutaxReceiver receiver;
     private Handler hSelectApp = new Handler() {
         @Override
@@ -69,6 +69,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
         progressData = (DataProgressBar) innerView.findViewById(R.id.progressData);
         lvData = (ListView) innerView.findViewById(R.id.lvData);
         tvEmptyHint = (TextView) innerView.findViewById(R.id.tvEmptyHint);
+        sv = (SearchView) innerView.findViewById(R.id.sv);
 
         dataappAdapter = new DataappAdapter(getActivity(), listDataappAll, hSelectApp, 1);
         lvData.setAdapter(dataappAdapter);
@@ -104,13 +105,6 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
 
     @Override
     public void initMenu(Menu menu) {
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 98, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        SearchView sv = new SearchView(getActivity());
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
-
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
         itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
@@ -274,7 +268,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
         barData.getCheckBox().setOnClickListener(this);
         loader.registerListener(0, this);
         receiver.setOnReceiveMessage(this);
-
+        sv.setOnQueryTextListener(this);
     }
 
     @Override

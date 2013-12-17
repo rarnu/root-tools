@@ -11,8 +11,6 @@ public class IptablePackageInfo {
     public boolean selected_3g;
     public String tostr;
     public ApplicationInfo appinfo;
-    public Drawable cached_icon;
-    public boolean icon_loaded;
     public boolean firstseem;
 
     public IptablePackageInfo() {
@@ -29,7 +27,6 @@ public class IptablePackageInfo {
     public String toString() {
         if (tostr == null) {
             final StringBuilder s = new StringBuilder();
-            if (uid > 0) s.append(uid + ": ");
             for (int i = 0; i < names.length; i++) {
                 if (i != 0) s.append(", ");
                 s.append(names[i]);

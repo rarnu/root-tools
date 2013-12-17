@@ -22,7 +22,7 @@ public class IptablesAdapter extends BaseAdapter<IptablePackageInfo> {
 
     @Override
     public String getValueText(IptablePackageInfo item) {
-        return null;
+        return item.toString() + (item.appinfo != null ? item.appinfo.packageName : "");
     }
 
     @Override

@@ -35,7 +35,7 @@ public class EnableappFragment extends BaseFragment implements OnItemLongClickLi
     EnableappAdapter enableappAdapter;
     List<EnableappInfo> listEnableappAll = new ArrayList<EnableappInfo>();
     EnableappLoader loader = null;
-    MenuItem itemSearch;
+    SearchView sv;
     MenuItem itemRefresh;
 
     @Override
@@ -59,6 +59,8 @@ public class EnableappFragment extends BaseFragment implements OnItemLongClickLi
         lvEnableApp.setAdapter(enableappAdapter);
         loader = new EnableappLoader(getActivity());
 
+        sv = (SearchView) innerView.findViewById(R.id.sv);
+
     }
 
     @Override
@@ -71,14 +73,6 @@ public class EnableappFragment extends BaseFragment implements OnItemLongClickLi
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 98, R.string.refresh);
         itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 99, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        SearchView sv = new SearchView(getActivity());
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
-
     }
 
     @Override
@@ -192,6 +186,8 @@ public class EnableappFragment extends BaseFragment implements OnItemLongClickLi
     public void initEvents() {
         lvEnableApp.setOnItemLongClickListener(this);
         loader.registerListener(0, this);
+        sv.setOnQueryTextListener(this);
+
     }
 
     @Override

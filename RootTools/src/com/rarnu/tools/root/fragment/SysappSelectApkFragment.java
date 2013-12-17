@@ -51,7 +51,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
     ListView lvFiles;
     TextView tvPath;
     ProgressBar pbShowing;
-    MenuItem itemSearch;
+    SearchView sv;
     MenuItem itemUp;
     List<SysappSelectApkItem> list;
     private Comparator<SysappSelectApkItem> compApks = new Comparator<SysappSelectApkItem>() {
@@ -79,6 +79,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
         list = new ArrayList<SysappSelectApkItem>();
         adapter = new SysappSelectApkAdapter(getActivity(), list);
         lvFiles.setAdapter(adapter);
+        sv = (SearchView) innerView.findViewById(R.id.sv);
     }
 
     @Override
@@ -194,13 +195,6 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
         itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 98, R.string.uplevel);
         itemUp.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.up_level));
         itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 99, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        SearchView sv = new SearchView(getActivity());
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
     }
 
     @Override
@@ -211,6 +205,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
     @Override
     public void initEvents() {
         lvFiles.setOnItemClickListener(this);
+        sv.setOnQueryTextListener(this);
     }
 
     @Override

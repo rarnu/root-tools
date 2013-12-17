@@ -1,7 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <SearchView android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:iconifiedByDefault="false"/>
 
     <TextView
             android:id="@+id/tvPath"
@@ -10,7 +16,8 @@
             android:background="@color/lightskyblue"
             android:gravity="left|center_vertical"
             android:padding="4dip"
-            android:textColor="@color/black"/>
+            android:textColor="@color/black"
+            android:layout_below="@+id/sv"/>
 
     <ListView
             android:id="@+id/lvFiles"
@@ -20,8 +27,6 @@
             android:fastScrollEnabled="true"
             android:layout_below="@+id/tvPath">
     </ListView>
-
-
 
     <com.rarnu.devlib.component.DataProgressBar
             android:id="@+id/progressFiles"

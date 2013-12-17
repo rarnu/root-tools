@@ -11,8 +11,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.*;
+import android.widget.BaseAdapter;
+import android.widget.ListView;
+import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
+import android.widget.Toast;
 import com.rarnu.devlib.base.BasePopupFragment;
 import com.rarnu.devlib.component.DataBar;
 import com.rarnu.devlib.component.DataProgressBar;
@@ -31,12 +34,10 @@ public class HostAddFragment extends BasePopupFragment implements OnClickListene
     ListView lvAddHosts;
     DataBar barAddHosts;
     DataProgressBar progressSearchHosts;
-    Button btnCom, btnOrg, btnNet, btnEdu, btnInfo, btnBiz, btnCn, btnUs, btnJp, btnHk, btnTw;
-    SearchView sv;
     HostsAdapter adapter = null;
     List<HostRecordInfo> list = new ArrayList<HostRecordInfo>();
     HostsSearchLoader loader = null;
-    MenuItem itemSearch;
+    SearchView sv;
     MenuItem itemAdd;
     Handler hSelectHost = new Handler() {
         @Override
@@ -64,17 +65,7 @@ public class HostAddFragment extends BasePopupFragment implements OnClickListene
         lvAddHosts = (ListView) innerView.findViewById(R.id.lvAddHosts);
         barAddHosts = (DataBar) innerView.findViewById(R.id.barAddHosts);
         progressSearchHosts = (DataProgressBar) innerView.findViewById(R.id.progressSearchHosts);
-        btnCom = (Button) innerView.findViewById(R.id.btnCom);
-        btnOrg = (Button) innerView.findViewById(R.id.btnOrg);
-        btnNet = (Button) innerView.findViewById(R.id.btnNet);
-        btnEdu = (Button) innerView.findViewById(R.id.btnEdu);
-        btnInfo = (Button) innerView.findViewById(R.id.btnInfo);
-        btnBiz = (Button) innerView.findViewById(R.id.btnBiz);
-        btnCn = (Button) innerView.findViewById(R.id.btnCn);
-        btnUs = (Button) innerView.findViewById(R.id.btnUs);
-        btnJp = (Button) innerView.findViewById(R.id.btnJp);
-        btnHk = (Button) innerView.findViewById(R.id.btnHk);
-        btnTw = (Button) innerView.findViewById(R.id.btnTw);
+        sv = (SearchView) innerView.findViewById(R.id.sv);
         adapter = new HostsAdapter(getActivity(), list, hSelectHost, false, true);
         if (lvAddHosts != null) {
             lvAddHosts.setAdapter(adapter);
@@ -98,15 +89,6 @@ public class HostAddFragment extends BasePopupFragment implements OnClickListene
         itemAdd = menu.add(0, MenuItemIds.MENU_ADD, 98, R.string.add);
         itemAdd.setIcon(android.R.drawable.ic_menu_add);
         itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 99, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        sv = new SearchView(getActivity());
-        sv.setIconifiedByDefault(true);
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
-
     }
 
     @Override
@@ -203,10 +185,6 @@ public class HostAddFragment extends BasePopupFragment implements OnClickListene
                 boolean selected = barAddHosts.getCheckBox().isChecked();
                 setHostItemSelectedStatus(list, adapter, hSelectHost, selected);
                 break;
-            default:
-                Button btnQuery = (Button) v;
-                sv.setQuery(sv.getQuery() + btnQuery.getText().toString(), false);
-                break;
         }
 
     }
@@ -245,19 +223,9 @@ public class HostAddFragment extends BasePopupFragment implements OnClickListene
     public void initEvents() {
         barAddHosts.getButton1().setOnClickListener(this);
         barAddHosts.getButton2().setOnClickListener(this);
-        btnCom.setOnClickListener(this);
-        btnOrg.setOnClickListener(this);
-        btnNet.setOnClickListener(this);
-        btnEdu.setOnClickListener(this);
-        btnInfo.setOnClickListener(this);
-        btnBiz.setOnClickListener(this);
-        btnCn.setOnClickListener(this);
-        btnUs.setOnClickListener(this);
-        btnJp.setOnClickListener(this);
-        btnHk.setOnClickListener(this);
-        btnTw.setOnClickListener(this);
         barAddHosts.getCheckBox().setOnClickListener(this);
         loader.registerListener(0, this);
+        sv.setOnQueryTextListener(this);
     }
 
     @Override

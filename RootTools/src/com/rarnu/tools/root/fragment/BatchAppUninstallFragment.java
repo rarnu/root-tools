@@ -38,7 +38,7 @@ public class BatchAppUninstallFragment extends BaseFragment implements Loader.On
     DataappAdapter adapter = null;
     BackupLoader loader = null;
     MenuItem itemRefresh;
-    MenuItem itemSearch;
+    SearchView sv;
     MutaxReceiver receiver;
     private Handler hSelectApp = new Handler() {
         @Override
@@ -76,6 +76,7 @@ public class BatchAppUninstallFragment extends BaseFragment implements Loader.On
         barBatchApps = (DataBar) innerView.findViewById(R.id.barBatchApps);
         progressBatchApps = (DataProgressBar) innerView.findViewById(R.id.progressBatchApps);
         tvEmptyHint = (TextView) innerView.findViewById(R.id.tvEmptyHint);
+        sv = (SearchView) innerView.findViewById(R.id.sv);
 
         adapter = new DataappAdapter(getActivity(), list, hSelectApp, 1);
         lvBatchApps.setAdapter(adapter);
@@ -119,7 +120,9 @@ public class BatchAppUninstallFragment extends BaseFragment implements Loader.On
         barBatchApps.getCheckBox().setOnClickListener(this);
         loader.registerListener(0, this);
         receiver.setOnReceiveMessage(this);
+        sv.setOnQueryTextListener(this);
     }
+
 
     @Override
     public void initLogic() {
@@ -151,13 +154,6 @@ public class BatchAppUninstallFragment extends BaseFragment implements Loader.On
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 98, R.string.refresh);
         itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-
-        itemSearch = menu.add(0, MenuItemIds.MENU_SEARCH, 99, R.string.search);
-        itemSearch.setIcon(android.R.drawable.ic_menu_search);
-        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        SearchView sv = new SearchView(getActivity());
-        sv.setOnQueryTextListener(this);
-        itemSearch.setActionView(sv);
     }
 
     @Override

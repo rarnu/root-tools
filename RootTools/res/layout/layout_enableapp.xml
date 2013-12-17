@@ -1,33 +1,39 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+    <SearchView android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:iconifiedByDefault="false"/>
 
     <ListView
-        android:id="@+id/lvEnableApp"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@+id/tvOperateHint"
-        android:fastScrollEnabled="true" >
+            android:id="@+id/lvEnableApp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/tvOperateHint"
+            android:fastScrollEnabled="true"
+            android:layout_below="@+id/sv">
     </ListView>
 
     <TextView
-        android:id="@+id/tvOperateHint"
-        android:layout_width="match_parent"
-        android:layout_height="24dip"
-        android:layout_alignParentBottom="true"
-        android:background="@color/lightskyblue"
-        android:gravity="left|center_vertical"
-        android:padding="4dip"
-        android:text="@string/operation_hint"
-        android:textColor="@color/black"
-        android:visibility="gone" />
+            android:id="@+id/tvOperateHint"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lightskyblue"
+            android:gravity="left|center_vertical"
+            android:padding="4dip"
+            android:text="@string/operation_hint"
+            android:textColor="@color/black"
+            android:visibility="gone"/>
 
     <com.rarnu.devlib.component.DataProgressBar
-        android:id="@+id/progressEnableapp"
-        android:layout_width="match_parent"
-        android:layout_height="24dip"
-        android:layout_alignParentBottom="true"
-        android:visibility="gone" />
+            android:id="@+id/progressEnableapp"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"/>
 
 </RelativeLayout>

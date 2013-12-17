@@ -93,7 +93,7 @@ begin
     end
     else
     begin
-        MessageDlg('EXPECT not installed.\rPlease execute the command in terminal:\rsudo apt-get install expect', TMsgDlgType.mtWarning, [TMsgDlgBtn.mbOK], 0);
+        MessageDlg('EXPECT not installed.'#10'Please execute the command in terminal:'#10'sudo apt-get install expect', TMsgDlgType.mtWarning, [TMsgDlgBtn.mbOK], 0);
     end;
 end;
 

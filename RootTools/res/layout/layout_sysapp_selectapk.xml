@@ -1,29 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <SearchView android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:iconifiedByDefault="false"/>
 
     <TextView
-        android:id="@+id/tvPath"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:background="@color/lightskyblue"
-        android:gravity="left|center_vertical"
-        android:padding="4dip"
-        android:textColor="@color/black" />
+            android:id="@+id/tvPath"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/lightskyblue"
+            android:gravity="left|center_vertical"
+            android:padding="4dip"
+            android:textColor="@color/black"
+            android:layout_below="@+id/sv"/>
 
     <ListView
-        android:id="@+id/lvApk"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/tvPath"
-        android:fastScrollEnabled="true" />
+            android:id="@+id/lvApk"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvPath"
+            android:fastScrollEnabled="true"/>
 
     <ProgressBar
-        android:id="@+id/pbShowing"
-        android:layout_width="48dip"
-        android:layout_height="48dip"
-        android:layout_centerInParent="true"
-        android:visibility="gone" />
+            android:id="@+id/pbShowing"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:layout_centerInParent="true"
+            android:visibility="gone"/>
 
 </RelativeLayout>
