@@ -15,6 +15,7 @@ build.xml
 lint.xml
 convert2
 sm
+Server/ServerManager/script/*.sh
 out/
 .idea/workspace.xml
 .idea/modules.xml
