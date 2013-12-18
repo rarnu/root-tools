@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="8">
+    <Units Count="10">
       <Unit0>
         <Filename Value="sm.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -20,11 +20,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_main"/>
-        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="75"/>
-        <CursorPos X="40" Y="95"/>
+        <CursorPos X="49" Y="80"/>
         <UsageCount Value="26"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="unt_server.pas"/>
@@ -60,32 +62,64 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_config"/>
+        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
+        <TopLine Value="11"/>
         <CursorPos X="9" Y="34"/>
         <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit5>
       <Unit6>
+        <Filename Value="NativeXml.pas"/>
+        <UnitName Value="NativeXml"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="7"/>
+        <CursorPos X="1" Y="15"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit6>
+      <Unit7>
         <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-base/src/inifiles.pp"/>
         <UnitName Value="IniFiles"/>
         <WindowIndex Value="0"/>
         <TopLine Value="142"/>
         <CursorPos X="41" Y="142"/>
         <UsageCount Value="10"/>
-      </Unit6>
-      <Unit7>
+      </Unit7>
+      <Unit8>
         <Filename Value="/usr/lib/codetyphon/typhon/lcl/dialogs.pp"/>
         <UnitName Value="Dialogs"/>
         <WindowIndex Value="0"/>
         <TopLine Value="482"/>
         <CursorPos X="10" Y="494"/>
         <UsageCount Value="10"/>
-      </Unit7>
+      </Unit8>
+      <Unit9>
+        <Filename Value="../../tools/NativeXml.pas"/>
+        <UnitName Value="NativeXml"/>
+        <UsageCount Value="20"/>
+      </Unit9>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="0" HistoryIndex="-1"/>
+    <JumpHistory Count="3" HistoryIndex="2">
+      <Position1>
+        <Filename Value="NativeXml.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position1>
+      <Position2>
+        <Filename Value="NativeXml.pas"/>
+        <Caret Line="109" Column="1" TopLine="105"/>
+      </Position2>
+      <Position3>
+        <Filename Value="NativeXml.pas"/>
+        <Caret Line="5525" Column="38" TopLine="5515"/>
+      </Position3>
+    </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
 </CONFIG>
