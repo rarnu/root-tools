@@ -23,6 +23,7 @@ import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.fragmentactivity.CompPackageInfoActivity;
 import com.rarnu.tools.root.loader.CompLoader;
 import com.rarnu.utils.ImageUtils;
+import com.rarnu.utils.ResourceUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,14 +38,19 @@ public class CompFragment extends BaseFragment implements OnItemClickListener, O
     SearchView sv;
     MenuItem menuRefresh;
 
+    public CompFragment() {
+        super();
+        tabTitle = ResourceUtils.getString(R.string.func_comp_list);
+    }
+
     @Override
     public int getBarTitle() {
-        return R.string.func4_title;
+        return 0;
     }
 
     @Override
     public int getBarTitleWithPath() {
-        return R.string.func4_title_with_path;
+        return 0;
     }
 
     @Override

@@ -83,6 +83,8 @@
     <string name="func_batch_app_with_path">RootTools &gt; Batch Apps</string>
     <string name="func_firewall">Firewall</string>
     <string name="func_firewall_with_path">RootTools &gt; Firewall</string>
+    <string name="func_comp_list">Full Management</string>
+    <string name="func_auto_boot">Autoboot</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>

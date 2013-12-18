@@ -83,6 +83,8 @@
     <string name="func_batch_app_with_path">掌优 &gt; 批量应用操作</string>
     <string name="func_firewall">防火墙</string>
     <string name="func_firewall_with_path">掌优 &gt; 防火墙</string>
+    <string name="func_comp_list">全面管理</string>
+    <string name="func_auto_boot">自动启动</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="check_network_status">检查网络状况</string>

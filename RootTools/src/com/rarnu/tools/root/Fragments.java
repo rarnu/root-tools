@@ -17,7 +17,7 @@ public class Fragments {
     private static CleanCacheFragment fCleanCache = null;
     private static EnableappFragment fEnableapp = null;
     private static HtcRomFragment fHtcRom = null;
-    private static CompFragment fComp = null;
+    private static CompContainerFragment fComp = null;
     private static CompPackageInfoFragment fCompPackageInfo = null;
     private static MemFragment fMem = null;
     private static MemProcessFragment fMemProcess = null;
@@ -80,7 +80,7 @@ public class Fragments {
             f = getFragment(name, FragmentNameConst.FN_HTCROM, HtcRomFragment.class, fHtcRom);
         }
         if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_COMP, CompFragment.class, fComp);
+            f = getFragment(name, FragmentNameConst.FN_COMP, CompContainerFragment.class, fComp);
         }
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_COMP_PACKAGE_INFO, CompPackageInfoFragment.class, fCompPackageInfo);

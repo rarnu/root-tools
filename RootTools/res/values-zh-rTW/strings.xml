@@ -83,6 +83,8 @@
     <string name="func_batch_app_with_path">掌優 &gt; 批量應用操作</string>
     <string name="func_firewall">防火牆</string>
     <string name="func_firewall_with_path">掌優 &gt; 防火牆</string>
+    <string name="func_comp_list">全面管理</string>
+    <string name="func_auto_boot">自動啓動</string>
     <string name="backup_data">備份應用程式的數據</string>
     <string name="restore_data">還原應用程式的數據</string>
     <string name="check_network_status">檢查網路狀況</string>
