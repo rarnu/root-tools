@@ -4,6 +4,7 @@ import android.app.Fragment;
 
 import com.rarnu.devlib.base.BaseActivity;
 import com.rarnu.tools.root.Fragments;
+import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.FragmentNameConst;
 
@@ -18,5 +19,10 @@ public class HardUpdateActivity extends BaseActivity {
 	public Fragment replaceFragment() {
 		return Fragments.getFragment(FragmentNameConst.FN_HARD_UPDATE);
 	}
+
+    @Override
+    public int customTheme() {
+        return GlobalInstance.theme? android.R.style.Theme_Holo_Light: android.R.style.Theme_Holo;
+    }
 
 }

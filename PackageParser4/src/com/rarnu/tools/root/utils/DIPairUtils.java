@@ -54,20 +54,19 @@ public class DIPairUtils {
 
     public static void mergeHosts(List<HostRecordInfo> list, String[] hosts) {
         List<String> lst = new ArrayList<String>();
-        for (int i = 0; i < hosts.length; i++) {
-            lst.add(hosts[i]);
+        for (String h : hosts) {
+            lst.add(h);
         }
         List<HostRecordInfo> lstMerge = listToList(lst);
-        for (int i = 0; i < lstMerge.size(); i++) {
-            if (!hostExists(list, lstMerge.get(i))) {
-                list.add(lstMerge.get(i));
+        for (HostRecordInfo hri : lstMerge) {
+            if (!hostExists(list, hri)) {
+                list.add(hri);
             }
         }
         addLocalHostToPos0(list);
     }
 
-    private static boolean hostExists(List<HostRecordInfo> baseList,
-                                      HostRecordInfo info) {
+    private static boolean hostExists(List<HostRecordInfo> baseList, HostRecordInfo info) {
         boolean ret = false;
         for (int i = 0; i < baseList.size(); i++) {
             if (baseList.get(i).ip.equals(info.ip) && baseList.get(i).domain.equals(info.domain)) {

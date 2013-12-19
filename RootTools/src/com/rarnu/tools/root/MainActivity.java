@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.text.AndroidCharacter;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.rarnu.command.RootUtils;
@@ -89,10 +90,11 @@ public class MainActivity extends BaseMainActivity {
 
     @Override
     public void initOnce() {
+        RTConfig.initConfig(this);
         RootUtils.mountRW();
         loadExcludeListT();
         loadCustomPackageListT();
-        RTConfig.initConfig(this);
+
         if (GlobalInstance.isFirstStart) {
 
             GlobalInstance.isFirstStart = false;
@@ -113,6 +115,11 @@ public class MainActivity extends BaseMainActivity {
     @Override
     public String getBarTitle() {
         return getString(R.string.app_name);
+    }
+
+    @Override
+    public int customTheme() {
+        return GlobalInstance.theme? android.R.style.Theme_Holo_Light: android.R.style.Theme_Holo;
     }
 
     @Override

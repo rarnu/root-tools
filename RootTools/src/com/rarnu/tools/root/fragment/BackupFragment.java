@@ -139,9 +139,9 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
     private void doBackup() {
         setBackupState(true);
         List<DataappInfo> listOperate = new ArrayList<DataappInfo>();
-        for (int i = 0; i < listDataappAll.size(); i++) {
-            if (listDataappAll.get(i).checked) {
-                listOperate.add(listDataappAll.get(i));
+        for (DataappInfo ai : listDataappAll) {
+            if (ai.checked) {
+                listOperate.add(ai);
             }
         }
         ListUtils.setOperateList(listOperate);
@@ -219,12 +219,13 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
         if (data != null) {
             listDataappAll.addAll(data);
         }
-        dataappAdapter.setNewList(listDataappAll);
-        progressData.setVisibility(View.GONE);
+        if (getActivity() != null) {
+            dataappAdapter.setNewList(listDataappAll);
+            progressData.setVisibility(View.GONE);
 
-        showAppSelectedCount();
-        tvEmptyHint.setVisibility(dataappAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
-
+            showAppSelectedCount();
+            tvEmptyHint.setVisibility(dataappAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override

@@ -276,15 +276,16 @@ public class MemFragment extends BaseFragment implements OnItemClickListener, On
         if (data != null) {
             listMemProcessAll.addAll(data);
         }
+        if (getActivity() != null) {
+            memProcessAdapter.setNewList(listMemProcessAll);
 
-        memProcessAdapter.setNewList(listMemProcessAll);
-
-        progressMemory.setVisibility(View.GONE);
-        if (menuClean != null) {
-            menuClean.setEnabled(true);
-            menuRefresh.setEnabled(true);
+            progressMemory.setVisibility(View.GONE);
+            if (menuClean != null) {
+                menuClean.setEnabled(true);
+                menuRefresh.setEnabled(true);
+            }
+            showMemoryInfo();
         }
-        showMemoryInfo();
 
     }
 

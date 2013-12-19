@@ -123,10 +123,8 @@ public abstract class BaseDragCursorAdapter extends CursorAdapter implements Com
                 toRemove.add(mListMapping.keyAt(i));
             }
         }
-
-        size = toRemove.size();
-        for (int i = 0; i < size; ++i) {
-            mListMapping.delete(toRemove.get(i));
+        for (Integer ri: toRemove) {
+            mListMapping.delete(ri);
         }
     }
 

@@ -124,8 +124,8 @@ public class HostAddFragment extends BasePopupFragment implements OnClickListene
     private int getHostSelectedCount(List<HostRecordInfo> list) {
         int count = 0;
         if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).checked) {
+            for (HostRecordInfo hri : list) {
+                if (hri.checked) {
                     count++;
                 }
             }
@@ -134,8 +134,8 @@ public class HostAddFragment extends BasePopupFragment implements OnClickListene
     }
 
     private void setHostItemSelectedStatus(List<HostRecordInfo> list, BaseAdapter adapter, Handler h, boolean selected) {
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).checked = selected;
+        for (HostRecordInfo hri : list) {
+            hri.checked = selected;
         }
         adapter.notifyDataSetChanged();
         h.sendEmptyMessage(1);
@@ -195,10 +195,11 @@ public class HostAddFragment extends BasePopupFragment implements OnClickListene
         if (data != null) {
             list.addAll(data);
         }
-        adapter.setNewList(list);
-        progressSearchHosts.setVisibility(View.GONE);
-        showHostSelectedCount();
-
+        if (getActivity() != null) {
+            adapter.setNewList(list);
+            progressSearchHosts.setVisibility(View.GONE);
+            showHostSelectedCount();
+        }
     }
 
     @Override

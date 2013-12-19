@@ -199,12 +199,13 @@ public class BatchAppInstallFragment extends BaseFragment implements View.OnClic
         if (data != null) {
             list.addAll(data);
         }
-        adapter.setNewList(list);
-        progressBatchApps.setVisibility(View.GONE);
+        if (getActivity() != null) {
+            adapter.setNewList(list);
+            progressBatchApps.setVisibility(View.GONE);
 
-        showDataSelectedCount();
-        tvEmptyHint.setVisibility(adapter.getCount() == 0 ? View.VISIBLE : View.GONE);
-
+            showDataSelectedCount();
+            tvEmptyHint.setVisibility(adapter.getCount() == 0 ? View.VISIBLE : View.GONE);
+        }
     }
 
     private int getAppSelectedCount() {
@@ -262,9 +263,9 @@ public class BatchAppInstallFragment extends BaseFragment implements View.OnClic
     private void doBatchInstall() {
         setInstallState(true);
         List<DataappInfo> listOperate = new ArrayList<DataappInfo>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).checked) {
-                listOperate.add(list.get(i));
+        for (DataappInfo di : list) {
+            if (di.checked) {
+                listOperate.add(di);
             }
         }
         ListUtils.setOperateList(listOperate);

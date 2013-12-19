@@ -228,9 +228,9 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
 
         setRestoreState(true);
         List<DataappInfo> listOperate = new ArrayList<DataappInfo>();
-        for (int i = 0; i < listBackDataappAll.size(); i++) {
-            if (listBackDataappAll.get(i).checked) {
-                listOperate.add(listBackDataappAll.get(i));
+        for (DataappInfo di : listBackDataappAll) {
+            if (di.checked) {
+                listOperate.add(di);
             }
         }
         ListUtils.setOperateList(listOperate);
@@ -286,12 +286,12 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
         if (data != null) {
             listBackDataappAll.addAll(data);
         }
-
-        backDataappAdapter.setNewList(listBackDataappAll);
-        progressBackData.setVisibility(View.GONE);
-        showDataSelectedCount();
-        tvEmptyHint.setVisibility(backDataappAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
-
+        if (getActivity() != null) {
+            backDataappAdapter.setNewList(listBackDataappAll);
+            progressBackData.setVisibility(View.GONE);
+            showDataSelectedCount();
+            tvEmptyHint.setVisibility(backDataappAdapter.getCount() == 0 ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override

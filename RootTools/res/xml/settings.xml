@@ -4,60 +4,64 @@
     <PreferenceCategory android:title="@string/cat_global">
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_show_float_window"
-                android:title="@string/func0_title"/>
+                android:title="@string/func0_title" />
+        <com.rarnu.devlib.component.CheckBoxPreferenceEx
+                android:key="@string/id_theme"
+                android:title="@string/func_theme_title" />
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/func1_title">
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_allow_delete_level_0"
-                android:title="@string/allow_delete_level0"/>
+                android:title="@string/allow_delete_level0" />
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_backup_before_delete"
-                android:title="@string/backup_before_delete"/>
+                android:title="@string/backup_before_delete" />
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_also_delete_data"
-                android:title="@string/also_delete_data"/>
+                android:title="@string/also_delete_data" />
 
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_custom_app_clean"
-                android:title="@string/custom_app_clean"/>
+                android:title="@string/custom_app_clean" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_apps">
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_override_backuped"
-                android:title="@string/override_backuped"/>
+                android:title="@string/override_backuped" />
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_reinstall_apk"
-                android:title="@string/reinstall_apk"/>
+                android:title="@string/reinstall_apk" />
 
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_delete_all_backup_data"
-                android:title="@string/delete_all_backup_data"/>
+                android:title="@string/delete_all_backup_data" />
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_backup_path"
-                android:title="@string/set_backup_path"/>
+                android:title="@string/set_backup_path" />
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_batch_install_path"
-                android:title="@string/set_batch_install_path"/>
+                android:title="@string/set_batch_install_path" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/func5_title">
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_kill_process_before_clean"
-                android:title="@string/kill_process_before_clean"/>
+                android:title="@string/kill_process_before_clean" />
 
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_kill_ignore_list"
-                android:title="@string/kill_ignore_list"/>
+                android:title="@string/kill_ignore_list" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/func7_title">
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_name_server"
-                android:title="@string/name_server"/>
+                android:title="@string/name_server" />
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_manual_edit_hosts"
-                android:title="@string/manual_edit_hosts"/>
+                android:title="@string/manual_edit_hosts" />
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_clean_deprecated_hosts"
-                android:title="@string/clean_deprecated_hosts"/>
+                android:title="@string/clean_deprecated_hosts" />
     </PreferenceCategory>
 
 </PreferenceScreen>

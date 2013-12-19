@@ -157,13 +157,15 @@ public class CleanCacheFragment extends BaseFragment implements OnLoadCompleteLi
         if (data != null) {
             listCacheAll.addAll(data);
         }
-        adapterCache.setNewList(listCacheAll);
-        progressCache.setVisibility(View.GONE);
-        if (menuClean != null) {
-            menuClean.setEnabled(true);
-            menuRefresh.setEnabled(true);
+        if (getActivity() != null) {
+            adapterCache.setNewList(listCacheAll);
+            progressCache.setVisibility(View.GONE);
+            if (menuClean != null) {
+                menuClean.setEnabled(true);
+                menuRefresh.setEnabled(true);
+            }
+            loadCacheCount();
         }
-        loadCacheCount();
 
     }
 

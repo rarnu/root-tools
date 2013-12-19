@@ -147,8 +147,8 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
 
     private void initTab() {
         bar.removeAllTabs();
-        for (int i = 0; i < listFragment.size(); i++) {
-            Tab t = bar.newTab().setText(((BaseFragment) listFragment.get(i)).getTabTitle()).setTabListener(this);
+        for (Fragment bf : listFragment) {
+            Tab t = bar.newTab().setText(((BaseFragment) bf).getTabTitle()).setTabListener(this);
             bar.addTab(t);
         }
     }

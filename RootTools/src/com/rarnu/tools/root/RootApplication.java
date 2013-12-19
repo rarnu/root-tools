@@ -3,11 +3,13 @@ package com.rarnu.tools.root;
 import android.app.Application;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
+import com.rarnu.tools.root.common.RTConfig;
 
 public class RootApplication extends Application {
 
     @Override
     public void onCreate() {
+        RTConfig.initConfig(this);
         super.onCreate();
         try {
             ApplicationInfo appInfo = getPackageManager().getApplicationInfo(getPackageName(), PackageManager.GET_META_DATA);

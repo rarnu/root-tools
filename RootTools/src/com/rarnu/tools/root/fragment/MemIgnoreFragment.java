@@ -101,8 +101,8 @@ public class MemIgnoreFragment extends BasePopupFragment implements OnClickListe
     private int getIgnoreSelectedCount(List<MemIgnoreInfo> list) {
         int count = 0;
         if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).checked) {
+            for (MemIgnoreInfo mi : list) {
+                if (mi.checked) {
                     count++;
                 }
             }
@@ -111,11 +111,11 @@ public class MemIgnoreFragment extends BasePopupFragment implements OnClickListe
     }
 
     private void setIgnoreItemSelectedStatus(List<MemIgnoreInfo> list, BaseAdapter adapter, Handler h, boolean selected) {
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).locked) {
-                list.get(i).checked = false;
+        for (MemIgnoreInfo mi : list) {
+            if (mi.locked) {
+                mi.checked = false;
             } else {
-                list.get(i).checked = selected;
+                mi.checked = selected;
             }
         }
         adapter.notifyDataSetChanged();

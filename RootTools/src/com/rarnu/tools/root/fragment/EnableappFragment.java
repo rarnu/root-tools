@@ -156,9 +156,11 @@ public class EnableappFragment extends BaseFragment implements OnItemLongClickLi
         if (data != null) {
             listEnableappAll.addAll(data);
         }
-        enableappAdapter.setNewList(listEnableappAll);
-        progressEnableapp.setVisibility(View.GONE);
-        tvOperateHint.setVisibility(View.VISIBLE);
+        if (getActivity() != null) {
+            enableappAdapter.setNewList(listEnableappAll);
+            progressEnableapp.setVisibility(View.GONE);
+            tvOperateHint.setVisibility(View.VISIBLE);
+        }
         enableappLoading = false;
 
     }

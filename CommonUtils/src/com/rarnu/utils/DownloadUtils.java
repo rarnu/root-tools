@@ -24,15 +24,15 @@ public class DownloadUtils {
 
     public static void stopDownloadTask(String localDir, final String localFile) {
         final String filePath = localDir + localFile;
-        for (int i = 0; i < listDownloading.size(); i++) {
-            if (listDownloading.get(i).fileName.equals(filePath)) {
+        for (DownloadInfo di : listDownloading) {
+            if (di.fileName.equals(filePath)) {
                 try {
-                    listDownloading.get(i).thread.wait(5000);
-                    listDownloading.get(i).thread.interrupt();
+                    di.thread.wait(5000);
+                    di.thread.interrupt();
                 } catch (Exception e) {
 
                 }
-                listDownloading.remove(i);
+                listDownloading.remove(di);
                 break;
             }
         }
@@ -82,9 +82,9 @@ public class DownloadUtils {
 
                         }
                     }
-                    for (int i = 0; i < listDownloading.size(); i++) {
-                        if (listDownloading.get(i).fileName.equals(filePath)) {
-                            listDownloading.remove(i);
+                    for (DownloadInfo di : listDownloading) {
+                        if (di.fileName.equals(filePath)) {
+                            listDownloading.remove(di);
                             break;
                         }
                     }

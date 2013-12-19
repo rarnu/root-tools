@@ -62,13 +62,10 @@ public class InnerHeaderViewAdapter implements WrapperListAdapter, Filterable {
     }
 
     public boolean removeHeader(View v) {
-        for (int i = 0; i < mHeaderViewInfos.size(); i++) {
-            InnerListView.FixedViewInfo info = mHeaderViewInfos.get(i);
-            if (info.view == v) {
-                mHeaderViewInfos.remove(i);
-
+        for (InnerListView.FixedViewInfo iv: mHeaderViewInfos) {
+            if (iv.view == v) {
+                mHeaderViewInfos.remove(iv);
                 mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos) && areAllListInfosSelectable(mFooterViewInfos);
-
                 return true;
             }
         }
@@ -77,13 +74,10 @@ public class InnerHeaderViewAdapter implements WrapperListAdapter, Filterable {
     }
 
     public boolean removeFooter(View v) {
-        for (int i = 0; i < mFooterViewInfos.size(); i++) {
-            InnerListView.FixedViewInfo info = mFooterViewInfos.get(i);
-            if (info.view == v) {
-                mFooterViewInfos.remove(i);
-
+        for (InnerListView.FixedViewInfo iv:mFooterViewInfos) {
+            if (iv.view == v) {
+                mFooterViewInfos.remove(iv);
                 mAreAllFixedViewsSelectable = areAllListInfosSelectable(mHeaderViewInfos) && areAllListInfosSelectable(mFooterViewInfos);
-
                 return true;
             }
         }

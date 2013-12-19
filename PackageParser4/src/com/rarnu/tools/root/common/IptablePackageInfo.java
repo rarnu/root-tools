@@ -1,8 +1,6 @@
 package com.rarnu.tools.root.common;
 
 import android.content.pm.ApplicationInfo;
-import android.graphics.drawable.Drawable;
-
 
 public class IptablePackageInfo {
     public int uid;
@@ -28,7 +26,9 @@ public class IptablePackageInfo {
         if (tostr == null) {
             final StringBuilder s = new StringBuilder();
             for (int i = 0; i < names.length; i++) {
-                if (i != 0) s.append(", ");
+                if (i != 0) {
+                    s.append(", ");
+                }
                 s.append(names[i]);
             }
             s.append("\n");

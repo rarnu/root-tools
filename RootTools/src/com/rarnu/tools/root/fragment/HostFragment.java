@@ -186,13 +186,14 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
         if (data != null) {
             listHostsAll.addAll(data);
         }
-
-        hostsAdapter.setNewList(listHostsAll);
-        progressHosts.setVisibility(View.GONE);
-        showHostSelectedCount();
-        tvTooBigHint.setVisibility(data == null ? View.VISIBLE : View.GONE);
-        if (itemAdd != null) {
-            itemAdd.setEnabled(data != null);
+        if (getActivity() != null) {
+            hostsAdapter.setNewList(listHostsAll);
+            progressHosts.setVisibility(View.GONE);
+            showHostSelectedCount();
+            tvTooBigHint.setVisibility(data == null ? View.VISIBLE : View.GONE);
+            if (itemAdd != null) {
+                itemAdd.setEnabled(data != null);
+            }
         }
     }
 
@@ -210,8 +211,8 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
     private int getHostSelectedCount(List<HostRecordInfo> list) {
         int count = 0;
         if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).checked) {
+            for (HostRecordInfo hri : list) {
+                if (hri.checked) {
                     count++;
                 }
             }
@@ -220,8 +221,8 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
     }
 
     private void setHostItemSelectedStatus(List<HostRecordInfo> list, BaseAdapter adapter, Handler h, boolean selected) {
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).checked = selected;
+        for (HostRecordInfo hri : list) {
+            hri.checked = selected;
         }
         adapter.notifyDataSetChanged();
         h.sendEmptyMessage(1);

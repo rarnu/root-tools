@@ -13,10 +13,22 @@
             android:id="@+id/lvComp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_above="@+id/progressComp"
+            android:layout_above="@+id/tvOperateHint"
             android:fastScrollEnabled="true"
             android:layout_below="@+id/sv">
     </ListView>
+
+    <TextView
+            android:id="@+id/tvOperateHint"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true"
+            android:background="@color/lightskyblue"
+            android:gravity="left|center_vertical"
+            android:padding="4dip"
+            android:text="@string/operation_hint"
+            android:textColor="@color/black"
+            android:visibility="gone" />
 
     <com.rarnu.devlib.component.DataProgressBar
             android:id="@+id/progressComp"

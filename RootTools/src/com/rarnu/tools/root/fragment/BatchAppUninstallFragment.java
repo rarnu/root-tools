@@ -123,7 +123,6 @@ public class BatchAppUninstallFragment extends BaseFragment implements Loader.On
         sv.setOnQueryTextListener(this);
     }
 
-
     @Override
     public void initLogic() {
         doStartLoad();
@@ -182,12 +181,13 @@ public class BatchAppUninstallFragment extends BaseFragment implements Loader.On
         if (data != null) {
             list.addAll(data);
         }
-        adapter.setNewList(list);
-        progressBatchApps.setVisibility(View.GONE);
+        if (getActivity() != null) {
+            adapter.setNewList(list);
+            progressBatchApps.setVisibility(View.GONE);
 
-        showAppSelectedCount();
-        tvEmptyHint.setVisibility(adapter.getCount() == 0 ? View.VISIBLE : View.GONE);
-
+            showAppSelectedCount();
+            tvEmptyHint.setVisibility(adapter.getCount() == 0 ? View.VISIBLE : View.GONE);
+        }
     }
 
     @Override
@@ -261,9 +261,9 @@ public class BatchAppUninstallFragment extends BaseFragment implements Loader.On
     private void doBatchUninstall() {
         setUninstallState(true);
         List<DataappInfo> listOperate = new ArrayList<DataappInfo>();
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).checked) {
-                listOperate.add(list.get(i));
+        for (DataappInfo di : list) {
+            if (di.checked) {
+                listOperate.add(di);
             }
         }
         ListUtils.setOperateList(listOperate);

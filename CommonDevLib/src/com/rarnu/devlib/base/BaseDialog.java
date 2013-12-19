@@ -9,6 +9,9 @@ public abstract class BaseDialog extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (customTheme() != 0) {
+            setTheme(customTheme());
+        }
         super.onCreate(savedInstanceState);
         if (getCondition()) {
             finish();
@@ -26,4 +29,5 @@ public abstract class BaseDialog extends Activity {
 
     public abstract Fragment replaceFragment();
 
+    public abstract int customTheme();
 }

@@ -31,8 +31,8 @@ public class RootUtils {
     public static boolean hasBusybox() {
         boolean ret = false;
 
-        for (int i = 0; i < BUSYBOX_PATH.length; i++) {
-            ret = openFile(BUSYBOX_PATH[i]).exists();
+        for (String b : BUSYBOX_PATH) {
+            ret = openFile(b).exists();
             if (ret) {
                 break;
             }
@@ -42,7 +42,7 @@ public class RootUtils {
 
     public static boolean hasIptables() {
         boolean ret = false;
-        for (int i=0; i<IPTABLES_PATH.length; i++) {
+        for (int i = 0; i < IPTABLES_PATH.length; i++) {
             ret = openFile(IPTABLES_PATH[i]).exists() && openFile(IP6TABLES_PATH[i]).exists();
             if (ret) {
                 break;
@@ -54,8 +54,8 @@ public class RootUtils {
     public static boolean hasSuperuser() {
 
         boolean ret = false;
-        for (int i = 0; i < SUPERUSER_PATH.length; i++) {
-            ret = applicationExists(SUPERUSER_PATH[i]);
+        for (String su : SUPERUSER_PATH) {
+            ret = applicationExists(su);
             if (ret) {
                 break;
             }

@@ -42,6 +42,7 @@
     <string name="check_update">檢查更新</string>
     <string name="about">關於本軟體</string>
     <string name="about_with_path">掌優 &gt; 關於本軟體</string>
+    <string name="func_theme_title">白色主題</string>
     <string name="func0_title">顯示懸浮窗</string>
     <string name="func1">增加/移除\n系統應用</string>
     <string name="func1_title">系統應用管理</string>
@@ -358,4 +359,5 @@
     <string name="install_busybox_confirm">掌優將爲您的設備安裝 busybox, 確認要安裝嗎?</string>
     <string name="install_iptables_confirm">掌優將爲您的設備安裝 iptables, 確認要安裝嗎?</string>
     <string name="binary_not_supportted">掌優僅支援 ARM 芯片，請自行尋找符合您的設備的二進制檔案</string>
+    <string name="theme_changed_restart">主題已變更, 請重新啓動本程式使之生效</string>
 </resources>

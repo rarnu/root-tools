@@ -8,6 +8,7 @@ import com.rarnu.utils.ConfigUtils;
 public class RTConfig {
 
     private static final String KEY_SHOW_FLOAT_WINDOW = "show_float_window";
+    private static final String KEY_THEME = "theme";
     private static final String KEY_ALLOW_DELETE_LEVEL0 = "allow_delete_level0";
     private static final String KEY_ALSO_DELETE_DATA = "also_delete_data";
     private static final String KEY_BACKUP_BEFORE_DELETE = "backup_before_delete";
@@ -43,6 +44,14 @@ public class RTConfig {
 
     public static void setFloatWindowPosY(Context context, int value) {
         ConfigUtils.setIntConfig(context, KEY_FLOAT_WINDOW_POSY, value);
+    }
+
+    public static boolean getTheme(Context context) {
+        return ConfigUtils.getBooleanConfig(context, KEY_THEME, false);
+    }
+
+    public static void setTheme(Context context, boolean value) {
+        ConfigUtils.setBooleanConfig(context, KEY_THEME, value);
     }
 
     public static boolean getAllowDeleteLevel0(Context context) {
@@ -130,6 +139,7 @@ public class RTConfig {
         GlobalInstance.showFloatWindow = getShowFloatWindow(context);
         GlobalInstance.floatWindowPosX = getFloatWindowPosX(context);
         GlobalInstance.floatWindowPosY = getFloatWindowPosY(context);
+        GlobalInstance.theme = getTheme(context);
         GlobalInstance.allowDeleteLevel0 = getAllowDeleteLevel0(context);
         GlobalInstance.alsoDeleteData = getAlsoDeleteData(context);
         GlobalInstance.backupBeforeDelete = getBackupBeforeDelete(context);

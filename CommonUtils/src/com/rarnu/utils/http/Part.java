@@ -44,9 +44,9 @@ public abstract class Part {
         if (partBoundary == null || partBoundary.length == 0) {
             throw new IllegalArgumentException();
         }
-        for (int i = 0; i < parts.length; i++) {
-            parts[i].setPartBoundary(partBoundary);
-            parts[i].send(out);
+        for (Part p : parts) {
+            p.setPartBoundary(partBoundary);
+            p.send(out);
         }
         out.write(EXTRA_BYTES);
         out.write(partBoundary);
@@ -64,9 +64,9 @@ public abstract class Part {
             throw new IllegalArgumentException();
         }
         long total = 0;
-        for (int i = 0; i < parts.length; i++) {
-            parts[i].setPartBoundary(partBoundary);
-            long l = parts[i].length();
+        for (Part p : parts) {
+            p.setPartBoundary(partBoundary);
+            long l = p.length();
             if (l < 0) {
                 return -1;
             }

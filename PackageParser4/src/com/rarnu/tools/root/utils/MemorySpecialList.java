@@ -31,9 +31,9 @@ public class MemorySpecialList {
 
     public static boolean isExcludeLocked(String ns) {
         boolean ret = false;
-        for (int i = 0; i < lstExclude.size(); i++) {
-            if (lstExclude.get(i).namespace.equals(ns)) {
-                ret = lstExclude.get(i).locked;
+        for (MemIgnoreInfo mii : lstExclude) {
+            if (mii.namespace.equals(ns)) {
+                ret = mii.locked;
                 break;
             }
         }
@@ -61,8 +61,8 @@ public class MemorySpecialList {
         // launchers
         List<String> listLauncher = ApkUtils.getLauncherPackageName(context);
         if (listLauncher != null && listLauncher.size() != 0) {
-            for (int i = 0; i < listLauncher.size(); i++) {
-                lstExclude.add(newIgnoreInfo(listLauncher.get(i), true));
+            for (String ig : listLauncher) {
+                lstExclude.add(newIgnoreInfo(ig, true));
             }
         }
 

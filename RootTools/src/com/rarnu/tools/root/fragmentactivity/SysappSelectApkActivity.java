@@ -2,10 +2,10 @@ package com.rarnu.tools.root.fragmentactivity;
 
 import android.app.Fragment;
 import android.view.KeyEvent;
-import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BasePopupActivity;
 import com.rarnu.devlib.base.BasePopupFragment;
 import com.rarnu.tools.root.Fragments;
+import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.FragmentNameConst;
 
@@ -34,4 +34,10 @@ public class SysappSelectApkActivity extends BasePopupActivity {
         }
         return super.onKeyDown(keyCode, event);
     }
+
+    @Override
+    public int customTheme() {
+        return GlobalInstance.theme ? android.R.style.Theme_Holo_Light : android.R.style.Theme_Holo;
+    }
+
 }

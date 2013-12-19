@@ -26,11 +26,11 @@ public class ProcessUtils {
                 // r = r.replaceAll("\\s+", " ");
                 String[] ss = r.split("\n");
                 ret = new ArrayList<MemProcessInfo>();
-                for (int i = 1; i < ss.length; i++) {
-                    if (!ss[i].startsWith("root")) {
+                for (String si : ss) {
+                    if (!si.startsWith("root")) {
                         MemProcessInfo info = null;
                         try {
-                            info = MemProcessInfo.stringToProcessInfo(ss[i]);
+                            info = MemProcessInfo.stringToProcessInfo(si);
                         } catch (Exception e) {
                             info = null;
                         }

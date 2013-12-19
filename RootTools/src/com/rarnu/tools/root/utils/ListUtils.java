@@ -21,8 +21,8 @@ public class ListUtils {
     public static int getListViewSelectedCount(List<DataappInfo> list) {
         int count = 0;
 
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).checked) {
+        for (DataappInfo di : list) {
+            if (di.checked) {
                 count++;
             }
         }
@@ -30,8 +30,8 @@ public class ListUtils {
     }
 
     public static void setListViewItemSelectedStatus(List<DataappInfo> list, BaseAdapter adapter, Handler h, boolean selected) {
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).checked = selected;
+        for (DataappInfo di : list) {
+            di.checked = selected;
         }
         adapter.notifyDataSetChanged();
         h.sendEmptyMessage(1);

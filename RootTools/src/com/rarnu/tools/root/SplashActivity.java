@@ -27,6 +27,7 @@ public class SplashActivity extends Activity {
     public void onCreate(Bundle savedInstanceState) {
         UIUtils.initDisplayMetrics(this, getWindowManager(), true);
         ResourceUtils.init(this);
+        setTheme(GlobalInstance.theme ? android.R.style.Theme_Holo_Light_NoActionBar_Fullscreen : android.R.style.Theme_Holo_NoActionBar_Fullscreen);
         super.onCreate(savedInstanceState);
 
         RootUtils.init(this);

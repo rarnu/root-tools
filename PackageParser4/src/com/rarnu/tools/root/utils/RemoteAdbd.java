@@ -79,9 +79,9 @@ class RemoteAdbd {
         if (connectivity != null) {
             NetworkInfo[] info = connectivity.getAllNetworkInfo();
             if (info != null) {
-                for (int i = 0; i < info.length; i++) {
-                    String typ = info[i].getTypeName().toUpperCase();
-                    if (typ.equals("WIFI") && info[i].isConnected()) {
+                for (NetworkInfo ni : info) {
+                    String typ = ni.getTypeName().toUpperCase();
+                    if (typ.equals("WIFI") && ni.isConnected()) {
                         ret = true;
                     }
                 }

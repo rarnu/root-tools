@@ -12,14 +12,18 @@ public class DiskInfo {
 
     public static DiskInfo fromString(String str) {
         DiskInfo di = null;
-        String[] items = str.split(" ");
-        if (!items[0].contains(".") && !items[0].contains("emulated")) {
-            di = new DiskInfo();
-            di.fileSystem = items[0];
-            di.size = items[1];
-            di.used = items[2];
-            di.free = items[3];
-            di.blockSize = items[4];
+        try {
+            String[] items = str.split(" ");
+            if (!items[0].contains(".") && !items[0].contains("emulated")) {
+                di = new DiskInfo();
+                di.fileSystem = items[0];
+                di.size = items[1];
+                di.used = items[2];
+                di.free = items[3];
+                di.blockSize = items[4];
+            }
+        } catch (Exception e) {
+
         }
         return di;
     }

@@ -11,6 +11,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
+import com.rarnu.devlib.component.MutaxReceiver;
 import com.rarnu.devlib.component.intf.OnReceiveMessage;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
@@ -19,7 +20,6 @@ import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.HtcRomInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConsts;
-import com.rarnu.devlib.component.MutaxReceiver;
 import com.rarnu.tools.root.service.HtcRomService;
 
 import java.util.ArrayList;
@@ -129,23 +129,23 @@ public class HtcRomFragment extends BaseFragment implements OnReceiveMessage {
     private String buildCommand() {
         String cmd = "";
 
-        for (int i = 0; i < list.size(); i++) {
-            cmd += list.get(i).checked ? "1" : "0";
+        for (HtcRomInfo hri : list) {
+            cmd += hri.checked ? "1" : "0";
         }
         return cmd;
     }
 
     private void setAllItemUnchecked() {
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).checked = false;
+        for (HtcRomInfo hri : list) {
+            hri.checked = false;
         }
         adapter.setNewList(list);
     }
 
     private int getSelectedItemCount() {
         int ret = 0;
-        for (int i = 0; i < list.size(); i++) {
-            if (list.get(i).checked) {
+        for (HtcRomInfo hri : list) {
+            if (hri.checked) {
                 ret++;
             }
         }

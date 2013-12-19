@@ -15,13 +15,16 @@ public class DiskUtils {
         List<DiskInfo> list = null;
         if (dis != null && dis.length != 0) {
             // skip the first line
+            dis[0] = "";
             list = new ArrayList<DiskInfo>();
             String strDi = "";
-            for (int i = 1; i < dis.length; i++) {
-                strDi = dis[i].replaceAll("\\s+", " ");
-                DiskInfo info = DiskInfo.fromString(strDi);
-                if (info != null) {
-                    list.add(info);
+            for (String d : dis) {
+                if (!d.equals("")) {
+                    strDi = d.replaceAll("\\s+", " ");
+                    DiskInfo info = DiskInfo.fromString(strDi);
+                    if (info != null) {
+                        list.add(info);
+                    }
                 }
             }
         }
@@ -29,12 +32,17 @@ public class DiskUtils {
     }
 
     public static double stringToKbytes(String str) {
-        String sUnit = str.substring(str.length() - 1);
-        double size = Double.parseDouble(str.substring(0, str.length() - 1));
-        if (sUnit.equals("G")) {
-            size = size * 1024 * 1024;
-        } else if (sUnit.equals("M")) {
-            size = size * 1024;
+        double size = 0D;
+        try {
+            String sUnit = str.substring(str.length() - 1);
+            size = Double.parseDouble(str.substring(0, str.length() - 1));
+            if (sUnit.equals("G")) {
+                size = size * 1024 * 1024;
+            } else if (sUnit.equals("M")) {
+                size = size * 1024;
+            }
+        } catch (Exception e) {
+
         }
         return size;
     }

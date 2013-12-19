@@ -13,7 +13,6 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import com.rarnu.command.CommandCallback;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
@@ -44,9 +43,9 @@ public class ApkUtils {
         List<String> ret = null;
         if (list != null && list.size() != 0) {
             ret = new ArrayList<String>();
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).activityInfo != null) {
-                    ret.add(list.get(i).activityInfo.packageName);
+            for (ResolveInfo ri : list) {
+                if (ri.activityInfo != null) {
+                    ret.add(ri.activityInfo.packageName);
                 }
             }
         }
@@ -70,8 +69,8 @@ public class ApkUtils {
         List<SysappInfo> res = new ArrayList<SysappInfo>();
         List<PackageInfo> packs = GlobalInstance.pm.getInstalledPackages(0);
         int position = 0;
-        for (int i = 0; i < packs.size(); i++) {
-            PackageInfo p = packs.get(i);
+        for (PackageInfo p : packs) {
+
             ApplicationInfo newInfo = p.applicationInfo;
             if (newInfo == null) {
                 continue;
@@ -353,8 +352,7 @@ public class ApkUtils {
         List<DataappInfo> res = new ArrayList<DataappInfo>();
         List<PackageInfo> packs = GlobalInstance.pm.getInstalledPackages(0);
         int position = 0;
-        for (int i = 0; i < packs.size(); i++) {
-            PackageInfo p = packs.get(i);
+        for (PackageInfo p : packs) {
             ApplicationInfo newInfo = p.applicationInfo;
             if (newInfo == null) {
                 continue;
@@ -376,8 +374,8 @@ public class ApkUtils {
         List<EnableappInfo> res = new ArrayList<EnableappInfo>();
         List<PackageInfo> packs = GlobalInstance.pm.getInstalledPackages(0);
 
-        for (int i = 0; i < packs.size(); i++) {
-            PackageInfo p = packs.get(i);
+        for (PackageInfo p : packs) {
+
             ApplicationInfo newInfo = p.applicationInfo;
             if (newInfo == null) {
                 continue;
@@ -567,11 +565,11 @@ public class ApkUtils {
      *
      * @param newinfo
      * @return status with the new application info<br>
-     *         return 0: installed with same signature<br>
-     *         return 1: installed with different signature<br>
-     *         return 2: no need update<br>
-     *         return 3: not installed<br>
-     *         return 4: error
+     * return 0: installed with same signature<br>
+     * return 1: installed with different signature<br>
+     * return 2: no need update<br>
+     * return 3: not installed<br>
+     * return 4: error
      */
     public static int getApkFileStatus(Context context, DataappInfo newinfo) {
         try {
@@ -614,8 +612,8 @@ public class ApkUtils {
                 items = new String[]{ret};
             }
             String pkgName = "";
-            for (int i = 0; i < items.length; i++) {
-                pkgName = items[i].substring(items[i].indexOf("=") + 1);
+            for (String pn : items) {
+                pkgName = pn.substring(pn.indexOf("=") + 1);
 
                 try {
                     info = GlobalInstance.pm.getApplicationInfo(pkgName, 0);

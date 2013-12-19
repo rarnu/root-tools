@@ -3,7 +3,6 @@ package com.rarnu.utils;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 
 import java.io.*;
 import java.util.ArrayList;
@@ -99,18 +98,18 @@ public class FileUtils {
         }
         String[] tempList = myFile.list();
         File temp = null;
-        for (int i = 0; i < tempList.length; i++) {
+        for (String t : tempList) {
             if (path.endsWith(File.separator)) {
-                temp = new File(path + tempList[i]);
+                temp = new File(path + t);
             } else {
-                temp = new File(path + File.separator + tempList[i]);
+                temp = new File(path + File.separator + t);
             }
             if (temp.isFile()) {
                 temp.delete();
             }
             if (temp.isDirectory()) {
-                deleteSubFiles(path + File.separator + tempList[i]);
-                deleteDir(path + File.separator + tempList[i]);
+                deleteSubFiles(path + File.separator + t);
+                deleteDir(path + File.separator + t);
             }
         }
     }
@@ -162,11 +161,11 @@ public class FileUtils {
         File a = new File(source);
         String[] file = a.list();
         File temp = null;
-        for (int i = 0; i < file.length; i++) {
+        for (String f : file) {
             if (source.endsWith(File.separator)) {
-                temp = new File(source + file[i]);
+                temp = new File(source + f);
             } else {
-                temp = new File(source + File.separator + file[i]);
+                temp = new File(source + File.separator + f);
             }
 
             if (temp.isFile()) {
@@ -182,7 +181,7 @@ public class FileUtils {
                 input.close();
             }
             if (temp.isDirectory()) {
-                copyFolder(source + File.separator + file[i], dest + File.separator + file[i]);
+                copyFolder(source + File.separator + f, dest + File.separator + f);
             }
         }
 

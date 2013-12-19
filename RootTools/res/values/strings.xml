@@ -42,6 +42,7 @@
     <string name="check_update">Check Update</string>
     <string name="about">About</string>
     <string name="about_with_path">RootTools &gt; About</string>
+    <string name="func_theme_title">White Theme</string>
     <string name="func0_title">Show Float Window</string>
     <string name="func1">Add/Remove\nSystem Apps</string>
     <string name="func1_title">System App</string>
@@ -385,4 +386,5 @@
     <string name="install_busybox_confirm">RootTools will install busybox for your device, confirm?</string>
     <string name="install_iptables_confirm">RootTools will install iptables for your device, confirm?</string>
     <string name="binary_not_supportted">RootTools only support for ARM chips, please try to find the binary file fit for your device.</string>
+    <string name="theme_changed_restart">Theme changed, please restart the application to take effect.</string>
 </resources>

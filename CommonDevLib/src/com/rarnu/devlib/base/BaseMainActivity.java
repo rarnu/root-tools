@@ -29,6 +29,9 @@ public abstract class BaseMainActivity extends Activity implements IFragments {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (customTheme() != 0) {
+            setTheme(customTheme());
+        }
         getWindow().requestFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
         registerReceiver(receiverHome, filterHome);
@@ -65,6 +68,8 @@ public abstract class BaseMainActivity extends Activity implements IFragments {
     public abstract void initOnce();
 
     public abstract String getBarTitle();
+
+    public abstract int customTheme();
 
     private void loadUI() {
         setContentView(R.layout.layout_main);

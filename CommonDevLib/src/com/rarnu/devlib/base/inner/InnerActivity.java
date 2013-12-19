@@ -21,6 +21,9 @@ public abstract class InnerActivity extends Activity implements
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        if (customTheme() != 0) {
+            setTheme(customTheme());
+        }
         requestWindowFeature(Window.FEATURE_ACTION_BAR);
         super.onCreate(savedInstanceState);
 
@@ -59,6 +62,8 @@ public abstract class InnerActivity extends Activity implements
     public abstract int getReplaceId();
 
     public abstract Fragment replaceFragment();
+
+    public abstract int customTheme();
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

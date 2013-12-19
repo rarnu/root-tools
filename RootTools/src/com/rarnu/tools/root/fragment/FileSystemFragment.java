@@ -269,9 +269,9 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
     }
 
     private void removeOperatingFile(FileOperationInfo info) {
-        for (int i = 0; i < GlobalInstance.listOperation.size(); i++) {
-            if (GlobalInstance.listOperation.get(i).fullPath.equals(info.fullPath)) {
-                GlobalInstance.listOperation.remove(i);
+        for (FileOperationInfo fi : GlobalInstance.listOperation) {
+            if (fi.fullPath.equals(info.fullPath)) {
+                GlobalInstance.listOperation.remove(fi);
                 break;
             }
         }
@@ -352,9 +352,9 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                 try {
                     File fDir = new File(currentDir);
                     File[] files = fDir.listFiles();
-                    for (int i = 0; i < files.length; i++) {
-                        FileSystemFileInfo info = new FileSystemFileInfo(files[i].isDirectory(), files[i].getName(), files[i].getAbsolutePath());
-                        info.icon = getIconResForFile(files[i].getName());
+                    for (File f : files) {
+                        FileSystemFileInfo info = new FileSystemFileInfo(f.isDirectory(), f.getName(), f.getAbsolutePath());
+                        info.icon = getIconResForFile(f.getName());
                         listTmp.add(info);
                     }
 
@@ -515,8 +515,8 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
 
     private boolean isOperationExists(FileSystemFileInfo item) {
         boolean ret = false;
-        for (int i = 0; i < GlobalInstance.listOperation.size(); i++) {
-            if (GlobalInstance.listOperation.get(i).fullPath.equals(item.fullPath)) {
+        for (FileOperationInfo fi : GlobalInstance.listOperation) {
+            if (fi.fullPath.equals(item.fullPath)) {
                 ret = true;
                 break;
             }

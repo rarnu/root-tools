@@ -159,10 +159,13 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
     @Override
     public void onLoadComplete(Loader<List<SysappInfo>> loader, List<SysappInfo> data) {
         listSysappAll.clear();
-        listSysappAll.addAll(data);
-        sysappAdapter.setNewList(listSysappAll);
-        progressSysapp.setVisibility(View.GONE);
-
+        if (data != null) {
+            listSysappAll.addAll(data);
+        }
+        if (getActivity() != null) {
+            sysappAdapter.setNewList(listSysappAll);
+            progressSysapp.setVisibility(View.GONE);
+        }
     }
 
     @Override

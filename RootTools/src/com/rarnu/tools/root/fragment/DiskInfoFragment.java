@@ -115,8 +115,10 @@ public class DiskInfoFragment extends BaseFragment implements OnLoadCompleteList
         if (data != null) {
             list.addAll(data);
         }
-        adapter.setNewList(list);
-        progressDisk.setVisibility(View.GONE);
+        if (getActivity() != null) {
+            adapter.setNewList(list);
+            progressDisk.setVisibility(View.GONE);
+        }
     }
 
 }

@@ -104,8 +104,8 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements OnC
     private int getSelectedCount(List<CustomPackageInfo> list) {
         int count = 0;
         if (list != null) {
-            for (int i = 0; i < list.size(); i++) {
-                if (list.get(i).checked) {
+            for (CustomPackageInfo cpi : list) {
+                if (cpi.checked) {
                     count++;
                 }
             }
@@ -114,8 +114,8 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements OnC
     }
 
     private void setItemSelectedStatus(List<CustomPackageInfo> list, BaseAdapter adapter, Handler h, boolean selected) {
-        for (int i = 0; i < list.size(); i++) {
-            list.get(i).checked = selected;
+        for (CustomPackageInfo cpi : list) {
+            cpi.checked = selected;
         }
         adapter.notifyDataSetChanged();
         h.sendEmptyMessage(1);

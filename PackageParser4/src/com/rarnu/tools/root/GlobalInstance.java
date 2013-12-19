@@ -1,6 +1,5 @@
 package com.rarnu.tools.root;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -20,6 +19,8 @@ public class GlobalInstance {
     public static boolean showFloatWindow = false;
     public static int floatWindowPosX = 0;
     public static int floatWindowPosY = 0;
+    public static boolean theme = false;
+
     // sysapp
     public static SysappInfo currentSysapp = null;
     public static boolean allowDeleteLevel0 = false;

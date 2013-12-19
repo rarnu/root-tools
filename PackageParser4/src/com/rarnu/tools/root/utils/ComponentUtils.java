@@ -131,8 +131,8 @@ public class ComponentUtils {
         if (!(serviceList.size() > 0)) {
             return false;
         }
-        for (int i = 0; i < serviceList.size(); i++) {
-            if (serviceList.get(i).service.getClassName().equals(className) == true) {
+        for (ActivityManager.RunningServiceInfo si : serviceList) {
+            if (si.service.getClassName().equals(className) == true) {
                 isRunning = true;
                 break;
             }

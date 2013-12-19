@@ -65,8 +65,8 @@ public class MultipartEntity extends AbstractHttpEntity {
     }
 
     public boolean isRepeatable() {
-        for (int i = 0; i < parts.length; i++) {
-            if (!parts[i].isRepeatable()) {
+        for (Part p : parts) {
+            if (!p.isRepeatable()) {
                 return false;
             }
         }

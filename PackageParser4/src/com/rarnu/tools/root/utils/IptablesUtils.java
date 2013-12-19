@@ -8,6 +8,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
+import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.IptablePackageInfo;
 
 import java.util.*;
@@ -144,14 +145,14 @@ public final class IptablesUtils {
         final List<IptablePackageInfo> apps = getApps(context, false);
         final StringBuilder newuids_wifi = new StringBuilder();
         final StringBuilder newuids_3g = new StringBuilder();
-        for (int i = 0; i < apps.size(); i++) {
-            if (apps.get(i).selected_wifi) {
+        for (IptablePackageInfo ipi : apps) {
+            if (ipi.selected_wifi) {
                 if (newuids_wifi.length() != 0) newuids_wifi.append('|');
-                newuids_wifi.append(apps.get(i).uid);
+                newuids_wifi.append(ipi.uid);
             }
-            if (apps.get(i).selected_3g) {
+            if (ipi.selected_3g) {
                 if (newuids_3g.length() != 0) newuids_3g.append('|');
-                newuids_3g.append(apps.get(i).uid);
+                newuids_3g.append(ipi.uid);
             }
         }
         final Editor edit = prefs.edit();
@@ -219,8 +220,7 @@ public final class IptablesUtils {
             Arrays.sort(selected_3g);
         }
         try {
-            final PackageManager pkgmanager = context.getPackageManager();
-            final List<ApplicationInfo> installed = pkgmanager.getInstalledApplications(0);
+            final List<ApplicationInfo> installed = GlobalInstance.pm.getInstalledApplications(0);
             final HashMap<Integer, IptablePackageInfo> map = new HashMap<Integer, IptablePackageInfo>();
             final Editor edit = prefs.edit();
             boolean changed = false;
@@ -230,13 +230,13 @@ public final class IptablesUtils {
             for (final ApplicationInfo apinfo : installed) {
                 boolean firstseem = false;
                 app = map.get(apinfo.uid);
-                if (app == null && PackageManager.PERMISSION_GRANTED != pkgmanager.checkPermission(Manifest.permission.INTERNET, apinfo.packageName)) {
+                if (app == null && PackageManager.PERMISSION_GRANTED != GlobalInstance.pm.checkPermission(Manifest.permission.INTERNET, apinfo.packageName)) {
                     continue;
                 }
                 cachekey = "cache.label." + apinfo.packageName;
                 name = prefs.getString(cachekey, "");
                 if (name.length() == 0) {
-                    name = pkgmanager.getApplicationLabel(apinfo).toString();
+                    name = GlobalInstance.pm.getApplicationLabel(apinfo).toString();
                     edit.putString(cachekey, name);
                     changed = true;
                     firstseem = true;
@@ -263,27 +263,6 @@ public final class IptablesUtils {
             }
             if (changed) {
                 edit.commit();
-            }
-            final IptablePackageInfo special[] = {
-                    new IptablePackageInfo(SPECIAL_UID_ANY, "(Any application) - Same as selecting all applications", false, false),
-                    new IptablePackageInfo(SPECIAL_UID_KERNEL, "(Kernel) - Linux kernel", false, false),
-                    new IptablePackageInfo(android.os.Process.getUidForName("root"), "(root) - Applications running as root", false, false),
-                    new IptablePackageInfo(android.os.Process.getUidForName("media"), "Media server", false, false),
-                    new IptablePackageInfo(android.os.Process.getUidForName("vpn"), "VPN networking", false, false),
-                    new IptablePackageInfo(android.os.Process.getUidForName("shell"), "Linux shell", false, false),
-                    new IptablePackageInfo(android.os.Process.getUidForName("gps"), "GPS", false, false),
-            };
-            for (int i = 0; i < special.length; i++) {
-                app = special[i];
-                if (app.uid != -1 && !map.containsKey(app.uid)) {
-                    if (Arrays.binarySearch(selected_wifi, app.uid) >= 0) {
-                        app.selected_wifi = true;
-                    }
-                    if (Arrays.binarySearch(selected_3g, app.uid) >= 0) {
-                        app.selected_3g = true;
-                    }
-                    map.put(app.uid, app);
-                }
             }
             applications = new ArrayList<IptablePackageInfo>(map.values());
             return applications;

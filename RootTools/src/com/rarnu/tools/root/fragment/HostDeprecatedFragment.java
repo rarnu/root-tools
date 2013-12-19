@@ -158,11 +158,13 @@ public class HostDeprecatedFragment extends BasePopupFragment implements OnLoadC
         if (data != null) {
             lstDeprecated.addAll(data);
         }
-        adapter.setNewList(lstDeprecated);
-        progressDeprecated.setVisibility(View.GONE);
-        tvTooBigHint.setVisibility(data == null ? View.VISIBLE : View.GONE);
-        if (itemScan != null) {
-            itemScan.setEnabled(data != null);
+        if (getActivity() != null) {
+            adapter.setNewList(lstDeprecated);
+            progressDeprecated.setVisibility(View.GONE);
+            tvTooBigHint.setVisibility(data == null ? View.VISIBLE : View.GONE);
+            if (itemScan != null) {
+                itemScan.setEnabled(data != null);
+            }
         }
     }
 

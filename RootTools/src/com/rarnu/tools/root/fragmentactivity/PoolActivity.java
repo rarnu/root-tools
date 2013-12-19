@@ -5,6 +5,7 @@ import android.content.res.Configuration;
 import android.os.Bundle;
 import com.rarnu.devlib.base.BaseDialog;
 import com.rarnu.tools.root.Fragments;
+import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.FragmentNameConst;
 
 public class PoolActivity extends BaseDialog {
@@ -37,4 +38,10 @@ public class PoolActivity extends BaseDialog {
     public Fragment replaceFragment() {
         return Fragments.getFragment(FragmentNameConst.FN_POOL);
     }
+
+    @Override
+    public int customTheme() {
+        return GlobalInstance.theme ? android.R.style.Theme_Holo_Light_Dialog_NoActionBar : android.R.style.Theme_Holo_Dialog_NoActionBar;
+    }
+
 }

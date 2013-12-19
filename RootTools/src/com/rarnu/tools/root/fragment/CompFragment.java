@@ -118,9 +118,11 @@ public class CompFragment extends BaseFragment implements OnItemClickListener, O
         if (data != null) {
             listCompAll.addAll(data);
         }
-        compAdapter.setNewList(listCompAll);
-        progressComp.setVisibility(View.GONE);
+        if (getActivity() != null) {
+            compAdapter.setNewList(listCompAll);
+            progressComp.setVisibility(View.GONE);
 
+        }
     }
 
     @Override
