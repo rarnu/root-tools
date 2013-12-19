@@ -16,4 +16,9 @@ public class PackageCardsActivity extends BaseActivity {
         pcf.setArguments(getIntent().getExtras());
         return pcf;
     }
+
+    @Override
+    public int customTheme() {
+        return 0;
+    }
 }

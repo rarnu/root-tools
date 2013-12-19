@@ -25,6 +25,11 @@ public class GalleryActivity extends BaseActivity {
     }
 
     @Override
+    public int customTheme() {
+        return 0;
+    }
+
+    @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
             BaseFragment bf = (BaseFragment) getFragmentManager()

@@ -17,4 +17,9 @@ public class AboutActivity extends BaseDialog {
 		return new AboutFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

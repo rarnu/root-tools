@@ -23,4 +23,9 @@ public class EditBlockActivity extends BaseActivity {
 		return ebf;
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

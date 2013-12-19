@@ -64,6 +64,11 @@ public class MainActivity extends BaseSlidingActivity {
     }
 
     @Override
+    public int customTheme() {
+        return 0;
+    }
+
+    @Override
     public void loadFragments() {
 
     }

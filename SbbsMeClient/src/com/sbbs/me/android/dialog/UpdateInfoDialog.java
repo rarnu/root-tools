@@ -28,4 +28,9 @@ public class UpdateInfoDialog extends BaseDialog {
 		return uif;
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

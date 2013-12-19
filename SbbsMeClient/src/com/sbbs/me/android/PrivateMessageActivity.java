@@ -17,4 +17,9 @@ public class PrivateMessageActivity extends BaseActivity {
 		return new PrivateMessageFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

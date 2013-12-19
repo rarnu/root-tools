@@ -19,7 +19,12 @@ public class SelectLoginDialog extends BaseDialog {
 		return new SelectLoginFragment();
 	}
 
-	@Override
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
+    @Override
 	public boolean getCondition() {
 		return false;
 	}

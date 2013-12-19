@@ -22,4 +22,9 @@ public class BigPictureActivity extends BaseActivity {
 		return bpf;
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

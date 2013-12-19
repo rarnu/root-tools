@@ -28,4 +28,9 @@ public class ShareDialog extends BaseDialog {
 		return sf;
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

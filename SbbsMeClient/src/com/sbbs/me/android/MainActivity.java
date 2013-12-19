@@ -136,6 +136,11 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf,
         return new MainFragment();
     }
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
     boolean donotCloseTag = false;
     boolean returnToHome = false;
 

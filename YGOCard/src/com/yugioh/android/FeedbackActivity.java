@@ -15,4 +15,9 @@ public class FeedbackActivity extends BaseActivity {
     public Fragment replaceFragment() {
         return new FeedbackFragment();
     }
+
+    @Override
+    public int customTheme() {
+        return 0;
+    }
 }

@@ -17,4 +17,9 @@ public class CoinDiceActivity extends BaseActivity {
 		return new CoinDiceFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

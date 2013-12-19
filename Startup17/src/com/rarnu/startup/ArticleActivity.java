@@ -19,4 +19,9 @@ public class ArticleActivity extends BaseActivity {
         af.setArguments(bn);
         return af;
     }
+
+    @Override
+    public int customTheme() {
+        return 0;
+    }
 }

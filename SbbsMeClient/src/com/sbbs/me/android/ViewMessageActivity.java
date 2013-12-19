@@ -24,4 +24,9 @@ public class ViewMessageActivity extends BaseActivity {
 		return vmf;
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

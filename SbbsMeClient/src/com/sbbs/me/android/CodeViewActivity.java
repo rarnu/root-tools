@@ -24,4 +24,9 @@ public class CodeViewActivity extends BaseActivity {
 		return blobView;
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

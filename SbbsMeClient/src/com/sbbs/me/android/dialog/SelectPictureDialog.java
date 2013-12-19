@@ -19,7 +19,12 @@ public class SelectPictureDialog extends BaseDialog {
 		return new SelectPictureFragment();
 	}
 
-	@Override
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
+    @Override
 	public boolean getCondition() {
 		return false;
 	}

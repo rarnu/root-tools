@@ -22,4 +22,9 @@ public class TagArticleListActivity extends BaseActivity {
 		return talf;
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

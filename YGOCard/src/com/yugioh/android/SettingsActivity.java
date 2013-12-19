@@ -17,4 +17,9 @@ public class SettingsActivity extends BaseActivity {
 		return new SettingsFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

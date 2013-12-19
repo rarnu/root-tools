@@ -82,6 +82,11 @@ public class UpdateActivity extends BaseActivity implements IUpdateIntf {
     }
 
     @Override
+    public int customTheme() {
+        return 0;
+    }
+
+    @Override
     public void setUpdateFile(String localDir, String localFile) {
         this.localDir = localDir;
         this.localFile = localFile;

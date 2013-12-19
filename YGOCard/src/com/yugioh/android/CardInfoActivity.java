@@ -16,4 +16,9 @@ public class CardInfoActivity extends BaseActivity {
 	public Fragment replaceFragment() {
 		return new CardInfoFragment();
 	}
+
+    @Override
+    public int customTheme() {
+        return 0;
+    }
 }

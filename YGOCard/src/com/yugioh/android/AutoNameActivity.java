@@ -19,4 +19,9 @@ public class AutoNameActivity extends BaseActivity {
         anf.setArguments(bn);
         return anf;
     }
+
+    @Override
+    public int customTheme() {
+        return 0;
+    }
 }

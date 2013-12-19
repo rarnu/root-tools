@@ -142,6 +142,11 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
     }
 
     @Override
+    public int customTheme() {
+        return 0;
+    }
+
+    @Override
     public void switchPage(int page, boolean needToggle) {
         if (currentPage != page) {
             currentPage = page;

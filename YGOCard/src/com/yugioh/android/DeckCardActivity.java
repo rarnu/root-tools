@@ -17,4 +17,9 @@ public class DeckCardActivity extends BaseActivity {
         dcf.setArguments(getIntent().getExtras());
         return dcf;
     }
+
+    @Override
+    public int customTheme() {
+        return 0;
+    }
 }

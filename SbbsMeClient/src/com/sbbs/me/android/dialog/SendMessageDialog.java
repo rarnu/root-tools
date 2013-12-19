@@ -21,4 +21,9 @@ public class SendMessageDialog extends BaseDialog {
 		smf.setArguments(bn);
 		return smf;
 	}
+
+    @Override
+    public int customTheme() {
+        return 0;
+    }
 }

@@ -22,4 +22,9 @@ public class UserDetailActivity extends BaseActivity {
 		return udf;
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

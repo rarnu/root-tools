@@ -35,4 +35,9 @@ public class ArticleMenuDialog extends BaseDialog {
 		return amf;
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

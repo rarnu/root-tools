@@ -27,7 +27,12 @@ public class ArticleActivity extends BaseSlidingActivity {
 		return af;
 	}
 
-	@Override
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
+    @Override
 	public void loadFragments() {
 		
 	}

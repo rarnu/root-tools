@@ -31,4 +31,9 @@ public class ConfirmDialog extends BaseDialog {
 		return cf;
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }
