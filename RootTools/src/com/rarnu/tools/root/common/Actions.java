@@ -17,4 +17,6 @@ public class Actions {
     public static final String ACTION_BATCH_UNINSTALL_PROGRESS = "com.rarnu.root.tools.batch.uninstall.progress";
     public static final String ACTION_CLEAN_MEMORY_FINISH = "com.rarnu.root.tools.memory.clean.finish";
     public static final String ACTION_WIDGET_CLEAN_FINISH = "com.rarnu.root.tools.widget.clean.finish";
+
+    public static final String ACTION_REFRESH_TAG = "com.rarnu.root.tools.tags.refresh";
 }

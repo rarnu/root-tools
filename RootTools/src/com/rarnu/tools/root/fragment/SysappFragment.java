@@ -192,7 +192,7 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
         itemAdd.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
-        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
+        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.ic_menu_refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

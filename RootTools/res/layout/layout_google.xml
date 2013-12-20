@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <TextView
+            android:id="@+id/tvSdkVer"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dip"
+            android:background="@color/skyblue"
+            android:textColor="@color/black"
+            android:gravity="left|center_vertical" />
+
+    <ListView
+            android:id="@+id/lvGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvSdkVer"
+            android:fastScrollEnabled="true"
+            android:layout_above="@+id/progressGoogle">
+    </ListView>
+
+    <RelativeLayout
+            android:id="@+id/layDownload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="?android:attr/detailsElementBackground"
+            android:visibility="gone">
+        <ProgressBar
+                android:id="@+id/pbDownloading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="?android:attr/progressBarStyleHorizontal" />
+        <TextView
+                android:id="@+id/tvDownloading"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/pbDownloading"
+                android:gravity="left|center_vertical"
+                android:padding="4dip" />
+    </RelativeLayout>
+
+    <TextView
+            android:id="@+id/tvNotSupportted"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="?android:attr/textColorPrimary"
+            android:text="@string/google_not_supportted"
+            android:layout_centerInParent="true"
+            android:visibility="gone" />
+
+    <com.rarnu.devlib.component.DataProgressBar
+            android:id="@+id/progressGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true"
+            android:visibility="visible" />
+
+</RelativeLayout>

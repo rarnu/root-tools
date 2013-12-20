@@ -44,6 +44,11 @@ public class AutobootAdapter extends BaseAdapter<AutobootInfo> {
             holder.packageName.setText(item.info.packageName);
             holder.tvEnabled.setText(item.enabled ? R.string.package_enabled : R.string.package_disabled);
             holder.tvEnabled.setTextColor(item.enabled ? Color.GREEN : Color.RED);
+
+            if (item.processing) {
+                holder.tvEnabled.setTextColor(Color.YELLOW);
+                holder.tvEnabled.setText(R.string.loading);
+            }
         }
 
         return v;

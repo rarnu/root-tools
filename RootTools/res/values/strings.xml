@@ -9,6 +9,7 @@
     <string name="sysapp_name">App Detail</string>
     <string name="sysapp_select">Choose App</string>
     <string name="settings">Settings</string>
+    <string name="google">Google Framework</string>
     <string name="cat_settings">Settings</string>
     <string name="cat_global">Global</string>
     <string name="cat_system">System</string>
@@ -86,6 +87,8 @@
     <string name="func_firewall_with_path">RootTools &gt; Firewall</string>
     <string name="func_comp_list">Full Management</string>
     <string name="func_auto_boot">Autoboot</string>
+    <string name="func_google">Google Framework</string>
+    <string name="func_google_with_path">RootTools &gt; Google Framework</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>
@@ -387,4 +390,13 @@
     <string name="install_iptables_confirm">RootTools will install iptables for your device, confirm?</string>
     <string name="binary_not_supportted">RootTools only support for ARM chips, please try to find the binary file fit for your device.</string>
     <string name="theme_changed_restart">Theme changed, please restart the application to take effect.</string>
+    <string name="google_download_check">Download the google package for checking</string>
+    <string name="google_status_tobechecked">Need Check</string>
+    <string name="google_status_normal">Normal</string>
+    <string name="google_status_not_found">Not Exists</string>
+    <string name="google_status_file_boken">Broken File</string>
+    <string name="google_status_sig_broken">Different Sig</string>
+    <string name="google_not_supportted">Do not support this android version</string>
+    <string name="download">Download</string>
+    <string name="google_downloading_zip">Download progressing, are you sure to cancel it?</string>
 </resources>

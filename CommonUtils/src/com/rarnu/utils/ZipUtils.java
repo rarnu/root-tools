@@ -32,7 +32,7 @@ public class ZipUtils {
         zipout.close();
     }
 
-    public static void upZipFile(File zipFile, String folderPath) throws ZipException, IOException {
+    public static void unzipFile(File zipFile, String folderPath) throws ZipException, IOException {
         File desDir = new File(folderPath);
         if (!desDir.exists()) {
             desDir.mkdirs();
@@ -62,7 +62,7 @@ public class ZipUtils {
         }
     }
 
-    public static ArrayList<File> upZipSelectedFile(File zipFile, String folderPath, String nameContains) throws ZipException, IOException {
+    public static ArrayList<File> unzipSelectedFile(File zipFile, String folderPath, String nameContains) throws ZipException, IOException {
         ArrayList<File> fileList = new ArrayList<File>();
 
         File desDir = new File(folderPath);

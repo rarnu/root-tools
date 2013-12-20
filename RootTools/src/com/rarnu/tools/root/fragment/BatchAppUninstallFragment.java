@@ -151,7 +151,7 @@ public class BatchAppUninstallFragment extends BaseFragment implements Loader.On
     public void initMenu(Menu menu) {
 
         itemRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 98, R.string.refresh);
-        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.refresh));
+        itemRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.ic_menu_refresh));
         itemRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

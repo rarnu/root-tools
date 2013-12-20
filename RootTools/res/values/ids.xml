@@ -4,7 +4,6 @@
     <string name="id_sysappenabled">id_sysappenabled</string>
     <string name="id_component">id_component</string>
     <string name="id_firewall">id_firewall</string>
-    <string name="id_root">id_root</string>
     <string name="id_cleanhtc">id_cleanhtc</string>
 
     <string name="id_backup">id_backup</string>
@@ -26,6 +25,8 @@
     <string name="id_terminal_emu">id_terminal_emu</string>
 
     <string name="id_settings">id_settings</string>
+    <string name="id_root">id_root</string>
+    <string name="id_google">id_google</string>
 
     <string name="id_feedback">id_feedback</string>
     <string name="id_recommand">id_recommand</string>

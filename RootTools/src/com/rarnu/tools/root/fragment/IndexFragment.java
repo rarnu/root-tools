@@ -1,7 +1,7 @@
 package com.rarnu.tools.root.fragment;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
+import android.content.*;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.preference.Preference.OnPreferenceClickListener;
@@ -14,6 +14,7 @@ import com.rarnu.devlib.component.PreferenceEx;
 import com.rarnu.tools.root.Fragments;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.fragmentactivity.*;
 import com.rarnu.tools.root.utils.BusyboxUtils;
@@ -32,7 +33,7 @@ public class IndexFragment extends BasePreferenceFragment implements
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
     PreferenceEx prefFeedback, prefRecommand, prefAbout;
     PreferenceEx prefTerminal;
-    PreferenceEx prefSettings;
+    PreferenceEx prefSettings, prefGoogle;
 
     public void showFunctionalEnabledTags() {
         boolean isRooted = RootUtils.hasSu();
@@ -41,6 +42,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefComponent.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefFirewall.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRoot.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+        prefGoogle.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefHtcRom.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
 
         prefBackup.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
@@ -73,6 +75,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefHardUpdate.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefFirewall.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRoot.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
+        prefGoogle.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefBackup.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRestore.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefCleanCache.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
@@ -109,7 +112,6 @@ public class IndexFragment extends BasePreferenceFragment implements
         } else if (preference.getKey().equals(getString(R.string.id_root))) {
             UIInstance.currentFragment = 4;
             FragmentStarter.showContent(getActivity(), SystemComponentActivity.class, Fragments.getFragment(FragmentNameConst.FN_SYSTEM_COMPONENT));
-
         } else if (preference.getKey().equals(getString(R.string.id_cleanhtc))) {
             UIInstance.currentFragment = 5;
             FragmentStarter.showContent(getActivity(), HtcRomActivity.class, Fragments.getFragment(FragmentNameConst.FN_HTCROM));
@@ -190,10 +192,13 @@ public class IndexFragment extends BasePreferenceFragment implements
             FragmentStarter.showContent(getActivity(), TerminalActivity.class, Fragments.getFragment(FragmentNameConst.FN_TERMINAL));
         }
 
-        //
+        // settings
         else if (preference.getKey().equals(getString(R.string.id_settings))) {
             UIInstance.currentFragment = 13;
             FragmentStarter.showContent(getActivity(), SettingsActivity.class, Fragments.getFragment(FragmentNameConst.FN_SETTINGS));
+        } else if (preference.getKey().equals(getString(R.string.id_google))) {
+            UIInstance.currentFragment = 21;
+            FragmentStarter.showContent(getActivity(), GoogleActivity.class, Fragments.getFragment(FragmentNameConst.FN_GOOGLE));
         }
 
         return true;
@@ -216,6 +221,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefComponent = (PreferenceEx) findPreference(getString(R.string.id_component));
         prefFirewall = (PreferenceEx) findPreference(getString(R.string.id_firewall));
         prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
+        prefGoogle = (PreferenceEx) findPreference(getString(R.string.id_google));
         prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
 
         prefBackup = (PreferenceEx) findPreference(getString(R.string.id_backup));
@@ -246,6 +252,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefComponent.setOnPreferenceClickListener(this);
         prefFirewall.setOnPreferenceClickListener(this);
         prefRoot.setOnPreferenceClickListener(this);
+        prefGoogle.setOnPreferenceClickListener(this);
         prefHtcRom.setOnPreferenceClickListener(this);
 
         prefBackup.setOnPreferenceClickListener(this);
@@ -305,4 +312,26 @@ public class IndexFragment extends BasePreferenceFragment implements
         return null;
     }
 
+    public class RefreshTagReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            showFunctionalEnabledTags();
+        }
+    }
+
+    IntentFilter filterRefreshTag = new IntentFilter(Actions.ACTION_REFRESH_TAG);
+    RefreshTagReceiver receiverRefreshTag = new RefreshTagReceiver();
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().registerReceiver(receiverRefreshTag, filterRefreshTag);
+    }
+
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(receiverRefreshTag);
+        super.onDestroy();
+    }
 }

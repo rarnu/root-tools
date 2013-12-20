@@ -1,0 +1,8 @@
+{
+    "sdk_version":15,
+    "apks":["ChromeBookmarksSyncAdapter.apk","GoogleBackupTransport.apk","GoogleCalendarSyncAdapter.apk","GoogleContactsSyncAdapter.apk","GoogleFeedback.apk","GoogleLoginService.apk","GooglePartnerSetup.apk","GoogleServicesFramework.apk","NetworkLocation.apk","Phonesky.apk"],
+    "apks_optional":["Talk.apk"],
+    "jars":["com.google.android.maps.jar","com.google.android.media.effects.jar","com.google.widevine.software.drm.jar"],
+    "libs":["libflint_engine_jni_api.so","libfrsdk.so","libgcomm_jni.so","libpicowrapper.so","libspeexwrapper.so","libvideochat_jni.so","libvideochat_stabilize.so"],
+    "xmls":["permissions/com.google.android.maps.xml","permissions/com.google.android.media.effects.xml","permissions/com.google.widevine.software.drm.xml","permissions/features.xml"]
+}

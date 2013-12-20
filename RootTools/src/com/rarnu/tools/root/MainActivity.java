@@ -165,6 +165,8 @@ public class MainActivity extends BaseMainActivity {
                 return Fragments.getFragment(FragmentNameConst.FN_BATCH_APPS);
             case 20:
                 return Fragments.getFragment(FragmentNameConst.FN_FIREWALL);
+            case 21:
+                return Fragments.getFragment(FragmentNameConst.FN_GOOGLE);
             default:
                 return Fragments.getFragment(FragmentNameConst.FN_ABOUT);
         }

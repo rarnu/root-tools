@@ -2,6 +2,7 @@ package com.rarnu.tools.root.fragment;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -19,6 +20,7 @@ import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.BusyboxAdapter;
+import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.BusyboxInfo;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.utils.FileUtils;
@@ -40,6 +42,7 @@ public class SystemComponentFragment extends BaseFragment implements OnItemClick
                 checkStatus();
                 progressBusybox.setVisibility(View.GONE);
                 lstBusybox.setEnabled(true);
+                getActivity().sendBroadcast(new Intent(Actions.ACTION_REFRESH_TAG));
             }
             super.handleMessage(msg);
         }
@@ -189,7 +192,6 @@ public class SystemComponentFragment extends BaseFragment implements OnItemClick
         } else {
             Toast.makeText(getActivity(), R.string.binary_not_supportted, Toast.LENGTH_LONG).show();
         }
-
 
     }
 

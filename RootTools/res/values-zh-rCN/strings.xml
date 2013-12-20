@@ -9,6 +9,7 @@
     <string name="sysapp_name">应用程序详情</string>
     <string name="sysapp_select">选择应用程序</string>
     <string name="settings">设置</string>
+    <string name="google">Google 框架</string>
     <string name="cat_settings">软件设置</string>
     <string name="cat_global">全局设置</string>
     <string name="cat_system">系统</string>
@@ -86,6 +87,8 @@
     <string name="func_firewall_with_path">掌优 &gt; 防火墙</string>
     <string name="func_comp_list">全面管理</string>
     <string name="func_auto_boot">自动启动</string>
+    <string name="func_google">Google 框架</string>
+    <string name="func_google_with_path">掌优 &gt; Google 框架</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="check_network_status">检查网络状况</string>
@@ -360,4 +363,13 @@
     <string name="install_iptables_confirm">掌优将为您的设备安装 iptables, 确定要安装吗?</string>
     <string name="binary_not_supportted">掌优仅支持 ARM 芯片，请自行寻找符合您的设备的二进制文件</string>
     <string name="theme_changed_restart">主题已更改, 请重新启动本软件使之生效</string>
+    <string name="google_download_check">下载 Google 服务包来检测</string>
+    <string name="google_status_tobechecked">需检查</string>
+    <string name="google_status_normal">正常</string>
+    <string name="google_status_not_found">不存在</string>
+    <string name="google_status_file_boken">文件破损</string>
+    <string name="google_status_sig_broken">签名破损</string>
+    <string name="google_not_supportted">不支持的 Android 版本</string>
+    <string name="download">下载</string>
+    <string name="google_downloading_zip">正在下载, 您确定要终止吗?</string>
 </resources>

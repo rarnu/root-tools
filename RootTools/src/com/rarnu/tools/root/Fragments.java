@@ -42,6 +42,7 @@ public class Fragments {
     private static FirewallFragment fFirewall = null;
     private static BuildTeamFragment fBuildTeam = null;
     private static ShareFragment fShare = null;
+    private static GoogleFragment fGoogle = null;
 
     public static Fragment getFragment(String name) {
         releaseOtherFragment(name);
@@ -154,7 +155,9 @@ public class Fragments {
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_SHARE, ShareFragment.class, fShare);
         }
-
+        if (f == null) {
+            f = getFragment(name, FragmentNameConst.FN_GOOGLE, GoogleFragment.class, fGoogle);
+        }
         return f;
     }
 
@@ -207,6 +210,7 @@ public class Fragments {
         fFirewall = null;
         fBuildTeam = null;
         fShare = null;
+        fGoogle = null;
     }
 
     public static void releaseOtherFragment(String name) {
@@ -244,6 +248,7 @@ public class Fragments {
         doReleaseFragment(name, FragmentNameConst.FN_FIREWALL, fFirewall);
         doReleaseFragment(name, FragmentNameConst.FN_BUILD_TEAM, fBuildTeam);
         doReleaseFragment(name, FragmentNameConst.FN_SHARE, fShare);
+        doReleaseFragment(name, FragmentNameConst.FN_GOOGLE, fGoogle);
     }
 
     private static void doReleaseFragment(String name, String checkName, Fragment f) {
