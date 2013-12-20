@@ -26,4 +26,9 @@ public class UpdateDialog extends BaseDialog {
 		return new UpdateDialogFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

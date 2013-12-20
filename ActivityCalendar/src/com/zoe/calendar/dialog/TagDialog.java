@@ -26,4 +26,9 @@ public class TagDialog extends BaseDialog {
 		return new TagDialogFrament();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

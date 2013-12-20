@@ -159,7 +159,12 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 		return new MainFragment();
 	}
 
-	@Override
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
+    @Override
 	public void onUpdateFound(UpdateInfo update) {
 		if (update != null) {
 			startActivity(new Intent(this, UpdateDialog.class).putExtra("url",

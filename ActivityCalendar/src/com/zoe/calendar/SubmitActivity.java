@@ -17,4 +17,9 @@ public class SubmitActivity extends BaseActivity {
 		return new SubmitFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

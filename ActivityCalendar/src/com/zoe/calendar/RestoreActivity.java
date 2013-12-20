@@ -17,4 +17,9 @@ public class RestoreActivity extends BaseActivity {
 		return new RestoreFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

@@ -17,4 +17,9 @@ public class CityActivity extends BaseActivity {
 		return new CityFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

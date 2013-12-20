@@ -17,4 +17,9 @@ public class DetailActivity extends BaseActivity {
 		return new DetailFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

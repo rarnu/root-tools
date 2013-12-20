@@ -26,4 +26,9 @@ public class EventDialog extends BaseDialog {
 		return new EventDialogFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }

@@ -26,4 +26,9 @@ public class WeatherDialog extends BaseDialog {
 		return new WeatherDialogFragment();
 	}
 
+    @Override
+    public int customTheme() {
+        return 0;
+    }
+
 }
