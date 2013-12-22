@@ -56,22 +56,23 @@ public class GoogleUtils {
         String filePath = "";
         switch (item.type) {
             case 0:
-                filePath = "/system/app/"+item.fileName;
+                filePath = "/system/app/" + item.fileName;
                 break;
             case 1:
-                filePath = "/system/framework/"+item.fileName;
+                filePath = "/system/framework/" + item.fileName;
                 break;
             case 2:
-                filePath = "/system/lib/"+item.fileName;
+                filePath = "/system/lib/" + item.fileName;
                 break;
             case 3:
-                filePath = "/system/etc/"+ item.path + "/" + item.fileName;
+                filePath = "/system/etc/" + item.path + "/" + item.fileName;
                 break;
         }
         File f = new File(filePath);
         if (!f.exists()) {
             ret = 1;
         } else {
+
             String newFilePath = "";
             switch (item.type) {
                 case 0:
@@ -88,10 +89,10 @@ public class GoogleUtils {
                 if (f.length() != newFile.length()) {
                     ret = 2;
                 } else {
-                    // TODO: check sig
+                    ret = 0;
                 }
             }
         }
-        return 0;
+        return ret;
     }
 }

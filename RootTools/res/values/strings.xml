@@ -399,4 +399,5 @@
     <string name="google_not_supportted">Do not support this android version</string>
     <string name="download">Download</string>
     <string name="google_downloading_zip">Download progressing, are you sure to cancel it?</string>
+    <string name="unzipping">Unzipping, please wait...</string>
 </resources>

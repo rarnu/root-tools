@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.rarnu.utils"
-    android:versionCode="1"
-    android:versionName="1.0" >
+        package="com.rarnu.utils"
+        android:versionCode="1"
+        android:versionName="1.0">
 
-    <application />
+    <uses-sdk android:targetSdkVersion="17"
+            android:minSdkVersion="14"/>
 
 </manifest>

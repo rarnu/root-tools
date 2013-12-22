@@ -40,6 +40,10 @@ public class GoogleAdapter extends BaseAdapter<GoogleInfo> {
         if (item != null) {
             holder.name.setText(item.fileName);
             switch (item.status) {
+                case -1:
+                    holder.tvStatus.setText(R.string.google_status_tobechecked);
+                    holder.tvStatus.setTextColor(Color.YELLOW);
+                    break;
                 case 0:
                     holder.tvStatus.setText(R.string.google_status_normal);
                     holder.tvStatus.setTextColor(Color.GREEN);
@@ -51,10 +55,6 @@ public class GoogleAdapter extends BaseAdapter<GoogleInfo> {
                 case 2:
                     holder.tvStatus.setText(R.string.google_status_file_boken);
                     holder.tvStatus.setTextColor(Color.RED);
-                    break;
-                case 3:
-                    holder.tvStatus.setText(R.string.google_status_sig_broken);
-                    holder.tvStatus.setTextColor(Color.YELLOW);
                     break;
             }
 

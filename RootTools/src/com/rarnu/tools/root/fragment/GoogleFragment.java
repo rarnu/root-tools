@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -12,6 +13,8 @@ import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.MainActivity;
@@ -26,7 +29,6 @@ import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.ImageUtils;
-import com.rarnu.utils.ZipUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;
@@ -48,6 +50,40 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     boolean supportted = false;
     boolean downloading = false;
     Thread thDownload = null;
+    private Handler hDownload = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case DownloadUtils.WHAT_DOWNLOAD_START:
+                    pbDownloading.setMax(msg.arg2);
+                    pbDownloading.setProgress(msg.arg1);
+                    tvDownloading.setText(String.format("%d / %d", msg.arg1, msg.arg2));
+                    break;
+                case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
+                    pbDownloading.setProgress(msg.arg1);
+                    tvDownloading.setText(String.format("%d / %d", msg.arg1, msg.arg2));
+                    break;
+                case DownloadUtils.WHAT_DOWNLOAD_FINISH:
+                    pbDownloading.setProgress(pbDownloading.getMax());
+                    tvDownloading.setText(R.string.unzipping);
+                    doUnzipT();
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+    private Handler hUnzip = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                downloading = false;
+                layDownload.setVisibility(View.GONE);
+                lvGoogle.setEnabled(true);
+                doStartLoading();
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     public int getBarTitle() {
@@ -88,9 +124,14 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
 
     @Override
     public void initLogic() {
+        showSdkVersion();
+        doStartLoading();
+    }
+
+    private void doStartLoading() {
         tvNotSupportted.setVisibility(View.GONE);
         lvGoogle.setVisibility(View.VISIBLE);
-        showSdkVersion();
+
         int sdkint = Build.VERSION.SDK_INT;
         try {
             String jsonString = FileUtils.readAssetFile(getActivity(), String.format("google_%d", sdkint));
@@ -140,46 +181,26 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
         return true;
     }
 
-    private Handler hDownload = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case DownloadUtils.WHAT_DOWNLOAD_START:
-                    pbDownloading.setMax(msg.arg2);
-                    pbDownloading.setProgress(msg.arg1);
-                    tvDownloading.setText(String.format("%d / %d", msg.arg1, msg.arg2));
-                    break;
-                case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
-                    pbDownloading.setProgress(msg.arg1);
-                    tvDownloading.setText(String.format("%d / %d", msg.arg1, msg.arg2));
-                    break;
-                case DownloadUtils.WHAT_DOWNLOAD_FINISH:
-                    pbDownloading.setProgress(pbDownloading.getMax());
-                    doUnzipT();
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-    };
-
-    private Handler hUnzip = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                downloading = false;
-                layDownload.setVisibility(View.GONE);
-            }
-            super.handleMessage(msg);
-        }
-    };
-
     private void doUnzipT() {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                // TODO: unzip
-                // ZipUtils.unzipFile();
-                hUnzip.sendEmptyMessage(1);
+                // unzip
+                Message msg = new Message();
+                msg.what = 1;
+                try {
+                    String cmd = String.format("busybox unzip \"%s\" -d \"%s\"", DirHelper.GOOGLE_DIR + "google.zip", DirHelper.GOOGLE_DIR);
+                    CommandResult result = RootUtils.runCommand(cmd, true);
+                    Log.e("result", String.format("ret:%s, err:%s", result.result, result.error));
+                    if (result != null && result.error.equals("")) {
+                        msg.arg1 = 1;
+                    } else {
+                        msg.arg1 = 0;
+                    }
+                } catch (Exception e) {
+
+                }
+                hUnzip.sendMessage(msg);
             }
         }).start();
     }

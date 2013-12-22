@@ -372,4 +372,5 @@
     <string name="google_not_supportted">不支援的 Android 版本</string>
     <string name="download">下載</string>
     <string name="google_downloading_zip">正在下載,您確認要終止嗎?</string>
+    <string name="unzipping">正在解壓，請稍候...</string>
 </resources>
