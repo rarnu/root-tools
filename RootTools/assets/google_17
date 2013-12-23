@@ -1,5 +1,6 @@
 {
     "sdk_version":17,
+    "sdk_name":"Android 4.2.2 (CM 10.1)",
     "apks":["ChromeBookmarksSyncAdapter.apk","GmsCore.apk","GoogleBackupTransport.apk","GoogleCalendarSyncAdapter.apk","GoogleContactsSyncAdapter.apk","GoogleFeedback.apk","GoogleLoginService.apk","GooglePartnerSetup.apk","GoogleServicesFramework.apk","NetworkLocation.apk","Phonesky.apk"],
     "apks_optional":["Gmail.apk","GooglePlus.apk","TalkBack.apk"],
     "jars":["com.google.android.maps.jar","com.google.android.media.effects.jar","com.google.widevine.software.drm.jar"],

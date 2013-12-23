@@ -1,5 +1,6 @@
 {
     "sdk_version":18,
+    "sdk_name":"Android 4.3.0 (CM 10.2)",
     "apks":["ChromeBookmarksSyncAdapter.apk","GmsCore.apk","GoogleBackupTransport.apk","GoogleCalendarSyncAdapter.apk","GoogleContactsSyncAdapter.apk","GoogleFeedback.apk","GoogleLoginService.apk","GooglePartnerSetup.apk","GoogleServicesFramework.apk","NetworkLocation.apk","Phonesky.apk"],
     "apks_optional":["Gmail.apk","GooglePlus.apk","TalkBack.apk"],
     "jars":["com.google.android.maps.jar","com.google.android.media.effects.jar","com.google.widevine.software.drm.jar"],

@@ -13,14 +13,55 @@
             android:textColor="@color/black"
             android:gravity="left|center_vertical" />
 
+    <Spinner
+            android:id="@+id/spVersion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvSdkVer">
+    </Spinner>
+
     <ListView
             android:id="@+id/lvGoogle"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_below="@+id/tvSdkVer"
+            android:layout_below="@+id/spVersion"
+            android:layout_above="@+id/layInstall"
             android:fastScrollEnabled="true"
-            android:layout_above="@+id/progressGoogle">
+            >
     </ListView>
+
+    <RelativeLayout
+            android:id="@+id/layInstall"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/progressGoogle"
+            android:visibility="visible"
+            android:padding="4dip"
+            android:background="?android:attr/detailsElementBackground"
+            >
+
+        <TextView
+                android:id="@+id/tvInstallHint"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_toLeftOf="@+id/btnInstall"
+                android:layout_marginRight="4dip"
+                android:layout_centerVertical="true"
+                android:gravity="left|center_vertical"
+                android:textColor="@color/skyblue"
+                android:textSize="10sp"
+                android:text="@string/google_install_hint" />
+
+        <Button
+                android:id="@+id/btnInstall"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                style="?android:attr/buttonBarButtonStyle"
+                android:text="@string/install"
+                android:layout_alignParentRight="true"
+                android:layout_centerVertical="true" />
+
+    </RelativeLayout>
 
     <RelativeLayout
             android:id="@+id/layDownload"
@@ -29,28 +70,38 @@
             android:layout_centerInParent="true"
             android:background="?android:attr/detailsElementBackground"
             android:visibility="gone">
+
+        <TextView
+                android:id="@+id/tvDownloadTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:padding="4dip"
+                android:textColor="?android:attr/textColorPrimary"
+                android:text="@string/download" />
         <ProgressBar
                 android:id="@+id/pbDownloading"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/tvDownloadTitle"
                 style="?android:attr/progressBarStyleHorizontal" />
         <TextView
+                android:id="@+id/tvPercent"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left|center_vertical"
+                android:padding="4dip"
+                android:layout_below="@+id/pbDownloading"
+                android:textColor="?android:attr/textColorPrimary" />
+        <TextView
                 android:id="@+id/tvDownloading"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/pbDownloading"
-                android:gravity="left|center_vertical"
-                android:padding="4dip" />
+                android:gravity="right|center_vertical"
+                android:padding="4dip"
+                android:layout_alignParentRight="true"
+                android:textColor="?android:attr/textColorPrimary" />
     </RelativeLayout>
-
-    <TextView
-            android:id="@+id/tvNotSupportted"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="?android:attr/textColorPrimary"
-            android:text="@string/google_not_supportted"
-            android:layout_centerInParent="true"
-            android:visibility="gone" />
 
     <com.rarnu.devlib.component.DataProgressBar
             android:id="@+id/progressGoogle"

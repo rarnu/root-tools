@@ -1,5 +1,6 @@
 {
     "sdk_version":15,
+    "sdk_name":"Android 4.0.3 (CM 9)",
     "apks":["ChromeBookmarksSyncAdapter.apk","GoogleBackupTransport.apk","GoogleCalendarSyncAdapter.apk","GoogleContactsSyncAdapter.apk","GoogleFeedback.apk","GoogleLoginService.apk","GooglePartnerSetup.apk","GoogleServicesFramework.apk","NetworkLocation.apk","Phonesky.apk"],
     "apks_optional":["Talk.apk"],
     "jars":["com.google.android.maps.jar","com.google.android.media.effects.jar","com.google.widevine.software.drm.jar"],

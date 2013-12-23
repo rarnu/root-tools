@@ -86,7 +86,7 @@ public class CleanCacheFragment extends BaseFragment implements OnLoadCompleteLi
         menuClean.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
         menuRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 99, R.string.refresh);
-        menuRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.ic_menu_refresh));
+        menuRefresh.setIcon(R.drawable.ic_menu_refresh);
         menuRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
 
     }

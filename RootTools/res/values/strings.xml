@@ -396,8 +396,14 @@
     <string name="google_status_not_found">Not Exists</string>
     <string name="google_status_file_boken">Broken File</string>
     <string name="google_status_sig_broken">Different Sig</string>
-    <string name="google_not_supportted">Do not support this android version</string>
+    <string name="google_status_optional">Optional</string>
+    <string name="google_not_supportted">Do not support this android version, still download?</string>
     <string name="download">Download</string>
     <string name="google_downloading_zip">Download progressing, are you sure to cancel it?</string>
     <string name="unzipping">Unzipping, please wait...</string>
+    <string name="google_install_hint">Install google package will cause your device cannot take the official update, this operation is not resetable, please be careful.</string>
+    <string name="google_install_dialog">Are you sure to install this version of google package?</string>
+    <string name="google_current_sdk" formatted="false">Device SDK: %s (Code: %d)</string>
+    <string name="chk_override_broken">Override Broken Files</string>
+    <string name="chk_install_optional">Install Optional Apps</string>
 </resources>

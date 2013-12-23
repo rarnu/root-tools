@@ -14,5 +14,5 @@ public class GoogleInfo {
     // 2: lib
     // 3: xml
     public int type = 0;
-
+    public boolean optional = false;
 }

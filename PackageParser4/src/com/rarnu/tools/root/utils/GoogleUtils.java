@@ -10,34 +10,38 @@ import java.util.List;
 
 public class GoogleUtils {
 
-    public static List<GoogleInfo> getGoogleApps(Context context, GooglePackageInfo packageInfo) {
+    public static List<GoogleInfo> getGoogleApps(Context context, GooglePackageInfo packageInfo, int sdkVer) {
         List<GoogleInfo> list = new ArrayList<GoogleInfo>();
         for (String apk : packageInfo.apks) {
             GoogleInfo item = new GoogleInfo();
             item.fileName = apk;
             item.type = 0;
-            item.status = getGoogleInfoStatus(item);
+            item.status = getGoogleInfoStatus(item, sdkVer);
+            item.optional = false;
             list.add(item);
         }
         for (String apk : packageInfo.apks_optional) {
             GoogleInfo item = new GoogleInfo();
             item.fileName = apk;
             item.type = 0;
-            item.status = getGoogleInfoStatus(item);
+            item.status = getGoogleInfoStatus(item, sdkVer);
+            item.optional = true;
             list.add(item);
         }
         for (String jar : packageInfo.jars) {
             GoogleInfo item = new GoogleInfo();
             item.fileName = jar;
             item.type = 1;
-            item.status = getGoogleInfoStatus(item);
+            item.status = getGoogleInfoStatus(item, sdkVer);
+            item.optional = false;
             list.add(item);
         }
         for (String lib : packageInfo.libs) {
             GoogleInfo item = new GoogleInfo();
             item.fileName = lib;
             item.type = 2;
-            item.status = getGoogleInfoStatus(item);
+            item.status = getGoogleInfoStatus(item, sdkVer);
+            item.optional = false;
             list.add(item);
         }
         for (String xml : packageInfo.xmls) {
@@ -45,13 +49,14 @@ public class GoogleUtils {
             item.fileName = xml.substring(xml.indexOf("/") + 1);
             item.path = xml.substring(0, xml.indexOf("/"));
             item.type = 3;
-            item.status = getGoogleInfoStatus(item);
+            item.status = getGoogleInfoStatus(item, sdkVer);
+            item.optional = false;
             list.add(item);
         }
         return list;
     }
 
-    private static int getGoogleInfoStatus(GoogleInfo item) {
+    private static int getGoogleInfoStatus(GoogleInfo item, int sdkVer) {
         int ret = -1;
         String filePath = "";
         switch (item.type) {
@@ -78,10 +83,10 @@ public class GoogleUtils {
                 case 0:
                 case 1:
                 case 2:
-                    newFilePath = DirHelper.GOOGLE_DIR + item.fileName;
+                    newFilePath = DirHelper.GOOGLE_DIR + sdkVer + "/" + item.fileName;
                     break;
                 case 3:
-                    newFilePath = DirHelper.GOOGLE_DIR + item.path + "/" + item.fileName;
+                    newFilePath = DirHelper.GOOGLE_DIR + sdkVer + "/" + item.path + "/" + item.fileName;
                     break;
             }
             File newFile = new File(newFilePath);

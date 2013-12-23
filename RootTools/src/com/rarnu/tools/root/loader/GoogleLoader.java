@@ -6,23 +6,24 @@ import com.rarnu.tools.root.common.GoogleInfo;
 import com.rarnu.tools.root.common.GooglePackageInfo;
 import com.rarnu.tools.root.utils.GoogleUtils;
 
-import java.util.ArrayList;
 import java.util.List;
 
 public class GoogleLoader extends BaseLoader<GoogleInfo> {
 
     private GooglePackageInfo packageItem;
+    private int sdkVer;
 
     public GoogleLoader(Context context) {
         super(context);
     }
 
-    public void setPackageItem(GooglePackageInfo packageItem) {
+    public void setData(GooglePackageInfo packageItem, int sdkVer) {
         this.packageItem = packageItem;
+        this.sdkVer = sdkVer;
     }
 
     @Override
     public List<GoogleInfo> loadInBackground() {
-        return GoogleUtils.getGoogleApps(getContext(), packageItem);
+        return GoogleUtils.getGoogleApps(getContext(), packageItem, sdkVer);
     }
 }

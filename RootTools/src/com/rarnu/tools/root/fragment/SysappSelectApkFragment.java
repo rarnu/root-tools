@@ -193,7 +193,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
     public void initMenu(Menu menu) {
 
         itemUp = menu.add(0, MenuItemIds.MENU_UPLEVEL, 98, R.string.uplevel);
-        itemUp.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.up_level));
+        itemUp.setIcon(R.drawable.up_level);
         itemUp.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

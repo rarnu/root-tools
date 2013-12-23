@@ -369,8 +369,14 @@
     <string name="google_status_not_found">不存在</string>
     <string name="google_status_file_boken">檔案破損</string>
     <string name="google_status_sig_broken">籤名破損</string>
-    <string name="google_not_supportted">不支援的 Android 版本</string>
+    <string name="google_status_optional">可選</string>
+    <string name="google_not_supportted">不支援的 Android 版本, 確認要繼續下載嗎?</string>
     <string name="download">下載</string>
     <string name="google_downloading_zip">正在下載,您確認要終止嗎?</string>
     <string name="unzipping">正在解壓，請稍候...</string>
+    <string name="google_install_hint">安裝 Google 套件將使您的設備無法接受官方的升級, 這是一個不可逆的過程, 請小心操作</string>
+    <string name="google_install_dialog">您確認要安裝這個版本的的 Google 套件?</string>
+    <string name="google_current_sdk" formatted="false">設備 SDK: %s (版本號: %d)</string>
+    <string name="chk_override_broken">覆蓋破損的檔案</string>
+    <string name="chk_install_optional">安裝可選的應用</string>
 </resources>

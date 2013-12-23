@@ -1,18 +1,17 @@
 package com.rarnu.tools.root.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Loader;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.ListView;
-import android.widget.ProgressBar;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseFragment;
@@ -20,6 +19,7 @@ import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.GoogleAdapter;
+import com.rarnu.tools.root.adapter.GoogleSdkAdapter;
 import com.rarnu.tools.root.api.MobileGoogleApi;
 import com.rarnu.tools.root.common.GoogleInfo;
 import com.rarnu.tools.root.common.GooglePackageInfo;
@@ -28,26 +28,31 @@ import com.rarnu.tools.root.loader.GoogleLoader;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.FileUtils;
-import com.rarnu.utils.ImageUtils;
 
+import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<GoogleInfo>> {
+public class GoogleFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<GoogleInfo>>, AdapterView.OnItemSelectedListener, View.OnClickListener {
 
     TextView tvSdkVer;
     ListView lvGoogle;
     RelativeLayout layDownload;
     ProgressBar pbDownloading;
     TextView tvDownloading;
+    TextView tvPercent;
     DataProgressBar progressGoogle;
     List<GoogleInfo> list;
     GoogleAdapter adapter;
     GoogleLoader loader;
-    TextView tvNotSupportted;
-    MenuItem miDownload;
+    Spinner spVersion;
+    GoogleSdkAdapter adapterSdk;
+    List<GooglePackageInfo> listSdk;
+    Button btnInstall;
+    int[] sdkVers = new int[]{15, 16, 17, 18, 19};
     boolean supportted = false;
+    MenuItem miDownload;
     boolean downloading = false;
     Thread thDownload = null;
     private Handler hDownload = new Handler() {
@@ -57,14 +62,17 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 case DownloadUtils.WHAT_DOWNLOAD_START:
                     pbDownloading.setMax(msg.arg2);
                     pbDownloading.setProgress(msg.arg1);
+                    tvPercent.setText("0%");
                     tvDownloading.setText(String.format("%d / %d", msg.arg1, msg.arg2));
                     break;
                 case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
                     pbDownloading.setProgress(msg.arg1);
+                    tvPercent.setText(String.format("%d%%", (int) (msg.arg1 * 100.0D / msg.arg2)));
                     tvDownloading.setText(String.format("%d / %d", msg.arg1, msg.arg2));
                     break;
                 case DownloadUtils.WHAT_DOWNLOAD_FINISH:
                     pbDownloading.setProgress(pbDownloading.getMax());
+                    tvPercent.setText("100%");
                     tvDownloading.setText(R.string.unzipping);
                     doUnzipT();
                     break;
@@ -79,7 +87,12 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 downloading = false;
                 layDownload.setVisibility(View.GONE);
                 lvGoogle.setEnabled(true);
-                doStartLoading();
+                spVersion.setEnabled(true);
+                btnInstall.setEnabled(true);
+                if (miDownload != null) {
+                    miDownload.setEnabled(true);
+                }
+                doStartLoading(((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version);
             }
             super.handleMessage(msg);
         }
@@ -107,48 +120,67 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
         layDownload = (RelativeLayout) innerView.findViewById(R.id.layDownload);
         pbDownloading = (ProgressBar) innerView.findViewById(R.id.pbDownloading);
         tvDownloading = (TextView) innerView.findViewById(R.id.tvDownloading);
+        tvPercent = (TextView) innerView.findViewById(R.id.tvPercent);
         progressGoogle = (DataProgressBar) innerView.findViewById(R.id.progressGoogle);
+        spVersion = (Spinner) innerView.findViewById(R.id.spVersion);
+        btnInstall = (Button) innerView.findViewById(R.id.btnInstall);
         list = new ArrayList<GoogleInfo>();
         adapter = new GoogleAdapter(getActivity(), list);
         lvGoogle.setAdapter(adapter);
         loader = new GoogleLoader(getActivity());
-        tvNotSupportted = (TextView) innerView.findViewById(R.id.tvNotSupportted);
 
         progressGoogle.setAppName(getString(R.string.google_download_check));
+
+        listSdk = new ArrayList<GooglePackageInfo>();
+        adapterSdk = new GoogleSdkAdapter(getActivity(), listSdk);
+        spVersion.setAdapter(adapterSdk);
+
     }
 
     @Override
     public void initEvents() {
         loader.registerListener(0, this);
+        spVersion.setOnItemSelectedListener(this);
+        btnInstall.setOnClickListener(this);
     }
 
     @Override
     public void initLogic() {
         showSdkVersion();
-        doStartLoading();
+        doLoadSdks();
+        doStartLoading(Build.VERSION.SDK_INT);
     }
 
-    private void doStartLoading() {
-        tvNotSupportted.setVisibility(View.GONE);
-        lvGoogle.setVisibility(View.VISIBLE);
+    private void doLoadSdks() {
+        int idx = 0;
+        for (int i = 0; i < sdkVers.length; i++) {
+            if (Build.VERSION.SDK_INT == sdkVers[i]) {
+                idx = i;
+            }
+            try {
+                listSdk.add(GooglePackageInfo.fromJson(FileUtils.readAssetFile(getActivity(), String.format("google_%d", sdkVers[i]))));
+            } catch (IOException e) {
+            }
+        }
+        adapterSdk.setNewList(listSdk);
+        spVersion.setSelection(idx);
+        // spVersion.setEnabled(idx != -1);
+    }
 
-        int sdkint = Build.VERSION.SDK_INT;
+    private void doStartLoading(int sdkint) {
         try {
             String jsonString = FileUtils.readAssetFile(getActivity(), String.format("google_%d", sdkint));
             GooglePackageInfo packageItem = GooglePackageInfo.fromJson(jsonString);
-            loader.setPackageItem(packageItem);
+            loader.setData(packageItem, sdkint);
             loader.startLoading();
             supportted = true;
         } catch (IOException e) {
-            // no json file found, sdk not supportted
-            tvNotSupportted.setVisibility(View.VISIBLE);
-            lvGoogle.setVisibility(View.GONE);
             supportted = false;
         }
     }
 
     private void showSdkVersion() {
-        String sdk = String.format("%s (%d)", Build.VERSION.RELEASE, Build.VERSION.SDK_INT);
+        String sdk = getString(R.string.google_current_sdk, Build.VERSION.RELEASE, Build.VERSION.SDK_INT);
         tvSdkVer.setText(sdk);
     }
 
@@ -165,7 +197,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     @Override
     public void initMenu(Menu menu) {
         miDownload = menu.add(0, MenuItemIds.MENU_DOWNLOAD, 99, R.string.download);
-        miDownload.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.ic_menu_attachment));
+        miDownload.setIcon(R.drawable.ic_menu_attachment);
         miDownload.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 
@@ -173,7 +205,19 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MenuItemIds.MENU_DOWNLOAD:
-                if (supportted) {
+                if (!supportted) {
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle(R.string.hint)
+                            .setMessage(R.string.google_not_supportted)
+                            .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialog, int which) {
+                                    doDownloadT();
+                                }
+                            })
+                            .setNegativeButton(R.string.cancel, null)
+                            .show();
+                } else {
                     doDownloadT();
                 }
                 break;
@@ -182,6 +226,8 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     }
 
     private void doUnzipT() {
+        final int sdkVer = ((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version;
+        final String fileName = DirHelper.GOOGLE_DIR + String.format("google_%d.zip", sdkVer);
         new Thread(new Runnable() {
             @Override
             public void run() {
@@ -189,9 +235,13 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 Message msg = new Message();
                 msg.what = 1;
                 try {
-                    String cmd = String.format("busybox unzip \"%s\" -d \"%s\"", DirHelper.GOOGLE_DIR + "google.zip", DirHelper.GOOGLE_DIR);
+                    File fExtractDir = new File(DirHelper.GOOGLE_DIR + sdkVer + "/");
+                    if (!fExtractDir.exists()) {
+                        fExtractDir.mkdirs();
+                    }
+                    String cmd = String.format("busybox unzip \"%s\" -d \"%s\"", fileName, DirHelper.GOOGLE_DIR + sdkVer + "/");
                     CommandResult result = RootUtils.runCommand(cmd, true);
-                    Log.e("result", String.format("ret:%s, err:%s", result.result, result.error));
+
                     if (result != null && result.error.equals("")) {
                         msg.arg1 = 1;
                     } else {
@@ -206,19 +256,33 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     }
 
     private void doDownloadT() {
-        final String url = MobileGoogleApi.getDownloadUrl(Build.VERSION.SDK_INT);
+        final int selectSdk = ((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version;
+        final String fileName = DirHelper.GOOGLE_DIR + String.format("google_%d.zip", selectSdk);
+
+        final String url = MobileGoogleApi.getDownloadUrl(selectSdk);
         downloading = true;
         pbDownloading.setProgress(0);
         tvDownloading.setText("");
         layDownload.setVisibility(View.VISIBLE);
         lvGoogle.setEnabled(false);
+        spVersion.setEnabled(false);
+        btnInstall.setEnabled(false);
         if (miDownload != null) {
             miDownload.setEnabled(false);
         }
+
+        if (new File(fileName).exists()) {
+            pbDownloading.setProgress(pbDownloading.getMax());
+            tvDownloading.setText(R.string.unzipping);
+            tvPercent.setText("100%");
+            doUnzipT();
+            return;
+        }
+
         thDownload = new Thread(new Runnable() {
             @Override
             public void run() {
-                DownloadUtils.downloadFile(url, DirHelper.GOOGLE_DIR + "google.zip", hDownload);
+                DownloadUtils.downloadFile(url, DirHelper.GOOGLE_DIR + String.format("google_%d.zip", selectSdk), hDownload);
             }
         });
         thDownload.start();
@@ -253,5 +317,42 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
         if (getActivity() != null) {
             adapter.setNewList(list);
         }
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        doStartLoading(((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnInstall:
+                final View vInstallDialog = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_install_google, null);
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.hint)
+                        .setMessage(R.string.google_install_dialog)
+                        .setView(vInstallDialog)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                boolean obf = ((CheckBox) vInstallDialog.findViewById(R.id.chkOverrideBrokenFile)).isChecked();
+                                boolean io = ((CheckBox) vInstallDialog.findViewById(R.id.chkInstallOptional)).isChecked();
+                                doInstallGoogleT(obf, io);
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, null)
+                        .show();
+                break;
+        }
+    }
+
+    private void doInstallGoogleT(final boolean overrideBroken, final boolean installOptional) {
+        // TODO: install google package
     }
 }

@@ -22,7 +22,6 @@ import com.rarnu.tools.root.adapter.CompPackageAdapter;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.fragmentactivity.CompPackageInfoActivity;
 import com.rarnu.tools.root.loader.CompLoader;
-import com.rarnu.utils.ImageUtils;
 import com.rarnu.utils.ResourceUtils;
 
 import java.util.ArrayList;
@@ -84,7 +83,7 @@ public class CompFragment extends BaseFragment implements OnItemClickListener, O
     public void initMenu(Menu menu) {
 
         menuRefresh = menu.add(0, MenuItemIds.MENU_REFRESH, 98, R.string.refresh);
-        menuRefresh.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.ic_menu_refresh));
+        menuRefresh.setIcon(R.drawable.ic_menu_refresh);
         menuRefresh.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
     }
 

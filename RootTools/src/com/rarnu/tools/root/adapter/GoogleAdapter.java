@@ -49,12 +49,18 @@ public class GoogleAdapter extends BaseAdapter<GoogleInfo> {
                     holder.tvStatus.setTextColor(Color.GREEN);
                     break;
                 case 1:
-                    holder.tvStatus.setText(R.string.google_status_not_found);
-                    holder.tvStatus.setTextColor(Color.RED);
+
+                    if (item.optional) {
+                        holder.tvStatus.setTextColor(Color.GREEN);
+                        holder.tvStatus.setText(R.string.google_status_optional);
+                    } else {
+                        holder.tvStatus.setText(R.string.google_status_not_found);
+                        holder.tvStatus.setTextColor(Color.RED);
+                    }
                     break;
                 case 2:
                     holder.tvStatus.setText(R.string.google_status_file_boken);
-                    holder.tvStatus.setTextColor(Color.RED);
+                    holder.tvStatus.setTextColor(item.optional ? Color.YELLOW : Color.RED);
                     break;
             }
 
