@@ -1,7 +1,0 @@
-<resources>
-
-    <string name="app_name">RenewSinaToken</string>
-    <string name="renew">刷新微博Token</string>
-    <string name="current_token_fmt" formatted="false">Current Token\nToken: %s\nExpired Time: %s</string>
-
-</resources>

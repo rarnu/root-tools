@@ -1,1 +1,0 @@
-create table lovingyou_log (id int primary key, device text, page text, click text, c_date text, c_time text, module text);
