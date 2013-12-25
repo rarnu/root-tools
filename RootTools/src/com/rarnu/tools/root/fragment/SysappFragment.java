@@ -31,7 +31,6 @@ import com.rarnu.tools.root.fragmentactivity.SysappDetailActivity;
 import com.rarnu.tools.root.fragmentactivity.SysappSelectApkActivity;
 import com.rarnu.tools.root.loader.SysappLoader;
 import com.rarnu.tools.root.utils.ApkUtils;
-import com.rarnu.utils.ImageUtils;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -150,7 +149,7 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
     }
 
     private void doInstallSystemApp(final String path) {
-        progressSysapp.setAppName(getString(R.string.installing));
+        progressSysapp.setAppName(getString(R.string.installing_system_app));
         progressSysapp.setVisibility(View.VISIBLE);
 
         ApkUtils.installSystemApp(getActivity(), path, hInstall);

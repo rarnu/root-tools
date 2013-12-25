@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ActivityCalendar/ActivityCalendar.iml" filepath="$PROJECT_DIR$/ActivityCalendar/ActivityCalendar.iml" />
       <module fileurl="file://$PROJECT_DIR$/CommandLib/CommandLib.iml" filepath="$PROJECT_DIR$/CommandLib/CommandLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/CommonDevLib/CommonDevLib.iml" filepath="$PROJECT_DIR$/CommonDevLib/CommonDevLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/CommonUtils/CommonUtils.iml" filepath="$PROJECT_DIR$/CommonUtils/CommonUtils.iml" />

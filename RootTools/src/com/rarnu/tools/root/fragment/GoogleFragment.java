@@ -26,6 +26,7 @@ import com.rarnu.tools.root.common.GooglePackageInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.loader.GoogleLoader;
 import com.rarnu.tools.root.utils.DirHelper;
+import com.rarnu.tools.root.utils.GoogleUtils;
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.FileUtils;
 
@@ -97,6 +98,21 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
             super.handleMessage(msg);
         }
     };
+    private Handler hInstallGoogle = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                progressGoogle.setAppName(getString(R.string.google_download_check));
+                spVersion.setEnabled(true);
+                if (miDownload != null) {
+                    miDownload.setEnabled(true);
+                }
+                btnInstall.setEnabled(true);
+                doStartLoading(((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version);
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     public int getBarTitle() {
@@ -146,8 +162,8 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
 
     @Override
     public void initLogic() {
-        showSdkVersion();
         doLoadSdks();
+        showSdkVersion();
         doStartLoading(Build.VERSION.SDK_INT);
     }
 
@@ -180,7 +196,8 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     }
 
     private void showSdkVersion() {
-        String sdk = getString(R.string.google_current_sdk, Build.VERSION.RELEASE, Build.VERSION.SDK_INT);
+        int matchRes = (Build.VERSION.SDK_INT == ((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version) ? R.string.google_sdk_match : R.string.google_sdk_unmatch;
+        String sdk = getString(R.string.google_current_sdk, Build.VERSION.RELEASE, Build.VERSION.SDK_INT, getString(matchRes));
         tvSdkVer.setText(sdk);
     }
 
@@ -239,7 +256,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                     if (!fExtractDir.exists()) {
                         fExtractDir.mkdirs();
                     }
-                    String cmd = String.format("busybox unzip \"%s\" -d \"%s\"", fileName, DirHelper.GOOGLE_DIR + sdkVer + "/");
+                    String cmd = String.format("busybox unzip -o \"%s\" -d \"%s\"", fileName, DirHelper.GOOGLE_DIR + sdkVer + "/");
                     CommandResult result = RootUtils.runCommand(cmd, true);
 
                     if (result != null && result.error.equals("")) {
@@ -321,6 +338,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        showSdkVersion();
         doStartLoading(((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version);
     }
 
@@ -333,26 +351,109 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnInstall:
-                final View vInstallDialog = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_install_google, null);
-                new AlertDialog.Builder(getActivity())
-                        .setTitle(R.string.hint)
-                        .setMessage(R.string.google_install_dialog)
-                        .setView(vInstallDialog)
-                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialog, int which) {
-                                boolean obf = ((CheckBox) vInstallDialog.findViewById(R.id.chkOverrideBrokenFile)).isChecked();
-                                boolean io = ((CheckBox) vInstallDialog.findViewById(R.id.chkInstallOptional)).isChecked();
-                                doInstallGoogleT(obf, io);
-                            }
-                        })
-                        .setNegativeButton(R.string.cancel, null)
-                        .show();
+                if (!checkZipExist()) {
+                    return;
+                }
+                if (checkFileCorrect()) {
+                    return;
+                }
+                confirmInstallGoogle();
                 break;
         }
     }
 
+    private boolean checkZipExist() {
+        int selectSdk = ((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version;
+        String fileName = DirHelper.GOOGLE_DIR + String.format("google_%d.zip", selectSdk);
+        boolean ret = true;
+        if (!new File(fileName).exists()) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.hint)
+                    .setMessage(R.string.google_no_zip)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
+            ret = false;
+        }
+        return ret;
+    }
+
+    private boolean checkFileCorrect() {
+        boolean ret = false;
+        if (GoogleUtils.isAllFilesCorrect(list)) {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.hint)
+                    .setMessage(R.string.google_all_files_correct)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
+            ret = true;
+        }
+        return ret;
+    }
+
+    private void confirmInstallGoogle() {
+        final View vInstallDialog = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_install_google, null);
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.hint)
+                .setMessage(R.string.google_install_dialog)
+                .setView(vInstallDialog)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        boolean obf = ((CheckBox) vInstallDialog.findViewById(R.id.chkOverrideBrokenFile)).isChecked();
+                        boolean io = ((CheckBox) vInstallDialog.findViewById(R.id.chkInstallOptional)).isChecked();
+                        doInstallGoogleT(obf, io);
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+
     private void doInstallGoogleT(final boolean overrideBroken, final boolean installOptional) {
-        // TODO: install google package
+
+        final List<GoogleInfo> installList = GoogleUtils.getInstallFileList(list, overrideBroken, installOptional);
+        progressGoogle.setAppName(getString(R.string.installing_system_app));
+        spVersion.setEnabled(false);
+        if (miDownload != null) {
+            miDownload.setEnabled(false);
+        }
+        btnInstall.setEnabled(false);
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                int selectSdk = ((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version;
+                String cmd = "";
+                String fileName = "";
+                for (GoogleInfo gi : installList) {
+                    // install google package
+                    switch (gi.type) {
+                        case 0:
+                            fileName = "/system/app/" + gi.fileName;
+                            break;
+                        case 1:
+                            fileName = "/system/framework/" + gi.fileName;
+                            break;
+                        case 2:
+                            fileName = "/system/lib/" + gi.fileName;
+                            break;
+                        case 3:
+                            fileName = "/system/etc/" + gi.path + "/" + gi.fileName;
+                            break;
+                    }
+                    cmd = "busybox cp ";
+                    if (gi.type == 3) {
+                        cmd += DirHelper.GOOGLE_DIR + selectSdk + "/" + gi.path + "/" + gi.fileName;
+                    } else {
+                        cmd += DirHelper.GOOGLE_DIR + selectSdk + "/" + gi.fileName;
+                    }
+                    cmd += " " + fileName;
+                    CommandResult result = RootUtils.runCommand(cmd, true);
+                    if (result.error.equals("")) {
+                        RootUtils.runCommand("chmod 644 " + fileName, true);
+                    }
+                }
+                hInstallGoogle.sendEmptyMessage(1);
+            }
+        }).start();
     }
 }

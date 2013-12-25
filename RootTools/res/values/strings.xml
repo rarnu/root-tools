@@ -150,7 +150,7 @@
         works.
     </string>
     <string name="install_apk" formatted="false">Are you sure to install %s into system?</string>
-    <string name="installing">Installing system app, please wait...</string>
+    <string name="installing_system_app">Installing system app, please wait...</string>
     <string name="installing_updating_app">Installing app, please wait...</string>
     <string name="install_ok">Install system app finished</string>
     <string name="install_fail">Install system app failed</string>
@@ -403,7 +403,16 @@
     <string name="unzipping">Unzipping, please wait...</string>
     <string name="google_install_hint">Install google package will cause your device cannot take the official update, this operation is not resetable, please be careful.</string>
     <string name="google_install_dialog">Are you sure to install this version of google package?</string>
-    <string name="google_current_sdk" formatted="false">Device SDK: %s (Code: %d)</string>
+    <string name="google_current_sdk" formatted="false">Device SDK: %s (Code: %d) [%s]</string>
+    <string name="google_sdk_match">Match</string>
+    <string name="google_sdk_unmatch">Unmatch</string>
     <string name="chk_override_broken">Override Broken Files</string>
     <string name="chk_install_optional">Install Optional Apps</string>
+    <string name="google_all_files_correct">All files are correct, do not need to reinstall.</string>
+    <string name="google_no_zip">You have not downloaded the google package, please download it first.</string>
+
+    <string name="team_members">Team Members</string>
+    <string name="team_project">Project Source</string>
+    <string name="team_compile">How to Build</string>
+    <string name="team_github_link">Visit our Github</string>
 </resources>

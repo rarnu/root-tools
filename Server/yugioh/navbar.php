@@ -39,6 +39,7 @@
               <ul class="nav">
 		
                 <li><a href="page_info.php">Information</a></li>
+                <li><a href="page_feedback.php">Feedback</a></li>
 		<?php 
 			$admin = $_GET["is_admin"];
 			if ($admin==="king") {

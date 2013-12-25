@@ -4,4 +4,95 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/progressTeam">
+
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                >
+
+            <TextView
+                    android:id="@+id/tvMember"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dip"
+                    android:textColor="@color/black"
+                    android:background="@color/skyblue"
+                    android:text="@string/team_members" />
+
+            <com.rarnu.devlib.component.BlockListView
+                    android:id="@+id/lvMembers"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvMember" />
+            <TextView
+                    android:id="@+id/tvProjectSource"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dip"
+                    android:textColor="@color/black"
+                    android:background="@color/skyblue"
+                    android:text="@string/team_project"
+                    android:layout_below="@+id/lvMembers"
+                    android:layout_marginTop="4dip"
+                    />
+
+            <RelativeLayout
+                    android:id="@+id/layProjectSource"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvProjectSource"
+                    android:padding="8dip">
+                <ImageView
+                        android:id="@+id/imgGithub"
+                        android:layout_width="48dip"
+                        android:layout_height="48dip"
+                        android:contentDescription="@null"
+                        android:src="@drawable/github"
+                        />
+                <TextView
+                        android:id="@+id/tvGithubLink"
+                        android:layout_width="match_parent"
+                        android:layout_height="48dip"
+                        android:gravity="left|center_vertical"
+                        android:textColor="?android:attr/textColorPrimary"
+                        android:text="@string/team_github_link"
+                        android:layout_toRightOf="@+id/imgGithub"
+                        android:layout_marginLeft="8dip"
+                        android:textStyle="bold"
+                        android:clickable="true"
+                        style="?android:attr/buttonBarButtonStyle"
+                        />
+            </RelativeLayout>
+
+            <TextView
+                    android:id="@+id/tvHowToBuild"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="4dip"
+                    android:textColor="@color/black"
+                    android:background="@color/skyblue"
+                    android:text="@string/team_compile"
+                    android:layout_below="@+id/layProjectSource"
+                    android:layout_marginTop="4dip"
+                    />
+            <com.rarnu.devlib.component.BlockListView
+                    android:id="@+id/lvCompile"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/tvHowToBuild" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <com.rarnu.devlib.component.DataProgressBar
+            android:id="@+id/progressTeam"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone" />
+
 </RelativeLayout>

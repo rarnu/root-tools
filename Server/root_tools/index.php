@@ -1,6 +1,6 @@
 <?php
 
-header('Location:upload_package.php');
+header('Location:pages/info_page.php');
 exit;
 
 ?>

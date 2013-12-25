@@ -1,7 +1,6 @@
 package com.rarnu.tools.root.api;
 
-import com.rarnu.tools.root.common.RecommandInfo;
-import com.rarnu.tools.root.common.UpdateInfo;
+import com.rarnu.tools.root.common.*;
 import com.rarnu.utils.HttpRequest;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.protocol.HTTP;
@@ -17,6 +16,7 @@ public class MobileApi {
     public static final String BASE_URL = "http://rarnu.7thgen.info/root_tools/";
     public static final String DOWNLOAD_BASE_URL = BASE_URL + "download/";
     public static final String ICON_BASE_URL = BASE_URL + "icon/";
+    public static final String MEMBER_HEAD_URL = BASE_URL + "member/";
     public static final String PACKAGE_BASE_URL = BASE_URL + "package/";
     private static final String UPDATE_URL = BASE_URL + "check_update.php";
     private static final String UPDATE_PARAM = "version=%d";
@@ -24,6 +24,8 @@ public class MobileApi {
     private static final String FEEDBACK_PARAM = "deviceId=%s&module=%s&os_version=%s&mail=%s&build_desc=%s&comment=%s&app_version=%s";
     private static final String RECOMMAND_URL = BASE_URL + "get_recommand.php";
     private static final String CRASH_URL = BASE_URL + "crash.php";
+    private static final String TEAM_URL = BASE_URL + "get_team.php";
+    private static final String TEAM_PARAM = "lang=%d";
 
     public static UpdateInfo checkUpdate(int version) {
         UpdateInfo result = null;
@@ -98,6 +100,35 @@ public class MobileApi {
         } catch (Exception e) {
 
         }
+    }
+
+    public static TeamInfo getTeam(int language) {
+        TeamInfo result = null;
+        try {
+            String ret = HttpRequest.get(TEAM_URL, String.format(TEAM_PARAM, language), HTTP.UTF_8);
+            JSONObject json = new JSONObject(ret);
+            JSONArray jarrMember = json.getJSONArray("member");
+            JSONArray jarrProject = json.getJSONArray("project");
+            result = new TeamInfo();
+            for (int i = 0; i < jarrMember.length(); i++) {
+                TeamMemberInfo info = new TeamMemberInfo();
+                info.id = jarrMember.getJSONObject(i).getInt("id");
+                info.name = jarrMember.getJSONObject(i).getString("name");
+                info.headUrl = jarrMember.getJSONObject(i).getString("head");
+                info.position = jarrMember.getJSONObject(i).getString("position");
+                result.listMember.add(info);
+            }
+            for (int i = 0; i < jarrProject.length(); i++) {
+                TeamBuildInfo info = new TeamBuildInfo();
+                info.id = jarrProject.getJSONObject(i).getInt("id");
+                info.title = jarrProject.getJSONObject(i).getString("name");
+                info.desc = jarrProject.getJSONObject(i).getString("desc");
+                result.listBuild.add(info);
+            }
+        } catch (Exception e) {
+
+        }
+        return result;
     }
 
 }

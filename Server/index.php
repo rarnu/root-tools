@@ -1,3 +1,3 @@
 <?php
-echo phpinfo();
+header("Location:root_tools/index.php");
 ?>

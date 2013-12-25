@@ -100,4 +100,33 @@ public class GoogleUtils {
         }
         return ret;
     }
+
+    public static boolean isAllFilesCorrect(List<GoogleInfo> list) {
+        boolean ret = true;
+        for (GoogleInfo gi : list) {
+            if (gi.status == 2) {
+                ret = false;
+                break;
+            }
+            if (gi.status != 0 && !gi.optional) {
+                ret = false;
+                break;
+            }
+        }
+        return ret;
+    }
+
+    public static List<GoogleInfo> getInstallFileList(List<GoogleInfo> list, boolean overrideBroken, boolean installOptional) {
+        List<GoogleInfo> result = new ArrayList<GoogleInfo>();
+        for (GoogleInfo gi: list) {
+            if (gi.status == 2 && overrideBroken) {
+                result.add(gi);
+            } else if (gi.status == 1 && gi.optional && installOptional) {
+                result.add(gi);
+            } else if (gi.status == 1 && !gi.optional) {
+                result.add(gi);
+            }
+        }
+        return result;
+    }
 }

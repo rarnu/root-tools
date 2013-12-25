@@ -146,7 +146,7 @@
     <string name="delete_htc_app">这是一个 HTC Sense 的应用程序，删除它可能会导致系统问题，您依然确定要删除它吗？按“确定”删除应用程序，按“取消”保留。</string>
     <string name="delete_system_app">您确定要删除此系统应用程序？若是不明确应用的作用，请将其保留，以防不测。按“确定”删除应用程序，按“取消”保留。</string>
     <string name="install_apk" formatted="false">确定要将 %s 安装到系统内吗？按“确定”进行安装，按“取消”不安装。</string>
-    <string name="installing">正在安装系统应用程序，请稍候…</string>
+    <string name="installing_system_app">正在安装系统应用程序，请稍候…</string>
     <string name="installing_updating_app">正在安装应用程序，请稍候...</string>
     <string name="install_ok">安装系统应用程序成功</string>
     <string name="install_fail">安装系统应用程序失败</string>
@@ -376,7 +376,16 @@
     <string name="unzipping">正在解压，请稍候...</string>
     <string name="google_install_hint">安装 Google 套件将使您的设备无法接受官方的升级, 这是一个不可逆的过程, 请小心操作</string>
     <string name="google_install_dialog">您确定要安装这个版本的 Google 套件?</string>
-    <string name="google_current_sdk" formatted="false">设备 SDK: %s (版本号: %d)</string>
+    <string name="google_current_sdk" formatted="false">设备 SDK: %s (版本号: %d) [%s]</string>
+    <string name="google_sdk_match">版本匹配</string>
+    <string name="google_sdk_unmatch">版本不匹配</string>
     <string name="chk_override_broken">覆盖破损的文件</string>
     <string name="chk_install_optional">安装可选的应用</string>
+    <string name="google_all_files_correct">所有文件均是正确的, 无需重新安装</string>
+    <string name="google_no_zip">您还未下载 Google 套件, 请先进行下载</string>
+
+    <string name="team_members">团队成员</string>
+    <string name="team_project">项目源码</string>
+    <string name="team_compile">如何构建</string>
+    <string name="team_github_link">访问我们的 Github</string>
 </resources>
