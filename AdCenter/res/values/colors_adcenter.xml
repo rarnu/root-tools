@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-
-<resources>
-    <color name="pressed_adcenter">#CCAA66CC</color>
-    <color name="font_color">#FF9933cc</color>
-    <color name="splite_line_color">#FFaa66cc</color>
-    <color name="list_selector_color">#77a966cb</color>
-</resources>

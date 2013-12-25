@@ -1,5 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <item name="fragment_index" type="tag">index_fragment</item>
-    <item name="fragment_detail" type="tag">detail_fragment</item>
-</resources>
