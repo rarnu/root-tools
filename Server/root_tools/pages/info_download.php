@@ -32,7 +32,20 @@ include('navbar.php');
       <div class="hero-unit">
 		<h3>下载掌优客户端</h3>
         <div class="alert alert-success">
-        <a href="../download/RootTools_5.4.0.apk">最新版本 5.4.0</a><br>
+        <a href="../download/RootTools_6.0.0.apk">最新版本 6.0.0</a><br>
+        <font size="3">
+        <b>更新日志</b><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;1. 增加 Google 套件检查与安装<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;2. 优化界面显示, 图标等<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;3. 修复部分4.4设备下无法工作的问题<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;4. 修复清理缓存的一处崩溃<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;5. 修复桌面插件在某些设备上显示不正常的问题<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;6. 增加开发团队以及编译方法的显示<br>
+        </font>
+        </div>
+        <h3>历史版本下载</h3>
+        <div class="alert alert-warning">
+        <a href="../download/RootTools_5.4.0.apk">5.4.0</a><br>
         <font size="3">
         <b>更新日志</b><br>
         &nbsp;&nbsp;&nbsp;&nbsp;1. 增加启动项管理工具<br>
@@ -41,9 +54,6 @@ include('navbar.php');
         &nbsp;&nbsp;&nbsp;&nbsp;4. 修复磁盘空间查看中的一处崩溃<br>
         &nbsp;&nbsp;&nbsp;&nbsp;5. 增加白色的主题<br>
         </font>
-        </div>
-        <h3>历史版本下载</h3>
-        <div class="alert alert-warning">
 
         <a href="../download/RootTools_5.3.5.apk">5.3.5</a><br>
         <font size="3">

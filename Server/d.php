@@ -36,9 +36,24 @@ include('navbar.php');
 </form>
 
       <!-- Main hero unit for a primary marketing message or call to action -->
-		<h4>掌优客户端(<a href="root_tools/download/RootTools_5.4.0.apk">点击下载最新版本</a>)</h4>
+		<h4>掌优客户端(<a href="root_tools/download/RootTools_6.0.0.apk">点击下载最新版本</a>)</h4>
+        <div class="alert alert-warning">
+        <font color="red">
+        如果您在微信中不能直接通过点击来下载,请点击右上角的"分享"按钮,并选择"在浏览器中打开"
+        </font>
+        </div>
+
         <div class="alert alert-success">
         <font size="3">
+        <b>6.0.0 更新日志</b><br>
+        &nbsp;&nbsp;&nbsp;&nbsp;1. 增加 Google 套件检查与安装<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;2. 优化界面显示, 图标等<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;3. 修复部分4.4设备下无法工作的问题<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;4. 修复清理缓存的一处崩溃<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;5. 修复桌面插件在某些设备上显示不正常的问题<br>
+        &nbsp;&nbsp;&nbsp;&nbsp;6. 增加开发团队以及编译方法的显示<br>
+
+        <br>
         <b>5.4.0 更新日志</b><br>
         &nbsp;&nbsp;&nbsp;&nbsp;1. 增加启动项管理工具<br>
 &nbsp;&nbsp;&nbsp;&nbsp;2. 防火墙页面增加搜索功能<br>
@@ -58,11 +73,6 @@ include('navbar.php');
         &nbsp;&nbsp;&nbsp;&nbsp;1. 修复清理内存的按钮消失的问题<br>
         &nbsp;&nbsp;&nbsp;&nbsp;2. 增加桌面1x1小插件<br>
         &nbsp;&nbsp;&nbsp;&nbsp;3. 修复百度云ROM的判断逻辑<br>
-        </font>
-        </div>
-        <div class="alert alert-warning">
-        <font color="red">
-        如果您在微信中不能直接通过点击来下载,请点击右上角的"分享"按钮,并选择"在浏览器中打开"
         </font>
         </div>
 </body>
