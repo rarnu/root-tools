@@ -1,59 +1,50 @@
 <?php
+
 include "../../database/database.php";
 
-// upload.php?name={1}&package_name={2}&main_activity={3}&unix_name={4}
-// [attach:FILES("icon")] [attach:FILES("apk")]
+$name = $_GET["name"];
+$package_name = $_GET["package_name"];
+$unix_name = $_GET["unix_name"];
+$icon = $_GET["icon"];
+$apk = $_GET["apk"];
+// mode=0: add
+// mode=1: update
+$mode = $_GET["mode"];
 
-$name = $_POST["name"];
-$package_name = $_POST["package_name"];
-$unix_name = $_POST["unix_name"];
-$icon = $_FILES["icon"];
-$apk = $_POST["apk"];
-
-if (empty($name) || empty($package_name) || empty($unix_name) || empty($apk)) {
-	header("Location:field_error.php");
-	exit;
+if (empty($name) || empty($package_name) || empty($apk)) {
+	echo "1";
+    exit;
 }
 
-$ret = DoUpload($name, $package_name, $unix_name, $icon, $apk);
-if ($ret == "0") {
-	header("Location:upload_succ.php");
-} else {
-	header("Location:upload_fail.php");
-}
+$ret = DoUpload($name, $package_name, $unix_name, $icon, $apk, $mode, $aid);
+echo "<br>ret: $ret";
 
-function DoUpload($n, $p, $u, $fi, $fp) {
-	
+function DoUpload($n, $p, $u, $i, $a, $m, $ai) {
 	$ret = "";
-	$err_i = $fi["error"];
-	if ($err_i > 0 || $err_p > 0) {
+    $str = "";
+    if ($m == 1) {
+        // update
+        $db = openConnection();
+        $sql = "update root_tools_recommand set name='$n',icon_url='$i',download_url='$a' where package_name='$p'";
+        $str = query($db, $sql);
+        closeConnection($db);
+    } else {
+        // add
+	    $id = generateId("root_tools_recommand", "id");
+        $db = openConnection();
+	    $sql = "insert into root_tools_recommand (id, name, package_name, main_activity, icon_url, download_url, unix_name, app_order) values ($id, '$n', '$p', 'null', '$i', '$a', '$u', 0)";
+		$str = query($db, $sql);
+        closeConnection($db);
+    }
+
+	if ($str == "0") {
 		$ret = "1";
 	} else {
-		$iconUrl = DoSaveFile("icon", $fi);
-		$downloadUrl = $fp;
-		$id = generateId("root_tools_recommand", "id");
-		$db = openConnection();
-		$sql = "insert into root_tools_recommand (id, name, package_name, main_activity, icon_url, download_url, unix_name, app_order) values ($id, '$n', '$p', 'null', '$iconUrl', '$downloadUrl', '$u', 0)";
-		echo $sql;
-		$str = query($db, $sql);
-		closeConnection($db);
-		echo "sql result: $str";
-		if ($str == "0") {
-			$ret = "1";
-		} else {
-			$ret = "0";
-		}
-		
-  	}
-	
-	return $ret;
+		$ret = "0";
+	}
+    return $ret;
 
 }
 
-function DoSaveFile($dir, $file) {
-	$filename = $file["name"];
-	move_uploaded_file($file["tmp_name"], "../$dir/$filename");
-	return $filename;
 
-}
 ?>

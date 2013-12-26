@@ -1,9 +1,5 @@
 == hosts ==
 一键Hosts修改
 
-== google ==
-* 下载google套件需要可以选择版本
-* 下载的google套件需接版本分目录管理
-* 增加下载中和百分比的字样
-* 增加安装google套件界面
-* 增加安装影响更新的提示
+== index ==
+增加全部功能的summary

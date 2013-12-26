@@ -5,9 +5,6 @@
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_show_float_window"
                 android:title="@string/func0_title" />
-        <com.rarnu.devlib.component.CheckBoxPreferenceEx
-                android:key="@string/id_theme"
-                android:title="@string/func_theme_title" />
 
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/func1_title">

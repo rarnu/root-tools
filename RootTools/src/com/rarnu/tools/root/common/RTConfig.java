@@ -47,7 +47,8 @@ public class RTConfig {
     }
 
     public static boolean getTheme(Context context) {
-        return ConfigUtils.getBooleanConfig(context, KEY_THEME, false);
+        return false;
+        // return ConfigUtils.getBooleanConfig(context, KEY_THEME, false);
     }
 
     public static void setTheme(Context context, boolean value) {

@@ -40,7 +40,7 @@ function DoGenerateTable() {
 <script language="javascript">
 var id_del = 0;
 function deletePackage(id) {
-	id_del = id;
+    id_del = id;
 	$('#confirmDialog').modal('show');
 }
 function doDelete() {

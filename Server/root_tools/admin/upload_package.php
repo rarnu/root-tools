@@ -33,31 +33,30 @@ include('navadmin.php');
 
 		<h1>上传推广软件</h1><br><br>
         <div class="alert alert-success">
-		<form method="POST" action="upload.php" class="form-horizontal" enctype="multipart/form-data">
+        本页面不再生效, 请使用上传脚本
 		<table border="0" >
 			<tr>
-				<td>名称</td> <td><input type="text" name="name" size="20" class="input-block-level"></td>
+				<td>名称</td> <td><input type="text" name="name" size="20" class="input-block-level" disabled="disabled" ></td>
 			</tr>
 			<tr>
-				<td>包名</td><td><input type="text" name="package_name" size="20" class="input-block-level"></td>
+				<td>包名</td><td><input type="text" name="package_name" size="20" class="input-block-level" disabled="disabled"></td>
 			</tr>
 			<tr>
-				<td>Unix 名称</td><td><input type="text" name="unix_name" size="20" class="input-block-level"></td>
+				<td>Unix 名称</td><td><input type="text" name="unix_name" size="20" class="input-block-level" disabled="disabled"></td>
 			</tr>
 			<tr>
-				<td>图标</td><td><input type="file" name="icon" size="20" class="btn" ></td>
+				<td>图标</td><td><input type="file" name="icon" size="20" class="btn" disabled="disabled" ></td>
 			
 			</tr>
 			<tr>
-				<td>服务端文件名</td><td><input type="text" name="apk" size="20" class="input-block-level"></td>
+				<td>服务端文件名</td><td><input type="text" name="apk" size="20" class="input-block-level" disabled="disabled"></td>
 			</tr>
 			<tr>
-				<td></td><td height="50">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="提交" class="btn btn-big btn-primary">&nbsp;&nbsp;<input type="button" value="重置" class="btn btn-big btn-primary"></td>
+				<td></td><td height="50">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="提交" class="btn btn-big btn-primary" disabled="disabled">&nbsp;&nbsp;<input type="button" value="重置" class="btn btn-big btn-primary" disabled="disabled"></td>
 			</tr>
 		
 		</table>
 		
-		</form>
         </div>
 
 

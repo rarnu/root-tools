@@ -1,5 +1,7 @@
 package com.rarnu.tools.root.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.os.Bundle;
@@ -9,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ListView;
+import android.widget.Toast;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.MainActivity;
@@ -18,7 +21,6 @@ import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RecommandInfo;
 import com.rarnu.tools.root.loader.RecommandLoader;
 import com.rarnu.tools.root.utils.ApkUtils;
-import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -98,8 +100,25 @@ public class RecommandFragment extends BaseFragment implements OnLoadCompleteLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        RecommandInfo item = lstRecommand.get(position);
-        ApkUtils.gotoApp(getActivity(), item.packageName, item.downloadUrl);
+        final RecommandInfo item = lstRecommand.get(position);
+        if (ApkUtils.applicationInstalled(item.packageName)) {
+            boolean ret = ApkUtils.openApp(getActivity(), item.packageName);
+            if (!ret) {
+                Toast.makeText(getActivity(), R.string.recommend_app_disabled, Toast.LENGTH_LONG).show();
+            }
+        } else {
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(R.string.hint)
+                    .setMessage(R.string.recommend_download_hint)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            ApkUtils.openDownloadApp(getActivity(), item.downloadUrl);
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, null)
+                    .show();
+        }
 
     }
 

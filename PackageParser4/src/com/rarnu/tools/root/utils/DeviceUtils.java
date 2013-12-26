@@ -8,6 +8,7 @@ import android.util.DisplayMetrics;
 import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.DeviceInfo;
+import com.rarnu.tools.root.common.MemoryInfo;
 
 import java.io.IOException;
 import java.util.List;
@@ -163,38 +164,11 @@ public class DeviceUtils {
             result--;
         }
 
-        String factory = getBuildProp(RO_PRODUCT_MANUFACTURER);
-        if (factory != null) {
-            if (factory.toLowerCase().contains("htc") && factory.toLowerCase().contains("archos")) {
-                result += 2;
-            }
-
-            if (factory.toLowerCase().contains("xiaomi")) {
-                result++;
-            }
-        }
-
-        String module = getBuildProp(RO_PRODUCT_MODEL);
-        if (module != null) {
-            if (module.toLowerCase().contains("lenovo")) {
-                result -= 2;
-            }
-
-            if (module.toLowerCase().contains("ideatab")) {
-                result -= 2;
-            }
-
-            if (module.toLowerCase().contains("zte")) {
-                result--;
-            }
-            if (module.toLowerCase().contains("nexus")) {
-                result += 2;
-            }
-        }
-
-        String buildId = getBuildProp(RO_BUILD_ID);
-        if (buildId.toLowerCase().contains("miui")) {
-            result++;
+        MemoryInfo mem = MemoryUtils.getMemoryInfo();
+        if (mem.Total >= 1000) {
+            result += 2;
+        } else {
+            result--;
         }
 
         String cpu = getBuildProp(RO_PRODUCT_CPU_ABI);
@@ -214,6 +188,10 @@ public class DeviceUtils {
             result++;
         } else {
             result--;
+        }
+
+        if (metric.widthPixels >= 720 && metric.heightPixels >= 1280) {
+            result++;
         }
 
         if (result < 1) {

@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectSession>
+    <Version Value="9"/>
+    <BuildModes Active="Default"/>
+    <Units Count="4">
+      <Unit0>
+        <Filename Value="recommend_uploader.lpr"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="recommend_uploader"/>
+        <EditorIndex Value="0"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="68"/>
+        <CursorPos X="63" Y="73"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="unt_command.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="unt_command"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="4"/>
+        <CursorPos X="24" Y="20"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="unt_recommend_upload.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="unt_recommend_upload"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="73"/>
+        <CursorPos X="79" Y="89"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/rtl/inc/ustringh.inc"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="10"/>
+        <CursorPos X="10" Y="22"/>
+        <UsageCount Value="10"/>
+      </Unit3>
+    </Units>
+    <General>
+      <ActiveWindowIndexAtStart Value="0"/>
+    </General>
+    <JumpHistory Count="7" HistoryIndex="6">
+      <Position1>
+        <Filename Value="recommend_uploader.lpr"/>
+        <Caret Line="52" Column="9" TopLine="56"/>
+      </Position1>
+      <Position2>
+        <Filename Value="recommend_uploader.lpr"/>
+        <Caret Line="49" Column="41" TopLine="30"/>
+      </Position2>
+      <Position3>
+        <Filename Value="unt_recommend_upload.pas"/>
+        <Caret Line="10" Column="110" TopLine="1"/>
+      </Position3>
+      <Position4>
+        <Filename Value="unt_recommend_upload.pas"/>
+        <Caret Line="26" Column="15" TopLine="14"/>
+      </Position4>
+      <Position5>
+        <Filename Value="unt_recommend_upload.pas"/>
+        <Caret Line="51" Column="24" TopLine="31"/>
+      </Position5>
+      <Position6>
+        <Filename Value="unt_recommend_upload.pas"/>
+        <Caret Line="50" Column="38" TopLine="35"/>
+      </Position6>
+      <Position7>
+        <Filename Value="unt_recommend_upload.pas"/>
+        <Caret Line="10" Column="56" TopLine="5"/>
+      </Position7>
+    </JumpHistory>
+  </ProjectSession>
+  <EditorMacros Count="0"/>
+</CONFIG>

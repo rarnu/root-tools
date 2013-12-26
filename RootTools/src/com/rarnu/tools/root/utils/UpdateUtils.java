@@ -31,20 +31,22 @@ public class UpdateUtils {
     }
 
     private static void showUpdate(final Context context) {
-        new AlertDialog.Builder(context)
-                .setTitle(R.string.check_update)
-                .setCancelable(false)
-                .setMessage(String.format(context.getString(R.string.update_found_info), GlobalInstance.updateInfo.versionName, GlobalInstance.updateInfo.size))
-                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+        if (context != null) {
+            new AlertDialog.Builder(context)
+                    .setTitle(R.string.check_update)
+                    .setCancelable(false)
+                    .setMessage(String.format(context.getString(R.string.update_found_info), GlobalInstance.updateInfo.versionName, GlobalInstance.updateInfo.size))
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        sendDownloadIntent(context);
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            sendDownloadIntent(context);
 
-                    }
-                })
-                .setNegativeButton(R.string.cancel, null)
-                .show();
+                        }
+                    })
+                    .setNegativeButton(R.string.cancel, null)
+                    .show();
+        }
     }
 
     private static void sendDownloadIntent(Context context) {

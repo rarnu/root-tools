@@ -383,9 +383,12 @@
     <string name="chk_install_optional">安裝可選的應用</string>
     <string name="google_all_files_correct">所有的檔案均是正確的, 無需重新安裝</string>
     <string name="google_no_zip">您還未下載 Google 套件, 請先進行下載</string>
+    <string name="google_reboot_hint">Google 套件安裝完畢, 如果您現在還無法看到 Google 應用, 請重啓設備</string>
 
     <string name="team_members">團隊成員</string>
     <string name="team_project">項目源碼</string>
     <string name="team_compile">如何構建</string>
     <string name="team_github_link">訪問我們的 Github</string>
+    <string name="recommend_download_hint">您確認要下載這款應用?</string>
+    <string name="recommend_app_disabled">無法啓動應用, 請確認您沒有禁用它</string>
 </resources>

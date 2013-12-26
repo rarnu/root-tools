@@ -116,15 +116,34 @@ public class GoogleUtils {
         return ret;
     }
 
-    public static List<GoogleInfo> getInstallFileList(List<GoogleInfo> list, boolean overrideBroken, boolean installOptional) {
+    public static boolean isAllOptionalFilesCorrect(List<GoogleInfo> list) {
+        boolean ret = true;
+        for (GoogleInfo gi : list) {
+            if (gi.optional) {
+                if (gi.status != 0) {
+                    ret = false;
+                    break;
+                }
+            }
+        }
+        return ret;
+    }
+
+    public static List<GoogleInfo> getInstallFileList(List<GoogleInfo> list, boolean overrideBroken, boolean installOptional, int mode) {
         List<GoogleInfo> result = new ArrayList<GoogleInfo>();
-        for (GoogleInfo gi: list) {
-            if (gi.status == 2 && overrideBroken) {
-                result.add(gi);
-            } else if (gi.status == 1 && gi.optional && installOptional) {
-                result.add(gi);
-            } else if (gi.status == 1 && !gi.optional) {
-                result.add(gi);
+        for (GoogleInfo gi : list) {
+            if (mode == 1) {
+                if (gi.optional && gi.status != 0 && installOptional) {
+                    result.add(gi);
+                }
+            } else {
+                if (gi.status == 2 && overrideBroken) {
+                    result.add(gi);
+                } else if (gi.status == 1 && gi.optional && installOptional) {
+                    result.add(gi);
+                } else if (gi.status == 1 && !gi.optional) {
+                    result.add(gi);
+                }
             }
         }
         return result;

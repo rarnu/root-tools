@@ -501,11 +501,11 @@ public class ApkUtils {
         RootUtils.runCommand("pm set-install-location " + String.valueOf(location), true, null);
     }
 
-    public static void openApp(Context context, String packageName) {
-        openApp(context, packageName, false);
+    public static boolean openApp(Context context, String packageName) {
+        return openApp(context, packageName, false);
     }
 
-    public static void openApp(Context context, String packageName, boolean newTask) {
+    public static boolean openApp(Context context, String packageName, boolean newTask) {
         PackageInfo pi = null;
         try {
             if (GlobalInstance.pm == null) {
@@ -516,7 +516,7 @@ public class ApkUtils {
         }
 
         if (pi == null) {
-            return;
+            return false;
         }
 
         Intent resolveIntent = new Intent(Intent.ACTION_MAIN, null);
@@ -524,19 +524,25 @@ public class ApkUtils {
         resolveIntent.setPackage(pi.packageName);
 
         List<ResolveInfo> apps = GlobalInstance.pm.queryIntentActivities(resolveIntent, 0);
-
-        ResolveInfo ri = apps.iterator().next();
-        if (ri != null) {
-            String className = ri.activityInfo.name;
-            Intent intent = new Intent(Intent.ACTION_MAIN);
-            intent.addCategory(Intent.CATEGORY_LAUNCHER);
-            ComponentName cn = new ComponentName(packageName, className);
-            intent.setComponent(cn);
-            if (newTask) {
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        boolean ret = false;
+        try {
+            ResolveInfo ri = apps.iterator().next();
+            if (ri != null) {
+                String className = ri.activityInfo.name;
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                ComponentName cn = new ComponentName(packageName, className);
+                intent.setComponent(cn);
+                if (newTask) {
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                }
+                context.startActivity(intent);
+                ret = true;
             }
-            context.startActivity(intent);
+        } catch (Exception e) {
+
         }
+        return ret;
     }
 
     public static void scanApksInSdcard(final CommandCallback callback) {

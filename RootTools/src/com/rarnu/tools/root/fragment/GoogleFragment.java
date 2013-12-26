@@ -94,6 +94,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                     miDownload.setEnabled(true);
                 }
                 doStartLoading(((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version);
+
             }
             super.handleMessage(msg);
         }
@@ -109,6 +110,11 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 }
                 btnInstall.setEnabled(true);
                 doStartLoading(((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version);
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.hint)
+                        .setMessage(R.string.google_reboot_hint)
+                        .setPositiveButton(R.string.ok, null)
+                        .show();
             }
             super.handleMessage(msg);
         }
@@ -354,10 +360,11 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 if (!checkZipExist()) {
                     return;
                 }
-                if (checkFileCorrect()) {
+                int mode = checkFileCorrect();
+                if (mode == -1) {
                     return;
                 }
-                confirmInstallGoogle();
+                confirmInstallGoogle(mode);
                 break;
         }
     }
@@ -377,21 +384,30 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
         return ret;
     }
 
-    private boolean checkFileCorrect() {
-        boolean ret = false;
+    private int checkFileCorrect() {
+        int mode = 0;
         if (GoogleUtils.isAllFilesCorrect(list)) {
-            new AlertDialog.Builder(getActivity())
-                    .setTitle(R.string.hint)
-                    .setMessage(R.string.google_all_files_correct)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
-            ret = true;
+            mode = 1;
+            if (GoogleUtils.isAllOptionalFilesCorrect(list)) {
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.hint)
+                        .setMessage(R.string.google_all_files_correct)
+                        .setPositiveButton(R.string.ok, null)
+                        .show();
+                mode = -1;
+            }
         }
-        return ret;
+        return mode;
     }
 
-    private void confirmInstallGoogle() {
+    /**
+     * @param mode 0:all, 1:optional only
+     */
+    private void confirmInstallGoogle(final int mode) {
         final View vInstallDialog = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_install_google, null);
+        if (mode == 1) {
+            vInstallDialog.findViewById(R.id.chkOverrideBrokenFile).setVisibility(View.GONE);
+        }
         new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.hint)
                 .setMessage(R.string.google_install_dialog)
@@ -401,16 +417,20 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                     public void onClick(DialogInterface dialog, int which) {
                         boolean obf = ((CheckBox) vInstallDialog.findViewById(R.id.chkOverrideBrokenFile)).isChecked();
                         boolean io = ((CheckBox) vInstallDialog.findViewById(R.id.chkInstallOptional)).isChecked();
-                        doInstallGoogleT(obf, io);
+                        doInstallGoogleT(obf, io, mode);
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 
-    private void doInstallGoogleT(final boolean overrideBroken, final boolean installOptional) {
+    private void doInstallGoogleT(final boolean overrideBroken, final boolean installOptional, int mode) {
 
-        final List<GoogleInfo> installList = GoogleUtils.getInstallFileList(list, overrideBroken, installOptional);
+        final List<GoogleInfo> installList = GoogleUtils.getInstallFileList(list, overrideBroken, installOptional, mode);
+        if (installList == null || installList.size() == 0) {
+            return;
+        }
+
         progressGoogle.setAppName(getString(R.string.installing_system_app));
         spVersion.setEnabled(false);
         if (miDownload != null) {
@@ -424,6 +444,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 int selectSdk = ((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version;
                 String cmd = "";
                 String fileName = "";
+                String xmlFolder = "";
                 for (GoogleInfo gi : installList) {
                     // install google package
                     switch (gi.type) {
@@ -437,7 +458,12 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                             fileName = "/system/lib/" + gi.fileName;
                             break;
                         case 3:
-                            fileName = "/system/etc/" + gi.path + "/" + gi.fileName;
+                            xmlFolder = "/system/etc/" + gi.path + "/";
+                            if (!new File(xmlFolder).exists()) {
+                                RootUtils.runCommand("mkdir " + xmlFolder, true);
+                                RootUtils.runCommand("chmod 755 " + xmlFolder, true);
+                            }
+                            fileName = xmlFolder + gi.fileName;
                             break;
                     }
                     cmd = "busybox cp ";
