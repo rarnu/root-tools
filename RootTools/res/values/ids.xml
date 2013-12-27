@@ -34,7 +34,6 @@
 
     <!-- settings -->
     <string name="id_show_float_window">id_show_float_window</string>
-    <string name="id_theme">id_theme</string>
     <string name="id_allow_delete_level_0">id_allow_delete_level_0</string>
     <string name="id_backup_before_delete">id_backup_before_delete</string>
     <string name="id_also_delete_data">id_also_delete_data</string>

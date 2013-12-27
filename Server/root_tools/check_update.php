@@ -1,6 +1,6 @@
 <?php
 $version = $_GET["version"];
-$last_ver = "359";
+$last_ver = "361";
 $last_ver_name = "6.0.3";
 $last_file = "RootTools_6.0.3.apk";
 $last_size = "4.5M";

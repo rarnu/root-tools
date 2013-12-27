@@ -12,7 +12,6 @@ import android.view.View.OnClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.widget.CheckBox;
 import android.widget.EditText;
-import android.widget.Toast;
 import com.rarnu.devlib.base.inner.InnerPreferenceFragment;
 import com.rarnu.devlib.component.CheckBoxPreferenceEx;
 import com.rarnu.devlib.component.MutaxReceiver;
@@ -37,7 +36,7 @@ import java.io.File;
 
 public class SettingsFragment extends InnerPreferenceFragment implements OnReceiveMessage, OnClickListener, OnPreferenceClickListener {
 
-    CheckBoxPreferenceEx prefShowFloatWindow, prefTheme;
+    CheckBoxPreferenceEx prefShowFloatWindow;
     CheckBoxPreferenceEx prefAllowDeleteLevel0, prefAlsoDeleteData, prefBackupBeforeDelete;
     PreferenceEx prefDeleteAllBackupData, prefCustomAppClean;
     CheckBoxPreferenceEx prefOverrideBackuped, prefReinstallApk;
@@ -72,7 +71,6 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
     public void initComponents() {
 
         prefShowFloatWindow = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_show_float_window));
-        prefTheme = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_theme));
 
         prefAllowDeleteLevel0 = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_allow_delete_level_0));
         prefAlsoDeleteData = (CheckBoxPreferenceEx) findPreference(getString(R.string.id_also_delete_data));
@@ -137,7 +135,6 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
 
     private void initConfigValues() {
         prefShowFloatWindow.setStateChecked(GlobalInstance.showFloatWindow);
-        prefTheme.setStateChecked(GlobalInstance.theme);
         prefAllowDeleteLevel0.setStateChecked(GlobalInstance.allowDeleteLevel0);
         prefAlsoDeleteData.setStateChecked(GlobalInstance.alsoDeleteData);
         prefBackupBeforeDelete.setStateChecked(GlobalInstance.backupBeforeDelete);
@@ -186,11 +183,6 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
             } else {
                 FloatUtils.hideFloatWindow(getActivity(), FloatWidgetService.class);
             }
-        } else if (key.equals(getString(R.string.id_theme))) {
-            GlobalInstance.theme = chk.isChecked();
-            RTConfig.setTheme(getActivity(), GlobalInstance.theme);
-            initConfigValues();
-            Toast.makeText(getActivity(), R.string.theme_changed_restart, Toast.LENGTH_LONG).show();
         } else if (key.equals(getString(R.string.id_allow_delete_level_0))) {
             GlobalInstance.allowDeleteLevel0 = chk.isChecked();
             RTConfig.setAllowDeleteLevel0(getActivity(), GlobalInstance.allowDeleteLevel0);
@@ -367,7 +359,6 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
     @Override
     public void initEvents() {
         prefShowFloatWindow.setOnCheckboxClickListener(this);
-        prefTheme.setOnCheckboxClickListener(this);
         prefAllowDeleteLevel0.setOnCheckboxClickListener(this);
         prefAlsoDeleteData.setOnCheckboxClickListener(this);
         prefBackupBeforeDelete.setOnCheckboxClickListener(this);
