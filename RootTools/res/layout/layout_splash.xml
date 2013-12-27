@@ -38,6 +38,16 @@
             android:text="@string/fit_44"
             android:textColor="@color/greenyellow" />
 
+    <ImageView
+            android:id="@+id/imgSplash"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="16dip"
+            android:layout_below="@+id/tvFitable"
+            android:layout_above="@+id/tvCopyright"
+            android:scaleType="fitCenter"
+            android:contentDescription="@null" />
+
     <TextView
             android:id="@+id/tvCopyright"
             android:layout_width="wrap_content"

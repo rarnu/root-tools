@@ -17,6 +17,7 @@ public class MobileApi {
     public static final String DOWNLOAD_BASE_URL = BASE_URL + "download/";
     public static final String ICON_BASE_URL = BASE_URL + "icon/";
     public static final String MEMBER_HEAD_URL = BASE_URL + "member/";
+    public static final String SPLASH_BASE_URL = BASE_URL + "splash/";
     public static final String PACKAGE_BASE_URL = BASE_URL + "package/";
     private static final String UPDATE_URL = BASE_URL + "check_update.php";
     private static final String UPDATE_PARAM = "version=%d";
@@ -26,6 +27,7 @@ public class MobileApi {
     private static final String CRASH_URL = BASE_URL + "crash.php";
     private static final String TEAM_URL = BASE_URL + "get_team.php";
     private static final String TEAM_PARAM = "lang=%d";
+    private static final String SPLASH_URL = BASE_URL + "get_splash.php";
 
     public static UpdateInfo checkUpdate(int version) {
         UpdateInfo result = null;
@@ -125,6 +127,17 @@ public class MobileApi {
                 info.desc = jarrProject.getJSONObject(i).getString("desc");
                 result.listBuild.add(info);
             }
+        } catch (Exception e) {
+
+        }
+        return result;
+    }
+
+    public static String getSplashImage() {
+        String result = "";
+        try {
+            String ret = HttpRequest.get(SPLASH_URL, "", HTTP.UTF_8);
+            result = ret;
         } catch (Exception e) {
 
         }

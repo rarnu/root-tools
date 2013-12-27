@@ -1,9 +1,9 @@
 <?php
 $version = $_GET["version"];
-$last_ver = "140";
-$last_ver_name = "5.4.0";
-$last_file = "RootTools_5.4.0.apk";
-$last_size = "3.7M";
+$last_ver = "359";
+$last_ver_name = "6.0.3";
+$last_file = "RootTools_6.0.3.apk";
+$last_size = "4.5M";
 
 $ver_int = intval($version);
 

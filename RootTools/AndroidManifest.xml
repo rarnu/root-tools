@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="331"
-        android:versionName="6.0.2 beta">
+        android:versionCode="359"
+        android:versionName="6.0.3 beta">
 
     <uses-sdk
             android:minSdkVersion="14"
