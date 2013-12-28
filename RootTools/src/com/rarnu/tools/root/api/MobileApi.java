@@ -40,6 +40,7 @@ public class MobileApi {
             result.versionName = json.getString("version_name");
             result.file = json.getString("file");
             result.size = json.getString("size");
+            result.desc = json.getString("desc");
         } catch (Exception e) {
             result = null;
         }

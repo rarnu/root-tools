@@ -43,6 +43,7 @@
                 <li><a href="view_crashlog.php">查看崩溃日志</a></li>
                 <li><a href="view_feedback.php">查看用户反馈</a></li>
                 <li><a href="view_requirement.php">功能需求管理</a></li>
+                <li><a href="upload_update.php">上传新版本</a></li>
 
               </ul>
 

@@ -7,4 +7,5 @@ public class UpdateInfo {
 	public String versionName;
 	public String file;
 	public String size;
+    public String desc;
 }

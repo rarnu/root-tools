@@ -5,9 +5,12 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
+import android.text.Html;
+import android.widget.TextView;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.MobileApi;
+import com.rarnu.utils.UIUtils;
 
 public class UpdateUtils {
 
@@ -32,10 +35,16 @@ public class UpdateUtils {
 
     private static void showUpdate(final Context context) {
         if (context != null) {
+            final TextView tv = new TextView(context);
+            String msg = String.format(context.getString(R.string.update_found_info), GlobalInstance.updateInfo.versionName, GlobalInstance.updateInfo.size);
+            msg += "<br><br>" + GlobalInstance.updateInfo.desc;
+            tv.setText(Html.fromHtml(msg));
+            final int padding = UIUtils.dipToPx(8);
+            tv.setPadding(padding, padding, padding, padding);
             new AlertDialog.Builder(context)
                     .setTitle(R.string.check_update)
                     .setCancelable(false)
-                    .setMessage(String.format(context.getString(R.string.update_found_info), GlobalInstance.updateInfo.versionName, GlobalInstance.updateInfo.size))
+                    .setView(tv)
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 
                         @Override
