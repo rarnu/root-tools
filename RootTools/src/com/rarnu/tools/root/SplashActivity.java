@@ -17,10 +17,7 @@ import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.IptablesUtils;
 import com.rarnu.tools.root.utils.ShareUtils;
-import com.rarnu.utils.DownloadUtils;
-import com.rarnu.utils.MiscUtils;
-import com.rarnu.utils.ResourceUtils;
-import com.rarnu.utils.UIUtils;
+import com.rarnu.utils.*;
 
 import java.io.File;
 import java.util.Timer;
@@ -135,6 +132,7 @@ public class SplashActivity extends Activity implements Loader.OnLoadCompleteLis
     @Override
     public void onLoadComplete(Loader<String> loader, String data) {
         try {
+            FileUtils.deleteFile(DirHelper.TEMP_DIR + SPLASH_FILENAME);
             DownloadUtils.downloadFileT(this, imgSplash, MobileApi.SPLASH_BASE_URL + data, DirHelper.TEMP_DIR, SPLASH_FILENAME, null);
         } catch (Exception e) {
 
