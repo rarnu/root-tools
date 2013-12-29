@@ -4,3 +4,7 @@
 == index ==
 增加全部功能的summary
 
+== new ==
+彻底卸载，删除/data/data/|/data/app|/data/app-lib|/scard/*/packagename
+需要显示目录大小，可以看下一级目录的文件
+

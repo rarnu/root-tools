@@ -23,17 +23,20 @@ import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.IptablesUtils;
 import com.rarnu.utils.MiscUtils;
 import com.rarnu.utils.NetworkUtils;
+import com.rarnu.utils.UIUtils;
 
 public class IndexFragment extends BasePreferenceFragment implements
         OnPreferenceClickListener {
 
     PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefFirewall, prefRoot, prefHtcRom;
-    PreferenceEx prefBackup, prefRestore, prefHardUpdate, prefBatchApps;
+    PreferenceEx prefBackup, prefRestore, prefHardUpdate, prefBatchApps, prefRemainedFiles;
     PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik, prefDiskInfo, prefFileSystem;
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
     PreferenceEx prefFeedback, prefRecommand, prefAbout;
     PreferenceEx prefTerminal;
     PreferenceEx prefSettings, prefGoogle;
+    IntentFilter filterRefreshTag = new IntentFilter(Actions.ACTION_REFRESH_TAG);
+    RefreshTagReceiver receiverRefreshTag = new RefreshTagReceiver();
 
     public void showFunctionalEnabledTags() {
         boolean isRooted = RootUtils.hasSu();
@@ -49,6 +52,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefRestore.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefHardUpdate.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefBatchApps.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+        prefRemainedFiles.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
 
         prefCleanMemory.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefCleanCache.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
@@ -130,6 +134,9 @@ public class IndexFragment extends BasePreferenceFragment implements
         } else if (preference.getKey().equals(getString(R.string.id_batch_apps))) {
             UIInstance.currentFragment = 19;
             FragmentStarter.showContent(getActivity(), BatchAppsActivity.class, Fragments.getFragment(FragmentNameConst.FN_BATCH_APPS));
+        } else if (preference.getKey().equals(getString(R.string.id_remained_files))) {
+            UIInstance.currentFragment = 22;
+            FragmentStarter.showContent(getActivity(), RemainedFilesActivity.class, Fragments.getFragment(FragmentNameConst.FN_REMAINED_FILES));
         }
 
         // memory
@@ -228,6 +235,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefRestore = (PreferenceEx) findPreference(getString(R.string.id_restore));
         prefHardUpdate = (PreferenceEx) findPreference(getString(R.string.id_hardupdate));
         prefBatchApps = (PreferenceEx) findPreference(getString(R.string.id_batch_apps));
+        prefRemainedFiles = (PreferenceEx) findPreference(getString(R.string.id_remained_files));
 
         prefCleanMemory = (PreferenceEx) findPreference(getString(R.string.id_cleanmemory));
         prefCleanCache = (PreferenceEx) findPreference(getString(R.string.id_cleancache));
@@ -259,6 +267,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefRestore.setOnPreferenceClickListener(this);
         prefHardUpdate.setOnPreferenceClickListener(this);
         prefBatchApps.setOnPreferenceClickListener(this);
+        prefRemainedFiles.setOnPreferenceClickListener(this);
 
         prefCleanMemory.setOnPreferenceClickListener(this);
         prefCleanCache.setOnPreferenceClickListener(this);
@@ -312,17 +321,6 @@ public class IndexFragment extends BasePreferenceFragment implements
         return null;
     }
 
-    public class RefreshTagReceiver extends BroadcastReceiver {
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            showFunctionalEnabledTags();
-        }
-    }
-
-    IntentFilter filterRefreshTag = new IntentFilter(Actions.ACTION_REFRESH_TAG);
-    RefreshTagReceiver receiverRefreshTag = new RefreshTagReceiver();
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -333,5 +331,13 @@ public class IndexFragment extends BasePreferenceFragment implements
     public void onDestroy() {
         getActivity().unregisterReceiver(receiverRefreshTag);
         super.onDestroy();
+    }
+
+    public class RefreshTagReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            showFunctionalEnabledTags();
+        }
     }
 }

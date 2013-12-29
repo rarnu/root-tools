@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ListView
+            android:id="@+id/lvApps"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fastScrollEnabled="true"
+            android:layout_above="@+id/progressApps">
+    </ListView>
+
+    <com.rarnu.devlib.component.DataProgressBar
+            android:id="@+id/progressApps"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:visibility="gone"
+            android:layout_alignParentBottom="true"/>
+
+    <TextView
+            android:id="@+id/tvEmptyHint"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_margin="32dip"
+            android:textColor="?android:attr/textColorPrimary"
+            android:textSize="18sp"
+            android:visibility="gone"
+            android:text="@string/remained_files_empty"/>
+
+</RelativeLayout>

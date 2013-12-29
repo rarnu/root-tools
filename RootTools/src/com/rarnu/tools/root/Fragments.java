@@ -43,6 +43,7 @@ public class Fragments {
     private static BuildTeamFragment fBuildTeam = null;
     private static ShareFragment fShare = null;
     private static GoogleFragment fGoogle = null;
+    private static RemainedFilesFragment fRemainedFiles = null;
 
     public static Fragment getFragment(String name) {
         releaseOtherFragment(name);
@@ -158,6 +159,9 @@ public class Fragments {
         if (f == null) {
             f = getFragment(name, FragmentNameConst.FN_GOOGLE, GoogleFragment.class, fGoogle);
         }
+        if (f == null) {
+            f = getFragment(name, FragmentNameConst.FN_REMAINED_FILES, RemainedFilesFragment.class, fRemainedFiles);
+        }
         return f;
     }
 
@@ -211,6 +215,7 @@ public class Fragments {
         fBuildTeam = null;
         fShare = null;
         fGoogle = null;
+        fRemainedFiles = null;
     }
 
     public static void releaseOtherFragment(String name) {
@@ -249,6 +254,7 @@ public class Fragments {
         doReleaseFragment(name, FragmentNameConst.FN_BUILD_TEAM, fBuildTeam);
         doReleaseFragment(name, FragmentNameConst.FN_SHARE, fShare);
         doReleaseFragment(name, FragmentNameConst.FN_GOOGLE, fGoogle);
+        doReleaseFragment(name, FragmentNameConst.FN_REMAINED_FILES, fRemainedFiles);
     }
 
     private static void doReleaseFragment(String name, String checkName, Fragment f) {

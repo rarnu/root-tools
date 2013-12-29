@@ -40,4 +40,5 @@ public class FragmentNameConst {
     public static final String FN_BUILD_TEAM = "buildteam";
     public static final String FN_SHARE = "share";
     public static final String FN_GOOGLE = "google";
+    public static final String FN_REMAINED_FILES = "remainedfiles";
 }

@@ -89,6 +89,8 @@
     <string name="func_auto_boot">Autoboot</string>
     <string name="func_google">Google Framework</string>
     <string name="func_google_with_path">RootTools &gt; Google Framework</string>
+    <string name="func_remained_files">Remained Files</string>
+    <string name="func_remained_files_with_path">RootTools &gt; Remained Files</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>
@@ -301,6 +303,7 @@
     <string name="summary_sysappenabled">Enable/Disable installed apps</string>
     <string name="summary_hardupdate">Update the apps with different signature</string>
     <string name="summary_batch_apps">Install or uninstall apps in batch</string>
+    <string name="summary_remained_files">Clean remained files after uninstall an app</string>
     <string name="summary_component">Enable/Disable components in apps</string>
     <string name="summary_firewall">Manage the network permission of apps</string>
     <string name="summary_cleanhtc">Clean ROM and batch delete apps</string>
@@ -418,4 +421,6 @@
     <string name="team_github_link">Visit our Github</string>
     <string name="recommend_download_hint">Are you sure to download this app?</string>
     <string name="recommend_app_disabled">Cannot open this app, make sure you have NOT disabled it.</string>
+    <string name="remained_files_empty">No remained files found, do NOT need a clean.</string>
+    <string name="remained_files_delete">Are you sure to delete the remained file? It may be used in somewhere.</string>
 </resources>

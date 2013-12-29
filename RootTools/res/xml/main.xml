@@ -21,7 +21,6 @@
                 android:title="@string/func_firewall"
                 android:summary="@string/summary_firewall"/>
 
-
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_cleanhtc"
                 android:summary="@string/summary_cleanhtc"
@@ -44,6 +43,11 @@
                 android:key="@string/id_batch_apps"
                 android:summary="@string/summary_batch_apps"
                 android:title="@string/func_batch_app"/>
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_remained_files"
+                android:title="@string/func_remained_files"
+                android:summary="@string/summary_remained_files"
+                />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_memory">
         <com.rarnu.devlib.component.PreferenceEx
@@ -91,8 +95,8 @@
                 android:key="@string/id_root"
                 android:title="@string/func8_title"/>
         <com.rarnu.devlib.component.PreferenceEx
-            android:key="@string/id_google"
-            android:title="@string/google"/>
+                android:key="@string/id_google"
+                android:title="@string/google"/>
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_support">
         <com.rarnu.devlib.component.PreferenceEx

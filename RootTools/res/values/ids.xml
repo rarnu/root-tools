@@ -10,6 +10,7 @@
     <string name="id_restore">id_restore</string>
     <string name="id_hardupdate">id_hardupdate</string>
     <string name="id_batch_apps">id_batch_apps</string>
+    <string name="id_remained_files">id_remained_files</string>
 
     <string name="id_cleanmemory">id_cleanmemory</string>
     <string name="id_cleancache">id_cleancache</string>
