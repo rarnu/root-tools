@@ -1,6 +1,7 @@
 package com.rarnu.tools.root.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
@@ -32,6 +33,7 @@ public class RemainedAdapter extends BaseAdapter<RemainedInfo> {
             holder = new RemainedAdapterHolder();
             holder.tvName = (TextView) v.findViewById(R.id.item_name);
             holder.tvPath = (TextView) v.findViewById(R.id.item_path);
+            holder.tvSize = (TextView) v.findViewById(R.id.tvSize);
             v.setTag(holder);
         }
 
@@ -39,6 +41,8 @@ public class RemainedAdapter extends BaseAdapter<RemainedInfo> {
         if (item != null) {
             holder.tvName.setText(item.packageName);
             holder.tvPath.setText(item.path);
+            holder.tvSize.setText(item.dirSize);
+            holder.tvSize.setTextColor(Color.GREEN);
         }
         return v;
     }

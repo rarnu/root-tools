@@ -35,6 +35,7 @@ public class RemainedFilesUtils {
                     RemainedInfo info = new RemainedInfo();
                     info.packageName = s;
                     info.path = "/data/data/" + s;
+                    info.dirSize = FileUtils.getDirSize(info.path) + "KB";
                     list.add(info);
                 }
             }
@@ -43,6 +44,7 @@ public class RemainedFilesUtils {
                     RemainedInfo info = new RemainedInfo();
                     info.packageName = s.substring(0, s.length() - 2);
                     info.path = "/data/app-lib/" + s;
+                    info.dirSize = FileUtils.getDirSize(info.path) + "KB";
                     list.add(info);
                 }
             }

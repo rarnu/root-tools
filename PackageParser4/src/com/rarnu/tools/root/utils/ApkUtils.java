@@ -88,7 +88,7 @@ public class ApkUtils {
     }
 
     public static String getAppSize(String path) {
-        int fileLen = getFileSize(path);
+        long fileLen = getFileSize(path);
         String odexPath = path.substring(0, path.length() - 3) + "odex";
         File fOdex = new File(odexPath);
         if (fOdex.exists()) {
@@ -97,25 +97,9 @@ public class ApkUtils {
         return new DecimalFormat("#.##").format(fileLen / 1024);
     }
 
-    private static int getFileSize(String path) {
+    private static long getFileSize(String path) {
         File f = new File(path);
-        int fileLen = 0;
-        FileInputStream fis = null;
-        try {
-            fis = new FileInputStream(f);
-            fileLen = fis.available();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-            if (fis != null) {
-                try {
-                    fis.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
-            }
-        }
-        return fileLen;
+        return f.length();
     }
 
     public static String getDataSize(String path) {

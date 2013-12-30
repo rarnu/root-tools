@@ -8,6 +8,8 @@ import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -38,6 +40,7 @@ public class SysappDetailFragment extends BasePopupFragment implements OnClickLi
     TextView tvDataSizeDetail;
     SysappInfo info = null;
     PackageInfo pinfo = null;
+    TextView tvDeleting;
 
     @Override
     public int getBarTitle() {
@@ -143,23 +146,46 @@ public class SysappDetailFragment extends BasePopupFragment implements OnClickLi
                 .show();
     }
 
-    private void deleteApp(boolean backup, boolean deleteData) {
-        if (backup) {
-            ApkUtils.backupSystemApp(info.info.sourceDir);
+    private Handler hDeleteApp = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                tvDeleting.setVisibility(View.GONE);
+                btnAddToCleanList.setEnabled(true);
+                btnDelete.setEnabled(true);
+                Intent inRet = new Intent();
+                inRet.putExtra("needRefresh", true);
+                getActivity().setResult(Activity.RESULT_OK, inRet);
+                getActivity().finish();
+            }
+            super.handleMessage(msg);
         }
+    };
 
-        boolean ret = ApkUtils.deleteSystemApp(info.info.sourceDir);
-        if (!ret) {
-            Toast.makeText(getActivity(), R.string.delete_fail, Toast.LENGTH_LONG).show();
-            return;
-        }
-        if (deleteData) {
-            ApkUtils.deleteSystemAppData(info.info.dataDir);
-        }
-        Intent inRet = new Intent();
-        inRet.putExtra("needRefresh", true);
-        getActivity().setResult(Activity.RESULT_OK, inRet);
-        getActivity().finish();
+    private void deleteApp(final boolean backup, final boolean deleteData) {
+        tvDeleting.setVisibility(View.VISIBLE);
+        btnAddToCleanList.setEnabled(false);
+        btnDelete.setEnabled(false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                if (backup) {
+                    ApkUtils.backupSystemApp(info.info.sourceDir);
+                }
+
+                boolean ret = ApkUtils.deleteSystemApp(info.info.sourceDir);
+                if (!ret) {
+                    Toast.makeText(getActivity(), R.string.delete_fail, Toast.LENGTH_LONG).show();
+                    return;
+                }
+                if (deleteData) {
+                    ApkUtils.deleteSystemAppData(info.info.dataDir);
+                }
+
+                hDeleteApp.sendEmptyMessage(1);
+            }
+        }).start();
+
     }
 
     @Override
@@ -177,6 +203,7 @@ public class SysappDetailFragment extends BasePopupFragment implements OnClickLi
         tvSharedIdDetail = (TextView) innerView.findViewById(R.id.tvSharedIdDetail);
         tvDataSizeDetail = (TextView) innerView.findViewById(R.id.tvDataSizeDetail);
 
+        tvDeleting = (TextView) innerView.findViewById(R.id.tvDeleting);
     }
 
     @Override

@@ -294,6 +294,12 @@
     <string name="summary_scanmedia">掃描並更新系統的多媒體庫</string>
     <string name="summary_feedback">寫下您的意見和建議</string>
     <string name="summary_recommand">下載其他精品軟件以支援我們</string>
+    <string name="summary_clean_dalvik">清理 Dalvik 虛擬機緩存以獲取更多空間</string>
+    <string name="summary_file_system">操作您的磁碟檔案系統, 檔案管理</string>
+    <string name="summary_terminal">自行輸入指令以實現您需要的一切功能</string>
+    <string name="summary_system_components">檢查系統組件的狀態</string>
+    <string name="summary_google">將您的設備變成 Google 設備</string>
+
     <string name="name_server_hint">輸入搜尋 Hosts IP 時要使用的 DNS 侍服器地址, 默認爲 Google 提供的 DNS</string>
     <string name="backup_path_hint">輸入用於保存備份檔案的全路徑</string>
     <string name="batch_install_path_hint">輸入用於保存批量安裝 APK 檔案的路徑</string>

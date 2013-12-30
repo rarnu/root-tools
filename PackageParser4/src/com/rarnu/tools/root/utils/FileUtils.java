@@ -1,6 +1,10 @@
 package com.rarnu.tools.root.utils;
 
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
+
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -46,4 +50,19 @@ class FileUtils {
         File myFile = new File(path);
         return readFile(myFile);
     }
+
+    public static String getDirSize(String path) {
+        String ret = "";
+        CommandResult result = RootUtils.runCommand("busybox du -s " + path, true, null);
+        if (result.error.equals("")) {
+            ret = result.result;
+            try {
+                ret = ret.substring(0, ret.indexOf('\t'));
+            } catch (Exception e) {
+                ret = "unknown";
+            }
+        }
+        return ret;
+    }
+
 }

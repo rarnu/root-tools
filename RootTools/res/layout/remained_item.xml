@@ -13,7 +13,8 @@
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="18sp"/>
+            android:textSize="18sp"
+            android:layout_toLeftOf="@+id/tvSize" />
 
     <TextView
             android:id="@+id/item_path"
@@ -25,6 +26,16 @@
             android:gravity="left|center_vertical"
             android:maxLines="1"
             android:singleLine="true"
-            android:textSize="12sp"/>
+            android:textSize="12sp"
+            android:layout_toLeftOf="@+id/tvSize" />
+
+    <TextView
+            android:id="@+id/tvSize"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:layout_marginRight="4dip"
+            />
 
 </RelativeLayout>

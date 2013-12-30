@@ -11,7 +11,6 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.Toast;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseFragment;
@@ -181,30 +180,51 @@ public class SystemComponentFragment extends BaseFragment implements OnItemClick
         boolean installIptables = (mode == 1);
 
         String abi = Build.CPU_ABI.toLowerCase();
+        int type = 0;
+        if (abi.contains("mips")) {
+            type = 1;
+        } else if (abi.contains("x86")) {
+            type = 2;
+        }
 
-        if (abi.startsWith("arm")) {
-            if (installBusybox) {
-                doInstallBusyboxT();
-            }
-            if (installIptables) {
-                doInstallIptablesT();
-            }
-        } else {
-            Toast.makeText(getActivity(), R.string.binary_not_supportted, Toast.LENGTH_LONG).show();
+        if (installBusybox) {
+            doInstallBusyboxT(type);
+        }
+        if (installIptables) {
+            doInstallIptablesT(type);
         }
 
     }
 
-    private void doInstallBusyboxT() {
+    private void doInstallBusyboxT(int type) {
 
-        String fileName = "busybox";
+        String fileName = "busybox_arm";
+        switch (type) {
+            case 1:
+                fileName = "busybox_mips";
+                break;
+            case 2:
+                fileName = "busybox_x86";
+                break;
+        }
         doInstallT(fileName);
     }
 
-    private void doInstallIptablesT() {
+    private void doInstallIptablesT(int type) {
 
-        String fileName = "iptables";
-        String fileName6 = "ip6tables";
+        String fileName = "iptables_arm";
+        String fileName6 = "ip6tables_arm";
+        switch (type) {
+            case 1:
+                fileName = "iptables_mips";
+                fileName6 = "ip6tables_mips";
+                break;
+            case 2:
+                fileName = "iptables_x86";
+                fileName6 = "ip6tables_x86";
+                break;
+        }
+
         doInstallT(fileName, fileName6);
     }
 
@@ -218,13 +238,14 @@ public class SystemComponentFragment extends BaseFragment implements OnItemClick
             @Override
             public void run() {
                 for (String fn : fileName) {
-                    FileUtils.deleteFile(DirHelper.BUSYBOX_DIR + fn);
+                    String realFileName = fn.substring(0, fn.lastIndexOf("_"));
+                    FileUtils.deleteFile(DirHelper.BUSYBOX_DIR + realFileName);
                     FileUtils.copyAssetFile(getActivity(), fn, DirHelper.BUSYBOX_DIR, null);
 
-                    String cmd = String.format("cat %s%s > /system/xbin/%s", DirHelper.BUSYBOX_DIR, fn, fn);
+                    String cmd = String.format("cat %s%s > /system/xbin/%s", DirHelper.BUSYBOX_DIR, fn, realFileName);
                     CommandResult result = RootUtils.runCommand(cmd, true);
                     if (result.error.equals("")) {
-                        RootUtils.runCommand("chmod 755 /system/xbin/" + fn, true);
+                        RootUtils.runCommand("chmod 755 /system/xbin/" + realFileName, true);
                     }
                 }
                 hInstall.sendEmptyMessage(1);

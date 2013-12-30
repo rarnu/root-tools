@@ -10,7 +10,7 @@
             android:layout_height="48dip"
             android:layout_marginLeft="4dip"
             android:layout_marginTop="4dip"
-            android:contentDescription="@null"/>
+            android:contentDescription="@null" />
 
     <TextView
             android:id="@+id/appName"
@@ -23,7 +23,7 @@
             android:maxLines="1"
             android:singleLine="true"
             android:textColor="?android:attr/textColorPrimary"
-            android:textSize="18sp"/>
+            android:textSize="18sp" />
 
     <TextView
             android:id="@+id/appVersion"
@@ -36,7 +36,7 @@
             android:gravity="left|center_vertical"
             android:maxLines="1"
             android:singleLine="true"
-            android:textSize="12sp"/>
+            android:textSize="12sp" />
 
     <Button
             android:id="@+id/btnDelete"
@@ -46,7 +46,7 @@
             android:layout_marginLeft="48dip"
             android:layout_marginRight="48dip"
             android:text="@string/button_delete"
-            style="?android:attr/buttonBarButtonStyle"/>
+            style="?android:attr/buttonBarButtonStyle" />
 
     <Button
             android:id="@+id/btnAddToCleanList"
@@ -57,7 +57,7 @@
             android:layout_marginRight="48dip"
             android:layout_marginTop="4dip"
             android:text="@string/button_add_to_clean_list"
-            style="?android:attr/buttonBarButtonStyle"/>
+            style="?android:attr/buttonBarButtonStyle" />
 
     <ScrollView
             android:layout_width="match_parent"
@@ -82,7 +82,7 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/textview_path"
-                        android:textColor="?android:attr/textColorPrimary"/>
+                        android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                         android:id="@+id/tvPathDetail"
@@ -92,13 +92,13 @@
                         android:layout_centerVertical="true"
                         android:paddingRight="8dip"
                         android:textColor="@color/orange"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@android:drawable/divider_horizontal_dark"/>
+                        android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -114,7 +114,7 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/textview_odex"
-                        android:textColor="?android:attr/textColorPrimary"/>
+                        android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                         android:id="@+id/tvOdexDetail"
@@ -124,13 +124,13 @@
                         android:layout_centerVertical="true"
                         android:paddingRight="8dip"
                         android:textColor="@color/orange"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@android:drawable/divider_horizontal_dark"/>
+                        android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -146,7 +146,7 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/textview_filesize"
-                        android:textColor="?android:attr/textColorPrimary"/>
+                        android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                         android:id="@+id/tvFileSizeDetail"
@@ -156,13 +156,13 @@
                         android:layout_centerVertical="true"
                         android:paddingRight="8dip"
                         android:textColor="@color/orange"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@android:drawable/divider_horizontal_dark"/>
+                        android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -178,7 +178,7 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/textview_datapath"
-                        android:textColor="?android:attr/textColorPrimary"/>
+                        android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                         android:id="@+id/tvDataPathDetail"
@@ -188,13 +188,13 @@
                         android:layout_centerVertical="true"
                         android:paddingRight="8dip"
                         android:textColor="@color/orange"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@android:drawable/divider_horizontal_dark"/>
+                        android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -210,7 +210,7 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/textview_datasize"
-                        android:textColor="?android:attr/textColorPrimary"/>
+                        android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                         android:id="@+id/tvDataSizeDetail"
@@ -220,13 +220,13 @@
                         android:layout_centerVertical="true"
                         android:paddingRight="8dip"
                         android:textColor="@color/orange"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@android:drawable/divider_horizontal_dark"/>
+                        android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -242,7 +242,7 @@
                         android:layout_centerVertical="true"
                         android:paddingLeft="8dip"
                         android:text="@string/textview_library"
-                        android:textColor="?android:attr/textColorPrimary"/>
+                        android:textColor="?android:attr/textColorPrimary" />
 
                 <TextView
                         android:id="@+id/tvSharedIdDetail"
@@ -252,15 +252,26 @@
                         android:layout_centerVertical="true"
                         android:paddingRight="8dip"
                         android:textColor="@color/orange"
-                        android:textSize="12sp"/>
+                        android:textSize="12sp" />
 
                 <TextView
                         android:layout_width="match_parent"
                         android:layout_height="1dp"
                         android:layout_alignParentBottom="true"
-                        android:background="@android:drawable/divider_horizontal_dark"/>
+                        android:background="@android:drawable/divider_horizontal_dark" />
             </RelativeLayout>
         </RelativeLayout>
     </ScrollView>
+
+    <TextView
+            android:id="@+id/tvDeleting"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:padding="32dip"
+            android:background="?android:attr/detailsElementBackground"
+            android:layout_centerInParent="true"
+            android:text="@string/deleting"
+            android:textColor="?android:attr/textColorPrimary"
+            android:visibility="gone" />
 
 </RelativeLayout>

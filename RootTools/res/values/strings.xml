@@ -313,6 +313,11 @@
     <string name="summary_scanmedia">Scan and refresh media library</string>
     <string name="summary_feedback">Tell us your point</string>
     <string name="summary_recommand">Download the recommanded apps and support us</string>
+    <string name="summary_clean_dalvik">Clean dalvik vm for getting more space</string>
+    <string name="summary_file_system">Operating on your file disk</string>
+    <string name="summary_terminal">Input the commands yourself and getting the strongest function</string>
+    <string name="summary_system_components">Check status of system components</string>
+    <string name="summary_google">Make you device google</string>
     <string name="name_server_hint">Input the DNS server used by searching Hosts IP, default value is Google\'s DNS.
     </string>
     <string name="backup_path_hint">Input the path you want to save the backup files.</string>

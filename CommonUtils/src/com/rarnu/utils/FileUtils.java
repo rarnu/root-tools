@@ -5,6 +5,7 @@ import android.os.Handler;
 import android.os.Message;
 
 import java.io.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -399,4 +400,7 @@ public class FileUtils {
         return dirSize;
     }
 
+    public static String getReadableFileSize(long fileSize) {
+        return new DecimalFormat("#.##").format(fileSize / 1024) + "KB";
+    }
 }

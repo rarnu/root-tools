@@ -5,4 +5,5 @@ import android.widget.TextView;
 public class RemainedAdapterHolder {
     public TextView tvName;
     public TextView tvPath;
+    public TextView tvSize;
 }
