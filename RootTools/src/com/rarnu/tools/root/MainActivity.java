@@ -71,7 +71,8 @@ public class MainActivity extends BaseMainActivity {
             @Override
             public void run() {
                 int verCode = DeviceUtils.getAppVersionCode(MainActivity.this);
-                GlobalInstance.updateInfo = MobileApi.checkUpdate(verCode);
+                String deviceId = DeviceUtils.getDeviceUniqueId(MainActivity.this);
+                GlobalInstance.updateInfo = MobileApi.checkUpdate(verCode, deviceId);
                 hUpdate.sendEmptyMessage(1);
             }
         }).start();

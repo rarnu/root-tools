@@ -1,5 +1,6 @@
 package com.rarnu.tools.root.fragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
@@ -160,6 +161,17 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
                     // build team
                     Intent inBuildTeam = new Intent(getActivity(), BuildTeamActivity.class);
                     startActivity(inBuildTeam);
+                    break;
+                case 2:
+                    fitableClick++;
+                    if (fitableClick == 5) {
+                        fitableClick = 0;
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle(R.string.hint)
+                                .setMessage(DeviceUtils.getDeviceUniqueId(getActivity()))
+                                .setPositiveButton(R.string.ok, null)
+                                .show();
+                    }
                     break;
 
             }

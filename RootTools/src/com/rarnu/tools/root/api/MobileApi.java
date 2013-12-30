@@ -20,7 +20,7 @@ public class MobileApi {
     public static final String SPLASH_BASE_URL = BASE_URL + "splash/";
     public static final String PACKAGE_BASE_URL = BASE_URL + "package/";
     private static final String UPDATE_URL = BASE_URL + "check_update.php";
-    private static final String UPDATE_PARAM = "version=%d";
+    private static final String UPDATE_PARAM = "version=%d&device=%s";
     private static final String FEEDBACK_URL = BASE_URL + "user_feedback.php";
     private static final String FEEDBACK_PARAM = "deviceId=%s&module=%s&os_version=%s&mail=%s&build_desc=%s&comment=%s&app_version=%s";
     private static final String RECOMMAND_URL = BASE_URL + "get_recommand.php";
@@ -29,10 +29,10 @@ public class MobileApi {
     private static final String TEAM_PARAM = "lang=%d";
     private static final String SPLASH_URL = BASE_URL + "get_splash.php";
 
-    public static UpdateInfo checkUpdate(int version) {
+    public static UpdateInfo checkUpdate(int version, String devices) {
         UpdateInfo result = null;
         try {
-            String ret = HttpRequest.get(UPDATE_URL, String.format(UPDATE_PARAM, version), HTTP.UTF_8);
+            String ret = HttpRequest.get(UPDATE_URL, String.format(UPDATE_PARAM, version, devices), HTTP.UTF_8);
             JSONObject json = new JSONObject(ret);
             result = new UpdateInfo();
             result.result = json.getInt("result");

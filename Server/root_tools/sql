@@ -1,7 +1,0 @@
-create table root_tools_recommand (id int primary key, name text, package_name text, main_activity text, icon_url text, download_url text, unix_name text, app_order int default 0) character set utf8;
-
-create table root_tools_crash (id int primary key, deviceId text, module text, os_version text, mail text, build_desc text, crash text, crash_time text) character set utf8;
-
-create table root_tools_feedback (id int primary key, deviceId text, module text, os_version text, mail text, build_desc text, comment text, comment_time text, app_version text) character set utf8;
-
-create table root_tools_log (id int primary key, deviceId text, module text, os_version text, mail text, build_desc text, action text, action_time text) character set utf8;
