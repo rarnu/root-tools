@@ -44,7 +44,7 @@
                 <li><a href="view_feedback.php">查看用户反馈</a></li>
                 <li><a href="view_requirement.php">功能需求管理</a></li>
                 <li><a href="upload_update.php">上传新版本</a></li>
-
+                <li><a href="developer.php">内测用户</a></li>
               </ul>
 
             </div><!--/.nav-collapse -->

@@ -36,23 +36,26 @@ include('navadmin.php');
 		<form method="POST" action="upload_new_version.php" class="form-horizontal" enctype="multipart/form-data">
         <table border="0" >
 			<tr>
-				<td>版本名称</td> <td><input type="text" name="name" size="20" class="input-block-level" ></td>
+				<td>版本名称</td> <td><input type="text" name="name" size="20" class="input-block-level" ></td><td></td>
 			</tr>
 			<tr>
-				<td>版号序号</td><td><input type="text" name="ver_code" size="20" class="input-block-level" ></td>
+				<td>版号序号</td><td><input type="text" name="ver_code" size="20" class="input-block-level" ></td><td></td>
 			</tr>
 			<tr>
-				<td>软件大小</td><td><input type="text" name="size" size="20" class="input-block-level" ></td>
+				<td>软件大小</td><td><input type="text" name="size" size="20" class="input-block-level" ></td><td></td>
 			</tr>
 			<tr>
-				<td>服务端文件名</td><td><input type="text" name="filename" size="20" class="input-block-level" ></td>
+				<td>服务端文件名</td><td><input type="text" name="filename" size="20" class="input-block-level" ></td><td></td>
 			
 			</tr>
 			<tr>
-				<td>更新日志</td><td><input type="text" name="update_desc" size="20" class="input-block-level" ></td>
+				<td>更新日志</td><td><input type="text" name="update_desc" size="20" class="input-block-level" ></td><td></td>
 			</tr>
+            <tr>
+                <td>更新类别</td><td><input type="text" name="tag" size="20" class="input_block_level"></td><td>0:for all | 1:for developers</td>
+            </tr> 
 			<tr>
-				<td></td><td height="50">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="提交" class="btn btn-big btn-primary" >&nbsp;&nbsp;<input type="button" value="重置" class="btn btn-big btn-primary"></td>
+				<td></td><td height="50">&nbsp;&nbsp;&nbsp;&nbsp;<input type="submit" value="提交" class="btn btn-big btn-primary" >&nbsp;&nbsp;<input type="button" value="重置" class="btn btn-big btn-primary"></td><td></td>
 			</tr>
 		
 		</table>
