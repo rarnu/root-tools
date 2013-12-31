@@ -1,6 +1,8 @@
 package com.yugioh.android.fragments;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -50,25 +52,32 @@ public class MainFragment extends BaseTabFragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         Bundle bn = new Bundle();
+        FragmentManager fm = null;
+        if (Build.VERSION.SDK_INT >= 17) {
+            fm = getChildFragmentManager();
+        } else {
+            fm = getFragmentManager();
+        }
+        if (fm != null) {
+            BaseFragment fSearch = (BaseFragment) fm.findFragmentByTag(getString(R.string.tag_main_search));
 
-        BaseFragment fSearch = (BaseFragment) getFragmentManager().findFragmentByTag(this.getString(R.string.tag_main_search));
-
-        switch (item.getItemId()) {
-            case MenuIds.MENUID_SEARCH:
-                if (getCurrentPage() == 0) {
-                    bn.putString("data", "search");
+            switch (item.getItemId()) {
+                case MenuIds.MENUID_SEARCH:
+                    if (getCurrentPage() == 0) {
+                        bn.putString("data", "search");
+                        fSearch.setNewArguments(bn);
+                    } else {
+                        setTabPosition(0);
+                    }
+                    break;
+                case MenuIds.MENUID_RESET:
+                    bn.putString("data", "reset");
                     fSearch.setNewArguments(bn);
-                } else {
-                    setTabPosition(0);
-                }
-                break;
-            case MenuIds.MENUID_RESET:
-                bn.putString("data", "reset");
-                fSearch.setNewArguments(bn);
-                if (getCurrentPage() != 0) {
-                    setTabPosition(0);
-                }
-                break;
+                    if (getCurrentPage() != 0) {
+                        setTabPosition(0);
+                    }
+                    break;
+            }
         }
         return true;
     }

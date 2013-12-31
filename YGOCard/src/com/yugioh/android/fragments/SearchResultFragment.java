@@ -3,6 +3,7 @@ package com.yugioh.android.fragments;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
 import android.database.Cursor;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -74,13 +75,18 @@ public class SearchResultFragment extends BaseFragment implements OnItemClickLis
     @Override
     public void onGetNewArguments(Bundle bn) {
         tvListNoCard.setText(R.string.list_nocard_searching);
-        BaseTabFragment btf = (BaseTabFragment) getFragmentManager().findFragmentByTag(getString(R.string.tag_main));
-        btf.setTabPosition(1);
-
-        loaderSearch = new SearchLoader(getActivity(), bn);
-        loaderSearch.registerListener(0, this);
-        loaderSearch.startLoading();
-
+        BaseTabFragment btf = null;
+        if (Build.VERSION.SDK_INT >= 17) {
+            btf = (BaseTabFragment) getParentFragment();
+        } else {
+            btf = (BaseTabFragment) getFragmentManager().findFragmentByTag(getString(R.string.tag_main));
+        }
+        if (btf != null) {
+            btf.setTabPosition(1);
+            loaderSearch = new SearchLoader(getActivity(), bn);
+            loaderSearch.registerListener(0, this);
+            loaderSearch.startLoading();
+        }
     }
 
     @Override

@@ -220,7 +220,7 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
             public void run() {
                 try {
                     YugiohUtils.closeDatabase(getActivity());
-                    ZipUtils.upZipFile(new File(dbSource), PathDefine.ROOT_PATH);
+                    ZipUtils.unzipFile(new File(dbSource), PathDefine.ROOT_PATH);
                     FileUtils.deleteFile(dbSource);
                     YugiohUtils.newDatabase(getActivity());
                     hUnzip.sendEmptyMessage(1);
@@ -240,6 +240,8 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
+                        YugiohUtils.closeDatabase(getActivity());
+                        YugiohUtils.newDatabase(getActivity());
                         getActivity().finish();
                     }
                 })
