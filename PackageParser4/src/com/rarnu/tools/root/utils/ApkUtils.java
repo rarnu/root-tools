@@ -13,6 +13,7 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import com.rarnu.command.CommandCallback;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
@@ -23,7 +24,6 @@ import com.rarnu.tools.root.common.EnableappInfo;
 import com.rarnu.tools.root.common.SysappInfo;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
@@ -319,17 +319,39 @@ public class ApkUtils {
     }
 
     public static ApplicationInfo getAppInfoFromPackage(String filePath) {
+        ApplicationInfo info = null;
+        PackageParser.Package pkg = getPackageInfoFromPackage(filePath, false);
+        if (pkg != null) {
+            info = pkg.applicationInfo;
+        }
+        return info;
+    }
+
+    public static PackageParser.Package getPackageInfoFromPackage(String filePath, boolean collectSignature) {
         PackageParser packageParser = new PackageParser(filePath);
         File sourceFile = new File(filePath);
         DisplayMetrics metrics = new DisplayMetrics();
         metrics.setToDefaults();
-        PackageParser.Package pkg = packageParser.parsePackage(sourceFile, filePath, metrics, PackageParser.PARSE_ON_SDCARD);
+        PackageParser.Package pkg = packageParser.parsePackage(sourceFile, filePath, metrics, 0);
         if (pkg == null) {
             return null;
         }
+        if (collectSignature) {
+            packageParser.collectCertificates(pkg, 0);
+        }
 
-        ApplicationInfo info = pkg.applicationInfo;
-        return info;
+        return pkg;
+    }
+
+    public static PackageInfo getSignaturePackageInfo(String filePath) {
+        PackageParser.Package pkg = getPackageInfoFromPackage(filePath, true);
+        PackageInfo pi = null;
+        try {
+            pi = PackageParser.generatePackageInfo(pkg, null, PackageManager.GET_SIGNATURES, 0, 0, null, null);
+        } catch (Exception e) {
+            Log.e("getSignaturePackageInfo", e.getMessage());
+        }
+        return pi;
     }
 
     public static List<DataappInfo> getInstalledApps(Context context, boolean includeSystem) {
@@ -496,7 +518,7 @@ public class ApkUtils {
                 GlobalInstance.init(context);
             }
             pi = GlobalInstance.pm.getPackageInfo(packageName, 0);
-        } catch (NameNotFoundException e) {
+        } catch (Exception e) {
         }
 
         if (pi == null) {
@@ -578,11 +600,29 @@ public class ApkUtils {
             if (newVer <= oldVer) {
                 return 2;
             }
-            int compare = GlobalInstance.pm.checkSignatures(newinfo.info.uid, installedInfo.uid);
-            return (compare == PackageManager.SIGNATURE_MATCH ? 0 : 1);
+            boolean compare = SignatureUtils.compareSignature(newinfo.localPath, installedInfo.publicSourceDir);
+            // int compare = GlobalInstance.pm.checkSignatures(newinfo.info.uid, installedInfo.uid);
+            return (compare ? 0 : 1);
         } catch (Exception e) {
             return 4;
         }
+    }
+
+    public static boolean checkSignature(String apk1, String apk2) {
+        // check signature
+        List<String> sig1 = null;
+        try {
+            sig1 = SignatureUtils.getSignaturesFromApk(apk1);
+        } catch (IOException e) {
+            Log.e("checkSignature", e.getMessage());
+        }
+        List<String> sig2 = null;
+        try {
+            sig2 = SignatureUtils.getSignaturesFromApk(apk2);
+        } catch (IOException e) {
+            Log.e("checkSignature", e.getMessage());
+        }
+        return sig1.equals(sig2);
     }
 
     public static ApplicationInfo findApplication(Context context, String regex, boolean system) {
@@ -618,4 +658,6 @@ public class ApkUtils {
         }
         return info;
     }
+
+
 }

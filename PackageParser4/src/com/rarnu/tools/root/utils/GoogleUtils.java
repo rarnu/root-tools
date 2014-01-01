@@ -73,30 +73,30 @@ public class GoogleUtils {
                 filePath = "/system/etc/" + item.path + "/" + item.fileName;
                 break;
         }
-        File f = new File(filePath);
-        if (!f.exists()) {
+
+        if (!new File(filePath).exists()) {
             ret = 1;
         } else {
 
-            String newFilePath = "";
-            switch (item.type) {
-                case 0:
-                case 1:
-                case 2:
-                    newFilePath = DirHelper.GOOGLE_DIR + sdkVer + "/" + item.fileName;
-                    break;
-                case 3:
-                    newFilePath = DirHelper.GOOGLE_DIR + sdkVer + "/" + item.path + "/" + item.fileName;
-                    break;
-            }
-            File newFile = new File(newFilePath);
-            if (newFile.exists()) {
-                if (f.length() != newFile.length()) {
-                    ret = 2;
-                } else {
-                    ret = 0;
+
+            if (item.type == 0) {
+                String newFilePath = "";
+                switch (item.type) {
+                    case 0:
+                    case 1:
+                    case 2:
+                        newFilePath = DirHelper.GOOGLE_DIR + sdkVer + "/" + item.fileName;
+                        break;
+                    case 3:
+                        newFilePath = DirHelper.GOOGLE_DIR + sdkVer + "/" + item.path + "/" + item.fileName;
+                        break;
                 }
+                ret = ApkUtils.checkSignature(filePath, newFilePath) ? 0 : 2;
+
+            } else {
+                ret = 0;
             }
+
         }
         return ret;
     }

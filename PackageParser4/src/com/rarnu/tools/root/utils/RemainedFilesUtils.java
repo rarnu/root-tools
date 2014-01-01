@@ -29,14 +29,21 @@ public class RemainedFilesUtils {
         List<ApplicationInfo> apps = GlobalInstance.pm.getInstalledApplications(0);
 
         if (apps != null) {
-
             for (String s : arrData) {
                 if (!isApkInstalled(s, apps)) {
                     RemainedInfo info = new RemainedInfo();
                     info.packageName = s;
                     info.path = "/data/data/" + s;
-                    info.dirSize = FileUtils.getDirSize(info.path) + "KB";
-                    list.add(info);
+                    info.dirSize = FileUtils.getDirSize(info.path);
+                    try {
+                        if (info.dirSize.equals("unknown") || Integer.parseInt(info.dirSize) > 4) {
+                            info.dirSize += "K";
+                            list.add(info);
+                        }
+                    } catch (Exception e) {
+
+                    }
+
                 }
             }
             for (String s : arrLib) {
@@ -44,8 +51,15 @@ public class RemainedFilesUtils {
                     RemainedInfo info = new RemainedInfo();
                     info.packageName = s.substring(0, s.length() - 2);
                     info.path = "/data/app-lib/" + s;
-                    info.dirSize = FileUtils.getDirSize(info.path) + "KB";
-                    list.add(info);
+                    info.dirSize = FileUtils.getDirSize(info.path);
+                    try {
+                        if (info.dirSize.equals("unknown") || Integer.parseInt(info.dirSize) > 4) {
+                            info.dirSize += "K";
+                            list.add(info);
+                        }
+                    } catch (Exception e) {
+
+                    }
                 }
             }
 

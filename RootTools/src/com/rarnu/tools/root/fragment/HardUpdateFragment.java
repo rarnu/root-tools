@@ -20,7 +20,6 @@ import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.BackupRestoreUtils;
-import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
