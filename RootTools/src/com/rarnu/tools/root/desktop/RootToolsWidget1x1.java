@@ -14,7 +14,6 @@ import com.rarnu.tools.root.common.MemoryInfo;
 import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.service.AutoCleanMemoryService;
 import com.rarnu.tools.root.service.WidgetKeepService;
-import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.MemoryUtils;
 
 public class RootToolsWidget1x1 extends BaseAppWidget {
@@ -43,7 +42,10 @@ public class RootToolsWidget1x1 extends BaseAppWidget {
     private void showMemoryInfo(Context context, boolean reinit) {
 
         MemoryInfo info = MemoryUtils.getMemoryInfo();
-        int percent = (int) (info.Used * 100.0F / info.Total);
+        int percent = 0;
+        if (info != null) {
+            percent = (int) (info.Used * 100.0F / info.Total);
+        }
         if (reinit) {
             reinit(context);
         }
@@ -75,7 +77,7 @@ public class RootToolsWidget1x1 extends BaseAppWidget {
                 inClean.putExtra("message", Actions.ACTION_WIDGET_CLEAN_FINISH);
                 context.startService(inClean);
             }
-        }else if (action.equals(Actions.ACTION_WIDGET_CLEAN_FINISH)) {
+        } else if (action.equals(Actions.ACTION_WIDGET_CLEAN_FINISH)) {
             context.stopService(new Intent(context, AutoCleanMemoryService.class));
             Toast.makeText(context, R.string.widget_cleaning_finish, Toast.LENGTH_SHORT).show();
             showMemoryInfo(context, true);

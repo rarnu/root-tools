@@ -165,10 +165,12 @@ public class DeviceUtils {
         }
 
         MemoryInfo mem = MemoryUtils.getMemoryInfo();
-        if (mem.Total >= 1000) {
-            result += 2;
-        } else {
-            result--;
+        if (mem != null) {
+            if (mem.Total >= 1000) {
+                result += 2;
+            } else {
+                result--;
+            }
         }
 
         String cpu = getBuildProp(RO_PRODUCT_CPU_ABI);

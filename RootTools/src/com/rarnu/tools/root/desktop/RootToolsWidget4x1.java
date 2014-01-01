@@ -42,18 +42,20 @@ public class RootToolsWidget4x1 extends BaseAppWidget {
     }
 
     private void showMemoryInfo(Context context, boolean reinit) {
-        Log.e("RootToolsWidget4x1", "showMemoryInfo");
         MemoryInfo info = MemoryUtils.getMemoryInfo();
-        int percent = (int) (info.Used * 100.0F / info.Total);
+        int percent = 0;
+        if (info != null) {
+            percent = (int) (info.Used * 100.0F / info.Total);
+        }
         if (reinit) {
             reinit(context);
         }
         setViewVisibility(context, R.id.wbtn_clean, View.VISIBLE);
         setViewVisibility(context, R.id.wbtn_clean_disabled, View.GONE);
-        setViewText(context, R.id.wtv_mem_used, context.getString(R.string.widget_used_fmt, info.Used));
-        setViewText(context, R.id.wtv_mem_free, context.getString(R.string.widget_free_fmt, info.Free));
-        setViewText(context, R.id.wtv_mem_shared, context.getString(R.string.widget_share_fmt, info.Shared));
-        setViewText(context, R.id.wtv_mem_buffered, context.getString(R.string.widget_buffer_fmt, info.Buffer));
+        setViewText(context, R.id.wtv_mem_used, context.getString(R.string.widget_used_fmt, info != null ? info.Used : 0));
+        setViewText(context, R.id.wtv_mem_free, context.getString(R.string.widget_free_fmt, info != null ? info.Free : 0));
+        setViewText(context, R.id.wtv_mem_shared, context.getString(R.string.widget_share_fmt, info != null ? info.Shared : 0));
+        setViewText(context, R.id.wtv_mem_buffered, context.getString(R.string.widget_buffer_fmt, info != null ? info.Buffer : 0));
         setViewText(context, R.id.wtv_mem_load_percent, String.format("%d%%", percent));
         if (percent > 90) {
             setViewTextColor(context, R.id.wtv_mem_load_percent, Color.RED);
