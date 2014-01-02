@@ -33,13 +33,13 @@ public class BackupRestoreUtils {
                 if (s.toLowerCase().endsWith(".apk")) {
                     DataappInfo newinfo = new DataappInfo();
                     newinfo.info = ApkUtils.getAppInfoFromPackage(path + s);
+                    if (newinfo.info == null) {
+                        continue;
+                    }
                     newinfo.checked = false;
                     newinfo.position = position;
                     newinfo.localPath = path + s;
                     newinfo.installed = ApkUtils.isAppInstalled(newinfo.info.packageName);
-                    if (newinfo.info == null) {
-                        continue;
-                    }
                     res.add(newinfo);
                     position++;
                 }

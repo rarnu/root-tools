@@ -333,25 +333,11 @@ public class ApkUtils {
         DisplayMetrics metrics = new DisplayMetrics();
         metrics.setToDefaults();
         PackageParser.Package pkg = packageParser.parsePackage(sourceFile, filePath, metrics, 0);
-        if (pkg == null) {
-            return null;
-        }
-        if (collectSignature) {
+        if (pkg != null && collectSignature) {
             packageParser.collectCertificates(pkg, 0);
         }
 
         return pkg;
-    }
-
-    public static PackageInfo getSignaturePackageInfo(String filePath) {
-        PackageParser.Package pkg = getPackageInfoFromPackage(filePath, true);
-        PackageInfo pi = null;
-        try {
-            pi = PackageParser.generatePackageInfo(pkg, null, PackageManager.GET_SIGNATURES, 0, 0, null, null);
-        } catch (Exception e) {
-            Log.e("getSignaturePackageInfo", e.getMessage());
-        }
-        return pi;
     }
 
     public static List<DataappInfo> getInstalledApps(Context context, boolean includeSystem) {
