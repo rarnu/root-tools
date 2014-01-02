@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.ShareItem;
 import com.rarnu.tools.root.holder.ShareHolder;
@@ -14,6 +13,17 @@ import com.rarnu.tools.root.holder.ShareHolder;
 import java.util.List;
 
 public class ShareAdapter extends BaseAdapter<ShareItem> {
+
+    private int[] share_item_icons = new int[]{
+            R.drawable.share1, R.drawable.share2, R.drawable.share3,
+            R.drawable.share4, R.drawable.share5, R.drawable.share6,
+            R.drawable.share7, R.drawable.share8, R.drawable.share9
+    };
+    private int[] share_item_na_icons = new int[]{
+            R.drawable.share1_na, R.drawable.share2_na, R.drawable.share3_na,
+            R.drawable.share4_na, R.drawable.share5_na, R.drawable.share6_na,
+            R.drawable.share7_na, R.drawable.share8_na, R.drawable.share9_na,
+    };
 
     public ShareAdapter(Context context, List<ShareItem> list) {
         super(context, list);
@@ -34,11 +44,7 @@ public class ShareAdapter extends BaseAdapter<ShareItem> {
         }
         ShareItem item = list.get(position);
         if (item != null) {
-            try {
-                holder.ivShareIcon.setImageDrawable(GlobalInstance.pm.getApplicationIcon(item.packageName));
-            } catch (Exception e) {
-
-            }
+            holder.ivShareIcon.setImageResource(item.installed ? share_item_icons[item.id] : share_item_na_icons[item.id]);
             holder.tvShareTitle.setText(item.title);
         }
         return v;

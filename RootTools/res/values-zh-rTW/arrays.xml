@@ -22,4 +22,16 @@
         <item>復制</item>
         <item>刪除</item>
     </string-array>
+
+    <string-array name="array_share_title">
+        <item>微信</item>
+        <item>朋友圈</item>
+        <item>QQ</item>
+        <item>QQ空間</item>
+        <item>新浪微博</item>
+        <item>環聊</item>
+        <item>Google+</item>
+        <item>信息</item>
+        <item>郵件</item>
+    </string-array>
 </resources>

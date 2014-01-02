@@ -31,9 +31,9 @@ include('navadmin.php');
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
         
-        <div class="alert alert-error">上传失败推广软件失败</div>
+        <div class="alert alert-error">上传更新包失败</div>
         <p>
-          <a class="btn btn-large btn-danger" href="upload_package.php">返回</a>
+          <a class="btn btn-large btn-danger" href="upload_update.php">返回</a>
         </p>
              
       </div>

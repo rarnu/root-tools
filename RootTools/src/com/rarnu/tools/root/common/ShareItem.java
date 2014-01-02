@@ -6,12 +6,14 @@ public class ShareItem implements Serializable {
 
     public String title;
     public String packageName;
-    public String className;
+    public boolean installed;
+    public int id;
 
-    public ShareItem(String title, String packageName, String className) {
+    public ShareItem(int id, String title, String packageName) {
+        this.id = id;
         this.title = title;
         this.packageName = packageName;
-        this.className = className;
+        installed = packageName != null;
     }
 
 }

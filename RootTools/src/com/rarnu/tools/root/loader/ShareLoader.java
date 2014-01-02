@@ -16,8 +16,8 @@ import java.util.List;
 public class ShareLoader extends BaseLoader<ShareItem> {
 
     String[] sharePackage = null;
-    String[] shareClass = null;
     String[] shareSystem = null;
+    String[] shareTitle = null;
 
     boolean refresh = false;
 
@@ -25,10 +25,10 @@ public class ShareLoader extends BaseLoader<ShareItem> {
         super(context);
     }
 
-    public void setData(String[] packages, String[] classes, String[] system) {
+    public void setData(String[] packages, String[] system, String[] shareTitle) {
         this.sharePackage = packages;
-        this.shareClass = classes;
         this.shareSystem = system;
+        this.shareTitle = shareTitle;
     }
 
     public void setRefresh(boolean refresh) {
@@ -58,7 +58,7 @@ public class ShareLoader extends BaseLoader<ShareItem> {
 
         for (int i = 0; i < sharePackage.length; i++) {
             appinfo = null;
-            if (sharePackage[i].contains("*")) {
+            if (sharePackage[i].contains("|")) {
                 appinfo = ApkUtils.findApplication(getContext(), sharePackage[i], shareSystem[i].equals("true"));
             } else {
                 try {
@@ -67,14 +67,13 @@ public class ShareLoader extends BaseLoader<ShareItem> {
 
                 }
             }
-            if (appinfo != null) {
-                ShareItem item = new ShareItem(
-                        GlobalInstance.pm.getApplicationLabel(appinfo).toString(),
-                        appinfo.packageName,
-                        shareClass[i]
-                );
-                list.add(item);
-            }
+            ShareItem item = new ShareItem(
+                    i,
+                    shareTitle[i],
+                    appinfo != null ? appinfo.packageName : null
+            );
+            list.add(item);
+
         }
         FileUtils.saveListToFile(list, fileName);
         return list;

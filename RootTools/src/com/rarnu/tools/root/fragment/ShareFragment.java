@@ -1,6 +1,5 @@
 package com.rarnu.tools.root.fragment;
 
-import android.content.Intent;
 import android.content.Loader;
 import android.os.Bundle;
 import android.view.Menu;
@@ -30,8 +29,8 @@ public class ShareFragment extends BaseDialogFragment implements View.OnClickLis
     TextView tvLoading;
 
     String[] sharePackage = null;
-    String[] shareClass = null;
     String[] shareSystem = null;
+    String[] shareTitle = null;
 
     ShareLoader loader;
 
@@ -57,9 +56,8 @@ public class ShareFragment extends BaseDialogFragment implements View.OnClickLis
         tvLoading = (TextView) innerView.findViewById(R.id.tvLoading);
 
         sharePackage = getResources().getStringArray(R.array.array_share_list);
-        shareClass = getResources().getStringArray(R.array.array_share_class);
         shareSystem = getResources().getStringArray(R.array.array_share_system);
-
+        shareTitle = getResources().getStringArray(R.array.array_share_title);
         loader = new ShareLoader(getActivity());
         list = new ArrayList<ShareItem>();
         adapter = new ShareAdapter(getActivity(), list);
@@ -80,8 +78,8 @@ public class ShareFragment extends BaseDialogFragment implements View.OnClickLis
     }
 
     public void doStartLoad(boolean refresh, boolean showLoading) {
-        tvLoading.setVisibility(showLoading?View.VISIBLE:View.GONE);
-        loader.setData(sharePackage, shareClass, shareSystem);
+        tvLoading.setVisibility(showLoading ? View.VISIBLE : View.GONE);
+        loader.setData(sharePackage, shareSystem, shareTitle);
         loader.setRefresh(refresh);
         loader.startLoading();
     }
@@ -121,24 +119,13 @@ public class ShareFragment extends BaseDialogFragment implements View.OnClickLis
 
     }
 
-    private Intent createShareIntent() {
-        Intent shareIntent = new Intent(Intent.ACTION_SEND);
-        shareIntent.setType("image/*");
-        shareIntent.putExtra(Intent.EXTRA_TEXT, getString(R.string.share_body));
-        shareIntent.putExtra(Intent.EXTRA_SUBJECT, getString(R.string.share_title));
-        return shareIntent;
-    }
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         ShareItem item = list.get(position);
-        for (int i = 0; i < sharePackage.length; i++) {
-            if (item.packageName.matches(sharePackage[i])) {
-                ShareUtils.share(getActivity(), i, item);
-            }
+        if (item.installed) {
+            ShareUtils.share(getActivity(), item);
+            getActivity().finish();
         }
-        getActivity().finish();
-
     }
 
     @Override

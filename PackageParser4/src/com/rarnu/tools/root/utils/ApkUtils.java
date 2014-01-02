@@ -627,37 +627,39 @@ public class ApkUtils {
 
     public static ApplicationInfo findApplication(Context context, String regex, boolean system) {
         ApplicationInfo info = null;
-        String cmd = "pm list packages -f ";
-        if (system) {
-            cmd += "| busybox grep /system/app ";
-        }
-        cmd += "| busybox grep " + regex;
-        CommandResult result = RootUtils.runCommand(cmd, true);
-        if (result != null) {
-            String ret = result.result;
-            String[] items = null;
-            if (ret.contains("\n")) {
-                items = ret.split("\n");
-            } else {
-                items = new String[]{ret};
-            }
+        String[] regs = regex.split("\\|"); // 0:start, 1:end, 2:contain
+        List<ApplicationInfo> list = GlobalInstance.pm.getInstalledApplications(0);
+        boolean match = true;
+        if (list != null && list.size() != 0) {
             String pkgName = "";
-            for (String pn : items) {
-                pkgName = pn.substring(pn.indexOf("=") + 1);
-
-                try {
-                    info = GlobalInstance.pm.getApplicationInfo(pkgName, 0);
-                } catch (Exception e) {
-
+            for (ApplicationInfo pn : list) {
+                if (system && !pn.publicSourceDir.contains("/system/app")) {
+                    continue;
                 }
-                if (info != null) {
-                    break;
+                pkgName = pn.packageName;
+                if (!regs[0].trim().equals("")) {
+                    match = pkgName.startsWith(regs[0].trim());
+                }
+                if (match && !regs[1].trim().equals("")) {
+                    match = pkgName.endsWith(regs[1].trim());
+                }
+                if (match && !regs[2].trim().equals("")) {
+                    match = pkgName.contains(regs[2].trim());
+                }
+                if (match) {
+                    try {
+                        info = GlobalInstance.pm.getApplicationInfo(pkgName, 0);
+                    } catch (Exception e) {
+
+                    }
+                    if (info != null) {
+                        break;
+                    }
                 }
             }
-
         }
+
         return info;
     }
-
 
 }
