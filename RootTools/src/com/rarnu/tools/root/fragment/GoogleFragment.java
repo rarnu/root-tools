@@ -190,14 +190,16 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     }
 
     private void doStartLoading(int sdkint) {
-        try {
-            String jsonString = FileUtils.readAssetFile(getActivity(), String.format("google_%d", sdkint));
-            GooglePackageInfo packageItem = GooglePackageInfo.fromJson(jsonString);
-            loader.setData(packageItem, sdkint);
-            loader.startLoading();
-            supportted = true;
-        } catch (IOException e) {
-            supportted = false;
+        if (getActivity() != null) {
+            try {
+                String jsonString = FileUtils.readAssetFile(getActivity(), String.format("google_%d", sdkint));
+                GooglePackageInfo packageItem = GooglePackageInfo.fromJson(jsonString);
+                loader.setData(packageItem, sdkint);
+                loader.startLoading();
+                supportted = true;
+            } catch (Exception e) {
+                supportted = false;
+            }
         }
     }
 
