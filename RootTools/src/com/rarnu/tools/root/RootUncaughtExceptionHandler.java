@@ -7,6 +7,10 @@ import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.utils.AccountUtils;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
+import java.io.Writer;
+
 public class RootUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
 
     private Context context;
@@ -16,20 +20,14 @@ public class RootUncaughtExceptionHandler implements Thread.UncaughtExceptionHan
     }
 
     @Override
-    public void uncaughtException(Thread thread, Throwable ex) {
-
-        final String msg = ex.getMessage();
-        String err = "";
-        StackTraceElement[] ste = ex.getStackTrace();
-        for (StackTraceElement e : ste) {
-            err += e.toString() + "\n<br>";
-        }
-        final String transErr = err;
+    public void uncaughtException(Thread thread, final Throwable ex) {
 
         new Thread(new Runnable() {
 
             @Override
             public void run() {
+                String msg = ex.getMessage();
+                String transErr = getErrorMessage(ex);
                 sendReport(msg, transErr);
                 Looper.prepare();
                 Toast.makeText(context, R.string.crash_terminate, Toast.LENGTH_LONG).show();
@@ -43,6 +41,38 @@ public class RootUncaughtExceptionHandler implements Thread.UncaughtExceptionHan
         }
 
         System.exit(0);
+    }
+
+    private String getErrorMessage(Throwable ex) {
+        PrintWriter pw = null;
+        Writer writer = null;
+        String error = "";
+        try {
+            writer = new StringWriter();
+            pw = new PrintWriter(writer);
+            ex.printStackTrace(pw);
+            error = writer.toString();
+            error = error.replace("\n", "\n<br>");
+        } catch (Exception e) {
+
+        } finally {
+            if (pw != null) {
+                try {
+                    pw.close();
+                } catch (Exception e) {
+
+                }
+            }
+            if (writer != null) {
+                try {
+                    writer.close();
+                } catch (Exception e) {
+
+                }
+            }
+        }
+
+        return error;
     }
 
     private void sendReport(String msg, String stack) {

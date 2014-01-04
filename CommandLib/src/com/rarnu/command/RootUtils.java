@@ -3,8 +3,6 @@ package com.rarnu.command;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
-import android.util.Log;
-
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
 import java.io.File;
@@ -94,7 +92,6 @@ public class RootUtils {
     }
 
     public static CommandResult runCommand(String command, boolean root, CommandCallback callback) {
-        Log.e("runCommand", command);
         Process process = null;
         DataOutputStream os = null;
         BufferedReader brOut = null;
@@ -117,7 +114,6 @@ public class RootUtils {
             brOut = new BufferedReader(new InputStreamReader(process.getInputStream()));
             while ((line = brOut.readLine()) != null) {
                 output.append(line).append('\n');
-                Log.e("runCommand", line);
                 if (callback != null) {
                     callback.onReadLine(line);
                 }

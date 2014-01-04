@@ -6,7 +6,6 @@ import android.content.Loader;
 import android.os.Handler;
 import android.os.IBinder;
 import android.os.Message;
-import android.util.Log;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.MemProcessInfo;
@@ -107,7 +106,6 @@ public class AutoCleanMemoryService extends Service implements Loader.OnLoadComp
                     for (MemProcessInfo info : lstTmp) {
                         if (info.appInfo != null) {
                             if (MemorySpecialList.inExcludeList(info.NAME) == -1) {
-                                Log.e("KILL", info.NAME);
                                 MemoryUtils.killProcess(info.PID);
                             }
                         }

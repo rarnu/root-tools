@@ -3,7 +3,6 @@ package com.rarnu.tools.root.desktop;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
-import android.util.Log;
 import android.view.View;
 import android.widget.RemoteViews;
 import android.widget.Toast;
@@ -69,7 +68,6 @@ public class RootToolsWidget4x1 extends BaseAppWidget {
 
     @Override
     public void onWidgetClick(Context context, String action) {
-        Log.e("onWidgetClick", action);
         if (action.equals(Actions.ACTION_WIDGET_CLEAN)) {
             if (!AutoCleanMemoryService.isAlive) {
                 reinit(context);

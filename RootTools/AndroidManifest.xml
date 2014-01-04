@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="395"
-        android:versionName="6.0.20 beta">
+        android:versionCode="399"
+        android:versionName="6.0.21 beta">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -27,6 +27,7 @@
     <uses-permission android:name="android.permission.ROOT_TOOLS" />
     <uses-permission android:name="android.permission.GET_ACCOUNTS" />
     <uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
+    <uses-permission android:name="android.permission.READ_LOGS" />
 
     <application
             android:name=".RootApplication"
@@ -36,7 +37,7 @@
             android:theme="@android:style/Theme.Holo">
         <meta-data
                 android:name="debug"
-                android:value="true" />
+                android:value="false" />
 
         <activity
                 android:name=".SplashActivity"

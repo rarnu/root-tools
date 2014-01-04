@@ -47,7 +47,6 @@ public class GooglePackageInfo {
                 item.xmls[i] = jarrXmls.getString(i);
             }
         } catch (Exception e) {
-            Log.e("GooglePackageInfo", e.getMessage());
         }
         return item;
     }

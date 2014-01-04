@@ -603,13 +603,11 @@ public class ApkUtils {
         try {
             sig1 = SignatureUtils.getSignaturesFromApk(apk1);
         } catch (IOException e) {
-            Log.e("checkSignature", e.getMessage());
         }
         List<String> sig2 = null;
         try {
             sig2 = SignatureUtils.getSignaturesFromApk(apk2);
         } catch (IOException e) {
-            Log.e("checkSignature", e.getMessage());
         }
         return sig1.equals(sig2);
     }
