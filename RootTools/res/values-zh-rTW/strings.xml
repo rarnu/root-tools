@@ -402,4 +402,5 @@
     <string name="recommend_app_disabled">無法啓動應用, 請確認您沒有禁用它</string>
     <string name="remained_files_empty">沒有找到殘留檔案，無需清理</string>
     <string name="remained_files_delete">您確認要刪除這項殘留檔案嗎？也許它還將被使用</string>
+    <string name="emulator_hint">無法在模擬機中運行</string>
 </resources>

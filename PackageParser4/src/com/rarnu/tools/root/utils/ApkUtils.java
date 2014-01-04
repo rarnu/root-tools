@@ -4,8 +4,11 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.*;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.PackageParser;
+import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -611,7 +614,7 @@ public class ApkUtils {
         return sig1.equals(sig2);
     }
 
-    public static ApplicationInfo findApplication(Context context, String regex, boolean system) {
+    public static ApplicationInfo findApplication(String regex, boolean system) {
         ApplicationInfo info = null;
         String[] regs = regex.split("\\|"); // 0:start, 1:end, 2:contain
         List<ApplicationInfo> list = GlobalInstance.pm.getInstalledApplications(0);

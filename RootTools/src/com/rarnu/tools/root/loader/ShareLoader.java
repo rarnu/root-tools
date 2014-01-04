@@ -18,7 +18,6 @@ public class ShareLoader extends BaseLoader<ShareItem> {
     String[] sharePackage = null;
     String[] shareSystem = null;
     String[] shareTitle = null;
-
     boolean refresh = false;
 
     public ShareLoader(Context context) {
@@ -31,12 +30,12 @@ public class ShareLoader extends BaseLoader<ShareItem> {
         this.shareTitle = shareTitle;
     }
 
-    public void setRefresh(boolean refresh) {
-        this.refresh = refresh;
-    }
-
     public boolean isRefresh() {
         return refresh;
+    }
+
+    public void setRefresh(boolean refresh) {
+        this.refresh = refresh;
     }
 
     @Override
@@ -59,7 +58,7 @@ public class ShareLoader extends BaseLoader<ShareItem> {
         for (int i = 0; i < sharePackage.length; i++) {
             appinfo = null;
             if (sharePackage[i].contains("|")) {
-                appinfo = ApkUtils.findApplication(getContext(), sharePackage[i], shareSystem[i].equals("true"));
+                appinfo = ApkUtils.findApplication(sharePackage[i], shareSystem[i].equals("true"));
             } else {
                 try {
                     appinfo = GlobalInstance.pm.getApplicationInfo(sharePackage[i], 0);

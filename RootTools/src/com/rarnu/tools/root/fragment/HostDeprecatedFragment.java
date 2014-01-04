@@ -29,14 +29,16 @@ import java.util.List;
 public class HostDeprecatedFragment extends BasePopupFragment implements OnLoadCompleteListener<List<HostRecordInfo>> {
 
     final Handler hScanHosts = new Handler() {
+        @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
 
             if (msg.what == 1) {
                 progressDeprecated.setVisibility(View.GONE);
                 itemScan.setEnabled(true);
-                adapter.notifyDataSetChanged();
-
+                lstDeprecated.clear();
+                lstDeprecated.addAll((List<HostRecordInfo>) msg.obj);
+                adapter.setNewList(lstDeprecated);
                 boolean ret = DIPairUtils.saveHosts(lstDeprecated);
                 if (ret) {
                     Toast.makeText(getActivity(), R.string.save_hosts_succ, Toast.LENGTH_LONG).show();
@@ -136,18 +138,23 @@ public class HostDeprecatedFragment extends BasePopupFragment implements OnLoadC
             @Override
             public void run() {
                 String ping = "";
-                int count = lstDeprecated.size();
+                List<HostRecordInfo> lstTemp = new ArrayList<HostRecordInfo>();
+                lstTemp.addAll(lstDeprecated);
+                int count = lstTemp.size();
                 for (int i = count - 1; i >= 0; i--) {
                     Message msg = new Message();
                     msg.what = 2;
-                    msg.obj = lstDeprecated.get(i).ip;
+                    msg.obj = lstTemp.get(i).ip;
                     hScanHosts.sendMessage(msg);
-                    ping = NetworkUtils.ping(lstDeprecated.get(i).ip);
+                    ping = NetworkUtils.ping(lstTemp.get(i).ip);
                     if (ping.equals("") || ping.equals("timeout")) {
-                        lstDeprecated.remove(i);
+                        lstTemp.remove(i);
                     }
                 }
-                hScanHosts.sendEmptyMessage(1);
+                Message msg = new Message();
+                msg.what = 1;
+                msg.obj = lstTemp;
+                hScanHosts.sendMessage(msg);
             }
         }).start();
     }

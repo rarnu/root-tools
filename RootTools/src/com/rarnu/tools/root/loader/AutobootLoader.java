@@ -16,6 +16,11 @@ public class AutobootLoader extends BaseLoader<AutobootInfo> {
 
     @Override
     public List<AutobootInfo> loadInBackground() {
-        return AutobootUtils.getAuobootApps(getContext(), UIUtils.getDM());
+        List<AutobootInfo> list = null;
+
+        if (getContext() != null) {
+            list = AutobootUtils.getAuobootApps(getContext(), UIUtils.getDM());
+        }
+        return list;
     }
 }

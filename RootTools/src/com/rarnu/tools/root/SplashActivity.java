@@ -35,6 +35,10 @@ public class SplashActivity extends Activity implements Loader.OnLoadCompleteLis
         init();
         super.onCreate(savedInstanceState);
 
+        if (checkEmulator()) {
+            return;
+        }
+
         if (!checkSDCard()) {
             return;
         }
@@ -80,6 +84,24 @@ public class SplashActivity extends Activity implements Loader.OnLoadCompleteLis
                     })
                     .show();
         }
+        return ret;
+    }
+
+    private boolean checkEmulator() {
+        boolean ret = MiscUtils.isEmulator(this);
+        if (ret) {
+            new AlertDialog.Builder(this)
+                    .setTitle(R.string.hint)
+                    .setMessage(R.string.emulator_hint)
+                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            finish();
+                        }
+                    })
+                    .show();
+        }
+
         return ret;
     }
 

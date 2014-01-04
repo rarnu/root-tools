@@ -25,7 +25,6 @@ import com.rarnu.tools.root.common.RTConsts;
 import com.rarnu.tools.root.fragmentactivity.HostAddActivity;
 import com.rarnu.tools.root.loader.HostsLoader;
 import com.rarnu.tools.root.utils.DIPairUtils;
-import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,6 +32,7 @@ import java.util.List;
 public class HostFragment extends BaseFragment implements OnClickListener, OnLoadCompleteListener<List<HostRecordInfo>>, OnQueryTextListener {
 
     final Handler hDeleteHosts = new Handler() {
+        @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
@@ -41,9 +41,10 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
                     Toast.makeText(getActivity(), R.string.save_hosts_error, Toast.LENGTH_LONG).show();
                 }
                 lvHosts.setEnabled(true);
-                @SuppressWarnings("unchecked")
-                List<HostRecordInfo> deletedHosts = (List<HostRecordInfo>) msg.obj;
-                hostsAdapter.deleteItems(deletedHosts);
+
+                listHostsAll.clear();
+                listHostsAll.addAll((List<HostRecordInfo>) msg.obj);
+                hostsAdapter.setNewList(listHostsAll);
                 progressHosts.setVisibility(View.GONE);
 
             }
@@ -51,6 +52,7 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
         }
     };
     final Handler hMergeHosts = new Handler() {
+        @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
@@ -59,7 +61,9 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
                     Toast.makeText(getActivity(), R.string.save_hosts_error, Toast.LENGTH_LONG).show();
                 }
                 lvHosts.setEnabled(true);
-                hostsAdapter.notifyDataSetChanged();
+                listHostsAll.clear();
+                listHostsAll.addAll((List<HostRecordInfo>) msg.obj);
+                hostsAdapter.setNewList(listHostsAll);
                 progressHosts.setVisibility(View.GONE);
             }
             super.handleMessage(msg);
@@ -233,24 +237,22 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
         barHosts.setVisibility(View.GONE);
         progressHosts.setAppName(getString(R.string.deleting));
         progressHosts.setVisibility(View.VISIBLE);
-
-        final List<HostRecordInfo> deletedHosts = new ArrayList<HostRecordInfo>();
-
         new Thread(new Runnable() {
             @Override
             public void run() {
-                int count = listHostsAll.size();
+                List<HostRecordInfo> lstTemp = new ArrayList<HostRecordInfo>();
+                lstTemp.addAll(listHostsAll);
+                int count = lstTemp.size();
                 for (int i = count - 1; i >= 0; i--) {
-                    if (listHostsAll.get(i).checked) {
-                        deletedHosts.add(listHostsAll.get(i));
-                        listHostsAll.remove(i);
+                    if (lstTemp.get(i).checked) {
+                        lstTemp.remove(i);
                     }
                 }
-                boolean ret = DIPairUtils.saveHosts(listHostsAll);
+                boolean ret = DIPairUtils.saveHosts(lstTemp);
                 Message msg = new Message();
                 msg.what = 1;
                 msg.arg1 = (ret ? 1 : 0);
-                msg.obj = deletedHosts;
+                msg.obj = lstTemp;
                 hDeleteHosts.sendMessage(msg);
             }
         }).start();
@@ -269,11 +271,14 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
 
             @Override
             public void run() {
-                DIPairUtils.mergeHosts(listHostsAll, hosts);
-                boolean ret = DIPairUtils.saveHosts(listHostsAll);
+                List<HostRecordInfo> lstTemp = new ArrayList<HostRecordInfo>();
+                lstTemp.addAll(listHostsAll);
+                DIPairUtils.mergeHosts(lstTemp, hosts);
+                boolean ret = DIPairUtils.saveHosts(lstTemp);
                 Message msg = new Message();
                 msg.what = 1;
                 msg.arg1 = (ret ? 1 : 0);
+                msg.obj = lstTemp;
                 hMergeHosts.sendMessage(msg);
 
             }

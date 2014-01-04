@@ -15,6 +15,10 @@ public class FirewallLoader extends BaseLoader<IptablePackageInfo> {
 
     @Override
     public List<IptablePackageInfo> loadInBackground() {
-        return IptablesUtils.getApps(getContext(), true);
+        List<IptablePackageInfo> list = null;
+        if (getContext() != null) {
+            list = IptablesUtils.getApps(getContext(), true);
+        }
+        return list;
     }
 }

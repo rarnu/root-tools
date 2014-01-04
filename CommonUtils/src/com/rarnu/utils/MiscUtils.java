@@ -3,7 +3,9 @@ package com.rarnu.utils;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+import android.telephony.TelephonyManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 import com.rarnu.command.CommandResult;
@@ -51,5 +53,19 @@ public class MiscUtils {
         InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
         imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
+    }
+
+    public static boolean isEmulator(Context context) {
+        try {
+            TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+            String imei = tm.getDeviceId();
+            if (imei != null && imei.equals("000000000000000")) {
+                return true;
+            }
+            return (Build.MODEL.equals("sdk")) || (Build.MODEL.equals("google_sdk"));
+        } catch (Exception ioe) {
+
+        }
+        return false;
     }
 }

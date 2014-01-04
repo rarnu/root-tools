@@ -428,4 +428,5 @@
     <string name="recommend_app_disabled">Cannot open this app, make sure you have NOT disabled it.</string>
     <string name="remained_files_empty">No remained files found, do NOT need a clean.</string>
     <string name="remained_files_delete">Are you sure to delete the remained file? It may be used in somewhere.</string>
+    <string name="emulator_hint">Cannot run in an emulator</string>
 </resources>

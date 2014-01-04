@@ -24,6 +24,10 @@ public class GoogleLoader extends BaseLoader<GoogleInfo> {
 
     @Override
     public List<GoogleInfo> loadInBackground() {
-        return GoogleUtils.getGoogleApps(getContext(), packageItem, sdkVer);
+        List<GoogleInfo> list = null;
+        if (getContext() != null) {
+            list = GoogleUtils.getGoogleApps(getContext(), packageItem, sdkVer);
+        }
+        return list;
     }
 }

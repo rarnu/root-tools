@@ -21,7 +21,11 @@ public class RestoreLoader extends BaseLoader<DataappInfo> {
 
     @Override
     public List<DataappInfo> loadInBackground() {
-        return BackupRestoreUtils.getBackupedApps(getContext(), path);
+        List<DataappInfo> list = null;
+        if (getContext() != null) {
+            list = BackupRestoreUtils.getBackupedApps(getContext(), path);
+        }
+        return list;
     }
 
 }
