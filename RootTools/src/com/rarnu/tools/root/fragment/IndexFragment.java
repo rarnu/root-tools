@@ -23,7 +23,6 @@ import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.IptablesUtils;
 import com.rarnu.utils.MiscUtils;
 import com.rarnu.utils.NetworkUtils;
-import com.rarnu.utils.UIUtils;
 
 public class IndexFragment extends BasePreferenceFragment implements
         OnPreferenceClickListener {
@@ -73,7 +72,7 @@ public class IndexFragment extends BasePreferenceFragment implements
     }
 
     private void showBusyboxTag() {
-        boolean ready = BusyboxUtils.isBusyboxReady();
+        boolean ready = BusyboxUtils.isAppletReady();
         prefSysApp.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefSysAppEnabled.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefHardUpdate.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
@@ -93,6 +92,7 @@ public class IndexFragment extends BasePreferenceFragment implements
 
     private void showIptablesTag() {
         boolean ready = IptablesUtils.isIptablesReady();
+        prefReboot.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefFirewall.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
     }
 

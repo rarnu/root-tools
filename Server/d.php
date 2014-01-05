@@ -34,7 +34,7 @@ include "database/database.php";
 
 <?php
         $db=openConnection();
-        $sql="select * from root_tools_update where tag=0 order by id desc limit 0, 10";
+        $sql="select * from root_tools_update where tag=0 order by id desc limit 0,5";
         $result=query($db, $sql);
         closeConnection($db);
         $idx=0;

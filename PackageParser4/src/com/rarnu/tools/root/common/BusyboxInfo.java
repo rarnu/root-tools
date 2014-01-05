@@ -8,4 +8,10 @@ public class BusyboxInfo {
 	
 	public String title;
 	public int state;
+
+    /**
+     * true: hide special icon<br />
+     * false: show special icon
+     */
+    public boolean isAppletsRight;
 }

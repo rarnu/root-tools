@@ -200,7 +200,7 @@ public class BackupRestoreUtils {
     }
 
     public static void deleteBackupData(String packageName, String path) {
-        String cmd = String.format("busybox rm -r " + path + "%s*", packageName);
+        String cmd = String.format("rm -r " + path + "%s*", packageName);
         RootUtils.runCommand(cmd, true, null);
     }
 
@@ -209,7 +209,7 @@ public class BackupRestoreUtils {
     }
 
     public static void deleteAllBackupData(String path) {
-        RootUtils.runCommand("busybox rm -r " + path + "*", true, null);
+        RootUtils.runCommand("rm -r " + path + "*", true, null);
     }
 
     public static void deleteAllBackupData() {

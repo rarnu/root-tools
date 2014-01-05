@@ -37,21 +37,24 @@ public class PreferenceEx extends Preference {
     }
 
     public void setStatus(int state) {
-        this.status = state;
+        resetStatus(state);
     }
 
     public void resetStatus(int state) {
         this.status = state;
-        switch (status) {
-            case STATE_NORMAL:
-                pref_warning.setImageDrawable(null);
-                break;
-            case STATE_WARNING:
-                pref_warning.setImageResource(R.drawable.warning);
-                break;
-            case STATE_BANNED:
-                pref_warning.setImageResource(R.drawable.banned);
-                break;
+        if (pref_warning != null) {
+            switch (status) {
+                case STATE_NORMAL:
+                    pref_warning.setImageDrawable(null);
+                    break;
+                case STATE_WARNING:
+                    pref_warning.setImageResource(R.drawable.warning);
+                    break;
+                case STATE_BANNED:
+                    pref_warning.setImageResource(R.drawable.banned);
+                    break;
+            }
+            pref_warning.invalidate();
         }
     }
 

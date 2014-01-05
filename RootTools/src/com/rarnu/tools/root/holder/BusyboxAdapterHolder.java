@@ -7,4 +7,5 @@ public class BusyboxAdapterHolder {
 
 	public TextView tvTitle;
 	public ImageView imgState;
+    public ImageView imgSpecialState;
 }
