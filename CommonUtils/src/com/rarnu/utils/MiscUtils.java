@@ -56,16 +56,24 @@ public class MiscUtils {
     }
 
     public static boolean isEmulator(Context context) {
+        boolean ret = false;
         try {
             TelephonyManager tm = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
             String imei = tm.getDeviceId();
             if (imei != null && imei.equals("000000000000000")) {
-                return true;
+                ret = true;
             }
-            return (Build.MODEL.equals("sdk")) || (Build.MODEL.equals("google_sdk"));
+            ret = (Build.MODEL.equals("sdk")) || (Build.MODEL.equals("google_sdk"));
+            if (!ret) {
+                ret = isBlueStacks();
+            }
         } catch (Exception ioe) {
 
         }
-        return false;
+        return ret;
+    }
+
+    private static boolean isBlueStacks() {
+        return Build.MODEL.toLowerCase().contains("bluestacks");
     }
 }
