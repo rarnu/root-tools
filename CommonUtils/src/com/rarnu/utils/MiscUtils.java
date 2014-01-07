@@ -67,6 +67,9 @@ public class MiscUtils {
             if (!ret) {
                 ret = isBlueStacks();
             }
+            if (!ret) {
+                ret = isGenymotion();
+            }
         } catch (Exception ioe) {
 
         }
@@ -75,5 +78,9 @@ public class MiscUtils {
 
     private static boolean isBlueStacks() {
         return Build.MODEL.toLowerCase().contains("bluestacks");
+    }
+
+    private static boolean isGenymotion() {
+        return Build.MODEL.toLowerCase().contains("genymotion");
     }
 }
