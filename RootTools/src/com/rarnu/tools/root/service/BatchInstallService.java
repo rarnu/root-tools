@@ -45,7 +45,7 @@ public class BatchInstallService extends BaseService {
         for (int i = 0; i < list.size(); i++) {
 
             inInstallProgress.putExtra("position", i + 1);
-            inInstallProgress.putExtra("name", GlobalInstance.pm.getApplicationLabel(list.get(i).info).toString());
+            inInstallProgress.putExtra("name", getPackageManager().getApplicationLabel(list.get(i).info).toString());
             sendBroadcast(inInstallProgress);
             // install application
             BackupRestoreUtils.installApp(getApplicationContext(), list.get(i).localPath, list.get(i));

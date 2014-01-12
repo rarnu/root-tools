@@ -81,9 +81,6 @@ public class FloatWidgetService extends BaseFloatService {
     @Override
     public void onFloatWindowLongClick() {
         if (!ApkUtils.getTopPackage(this).equals(getPackageName())) {
-            if (GlobalInstance.pm == null) {
-                GlobalInstance.init(this);
-            }
             ApkUtils.openApp(this, getPackageName(), true);
         }
     }

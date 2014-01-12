@@ -42,8 +42,8 @@ public class DataappReportAdapter extends BaseAdapter<DataappInfo> {
         if (item != null) {
 
             if (item.type == 1) {
-                holder.icon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.info));
-                holder.name.setText(GlobalInstance.pm.getApplicationLabel(item.info));
+                holder.icon.setBackgroundDrawable(pm.getApplicationIcon(item.info));
+                holder.name.setText(pm.getApplicationLabel(item.info));
                 switch (item.logId) {
                     case 0:
                         holder.state.setText(R.string.rep_bak_succ);

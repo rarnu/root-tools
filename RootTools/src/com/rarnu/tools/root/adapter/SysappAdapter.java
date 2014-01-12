@@ -38,8 +38,8 @@ public class SysappAdapter extends BaseAdapter<SysappInfo> {
         }
         SysappInfo item = list.get(position);
         if (item != null) {
-            holder.icon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.info));
-            holder.name.setText(GlobalInstance.pm.getApplicationLabel(item.info));
+            holder.icon.setBackgroundDrawable(pm.getApplicationIcon(item.info));
+            holder.name.setText(pm.getApplicationLabel(item.info));
             holder.path.setText(item.info.sourceDir);
 
             holder.name.setTextColor(DrawableUtils.getTextColorPrimary(context));
@@ -63,6 +63,6 @@ public class SysappAdapter extends BaseAdapter<SysappInfo> {
 
     @Override
     public String getValueText(SysappInfo item) {
-        return GlobalInstance.pm.getApplicationLabel(item.info).toString() + item.info.packageName;
+        return pm.getApplicationLabel(item.info).toString() + item.info.packageName;
     }
 }

@@ -4,11 +4,8 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.ApplicationInfo;
-import android.content.pm.PackageInfo;
+import android.content.pm.*;
 import android.content.pm.PackageManager.NameNotFoundException;
-import android.content.pm.PackageParser;
-import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
@@ -16,12 +13,10 @@ import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import com.rarnu.command.CommandCallback;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu.root.pp4.R;
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.EnableappInfo;
 import com.rarnu.tools.root.common.SysappInfo;
@@ -40,15 +35,18 @@ public class ApkUtils {
     private static final String PACKAGE_URL = "http://rarnu.7thgen.info/root_tools/package/";
 
     public static List<String> getLauncherPackageName(Context context) {
-        Intent inLauncher = new Intent(Intent.ACTION_MAIN);
-        inLauncher.addCategory(Intent.CATEGORY_HOME);
-        List<ResolveInfo> list = GlobalInstance.pm.queryIntentActivities(inLauncher, 0);
         List<String> ret = null;
-        if (list != null && list.size() != 0) {
-            ret = new ArrayList<String>();
-            for (ResolveInfo ri : list) {
-                if (ri.activityInfo != null) {
-                    ret.add(ri.activityInfo.packageName);
+        if (context != null) {
+            Intent inLauncher = new Intent(Intent.ACTION_MAIN);
+            inLauncher.addCategory(Intent.CATEGORY_HOME);
+            List<ResolveInfo> list = context.getPackageManager().queryIntentActivities(inLauncher, 0);
+
+            if (list != null && list.size() != 0) {
+                ret = new ArrayList<String>();
+                for (ResolveInfo ri : list) {
+                    if (ri.activityInfo != null) {
+                        ret.add(ri.activityInfo.packageName);
+                    }
                 }
             }
         }
@@ -70,21 +68,31 @@ public class ApkUtils {
 
     public static List<SysappInfo> getSystemApps(Context context) {
         List<SysappInfo> res = new ArrayList<SysappInfo>();
-        List<PackageInfo> packs = GlobalInstance.pm.getInstalledPackages(0);
-        int position = 0;
-        for (PackageInfo p : packs) {
+        if (context != null) {
+            List<PackageInfo> packs = null;
+            try {
+                packs = context.getPackageManager().getInstalledPackages(0);
+            } catch (Exception e) {
 
-            ApplicationInfo newInfo = p.applicationInfo;
-            if (newInfo == null) {
-                continue;
             }
-            if (newInfo.sourceDir.contains("/system/app")) {
-                SysappInfo info = new SysappInfo();
-                info.info = newInfo;
-                info.level = getAppLevel(newInfo.sourceDir, newInfo.packageName);
-                info.position = position;
-                res.add(info);
-                position++;
+
+            int position = 0;
+            if (packs != null & packs.size() != 0) {
+                for (PackageInfo p : packs) {
+
+                    ApplicationInfo newInfo = p.applicationInfo;
+                    if (newInfo == null) {
+                        continue;
+                    }
+                    if (newInfo.sourceDir.contains("/system/app")) {
+                        SysappInfo info = new SysappInfo();
+                        info.info = newInfo;
+                        info.level = getAppLevel(newInfo.sourceDir, newInfo.packageName);
+                        info.position = position;
+                        res.add(info);
+                        position++;
+                    }
+                }
             }
         }
         return res;
@@ -345,21 +353,30 @@ public class ApkUtils {
 
     public static List<DataappInfo> getInstalledApps(Context context, boolean includeSystem) {
         List<DataappInfo> res = new ArrayList<DataappInfo>();
-        List<PackageInfo> packs = GlobalInstance.pm.getInstalledPackages(0);
-        int position = 0;
-        for (PackageInfo p : packs) {
-            ApplicationInfo newInfo = p.applicationInfo;
-            if (newInfo == null) {
-                continue;
+        if (context != null) {
+            List<PackageInfo> packs = null;
+            try {
+                packs = context.getPackageManager().getInstalledPackages(0);
+            } catch (Exception e) {
+
             }
-            if ((includeSystem && newInfo.sourceDir.contains("/system/app/")) || newInfo.sourceDir.contains("/data/app/")) {
-                DataappInfo info = new DataappInfo();
-                info.info = newInfo;
-                info.checked = false;
-                info.position = position;
-                info.installed = false;
-                res.add(info);
-                position++;
+            int position = 0;
+            if (packs != null && packs.size() != 0) {
+                for (PackageInfo p : packs) {
+                    ApplicationInfo newInfo = p.applicationInfo;
+                    if (newInfo == null) {
+                        continue;
+                    }
+                    if ((includeSystem && newInfo.sourceDir.contains("/system/app/")) || newInfo.sourceDir.contains("/data/app/")) {
+                        DataappInfo info = new DataappInfo();
+                        info.info = newInfo;
+                        info.checked = false;
+                        info.position = position;
+                        info.installed = false;
+                        res.add(info);
+                        position++;
+                    }
+                }
             }
         }
         return res;
@@ -367,29 +384,37 @@ public class ApkUtils {
 
     public static List<EnableappInfo> getInstalledAppsEnabled(Context context) {
         List<EnableappInfo> res = new ArrayList<EnableappInfo>();
-        List<PackageInfo> packs = GlobalInstance.pm.getInstalledPackages(0);
+        if (context != null) {
+            List<PackageInfo> packs = null;
+            try {
+                packs = context.getPackageManager().getInstalledPackages(0);
+            } catch (Exception e) {
 
-        for (PackageInfo p : packs) {
-
-            ApplicationInfo newInfo = p.applicationInfo;
-            if (newInfo == null) {
-                continue;
             }
+            if (packs != null && packs.size() != 0) {
+                for (PackageInfo p : packs) {
 
-            EnableappInfo info = new EnableappInfo();
-            info.info = newInfo;
-            info.enabled = true;
+                    ApplicationInfo newInfo = p.applicationInfo;
+                    if (newInfo == null) {
+                        continue;
+                    }
 
-            if (newInfo.sourceDir.contains("/system/app/")) {
-                info.type = 0;
-            } else if (newInfo.sourceDir.contains("/data/app/")) {
-                info.type = 1;
-            } else {
-                info.type = 2;
+                    EnableappInfo info = new EnableappInfo();
+                    info.info = newInfo;
+                    info.enabled = true;
+
+                    if (newInfo.sourceDir.contains("/system/app/")) {
+                        info.type = 0;
+                    } else if (newInfo.sourceDir.contains("/data/app/")) {
+                        info.type = 1;
+                    } else {
+                        info.type = 2;
+                    }
+
+                    res.add(info);
+
+                }
             }
-
-            res.add(info);
-
         }
         return res;
     }
@@ -451,9 +476,9 @@ public class ApkUtils {
         }
     }
 
-    public static boolean applicationInstalled(String namespace) {
+    public static boolean applicationInstalled(Context context, String namespace) {
         try {
-            PackageInfo info = GlobalInstance.pm.getPackageInfo(namespace, 0);
+            PackageInfo info = context.getPackageManager().getPackageInfo(namespace, 0);
             return info != null;
         } catch (NameNotFoundException e) {
             return false;
@@ -471,7 +496,7 @@ public class ApkUtils {
     }
 
     public static void gotoApp(Context context, String namespace, String url) {
-        if (ApkUtils.applicationInstalled(namespace)) {
+        if (ApkUtils.applicationInstalled(context, namespace)) {
             openApp(context, namespace);
             // ApkUtils.startApplication(namespace, activity);
         } else {
@@ -503,10 +528,7 @@ public class ApkUtils {
     public static boolean openApp(Context context, String packageName, boolean newTask) {
         PackageInfo pi = null;
         try {
-            if (GlobalInstance.pm == null) {
-                GlobalInstance.init(context);
-            }
-            pi = GlobalInstance.pm.getPackageInfo(packageName, 0);
+            pi = context.getPackageManager().getPackageInfo(packageName, 0);
         } catch (Exception e) {
         }
 
@@ -518,24 +540,27 @@ public class ApkUtils {
         resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         resolveIntent.setPackage(pi.packageName);
 
-        List<ResolveInfo> apps = GlobalInstance.pm.queryIntentActivities(resolveIntent, 0);
-        boolean ret = false;
-        try {
-            ResolveInfo ri = apps.iterator().next();
-            if (ri != null) {
-                String className = ri.activityInfo.name;
-                Intent intent = new Intent(Intent.ACTION_MAIN);
-                intent.addCategory(Intent.CATEGORY_LAUNCHER);
-                ComponentName cn = new ComponentName(packageName, className);
-                intent.setComponent(cn);
-                if (newTask) {
-                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                }
-                context.startActivity(intent);
-                ret = true;
-            }
-        } catch (Exception e) {
 
+        boolean ret = false;
+        if (context != null) {
+            List<ResolveInfo> apps = context.getPackageManager().queryIntentActivities(resolveIntent, 0);
+            try {
+                ResolveInfo ri = apps.iterator().next();
+                if (ri != null) {
+                    String className = ri.activityInfo.name;
+                    Intent intent = new Intent(Intent.ACTION_MAIN);
+                    intent.addCategory(Intent.CATEGORY_LAUNCHER);
+                    ComponentName cn = new ComponentName(packageName, className);
+                    intent.setComponent(cn);
+                    if (newTask) {
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                    }
+                    context.startActivity(intent);
+                    ret = true;
+                }
+            } catch (Exception e) {
+
+            }
         }
         return ret;
     }
@@ -551,10 +576,10 @@ public class ApkUtils {
         }).start();
     }
 
-    public static boolean isAppInstalled(String packageName) {
+    public static boolean isAppInstalled(Context context, String packageName) {
         ApplicationInfo info = null;
         try {
-            info = GlobalInstance.pm.getApplicationInfo(packageName, 0);
+            info = context.getPackageManager().getApplicationInfo(packageName, 0);
         } catch (NameNotFoundException e) {
 
         }
@@ -577,7 +602,7 @@ public class ApkUtils {
             String packageName = newinfo.info.packageName;
             ApplicationInfo installedInfo = null;
             try {
-                installedInfo = GlobalInstance.pm.getApplicationInfo(packageName, 0);
+                installedInfo = context.getPackageManager().getApplicationInfo(packageName, 0);
             } catch (NameNotFoundException e) {
 
             }
@@ -612,40 +637,47 @@ public class ApkUtils {
         return sig1.equals(sig2);
     }
 
-    public static ApplicationInfo findApplication(String regex, boolean system) {
+    public static ApplicationInfo findApplication(Context context, String regex, boolean system) {
         ApplicationInfo info = null;
-        String[] regs = regex.split("\\|"); // 0:start, 1:end, 2:contain
-        List<ApplicationInfo> list = GlobalInstance.pm.getInstalledApplications(0);
-        boolean match = true;
-        if (list != null && list.size() != 0) {
-            String pkgName = "";
-            for (ApplicationInfo pn : list) {
-                if (system && !pn.publicSourceDir.contains("/system/app")) {
-                    continue;
-                }
-                pkgName = pn.packageName;
-                if (!regs[0].trim().equals("")) {
-                    match = pkgName.startsWith(regs[0].trim());
-                }
-                if (match && !regs[1].trim().equals("")) {
-                    match = pkgName.endsWith(regs[1].trim());
-                }
-                if (match && !regs[2].trim().equals("")) {
-                    match = pkgName.contains(regs[2].trim());
-                }
-                if (match) {
-                    try {
-                        info = GlobalInstance.pm.getApplicationInfo(pkgName, 0);
-                    } catch (Exception e) {
+        if (context != null) {
+            String[] regs = regex.split("\\|"); // 0:start, 1:end, 2:contain
+            PackageManager pm = context.getPackageManager();
+            List<ApplicationInfo> list = null;
+            try {
+                list = pm.getInstalledApplications(0);
+            } catch (Exception e) {
 
+            }
+            boolean match = true;
+            if (list != null && list.size() != 0) {
+                String pkgName = "";
+                for (ApplicationInfo pn : list) {
+                    if (system && !pn.publicSourceDir.contains("/system/app")) {
+                        continue;
                     }
-                    if (info != null) {
-                        break;
+                    pkgName = pn.packageName;
+                    if (!regs[0].trim().equals("")) {
+                        match = pkgName.startsWith(regs[0].trim());
+                    }
+                    if (match && !regs[1].trim().equals("")) {
+                        match = pkgName.endsWith(regs[1].trim());
+                    }
+                    if (match && !regs[2].trim().equals("")) {
+                        match = pkgName.contains(regs[2].trim());
+                    }
+                    if (match) {
+                        try {
+                            info = pm.getApplicationInfo(pkgName, 0);
+                        } catch (Exception e) {
+
+                        }
+                        if (info != null) {
+                            break;
+                        }
                     }
                 }
             }
         }
-
         return info;
     }
 

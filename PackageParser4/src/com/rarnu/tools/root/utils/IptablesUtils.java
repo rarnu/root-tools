@@ -8,7 +8,6 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.IptablePackageInfo;
 
 import java.util.*;
@@ -220,45 +219,53 @@ public final class IptablesUtils {
             Arrays.sort(selected_3g);
         }
         try {
-            final List<ApplicationInfo> installed = GlobalInstance.pm.getInstalledApplications(0);
-            final HashMap<Integer, IptablePackageInfo> map = new HashMap<Integer, IptablePackageInfo>();
-            final Editor edit = prefs.edit();
+            PackageManager pm = context.getPackageManager();
+            List<ApplicationInfo> installed = null;
+            try {
+                installed = pm.getInstalledApplications(0);
+            } catch (Exception e) {
+
+            }
+            HashMap<Integer, IptablePackageInfo> map = new HashMap<Integer, IptablePackageInfo>();
+            Editor edit = prefs.edit();
             boolean changed = false;
             String name = null;
             String cachekey = null;
             IptablePackageInfo app = null;
-            for (final ApplicationInfo apinfo : installed) {
-                boolean firstseem = false;
-                app = map.get(apinfo.uid);
-                if (app == null && PackageManager.PERMISSION_GRANTED != GlobalInstance.pm.checkPermission(Manifest.permission.INTERNET, apinfo.packageName)) {
-                    continue;
-                }
-                cachekey = "cache.label." + apinfo.packageName;
-                name = prefs.getString(cachekey, "");
-                if (name.length() == 0) {
-                    name = GlobalInstance.pm.getApplicationLabel(apinfo).toString();
-                    edit.putString(cachekey, name);
-                    changed = true;
-                    firstseem = true;
-                }
-                if (app == null) {
-                    app = new IptablePackageInfo();
-                    app.uid = apinfo.uid;
-                    app.names = new String[]{name};
-                    app.appinfo = apinfo;
-                    map.put(apinfo.uid, app);
-                } else {
-                    final String newnames[] = new String[app.names.length + 1];
-                    System.arraycopy(app.names, 0, newnames, 0, app.names.length);
-                    newnames[app.names.length] = name;
-                    app.names = newnames;
-                }
-                app.firstseem = firstseem;
-                if (!app.selected_wifi && Arrays.binarySearch(selected_wifi, app.uid) >= 0) {
-                    app.selected_wifi = true;
-                }
-                if (!app.selected_3g && Arrays.binarySearch(selected_3g, app.uid) >= 0) {
-                    app.selected_3g = true;
+            if (installed != null && installed.size() != 0) {
+                for (final ApplicationInfo apinfo : installed) {
+                    boolean firstseem = false;
+                    app = map.get(apinfo.uid);
+                    if (app == null && PackageManager.PERMISSION_GRANTED != pm.checkPermission(Manifest.permission.INTERNET, apinfo.packageName)) {
+                        continue;
+                    }
+                    cachekey = "cache.label." + apinfo.packageName;
+                    name = prefs.getString(cachekey, "");
+                    if (name.length() == 0) {
+                        name = pm.getApplicationLabel(apinfo).toString();
+                        edit.putString(cachekey, name);
+                        changed = true;
+                        firstseem = true;
+                    }
+                    if (app == null) {
+                        app = new IptablePackageInfo();
+                        app.uid = apinfo.uid;
+                        app.names = new String[]{name};
+                        app.appinfo = apinfo;
+                        map.put(apinfo.uid, app);
+                    } else {
+                        final String newnames[] = new String[app.names.length + 1];
+                        System.arraycopy(app.names, 0, newnames, 0, app.names.length);
+                        newnames[app.names.length] = name;
+                        app.names = newnames;
+                    }
+                    app.firstseem = firstseem;
+                    if (!app.selected_wifi && Arrays.binarySearch(selected_wifi, app.uid) >= 0) {
+                        app.selected_wifi = true;
+                    }
+                    if (!app.selected_3g && Arrays.binarySearch(selected_3g, app.uid) >= 0) {
+                        app.selected_3g = true;
+                    }
                 }
             }
             if (changed) {

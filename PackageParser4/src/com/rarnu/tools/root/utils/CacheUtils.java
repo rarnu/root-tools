@@ -1,5 +1,6 @@
 package com.rarnu.tools.root.utils;
 
+import android.content.Context;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.common.CacheInfo;
@@ -10,7 +11,7 @@ import java.util.List;
 
 public class CacheUtils {
 
-    public static List<CacheInfo> getCacheList() {
+    public static List<CacheInfo> getCacheList(Context context) {
 
         List<CacheInfo> result = null;
 
@@ -33,7 +34,7 @@ public class CacheUtils {
                     if (s.trim().equals("")) {
                         continue;
                     }
-                    CacheInfo info = CacheInfo.parseString(s);
+                    CacheInfo info = CacheInfo.parseString(context, s);
                     if (info != null) {
                         result.add(info);
                     }

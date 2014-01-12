@@ -1,5 +1,6 @@
 package com.rarnu.tools.root.common;
 
+import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import com.rarnu.tools.root.GlobalInstance;
@@ -18,7 +19,7 @@ public class MemProcessInfo {
     public ApplicationInfo appInfo = null;
     public int position;
 
-    public static MemProcessInfo stringToProcessInfo(String str) throws Exception {
+    public static MemProcessInfo stringToProcessInfo(Context context, String str) throws Exception {
         str = str.replaceAll("\\s+", " ");
         String[] ss = str.split(" ");
         MemProcessInfo info = new MemProcessInfo();
@@ -33,7 +34,7 @@ public class MemProcessInfo {
         info.NAME = ss[8];
 
         try {
-            info.appInfo = findApplicationByNamespace(ss[8]);
+            info.appInfo = findApplicationByNamespace(context, ss[8]);
         } catch (NameNotFoundException e) {
         }
 
@@ -44,7 +45,11 @@ public class MemProcessInfo {
         return info;
     }
 
-    private static ApplicationInfo findApplicationByNamespace(String ns) throws NameNotFoundException {
-        return GlobalInstance.pm.getApplicationInfo(ns, 0);
+    private static ApplicationInfo findApplicationByNamespace(Context context, String ns) throws NameNotFoundException {
+        ApplicationInfo info = null;
+        if (context != null) {
+            info = context.getPackageManager().getApplicationInfo(ns, 0);
+        }
+        return info;
     }
 }

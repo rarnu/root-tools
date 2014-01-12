@@ -3,6 +3,7 @@ package com.rarnu.tools.root.fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageParser;
 import android.graphics.Color;
 import android.os.Bundle;
@@ -56,26 +57,28 @@ public class CompPackageInfoFragment extends BasePopupFragment implements OnItem
     }
 
     private void fillComponentList() {
-        ivAppIcon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(GlobalInstance.currentComp.applicationInfo));
-        tvAppName.setText(GlobalInstance.pm.getApplicationLabel(GlobalInstance.currentComp.applicationInfo));
-        tvAppPackage.setText(GlobalInstance.currentComp.packageName);
+        if (getActivity() != null) {
+            PackageManager pm = getActivity().getPackageManager();
+            ivAppIcon.setBackgroundDrawable(pm.getApplicationIcon(GlobalInstance.currentComp.applicationInfo));
+            tvAppName.setText(pm.getApplicationLabel(GlobalInstance.currentComp.applicationInfo));
+            tvAppPackage.setText(GlobalInstance.currentComp.packageName);
 
-        tvAppName.setTextColor(DrawableUtils.getTextColorPrimary(getActivity()));
-        if (GlobalInstance.currentComp.applicationInfo.sourceDir.contains("/system/app/")) {
-            tvAppName.setTextColor(Color.RED);
+            tvAppName.setTextColor(DrawableUtils.getTextColorPrimary(getActivity()));
+            if (GlobalInstance.currentComp.applicationInfo.sourceDir.contains("/system/app/")) {
+                tvAppName.setTextColor(Color.RED);
+            }
+
+            PackageParser.Package pkg = ComponentUtils.parsePackageInfo(GlobalInstance.currentComp, UIUtils.getDM());
+            if (pkg == null) {
+                Toast.makeText(getActivity(), R.string.no_package_info_found, Toast.LENGTH_LONG).show();
+                getActivity().finish();
+                return;
+            }
+            // lvReceiver
+            lstComponentInfo = ComponentUtils.getPackageRSList(getActivity(), pkg);
+            adapter = new CompAdapter(getActivity(), lstComponentInfo);
+            lvReceiver.setAdapter(adapter);
         }
-
-        PackageParser.Package pkg = ComponentUtils.parsePackageInfo(GlobalInstance.currentComp, UIUtils.getDM());
-        if (pkg == null) {
-            Toast.makeText(getActivity(), R.string.no_package_info_found, Toast.LENGTH_LONG).show();
-            getActivity().finish();
-            return;
-        }
-        // lvReceiver
-        lstComponentInfo = ComponentUtils.getPackageRSList(pkg);
-        adapter = new CompAdapter(getActivity(), lstComponentInfo);
-        lvReceiver.setAdapter(adapter);
-
     }
 
     @Override
@@ -115,7 +118,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements OnItem
     }
 
     private void doEnableComponent(CompInfo item, View view) {
-        boolean bRet = ComponentUtils.doEnabledComponent(ComponentUtils.getPackageComponentName(item.component));
+        boolean bRet = ComponentUtils.doEnabledComponent(getActivity(), ComponentUtils.getPackageComponentName(item.component));
         if (bRet) {
             item.enabled = true;
             ((TextView) view.findViewById(R.id.itemReceiverStatus)).setText(R.string.comp_enabled);
@@ -127,7 +130,7 @@ public class CompPackageInfoFragment extends BasePopupFragment implements OnItem
     }
 
     private void doDisableComponent(CompInfo item, View view) {
-        boolean bRet = ComponentUtils.doDisableComponent(ComponentUtils.getPackageComponentName(item.component));
+        boolean bRet = ComponentUtils.doDisableComponent(getActivity(), ComponentUtils.getPackageComponentName(item.component));
         if (bRet) {
             item.enabled = false;
             ((TextView) view.findViewById(R.id.itemReceiverStatus)).setText(R.string.comp_disabled);

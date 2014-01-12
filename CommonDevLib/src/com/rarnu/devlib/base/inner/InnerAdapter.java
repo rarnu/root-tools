@@ -1,6 +1,7 @@
 package com.rarnu.devlib.base.inner;
 
 import android.content.Context;
+import android.content.pm.PackageManager;
 import android.view.LayoutInflater;
 import android.widget.BaseAdapter;
 import android.widget.Filter;
@@ -17,12 +18,14 @@ public abstract class InnerAdapter<T> extends BaseAdapter implements Filterable 
     protected List<T> listFull;
     protected List<T> list;
     protected ArrayFilter filter;
+    protected PackageManager pm;
 
     public InnerAdapter(Context context, List<T> list) {
         this.context = context;
         this.inflater = LayoutInflater.from(context);
         this.listFull = list;
         this.list = list;
+        this.pm = context.getPackageManager();
     }
 
     public void setNewList(List<T> list) {

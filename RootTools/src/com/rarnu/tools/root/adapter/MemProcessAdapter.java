@@ -42,8 +42,8 @@ public class MemProcessAdapter extends BaseAdapter<MemProcessInfo> {
                 holder.item_name.setText(item.NAME);
                 holder.item_namespace.setText("");
             } else {
-                holder.item_icon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.appInfo));
-                holder.item_name.setText(GlobalInstance.pm.getApplicationLabel(item.appInfo));
+                holder.item_icon.setBackgroundDrawable(pm.getApplicationIcon(item.appInfo));
+                holder.item_name.setText(pm.getApplicationLabel(item.appInfo));
                 holder.item_namespace.setText(item.NAME);
             }
             holder.item_memory_used.setText(String.format("%dM", item.RSS));
@@ -55,7 +55,7 @@ public class MemProcessAdapter extends BaseAdapter<MemProcessInfo> {
     public String getValueText(MemProcessInfo item) {
         String valueText = item.NAME;
         if (item.appInfo != null) {
-            valueText += GlobalInstance.pm.getApplicationLabel(item.appInfo);
+            valueText += pm.getApplicationLabel(item.appInfo);
         }
         return valueText;
     }

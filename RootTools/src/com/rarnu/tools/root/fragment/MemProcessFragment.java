@@ -1,6 +1,7 @@
 package com.rarnu.tools.root.fragment;
 
 import android.app.Activity;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -55,20 +56,22 @@ public class MemProcessFragment extends BaseDialogFragment implements OnClickLis
     }
 
     private void showProcessInfo() {
-        if (GlobalInstance.currentMemoryProcess.appInfo == null) {
-            ImgIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.android));
-            tvName.setText(GlobalInstance.currentMemoryProcess.NAME);
-            tvNamespace.setText("");
-        } else {
-            ImgIcon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(GlobalInstance.currentMemoryProcess.appInfo));
-            tvName.setText(GlobalInstance.pm.getApplicationLabel(GlobalInstance.currentMemoryProcess.appInfo));
-            tvNamespace.setText(GlobalInstance.currentMemoryProcess.NAME);
+        if (getActivity() != null) {
+            PackageManager pm = getActivity().getPackageManager();
+            if (GlobalInstance.currentMemoryProcess.appInfo == null) {
+                ImgIcon.setBackgroundDrawable(getResources().getDrawable(R.drawable.android));
+                tvName.setText(GlobalInstance.currentMemoryProcess.NAME);
+                tvNamespace.setText("");
+            } else {
+                ImgIcon.setBackgroundDrawable(pm.getApplicationIcon(GlobalInstance.currentMemoryProcess.appInfo));
+                tvName.setText(pm.getApplicationLabel(GlobalInstance.currentMemoryProcess.appInfo));
+                tvNamespace.setText(GlobalInstance.currentMemoryProcess.NAME);
+            }
+
+            tvPidValue.setText(String.valueOf(GlobalInstance.currentMemoryProcess.PID));
+            tvMemoryValue.setText(String.format("%dM", GlobalInstance.currentMemoryProcess.RSS));
+            tvUserValue.setText(GlobalInstance.currentMemoryProcess.USER);
         }
-
-        tvPidValue.setText(String.valueOf(GlobalInstance.currentMemoryProcess.PID));
-        tvMemoryValue.setText(String.format("%dM", GlobalInstance.currentMemoryProcess.RSS));
-        tvUserValue.setText(GlobalInstance.currentMemoryProcess.USER);
-
     }
 
     @Override

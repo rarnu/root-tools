@@ -45,7 +45,7 @@ public class DataBackupService extends BaseService {
         for (int i = 0; i < list.size(); i++) {
 
             inBackupProgress.putExtra("position", i + 1);
-            inBackupProgress.putExtra("name", GlobalInstance.pm.getApplicationLabel(list.get(i).info).toString());
+            inBackupProgress.putExtra("name", getPackageManager().getApplicationLabel(list.get(i).info).toString());
             sendBroadcast(inBackupProgress);
             BackupRestoreUtils.backupData(getApplicationContext(), list.get(i).info.sourceDir, list.get(i).info.packageName, backupPath, list.get(i));
 

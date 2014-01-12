@@ -1,5 +1,6 @@
 package com.rarnu.tools.root.utils;
 
+import android.content.Context;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.common.MemProcessInfo;
@@ -9,11 +10,11 @@ import java.util.List;
 
 public class ProcessUtils {
 
-    public static List<MemProcessInfo> getUserProcessList() {
-        return getProcessList();
+    public static List<MemProcessInfo> getUserProcessList(Context context) {
+        return getProcessList(context);
     }
 
-    private static List<MemProcessInfo> getProcessList() {
+    private static List<MemProcessInfo> getProcessList(Context context) {
 
         List<MemProcessInfo> ret = null;
 
@@ -30,7 +31,7 @@ public class ProcessUtils {
                     if (!si.startsWith("root")) {
                         MemProcessInfo info = null;
                         try {
-                            info = MemProcessInfo.stringToProcessInfo(si);
+                            info = MemProcessInfo.stringToProcessInfo(context, si);
                         } catch (Exception e) {
                             info = null;
                         }

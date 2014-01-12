@@ -30,7 +30,6 @@ import com.rarnu.tools.root.fragmentactivity.MemProcessActivity;
 import com.rarnu.tools.root.loader.ProcessLoader;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.MemoryUtils;
-import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -42,13 +41,14 @@ public class MemFragment extends BaseFragment implements OnItemClickListener, On
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
                 MemoryInfo info = (MemoryInfo) msg.obj;
-                if (info == null) {
-                    tvMemoryInfo.setText(String.format(getResources().getString(R.string.memory_usage_fmt), 0, 0, 0, 0));
-                } else {
-                    tvMemoryInfo.setText(String.format(getResources().getString(R.string.memory_usage_fmt), info.Total, info.Free, info.Shared, info.Buffer));
+                if (getActivity() != null) {
+                    if (info == null) {
+                        tvMemoryInfo.setText(String.format(getResources().getString(R.string.memory_usage_fmt), 0, 0, 0, 0));
+                    } else {
+                        tvMemoryInfo.setText(String.format(getResources().getString(R.string.memory_usage_fmt), info.Total, info.Free, info.Shared, info.Buffer));
+                    }
+                    progressMemory.setVisibility(View.GONE);
                 }
-                progressMemory.setVisibility(View.GONE);
-
             }
             super.handleMessage(msg);
         }

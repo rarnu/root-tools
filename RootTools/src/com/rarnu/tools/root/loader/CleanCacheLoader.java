@@ -17,7 +17,7 @@ public class CleanCacheLoader extends BaseLoader<CacheInfo> {
     public List<CacheInfo> loadInBackground() {
         List<CacheInfo> list = null;
         if (getContext() != null) {
-            list = CacheUtils.getCacheList();
+            list = CacheUtils.getCacheList(getContext());
         }
         return list;
     }

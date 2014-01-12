@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
 import android.os.Bundle;
 import android.os.Handler;
@@ -41,6 +42,21 @@ public class SysappDetailFragment extends BasePopupFragment implements OnClickLi
     SysappInfo info = null;
     PackageInfo pinfo = null;
     TextView tvDeleting;
+    private Handler hDeleteApp = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                tvDeleting.setVisibility(View.GONE);
+                btnAddToCleanList.setEnabled(true);
+                btnDelete.setEnabled(true);
+                Intent inRet = new Intent();
+                inRet.putExtra("needRefresh", true);
+                getActivity().setResult(Activity.RESULT_OK, inRet);
+                getActivity().finish();
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     @Override
     public int getBarTitle() {
@@ -53,43 +69,47 @@ public class SysappDetailFragment extends BasePopupFragment implements OnClickLi
     }
 
     public void showAppInfo() {
-        info = GlobalInstance.currentSysapp;
-        try {
-            pinfo = GlobalInstance.pm.getPackageInfo(info.info.packageName, Context.MODE_APPEND);
-        } catch (NameNotFoundException e) {
-            pinfo = null;
-        }
-        if (pinfo == null) {
-            getActivity().finish();
-            return;
-        }
 
-        appIcon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(info.info));
-        appName.setText(GlobalInstance.pm.getApplicationLabel(info.info));
-        appVersion.setText(getResources().getString(R.string.version) + (pinfo == null ? getResources().getString(R.string.unknown) : pinfo.versionName));
-        tvPathDetail.setText(info.info.sourceDir.replace("/system/app/", ""));
-        String odexPath = info.info.sourceDir.substring(0, info.info.sourceDir.length() - 3) + "odex";
-        File fOdex = new File(odexPath);
-        tvOdexDetail.setText(fOdex.exists() ? odexPath.replace("/system/app/", "") : getResources().getString(R.string.na));
-        tvFileSizeDetail.setText(ApkUtils.getAppSize(info.info.sourceDir) + " KB " + String.format("(%s)", fOdex.exists() ? "APK+ODEX" : "APK"));
-        tvDataPathDetail.setText(info.info.dataDir.replace("/data/data/", ""));
-        String dataSize = ApkUtils.getDataSize(info.info.dataDir);
-        tvDataSizeDetail.setText(dataSize.equals("") ? getResources().getString(R.string.unknown) : dataSize + " KB");
-        String sid = pinfo.sharedUserId;
-        if (sid == null) {
-            sid = "";
-        }
-        sid = sid.trim();
-        tvSharedIdDetail.setText(sid.equals("") ? getResources().getString(R.string.na) : sid);
-        if (!GlobalInstance.allowDeleteLevel0) {
-            if (info.level == 0) {
-                RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) btnDelete.getLayoutParams();
-                rlp.height = 0;
-                btnDelete.setLayoutParams(rlp);
-                btnDelete.setEnabled(false);
+        if (getActivity() != null) {
+            PackageManager pm = getActivity().getPackageManager();
+            info = GlobalInstance.currentSysapp;
+            try {
+                pinfo = pm.getPackageInfo(info.info.packageName, Context.MODE_APPEND);
+            } catch (NameNotFoundException e) {
+                pinfo = null;
             }
+            if (pinfo == null) {
+                getActivity().finish();
+                return;
+            }
+
+            appIcon.setBackgroundDrawable(pm.getApplicationIcon(info.info));
+            appName.setText(pm.getApplicationLabel(info.info));
+            appVersion.setText(getResources().getString(R.string.version) + (pinfo == null ? getResources().getString(R.string.unknown) : pinfo.versionName));
+            tvPathDetail.setText(info.info.sourceDir.replace("/system/app/", ""));
+            String odexPath = info.info.sourceDir.substring(0, info.info.sourceDir.length() - 3) + "odex";
+            File fOdex = new File(odexPath);
+            tvOdexDetail.setText(fOdex.exists() ? odexPath.replace("/system/app/", "") : getResources().getString(R.string.na));
+            tvFileSizeDetail.setText(ApkUtils.getAppSize(info.info.sourceDir) + " KB " + String.format("(%s)", fOdex.exists() ? "APK+ODEX" : "APK"));
+            tvDataPathDetail.setText(info.info.dataDir.replace("/data/data/", ""));
+            String dataSize = ApkUtils.getDataSize(info.info.dataDir);
+            tvDataSizeDetail.setText(dataSize.equals("") ? getResources().getString(R.string.unknown) : dataSize + " KB");
+            String sid = pinfo.sharedUserId;
+            if (sid == null) {
+                sid = "";
+            }
+            sid = sid.trim();
+            tvSharedIdDetail.setText(sid.equals("") ? getResources().getString(R.string.na) : sid);
+            if (!GlobalInstance.allowDeleteLevel0) {
+                if (info.level == 0) {
+                    RelativeLayout.LayoutParams rlp = (RelativeLayout.LayoutParams) btnDelete.getLayoutParams();
+                    rlp.height = 0;
+                    btnDelete.setLayoutParams(rlp);
+                    btnDelete.setEnabled(false);
+                }
+            }
+            btnAddToCleanList.setText(CustomPackageUtils.customPackageIndex(info.info.packageName) == -1 ? R.string.button_add_to_clean_list : R.string.button_remove_from_clean_list);
         }
-        btnAddToCleanList.setText(CustomPackageUtils.customPackageIndex(info.info.packageName) == -1 ? R.string.button_add_to_clean_list : R.string.button_remove_from_clean_list);
     }
 
     @Override
@@ -145,22 +165,6 @@ public class SysappDetailFragment extends BasePopupFragment implements OnClickLi
                 .setNegativeButton(R.string.cancel, null)
                 .show();
     }
-
-    private Handler hDeleteApp = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                tvDeleting.setVisibility(View.GONE);
-                btnAddToCleanList.setEnabled(true);
-                btnDelete.setEnabled(true);
-                Intent inRet = new Intent();
-                inRet.putExtra("needRefresh", true);
-                getActivity().setResult(Activity.RESULT_OK, inRet);
-                getActivity().finish();
-            }
-            super.handleMessage(msg);
-        }
-    };
 
     private void deleteApp(final boolean backup, final boolean deleteData) {
         tvDeleting.setVisibility(View.VISIBLE);

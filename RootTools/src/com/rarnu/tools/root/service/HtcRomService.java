@@ -20,7 +20,7 @@ public class HtcRomService extends BaseService {
 
     private void deleteApplication(String namesapce) {
         try {
-            ApplicationInfo info = GlobalInstance.pm.getApplicationInfo(namesapce, 0);
+            ApplicationInfo info = getPackageManager().getApplicationInfo(namesapce, 0);
             String path = info.sourceDir;
             if (info.sourceDir.contains("/system/app/")) {
                 ApkUtils.deleteSystemApp(path);

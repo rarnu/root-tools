@@ -16,7 +16,7 @@ public class ProcessLoader extends BaseLoader<MemProcessInfo> {
 
 	@Override
 	public List<MemProcessInfo> loadInBackground() {
-		return ProcessUtils.getUserProcessList();
+		return ProcessUtils.getUserProcessList(getContext());
 	}
 
 }

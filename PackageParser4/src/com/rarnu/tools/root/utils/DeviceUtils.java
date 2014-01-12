@@ -6,7 +6,6 @@ import android.content.pm.PackageInfo;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import com.rarnu.command.RootUtils;
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.DeviceInfo;
 import com.rarnu.tools.root.common.MemoryInfo;
 
@@ -101,7 +100,7 @@ public class DeviceUtils {
     public static int getAppVersionCode(Context context, String filePath) {
         int versionCode = 0;
         try {
-            PackageInfo pi = GlobalInstance.pm.getPackageArchiveInfo(filePath, 0);
+            PackageInfo pi = context.getPackageManager().getPackageArchiveInfo(filePath, 0);
             versionCode = pi.versionCode;
         } catch (Exception e) {
 
@@ -122,7 +121,7 @@ public class DeviceUtils {
             packageName = context.getPackageName();
         }
         try {
-            PackageInfo pi = GlobalInstance.pm.getPackageInfo(packageName, 0);
+            PackageInfo pi = context.getPackageManager().getPackageInfo(packageName, 0);
             versionCode = pi.versionCode;
         } catch (Exception e) {
 
@@ -143,7 +142,7 @@ public class DeviceUtils {
             packageName = context.getPackageName();
         }
         try {
-            PackageInfo pi = GlobalInstance.pm.getPackageInfo(packageName, 0);
+            PackageInfo pi = context.getPackageManager().getPackageInfo(packageName, 0);
             versionName = pi.versionName;
 
         } catch (Exception e) {

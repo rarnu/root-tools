@@ -45,7 +45,7 @@ public class DataRestoreService extends BaseService {
         for (int i = 0; i < list.size(); i++) {
 
             inRestoreProgress.putExtra("position", i + 1);
-            inRestoreProgress.putExtra("name", GlobalInstance.pm.getApplicationLabel(list.get(i).info).toString());
+            inRestoreProgress.putExtra("name", getPackageManager().getApplicationLabel(list.get(i).info).toString());
             sendBroadcast(inRestoreProgress);
             BackupRestoreUtils.restoreData(getApplicationContext(), list.get(i).info.packageName, backupPath, list.get(i));
 

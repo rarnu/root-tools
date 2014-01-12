@@ -13,7 +13,7 @@ import java.util.List;
 public class GlobalInstance {
 
     public static boolean DEBUG = false;
-    public static PackageManager pm = null;
+    // public static PackageManager pm = null;
 
     // global
     public static boolean showFloatWindow = false;
@@ -50,7 +50,7 @@ public class GlobalInstance {
     public static DeviceInfo device = null;
 
     public static void init(Context context) {
-        pm = context.getPackageManager();
+        // pm = context.getPackageManager();
         device = DeviceUtils.getDeviceInfo();
         listOperation.clear();
     }

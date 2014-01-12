@@ -101,7 +101,7 @@ public class RecommandFragment extends BaseFragment implements OnLoadCompleteLis
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         final RecommandInfo item = lstRecommand.get(position);
-        if (ApkUtils.applicationInstalled(item.packageName)) {
+        if (ApkUtils.applicationInstalled(getActivity(), item.packageName)) {
             boolean ret = ApkUtils.openApp(getActivity(), item.packageName);
             if (!ret) {
                 Toast.makeText(getActivity(), R.string.recommend_app_disabled, Toast.LENGTH_LONG).show();

@@ -44,7 +44,7 @@ public class BatchUninstallService extends BaseService {
         for (int i = 0; i < list.size(); i++) {
 
             inUninstallProgress.putExtra("position", i + 1);
-            inUninstallProgress.putExtra("name", GlobalInstance.pm.getApplicationLabel(list.get(i).info).toString());
+            inUninstallProgress.putExtra("name", getPackageManager().getApplicationLabel(list.get(i).info).toString());
             sendBroadcast(inUninstallProgress);
             // uninstall application
             BackupRestoreUtils.uninstallApp(getApplicationContext(), list.get(i).info.packageName, list.get(i));

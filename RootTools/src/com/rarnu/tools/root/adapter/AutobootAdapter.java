@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.AutobootInfo;
 import com.rarnu.tools.root.holder.AutobootAdapterHolder;
@@ -39,8 +38,8 @@ public class AutobootAdapter extends BaseAdapter<AutobootInfo> {
         }
         final AutobootInfo item = list.get(position);
         if (item != null) {
-            holder.icon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.info.applicationInfo));
-            holder.name.setText(GlobalInstance.pm.getApplicationLabel(item.info.applicationInfo));
+            holder.icon.setBackgroundDrawable(pm.getApplicationIcon(item.info.applicationInfo));
+            holder.name.setText(pm.getApplicationLabel(item.info.applicationInfo));
             holder.packageName.setText(item.info.packageName);
             holder.tvEnabled.setText(item.enabled ? R.string.package_enabled : R.string.package_disabled);
             holder.tvEnabled.setTextColor(item.enabled ? Color.GREEN : Color.RED);
@@ -56,6 +55,6 @@ public class AutobootAdapter extends BaseAdapter<AutobootInfo> {
 
     @Override
     public String getValueText(AutobootInfo item) {
-        return GlobalInstance.pm.getApplicationLabel(item.info.applicationInfo).toString() + item.info.packageName;
+        return pm.getApplicationLabel(item.info.applicationInfo).toString() + item.info.packageName;
     }
 }

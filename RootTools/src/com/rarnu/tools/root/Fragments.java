@@ -46,136 +46,205 @@ public class Fragments {
     private static RemainedFilesFragment fRemainedFiles = null;
 
     public static Fragment getFragment(String name) {
-        releaseOtherFragment(name);
+
         Fragment f = null;
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_INDEX, IndexFragment.class, fIndex);
+        if (name.equals(FragmentNameConst.FN_INDEX)) {
+            if (fIndex == null) {
+                fIndex = new IndexFragment();
+            }
+            f = fIndex;
+        } else if (name.equals(FragmentNameConst.FN_FEEDBACK)) {
+            if (fFeedback == null) {
+                fFeedback = new FeedbackFragment();
+            }
+            f = fFeedback;
+        } else if (name.equals(FragmentNameConst.FN_ABOUT)) {
+            if (fAbout == null) {
+                fAbout = new AboutFragment();
+            }
+            f = fAbout;
+        } else if (name.equals(FragmentNameConst.FN_SYSTEM_COMPONENT)) {
+            if (fSystemComponent == null) {
+                fSystemComponent = new SystemComponentFragment();
+            }
+            f = fSystemComponent;
+        } else if (name.equals(FragmentNameConst.FN_SYSAPP)) {
+            if (fSysapp == null) {
+                fSysapp = new SysappFragment();
+            }
+            f = fSysapp;
+        } else if (name.equals(FragmentNameConst.FN_SYSAPP_DETAIL)) {
+            if (fSysappDetail == null) {
+                fSysappDetail = new SysappDetailFragment();
+            }
+            f = fSysappDetail;
+        } else if (name.equals(FragmentNameConst.FN_SYSAPP_SELECTAPK)) {
+            if (fSysappSelectApk == null) {
+                fSysappSelectApk = new SysappSelectApkFragment();
+            }
+            f = fSysappSelectApk;
+        } else if (name.equals(FragmentNameConst.FN_SETTINGS)) {
+            if (fSettings == null) {
+                fSettings = new SettingsFragment();
+            }
+            f = fSettings;
+        } else if (name.equals(FragmentNameConst.FN_CLEAN_CACHE)) {
+            if (fCleanCache == null) {
+                fCleanCache = new CleanCacheFragment();
+            }
+            f = fCleanCache;
+        } else if (name.equals(FragmentNameConst.FN_ENABLEAPP)) {
+            if (fEnableapp == null) {
+                fEnableapp = new EnableappFragment();
+            }
+            f = fEnableapp;
+        } else if (name.equals(FragmentNameConst.FN_HTCROM)) {
+            if (fHtcRom == null) {
+                fHtcRom = new HtcRomFragment();
+            }
+            f = fHtcRom;
+        } else if (name.equals(FragmentNameConst.FN_COMP)) {
+            if (fComp == null) {
+                fComp = new CompContainerFragment();
+            }
+            f = fComp;
+        } else if (name.equals(FragmentNameConst.FN_COMP_PACKAGE_INFO)) {
+            if (fCompPackageInfo == null) {
+                fCompPackageInfo = new CompPackageInfoFragment();
+            }
+            f = fCompPackageInfo;
+        } else if (name.equals(FragmentNameConst.FN_MEM)) {
+            if (fMem == null) {
+                fMem = new MemFragment();
+            }
+            f = fMem;
+        } else if (name.equals(FragmentNameConst.FN_MEM_PROCESS)) {
+            if (fMemProcess == null) {
+                fMemProcess = new MemProcessFragment();
+            }
+            f = fMemProcess;
+        } else if (name.equals(FragmentNameConst.FN_HOST)) {
+            if (fHost == null) {
+                fHost = new HostFragment();
+            }
+            f = fHost;
+        } else if (name.equals(FragmentNameConst.FN_HOST_ADD)) {
+            if (fHostAdd == null) {
+                fHostAdd = new HostAddFragment();
+            }
+            f = fHostAdd;
+        } else if (name.equals(FragmentNameConst.FN_MEM_IGNORE)) {
+            if (fMemIgnore == null) {
+                fMemIgnore = new MemIgnoreFragment();
+            }
+            f = fMemIgnore;
+        } else if (name.equals(FragmentNameConst.FN_HOST_EDIT)) {
+            if (fHostEdit == null) {
+                fHostEdit = new HostEditFragment();
+            }
+            f = fHostEdit;
+        } else if (name.equals(FragmentNameConst.FN_HOST_DEPRECATED)) {
+            if (fHostDeprecated == null) {
+                fHostDeprecated = new HostDeprecatedFragment();
+            }
+            f = fHostDeprecated;
+        } else if (name.equals(FragmentNameConst.FN_RECOMMAND)) {
+            if (fRecommand == null) {
+                fRecommand = new RecommandFragment();
+            }
+            f = fRecommand;
+        } else if (name.equals(FragmentNameConst.FN_DATAAPP_REPORT)) {
+            if (fDataappReport == null) {
+                fDataappReport = new DataappReportFragment();
+            }
+            f = fDataappReport;
+        } else if (name.equals(FragmentNameConst.FN_BACKUP)) {
+            if (fBackup == null) {
+                fBackup = new BackupFragment();
+            }
+            f = fBackup;
+        } else if (name.equals(FragmentNameConst.FN_RESTORE)) {
+            if (fRestore == null) {
+                fRestore = new RestoreFragment();
+            }
+            f = fRestore;
+        } else if (name.equals(FragmentNameConst.FN_CUSTOM_CLEAN)) {
+            if (fCustomClean == null) {
+                fCustomClean = new CustomCleanManagerFragment();
+            }
+            f = fCustomClean;
+        } else if (name.equals(FragmentNameConst.FN_TERMINAL)) {
+            if (fTerminal == null) {
+                fTerminal = new TerminalFragment();
+            }
+            f = fTerminal;
+        } else if (name.equals(FragmentNameConst.FN_HARD_UPDATE)) {
+            if (fHardUpdate == null) {
+                fHardUpdate = new HardUpdateFragment();
+            }
+            f = fHardUpdate;
+        } else if (name.equals(FragmentNameConst.FN_DISKINFO)) {
+            if (fDiskInfo == null) {
+                fDiskInfo = new DiskInfoFragment();
+            }
+            f = fDiskInfo;
+        } else if (name.equals(FragmentNameConst.FN_FILESYSTEM)) {
+            if (fFileSystem == null) {
+                fFileSystem = new FileSystemFragment();
+            }
+            f = fFileSystem;
+        } else if (name.equals(FragmentNameConst.FN_POOL)) {
+            if (fPool == null) {
+                fPool = new PoolFragment();
+            }
+            f = fPool;
+        } else if (name.equals(FragmentNameConst.FN_TEXT_EDITOR)) {
+            if (fTextEditor == null) {
+                fTextEditor = new TextEditorFragment();
+            }
+            f = fTextEditor;
+        } else if (name.equals(FragmentNameConst.FN_INSTALL_APK)) {
+            if (fInstallApk == null) {
+                fInstallApk = new InstallApkFragment();
+            }
+            f = fInstallApk;
+        } else if (name.equals(FragmentNameConst.FN_BATCH_APPS)) {
+            if (fBatchApps == null) {
+                fBatchApps = new BatchAppsFragment();
+            }
+            f = fBatchApps;
+        } else if (name.equals(FragmentNameConst.FN_FIREWALL)) {
+            if (fFirewall == null) {
+                fFirewall = new FirewallFragment();
+            }
+            f = fFirewall;
+        } else if (name.equals(FragmentNameConst.FN_BUILD_TEAM)) {
+            if (fBuildTeam == null) {
+                fBuildTeam = new BuildTeamFragment();
+            }
+            f = fBuildTeam;
+        } else if (name.equals(FragmentNameConst.FN_SHARE)) {
+            if (fShare == null) {
+                fShare = new ShareFragment();
+            }
+            f = fShare;
+        } else if (name.equals(FragmentNameConst.FN_GOOGLE)) {
+            if (fGoogle == null) {
+                fGoogle = new GoogleFragment();
+            }
+            f = fGoogle;
+        } else if (name.equals(FragmentNameConst.FN_REMAINED_FILES)) {
+            if (fRemainedFiles == null) {
+                fRemainedFiles = new RemainedFilesFragment();
+            }
+            f = fRemainedFiles;
         }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_FEEDBACK, FeedbackFragment.class, fFeedback);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_ABOUT, AboutFragment.class, fAbout);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_SYSTEM_COMPONENT, SystemComponentFragment.class, fSystemComponent);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_SYSAPP, SysappFragment.class, fSysapp);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_SYSAPP_DETAIL, SysappDetailFragment.class, fSysappDetail);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_SYSAPP_SELECTAPK, SysappSelectApkFragment.class, fSysappSelectApk);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_SETTINGS, SettingsFragment.class, fSettings);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_CLEAN_CACHE, CleanCacheFragment.class, fCleanCache);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_ENABLEAPP, EnableappFragment.class, fEnableapp);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_HTCROM, HtcRomFragment.class, fHtcRom);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_COMP, CompContainerFragment.class, fComp);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_COMP_PACKAGE_INFO, CompPackageInfoFragment.class, fCompPackageInfo);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_MEM, MemFragment.class, fMem);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_MEM_PROCESS, MemProcessFragment.class, fMemProcess);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_HOST, HostFragment.class, fHost);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_HOST_ADD, HostAddFragment.class, fHostAdd);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_MEM_IGNORE, MemIgnoreFragment.class, fMemIgnore);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_HOST_EDIT, HostEditFragment.class, fHostEdit);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_HOST_DEPRECATED, HostDeprecatedFragment.class, fHostDeprecated);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_RECOMMAND, RecommandFragment.class, fRecommand);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_DATAAPP_REPORT, DataappReportFragment.class, fDataappReport);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_BACKUP, BackupFragment.class, fBackup);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_RESTORE, RestoreFragment.class, fRestore);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_CUSTOM_CLEAN, CustomCleanManagerFragment.class, fCustomClean);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_TERMINAL, TerminalFragment.class, fTerminal);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_HARD_UPDATE, HardUpdateFragment.class, fHardUpdate);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_DISKINFO, DiskInfoFragment.class, fDiskInfo);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_FILESYSTEM, FileSystemFragment.class, fFileSystem);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_POOL, PoolFragment.class, fPool);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_TEXT_EDITOR, TextEditorFragment.class, fTextEditor);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_INSTALL_APK, InstallApkFragment.class, fInstallApk);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_BATCH_APPS, BatchAppsFragment.class, fBatchApps);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_FIREWALL, FirewallFragment.class, fFirewall);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_BUILD_TEAM, BuildTeamFragment.class, fBuildTeam);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_SHARE, ShareFragment.class, fShare);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_GOOGLE, GoogleFragment.class, fGoogle);
-        }
-        if (f == null) {
-            f = getFragment(name, FragmentNameConst.FN_REMAINED_FILES, RemainedFilesFragment.class, fRemainedFiles);
-        }
+
         return f;
     }
 
-    private static Fragment getFragment(String name, String checkName, Class<?> fClass, Fragment f) {
-        if (name.equals(checkName)) {
-            if (f == null) {
-                try {
-                    f = (Fragment) fClass.newInstance();
-                } catch (Exception e) {
+    public static void loadFragments() {
 
-                }
-            }
-        }
-        return f;
     }
 
     public static void releaseFragments() {
@@ -218,48 +287,5 @@ public class Fragments {
         fRemainedFiles = null;
     }
 
-    public static void releaseOtherFragment(String name) {
-        doReleaseFragment(name, FragmentNameConst.FN_FEEDBACK, fFeedback);
-        doReleaseFragment(name, FragmentNameConst.FN_ABOUT, fAbout);
-        doReleaseFragment(name, FragmentNameConst.FN_SYSTEM_COMPONENT, fSystemComponent);
-        doReleaseFragment(name, FragmentNameConst.FN_SYSAPP, fSysapp);
-        doReleaseFragment(name, FragmentNameConst.FN_SYSAPP_DETAIL, fSysappDetail);
-        doReleaseFragment(name, FragmentNameConst.FN_SYSAPP_SELECTAPK, fSysappSelectApk);
-        doReleaseFragment(name, FragmentNameConst.FN_SETTINGS, fSettings);
-        doReleaseFragment(name, FragmentNameConst.FN_CLEAN_CACHE, fCleanCache);
-        doReleaseFragment(name, FragmentNameConst.FN_ENABLEAPP, fEnableapp);
-        doReleaseFragment(name, FragmentNameConst.FN_HTCROM, fHtcRom);
-        doReleaseFragment(name, FragmentNameConst.FN_COMP, fComp);
-        doReleaseFragment(name, FragmentNameConst.FN_COMP_PACKAGE_INFO, fCompPackageInfo);
-        doReleaseFragment(name, FragmentNameConst.FN_MEM, fMem);
-        doReleaseFragment(name, FragmentNameConst.FN_HOST, fHost);
-        doReleaseFragment(name, FragmentNameConst.FN_HOST_ADD, fHostAdd);
-        doReleaseFragment(name, FragmentNameConst.FN_MEM_IGNORE, fMemIgnore);
-        doReleaseFragment(name, FragmentNameConst.FN_HOST_EDIT, fHostEdit);
-        doReleaseFragment(name, FragmentNameConst.FN_HOST_DEPRECATED, fHostDeprecated);
-        doReleaseFragment(name, FragmentNameConst.FN_RECOMMAND, fRecommand);
-        doReleaseFragment(name, FragmentNameConst.FN_DATAAPP_REPORT, fDataappReport);
-        doReleaseFragment(name, FragmentNameConst.FN_BACKUP, fBackup);
-        doReleaseFragment(name, FragmentNameConst.FN_RESTORE, fRestore);
-        doReleaseFragment(name, FragmentNameConst.FN_CUSTOM_CLEAN, fCustomClean);
-        doReleaseFragment(name, FragmentNameConst.FN_TERMINAL, fTerminal);
-        doReleaseFragment(name, FragmentNameConst.FN_HARD_UPDATE, fHardUpdate);
-        doReleaseFragment(name, FragmentNameConst.FN_DISKINFO, fDiskInfo);
-        doReleaseFragment(name, FragmentNameConst.FN_FILESYSTEM, fFileSystem);
-        doReleaseFragment(name, FragmentNameConst.FN_POOL, fPool);
-        doReleaseFragment(name, FragmentNameConst.FN_TEXT_EDITOR, fTextEditor);
-        doReleaseFragment(name, FragmentNameConst.FN_INSTALL_APK, fInstallApk);
-        doReleaseFragment(name, FragmentNameConst.FN_BATCH_APPS, fBatchApps);
-        doReleaseFragment(name, FragmentNameConst.FN_FIREWALL, fFirewall);
-        doReleaseFragment(name, FragmentNameConst.FN_BUILD_TEAM, fBuildTeam);
-        doReleaseFragment(name, FragmentNameConst.FN_SHARE, fShare);
-        doReleaseFragment(name, FragmentNameConst.FN_GOOGLE, fGoogle);
-        doReleaseFragment(name, FragmentNameConst.FN_REMAINED_FILES, fRemainedFiles);
-    }
 
-    private static void doReleaseFragment(String name, String checkName, Fragment f) {
-        if (!name.equals(checkName)) {
-            f = null;
-        }
-    }
 }

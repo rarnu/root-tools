@@ -41,8 +41,8 @@ public class CompPackageAdapter extends BaseAdapter<PackageInfo> {
 
         if (item != null) {
 
-            holder.itemIcon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.applicationInfo));
-            holder.itemName.setText(GlobalInstance.pm.getApplicationLabel(item.applicationInfo));
+            holder.itemIcon.setBackgroundDrawable(pm.getApplicationIcon(item.applicationInfo));
+            holder.itemName.setText(pm.getApplicationLabel(item.applicationInfo));
 
             holder.itemName.setTextColor(DrawableUtils.getTextColorPrimary(context));
             if (item.applicationInfo.sourceDir.contains("/system/app/")) {
@@ -58,6 +58,6 @@ public class CompPackageAdapter extends BaseAdapter<PackageInfo> {
 
     @Override
     public String getValueText(PackageInfo item) {
-        return GlobalInstance.pm.getApplicationLabel(item.applicationInfo) + item.packageName;
+        return pm.getApplicationLabel(item.applicationInfo) + item.packageName;
     }
 }

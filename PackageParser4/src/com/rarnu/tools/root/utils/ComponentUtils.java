@@ -9,7 +9,6 @@ import android.content.pm.PackageParser;
 import android.util.DisplayMetrics;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.CompInfo;
 import com.rarnu.tools.root.common.EnableappInfo;
 
@@ -70,20 +69,20 @@ public class ComponentUtils {
         }
     }
 
-    public static boolean doEnabledComponent(ComponentName receiverName) {
+    public static boolean doEnabledComponent(Context context, ComponentName receiverName) {
 
         try {
             RootUtils.runCommand(String.format("pm enable '%s/%s'", receiverName.getPackageName(), receiverName.getClassName()), true, null);
-            return GlobalInstance.pm.getComponentEnabledSetting(receiverName) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+            return context.getPackageManager().getComponentEnabledSetting(receiverName) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
         } catch (Throwable th) {
             return false;
         }
     }
 
-    public static boolean doDisableComponent(ComponentName receiverName) {
+    public static boolean doDisableComponent(Context context, ComponentName receiverName) {
         try {
             RootUtils.runCommand(String.format("pm disable '%s/%s'", receiverName.getPackageName(), receiverName.getClassName()), true, null);
-            return GlobalInstance.pm.getComponentEnabledSetting(receiverName) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+            return context.getPackageManager().getComponentEnabledSetting(receiverName) == PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
         } catch (Throwable th) {
             return false;
         }
@@ -97,25 +96,27 @@ public class ComponentUtils {
         return pkg;
     }
 
-    public static List<CompInfo> getPackageRSList(PackageParser.Package pkg) {
+    public static List<CompInfo> getPackageRSList(Context context, PackageParser.Package pkg) {
         List<CompInfo> lstComponentInfo = new ArrayList<CompInfo>();
+        if (context != null) {
+            PackageManager pm = context.getPackageManager();
+            List<PackageParser.Activity> lstReceiver = pkg.receivers;
+            for (PackageParser.Activity a : lstReceiver) {
+                CompInfo info = new CompInfo();
+                info.component = a;
+                info.fullPackageName = a.getComponentName().getClassName();
+                info.enabled = pm.getComponentEnabledSetting(a.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+                lstComponentInfo.add(info);
+            }
 
-        List<PackageParser.Activity> lstReceiver = pkg.receivers;
-        for (PackageParser.Activity a : lstReceiver) {
-            CompInfo info = new CompInfo();
-            info.component = a;
-            info.fullPackageName = a.getComponentName().getClassName();
-            info.enabled = GlobalInstance.pm.getComponentEnabledSetting(a.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-            lstComponentInfo.add(info);
-        }
-
-        List<PackageParser.Service> lstService = pkg.services;
-        for (PackageParser.Service s : lstService) {
-            CompInfo info = new CompInfo();
-            info.component = s;
-            info.fullPackageName = s.getComponentName().getClassName();
-            info.enabled = GlobalInstance.pm.getComponentEnabledSetting(s.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
-            lstComponentInfo.add(info);
+            List<PackageParser.Service> lstService = pkg.services;
+            for (PackageParser.Service s : lstService) {
+                CompInfo info = new CompInfo();
+                info.component = s;
+                info.fullPackageName = s.getComponentName().getClassName();
+                info.enabled = pm.getComponentEnabledSetting(s.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED;
+                lstComponentInfo.add(info);
+            }
         }
         return lstComponentInfo;
     }

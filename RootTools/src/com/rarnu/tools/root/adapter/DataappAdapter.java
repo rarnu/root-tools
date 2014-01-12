@@ -60,8 +60,8 @@ public class DataappAdapter extends BaseAdapter<DataappInfo> {
             holder.select.setChecked(item.checked);
 
             if (type == 1) {
-                holder.icon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.info));
-                holder.name.setText(GlobalInstance.pm.getApplicationLabel(item.info));
+                holder.icon.setBackgroundDrawable(pm.getApplicationIcon(item.info));
+                holder.name.setText(pm.getApplicationLabel(item.info));
                 holder.path.setText(item.info.dataDir);
             } else {
                 holder.icon.setBackgroundDrawable(ApkUtils.getIconFromPackage(v.getContext(), item.info, GlobalInstance.backupPath));
@@ -90,6 +90,6 @@ public class DataappAdapter extends BaseAdapter<DataappInfo> {
 
     @Override
     public String getValueText(DataappInfo item) {
-        return GlobalInstance.pm.getApplicationLabel(item.info).toString() + item.info.packageName;
+        return pm.getApplicationLabel(item.info).toString() + item.info.packageName;
     }
 }

@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.CacheInfo;
 import com.rarnu.tools.root.holder.CacheAdapterHolder;
@@ -36,8 +35,8 @@ public class CacheAdapter extends BaseAdapter<CacheInfo> {
         }
         CacheInfo item = list.get(position);
         if (item != null) {
-            holder.imgIcon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.info.applicationInfo));
-            holder.tvName.setText(GlobalInstance.pm.getApplicationLabel(item.info.applicationInfo));
+            holder.imgIcon.setBackgroundDrawable(pm.getApplicationIcon(item.info.applicationInfo));
+            holder.tvName.setText(pm.getApplicationLabel(item.info.applicationInfo));
             holder.tvPath.setText(item.info.applicationInfo.sourceDir);
             holder.tvCache.setText(item.cacheSize);
         }
@@ -46,6 +45,6 @@ public class CacheAdapter extends BaseAdapter<CacheInfo> {
 
     @Override
     public String getValueText(CacheInfo item) {
-        return GlobalInstance.pm.getApplicationLabel(item.info.applicationInfo).toString() + item.info.packageName;
+        return pm.getApplicationLabel(item.info.applicationInfo).toString() + item.info.packageName;
     }
 }

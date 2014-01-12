@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.AndroidCharacter;
 import android.view.Menu;
 import android.view.MenuItem;
 import com.rarnu.command.RootUtils;
@@ -80,7 +79,7 @@ public class MainActivity extends BaseMainActivity {
 
     @Override
     public void loadFragments() {
-
+        Fragments.loadFragments();
     }
 
     @Override
@@ -120,7 +119,7 @@ public class MainActivity extends BaseMainActivity {
 
     @Override
     public int customTheme() {
-        return GlobalInstance.theme? android.R.style.Theme_Holo_Light: android.R.style.Theme_Holo;
+        return GlobalInstance.theme ? android.R.style.Theme_Holo_Light : android.R.style.Theme_Holo;
     }
 
     @Override
@@ -197,7 +196,7 @@ public class MainActivity extends BaseMainActivity {
                 startActivity(inShare);
                 break;
         }
-        return true;
+        return false;
     }
 
     @Override

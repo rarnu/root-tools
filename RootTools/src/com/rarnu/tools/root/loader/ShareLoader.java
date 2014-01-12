@@ -3,7 +3,6 @@ package com.rarnu.tools.root.loader;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import com.rarnu.devlib.base.BaseLoader;
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.common.ShareItem;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.DirHelper;
@@ -58,10 +57,10 @@ public class ShareLoader extends BaseLoader<ShareItem> {
         for (int i = 0; i < sharePackage.length; i++) {
             appinfo = null;
             if (sharePackage[i].contains("|")) {
-                appinfo = ApkUtils.findApplication(sharePackage[i], shareSystem[i].equals("true"));
+                appinfo = ApkUtils.findApplication(getContext(), sharePackage[i], shareSystem[i].equals("true"));
             } else {
                 try {
-                    appinfo = GlobalInstance.pm.getApplicationInfo(sharePackage[i], 0);
+                    appinfo = getContext().getPackageManager().getApplicationInfo(sharePackage[i], 0);
                 } catch (Exception e) {
 
                 }

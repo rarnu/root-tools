@@ -39,7 +39,7 @@ public class BackupRestoreUtils {
                     newinfo.checked = false;
                     newinfo.position = position;
                     newinfo.localPath = path + s;
-                    newinfo.installed = ApkUtils.isAppInstalled(newinfo.info.packageName);
+                    newinfo.installed = ApkUtils.isAppInstalled(context, newinfo.info.packageName);
                     res.add(newinfo);
                     position++;
                 }

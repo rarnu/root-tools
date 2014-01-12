@@ -47,7 +47,7 @@ public class IptablesAdapter extends BaseAdapter<IptablePackageInfo> {
         if (item != null) {
             holder.app = item;
             holder.name.setText(item.toString());
-            holder.icon.setBackgroundDrawable(item.appinfo != null ? GlobalInstance.pm.getApplicationIcon(item.appinfo) : null);
+            holder.icon.setBackgroundDrawable(item.appinfo != null ? pm.getApplicationIcon(item.appinfo) : null);
             holder.chkWifi.setChecked(item.selected_wifi);
             holder.chk3g.setChecked(item.selected_3g);
             holder.chkWifi.setOnClickListener(new View.OnClickListener() {

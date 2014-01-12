@@ -49,8 +49,8 @@ public class EnableappAdapter extends BaseAdapter<EnableappInfo> {
         }
         final EnableappInfo item = list.get(position);
         if (item != null) {
-            holder.icon.setBackgroundDrawable(GlobalInstance.pm.getApplicationIcon(item.info));
-            holder.name.setText(GlobalInstance.pm.getApplicationLabel(item.info));
+            holder.icon.setBackgroundDrawable(pm.getApplicationIcon(item.info));
+            holder.name.setText(pm.getApplicationLabel(item.info));
             holder.path.setText(item.info.dataDir);
             holder.tvEnabled.setText(item.enabled ? R.string.package_enabled : R.string.package_disabled);
             holder.tvEnabled.setTextColor(item.enabled ? Color.GREEN : Color.RED);
@@ -67,6 +67,6 @@ public class EnableappAdapter extends BaseAdapter<EnableappInfo> {
 
     @Override
     public String getValueText(EnableappInfo item) {
-        return GlobalInstance.pm.getApplicationLabel(item.info).toString() + item.info.packageName;
+        return pm.getApplicationLabel(item.info).toString() + item.info.packageName;
     }
 }
