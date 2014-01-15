@@ -38,6 +38,16 @@
             android:text="@string/fit_44"
             android:textColor="@color/greenyellow" />
 
+    <TextView
+            android:id="@+id/tvOfficialCheck"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/tvFitable"
+            android:layout_marginRight="16dip"
+            android:layout_marginTop="16dip"
+            android:textColor="@color/greenyellow" />
+
     <ImageView
             android:id="@+id/imgSplash"
             android:layout_width="match_parent"

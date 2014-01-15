@@ -429,4 +429,13 @@
     <string name="remained_files_empty">No remained files found, do NOT need a clean.</string>
     <string name="remained_files_delete">Are you sure to delete the remained file? It may be used in somewhere.</string>
     <string name="emulator_hint">Cannot run in an emulator</string>
+    <string name="update_log">Update Log</string>
+    <string name="update_title" formatted="false">Version: %s (Size: %s)</string>
+
+    <string name="official_yes">Official Release</string>
+    <string name="official_no">Unofficial Build</string>
+    <string name="toast_updating_self">Now updating, please restart RootTools after updated.</string>
+    <string name="toast_download_update_failed">Download update file failed, please retry.</string>
+    <string name="unofficial_no_update">Not an official version, cannot update</string>
+    <string name="updating_cannot_exit">Updating, cannot exit the process now.</string>
 </resources>

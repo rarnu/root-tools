@@ -29,7 +29,7 @@ public class MainActivity extends BaseMainActivity {
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
                 if (GlobalInstance.updateInfo != null && GlobalInstance.updateInfo.result != 0) {
-                    UpdateUtils.showUpdateInfo(MainActivity.this);
+                    UpdateUtils.showUpdateInfo(MainActivity.this, true);
                 }
             }
             super.handleMessage(msg);

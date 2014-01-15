@@ -7,19 +7,20 @@ import android.content.Intent;
 import android.content.Loader;
 import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.KeyEvent;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.loader.SplashLoader;
-import com.rarnu.tools.root.utils.DeviceUtils;
-import com.rarnu.tools.root.utils.DirHelper;
-import com.rarnu.tools.root.utils.IptablesUtils;
-import com.rarnu.tools.root.utils.ShareUtils;
+import com.rarnu.tools.root.utils.*;
 import com.rarnu.utils.*;
+import com.rarnu.utils.FileUtils;
 
 import java.io.File;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -29,6 +30,7 @@ public class SplashActivity extends Activity implements Loader.OnLoadCompleteLis
     TextView tvVersion;
     ImageView imgSplash;
     SplashLoader loader;
+    TextView tvOfficialCheck;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -46,10 +48,12 @@ public class SplashActivity extends Activity implements Loader.OnLoadCompleteLis
         setContentView(R.layout.layout_splash);
         tvVersion = (TextView) findViewById(R.id.tvVersion);
         imgSplash = (ImageView) findViewById(R.id.imgSplash);
+        tvOfficialCheck = (TextView) findViewById(R.id.tvOfficialCheck);
         loader = new SplashLoader(this);
         loader.registerListener(0, this);
         loader.startLoading();
         showVersion();
+        checkSignatureT();
         loadLocalSplashImage();
 
         DirHelper.makeDir();
@@ -159,5 +163,35 @@ public class SplashActivity extends Activity implements Loader.OnLoadCompleteLis
         } catch (Exception e) {
 
         }
+    }
+
+    private Handler hSignature = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                tvOfficialCheck.setTextColor(getResources().getColor(GlobalInstance.isOfficialVersion ? R.color.greenyellow : R.color.red));
+                tvOfficialCheck.setText(GlobalInstance.isOfficialVersion ? R.string.official_yes : R.string.official_no);
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+    private void checkSignatureT() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    String standardSig = FileUtils.readAssetFile(SplashActivity.this, "sig").trim();
+                    String apkPath = getPackageManager().getApplicationInfo(getPackageName(), 0).publicSourceDir;
+                    List<String> sigs = SignatureUtils.getSignaturesFromApk(apkPath);
+                    String sig = sigs.get(0).trim();
+                    String finalSig = sig.substring(0, 15) + sig.substring(sig.length() - 15);
+                    GlobalInstance.isOfficialVersion = finalSig.equals(standardSig);
+                } catch (Exception e) {
+                    GlobalInstance.isOfficialVersion = false;
+                }
+                hSignature.sendEmptyMessage(1);
+            }
+        }).start();
     }
 }

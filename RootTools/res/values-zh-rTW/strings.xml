@@ -403,4 +403,13 @@
     <string name="remained_files_empty">沒有找到殘留檔案，無需清理</string>
     <string name="remained_files_delete">您確認要刪除這項殘留檔案嗎？也許它還將被使用</string>
     <string name="emulator_hint">無法在模擬機中運行</string>
+    <string name="update_log">更新日志</string>
+    <string name="update_title" formatted="false">版本: %s (大小: %s)</string>
+
+    <string name="official_yes">官方版</string>
+    <string name="official_no">非官方構建</string>
+    <string name="toast_updating_self">正在安裝更新, 請在更新完畢後重新啓動掌優</string>
+    <string name="toast_download_update_failed">下載升級文件失敗, 請重試</string>
+    <string name="unofficial_no_update">非官方發布版本, 無法升級</string>
+    <string name="updating_cannot_exit">正在升級, 不能退出這一過程</string>
 </resources>

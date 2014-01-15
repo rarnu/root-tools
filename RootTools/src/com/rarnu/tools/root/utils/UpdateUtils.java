@@ -4,23 +4,23 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
-import android.net.Uri;
-import android.text.Html;
-import android.widget.TextView;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.api.MobileApi;
-import com.rarnu.utils.UIUtils;
+import com.rarnu.tools.root.fragmentactivity.UpdateActivity;
 
 public class UpdateUtils {
 
-    public static void showUpdateInfo(final Context context) {
+    public static void showUpdateInfo(final Context context, boolean showDialog) {
 
         if (GlobalInstance.updateInfo == null
                 || GlobalInstance.updateInfo.result == 0) {
             noUpdate(context);
         } else {
-            showUpdate(context);
+            if (showDialog) {
+                showUpdate(context);
+            } else {
+                openUpdateActivity(context);
+            }
         }
     }
 
@@ -35,22 +35,16 @@ public class UpdateUtils {
 
     private static void showUpdate(final Context context) {
         if (context != null) {
-            final TextView tv = new TextView(context);
             String msg = String.format(context.getString(R.string.update_found_info), GlobalInstance.updateInfo.versionName, GlobalInstance.updateInfo.size);
-            msg += "<br><br>" + GlobalInstance.updateInfo.desc;
-            tv.setText(Html.fromHtml(msg));
-            final int padding = UIUtils.dipToPx(8);
-            tv.setPadding(padding, padding, padding, padding);
             new AlertDialog.Builder(context)
                     .setTitle(R.string.check_update)
                     .setCancelable(false)
-                    .setView(tv)
+                    .setMessage(msg)
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
 
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            sendDownloadIntent(context);
-
+                            openUpdateActivity(context);
                         }
                     })
                     .setNegativeButton(R.string.cancel, null)
@@ -58,12 +52,9 @@ public class UpdateUtils {
         }
     }
 
-    private static void sendDownloadIntent(Context context) {
-        // download new version
-        String downUrl = MobileApi.DOWNLOAD_BASE_URL + GlobalInstance.updateInfo.file;
-        Intent inDownload = new Intent(Intent.ACTION_VIEW);
-        inDownload.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        inDownload.setData(Uri.parse(downUrl));
-        context.startActivity(inDownload);
+    private static void openUpdateActivity(Context context) {
+        Intent inUpdate = new Intent(context, UpdateActivity.class);
+        context.startActivity(inUpdate);
     }
+
 }

@@ -540,7 +540,6 @@ public class ApkUtils {
         resolveIntent.addCategory(Intent.CATEGORY_LAUNCHER);
         resolveIntent.setPackage(pi.packageName);
 
-
         boolean ret = false;
         if (context != null) {
             List<ResolveInfo> apps = context.getPackageManager().queryIntentActivities(resolveIntent, 0);
@@ -681,4 +680,10 @@ public class ApkUtils {
         return info;
     }
 
+    public static void openInstallApk(Context context, String apkPath) {
+        Intent intent = new Intent(Intent.ACTION_VIEW);
+        intent.setDataAndType(Uri.parse("file://" + apkPath), "application/vnd.android.package-archive");
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        context.startActivity(intent);
+    }
 }

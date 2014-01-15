@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ScrollView android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/pbDownload"
+            android:layout_marginBottom="8dip">
+        <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="8dip">
+
+            <TextView
+                    android:id="@+id/tvCannotUpdate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/unofficial_no_update"
+                    android:textColor="@color/red"
+                    android:visibility="gone"
+                    />
+
+            <TextView
+                    android:id="@+id/tvUpdateTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@string/update_title"
+                    android:layout_below="@+id/tvCannotUpdate"
+                    android:layout_marginTop="4dip" />
+
+            <TextView
+                    android:id="@+id/tvDescTitle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="?android:attr/textColorPrimary"
+                    android:text="@string/update_log"
+                    android:layout_below="@+id/tvUpdateTitle"
+                    android:layout_marginTop="4dip" />
+            <TextView
+                    android:id="@+id/tvUpdateDesc"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="left|top"
+                    android:layout_below="@+id/tvDescTitle"
+                    android:padding="8dip"
+                    android:textColor="?android:attr/textColorPrimary" />
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+    <ProgressBar
+            android:id="@+id/pbDownload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/tvDownload"
+            android:visibility="gone"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            style="?android:attr/progressBarStyleHorizontal"
+            />
+
+    <TextView
+            android:id="@+id/tvDownload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/btnDownload"
+            android:gravity="center_vertical|left"
+            android:visibility="gone"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:textColor="?android:attr/textColorPrimary" />
+
+    <Button
+            android:id="@+id/btnDownload"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            style="?android:attr/buttonBarButtonStyle"
+            android:layout_marginLeft="48dip"
+            android:layout_marginRight="48dip"
+            android:text="@string/download"
+            android:layout_marginBottom="8dip" />
+</RelativeLayout>

@@ -44,6 +44,7 @@ public class Fragments {
     private static ShareFragment fShare = null;
     private static GoogleFragment fGoogle = null;
     private static RemainedFilesFragment fRemainedFiles = null;
+    private static UpdateFragment fUpdate = null;
 
     public static Fragment getFragment(String name) {
 
@@ -238,6 +239,11 @@ public class Fragments {
                 fRemainedFiles = new RemainedFilesFragment();
             }
             f = fRemainedFiles;
+        } else if (name.equals(FragmentNameConst.FN_UPDATE)) {
+            if (fUpdate == null) {
+                fUpdate = new UpdateFragment();
+            }
+            f = fUpdate;
         }
 
         return f;
@@ -285,7 +291,7 @@ public class Fragments {
         fShare = null;
         fGoogle = null;
         fRemainedFiles = null;
+        fUpdate = null;
     }
-
 
 }

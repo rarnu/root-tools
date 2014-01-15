@@ -45,6 +45,17 @@
             android:textColor="?android:attr/textColorPrimary" />
 
         <TextView
+                android:id="@+id/tvOfficial"
+                android:layout_width="wrap_content"
+                android:layout_height="24dip"
+                android:layout_marginLeft="8dip"
+                android:layout_toRightOf="@+id/tvDebug"
+                android:gravity="left|center_vertical"
+                android:text="@string/official_no"
+                android:textColor="@color/red"
+                android:visibility="gone"/>
+
+        <TextView
             android:id="@+id/tvCopyright"
             android:layout_width="match_parent"
             android:layout_height="24dip"

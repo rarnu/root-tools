@@ -36,6 +36,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
     List<AboutInfo> list = null;
     PartnerAdapter adapterPartner = null;
     List<Integer> listPartner = null;
+    TextView tvOfficial;
     int fitable = 5;
     int fitableClick = 0;
 
@@ -76,6 +77,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
         lstAbout = (BlockListView) innerView.findViewById(R.id.lstAbout);
         lstEoe = (BlockListView) innerView.findViewById(R.id.lstEoe);
         tvAbout = (TextView) innerView.findViewById(R.id.tvAbout);
+        tvOfficial = (TextView) innerView.findViewById(R.id.tvOfficial);
 
         lstAbout.setItemHeight(UIUtils.dipToPx(56));
         lstEoe.setItemHeight(UIUtils.dipToPx(64));
@@ -129,6 +131,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
 
         }
         tvAbout.setText(aboutText);
+        tvOfficial.setVisibility(GlobalInstance.isOfficialVersion ? View.GONE : View.VISIBLE);
     }
 
     private AboutInfo buildAboutInfo(int resTitle, int fitable) {
@@ -155,7 +158,7 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
         } else {
             switch (position) {
                 case 0:
-                    UpdateUtils.showUpdateInfo(getActivity());
+                    UpdateUtils.showUpdateInfo(getActivity(), false);
                     break;
                 case 1:
                     // build team
