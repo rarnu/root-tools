@@ -91,8 +91,9 @@ public class GoogleUtils {
                         newFilePath = DirHelper.GOOGLE_DIR + sdkVer + "/" + item.path + "/" + item.fileName;
                         break;
                 }
-                ret = ApkUtils.checkSignature(filePath, newFilePath) ? 0 : 2;
-
+                if (new File(newFilePath).exists()) {
+                    ret = ApkUtils.checkSignature(filePath, newFilePath) ? 0 : 2;
+                }
             } else {
                 ret = 0;
             }
