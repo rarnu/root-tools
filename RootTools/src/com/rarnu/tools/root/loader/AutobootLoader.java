@@ -19,7 +19,7 @@ public class AutobootLoader extends BaseLoader<AutobootInfo> {
         List<AutobootInfo> list = null;
 
         if (getContext() != null) {
-            list = AutobootUtils.getAuobootApps(getContext(), UIUtils.getDM());
+            list = AutobootUtils.getAutobootApps(getContext(), UIUtils.getDM());
         }
         return list;
     }

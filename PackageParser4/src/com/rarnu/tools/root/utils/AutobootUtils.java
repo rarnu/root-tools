@@ -14,7 +14,7 @@ import java.util.List;
 
 public class AutobootUtils {
 
-    public static List<AutobootInfo> getAuobootApps(Context context, DisplayMetrics dm) {
+    public static List<AutobootInfo> getAutobootApps(Context context, DisplayMetrics dm) {
         List<AutobootInfo> list = new ArrayList<AutobootInfo>();
         if (context != null) {
             PackageManager pm = context.getPackageManager();
@@ -73,22 +73,26 @@ public class AutobootUtils {
     private static int isEnabled(Context context, PackageInfo info, DisplayMetrics dm) {
         int ret = -1;
         if (context != null) {
-            PackageParser.Package pkg = ComponentUtils.parsePackageInfo(info, dm);
-            List<PackageParser.Activity> receivers = pkg.receivers;
-            for (PackageParser.Activity ri : receivers) {
-                if (ri.intents != null && ri.intents.size() != 0) {
-                    for (PackageParser.ActivityIntentInfo aii : ri.intents) {
-                        if (aii.countActions() > 0) {
-                            for (int i = 0; i < aii.countActions(); i++) {
-                                if (aii.getAction(i).equals(Intent.ACTION_BOOT_COMPLETED)) {
-                                    ret = (context.getPackageManager().getComponentEnabledSetting(ri.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) ? 1 : 0;
-                                    break;
+            try {
+                PackageParser.Package pkg = ComponentUtils.parsePackageInfo(info, dm);
+                List<PackageParser.Activity> receivers = pkg.receivers;
+                for (PackageParser.Activity ri : receivers) {
+                    if (ri.intents != null && ri.intents.size() != 0) {
+                        for (PackageParser.ActivityIntentInfo aii : ri.intents) {
+                            if (aii.countActions() > 0) {
+                                for (int i = 0; i < aii.countActions(); i++) {
+                                    if (aii.getAction(i).equals(Intent.ACTION_BOOT_COMPLETED)) {
+                                        ret = (context.getPackageManager().getComponentEnabledSetting(ri.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) ? 1 : 0;
+                                        break;
+                                    }
                                 }
                             }
                         }
-                    }
 
+                    }
                 }
+            } catch (Exception e) {
+
             }
         }
         return ret;

@@ -633,7 +633,11 @@ public class ApkUtils {
             sig2 = SignatureUtils.getSignaturesFromApk(apk2);
         } catch (IOException e) {
         }
-        return sig1.equals(sig2);
+        if (sig1 == null || sig2 == null) {
+            return false;
+        } else {
+            return sig1.equals(sig2);
+        }
     }
 
     public static ApplicationInfo findApplication(Context context, String regex, boolean system) {
