@@ -77,7 +77,7 @@ public class ApkUtils {
             }
 
             int position = 0;
-            if (packs != null & packs.size() != 0) {
+            if (packs != null && packs.size() != 0) {
                 for (PackageInfo p : packs) {
 
                     ApplicationInfo newInfo = p.applicationInfo;
