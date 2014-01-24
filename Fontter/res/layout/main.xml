@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="8dip"
+        >
+    <TextView
+            android:id="@+id/tvWarning"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@android:color/holo_orange_light"
+            android:text="@string/warning_htc_one"
+            />
+
+    <ListView
+            android:id="@+id/lvFonts"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/tvWarning"
+            android:layout_above="@+id/tvProgress">
+    </ListView>
+    <TextView
+            android:id="@+id/tvProgress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dip"
+            android:layout_alignParentBottom="true"
+            android:background="@android:color/holo_blue_light"
+            android:textColor="?android:attr/textColorPrimaryInverse"
+            android:visibility="gone"
+            android:text="@string/toast_installing" />
+</RelativeLayout>
+

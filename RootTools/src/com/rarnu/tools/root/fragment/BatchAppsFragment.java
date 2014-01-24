@@ -11,10 +11,20 @@ import java.util.List;
 
 public class BatchAppsFragment extends BaseTabFragment {
 
+    BatchAppInstallFragment fBatchInstall;
+    BatchAppUninstallFragment fBatchUninstall;
+
     @Override
     public void initFragmentList(List<Fragment> listFragment) {
-        listFragment.add(new BatchAppInstallFragment());
-        listFragment.add(new BatchAppUninstallFragment());
+        listFragment.add(fBatchInstall);
+        listFragment.add(fBatchUninstall);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fBatchInstall = new BatchAppInstallFragment();
+        fBatchUninstall = new BatchAppUninstallFragment();
     }
 
     @Override

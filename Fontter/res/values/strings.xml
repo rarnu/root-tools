@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">字体更换</string>
+    <string name="warning_htc_one">本程序仅供 HTC ONE 系列手机更换字体之用，请勿用于其他型号的手机，以免引起无法开机等严重问题。</string>
+    <string name="font_item_using">当前使用</string>
+    <string name="warning_font_using">当前正在使用这个字体，无需更换</string>
+    <string name="toast_installing">正在安装字体，这可能会占用您 1 分钟的时间，请稍候...</string>
+    <string name="toast_cannot_exit">正在安装字体，不能退出本程序...</string>
+    <string name="hint">提示</string>
+    <string name="confirm_change_font" formatted="false">确定要将系统字体更换为 %s 吗？这将耗费一定的时间，完成后系统将自动重启</string>
+</resources>

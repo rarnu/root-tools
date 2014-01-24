@@ -35,6 +35,7 @@ public class AutoBootFragment extends BaseFragment implements Loader.OnLoadCompl
     AutobootAdapter adapter;
     List<AutobootInfo> list;
     MenuItem miRefresh;
+    boolean loading = false;
 
     public AutoBootFragment() {
         super();
@@ -81,6 +82,7 @@ public class AutoBootFragment extends BaseFragment implements Loader.OnLoadCompl
     }
 
     private void doStartLoading() {
+        loading = true;
         tvOperateHint.setVisibility(View.GONE);
         progressComp.setAppName(getString(R.string.loading));
         progressComp.setVisibility(View.VISIBLE);
@@ -121,7 +123,9 @@ public class AutoBootFragment extends BaseFragment implements Loader.OnLoadCompl
 
     @Override
     public Bundle getFragmentState() {
-        return null;
+        Bundle bn = new Bundle();
+        bn.putBoolean("loading", loading);
+        return bn;
     }
 
     @Override
@@ -135,6 +139,7 @@ public class AutoBootFragment extends BaseFragment implements Loader.OnLoadCompl
             progressComp.setVisibility(View.GONE);
             tvOperateHint.setVisibility(View.VISIBLE);
         }
+        loading = false;
     }
 
     @Override

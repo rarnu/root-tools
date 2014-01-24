@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="56dip">
+
+    <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="left|center_vertical"
+            android:textSize="20sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:layout_marginLeft="8dip"
+            android:layout_toLeftOf="@+id/tvState" />
+
+    <TextView
+            android:id="@+id/tvState"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dip"
+            android:textSize="18sp"
+            android:gravity="right|center_vertical"
+            android:textColor="#FF00FF00"
+            />
+
+</RelativeLayout>

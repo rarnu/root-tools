@@ -46,13 +46,15 @@ public class SysappDetailFragment extends BasePopupFragment implements OnClickLi
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                tvDeleting.setVisibility(View.GONE);
-                btnAddToCleanList.setEnabled(true);
-                btnDelete.setEnabled(true);
-                Intent inRet = new Intent();
-                inRet.putExtra("needRefresh", true);
-                getActivity().setResult(Activity.RESULT_OK, inRet);
-                getActivity().finish();
+                if (getActivity() != null) {
+                    tvDeleting.setVisibility(View.GONE);
+                    btnAddToCleanList.setEnabled(true);
+                    btnDelete.setEnabled(true);
+                    Intent inRet = new Intent();
+                    inRet.putExtra("needRefresh", true);
+                    getActivity().setResult(Activity.RESULT_OK, inRet);
+                    getActivity().finish();
+                }
             }
             super.handleMessage(msg);
         }

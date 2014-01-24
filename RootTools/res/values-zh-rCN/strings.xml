@@ -411,4 +411,5 @@
     <string name="toast_download_update_failed">下载升级文件失败, 请重试</string>
     <string name="unofficial_no_update">非官方发布版本, 无法升级</string>
     <string name="updating_cannot_exit">正在升级, 不能退出这一过程</string>
+    <string name="comp_loading_cannot_exit">正在加载数据，暂时无法退出，请稍候...</string>
 </resources>

@@ -438,4 +438,5 @@
     <string name="toast_download_update_failed">Download update file failed, please retry.</string>
     <string name="unofficial_no_update">Not an official version, cannot update</string>
     <string name="updating_cannot_exit">Updating, cannot exit the process now.</string>
+    <string name="comp_loading_cannot_exit">Still loading, please wait a moment.</string>
 </resources>

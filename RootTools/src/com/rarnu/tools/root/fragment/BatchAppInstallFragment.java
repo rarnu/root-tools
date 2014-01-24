@@ -45,7 +45,9 @@ public class BatchAppInstallFragment extends BaseFragment implements View.OnClic
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                showDataSelectedCount();
+                if (getActivity() != null) {
+                    showDataSelectedCount();
+                }
             }
             super.handleMessage(msg);
         }

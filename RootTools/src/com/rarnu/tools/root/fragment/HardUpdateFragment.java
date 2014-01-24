@@ -30,15 +30,17 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                list.get(msg.arg2).installing = false;
-                progressScanApk.setVisibility(View.GONE);
-                if (msg.arg1 == 0) {
-                    list.get(msg.arg2).apkStatus = 2;
-                    Toast.makeText(getActivity(), R.string.install_update_apk_ok, Toast.LENGTH_LONG).show();
-                } else {
-                    Toast.makeText(getActivity(), R.string.install_update_apk_fail, Toast.LENGTH_LONG).show();
+                if (getActivity() != null) {
+                    list.get(msg.arg2).installing = false;
+                    progressScanApk.setVisibility(View.GONE);
+                    if (msg.arg1 == 0) {
+                        list.get(msg.arg2).apkStatus = 2;
+                        Toast.makeText(getActivity(), R.string.install_update_apk_ok, Toast.LENGTH_LONG).show();
+                    } else {
+                        Toast.makeText(getActivity(), R.string.install_update_apk_fail, Toast.LENGTH_LONG).show();
+                    }
+                    adapter.notifyDataSetChanged();
                 }
-                adapter.notifyDataSetChanged();
             }
             super.handleMessage(msg);
         }

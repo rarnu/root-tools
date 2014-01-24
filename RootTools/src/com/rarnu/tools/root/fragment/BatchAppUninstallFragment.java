@@ -43,7 +43,9 @@ public class BatchAppUninstallFragment extends BaseFragment implements Loader.On
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-                showAppSelectedCount();
+                if (getActivity() != null) {
+                    showAppSelectedCount();
+                }
             }
             super.handleMessage(msg);
         }

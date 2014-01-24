@@ -11,10 +11,20 @@ import java.util.List;
 
 public class CompContainerFragment extends BaseTabFragment {
 
+    AutoBootFragment fAutoBoot;
+    CompFragment fComp;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fAutoBoot = new AutoBootFragment();
+        fComp = new CompFragment();
+    }
+
     @Override
     public void initFragmentList(List<Fragment> listFragment) {
-        listFragment.add(new AutoBootFragment());
-        listFragment.add(new CompFragment());
+        listFragment.add(fAutoBoot);
+        listFragment.add(fComp);
     }
 
     @Override
@@ -49,6 +59,10 @@ public class CompContainerFragment extends BaseTabFragment {
 
     @Override
     public Bundle getFragmentState() {
-        return null;
+        boolean loadingAuto = fAutoBoot.getFragmentState().getBoolean("loading");
+        boolean loadingComp = fComp.getFragmentState().getBoolean("loading");
+        Bundle bn = new Bundle();
+        bn.putBoolean("loading", loadingAuto || loadingComp);
+        return bn;
     }
 }
