@@ -16,13 +16,27 @@
 
     <TextView
             android:id="@+id/tvState"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
+            android:layout_width="60dip"
+            android:layout_height="48dip"
             android:layout_alignParentRight="true"
             android:layout_marginRight="8dip"
-            android:textSize="18sp"
-            android:gravity="right|center_vertical"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:gravity="center"
             android:textColor="#FF00FF00"
+            android:text="@string/font_downloaded"
             />
+
+    <Button
+            android:id="@+id/btnDownload"
+            android:layout_width="60dip"
+            android:layout_height="48dip"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="8dip"
+            android:layout_centerVertical="true"
+            android:textSize="16sp"
+            android:text="@string/download"
+            android:background="@drawable/button_style"
+            android:focusable="false" />
 
 </RelativeLayout>

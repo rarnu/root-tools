@@ -17,6 +17,7 @@
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="module" module-name="CommonUtils" />
     <orderEntry type="module" module-name="CommandLib" />
+    <orderEntry type="module" module-name="CommonDevLib" />
   </component>
 </module>
 

@@ -184,6 +184,17 @@ public class DownloadUtils {
             }
         } catch (Exception e) {
             e.printStackTrace();
+            if (h != null) {
+                try {
+                    Message msg = new Message();
+                    msg.what = WHAT_DOWNLOAD_FINISH;
+                    msg.arg1 = 0;
+                    msg.arg2 = filesize;
+                    h.sendMessage(msg);
+                } catch (Exception ex) {
+
+                }
+            }
         }
 
     }

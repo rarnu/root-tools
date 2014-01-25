@@ -1,40 +1,37 @@
 package com.rarnu.fontter.adapter;
 
 import android.content.Context;
-import android.view.LayoutInflater;
+import android.graphics.Color;
+import android.os.Handler;
+import android.os.Message;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.Button;
 import android.widget.TextView;
+import com.rarnu.devlib.base.adapter.BaseAdapter;
 import com.rarnu.fontter.R;
+import com.rarnu.fontter.api.FontItem;
 
 import java.util.List;
 
-public class FontAdapter extends BaseAdapter {
+public class FontAdapter extends BaseAdapter<FontItem> {
 
-    private List<FontItem> list;
-    private Context context;
-    private LayoutInflater inflater;
+    private Handler hDownload;
+    private boolean isDownloading;
 
-    public FontAdapter(Context context, List<FontItem> list) {
-        this.context = context;
-        this.list = list;
-        this.inflater = LayoutInflater.from(context);
+    public FontAdapter(Context context, List<FontItem> list, Handler hDownload) {
+        super(context, list);
+        this.hDownload = hDownload;
+    }
+
+    public void setDownloading(boolean d) {
+        isDownloading = d;
+        this.notifyDataSetChanged();
     }
 
     @Override
-    public int getCount() {
-        return list.size();
-    }
-
-    @Override
-    public Object getItem(int position) {
-        return list.get(position);
-    }
-
-    @Override
-    public long getItemId(int position) {
-        return position;
+    public String getValueText(FontItem item) {
+        return "";
     }
 
     @Override
@@ -48,12 +45,29 @@ public class FontAdapter extends BaseAdapter {
             holder = new FontHolder();
             holder.tvName = (TextView) v.findViewById(R.id.tvName);
             holder.tvStatus = (TextView) v.findViewById(R.id.tvState);
+            holder.btnDownload = (Button) v.findViewById(R.id.btnDownload);
             v.setTag(holder);
         }
-        FontItem item = list.get(position);
+        final FontItem item = list.get(position);
         if (item != null) {
             holder.tvName.setText(item.name);
-            holder.tvStatus.setText(item.inUse ? context.getString(R.string.font_item_using) : "");
+            holder.tvName.setTextColor(item.inUse ? context.getResources().getColor(R.color.greenyellow) : Color.WHITE);
+            holder.tvStatus.setText(item.isDownloaded ? context.getString(R.string.font_downloaded) : "");
+            if (isDownloading) {
+                holder.btnDownload.setVisibility(View.GONE);
+            } else {
+                holder.btnDownload.setVisibility(item.isDownloaded ? View.GONE : View.VISIBLE);
+                holder.btnDownload.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        if (hDownload != null) {
+                            Message msg = new Message();
+                            msg.obj = item.fileName;
+                            hDownload.sendMessage(msg);
+                        }
+                    }
+                });
+            }
         }
         return v;
     }
