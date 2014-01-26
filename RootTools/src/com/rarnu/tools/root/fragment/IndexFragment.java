@@ -27,7 +27,7 @@ import com.rarnu.utils.NetworkUtils;
 public class IndexFragment extends BasePreferenceFragment implements
         OnPreferenceClickListener {
 
-    PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefFirewall, prefRoot, prefHtcRom;
+    PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefFirewall, prefRoot, prefHtcRom, prefFonts;
     PreferenceEx prefBackup, prefRestore, prefHardUpdate, prefBatchApps, prefRemainedFiles;
     PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik, prefDiskInfo, prefFileSystem;
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
@@ -120,6 +120,8 @@ public class IndexFragment extends BasePreferenceFragment implements
             UIInstance.currentFragment = 5;
             FragmentStarter.showContent(getActivity(), HtcRomActivity.class, Fragments.getFragment(FragmentNameConst.FN_HTCROM));
 
+        } else if (preference.getKey().equals(getString(R.string.id_fonts))) {
+            // TODO: show fonts fragment
         }
         // backup
         else if (preference.getKey().equals(getString(R.string.id_backup))) {
@@ -230,6 +232,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
         prefGoogle = (PreferenceEx) findPreference(getString(R.string.id_google));
         prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
+        prefFonts = (PreferenceEx) findPreference(getString(R.string.id_fonts));
 
         prefBackup = (PreferenceEx) findPreference(getString(R.string.id_backup));
         prefRestore = (PreferenceEx) findPreference(getString(R.string.id_restore));
@@ -262,6 +265,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefRoot.setOnPreferenceClickListener(this);
         prefGoogle.setOnPreferenceClickListener(this);
         prefHtcRom.setOnPreferenceClickListener(this);
+        prefFonts.setOnPreferenceClickListener(this);
 
         prefBackup.setOnPreferenceClickListener(this);
         prefRestore.setOnPreferenceClickListener(this);
@@ -288,7 +292,12 @@ public class IndexFragment extends BasePreferenceFragment implements
     @Override
     public void initLogic() {
         showFunctionalEnabledTags();
+        showVersionTags();
+    }
 
+    private void showVersionTags() {
+        prefGoogle.setVersion(PreferenceEx.VERSION_BETA);
+        prefFonts.setVersion(PreferenceEx.VERSION_BETA);
     }
 
     @Override

@@ -5,6 +5,7 @@
     <string name="id_component">id_component</string>
     <string name="id_firewall">id_firewall</string>
     <string name="id_cleanhtc">id_cleanhtc</string>
+    <string name="id_fonts">id_fonts</string>
 
     <string name="id_backup">id_backup</string>
     <string name="id_restore">id_restore</string>

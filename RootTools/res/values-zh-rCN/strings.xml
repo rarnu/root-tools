@@ -91,6 +91,8 @@
     <string name="func_google_with_path">掌优 &gt; Google 框架</string>
     <string name="func_remained_files">残留文件</string>
     <string name="func_remained_files_with_path">掌优 &gt; 残留文件</string>
+    <string name="func_fonts">更换字体</string>
+    <string name="func_fonts_with_path">掌优 &gt; 更换字体</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="check_network_status">检查网络状况</string>

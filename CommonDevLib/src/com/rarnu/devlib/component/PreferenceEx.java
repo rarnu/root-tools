@@ -16,12 +16,19 @@ public class PreferenceEx extends Preference {
     public static final int STATE_NORMAL = 0;
     public static final int STATE_WARNING = 1;
     public static final int STATE_BANNED = 2;
+
+    public static final int VERSION_NORMAL = 0;
+    public static final int VERSION_BETA = 1;
+    public static final int VERSION_ALPHA = 2;
+
     RelativeLayout layPref;
     ImageView pref_icon;
     TextView pref_title;
     TextView pref_summary;
     ImageView pref_warning;
+    ImageView pref_version;
     int status;
+    int version;
     View innerView;
 
     public PreferenceEx(Context context, AttributeSet attrs, int defStyle) {
@@ -58,6 +65,28 @@ public class PreferenceEx extends Preference {
         }
     }
 
+    public void setVersion(int version) {
+       resetVersion(version);
+    }
+
+    public void resetVersion(int version) {
+        this.version = version;
+        if (pref_version != null) {
+            switch (version) {
+                case VERSION_NORMAL:
+                    pref_version.setImageDrawable(null);
+                    break;
+                case VERSION_BETA:
+                    pref_version.setImageResource(R.drawable.beta);
+                    break;
+                case VERSION_ALPHA:
+                    pref_version.setImageResource(R.drawable.alpha);
+                    break;
+            }
+            pref_version.invalidate();
+        }
+    }
+
     @Override
     protected void onBindView(View view) {
         super.onBindView(view);
@@ -68,6 +97,7 @@ public class PreferenceEx extends Preference {
         }
         pref_icon.setImageDrawable(getIcon());
         resetStatus(status);
+        resetVersion(version);
     }
 
     @Override
@@ -79,6 +109,7 @@ public class PreferenceEx extends Preference {
             pref_title = (TextView) innerView.findViewById(R.id.pref_title);
             pref_summary = (TextView) innerView.findViewById(R.id.pref_summary);
             pref_warning = (ImageView) innerView.findViewById(R.id.pref_warning);
+            pref_version = (ImageView) innerView.findViewById(R.id.pref_version);
         }
         return innerView;
     }

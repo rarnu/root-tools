@@ -25,6 +25,10 @@
                 android:key="@string/id_cleanhtc"
                 android:summary="@string/summary_cleanhtc"
                 android:title="@string/clean_htc_rom" />
+
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_fonts"
+                android:title="@string/func_fonts" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_apps">
         <com.rarnu.devlib.component.PreferenceEx
