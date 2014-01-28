@@ -77,22 +77,27 @@
                 android:key="@string/id_hosts"
                 android:summary="@string/summary_host"
                 android:title="@string/func7_title" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_scanmedia"
-                android:summary="@string/summary_scanmedia"
-                android:title="@string/scan_media" />
+
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_network"
                 android:title="@string/check_network_status" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_reboot"
-                android:title="@string/reboot_device" />
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_terminal">
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_terminal_emu"
                 android:title="@string/func_terminal"
                 android:summary="@string/summary_terminal" />
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_password"
+                android:title="@string/func_password" />
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_scanmedia"
+                android:summary="@string/summary_scanmedia"
+                android:title="@string/scan_media" />
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_reboot"
+                android:title="@string/reboot_device" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_settings">
         <com.rarnu.devlib.component.PreferenceEx

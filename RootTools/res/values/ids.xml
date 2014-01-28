@@ -25,6 +25,7 @@
     <string name="id_reboot">id_reboot</string>
 
     <string name="id_terminal_emu">id_terminal_emu</string>
+    <string name="id_password">id_password</string>
 
     <string name="id_settings">id_settings</string>
     <string name="id_root">id_root</string>

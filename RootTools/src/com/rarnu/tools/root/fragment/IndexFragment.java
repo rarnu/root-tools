@@ -32,7 +32,7 @@ public class IndexFragment extends BasePreferenceFragment implements
     PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik, prefDiskInfo, prefFileSystem;
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
     PreferenceEx prefFeedback, prefRecommand, prefAbout;
-    PreferenceEx prefTerminal;
+    PreferenceEx prefTerminal, prefPassword;
     PreferenceEx prefSettings, prefGoogle;
     IntentFilter filterRefreshTag = new IntentFilter(Actions.ACTION_REFRESH_TAG);
     RefreshTagReceiver receiverRefreshTag = new RefreshTagReceiver();
@@ -199,6 +199,9 @@ public class IndexFragment extends BasePreferenceFragment implements
         else if (preference.getKey().equals(getString(R.string.id_terminal_emu))) {
             UIInstance.currentFragment = 15;
             FragmentStarter.showContent(getActivity(), TerminalActivity.class, Fragments.getFragment(FragmentNameConst.FN_TERMINAL));
+        } else if (preference.getKey().equals(getString(R.string.id_password))) {
+            UIInstance.currentFragment = 24;
+            FragmentStarter.showContent(getActivity(), PasswordMgrActivity.class, Fragments.getFragment(FragmentNameConst.FN_PASSWORD_MANAGER));
         }
 
         // settings
@@ -254,6 +257,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefAbout = (PreferenceEx) findPreference(getString(R.string.id_about));
         prefSettings = (PreferenceEx) findPreference(getString(R.string.id_settings));
         prefTerminal = (PreferenceEx) findPreference(getString(R.string.id_terminal_emu));
+        prefPassword = (PreferenceEx) findPreference(getString(R.string.id_password));
     }
 
     @Override
@@ -287,6 +291,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefAbout.setOnPreferenceClickListener(this);
         prefSettings.setOnPreferenceClickListener(this);
         prefTerminal.setOnPreferenceClickListener(this);
+        prefPassword.setOnPreferenceClickListener(this);
     }
 
     @Override

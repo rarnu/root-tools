@@ -204,6 +204,9 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MenuItemIds.MENU_REVERT:
+                if (DeviceUtils.isMIUI() || !FontUtils.isCanEditFont()) {
+                    return true;
+                }
                 if (!FontInstaller.isBackuped()) {
                     new AlertDialog.Builder(getActivity())
                             .setTitle(R.string.hint)
@@ -410,6 +413,5 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
 
         }
     }
-
 
 }

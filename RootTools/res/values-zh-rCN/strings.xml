@@ -15,8 +15,8 @@
     <string name="cat_system">系统</string>
     <string name="cat_apps">应用程序</string>
     <string name="cat_memory">内存与存储</string>
-    <string name="cat_terminal">终端</string>
-    <string name="cat_other">其他功能</string>
+    <string name="cat_terminal">杂项</string>
+    <string name="cat_other">网络</string>
     <string name="cat_support">软件支持</string>
     <string name="short_about">关于本软件</string>
     <string name="short_feedback">反馈</string>
@@ -93,6 +93,8 @@
     <string name="func_remained_files_with_path">掌优 &gt; 残留文件</string>
     <string name="func_fonts">更换字体</string>
     <string name="func_fonts_with_path">掌优 &gt; 更换字体</string>
+    <string name="func_password">密码管理</string>
+    <string name="func_password_with_path">掌优 &gt; 密码管理</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="check_network_status">检查网络状况</string>

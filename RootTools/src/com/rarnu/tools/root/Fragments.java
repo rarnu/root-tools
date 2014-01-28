@@ -46,6 +46,7 @@ public class Fragments {
     private static RemainedFilesFragment fRemainedFiles = null;
     private static UpdateFragment fUpdate = null;
     private static FontsFragment fFonts = null;
+    private static PasswordMgrFragment fPasswordMgr = null;
 
     public static Fragment getFragment(String name) {
 
@@ -250,6 +251,11 @@ public class Fragments {
                 fFonts = new FontsFragment();
             }
             f = fFonts;
+        } else if (name.equals(FragmentNameConst.FN_PASSWORD_MANAGER)) {
+            if (fPasswordMgr == null) {
+                fPasswordMgr = new PasswordMgrFragment();
+            }
+            f = fPasswordMgr;
         }
 
         return f;
@@ -299,6 +305,7 @@ public class Fragments {
         fRemainedFiles = null;
         fUpdate = null;
         fFonts = null;
+        fPasswordMgr = null;
     }
 
 }

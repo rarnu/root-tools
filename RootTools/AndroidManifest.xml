@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="451"
-        android:versionName="6.3.1 beta">
+        android:versionCode="453"
+        android:versionName="6.3.2 beta">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -246,7 +246,11 @@
                 android:name=".fragmentactivity.FontsActivity"
                 android:label="@string/func_fonts"
                 android:windowSoftInputMode="stateHidden">
-
+        </activity>
+        <activity
+                android:name=".fragmentactivity.PasswordMgrActivity"
+                android:label="@string/func_password"
+                android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.UpdateActivity"
