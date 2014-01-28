@@ -425,4 +425,10 @@
     <string name="font_loading_list">正在加載字體列表，請稍候...</string>
     <string name="confirm_change_font" formatted="false">確認要將系統字體更換爲 %s 嗎？這將耗費一定的時間，完成後完成后請重啓系統</string>
     <string name="font_hint">點擊字體來下載或安裝，長按查看字體樣例</string>
+
+    <string name="font_locked_miui">j您正在使用 MIUI，請使用系統內置的主題功能來更換字體</string>
+    <string name="font_install_failed">安裝字體失敗，請重試...</string>
+    <string name="font_install_succ">安裝字體成功，重啓後將生效。您要現在就重啓設備嗎？</string>
+    <string name="font_cannot_edit">沒有的找到系統的字體配置文件，無法更換字體</string>
+    <string name="font_not_backuped">沒有找到備份的字體，無法還原</string>
 </resources>

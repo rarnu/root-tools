@@ -9,13 +9,18 @@
             android:layout_height="match_parent"
             android:layout_marginLeft="4dip"
             android:textColor="@color/black"
-            android:gravity="left|center_vertical" />
+            android:gravity="left|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end" />
 
     <TextView android:id="@+id/tvProgressCount"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:layout_alignParentRight="true"
             android:textColor="@color/black"
-            android:gravity="right|center_vertical" />
+            android:gravity="right|center_vertical"
+            android:maxLines="1"
+            android:singleLine="true" />
 
 </RelativeLayout>

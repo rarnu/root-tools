@@ -3,6 +3,7 @@ package com.rarnu.tools.root.utils;
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import com.rarnu.command.RootUtils;
@@ -206,5 +207,29 @@ public class DeviceUtils {
 
     public static void reboot() {
         RootUtils.runCommand("busybox reboot -f", true, null);
+    }
+
+    public static boolean isMIUI() {
+        boolean ret = false;
+        String miuiCode = getBuildProp(RO_MIUI_UI_VERSION_CODE);
+        String miuiName = getBuildProp(RO_MIUI_UI_VERSION_NAME);
+        if (miuiCode != null && miuiName != null && !miuiCode.equals("") && !miuiName.equals("")) {
+            ret = true;
+        }
+        return ret;
+    }
+
+    public static boolean isBaiduRom(Context context) {
+        boolean ret = false;
+        try {
+            PackageManager pm = context.getPackageManager();
+            ApplicationInfo infoService = pm.getApplicationInfo("com.baidu.bsf.service", 0);
+            ApplicationInfo infoSystem = pm.getApplicationInfo("com.baidu.bsf.system", 0);
+            ret = (infoService != null && infoSystem != null);
+        } catch (Exception e) {
+
+        }
+
+        return ret;
     }
 }

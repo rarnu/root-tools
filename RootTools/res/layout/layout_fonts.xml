@@ -62,5 +62,24 @@
             android:layout_width="match_parent"
             android:layout_height="24dip"
             android:layout_alignParentBottom="true" />
+
+    <RelativeLayout
+            android:id="@+id/layLocked"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="?android:attr/detailsElementBackground"
+            android:layout_centerInParent="true"
+            android:visibility="gone"
+            >
+
+        <TextView
+                android:id="@+id/tvLockReason"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="16dip"
+                android:text="@string/font_locked_miui"
+                android:textColor="@color/orange" />
+
+    </RelativeLayout>
 </RelativeLayout>
 

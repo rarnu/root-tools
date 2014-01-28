@@ -2,8 +2,9 @@
 一键Hosts修改
 
 == 字体更改 ==
-第一次更改前备份字体
-需判断能否更改字体，/etc/fallback_fonts.xml /etc/system_fonts.xml是否存在
-更改字体后需校验，失败的情况提示失败原因
+* 第一次更改前备份字体
+* 需判断能否更改字体，/etc/fallback_fonts.xml /etc/system_fonts.xml是否存在
+* 更改字体后需校验，失败的情况提示失败原因
 字体的预览
-在miui下禁用字体更换
+* 在miui下禁用字体更换
+* 还原系统字体

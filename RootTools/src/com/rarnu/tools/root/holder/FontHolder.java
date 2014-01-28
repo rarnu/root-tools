@@ -6,5 +6,4 @@ import android.widget.TextView;
 public class FontHolder {
     public TextView tvName;
     public TextView tvStatus;
-    public Button btnDownload;
 }

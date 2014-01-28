@@ -17,17 +17,8 @@ import java.util.List;
 
 public class FontAdapter extends BaseAdapter<FontItem> {
 
-    private Handler hDownload;
-    private boolean isDownloading;
-
-    public FontAdapter(Context context, List<FontItem> list, Handler hDownload) {
+    public FontAdapter(Context context, List<FontItem> list) {
         super(context, list);
-        this.hDownload = hDownload;
-    }
-
-    public void setDownloading(boolean d) {
-        isDownloading = d;
-        this.notifyDataSetChanged();
     }
 
     @Override
@@ -46,7 +37,6 @@ public class FontAdapter extends BaseAdapter<FontItem> {
             holder = new FontHolder();
             holder.tvName = (TextView) v.findViewById(R.id.tvName);
             holder.tvStatus = (TextView) v.findViewById(R.id.tvState);
-            holder.btnDownload = (Button) v.findViewById(R.id.btnDownload);
             v.setTag(holder);
         }
         final FontItem item = list.get(position);
@@ -54,21 +44,6 @@ public class FontAdapter extends BaseAdapter<FontItem> {
             holder.tvName.setText(item.name);
             holder.tvName.setTextColor(item.inUse ? context.getResources().getColor(R.color.greenyellow) : Color.WHITE);
             holder.tvStatus.setText(item.isDownloaded ? context.getString(R.string.font_downloaded) : "");
-            if (isDownloading) {
-                holder.btnDownload.setVisibility(View.GONE);
-            } else {
-                holder.btnDownload.setVisibility(item.isDownloaded ? View.GONE : View.VISIBLE);
-                holder.btnDownload.setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-                        if (hDownload != null) {
-                            Message msg = new Message();
-                            msg.obj = item.fileName;
-                            hDownload.sendMessage(msg);
-                        }
-                    }
-                });
-            }
         }
         return v;
     }

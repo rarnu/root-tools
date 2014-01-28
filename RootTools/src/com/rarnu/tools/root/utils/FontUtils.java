@@ -1,6 +1,5 @@
 package com.rarnu.tools.root.utils;
 
-import android.os.Environment;
 import com.rarnu.tools.root.common.FallbackFontItem;
 import com.rarnu.tools.root.common.SystemFontItem;
 import com.rarnu.utils.FileUtils;
@@ -13,6 +12,9 @@ import java.util.List;
 public class FontUtils {
 
     private static final String FONT_PATH = "/system/fonts/";
+    private static final String XML_HEAD = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
+    public static String FALLBACK_FONTS_XML = "fallback_fonts.xml";
+    public static String SYSTEM_FONTS_XML = "system_fonts.xml";
     private static String[] FALLBACK_FONTS_NAME = new String[]{
             "DroidNaskh-Regular.ttf",
             "DroidNaskh-Regular-SystemUI.ttf",
@@ -24,7 +26,6 @@ public class FontUtils {
             "compact",
             "", ""
     };
-
     private static String[] SYSTEM_FONTS_NAME = new String[]{
             "Roboto-Regular.ttf",
             "Roboto-Light.ttf",
@@ -34,7 +35,6 @@ public class FontUtils {
             "DroidSans.ttf",
             "DroidSansMono.ttf"
     };
-
     private static String[][] SYSTEM_FONTS_FAMILY = new String[][]{
             {"sans-serif", "arial", "helvetica", "tahoma", "verdana"},
             {"sans-serif-light"},
@@ -71,19 +71,6 @@ public class FontUtils {
         return list;
     }
 
-    private static final String XML_HEAD = "<?xml version=\"1.0\" encoding=\"utf-8\"?>";
-
-    private static String tmpDir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/.font_tmp/";
-    public static String FALLBACK_FONTS_XML = "fallback_fonts.xml";
-    public static String SYSTEM_FONTS_XML = "system_fonts.xml";
-
-    static {
-        File fDir = new File(tmpDir);
-        if (!fDir.exists()) {
-            fDir.mkdirs();
-        }
-    }
-
     public static void saveFallbackFontXml(List<FallbackFontItem> list) {
         StringBuilder sb = new StringBuilder();
         sb.append(XML_HEAD + "\n");
@@ -103,7 +90,7 @@ public class FontUtils {
         }
         sb.append("</familyset>\n");
         try {
-            FileUtils.rewriteFile(tmpDir + FALLBACK_FONTS_XML, sb.toString(), HTTP.UTF_8);
+            FileUtils.rewriteFile(DirHelper.FONT_DIR + FALLBACK_FONTS_XML, sb.toString(), HTTP.UTF_8);
         } catch (Exception e) {
 
         }
@@ -129,9 +116,20 @@ public class FontUtils {
         }
         sb.append("</familyset>\n");
         try {
-            FileUtils.rewriteFile(tmpDir + SYSTEM_FONTS_XML, sb.toString(), HTTP.UTF_8);
+            FileUtils.rewriteFile(DirHelper.FONT_DIR + SYSTEM_FONTS_XML, sb.toString(), HTTP.UTF_8);
         } catch (Exception e) {
 
         }
+    }
+
+    public static boolean isCanEditFont() {
+        boolean ret = true;
+        if (!new File("/system/etc/" + FALLBACK_FONTS_XML).exists()) {
+            ret = false;
+        }
+        if (!new File("/system/etc/" + SYSTEM_FONTS_XML).exists()) {
+            ret = false;
+        }
+        return ret;
     }
 }

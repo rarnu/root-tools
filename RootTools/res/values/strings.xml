@@ -459,5 +459,9 @@
         some time, and you must reboot your device after it.
     </string>
     <string name="font_hint">Click for download or install it, long click for sample.</string>
-
+    <string name="font_locked_miui">You are now using MIUI, please use the THEME app inside for changing fonts.</string>
+    <string name="font_install_failed">Install font failed, please retry...</string>
+    <string name="font_install_succ">Font installed and will take effect after reboot. Reboot your device now?</string>
+    <string name="font_cannot_edit">Font config file not found, cannot change font now.</string>
+    <string name="font_not_backuped">No backup fonts found.</string>
 </resources>

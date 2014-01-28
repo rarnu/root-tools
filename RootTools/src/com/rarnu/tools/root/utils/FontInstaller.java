@@ -7,6 +7,7 @@ import com.rarnu.tools.root.common.SystemFontItem;
 import com.rarnu.utils.FileUtils;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.List;
 
 public class FontInstaller {
@@ -22,6 +23,7 @@ public class FontInstaller {
     };
 
     public static void installFont(final FontItem item) {
+
         String tmpFontName = DirHelper.FONT_DIR + "temp.ttf";
         File fTmpFont = new File(tmpFontName);
         if (fTmpFont.exists()) {
@@ -43,16 +45,78 @@ public class FontInstaller {
         RootUtils.runCommand(String.format("busybox cp -f %s /system/etc/", DirHelper.FONT_DIR + FontUtils.SYSTEM_FONTS_XML), true);
         RootUtils.runCommand(String.format("busybox chmod 666 /system/etc/%s", FontUtils.FALLBACK_FONTS_XML), true);
         RootUtils.runCommand(String.format("busybox chmod 666 /system/etc/%s", FontUtils.SYSTEM_FONTS_XML), true);
-        // RootUtils.runCommand("busybox reboot -f", true);
+
     }
 
     public static boolean isFontInstalled(final FontItem item) {
-        // TODO: check install status
-        return false;
+        // check install status
+        File fFont = new File(DirHelper.FONT_DIR + item.fileName);
+        long fileSize = fFont.length();
+        boolean ret = true;
+        for (String fn : REPLACE_FONTS) {
+            if (fileSize != new File("/system/fonts/" + fn).length()) {
+                ret = false;
+                break;
+            }
+        }
+        return ret;
+    }
+
+    public static boolean isBackuped() {
+        boolean ret = false;
+        String fFontBackup = DirHelper.FONT_DIR + "backup/";
+        File fBackup = new File(fFontBackup);
+        if (fBackup.exists()) {
+            String[] files = fBackup.list();
+            if (files != null && files.length != 0) {
+                ret = true;
+            }
+        }
+        return ret;
     }
 
     public static void backupFonts(List<FallbackFontItem> listFallback, List<SystemFontItem> listSystem) {
-        // TODO: backup fonts
+        // backup fonts
+        String fFontBackup = DirHelper.FONT_DIR + "backup/";
+        File fBackup = new File(fFontBackup);
+        if (!fBackup.exists()) {
+            fBackup.mkdirs();
+        }
+
+        try {
+            List<String> listFonts = new ArrayList<String>();
+            for (FallbackFontItem item : listFallback) {
+                if (item.exist) {
+                    listFonts.add(item.fileName);
+                }
+            }
+            for (SystemFontItem item : listSystem) {
+                if (item.exist) {
+                    listFonts.add(item.file);
+                }
+            }
+            for (String fn : listFonts) {
+                RootUtils.runCommand(String.format("busybox cp -f /system/fonts/%s %s", fn, fFontBackup), true);
+            }
+        } catch (Exception e) {
+
+        }
+    }
+
+    public static void restoreFont() {
+        // restore fonts
+        String fFontBackup = DirHelper.FONT_DIR + "backup/";
+        File fBackup = new File(fFontBackup);
+        if (fBackup.exists()) {
+            String[] files = fBackup.list();
+            if (files != null && files.length != 0) {
+                for (String fn : files) {
+                    RootUtils.runCommand(String.format("busybox cp -f %s /system/fonts/", fFontBackup, fn), true);
+                    RootUtils.runCommand(String.format("chmod 666 /system/fonts/%s", fn), true);
+                }
+            }
+        }
+
     }
 
 }

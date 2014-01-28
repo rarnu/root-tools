@@ -425,4 +425,10 @@
     <string name="confirm_change_font" formatted="false">确定要将系统字体更换为 %s 吗？这将耗费一定的时间，完成后请重启系统</string>
 
     <string name="font_hint">点击字体来下载或安装，长按查看字体样例</string>
+    <string name="font_locked_miui">您正在使用 MIUI，请使用系统内置的主题功能来更换字体</string>
+
+    <string name="font_install_failed">安装字体失败，请重试...</string>
+    <string name="font_install_succ">安装字体成功，重启后将生效。您要现在就重启设备吗？</string>
+    <string name="font_cannot_edit">没有找到系统的字体配置文件，无法更换字体</string>
+    <string name="font_not_backuped">没有找到备份的字体，无法还原</string>
 </resources>

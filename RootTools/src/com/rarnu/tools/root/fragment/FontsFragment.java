@@ -18,8 +18,10 @@ import com.rarnu.tools.root.adapter.FontAdapter;
 import com.rarnu.tools.root.api.FontAPI;
 import com.rarnu.tools.root.common.FallbackFontItem;
 import com.rarnu.tools.root.common.FontItem;
+import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.SystemFontItem;
 import com.rarnu.tools.root.loader.FontLoader;
+import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.FontInstaller;
 import com.rarnu.tools.root.utils.FontUtils;
@@ -32,7 +34,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FontsFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<FontItem>>, AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
+public class FontsFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<FontItem>>, AdapterView.OnItemClickListener, SearchView.OnQueryTextListener, AdapterView.OnItemLongClickListener {
 
     ListView lvFonts;
     DataProgressBar tvProgress;
@@ -47,6 +49,8 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
     TextView tvPercent;
     List<FallbackFontItem> listFallback;
     List<SystemFontItem> listSystem;
+    RelativeLayout layLocked;
+    TextView tvLockReason;
     private Handler hDownload = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -60,7 +64,6 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
         public void handleMessage(Message msg) {
             switch (msg.what) {
                 case DownloadUtils.WHAT_DOWNLOAD_START:
-                    adapter.setDownloading(true);
                     pbDownloading.setMax(msg.arg2);
                     pbDownloading.setProgress(0);
                     layDownload.setVisibility(View.VISIBLE);
@@ -73,7 +76,6 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
                 case DownloadUtils.WHAT_DOWNLOAD_FINISH:
                     layDownload.setVisibility(View.GONE);
                     updateFontList();
-                    adapter.setDownloading(false);
                     setOperating(false);
                     break;
             }
@@ -88,15 +90,37 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
                     tvProgress.setAppName(getString(R.string.font_hint));
                     setOperating(false);
                     if (msg.arg1 == 0) {
-                        // TODO: succ, reboot hint
+                        showSuccDialog();
                     } else {
-                        // TODO: install failed
+                        showFailDialog();
                     }
                 }
             }
             super.handleMessage(msg);
         }
     };
+
+    private void showFailDialog() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.hint)
+                .setMessage(R.string.font_install_failed)
+                .setPositiveButton(R.string.ok, null)
+                .show();
+    }
+
+    private void showSuccDialog() {
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.hint)
+                .setMessage(R.string.font_install_succ)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        DeviceUtils.reboot();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
 
     @Override
     public int getBarTitle() {
@@ -122,15 +146,18 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
         sv = (SearchView) innerView.findViewById(R.id.sv);
         loader = new FontLoader(getActivity());
         list = new ArrayList<FontItem>();
-        adapter = new FontAdapter(getActivity(), list, hDownload);
+        adapter = new FontAdapter(getActivity(), list);
         lvFonts.setAdapter(adapter);
         tvProgress.setAppName(getString(R.string.font_hint));
+        layLocked = (RelativeLayout) innerView.findViewById(R.id.layLocked);
+        tvLockReason = (TextView) innerView.findViewById(R.id.tvLockReason);
     }
 
     @Override
     public void initEvents() {
         loader.registerListener(0, this);
         lvFonts.setOnItemClickListener(this);
+        lvFonts.setOnItemLongClickListener(this);
         sv.setOnQueryTextListener(this);
     }
 
@@ -139,6 +166,14 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
         initEnv();
         loader.setMode(0);
         doStartLoading();
+
+        if (DeviceUtils.isMIUI()) {
+            layLocked.setVisibility(View.VISIBLE);
+            tvLockReason.setText(R.string.font_locked_miui);
+        } else if (!FontUtils.isCanEditFont()) {
+            layLocked.setVisibility(View.VISIBLE);
+            tvLockReason.setText(R.string.font_cannot_edit);
+        }
     }
 
     private void doStartLoading() {
@@ -158,7 +193,27 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
 
     @Override
     public void initMenu(Menu menu) {
+        miRevert = menu.add(0, MenuItemIds.MENU_REVERT, 99, R.string.revert);
+        miRevert.setIcon(android.R.drawable.ic_menu_revert);
+        miRevert.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case MenuItemIds.MENU_REVERT:
+                if (!FontInstaller.isBackuped()) {
+                    new AlertDialog.Builder(getActivity())
+                            .setTitle(R.string.hint)
+                            .setMessage(R.string.font_not_backuped)
+                            .setPositiveButton(R.string.ok, null)
+                            .show();
+                    return true;
+                }
+                doRestoreFontT();
+                break;
+        }
+        return true;
     }
 
     @Override
@@ -192,10 +247,12 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, final int position, long id) {
+        if (DeviceUtils.isMIUI() || !FontUtils.isCanEditFont()) {
+            return;
+        }
         if (operating) {
             return;
         }
-
         final FontItem item = list.get(position);
         if (!item.isDownloaded) {
             startDownloadFont(item.fileName);
@@ -230,6 +287,9 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
             @Override
             public void run() {
                 ConfigUtils.setStringConfig(getActivity(), FontAPI.KEY_CURRENT_FONT, item.name);
+                if (!FontInstaller.isBackuped()) {
+                    FontInstaller.backupFonts(listFallback, listSystem);
+                }
                 FontInstaller.installFont(item);
                 boolean isInstalled = FontInstaller.isFontInstalled(item);
                 Message msg = new Message();
@@ -238,6 +298,23 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
                 hInstall.sendMessage(msg);
             }
         }).start();
+    }
+
+    private void doRestoreFontT() {
+        setOperating(true);
+        tvProgress.setAppName(getString(R.string.toast_installing));
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                ConfigUtils.setStringConfig(getActivity(), FontAPI.KEY_CURRENT_FONT, "");
+                FontInstaller.restoreFont();
+                Message msg = new Message();
+                msg.what = 1;
+                msg.what = 0;
+                hInstall.sendMessage(msg);
+            }
+        }).start();
+        ;
     }
 
     @Override
@@ -298,5 +375,20 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
         operating = o;
         lvFonts.setEnabled(!o);
         sv.setEnabled(!o);
+        if (miRevert != null) {
+            miRevert.setEnabled(!o);
+        }
     }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        if (DeviceUtils.isMIUI() || !FontUtils.isCanEditFont()) {
+            return true;
+        }
+        // TODO: show font preview
+
+        return true;
+    }
+
+
 }
