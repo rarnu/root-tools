@@ -9,6 +9,7 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.*;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
@@ -27,6 +28,7 @@ import com.rarnu.tools.root.utils.FontInstaller;
 import com.rarnu.tools.root.utils.FontUtils;
 import com.rarnu.utils.ConfigUtils;
 import com.rarnu.utils.DownloadUtils;
+import com.rarnu.utils.UIUtils;
 import org.apache.http.protocol.HTTP;
 
 import java.io.File;
@@ -385,9 +387,28 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
         if (DeviceUtils.isMIUI() || !FontUtils.isCanEditFont()) {
             return true;
         }
-        // TODO: show font preview
 
+        FontItem item = list.get(position);
+        if (item.preview != null && !item.preview.equals("")) {
+            showFontPreview(item);
+        }
         return true;
+    }
+
+    private void showFontPreview(final FontItem item) {
+        // show font preview
+        try {
+            final ImageView ivPreview = new ImageView(getActivity());
+            ivPreview.setLayoutParams(new ViewGroup.LayoutParams(UIUtils.dipToPx(96), UIUtils.dipToPx(48)));
+            new AlertDialog.Builder(getActivity())
+                    .setTitle(item.name)
+                    .setView(ivPreview)
+                    .setPositiveButton(R.string.ok, null)
+                    .show();
+            DownloadUtils.downloadFileT(getActivity(), ivPreview, FontAPI.FONT_PREVIEW_URL + item.preview, DirHelper.FONT_PREVIEW_DIR, item.preview, null);
+        } catch (Exception e) {
+
+        }
     }
 
 
