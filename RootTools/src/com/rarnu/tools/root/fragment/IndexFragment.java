@@ -119,9 +119,9 @@ public class IndexFragment extends BasePreferenceFragment implements
         } else if (preference.getKey().equals(getString(R.string.id_cleanhtc))) {
             UIInstance.currentFragment = 5;
             FragmentStarter.showContent(getActivity(), HtcRomActivity.class, Fragments.getFragment(FragmentNameConst.FN_HTCROM));
-
         } else if (preference.getKey().equals(getString(R.string.id_fonts))) {
-            // TODO: show fonts fragment
+            UIInstance.currentFragment = 23;
+            FragmentStarter.showContent(getActivity(), FontsActivity.class, Fragments.getFragment(FragmentNameConst.FN_FONTS));
         }
         // backup
         else if (preference.getKey().equals(getString(R.string.id_backup))) {

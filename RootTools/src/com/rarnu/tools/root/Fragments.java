@@ -45,6 +45,7 @@ public class Fragments {
     private static GoogleFragment fGoogle = null;
     private static RemainedFilesFragment fRemainedFiles = null;
     private static UpdateFragment fUpdate = null;
+    private static FontsFragment fFonts = null;
 
     public static Fragment getFragment(String name) {
 
@@ -244,6 +245,11 @@ public class Fragments {
                 fUpdate = new UpdateFragment();
             }
             f = fUpdate;
+        } else if (name.equals(FragmentNameConst.FN_FONTS)) {
+            if (fFonts == null) {
+                fFonts = new FontsFragment();
+            }
+            f = fFonts;
         }
 
         return f;
@@ -292,6 +298,7 @@ public class Fragments {
         fGoogle = null;
         fRemainedFiles = null;
         fUpdate = null;
+        fFonts = null;
     }
 
 }

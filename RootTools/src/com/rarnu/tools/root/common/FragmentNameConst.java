@@ -42,4 +42,5 @@ public class FragmentNameConst {
     public static final String FN_GOOGLE = "google";
     public static final String FN_REMAINED_FILES = "remainedfiles";
     public static final String FN_UPDATE = "update";
+    public static final String FN_FONTS = "fonts";
 }

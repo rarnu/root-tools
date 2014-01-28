@@ -70,7 +70,7 @@ public class MainActivity extends Activity implements AdapterView.OnItemClickLis
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.main);
+        setContentView(R.layout.layout_fonts);
         RootUtils.mountRW();
         initEnv();
         lvFonts = (ListView) findViewById(R.id.lvFonts);

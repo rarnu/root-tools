@@ -398,7 +398,9 @@
     <string name="select_blacklist">Selected apps will be add to blacklist</string>
     <string name="install_busybox_confirm">RootTools will install busybox for your device, confirm?</string>
     <string name="install_iptables_confirm">RootTools will install iptables for your device, confirm?</string>
-    <string name="binary_not_supportted">RootTools only support for ARM chips, please try to find the binary file fit for your device.</string>
+    <string name="binary_not_supportted">RootTools only support for ARM chips, please try to find the binary file fit
+        for your device.
+    </string>
     <string name="theme_changed_restart">Theme changed, please restart the application to take effect.</string>
     <string name="google_download_check">Download the google package for checking</string>
     <string name="google_status_tobechecked">Need Check</string>
@@ -411,7 +413,9 @@
     <string name="download">Download</string>
     <string name="google_downloading_zip">Download progressing, are you sure to cancel it?</string>
     <string name="unzipping">Unzipping, please wait...</string>
-    <string name="google_install_hint">Install google package will cause your device cannot take the official update, this operation is not resetable, please be careful.</string>
+    <string name="google_install_hint">Install google package will cause your device cannot take the official update,
+        this operation is not resetable, please be careful.
+    </string>
     <string name="google_install_dialog">Are you sure to install this version of google package?</string>
     <string name="google_current_sdk" formatted="false">Device SDK: %s (Code: %d) [%s]</string>
     <string name="google_sdk_match">Match</string>
@@ -420,7 +424,9 @@
     <string name="chk_install_optional">Install Optional Apps</string>
     <string name="google_all_files_correct">All files are correct, do not need to reinstall.</string>
     <string name="google_no_zip">You have not downloaded the google package, please download it first.</string>
-    <string name="google_reboot_hint">Google package installed, if you cannot see the Google apps now, please reboot your device.</string>
+    <string name="google_reboot_hint">Google package installed, if you cannot see the Google apps now, please reboot
+        your device.
+    </string>
 
     <string name="team_members">Team Members</string>
     <string name="team_project">Project Source</string>
@@ -441,4 +447,17 @@
     <string name="unofficial_no_update">Not an official version, cannot update</string>
     <string name="updating_cannot_exit">Updating, cannot exit the process now.</string>
     <string name="comp_loading_cannot_exit">Still loading, please wait a moment.</string>
+
+    <string name="warning_htc_one">If there is a font changer inside your system, please NOT try this module.</string>
+    <string name="font_downloaded">Downloaded</string>
+    <string name="warning_font_using">This font is currently in using</string>
+    <string name="toast_installing">Installing font...</string>
+    <string name="toast_downloading" formatted="false">Downloading, %d %% completed</string>
+    <string name="toast_cannot_exit">Still operating, please wait a moment.</string>
+    <string name="font_loading_list">Loading font list...</string>
+    <string name="confirm_change_font" formatted="false">Are you sure to change the system font to %s？ This will take
+        some time, and you must reboot your device after it.
+    </string>
+    <string name="font_hint">Click for download or install it, long click for sample.</string>
+
 </resources>

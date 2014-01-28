@@ -414,4 +414,15 @@
     <string name="unofficial_no_update">非官方发布版本, 无法升级</string>
     <string name="updating_cannot_exit">正在升级, 不能退出这一过程</string>
     <string name="comp_loading_cannot_exit">正在加载数据，暂时无法退出，请稍候...</string>
+
+    <string name="warning_htc_one">若您的系统自身带有字体更换的功能, 请勿使用本软件内的字体更换功能。</string>
+    <string name="font_downloaded">已下载</string>
+    <string name="warning_font_using">当前正在使用这个字体，无需更换</string>
+    <string name="toast_installing">正在安装字体，请稍候...</string>
+    <string name="toast_downloading" formatted="false">正在下载, 已完成 %d %%</string>
+    <string name="toast_cannot_exit">正在操作中，暂时无法退出，请稍候...</string>
+    <string name="font_loading_list">正在加载字体列表, 请稍候...</string>
+    <string name="confirm_change_font" formatted="false">确定要将系统字体更换为 %s 吗？这将耗费一定的时间，完成后请重启系统</string>
+
+    <string name="font_hint">点击字体来下载或安装，长按查看字体样例</string>
 </resources>

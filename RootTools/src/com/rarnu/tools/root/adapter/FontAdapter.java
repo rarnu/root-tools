@@ -1,4 +1,4 @@
-package com.rarnu.fontter.adapter;
+package com.rarnu.tools.root.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -9,8 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
-import com.rarnu.fontter.R;
-import com.rarnu.fontter.api.FontItem;
+import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.common.FontItem;
+import com.rarnu.tools.root.holder.FontHolder;
 
 import java.util.List;
 

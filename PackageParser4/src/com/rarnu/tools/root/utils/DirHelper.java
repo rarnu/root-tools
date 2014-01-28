@@ -25,6 +25,8 @@ public class DirHelper {
     public static String DATA_SDCARD_DIR = "";
     public static String OBB_SDCARD_DIR = "";
     public static String GOOGLE_DIR = "";
+    public static String FONT_DIR = "";
+    public static String FONT_PREVIEW_DIR = "";
 
     public static void makeDir() {
         makeDir(ROOT_DIR);
@@ -41,6 +43,8 @@ public class DirHelper {
         makeDir(FORCE_UPDATE_DIR);
         makeDir(BATCH_INSTALL_DIR);
         makeDir(GOOGLE_DIR);
+        makeDir(FONT_DIR);
+        makeDir(FONT_PREVIEW_DIR);
     }
 
     private static void makeDir(String path) {
@@ -68,6 +72,8 @@ public class DirHelper {
         FORCE_UPDATE_DIR = ROOT_DIR + "force_update/";
         BATCH_INSTALL_DIR = SDCARD_DIR + "/install/";
         GOOGLE_DIR = ROOT_DIR + "google/";
+        FONT_DIR = ROOT_DIR + "fonts/";
+        FONT_PREVIEW_DIR = ROOT_DIR + "fonts_preview/";
 
         DATA_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath() + "/Android/data/";
         OBB_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath() + "/Android/obb/";

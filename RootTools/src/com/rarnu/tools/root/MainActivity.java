@@ -169,6 +169,8 @@ public class MainActivity extends BaseMainActivity {
                 return Fragments.getFragment(FragmentNameConst.FN_GOOGLE);
             case 22:
                 return Fragments.getFragment(FragmentNameConst.FN_REMAINED_FILES);
+            case 23:
+                return Fragments.getFragment(FragmentNameConst.FN_FONTS);
             default:
                 return Fragments.getFragment(FragmentNameConst.FN_ABOUT);
         }

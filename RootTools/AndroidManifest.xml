@@ -243,6 +243,12 @@
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
+                android:name=".fragmentactivity.FontsActivity"
+                android:label="@string/func_fonts"
+                android:windowSoftInputMode="stateHidden">
+
+        </activity>
+        <activity
                 android:name=".fragmentactivity.UpdateActivity"
                 android:label="@string/check_update"
                 android:windowSoftInputMode="stateHidden">
