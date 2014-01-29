@@ -13,6 +13,7 @@ import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.common.RTConfig;
+import com.rarnu.tools.root.database.PasswordCaller;
 import com.rarnu.tools.root.fragmentactivity.ShareActivity;
 import com.rarnu.tools.root.service.FloatWidgetService;
 import com.rarnu.tools.root.utils.CustomPackageUtils;
@@ -106,6 +107,7 @@ public class MainActivity extends BaseMainActivity {
                 FloatUtils.showFloatWindow(this, FloatWidgetService.class);
             }
         }
+        PasswordCaller.createOrOpenDatabase(this);
 
         loadNetworkStatus();
         getUpdateInfo();

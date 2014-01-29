@@ -47,6 +47,9 @@ public class Fragments {
     private static UpdateFragment fUpdate = null;
     private static FontsFragment fFonts = null;
     private static PasswordMgrFragment fPasswordMgr = null;
+    private static PasswordSecFragment fPasswordSec = null;
+    private static PasswordChangeSecFragment fPasswordChangeSec = null;
+    private static PasswordInputFragment fPasswordInput = null;
 
     public static Fragment getFragment(String name) {
 
@@ -256,6 +259,21 @@ public class Fragments {
                 fPasswordMgr = new PasswordMgrFragment();
             }
             f = fPasswordMgr;
+        } else if (name.equals(FragmentNameConst.FN_PASSWORD_SECURITY)) {
+            if (fPasswordSec == null) {
+                fPasswordSec = new PasswordSecFragment();
+            }
+            f = fPasswordSec;
+        } else if (name.equals(FragmentNameConst.FN_PASSWORD_CHANGE_SEC)) {
+            if (fPasswordChangeSec == null) {
+                fPasswordChangeSec = new PasswordChangeSecFragment();
+            }
+            f = fPasswordChangeSec;
+        } else if (name.equals(FragmentNameConst.FN_PASSWORD_INPUT)) {
+            if (fPasswordInput == null) {
+                fPasswordInput = new PasswordInputFragment();
+            }
+            f = fPasswordInput;
         }
 
         return f;
@@ -306,6 +324,9 @@ public class Fragments {
         fUpdate = null;
         fFonts = null;
         fPasswordMgr = null;
+        fPasswordSec = null;
+        fPasswordChangeSec = null;
+        fPasswordInput = null;
     }
 
 }

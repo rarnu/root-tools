@@ -130,6 +130,15 @@
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
+                android:name=".fragmentactivity.PasswordSecActivity"
+                android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity android:name=".fragmentactivity.PasswordInputActivity"
+                android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
                 android:name=".fragmentactivity.PoolActivity"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden">
@@ -257,6 +266,10 @@
                 android:label="@string/check_update"
                 android:windowSoftInputMode="stateHidden">
         </activity>
+        <activity android:name=".fragmentactivity.PasswordChangeSecActivity"
+                android:label="@string/change_sec_password"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
         <activity
                 android:name="com.tencent.tauth.AuthActivity"
                 android:noHistory="true"
@@ -276,31 +289,40 @@
 
         <service
                 android:name=".service.HtcRomService"
-                android:label="@string/app_name" />
+                android:label="@string/app_name">
+        </service>
         <service
                 android:name=".service.DataBackupService"
-                android:label="@string/app_name" />
+                android:label="@string/app_name">
+        </service>
         <service
                 android:name=".service.DataRestoreService"
-                android:label="@string/app_name" />
+                android:label="@string/app_name">
+        </service>
         <service
                 android:name=".service.CleanBackupService"
-                android:label="@string/app_name" />
+                android:label="@string/app_name">
+        </service>
         <service
                 android:name=".service.BatchInstallService"
-                android:label="@string/app_name" />
+                android:label="@string/app_name">
+        </service>
         <service
                 android:name=".service.BatchUninstallService"
-                android:label="@string/app_name" />
+                android:label="@string/app_name">
+        </service>
         <service
                 android:name=".service.FloatWidgetService"
-                android:label="@string/app_name" />
+                android:label="@string/app_name">
+        </service>
         <service
                 android:name=".service.AutoCleanMemoryService"
-                android:label="@string/app_name" />
+                android:label="@string/app_name">
+        </service>
         <service
                 android:name=".service.WidgetKeepService"
-                android:label="@string/app_name" />
+                android:label="@string/app_name">
+        </service>
 
         <receiver
                 android:name="com.rarnu.devlib.component.NetworkReceiver"
@@ -370,6 +392,11 @@
                 <action android:name="com.tencent.mm.plugin.openapi.Intent.ACTION_REFRESH_WXAPP" />
             </intent-filter>
         </receiver>
+
+        <provider
+                android:authorities="com.rarnu.tools.root.password"
+                android:name=".database.PasswordProvider">
+        </provider>
 
     </application>
 

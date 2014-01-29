@@ -433,4 +433,17 @@
     <string name="font_install_succ">安裝字體成功，重啓後將生效。您要現在就重啓設備嗎？</string>
     <string name="font_cannot_edit">沒有的找到系統的字體配置文件，無法更換字體</string>
     <string name="font_not_backuped">沒有找到備份的字體，無法還原</string>
+
+    <string name="password_init">原始密碼爲 0000, 請盡快修改密碼</string>
+    <string name="password_wrong">密碼錯誤，請重試</string>
+    <string name="password_auth">您沒有輸入密碼，無法查看內容\n點擊進行密碼授權</string>
+    <string name="change_sec_password">更改安全密碼</string>
+    <string name="password_origin">當前密碼</string>
+    <string name="password_new">新密碼</string>
+    <string name="password_repeat">重復新密碼</string>
+    <string name="password_click_input">點擊輸入密碼</string>
+    <string name="password_digit_number">密碼必須是四位數字</string>
+    <string name="password_repeat_error">新密碼和重復新密碼不一致</string>
+    <string name="password_change_fail">更改密碼失敗</string>
+    <string name="password_change_succ">更改密碼成功</string>
 </resources>

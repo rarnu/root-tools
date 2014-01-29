@@ -27,6 +27,7 @@ public class DirHelper {
     public static String GOOGLE_DIR = "";
     public static String FONT_DIR = "";
     public static String FONT_PREVIEW_DIR = "";
+    public static String PASSWORD_DIR = "";
 
     public static void makeDir() {
         makeDir(ROOT_DIR);
@@ -45,6 +46,7 @@ public class DirHelper {
         makeDir(GOOGLE_DIR);
         makeDir(FONT_DIR);
         makeDir(FONT_PREVIEW_DIR);
+        makeDir(PASSWORD_DIR);
     }
 
     private static void makeDir(String path) {
@@ -74,6 +76,7 @@ public class DirHelper {
         GOOGLE_DIR = ROOT_DIR + "google/";
         FONT_DIR = ROOT_DIR + "fonts/";
         FONT_PREVIEW_DIR = ROOT_DIR + "fonts_preview/";
+        PASSWORD_DIR = ROOT_DIR + ".sec/";
 
         DATA_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath() + "/Android/data/";
         OBB_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath() + "/Android/obb/";

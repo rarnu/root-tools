@@ -466,4 +466,17 @@
     <string name="font_install_succ">Font installed and will take effect after reboot. Reboot your device now?</string>
     <string name="font_cannot_edit">Font config file not found, cannot change font now.</string>
     <string name="font_not_backuped">No backup fonts found.</string>
+    <string name="password_init">The original password is 0000, please change it immediately.</string>
+    <string name="password_wrong">Password wrong, please retry.</string>
+    <string name="password_auth">You have NOT input your password and cannot see the content stored. \nClick for Re-auth</string>
+    <string name="change_sec_password">Change Password</string>
+    <string name="password_origin">Origin Password</string>
+    <string name="password_new">New Password</string>
+    <string name="password_repeat">Repeat Password</string>
+
+    <string name="password_click_input">Click for Input</string>
+    <string name="password_digit_number">Password must be 4 digits.</string>
+    <string name="password_repeat_error">New password and repeat one are not the same.</string>
+    <string name="password_change_fail">Change password failed</string>
+    <string name="password_change_succ">Password changed</string>
 </resources>
