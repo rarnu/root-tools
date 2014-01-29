@@ -15,11 +15,12 @@ public class RootUtils {
     public static final int LEVEL_ROOTED = 2;
     public static final int LEVEL_HALF_ROOTED = 1;
     public static final int LEVEL_NO_ROOT = 0;
-    private static final String[] SU_PATH = new String[]{"/system/bin/su", "/system/xbin/su" };
+    private static final String[] SU_PATH = new String[]{"/system/bin/su", "/system/xbin/su"};
     private static final String APP_PATH = "/system/app/";
-    private static final String[] BUSYBOX_PATH = new String[]{"/system/xbin/busybox", "/system/bin/busybox" };
-    private static final String[] IPTABLES_PATH = new String[]{"/system/bin/iptables", "/system/xbin/iptables" };
-    private static final String[] IP6TABLES_PATH = new String[]{"/system/bin/ip6tables", "/system/xbin/ip6tables" };
+    private static final String[] BUSYBOX_PATH = new String[]{"/system/xbin/busybox", "/system/bin/busybox"};
+    private static final String[] IPTABLES_PATH = new String[]{"/system/bin/iptables", "/system/xbin/iptables"};
+    private static final String[] IP6TABLES_PATH = new String[]{"/system/bin/ip6tables", "/system/xbin/ip6tables"};
+    public static boolean DEBUG = false;
     private static String[] SUPERUSER_PATH = null;
     private static PackageManager pm = null;
 
@@ -94,7 +95,9 @@ public class RootUtils {
     }
 
     public static CommandResult runCommand(String command, boolean root, CommandCallback callback) {
-        Log.e("runCommand", command);
+        if (DEBUG) {
+            Log.e("runCommand", command);
+        }
         Process process = null;
         DataOutputStream os = null;
         BufferedReader brOut = null;
@@ -153,7 +156,9 @@ public class RootUtils {
         if (callback != null) {
             callback.onCommandFinish();
         }
-        Log.e("runCommand", String.format("result:%s, error:%s", ret.result, ret.error));
+        if (DEBUG) {
+            Log.e("runCommand", String.format("result:%s, error:%s", ret.result, ret.error));
+        }
         return ret;
     }
 

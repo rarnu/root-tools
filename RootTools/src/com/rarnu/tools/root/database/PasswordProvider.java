@@ -4,6 +4,7 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.net.Uri;
+import android.util.Log;
 import com.rarnu.devlib.base.BaseDatabase;
 import com.rarnu.devlib.base.BaseProvider;
 
@@ -24,9 +25,11 @@ public class PasswordProvider extends BaseProvider {
         PasswordDatabase database = null;
         try {
             database = new PasswordDatabase(context);
+            Log.e("createDatabase", "created database");
         } catch (Exception e) {
-
+            Log.e("createDatabase", "error:" + e.getMessage());
         }
+        Log.e("createDatabase", "database is " + (database == null ? "null" : "not null"));
         return database;
     }
 

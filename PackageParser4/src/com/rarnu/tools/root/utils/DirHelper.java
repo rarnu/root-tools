@@ -76,7 +76,7 @@ public class DirHelper {
         GOOGLE_DIR = ROOT_DIR + "google/";
         FONT_DIR = ROOT_DIR + "fonts/";
         FONT_PREVIEW_DIR = ROOT_DIR + "fonts_preview/";
-        PASSWORD_DIR = ROOT_DIR + ".sec/";
+        PASSWORD_DIR = ROOT_DIR + "security/";
 
         DATA_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath() + "/Android/data/";
         OBB_SDCARD_DIR = Environment.getExternalStorageDirectory().getPath() + "/Android/obb/";

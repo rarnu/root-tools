@@ -1,6 +1,7 @@
 package com.rarnu.tools.root.database;
 
 import android.content.Context;
+import android.util.Log;
 import com.rarnu.devlib.base.BaseDatabase;
 import com.rarnu.tools.root.utils.DirHelper;
 
@@ -19,7 +20,10 @@ public class PasswordDatabase extends BaseDatabase {
 
     @Override
     public String getDatabasePath() {
-        return DirHelper.PASSWORD_DIR + SEC_DB;
+
+        String path = DirHelper.PASSWORD_DIR + SEC_DB;
+        Log.e("getDatabasePath", path);
+        return path;
     }
 
     @Override
