@@ -11,7 +11,6 @@ import com.rarnu.devlib.base.BaseProvider;
 public class PasswordProvider extends BaseProvider {
 
     public static final String URI_NAME = "com.rarnu.tools.root.password";
-    public static final int ACTION_DESTROY = 99;
     public static final int ACTION_QUERY_SECPWD = 10;
     public static final int ACTION_QUERY_PASSWORD_LIST = 11;
     public static final int ACTION_UPDATE_SECPWD = 20;
@@ -26,9 +25,7 @@ public class PasswordProvider extends BaseProvider {
         PasswordDatabase database = null;
         try {
             database = new PasswordDatabase(context);
-            Log.e("createDatabase", "created database");
         } catch (Exception e) {
-            Log.e("createDatabase", "error:" + e.getMessage());
         }
         Log.e("createDatabase", "database is " + (database == null ? "null" : "not null"));
         return database;
@@ -43,9 +40,6 @@ public class PasswordProvider extends BaseProvider {
                 break;
             case ACTION_QUERY_PASSWORD_LIST:
                 c = database.query(PasswordDatabase.TABLE_PWD, null, null, null, null, null, null);
-                break;
-            case ACTION_DESTROY:
-                database.close();
                 break;
         }
         return c;

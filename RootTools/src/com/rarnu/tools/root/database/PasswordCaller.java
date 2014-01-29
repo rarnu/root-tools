@@ -11,18 +11,6 @@ import java.util.List;
 
 public class PasswordCaller {
 
-    public static void createOrOpenDatabase(Context context) {
-        if (context != null) {
-            context.getContentResolver().query(PasswordProvider.CONTENT_URI, null, null, null, null);
-        }
-    }
-
-    public static void destroyDatabase(Context context) {
-        if (context != null) {
-            context.getContentResolver().query(ContentUris.withAppendedId(PasswordProvider.CONTENT_URI, PasswordProvider.ACTION_DESTROY), null, null, null, null);
-        }
-    }
-
     public static boolean isInitSecPassword(Context context) {
         boolean ret = false;
         if (context != null) {
