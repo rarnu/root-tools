@@ -4,10 +4,6 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.os.CancellationSignal;
-import android.os.Handler;
-import android.os.Message;
-import android.util.Log;
 
 import java.io.File;
 import java.io.IOException;
@@ -16,71 +12,57 @@ import java.util.List;
 public abstract class BaseDatabase {
 
     private SQLiteDatabase database;
-    private Handler hCreateDatabase = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                String dbName = (String) msg.obj;
-                database = SQLiteDatabase.openOrCreateDatabase(dbName, null);
-                Log.e("BaseDatabase", "openOrCreateDatabase");
-                List<String> listSql = getListSqlCreateTables();
-                if (listSql != null && listSql.size() != 0) {
-                    for (String sql : listSql) {
-                        try {
-                            database.execSQL(sql);
-                            Log.e("BaseDatabase", sql);
-                        } catch (Exception e) {
-                            Log.e("BaseDatabase", "error:" + e.getMessage());
-                        }
-                    }
-                }
-                database.close();
-                database = SQLiteDatabase.openDatabase(dbName, null, SQLiteDatabase.OPEN_READWRITE);
-                Log.e("hCreateDatabase", "created new database");
-            }
-            super.handleMessage(msg);
-        }
-    };
 
     public BaseDatabase(Context context) throws Exception {
-        String dbName = getDatabasePath();
+        String path = getDatabasePath(context);
+        if (!path.endsWith("/")) {
+            path += "/";
+        }
+        String name = getDatabaseFileName(context);
+        String dbName = path + name;
         File fDb = new File(dbName);
         if (!fDb.exists()) {
-            createEmptyDatabaseFileT(fDb);
+            createOrCopyDatabaseFile(context, path, name, isCopyDatabase());
+        }
+        database = SQLiteDatabase.openDatabase(dbName, null, SQLiteDatabase.OPEN_READWRITE);
+
+    }
+
+    private void createOrCopyDatabaseFile(Context context, String path, String name, boolean copy) {
+        if (copy) {
+            copyDatabaseFile(context, path, name);
         } else {
-            database = SQLiteDatabase.openDatabase(dbName, null, SQLiteDatabase.OPEN_READWRITE);
+            try {
+                String dbName = path + name;
+                if (new File(dbName).createNewFile()) {
+                    database = SQLiteDatabase.openOrCreateDatabase(dbName, null);
+                    List<String> listSql = getListSqlCreateTables();
+                    if (listSql != null && listSql.size() != 0) {
+                        for (String sql : listSql) {
+                            try {
+                                database.execSQL(sql);
+                            } catch (Exception e) {
+                            }
+                        }
+                    }
+                    database.close();
+                }
+            } catch (IOException e) {
+
+            }
         }
 
     }
 
-    private void createEmptyDatabaseFileT(final File fDb) {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                while (!fDb.exists()) {
-                    try {
-                        fDb.createNewFile();
-                    } catch (IOException e) {
-                        Log.e("createEmptyDatabaseFileT", e.getMessage());
-                    }
-                    try {
-                        Thread.sleep(200);
-                    } catch (Exception e) {
+    public abstract String getDatabasePath(Context context);
 
-                    }
-                }
-                Message msg = new Message();
-                msg.what = 1;
-                msg.obj = fDb.getAbsolutePath();
-                hCreateDatabase.sendMessage(msg);
-            }
-        }).start();
-
-    }
-
-    public abstract String getDatabasePath();
+    public abstract String getDatabaseFileName(Context context);
 
     public abstract List<String> getListSqlCreateTables();
+
+    public abstract boolean isCopyDatabase();
+
+    public abstract void copyDatabaseFile(Context context, String path, String name);
 
     public Cursor query(String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy) {
         Cursor c = null;
@@ -102,14 +84,6 @@ public abstract class BaseDatabase {
         Cursor c = null;
         if (database != null) {
             c = database.query(distinct, table, columns, selection, selectionArgs, groupBy, having, orderBy, limit);
-        }
-        return c;
-    }
-
-    public Cursor query(boolean distinct, String table, String[] columns, String selection, String[] selectionArgs, String groupBy, String having, String orderBy, String limit, CancellationSignal cancellationSignal) {
-        Cursor c = null;
-        if (database != null) {
-            c = database.query(distinct, table, columns, selection, selectionArgs, groupBy, having, orderBy, limit, cancellationSignal);
         }
         return c;
     }
@@ -180,6 +154,7 @@ public abstract class BaseDatabase {
     public void close() {
         if (database != null) {
             database.close();
+            database = null;
         }
     }
 

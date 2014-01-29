@@ -81,10 +81,12 @@ public class MainActivity extends BaseMainActivity {
     @Override
     public void loadFragments() {
         Fragments.loadFragments();
+        PasswordCaller.createOrOpenDatabase(this);
     }
 
     @Override
     public void releaseFragments() {
+        PasswordCaller.destroyDatabase(this);
         Fragments.releaseFragments();
 
     }
@@ -107,7 +109,6 @@ public class MainActivity extends BaseMainActivity {
                 FloatUtils.showFloatWindow(this, FloatWidgetService.class);
             }
         }
-        PasswordCaller.createOrOpenDatabase(this);
 
         loadNetworkStatus();
         getUpdateInfo();

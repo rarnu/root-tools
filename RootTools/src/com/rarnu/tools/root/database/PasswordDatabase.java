@@ -1,9 +1,9 @@
 package com.rarnu.tools.root.database;
 
 import android.content.Context;
-import android.util.Log;
 import com.rarnu.devlib.base.BaseDatabase;
 import com.rarnu.tools.root.utils.DirHelper;
+import com.rarnu.utils.FileUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +19,13 @@ public class PasswordDatabase extends BaseDatabase {
     }
 
     @Override
-    public String getDatabasePath() {
+    public String getDatabasePath(Context context) {
+        return DirHelper.PASSWORD_DIR;
+    }
 
-        String path = DirHelper.PASSWORD_DIR + SEC_DB;
-        Log.e("getDatabasePath", path);
-        return path;
+    @Override
+    public String getDatabaseFileName(Context context) {
+        return SEC_DB;
     }
 
     @Override
@@ -33,5 +35,15 @@ public class PasswordDatabase extends BaseDatabase {
         list.add("create table pwd(c_id integer primary key autoincrement, c_name text not null, c_account text, c_password text, c_memo text)");
         list.add("insert into sec(c_password) values ('0000')");
         return list;
+    }
+
+    @Override
+    public boolean isCopyDatabase() {
+        return true;
+    }
+
+    @Override
+    public void copyDatabaseFile(Context context, String path, String name) {
+        FileUtils.copyAssetFile(context, name, path, null);
     }
 }
