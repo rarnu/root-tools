@@ -67,6 +67,6 @@ public class EnableappAdapter extends BaseAdapter<EnableappInfo> {
 
     @Override
     public String getValueText(EnableappInfo item) {
-        return pm.getApplicationLabel(item.info).toString() + item.info.packageName;
+        return pm.getApplicationLabel(item.info).toString().toLowerCase() + item.info.packageName.toLowerCase();
     }
 }

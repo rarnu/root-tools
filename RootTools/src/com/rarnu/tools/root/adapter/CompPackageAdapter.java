@@ -58,6 +58,6 @@ public class CompPackageAdapter extends BaseAdapter<PackageInfo> {
 
     @Override
     public String getValueText(PackageInfo item) {
-        return pm.getApplicationLabel(item.applicationInfo) + item.packageName;
+        return pm.getApplicationLabel(item.applicationInfo).toString().toLowerCase() + item.packageName.toLowerCase();
     }
 }

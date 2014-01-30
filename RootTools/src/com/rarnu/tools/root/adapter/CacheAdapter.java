@@ -45,6 +45,6 @@ public class CacheAdapter extends BaseAdapter<CacheInfo> {
 
     @Override
     public String getValueText(CacheInfo item) {
-        return pm.getApplicationLabel(item.info.applicationInfo).toString() + item.info.packageName;
+        return pm.getApplicationLabel(item.info.applicationInfo).toString().toLowerCase() + item.info.packageName.toLowerCase();
     }
 }

@@ -19,7 +19,7 @@ public class PasswordAdapter extends BaseAdapter<PasswordItem> {
 
     @Override
     public String getValueText(PasswordItem item) {
-        return item.name;
+        return item.name.toLowerCase();
     }
 
     @Override

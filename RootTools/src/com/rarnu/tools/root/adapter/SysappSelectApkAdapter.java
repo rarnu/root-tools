@@ -65,7 +65,7 @@ public class SysappSelectApkAdapter extends BaseAdapter<SysappSelectApkItem> {
 
     @Override
     public String getValueText(SysappSelectApkItem item) {
-        return item.filename;
+        return item.filename.toLowerCase();
     }
 
 }

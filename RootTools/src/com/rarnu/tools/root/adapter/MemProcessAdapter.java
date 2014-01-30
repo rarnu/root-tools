@@ -57,6 +57,6 @@ public class MemProcessAdapter extends BaseAdapter<MemProcessInfo> {
         if (item.appInfo != null) {
             valueText += pm.getApplicationLabel(item.appInfo);
         }
-        return valueText;
+        return valueText.toLowerCase();
     }
 }

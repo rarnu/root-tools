@@ -108,6 +108,6 @@ public class HardUpdateAdapter extends BaseAdapter<DataappInfo> {
 
     @Override
     public String getValueText(DataappInfo item) {
-        return pm.getApplicationLabel(item.info).toString() + item.info.packageName;
+        return pm.getApplicationLabel(item.info).toString().toLowerCase() + item.info.packageName.toLowerCase();
     }
 }

@@ -19,7 +19,7 @@ public class FileSystemAdapter extends BaseAdapter<FileSystemFileInfo> {
 
     @Override
     public String getValueText(FileSystemFileInfo item) {
-        return item.name;
+        return item.name.toLowerCase();
     }
 
     @Override

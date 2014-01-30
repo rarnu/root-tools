@@ -77,6 +77,6 @@ public class HostsAdapter extends BaseAdapter<HostRecordInfo> {
 
     @Override
     public String getValueText(HostRecordInfo item) {
-        return item.ip + item.domain;
+        return item.ip.toLowerCase() + item.domain.toLowerCase();
     }
 }

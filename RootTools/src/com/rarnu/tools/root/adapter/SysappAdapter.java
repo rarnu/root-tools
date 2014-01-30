@@ -63,6 +63,6 @@ public class SysappAdapter extends BaseAdapter<SysappInfo> {
 
     @Override
     public String getValueText(SysappInfo item) {
-        return pm.getApplicationLabel(item.info).toString() + item.info.packageName;
+        return pm.getApplicationLabel(item.info).toString().toLowerCase() + item.info.packageName.toLowerCase();
     }
 }
