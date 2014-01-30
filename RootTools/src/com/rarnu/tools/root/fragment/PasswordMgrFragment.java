@@ -7,10 +7,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.ListView;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
+import android.widget.*;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
@@ -21,12 +18,11 @@ import com.rarnu.tools.root.fragmentactivity.PasswordChangeSecActivity;
 import com.rarnu.tools.root.fragmentactivity.PasswordDetailActivity;
 import com.rarnu.tools.root.fragmentactivity.PasswordSecActivity;
 import com.rarnu.tools.root.loader.PasswordLoader;
-import com.rarnu.utils.InputMethodUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class PasswordMgrFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener, Loader.OnLoadCompleteListener<List<PasswordItem>> {
+public class PasswordMgrFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener, Loader.OnLoadCompleteListener<List<PasswordItem>>, SearchView.OnQueryTextListener {
 
     RelativeLayout layReauth;
     TextView tvReauth;
@@ -36,6 +32,7 @@ public class PasswordMgrFragment extends BaseFragment implements View.OnClickLis
     PasswordAdapter adapter;
     List<PasswordItem> list;
     PasswordLoader loader;
+    SearchView sv;
 
     @Override
     public int getBarTitle() {
@@ -62,6 +59,7 @@ public class PasswordMgrFragment extends BaseFragment implements View.OnClickLis
         adapter = new PasswordAdapter(getActivity(), list);
         lvPassword.setAdapter(adapter);
         loader = new PasswordLoader(getActivity());
+        sv = (SearchView) innerView.findViewById(R.id.sv);
     }
 
     @Override
@@ -69,6 +67,7 @@ public class PasswordMgrFragment extends BaseFragment implements View.OnClickLis
         tvReauth.setOnClickListener(this);
         lvPassword.setOnItemClickListener(this);
         loader.registerListener(0, this);
+        sv.setOnQueryTextListener(this);
     }
 
     @Override
@@ -192,5 +191,18 @@ public class PasswordMgrFragment extends BaseFragment implements View.OnClickLis
         if (getActivity() != null) {
             adapter.setNewList(list);
         }
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        if (adapter != null) {
+            adapter.filter(newText);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        return false;
     }
 }
