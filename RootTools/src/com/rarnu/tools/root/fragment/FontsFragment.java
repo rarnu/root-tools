@@ -143,6 +143,7 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
     public void initComponents() {
         lvFonts = (ListView) innerView.findViewById(R.id.lvFonts);
         tvProgress = (DataProgressBar) innerView.findViewById(R.id.tvProgress);
+        tvPercent = (TextView) innerView.findViewById(R.id.tvPercent);
         layDownload = (RelativeLayout) innerView.findViewById(R.id.layDownload);
         pbDownloading = (ProgressBar) innerView.findViewById(R.id.pbDownloading);
         sv = (SearchView) innerView.findViewById(R.id.sv);
