@@ -447,4 +447,21 @@
     <string name="password_repeat_error">新重码和重复新密码不一致</string>
     <string name="password_change_fail">更改密码失败</string>
     <string name="password_change_succ">更改密码成功</string>
+
+    <string name="pdetail_title">查看密码明细</string>
+    <string name="pdetail_name">名称</string>
+    <string name="pdetail_account">帐号</string>
+    <string name="pdetail_password">密码</string>
+    <string name="pdetail_memo">备注</string>
+    <string name="pdetail_name_hint">帐号密码的来源</string>
+    <string name="pdetail_account_hint">登录时使用的帐号</string>
+    <string name="pdetail_password_hint">登录时使用的密码</string>
+    <string name="pdetail_memo_hint">附加信息, 如安全问题及答案</string>
+    <string name="edit">编辑</string>
+    <string name="delete">删除</string>
+    <string name="detail_name_empty">名称为空, 无法保存</string>
+    <string name="detail_save_failed">保存密码信息失败</string>
+    <string name="detail_cancel_hint">取消编辑将丢失未保存的数据, 确定要取消?</string>
+    <string name="detail_delete_hint">确定要删除这条记录?</string>
+    <string name="detail_delete_failed">删除记录失败</string>
 </resources>

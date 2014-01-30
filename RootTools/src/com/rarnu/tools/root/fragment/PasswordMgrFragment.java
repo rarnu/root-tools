@@ -2,6 +2,7 @@ package com.rarnu.tools.root.fragment;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.Loader;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -13,17 +14,28 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
+import com.rarnu.tools.root.adapter.PasswordAdapter;
 import com.rarnu.tools.root.common.MenuItemIds;
+import com.rarnu.tools.root.common.PasswordItem;
 import com.rarnu.tools.root.fragmentactivity.PasswordChangeSecActivity;
+import com.rarnu.tools.root.fragmentactivity.PasswordDetailActivity;
 import com.rarnu.tools.root.fragmentactivity.PasswordSecActivity;
+import com.rarnu.tools.root.loader.PasswordLoader;
+import com.rarnu.utils.InputMethodUtils;
 
-public class PasswordMgrFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener {
+import java.util.ArrayList;
+import java.util.List;
+
+public class PasswordMgrFragment extends BaseFragment implements View.OnClickListener, AdapterView.OnItemClickListener, Loader.OnLoadCompleteListener<List<PasswordItem>> {
 
     RelativeLayout layReauth;
     TextView tvReauth;
     MenuItem miSettings;
     MenuItem miAdd;
     ListView lvPassword;
+    PasswordAdapter adapter;
+    List<PasswordItem> list;
+    PasswordLoader loader;
 
     @Override
     public int getBarTitle() {
@@ -46,12 +58,17 @@ public class PasswordMgrFragment extends BaseFragment implements View.OnClickLis
         tvReauth = (TextView) innerView.findViewById(R.id.tvReauth);
         lvPassword = (ListView) innerView.findViewById(R.id.lvPassword);
         lvPassword.setVisibility(View.GONE);
+        list = new ArrayList<PasswordItem>();
+        adapter = new PasswordAdapter(getActivity(), list);
+        lvPassword.setAdapter(adapter);
+        loader = new PasswordLoader(getActivity());
     }
 
     @Override
     public void initEvents() {
         tvReauth.setOnClickListener(this);
         lvPassword.setOnItemClickListener(this);
+        loader.registerListener(0, this);
     }
 
     @Override
@@ -83,13 +100,20 @@ public class PasswordMgrFragment extends BaseFragment implements View.OnClickLis
                 lvPassword.setVisibility(View.VISIBLE);
                 doStartLoading();
                 break;
+            case 1:
+                if (resultCode == Activity.RESULT_OK) {
+                    boolean reload = data.getBooleanExtra("reload", false);
+                    if (reload) {
+                        doStartLoading();
+                    }
+                }
+                break;
         }
-
 
     }
 
     private void doStartLoading() {
-        // TODO: start loading
+        loader.startLoading();
     }
 
     @Override
@@ -116,13 +140,22 @@ public class PasswordMgrFragment extends BaseFragment implements View.OnClickLis
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MenuItemIds.MENU_ADD:
-                // TODO: add password item
+                openPasswordDetail(true, null);
                 break;
             case MenuItemIds.MENU_SETTINGS:
                 startActivity(new Intent(getActivity(), PasswordChangeSecActivity.class));
                 break;
         }
         return true;
+    }
+
+    private void openPasswordDetail(boolean isAdd, PasswordItem item) {
+        Intent inDetail = new Intent(getActivity(), PasswordDetailActivity.class);
+        inDetail.putExtra("isAdd", isAdd);
+        if (item != null) {
+            inDetail.putExtra("item", item);
+        }
+        startActivityForResult(inDetail, 1);
     }
 
     @Override
@@ -146,6 +179,18 @@ public class PasswordMgrFragment extends BaseFragment implements View.OnClickLis
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        // TODO: goto password detail
+        PasswordItem item = (PasswordItem) lvPassword.getItemAtPosition(position);
+        openPasswordDetail(false, item);
+    }
+
+    @Override
+    public void onLoadComplete(Loader<List<PasswordItem>> loader, List<PasswordItem> data) {
+        list.clear();
+        if (data != null) {
+            list.addAll(data);
+        }
+        if (getActivity() != null) {
+            adapter.setNewList(list);
+        }
     }
 }

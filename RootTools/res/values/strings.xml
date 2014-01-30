@@ -479,4 +479,21 @@
     <string name="password_repeat_error">New password and repeat one are not the same.</string>
     <string name="password_change_fail">Change password failed</string>
     <string name="password_change_succ">Password changed</string>
+
+    <string name="pdetail_title">Password Detail</string>
+    <string name="pdetail_name">Name</string>
+    <string name="pdetail_account">Account</string>
+    <string name="pdetail_password">Password</string>
+    <string name="pdetail_memo">Memo</string>
+    <string name="pdetail_name_hint">Where the account come from</string>
+    <string name="pdetail_account_hint">Account for login</string>
+    <string name="pdetail_password_hint">Password for login</string>
+    <string name="pdetail_memo_hint">Additional information, like security question and answer</string>
+    <string name="edit">Edit</string>
+    <string name="delete">Delete</string>
+    <string name="detail_name_empty">Name is empty, cannot save.</string>
+    <string name="detail_save_failed">Fail to save password.</string>
+    <string name="detail_cancel_hint">Cancel edit will cause the data losing. Are you sure to cancel it?</string>
+    <string name="detail_delete_hint">Are you sure to delete this record?</string>
+    <string name="detail_delete_failed">Fail to delete record.</string>
 </resources>

@@ -30,4 +30,8 @@ public class MenuItemIds {
     public static final int MENU_ENABLED = Menu.FIRST + 17;
 
     public static final int MENU_DOWNLOAD = Menu.FIRST + 18;
+
+    public static final int MENU_CANCEL = Menu.FIRST + 19;
+    public static final int MENU_EDIT = Menu.FIRST + 20;
+    public static final int MENU_DELETE = Menu.FIRST + 21;
 }

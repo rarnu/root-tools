@@ -50,6 +50,7 @@ public class Fragments {
     private static PasswordSecFragment fPasswordSec = null;
     private static PasswordChangeSecFragment fPasswordChangeSec = null;
     private static PasswordInputFragment fPasswordInput = null;
+    private static PasswordDetailFragment fPasswordDetail = null;
 
     public static Fragment getFragment(String name) {
 
@@ -274,6 +275,11 @@ public class Fragments {
                 fPasswordInput = new PasswordInputFragment();
             }
             f = fPasswordInput;
+        } else if (name.equals(FragmentNameConst.FN_PASSWORD_DETAIL)) {
+            if (fPasswordDetail == null) {
+                fPasswordDetail = new PasswordDetailFragment();
+            }
+            f = fPasswordDetail;
         }
 
         return f;
@@ -327,6 +333,7 @@ public class Fragments {
         fPasswordSec = null;
         fPasswordChangeSec = null;
         fPasswordInput = null;
+        fPasswordDetail = null;
     }
 
 }

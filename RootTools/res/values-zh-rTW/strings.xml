@@ -446,4 +446,21 @@
     <string name="password_repeat_error">新密碼和重復新密碼不一致</string>
     <string name="password_change_fail">更改密碼失敗</string>
     <string name="password_change_succ">更改密碼成功</string>
+
+    <string name="pdetail_title">查看密碼明細</string>
+    <string name="pdetail_name">名稱</string>
+    <string name="pdetail_account">帳戶</string>
+    <string name="pdetail_password">密碼</string>
+    <string name="pdetail_memo">備注</string>
+    <string name="pdetail_name_hint">帳戶密碼的來源</string>
+    <string name="pdetail_account_hint">登錄時使用的帳戶</string>
+    <string name="pdetail_password_hint">登錄時使用的密碼</string>
+    <string name="pdetail_memo_hint">附加信息,如安全問題和答案</string>
+    <string name="edit">編輯</string>
+    <string name="delete">刪除</string>
+    <string name="detail_name_empty">名稱爲空, 無法存檔</string>
+    <string name="detail_save_failed">保存密碼檔案失敗</string>
+    <string name="detail_cancel_hint">取消編輯將丟失未保存的數據, 確認要取消?</string>
+    <string name="detail_delete_hint">確認要刪除這條記錄?</string>
+    <string name="detail_delete_failed">刪除記錄失敗</string>
 </resources>

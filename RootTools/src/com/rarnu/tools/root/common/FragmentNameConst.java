@@ -47,4 +47,5 @@ public class FragmentNameConst {
     public static final String FN_PASSWORD_SECURITY = "passwordsecurity";
     public static final String FN_PASSWORD_CHANGE_SEC = "passwordchangesec";
     public static final String FN_PASSWORD_INPUT = "passwordinput";
+    public static final String FN_PASSWORD_DETAIL = "passworddetail";
 }

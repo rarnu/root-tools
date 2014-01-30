@@ -1,6 +1,8 @@
 package com.rarnu.tools.root.common;
 
-public class PasswordItem {
+import java.io.Serializable;
+
+public class PasswordItem implements Serializable {
     public int id;
     public String name;
     public String account;

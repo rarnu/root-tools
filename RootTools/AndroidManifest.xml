@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="453"
-        android:versionName="6.3.2 beta">
+        android:versionCode="472"
+        android:versionName="6.3.5 beta">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -260,7 +260,7 @@
         <activity
                 android:name=".fragmentactivity.PasswordMgrActivity"
                 android:label="@string/func_password"
-                android:windowSoftInputMode="stateHidden">
+                android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.UpdateActivity"
@@ -269,6 +269,11 @@
         </activity>
         <activity android:name=".fragmentactivity.PasswordChangeSecActivity"
                 android:label="@string/change_sec_password"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+                android:name=".fragmentactivity.PasswordDetailActivity"
+                android:label="@string/pdetail_title"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
