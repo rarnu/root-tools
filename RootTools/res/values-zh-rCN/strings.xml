@@ -464,4 +464,5 @@
     <string name="detail_cancel_hint">取消编辑将丢失未保存的数据, 确定要取消?</string>
     <string name="detail_delete_hint">确定要删除这条记录?</string>
     <string name="detail_delete_failed">删除记录失败</string>
+    <string name="font_downloading">正在下载字体，暂时无法退出</string>
 </resources>

@@ -496,4 +496,5 @@
     <string name="detail_cancel_hint">Cancel edit will cause the data losing. Are you sure to cancel it?</string>
     <string name="detail_delete_hint">Are you sure to delete this record?</string>
     <string name="detail_delete_failed">Fail to delete record.</string>
+    <string name="font_downloading">Downloading font, cannot exit now.</string>
 </resources>

@@ -9,14 +9,15 @@
             android:focusable="false"
             android:iconifiedByDefault="false" />
 
-    <ListView
+    <GridView
             android:id="@+id/lvFonts"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_below="@+id/sv"
             android:layout_above="@+id/tvSpecHint"
-            android:fastScrollEnabled="true">
-    </ListView>
+            android:fastScrollEnabled="true"
+            android:numColumns="2">
+    </GridView>
     <RelativeLayout
             android:id="@+id/layDownload"
             android:layout_width="match_parent"

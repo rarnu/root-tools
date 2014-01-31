@@ -9,7 +9,6 @@ import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.*;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
@@ -28,7 +27,6 @@ import com.rarnu.tools.root.utils.FontInstaller;
 import com.rarnu.tools.root.utils.FontUtils;
 import com.rarnu.utils.ConfigUtils;
 import com.rarnu.utils.DownloadUtils;
-import com.rarnu.utils.UIUtils;
 import org.apache.http.protocol.HTTP;
 
 import java.io.File;
@@ -36,9 +34,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FontsFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<FontItem>>, AdapterView.OnItemClickListener, SearchView.OnQueryTextListener, AdapterView.OnItemLongClickListener {
+public class FontsFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<FontItem>>, AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
 
-    ListView lvFonts;
+    GridView lvFonts;
     DataProgressBar tvProgress;
     List<FontItem> list;
     FontAdapter adapter;
@@ -141,7 +139,7 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
 
     @Override
     public void initComponents() {
-        lvFonts = (ListView) innerView.findViewById(R.id.lvFonts);
+        lvFonts = (GridView) innerView.findViewById(R.id.lvFonts);
         tvProgress = (DataProgressBar) innerView.findViewById(R.id.tvProgress);
         tvPercent = (TextView) innerView.findViewById(R.id.tvPercent);
         layDownload = (RelativeLayout) innerView.findViewById(R.id.layDownload);
@@ -160,7 +158,6 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
     public void initEvents() {
         loader.registerListener(0, this);
         lvFonts.setOnItemClickListener(this);
-        lvFonts.setOnItemLongClickListener(this);
         sv.setOnQueryTextListener(this);
     }
 
@@ -170,12 +167,17 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
         loader.setMode(0);
         doStartLoading();
 
-        if (DeviceUtils.isMIUI()) {
+        boolean isMIUI = DeviceUtils.isMIUI();
+        boolean isCanEdit = FontUtils.isCanEditFont();
+
+        if (isMIUI) {
             layLocked.setVisibility(View.VISIBLE);
             tvLockReason.setText(R.string.font_locked_miui);
-        } else if (!FontUtils.isCanEditFont()) {
+            lvFonts.setEnabled(false);
+        } else if (!isCanEdit) {
             layLocked.setVisibility(View.VISIBLE);
             tvLockReason.setText(R.string.font_cannot_edit);
+            lvFonts.setEnabled(false);
         }
     }
 
@@ -229,7 +231,9 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
 
     @Override
     public Bundle getFragmentState() {
-        return null;
+        Bundle bn = new Bundle();
+        bn.putBoolean("operating", operating);
+        return bn;
     }
 
     private void initEnv() {
@@ -383,35 +387,6 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
         sv.setEnabled(!o);
         if (miRevert != null) {
             miRevert.setEnabled(!o);
-        }
-    }
-
-    @Override
-    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
-        if (DeviceUtils.isMIUI() || !FontUtils.isCanEditFont()) {
-            return true;
-        }
-
-        FontItem item = list.get(position);
-        if (item.preview != null && !item.preview.equals("")) {
-            showFontPreview(item);
-        }
-        return true;
-    }
-
-    private void showFontPreview(final FontItem item) {
-        // show font preview
-        try {
-            final ImageView ivPreview = new ImageView(getActivity());
-            ivPreview.setLayoutParams(new ViewGroup.LayoutParams(UIUtils.dipToPx(96), UIUtils.dipToPx(48)));
-            new AlertDialog.Builder(getActivity())
-                    .setTitle(item.name)
-                    .setView(ivPreview)
-                    .setPositiveButton(R.string.ok, null)
-                    .show();
-            DownloadUtils.downloadFileT(getActivity(), ivPreview, FontAPI.FONT_PREVIEW_URL + item.preview, DirHelper.FONT_PREVIEW_DIR, item.preview, null);
-        } catch (Exception e) {
-
         }
     }
 

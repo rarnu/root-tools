@@ -463,4 +463,5 @@
     <string name="detail_cancel_hint">取消編輯將丟失未保存的數據, 確認要取消?</string>
     <string name="detail_delete_hint">確認要刪除這條記錄?</string>
     <string name="detail_delete_failed">刪除記錄失敗</string>
+    <string name="font_downloading">正在下載字體，暫時無法退出</string>
 </resources>

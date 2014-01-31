@@ -2,29 +2,31 @@
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:layout_height="56dip">
+        android:layout_height="wrap_content"
+        android:padding="4dip">
 
-    <TextView
-            android:id="@+id/tvName"
+    <ImageView
+            android:id="@+id/ivPreview"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="left|center_vertical"
-            android:textSize="20sp"
-            android:textColor="?android:attr/textColorPrimary"
-            android:layout_marginLeft="4dip"
-            android:layout_toLeftOf="@+id/tvState" />
+            android:layout_height="80dip"
+            android:scaleType="fitCenter"
+            android:contentDescription="@null" />
 
-    <TextView
-            android:id="@+id/tvState"
-            android:layout_width="wrap_content"
-            android:layout_height="48dip"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="4dip"
-            android:layout_centerVertical="true"
-            android:textSize="16sp"
-            android:gravity="center"
-            android:textColor="#FF00FF00"
-            android:text="@string/font_downloaded"
-            />
+    <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/ivPreview"
+            android:gravity="center_horizontal"
+            android:layout_marginTop="2dip">
+        <TextView
+                android:id="@+id/tvName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="left|center_vertical"
+                android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary"
+                android:layout_marginLeft="4dip"
+                android:layout_toLeftOf="@+id/tvState" />
+    </RelativeLayout>
 
 </RelativeLayout>
