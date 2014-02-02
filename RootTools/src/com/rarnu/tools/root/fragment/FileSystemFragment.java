@@ -531,7 +531,16 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        RootUtils.runCommand("rm -r "+item.fullPath, true);
+                        if (item.fullPath.startsWith("/system/") || item.fullPath.startsWith("/data/")) {
+                            RootUtils.runCommand("rm -r " + item.fullPath, true);
+                        } else {
+                            File fDel = new File(item.fullPath);
+                            if (fDel.isDirectory()) {
+                                FileUtils.deleteDir(item.fullPath);
+                            } else {
+                                fDel.deleteOnExit();
+                            }
+                        }
                         list.remove(item);
                         adapter.setNewList(list);
                         if (sv != null) {
