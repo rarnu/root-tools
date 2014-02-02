@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, StdCtrls,
-  ExtCtrls, strutils, IniFiles, LCLIntf;
+  ExtCtrls, strutils, IniFiles, LCLIntf, frm_user_info, unt_command;
 
 type
 
@@ -40,6 +40,7 @@ type
     procedure btnGenerateClick(Sender: TObject);
     procedure btnShowPreviewClick(Sender: TObject);
     procedure btnUploadClick(Sender: TObject);
+    procedure btnUserClick(Sender: TObject);
     procedure edtSavePathChange(Sender: TObject);
     procedure edtSavePathDblClick(Sender: TObject);
     procedure FormCreate(Sender: TObject);
@@ -155,7 +156,6 @@ begin
     btnChooseFont.Font.Size := 14;
     btnChooseFont.Font.Name := fd.Font.Name;
     edtFontName.Caption := fd.Font.Name;
-    btnShowPreview.Enabled := False;
   end;
 end;
 
@@ -163,7 +163,7 @@ procedure TFormMain.btnChooseFileClick(Sender: TObject);
 begin
   if od.Execute then
   begin
-    btnChooseFont.Caption := ExtractFileName(od.FileName);
+    btnChooseFile.Caption := ExtractFileName(od.FileName);
   end;
 end;
 
@@ -172,7 +172,6 @@ begin
   if edtFontName.Text <> '' then
   begin
     GeneratePreview(edtFontName.Text, fd.Font);
-    btnShowPreview.Enabled := True;
   end
   else
   begin
@@ -198,6 +197,7 @@ var
   userName: string;
   userPasword: string;
   shparam: string;
+  cmd: string;
 begin
   fontFile := od.FileName;
   fontName := edtFontName.Text;
@@ -207,9 +207,27 @@ begin
   userPasword := FIniFile.ReadString(SEC_CFG, KEY_USER_PASSWORD, '');
 
   shcmd := ExtractFilePath(ParamStr(0)) + 'uploadfont.sh ';
-  shparam := Format('%s %s %s %d %s %s', [fontName, fontFile,
-    previewFile, isTop, userName, userPasword]);
-  LCLIntf.OpenDocument(shcmd + shparam);
+  shparam := Format('"%s" "%s" "%s" "%d" "%s" "%s"',
+    [fontName, fontFile, previewFile, isTop, userName, userPasword]);
+  cmd := shcmd + shparam;
+  WriteLn(cmd);
+  // LCLIntf.OpenDocument(cmd);
+  ExecuteCommandT(cmd, ExtractFilePath(ParamStr(0)));
+end;
+
+procedure TFormMain.btnUserClick(Sender: TObject);
+begin
+  with TFormUserInfo.Create(nil) do
+  begin
+    edtAccount.Text := FIniFile.ReadString(SEC_CFG, KEY_USER_ACCOUNT, '');
+    edtpassword.Text := FIniFile.ReadString(SEC_CFG, KEY_USER_PASSWORD, '');
+    if ShowModal = mrOk then
+    begin
+      FIniFile.WriteString(SEC_CFG, KEY_USER_ACCOUNT, edtAccount.Text);
+      FIniFile.WriteString(SEC_CFG, KEY_USER_PASSWORD, edtpassword.Text);
+    end;
+    Free;
+  end;
 end;
 
 procedure TFormMain.edtSavePathChange(Sender: TObject);

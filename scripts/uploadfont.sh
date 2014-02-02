@@ -42,7 +42,7 @@ uploadpreview() {
 
 uploadfont
 uploadpreview
-
-curl http://rarnu.7thgen.info/fonts/upload_font.php?name=${font}&top=${istop}
+cmd="curl http://rarnu.7thgen.info/fonts/upload_font.php?name=${font}&top=${istop}"
+${cmd}
 
 echo "done"

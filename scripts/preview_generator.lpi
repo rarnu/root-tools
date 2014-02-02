@@ -32,7 +32,7 @@
         <PackageName Value="LCL"/>
       </Item1>
     </RequiredPackages>
-    <Units Count="2">
+    <Units Count="3">
       <Unit0>
         <Filename Value="preview_generator.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -42,9 +42,17 @@
         <Filename Value="frm_preview_generator.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormMain"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_preview_generator"/>
       </Unit1>
+      <Unit2>
+        <Filename Value="frm_user_info.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormUserInfo"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frm_user_info"/>
+      </Unit2>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

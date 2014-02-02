@@ -69,7 +69,6 @@ object FormMain: TFormMain
       Top = 16
       Width = 144
       Caption = 'Show Preview'
-      Enabled = False
       OnClick = btnShowPreviewClick
       TabOrder = 0
     end
@@ -198,6 +197,7 @@ object FormMain: TFormMain
       Top = 8
       Width = 139
       Caption = 'User Info'
+      OnClick = btnUserClick
       TabOrder = 0
     end
   end

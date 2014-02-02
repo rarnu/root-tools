@@ -3,41 +3,42 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="6">
+    <Units Count="9">
       <Unit0>
         <Filename Value="preview_generator.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="preview_generator"/>
-        <UsageCount Value="20"/>
+        <UsageCount Value="21"/>
       </Unit0>
       <Unit1>
         <Filename Value="frm_preview_generator.pas"/>
         <IsPartOfProject Value="True"/>
         <ComponentName Value="FormMain"/>
+        <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_preview_generator"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="175"/>
-        <CursorPos X="5" Y="206"/>
-        <UsageCount Value="20"/>
+        <TopLine Value="199"/>
+        <CursorPos X="50" Y="217"/>
+        <UsageCount Value="21"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
       </Unit1>
       <Unit2>
         <Filename Value="/usr/lib/codetyphon/typhon/lcl/graphics.pp"/>
         <UnitName Value="Graphics"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="218"/>
+        <TopLine Value="257"/>
         <CursorPos X="3" Y="282"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
         <Filename Value="/usr/lib/codetyphon/typhon/lcl/include/custombitmap.inc"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="319"/>
         <CursorPos X="3" Y="342"/>
@@ -47,7 +48,7 @@
       <Unit4>
         <Filename Value="/usr/lib/codetyphon/typhon/lcl/graphtype.pp"/>
         <UnitName Value="GraphType"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="20"/>
         <CursorPos X="14" Y="36"/>
@@ -62,119 +63,165 @@
         <CursorPos X="34" Y="174"/>
         <UsageCount Value="10"/>
       </Unit5>
+      <Unit6>
+        <Filename Value="frm_user_info.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormUserInfo"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frm_user_info"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="29" Y="8"/>
+        <UsageCount Value="21"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="unt_command.pas"/>
+        <UnitName Value="unt_command"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="62"/>
+        <CursorPos X="5" Y="67"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <UnitName Value="process"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="16"/>
+        <CursorPos X="85" Y="32"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit8>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="27" HistoryIndex="26">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
-        <Filename Value="/usr/lib/codetyphon/typhon/lcl/graphics.pp"/>
-        <Caret Line="737" Column="14" TopLine="723"/>
+        <Filename Value="frm_preview_generator.pas"/>
+        <Caret Line="9" Column="47" TopLine="1"/>
       </Position1>
       <Position2>
-        <Filename Value="/usr/lib/codetyphon/typhon/lcl/graphics.pp"/>
-        <Caret Line="58" Column="3" TopLine="45"/>
+        <Filename Value="frm_preview_generator.pas"/>
+        <Caret Line="10" Column="29" TopLine="1"/>
       </Position2>
       <Position3>
         <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="51" Column="41" TopLine="38"/>
+        <Caret Line="2" Column="4" TopLine="1"/>
       </Position3>
       <Position4>
         <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="105" Column="34" TopLine="87"/>
+        <Caret Line="167" Column="2" TopLine="157"/>
       </Position4>
       <Position5>
         <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="63" Column="15" TopLine="58"/>
+        <Caret Line="203" Column="36" TopLine="191"/>
       </Position5>
       <Position6>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="64" Column="15" TopLine="59"/>
+        <Filename Value="frm_user_info.pas"/>
+        <Caret Line="8" Column="29" TopLine="1"/>
       </Position6>
       <Position7>
         <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="63" Column="15" TopLine="58"/>
+        <Caret Line="173" Column="28" TopLine="163"/>
       </Position7>
       <Position8>
         <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="44" Column="3" TopLine="41"/>
+        <Caret Line="227" Column="19" TopLine="211"/>
       </Position8>
       <Position9>
         <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="45" Column="3" TopLine="42"/>
+        <Caret Line="209" Column="24" TopLine="192"/>
       </Position9>
       <Position10>
         <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="44" Column="3" TopLine="42"/>
+        <Caret Line="9" Column="68" TopLine="1"/>
       </Position10>
       <Position11>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="52" Column="28" TopLine="43"/>
+        <Filename Value="unt_command.pas"/>
+        <Caret Line="12" Column="46" TopLine="1"/>
       </Position11>
       <Position12>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="53" Column="28" TopLine="44"/>
+        <Filename Value="unt_command.pas"/>
+        <Caret Line="70" Column="45" TopLine="62"/>
       </Position12>
       <Position13>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="55" Column="28" TopLine="46"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="26" Column="45" TopLine="12"/>
       </Position13>
       <Position14>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="100" Column="10" TopLine="98"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="428" Column="18" TopLine="413"/>
       </Position14>
       <Position15>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="153" Column="56" TopLine="132"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="26" Column="45" TopLine="13"/>
       </Position15>
       <Position16>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="71" Column="16" TopLine="69"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="428" Column="37" TopLine="407"/>
       </Position16>
       <Position17>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="131" Column="1" TopLine="119"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="429" Column="28" TopLine="408"/>
       </Position17>
       <Position18>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="37" Column="26" TopLine="25"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="430" Column="39" TopLine="409"/>
       </Position18>
       <Position19>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="113" Column="12" TopLine="79"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="431" Column="28" TopLine="410"/>
       </Position19>
       <Position20>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="110" Column="17" TopLine="98"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="52" Column="20" TopLine="39"/>
       </Position20>
       <Position21>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="132" Column="9" TopLine="121"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="148" Column="60" TopLine="128"/>
       </Position21>
       <Position22>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="134" Column="36" TopLine="117"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="299" Column="46" TopLine="278"/>
       </Position22>
       <Position23>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="141" Column="40" TopLine="128"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="427" Column="18" TopLine="406"/>
       </Position23>
       <Position24>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="9" Column="47" TopLine="1"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="428" Column="37" TopLine="407"/>
       </Position24>
       <Position25>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="10" Column="29" TopLine="1"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="429" Column="28" TopLine="408"/>
       </Position25>
       <Position26>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="2" Column="4" TopLine="1"/>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="430" Column="39" TopLine="409"/>
       </Position26>
       <Position27>
-        <Filename Value="frm_preview_generator.pas"/>
-        <Caret Line="167" Column="2" TopLine="157"/>
+        <Filename Value="unt_command.pas"/>
+        <Caret Line="71" Column="31" TopLine="62"/>
       </Position27>
+      <Position28>
+        <Filename Value="/usr/lib/codetyphon/fpcsrc/packages/fcl-process/src/process.pp"/>
+        <Caret Line="152" Column="14" TopLine="141"/>
+      </Position28>
+      <Position29>
+        <Filename Value="frm_preview_generator.pas"/>
+        <Caret Line="17" Column="122" TopLine="7"/>
+      </Position29>
+      <Position30>
+        <Filename Value="frm_preview_generator.pas"/>
+        <Caret Line="217" Column="50" TopLine="199"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
