@@ -111,7 +111,7 @@ public class FontInstaller {
             String[] files = fBackup.list();
             if (files != null && files.length != 0) {
                 for (String fn : files) {
-                    RootUtils.runCommand(String.format("busybox cp -f %s /system/fonts/", fFontBackup, fn), true);
+                    RootUtils.runCommand(String.format("busybox cp -f %s%s /system/fonts/", fFontBackup, fn), true);
                     RootUtils.runCommand(String.format("chmod 666 /system/fonts/%s", fn), true);
                 }
             }

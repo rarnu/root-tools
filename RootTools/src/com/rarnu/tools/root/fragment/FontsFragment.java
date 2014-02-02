@@ -218,7 +218,18 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
                             .show();
                     return true;
                 }
-                doRestoreFontT();
+                new AlertDialog.Builder(getActivity())
+                        .setTitle(R.string.hint)
+                        .setMessage(R.string.font_restore_hint)
+                        .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                doRestoreFontT();
+                            }
+                        })
+                        .setNegativeButton(R.string.cancel, null)
+                        .show();
+
                 break;
         }
         return true;
@@ -320,11 +331,10 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
                 FontInstaller.restoreFont();
                 Message msg = new Message();
                 msg.what = 1;
-                msg.what = 0;
+                msg.arg1 = 0;
                 hInstall.sendMessage(msg);
             }
         }).start();
-        ;
     }
 
     @Override

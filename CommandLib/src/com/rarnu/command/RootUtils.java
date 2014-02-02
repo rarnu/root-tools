@@ -20,13 +20,22 @@ public class RootUtils {
     private static final String[] BUSYBOX_PATH = new String[]{"/system/xbin/busybox", "/system/bin/busybox"};
     private static final String[] IPTABLES_PATH = new String[]{"/system/bin/iptables", "/system/xbin/iptables"};
     private static final String[] IP6TABLES_PATH = new String[]{"/system/bin/ip6tables", "/system/xbin/ip6tables"};
-    public static boolean DEBUG = false;
+    private static boolean DEBUG = false;
     private static String[] SUPERUSER_PATH = null;
     private static PackageManager pm = null;
 
     public static void init(Context context) {
+        try {
+            ApplicationInfo appInfo = context.getPackageManager().getApplicationInfo(context.getPackageName(), PackageManager.GET_META_DATA);
+            boolean msg = appInfo.metaData.getBoolean("debug");
+            DEBUG = msg;
+
+        } catch (Exception e) {
+            DEBUG = false;
+        }
         pm = context.getPackageManager();
         SUPERUSER_PATH = context.getResources().getStringArray(R.array.super_user);
+
     }
 
     public static boolean hasBusybox() {

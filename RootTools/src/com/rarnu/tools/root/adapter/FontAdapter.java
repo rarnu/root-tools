@@ -13,7 +13,9 @@ import com.rarnu.tools.root.common.FontItem;
 import com.rarnu.tools.root.holder.FontHolder;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.utils.DownloadUtils;
+import org.apache.http.protocol.HTTP;
 
+import java.net.URLEncoder;
 import java.util.List;
 
 public class FontAdapter extends BaseAdapter<FontItem> {
@@ -47,7 +49,11 @@ public class FontAdapter extends BaseAdapter<FontItem> {
             holder.tvName.setTextColor(item.inUse ? context.getResources().getColor(R.color.greenyellow) : Color.WHITE);
 
             if (item.preview != null && !item.preview.equals("") && !item.preview.equals("null")) {
-                DownloadUtils.downloadFileT(context, holder.ivPreview, FontAPI.FONT_PREVIEW_URL + item.preview, DirHelper.FONT_PREVIEW_DIR, item.preview, null);
+                try {
+                    DownloadUtils.downloadFileT(context, holder.ivPreview, FontAPI.FONT_PREVIEW_URL + URLEncoder.encode(item.preview, HTTP.UTF_8), DirHelper.FONT_PREVIEW_DIR, item.preview, null);
+                } catch (Exception e) {
+
+                }
             } else {
                 holder.ivPreview.setImageResource(R.drawable.no_preview);
             }

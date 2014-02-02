@@ -15,12 +15,11 @@ local.properties
 build.xml
 lint.xml
 convert2
-sm
-Server/ServerManager/script/*.sh
 out/
 .idea/workspace.xml
 .idea/modules.xml
 .idea/vcs.xml
 .idea/inspectionProfiles/
-
+preview_generator
+*.cfg
 

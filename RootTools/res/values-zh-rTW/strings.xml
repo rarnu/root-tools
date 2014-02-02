@@ -5,7 +5,7 @@
     <string name="app_ver" formatted="false">ver %s</string>
     <string name="app_debug">(DEBUG)</string>
     <string name="app_help">掌優 使用說明</string>
-    <string name="copyright">Copyright© Rarnu 2013.</string>
+    <string name="copyright">Copyright© Rarnu 2014.</string>
     <string name="sysapp_name">應用程式詳細</string>
     <string name="sysapp_select">選擇應用程式</string>
     <string name="settings">設定</string>
@@ -328,7 +328,7 @@
     <string name="apkstat_1">籤名不同，需強制升級</string>
     <string name="apkstat_0">可以正常升級</string>
     <string name="tv_refresh_apk">點擊 &lt;font color=\'#6495ED\'&gt;刷新&lt;/font&gt; 將掃描 SD 卡內的所有 APK 檔案</string>
-    <string name="fit_44">支援 Android 4.4</string>
+    <string name="fit_44">支援 Android 4.4 和 ART</string>
     <string name="disk_size_fmt" formatted="false">大小:%s</string>
     <string name="disk_used_fmt" formatted="false">已用:%s</string>
     <string name="disk_free_fmt" formatred="false">空閒:%s</string>
@@ -464,4 +464,5 @@
     <string name="detail_delete_hint">確認要刪除這條記錄?</string>
     <string name="detail_delete_failed">刪除記錄失敗</string>
     <string name="font_downloading">正在下載字體，暫時無法退出</string>
+    <string name="font_restore_hint">確認要將字體還原到初始狀態？</string>
 </resources>
