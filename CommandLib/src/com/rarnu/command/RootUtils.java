@@ -204,6 +204,7 @@ public class RootUtils {
         return new File(path);
     }
 
+    @Deprecated
     public static String buildMountCommand() {
         String retstr = "";
         CommandResult ret = runCommand("mount", false, null);
@@ -235,7 +236,7 @@ public class RootUtils {
     }
 
     public static void mountRW() {
-        String cmd = buildMountCommand();
+        String cmd = "mount -o remount,rw /system"; // buildMountCommand();
         runCommand(cmd, true, null);
     }
 

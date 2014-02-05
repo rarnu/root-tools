@@ -1,6 +1,7 @@
 package com.rarnu.tools.root.utils;
 
 import android.content.Context;
+import android.util.Log;
 import com.rarnu.tools.root.common.GoogleInfo;
 import com.rarnu.tools.root.common.GooglePackageInfo;
 
@@ -14,7 +15,8 @@ public class GoogleUtils {
         List<GoogleInfo> list = new ArrayList<GoogleInfo>();
         for (String apk : packageInfo.apks) {
             GoogleInfo item = new GoogleInfo();
-            item.fileName = apk;
+            item.fileName = extractApkName(apk);
+            item.isPrivate = apk.startsWith("priv-app/");
             item.type = 0;
             item.status = getGoogleInfoStatus(item, sdkVer);
             item.optional = false;
@@ -22,7 +24,8 @@ public class GoogleUtils {
         }
         for (String apk : packageInfo.apks_optional) {
             GoogleInfo item = new GoogleInfo();
-            item.fileName = apk;
+            item.fileName = extractApkName(apk);
+            item.isPrivate = apk.startsWith("priv-app/");
             item.type = 0;
             item.status = getGoogleInfoStatus(item, sdkVer);
             item.optional = true;
@@ -61,7 +64,11 @@ public class GoogleUtils {
         String filePath = "";
         switch (item.type) {
             case 0:
-                filePath = "/system/app/" + item.fileName;
+                if (item.isPrivate) {
+                    filePath = "/system/priv-app/" + item.fileName;
+                } else {
+                    filePath = "/system/app/" + item.fileName;
+                }
                 break;
             case 1:
                 filePath = "/system/framework/" + item.fileName;
@@ -77,7 +84,6 @@ public class GoogleUtils {
         if (!new File(filePath).exists()) {
             ret = 1;
         } else {
-
 
             if (item.type == 0) {
                 String newFilePath = "";
@@ -99,6 +105,8 @@ public class GoogleUtils {
             }
 
         }
+
+        Log.e("getGoogleInfoStatus", filePath + ":" + ret);
         return ret;
     }
 
@@ -149,4 +157,9 @@ public class GoogleUtils {
         }
         return result;
     }
+
+    private static String extractApkName(String apk) {
+        return apk.substring(apk.lastIndexOf("/") + 1);
+    }
+
 }

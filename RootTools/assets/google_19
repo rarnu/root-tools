@@ -1,8 +1,8 @@
 {
     "sdk_version":19,
     "sdk_name":"Android 4.4.2 (CM 11)",
-    "apks":["GoogleContactsSyncAdapter.apk","GoogleLoginService.apk","GooglePartnerSetup.apk","GoogleServicesFramework.apk","Phonesky.apk","PrebuiltGmsCore.apk","MediaUploader.apk","ConfigUpdater.apk"],
-    "apks_optional":["GoogleFeedback.apk","GoogleBackupTransport.apk","Hangouts.apk","PlusOne.apk","talkback.apk","Velvet.apk"],
+    "apks":["GoogleContactsSyncAdapter.apk","GoogleCalendarSyncAdapter.apk","priv-app/GoogleLoginService.apk","priv-app/GooglePartnerSetup.apk","priv-app/GoogleServicesFramework.apk","priv-app/Phonesky.apk","priv-app/PrebuiltGmsCore.apk","MediaUploader.apk","priv-app/ConfigUpdater.apk"],
+    "apks_optional":["priv-app/GoogleFeedback.apk","priv-app/GoogleBackupTransport.apk","Hangouts.apk","priv-app/talkback.apk","priv-app/Velvet.apk"],
     "jars":["com.google.android.maps.jar","com.google.android.media.effects.jar","com.google.widevine.software.drm.jar"],
     "libs":["libAppDataSearch.so","libfrsdk.so","libgames_rtmp_jni.so","libgoogle_recognizer_jni_l.so","libgtalk_jni.so","libgtalk_stabilize.so","libjni_t13n_shared_engine.so","libpatts_engine_jni_api.so","libplus_jni_v8.so","librs.antblur.so","librs.antblur_constant.so","librs.antblur_drama.so","librs.drama.so","librs.film_base.so","librs.fixedframe.so","librs.grey.so","librs.image_wrapper.so","librs.retrolux.so","librsjni.so","libRSSupport.so","libspeexwrapper.so","libvcdecoder_jni.so","libvorbisencoder.so","libwebp_android.so","libwebrtc_audio_coding.so"],
     "xmls":["permissions/com.google.android.maps.xml","permissions/com.google.android.media.effects.xml","permissions/com.google.widevine.software.drm.xml","permissions/features.xml","preferred-apps/google.xml"]

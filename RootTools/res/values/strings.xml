@@ -498,4 +498,7 @@
     <string name="detail_delete_failed">Fail to delete record.</string>
     <string name="font_downloading">Downloading font, cannot exit now.</string>
     <string name="font_restore_hint">Are you sure to restore your font to stardard?</string>
+    <string name="google_redownload">You have already downloaded google packages, want to re-download or re-unzip it?</string>
+    <string name="google_confirm_redownload">Re-download</string>
+    <string name="google_confirm_reunzip">Re-unzip</string>
 </resources>

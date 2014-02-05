@@ -170,7 +170,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     public void initLogic() {
         doLoadSdks();
         showSdkVersion();
-        doStartLoading(Build.VERSION.SDK_INT);
+        // doStartLoading(Build.VERSION.SDK_INT);
     }
 
     private void doLoadSdks() {
@@ -230,6 +230,8 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MenuItemIds.MENU_DOWNLOAD:
+                final int selectSdk = ((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version;
+                final String fileName = DirHelper.GOOGLE_DIR + String.format("google_%d.zip", selectSdk);
                 if (!supportted) {
                     new AlertDialog.Builder(getActivity())
                             .setTitle(R.string.hint)
@@ -237,13 +239,35 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                             .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                                 @Override
                                 public void onClick(DialogInterface dialog, int which) {
-                                    doDownloadT();
+                                    doDownloadT(selectSdk, fileName, true);
                                 }
                             })
                             .setNegativeButton(R.string.cancel, null)
                             .show();
                 } else {
-                    doDownloadT();
+
+                    if (new File(fileName).exists()) {
+                        new AlertDialog.Builder(getActivity())
+                                .setTitle(R.string.hint)
+                                .setMessage(R.string.google_redownload)
+                                .setPositiveButton(R.string.google_confirm_redownload, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        doDownloadT(selectSdk, fileName, true);
+                                    }
+                                })
+                                .setNeutralButton(R.string.google_confirm_reunzip, new DialogInterface.OnClickListener() {
+                                    @Override
+                                    public void onClick(DialogInterface dialog, int which) {
+                                        doDownloadT(selectSdk, fileName, false);
+                                    }
+                                })
+                                .setNegativeButton(R.string.cancel, null)
+                                .show();
+                    } else {
+                        doDownloadT(selectSdk, fileName, true);
+                    }
+
                 }
                 break;
         }
@@ -261,6 +285,8 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 msg.what = 1;
                 try {
                     File fExtractDir = new File(DirHelper.GOOGLE_DIR + sdkVer + "/");
+                    // clean before extract
+                    FileUtils.deleteDir(fExtractDir.getAbsolutePath());
                     if (!fExtractDir.exists()) {
                         fExtractDir.mkdirs();
                     }
@@ -280,9 +306,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
         }).start();
     }
 
-    private void doDownloadT() {
-        final int selectSdk = ((GooglePackageInfo) spVersion.getSelectedItem()).sdk_version;
-        final String fileName = DirHelper.GOOGLE_DIR + String.format("google_%d.zip", selectSdk);
+    private void doDownloadT(final int selectSdk, final String fileName, final boolean redownload) {
 
         final String url = MobileGoogleApi.getDownloadUrl(selectSdk);
         downloading = true;
@@ -296,12 +320,17 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
             miDownload.setEnabled(false);
         }
 
-        if (new File(fileName).exists()) {
-            pbDownloading.setProgress(pbDownloading.getMax());
-            tvDownloading.setText(R.string.unzipping);
-            tvPercent.setText("100%");
-            doUnzipT();
-            return;
+        File fGoogle = new File(fileName);
+        if (fGoogle.exists()) {
+            if (redownload) {
+                fGoogle.delete();
+            } else {
+                pbDownloading.setProgress(pbDownloading.getMax());
+                tvDownloading.setText(R.string.unzipping);
+                tvPercent.setText("100%");
+                doUnzipT();
+                return;
+            }
         }
 
         thDownload = new Thread(new Runnable() {
@@ -311,7 +340,6 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
             }
         });
         thDownload.start();
-
     }
 
     @Override
@@ -447,11 +475,20 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 String cmd = "";
                 String fileName = "";
                 String xmlFolder = "";
+                final String PRIV_APP_PATH = "/system/priv-app/";
+                if (!new File(PRIV_APP_PATH).exists()) {
+                    RootUtils.runCommand("mkdir " + PRIV_APP_PATH, true);
+                }
+                RootUtils.runCommand("chmod 755 " + PRIV_APP_PATH, true);
                 for (GoogleInfo gi : installList) {
                     // install google package
                     switch (gi.type) {
                         case 0:
-                            fileName = "/system/app/" + gi.fileName;
+                            if (gi.isPrivate) {
+                                fileName = PRIV_APP_PATH + gi.fileName;
+                            } else {
+                                fileName = "/system/app/" + gi.fileName;
+                            }
                             break;
                         case 1:
                             fileName = "/system/framework/" + gi.fileName;
@@ -463,8 +500,8 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                             xmlFolder = "/system/etc/" + gi.path + "/";
                             if (!new File(xmlFolder).exists()) {
                                 RootUtils.runCommand("mkdir " + xmlFolder, true);
-                                RootUtils.runCommand("chmod 755 " + xmlFolder, true);
                             }
+                            RootUtils.runCommand("chmod 755 " + xmlFolder, true);
                             fileName = xmlFolder + gi.fileName;
                             break;
                     }

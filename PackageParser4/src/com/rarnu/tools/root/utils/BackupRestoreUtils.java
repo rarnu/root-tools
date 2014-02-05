@@ -77,7 +77,7 @@ public class BackupRestoreUtils {
         RootUtils.runCommand(cmd, true, null);
 
         cmd = String.format("busybox cp -r /data/data/%s " + savePath, packageName);
-        CommandResult result = RootUtils.runCommand(cmd, true, null);
+        RootUtils.runCommand(cmd, true, null);
 
         cmd = String.format("busybox find " + savePath + "%s/ -name \"cache\" | busybox xargs rm -r", packageName);
         RootUtils.runCommand(cmd, true, null);
@@ -86,7 +86,7 @@ public class BackupRestoreUtils {
         cmd = String.format("busybox find " + savePath + "%s/ -name \"webview*\" | busybox xargs rm -r", packageName);
         RootUtils.runCommand(cmd, true, null);
         cmd = String.format("busybox cp %s " + savePath + "%s.apk", apk, packageName);
-        result = RootUtils.runCommand(cmd, true, null);
+        CommandResult result = RootUtils.runCommand(cmd, true, null);
 
         if (result.error.equals("")) {
             // backup data under sdcard

@@ -15,4 +15,5 @@ public class GoogleInfo {
     // 3: xml
     public int type = 0;
     public boolean optional = false;
+    public boolean isPrivate = false;
 }

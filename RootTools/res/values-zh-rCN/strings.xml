@@ -466,4 +466,7 @@
     <string name="detail_delete_failed">删除记录失败</string>
     <string name="font_downloading">正在下载字体，暂时无法退出</string>
     <string name="font_restore_hint">确定要将字体还原到初始状态？</string>
+    <string name="google_redownload">您已下载了 Google 服务包, 要重新下载还是重新解压?</string>
+    <string name="google_confirm_redownload">重新下载</string>
+    <string name="google_confirm_reunzip">重新解压</string>
 </resources>
