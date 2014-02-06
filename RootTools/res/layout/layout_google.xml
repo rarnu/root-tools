@@ -85,21 +85,12 @@
                 android:layout_below="@+id/tvDownloadTitle"
                 style="?android:attr/progressBarStyleHorizontal" />
         <TextView
-                android:id="@+id/tvPercent"
-                android:layout_width="wrap_content"
+                android:id="@+id/tvDownloading"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@+id/pbDownloading"
                 android:gravity="left|center_vertical"
                 android:padding="4dip"
-                android:layout_below="@+id/pbDownloading"
-                android:textColor="?android:attr/textColorPrimary" />
-        <TextView
-                android:id="@+id/tvDownloading"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/pbDownloading"
-                android:gravity="right|center_vertical"
-                android:padding="4dip"
-                android:layout_alignParentRight="true"
                 android:textColor="?android:attr/textColorPrimary" />
     </RelativeLayout>
 
@@ -109,5 +100,24 @@
             android:layout_height="24dip"
             android:layout_alignParentBottom="true"
             android:visibility="visible" />
+
+    <RelativeLayout
+            android:id="@+id/layLoadingGoogle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:background="?android:attr/detailsElementBackground"
+            android:visibility="gone"
+            android:layout_margin="16dip"
+            >
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="18dip"
+                android:text="@string/loading"
+                android:gravity="center"
+                android:textSize="20sp"
+                android:textColor="?android:attr/textColorPrimary"/>
+    </RelativeLayout>
 
 </RelativeLayout>

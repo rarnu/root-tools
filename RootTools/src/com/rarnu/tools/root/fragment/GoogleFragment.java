@@ -37,12 +37,12 @@ import java.util.List;
 
 public class GoogleFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<GoogleInfo>>, AdapterView.OnItemSelectedListener, View.OnClickListener {
 
+    RelativeLayout layLoadingGoogle;
     TextView tvSdkVer;
     ListView lvGoogle;
     RelativeLayout layDownload;
     ProgressBar pbDownloading;
     TextView tvDownloading;
-    TextView tvPercent;
     DataProgressBar progressGoogle;
     List<GoogleInfo> list;
     GoogleAdapter adapter;
@@ -63,17 +63,14 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 case DownloadUtils.WHAT_DOWNLOAD_START:
                     pbDownloading.setMax(msg.arg2);
                     pbDownloading.setProgress(msg.arg1);
-                    tvPercent.setText("0%");
-                    tvDownloading.setText(String.format("%d / %d", msg.arg1, msg.arg2));
+                    tvDownloading.setText(getString(R.string.toast_downloading, 0));
                     break;
                 case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
                     pbDownloading.setProgress(msg.arg1);
-                    tvPercent.setText(String.format("%d%%", (int) (msg.arg1 * 100.0D / msg.arg2)));
-                    tvDownloading.setText(String.format("%d / %d", msg.arg1, msg.arg2));
+                    tvDownloading.setText(getString(R.string.toast_downloading, (int) (msg.arg1 * 1D / msg.arg2 * 100)));
                     break;
                 case DownloadUtils.WHAT_DOWNLOAD_FINISH:
                     pbDownloading.setProgress(pbDownloading.getMax());
-                    tvPercent.setText("100%");
                     tvDownloading.setText(R.string.unzipping);
                     doUnzipT();
                     break;
@@ -137,12 +134,12 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
 
     @Override
     public void initComponents() {
+        layLoadingGoogle = (RelativeLayout) innerView.findViewById(R.id.layLoadingGoogle);
         tvSdkVer = (TextView) innerView.findViewById(R.id.tvSdkVer);
         lvGoogle = (ListView) innerView.findViewById(R.id.lvGoogle);
         layDownload = (RelativeLayout) innerView.findViewById(R.id.layDownload);
         pbDownloading = (ProgressBar) innerView.findViewById(R.id.pbDownloading);
         tvDownloading = (TextView) innerView.findViewById(R.id.tvDownloading);
-        tvPercent = (TextView) innerView.findViewById(R.id.tvPercent);
         progressGoogle = (DataProgressBar) innerView.findViewById(R.id.progressGoogle);
         spVersion = (Spinner) innerView.findViewById(R.id.spVersion);
         btnInstall = (Button) innerView.findViewById(R.id.btnInstall);
@@ -192,8 +189,10 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     private void doStartLoading(int sdkint) {
         if (getActivity() != null) {
             try {
+
                 String jsonString = FileUtils.readAssetFile(getActivity(), String.format("google_%d", sdkint));
                 GooglePackageInfo packageItem = GooglePackageInfo.fromJson(jsonString);
+                layLoadingGoogle.setVisibility(View.VISIBLE);
                 loader.setData(packageItem, sdkint);
                 loader.startLoading();
                 supportted = true;
@@ -327,7 +326,6 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
             } else {
                 pbDownloading.setProgress(pbDownloading.getMax());
                 tvDownloading.setText(R.string.unzipping);
-                tvPercent.setText("100%");
                 doUnzipT();
                 return;
             }
@@ -369,6 +367,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
         }
         if (getActivity() != null) {
             adapter.setNewList(list);
+            layLoadingGoogle.setVisibility(View.GONE);
         }
     }
 

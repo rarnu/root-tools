@@ -310,7 +310,8 @@ public class Fragments {
         fHostEdit = null;
         fHostDeprecated = null;
         fRecommand = null;
-        fDataappReport = null;
+        // data report cannot be recycled
+        // fDataappReport = null;
         fBackup = null;
         fRestore = null;
         fCustomClean = null;

@@ -10,7 +10,6 @@ import android.widget.Button;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
-import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.MainActivity;
@@ -117,13 +116,13 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
                     isDownloading = true;
                     pbDownload.setMax(msg.arg2);
                     pbDownload.setProgress(0);
-                    tvDownload.setText(String.format("0 / %d", msg.arg2));
+                    tvDownload.setText(getString(R.string.toast_downloading, 0));
                     pbDownload.setVisibility(View.VISIBLE);
                     tvDownload.setVisibility(View.VISIBLE);
                     break;
                 case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
                     pbDownload.setProgress(msg.arg1);
-                    tvDownload.setText(String.format("%d / %d", msg.arg1, msg.arg2));
+                    tvDownload.setText(getString(R.string.toast_downloading, (int) (msg.arg1 * 1D / msg.arg2 * 100)));
                     break;
                 case DownloadUtils.WHAT_DOWNLOAD_FINISH:
                     isDownloading = false;
@@ -154,44 +153,14 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
 
     }
 
-    private Handler hInstallApk = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                if (getActivity() != null) {
-                    btnDownload.setEnabled(true);
-                    String retMsg = (String) msg.obj;
-                    if (retMsg != null && !retMsg.equals("")) {
-                        Toast.makeText(getActivity(), retMsg, Toast.LENGTH_LONG).show();
-                    }
-                }
-            }
-            super.handleMessage(msg);
-        }
-    };
-
     private void installUpdateT() {
         final String localFile = DirHelper.TEMP_DIR + GlobalInstance.updateInfo.file;
         if (!new File(localFile).exists()) {
             Toast.makeText(getActivity(), R.string.toast_download_update_failed, Toast.LENGTH_LONG).show();
             return;
         }
-        if (RootUtils.hasRoot() == RootUtils.LEVEL_ROOTED) {
-            Toast.makeText(getActivity(), R.string.toast_updating_self, Toast.LENGTH_LONG).show();
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    String retMsg = ApkUtils.installAppWithResult(localFile);
-                    Message msg = new Message();
-                    msg.what = 1;
-                    msg.obj = hInstallApk;
-                    hInstallApk.sendMessage(msg);
-                }
-            }).start();
-        } else {
-            btnDownload.setEnabled(true);
-            ApkUtils.openInstallApk(getActivity(), localFile);
-        }
+        btnDownload.setEnabled(true);
+        ApkUtils.openInstallApk(getActivity(), localFile);
 
     }
 
