@@ -36,7 +36,6 @@ public class CompFragment extends BaseFragment implements OnItemClickListener, O
     CompLoader loader = null;
     SearchView sv;
     MenuItem menuRefresh;
-    boolean loading = false;
 
     public CompFragment() {
         super();
@@ -99,7 +98,6 @@ public class CompFragment extends BaseFragment implements OnItemClickListener, O
     }
 
     private void doStartLoad() {
-        loading = true;
         progressComp.setAppName(getString(R.string.loading));
         progressComp.setVisibility(View.VISIBLE);
         loader.startLoading();
@@ -122,9 +120,7 @@ public class CompFragment extends BaseFragment implements OnItemClickListener, O
         if (getActivity() != null) {
             compAdapter.setNewList(listCompAll);
             progressComp.setVisibility(View.GONE);
-
         }
-        loading = false;
     }
 
     @Override
@@ -164,9 +160,7 @@ public class CompFragment extends BaseFragment implements OnItemClickListener, O
 
     @Override
     public Bundle getFragmentState() {
-        Bundle bn = new Bundle();
-        bn.putBoolean("loading", loading);
-        return bn;
+        return null;
     }
 
 }

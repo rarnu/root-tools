@@ -13,6 +13,7 @@ import com.rarnu.devlib.R;
 import com.rarnu.devlib.base.adapter.BaseFragmentAdapter;
 import com.rarnu.devlib.base.inner.InnerFragment;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -80,16 +81,16 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
         } else {
             fm = getFragmentManager();
         }
-        adapter = new BaseFragmentAdapter(fm, listFragment, listTags);
+        if (fm != null) {
+            adapter = new BaseFragmentAdapter(fm, listFragment, listTags);
+            pager.post(new Runnable() {
 
-        pager.post(new Runnable() {
-
-            @Override
-            public void run() {
-                pager.setAdapter(adapter);
-            }
-        });
-
+                @Override
+                public void run() {
+                    pager.setAdapter(adapter);
+                }
+            });
+        }
         initTab();
     }
 
@@ -107,16 +108,24 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
                 bar.addTab(t, position);
             }
 
-            adapter = new BaseFragmentAdapter(getFragmentManager(), listFragment, listTags);
-            pager.post(new Runnable() {
+            FragmentManager fm = null;
+            if (Build.VERSION.SDK_INT >= 17) {
+                fm = getChildFragmentManager();
+            } else {
+                fm = getFragmentManager();
+            }
+            if (fm != null) {
+                adapter = new BaseFragmentAdapter(fm, listFragment, listTags);
+                pager.post(new Runnable() {
 
-                @Override
-                public void run() {
-                    pager.setAdapter(adapter);
-                    int newPosition = (position == -1 ? listFragment.size() - 1 : position);
-                    pager.setCurrentItem(newPosition);
-                }
-            });
+                    @Override
+                    public void run() {
+                        pager.setAdapter(adapter);
+                        int newPosition = (position == -1 ? listFragment.size() - 1 : position);
+                        pager.setCurrentItem(newPosition);
+                    }
+                });
+            }
 
         }
     }
@@ -131,15 +140,23 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
             newPosition = 0;
         }
         final int nPos = newPosition;
-        adapter = new BaseFragmentAdapter(getFragmentManager(), listFragment, listTags);
-        pager.post(new Runnable() {
+        FragmentManager fm = null;
+        if (Build.VERSION.SDK_INT >= 17) {
+            fm = getChildFragmentManager();
+        } else {
+            fm = getFragmentManager();
+        }
+        if (fm != null) {
+            adapter = new BaseFragmentAdapter(fm, listFragment, listTags);
+            pager.post(new Runnable() {
 
-            @Override
-            public void run() {
-                pager.setAdapter(adapter);
-                pager.setCurrentItem(nPos);
-            }
-        });
+                @Override
+                public void run() {
+                    pager.setAdapter(adapter);
+                    pager.setCurrentItem(nPos);
+                }
+            });
+        }
 
     }
 
@@ -235,4 +252,22 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
 
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+        try {
+            Field fChildFm = null;
+            if (Build.VERSION.SDK_INT >= 17) {
+                fChildFm = Fragment.class.getDeclaredField("mChildFragmentManager");
+            } else {
+                fChildFm = Fragment.class.getDeclaredField("mFragmentManager");
+            }
+            if (fChildFm != null) {
+                fChildFm.setAccessible(true);
+                fChildFm.set(this, null);
+            }
+        } catch (Exception e) {
+
+        }
+    }
 }

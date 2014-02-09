@@ -59,10 +59,6 @@ public class CompContainerFragment extends BaseTabFragment {
 
     @Override
     public Bundle getFragmentState() {
-        boolean loadingAuto = fAutoBoot.getFragmentState().getBoolean("loading");
-        boolean loadingComp = fComp.getFragmentState().getBoolean("loading");
-        Bundle bn = new Bundle();
-        bn.putBoolean("loading", loadingAuto || loadingComp);
-        return bn;
+       return null;
     }
 }
