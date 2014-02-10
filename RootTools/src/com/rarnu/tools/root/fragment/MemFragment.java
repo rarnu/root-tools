@@ -39,7 +39,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener, On
     final Handler hShowInfo = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 MemoryInfo info = (MemoryInfo) msg.obj;
                 if (getActivity() != null) {
                     if (info == null) {
@@ -57,7 +57,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener, On
     final Handler hKillProc = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 doDropCacheT();
             }
             super.handleMessage(msg);
@@ -67,7 +67,7 @@ public class MemFragment extends BaseFragment implements OnItemClickListener, On
 
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 if (menuClean != null) {
                     menuClean.setEnabled(true);
                     menuRefresh.setEnabled(true);

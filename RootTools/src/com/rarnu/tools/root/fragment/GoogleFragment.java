@@ -81,7 +81,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     private Handler hUnzip = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 downloading = false;
                 layDownload.setVisibility(View.GONE);
                 lvGoogle.setEnabled(true);
@@ -99,7 +99,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     private Handler hInstallGoogle = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 progressGoogle.setAppName(getString(R.string.google_download_check));
                 spVersion.setEnabled(true);
                 if (miDownload != null) {

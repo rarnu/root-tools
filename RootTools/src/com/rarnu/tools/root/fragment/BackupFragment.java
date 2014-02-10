@@ -46,7 +46,7 @@ public class BackupFragment extends BaseFragment implements OnClickListener, OnL
     private Handler hSelectApp = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 showAppSelectedCount();
             }
             super.handleMessage(msg);

@@ -42,7 +42,7 @@ public class HostAddFragment extends BasePopupFragment implements OnClickListene
     Handler hSelectHost = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 showHostSelectedCount();
             }
             super.handleMessage(msg);

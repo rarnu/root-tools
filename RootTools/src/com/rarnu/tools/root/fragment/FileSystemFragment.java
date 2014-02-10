@@ -54,7 +54,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
         @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 list = (List<FileSystemFileInfo>) msg.obj;
                 adapter.setNewList(list);
                 lvFiles.setEnabled(true);
@@ -78,7 +78,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
     private Handler hFileHandler = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 lvFiles.setEnabled(true);
                 itemPool.setEnabled(true);
                 progressFiles.setVisibility(View.GONE);

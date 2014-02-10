@@ -36,7 +36,7 @@ public class SysappSelectApkFragment extends BasePopupFragment implements OnItem
         @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 list = (List<SysappSelectApkItem>) msg.obj;
                 adapter.setNewList(list);
                 pbShowing.setVisibility(View.GONE);

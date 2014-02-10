@@ -43,7 +43,7 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
     final Handler hDeleteBackup = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 DataappInfo item = (DataappInfo) msg.obj;
                 listBackDataappAll.remove(item);
                 backDataappAdapter.deleteItem(item);
@@ -67,7 +67,7 @@ public class RestoreFragment extends BaseFragment implements OnItemLongClickList
     private Handler hSelectData = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 showDataSelectedCount();
             }
             super.handleMessage(msg);

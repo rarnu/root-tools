@@ -37,7 +37,7 @@ public class RemainedFilesFragment extends BaseFragment implements Loader.OnLoad
     private Handler hDelete = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 lvApps.setEnabled(true);
                 if (miRefresh != null) {
                     miRefresh.setEnabled(true);

@@ -28,7 +28,7 @@ public class CustomCleanManagerFragment extends BasePopupFragment implements OnC
     Handler hSelectApp = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 showSelectedCount();
             }
             super.handleMessage(msg);

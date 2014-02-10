@@ -41,7 +41,7 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
     final Handler hInstall = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 Toast.makeText(getActivity(), (msg.arg1 == 1 ? R.string.install_ok : R.string.install_fail), Toast.LENGTH_LONG).show();
                 progressSysapp.setVisibility(View.GONE);
                 doStartLoad();

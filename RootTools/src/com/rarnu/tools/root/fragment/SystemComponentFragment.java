@@ -38,7 +38,7 @@ public class SystemComponentFragment extends BaseFragment implements OnItemClick
     Handler hInstall = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 checkStatus();
                 progressBusybox.setVisibility(View.GONE);
                 lstBusybox.setEnabled(true);

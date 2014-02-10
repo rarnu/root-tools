@@ -35,7 +35,7 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
         @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 if (msg.arg1 == 0) {
                     doStartLoad();
                     Toast.makeText(getActivity(), R.string.save_hosts_error, Toast.LENGTH_LONG).show();
@@ -55,7 +55,7 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
         @SuppressWarnings("unchecked")
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 if (msg.arg1 == 0) {
                     doStartLoad();
                     Toast.makeText(getActivity(), R.string.save_hosts_error, Toast.LENGTH_LONG).show();
@@ -83,7 +83,7 @@ public class HostFragment extends BaseFragment implements OnClickListener, OnLoa
     Handler hSelectHost = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 showHostSelectedCount();
             }
             super.handleMessage(msg);

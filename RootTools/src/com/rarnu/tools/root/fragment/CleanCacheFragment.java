@@ -41,7 +41,7 @@ public class CleanCacheFragment extends BaseFragment implements OnLoadCompleteLi
     private Handler hCleanCache = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 Toast.makeText(getActivity(), (msg.arg1 == 0 ? R.string.clean_all_cache_fail : R.string.clean_all_cache_succ), Toast.LENGTH_LONG).show();
                 doStartLoad();
             }

@@ -11,15 +11,16 @@ import com.rarnu.tools.root.fragmentactivity.UpdateActivity;
 public class UpdateUtils {
 
     public static void showUpdateInfo(final Context context, boolean showDialog) {
-
-        if (GlobalInstance.updateInfo == null
-                || GlobalInstance.updateInfo.result == 0) {
-            noUpdate(context);
-        } else {
-            if (showDialog) {
-                showUpdate(context);
+        if (context != null) {
+            if (GlobalInstance.updateInfo == null
+                    || GlobalInstance.updateInfo.result == 0) {
+                noUpdate(context);
             } else {
-                openUpdateActivity(context);
+                if (showDialog) {
+                    showUpdate(context);
+                } else {
+                    openUpdateActivity(context);
+                }
             }
         }
     }

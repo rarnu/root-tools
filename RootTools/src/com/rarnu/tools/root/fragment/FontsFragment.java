@@ -54,8 +54,10 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
     private Handler hDownload = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            String fileName = (String) msg.obj;
-            startDownloadFont(fileName);
+            if (getActivity() != null) {
+                String fileName = (String) msg.obj;
+                startDownloadFont(fileName);
+            }
             super.handleMessage(msg);
         }
     };
@@ -307,12 +309,15 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
         new Thread(new Runnable() {
             @Override
             public void run() {
-                ConfigUtils.setStringConfig(getActivity(), FontAPI.KEY_CURRENT_FONT, item.name);
+
                 if (!FontInstaller.isBackuped()) {
                     FontInstaller.backupFonts(listFallback, listSystem);
                 }
                 FontInstaller.installFont(item);
                 boolean isInstalled = FontInstaller.isFontInstalled(item);
+                if (isInstalled) {
+                    ConfigUtils.setStringConfig(getActivity(), FontAPI.KEY_CURRENT_FONT, item.name);
+                }
                 Message msg = new Message();
                 msg.what = 1;
                 msg.arg1 = isInstalled ? 0 : 1;

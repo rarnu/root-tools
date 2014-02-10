@@ -26,7 +26,7 @@ public class InstallApkFragment extends BaseDialogFragment implements View.OnCli
     private Handler hInstalled = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 String ret = (String) msg.obj;
                 showInstallResult(ret);
             }

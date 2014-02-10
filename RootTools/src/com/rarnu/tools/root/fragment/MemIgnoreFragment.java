@@ -29,7 +29,7 @@ public class MemIgnoreFragment extends BasePopupFragment implements OnClickListe
     Handler hSelectIgnore = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 showIgnoreSelectedCount();
             }
             super.handleMessage(msg);

@@ -33,21 +33,23 @@ public class HostDeprecatedFragment extends BasePopupFragment implements OnLoadC
         @Override
         public void handleMessage(Message msg) {
 
-            if (msg.what == 1) {
-                progressDeprecated.setVisibility(View.GONE);
-                itemScan.setEnabled(true);
-                lstDeprecated.clear();
-                lstDeprecated.addAll((List<HostRecordInfo>) msg.obj);
-                adapter.setNewList(lstDeprecated);
-                boolean ret = DIPairUtils.saveHosts(lstDeprecated);
-                if (ret) {
-                    Toast.makeText(getActivity(), R.string.save_hosts_succ, Toast.LENGTH_LONG).show();
-                    getActivity().finish();
-                } else {
-                    Toast.makeText(getActivity(), R.string.save_hosts_error, Toast.LENGTH_LONG).show();
+            if (getActivity() != null) {
+                if (msg.what == 1) {
+                    progressDeprecated.setVisibility(View.GONE);
+                    itemScan.setEnabled(true);
+                    lstDeprecated.clear();
+                    lstDeprecated.addAll((List<HostRecordInfo>) msg.obj);
+                    adapter.setNewList(lstDeprecated);
+                    boolean ret = DIPairUtils.saveHosts(lstDeprecated);
+                    if (ret) {
+                        Toast.makeText(getActivity(), R.string.save_hosts_succ, Toast.LENGTH_LONG).show();
+                        getActivity().finish();
+                    } else {
+                        Toast.makeText(getActivity(), R.string.save_hosts_error, Toast.LENGTH_LONG).show();
+                    }
+                } else if (msg.what == 2) {
+                    progressDeprecated.setProgress((String) msg.obj);
                 }
-            } else if (msg.what == 2) {
-                progressDeprecated.setProgress((String) msg.obj);
             }
             super.handleMessage(msg);
         }

@@ -73,7 +73,7 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
     private Handler hReadLine = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
+            if (msg.what == 1 && getActivity() != null) {
                 String line = (String) msg.obj;
                 if (!line.contains("/.")) {
 
@@ -95,10 +95,12 @@ public class HardUpdateFragment extends BaseFragment implements CommandCallback 
     private Handler hFinish = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            adapter.notifyDataSetChanged();
-            progressScanApk.setVisibility(View.GONE);
-            itemRefresh.setEnabled(true);
-            adapter.setEnableButtons(true);
+            if (getActivity() != null) {
+                adapter.notifyDataSetChanged();
+                progressScanApk.setVisibility(View.GONE);
+                itemRefresh.setEnabled(true);
+                adapter.setEnableButtons(true);
+            }
             super.handleMessage(msg);
         }
     };
