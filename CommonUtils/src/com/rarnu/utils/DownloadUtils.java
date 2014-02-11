@@ -1,6 +1,7 @@
 package com.rarnu.utils;
 
 import android.content.Context;
+import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
@@ -38,7 +39,7 @@ public class DownloadUtils {
         }
     }
 
-    public static void downloadFileT(final Context context, final ImageView iv, final String url, String localDir, final String localFile, final Handler hProgress, final BitmapFactory.Options bop) {
+    public static void downloadFileT(final Context context, final ImageView iv, final String url, String localDir, final String localFile, final Handler hProgress, final BitmapFactory.Options bop, final boolean isRound, final int radis) {
         if (!localDir.endsWith("/")) {
             localDir += "/";
         }
@@ -52,11 +53,16 @@ public class DownloadUtils {
         if (fImg.exists()) {
             try {
                 if (iv != null) {
+                    Bitmap bmp = null;
                     if (bop != null) {
-                        iv.setImageBitmap(BitmapFactory.decodeFile(filePath, bop));
+                        bmp = BitmapFactory.decodeFile(filePath, bop);
                     } else {
-                        iv.setImageBitmap(BitmapFactory.decodeFile(filePath));
+                        bmp = BitmapFactory.decodeFile(filePath);
                     }
+                    if (bmp != null && isRound) {
+                        bmp = ImageUtils.roundedCornerBitmap(bmp, radis);
+                    }
+                    iv.setImageBitmap(bmp);
                 }
             } catch (Throwable th) {
 
@@ -119,7 +125,11 @@ public class DownloadUtils {
     }
 
     public static void downloadFileT(final Context context, final ImageView iv, final String url, String localDir, final String localFile, final Handler hProgress) {
-        downloadFileT(context, iv, url, localDir, localFile, hProgress, null);
+        downloadFileT(context, iv, url, localDir, localFile, hProgress, null, false, 0);
+    }
+
+    public static void downloadFileT(final Context context, final ImageView iv, final String url, String localDir, final String localFile, final Handler hProgress, final boolean isRound, final int radis) {
+        downloadFileT(context, iv, url, localDir, localFile, hProgress, null, isRound, radis);
     }
 
     public static void downloadFile(String address, String localFile, Handler h) {
