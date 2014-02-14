@@ -111,25 +111,27 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
     private Handler hProgress = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case DownloadUtils.WHAT_DOWNLOAD_START:
-                    isDownloading = true;
-                    pbDownload.setMax(msg.arg2);
-                    pbDownload.setProgress(0);
-                    tvDownload.setText(getString(R.string.toast_downloading, 0));
-                    pbDownload.setVisibility(View.VISIBLE);
-                    tvDownload.setVisibility(View.VISIBLE);
-                    break;
-                case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
-                    pbDownload.setProgress(msg.arg1);
-                    tvDownload.setText(getString(R.string.toast_downloading, (int) (msg.arg1 * 1D / msg.arg2 * 100)));
-                    break;
-                case DownloadUtils.WHAT_DOWNLOAD_FINISH:
-                    isDownloading = false;
-                    pbDownload.setProgress(pbDownload.getMax());
-                    tvDownload.setText("");
-                    installUpdateT();
-                    break;
+            if (getActivity() != null) {
+                switch (msg.what) {
+                    case DownloadUtils.WHAT_DOWNLOAD_START:
+                        isDownloading = true;
+                        pbDownload.setMax(msg.arg2);
+                        pbDownload.setProgress(0);
+                        tvDownload.setText(getString(R.string.toast_downloading, 0));
+                        pbDownload.setVisibility(View.VISIBLE);
+                        tvDownload.setVisibility(View.VISIBLE);
+                        break;
+                    case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
+                        pbDownload.setProgress(msg.arg1);
+                        tvDownload.setText(getString(R.string.toast_downloading, (int) (msg.arg1 * 1D / msg.arg2 * 100)));
+                        break;
+                    case DownloadUtils.WHAT_DOWNLOAD_FINISH:
+                        isDownloading = false;
+                        pbDownload.setProgress(pbDownload.getMax());
+                        tvDownload.setText("");
+                        installUpdateT();
+                        break;
+                }
             }
             super.handleMessage(msg);
         }

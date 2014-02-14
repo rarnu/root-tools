@@ -64,22 +64,24 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
     private Handler hDownloading = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case DownloadUtils.WHAT_DOWNLOAD_START:
-                    pbDownloading.setMax(msg.arg2);
-                    pbDownloading.setProgress(0);
-                    layDownload.setVisibility(View.VISIBLE);
-                    tvPercent.setText(getString(R.string.toast_downloading, 0));
-                    break;
-                case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
-                    pbDownloading.setProgress(msg.arg1);
-                    tvPercent.setText(getString(R.string.toast_downloading, (int) (msg.arg1 * 1.0D / msg.arg2 * 100)));
-                    break;
-                case DownloadUtils.WHAT_DOWNLOAD_FINISH:
-                    layDownload.setVisibility(View.GONE);
-                    updateFontList();
-                    setOperating(false);
-                    break;
+            if (getActivity() != null) {
+                switch (msg.what) {
+                    case DownloadUtils.WHAT_DOWNLOAD_START:
+                        pbDownloading.setMax(msg.arg2);
+                        pbDownloading.setProgress(0);
+                        layDownload.setVisibility(View.VISIBLE);
+                        tvPercent.setText(getString(R.string.toast_downloading, 0));
+                        break;
+                    case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
+                        pbDownloading.setProgress(msg.arg1);
+                        tvPercent.setText(getString(R.string.toast_downloading, (int) (msg.arg1 * 1.0D / msg.arg2 * 100)));
+                        break;
+                    case DownloadUtils.WHAT_DOWNLOAD_FINISH:
+                        layDownload.setVisibility(View.GONE);
+                        updateFontList();
+                        setOperating(false);
+                        break;
+                }
             }
             super.handleMessage(msg);
         }

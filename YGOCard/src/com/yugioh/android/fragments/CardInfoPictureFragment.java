@@ -30,16 +30,18 @@ public class CardInfoPictureFragment extends BaseFragment implements OnClickList
     private Handler hDownloadProgress = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case DownloadUtils.WHAT_DOWNLOAD_START:
-                case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
-                    pbDownload.setMax(msg.arg2);
-                    pbDownload.setProgress(msg.arg1);
-                    break;
-                case DownloadUtils.WHAT_DOWNLOAD_FINISH:
-                    pbDownload.setVisibility(View.GONE);
-                    ivImage.setVisibility(View.VISIBLE);
-                    break;
+            if (getActivity() != null) {
+                switch (msg.what) {
+                    case DownloadUtils.WHAT_DOWNLOAD_START:
+                    case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
+                        pbDownload.setMax(msg.arg2);
+                        pbDownload.setProgress(msg.arg1);
+                        break;
+                    case DownloadUtils.WHAT_DOWNLOAD_FINISH:
+                        pbDownload.setVisibility(View.GONE);
+                        ivImage.setVisibility(View.VISIBLE);
+                        break;
+                }
             }
             super.handleMessage(msg);
         }

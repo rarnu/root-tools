@@ -59,21 +59,23 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     private Handler hDownload = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case DownloadUtils.WHAT_DOWNLOAD_START:
-                    pbDownloading.setMax(msg.arg2);
-                    pbDownloading.setProgress(msg.arg1);
-                    tvDownloading.setText(getString(R.string.toast_downloading, 0));
-                    break;
-                case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
-                    pbDownloading.setProgress(msg.arg1);
-                    tvDownloading.setText(getString(R.string.toast_downloading, (int) (msg.arg1 * 1D / msg.arg2 * 100)));
-                    break;
-                case DownloadUtils.WHAT_DOWNLOAD_FINISH:
-                    pbDownloading.setProgress(pbDownloading.getMax());
-                    tvDownloading.setText(R.string.unzipping);
-                    doUnzipT();
-                    break;
+            if (getActivity() != null) {
+                switch (msg.what) {
+                    case DownloadUtils.WHAT_DOWNLOAD_START:
+                        pbDownloading.setMax(msg.arg2);
+                        pbDownloading.setProgress(msg.arg1);
+                        tvDownloading.setText(getString(R.string.toast_downloading, 0));
+                        break;
+                    case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
+                        pbDownloading.setProgress(msg.arg1);
+                        tvDownloading.setText(getString(R.string.toast_downloading, (int) (msg.arg1 * 1D / msg.arg2 * 100)));
+                        break;
+                    case DownloadUtils.WHAT_DOWNLOAD_FINISH:
+                        pbDownloading.setProgress(pbDownloading.getMax());
+                        tvDownloading.setText(R.string.unzipping);
+                        doUnzipT();
+                        break;
+                }
             }
             super.handleMessage(msg);
         }

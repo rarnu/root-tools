@@ -43,24 +43,26 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
     private Handler hApkTask = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case DownloadUtils.WHAT_DOWNLOAD_START:
-                case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
-                    pbDownlaodingApk.setMax(msg.arg2);
-                    pbDownlaodingApk.setProgress(msg.arg1);
-                    break;
-                case DownloadUtils.WHAT_DOWNLOAD_FINISH:
-                    try {
-                        pbDownlaodingApk.setVisibility(View.GONE);
-                        ((IUpdateIntf) getActivity()).setInProgress(false);
-                        updateInfo.setUpdateApk(-1);
-                        updateCurrentStatus();
-                        updateDisabled(true);
+            if (getActivity() != null) {
+                switch (msg.what) {
+                    case DownloadUtils.WHAT_DOWNLOAD_START:
+                    case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
+                        pbDownlaodingApk.setMax(msg.arg2);
+                        pbDownlaodingApk.setProgress(msg.arg1);
+                        break;
+                    case DownloadUtils.WHAT_DOWNLOAD_FINISH:
+                        try {
+                            pbDownlaodingApk.setVisibility(View.GONE);
+                            ((IUpdateIntf) getActivity()).setInProgress(false);
+                            updateInfo.setUpdateApk(-1);
+                            updateCurrentStatus();
+                            updateDisabled(true);
 
-                    } catch (Exception e) {
+                        } catch (Exception e) {
 
-                    }
-                    break;
+                        }
+                        break;
+                }
             }
             super.handleMessage(msg);
         }
