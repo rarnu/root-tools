@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.widget.ImageView;
 import com.rarnu.utils.common.DownloadInfo;
+import com.rarnu.utils.os.BreakableThread;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -102,7 +103,7 @@ public class DownloadUtils {
         final Thread tDownload = new Thread(new Runnable() {
             @Override
             public void run() {
-                downloadFile(url, filePath, hProgress);
+                downloadFile(url, filePath, hProgress, null);
                 hImage.sendEmptyMessage(1);
             }
         });
@@ -132,12 +133,14 @@ public class DownloadUtils {
         downloadFileT(context, iv, url, localDir, localFile, hProgress, null, isRound, radis);
     }
 
-    public static void downloadFile(String address, String localFile, Handler h) {
+    public static void downloadFile(String address, String localFile, Handler h, BreakableThread.RunningCallback callback) {
 
         File fTmp = new File(localFile);
         if (fTmp.exists()) {
             fTmp.delete();
         }
+
+        boolean isDownloadNormal = true;
 
         URL url = null;
         int filesize = 0;
@@ -177,10 +180,28 @@ public class DownloadUtils {
 
                     }
                 }
+                if (callback != null) {
+                    if (!callback.getRunningState()) {
+                        isDownloadNormal = false;
+                        break;
+                    }
+                }
             }
             in.close();
             out.close();
             fileOut.renameTo(fTmp);
+            if (!isDownloadNormal) {
+                try {
+                    fileOut.delete();
+                } catch (Exception e) {
+
+                }
+                try {
+                    fTmp.delete();
+                } catch (Exception e) {
+
+                }
+            }
             if (h != null) {
                 try {
                     Message msg = new Message();
@@ -192,6 +213,7 @@ public class DownloadUtils {
 
                 }
             }
+
         } catch (Exception e) {
             e.printStackTrace();
             if (h != null) {

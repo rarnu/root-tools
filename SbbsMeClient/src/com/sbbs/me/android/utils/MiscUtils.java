@@ -34,7 +34,7 @@ public class MiscUtils {
 		String headLocalName = headLocalPath + local;
 		Config.setHeadPath(context, headLocalName);
 		if (!new File(headLocalName).exists()) {
-			DownloadUtils.downloadFile(url, headLocalName, null);
+			DownloadUtils.downloadFile(url, headLocalName, null, null);
 		}
 		return loadUserHeadFromFile(headLocalName);
 	}

@@ -27,6 +27,7 @@ import com.rarnu.tools.root.utils.FontInstaller;
 import com.rarnu.tools.root.utils.FontUtils;
 import com.rarnu.utils.ConfigUtils;
 import com.rarnu.utils.DownloadUtils;
+import com.rarnu.utils.os.BreakableThread;
 import org.apache.http.protocol.HTTP;
 
 import java.io.File;
@@ -34,7 +35,7 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FontsFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<FontItem>>, AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
+public class FontsFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<FontItem>>, AdapterView.OnItemClickListener, SearchView.OnQueryTextListener, BreakableThread.RunningCallback {
 
     GridView lvFonts;
     DataProgressBar tvProgress;
@@ -51,6 +52,8 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
     List<SystemFontItem> listSystem;
     RelativeLayout layLocked;
     TextView tvLockReason;
+    BreakableThread thDownload = null;
+
     private Handler hDownload = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -241,7 +244,15 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
 
     @Override
     public void onGetNewArguments(Bundle bn) {
+        if (bn != null && bn.getBoolean("cancel", true)) {
+            try {
+                if (thDownload != null) {
+                    setOperating(false);
+                }
+            } catch (Exception e) {
 
+            }
+        }
     }
 
     @Override
@@ -364,12 +375,13 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
         try {
             final String url = FontAPI.FONTS_DOWNLOAD_URL + URLEncoder.encode(fileName, HTTP.UTF_8);
             final String localFile = DirHelper.FONT_DIR + fileName;
-            new Thread(new Runnable() {
+            thDownload = new BreakableThread(this) {
                 @Override
                 public void run() {
-                    DownloadUtils.downloadFile(url, localFile, hDownloading);
+                    DownloadUtils.downloadFile(url, localFile, hDownloading, getRunningCallback());
                 }
-            }).start();
+            };
+            thDownload.start();
 
         } catch (Exception e) {
 
@@ -407,4 +419,8 @@ public class FontsFragment extends BaseFragment implements Loader.OnLoadComplete
         }
     }
 
+    @Override
+    public boolean getRunningState() {
+        return operating;
+    }
 }

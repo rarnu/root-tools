@@ -169,7 +169,7 @@ public class BlockTextView extends RelativeLayout implements OnTouchListener {
 					String localFn = PathDefine.ROOT_PATH
 							+ MiscUtils.extractFileNameFromURL(s);
 					if (!new File(localFn).exists()) {
-						DownloadUtils.downloadFile(s, localFn, null);
+						DownloadUtils.downloadFile(s, localFn, null, null);
 					}
 				}
 				Message msg = new Message();

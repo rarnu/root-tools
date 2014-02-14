@@ -2,6 +2,8 @@ package com.rarnu.tools.root.fragmentactivity;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import com.rarnu.devlib.base.BaseActivity;
@@ -60,8 +62,18 @@ public class UpdateActivity extends BaseActivity {
     private void confirmCancelDownload() {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.hint)
-                .setMessage(R.string.updating_cannot_exit)
-                .setPositiveButton(R.string.ok, null)
+                .setMessage(R.string.google_downloading_zip)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        Bundle bn = new Bundle();
+                        bn.putBoolean("cancel", true);
+                        uf.setNewArguments(bn);
+                        finish();
+
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 }

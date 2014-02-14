@@ -29,13 +29,14 @@ import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.tools.root.utils.GoogleUtils;
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.FileUtils;
+import com.rarnu.utils.os.BreakableThread;
 
 import java.io.File;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class GoogleFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<GoogleInfo>>, AdapterView.OnItemSelectedListener, View.OnClickListener {
+public class GoogleFragment extends BaseFragment implements Loader.OnLoadCompleteListener<List<GoogleInfo>>, AdapterView.OnItemSelectedListener, View.OnClickListener, BreakableThread.RunningCallback {
 
     RelativeLayout layLoadingGoogle;
     TextView tvSdkVer;
@@ -55,7 +56,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     boolean supportted = false;
     MenuItem miDownload;
     boolean downloading = false;
-    Thread thDownload = null;
+    BreakableThread thDownload = null;
     private Handler hDownload = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -333,12 +334,12 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
             }
         }
 
-        thDownload = new Thread(new Runnable() {
+        thDownload = new BreakableThread(this) {
             @Override
             public void run() {
-                DownloadUtils.downloadFile(url, DirHelper.GOOGLE_DIR + String.format("google_%d.zip", selectSdk), hDownload);
+                DownloadUtils.downloadFile(url, DirHelper.GOOGLE_DIR + String.format("google_%d.zip", selectSdk), hDownload, getRunningCallback());
             }
-        });
+        };
         thDownload.start();
     }
 
@@ -346,8 +347,9 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     public void onGetNewArguments(Bundle bn) {
         if (bn != null && bn.getBoolean("cancel", true)) {
             try {
-                thDownload.wait(5000);
-                thDownload.interrupt();
+                if (thDownload != null) {
+                    downloading = false;
+                }
             } catch (Exception e) {
 
             }
@@ -521,5 +523,10 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 hInstallGoogle.sendEmptyMessage(1);
             }
         }).start();
+    }
+
+    @Override
+    public boolean getRunningState() {
+        return downloading;
     }
 }

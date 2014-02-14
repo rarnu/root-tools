@@ -538,7 +538,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                             if (fDel.isDirectory()) {
                                 FileUtils.deleteDir(item.fullPath);
                             } else {
-                                fDel.deleteOnExit();
+                                fDel.delete();
                             }
                         }
                         list.remove(item);

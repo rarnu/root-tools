@@ -18,10 +18,11 @@ import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.utils.DownloadUtils;
+import com.rarnu.utils.os.BreakableThread;
 
 import java.io.File;
 
-public class UpdateFragment extends BaseFragment implements View.OnClickListener {
+public class UpdateFragment extends BaseFragment implements View.OnClickListener, BreakableThread.RunningCallback {
 
     TextView tvUpdateTitle;
     TextView tvUpdateDesc;
@@ -30,6 +31,7 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
     Button btnDownload;
     TextView tvCannotUpdate;
     boolean isDownloading = false;
+    BreakableThread thDownload = null;
 
     @Override
     public int getBarTitle() {
@@ -88,7 +90,15 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
 
     @Override
     public void onGetNewArguments(Bundle bn) {
+        if (bn != null && bn.getBoolean("cancel", true)) {
+            try {
+                if (thDownload != null) {
+                    isDownloading = false;
+                }
+            } catch (Exception e) {
 
+            }
+        }
     }
 
     @Override
@@ -114,7 +124,7 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
             if (getActivity() != null) {
                 switch (msg.what) {
                     case DownloadUtils.WHAT_DOWNLOAD_START:
-                        isDownloading = true;
+
                         pbDownload.setMax(msg.arg2);
                         pbDownload.setProgress(0);
                         tvDownload.setText(getString(R.string.toast_downloading, 0));
@@ -139,8 +149,9 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
 
     private void doDownloadT() {
         // download update
+        isDownloading = true;
         btnDownload.setEnabled(false);
-        new Thread(new Runnable() {
+        thDownload = new BreakableThread(this) {
             @Override
             public void run() {
                 String downUrl = MobileApi.DOWNLOAD_BASE_URL + GlobalInstance.updateInfo.file;
@@ -149,9 +160,10 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
                 if (fApk.exists()) {
                     fApk.delete();
                 }
-                DownloadUtils.downloadFile(downUrl, localFile, hProgress);
+                DownloadUtils.downloadFile(downUrl, localFile, hProgress, getRunningCallback());
             }
-        }).start();
+        };
+        thDownload.start();
 
     }
 
@@ -166,4 +178,8 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
 
     }
 
+    @Override
+    public boolean getRunningState() {
+        return isDownloading;
+    }
 }
