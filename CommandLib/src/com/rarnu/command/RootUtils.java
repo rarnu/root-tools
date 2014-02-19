@@ -117,7 +117,7 @@ public class RootUtils {
 
     public static CommandResult runCommand(String[] command, boolean root, CommandCallback callback) {
         if (DEBUG) {
-            Log.e("runCommand", command.toString());
+            Log.e("runCommand", command[0]);
         }
         Process process = null;
         DataOutputStream os = null;
@@ -130,6 +130,7 @@ public class RootUtils {
             if (root) {
                 process = Runtime.getRuntime().exec("su");
                 os = new DataOutputStream(process.getOutputStream());
+
                 os.writeBytes(command[0] + "\n");
                 os.writeBytes("exit\n");
                 os.flush();

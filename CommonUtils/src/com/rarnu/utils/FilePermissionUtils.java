@@ -29,7 +29,14 @@ public class FilePermissionUtils {
         return info;
     }
 
-    public static void setFilePermission(String filePath, FilePermissionInfo permission) {
-        // TODO: set file permission
+    public static boolean setFilePermission(String filePath, FilePermissionInfo permission) {
+        // set file permission
+        int owner = (permission.ownerRead ? 4 : 0) + (permission.ownerWrite ? 2 : 0) + (permission.ownerExec ? 1 : 0);
+        int group = (permission.groupRead ? 4 : 0) + (permission.groupWrite ? 2 : 0) + (permission.groupExec ? 1 : 0);
+        int other = (permission.otherRead ? 4 : 0) + (permission.otherWrite ? 2 : 0) + (permission.otherExec ? 1 : 0);
+        String permStr = String.format("%d%d%d", owner, group, other);
+        filePath = filePath.replace(" ", "\\ ");
+        CommandResult result = RootUtils.runCommand(String.format("chmod %s %s", permStr, filePath), true);
+        return (result != null && result.error.equals(""));
     }
 }
