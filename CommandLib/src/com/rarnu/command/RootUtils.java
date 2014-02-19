@@ -100,12 +100,24 @@ public class RootUtils {
     }
 
     public static CommandResult runCommand(String command, boolean root) {
-        return runCommand(command, root, null);
+        return runCommand(new String[]{command}, root, null);
+    }
+
+    public static CommandResult runCommand(String[] prog) {
+        return runCommand(prog, false, null);
+    }
+
+    public static CommandResult runCommand(String[] prog, CommandCallback callback) {
+        return runCommand(prog, false, callback);
     }
 
     public static CommandResult runCommand(String command, boolean root, CommandCallback callback) {
+        return runCommand(new String[]{command}, root, callback);
+    }
+
+    public static CommandResult runCommand(String[] command, boolean root, CommandCallback callback) {
         if (DEBUG) {
-            Log.e("runCommand", command);
+            Log.e("runCommand", command.toString());
         }
         Process process = null;
         DataOutputStream os = null;
@@ -118,11 +130,15 @@ public class RootUtils {
             if (root) {
                 process = Runtime.getRuntime().exec("su");
                 os = new DataOutputStream(process.getOutputStream());
-                os.writeBytes(command + "\n");
+                os.writeBytes(command[0] + "\n");
                 os.writeBytes("exit\n");
                 os.flush();
             } else {
-                process = Runtime.getRuntime().exec(command);
+                if (command.length == 1) {
+                    process = Runtime.getRuntime().exec(command[0]);
+                } else {
+                    process = Runtime.getRuntime().exec(command);
+                }
             }
 
             String line;

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -542,9 +543,10 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (item.fullPath.startsWith("/system/") || item.fullPath.startsWith("/data/")) {
-                            RootUtils.runCommand(String.format("rm -r \"%s\"", item.fullPath), true);
+                            RootUtils.runCommand(String.format("rm -r %s", item.fullPath), true);
                         } else {
                             File fDel = new File(item.fullPath);
+                            Log.e("doPrepareDeleteFile", item.fullPath);
                             if (fDel.isDirectory()) {
                                 FileUtils.deleteDir(item.fullPath);
                             } else {
