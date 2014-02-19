@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="522"
-        android:versionName="6.4.9 beta">
+        android:versionCode="524"
+        android:versionName="6.4.10 beta">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -152,6 +152,11 @@
         </activity>
         <activity
                 android:name=".fragmentactivity.ShareActivity"
+                android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+                android:name=".fragmentactivity.ChangePermissionActivity"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateHidden">
         </activity>

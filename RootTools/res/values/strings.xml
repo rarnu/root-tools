@@ -501,4 +501,11 @@
     <string name="google_redownload">You have already downloaded google packages, want to re-download or re-unzip it?</string>
     <string name="google_confirm_redownload">Re-download</string>
     <string name="google_confirm_reunzip">Re-unzip</string>
+
+    <string name="perm_read">Read</string>
+    <string name="perm_write">Write</string>
+    <string name="perm_exec">Exec</string>
+    <string name="usr_owner">Owner</string>
+    <string name="usr_group">Group</string>
+    <string name="usr_other">Other</string>
 </resources>

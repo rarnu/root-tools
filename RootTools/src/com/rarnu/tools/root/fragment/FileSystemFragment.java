@@ -24,6 +24,7 @@ import com.rarnu.tools.root.adapter.FileSystemAdapter;
 import com.rarnu.tools.root.common.FileOperationInfo;
 import com.rarnu.tools.root.common.FileSystemFileInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
+import com.rarnu.tools.root.fragmentactivity.ChangePermissionActivity;
 import com.rarnu.tools.root.fragmentactivity.InstallApkActivity;
 import com.rarnu.tools.root.fragmentactivity.PoolActivity;
 import com.rarnu.tools.root.fragmentactivity.TextEditorActivity;
@@ -430,6 +431,9 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                                     case 2:
                                         doPrepareDeleteFile(item);
                                         break;
+                                    case 3:
+                                        doPrepareChangePermission(item);
+                                        break;
                                 }
                                 break;
                             case R.array.array_file_system_item_menu_text:
@@ -445,6 +449,9 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                                         break;
                                     case 3:
                                         doPrepareDeleteFile(item);
+                                        break;
+                                    case 4:
+                                        doPrepareChangePermission(item);
                                         break;
                                 }
                                 break;
@@ -464,6 +471,9 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                                         break;
                                     case 4:
                                         doPrepareDeleteFile(item);
+                                        break;
+                                    case 5:
+                                        doPrepareChangePermission(item);
                                         break;
                                 }
                                 break;
@@ -532,7 +542,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         if (item.fullPath.startsWith("/system/") || item.fullPath.startsWith("/data/")) {
-                            RootUtils.runCommand("rm -r " + item.fullPath, true);
+                            RootUtils.runCommand(String.format("rm -r \"%s\"", item.fullPath), true);
                         } else {
                             File fDel = new File(item.fullPath);
                             if (fDel.isDirectory()) {
@@ -550,6 +560,13 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
+    }
+
+    private void doPrepareChangePermission(final FileSystemFileInfo item) {
+        // change permission
+        Intent inPermission = new Intent(getActivity(), ChangePermissionActivity.class);
+        inPermission.putExtra("file", item);
+        startActivity(inPermission);
     }
 
     private void doInstall(final FileSystemFileInfo item) {

@@ -9,7 +9,7 @@ import java.util.List;
 public class BusyboxUtils {
 
     private static final String[] requiredApplets = new String[]{
-            "cp", "du", "find", "xargs", "chmod", "grep", "reboot", "free", "unzip",
+            "cp", "du", "find", "xargs", "chmod", "grep", "reboot", "free", "unzip", "ls"
     };
 
     public static boolean isBusyboxReady() {

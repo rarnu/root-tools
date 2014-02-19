@@ -1,9 +1,10 @@
 package com.rarnu.tools.root.common;
 
+import java.io.Serializable;
 import java.net.FileNameMap;
 import java.net.URLConnection;
 
-public class FileSystemFileInfo {
+public class FileSystemFileInfo implements Serializable {
     public boolean isDirectory;
     public String name;
     public String fullPath;

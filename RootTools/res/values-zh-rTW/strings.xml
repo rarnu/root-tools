@@ -468,4 +468,10 @@
     <string name="google_redownload">您已下載了 Google 服務包. 要重新下載還是重新解壓?</string>
     <string name="google_confirm_redownload">重新下載</string>
     <string name="google_confirm_reunzip">重新解壓</string>
+    <string name="perm_read">讀</string>
+    <string name="perm_write">寫</string>
+    <string name="perm_exec">執行</string>
+    <string name="usr_owner">所有者</string>
+    <string name="usr_group">用戶組</string>
+    <string name="usr_other">其他</string>
 </resources>

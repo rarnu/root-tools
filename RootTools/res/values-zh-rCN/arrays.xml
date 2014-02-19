@@ -6,6 +6,7 @@
         <item>剪切</item>
         <item>复制</item>
         <item>删除</item>
+        <item>更改权限</item>
     </string-array>
 
     <string-array name="array_file_system_item_menu_apk">
@@ -14,13 +15,16 @@
         <item>剪切</item>
         <item>复制</item>
         <item>删除</item>
+        <item>更改权限</item>
     </string-array>
 
     <string-array name="array_file_system_item_menu">
         <item>剪切</item>
         <item>复制</item>
         <item>删除</item>
+        <item>更改权限</item>
     </string-array>
+
     <string-array name="array_share_title">
         <item>微信</item>
         <item>朋友圈</item>

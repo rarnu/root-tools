@@ -6,6 +6,7 @@
         <item>剪切</item>
         <item>復制</item>
         <item>刪除</item>
+        <item>變更權限</item>
     </string-array>
 
     <string-array name="array_file_system_item_menu_apk">
@@ -14,13 +15,14 @@
         <item>剪切</item>
         <item>復制</item>
         <item>刪除</item>
+        <item>變更權限</item>
     </string-array>
 
     <string-array name="array_file_system_item_menu">
-        <item>以文本打開</item>
         <item>剪切</item>
         <item>復制</item>
         <item>刪除</item>
+        <item>變更權限</item>
     </string-array>
 
     <string-array name="array_share_title">
