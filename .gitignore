@@ -20,6 +20,7 @@ out/
 .idea/modules.xml
 .idea/vcs.xml
 .idea/inspectionProfiles/
+.idea/codeStyleSettings.xml
 preview_generator
 *.cfg
 

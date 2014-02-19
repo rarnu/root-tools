@@ -123,6 +123,7 @@
     <option name="CLASS_NAME_ATTRIBUTES">
       <value>
         <option name="FOREGROUND" value="96acff" />
+        <option name="BACKGROUND" value="2b2b2b" />
         <option name="FONT_TYPE" value="1" />
         <option name="EFFECT_TYPE" value="1" />
       </value>
@@ -784,6 +785,7 @@
     <option name="JAVA_KEYWORD">
       <value>
         <option name="FOREGROUND" value="7ab5cc" />
+        <option name="BACKGROUND" value="2b2b2b" />
       </value>
     </option>
     <option name="JAVA_LINE_COMMENT">
