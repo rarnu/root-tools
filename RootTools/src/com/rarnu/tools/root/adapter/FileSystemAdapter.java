@@ -7,7 +7,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.common.FileSystemFileInfo;
+import com.rarnu.utils.common.FileSystemFileInfo;
 import com.rarnu.tools.root.holder.FileSystemHolder;
 
 import java.util.List;

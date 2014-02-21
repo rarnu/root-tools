@@ -9,8 +9,8 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseDialogFragment;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
-import com.rarnu.tools.root.common.FileSystemFileInfo;
-import com.rarnu.utils.FilePermissionUtils;
+import com.rarnu.utils.common.FileSystemFileInfo;
+import com.rarnu.utils.FileCommandUtils;
 import com.rarnu.utils.common.FilePermissionInfo;
 
 public class ChangePermissionFragment extends BaseDialogFragment implements View.OnClickListener {
@@ -73,7 +73,7 @@ public class ChangePermissionFragment extends BaseDialogFragment implements View
     @Override
     public void initLogic() {
         item = (FileSystemFileInfo) getActivity().getIntent().getSerializableExtra("file");
-        permission = FilePermissionUtils.getFilePermission(item.fullPath);
+        permission = FileCommandUtils.getFilePermission(item.fullPath);
         tvHead.setText(item.name);
         if (permission != null) {
             chkOwnerRead.setChecked(permission.ownerRead);
@@ -117,7 +117,7 @@ public class ChangePermissionFragment extends BaseDialogFragment implements View
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnSave:
-                FilePermissionUtils.setFilePermission(item.fullPath, permission);
+                FileCommandUtils.setFilePermission(item.fullPath, permission);
                 getActivity().finish();
                 break;
             case R.id.btnCancel:

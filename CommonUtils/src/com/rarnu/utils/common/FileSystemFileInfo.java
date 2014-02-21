@@ -1,5 +1,6 @@
-package com.rarnu.tools.root.common;
+package com.rarnu.utils.common;
 
+import java.io.File;
 import java.io.Serializable;
 import java.net.FileNameMap;
 import java.net.URLConnection;
@@ -12,10 +13,10 @@ public class FileSystemFileInfo implements Serializable {
     public int icon;
     public String ext = "";
 
-    public FileSystemFileInfo(boolean isDirectory, String name, String fullPath) {
+    public FileSystemFileInfo(String name, String fullPath) {
         this.name = name;
         this.fullPath = fullPath;
-        this.isDirectory = isDirectory;
+        this.isDirectory = new File(fullPath).isDirectory();
         this.mimeType = getMimeType();
         if (fullPath.contains(".")) {
             ext = fullPath.substring(fullPath.lastIndexOf(".")).toLowerCase();

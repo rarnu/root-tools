@@ -23,14 +23,15 @@ import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.FileSystemAdapter;
 import com.rarnu.tools.root.common.FileOperationInfo;
-import com.rarnu.tools.root.common.FileSystemFileInfo;
 import com.rarnu.tools.root.common.MenuItemIds;
 import com.rarnu.tools.root.fragmentactivity.ChangePermissionActivity;
 import com.rarnu.tools.root.fragmentactivity.InstallApkActivity;
 import com.rarnu.tools.root.fragmentactivity.PoolActivity;
 import com.rarnu.tools.root.fragmentactivity.TextEditorActivity;
+import com.rarnu.utils.FileCommandUtils;
 import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.ImageUtils;
+import com.rarnu.utils.common.FileSystemFileInfo;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -228,7 +229,7 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
         String fullPath = currentDir + "/" + fileName;
         try {
             FileUtils.rewriteFile(fullPath, "");
-            FileSystemFileInfo info = new FileSystemFileInfo(false, fileName, fullPath);
+            FileSystemFileInfo info = new FileSystemFileInfo(fileName, fullPath);
             info.icon = R.drawable.format_file;
             list.add(info);
             adapter.setNewList(list);
@@ -350,59 +351,14 @@ public class FileSystemFragment extends BaseFragment implements OnQueryTextListe
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<FileSystemFileInfo> listTmp = new ArrayList<FileSystemFileInfo>();
-                try {
-                    File fDir = new File(currentDir);
-                    File[] files = fDir.listFiles();
-                    for (File f : files) {
-                        FileSystemFileInfo info = new FileSystemFileInfo(f.isDirectory(), f.getName(), f.getAbsolutePath());
-                        info.icon = getIconResForFile(f.getName());
-                        listTmp.add(info);
-                    }
-
-                    Collections.sort(listTmp, compFiles);
-                } catch (Throwable th) {
-
-                }
+                List<FileSystemFileInfo> listTmp = FileCommandUtils.getFileList(currentDir);
+                Collections.sort(listTmp, compFiles);
                 Message msg = new Message();
                 msg.what = 1;
                 msg.obj = listTmp;
                 hShowFiles.sendMessage(msg);
             }
         }).start();
-    }
-
-    private int getIconResForFile(String fileName) {
-        int ret = R.drawable.format_file;
-        fileName = fileName.toLowerCase();
-        if (fileName.endsWith("apk")) {
-            ret = R.drawable.format_apk;
-        } else if (fileName.endsWith("chm")) {
-            ret = R.drawable.format_chm;
-        } else if (fileName.endsWith("doc") || fileName.endsWith("docx")) {
-            ret = R.drawable.format_word;
-        } else if (fileName.endsWith("xls") || fileName.endsWith("xlsx")) {
-            ret = R.drawable.format_excel;
-        } else if (fileName.endsWith("ppt") || fileName.endsWith("pptx")) {
-            ret = R.drawable.format_ppt;
-        } else if (fileName.endsWith("txt") || fileName.endsWith("rtf")) {
-            ret = R.drawable.format_text;
-        } else if (fileName.endsWith("zip") || fileName.endsWith("rar") || fileName.endsWith("tar") || fileName.endsWith("gz") || fileName.endsWith("bz") || fileName.endsWith("bz2") || fileName.endsWith("jar")) {
-            ret = R.drawable.format_zip;
-        } else if (fileName.endsWith("png") || fileName.endsWith("jpg") || fileName.endsWith("bmp") || fileName.endsWith("gif") || fileName.endsWith("webp") || fileName.endsWith("jpeg") || fileName.endsWith("ico")) {
-            ret = R.drawable.format_picture;
-        } else if (fileName.endsWith("pdf")) {
-            ret = R.drawable.format_pdf;
-        } else if (fileName.endsWith("mp3") || fileName.endsWith("ogg") || fileName.endsWith("wav") || fileName.endsWith("wma")) {
-            ret = R.drawable.format_music;
-        } else if (fileName.endsWith("avi") || fileName.endsWith("rm") || fileName.endsWith("rmvb") || fileName.endsWith("mp4") || fileName.endsWith("3gp") || fileName.endsWith("wmv") || fileName.endsWith("mpg")) {
-            ret = R.drawable.format_media;
-        } else if (fileName.endsWith("swf") || fileName.endsWith("flv") || fileName.endsWith("f4v")) {
-            ret = R.drawable.format_flash;
-        } else if (fileName.endsWith("htm") || fileName.endsWith("html") || fileName.endsWith("xhtml")) {
-            ret = R.drawable.format_html;
-        }
-        return ret;
     }
 
     @Override
