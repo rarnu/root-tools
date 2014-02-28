@@ -16,7 +16,7 @@ public class RootUtils {
     public static final int LEVEL_HALF_ROOTED = 1;
     public static final int LEVEL_NO_ROOT = 0;
     private static final String[] SU_PATH = new String[]{"/system/bin/su", "/system/xbin/su"};
-    private static final String APP_PATH = "/system/app/";
+    private static final String[] APP_PATH = new String[]{"/system/app/", "/system/priv-app/"};
     private static final String[] BUSYBOX_PATH = new String[]{"/system/xbin/busybox", "/system/bin/busybox"};
     private static final String[] IPTABLES_PATH = new String[]{"/system/bin/iptables", "/system/xbin/iptables"};
     private static final String[] IP6TABLES_PATH = new String[]{"/system/bin/ip6tables", "/system/xbin/ip6tables"};
@@ -189,14 +189,20 @@ public class RootUtils {
     }
 
     private static boolean findSuperUser() {
-        File apps = new File(APP_PATH);
-        String[] apks = apps.list();
         boolean hasSuperUser = false;
-        if (apks != null) {
-            if (apks.length > 0) {
-                for (String apk : apks) {
-                    if (apk.toLowerCase().contains("superuser.apk")) {
-                        hasSuperUser = true;
+
+        for (String path : APP_PATH) {
+            File apps = new File(path);
+            String[] apks = apps.list();
+            if (apks != null) {
+                if (apks.length > 0) {
+                    for (String apk : apks) {
+                        if (apk.toLowerCase().contains("superuser.apk")) {
+                            hasSuperUser = true;
+                            break;
+                        }
+                    }
+                    if (hasSuperUser) {
                         break;
                     }
                 }

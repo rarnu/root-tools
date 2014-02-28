@@ -84,7 +84,7 @@ public class ApkUtils {
                     if (newInfo == null) {
                         continue;
                     }
-                    if (newInfo.sourceDir.contains("/system/app")) {
+                    if (newInfo.sourceDir.contains("/system/app") || newInfo.sourceDir.contains("/system/priv-app")) {
                         SysappInfo info = new SysappInfo();
                         info.info = newInfo;
                         info.level = getAppLevel(newInfo.sourceDir, newInfo.packageName);
@@ -144,12 +144,12 @@ public class ApkUtils {
         return result.error.equals("");
     }
 
-    public static boolean installSystemApp(String path) {
+    public static boolean installSystemApp(String path, boolean isPrivate) {
         String fn = path.substring(0, path.length() - 3) + "*";
         String onlyApkName = path.substring(path.lastIndexOf("/") + 1);
-        CommandResult result = RootUtils.runCommand("busybox cp -r " + fn + " /system/app/", true, null);
+        CommandResult result = RootUtils.runCommand(String.format("busybox cp -r %s /system/%s/", fn, isPrivate ? "priv-app" : "app"), true, null);
         if (result.error.equals("")) {
-            result = RootUtils.runCommand("chmod 644 /system/app/" + onlyApkName, true, null);
+            result = RootUtils.runCommand(String.format("chmod 644 /system/%s/%s", isPrivate ? "priv-app" : "app", onlyApkName), true, null);
         }
         return result.error.equals("");
     }
@@ -248,11 +248,11 @@ public class ApkUtils {
         }
     }
 
-    public static void installSystemApp(final Context context, final String path, final Handler h) {
+    public static void installSystemApp(final Context context, final String path, final boolean isPrivate, final Handler h) {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                boolean installOK = installSystemApp(path);
+                boolean installOK = installSystemApp(path, isPrivate);
                 try {
                     Thread.sleep(2000);
                 } catch (InterruptedException e) {
@@ -367,7 +367,7 @@ public class ApkUtils {
                     if (newInfo == null) {
                         continue;
                     }
-                    if ((includeSystem && newInfo.sourceDir.contains("/system/app/")) || newInfo.sourceDir.contains("/data/app/")) {
+                    if ((includeSystem && (newInfo.sourceDir.contains("/system/app/") || (newInfo.sourceDir.contains("/system/priv-app/")))) || newInfo.sourceDir.contains("/data/app/")) {
                         DataappInfo info = new DataappInfo();
                         info.info = newInfo;
                         info.checked = false;
@@ -405,6 +405,8 @@ public class ApkUtils {
 
                     if (newInfo.sourceDir.contains("/system/app/")) {
                         info.type = 0;
+                    } else if (newInfo.sourceDir.contains("/system/priv-app/")) {
+                        info.type = 3;
                     } else if (newInfo.sourceDir.contains("/data/app/")) {
                         info.type = 1;
                     } else {
@@ -434,6 +436,24 @@ public class ApkUtils {
                     newinfo.type = 0;
                     newinfo.enabled = false;
                     newinfo.filePath = DirHelper.ENABLEAPP_DIR_SYSTEM + s;
+                    res.add(newinfo);
+                }
+            }
+        }
+
+        File fDisablePrivate = new File(DirHelper.ENABLEAPP_DIR_PRIVATE);
+        if (fDisablePrivate.exists()) {
+            for (String s : fDisablePrivate.list()) {
+                if (s.toLowerCase().endsWith(".apk")) {
+                    EnableappInfo newinfo = new EnableappInfo();
+                    newinfo.info = getAppInfoFromPackage(DirHelper.ENABLEAPP_DIR_PRIVATE + s);
+
+                    if (newinfo.info == null) {
+                        continue;
+                    }
+                    newinfo.type = 3;
+                    newinfo.enabled = false;
+                    newinfo.filePath = DirHelper.ENABLEAPP_DIR_PRIVATE + s;
                     res.add(newinfo);
                 }
             }
@@ -655,7 +675,7 @@ public class ApkUtils {
             if (list != null && list.size() != 0) {
                 String pkgName = "";
                 for (ApplicationInfo pn : list) {
-                    if (system && !pn.publicSourceDir.contains("/system/app")) {
+                    if (system && (!pn.publicSourceDir.contains("/system/app") && !pn.publicSourceDir.contains("/system/priv-app"))) {
                         continue;
                     }
                     pkgName = pn.packageName;

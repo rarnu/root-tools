@@ -6,18 +6,16 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.content.Loader.OnLoadCompleteListener;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
+import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.ListView;
-import android.widget.SearchView;
 import android.widget.SearchView.OnQueryTextListener;
-import android.widget.Toast;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.GlobalInstance;
@@ -134,13 +132,17 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
             return;
         }
         if (!apkPath.equals("")) {
+            final CheckBox chkInstallToPrivate = new CheckBox(getActivity());
+            chkInstallToPrivate.setChecked(false);
+            chkInstallToPrivate.setText(R.string.install_to_private);
             new AlertDialog.Builder(getActivity())
                     .setTitle(R.string.hint)
                     .setMessage(String.format(getResources().getString(R.string.install_apk), apk.getName()))
+                    .setView(Build.VERSION.SDK_INT >= 19 ? chkInstallToPrivate : null)
                     .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            doInstallSystemApp(apkPath);
+                            doInstallSystemApp(apkPath, chkInstallToPrivate.isChecked());
                         }
                     })
                     .setNegativeButton(R.string.cancel, null)
@@ -148,11 +150,11 @@ public class SysappFragment extends BaseFragment implements OnQueryTextListener,
         }
     }
 
-    private void doInstallSystemApp(final String path) {
+    private void doInstallSystemApp(final String path, boolean isPrivate) {
         progressSysapp.setAppName(getString(R.string.installing_system_app));
         progressSysapp.setVisibility(View.VISIBLE);
 
-        ApkUtils.installSystemApp(getActivity(), path, hInstall);
+        ApkUtils.installSystemApp(getActivity(), path, isPrivate, hInstall);
     }
 
     @Override

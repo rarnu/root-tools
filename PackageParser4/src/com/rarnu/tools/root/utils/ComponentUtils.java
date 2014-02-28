@@ -28,6 +28,9 @@ public class ComponentUtils {
         } else if (info.type == 1) {
             dest = "/data/app/";
             filePath = dest + source.replace(DirHelper.ENABLEAPP_DIR_DATA, "");
+        } else if (info.type == 3) {
+            dest = "/system/priv-app/";
+            filePath = dest + source.replace(DirHelper.ENABLEAPP_DIR_PRIVATE, "");
         }
         try {
             CommandResult cmdRet = RootUtils.runCommand(String.format("busybox cp %s %s", source, dest), true, null);
@@ -54,6 +57,9 @@ public class ComponentUtils {
         } else if (info.type == 1) {
             dest = DirHelper.ENABLEAPP_DIR_DATA;
             filePath = dest + source.replace("/data/app/", "");
+        } else if (info.type == 3) {
+            dest = DirHelper.ENABLEAPP_DIR_PRIVATE;
+            filePath = dest + source.replace("/system/priv-app/", "");
         } else {
             return false;
         }

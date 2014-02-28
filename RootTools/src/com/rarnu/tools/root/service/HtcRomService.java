@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager.NameNotFoundException;
 import com.rarnu.devlib.base.BaseService;
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.Actions;
 import com.rarnu.tools.root.common.CustomPackageInfo;
@@ -22,7 +21,7 @@ public class HtcRomService extends BaseService {
         try {
             ApplicationInfo info = getPackageManager().getApplicationInfo(namesapce, 0);
             String path = info.sourceDir;
-            if (info.sourceDir.contains("/system/app/")) {
+            if (info.sourceDir.contains("/system/app/") || info.sourceDir.contains("/system/priv-app/")) {
                 ApkUtils.deleteSystemApp(path);
                 ApkUtils.deleteSystemAppData(info.dataDir);
             } else {

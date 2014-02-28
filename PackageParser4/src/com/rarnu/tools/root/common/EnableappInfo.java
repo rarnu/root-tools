@@ -10,7 +10,7 @@ public class EnableappInfo {
 	public int logId;
 	public Boolean enabled;
 	
-	// 0: system | 1:data | 2: internal
+	// 0: system | 1:data | 2: internal | 3: private
 	public int type;
 	public String filePath;
 }

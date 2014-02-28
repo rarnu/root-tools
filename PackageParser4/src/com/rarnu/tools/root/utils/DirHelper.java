@@ -12,6 +12,7 @@ public class DirHelper {
     public static String SYSAPP_DIR = "";
     public static String ENABLEAPP_DIR = "";
     public static String ENABLEAPP_DIR_SYSTEM = "";
+    public static String ENABLEAPP_DIR_PRIVATE = "";
     public static String ENABLEAPP_DIR_DATA = "";
     public static String DATAAPP_DIR = "";
     public static String BATCH_INSTALL_DIR = "";
@@ -34,6 +35,7 @@ public class DirHelper {
         makeDir(SYSAPP_DIR);
         makeDir(ENABLEAPP_DIR);
         makeDir(ENABLEAPP_DIR_SYSTEM);
+        makeDir(ENABLEAPP_DIR_PRIVATE);
         makeDir(ENABLEAPP_DIR_DATA);
         makeDir(DATAAPP_DIR);
         makeDir(HOSTS_DIR);
@@ -63,6 +65,7 @@ public class DirHelper {
         SYSAPP_DIR = ROOT_DIR + "sysapp/";
         ENABLEAPP_DIR = ROOT_DIR + "enableapp/";
         ENABLEAPP_DIR_SYSTEM = ENABLEAPP_DIR + "system/";
+        ENABLEAPP_DIR_PRIVATE = ENABLEAPP_DIR + "private/";
         ENABLEAPP_DIR_DATA = ENABLEAPP_DIR + "data/";
         DATAAPP_DIR = ROOT_DIR + "data/";
         HOSTS_DIR = ROOT_DIR + "hosts/";

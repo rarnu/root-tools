@@ -45,6 +45,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefFirewall.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRoot.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefGoogle.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+        prefFonts.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefHtcRom.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
 
         prefBackup.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
@@ -79,6 +80,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefFirewall.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRoot.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefGoogle.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
+        prefFonts.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefBackup.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRestore.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefCleanCache.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);

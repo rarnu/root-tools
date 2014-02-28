@@ -88,10 +88,10 @@ public class SysappDetailFragment extends BasePopupFragment implements OnClickLi
             appIcon.setBackgroundDrawable(pm.getApplicationIcon(info.info));
             appName.setText(pm.getApplicationLabel(info.info));
             appVersion.setText(getResources().getString(R.string.version) + (pinfo == null ? getResources().getString(R.string.unknown) : pinfo.versionName));
-            tvPathDetail.setText(info.info.sourceDir.replace("/system/app/", ""));
+            tvPathDetail.setText(info.info.sourceDir.replace("/system/app/", "").replace("/system/priv-app/", ""));
             String odexPath = info.info.sourceDir.substring(0, info.info.sourceDir.length() - 3) + "odex";
             File fOdex = new File(odexPath);
-            tvOdexDetail.setText(fOdex.exists() ? odexPath.replace("/system/app/", "") : getResources().getString(R.string.na));
+            tvOdexDetail.setText(fOdex.exists() ? odexPath.replace("/system/app/", "").replace("/system/priv-app/", "") : getResources().getString(R.string.na));
             tvFileSizeDetail.setText(ApkUtils.getAppSize(info.info.sourceDir) + " KB " + String.format("(%s)", fOdex.exists() ? "APK+ODEX" : "APK"));
             tvDataPathDetail.setText(info.info.dataDir.replace("/data/data/", ""));
             String dataSize = ApkUtils.getDataSize(info.info.dataDir);

@@ -57,14 +57,14 @@ public class CompPackageInfoFragment extends BasePopupFragment implements OnItem
     }
 
     private void fillComponentList() {
-        if (getActivity() != null) {
+        if (getActivity() != null && GlobalInstance.currentComp != null) {
             PackageManager pm = getActivity().getPackageManager();
             ivAppIcon.setBackgroundDrawable(pm.getApplicationIcon(GlobalInstance.currentComp.applicationInfo));
             tvAppName.setText(pm.getApplicationLabel(GlobalInstance.currentComp.applicationInfo));
             tvAppPackage.setText(GlobalInstance.currentComp.packageName);
 
             tvAppName.setTextColor(DrawableUtils.getTextColorPrimary(getActivity()));
-            if (GlobalInstance.currentComp.applicationInfo.sourceDir.contains("/system/app/")) {
+            if (GlobalInstance.currentComp.applicationInfo.sourceDir.contains("/system/app/") || GlobalInstance.currentComp.applicationInfo.sourceDir.contains("/system/priv-app/")) {
                 tvAppName.setTextColor(Color.RED);
             }
 

@@ -508,4 +508,5 @@
     <string name="usr_owner">Owner</string>
     <string name="usr_group">Group</string>
     <string name="usr_other">Other</string>
+    <string name="install_to_private">Install to Private</string>
 </resources>

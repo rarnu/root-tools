@@ -8,7 +8,6 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
-import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.holder.CompPackageAdapterHolder;
 import com.rarnu.utils.DrawableUtils;
@@ -45,7 +44,7 @@ public class CompPackageAdapter extends BaseAdapter<PackageInfo> {
             holder.itemName.setText(pm.getApplicationLabel(item.applicationInfo));
 
             holder.itemName.setTextColor(DrawableUtils.getTextColorPrimary(context));
-            if (item.applicationInfo.sourceDir.contains("/system/app/")) {
+            if (item.applicationInfo.sourceDir.contains("/system/app/") || item.applicationInfo.sourceDir.contains("/sstem/priv-app/")) {
                 holder.itemName.setTextColor(Color.RED);
             }
 
