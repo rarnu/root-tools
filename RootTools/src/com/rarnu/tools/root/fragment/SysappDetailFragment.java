@@ -45,15 +45,17 @@ public class SysappDetailFragment extends BasePopupFragment implements OnClickLi
     private Handler hDeleteApp = new Handler() {
         @Override
         public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                if (getActivity() != null) {
-                    tvDeleting.setVisibility(View.GONE);
-                    btnAddToCleanList.setEnabled(true);
-                    btnDelete.setEnabled(true);
+            if (getActivity() != null) {
+                tvDeleting.setVisibility(View.GONE);
+                btnAddToCleanList.setEnabled(true);
+                btnDelete.setEnabled(true);
+                if (msg.what == 1) {
                     Intent inRet = new Intent();
                     inRet.putExtra("needRefresh", true);
                     getActivity().setResult(Activity.RESULT_OK, inRet);
                     getActivity().finish();
+                } else if (msg.what == 2) {
+                    Toast.makeText(getActivity(), R.string.delete_fail, Toast.LENGTH_LONG).show();
                 }
             }
             super.handleMessage(msg);
@@ -181,7 +183,7 @@ public class SysappDetailFragment extends BasePopupFragment implements OnClickLi
 
                 boolean ret = ApkUtils.deleteSystemApp(info.info.sourceDir);
                 if (!ret) {
-                    Toast.makeText(getActivity(), R.string.delete_fail, Toast.LENGTH_LONG).show();
+                    hDeleteApp.sendEmptyMessage(2);
                     return;
                 }
                 if (deleteData) {
