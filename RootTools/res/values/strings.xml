@@ -509,4 +509,5 @@
     <string name="usr_group">Group</string>
     <string name="usr_other">Other</string>
     <string name="install_to_private">Install to Private</string>
+    <string name="checking_new_version">Checking new version now...</string>
 </resources>

@@ -475,4 +475,5 @@
     <string name="usr_group">用戶組</string>
     <string name="usr_other">其他</string>
     <string name="install_to_private">安裝到私有區</string>
+    <string name="checking_new_version">正在檢查新版本...</string>
 </resources>

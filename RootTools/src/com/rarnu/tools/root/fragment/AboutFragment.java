@@ -4,11 +4,14 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.BlockListView;
 import com.rarnu.tools.root.GlobalInstance;
@@ -16,6 +19,7 @@ import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.AboutAdapter;
 import com.rarnu.tools.root.adapter.PartnerAdapter;
+import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.AboutInfo;
 import com.rarnu.tools.root.fragmentactivity.BuildTeamActivity;
 import com.rarnu.tools.root.utils.DeviceUtils;
@@ -29,6 +33,17 @@ import java.util.Locale;
 
 public class AboutFragment extends BaseFragment implements OnItemClickListener {
 
+    final Handler hUpdate = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                if (getActivity() != null) {
+                    UpdateUtils.showUpdateInfo(getActivity(), false);
+                }
+            }
+            super.handleMessage(msg);
+        }
+    };
     TextView tvAppVersion, tvDebug;
     BlockListView lstAbout, lstEoe;
     TextView tvAbout;
@@ -158,7 +173,8 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
         } else {
             switch (position) {
                 case 0:
-                    UpdateUtils.showUpdateInfo(getActivity(), false);
+                    Toast.makeText(getActivity(), R.string.checking_new_version, Toast.LENGTH_SHORT).show();
+                    getUpdateInfo();
                     break;
                 case 1:
                     // build team
@@ -206,5 +222,18 @@ public class AboutFragment extends BaseFragment implements OnItemClickListener {
     @Override
     public Bundle getFragmentState() {
         return null;
+    }
+
+    private void getUpdateInfo() {
+        new Thread(new Runnable() {
+
+            @Override
+            public void run() {
+                int verCode = DeviceUtils.getAppVersionCode(getActivity());
+                String deviceId = DeviceUtils.getDeviceUniqueId(getActivity());
+                GlobalInstance.updateInfo = MobileApi.checkUpdate(verCode, deviceId);
+                hUpdate.sendEmptyMessage(1);
+            }
+        }).start();
     }
 }
