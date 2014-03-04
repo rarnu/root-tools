@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.yugioh.android"
-        android:versionCode="51"
-        android:versionName="ver 2.2.2">
+        android:versionCode="55"
+        android:versionName="ver 2.2.3">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -20,7 +20,7 @@
             android:theme="@android:style/Theme.Holo">
         <meta-data
                 android:name="release-date"
-                android:value="2013.10.07"/>
+                android:value="2014.03.02"/>
 
         <activity
                 android:name=".MainActivity"
