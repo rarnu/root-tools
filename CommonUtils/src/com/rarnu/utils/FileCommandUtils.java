@@ -45,6 +45,10 @@ public class FileCommandUtils {
     }
 
     public static List<FileSystemFileInfo> getFileList(String path) {
+        return getFileList(path, "");
+    }
+
+    public static List<FileSystemFileInfo> getFileList(String path, String ext) {
         path = path.replace(" ", "\\ ");
         if (!path.endsWith("/")) {
             path += "/";
@@ -58,7 +62,13 @@ public class FileCommandUtils {
                 for (String n : names) {
                     FileSystemFileInfo info = new FileSystemFileInfo(n, path + n);
                     info.icon = getIconResForFile(n);
-                    list.add(info);
+                    if (info.isDirectory) {
+                        list.add(info);
+                    } else {
+                        if (ext.equals("") || n.toLowerCase().endsWith(ext)) {
+                            list.add(info);
+                        }
+                    }
                 }
             }
         }
