@@ -95,6 +95,10 @@
     <string name="func_fonts_with_path">RootTools &gt; Fonts</string>
     <string name="func_password">Password Manager</string>
     <string name="func_password_with_path">RootTools &gt; Password Manager</string>
+    <string name="func_replace_files">Replace Files</string>
+    <string name="func_replace_files_with_path">RootTools &gt; Replace Files</string>
+    <string name="func_build_prop">Build.Properties</string>
+    <string name="func_build_prop_with_path">RootTools &gt; Build.Properties</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>

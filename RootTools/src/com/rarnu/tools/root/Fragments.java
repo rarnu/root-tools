@@ -52,6 +52,8 @@ public class Fragments {
     private static PasswordInputFragment fPasswordInput = null;
     private static PasswordDetailFragment fPasswordDetail = null;
     private static ChangePermissionFragment fChangePermission = null;
+    private static ReplaceFileFragment fReplaceFile = null;
+    private static BuildPropFragment fBuildProp = null;
 
     public static Fragment getFragment(String name) {
 
@@ -286,6 +288,16 @@ public class Fragments {
                 fChangePermission = new ChangePermissionFragment();
             }
             f = fChangePermission;
+        } else if (name.equals(FragmentNameConst.FN_REPLACE_FILE)) {
+            if (fReplaceFile == null) {
+                fReplaceFile = new ReplaceFileFragment();
+            }
+            f = fReplaceFile;
+        } else if (name.equals(FragmentNameConst.FN_BUILD_PROP)) {
+            if (fBuildProp == null) {
+                fBuildProp = new BuildPropFragment();
+            }
+            f = fBuildProp;
         }
 
         return f;
@@ -342,6 +354,8 @@ public class Fragments {
         fPasswordInput = null;
         fPasswordDetail = null;
         fChangePermission = null;
+        fReplaceFile = null;
+        fBuildProp = null;
     }
 
 }

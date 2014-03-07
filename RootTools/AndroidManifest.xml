@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="559"
+        android:versionCode="561"
         android:versionName="6.5.2">
 
     <uses-sdk
@@ -136,7 +136,8 @@
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateHidden">
         </activity>
-        <activity android:name=".fragmentactivity.PasswordInputActivity"
+        <activity
+                android:name=".fragmentactivity.PasswordInputActivity"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateHidden">
         </activity>
@@ -230,7 +231,8 @@
                 android:label="@string/func_filesystem"
                 android:windowSoftInputMode="stateHidden">
         </activity>
-        <activity android:name=".fragmentactivity.TextEditorActivity"
+        <activity
+                android:name=".fragmentactivity.TextEditorActivity"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
@@ -273,7 +275,8 @@
                 android:label="@string/check_update"
                 android:windowSoftInputMode="stateHidden">
         </activity>
-        <activity android:name=".fragmentactivity.PasswordChangeSecActivity"
+        <activity
+                android:name=".fragmentactivity.PasswordChangeSecActivity"
                 android:label="@string/change_sec_password"
                 android:windowSoftInputMode="stateHidden">
         </activity>
@@ -283,13 +286,25 @@
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
+                android:name=".fragmentactivity.ReplaceFileActivity"
+                android:label="@string/func_replace_files"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+                android:name=".fragmentactivity.BuildPropActivity"
+                android:label="@string/func_build_prop"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
                 android:name="com.tencent.tauth.AuthActivity"
                 android:noHistory="true"
                 android:launchMode="singleTask">
             <intent-filter>
                 <action android:name="android.intent.action.VIEW" />
+
                 <category android:name="android.intent.category.DEFAULT" />
                 <category android:name="android.intent.category.BROWSABLE" />
+
                 <data android:scheme="tencent101000413" />
             </intent-filter>
         </activity>
@@ -361,6 +376,7 @@
             <intent-filter>
                 <action android:name="android.intent.action.PACKAGE_ADDED" />
                 <action android:name="android.intent.action.PACKAGE_REMOVED" />
+
                 <data android:scheme="package" />
             </intent-filter>
         </receiver>

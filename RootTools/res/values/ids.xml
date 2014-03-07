@@ -6,6 +6,8 @@
     <string name="id_firewall">id_firewall</string>
     <string name="id_cleanhtc">id_cleanhtc</string>
     <string name="id_fonts">id_fonts</string>
+    <string name="id_replace_files">id_replace_files</string>
+    <string name="id_build_prop">id_build_prop</string>
 
     <string name="id_backup">id_backup</string>
     <string name="id_restore">id_restore</string>

@@ -95,6 +95,10 @@
     <string name="func_fonts_with_path">掌优 &gt; 更换字体</string>
     <string name="func_password">密码管理</string>
     <string name="func_password_with_path">掌优 &gt; 密码管理</string>
+    <string name="func_replace_files">替换系统文件</string>
+    <string name="func_replace_files_with_path">掌优 &gt; 替换系统文件</string>
+    <string name="func_build_prop">Build.Properties</string>
+    <string name="func_build_prop_with_path">掌优 &gt; Build.Properties</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="check_network_status">检查网络状况</string>

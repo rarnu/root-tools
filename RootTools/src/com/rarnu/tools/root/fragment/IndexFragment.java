@@ -27,7 +27,7 @@ import com.rarnu.utils.NetworkUtils;
 public class IndexFragment extends BasePreferenceFragment implements
         OnPreferenceClickListener {
 
-    PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefFirewall, prefRoot, prefHtcRom, prefFonts;
+    PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefFirewall, prefRoot, prefHtcRom, prefFonts, prefReplaceFile, prefBuildProp;
     PreferenceEx prefBackup, prefRestore, prefHardUpdate, prefBatchApps, prefRemainedFiles;
     PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik, prefDiskInfo, prefFileSystem;
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
@@ -47,6 +47,8 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefGoogle.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefFonts.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefHtcRom.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+        prefReplaceFile.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+        prefBuildProp.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
 
         prefBackup.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRestore.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
@@ -81,6 +83,8 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefRoot.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefGoogle.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefFonts.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
+        prefReplaceFile.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
+        prefBuildProp.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefBackup.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRestore.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefCleanCache.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
@@ -124,7 +128,14 @@ public class IndexFragment extends BasePreferenceFragment implements
         } else if (preference.getKey().equals(getString(R.string.id_fonts))) {
             UIInstance.currentFragment = 23;
             FragmentStarter.showContent(getActivity(), FontsActivity.class, Fragments.getFragment(FragmentNameConst.FN_FONTS));
+        } else if (preference.getKey().equals(getString(R.string.id_replace_files))) {
+            UIInstance.currentFragment = 25;
+            FragmentStarter.showContent(getActivity(), ReplaceFileActivity.class, Fragments.getFragment(FragmentNameConst.FN_REPLACE_FILE));
+        } else if (preference.getKey().equals(getString(R.string.id_build_prop))) {
+            UIInstance.currentFragment = 26;
+            FragmentStarter.showContent(getActivity(), BuildPropActivity.class, Fragments.getFragment(FragmentNameConst.FN_BUILD_PROP));
         }
+
         // backup
         else if (preference.getKey().equals(getString(R.string.id_backup))) {
             UIInstance.currentFragment = 6;
@@ -238,6 +249,8 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefGoogle = (PreferenceEx) findPreference(getString(R.string.id_google));
         prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
         prefFonts = (PreferenceEx) findPreference(getString(R.string.id_fonts));
+        prefReplaceFile = (PreferenceEx) findPreference(getString(R.string.id_replace_files));
+        prefBuildProp = (PreferenceEx) findPreference(getString(R.string.id_build_prop));
 
         prefBackup = (PreferenceEx) findPreference(getString(R.string.id_backup));
         prefRestore = (PreferenceEx) findPreference(getString(R.string.id_restore));
@@ -272,6 +285,8 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefGoogle.setOnPreferenceClickListener(this);
         prefHtcRom.setOnPreferenceClickListener(this);
         prefFonts.setOnPreferenceClickListener(this);
+        prefReplaceFile.setOnPreferenceClickListener(this);
+        prefBuildProp.setOnPreferenceClickListener(this);
 
         prefBackup.setOnPreferenceClickListener(this);
         prefRestore.setOnPreferenceClickListener(this);

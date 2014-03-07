@@ -49,4 +49,6 @@ public class FragmentNameConst {
     public static final String FN_PASSWORD_INPUT = "passwordinput";
     public static final String FN_PASSWORD_DETAIL = "passworddetail";
     public static final String FN_CHANGE_PERMISSION = "changepermission";
+    public static final String FN_REPLACE_FILE = "replacefile";
+    public static final String FN_BUILD_PROP = "buildprop";
 }

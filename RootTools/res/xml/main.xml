@@ -29,6 +29,14 @@
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_fonts"
                 android:title="@string/func_fonts" />
+
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_replace_files"
+                android:title="@string/func_replace_files" />
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_build_prop"
+                android:title="@string/func_build_prop" />
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_apps">
         <com.rarnu.devlib.component.PreferenceEx
