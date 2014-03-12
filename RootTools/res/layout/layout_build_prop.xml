@@ -5,4 +5,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
+    <SearchView
+            android:id="@+id/sv"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:focusable="false"
+            android:iconifiedByDefault="false" />
+
+    <ListView
+            android:id="@+id/lvBuildProp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fastScrollEnabled="true"
+            android:layout_below="@+id/sv"
+            >
+
+    </ListView>
+
 </RelativeLayout>

@@ -1,0 +1,112 @@
+object SqliteTableEditorForm: TSqliteTableEditorForm
+  Left = 373
+  Height = 269
+  Top = 244
+  Width = 290
+  ActiveControl = butAdd
+  Caption = 'Sqlite Table Editor'
+  ClientHeight = 269
+  ClientWidth = 290
+  OnShow = SqliteTableEditorFormShow
+  LCLVersion = '0.9.27'
+  object Label1: TLabel
+    Left = 147
+    Height = 14
+    Top = 64
+    Width = 53
+    Caption = 'Field Name'
+    ParentColor = False
+  end
+  object Label2: TLabel
+    Left = 147
+    Height = 14
+    Top = 120
+    Width = 50
+    Caption = 'Field Type'
+    ParentColor = False
+  end
+  object lblFilePath: TLabel
+    Left = 8
+    Height = 14
+    Top = 4
+    Width = 49
+    Caption = 'lblFilePath'
+    ParentColor = False
+  end
+  object Label3: TLabel
+    Left = 8
+    Height = 14
+    Top = 20
+    Width = 32
+    Caption = 'Label3'
+    ParentColor = False
+  end
+  object listFields: TListBox
+    Left = 8
+    Height = 192
+    Top = 64
+    Width = 124
+    ItemHeight = 0
+    OnSelectionChange = listFieldsSelectionChange
+    TabOrder = 6
+  end
+  object butCreate: TButton
+    Left = 147
+    Height = 25
+    Top = 192
+    Width = 136
+    Caption = 'Create Table'
+    OnClick = butOkClick
+    TabOrder = 1
+    TabStop = False
+  end
+  object butClose: TButton
+    Left = 147
+    Height = 25
+    Top = 232
+    Width = 136
+    Caption = 'Close'
+    OnClick = butCancelClick
+    TabOrder = 2
+    TabStop = False
+  end
+  object editFieldName: TEdit
+    Left = 147
+    Height = 23
+    Top = 80
+    Width = 136
+    OnEditingDone = editFieldNameEditingDone
+    TabOrder = 4
+  end
+  object comboFieldType: TComboBox
+    Left = 147
+    Height = 21
+    Top = 136
+    Width = 136
+    AutoComplete = False
+    DropDownCount = 12
+    ItemHeight = 13
+    ItemWidth = 0
+    OnChange = comboFieldTypeChange
+    Style = csDropDownList
+    TabOrder = 5
+  end
+  object butAdd: TButton
+    Left = 8
+    Height = 25
+    Top = 40
+    Width = 64
+    Caption = 'Add'
+    OnClick = butAddClick
+    TabOrder = 0
+  end
+  object butDelete: TButton
+    Left = 72
+    Height = 25
+    Top = 40
+    Width = 60
+    Caption = 'Delete'
+    OnClick = butDeleteClick
+    TabOrder = 3
+  end
+end

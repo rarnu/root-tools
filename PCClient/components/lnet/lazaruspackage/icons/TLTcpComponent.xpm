@@ -1,0 +1,33 @@
+/* XPM */
+static char *tcpicon[] = {
+/* columns rows colors chars-per-pixel */
+"23 23 4 1",
+"  c black",
+"z c #2050cc",
+". c #50F841",
+"X c None",
+/* pixels */
+"         XXXXXXXXXXXXXX",
+" .......    XXX     XXX",
+"    .    ... XX .... XX",
+"XXX .  ..  .. X .  . XX",
+"XXX .  . XX   X .... XX",
+"XXX .  . XXXXXX .   XXX",
+"XXX .  . XX   X . zXXXX",
+"XXX .  ..  .. X . XXXXX",
+"XXX   X .... Xz . XXXXX",
+"XXXXXXXX    Xzz   XXXXX",
+"XXXXXXXXXXXXzzzXXXXXXXX",
+"XXXXXXXXXXXzzzXXXXXXXXX",
+"XXXXXXXXXXzzzzzzXXXXXXX",
+"XXXXXXXXXXXXzzzXXXXXXXX",
+"XXXXX XXXXXzzXXXXXXXXXX",
+"XXX                  XX",
+"XX ................. XX",
+"XXX                  XX",
+"XXXXX XzXXXXXXXXX XXXXX",
+"XX                  XXX",
+"XX ................. XX",
+"XX                  XXX",
+"XXXXXXXXXXXXXXXXX XXXXX"
+};

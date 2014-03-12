@@ -23,4 +23,8 @@ out/
 .idea/codeStyleSettings.xml
 preview_generator
 *.cfg
-
+roottools_client
+roottools_client.ini
+core
+expect.sh
+*.~p*

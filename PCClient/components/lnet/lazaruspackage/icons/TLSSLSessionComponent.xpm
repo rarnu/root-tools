@@ -1,0 +1,33 @@
+/* XPM */
+static char *udpicon[] = {
+/* columns rows colors chars-per-pixel */
+"23 23 4 1",
+". c black",
+"x c red",
+"z c #CECECE",
+"o c None",
+/*.pixels.*/
+"ooo....ooo....ooo.ooooo",
+"oo.xxxx.o.xxxx.o.x.oooo",
+"o.x....o.x....oo.x.oooo",
+"oo.xxxx.o.xxxx.o.x.oooo",
+"ooo....x.o....x..x...oo",
+"oo.xxxx.o.xxxx.o.xxxx.o",
+"ooo....ooo....ooo....oo",
+"ooooooooooooooooooooooo",
+"ooooooooooooooooooooooo",
+"ooooooooo.....ooooooooo",
+"oooooooo.zzzzz.oooooooo",
+"ooooooo.zzzzzzz.ooooooo",
+"oooooo.zzz...zzz.oooooo",
+"oooooo.zz.....zz.oooooo",
+"ooooo.zzzzzzzzzzz.ooooo",
+"ooooo.zzzz...zzzz.ooooo",
+"ooooo.zzzz...zzzz.ooooo",
+"ooooo.zzzzz.zzzzz.ooooo",
+"ooooo.zzzzz..zzzz.ooooo",
+"ooooo.zzzzzzzzzzz.ooooo",
+"oooooo...........oooooo",
+"ooooooooooooooooooooooo",
+"ooooooooooooooooooooooo"
+};

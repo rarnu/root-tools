@@ -54,6 +54,7 @@ public class Fragments {
     private static ChangePermissionFragment fChangePermission = null;
     private static ReplaceFileFragment fReplaceFile = null;
     private static BuildPropFragment fBuildProp = null;
+    private static BuildPropEditFragment fBuildPropEdit = null;
 
     public static Fragment getFragment(String name) {
 
@@ -298,6 +299,11 @@ public class Fragments {
                 fBuildProp = new BuildPropFragment();
             }
             f = fBuildProp;
+        } else if (name.equals(FragmentNameConst.FN_BUILD_PROP_EDIT)) {
+            if (fBuildPropEdit == null) {
+                fBuildPropEdit = new BuildPropEditFragment();
+            }
+            f = fBuildPropEdit;
         }
 
         return f;
@@ -356,6 +362,7 @@ public class Fragments {
         fChangePermission = null;
         fReplaceFile = null;
         fBuildProp = null;
+        fBuildPropEdit = null;
     }
 
 }

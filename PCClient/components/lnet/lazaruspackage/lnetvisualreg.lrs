@@ -1,0 +1,116 @@
+LazarusResources.Add('TLFtpClientComponent','XPM',[
+  '/* XPM */'#10'static char *TLFtpClientComponent[]={'#10'"23 23 5 1",'#10'"c '
+  +'c None",'#10'". c None",'#10'"# c #000000",'#10'"b c #2050cc",'#10'"a c #ff'
+  +'00ff",'#10'".......................",'#10'".######....#####.......",'#10'".'
+  +'#aaaa#....#aaaa#......",'#10'".#a#########a##a#......",'#10'".#a#aaaaaaa#aa'
+  +'aa#...b..",'#10'".#a####a####a###c.bb...",'#10'".#aaa##a#..#a#..bbb....",'
+  +#10'".#a####a#..#a#.bb......",'#10'".#a#..#a#..#a#bb.......",'#10'".#a#..#a#'
+  +'..#a#b........",'#10'".#a#..#a#..###b........",'#10'".###..#a#..bbb........'
+  +'.",'#10'"......###.bbbbbb.......",'#10'"............bbb........",'#10'"....'
+  +'.#.....bb..........",'#10'"...##################..",'#10'"..#aaaaaaaaaaaaaa'
+  +'aaa#..",'#10'"...##################..",'#10'".....#.b.........#.....",'#10
+  +'"..##################...",'#10'"..#aaaaaaaaaaaaaaaaa#..",'#10'"..##########'
+  +'########...",'#10'".................#....."};'#10
+]);
+LazarusResources.Add('TLHTTPClientComponent','XPM',[
+  '/* XPM */'#10'static char *TLSMTPClientComponent[]={'#10'"23 23 6 1",'#10'"c'
+  +' c None",'#10'". c None",'#10'"# c #000000",'#10'"b c #2050cc",'#10'"a c #0'
+  +'0ffff",'#10'"d c #ddbb55",'#10'".#..#.#####.....####...",'#10'"#a##a#aaaaa#'
+  +'####aaaa#..",'#10'"#a##a###a#aaaaa#a###a#.",'#10'"#aaaa#.#a###a###a###a#.",'
+  +#10'"#a##a#.#a#.#a#.#aaaa#..",'#10'"#a##a#.#a#.#a#b#a###...",'#10'".#..#...#'
+  +'..#a#.#a#.....",'#10'"...........b#..#a#.....",'#10'"..........bb....#.....'
+  +'.",'#10'".........bbb...........",'#10'"........bbbb...........",'#10'"....'
+  +'.....bbbbb.........",'#10'"........bbbb...........",'#10'".......bbb.......'
+  +'......",'#10'"......bb...............",'#10'".....b.................",'#10
+  +'"....#..#.......#..#....",'#10'"...#..#d#.....#d#..#...",'#10'"..#...#d#...'
+  +'..#d#...#..",'#10'".#....#d#.....#d#....#.",'#10'"..#...#d####..#d#...#..",'
+  +#10'"...#..#ddddd#.#d#..#...",'#10'"....#..#####...#..#...."};'#10
+]);
+LazarusResources.Add('TLHTTPServerComponent','XPM',[
+  '/* XPM */'#10'static char *TLSMTPClientComponent[]={'#10'"23 23 6 1",'#10'"c'
+  +' c None",'#10'". c None",'#10'"# c #000000",'#10'"b c #2050cc",'#10'"a c #0'
+  +'000ff",'#10'"d c #ddbb55",'#10'".#..#.#####.....####...",'#10'"#a##a#aaaaa#'
+  +'####aaaa#..",'#10'"#a##a###a#aaaaa#a###a#.",'#10'"#aaaa#.#a###a###a###a#.",'
+  +#10'"#a##a#.#a#.#a#.#aaaa#..",'#10'"#a##a#.#a#.#a#b#a###...",'#10'".#..#...#'
+  +'..#a#.#a#.....",'#10'"...........b#..#a#.....",'#10'"..........bb....#.....'
+  +'.",'#10'".........bbb...........",'#10'"........bbbb...........",'#10'"....'
+  +'.....bbbbb.........",'#10'"........bbbb...........",'#10'".......bbb.......'
+  +'......",'#10'"......bb...............",'#10'".....b.................",'#10
+  +'"....#..#.......#..#....",'#10'"...#..#d#.....#d#..#...",'#10'"..#...#d#...'
+  +'..#d#...#..",'#10'".#....#d#.....#d#....#.",'#10'"..#...#d####..#d#...#..",'
+  +#10'"...#..#ddddd#.#d#..#...",'#10'"....#..#####...#..#...."};'#10
+]);
+LazarusResources.Add('TLSMTPClientComponent','XPM',[
+  '/* XPM */'#10'static char *TLSMTPClientComponent[]={'#10'"23 23 6 1",'#10'"c'
+  +' c None",'#10'". c None",'#10'"# c #000000",'#10'"b c #2050cc",'#10'"a c #f'
+  +'fff00",'#10'"d c #ddbb55",'#10'".............######....",'#10'"..####..#...'
+  +'#aaaaaa#...",'#10'".#aaaa##a#.#a##a###b...",'#10'"..#a##.#aa#aa##a#.###..",'
+  +#10'"..##a#.#a#a#a##a##aaa#.",'#10'".#aaaa##a###a##a##a##a#",'#10'"..####.#a'
+  +'#.#a##a##aaa#.",'#10'".......#a#.#a#b#.#a##..",'#10'"........#.bb#....#a#..'
+  +'.",'#10'".........bbb......#a#..",'#10'"........bbbb......#....",'#10'"....'
+  +'.....bbbbb.........",'#10'"........bbbb...........",'#10'".......bbb.......'
+  +'......",'#10'"......bb...............",'#10'"..###################..",'#10
+  +'"..#dddddd#ddd#dddddd#..",'#10'"..#ddddddd#d#ddddddd#..",'#10'"..#dd####dd#'
+  +'ddd###dd#..",'#10'"..#dd###dddddd####dd#..",'#10'"..#ddddddddddddddddd#..",'
+  +#10'"..###################..",'#10'"......................."};'#10
+]);
+LazarusResources.Add('TLSSLSessionComponent','XPM',[
+  '/* XPM */'#10'static char *udpicon[] = {'#10'/* columns rows colors chars-pe'
+  +'r-pixel */'#10'"23 23 4 1",'#10'". c black",'#10'"x c red",'#10'"z c #CECEC'
+  +'E",'#10'"o c None",'#10'/*.pixels.*/'#10'"ooo....ooo....ooo.ooooo",'#10'"oo'
+  +'.xxxx.o.xxxx.o.x.oooo",'#10'"o.x....o.x....oo.x.oooo",'#10'"oo.xxxx.o.xxxx.'
+  +'o.x.oooo",'#10'"ooo....x.o....x..x...oo",'#10'"oo.xxxx.o.xxxx.o.xxxx.o",'#10
+  +'"ooo....ooo....ooo....oo",'#10'"ooooooooooooooooooooooo",'#10'"oooooooooooo'
+  +'ooooooooooo",'#10'"ooooooooo.....ooooooooo",'#10'"oooooooo.zzzzz.oooooooo",'
+  +#10'"ooooooo.zzzzzzz.ooooooo",'#10'"oooooo.zzz...zzz.oooooo",'#10'"oooooo.zz'
+  +'.....zz.oooooo",'#10'"ooooo.zzzzzzzzzzz.ooooo",'#10'"ooooo.zzzz...zzzz.oooo'
+  +'o",'#10'"ooooo.zzzz...zzzz.ooooo",'#10'"ooooo.zzzzz.zzzzz.ooooo",'#10'"oooo'
+  +'o.zzzzz..zzzz.ooooo",'#10'"ooooo.zzzzzzzzzzz.ooooo",'#10'"oooooo...........'
+  +'oooooo",'#10'"ooooooooooooooooooooooo",'#10'"ooooooooooooooooooooooo"'#10'}'
+  +';'#10
+]);
+LazarusResources.Add('TLTcpComponent','XPM',[
+  '/* XPM */'#10'static char *tcpicon[] = {'#10'/* columns rows colors chars-pe'
+  +'r-pixel */'#10'"23 23 4 1",'#10'"  c black",'#10'"z c #2050cc",'#10'". c #5'
+  +'0F841",'#10'"X c None",'#10'/* pixels */'#10'"         XXXXXXXXXXXXXX",'#10
+  +'" .......    XXX     XXX",'#10'"    .    ... XX .... XX",'#10'"XXX .  ..  .'
+  +'. X .  . XX",'#10'"XXX .  . XX   X .... XX",'#10'"XXX .  . XXXXXX .   XXX",'
+  +#10'"XXX .  . XX   X . zXXXX",'#10'"XXX .  ..  .. X . XXXXX",'#10'"XXX   X .'
+  +'... Xz . XXXXX",'#10'"XXXXXXXX    Xzz   XXXXX",'#10'"XXXXXXXXXXXXzzzXXXXXXX'
+  +'X",'#10'"XXXXXXXXXXXzzzXXXXXXXXX",'#10'"XXXXXXXXXXzzzzzzXXXXXXX",'#10'"XXXX'
+  +'XXXXXXXXzzzXXXXXXXX",'#10'"XXXXX XXXXXzzXXXXXXXXXX",'#10'"XXX              '
+  +'    XX",'#10'"XX ................. XX",'#10'"XXX                  XX",'#10
+  +'"XXXXX XzXXXXXXXXX XXXXX",'#10'"XX                  XXX",'#10'"XX .........'
+  +'........ XX",'#10'"XX                  XXX",'#10'"XXXXXXXXXXXXXXXXX XXXXX"'
+  +#10'};'#10
+]);
+LazarusResources.Add('TLTelnetClientComponent','XPM',[
+  '/* XPM */'#10'static char *TLTelnetClientComponent[] = {'#10'/* columns rows'
+  +' colors chars-per-pixel */'#10'"23 23 6 1",'#10'"  c black",'#10'". c #2050'
+  +'CC",'#10'"X c #9F9B00",'#10'"o c #CECECE",'#10'"O c gray100",'#10'"+ c None'
+  +'",'#10'/* pixels */'#10'" +++++++ ++++++++++++ +",'#10'"o +++++ o +++++++++'
+  +'+ o ",'#10'"oo +  + o +   +++   ooo",'#10'"o + oo  o  ooo + oo  o ",'#10'"o'
+  +'  o  o o  o  o o  o o ",'#10'"o  ooo  o  o  o ooo  o ",'#10'"o  o  + o  o  '
+  +'o o  + o ",'#10'"oo  oo  oo o  o  oo  oo",'#10'"  ++  ++  + +.     ++  ",'
+  +#10'"++++++++++++...++++++++",'#10'"+++++++++++...+++++++++",'#10'"+++++++++'
+  +'+...++++++++++",'#10'"+++++++++......++++++++",'#10'"+++++++++++...++++++++'
+  +'+",'#10'"++++++++++...++++++++++",'#10'"++++++++ . .+  ++++++++",'#10'"++++'
+  +'+++ o o  oo +++++++",'#10'"++++++ ooooo  oo ++++++",'#10'"++++++. o o ++ oo'
+  +' +++++",'#10'"+++++++ o o ++ oo +++++",'#10'"++++++ ooooo  oo ++++++",'#10
+  +'"+++++++ o o  oo +++++++",'#10'"++++++++ + ++  ++++++++"'#10'};'#10
+]);
+LazarusResources.Add('TLUdpComponent','XPM',[
+  '/* XPM */'#10'static char *udpicon[] = {'#10'/* columns rows colors chars-pe'
+  +'r-pixel */'#10'"23 23 4 1",'#10'"  c black",'#10'"z c #2050cc",'#10'"X c #E'
+  +'D0723",'#10'"o c None",'#10'/* pixels */'#10'"ooooooooooooooooooooooo",'#10
+  +'"o   oo   oo   o     ooo",'#10'"o X oo X oo X o XXXX oo",'#10'"o X oo X oo '
+  +'X o X  X oo",'#10'"o X oo X    X o XXXX oo",'#10'"o X oo X XXXX o X   ooo",'
+  +#10'"o X oo X X  X o X ooooo",'#10'"o X    X X  X o X ooooo",'#10'"o XXXXXX '
+  +'XXXX z X ooooo",'#10'"oo            z   ooooo",'#10'"ooooooooooozzzoooooooo'
+  +'o",'#10'"oooooooooozzzoooooooooo",'#10'"ooooooooozzzzzzoooooooo",'#10'"oooo'
+  +'ooooooozzzooooooooo",'#10'"oooooooooozzzoooooooooo",'#10'"ooooooooozzzooooo'
+  +'oooooo",'#10'"oooooooozzooooooooooooo",'#10'"ooooooozzoooooooooooooo",'#10
+  +'"oooooozoooooooooo ooooo",'#10'"oo                  ooo",'#10'"oo XXXXXXXXX'
+  +'XXXXXXXX oo",'#10'"oo                  ooo",'#10'"ooooooooooooooooo ooooo"'
+  +#10'};'#10
+]);

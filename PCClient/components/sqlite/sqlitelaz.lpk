@@ -1,0 +1,56 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="3">
+    <Name Value="sqlitelaz"/>
+    <Author Value="Luiz Américo Pereira Câmara"/>
+    <AutoUpdate Value="Manually"/>
+    <CompilerOptions>
+      <Version Value="8"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)/$(LCLWidgetType)"/>
+      </SearchPaths>
+      <Other>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Description Value="TSqliteDataset class package
+"/>
+    <License Value="Modified LGPL
+"/>
+    <Version Minor="4"/>
+    <Files Count="3">
+      <Item1>
+        <Filename Value="registersqlite.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="registersqlite"/>
+      </Item1>
+      <Item2>
+        <Filename Value="sqliteds.pas"/>
+        <AddToUsesPkgSection Value="False"/>
+        <Type Value="Virtual Unit"/>
+        <UnitName Value="sqliteds"/>
+      </Item2>
+      <Item3>
+        <Filename Value="sqlitecomponenteditor.pas"/>
+        <AddToUsesPkgSection Value="False"/>
+        <UnitName Value="SqliteComponentEditor"/>
+      </Item3>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="2">
+      <Item1>
+        <PackageName Value="LCL"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="IDEIntf"/>
+      </Item2>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)/"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

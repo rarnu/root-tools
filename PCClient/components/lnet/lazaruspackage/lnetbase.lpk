@@ -1,0 +1,168 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="3">
+    <Name Value="lnetbase"/>
+    <Author Value="Aleš Katona, Micha Nelissen"/>
+    <CompilerOptions>
+      <Version Value="10"/>
+      <SearchPaths>
+        <IncludeFiles Value="../lib/sys"/>
+        <OtherUnitFiles Value="../lib"/>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+        <SrcPath Value="../lib;../lib/sys"/>
+      </SearchPaths>
+      <Parsing>
+        <SyntaxOptions>
+          <CStyleOperator Value="False"/>
+          <CStyleMacros Value="True"/>
+          <UseAnsiStrings Value="False"/>
+        </SyntaxOptions>
+      </Parsing>
+      <CodeGeneration>
+        <SmartLinkUnit Value="True"/>
+        <Optimizations>
+          <OptimizationLevel Value="2"/>
+        </Optimizations>
+      </CodeGeneration>
+      <Linking>
+        <Debugging>
+          <GenerateDebugInfo Value="True"/>
+        </Debugging>
+      </Linking>
+      <Other>
+        <Verbosity>
+          <ShowNotes Value="False"/>
+          <ShowHints Value="False"/>
+          <ShowGenInfo Value="False"/>
+        </Verbosity>
+        <CompilerMessages>
+          <UseMsgFile Value="True"/>
+        </CompilerMessages>
+        <CustomOptions Value="-dLNET_BASE"/>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Description Value="Lightweight Networking Library, or lNet is a networking suite  providing simple and effective means to use TCP, UDP, FTP, SMTP, Telnet and HTTP protocols over the net.
+"/>
+    <License Value="LGPL with exception, see LICENSE and LICENSE.addon
+"/>
+    <Version Minor="6" Release="5"/>
+    <Files Count="27">
+      <Item1>
+        <Filename Value="../lib/lnet.pp"/>
+        <UnitName Value="lNet"/>
+      </Item1>
+      <Item2>
+        <Filename Value="../lib/levents.pp"/>
+        <UnitName Value="lEvents"/>
+      </Item2>
+      <Item3>
+        <Filename Value="../lib/lcommon.pp"/>
+        <UnitName Value="lCommon"/>
+      </Item3>
+      <Item4>
+        <Filename Value="../lib/lftp.pp"/>
+        <UnitName Value="lFTP"/>
+      </Item4>
+      <Item5>
+        <Filename Value="../lib/lsmtp.pp"/>
+        <UnitName Value="lsmtp"/>
+      </Item5>
+      <Item6>
+        <Filename Value="../lib/ltelnet.pp"/>
+        <UnitName Value="lTelnet"/>
+      </Item6>
+      <Item7>
+        <Filename Value="../lib/lhttp.pp"/>
+        <UnitName Value="lhttp"/>
+      </Item7>
+      <Item8>
+        <Filename Value="../lib/lwebserver.pp"/>
+        <UnitName Value="lwebserver"/>
+      </Item8>
+      <Item9>
+        <Filename Value="../lib/lmimewrapper.pp"/>
+        <UnitName Value="lMimeWrapper"/>
+      </Item9>
+      <Item10>
+        <Filename Value="../lib/lhttputil.pp"/>
+        <UnitName Value="lHTTPUtil"/>
+      </Item10>
+      <Item11>
+        <Filename Value="../lib/lcontrolstack.pp"/>
+        <UnitName Value="lControlStack"/>
+      </Item11>
+      <Item12>
+        <Filename Value="../lib/lmimestreams.pp"/>
+        <UnitName Value="lMimeStreams"/>
+      </Item12>
+      <Item13>
+        <Filename Value="../lib/lmimetypes.pp"/>
+        <UnitName Value="lMimeTypes"/>
+      </Item13>
+      <Item14>
+        <Filename Value="../lib/lprocess.pp"/>
+        <UnitName Value="lProcess"/>
+      </Item14>
+      <Item15>
+        <Filename Value="../lib/lspawnfcgi.pp"/>
+        <UnitName Value="lSpawnFCGI"/>
+      </Item15>
+      <Item16>
+        <Filename Value="../lib/lstrbuffer.pp"/>
+        <UnitName Value="lStrBuffer"/>
+      </Item16>
+      <Item17>
+        <Filename Value="../lib/ltimer.pp"/>
+        <UnitName Value="ltimer"/>
+      </Item17>
+      <Item18>
+        <Filename Value="../lib/sys/osunits.inc"/>
+        <Type Value="Include"/>
+      </Item18>
+      <Item19>
+        <Filename Value="../lib/sys/lspawnfcgiunix.inc"/>
+        <Type Value="Include"/>
+      </Item19>
+      <Item20>
+        <Filename Value="../lib/sys/lspawnfcgiwin.inc"/>
+        <Type Value="Include"/>
+      </Item20>
+      <Item21>
+        <Filename Value="../lib/sys/lepolleventerh.inc"/>
+        <Type Value="Include"/>
+      </Item21>
+      <Item22>
+        <Filename Value="../lib/sys/lepolleventer.inc"/>
+        <Type Value="Include"/>
+      </Item22>
+      <Item23>
+        <Filename Value="../lib/sys/lkqueueeventerh.inc"/>
+        <Type Value="Include"/>
+      </Item23>
+      <Item24>
+        <Filename Value="../lib/sys/lkqueueeventer.inc"/>
+        <Type Value="Include"/>
+      </Item24>
+      <Item25>
+        <Filename Value="../lib/lnetssl.pp"/>
+        <UnitName Value="lNetSSL"/>
+      </Item25>
+      <Item26>
+        <Filename Value="../lib/lthreadevents.pp"/>
+        <UnitName Value="lThreadEvents"/>
+      </Item26>
+      <Item27>
+        <Filename Value="../lib/fastcgi_base.pp"/>
+        <UnitName Value="fastcgi_base"/>
+      </Item27>
+    </Files>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

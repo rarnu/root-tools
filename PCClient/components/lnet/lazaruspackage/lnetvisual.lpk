@@ -1,0 +1,98 @@
+<?xml version="1.0"?>
+<CONFIG>
+  <Package Version="3">
+    <Name Value="lnetvisual"/>
+    <Author Value="Aleš Katona, Micha Nelissen"/>
+    <CompilerOptions>
+      <Version Value="10"/>
+      <SearchPaths>
+        <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+      </SearchPaths>
+      <Parsing>
+        <SyntaxOptions>
+          <CStyleOperator Value="False"/>
+          <UseAnsiStrings Value="False"/>
+        </SyntaxOptions>
+      </Parsing>
+      <CodeGeneration>
+        <SmartLinkUnit Value="True"/>
+        <Optimizations>
+          <OptimizationLevel Value="2"/>
+        </Optimizations>
+      </CodeGeneration>
+      <Linking>
+        <Debugging>
+          <GenerateDebugInfo Value="True"/>
+        </Debugging>
+      </Linking>
+      <Other>
+        <Verbosity>
+          <ShowNotes Value="False"/>
+          <ShowHints Value="False"/>
+          <ShowGenInfo Value="False"/>
+        </Verbosity>
+        <CompilerMessages>
+          <UseMsgFile Value="True"/>
+        </CompilerMessages>
+        <CustomOptions Value="-dLNET_VISUAL"/>
+        <CompilerPath Value="$(CompPath)"/>
+      </Other>
+    </CompilerOptions>
+    <Description Value="Lightweight Networking Library, or lNet is a networking suite integrated with Lazarus to provide simple and effective means to use TCP, UDP, FTP, SMTP, Telnet and HTTP protocols over the net.
+"/>
+    <License Value="LGPL with exception, see LICENSE and LICENSE.addon
+"/>
+    <Version Minor="6" Release="5"/>
+    <Files Count="7">
+      <Item1>
+        <Filename Value="lclnet.pas"/>
+        <UnitName Value="LCLNet"/>
+      </Item1>
+      <Item2>
+        <Filename Value="lnetcomponents.pas"/>
+        <UnitName Value="lNetComponents"/>
+      </Item2>
+      <Item3>
+        <Filename Value="lnetvisualreg.lrs"/>
+        <Type Value="LRS"/>
+      </Item3>
+      <Item4>
+        <Filename Value="lnetvisualreg.pas"/>
+        <HasRegisterProc Value="True"/>
+        <UnitName Value="LNetVisualReg"/>
+      </Item4>
+      <Item5>
+        <Filename Value="lclgtkeventer.inc"/>
+        <Type Value="Include"/>
+      </Item5>
+      <Item6>
+        <Filename Value="lclwinceeventer.inc"/>
+        <Type Value="Include"/>
+      </Item6>
+      <Item7>
+        <Filename Value="lclwineventer.inc"/>
+        <Type Value="Include"/>
+      </Item7>
+    </Files>
+    <Type Value="RunAndDesignTime"/>
+    <RequiredPkgs Count="3">
+      <Item1>
+        <PackageName Value="IDEIntf"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="LCL"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="lnetbase"/>
+        <MinVersion Minor="6" Valid="True"/>
+      </Item3>
+    </RequiredPkgs>
+    <UsageOptions>
+      <UnitPath Value="$(PkgOutDir)"/>
+    </UsageOptions>
+    <PublishOptions>
+      <Version Value="2"/>
+      <IgnoreBinaries Value="False"/>
+    </PublishOptions>
+  </Package>
+</CONFIG>

@@ -1,0 +1,5 @@
+inherited FormMain: TFormMain
+  Height = 506
+  Width = 719
+  OnCreate = FormCreate
+end

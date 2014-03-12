@@ -1,0 +1,32 @@
+{ This is an automatically generated lazarus resource file }
+
+LazarusResources.Add('TSqliteTableEditorForm','FORMDATA',[
+  'TPF0'#22'TSqliteTableEditorForm'#21'SqliteTableEditorForm'#4'Left'#3'u'#1#6
+  +'Height'#3#13#1#3'Top'#3#244#0#5'Width'#3'"'#1#13'ActiveControl'#7#6'butAdd'
+  +#7'Caption'#6#19'Sqlite Table Editor'#12'ClientHeight'#3#13#1#11'ClientWidth'
+  +#3'"'#1#6'OnShow'#7#25'SqliteTableEditorFormShow'#10'LCLVersion'#6#6'0.9.27'
+  +#0#6'TLabel'#6'Label1'#4'Left'#3#147#0#6'Height'#2#14#3'Top'#2'@'#5'Width'#2
+  +'5'#7'Caption'#6#10'Field Name'#11'ParentColor'#8#0#0#6'TLabel'#6'Label2'#4
+  +'Left'#3#147#0#6'Height'#2#14#3'Top'#2'x'#5'Width'#2'2'#7'Caption'#6#10'Fiel'
+  +'d Type'#11'ParentColor'#8#0#0#6'TLabel'#11'lblFilePath'#4'Left'#2#8#6'Heigh'
+  +'t'#2#14#3'Top'#2#4#5'Width'#2'1'#7'Caption'#6#11'lblFilePath'#11'ParentColo'
+  +'r'#8#0#0#6'TLabel'#6'Label3'#4'Left'#2#8#6'Height'#2#14#3'Top'#2#20#5'Width'
+  +#2' '#7'Caption'#6#6'Label3'#11'ParentColor'#8#0#0#8'TListBox'#10'listFields'
+  +#4'Left'#2#8#6'Height'#3#192#0#3'Top'#2'@'#5'Width'#2'|'#10'ItemHeight'#2#0
+  +#17'OnSelectionChange'#7#25'listFieldsSelectionChange'#8'TabOrder'#2#6#0#0#7
+  +'TButton'#9'butCreate'#4'Left'#3#147#0#6'Height'#2#25#3'Top'#3#192#0#5'Width'
+  +#3#136#0#7'Caption'#6#12'Create Table'#7'OnClick'#7#10'butOkClick'#8'TabOrde'
+  +'r'#2#1#7'TabStop'#8#0#0#7'TButton'#8'butClose'#4'Left'#3#147#0#6'Height'#2
+  +#25#3'Top'#3#232#0#5'Width'#3#136#0#7'Caption'#6#5'Close'#7'OnClick'#7#14'bu'
+  +'tCancelClick'#8'TabOrder'#2#2#7'TabStop'#8#0#0#5'TEdit'#13'editFieldName'#4
+  +'Left'#3#147#0#6'Height'#2#23#3'Top'#2'P'#5'Width'#3#136#0#13'OnEditingDone'
+  +#7#24'editFieldNameEditingDone'#8'TabOrder'#2#4#0#0#9'TComboBox'#14'comboFie'
+  +'ldType'#4'Left'#3#147#0#6'Height'#2#21#3'Top'#3#136#0#5'Width'#3#136#0#12'A'
+  +'utoComplete'#8#13'DropDownCount'#2#12#10'ItemHeight'#2#13#9'ItemWidth'#2#0#8
+  +'OnChange'#7#20'comboFieldTypeChange'#5'Style'#7#14'csDropDownList'#8'TabOrd'
+  +'er'#2#5#0#0#7'TButton'#6'butAdd'#4'Left'#2#8#6'Height'#2#25#3'Top'#2'('#5'W'
+  +'idth'#2'@'#7'Caption'#6#3'Add'#7'OnClick'#7#11'butAddClick'#8'TabOrder'#2#0
+  +#0#0#7'TButton'#9'butDelete'#4'Left'#2'H'#6'Height'#2#25#3'Top'#2'('#5'Width'
+  +#2'<'#7'Caption'#6#6'Delete'#7'OnClick'#7#14'butDeleteClick'#8'TabOrder'#2#3
+  +#0#0#0
+]);

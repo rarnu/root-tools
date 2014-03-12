@@ -1,0 +1,18 @@
+[LANGUAGE]
+title=掌优PC客户端
+install_roottools=安装掌优到手机
+item_system_app=系统应用
+item_backup_mgr=备份管理
+item_restore_mgr=还原管理
+item_batch_install=批量安装
+item_batch_uninstall=批量删除
+item_disk=磁盘信息
+item_files=文件管理
+item_hosts=HOSTS 管理
+item_system_components=系统必备组件
+item_google=Google 套件
+no_device=当前没有连接到设备
+my_device=我的设备: %s
+skin=皮肤
+ok=确定
+reset=默认

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="561"
+        android:versionCode="566"
         android:versionName="6.5.2">
 
     <uses-sdk
@@ -293,6 +293,11 @@
         <activity
                 android:name=".fragmentactivity.BuildPropActivity"
                 android:label="@string/func_build_prop"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+                android:name=".fragmentactivity.BuildPropEditActivity"
+                android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
