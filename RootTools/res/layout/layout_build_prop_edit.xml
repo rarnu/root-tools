@@ -16,6 +16,9 @@
                 android:textSize="18sp"
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="8dip"
+                android:singleLine="true"
+                android:maxLines="1"
+                android:ellipsize="end"
                 android:textColor="?android:attr/textColorPrimary" />
 
         <TextView
@@ -60,7 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="48dip"
                 android:singleLine="true"
-                android:maxLines="1" />
+                android:maxLines="1"
+                />
 
     </RelativeLayout>
 

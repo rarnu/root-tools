@@ -38,7 +38,7 @@ begin
     if FDeviceId <> FCurrentDeviceId then
     begin
       FCurrentDeviceId := FDeviceId;
-      FBase.ThreadNotify(FNotifyId, MakeNotifyMap);
+      FNotify.ThreadNotify(FNotifyId, MakeNotifyMap);
     end;
   end;
 end;

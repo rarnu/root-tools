@@ -1,8 +1,0 @@
-inherited FormMain: TFormMain
-  Height = 629
-  Top = 110
-  Width = 802
-  OnCreate = FormCreate
-  OnDestroy = FormDestroy
-  Position = poScreenCenter
-end

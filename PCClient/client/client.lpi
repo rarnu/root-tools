@@ -41,7 +41,7 @@
         <PackageName Value="LCL"/>
       </Item2>
     </RequiredPackages>
-    <Units Count="16">
+    <Units Count="23">
       <Unit0>
         <Filename Value="client.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -77,9 +77,9 @@
         <UnitName Value="platform_mapping"/>
       </Unit5>
       <Unit6>
-        <Filename Value="pages/page_main.pas"/>
+        <Filename Value="pages/page_device.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="page_main"/>
+        <UnitName Value="page_device"/>
       </Unit6>
       <Unit7>
         <Filename Value="item/item_main.pas"/>
@@ -131,6 +131,41 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_blank"/>
       </Unit15>
+      <Unit16>
+        <Filename Value="base/basepage.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="basepage"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="util/unt_android.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="unt_android"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="thread/th_android.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="th_android"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="intf/intf_notify.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="intf_notify"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="intf/intf_paint.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="intf_paint"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="item/item_device_build_prop.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="item_device_build_prop"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="pages/page_root_tools.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="page_root_tools"/>
+      </Unit22>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -140,7 +175,7 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="base;forms;res;pages;item;util;thread"/>
+      <OtherUnitFiles Value="base;forms;res;pages;item;util;thread;intf"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
     <CodeGeneration>

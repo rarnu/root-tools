@@ -5,19 +5,17 @@ unit page_blank;
 interface
 
 uses
-  Classes, SysUtils, vg_scene, vg_controls, vg_objects, vg_ani, baseform;
+  Classes, SysUtils,basepage, vg_scene, vg_controls, vg_objects, vg_ani, baseform;
 
 type
 
   { TPageBlank }
 
-  TPageBlank = class(TvgHudPanel)
-  private
-
-    FBase: TFormBase;
+  TPageBlank = class(TPageBase)
+  protected
+    procedure InitPage; override;
   public
-    constructor Create(AOwner: TComponent; ABase: TFormBase); reintroduce;
-    destructor Destroy; override;
+    procedure ThreadNotify(NotifyId: integer; AMap: TStringList); override;
 
   end;
 
@@ -25,15 +23,14 @@ implementation
 
 { TPageBlank }
 
-constructor TPageBlank.Create(AOwner: TComponent; ABase: TFormBase);
+procedure TPageBlank.InitPage;
 begin
-  Inherited Create(AOwner);
-  FBase := ABase;
+
 end;
 
-destructor TPageBlank.Destroy;
+procedure TPageBlank.ThreadNotify(NotifyId: integer; AMap: TStringList);
 begin
-  inherited Destroy;
+
 end;
 
 end.

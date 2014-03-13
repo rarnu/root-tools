@@ -16,3 +16,7 @@ my_device=我的设备: %s
 skin=皮肤
 ok=确定
 reset=默认
+item_device=设备信息
+item_roottools=我的掌优
+item_about=关于本软件
+btn_refresh_device=刷新设备信息

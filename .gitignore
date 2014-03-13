@@ -28,3 +28,4 @@ roottools_client.ini
 core
 expect.sh
 *.~p*
+tmp/

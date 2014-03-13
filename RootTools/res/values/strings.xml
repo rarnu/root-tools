@@ -514,4 +514,7 @@
     <string name="usr_other">Other</string>
     <string name="install_to_private">Install to Private</string>
     <string name="checking_new_version">Checking new version now...</string>
+    <string name="build_prop_saving">Saving, please wait...</string>
+    <string name="build_prop_saving_succ">Build.properties saved.</string>
+    <string name="build_prop_saving_failed">Fail to save file.</string>
 </resources>
