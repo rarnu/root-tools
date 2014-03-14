@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="66">
+    <Units Count="67">
       <Unit0>
         <Filename Value="client.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -39,11 +39,10 @@
         <IsPartOfProject Value="True"/>
         <HasResources Value="True"/>
         <UnitName Value="frm_main"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="193"/>
-        <CursorPos X="38" Y="217"/>
+        <TopLine Value="19"/>
+        <CursorPos X="49" Y="201"/>
         <UsageCount Value="59"/>
         <Loaded Value="True"/>
       </Unit3>
@@ -51,7 +50,7 @@
         <Filename Value="res/res_mapping.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="res_mapping"/>
-        <EditorIndex Value="1"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="31" Y="27"/>
@@ -89,7 +88,7 @@
         <Filename Value="pages/page_about.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="page_about"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="3" Y="28"/>
@@ -168,7 +167,7 @@
         <Filename Value="base/basepage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="basepage"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="1" Y="74"/>
@@ -506,10 +505,12 @@
       <Unit56>
         <Filename Value="../../../../../Develop/lazarus/vgscene/vg_controls.pas"/>
         <UnitName Value="vg_controls"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="598"/>
-        <CursorPos X="14" Y="615"/>
+        <TopLine Value="867"/>
+        <CursorPos X="24" Y="879"/>
         <UsageCount Value="10"/>
+        <Loaded Value="True"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit56>
       <Unit57>
@@ -587,11 +588,23 @@
         <CursorPos X="51" Y="37"/>
         <UsageCount Value="13"/>
       </Unit65>
+      <Unit66>
+        <Filename Value="forms/pop_env.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="pop_env"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="9" Y="13"/>
+        <UsageCount Value="20"/>
+        <Loaded Value="True"/>
+      </Unit66>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="6" HistoryIndex="5">
+    <JumpHistory Count="9" HistoryIndex="8">
       <Position1>
         <Filename Value="forms/frm_main.pas"/>
         <Caret Line="167" Column="30" TopLine="161"/>
@@ -616,6 +629,18 @@
         <Filename Value="forms/frm_main.pas"/>
         <Caret Line="139" Column="50" TopLine="124"/>
       </Position6>
+      <Position7>
+        <Filename Value="forms/pop_env.pas"/>
+        <Caret Line="12" Column="9" TopLine="1"/>
+      </Position7>
+      <Position8>
+        <Filename Value="../../../../../Develop/lazarus/vgscene/vg_controls.pas"/>
+        <Caret Line="1073" Column="3" TopLine="1060"/>
+      </Position8>
+      <Position9>
+        <Filename Value="../../../../../Develop/lazarus/vgscene/vg_controls.pas"/>
+        <Caret Line="4204" Column="23" TopLine="4185"/>
+      </Position9>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>
