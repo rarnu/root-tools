@@ -25,7 +25,7 @@ type
     procedure pagePaint(Sender: TObject; const ACanvas: TvgCanvas; const ARect: TvgRect);
     procedure pagePaintOnce(Sender: TObject; RealWidth: integer; RealHeight: integer); virtual;
   public
-    constructor Create(AOwner: TComponent; ABase: TFormBase); reintroduce;
+    constructor Create(AOwner: TComponent; ABase: TFormBase); virtual; reintroduce;
     destructor Destroy; override;
     procedure ThreadNotify(NotifyId: integer; AMap: TStringList); virtual; abstract;
   public

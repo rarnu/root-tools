@@ -10,7 +10,8 @@ uses
 function GetScreenshot(ADeviceId: string): string;
 function GetBuildProp(ADeviceId: string): string;
 function IsRootToolsInstalled(ADeviceId: string): boolean;
-function GetRootToolsVersion(ADeviceId: string): integer;
+procedure GetRootToolsVersion(ADeviceId: string; out AVersionCode: string;
+  out AVersionName: string);
 
 implementation
 
@@ -47,39 +48,65 @@ begin
 end;
 
 function IsRootToolsInstalled(ADeviceId: string): boolean;
+var
+  SL: TStringList;
+  Path: string;
 begin
-  // TODO: root tools installed?
-  Result := True;
+  Path := ExtractFilePath(ParamStr(0));
+  SL := ExecuteCommandF(Format('adb -s %s shell dumpsys package com.rarnu.tools.root',
+    [ADeviceId]), Path);
+  Result := AnsiContainsStr('versionCode', SL.Text);
 end;
 
-function GetRootToolsVersion(ADeviceId: string): integer;
+procedure GetRootToolsVersion(ADeviceId: string; out AVersionCode: string;
+  out AVersionName: string);
 var
   SL: TStringList;
   Path: string;
   s: string;
   sVersion: string;
+  sName: string;
 begin
-  Result := 0;
   sVersion := '';
+  sName := '';
   Path := ExtractFilePath(ParamStr(0));
   SL := ExecuteCommandF(Format('adb -s %s shell dumpsys package com.rarnu.tools.root',
     [ADeviceId]), Path);
   for s in SL do
   begin
-    if AnsiContainsStr(s, 'versionCode') then
+    if (AnsiContainsStr(s, 'versionCode')) and (sVersion = '') then
     begin
       sVersion := s;
-      Break;
+    end;
+    if (AnsiContainsStr(s, 'versionName')) and (sName = '') then
+    begin
+      sName := s;
     end;
   end;
   if sVersion <> '' then
   begin
     sVersion := Trim(sVersion);
-    sVersion := LeftStr(sVersion, Pos(' ', sVersion));
+    if Pos(' ', sVersion) > 0 then
+    begin
+      sVersion := LeftStr(sVersion, Pos(' ', sVersion));
+    end;
     WriteLn(sVersion);
-    sVersion := StringReplace(sVersion, 'versionCode=', '', [rfIgnoreCase, rfReplaceAll]);
+    sVersion := StringReplace(sVersion, 'versionCode=', '',
+      [rfIgnoreCase, rfReplaceAll]);
     sVersion := Trim(sVersion);
-    Result := StrToIntDef(sVersion, 0);
+    AVersionCode := sVersion;
+  end;
+  if sName <> '' then
+  begin
+    sName := Trim(sName);
+    if Pos(' ', sName) > 0 then
+    begin
+      sName := LeftStr(sName, Pos(' ', sName));
+    end;
+    WriteLn(sName);
+    sName := StringReplace(sName, 'versionName=', '', [rfIgnoreCase, rfReplaceAll]);
+    sName := Trim(sName);
+    AVersionName := sName;
   end;
 end;
 

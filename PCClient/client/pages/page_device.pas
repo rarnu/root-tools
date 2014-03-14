@@ -158,6 +158,7 @@ begin
   FBtnRefresh.Text := Config.GetString(RES_REFRESH_DEVICE);
   FBtnRefresh.Padding.Left := 32;
   FBtnRefresh.Padding.Right := 32;
+  FBtnRefresh.Padding.Bottom := 16;
   FBtnRefresh.OnClick := @refreshClicked;
 
   FBuildPropList := TvgHudListBox.Create(FRightPanel);

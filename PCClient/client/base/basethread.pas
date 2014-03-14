@@ -20,7 +20,7 @@ type
     function MakeNotifyMap: TStringList; virtual; abstract;
     procedure ThreadTerminated(Sender: TObject);
   public
-    constructor Create(ANotifyId: Integer; ANotify: INotifyable);
+    constructor Create(ANotifyId: Integer; ANotify: INotifyable); virtual;
 
   end;
 

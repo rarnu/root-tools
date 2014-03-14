@@ -19,6 +19,8 @@ const
   RES_OK = 'ok';
   RES_RESET = 'reset';
   RES_REFRESH_DEVICE = 'btn_refresh_device';
+  RES_CURRENT_VERSION = 'current_version';
+  RES_LAST_VERSION = 'last_version';
 
 implementation
 

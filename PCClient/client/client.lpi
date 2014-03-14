@@ -33,15 +33,18 @@
         <LaunchingApplication PathPlusParams="/usr/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="vgscene"/>
+        <PackageName Value="lnetbase"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="vgscene"/>
       </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
     </RequiredPackages>
-    <Units Count="23">
+    <Units Count="28">
       <Unit0>
         <Filename Value="client.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -166,6 +169,31 @@
         <IsPartOfProject Value="True"/>
         <UnitName Value="page_root_tools"/>
       </Unit22>
+      <Unit23>
+        <Filename Value="thread/th_network.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="th_network"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="base/basenetwork.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="basenetwork"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="util/unt_json.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="unt_json"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="item/item_update_log.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="item_update_log"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="util/unt_download.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="unt_download"/>
+      </Unit27>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -186,6 +214,7 @@
     <Linking>
       <Debugging>
         <GenerateDebugInfo Value="False"/>
+        <UseLineInfoUnit Value="False"/>
       </Debugging>
       <Options>
         <Win32>

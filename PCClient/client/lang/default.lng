@@ -20,3 +20,5 @@ item_device=设备信息
 item_roottools=我的掌优
 item_about=关于本软件
 btn_refresh_device=刷新设备信息
+current_version=当前版本 %s(%s)
+last_version=最新版本 %s (%s)

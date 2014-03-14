@@ -23,7 +23,8 @@ type
     // build.prop
     FPath: string;
     // root tools version code
-    FVersionCode: integer;
+    FVersionCode: string;
+    FVersionName: string;
   protected
     procedure Execute; override;
     function MakeNotifyMap: TStringList; override;
@@ -49,7 +50,7 @@ begin
     end;
     2:
     begin
-      FVersionCode := GetRootToolsVersion(FDeviceId);
+      GetRootToolsVersion(FDeviceId, FVersionCode, FVersionName);
     end;
   end;
 end;
@@ -64,7 +65,8 @@ begin
     end;
     2:
     begin
-      Result.Add('version=' + IntToStr(FVersionCode));
+      Result.Add('version=' + FVersionCode);
+      Result.Add('name=' + FVersionName);
     end;
   end;
 end;
