@@ -21,6 +21,10 @@ const
   RES_REFRESH_DEVICE = 'btn_refresh_device';
   RES_CURRENT_VERSION = 'current_version';
   RES_LAST_VERSION = 'last_version';
+  RES_UPDATE = 'btn_update';
+  RES_SYNC_FILE = 'sync_file';
+  RES_NOT_INSTALLED = 'app_not_installed';
+  RES_CONNECTING = 'connecting';
 
 implementation
 

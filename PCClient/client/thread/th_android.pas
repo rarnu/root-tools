@@ -5,7 +5,7 @@ unit th_android;
 interface
 
 uses
-  Classes, SysUtils, basethread, unt_android;
+  Classes, SysUtils, basethread, unt_android, strutils;
 
 type
 
@@ -16,6 +16,7 @@ type
     // 0: screenshot
     // 1: build.prop
     // 2: root tools version code
+    // 3: install or update
     FDeviceId: string;
     FCmdType: integer;
     FCmdParam: array of string;
@@ -23,8 +24,11 @@ type
     // build.prop
     FPath: string;
     // root tools version code
+    FInstalled: Boolean;
     FVersionCode: string;
     FVersionName: string;
+    // install or update
+    FInstallMsg: string;
   protected
     procedure Execute; override;
     function MakeNotifyMap: TStringList; override;
@@ -50,7 +54,17 @@ begin
     end;
     2:
     begin
-      GetRootToolsVersion(FDeviceId, FVersionCode, FVersionName);
+      FVersionCode := '';
+      FVersionName := '';
+      FInstalled := IsRootToolsInstalled(FDeviceId);
+      if FInstalled then
+      begin
+        GetRootToolsVersion(FDeviceId, FVersionCode, FVersionName);
+      end;
+    end;
+    3:
+    begin
+      FInstallMsg := InstallOrUpdateRootTools(FDeviceId, FCmdParam[0]);
     end;
   end;
 end;
@@ -67,6 +81,10 @@ begin
     begin
       Result.Add('version=' + FVersionCode);
       Result.Add('name=' + FVersionName);
+    end;
+    3:
+    begin
+      Result.Add('install=' + FInstallMsg);
     end;
   end;
 end;

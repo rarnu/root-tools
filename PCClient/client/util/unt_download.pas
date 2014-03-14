@@ -11,6 +11,7 @@ type
 
   TOnDownloadProgress = procedure(Sender: TObject; APercent: integer) of object;
   TOnDownloadError = procedure(Sender: TObject; AMsg: string) of object;
+  TOnDownloadComplete = procedure(Sender: TObject) of object;
 
   { TDownloader }
 
@@ -18,6 +19,7 @@ type
   private
     FDownloading: boolean;
     FHttp: TLHTTPClientComponent;
+    FOnDownloadComplete: TOnDownloadComplete;
     FOnDownloadError: TOnDownloadError;
     FOnDownloadProgress: TOnDownloadProgress;
     FSSL: TLSSLSessionComponent;
@@ -40,6 +42,8 @@ type
       read FOnDownloadProgress write FOnDownloadProgress;
     property OnDownloadError: TOnDownloadError
       read FOnDownloadError write FOnDownloadError;
+    property OnDownloadComplete: TOnDownloadComplete
+      read FOnDownloadComplete write FOnDownloadComplete;
   end;
 
 implementation
@@ -67,6 +71,10 @@ begin
   if Assigned(FOnDownloadProgress) then
   begin
     FOnDownloadProgress(Self, 100);
+  end;
+  if Assigned(FOnDownloadComplete) then
+  begin
+    FOnDownloadComplete(Self);
   end;
 end;
 

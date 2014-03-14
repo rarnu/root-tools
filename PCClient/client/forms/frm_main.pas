@@ -7,7 +7,7 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, baseform,
   vg_scene, vg_controls, vg_objects, res_mapping, vg_listbox, vg_ani,
-  page_device, item_main, page_blank, unt_env, th_device_id, th_usb, frm_skin,
+  page_device, item_main, page_about, unt_env, th_device_id, th_usb, frm_skin,
   frm_blank, basepage, page_root_tools;
 
 type
@@ -136,6 +136,7 @@ begin
   FUserLabel.VertTextAlign := vgTextAlignCenter;
   FUserLabel.TextAlign := vgTextAlignNear;
   FUserLabel.Padding.Left := 8;
+  FUserLabel.Text := Config.GetString(RES_CONNECTING);
 
   FListView := TvgHudListBox.Create(Panel);
   FListView.Parent := Panel;
@@ -165,7 +166,7 @@ var
 begin
   FPages[0] := TPageDevice.Create(FContainer, Self);
   FPages[1] := TPageRootTools.Create(FContainer, Self);
-  FPages[2] := TPageBlank.Create(FContainer, Self);
+  FPages[2] := TPageAbout.Create(FContainer, Self);
 
   for i := 0 to Length(FPages) - 1 do
   begin
@@ -192,7 +193,7 @@ end;
 
 procedure TFormMain.ThreadNotify(NotifyId: integer; AMap: TStringList);
 var
-  i: Integer;
+  i: integer;
 begin
   case NotifyId of
     0:
@@ -213,7 +214,7 @@ begin
   begin
     FUserLabel.Text := Config.GetString(RES_MY_DEVICE, [FCurrentDevice]);
   end;
-  for i:=0 to Length(FPages) -1 do
+  for i := 0 to Length(FPages) - 1 do
   begin
     FPages[i].ThreadNotify(0, AMap);
   end;

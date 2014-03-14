@@ -12,6 +12,7 @@ function GetBuildProp(ADeviceId: string): string;
 function IsRootToolsInstalled(ADeviceId: string): boolean;
 procedure GetRootToolsVersion(ADeviceId: string; out AVersionCode: string;
   out AVersionName: string);
+function InstallOrUpdateRootTools(ADeviceId: string; AFileName: string): string;
 
 implementation
 
@@ -55,7 +56,7 @@ begin
   Path := ExtractFilePath(ParamStr(0));
   SL := ExecuteCommandF(Format('adb -s %s shell dumpsys package com.rarnu.tools.root',
     [ADeviceId]), Path);
-  Result := AnsiContainsStr('versionCode', SL.Text);
+  Result := AnsiContainsStr(SL.Text, 'versionCode');
 end;
 
 procedure GetRootToolsVersion(ADeviceId: string; out AVersionCode: string;
@@ -108,6 +109,16 @@ begin
     sName := Trim(sName);
     AVersionName := sName;
   end;
+end;
+
+function InstallOrUpdateRootTools(ADeviceId: string; AFileName: string): string;
+var
+  SL: TStringList;
+  Path: string;
+begin
+  Path := ExtractFilePath(ParamStr(0));
+  SL := ExecuteCommandF(Format('adb -s %s install -r %s', [ADeviceId, AFileName]), Path);
+  Result := SL.Text;
 end;
 
 end.

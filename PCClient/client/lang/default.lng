@@ -22,3 +22,7 @@ item_about=关于本软件
 btn_refresh_device=刷新设备信息
 current_version=当前版本 %s(%s)
 last_version=最新版本 %s (%s)
+btn_update=更新版本
+sync_file=正在与服务器同步文件
+app_not_installed=未安装掌优
+connecting=正在尝试连接设备...

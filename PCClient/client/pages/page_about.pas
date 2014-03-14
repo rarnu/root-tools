@@ -1,4 +1,4 @@
-unit page_blank;
+unit page_about;
 
 {$mode objfpc}{$H+}
 
@@ -11,7 +11,7 @@ type
 
   { TPageBlank }
 
-  TPageBlank = class(TPageBase)
+  TPageAbout = class(TPageBase)
   protected
     procedure InitPage; override;
   public
@@ -23,12 +23,12 @@ implementation
 
 { TPageBlank }
 
-procedure TPageBlank.InitPage;
+procedure TPageAbout.InitPage;
 begin
-
+  HideNoDevice;
 end;
 
-procedure TPageBlank.ThreadNotify(NotifyId: integer; AMap: TStringList);
+procedure TPageAbout.ThreadNotify(NotifyId: integer; AMap: TStringList);
 begin
 
 end;

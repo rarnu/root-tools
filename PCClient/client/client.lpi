@@ -90,9 +90,9 @@
         <UnitName Value="item_main"/>
       </Unit7>
       <Unit8>
-        <Filename Value="pages/page_blank.pas"/>
+        <Filename Value="pages/page_about.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="page_blank"/>
+        <UnitName Value="page_about"/>
       </Unit8>
       <Unit9>
         <Filename Value="util/unt_command.pas"/>

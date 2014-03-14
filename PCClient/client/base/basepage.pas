@@ -71,13 +71,11 @@ begin
   FConfig := TConfigBase.Create;
   OnPaint := @pagePaint;
   OnPaintOnce := @pagePaintOnce;
-  InitPage;
 
   FAni := TvgAniIndicator.Create(Self);
   FAni.Parent := Self;
   FAni.Align := vaNone;
   FAni.Visible := False;
-  FAni.BringToFront;
 
   FNoDevice := TvgText.Create(Self);
   FNoDevice.Parent := Self;
@@ -86,6 +84,9 @@ begin
   FNoDevice.Fill.SolidColor := vgColorFromVCL(clWhite);
   FNoDevice.Font.Size := 16;
   FNoDevice.Text := Config.GetString(RES_NO_DEVICE);
+
+  InitPage;
+  FAni.BringToFront;
   FNoDevice.BringToFront;
 end;
 
