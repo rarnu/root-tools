@@ -1,7 +1,7 @@
 inherited FormMain: TFormMain
   Left = 281
   Height = 171
-  Top = 284
+  Top = 285
   Width = 266
   OnCreate = FormCreate
   OnDestroy = FormDestroy

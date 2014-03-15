@@ -41,13 +41,13 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_main"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="37" Y="11"/>
+        <TopLine Value="112"/>
+        <CursorPos X="17" Y="122"/>
         <UsageCount Value="61"/>
         <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="res/res_mapping.pas"/>
@@ -150,10 +150,14 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_skin"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="96"/>
-        <CursorPos X="3" Y="117"/>
+        <TopLine Value="74"/>
+        <CursorPos X="25" Y="87"/>
         <UsageCount Value="48"/>
+        <Loaded Value="True"/>
+        <LoadedDesigner Value="True"/>
       </Unit14>
       <Unit15>
         <Filename Value="forms/frm_blank.pas"/>
@@ -277,7 +281,7 @@
         <Filename Value="util/unt_download.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unt_download"/>
-        <EditorIndex Value="7"/>
+        <EditorIndex Value="8"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="26" Y="8"/>
