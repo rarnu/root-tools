@@ -30,7 +30,7 @@ include "../../database/database.php";
  <div class="container">
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
-		<h3>下载掌优客户端</h3>
+		<h3>下载掌优 Android 端</h3>
 
         <?php
         $db=openConnection();
