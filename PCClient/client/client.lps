@@ -3,15 +3,15 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="67">
+    <Units Count="70">
       <Unit0>
         <Filename Value="client.lpr"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="client"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="22" Y="9"/>
-        <UsageCount Value="60"/>
+        <TopLine Value="30"/>
+        <CursorPos X="19" Y="35"/>
+        <UsageCount Value="62"/>
       </Unit0>
       <Unit1>
         <Filename Value="base/baseform.pas"/>
@@ -21,41 +21,42 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="baseform"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="67"/>
-        <CursorPos X="29" Y="79"/>
-        <UsageCount Value="60"/>
+        <TopLine Value="19"/>
+        <CursorPos X="15" Y="28"/>
+        <UsageCount Value="62"/>
       </Unit1>
       <Unit2>
         <Filename Value="base/baseconfig.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="baseconfig"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="58"/>
-        <CursorPos X="3" Y="61"/>
-        <UsageCount Value="60"/>
+        <TopLine Value="55"/>
+        <CursorPos X="25" Y="67"/>
+        <UsageCount Value="62"/>
       </Unit2>
       <Unit3>
         <Filename Value="forms/frm_main.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormMain"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_main"/>
-        <EditorIndex Value="0"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="19"/>
-        <CursorPos X="49" Y="201"/>
-        <UsageCount Value="59"/>
+        <TopLine Value="1"/>
+        <CursorPos X="37" Y="11"/>
+        <UsageCount Value="61"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
         <Filename Value="res/res_mapping.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="res_mapping"/>
-        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="31" Y="27"/>
-        <UsageCount Value="58"/>
-        <Loaded Value="True"/>
+        <UsageCount Value="60"/>
       </Unit4>
       <Unit5>
         <Filename Value="res/platform_mapping.pas"/>
@@ -64,16 +65,18 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="12"/>
-        <UsageCount Value="57"/>
+        <UsageCount Value="59"/>
       </Unit5>
       <Unit6>
         <Filename Value="pages/page_device.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="page_device"/>
+        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="29"/>
-        <CursorPos X="47" Y="36"/>
-        <UsageCount Value="57"/>
+        <TopLine Value="210"/>
+        <CursorPos X="32" Y="192"/>
+        <UsageCount Value="59"/>
+        <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="item/item_main.pas"/>
@@ -82,36 +85,36 @@
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="42" Y="48"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="58"/>
       </Unit7>
       <Unit8>
         <Filename Value="pages/page_about.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="page_about"/>
-        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="13"/>
-        <CursorPos X="3" Y="28"/>
-        <UsageCount Value="55"/>
-        <Loaded Value="True"/>
+        <TopLine Value="1"/>
+        <CursorPos X="74" Y="8"/>
+        <UsageCount Value="57"/>
       </Unit8>
       <Unit9>
         <Filename Value="util/unt_command.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unt_command"/>
+        <EditorIndex Value="3"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="17"/>
-        <CursorPos X="3" Y="21"/>
-        <UsageCount Value="54"/>
+        <TopLine Value="42"/>
+        <CursorPos X="67" Y="54"/>
+        <UsageCount Value="56"/>
+        <Loaded Value="True"/>
       </Unit9>
       <Unit10>
         <Filename Value="util/unt_env.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unt_env"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="35"/>
-        <CursorPos X="10" Y="48"/>
-        <UsageCount Value="54"/>
+        <TopLine Value="77"/>
+        <CursorPos X="7" Y="84"/>
+        <UsageCount Value="56"/>
       </Unit10>
       <Unit11>
         <Filename Value="thread/th_device_id.pas"/>
@@ -120,7 +123,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
         <CursorPos X="24" Y="32"/>
-        <UsageCount Value="52"/>
+        <UsageCount Value="54"/>
       </Unit11>
       <Unit12>
         <Filename Value="base/basethread.pas"/>
@@ -129,7 +132,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="11"/>
         <CursorPos X="17" Y="23"/>
-        <UsageCount Value="51"/>
+        <UsageCount Value="53"/>
       </Unit12>
       <Unit13>
         <Filename Value="thread/th_usb.pas"/>
@@ -138,7 +141,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="46"/>
         <CursorPos X="14" Y="41"/>
-        <UsageCount Value="51"/>
+        <UsageCount Value="53"/>
       </Unit13>
       <Unit14>
         <Filename Value="forms/frm_skin.pas"/>
@@ -150,7 +153,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="96"/>
         <CursorPos X="3" Y="117"/>
-        <UsageCount Value="46"/>
+        <UsageCount Value="48"/>
       </Unit14>
       <Unit15>
         <Filename Value="forms/frm_blank.pas"/>
@@ -161,27 +164,29 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="5" Y="10"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="47"/>
       </Unit15>
       <Unit16>
         <Filename Value="base/basepage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="basepage"/>
-        <EditorIndex Value="5"/>
+        <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="61"/>
-        <CursorPos X="1" Y="74"/>
-        <UsageCount Value="41"/>
+        <TopLine Value="81"/>
+        <CursorPos X="11" Y="95"/>
+        <UsageCount Value="43"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
         <Filename Value="util/unt_android.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unt_android"/>
+        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="84"/>
-        <CursorPos X="25" Y="58"/>
-        <UsageCount Value="40"/>
+        <TopLine Value="133"/>
+        <CursorPos X="5" Y="150"/>
+        <UsageCount Value="42"/>
+        <Loaded Value="True"/>
       </Unit17>
       <Unit18>
         <Filename Value="thread/th_android.pas"/>
@@ -190,7 +195,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="31" Y="26"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="41"/>
       </Unit18>
       <Unit19>
         <Filename Value="intf/intf_notify.pas"/>
@@ -199,7 +204,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="17" Y="1"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="41"/>
       </Unit19>
       <Unit20>
         <Filename Value="intf/intf_paint.pas"/>
@@ -208,7 +213,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="26" Y="12"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="39"/>
       </Unit20>
       <Unit21>
         <Filename Value="item/item_device_build_prop.pas"/>
@@ -217,16 +222,18 @@
         <WindowIndex Value="0"/>
         <TopLine Value="45"/>
         <CursorPos X="1" Y="29"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="37"/>
       </Unit21>
       <Unit22>
         <Filename Value="pages/page_root_tools.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="page_root_tools"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="315"/>
-        <CursorPos X="6" Y="327"/>
-        <UsageCount Value="33"/>
+        <TopLine Value="71"/>
+        <CursorPos X="15" Y="76"/>
+        <UsageCount Value="35"/>
+        <Loaded Value="True"/>
       </Unit22>
       <Unit23>
         <Filename Value="thread/th_network.pas"/>
@@ -235,7 +242,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="1" Y="26"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="33"/>
       </Unit23>
       <Unit24>
         <Filename Value="base/basenetwork.pas"/>
@@ -244,16 +251,18 @@
         <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="31" Y="71"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="32"/>
       </Unit24>
       <Unit25>
         <Filename Value="util/unt_json.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unt_json"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="82"/>
-        <CursorPos X="30" Y="2407"/>
-        <UsageCount Value="28"/>
+        <TopLine Value="1348"/>
+        <CursorPos X="34" Y="1357"/>
+        <UsageCount Value="30"/>
+        <Loaded Value="True"/>
       </Unit25>
       <Unit26>
         <Filename Value="item/item_update_log.pas"/>
@@ -262,18 +271,29 @@
         <WindowIndex Value="0"/>
         <TopLine Value="36"/>
         <CursorPos X="23" Y="51"/>
-        <UsageCount Value="26"/>
+        <UsageCount Value="28"/>
       </Unit26>
       <Unit27>
         <Filename Value="util/unt_download.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="unt_download"/>
+        <EditorIndex Value="7"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="7"/>
-        <CursorPos X="51" Y="14"/>
-        <UsageCount Value="25"/>
+        <TopLine Value="1"/>
+        <CursorPos X="26" Y="8"/>
+        <UsageCount Value="27"/>
+        <Loaded Value="True"/>
       </Unit27>
       <Unit28>
+        <Filename Value="forms/pop_env.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="pop_env"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="9" Y="13"/>
+        <UsageCount Value="22"/>
+      </Unit28>
+      <Unit29>
         <Filename Value="frm_main.pas"/>
         <ComponentName Value="FormMain"/>
         <HasResources Value="True"/>
@@ -283,8 +303,8 @@
         <TopLine Value="6"/>
         <CursorPos X="1" Y="25"/>
         <UsageCount Value="19"/>
-      </Unit28>
-      <Unit29>
+      </Unit29>
+      <Unit30>
         <Filename Value="../../../Develop/lazarus/vgscene/vg_scene.pas"/>
         <UnitName Value="vg_scene"/>
         <WindowIndex Value="0"/>
@@ -292,15 +312,15 @@
         <CursorPos X="3" Y="3620"/>
         <UsageCount Value="12"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit29>
-      <Unit30>
+      </Unit30>
+      <Unit31>
         <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/inc/objpash.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="181"/>
         <CursorPos X="23" Y="192"/>
         <UsageCount Value="8"/>
-      </Unit30>
-      <Unit31>
+      </Unit31>
+      <Unit32>
         <Filename Value="../../../Develop/lazarus/vgscene/vg_objects.pas"/>
         <UnitName Value="vg_objects"/>
         <WindowIndex Value="0"/>
@@ -308,32 +328,32 @@
         <CursorPos X="14" Y="328"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit31>
-      <Unit32>
+      </Unit32>
+      <Unit33>
         <Filename Value="/usr/share/fpcsrc/2.6.2/packages/fcl-base/src/inifiles.pp"/>
         <UnitName Value="IniFiles"/>
         <WindowIndex Value="0"/>
         <TopLine Value="79"/>
         <CursorPos X="14" Y="132"/>
         <UsageCount Value="8"/>
-      </Unit32>
-      <Unit33>
+      </Unit33>
+      <Unit34>
         <Filename Value="base/baseform.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="26" Y="8"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit33>
-      <Unit34>
+      </Unit34>
+      <Unit35>
         <Filename Value="frm_main.lfm"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="23" Y="6"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="LFM"/>
-      </Unit34>
-      <Unit35>
+      </Unit35>
+      <Unit36>
         <Filename Value="base/frm_main.pas"/>
         <ComponentName Value="FormMain"/>
         <HasResources Value="True"/>
@@ -343,44 +363,44 @@
         <TopLine Value="2"/>
         <CursorPos X="3" Y="17"/>
         <UsageCount Value="26"/>
-      </Unit35>
-      <Unit36>
+      </Unit36>
+      <Unit37>
         <Filename Value="forms/language_mapping.pas"/>
         <UnitName Value="language_mapping"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="6"/>
         <UsageCount Value="18"/>
-      </Unit36>
-      <Unit37>
+      </Unit37>
+      <Unit38>
         <Filename Value="language_mapping.pas"/>
         <UnitName Value="language_mapping"/>
         <UsageCount Value="19"/>
-      </Unit37>
-      <Unit38>
+      </Unit38>
+      <Unit39>
         <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/unix/sysutils.pp"/>
         <UnitName Value="sysutils"/>
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="1" Y="65"/>
         <UsageCount Value="8"/>
-      </Unit38>
-      <Unit39>
+      </Unit39>
+      <Unit40>
         <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/unix/classes.pp"/>
         <UnitName Value="Classes"/>
         <WindowIndex Value="0"/>
         <TopLine Value="24"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="8"/>
-      </Unit39>
-      <Unit40>
+      </Unit40>
+      <Unit41>
         <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/objpas/classes/classesh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="108"/>
         <CursorPos X="3" Y="120"/>
         <UsageCount Value="10"/>
-      </Unit40>
-      <Unit41>
+      </Unit41>
+      <Unit42>
         <Filename Value="../../../Develop/lazarus/vgscene/vg_controls.pas"/>
         <UnitName Value="vg_controls"/>
         <WindowIndex Value="0"/>
@@ -388,26 +408,17 @@
         <CursorPos X="14" Y="131"/>
         <UsageCount Value="11"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit41>
-      <Unit42>
+      </Unit42>
+      <Unit43>
         <Filename Value="../../../Develop/lazarus/vgscene/vg_define.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="19" Y="11"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit42>
-      <Unit43>
-        <Filename Value="../../../Develop/lazarus/vgscene/vg_scene.inc"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="1" Y="1"/>
-        <UsageCount Value="8"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit43>
       <Unit44>
-        <Filename Value="../../../Develop/lazarus/vgscene/vg_dsgn.pas"/>
-        <UnitName Value="vg_dsgn"/>
+        <Filename Value="../../../Develop/lazarus/vgscene/vg_scene.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
@@ -415,6 +426,15 @@
         <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit44>
       <Unit45>
+        <Filename Value="../../../Develop/lazarus/vgscene/vg_dsgn.pas"/>
+        <UnitName Value="vg_dsgn"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="1" Y="1"/>
+        <UsageCount Value="8"/>
+        <DefaultSyntaxHighlighter Value="Delphi"/>
+      </Unit45>
+      <Unit46>
         <Filename Value="../../../Develop/lazarus/vgscene/vg_ani.pas"/>
         <UnitName Value="vg_ani"/>
         <WindowIndex Value="0"/>
@@ -422,8 +442,8 @@
         <CursorPos X="26" Y="8"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit45>
-      <Unit46>
+      </Unit46>
+      <Unit47>
         <Filename Value="../../../Develop/lazarus/vgscene/vg_listbox.pas"/>
         <UnitName Value="vg_listbox"/>
         <WindowIndex Value="0"/>
@@ -431,44 +451,44 @@
         <CursorPos X="22" Y="79"/>
         <UsageCount Value="8"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit46>
-      <Unit47>
+      </Unit47>
+      <Unit48>
         <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/objpas/classes/classes.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="113"/>
         <CursorPos X="14" Y="119"/>
         <UsageCount Value="9"/>
-      </Unit47>
-      <Unit48>
+      </Unit48>
+      <Unit49>
         <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/unix/tthread.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="297"/>
         <CursorPos X="3" Y="299"/>
         <UsageCount Value="9"/>
-      </Unit48>
-      <Unit49>
+      </Unit49>
+      <Unit50>
         <Filename Value="/usr/share/fpcsrc/2.6.2/rtl/objpas/sysutils/sysstrh.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="113"/>
         <CursorPos X="43" Y="124"/>
         <UsageCount Value="9"/>
-      </Unit49>
-      <Unit50>
+      </Unit50>
+      <Unit51>
         <Filename Value="/usr/lib/lazarus/1.0.10/lcl/forms.pp"/>
         <UnitName Value="Forms"/>
         <WindowIndex Value="0"/>
         <TopLine Value="778"/>
         <CursorPos X="14" Y="790"/>
         <UsageCount Value="10"/>
-      </Unit50>
-      <Unit51>
+      </Unit51>
+      <Unit52>
         <Filename Value="/usr/lib/lazarus/1.0.10/lcl/include/customform.inc"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2113"/>
         <CursorPos X="16" Y="2120"/>
         <UsageCount Value="9"/>
-      </Unit51>
-      <Unit52>
+      </Unit52>
+      <Unit53>
         <Filename Value="../../../Develop/lazarus/vgscene/vg_canvas_cairo.pas"/>
         <UnitName Value="vg_canvas_cairo"/>
         <WindowIndex Value="0"/>
@@ -476,24 +496,24 @@
         <CursorPos X="134" Y="54"/>
         <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit52>
-      <Unit53>
+      </Unit53>
+      <Unit54>
         <Filename Value="/usr/share/fpcsrc/2.6.2/packages/gtk2/src/gtk+/gdk/gdk2.pas"/>
         <UnitName Value="gdk2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="76"/>
         <CursorPos X="5" Y="59"/>
         <UsageCount Value="9"/>
-      </Unit53>
-      <Unit54>
+      </Unit54>
+      <Unit55>
         <Filename Value="/usr/share/fpcsrc/2.6.2/packages/cairo/src/cairo.pp"/>
         <UnitName Value="Cairo"/>
         <WindowIndex Value="0"/>
         <TopLine Value="69"/>
         <CursorPos X="5" Y="74"/>
         <UsageCount Value="9"/>
-      </Unit54>
-      <Unit55>
+      </Unit55>
+      <Unit56>
         <Filename Value="../../../../../Develop/lazarus/vgscene/vg_objects.pas"/>
         <UnitName Value="vg_objects"/>
         <WindowIndex Value="0"/>
@@ -501,19 +521,16 @@
         <CursorPos X="15" Y="336"/>
         <UsageCount Value="9"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit55>
-      <Unit56>
+      </Unit56>
+      <Unit57>
         <Filename Value="../../../../../Develop/lazarus/vgscene/vg_controls.pas"/>
         <UnitName Value="vg_controls"/>
-        <EditorIndex Value="2"/>
         <WindowIndex Value="0"/>
         <TopLine Value="867"/>
         <CursorPos X="24" Y="879"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit56>
-      <Unit57>
+      </Unit57>
+      <Unit58>
         <Filename Value="../../../../../Develop/lazarus/vgscene/vg_scene.pas"/>
         <UnitName Value="vg_scene"/>
         <WindowIndex Value="0"/>
@@ -521,16 +538,16 @@
         <CursorPos X="93" Y="1822"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit57>
-      <Unit58>
+      </Unit58>
+      <Unit59>
         <Filename Value="/usr/lib/lazarus/1.0.10/lcl/graphics.pp"/>
         <UnitName Value="Graphics"/>
         <WindowIndex Value="0"/>
         <TopLine Value="385"/>
         <CursorPos X="7" Y="179"/>
         <UsageCount Value="11"/>
-      </Unit58>
-      <Unit59>
+      </Unit59>
+      <Unit60>
         <Filename Value="../../../../../Develop/lazarus/vgscene/vg_grid.pas"/>
         <UnitName Value="vg_grid"/>
         <WindowIndex Value="0"/>
@@ -538,16 +555,16 @@
         <CursorPos X="36" Y="104"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit59>
-      <Unit60>
+      </Unit60>
+      <Unit61>
         <Filename Value="/usr/lib/lazarus/1.0.10/lcl/controls.pp"/>
         <UnitName Value="Controls"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2201"/>
         <CursorPos X="14" Y="2211"/>
         <UsageCount Value="11"/>
-      </Unit60>
-      <Unit61>
+      </Unit61>
+      <Unit62>
         <Filename Value="../../../../../Develop/lazarus/dxscene/dx_vgcore.pas"/>
         <UnitName Value="dx_vgcore"/>
         <WindowIndex Value="0"/>
@@ -555,92 +572,184 @@
         <CursorPos X="5" Y="49635"/>
         <UsageCount Value="10"/>
         <DefaultSyntaxHighlighter Value="Delphi"/>
-      </Unit61>
-      <Unit62>
+      </Unit62>
+      <Unit63>
         <Filename Value="/usr/lib/lazarus/1.0.10/lcl/lmessages.pp"/>
         <UnitName Value="LMessages"/>
         <WindowIndex Value="0"/>
         <TopLine Value="509"/>
         <CursorPos X="14" Y="515"/>
         <UsageCount Value="10"/>
-      </Unit62>
-      <Unit63>
+      </Unit63>
+      <Unit64>
         <Filename Value="../../../../../Develop/lazarus/lnet/lib/lnet.pp"/>
         <UnitName Value="lNet"/>
         <WindowIndex Value="0"/>
         <TopLine Value="39"/>
         <CursorPos X="71" Y="51"/>
         <UsageCount Value="13"/>
-      </Unit63>
-      <Unit64>
+      </Unit64>
+      <Unit65>
         <Filename Value="../../../../../Develop/lazarus/lnet/lazaruspackage/lnetcomponents.pas"/>
         <UnitName Value="lNetComponents"/>
         <WindowIndex Value="0"/>
         <TopLine Value="131"/>
         <CursorPos X="14" Y="144"/>
         <UsageCount Value="13"/>
-      </Unit64>
-      <Unit65>
+      </Unit65>
+      <Unit66>
         <Filename Value="../../../../../Develop/lazarus/lnet/lib/lhttp.pp"/>
         <UnitName Value="lhttp"/>
         <WindowIndex Value="0"/>
         <TopLine Value="25"/>
         <CursorPos X="51" Y="37"/>
         <UsageCount Value="13"/>
-      </Unit65>
-      <Unit66>
-        <Filename Value="forms/pop_env.pas"/>
-        <IsPartOfProject Value="True"/>
-        <UnitName Value="pop_env"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="1"/>
-        <WindowIndex Value="0"/>
-        <TopLine Value="1"/>
-        <CursorPos X="9" Y="13"/>
-        <UsageCount Value="20"/>
-        <Loaded Value="True"/>
       </Unit66>
+      <Unit67>
+        <Filename Value="C:/lazarus/components/lazutils/fileutil.pas"/>
+        <UnitName Value="FileUtil"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="66"/>
+        <CursorPos X="10" Y="76"/>
+        <UsageCount Value="10"/>
+      </Unit67>
+      <Unit68>
+        <Filename Value="C:/lazarus/lcl/dialogs.pp"/>
+        <UnitName Value="Dialogs"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="499"/>
+        <CursorPos X="11" Y="509"/>
+        <UsageCount Value="10"/>
+      </Unit68>
+      <Unit69>
+        <Filename Value="C:/lazarus/fpc/2.6.2/source/packages/fcl-process/src/process.pp"/>
+        <UnitName Value="process"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="20"/>
+        <CursorPos X="40" Y="30"/>
+        <UsageCount Value="10"/>
+      </Unit69>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="9" HistoryIndex="8">
+    <JumpHistory Count="29" HistoryIndex="28">
       <Position1>
-        <Filename Value="forms/frm_main.pas"/>
-        <Caret Line="167" Column="30" TopLine="161"/>
+        <Filename Value="pages/page_device.pas"/>
+        <Caret Line="74" Column="10" TopLine="61"/>
       </Position1>
       <Position2>
-        <Filename Value="forms/frm_main.pas"/>
-        <Caret Line="10" Column="27" TopLine="1"/>
+        <Filename Value="util/unt_android.pas"/>
+        <Caret Line="58" Column="25" TopLine="1"/>
       </Position2>
       <Position3>
-        <Filename Value="pages/page_about.pas"/>
-        <Caret Line="13" Column="1" TopLine="4"/>
+        <Filename Value="util/unt_android.pas"/>
+        <Caret Line="93" Column="9" TopLine="85"/>
       </Position3>
       <Position4>
-        <Filename Value="forms/frm_main.pas"/>
-        <Caret Line="170" Column="38" TopLine="156"/>
+        <Filename Value="pages/page_root_tools.pas"/>
+        <Caret Line="327" Column="6" TopLine="315"/>
       </Position4>
       <Position5>
-        <Filename Value="pages/page_about.pas"/>
-        <Caret Line="28" Column="19" TopLine="4"/>
+        <Filename Value="pages/page_root_tools.pas"/>
+        <Caret Line="239" Column="3" TopLine="230"/>
       </Position5>
       <Position6>
-        <Filename Value="forms/frm_main.pas"/>
-        <Caret Line="139" Column="50" TopLine="124"/>
+        <Filename Value="pages/page_root_tools.pas"/>
+        <Caret Line="303" Column="10" TopLine="291"/>
       </Position6>
       <Position7>
-        <Filename Value="forms/pop_env.pas"/>
-        <Caret Line="12" Column="9" TopLine="1"/>
+        <Filename Value="util/unt_download.pas"/>
+        <Caret Line="14" Column="51" TopLine="7"/>
       </Position7>
       <Position8>
-        <Filename Value="../../../../../Develop/lazarus/vgscene/vg_controls.pas"/>
-        <Caret Line="1073" Column="3" TopLine="1060"/>
+        <Filename Value="pages/page_root_tools.pas"/>
+        <Caret Line="406" Column="14" TopLine="391"/>
       </Position8>
       <Position9>
-        <Filename Value="../../../../../Develop/lazarus/vgscene/vg_controls.pas"/>
-        <Caret Line="4204" Column="23" TopLine="4185"/>
+        <Filename Value="base/basepage.pas"/>
+        <Caret Line="57" Column="16" TopLine="48"/>
       </Position9>
+      <Position10>
+        <Filename Value="base/basepage.pas"/>
+        <Caret Line="62" Column="21" TopLine="48"/>
+      </Position10>
+      <Position11>
+        <Filename Value="base/basepage.pas"/>
+        <Caret Line="101" Column="21" TopLine="89"/>
+      </Position11>
+      <Position12>
+        <Filename Value="base/basepage.pas"/>
+        <Caret Line="55" Column="7" TopLine="41"/>
+      </Position12>
+      <Position13>
+        <Filename Value="base/basepage.pas"/>
+        <Caret Line="51" Column="44" TopLine="41"/>
+      </Position13>
+      <Position14>
+        <Filename Value="base/basepage.pas"/>
+        <Caret Line="9" Column="75" TopLine="1"/>
+      </Position14>
+      <Position15>
+        <Filename Value="base/basepage.pas"/>
+        <Caret Line="51" Column="1" TopLine="41"/>
+      </Position15>
+      <Position16>
+        <Filename Value="base/basepage.pas"/>
+        <Caret Line="52" Column="7" TopLine="46"/>
+      </Position16>
+      <Position17>
+        <Filename Value="base/basepage.pas"/>
+        <Caret Line="86" Column="26" TopLine="76"/>
+      </Position17>
+      <Position18>
+        <Filename Value="forms/frm_main.pas"/>
+        <Caret Line="69" Column="37" TopLine="69"/>
+      </Position18>
+      <Position19>
+        <Filename Value="forms/frm_main.pas"/>
+        <Caret Line="10" Column="37" TopLine="1"/>
+      </Position19>
+      <Position20>
+        <Filename Value="util/unt_download.pas"/>
+        <Caret Line="129" Column="12" TopLine="117"/>
+      </Position20>
+      <Position21>
+        <Filename Value="pages/page_root_tools.pas"/>
+        <Caret Line="305" Column="1" TopLine="294"/>
+      </Position21>
+      <Position22>
+        <Filename Value="pages/page_root_tools.pas"/>
+        <Caret Line="22" Column="26" TopLine="19"/>
+      </Position22>
+      <Position23>
+        <Filename Value="util/unt_json.pas"/>
+        <Caret Line="2407" Column="30" TopLine="81"/>
+      </Position23>
+      <Position24>
+        <Filename Value="util/unt_json.pas"/>
+        <Caret Line="313" Column="6" TopLine="303"/>
+      </Position24>
+      <Position25>
+        <Filename Value="util/unt_android.pas"/>
+        <Caret Line="49" Column="1" TopLine="31"/>
+      </Position25>
+      <Position26>
+        <Filename Value="util/unt_android.pas"/>
+        <Caret Line="150" Column="5" TopLine="133"/>
+      </Position26>
+      <Position27>
+        <Filename Value="util/unt_command.pas"/>
+        <Caret Line="53" Column="45" TopLine="42"/>
+      </Position27>
+      <Position28>
+        <Filename Value="util/unt_command.pas"/>
+        <Caret Line="54" Column="26" TopLine="42"/>
+      </Position28>
+      <Position29>
+        <Filename Value="forms/frm_main.pas"/>
+        <Caret Line="11" Column="2" TopLine="1"/>
+      </Position29>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

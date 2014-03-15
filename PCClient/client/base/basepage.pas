@@ -6,7 +6,7 @@ interface
 
 uses
   Classes, SysUtils, baseform, Graphics, vg_scene, vg_controls, vg_objects,
-  vg_ani, intf_notify, baseconfig, intf_paint, res_mapping;
+  vg_ani, intf_notify, baseconfig, intf_paint, res_mapping, forms, dialogs;
 
 type
 
@@ -57,10 +57,13 @@ end;
 procedure TPageBase.pagePaintOnce(Sender: TObject; RealWidth: integer;
   RealHeight: integer);
 begin
+  {$IFNDEF WINDOWS}
   FAni.Position.X := trunc((RealWidth - FAni.Width) / 2);
   FAni.Position.Y := trunc((RealHeight - FAni.Height) / 2);
   FNoDevice.Position.X := trunc((RealWidth - FNoDevice.Width) / 2);
   FNoDevice.Position.Y := trunc((RealHeight - FNoDevice.Height) / 2);
+  {$ENDIF}
+
 end;
 
 constructor TPageBase.Create(AOwner: TComponent; ABase: TFormBase);
@@ -74,15 +77,28 @@ begin
 
   FAni := TvgAniIndicator.Create(Self);
   FAni.Parent := Self;
+  FAni.Width := 64;
+  FAni.Height := 64;
+  {$IFNDEF WINDOWS}
   FAni.Align := vaNone;
+  {$ELSE}
+  FAni.Align := vaCenter;
+  {$ENDIF}
   FAni.Visible := False;
 
   FNoDevice := TvgText.Create(Self);
   FNoDevice.Parent := Self;
+  {$IFNDEF WINDOWS}
   FNoDevice.Align := vaNone;
+  {$ELSE}
+  FNoDevice.Align := vaCenter;
+  {$ENDIF}
   FNoDevice.Width := 200;
+  FNoDevice.Height := 48;
   FNoDevice.Fill.SolidColor := vgColorFromVCL(clWhite);
   FNoDevice.Font.Size := 16;
+  FNoDevice.HorzTextAlign := vgTextAlignCenter;
+  FNoDevice.VertTextAlign := vgTextAlignCenter;
   FNoDevice.Text := Config.GetString(RES_NO_DEVICE);
 
   InitPage;

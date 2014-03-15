@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
     <Version Value="9"/>
@@ -66,7 +66,9 @@
       <Unit3>
         <Filename Value="forms/frm_main.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormMain"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_main"/>
       </Unit3>
       <Unit4>
@@ -211,16 +213,7 @@
       <OtherUnitFiles Value="base;forms;res;pages;item;util;thread;intf"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <Optimizations>
-        <OptimizationLevel Value="0"/>
-      </Optimizations>
-    </CodeGeneration>
     <Linking>
-      <Debugging>
-        <GenerateDebugInfo Value="False"/>
-        <UseLineInfoUnit Value="False"/>
-      </Debugging>
       <Options>
         <Win32>
           <GraphicApplication Value="True"/>
@@ -236,7 +229,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="5">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -249,6 +242,9 @@
       <Item4>
         <Name Value="EAccessViolation"/>
       </Item4>
+      <Item5>
+        <Name Value="EProcess"/>
+      </Item5>
     </Exceptions>
   </Debugging>
 </CONFIG>

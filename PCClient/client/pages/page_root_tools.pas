@@ -21,8 +21,6 @@ type
     FVersionName: string;
     FVersionSize: string;
   public
-    function ToString: string;
-  public
     property VersionCode: string read FVersionCode write FVersionCode;
     property VersionName: string read FVersionName write FVersionName;
     property VersionFile: string read FVersionFile write FVersionFile;
@@ -76,14 +74,6 @@ type
   end;
 
 implementation
-
-{ TRootToolsVersion }
-
-function TRootToolsVersion.ToString: string;
-begin
-  Result := Format('code:%s, name:%s, file:%s, size:%s, desc:%s',
-    [FVersionCode, FVersionName, FVersionFile, FVersionSize, FVersionDesc]);
-end;
 
 { TPageRootTools }
 
@@ -236,7 +226,7 @@ begin
   FLastVersion.VersionFile := Json.getString('file');
   FLastVersion.VersionSize := Json.getString('size');
   FLastVersion.VersionDesc := Json.getString('desc');
-  WriteLn(FLastVersion.ToString);
+
   FVersionDesc.Text := Config.GetString(RES_LAST_VERSION,
     [FLastVersion.VersionName, FLastVersion.VersionCode]);
   SL := TStringList.Create;
@@ -298,7 +288,9 @@ end;
 
 procedure TPageRootTools.downloadError(Sender: TObject; AMsg: string);
 begin
+  {$IFNDEF WINDOWS}
   WriteLn(AMsg);
+  {$ENDIF}
 end;
 
 procedure TPageRootTools.downloadComplete(Sender: TObject);
@@ -397,7 +389,9 @@ begin
       FBtnUpdate.Enabled := True;
       FInstalling.Enabled := False;
       FInstalling.Visible := False;
+      {$IFNDEF WINDOWS}
       WriteLn(AMap.Values['install']);
+      {$ENDIF}
       GetRootToolsVersionCode;
     end;
   end;

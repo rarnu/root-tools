@@ -5,7 +5,7 @@ unit unt_download;
 interface
 
 uses
-  Classes, SysUtils, lNet, lnetbase, lNetComponents, lhttp, lHTTPUtil, Forms;
+  Classes, SysUtils, lNet, lNetComponents, lhttp, lHTTPUtil, Forms;
 
 type
 
@@ -124,7 +124,9 @@ var
 begin
   if FDownloading then
   begin
+    {$IFNDEF WINDOWS}
     WriteLn('Downloading, cannot start a new task');
+    {$ENDIF}
     Exit;
   end;
   FDownloading := True;

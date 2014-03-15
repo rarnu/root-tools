@@ -7,8 +7,8 @@ interface
 uses
   Classes, SysUtils, FileUtil, Forms, Controls, Graphics, Dialogs, baseform,
   vg_scene, vg_controls, vg_objects, res_mapping, vg_listbox, vg_ani,
-  page_device, item_main, page_about, unt_env, th_device_id, th_usb, frm_skin,
-  frm_blank, basepage, page_root_tools;
+  page_device, item_main, page_about, th_device_id, th_usb, frm_skin,
+  basepage, page_root_tools, unt_env;
 
 type
 
@@ -53,12 +53,19 @@ implementation
 { TFormMain }
 
 procedure TFormMain.FormCreate(Sender: TObject);
+var
+  tmpPath: string;
 begin
   inherited;
+  tmpPath := ExtractFilePath(ParamStr(0)) + 'tmp';
+  ForceDirectory(tmpPath);
+
   InitMainListItem;
   FListView.ItemIndex := 0;
   mainListSelected(FListView);
+  {$IFNDEF WINDOWS}
   InitEnv(Config.SuPassword);
+  {$ENDIF}
   FThreadDeviceId := TDeviceIdThread.Create(0, Self, True);
   FThreadUsb := TUsbThread.Create(1, Self);
   FThreadDeviceId.Start;

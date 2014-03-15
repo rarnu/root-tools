@@ -5,9 +5,11 @@ unit unt_env;
 interface
 
 uses
-  Classes, SysUtils, unt_command, strutils;
+  Classes, SysUtils, unt_command, strutils, platform_mapping;
 
+{$IFNDEF WINDOWS}
 function InitEnv(APassword: string): boolean;
+{$ENDIF}
 function GetFirstDeviceId(AKill: boolean): string;
 
 implementation
@@ -29,6 +31,7 @@ begin
   SL.Free;
 end;
 
+{$IFNDEF WINDOWS}
 function InitEnv(APassword: string): boolean;
 var
   SL: TStringList;
@@ -56,21 +59,30 @@ begin
 
   Result := True;
 end;
+{$ENDIF}
 
 function GetFirstDeviceId(AKill: boolean): string;
 var
   SL: TStringList;
   Path: string;
   s: string;
+  {$IFDEF WINDOWS}
+  adbPath: string;
+  {$ENDIF}
 begin
   Result := '';
   Path := ExtractFilePath(ParamStr(0));
+  {$IFDEF WINDOWS}
+  adbPath := ExtractFilePath(ParamStr(0)) + 'bin' + SPL + 'adb.exe';
+  {$ENDIF}
   if AKill then
   begin
-    ExecuteCommandP('adb kill-server', Path);
+    ExecuteCommandP({$IFDEF WINDOWS} adbPath {$ELSE} 'adb' {$ENDIF} + ' kill-server', Path);
+    {$IFNDEF WINDOWS}
     ExecuteCommandP('/bin/sh expect.sh', Path);
+    {$ENDIF}
   end;
-  SL := ExecuteCommandF('adb devices', Path);
+  SL := ExecuteCommandF({$IFDEF WINDOWS} adbPath {$ELSE} 'adb' {$ENDIF} + ' devices', Path);
   for s in SL do
   begin
     if AnsiStartsStr('*', s) then

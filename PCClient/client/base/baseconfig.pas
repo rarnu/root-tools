@@ -63,7 +63,7 @@ begin
   FPanelPaddingRight := FIni.ReadInteger(SEC_COMMON, KEY_PANEL_PADDING_RIGHT, 16);
   FPanelPaddingTop := FIni.ReadInteger(SEC_COMMON, KEY_PANEL_PADDING_TOP, 38);
   FPanelPaddingBottom := FIni.ReadInteger(SEC_COMMON, KEY_PANEL_PADDING_BOTTOM, 16);
-  FLanguage := FIni.ReadString(SEC_COMMON, KEY_LANGUAGE, 'default.lng');
+  FLanguage := FIni.ReadString(SEC_COMMON, KEY_LANGUAGE, {$IFNDEF WINDOWS}'default.lng'{$ELSE}'default_gbk.lng'{$ENDIF});
   FLangIni := TIniFile.Create(ExtractFilePath(ParamStr(0)) + 'lang' + SPL + FLanguage);
   FSkinColor := FIni.ReadString(SEC_COMMON, KEY_SKIN_COLOR, '#EA2F2F2F');
   FSuPassword:= FIni.ReadString(SEC_COMMON, KEY_SU_PASSWORD, '');

@@ -20,12 +20,18 @@ function GetScreenshot(ADeviceId: string): string;
 var
   Path: string;
   AFilePath: string;
+  {$IFDEF WINDOWS}
+  adbPath: string;
+  {$ENDIF}
 begin
   Result := '';
   Path := ExtractFilePath(ParamStr(0)) + 'tmp' + SPL;
-  ExecuteCommandP(Format('adb -s %s shell screencap -p /sdcard/screenshot.png',
+  {$IFDEF WINDOWS}
+  adbPath := ExtractFilePath(ParamStr(0)) + 'bin' + SPL + 'adb.exe';
+  {$ENDIF}
+  ExecuteCommandP(Format({$IFDEF WINDOWS} adbPath {$ELSE} 'adb' {$ENDIF} + ' -s %s shell screencap -p /sdcard/screenshot.png',
     [ADeviceId]), Path);
-  ExecuteCommandP(Format('adb -s %s pull /sdcard/screenshot.png .', [ADeviceId]), Path);
+  ExecuteCommandP(Format({$IFDEF WINDOWS} adbPath {$ELSE} 'adb' {$ENDIF} + ' -s %s pull /sdcard/screenshot.png .', [ADeviceId]), Path);
   AFilePath := Path + 'screenshot.png';
   if FileExists(AFilePath) then
   begin
@@ -37,10 +43,16 @@ function GetBuildProp(ADeviceId: string): string;
 var
   Path: string;
   AFilePath: string;
+  {$IFDEF WINDOWS}
+  adbPath: string;
+  {$ENDIF}
 begin
   Result := '';
   Path := ExtractFilePath(ParamStr(0)) + 'tmp' + SPL;
-  ExecuteCommandP(Format('adb -s %s pull /system/build.prop .', [ADeviceId]), Path);
+  {$IFDEF WINDOWS}
+  adbPath := ExtractFilePath(ParamStr(0)) + 'bin' + SPL + 'adb.exe';
+  {$ENDIF}
+  ExecuteCommandP(Format({$IFDEF WINDOWS} adbPath {$ELSE} 'adb' {$ENDIF} + ' -s %s pull /system/build.prop .', [ADeviceId]), Path);
   AFilePath := Path + 'build.prop';
   if FileExists(AFilePath) then
   begin
@@ -52,9 +64,15 @@ function IsRootToolsInstalled(ADeviceId: string): boolean;
 var
   SL: TStringList;
   Path: string;
+  {$IFDEF WINDOWS}
+  adbPath: string;
+  {$ENDIF}
 begin
   Path := ExtractFilePath(ParamStr(0));
-  SL := ExecuteCommandF(Format('adb -s %s shell dumpsys package com.rarnu.tools.root',
+  {$IFDEF WINDOWS}
+  adbPath := ExtractFilePath(ParamStr(0)) + 'bin' + SPL + 'adb.exe';
+  {$ENDIF}
+  SL := ExecuteCommandF(Format({$IFDEF WINDOWS} adbPath {$ELSE} 'adb' {$ENDIF} + ' -s %s shell dumpsys package com.rarnu.tools.root',
     [ADeviceId]), Path);
   Result := AnsiContainsStr(SL.Text, 'versionCode');
 end;
@@ -67,11 +85,17 @@ var
   s: string;
   sVersion: string;
   sName: string;
+  {$IFDEF WINDOWS}
+  adbPath: string;
+  {$ENDIF}
 begin
   sVersion := '';
   sName := '';
   Path := ExtractFilePath(ParamStr(0));
-  SL := ExecuteCommandF(Format('adb -s %s shell dumpsys package com.rarnu.tools.root',
+  {$IFDEF WINDOWS}
+  adbPath := ExtractFilePath(ParamStr(0)) + 'bin' + SPL + 'adb.exe';
+  {$ENDIF}
+  SL := ExecuteCommandF(Format({$IFDEF WINDOWS} adbPath {$ELSE} 'adb' {$ENDIF} + ' -s %s shell dumpsys package com.rarnu.tools.root',
     [ADeviceId]), Path);
   for s in SL do
   begin
@@ -91,7 +115,6 @@ begin
     begin
       sVersion := LeftStr(sVersion, Pos(' ', sVersion));
     end;
-    WriteLn(sVersion);
     sVersion := StringReplace(sVersion, 'versionCode=', '',
       [rfIgnoreCase, rfReplaceAll]);
     sVersion := Trim(sVersion);
@@ -104,7 +127,6 @@ begin
     begin
       sName := LeftStr(sName, Pos(' ', sName));
     end;
-    WriteLn(sName);
     sName := StringReplace(sName, 'versionName=', '', [rfIgnoreCase, rfReplaceAll]);
     sName := Trim(sName);
     AVersionName := sName;
@@ -115,9 +137,15 @@ function InstallOrUpdateRootTools(ADeviceId: string; AFileName: string): string;
 var
   SL: TStringList;
   Path: string;
+  {$IFDEF WINDOWS}
+  adbPath: string;
+  {$ENDIF}
 begin
   Path := ExtractFilePath(ParamStr(0));
-  SL := ExecuteCommandF(Format('adb -s %s install -r %s', [ADeviceId, AFileName]), Path);
+  {$IFDEF WINDOWS}
+  adbPath := ExtractFilePath(ParamStr(0)) + 'bin' + SPL + 'adb.exe';
+  {$ENDIF}
+  SL := ExecuteCommandF(Format({$IFDEF WINDOWS} adbPath {$ELSE} 'adb' {$ENDIF} + ' -s %s install -r %s', [ADeviceId, AFileName]), Path);
   Result := SL.Text;
 end;
 

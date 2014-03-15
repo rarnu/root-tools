@@ -69,7 +69,9 @@ procedure TPageDevice.LoadScreenshot(AFileName: string);
 var
   png: TPortableNetworkGraphic;
 begin
+  {$IFNDEF WINDOWS}
   WriteLn('LoadScreenshot: ' + AFileName);
+  {$ENDIF}
   if AFileName = '' then
   begin
     if FDeviceId = '' then
@@ -125,6 +127,7 @@ begin
   FLeftPanel.Padding.Right := 8;
   FLeftPanel.Padding.Top := 8;
   FLeftPanel.Padding.Bottom := 8;
+  FLeftPanel.Visible := False;
 
   FRightPanel := TvgHudContainer.Create(Self);
   FRightPanel.Parent := Self;
@@ -133,6 +136,7 @@ begin
   FRightPanel.Padding.Right := 8;
   FRightPanel.Padding.Top := 8;
   FRightPanel.Padding.Bottom := 8;
+  FRightPanel.Visible := False;
 
   FDeviceScreen := TvgImage.Create(FLeftPanel);
   FDeviceScreen.Parent := FLeftPanel;
@@ -149,12 +153,10 @@ begin
   FMyDevice.Text := Config.GetString(RES_MAIN_ITEM[0]);
   FMyDevice.Font.Size := 16;
   FMyDevice.AutoSize := True;
-  FMyDevice.Visible := False;
 
   FBtnRefresh := TvgHudButton.Create(FLeftPanel);
   FBtnRefresh.Parent := FLeftPanel;
   FBtnRefresh.Align := vaMostBottom;
-  FBtnRefresh.Visible := False;
   FBtnRefresh.Text := Config.GetString(RES_REFRESH_DEVICE);
   FBtnRefresh.Padding.Left := 32;
   FBtnRefresh.Padding.Right := 32;
@@ -164,7 +166,6 @@ begin
   FBuildPropList := TvgHudListBox.Create(FRightPanel);
   FBuildPropList.Parent := FRightPanel;
   FBuildPropList.Align := vaClient;
-  FBuildPropList.Visible := False;
 
 end;
 
@@ -177,9 +178,8 @@ procedure TPageDevice.DoRefresh;
 begin
   StartLoadingAni;
   HideNoDevice;
-  FMyDevice.Visible := True;
-  FBtnRefresh.Visible := True;
-  FBuildPropList.Visible := True;
+  FLeftPanel.Visible:= True;
+  FRightPanel.Visible:= True;
   GetScreenshot;
   GetBuildProp;
 end;
@@ -188,9 +188,8 @@ procedure TPageDevice.DoDeviceOffline;
 begin
   ShowNoDevice;
   LoadScreenshot('');
-  FMyDevice.Visible := False;
-  FBtnRefresh.Visible := False;
-  FBuildPropList.Visible := False;
+  FLeftPanel.Visible := False;
+  FRightPanel.Visible := False;
 end;
 
 procedure TPageDevice.ThreadNotify(NotifyId: integer; AMap: TStringList);

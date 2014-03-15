@@ -6,6 +6,7 @@ gen/
 *.apk
 x86_64-linux/
 i386-linux/
+i386-win32/
 *.so
 obj/
 local.properties
@@ -29,3 +30,6 @@ core
 expect.sh
 *.~p*
 tmp/
+*.exe
+*.dll
+
