@@ -177,6 +177,8 @@ public class MainActivity extends BaseMainActivity {
                 return Fragments.getFragment(FragmentNameConst.FN_REPLACE_FILE);
             case 26:
                 return Fragments.getFragment(FragmentNameConst.FN_BUILD_PROP);
+            case 27:
+                return Fragments.getFragment(FragmentNameConst.FN_COLOR_TEMP);
             default:
                 return Fragments.getFragment(FragmentNameConst.FN_ABOUT);
         }

@@ -99,6 +99,8 @@
     <string name="func_replace_files_with_path">掌优 &gt; 替换系统文件</string>
     <string name="func_build_prop">Build.Properties</string>
     <string name="func_build_prop_with_path">掌优 &gt; Build.Properties</string>
+    <string name="func_color_temp">屏幕色温</string>
+    <string name="func_color_temp_with_path">掌优 &gt; 屏幕色温</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="check_network_status">检查网络状况</string>
@@ -484,4 +486,15 @@
     <string name="build_prop_saving">正在保存，请稍候...</string>
     <string name="build_prop_saving_succ">保存 build.properties 成功</string>
     <string name="build_prop_saving_failed">保存文件失败</string>
+
+    <string name="color_value">色值</string>
+    <string name="color_alpha">透明度</string>
+    <string name="color_red">红色</string>
+    <string name="color_green">绿色</string>
+    <string name="color_blue">蓝色</string>
+    <string name="color_red_alpha">红透明</string>
+    <string name="color_green_alpha">绿透明</string>
+    <string name="color_blue_alpha">蓝透明</string>
+    <string name="color_one_key_profile">一键调整方案</string>
+    <string name="color_hint_install">启用本功能将使官方的软件安装器失效.</string>
 </resources>

@@ -55,6 +55,7 @@ public class Fragments {
     private static ReplaceFileFragment fReplaceFile = null;
     private static BuildPropFragment fBuildProp = null;
     private static BuildPropEditFragment fBuildPropEdit = null;
+    private static ColorTempFragment fColorTemp = null;
 
     public static Fragment getFragment(String name) {
 
@@ -304,6 +305,11 @@ public class Fragments {
                 fBuildPropEdit = new BuildPropEditFragment();
             }
             f = fBuildPropEdit;
+        } else if (name.equals(FragmentNameConst.FN_COLOR_TEMP)) {
+            if (fColorTemp == null) {
+                fColorTemp = new ColorTempFragment();
+            }
+            f = fColorTemp;
         }
 
         return f;
@@ -363,6 +369,7 @@ public class Fragments {
         fReplaceFile = null;
         fBuildProp = null;
         fBuildPropEdit = null;
+        fColorTemp = null;
     }
 
 }

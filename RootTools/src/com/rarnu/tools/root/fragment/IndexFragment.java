@@ -1,6 +1,7 @@
 package com.rarnu.tools.root.fragment;
 
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.*;
 import android.os.Bundle;
 import android.preference.Preference;
@@ -32,7 +33,7 @@ public class IndexFragment extends BasePreferenceFragment implements
     PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik, prefDiskInfo, prefFileSystem;
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
     PreferenceEx prefFeedback, prefRecommand, prefAbout;
-    PreferenceEx prefTerminal, prefPassword;
+    PreferenceEx prefTerminal, prefPassword, prefColorTemp;
     PreferenceEx prefSettings, prefGoogle;
     IntentFilter filterRefreshTag = new IntentFilter(Actions.ACTION_REFRESH_TAG);
     RefreshTagReceiver receiverRefreshTag = new RefreshTagReceiver();
@@ -215,6 +216,9 @@ public class IndexFragment extends BasePreferenceFragment implements
         } else if (preference.getKey().equals(getString(R.string.id_password))) {
             UIInstance.currentFragment = 24;
             FragmentStarter.showContent(getActivity(), PasswordMgrActivity.class, Fragments.getFragment(FragmentNameConst.FN_PASSWORD_MANAGER));
+        } else if (preference.getKey().equals(getString(R.string.id_color_temp))) {
+            UIInstance.currentFragment = 27;
+            FragmentStarter.showContent(getActivity(), ColorTempActivity.class, Fragments.getFragment(FragmentNameConst.FN_COLOR_TEMP));
         }
 
         // settings
@@ -273,6 +277,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefSettings = (PreferenceEx) findPreference(getString(R.string.id_settings));
         prefTerminal = (PreferenceEx) findPreference(getString(R.string.id_terminal_emu));
         prefPassword = (PreferenceEx) findPreference(getString(R.string.id_password));
+        prefColorTemp = (PreferenceEx) findPreference(getString(R.string.id_color_temp));
     }
 
     @Override
@@ -309,6 +314,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefSettings.setOnPreferenceClickListener(this);
         prefTerminal.setOnPreferenceClickListener(this);
         prefPassword.setOnPreferenceClickListener(this);
+        prefColorTemp.setOnPreferenceClickListener(this);
     }
 
     @Override

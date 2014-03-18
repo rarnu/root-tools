@@ -99,6 +99,8 @@
     <string name="func_replace_files_with_path">RootTools &gt; Replace Files</string>
     <string name="func_build_prop">Build.Properties</string>
     <string name="func_build_prop_with_path">RootTools &gt; Build.Properties</string>
+    <string name="func_color_temp">Color Temperature</string>
+    <string name="func_color_temp_with_path">RootTools &gt; Color Temperature</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>
@@ -517,4 +519,17 @@
     <string name="build_prop_saving">Saving, please wait...</string>
     <string name="build_prop_saving_succ">Build.properties saved.</string>
     <string name="build_prop_saving_failed">Fail to save file.</string>
+
+    <string name="color_value">Color</string>
+    <string name="color_alpha">Alpha</string>
+    <string name="color_red">Red</string>
+    <string name="color_green">Green</string>
+    <string name="color_blue">Blue</string>
+    <string name="color_red_alpha">AlphaR</string>
+    <string name="color_green_alpha">AlphaG</string>
+    <string name="color_blue_alpha">AlphaB</string>
+    <string name="color_one_key_profile">Onekey Profile</string>
+    <string name="color_hint_install">Enable this option will disable the official installer.</string>
+
+
 </resources>
