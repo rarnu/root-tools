@@ -33,15 +33,18 @@
         <LaunchingApplication PathPlusParams="/usr/bin/xterm -T 'Lazarus Run Output' -e $(LazarusDir)/tools/runwait.sh $(TargetCmdLine)"/>
       </local>
     </RunParams>
-    <RequiredPackages Count="2">
+    <RequiredPackages Count="3">
       <Item1>
-        <PackageName Value="vgscene"/>
+        <PackageName Value="lnetbase"/>
       </Item1>
       <Item2>
-        <PackageName Value="LCL"/>
+        <PackageName Value="vgscene"/>
       </Item2>
+      <Item3>
+        <PackageName Value="LCL"/>
+      </Item3>
     </RequiredPackages>
-    <Units Count="16">
+    <Units Count="29">
       <Unit0>
         <Filename Value="client.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -63,7 +66,9 @@
       <Unit3>
         <Filename Value="forms/frm_main.pas"/>
         <IsPartOfProject Value="True"/>
+        <ComponentName Value="FormMain"/>
         <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_main"/>
       </Unit3>
       <Unit4>
@@ -77,9 +82,9 @@
         <UnitName Value="platform_mapping"/>
       </Unit5>
       <Unit6>
-        <Filename Value="pages/page_main.pas"/>
+        <Filename Value="pages/page_device.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="page_main"/>
+        <UnitName Value="page_device"/>
       </Unit6>
       <Unit7>
         <Filename Value="item/item_main.pas"/>
@@ -87,9 +92,9 @@
         <UnitName Value="item_main"/>
       </Unit7>
       <Unit8>
-        <Filename Value="pages/page_blank.pas"/>
+        <Filename Value="pages/page_about.pas"/>
         <IsPartOfProject Value="True"/>
-        <UnitName Value="page_blank"/>
+        <UnitName Value="page_about"/>
       </Unit8>
       <Unit9>
         <Filename Value="util/unt_command.pas"/>
@@ -131,6 +136,71 @@
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="frm_blank"/>
       </Unit15>
+      <Unit16>
+        <Filename Value="base/basepage.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="basepage"/>
+      </Unit16>
+      <Unit17>
+        <Filename Value="util/unt_android.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="unt_android"/>
+      </Unit17>
+      <Unit18>
+        <Filename Value="thread/th_android.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="th_android"/>
+      </Unit18>
+      <Unit19>
+        <Filename Value="intf/intf_notify.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="intf_notify"/>
+      </Unit19>
+      <Unit20>
+        <Filename Value="intf/intf_paint.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="intf_paint"/>
+      </Unit20>
+      <Unit21>
+        <Filename Value="item/item_device_build_prop.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="item_device_build_prop"/>
+      </Unit21>
+      <Unit22>
+        <Filename Value="pages/page_root_tools.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="page_root_tools"/>
+      </Unit22>
+      <Unit23>
+        <Filename Value="thread/th_network.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="th_network"/>
+      </Unit23>
+      <Unit24>
+        <Filename Value="base/basenetwork.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="basenetwork"/>
+      </Unit24>
+      <Unit25>
+        <Filename Value="util/unt_json.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="unt_json"/>
+      </Unit25>
+      <Unit26>
+        <Filename Value="item/item_update_log.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="item_update_log"/>
+      </Unit26>
+      <Unit27>
+        <Filename Value="util/unt_download.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="unt_download"/>
+      </Unit27>
+      <Unit28>
+        <Filename Value="forms/pop_env.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="pop_env"/>
+      </Unit28>
     </Units>
   </ProjectOptions>
   <CompilerOptions>
@@ -140,18 +210,10 @@
     </Target>
     <SearchPaths>
       <IncludeFiles Value="$(ProjOutDir)"/>
-      <OtherUnitFiles Value="base;forms;res;pages;item;util;thread"/>
+      <OtherUnitFiles Value="base;forms;res;pages;item;util;thread;intf"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <Optimizations>
-        <OptimizationLevel Value="0"/>
-      </Optimizations>
-    </CodeGeneration>
     <Linking>
-      <Debugging>
-        <GenerateDebugInfo Value="False"/>
-      </Debugging>
       <Options>
         <Win32>
           <GraphicApplication Value="True"/>
@@ -167,7 +229,7 @@
     </Other>
   </CompilerOptions>
   <Debugging>
-    <Exceptions Count="4">
+    <Exceptions Count="5">
       <Item1>
         <Name Value="EAbort"/>
       </Item1>
@@ -180,6 +242,9 @@
       <Item4>
         <Name Value="EAccessViolation"/>
       </Item4>
+      <Item5>
+        <Name Value="EProcess"/>
+      </Item5>
     </Exceptions>
   </Debugging>
 </CONFIG>

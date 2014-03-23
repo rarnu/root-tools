@@ -38,7 +38,8 @@
             <div class="nav-collapse collapse">
               <ul class="nav">
 		        <li><a href="info_page.php">软件介绍</a></li>
-                <li><a href="info_download.php">下载</a></li>
+                <li><a href="info_download.php">Android 端下载</a></li>
+                <li><a href="info_client.php">PC 端下载</a></li>
                 <li><a href="info_source.php">源代码</a></li>
                 <li><a href="info_team.php">开发团队</a></li>
                 <li><a href="info_donate.php">联系与捐助</a></li>

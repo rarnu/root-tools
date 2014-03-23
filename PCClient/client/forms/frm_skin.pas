@@ -81,6 +81,9 @@ end;
 
 procedure TFormSkin.InitForm;
 begin
+  Width := 300;
+  Height := {$IFDEF WINDOWS}190{$ELSE}160{$ENDIF};
+
   Window.Fill.SolidColor := vgStrToColor(Config.SkinColor);
 
   // alpha

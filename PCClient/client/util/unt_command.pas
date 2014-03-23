@@ -18,20 +18,22 @@ procedure ExecuteCommandP(cmd, path: string);
 var
   AProcess: TProcess;
 begin
+  {$IFNDEF WINDOWS}
   WriteLn(cmd);
+  {$ENDIF}
   AProcess := TProcess.Create(nil);
   AProcess.CurrentDirectory := path;
   AProcess.CommandLine := cmd;
   AProcess.Options := AProcess.Options + [poWaitOnExit, poUsePipes];
-  AProcess.ShowWindow := swoNone;
+  AProcess.ShowWindow := {$IFDEF WINDOWS} swoHIDE {$ELSE} swoNone {$ENDIF};
   try
     AProcess.Execute;
   except
     on Ex: Exception do
     begin
-      WriteLn('');
+      {$IFNDEF WINDOWS}
       WriteLn('Error: ' + Ex.Message);
-      WriteLn('');
+      {$ENDIF}
     end;
   end;
   AProcess.Free;
@@ -41,22 +43,24 @@ function ExecuteCommandF(cmd, path: string): TStringList;
 var
   AProcess: TProcess;
 begin
+  {$IFNDEF WINDOWS}
   WriteLn(cmd);
+  {$ENDIF}
   AProcess := TProcess.Create(nil);
   Result := TStringList.Create;
   AProcess.CurrentDirectory := path;
   AProcess.CommandLine := cmd;
   AProcess.Options := AProcess.Options + [poWaitOnExit, poUsePipes];
-  AProcess.ShowWindow := swoNone;
+  AProcess.ShowWindow := {$IFDEF WINDOWS} swoHIDE {$ELSE} swoNone {$ENDIF};
   try
     AProcess.Execute;
     Result.LoadFromStream(AProcess.Output);
   except
     on Ex: Exception do
     begin
-      WriteLn('');
+      {$IFNDEF WINDOWS}
       WriteLn('Error: ' + Ex.Message);
-      WriteLn('');
+      {$ENDIF}
     end;
   end;
   AProcess.Free;
@@ -66,7 +70,9 @@ procedure ExecuteCommandT(cmd, path: string);
 var
   AProcess: TProcess;
 begin
+  {$IFNDEF WINDOWS}
   WriteLn(cmd);
+  {$ENDIF}
   AProcess := TProcess.Create(nil);
   AProcess.CurrentDirectory := path;
   AProcess.CommandLine := cmd;
@@ -77,9 +83,9 @@ begin
   except
     on Ex: Exception do
     begin
-      WriteLn('');
+      {$IFNDEF WINDOWS}
       WriteLn('Error: ' + Ex.Message);
-      WriteLn('');
+      {$ENDIF}
     end;
   end;
   AProcess.Free;
@@ -89,7 +95,9 @@ procedure ExecuteCommandH(cmd, path: string);
 var
   AProcess: TProcess;
 begin
+  {$IFNDEF WINDOWS}
   WriteLn(cmd);
+  {$ENDIF}
   AProcess := TProcess.Create(nil);
   AProcess.CurrentDirectory := path;
   AProcess.CommandLine := cmd;
@@ -100,9 +108,9 @@ begin
   except
     on Ex: Exception do
     begin
-      WriteLn('');
+      {$IFNDEF WINDOWS}
       WriteLn('Error: ' + Ex.Message);
-      WriteLn('');
+      {$ENDIF}
     end;
   end;
   AProcess.Free;

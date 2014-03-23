@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+            android:id="@+id/laySeek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="8dip">
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+            <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/color_red"
+                    android:gravity="center"
+                    android:layout_marginRight="4dip"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            <SeekBar
+                    android:id="@+id/sbRV"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:max="255"
+                    />
+
+            <TextView
+                    android:id="@+id/tvRV"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dip">
+
+            <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/color_red_alpha"
+                    android:gravity="center"
+                    android:layout_marginRight="4dip"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            <SeekBar
+                    android:id="@+id/sbRA"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:max="255"
+                    />
+
+            <TextView
+                    android:id="@+id/tvRA"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dip">
+
+            <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/color_green"
+                    android:gravity="center"
+                    android:layout_marginRight="4dip"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            <SeekBar
+                    android:id="@+id/sbGV"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:max="255"
+                    />
+
+            <TextView
+                    android:id="@+id/tvGV"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dip">
+
+            <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/color_green_alpha"
+                    android:gravity="center"
+                    android:layout_marginRight="4dip"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            <SeekBar
+                    android:id="@+id/sbGA"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:max="255"
+                    />
+
+            <TextView
+                    android:id="@+id/tvGA"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dip">
+
+            <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/color_blue"
+                    android:gravity="center"
+                    android:layout_marginRight="4dip"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            <SeekBar
+                    android:id="@+id/sbBV"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:max="255"
+                    />
+
+            <TextView
+                    android:id="@+id/tvBV"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    />
+        </LinearLayout>
+
+        <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="8dip">
+
+            <TextView
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="2"
+                    android:text="@string/color_blue_alpha"
+                    android:gravity="center"
+                    android:layout_marginRight="4dip"
+                    android:layout_gravity="center_vertical"
+                    />
+
+            <SeekBar
+                    android:id="@+id/sbBA"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="7"
+                    android:max="255"
+                    />
+
+            <TextView
+                    android:id="@+id/tvBA"
+                    android:layout_width="0dip"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:layout_gravity="center_vertical"
+                    />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <Button
+            android:id="@+id/btnOneKeyOpt"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/color_one_key_profile"
+            android:layout_above="@+id/progressCT"
+            android:layout_margin="8dip"
+            style="?android:attr/buttonBarButtonStyle" />
+
+    <com.rarnu.devlib.component.DataProgressBar
+            android:id="@+id/progressCT"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true"
+            android:visibility="visible" />
+
+</RelativeLayout>

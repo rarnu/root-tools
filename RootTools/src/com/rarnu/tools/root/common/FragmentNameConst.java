@@ -52,4 +52,5 @@ public class FragmentNameConst {
     public static final String FN_REPLACE_FILE = "replacefile";
     public static final String FN_BUILD_PROP = "buildprop";
     public static final String FN_BUILD_PROP_EDIT = "buildpropedit";
+    public static final String FN_COLOR_TEMP = "colortemp";
 }

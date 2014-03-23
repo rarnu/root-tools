@@ -100,6 +100,10 @@
                 android:key="@string/id_password"
                 android:title="@string/func_password" />
         <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_color_temp"
+                android:title="@string/func_color_temp"
+                />
+        <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_scanmedia"
                 android:summary="@string/summary_scanmedia"
                 android:title="@string/scan_media" />

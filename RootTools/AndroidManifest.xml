@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="566"
-        android:versionName="6.5.2">
+        android:versionCode="612"
+        android:versionName="6.6.2">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -301,6 +301,11 @@
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
+                android:name=".fragmentactivity.ColorTempActivity"
+                android:label="@string/func_color_temp"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
                 android:name="com.tencent.tauth.AuthActivity"
                 android:noHistory="true"
                 android:launchMode="singleTask">
@@ -355,6 +360,10 @@
                 android:name=".service.WidgetKeepService"
                 android:label="@string/app_name">
         </service>
+        <service
+                android:name=".service.ScreenService"
+                android:label="@string/app_name">
+        </service>
 
         <receiver
                 android:name="com.rarnu.devlib.component.NetworkReceiver"
@@ -372,6 +381,13 @@
         </receiver>
         <receiver
                 android:name=".receiver.BootReceiver"
+                android:label="@string/app_name">
+            <intent-filter>
+                <action android:name="android.intent.action.BOOT_COMPLETED" />
+            </intent-filter>
+        </receiver>
+        <receiver
+                android:name=".receiver.ScreenReceiver"
                 android:label="@string/app_name">
             <intent-filter>
                 <action android:name="android.intent.action.BOOT_COMPLETED" />

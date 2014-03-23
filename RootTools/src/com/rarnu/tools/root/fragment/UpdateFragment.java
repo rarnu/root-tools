@@ -1,5 +1,6 @@
 package com.rarnu.tools.root.fragment;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -15,6 +16,7 @@ import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.MobileApi;
+import com.rarnu.tools.root.service.ScreenService;
 import com.rarnu.tools.root.utils.ApkUtils;
 import com.rarnu.tools.root.utils.DirHelper;
 import com.rarnu.utils.DownloadUtils;
@@ -31,6 +33,34 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
     Button btnDownload;
     TextView tvCannotUpdate;
     boolean isDownloading = false;
+    private Handler hProgress = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (getActivity() != null) {
+                switch (msg.what) {
+                    case DownloadUtils.WHAT_DOWNLOAD_START:
+
+                        pbDownload.setMax(msg.arg2);
+                        pbDownload.setProgress(0);
+                        tvDownload.setText(getString(R.string.toast_downloading, 0));
+                        pbDownload.setVisibility(View.VISIBLE);
+                        tvDownload.setVisibility(View.VISIBLE);
+                        break;
+                    case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
+                        pbDownload.setProgress(msg.arg1);
+                        tvDownload.setText(getString(R.string.toast_downloading, (int) (msg.arg1 * 1D / msg.arg2 * 100)));
+                        break;
+                    case DownloadUtils.WHAT_DOWNLOAD_FINISH:
+                        isDownloading = false;
+                        pbDownload.setProgress(pbDownload.getMax());
+                        tvDownload.setText("");
+                        installUpdateT();
+                        break;
+                }
+            }
+            super.handleMessage(msg);
+        }
+    };
     BreakableThread thDownload = null;
 
     @Override
@@ -118,35 +148,6 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
         }
     }
 
-    private Handler hProgress = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (getActivity() != null) {
-                switch (msg.what) {
-                    case DownloadUtils.WHAT_DOWNLOAD_START:
-
-                        pbDownload.setMax(msg.arg2);
-                        pbDownload.setProgress(0);
-                        tvDownload.setText(getString(R.string.toast_downloading, 0));
-                        pbDownload.setVisibility(View.VISIBLE);
-                        tvDownload.setVisibility(View.VISIBLE);
-                        break;
-                    case DownloadUtils.WHAT_DOWNLOAD_PROGRESS:
-                        pbDownload.setProgress(msg.arg1);
-                        tvDownload.setText(getString(R.string.toast_downloading, (int) (msg.arg1 * 1D / msg.arg2 * 100)));
-                        break;
-                    case DownloadUtils.WHAT_DOWNLOAD_FINISH:
-                        isDownloading = false;
-                        pbDownload.setProgress(pbDownload.getMax());
-                        tvDownload.setText("");
-                        installUpdateT();
-                        break;
-                }
-            }
-            super.handleMessage(msg);
-        }
-    };
-
     private void doDownloadT() {
         // download update
         isDownloading = true;
@@ -174,6 +175,7 @@ public class UpdateFragment extends BaseFragment implements View.OnClickListener
             return;
         }
         btnDownload.setEnabled(true);
+        getActivity().stopService(new Intent(getActivity().getBaseContext(), ScreenService.class));
         ApkUtils.openInstallApk(getActivity(), localFile);
 
     }

@@ -19,4 +19,5 @@ public class Actions {
     public static final String ACTION_WIDGET_CLEAN_FINISH = "com.rarnu.root.tools.widget.clean.finish";
 
     public static final String ACTION_REFRESH_TAG = "com.rarnu.root.tools.tags.refresh";
+    public static final String ACTION_SHUTDOWN_SCREEN_COLOR = "com.rarnu.root.tools.screen.shutdown";
 }

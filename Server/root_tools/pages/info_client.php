@@ -1,8 +1,13 @@
+<?php
+include('navbar.php');
+include "../../database/database.php";
+?>
 <html>
 
 <head>
 <meta http-equiv="Content-Language" content="en-us">
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<title>RootTools</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content>
 <meta name="author" content>
@@ -24,12 +29,16 @@
 <body>
  <div class="container">
       <!-- Main hero unit for a primary marketing message or call to action -->
-    <div class="alert">
-        <table border="0" width="100%">
-        <tr><td width="100%" style="text-align:right;">Copyright 2014</td></tr>
-        </table>
+      <div class="hero-unit">
+		<h3>下载掌优 PC 端</h3>
+
     </div>
+ </div>
 
 </body>
 
 </html>
+
+<?php
+include "bottombar.php";
+?>

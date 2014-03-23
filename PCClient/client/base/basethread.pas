@@ -5,7 +5,7 @@ unit basethread;
 interface
 
 uses
-  Classes, SysUtils, baseform;
+  Classes, SysUtils, intf_notify;
 
 type
 
@@ -16,11 +16,11 @@ type
 
   protected
     FNotifyId: Integer;
-    FBase: TFormBase;
+    FNotify: INotifyable;
     function MakeNotifyMap: TStringList; virtual; abstract;
     procedure ThreadTerminated(Sender: TObject);
   public
-    constructor Create(ANotifyId: Integer; ABase: TFormBase);
+    constructor Create(ANotifyId: Integer; ANotify: INotifyable); virtual;
 
   end;
 
@@ -30,13 +30,13 @@ implementation
 
 procedure TThreadBase.ThreadTerminated(Sender: TObject);
 begin
-  FBase.ThreadNotify(FNotifyId, MakeNotifyMap);
+  FNotify.ThreadNotify(FNotifyId, MakeNotifyMap);
 end;
 
-constructor TThreadBase.Create(ANotifyId: Integer; ABase: TFormBase);
+constructor TThreadBase.Create(ANotifyId: Integer; ANotify: INotifyable);
 begin
   Inherited Create(true);
-  FBase := ABase;
+  FNotify := ANotify;
   FNotifyId := ANotifyId;
   FreeOnTerminate:=True;
   OnTerminate:= @ThreadTerminated;

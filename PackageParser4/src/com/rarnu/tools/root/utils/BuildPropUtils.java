@@ -1,5 +1,7 @@
 package com.rarnu.tools.root.utils;
 
+import com.rarnu.command.CommandResult;
+import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.common.BuildPropInfo;
 
 import java.util.ArrayList;
@@ -29,8 +31,23 @@ public class BuildPropUtils {
         return list;
     }
 
-    public static void setBuildProp(List<BuildPropInfo> list) {
-        // TODO: writeback tyo build.prop
+    public static boolean setBuildProp(List<BuildPropInfo> list) {
+        boolean ret = false;
+        String str = "";
+        for (BuildPropInfo item : list) {
+            str += String.format("%s=%s\n", item.buildName, item.buildValue);
+        }
+        try {
+            FileUtils.rewriteFile(DirHelper.TEMP_DIR + "tmp.prop", str);
+            CommandResult result = RootUtils.runCommand(String.format("busybox cp %stmp.prop %s", DirHelper.TEMP_DIR, PATH_BUILD_PROP), true);
+            if (result != null && result.error.equals("")) {
+                RootUtils.runCommand(String.format("chmod 644 %s", PATH_BUILD_PROP), true);
+                ret = true;
+            }
+        } catch (Exception e) {
 
+        }
+
+        return ret;
     }
 }

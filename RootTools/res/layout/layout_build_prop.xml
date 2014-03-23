@@ -18,8 +18,17 @@
             android:layout_height="match_parent"
             android:fastScrollEnabled="true"
             android:layout_below="@+id/sv"
+            android:layout_above="@+id/progressBuild"
             >
 
     </ListView>
+
+    <com.rarnu.devlib.component.DataProgressBar
+            android:id="@+id/progressBuild"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true"
+            android:visibility="gone"
+            />
 
 </RelativeLayout>

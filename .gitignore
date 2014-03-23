@@ -6,6 +6,7 @@ gen/
 *.apk
 x86_64-linux/
 i386-linux/
+i386-win32/
 *.so
 obj/
 local.properties
@@ -28,3 +29,7 @@ roottools_client.ini
 core
 expect.sh
 *.~p*
+tmp/
+*.exe
+*.dll
+
