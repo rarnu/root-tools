@@ -103,7 +103,6 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
 
     public UpdateFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_menu_right_upfate);
     }
 
     @Override

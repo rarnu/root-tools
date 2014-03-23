@@ -56,7 +56,6 @@ public class DeckFragment extends BaseFragment implements AdapterView.OnItemClic
 
     public DeckFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_main_deck);
     }
 
     @Override

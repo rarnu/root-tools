@@ -21,7 +21,6 @@ public class SelectLoginFragment extends BaseFragment implements
 
 	public SelectLoginFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_select_login_fragment);
 	}
 
 	@Override

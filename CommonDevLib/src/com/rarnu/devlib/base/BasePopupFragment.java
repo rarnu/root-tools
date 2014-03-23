@@ -8,8 +8,8 @@ public abstract class BasePopupFragment extends InnerFragment {
         super();
     }
 
-    public BasePopupFragment(String tagText, String tabTitle) {
-        super(tagText, tabTitle);
+    public BasePopupFragment(String tabTitle) {
+        super(tabTitle);
     }
 
 }

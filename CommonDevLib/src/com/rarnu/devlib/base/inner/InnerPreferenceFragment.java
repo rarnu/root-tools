@@ -9,7 +9,6 @@ import com.rarnu.devlib.common.UIInstance;
 
 public abstract class InnerPreferenceFragment extends PreferenceFragment implements InnerIntf {
 
-    protected String tagText;
     protected String tabTitle;
     protected Bundle innerBundle = null;
 
@@ -17,15 +16,9 @@ public abstract class InnerPreferenceFragment extends PreferenceFragment impleme
         super();
     }
 
-    public InnerPreferenceFragment(String tagText, String tabTitle) {
+    public InnerPreferenceFragment(String tabTitle) {
         super();
-        this.tagText = tagText;
         this.tabTitle = tabTitle;
-    }
-
-    @Override
-    public String getTagText() {
-        return tagText;
     }
 
     public String getTabTitle() {

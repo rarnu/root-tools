@@ -152,7 +152,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
             currentPage = page;
             Fragment f = getCurrentFragment(currentPage);
             if (!f.isAdded()) {
-                getFragmentManager().beginTransaction().replace(R.id.fReplacement, f, ((InnerFragment) f).getTagText()).commit();
+                getFragmentManager().beginTransaction().replace(R.id.fReplacement, f).commit();
             }
             getActionBar().setTitle(getString(((InnerFragment) f).getBarTitle()));
         }

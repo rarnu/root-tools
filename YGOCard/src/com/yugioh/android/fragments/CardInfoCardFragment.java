@@ -17,7 +17,6 @@ public class CardInfoCardFragment extends BaseFragment {
 
     public CardInfoCardFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_card_info);
         tabTitle = ResourceUtils.getString(R.string.page_cardinfo);
     }
 

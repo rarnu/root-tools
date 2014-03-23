@@ -10,7 +10,7 @@ public abstract class BaseFragment extends InnerFragment {
     }
 
     public BaseFragment(String tagText, String tabTitle) {
-        super(tagText, tabTitle);
+        super(tabTitle);
     }
 
 }

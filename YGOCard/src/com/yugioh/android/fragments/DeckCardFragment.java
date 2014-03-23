@@ -23,7 +23,6 @@ public class DeckCardFragment extends BaseFragment implements Loader.OnLoadCompl
 
     public DeckCardFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_deck_cards);
     }
 
     @Override

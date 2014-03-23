@@ -23,7 +23,6 @@ public class FavFragment extends BaseFragment implements Loader.OnLoadCompleteLi
 
     public FavFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_main_myfav);
     }
 
     @Override

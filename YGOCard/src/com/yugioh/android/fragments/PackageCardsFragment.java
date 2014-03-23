@@ -47,7 +47,6 @@ public class PackageCardsFragment extends BaseFragment implements Loader.OnLoadC
 
     public PackageCardsFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_package_cards);
         tabTitle = ResourceUtils.getString(R.string.package_cards);
     }
 

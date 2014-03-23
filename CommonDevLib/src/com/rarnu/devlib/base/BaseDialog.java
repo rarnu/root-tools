@@ -22,7 +22,7 @@ public abstract class BaseDialog extends Activity {
 
     public void replace() {
         Fragment bf = replaceFragment();
-        getFragmentManager().beginTransaction().replace(android.R.id.content, bf, ((InnerIntf) bf).getTagText()).commit();
+        getFragmentManager().beginTransaction().replace(android.R.id.content, bf).commit();
     }
 
     public abstract boolean getCondition();

@@ -321,12 +321,6 @@ public class ArticleFragment extends BaseFragment implements
 		switch (touchPos) {
 		case 0:
 			if (blockHasLeftBlock(item.Id)) {
-				// Bundle bn = new Bundle();
-				// bn.putSerializable("item", item);
-				// ((BaseFragment) getFragmentManager().findFragmentByTag(
-				// getString(R.tag.tag_origin_post_fragment)))
-				// .setNewArguments(bn);
-				// ((BaseSlidingActivity) getActivity()).showMenu();
 				getActivity().finish();
 			}
 			break;

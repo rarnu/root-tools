@@ -4,22 +4,19 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.os.Parcelable;
+import android.support.v13.app.FragmentCompat;
 import android.support.v4.view.PagerAdapter;
 import android.view.View;
 import android.view.ViewGroup;
-
-import java.util.List;
 
 public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     private final FragmentManager mFragmentManager;
     private FragmentTransaction mCurTransaction = null;
     private Fragment mCurrentPrimaryItem = null;
-    private List<String> mListTags = null;
 
-    public FragmentPagerAdapter(FragmentManager fm, List<String> tags) {
+    public FragmentPagerAdapter(FragmentManager fm) {
         mFragmentManager = fm;
-        this.mListTags = tags;
     }
 
     public abstract Fragment getItem(int position);
@@ -33,17 +30,21 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
-        String name = mListTags.get(position);
+
+        final long itemId = getItemId(position);
+
+        String name = makeFragmentName(container.getId(), itemId);
         Fragment fragment = mFragmentManager.findFragmentByTag(name);
         if (fragment != null) {
             mCurTransaction.attach(fragment);
         } else {
             fragment = getItem(position);
-            mCurTransaction.add(container.getId(), fragment, name);
+            mCurTransaction.add(container.getId(), fragment,
+                    makeFragmentName(container.getId(), itemId));
         }
         if (fragment != mCurrentPrimaryItem) {
-            fragment.setMenuVisibility(false);
-            fragment.setUserVisibleHint(false);
+            FragmentCompat.setMenuVisibility(fragment, false);
+            FragmentCompat.setUserVisibleHint(fragment, false);
         }
 
         return fragment;
@@ -54,7 +55,6 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         if (mCurTransaction == null) {
             mCurTransaction = mFragmentManager.beginTransaction();
         }
-
         mCurTransaction.detach((Fragment) object);
     }
 
@@ -63,12 +63,12 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
         Fragment fragment = (Fragment) object;
         if (fragment != mCurrentPrimaryItem) {
             if (mCurrentPrimaryItem != null) {
-                mCurrentPrimaryItem.setMenuVisibility(false);
-                mCurrentPrimaryItem.setUserVisibleHint(false);
+                FragmentCompat.setMenuVisibility(mCurrentPrimaryItem, false);
+                FragmentCompat.setUserVisibleHint(mCurrentPrimaryItem, false);
             }
             if (fragment != null) {
-                fragment.setMenuVisibility(true);
-                fragment.setUserVisibleHint(true);
+                FragmentCompat.setMenuVisibility(fragment, true);
+                FragmentCompat.setUserVisibleHint(fragment, true);
             }
             mCurrentPrimaryItem = fragment;
         }
@@ -103,5 +103,9 @@ public abstract class FragmentPagerAdapter extends PagerAdapter {
 
     public long getItemId(int position) {
         return position;
+    }
+
+    private static String makeFragmentName(int viewId, long id) {
+        return "android:switcher:" + viewId + ":" + id;
     }
 }

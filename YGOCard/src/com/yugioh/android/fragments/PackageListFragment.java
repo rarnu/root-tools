@@ -61,7 +61,6 @@ public class PackageListFragment extends BaseFragment implements AdapterView.OnI
 
     public PackageListFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_package_list);
         tabTitle = ResourceUtils.getString(R.string.package_list);
     }
 

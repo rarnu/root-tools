@@ -25,10 +25,15 @@ public class SearchResultFragment extends BaseFragment implements OnItemClickLis
     TextView tvListNoCard;
     SearchLoader loaderSearch;
 
+    BaseTabFragment parentFragment = null;
+
     public SearchResultFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_main_result);
         tabTitle = ResourceUtils.getString(R.string.page_list);
+    }
+
+    public void registerParent(BaseTabFragment intf) {
+        this.parentFragment = intf;
     }
 
     @Override
@@ -79,7 +84,7 @@ public class SearchResultFragment extends BaseFragment implements OnItemClickLis
         if (Build.VERSION.SDK_INT >= 17) {
             btf = (BaseTabFragment) getParentFragment();
         } else {
-            btf = (BaseTabFragment) getFragmentManager().findFragmentByTag(getString(R.string.tag_main));
+            btf = parentFragment;
         }
         if (btf != null) {
             btf.setTabPosition(1);

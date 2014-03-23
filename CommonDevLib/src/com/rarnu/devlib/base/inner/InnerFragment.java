@@ -11,22 +11,15 @@ public abstract class InnerFragment extends Fragment implements OnGlobalLayoutLi
 
     protected View innerView = null;
     protected Bundle innerBundle = null;
-    protected String tagText;
     protected String tabTitle;
 
     public InnerFragment() {
         super();
     }
 
-    public InnerFragment(String tagText, String tabTitle) {
+    public InnerFragment(String tabTitle) {
         super();
-        this.tagText = tagText;
         this.tabTitle = tabTitle;
-    }
-
-    @Override
-    public String getTagText() {
-        return tagText;
     }
 
     public String getTabTitle() {

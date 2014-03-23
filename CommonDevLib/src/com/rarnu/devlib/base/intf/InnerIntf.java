@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.view.Menu;
 
 public interface InnerIntf {
-    String getTagText();
 
     int getBarTitle();
 

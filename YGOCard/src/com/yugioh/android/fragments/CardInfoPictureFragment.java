@@ -49,7 +49,6 @@ public class CardInfoPictureFragment extends BaseFragment implements OnClickList
 
     public CardInfoPictureFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_card_pic);
         tabTitle = ResourceUtils.getString(R.string.page_picture);
     }
 

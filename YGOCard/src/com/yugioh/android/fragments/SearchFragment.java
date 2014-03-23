@@ -16,6 +16,7 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.inner.InnerFragment;
+import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.AutoNameActivity;
 import com.yugioh.android.R;
@@ -30,10 +31,15 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
     Spinner spCardEffect, spCardRace, spCardBelongs, spCardType, spCardAttribute, spCardLevel, spCardRare, spCardLimit, spCardTunner;
     EditText etCardName, etCardAttack, etCardDefense, etEffectText;
 
+    private  BaseFragment searchResultFragment = null;
+
     public SearchFragment() {
         super();
         tabTitle = ResourceUtils.getString(R.string.page_search);
-        tagText = ResourceUtils.getString(R.string.tag_main_search);
+    }
+
+    public void registerSearchResult(BaseFragment intf) {
+        this.searchResultFragment = intf;
     }
 
     @Override
@@ -234,8 +240,9 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
         bn.putInt("cardTunner", cardTunner);
         bn.putString("cardEffectText", cardEffectText);
 
-        InnerFragment bfSearchResult = (InnerFragment) getFragmentManager().findFragmentByTag(getString(R.string.tag_main_result));
-        bfSearchResult.setNewArguments(bn);
+        if (searchResultFragment != null) {
+            searchResultFragment.setNewArguments(bn);
+        }
     }
 
     private void doSearchReset() {

@@ -6,9 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BaseTabFragment;
-import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.common.MenuIds;
 
@@ -18,10 +16,22 @@ public class MainFragment extends BaseTabFragment {
 
     MenuItem itemSearch;
     MenuItem itemReset;
+    SearchFragment sf;
+    SearchResultFragment srf;
 
     public MainFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_main);
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        sf = new SearchFragment();
+        srf = new SearchResultFragment();
+        sf.registerSearchResult(srf);
+        if (Build.VERSION.SDK_INT < 17) {
+            srf.registerParent(this);
+        }
     }
 
     @Override
@@ -59,20 +69,19 @@ public class MainFragment extends BaseTabFragment {
             fm = getFragmentManager();
         }
         if (fm != null) {
-            BaseFragment fSearch = (BaseFragment) fm.findFragmentByTag(getString(R.string.tag_main_search));
 
             switch (item.getItemId()) {
                 case MenuIds.MENUID_SEARCH:
                     if (getCurrentPage() == 0) {
                         bn.putString("data", "search");
-                        fSearch.setNewArguments(bn);
+                        sf.setNewArguments(bn);
                     } else {
                         setTabPosition(0);
                     }
                     break;
                 case MenuIds.MENUID_RESET:
                     bn.putString("data", "reset");
-                    fSearch.setNewArguments(bn);
+                    sf.setNewArguments(bn);
                     if (getCurrentPage() != 0) {
                         setTabPosition(0);
                     }
@@ -94,8 +103,8 @@ public class MainFragment extends BaseTabFragment {
 
     @Override
     public void initFragmentList(List<Fragment> listFragment) {
-        listFragment.add(new SearchFragment());
-        listFragment.add(new SearchResultFragment());
+        listFragment.add(sf);
+        listFragment.add(srf);
     }
 
     @Override

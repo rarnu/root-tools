@@ -4,19 +4,26 @@ import android.app.AlertDialog;
 import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.DialogInterface.OnClickListener;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import android.view.MenuItem;
 import com.rarnu.devlib.base.BaseActivity;
 import com.rarnu.utils.DownloadUtils;
 import com.yugioh.android.fragments.UpdateFragment;
-import com.yugioh.android.intf.IDestroyCallback;
 import com.yugioh.android.intf.IUpdateIntf;
 
 public class UpdateActivity extends BaseActivity implements IUpdateIntf {
 
+    UpdateFragment uf = null;
     private boolean inProgress = false;
     private String localDir;
     private String localFile;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        uf = new UpdateFragment();
+    }
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
@@ -52,9 +59,8 @@ public class UpdateActivity extends BaseActivity implements IUpdateIntf {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
                         DownloadUtils.stopDownloadTask(localDir, localFile);
-                        ((IDestroyCallback) getFragmentManager().findFragmentByTag(getString(R.string.tag_menu_right_upfate))).doDestroyHandler();
+                        uf.doDestroyHandler();
                         finish();
-
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)
@@ -78,7 +84,7 @@ public class UpdateActivity extends BaseActivity implements IUpdateIntf {
 
     @Override
     public Fragment replaceFragment() {
-        return new UpdateFragment();
+        return uf;
     }
 
     @Override

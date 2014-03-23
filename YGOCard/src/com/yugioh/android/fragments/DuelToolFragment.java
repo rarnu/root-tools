@@ -32,7 +32,6 @@ public class DuelToolFragment extends BaseFragment implements OnClickListener {
 
     public DuelToolFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_main_dueltool);
     }
 
     @Override

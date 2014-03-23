@@ -10,20 +10,9 @@ import com.rarnu.devlib.base.intf.InnerIntf;
 public abstract class BaseDialogFragment extends Fragment implements InnerIntf {
 
     protected View innerView = null;
-    protected String tagText;
 
     public BaseDialogFragment() {
         super();
-    }
-
-    public BaseDialogFragment(String tagText) {
-        super();
-        this.tagText = tagText;
-    }
-
-    @Override
-    public String getTagText() {
-        return tagText;
     }
 
     @Override

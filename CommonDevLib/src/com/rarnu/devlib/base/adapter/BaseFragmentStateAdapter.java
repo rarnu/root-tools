@@ -5,11 +5,11 @@ import android.app.FragmentManager;
 
 import java.util.List;
 
-public class BaseFragmentAdapter extends FragmentPagerAdapter {
+public class BaseFragmentStateAdapter extends FragmentStatePagerAdapter {
 
     private List<Fragment> list;
 
-    public BaseFragmentAdapter(FragmentManager fragmentManager, List<Fragment> listFragment) {
+    public BaseFragmentStateAdapter(FragmentManager fragmentManager, List<Fragment> listFragment) {
         super(fragmentManager);
         this.list = listFragment;
     }

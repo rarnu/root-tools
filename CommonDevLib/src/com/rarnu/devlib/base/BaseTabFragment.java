@@ -10,7 +10,7 @@ import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.base.adapter.BaseFragmentAdapter;
+import com.rarnu.devlib.base.adapter.BaseFragmentStateAdapter;
 import com.rarnu.devlib.base.inner.InnerFragment;
 
 import java.lang.reflect.Field;
@@ -21,9 +21,8 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
 
     protected ActionBar bar;
     private ViewPager pager;
-    private BaseFragmentAdapter adapter;
+    private BaseFragmentStateAdapter adapter;
     private List<Fragment> listFragment;
-    private List<String> listTags;
     private int currentPage = 0;
     private boolean needRelease = true;
 
@@ -36,8 +35,8 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
         super();
     }
 
-    public BaseTabFragment(String tagText, String tabTitle) {
-        super(tagText, tabTitle);
+    public BaseTabFragment(String tabTitle) {
+        super(tabTitle);
     }
 
     @Override
@@ -47,7 +46,6 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
             bar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
             adapter = null;
             listFragment = null;
-            listTags = null;
             pager.post(new Runnable() {
 
                 @Override
@@ -69,11 +67,7 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
         pager = (ViewPager) innerView.findViewById(R.id.pager);
         pager.setOffscreenPageLimit(3);
         listFragment = new ArrayList<Fragment>();
-        listTags = new ArrayList<String>();
         initFragmentList(listFragment);
-        for (Fragment bf : listFragment) {
-            listTags.add(((BaseFragment) bf).getTagText());
-        }
 
         FragmentManager fm = null;
         if (Build.VERSION.SDK_INT >= 17) {
@@ -82,7 +76,7 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
             fm = getFragmentManager();
         }
         if (fm != null) {
-            adapter = new BaseFragmentAdapter(fm, listFragment, listTags);
+            adapter = new BaseFragmentStateAdapter(fm, listFragment);
             pager.post(new Runnable() {
 
                 @Override
@@ -100,11 +94,9 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
             Tab t = bar.newTab().setText(fragment.getTabTitle()).setTabListener(this);
             if (position == -1) {
                 listFragment.add(fragment);
-                listTags.add(fragment.getTagText());
                 bar.addTab(t);
             } else {
                 listFragment.add(position, fragment);
-                listTags.add(position, fragment.getTagText());
                 bar.addTab(t, position);
             }
 
@@ -115,7 +107,7 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
                 fm = getFragmentManager();
             }
             if (fm != null) {
-                adapter = new BaseFragmentAdapter(fm, listFragment, listTags);
+                adapter = new BaseFragmentStateAdapter(fm, listFragment);
                 pager.post(new Runnable() {
 
                     @Override
@@ -133,7 +125,6 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
     public void removeTab(int position) {
         int newPosition = position;
         listFragment.remove(position);
-        listTags.remove(position);
         bar.removeTabAt(position);
         newPosition--;
         if (newPosition < 0) {
@@ -147,7 +138,7 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
             fm = getFragmentManager();
         }
         if (fm != null) {
-            adapter = new BaseFragmentAdapter(fm, listFragment, listTags);
+            adapter = new BaseFragmentStateAdapter(fm, listFragment);
             pager.post(new Runnable() {
 
                 @Override

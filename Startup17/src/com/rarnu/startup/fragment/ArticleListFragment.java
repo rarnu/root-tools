@@ -31,11 +31,6 @@ public class ArticleListFragment extends BaseFragment implements AdapterView.OnI
     int pageSize = 20;
     boolean isEnd = false;
     private int type = 0;
-    private int[] tags = new int[]{
-            R.string.tag_0, R.string.tag_1, R.string.tag_2,
-            R.string.tag_3, R.string.tag_4, R.string.tag_5,
-            R.string.tag_6, R.string.tag_7, R.string.tag_8
-    };
     private int[] titles = new int[]{
             R.string.title_0, R.string.title_1, R.string.title_2,
             R.string.title_3, R.string.title_4, R.string.title_5,
@@ -113,7 +108,6 @@ public class ArticleListFragment extends BaseFragment implements AdapterView.OnI
     public void setType(int type) {
         this.type = type;
         categoryId = type;
-        tagText = ResourceUtils.getString(tags[type]);
         tabTitle = ResourceUtils.getString(titles[type]);
     }
 

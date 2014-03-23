@@ -9,7 +9,6 @@ import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import android.view.Window;
 import android.widget.RelativeLayout;
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.utils.DrawableUtils;
 import com.rarnu.utils.UIUtils;
 
@@ -50,7 +49,7 @@ public abstract class InnerActivity extends Activity implements
 
     public void replace() {
         Fragment bf = replaceFragment();
-        getFragmentManager().beginTransaction().replace(getReplaceId(), bf, ((InnerIntf) bf).getTagText()).commit();
+        getFragmentManager().beginTransaction().replace(getReplaceId(), bf).commit();
     }
 
     public abstract int getIcon();

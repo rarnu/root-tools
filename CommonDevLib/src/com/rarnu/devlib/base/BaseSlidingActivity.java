@@ -87,12 +87,12 @@ public abstract class BaseSlidingActivity extends InnerActivity implements ISlid
 
     public void replaceMenu() {
         Fragment bf = replaceMenuFragment();
-        getFragmentManager().beginTransaction().replace(R.id.menu, bf, ((InnerIntf) bf).getTagText()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.menu, bf).commit();
     }
 
     public void replaceSecondMenu() {
         Fragment bf = replaceSecondMenuFragment();
-        getFragmentManager().beginTransaction().replace(R.id.second_menu, bf, ((InnerIntf) bf).getTagText()).commit();
+        getFragmentManager().beginTransaction().replace(R.id.second_menu, bf).commit();
     }
 
     @Override

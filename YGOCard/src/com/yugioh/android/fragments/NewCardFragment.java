@@ -27,7 +27,6 @@ public class NewCardFragment extends BaseFragment implements OnItemClickListener
 
     public NewCardFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_main_newcard);
     }
 
     @Override

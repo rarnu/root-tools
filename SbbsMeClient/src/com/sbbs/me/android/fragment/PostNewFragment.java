@@ -42,7 +42,6 @@ public class PostNewFragment extends BaseFragment implements
 
 	public PostNewFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_postnew_fragment);
 	}
 
 	@Override

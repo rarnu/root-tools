@@ -53,7 +53,6 @@ public class RightMenuFragment extends BaseFragment implements OnItemClickListen
 
     public RightMenuFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_menu_right);
     }
 
     @Override

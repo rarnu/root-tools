@@ -25,7 +25,6 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
 
     public LeftMenuFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_menu_left);
     }
 
     @Override
