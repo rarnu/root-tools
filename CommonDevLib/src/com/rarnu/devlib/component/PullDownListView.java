@@ -68,6 +68,7 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
                     mHeaderArrowView.clearAnimation();
                     mHeaderArrowView.setVisibility(View.INVISIBLE);
                     mHeaderLoadingView.setVisibility(View.VISIBLE);
+                    mHeaderTextView.setText(getContext().getString(R.string.list_loading));
                     mOnPullDownListener.onRefresh();
                     return;
                 }
@@ -96,6 +97,14 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
         }
 
     };
+
+    public void setHeadText(String text) {
+        mHeaderTextView.setText(text);
+    }
+
+    public void setHeadText(int text) {
+        mHeaderTextView.setText(text);
+    }
 
     public PullDownListView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -221,13 +230,28 @@ public class PullDownListView extends LinearLayout implements OnScrollOverListen
         }
     }
 
+
+    public void removeFooterView() {
+        if (mListView.getFooterViewsCount() != 0) {
+            mListView.removeFooterView(mFooterView);
+            mListView.setAdapter(mListView.getAdapter());
+        }
+    }
+
     private boolean isFillScreenItem() {
         final int firstVisiblePosition = mListView.getFirstVisiblePosition();
         final int lastVisiblePostion = mListView.getLastVisiblePosition() - mListView.getFooterViewsCount();
         final int visibleItemCount = lastVisiblePostion - firstVisiblePosition + 1;
         final int totalItemCount = mListView.getCount() - mListView.getFooterViewsCount();
-
-        if (visibleItemCount < totalItemCount) {
+        int visibleItemHeight = 0;
+        int listHeight = 0;
+        if (mListView.getAdapter().getCount() != 0) {
+            View listItem = mListView.getAdapter().getView(0, null, mListView);
+            listItem.measure(0, 0);
+            visibleItemHeight = visibleItemCount * listItem.getMeasuredHeight();
+            listHeight = mListView.getHeight();
+        }
+        if (visibleItemCount < totalItemCount || listHeight < visibleItemHeight) {
             return true;
         }
         return false;
