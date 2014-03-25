@@ -66,13 +66,9 @@ public class GithubCodeTreeFragment extends BaseFragment implements
 	@Override
 	public void initComponents() {
 		repoType = getArguments().getInt("repo_type", 0);
-		tagText = ResourceUtils
-				.getString(repoType == 0 ? R.string.tag_codetree_fragment_sbbs
-						: R.string.tag_codetree_fragment_android);
 		tabTitle = ResourceUtils
 				.getString(repoType == 0 ? R.string.project_sbbs_me
 						: R.string.project_android);
-		CustomUtils.changeFragmentTag(this, tagText);
 		getActivity().getActionBar().getTabAt(repoType).setText(tabTitle);
 
 		treeList = (ListView) innerView.findViewById(R.id.treeList);

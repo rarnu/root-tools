@@ -52,7 +52,6 @@ public class UserDetailFragment extends BaseFragment implements
 
 	public UserDetailFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_user_detail_fragment);
 	}
 
 	@Override

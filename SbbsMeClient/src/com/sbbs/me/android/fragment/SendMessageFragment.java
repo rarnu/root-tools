@@ -27,7 +27,6 @@ public class SendMessageFragment extends BaseFragment implements
 
 	public SendMessageFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_send_message_fragment);
 	}
 
 	@Override

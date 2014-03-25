@@ -44,7 +44,6 @@ public class RecentFragment extends BaseFragment implements OnPullDownListener,
 
 	public RecentFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_recent_fragment);
 	}
 
 	@Override

@@ -9,6 +9,8 @@ import com.sbbs.me.android.fragment.GalleryFragment;
 
 public class GalleryActivity extends BaseActivity {
 
+    GalleryFragment gf = null;
+
     @Override
     public int getIcon() {
         return R.drawable.inner_logo;
@@ -19,7 +21,7 @@ public class GalleryActivity extends BaseActivity {
         Bundle bn = new Bundle();
         bn.putBoolean("select_mode",
                 getIntent().getBooleanExtra("select_mode", false));
-        GalleryFragment gf = new GalleryFragment();
+        gf = new GalleryFragment();
         gf.setArguments(bn);
         return gf;
     }
@@ -32,13 +34,12 @@ public class GalleryActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (keyCode == KeyEvent.KEYCODE_BACK) {
-            BaseFragment bf = (BaseFragment) getFragmentManager()
-                    .findFragmentByTag(getString(R.string.tag_gallery_fragment));
-            Bundle bn = bf.getFragmentState();
+
+            Bundle bn = gf.getFragmentState();
             if (bn != null) {
                 boolean em = bn.getBoolean("edit_mode", false);
                 if (em) {
-                    bf.setNewArguments(null);
+                    gf.setNewArguments(null);
                     return true;
                 }
             }

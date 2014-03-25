@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.widget.ImageView;
 import com.rarnu.utils.common.DownloadInfo;
 import com.rarnu.utils.os.BreakableThread;
@@ -215,7 +216,7 @@ public class DownloadUtils {
             }
 
         } catch (Exception e) {
-            e.printStackTrace();
+            Log.e("download error", e.getMessage());
             if (h != null) {
                 try {
                     Message msg = new Message();

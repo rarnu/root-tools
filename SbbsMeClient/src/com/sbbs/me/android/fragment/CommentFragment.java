@@ -41,7 +41,6 @@ public class CommentFragment extends BaseFragment implements OnClickListener,
 
 	public CommentFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_comment_fragment);
 	}
 
 	@Override

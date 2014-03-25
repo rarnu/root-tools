@@ -45,7 +45,6 @@ public class ArticleMenuFragment extends BaseFragment implements
 
 	public ArticleMenuFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_article_menu_fragment);
 	}
 
 	@Override

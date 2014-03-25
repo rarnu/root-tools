@@ -52,7 +52,6 @@ public class ViewMessageFragment extends BaseFragment implements
 
     public ViewMessageFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_view_message_fragment);
     }
 
     @Override

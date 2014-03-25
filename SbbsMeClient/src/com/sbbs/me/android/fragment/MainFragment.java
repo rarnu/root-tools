@@ -77,7 +77,6 @@ public class MainFragment extends BaseFragment implements
 
 	public MainFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_main_fragment);
 	}
 
 	@Override

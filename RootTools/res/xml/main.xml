@@ -6,10 +6,6 @@
                 android:key="@string/id_sysapp"
                 android:summary="@string/summary_sysapp"
                 android:title="@string/func1_title" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_sysappenabled"
-                android:summary="@string/summary_sysappenabled"
-                android:title="@string/func2_title" />
 
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_component"
@@ -30,9 +26,6 @@
                 android:key="@string/id_fonts"
                 android:title="@string/func_fonts" />
 
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_replace_files"
-                android:title="@string/func_replace_files" />
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_build_prop"
                 android:title="@string/func_build_prop" />

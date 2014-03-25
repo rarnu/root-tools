@@ -16,7 +16,6 @@ public class OnGithubTabFragment extends BaseTabFragment {
 
 	public OnGithubTabFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_ongithub_tab_fragment);
 	}
 
 	@Override

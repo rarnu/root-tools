@@ -36,7 +36,6 @@ public class EditBlockFragment extends BaseFragment implements
 
 	public EditBlockFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_edit_block_fragment);
 	}
 
 	@Override

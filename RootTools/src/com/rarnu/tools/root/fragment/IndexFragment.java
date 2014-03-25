@@ -28,7 +28,7 @@ import com.rarnu.utils.NetworkUtils;
 public class IndexFragment extends BasePreferenceFragment implements
         OnPreferenceClickListener {
 
-    PreferenceEx prefSysApp, prefSysAppEnabled, prefComponent, prefFirewall, prefRoot, prefHtcRom, prefFonts, prefReplaceFile, prefBuildProp;
+    PreferenceEx prefSysApp, prefComponent, prefFirewall, prefRoot, prefHtcRom, prefFonts, prefBuildProp;
     PreferenceEx prefBackup, prefRestore, prefHardUpdate, prefBatchApps, prefRemainedFiles;
     PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik, prefDiskInfo, prefFileSystem;
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
@@ -41,14 +41,14 @@ public class IndexFragment extends BasePreferenceFragment implements
     public void showFunctionalEnabledTags() {
         boolean isRooted = RootUtils.hasSu();
         prefSysApp.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        prefSysAppEnabled.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+        // prefSysAppEnabled.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefComponent.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefFirewall.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRoot.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefGoogle.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefFonts.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefHtcRom.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        prefReplaceFile.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+        // prefReplaceFile.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefBuildProp.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
 
         prefBackup.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
@@ -78,13 +78,13 @@ public class IndexFragment extends BasePreferenceFragment implements
     private void showBusyboxTag() {
         boolean ready = BusyboxUtils.isAppletReady();
         prefSysApp.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
-        prefSysAppEnabled.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
+        // prefSysAppEnabled.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefHardUpdate.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefFirewall.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRoot.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefGoogle.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefFonts.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
-        prefReplaceFile.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
+        // prefReplaceFile.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefBuildProp.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefBackup.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRestore.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
@@ -246,14 +246,14 @@ public class IndexFragment extends BasePreferenceFragment implements
     @Override
     public void initComponents() {
         prefSysApp = (PreferenceEx) findPreference(getString(R.string.id_sysapp));
-        prefSysAppEnabled = (PreferenceEx) findPreference(getString(R.string.id_sysappenabled));
+        // prefSysAppEnabled = (PreferenceEx) findPreference(getString(R.string.id_sysappenabled));
         prefComponent = (PreferenceEx) findPreference(getString(R.string.id_component));
         prefFirewall = (PreferenceEx) findPreference(getString(R.string.id_firewall));
         prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
         prefGoogle = (PreferenceEx) findPreference(getString(R.string.id_google));
         prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
         prefFonts = (PreferenceEx) findPreference(getString(R.string.id_fonts));
-        prefReplaceFile = (PreferenceEx) findPreference(getString(R.string.id_replace_files));
+        // prefReplaceFile = (PreferenceEx) findPreference(getString(R.string.id_replace_files));
         prefBuildProp = (PreferenceEx) findPreference(getString(R.string.id_build_prop));
 
         prefBackup = (PreferenceEx) findPreference(getString(R.string.id_backup));
@@ -283,14 +283,14 @@ public class IndexFragment extends BasePreferenceFragment implements
     @Override
     public void initEvents() {
         prefSysApp.setOnPreferenceClickListener(this);
-        prefSysAppEnabled.setOnPreferenceClickListener(this);
+        // prefSysAppEnabled.setOnPreferenceClickListener(this);
         prefComponent.setOnPreferenceClickListener(this);
         prefFirewall.setOnPreferenceClickListener(this);
         prefRoot.setOnPreferenceClickListener(this);
         prefGoogle.setOnPreferenceClickListener(this);
         prefHtcRom.setOnPreferenceClickListener(this);
         prefFonts.setOnPreferenceClickListener(this);
-        prefReplaceFile.setOnPreferenceClickListener(this);
+        // prefReplaceFile.setOnPreferenceClickListener(this);
         prefBuildProp.setOnPreferenceClickListener(this);
 
         prefBackup.setOnPreferenceClickListener(this);

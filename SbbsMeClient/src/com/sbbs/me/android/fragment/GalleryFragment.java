@@ -65,7 +65,6 @@ public class GalleryFragment extends BaseFragment implements
 
 	public GalleryFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_gallery_fragment);
 	}
 
 	@Override

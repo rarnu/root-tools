@@ -28,9 +28,6 @@ public class GithubCodeViewFragement extends BaseFragment implements
 	public GithubCodeViewFragement(int repoType) {
 		super();
 		this.repoType = repoType;
-		tagText = ResourceUtils
-				.getString(repoType == 0 ? R.string.tag_codeview_fragment_sbbs
-						: R.string.tag_codeview_fragment_android);
 		tabTitle = ResourceUtils
 				.getString(repoType == 0 ? R.string.project_sbbs_me
 						: R.string.project_android);

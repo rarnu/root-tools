@@ -27,21 +27,6 @@ import com.sbbs.me.android.service.MessageService;
 public class MainActivity extends BaseSlidingActivity implements IMainIntf,
         OnOpenListener, OnCloseListener {
 
-    int currentPage = 0;
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        UIUtils.initDisplayMetrics(this, getWindowManager(), false);
-        ResourceUtils.init(this);
-        Global.autoRefreshTag = true;
-        Global.canExit = false;
-        super.onCreate(savedInstanceState);
-        startService(new Intent(this, MessageService.class));
-        getSlidingMenu().setOnOpenListener(this);
-        getSlidingMenu().setOnCloseListener(this);
-        doCheckUpdateT(this);
-    }
-
     final Handler hUpdate = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -60,6 +45,28 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf,
 
         ;
     };
+    int currentPage = 0;
+    boolean donotCloseTag = false;
+    boolean returnToHome = false;
+    MainFragment mf = null;
+    PostNewFragment pnf = null;
+    HotTagsFragment htf = null;
+    OnGithubTabFragment ogtf = null;
+    ArchievementFragment af = null;
+    RecentFragment rf = null;
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        UIUtils.initDisplayMetrics(this, getWindowManager(), false);
+        ResourceUtils.init(this);
+        Global.autoRefreshTag = true;
+        Global.canExit = false;
+        super.onCreate(savedInstanceState);
+        startService(new Intent(this, MessageService.class));
+        getSlidingMenu().setOnOpenListener(this);
+        getSlidingMenu().setOnCloseListener(this);
+        doCheckUpdateT(this);
+    }
 
     private void doCheckUpdateT(final Context context) {
 
@@ -88,7 +95,12 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf,
 
     @Override
     public void loadFragments() {
-
+        mf = new MainFragment();
+        pnf = new PostNewFragment();
+        htf = new HotTagsFragment();
+        ogtf = new OnGithubTabFragment();
+        af = new ArchievementFragment();
+        rf = new RecentFragment();
     }
 
     @Override
@@ -141,9 +153,6 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf,
         return 0;
     }
 
-    boolean donotCloseTag = false;
-    boolean returnToHome = false;
-
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (currentPage != 0 && keyCode == KeyEvent.KEYCODE_BACK
@@ -186,8 +195,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf,
             if (!f.isAdded()) {
                 getFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fReplacement, f,
-                                ((InnerFragment) f).getTagText()).commit();
+                        .replace(R.id.fReplacement, f).commit();
             }
             getActionBar().setTitle(
                     getString(((InnerFragment) f).getBarTitle()));
@@ -202,57 +210,27 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf,
         switch (page) {
             case 0:
                 // MAIN
-                f = getFragmentManager().findFragmentByTag(
-                        getString(R.string.tag_main_fragment));
-                if (f == null) {
-                    Log.e("getCurrentFragment", "new MainFragment()");
-                    f = new MainFragment();
-                }
+                f = mf;
                 break;
             case 1:
                 // post new
-                f = getFragmentManager().findFragmentByTag(
-                        getString(R.string.tag_postnew_fragment));
-                if (f == null) {
-                    Log.e("getCurrentFragment", "new PostNewFragment()");
-                    f = new PostNewFragment();
-                }
+                f = pnf;
                 break;
             case 2:
                 // recent
-                f = getFragmentManager().findFragmentByTag(
-                        getString(R.string.tag_recent_fragment));
-                if (f == null) {
-                    Log.e("getCurrentFragment", "new RecentFragment()");
-                    f = new RecentFragment();
-                }
+                f = rf;
                 break;
             case 3:
                 // hot tags
-                f = getFragmentManager().findFragmentByTag(
-                        getString(R.string.tag_hottags_fragment));
-                if (f == null) {
-                    Log.e("getCurrentFragment", "new HotTagsFragment()");
-                    f = new HotTagsFragment();
-                }
+                f = htf;
                 break;
             case 4:
                 // on github
-                f = getFragmentManager().findFragmentByTag(
-                        getString(R.string.tag_ongithub_tab_fragment));
-                if (f == null) {
-                    Log.e("getCurrentFragment", "new OnGithubTabFragment()");
-                    f = new OnGithubTabFragment();
-                }
+                f = ogtf;
                 break;
             case 5:
                 // archievement
-                f = getFragmentManager().findFragmentByTag(
-                        getString(R.string.tag_archievement_fragment));
-                if (f == null) {
-                    Log.e("getCurrentFragment", "new ArchievementFragment()");
-                    f = new ArchievementFragment();
-                }
+                f = af;
                 break;
         }
         return f;

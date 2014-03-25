@@ -23,7 +23,6 @@ public class SelectPictureFragment extends BaseFragment implements
 
 	public SelectPictureFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_select_picture_fragment);
 	}
 
 	@Override

@@ -21,7 +21,6 @@ public class UpdateInfoFragment extends BaseFragment implements OnClickListener 
 
     public UpdateInfoFragment() {
         super();
-        tagText = ResourceUtils.getString(R.string.tag_update_info_fragment);
     }
 
     @Override

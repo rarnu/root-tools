@@ -43,7 +43,6 @@ public class TagArticleListFragment extends BaseFragment implements
 
 	public TagArticleListFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.string.tag_article_list_fragment);
 	}
 
 	@Override
