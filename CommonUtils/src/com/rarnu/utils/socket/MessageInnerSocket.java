@@ -1,18 +1,18 @@
-package com.rarnu.devlib.network;
+package com.rarnu.utils.socket;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 
-class InnerSocket implements Runnable {
+class MessageInnerSocket implements Runnable {
 
     private Socket client;
     private String listMsg;
     private SocketServerCallback callback;
     private String endChar;
 
-    public InnerSocket(Socket client, SocketServerCallback callback, String endChar) {
+    public MessageInnerSocket(Socket client, SocketServerCallback callback, String endChar) {
         this.client = client;
         this.callback = callback;
         this.endChar = endChar;
@@ -28,7 +28,7 @@ class InnerSocket implements Runnable {
                 listMsg = input.readUTF();
                 if (listMsg != null) {
                     if (callback != null) {
-                        callback.onReceive(listMsg);
+                        callback.onReceiveMessage(listMsg);
                     }
                     output.writeUTF(listMsg);
                     if (listMsg.equals(endChar)) {
@@ -37,7 +37,9 @@ class InnerSocket implements Runnable {
                 }
             }
         } catch (IOException e) {
-            e.printStackTrace();
+            if (callback != null) {
+                callback.onError(e.getMessage());
+            }
         }
     }
 }

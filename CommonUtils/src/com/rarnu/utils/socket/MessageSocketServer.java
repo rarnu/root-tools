@@ -1,22 +1,24 @@
-package com.rarnu.devlib.network;
+package com.rarnu.utils.socket;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-public class SocketServer {
+public class MessageSocketServer {
 
     private ServerSocket server;
     private boolean running;
     private SocketServerCallback callback;
     private String endChar;
+    private int port;
 
-    public SocketServer(final SocketServerCallback callback, final String endChar) {
+    public MessageSocketServer(final SocketServerCallback callback, final int port, final String endChar) {
         this.callback = callback;
         this.endChar = endChar;
+        this.port = port;
     }
 
-    public void startListen(final int port) {
+    public void startListen() {
         new Thread(new Runnable() {
 
             @Override
@@ -24,12 +26,9 @@ public class SocketServer {
                 try {
                     running = true;
                     server = new ServerSocket(port);
-                    while (true) {
-                        if (!running) {
-                            break;
-                        }
+                    while (running) {
                         Socket client = server.accept();
-                        new Thread(new InnerSocket(client, callback, endChar)).start();
+                        new Thread(new MessageInnerSocket(client, callback, endChar)).start();
                     }
                 } catch (IOException e) {
                     if (callback != null) {

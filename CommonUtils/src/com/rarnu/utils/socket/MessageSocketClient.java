@@ -1,4 +1,4 @@
-package com.rarnu.devlib.network;
+package com.rarnu.utils.socket;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -6,23 +6,21 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.net.Socket;
 
-public class SocketClient {
+public class MessageSocketClient {
 
     private Socket socket;
-    private OutputStream os;
     private DataOutputStream dos;
     private DataInputStream dis;
     private SocketClientCallback callback;
 
-    public SocketClient(final String ip, final int port, final SocketClientCallback callback) {
+    public MessageSocketClient(final SocketClientCallback callback, final String ip, final int port) {
         this.callback = callback;
         new Thread(new Runnable() {
             @Override
             public void run() {
                 try {
                     socket = new Socket(ip, port);
-                    os = socket.getOutputStream();
-                    dos = new DataOutputStream(os);
+                    dos = new DataOutputStream(socket.getOutputStream());
                     dis = new DataInputStream(socket.getInputStream());
                 } catch (Exception e) {
                 }
