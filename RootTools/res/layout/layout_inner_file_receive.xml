@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:id="@+id/layHead"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:background="@color/skyblue">
+
+        <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="4dip"
+                android:text="@string/ft_wait_recv"
+                android:textColor="?android:attr/textColorPrimaryInverse"/>
+
+        <ProgressBar
+                android:layout_width="16dip"
+                android:layout_height="16dip"
+                style="?android:attr/progressBarStyleSmall"
+                android:layout_centerVertical="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="4dip" />
+    </RelativeLayout>
+
+    <ListView
+            android:id="@+id/lvRecv"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/progressReceive"
+            android:layout_below="@+id/layHead">
+    </ListView>
+
+    <com.rarnu.devlib.component.DataProgressBar
+            android:id="@+id/progressReceive"
+            android:layout_width="match_parent"
+            android:layout_height="24dip"
+            android:layout_alignParentBottom="true" />
+
+</RelativeLayout>

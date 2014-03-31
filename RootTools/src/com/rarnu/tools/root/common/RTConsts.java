@@ -10,6 +10,8 @@ public class RTConsts {
     public static final int REQCODE_MORE = 6;
     public static final int REQCODE_BUSYBOX = 7;
     public static final int REQCODE_SYSAPP_SELECT = 11;
+    public static final int REQCODE_SENDFILE_SELECT = 12;
+
     public static final int NOTIFY_ID_HTC_ROM = 101;
     public static final int NOTIFY_ID_BACKUP = 102;
     public static final int NOTIFY_ID_RESTORE = 103;
@@ -22,5 +24,6 @@ public class RTConsts {
     public static final int NOTIFY_PROC_CLEAN_BACKUP = 204;
     public static final int NOTIFY_PROC_BATCH_INSTALL = 205;
     public static final int NOTIFY_PROC_BATCH_UNINSTALL = 206;
+
 
 }

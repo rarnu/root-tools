@@ -32,6 +32,6 @@
     <string name="cleaning_dalvik">正在清理 Dalvik...</string>
     <string name="clean_dalvik">清理 Dalvik</string>
     <string name="diskinfo">磁碟信息</string>
-    <string name="filesystem">檔案系統</string>
+    <string name="filesystem">檔案管理</string>
 
 </resources>

@@ -65,13 +65,7 @@
                 android:key="@string/id_cleandalvik"
                 android:title="@string/clean_dalvik"
                 android:summary="@string/summary_clean_dalvik" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_diskinfo"
-                android:title="@string/diskinfo" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_filesystem"
-                android:title="@string/filesystem"
-                android:summary="@string/summary_file_system" />
+
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_other">
         <com.rarnu.devlib.component.PreferenceEx
@@ -83,6 +77,19 @@
                 android:key="@string/id_network"
                 android:title="@string/check_network_status" />
 
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/cat_file">
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_diskinfo"
+                android:title="@string/diskinfo" />
+
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_filesystem"
+                android:title="@string/filesystem"
+                android:summary="@string/summary_file_system" />
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_file_transfer"
+                android:title="@string/func_file_transfer" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_terminal">
         <com.rarnu.devlib.component.PreferenceEx

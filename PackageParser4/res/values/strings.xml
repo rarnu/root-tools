@@ -32,5 +32,5 @@
     <string name="cleaning_dalvik">Cleaning Dalvik...</string>
     <string name="clean_dalvik">Clean Dalvik</string>
     <string name="diskinfo">Disk Information</string>
-    <string name="filesystem">File System</string>
+    <string name="filesystem">File Manager</string>
 </resources>

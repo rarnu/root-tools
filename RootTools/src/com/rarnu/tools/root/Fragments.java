@@ -56,6 +56,8 @@ public class Fragments {
     private static BuildPropFragment fBuildProp = null;
     private static BuildPropEditFragment fBuildPropEdit = null;
     private static ColorTempFragment fColorTemp = null;
+    private static FileTransferFragment fFileTransfer = null;
+    private static SelectSendFileFragment fSelectSendFile = null;
 
     public static Fragment getFragment(String name) {
 
@@ -310,6 +312,16 @@ public class Fragments {
                 fColorTemp = new ColorTempFragment();
             }
             f = fColorTemp;
+        } else if (name.equals(FragmentNameConst.FN_FILE_TRANSFER)) {
+            if (fFileTransfer == null) {
+                fFileTransfer = new FileTransferFragment();
+            }
+            f = fFileTransfer;
+        } else if (name.equals(FragmentNameConst.FN_SELECT_SEND_FILE)) {
+            if (fSelectSendFile == null) {
+                fSelectSendFile = new SelectSendFileFragment();
+            }
+            f = fSelectSendFile;
         }
 
         return f;
@@ -370,6 +382,8 @@ public class Fragments {
         fBuildProp = null;
         fBuildPropEdit = null;
         fColorTemp = null;
+        fFileTransfer = null;
+        fSelectSendFile = null;
     }
 
 }

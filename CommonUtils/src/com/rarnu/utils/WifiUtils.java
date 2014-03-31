@@ -101,14 +101,18 @@ public class WifiUtils {
         return (mWifiInfo == null) ? 0 : mWifiInfo.getNetworkId();
     }
 
-    public String getWifiInfo() {
-        return (mWifiInfo == null) ? "NULL" : mWifiInfo.toString();
+    public WifiInfo getWifiInfo() {
+        return mWifiInfo;
     }
 
     public int addNetWork(WifiConfiguration configuration) {
         int wcgId = mWifiManager.addNetwork(configuration);
         boolean isSuccess = mWifiManager.enableNetwork(wcgId, true);
         return isSuccess ? wcgId : -1;
+    }
+
+    public void connectWifi(int netId) {
+        mWifiManager.enableNetwork(netId, true);
     }
 
     public void disConnectionWifi(int netId) {

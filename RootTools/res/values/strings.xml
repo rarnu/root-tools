@@ -17,6 +17,7 @@
     <string name="cat_memory">Memory &amp; Storage</string>
     <string name="cat_terminal">Misc</string>
     <string name="cat_other">Network</string>
+    <string name="cat_file">Filesystem</string>
     <string name="cat_support">Support</string>
     <string name="short_about">About</string>
     <string name="short_feedback">Feedback</string>
@@ -79,8 +80,8 @@
     <string name="func_hardupdate_with_path">RootTools &gt; Force Update</string>
     <string name="func_diskinfo">Disk Information</string>
     <string name="func_diskinfo_with_path">RootTools &gt; Disk Information</string>
-    <string name="func_filesystem">File System</string>
-    <string name="func_filesystem_with_path">RootTools &gt; File System</string>
+    <string name="func_filesystem">File Manager</string>
+    <string name="func_filesystem_with_path">RootTools &gt; File Manager</string>
     <string name="func_batch_app">Batch Apps</string>
     <string name="func_batch_app_with_path">RootTools &gt; Batch Apps</string>
     <string name="func_firewall">Firewall</string>
@@ -101,6 +102,8 @@
     <string name="func_build_prop_with_path">RootTools &gt; Build.Properties</string>
     <string name="func_color_temp">Color Temperature</string>
     <string name="func_color_temp_with_path">RootTools &gt; Color Temperature</string>
+    <string name="func_file_transfer">File Transfer</string>
+    <string name="func_file_transfer_with_path">RootTools &gt; FileTransfer</string>
     <string name="backup_data">Backup Apps\' Data</string>
     <string name="restore_data">Restore Apps\' Data</string>
     <string name="check_network_status">Network Status</string>
@@ -531,5 +534,13 @@
     <string name="color_one_key_profile">Onekey Profile</string>
     <string name="color_hint_install">Enable this option will disable the official installer.</string>
 
-
+    <string name="ft_want_recv">I want to Receive files</string>
+    <string name="ft_want_send">I want to send files</string>
+    <string name="ft_return_confirm">Are you sure to return to the initialized status? Your operations will be lost.</string>
+    <string name="ft_send_hint">Choose the file you want to send, long press for selection.</string>
+    <string name="ft_wait_recv">Waiting for receiving files...</string>
+    <string name="ft_ap_id" formatted="false">Current AP ID is: %d</string>
+    <string name="ft_operating_cannot_exit">Operating, please exit after all task terminated.</string>
+    <string name="ft_select_send_file">Select file</string>
+    <string name="ft_add_file_hint">Click "Add" for sending a file.</string>
 </resources>

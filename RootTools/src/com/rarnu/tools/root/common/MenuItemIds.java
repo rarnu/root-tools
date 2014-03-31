@@ -34,4 +34,6 @@ public class MenuItemIds {
     public static final int MENU_CANCEL = Menu.FIRST + 19;
     public static final int MENU_EDIT = Menu.FIRST + 20;
     public static final int MENU_DELETE = Menu.FIRST + 21;
+
+    public static final int MENU_RETURN = Menu.FIRST + 22;
 }

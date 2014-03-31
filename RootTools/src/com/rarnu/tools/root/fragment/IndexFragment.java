@@ -30,7 +30,8 @@ public class IndexFragment extends BasePreferenceFragment implements
 
     PreferenceEx prefSysApp, prefComponent, prefFirewall, prefRoot, prefHtcRom, prefFonts, prefBuildProp;
     PreferenceEx prefBackup, prefRestore, prefHardUpdate, prefBatchApps, prefRemainedFiles;
-    PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik, prefDiskInfo, prefFileSystem;
+    PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik;
+    PreferenceEx prefDiskInfo, prefFileSystem, prefFileTransfer;
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
     PreferenceEx prefFeedback, prefRecommand, prefAbout;
     PreferenceEx prefTerminal, prefPassword, prefColorTemp;
@@ -170,6 +171,9 @@ public class IndexFragment extends BasePreferenceFragment implements
         } else if (preference.getKey().equals(getString(R.string.id_filesystem))) {
             UIInstance.currentFragment = 18;
             FragmentStarter.showContent(getActivity(), FileSystemActivity.class, Fragments.getFragment(FragmentNameConst.FN_FILESYSTEM));
+        } else if (preference.getKey().equals(getString(R.string.id_file_transfer))) {
+            UIInstance.currentFragment = 28;
+            FragmentStarter.showContent(getActivity(), FileTransferActivity.class, Fragments.getFragment(FragmentNameConst.FN_FILE_TRANSFER));
         }
 
         // other
@@ -265,8 +269,11 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefCleanMemory = (PreferenceEx) findPreference(getString(R.string.id_cleanmemory));
         prefCleanCache = (PreferenceEx) findPreference(getString(R.string.id_cleancache));
         prefCleanDalvik = (PreferenceEx) findPreference(getString(R.string.id_cleandalvik));
+
         prefDiskInfo = (PreferenceEx) findPreference(getString(R.string.id_diskinfo));
         prefFileSystem = (PreferenceEx) findPreference(getString(R.string.id_filesystem));
+        prefFileTransfer = (PreferenceEx) findPreference(getString(R.string.id_file_transfer));
+
         prefHosts = (PreferenceEx) findPreference(getString(R.string.id_hosts));
         prefScanMedia = (PreferenceEx) findPreference(getString(R.string.id_scanmedia));
         prefNetworkState = (PreferenceEx) findPreference(getString(R.string.id_network));
@@ -302,8 +309,11 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefCleanMemory.setOnPreferenceClickListener(this);
         prefCleanCache.setOnPreferenceClickListener(this);
         prefCleanDalvik.setOnPreferenceClickListener(this);
+
         prefDiskInfo.setOnPreferenceClickListener(this);
         prefFileSystem.setOnPreferenceClickListener(this);
+        prefFileTransfer.setOnPreferenceClickListener(this);
+
         prefHosts.setOnPreferenceClickListener(this);
         prefScanMedia.setOnPreferenceClickListener(this);
         prefNetworkState.setOnPreferenceClickListener(this);
@@ -326,6 +336,7 @@ public class IndexFragment extends BasePreferenceFragment implements
     private void showVersionTags() {
         prefGoogle.setVersion(PreferenceEx.VERSION_BETA);
         prefFonts.setVersion(PreferenceEx.VERSION_BETA);
+        prefFileTransfer.setVersion(PreferenceEx.VERSION_BETA);
     }
 
     @Override

@@ -20,6 +20,7 @@
     <string name="id_cleandalvik">id_cleandalvik</string>
     <string name="id_diskinfo">id_diskinfo</string>
     <string name="id_filesystem">id_filesystem</string>
+    <string name="id_file_transfer">id_file_transfer</string>
 
     <string name="id_hosts">id_hosts</string>
     <string name="id_scanmedia">id_scanmedia</string>

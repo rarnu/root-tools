@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <include
+            layout="@layout/layout_inner_file_receive"
+            android:id="@+id/layRecv" />
+
+    <include
+            layout="@layout/layout_inner_file_send"
+            android:id="@+id/laySend" />
+
+    <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            style="?android:attr/buttonBarStyle">
+
+        <Button
+                android:id="@+id/btnSendFile"
+                android:layout_width="match_parent"
+                android:layout_height="56dip"
+                android:text="@string/ft_want_send"
+                android:layout_marginLeft="32dip"
+                android:layout_marginRight="32dip"
+                style="?android:attr/buttonBarButtonStyle" />
+
+        <Button
+                android:id="@+id/btnReceiveFile"
+                android:layout_width="match_parent"
+                android:layout_height="56dip"
+                android:text="@string/ft_want_recv"
+                android:layout_marginLeft="32dip"
+                android:layout_marginRight="32dip"
+                android:layout_marginTop="8dip"
+                android:layout_below="@+id/btnSendFile"
+                style="?android:attr/buttonBarButtonStyle" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

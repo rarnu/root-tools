@@ -43,10 +43,9 @@
 
         <activity
                 android:name=".SplashActivity"
-                android:configChanges="keyboardHidden|orientation|screenSize"
+                android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Holo.NoActionBar.Fullscreen"
-                android:windowSoftInputMode="stateAlwaysHidden"
-                >
+                android:windowSoftInputMode="stateAlwaysHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
@@ -55,258 +54,323 @@
         <activity
                 android:name=".MainActivity"
                 android:label="@string/app_name"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".wxapi.WXEntryActivity"
                 android:theme="@style/Transparent"
+                android:screenOrientation="portrait"
                 android:exported="true">
         </activity>
         <activity
                 android:name=".fragmentactivity.UserFeedbackActivity"
                 android:label="@string/feedback"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.AboutActivity"
                 android:label="@string/about"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.SystemComponentActivity"
                 android:label="@string/busybox"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.SysappMainActivity"
                 android:label="@string/func1_title"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.SysappDetailActivity"
                 android:label="@string/sysapp_name"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateAlwaysHidden" />
         <activity
                 android:name=".fragmentactivity.SysappSelectApkActivity"
                 android:label="@string/sysapp_select"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.SettingsActivity"
                 android:label="@string/cat_settings"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.CleanCacheMainActivity"
                 android:label="@string/func6_title"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.EnableappMainActivity"
                 android:label="@string/func2_title"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.HtcRomActivity"
                 android:label="@string/clean_htc_rom"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.CompMainActivity"
                 android:label="@string/func4_title"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.CompPackageInfoActivity"
                 android:label="@string/component_list"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.MemMainActivity"
                 android:label="@string/func5_title"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.MemProcessActivity"
+                android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.PasswordSecActivity"
+                android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.PasswordInputActivity"
+                android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.PoolActivity"
+                android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.InstallApkActivity"
+                android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.ShareActivity"
+                android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.ChangePermissionActivity"
+                android:screenOrientation="portrait"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.HostMainActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func7_title"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.HostAddActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/host_add"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.MemIgnoreActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/kill_ignore_list"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.CustomCleanManagerActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/custom_app_clean"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.HostEditActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/manual_edit_hosts"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.HostDeprecatedActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/clean_deprecated_hosts"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.RecommandActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/short_recommand"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.DataappReportActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/operation_result"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.DataBackupActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func3_title"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.DataRestoreActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func3p_title"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.TerminalActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_terminal"
                 android:windowSoftInputMode="adjustResize|stateVisible">
         </activity>
         <activity
                 android:name=".fragmentactivity.HardUpdateActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_hardupdate"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.DiskInfoActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_diskinfo"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.FileSystemActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_filesystem"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.TextEditorActivity"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.BatchAppsActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_batch_app"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.FirewallActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_firewall"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.BuildTeamActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/build_team"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.GoogleActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/google"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.RemainedFilesActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_remained_files"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.FontsActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_fonts"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.PasswordMgrActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_password"
                 android:windowSoftInputMode="stateAlwaysHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.UpdateActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/check_update"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.PasswordChangeSecActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/change_sec_password"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.PasswordDetailActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/pdetail_title"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.ReplaceFileActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_replace_files"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.BuildPropActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_build_prop"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.BuildPropEditActivity"
                 android:theme="@android:style/Theme.Holo.Dialog.NoActionBar"
+                android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
                 android:name=".fragmentactivity.ColorTempActivity"
+                android:screenOrientation="portrait"
                 android:label="@string/func_color_temp"
                 android:windowSoftInputMode="stateHidden">
         </activity>
         <activity
+                android:name=".fragmentactivity.FileTransferActivity"
+                android:screenOrientation="portrait"
+                android:label="@string/func_file_transfer"
+                android:windowSoftInputMode="stateHidden">
+        </activity>
+        <activity
+                android:name=".fragmentactivity.SelectSendFileActivity"
+                android:screenOrientation="portrait"
+                android:label="@string/ft_select_send_file"
+                android:windowSoftInputMode="stateHidden">
+
+        </activity>
+        <activity
                 android:name="com.tencent.tauth.AuthActivity"
+                android:screenOrientation="portrait"
                 android:noHistory="true"
                 android:launchMode="singleTask">
             <intent-filter>

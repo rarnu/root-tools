@@ -85,7 +85,7 @@ public class FileSocketServer {
             if (server != null) {
                 server.close();
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
         }
     }
 
