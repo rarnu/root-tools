@@ -542,5 +542,8 @@
     <string name="ft_ap_id" formatted="false">Current AP ID is: %d</string>
     <string name="ft_operating_cannot_exit">Operating, please exit after all task terminated.</string>
     <string name="ft_select_send_file">Select file</string>
+    <string name="ft_select_ap">Select Receiver</string>
+    <string name="ft_refresh_ap">Do NOT find anyone, refresh receiver...</string>
     <string name="ft_add_file_hint">Click "Add" for sending a file.</string>
+    <string name="ft_waiting_file_hint">Waiting for receiving files...</string>
 </resources>

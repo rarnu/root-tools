@@ -58,6 +58,7 @@ public class Fragments {
     private static ColorTempFragment fColorTemp = null;
     private static FileTransferFragment fFileTransfer = null;
     private static SelectSendFileFragment fSelectSendFile = null;
+    private static SelectAPFragment fSelectAp = null;
 
     public static Fragment getFragment(String name) {
 
@@ -322,6 +323,11 @@ public class Fragments {
                 fSelectSendFile = new SelectSendFileFragment();
             }
             f = fSelectSendFile;
+        } else if (name.equals(FragmentNameConst.FN_SELECT_AP)) {
+            if (fSelectAp == null) {
+                fSelectAp = new SelectAPFragment();
+            }
+            f = fSelectAp;
         }
 
         return f;
@@ -384,6 +390,7 @@ public class Fragments {
         fColorTemp = null;
         fFileTransfer = null;
         fSelectSendFile = null;
+        fSelectAp = null;
     }
 
 }

@@ -11,6 +11,7 @@ public class RTConsts {
     public static final int REQCODE_BUSYBOX = 7;
     public static final int REQCODE_SYSAPP_SELECT = 11;
     public static final int REQCODE_SENDFILE_SELECT = 12;
+    public static final int REQCODE_AP_SELECT = 13;
 
     public static final int NOTIFY_ID_HTC_ROM = 101;
     public static final int NOTIFY_ID_BACKUP = 102;

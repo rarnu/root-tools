@@ -17,7 +17,7 @@
                 android:layout_centerVertical="true"
                 android:layout_marginLeft="4dip"
                 android:text="@string/ft_wait_recv"
-                android:textColor="?android:attr/textColorPrimaryInverse"/>
+                android:textColor="?android:attr/textColorPrimaryInverse" />
 
         <ProgressBar
                 android:layout_width="16dip"
@@ -41,5 +41,15 @@
             android:layout_width="match_parent"
             android:layout_height="24dip"
             android:layout_alignParentBottom="true" />
+
+    <TextView
+            android:id="@+id/tvWaitFile"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/ft_waiting_file_hint"
+            android:textSize="18sp"
+            android:textColor="?android:attr/textColorPrimary"
+            />
 
 </RelativeLayout>

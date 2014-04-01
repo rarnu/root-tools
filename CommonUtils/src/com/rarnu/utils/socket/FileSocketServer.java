@@ -3,9 +3,9 @@ package com.rarnu.utils.socket;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.Random;
 
 public class FileSocketServer {
 
@@ -31,6 +31,7 @@ public class FileSocketServer {
                     while (receiving) {
                         Socket client = server.accept();
                         doReceiveFile(client);
+                        client.close();
                     }
                 } catch (Exception e) {
                     if (callback != null) {
@@ -43,6 +44,7 @@ public class FileSocketServer {
 
     private void doReceiveFile(Socket client) {
         try {
+            int randomId = new Random(System.currentTimeMillis()).nextInt(65536);
             DataInputStream dis = new DataInputStream(client.getInputStream());
             int bufferSize = 1024;
             byte[] buf = new byte[bufferSize];
@@ -51,7 +53,7 @@ public class FileSocketServer {
             DataOutputStream fileOut = new DataOutputStream(new FileOutputStream(savePathReal));
             long len = dis.readLong();
             if (callback != null) {
-                callback.onReceiveFile(savePathReal, len, 0L, 0);
+                callback.onReceiveFile(randomId, savePathReal, len, 0L, 0);
             }
             while (true) {
                 int read = 0;
@@ -64,13 +66,13 @@ public class FileSocketServer {
                 }
                 fileOut.write(buf, 0, read);
                 if (callback != null) {
-                    callback.onReceiveFile(savePathReal, len, passedlen, 2);
+                    callback.onReceiveFile(randomId, savePathReal, len, passedlen, 2);
                 }
             }
             dis.close();
             fileOut.close();
             if (callback != null) {
-                callback.onReceiveFile(savePathReal, len, len, 1);
+                callback.onReceiveFile(randomId, savePathReal, len, len, 1);
             }
         } catch (Exception e) {
             if (callback != null) {

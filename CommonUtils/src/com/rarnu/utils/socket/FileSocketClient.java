@@ -1,7 +1,9 @@
 package com.rarnu.utils.socket;
 
 import java.io.*;
+import java.net.InetSocketAddress;
 import java.net.Socket;
+import java.util.Random;
 
 public class FileSocketClient {
 
@@ -21,6 +23,7 @@ public class FileSocketClient {
             @Override
             public void run() {
                 try {
+                    int randomId = new Random(System.currentTimeMillis()).nextInt(65536);
                     File file = new File(filePath);
                     socket = new Socket(ip, port);
                     DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
@@ -34,7 +37,7 @@ public class FileSocketClient {
                     dos.writeLong(len);
                     dos.flush();
                     if (callback != null) {
-                        callback.onSendFile(filePath, len, 0L, 0);
+                        callback.onSendFile(randomId, filePath, len, 0L, 0);
                     }
                     while (true) {
                         int read = 0;
@@ -47,7 +50,7 @@ public class FileSocketClient {
                         }
                         dos.write(bufArray, 0, read);
                         if (callback != null) {
-                            callback.onSendFile(filePath, len, passedlen, 2);
+                            callback.onSendFile(randomId, filePath, len, passedlen, 2);
                         }
                     }
                     dos.flush();
@@ -55,7 +58,7 @@ public class FileSocketClient {
                     dis.close();
                     socket.close();
                     if (callback != null) {
-                        callback.onSendFile(filePath, len, len, 1);
+                        callback.onSendFile(randomId, filePath, len, len, 1);
                     }
                 } catch (Exception e) {
                     if (callback != null) {

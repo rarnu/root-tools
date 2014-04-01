@@ -11,5 +11,5 @@ public interface SocketClientCallback {
      * @param progress
      * @param status   0: start<br/>1: end<br/>2: progress
      */
-    void onSendFile(String fileName, long total, long progress, int status);
+    void onSendFile(int id, String fileName, long total, long progress, int status);
 }

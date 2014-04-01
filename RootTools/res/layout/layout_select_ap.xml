@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <ListView
+            android:id="@+id/lvAp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+    </ListView>
+
+    <TextView
+            android:id="@+id/tvRefreshAp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="18sp"
+            android:textColor="?android:attr/textColorPrimary"
+            android:layout_centerInParent="true"
+            android:text="@string/ft_refresh_ap"
+            android:visibility="gone"
+            />
+</RelativeLayout>

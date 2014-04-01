@@ -508,5 +508,8 @@
     <string name="ft_ap_id" formatted="false">當前的 AP ID 爲: %d</string>
     <string name="ft_operating_cannot_exit">正在操作，請在所有任務終止後退出</string>
     <string name="ft_select_send_file">選擇檔案</string>
+    <string name="ft_select_ap">選擇接收者</string>
+    <string name="ft_refresh_ap">沒有找到接收者，點擊刷新...</string>
     <string name="ft_add_file_hint">點擊"增加"按鈕來選擇要發送的檔案</string>
+    <string name="ft_waiting_file_hint">正在等待接收檔案...</string>
 </resources>

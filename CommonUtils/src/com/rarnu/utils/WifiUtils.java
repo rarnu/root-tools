@@ -10,11 +10,11 @@ import java.util.List;
 
 public class WifiUtils {
 
+    WifiManager.WifiLock mWifiLock;
     private WifiManager mWifiManager;
     private WifiInfo mWifiInfo;
     private List<ScanResult> mWifiList;
     private List<WifiConfiguration> mWifiConfigurations;
-    WifiManager.WifiLock mWifiLock;
 
     public WifiUtils(Context context) {
         mWifiManager = (WifiManager) context.getSystemService(Context.WIFI_SERVICE);
@@ -70,15 +70,6 @@ public class WifiUtils {
 
     public List<ScanResult> getWifiList() {
         return mWifiList;
-    }
-
-    public StringBuffer lookUpScan() {
-        StringBuffer sb = new StringBuffer();
-        for (int i = 0; i < mWifiList.size(); i++) {
-            sb.append("Index_" + new Integer(i + 1).toString() + ":");
-            sb.append((mWifiList.get(i)).toString()).append("\n");
-        }
-        return sb;
     }
 
     public String getMacAddress() {
@@ -194,5 +185,9 @@ public class WifiUtils {
         } catch (Exception e) {
             return false;
         }
+    }
+
+    public void removeWifi(int netId) {
+        mWifiManager.removeNetwork(netId);
     }
 }
