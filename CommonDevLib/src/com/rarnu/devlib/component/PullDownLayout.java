@@ -24,7 +24,7 @@ public class PullDownLayout extends LinearLayout {
     public int nowpull = -1;
     private View refreshView;
     private ImageView refreshIndicatorView;
-    private int refreshTargetTop = -105;
+    private int refreshTargetTop = -120;
     private ProgressBar bar;
     private TextView downTextView;
     private RefreshListener refreshListener;
