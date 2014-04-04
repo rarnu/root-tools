@@ -413,7 +413,7 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         apWifiId = wifi.addNetWork(wc);
 
         if (apWifiId != -1) {
-
+            // TODO: must run after received a notification
             fileClient = new FileSocketClient(this, AP_IP, PORT);
             fileClient.sendFile(filePath);
         }

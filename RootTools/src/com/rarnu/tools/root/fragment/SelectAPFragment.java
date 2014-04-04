@@ -100,6 +100,7 @@ public class SelectAPFragment extends BaseFragment implements AdapterView.OnItem
                 } catch (Exception e) {
 
                 }
+                // TODO: must run after received a notification
                 hScan.sendEmptyMessage(1);
             }
         }).start();
