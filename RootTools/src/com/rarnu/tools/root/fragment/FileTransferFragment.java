@@ -2,9 +2,10 @@ package com.rarnu.tools.root.fragment;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
+import android.content.*;
 import android.net.wifi.WifiConfiguration;
+import android.net.wifi.WifiInfo;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -40,6 +41,7 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
 
     private static final String AP_PASSWORD = "roottools";
     private static final String AP_NAME = "RootTools-%d";
+    private static final String AP_PREFIX = "RootTools-";
     private static final int PORT = 8821;
     private static final String AP_IP = "192.168.43.1";
 
@@ -86,6 +88,10 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
     ListView lvRecv;
     TextView tvWaitFile;
     boolean inOperating = false;
+    WifiApConnectReceiver receiverWifiApConnect = new WifiApConnectReceiver();
+    IntentFilter filterWifiApConnect = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+    private boolean connected = false;
+    private String sendFile = "";
 
     @Override
     public int getBarTitle() {
@@ -413,9 +419,40 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         apWifiId = wifi.addNetWork(wc);
 
         if (apWifiId != -1) {
-            // TODO: must run after received a notification
-            fileClient = new FileSocketClient(this, AP_IP, PORT);
-            fileClient.sendFile(filePath);
+            connected = true;
+            sendFile = filePath;
+        } else {
+            connected = false;
+            sendFile = "";
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().registerReceiver(receiverWifiApConnect, filterWifiApConnect);
+    }
+
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(receiverWifiApConnect);
+        super.onDestroy();
+    }
+
+    public class WifiApConnectReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            WifiInfo info = wifi.getWifiInfo();
+            Log.e("WifiApConnectReceiver", info.toString());
+            if (info.getSSID().contains(AP_PREFIX)) {
+                if (connected && getActivity() != null) {
+                    connected = false;
+                    fileClient = new FileSocketClient(FileTransferFragment.this, AP_IP, PORT);
+                    fileClient.sendFile(sendFile);
+                }
+            }
         }
     }
 }

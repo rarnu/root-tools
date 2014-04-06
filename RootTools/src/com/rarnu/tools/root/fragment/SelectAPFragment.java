@@ -1,11 +1,16 @@
 package com.rarnu.tools.root.fragment;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.net.wifi.ScanResult;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -24,13 +29,14 @@ import java.util.List;
 
 public class SelectAPFragment extends BaseFragment implements AdapterView.OnItemLongClickListener, View.OnClickListener {
 
+    IntentFilter filterWifiAP = new IntentFilter(WifiManager.SCAN_RESULTS_AVAILABLE_ACTION);
+    WifiAPReceiver receiverWifiAP = new WifiAPReceiver();
     WifiUtils wifi;
     ListView lvAp;
     List<ScanResult> list;
     APAdapter adapter;
     TextView tvRefreshAp;
     MenuItem miRefresh;
-
     private Handler hScan = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -95,13 +101,6 @@ public class SelectAPFragment extends BaseFragment implements AdapterView.OnItem
             public void run() {
                 wifi.openWifi();
                 wifi.startScan();
-                try {
-                    Thread.sleep(500);
-                } catch (Exception e) {
-
-                }
-                // TODO: must run after received a notification
-                hScan.sendEmptyMessage(1);
             }
         }).start();
     }
@@ -160,6 +159,27 @@ public class SelectAPFragment extends BaseFragment implements AdapterView.OnItem
             case R.id.tvRefreshAp:
                 doScanAPT();
                 break;
+        }
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        getActivity().registerReceiver(receiverWifiAP, filterWifiAP);
+    }
+
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(receiverWifiAP);
+        super.onDestroy();
+    }
+
+    public class WifiAPReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Log.e("WifiAPReceiver", intent.getAction());
+            hScan.sendEmptyMessage(1);
         }
     }
 }

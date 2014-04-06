@@ -69,6 +69,8 @@ public class WifiUtils {
     }
 
     public List<ScanResult> getWifiList() {
+        mWifiList = mWifiManager.getScanResults();
+        mWifiConfigurations = mWifiManager.getConfiguredNetworks();
         return mWifiList;
     }
 
@@ -93,6 +95,7 @@ public class WifiUtils {
     }
 
     public WifiInfo getWifiInfo() {
+        mWifiInfo = mWifiManager.getConnectionInfo();
         return mWifiInfo;
     }
 
