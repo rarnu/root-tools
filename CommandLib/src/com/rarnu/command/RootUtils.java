@@ -160,6 +160,11 @@ public class RootUtils {
             process.waitFor();
             ret.result = output.toString().trim();
             ret.error = error.toString().trim();
+
+            // ignore warning output
+            if (ret.error.startsWith("WARNING:")) {
+                ret.error = "";
+            }
         } catch (Exception e) {
             ret.result = "";
             ret.error = e.getMessage();

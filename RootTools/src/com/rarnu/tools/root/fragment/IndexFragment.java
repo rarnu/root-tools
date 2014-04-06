@@ -336,7 +336,7 @@ public class IndexFragment extends BasePreferenceFragment implements
     private void showVersionTags() {
         prefGoogle.setVersion(PreferenceEx.VERSION_BETA);
         prefFonts.setVersion(PreferenceEx.VERSION_BETA);
-        prefFileTransfer.setVersion(PreferenceEx.VERSION_BETA);
+        prefFileTransfer.setVersion(PreferenceEx.VERSION_ALPHA);
     }
 
     @Override
