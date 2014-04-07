@@ -3,9 +3,9 @@ package com.rarnu.tools.root.fragment;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.*;
+import android.net.ConnectivityManager;
 import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -89,7 +89,8 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
     TextView tvWaitFile;
     boolean inOperating = false;
     WifiApConnectReceiver receiverWifiApConnect = new WifiApConnectReceiver();
-    IntentFilter filterWifiApConnect = new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION);
+
+    IntentFilter filterWifiApConnect = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
     private boolean connected = false;
     private String sendFile = "";
 
