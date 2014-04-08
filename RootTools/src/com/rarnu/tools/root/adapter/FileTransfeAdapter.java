@@ -3,6 +3,7 @@ package com.rarnu.tools.root.adapter;
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
@@ -34,6 +35,7 @@ public class FileTransfeAdapter extends BaseAdapter<FileTransferItem> {
             holder = new FileTransferAdapterHolder();
             holder.tvFileName = (TextView) v.findViewById(R.id.tvFileName);
             holder.pbTransfer = (ProgressBar) v.findViewById(R.id.pbTransfer);
+            holder.ivOK = (ImageView) v.findViewById(R.id.ivOK);
             v.setTag(holder);
         }
         FileTransferItem item = list.get(position);
@@ -42,6 +44,7 @@ public class FileTransfeAdapter extends BaseAdapter<FileTransferItem> {
             holder.pbTransfer.setMax(100);
             holder.pbTransfer.setProgress((int) (item.progress * 1.0D * 100 / item.total));
             holder.pbTransfer.setVisibility(item.inProgress ? View.VISIBLE : View.GONE);
+            holder.ivOK.setVisibility(item.inProgress ? View.GONE : View.VISIBLE);
         }
         return v;
     }

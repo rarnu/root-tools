@@ -2,6 +2,7 @@ package com.rarnu.tools.root.fragmentactivity;
 
 import android.app.AlertDialog;
 import android.app.Fragment;
+import android.os.Bundle;
 import android.view.KeyEvent;
 import com.rarnu.devlib.base.BaseActivity;
 import com.rarnu.devlib.base.BaseFragment;
@@ -28,8 +29,9 @@ public class FileTransferActivity extends BaseActivity {
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
         if (fTransfer != null) {
-            if (fTransfer.getFragmentState().getBoolean("inOperating")) {
-                confirmExit();
+            Bundle bn = fTransfer.getFragmentState();
+            if (bn != null && bn.getBoolean("inOperating")) {
+                confirmExit(bn.getInt("mode", -1) == 0);
                 return true;
             }
         }
@@ -41,10 +43,10 @@ public class FileTransferActivity extends BaseActivity {
         return GlobalInstance.theme ? android.R.style.Theme_Holo_Light : android.R.style.Theme_Holo;
     }
 
-    private void confirmExit() {
+    private void confirmExit(boolean isSend) {
         new AlertDialog.Builder(this)
                 .setTitle(R.string.hint)
-                .setMessage(R.string.ft_operating_cannot_exit)
+                .setMessage(isSend ? R.string.ft_sending_cannot_exit : R.string.ft_receiving_cannot_exit)
                 .setPositiveButton(R.string.ok, null)
                 .show();
     }

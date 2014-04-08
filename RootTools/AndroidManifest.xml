@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="621"
-        android:versionName="6.6.4">
+        android:versionCode="754"
+        android:versionName="6.7.1">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -40,7 +40,7 @@
             android:theme="@android:style/Theme.Holo">
         <meta-data
                 android:name="debug"
-                android:value="true" />
+                android:value="false" />
 
         <activity
                 android:name=".SplashActivity"

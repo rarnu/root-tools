@@ -22,9 +22,7 @@ import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.FileTransfeAdapter;
-import com.rarnu.tools.root.common.FileTransferItem;
-import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.common.RTConsts;
+import com.rarnu.tools.root.common.*;
 import com.rarnu.tools.root.fragmentactivity.SelectAPActivity;
 import com.rarnu.tools.root.fragmentactivity.SelectSendFileActivity;
 import com.rarnu.utils.WifiUtils;
@@ -48,9 +46,17 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
     Button btnSendFile, btnReceiveFile;
     RelativeLayout laySend, layRecv;
     MenuItem miReturn;
+    MenuItem miAddSendFile;
     WifiUtils wifi;
     FileSocketServer fileServer;
     FileSocketClient fileClient;
+    boolean isSent = false;
+    /**
+     * mode=-1: N/A
+     * mode=0: send
+     * mode=1: receive
+     */
+    int mode = -1;
 
     FileTransfeAdapter adapter;
     List<FileTransferItem> list;
@@ -62,6 +68,7 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
                     case 0:
                         FileTransferItem item = (FileTransferItem) msg.obj;
                         tvWaitFile.setVisibility(View.GONE);
+                        tvWaitConnect.setVisibility(View.GONE);
                         list.add(item);
                         adapter.setNewList(list);
                         break;
@@ -83,14 +90,16 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
     // send
     DataProgressBar progressSend;
     ListView lvSend;
+    TextView tvWaitConnect;
     // recv
     DataProgressBar progressRecv;
     ListView lvRecv;
     TextView tvWaitFile;
-    boolean inOperating = false;
-    WifiApConnectReceiver receiverWifiApConnect = new WifiApConnectReceiver();
 
-    IntentFilter filterWifiApConnect = new IntentFilter(ConnectivityManager.CONNECTIVITY_ACTION);
+    boolean inOperating = false;
+    WifiApConnectReceiver receiverWifiApConnect;
+    IntentFilter filterWifiApConnect;
+    int resendCount = 0;
     private boolean connected = false;
     private String sendFile = "";
 
@@ -122,6 +131,7 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         progressSend = (DataProgressBar) innerView.findViewById(R.id.progressSend);
         progressSend.setAppName(getString(R.string.ft_send_hint));
         lvSend = (ListView) innerView.findViewById(R.id.lvSend);
+        tvWaitConnect = (TextView) innerView.findViewById(R.id.tvWaitConnect);
 
         // recv
         progressRecv = (DataProgressBar) innerView.findViewById(R.id.progressReceive);
@@ -163,6 +173,11 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         miReturn.setIcon(android.R.drawable.ic_menu_revert);
         miReturn.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
         miReturn.setVisible(false);
+
+        miAddSendFile = menu.add(0, MenuItemIds.MENU_ADD, 98, R.string.send);
+        miAddSendFile.setIcon(android.R.drawable.ic_menu_add);
+        miAddSendFile.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
+        miAddSendFile.setVisible(false);
     }
 
     @Override
@@ -171,6 +186,9 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
             case MenuItemIds.MENU_RETURN:
                 doReturn();
                 break;
+            case MenuItemIds.MENU_ADD:
+                doSelectFile();
+                break;
         }
         return true;
     }
@@ -178,7 +196,7 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
     private void doReturn() {
         new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.hint)
-                .setMessage(R.string.ft_return_confirm)
+                .setMessage(mode == 0 ? R.string.ft_return_send_confirm : R.string.ft_return_receive_confirm)
                 .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -226,14 +244,19 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         }
 
         miReturn.setVisible(false);
+        miAddSendFile.setVisible(false);
         btnReceiveFile.setVisibility(View.VISIBLE);
         btnSendFile.setVisibility(View.VISIBLE);
         layRecv.setVisibility(View.GONE);
         laySend.setVisibility(View.GONE);
         tvWaitFile.setVisibility(View.VISIBLE);
+        tvWaitConnect.setVisibility(View.VISIBLE);
         list.clear();
         adapter.setNewList(list);
         inOperating = false;
+        isSent = false;
+        mode = -1;
+        resendCount = 0;
     }
 
     @Override
@@ -245,6 +268,7 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
     public Bundle getFragmentState() {
         Bundle bn = new Bundle();
         bn.putBoolean("inOperating", inOperating);
+        bn.putInt("mode", mode);
         return bn;
     }
 
@@ -253,15 +277,19 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.btnSendFile:
                 inOperating = true;
+                mode = 0;
                 wifi.openWifi();
                 laySend.setVisibility(View.VISIBLE);
+                tvWaitConnect.setVisibility(View.VISIBLE);
                 miReturn.setVisible(true);
+                miAddSendFile.setVisible(true);
                 btnReceiveFile.setVisibility(View.GONE);
                 btnSendFile.setVisibility(View.GONE);
                 doSelectFile();
                 break;
             case R.id.btnReceiveFile:
                 inOperating = true;
+                mode = 1;
                 layRecv.setVisibility(View.VISIBLE);
                 tvWaitFile.setVisibility(View.VISIBLE);
                 miReturn.setVisible(true);
@@ -276,24 +304,25 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         randomApId = new Random(System.currentTimeMillis()).nextInt(65536);
         progressRecv.setAppName(getString(R.string.ft_ap_id, randomApId));
         wifi.createWifiAp(String.format(AP_NAME, randomApId), AP_PASSWORD, true);
-        fileServer = new FileSocketServer(this, PORT, "/sdcard/");
+        fileServer = new FileSocketServer(this, PORT, RTConfig.getReceivePath(getActivity()));
         fileServer.startListen();
     }
 
     @Override
     public void onCallback(String msg) {
-        Log.e("onCallback", msg);
+
     }
 
     @Override
     public void onError(String msg) {
-        Log.e("onError", msg);
+
     }
 
     @Override
     public void onSendFile(int id, String fileName, long total, long progress, int status) {
         switch (status) {
             case 0:
+                isSent = true;
                 Message msgStart = new Message();
                 msgStart.what = 0;
                 FileTransferItem item = new FileTransferItem();
@@ -383,10 +412,14 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         if (resultCode != Activity.RESULT_OK) {
             switch (requestCode) {
                 case RTConsts.REQCODE_SENDFILE_SELECT:
-                    resetStatus();
+                    if (!isSent) {
+                        resetStatus();
+                    }
                     break;
                 case RTConsts.REQCODE_AP_SELECT:
-                    doSelectFile();
+                    if (!isSent) {
+                        doSelectFile();
+                    }
                     break;
             }
             return;
@@ -394,7 +427,13 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         switch (requestCode) {
             case RTConsts.REQCODE_SENDFILE_SELECT:
                 String filePath = data.getStringExtra("path");
-                doSelectAP(filePath);
+                if (isSent) {
+                    connected = true;
+                    sendFile = filePath;
+                    startSendFile();
+                } else {
+                    doSelectAP(filePath);
+                }
                 break;
             case RTConsts.REQCODE_AP_SELECT:
                 String file = data.getStringExtra("filePath");
@@ -416,6 +455,7 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void doSendFile(final String filePath, final String ssid) {
+        resendCount = 0;
         WifiConfiguration wc = wifi.createWifiInfo(ssid, AP_PASSWORD, 3);
         apWifiId = wifi.addNetWork(wc);
 
@@ -431,6 +471,10 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        receiverWifiApConnect = new WifiApConnectReceiver();
+        filterWifiApConnect = new IntentFilter();
+        filterWifiApConnect.addAction(ConnectivityManager.CONNECTIVITY_ACTION);
+        filterWifiApConnect.addAction(Actions.ACTION_WIFI_AP_MESSAGE);
         getActivity().registerReceiver(receiverWifiApConnect, filterWifiApConnect);
     }
 
@@ -440,19 +484,53 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         super.onDestroy();
     }
 
+    private void startSendFile() {
+        resendCount = 0;
+        if (connected && getActivity() != null) {
+            connected = false;
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    fileClient = new FileSocketClient(FileTransferFragment.this, AP_IP, PORT);
+                    fileClient.sendFile(sendFile);
+                }
+            }).start();
+
+        }
+    }
+
+    private void resendWifiMessage() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1500);
+                    resendCount++;
+                    if (getActivity() != null) {
+                        getActivity().sendBroadcast(new Intent(Actions.ACTION_WIFI_AP_MESSAGE));
+                    }
+                } catch (Exception e) {
+
+                }
+            }
+        }).start();
+
+    }
+
     public class WifiApConnectReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-
             WifiInfo info = wifi.getWifiInfo();
             Log.e("WifiApConnectReceiver", info.toString());
-            if (info.getSSID().contains(AP_PREFIX)) {
-                if (connected && getActivity() != null) {
-                    connected = false;
-                    fileClient = new FileSocketClient(FileTransferFragment.this, AP_IP, PORT);
-                    fileClient.sendFile(sendFile);
+            try {
+                if (info.getSSID().contains(AP_PREFIX) && (info.getLinkSpeed() >= 4 || (info.getLinkSpeed() < 4 && resendCount > 3))) {
+                    startSendFile();
+                } else {
+                    resendWifiMessage();
                 }
+            } catch (Exception e) {
+
             }
         }
     }

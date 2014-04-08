@@ -21,6 +21,15 @@ public class RTConfig {
     private static final String KEY_FIRST_START = "first_start";
     private static final String KEY_FLOAT_WINDOW_POSX = "float_window_posx";
     private static final String KEY_FLOAT_WINDOW_POSY = "float_window_posy";
+    private static final String KEY_RECEIVE_PATH = "receive_path";
+
+    public static String getReceivePath(Context context) {
+        return ConfigUtils.getStringConfig(context, KEY_RECEIVE_PATH, DirHelper.SDCARD_DIR + "/");
+    }
+
+    public static void setReceivePath(Context context, String value) {
+        ConfigUtils.setStringConfig(context, KEY_RECEIVE_PATH, value);
+    }
 
     public static boolean getShowFloatWindow(Context context) {
         return ConfigUtils.getBooleanConfig(context, KEY_SHOW_FLOAT_WINDOW, false);
@@ -150,6 +159,7 @@ public class RTConfig {
         GlobalInstance.nameServer = getNameServer(context);
         GlobalInstance.backupPath = getBackupPath(context);
         GlobalInstance.batchInstallPath = getBatchInstallPath(context);
+        GlobalInstance.receivePath = getReceivePath(context);
     }
 
 }

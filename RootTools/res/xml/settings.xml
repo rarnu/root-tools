@@ -7,7 +7,7 @@
                 android:title="@string/func0_title" />
 
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/func1_title">
+    <PreferenceCategory android:title="@string/cat_system">
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_allow_delete_level_0"
                 android:title="@string/allow_delete_level0" />
@@ -29,7 +29,6 @@
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_reinstall_apk"
                 android:title="@string/reinstall_apk" />
-
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_delete_all_backup_data"
                 android:title="@string/delete_all_backup_data" />
@@ -40,7 +39,7 @@
                 android:key="@string/id_batch_install_path"
                 android:title="@string/set_batch_install_path" />
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/func5_title">
+    <PreferenceCategory android:title="@string/cat_memory">
         <com.rarnu.devlib.component.CheckBoxPreferenceEx
                 android:key="@string/id_kill_process_before_clean"
                 android:title="@string/kill_process_before_clean" />
@@ -48,6 +47,11 @@
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_kill_ignore_list"
                 android:title="@string/kill_ignore_list" />
+    </PreferenceCategory>
+    <PreferenceCategory android:title="@string/cat_file">
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_receive_path"
+                android:title="@string/set_receive_path" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/func7_title">
         <com.rarnu.devlib.component.PreferenceEx

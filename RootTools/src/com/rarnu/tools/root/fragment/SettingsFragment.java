@@ -43,6 +43,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
     PreferenceEx prefBackupPath, prefBatchInstallPath;
     CheckBoxPreferenceEx prefKillProcessBeforeClean;
     PreferenceEx prefKillIgnoreList, prefNameServer, prefManualEditHosts, prefCleanDeprecated;
+    PreferenceEx prefReceivePath;
     MutaxReceiver receiver;
 
     @Override
@@ -87,6 +88,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
         prefCustomAppClean = (PreferenceEx) findPreference(getString(R.string.id_custom_app_clean));
         prefBackupPath = (PreferenceEx) findPreference(getString(R.string.id_backup_path));
         prefBatchInstallPath = (PreferenceEx) findPreference(getString(R.string.id_batch_install_path));
+        prefReceivePath = (PreferenceEx) findPreference(getString(R.string.id_receive_path));
 
         receiver = new MutaxReceiver(Actions.ACTION_CLEANING_BACKUP, null, null);
 
@@ -143,6 +145,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
         prefKillProcessBeforeClean.setStateChecked(GlobalInstance.killProcessBeforeClean);
         prefNameServer.setSummary(GlobalInstance.nameServer);
         prefBackupPath.setSummary(GlobalInstance.backupPath);
+        prefReceivePath.setSummary(GlobalInstance.receivePath);
         prefBatchInstallPath.setSummary(GlobalInstance.batchInstallPath);
     }
 
@@ -235,8 +238,38 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
             changeBackupPath();
         } else if (key.equals(getString(R.string.id_batch_install_path))) {
             changeBatchInstallPath();
+        } else if (key.equals(getString(R.string.id_receive_path))) {
+            changeReceivePath();
         }
         return true;
+    }
+
+    private void changeReceivePath() {
+        // set receive path
+        final EditText etPath = new EditText(getActivity());
+        etPath.setLayoutParams(new LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
+        etPath.setText(GlobalInstance.receivePath);
+        new AlertDialog.Builder(getActivity())
+                .setTitle(R.string.receive_path)
+                .setMessage(R.string.receive_path_hint)
+                .setView(etPath)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveReceivePath(etPath.getText().toString());
+                    }
+                })
+                .setNeutralButton(R.string.default_hint, new DialogInterface.OnClickListener() {
+
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        saveReceivePath(DirHelper.SDCARD_DIR);
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+
     }
 
     private void changeBackupPath() {
@@ -264,7 +297,6 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
-
     }
 
     private void changeBatchInstallPath() {
@@ -291,6 +323,21 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
+    }
+
+    private void saveReceivePath(String path) {
+        if (path.equals("")) {
+            path = DirHelper.SDCARD_DIR;
+        }
+        if (!path.endsWith("/")) {
+            path += "/";
+        }
+        GlobalInstance.receivePath = path;
+        if (!new File(path).exists()) {
+            new File(path).mkdirs();
+        }
+        RTConfig.setReceivePath(getActivity(), GlobalInstance.receivePath);
+        initConfigValues();
     }
 
     private void saveBackupPath(String path) {
@@ -373,6 +420,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
         prefCustomAppClean.setOnPreferenceClickListener(this);
         prefBackupPath.setOnPreferenceClickListener(this);
         prefBatchInstallPath.setOnPreferenceClickListener(this);
+        prefReceivePath.setOnPreferenceClickListener(this);
         receiver.setOnReceiveMessage(this);
     }
 

@@ -7,6 +7,7 @@ import android.util.AttributeSet;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.*;
+import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.FileSystemAdapter;
@@ -172,7 +173,7 @@ public class FileExplorerView extends RelativeLayout implements SearchView.OnQue
         new Thread(new Runnable() {
             @Override
             public void run() {
-                List<FileSystemFileInfo> listTmp = FileCommandUtils.getFileList(currentDir, fileType);
+                List<FileSystemFileInfo> listTmp = FileCommandUtils.getFileList(currentDir, fileType, RootUtils.hasRoot() == RootUtils.LEVEL_ROOTED);
                 Collections.sort(listTmp, compFiles);
                 Message msg = new Message();
                 msg.what = 1;

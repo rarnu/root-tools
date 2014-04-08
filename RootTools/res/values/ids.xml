@@ -52,6 +52,7 @@
     <string name="id_batch_install_path">id_batch_install_path</string>
     <string name="id_kill_process_before_clean">id_kill_process_before_clean</string>
     <string name="id_kill_ignore_list">id_kill_ignore_list</string>
+    <string name="id_receive_path">id_receive_path</string>
     <string name="id_name_server">id_name_server</string>
     <string name="id_manual_edit_hosts">id_manual_edit_hosts</string>
     <string name="id_clean_deprecated_hosts">id_clean_deprecated_hosts</string>

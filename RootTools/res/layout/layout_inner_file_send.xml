@@ -18,4 +18,14 @@
             android:layout_height="24dip"
             android:layout_alignParentBottom="true" />
 
+    <TextView
+            android:id="@+id/tvWaitConnect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:text="@string/ft_waiting_connect_hint"
+            android:textSize="18sp"
+            android:textColor="?android:attr/textColorPrimary"
+            />
+
 </RelativeLayout>

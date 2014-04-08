@@ -20,4 +20,5 @@ public class Actions {
 
     public static final String ACTION_REFRESH_TAG = "com.rarnu.root.tools.tags.refresh";
     public static final String ACTION_SHUTDOWN_SCREEN_COLOR = "com.rarnu.root.tools.screen.shutdown";
+    public static final String ACTION_WIFI_AP_MESSAGE = "com.rarnu.root.tools.wifi.ap";
 }

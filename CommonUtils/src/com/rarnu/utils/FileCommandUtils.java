@@ -44,17 +44,17 @@ public class FileCommandUtils {
         return (result != null && result.error.equals(""));
     }
 
-    public static List<FileSystemFileInfo> getFileList(String path) {
-        return getFileList(path, "");
+    public static List<FileSystemFileInfo> getFileList(String path, boolean root) {
+        return getFileList(path, "", root);
     }
 
-    public static List<FileSystemFileInfo> getFileList(String path, String ext) {
+    public static List<FileSystemFileInfo> getFileList(String path, String ext, boolean root) {
         path = path.replace(" ", "\\ ");
         if (!path.endsWith("/")) {
             path += "/";
         }
         String cmd = String.format("ls -a %s", path);
-        CommandResult result = RootUtils.runCommand(cmd, true);
+        CommandResult result = RootUtils.runCommand(cmd, root);
         List<FileSystemFileInfo> list = new ArrayList<FileSystemFileInfo>();
         if (result != null && result.error.equals("")) {
             String[] names = result.result.split("\n");

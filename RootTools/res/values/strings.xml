@@ -224,6 +224,7 @@
     <string name="btn_common">Common</string>
     <string name="name_server">DNS Server</string>
     <string name="backup_path">Backup Path</string>
+    <string name="receive_path">Receive Path</string>
     <string name="batch_install_path">Batch Install Path</string>
     <string name="manual_edit_hosts">Manual EditHosts</string>
     <string name="clean_deprecated_hosts">Clean Deprecated Hosts</string>
@@ -277,6 +278,7 @@
     <string name="delete_all_backup_data_succ">All backuped data is deleted.</string>
     <string name="set_backup_path">Set Backup Saving Path</string>
     <string name="set_batch_install_path">Set Batch Install Path</string>
+    <string name="set_receive_path">Set Receive Path</string>
     <string name="change_package_status_fail">Change app status failed</string>
     <string name="cannot_change_package_status">Cannot change app\'s status</string>
     <string name="data_app_uninstall">Selected app is a 3rd-part app, cannnot be disabled. You may press "OK" for
@@ -334,6 +336,7 @@
     <string name="name_server_hint">Input the DNS server used by searching Hosts IP, default value is Google\'s DNS.
     </string>
     <string name="backup_path_hint">Input the path you want to save the backup files.</string>
+    <string name="receive_path_hint">Input the path you want to save the received files.</string>
     <string name="batch_install_path_hint">Input the path you want to put the apk files in.</string>
     <string name="custom_clean_empty">No apps to manage, please goto &lt;font color=\'#6495ED\'&gt;System App&lt;/font&gt;
         and add some apps
@@ -534,16 +537,19 @@
     <string name="color_one_key_profile">Onekey Profile</string>
     <string name="color_hint_install">Enable this option will disable the official installer.</string>
 
-    <string name="ft_want_recv">I want to Receive files</string>
-    <string name="ft_want_send">I want to send files</string>
-    <string name="ft_return_confirm">Are you sure to return to the initialized status? Your operations will be lost.</string>
+    <string name="ft_want_recv">Receive files</string>
+    <string name="ft_want_send">Send files</string>
+    <string name="ft_return_send_confirm">Are you sure to exit the sending mode?</string>
+    <string name="ft_return_receive_confirm">Are you sure to exit the receiving mode?</string>
     <string name="ft_send_hint">Choose the file you want to send, long press for selection.</string>
     <string name="ft_wait_recv">Waiting for receiving files...</string>
     <string name="ft_ap_id" formatted="false">Current AP ID is: %d</string>
-    <string name="ft_operating_cannot_exit">Operating, please exit after all task terminated.</string>
+    <string name="ft_sending_cannot_exit">In sending mode, please use the return button for exiting.</string>
+    <string name="ft_receiving_cannot_exit">In receiving mode, please use the return button for exiting.</string>
     <string name="ft_select_send_file">Select file</string>
     <string name="ft_select_ap">Select Receiver</string>
     <string name="ft_refresh_ap">Do NOT find anyone, refresh receiver...</string>
     <string name="ft_add_file_hint">Click "Add" for sending a file.</string>
     <string name="ft_waiting_file_hint">Waiting for receiving files...</string>
+    <string name="ft_waiting_connect_hint">Waiting for connecting...</string>
 </resources>

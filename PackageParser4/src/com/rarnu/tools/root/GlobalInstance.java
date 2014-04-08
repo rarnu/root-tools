@@ -44,6 +44,8 @@ public class GlobalInstance {
     public static String networkSpeed = "";
     // host
     public static String nameServer = "8.8.8.8";
+    // file transfer
+    public static String receivePath = "";
     // update
     public static UpdateInfo updateInfo = null;
     public static boolean isFirstStart = true;

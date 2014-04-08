@@ -219,6 +219,7 @@
     <string name="btn_common">常用</string>
     <string name="name_server">DNS 服务器</string>
     <string name="backup_path">备份路径</string>
+    <string name="receive_path">接收路径</string>
     <string name="batch_install_path">批量安装路径</string>
     <string name="manual_edit_hosts">手动编辑 Hosts</string>
     <string name="clean_deprecated_hosts">清除已失效的 Hosts</string>
@@ -261,6 +262,7 @@
     <string name="delete_all_backup_data_succ">已删除全部的备份数据</string>
     <string name="set_backup_path">设置备份文件路径</string>
     <string name="set_batch_install_path">设备批量安装的文件路径</string>
+    <string name="set_receive_path">设置接收文件的保存路径</string>
     <string name="change_package_status_fail">改变应用程序状态失败</string>
     <string name="cannot_change_package_status">不能改变指定应用程序的状态</string>
     <string name="data_app_uninstall">选定的应用是第三方应用，无法禁用，按“确定”按钮可将其删除，按“取消”不做任何操作。</string>
@@ -315,6 +317,7 @@
     <string name="summary_google">将您的设备变成 Google 设备</string>
     <string name="name_server_hint">输入搜索 Hosts IP 时使用的 DNS 服务器地址，默认为 Google 提供的 DNS</string>
     <string name="backup_path_hint">输入保存备份文件的具体路径</string>
+    <string name="receive_path_hint">输入保存接收到的文件的具体路径</string>
     <string name="batch_install_path_hint">输入保存批量安装 APK 文件的路径</string>
     <string name="custom_clean_empty">没有需要管理的内容，请先到&lt;font color=\'#6495ED\'&gt;系统应用管理&lt;/font&gt;中添加要清除的应用程序</string>
     <string name="clean_cache_empty">没有缓存的内容，无需清理</string>
@@ -501,16 +504,19 @@
     <string name="color_one_key_profile">一键调整方案</string>
     <string name="color_hint_install">启用本功能将使官方的软件安装器失效.</string>
 
-    <string name="ft_want_recv">我要接收文件</string>
-    <string name="ft_want_send">我要发送文件</string>
-    <string name="ft_return_confirm">您确定要返回初始状态吗？您的操作将丢失</string>
+    <string name="ft_want_recv">接收文件</string>
+    <string name="ft_want_send">发送文件</string>
+    <string name="ft_return_send_confirm">您确定要退出发送模式吗？</string>
+    <string name="ft_return_receive_confirm">您确定要退出接收模式吗？</string>
     <string name="ft_send_hint">选择要发送的文件，长按将确定选择</string>
     <string name="ft_wait_recv">正在等待接收文件...</string>
     <string name="ft_ap_id" formatted="false">当前的 AP ID 为: %d</string>
-    <string name="ft_operating_cannot_exit">正在操作，请在所有任务结束后退出</string>
+    <string name="ft_sending_cannot_exit">当前正在发送模式中，请使用返回按钮来退出.</string>
+    <string name="ft_receiving_cannot_exit">当前正在接收模式中，请使用返回按钮来退出.</string>
     <string name="ft_select_send_file">选择文件</string>
     <string name="ft_select_ap">选择接收者</string>
     <string name="ft_refresh_ap">没有找到接收者，点击刷新...</string>
     <string name="ft_add_file_hint">点击"增加"按钮来选择要发送的文件</string>
     <string name="ft_waiting_file_hint">正在等待接收文件...</string>
+    <string name="ft_waiting_connect_hint">正在连接到接收方...</string>
 </resources>

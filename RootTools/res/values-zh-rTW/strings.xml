@@ -219,6 +219,7 @@
     <string name="btn_common">常用</string>
     <string name="name_server">DNS 侍服器</string>
     <string name="backup_path">備份路徑</string>
+    <string name="receive_path">接收路徑</string>
     <string name="batch_install_path">批量安裝路徑</string>
     <string name="manual_edit_hosts">手工編輯 Hosts</string>
     <string name="clean_deprecated_hosts">清除已失效的 Hosts</string>
@@ -260,6 +261,7 @@
     <string name="delete_all_backup_data_succ">已移除所有的備份數據</string>
     <string name="set_backup_path">設定備份檔案路徑</string>
     <string name="set_batch_install_path">設定批量安裝的檔案路徑</string>
+    <string name="set_receive_path">設定接收檔案的保存路徑</string>
     <string name="change_package_status_fail">改變應用程式狀況失敗</string>
     <string name="cannot_change_package_status">無法改變指定應用程式的狀況</string>
     <string name="data_app_uninstall">選擇的應用是第三方應用, 無法禁用, 若按"確定"可以移除該應用。</string>
@@ -315,6 +317,7 @@
 
     <string name="name_server_hint">輸入搜尋 Hosts IP 時要使用的 DNS 侍服器地址, 默認爲 Google 提供的 DNS</string>
     <string name="backup_path_hint">輸入用於保存備份檔案的全路徑</string>
+    <string name="receive_path_hint">輸入用於保存接收到的檔案的全路徑</string>
     <string name="batch_install_path_hint">輸入用於保存批量安裝 APK 檔案的路徑</string>
     <string name="custom_clean_empty">沒有需要管理的內容, 請先到&lt;font color=\'#6495ED\'&gt;系統應用管理&lt;/font&gt;中增加要移除的應用程式
     </string>
@@ -500,16 +503,19 @@
     <string name="color_one_key_profile">一鍵調整方案</string>
     <string name="color_hint_install">啓用本功能將使官方的軟體安裝器失效.</string>
 
-    <string name="ft_want_recv">我要接收檔案</string>
-    <string name="ft_want_send">我要發送檔案</string>
-    <string name="ft_return_confirm">您確認要返回初始狀態嗎？您的操作將丟失</string>
+    <string name="ft_want_recv">接收檔案</string>
+    <string name="ft_want_send">發送檔案</string>
+    <string name="ft_return_send_confirm">您確認要退出發送模式嗎？</string>
+    <string name="ft_return_receive_confirm">您確認要退出接收模式嗎？</string>
     <string name="ft_send_hint">選擇要發送的檔案，長按將確認選擇</string>
     <string name="ft_wait_recv">正在等待接收檔案...</string>
     <string name="ft_ap_id" formatted="false">當前的 AP ID 爲: %d</string>
-    <string name="ft_operating_cannot_exit">正在操作，請在所有任務終止後退出</string>
+    <string name="ft_sending_cannot_exit">當前正在發送模式中，請使用返回按鈕來退出.</string>
+    <string name="ft_receiving_cannot_exit">當前正在接收模式中，請使用返回按鈕來退出.</string>
     <string name="ft_select_send_file">選擇檔案</string>
     <string name="ft_select_ap">選擇接收者</string>
     <string name="ft_refresh_ap">沒有找到接收者，點擊刷新...</string>
     <string name="ft_add_file_hint">點擊"增加"按鈕來選擇要發送的檔案</string>
     <string name="ft_waiting_file_hint">正在等待接收檔案...</string>
+    <string name="ft_waiting_connect_hint">正在連接到接收方...</string>
 </resources>

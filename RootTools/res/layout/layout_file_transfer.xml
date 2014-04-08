@@ -22,22 +22,24 @@
         <Button
                 android:id="@+id/btnSendFile"
                 android:layout_width="match_parent"
-                android:layout_height="56dip"
+                android:layout_height="96dip"
                 android:text="@string/ft_want_send"
                 android:layout_marginLeft="32dip"
                 android:layout_marginRight="32dip"
-                style="?android:attr/buttonBarButtonStyle" />
+                style="?android:attr/buttonBarButtonStyle"
+                android:textSize="32sp"/>
 
         <Button
                 android:id="@+id/btnReceiveFile"
                 android:layout_width="match_parent"
-                android:layout_height="56dip"
+                android:layout_height="96dip"
                 android:text="@string/ft_want_recv"
                 android:layout_marginLeft="32dip"
                 android:layout_marginRight="32dip"
                 android:layout_marginTop="8dip"
                 android:layout_below="@+id/btnSendFile"
-                style="?android:attr/buttonBarButtonStyle" />
+                style="?android:attr/buttonBarButtonStyle"
+                android:textSize="32sp"/>
 
     </RelativeLayout>
 
