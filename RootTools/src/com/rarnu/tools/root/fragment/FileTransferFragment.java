@@ -9,7 +9,6 @@ import android.net.wifi.WifiInfo;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -488,14 +487,8 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         resendCount = 0;
         if (connected && getActivity() != null) {
             connected = false;
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    fileClient = new FileSocketClient(FileTransferFragment.this, AP_IP, PORT);
-                    fileClient.sendFile(sendFile);
-                }
-            }).start();
-
+            fileClient = new FileSocketClient(FileTransferFragment.this, AP_IP, PORT);
+            fileClient.sendFile(sendFile);
         }
     }
 
@@ -522,15 +515,16 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         @Override
         public void onReceive(Context context, Intent intent) {
             WifiInfo info = wifi.getWifiInfo();
-            Log.e("WifiApConnectReceiver", info.toString());
-            try {
-                if (info.getSSID().contains(AP_PREFIX) && (info.getLinkSpeed() >= 4 || (info.getLinkSpeed() < 4 && resendCount > 3))) {
-                    startSendFile();
-                } else {
-                    resendWifiMessage();
-                }
-            } catch (Exception e) {
+            if (info != null) {
+                try {
+                    if (info.getSSID().contains(AP_PREFIX) && (info.getLinkSpeed() >= 4 || (info.getLinkSpeed() < 4 && resendCount > 3))) {
+                        startSendFile();
+                    } else {
+                        resendWifiMessage();
+                    }
+                } catch (Exception e) {
 
+                }
             }
         }
     }
