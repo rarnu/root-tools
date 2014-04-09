@@ -98,7 +98,6 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
     boolean inOperating = false;
     WifiApConnectReceiver receiverWifiApConnect;
     IntentFilter filterWifiApConnect;
-    int resendCount = 0;
     private boolean connected = false;
     private String sendFile = "";
 
@@ -255,7 +254,6 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         inOperating = false;
         isSent = false;
         mode = -1;
-        resendCount = 0;
     }
 
     @Override
@@ -454,7 +452,6 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
     }
 
     private void doSendFile(final String filePath, final String ssid) {
-        resendCount = 0;
         WifiConfiguration wc = wifi.createWifiInfo(ssid, AP_PASSWORD, 3);
         apWifiId = wifi.addNetWork(wc);
 
@@ -477,37 +474,19 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
         getActivity().registerReceiver(receiverWifiApConnect, filterWifiApConnect);
     }
 
-    @Override
-    public void onDestroy() {
-        getActivity().unregisterReceiver(receiverWifiApConnect);
-        super.onDestroy();
-    }
-
     private void startSendFile() {
-        resendCount = 0;
         if (connected && getActivity() != null) {
             connected = false;
             fileClient = new FileSocketClient(FileTransferFragment.this, AP_IP, PORT);
             fileClient.sendFile(sendFile);
         }
+
     }
 
-    private void resendWifiMessage() {
-        new Thread(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    Thread.sleep(1500);
-                    resendCount++;
-                    if (getActivity() != null) {
-                        getActivity().sendBroadcast(new Intent(Actions.ACTION_WIFI_AP_MESSAGE));
-                    }
-                } catch (Exception e) {
-
-                }
-            }
-        }).start();
-
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(receiverWifiApConnect);
+        super.onDestroy();
     }
 
     public class WifiApConnectReceiver extends BroadcastReceiver {
@@ -517,10 +496,8 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
             WifiInfo info = wifi.getWifiInfo();
             if (info != null) {
                 try {
-                    if (info.getSSID().contains(AP_PREFIX) && (info.getLinkSpeed() >= 4 || (info.getLinkSpeed() < 4 && resendCount > 3))) {
+                    if (info.getSSID().contains(AP_PREFIX) && info.getMeteredHint()) {
                         startSendFile();
-                    } else {
-                        resendWifiMessage();
                     }
                 } catch (Exception e) {
 
