@@ -22,42 +22,7 @@
     <favorites_list name="Server" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file leaf-file-name="add_recommand.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/yugioh/add_recommand.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="47" column="0" selection-start="1379" selection-end="1529" vertical-scroll-proportion="-13.592592" vertical-offset="479" max-vertical-offset="1062">
-              <folding>
-                <marker date="1393289035691" expanded="true" signature="1131:1277" placeholder="insert into ..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="upload_new_splash.php" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/root_tools/admin/upload_new_splash.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="30" column="0" selection-start="767" selection-end="767" vertical-scroll-proportion="-20.0" vertical-offset="0" max-vertical-offset="684">
-              <folding>
-                <marker date="1398060322613" expanded="true" signature="480:540" placeholder="update root_..." />
-                <marker date="1398060322613" expanded="true" signature="486:518" placeholder="insert into ..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="get_splash.php" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/root_tools/get_splash.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0302521" vertical-offset="0" max-vertical-offset="595">
-              <folding>
-                <marker date="1398062507765" expanded="true" signature="76:125" placeholder="select filen..root_tools_splash..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf />
   </component>
   <component name="FindManager">
     <FindUsagesManager>
@@ -207,14 +172,14 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="-4" width="1366" height="772" extended-state="6" />
-    <editor active="true" />
+    <editor active="false" />
     <layout>
       <window_info id="Changes" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2708018" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2708018" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
@@ -461,30 +426,30 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/yugioh/add_recommand.php">
+    <entry file="file://$PROJECT_DIR$/root_tools/get_splash.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="47" column="0" selection-start="1379" selection-end="1529" vertical-scroll-proportion="-13.592592" vertical-offset="479" max-vertical-offset="1062">
+        <state line="8" column="0" selection-start="178" selection-end="178" vertical-scroll-proportion="-5.3333335" vertical-offset="0" max-vertical-offset="396">
           <folding>
-            <marker date="1393289035691" expanded="true" signature="1131:1277" placeholder="insert into ..." />
+            <marker date="1398062507765" expanded="true" signature="-1:-1" placeholder="select filen..root_tools_splash..." />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/root_tools/admin/upload_new_splash.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="30" column="0" selection-start="767" selection-end="767" vertical-scroll-proportion="-20.0" vertical-offset="0" max-vertical-offset="684">
+        <state line="13" column="1" selection-start="271" selection-end="271" vertical-scroll-proportion="0.39327732" vertical-offset="0" max-vertical-offset="684">
           <folding>
-            <marker date="1398060322613" expanded="true" signature="480:540" placeholder="update root_..." />
-            <marker date="1398060322613" expanded="true" signature="486:518" placeholder="insert into ..." />
+            <marker date="1398060322613" expanded="true" signature="-1:-1" placeholder="update root_..." />
+            <marker date="1398060322613" expanded="true" signature="-1:-1" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/root_tools/get_splash.php">
+    <entry file="file://$PROJECT_DIR$/yugioh/add_recommand.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="0" selection-start="6" selection-end="6" vertical-scroll-proportion="0.0302521" vertical-offset="0" max-vertical-offset="595">
+        <state line="47" column="0" selection-start="1379" selection-end="1529" vertical-scroll-proportion="0.6305842" vertical-offset="479" max-vertical-offset="1062">
           <folding>
-            <marker date="1398062507765" expanded="true" signature="76:125" placeholder="select filen..root_tools_splash..." />
+            <marker date="1393289035691" expanded="true" signature="-1:-1" placeholder="insert into ..." />
           </folding>
         </state>
       </provider>
