@@ -31,7 +31,7 @@ include('navadmin.php');
       <!-- Main hero unit for a primary marketing message or call to action -->
       <div class="hero-unit">
 
-		<h1>上传推广软件</h1><br><br>
+		<h1>上传更新包</h1><br><br>
         <div class="alert alert-success">
 		<form method="POST" action="upload_new_version.php" class="form-horizontal" enctype="multipart/form-data">
         <table border="0" >
