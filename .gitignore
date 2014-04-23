@@ -1,35 +1,51 @@
+# for all
 *~
-.classpath
-bin/
-gen/
-.settings/
-*.apk
-x86_64-linux/
-i386-linux/
-i386-win32/
-*.so
-obj/
-local.properties
 *.log
 *.swp
 *.ini
+*.cfg
+tmp/
+
+# java
+.classpath
+bin/
+gen/
+
+# eclipse
+.settings/
+
+# android
+*.apk
+*.so
+obj/
+local.properties
 build.xml
 lint.xml
-convert2
+
+# python
+*.pyc
+
+# lazarus
+x86_64-linux/
+i386-linux/
+i386-win32/
+core
+*.~p*
+
+# jetbrains
 out/
 .idea/workspace.xml
 .idea/modules.xml
 .idea/vcs.xml
 .idea/inspectionProfiles/
 .idea/codeStyleSettings.xml
-preview_generator
-*.cfg
-roottools_client
-roottools_client.ini
-core
-expect.sh
-*.~p*
-tmp/
+
+# windows
 *.exe
 *.dll
+
+# in projects
+preview_generator
+roottools_client
+expect.sh
 
