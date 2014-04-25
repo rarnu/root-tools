@@ -138,21 +138,28 @@ public class GoogleUtils {
         return ret;
     }
 
-    public static List<GoogleInfo> getInstallFileList(List<GoogleInfo> list, boolean overrideBroken, boolean installOptional, int mode) {
+    public static List<GoogleInfo> getInstallFileList(List<GoogleInfo> list, boolean overrideBroken, boolean installOptional, boolean basic) {
         List<GoogleInfo> result = new ArrayList<GoogleInfo>();
-        for (GoogleInfo gi : list) {
-            if (mode == 1) {
-                if (gi.optional && gi.status != 0 && installOptional) {
+        if (basic) {
+            for (GoogleInfo gi : list) {
+                if (gi.fileName.contains("ContactsSyncAdapter")
+                        || gi.fileName.contains("CalendarSyncAdapter")
+                        || gi.fileName.contains("ServicesFramework")
+                        || gi.fileName.contains("LoginService")
+                        || gi.fileName.contains("GmsCore")) {
                     result.add(gi);
                 }
-            } else {
+            }
+        } else {
+            for (GoogleInfo gi : list) {
                 if (gi.status == 2 && overrideBroken) {
                     result.add(gi);
-                } else if (gi.status == 1 && gi.optional && installOptional) {
+                } else if (gi.status != 0 && gi.optional && installOptional) {
                     result.add(gi);
                 } else if (gi.status == 1 && !gi.optional) {
                     result.add(gi);
                 }
+
             }
         }
         return result;

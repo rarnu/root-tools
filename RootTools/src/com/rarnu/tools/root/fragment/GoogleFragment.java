@@ -397,7 +397,7 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                 if (mode == -1) {
                     return;
                 }
-                confirmInstallGoogle(mode);
+                confirmInstallGoogle();
                 break;
         }
     }
@@ -436,11 +436,9 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
     /**
      * @param mode 0:all, 1:optional only
      */
-    private void confirmInstallGoogle(final int mode) {
+    private void confirmInstallGoogle() {
         final View vInstallDialog = LayoutInflater.from(getActivity()).inflate(R.layout.dialog_install_google, null);
-        if (mode == 1) {
-            vInstallDialog.findViewById(R.id.chkOverrideBrokenFile).setVisibility(View.GONE);
-        }
+
         new AlertDialog.Builder(getActivity())
                 .setTitle(R.string.hint)
                 .setMessage(R.string.google_install_dialog)
@@ -450,16 +448,17 @@ public class GoogleFragment extends BaseFragment implements Loader.OnLoadComplet
                     public void onClick(DialogInterface dialog, int which) {
                         boolean obf = ((CheckBox) vInstallDialog.findViewById(R.id.chkOverrideBrokenFile)).isChecked();
                         boolean io = ((CheckBox) vInstallDialog.findViewById(R.id.chkInstallOptional)).isChecked();
-                        doInstallGoogleT(obf, io, mode);
+                        boolean basic = ((CheckBox) vInstallDialog.findViewById(R.id.chkBasicInstall)).isChecked();
+                        doInstallGoogleT(obf, io, basic);
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)
                 .show();
     }
 
-    private void doInstallGoogleT(final boolean overrideBroken, final boolean installOptional, int mode) {
+    private void doInstallGoogleT(final boolean overrideBroken, final boolean installOptional, final boolean basic) {
 
-        final List<GoogleInfo> installList = GoogleUtils.getInstallFileList(list, overrideBroken, installOptional, mode);
+        final List<GoogleInfo> installList = GoogleUtils.getInstallFileList(list, overrideBroken, installOptional, basic);
         if (installList == null || installList.size() == 0) {
             return;
         }

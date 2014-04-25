@@ -406,6 +406,7 @@
     <string name="google_sdk_unmatch">版本不匹配</string>
     <string name="chk_override_broken">覆蓋破損的檔案</string>
     <string name="chk_install_optional">安裝可選的應用</string>
+    <string name="chk_basic_install">僅安裝最精簡版本</string>
     <string name="google_all_files_correct">所有的檔案均是正確的, 無需重新安裝</string>
     <string name="google_no_zip">您還未下載 Google 套件, 請先進行下載</string>
     <string name="google_reboot_hint">Google 套件安裝完畢, 如果您現在還無法看到 Google 應用, 請重啓設備</string>

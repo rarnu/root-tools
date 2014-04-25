@@ -405,6 +405,7 @@
     <string name="google_sdk_unmatch">版本不匹配</string>
     <string name="chk_override_broken">覆盖破损的文件</string>
     <string name="chk_install_optional">安装可选的应用</string>
+    <string name="chk_basic_install">只安装最精简版本</string>
     <string name="google_all_files_correct">所有文件均是正确的, 无需重新安装</string>
     <string name="google_no_zip">您还未下载 Google 套件, 请先进行下载</string>
     <string name="google_reboot_hint">Google 套件安装完毕, 如果您现在还无法看到 Google 应用, 请重启设备</string>

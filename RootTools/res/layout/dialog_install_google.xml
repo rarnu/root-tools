@@ -11,12 +11,21 @@
             android:layout_height="wrap_content"
             android:text="@string/chk_override_broken"
             android:textColor="?android:attr/textColorPrimary" />
+
     <CheckBox
             android:id="@+id/chkInstallOptional"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/chkOverrideBrokenFile"
             android:text="@string/chk_install_optional"
+            android:textColor="?android:attr/textColorPrimary" />
+
+    <CheckBox
+            android:id="@+id/chkBasicInstall"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/chkInstallOptional"
+            android:text="@string/chk_basic_install"
             android:textColor="?android:attr/textColorPrimary" />
 
 </RelativeLayout>

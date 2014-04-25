@@ -436,6 +436,7 @@
     <string name="google_sdk_unmatch">Unmatch</string>
     <string name="chk_override_broken">Override Broken Files</string>
     <string name="chk_install_optional">Install Optional Apps</string>
+    <string name="chk_basic_install">Install Basic Files Only</string>
     <string name="google_all_files_correct">All files are correct, do not need to reinstall.</string>
     <string name="google_no_zip">You have not downloaded the google package, please download it first.</string>
     <string name="google_reboot_hint">Google package installed, if you cannot see the Google apps now, please reboot
