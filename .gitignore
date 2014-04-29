@@ -5,6 +5,7 @@
 *.ini
 *.cfg
 tmp/
+.idea/
 
 # java
 .classpath
