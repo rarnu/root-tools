@@ -13,7 +13,6 @@ import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import com.rarnu.devlib.base.BaseFragment;
 import com.yugioh.android.R;
-import com.yugioh.android.define.FieldDefine;
 import com.yugioh.android.loader.LimitLoader;
 import com.yugioh.android.utils.MiscUtils;
 
@@ -91,7 +90,7 @@ public class LimitDetailFragment extends BaseFragment implements OnItemClickList
     public void onLoadComplete(Loader<Cursor> loader, Cursor data) {
         if (data != null) {
             cLimit = data;
-            adapterLimit = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cLimit, new String[]{FieldDefine.DataFields[5], FieldDefine.DataFields[10]}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+            adapterLimit = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cLimit, new String[]{"name", "sCardType"}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
         }
         if (getActivity() != null) {

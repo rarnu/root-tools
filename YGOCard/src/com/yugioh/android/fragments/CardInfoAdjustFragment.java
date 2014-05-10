@@ -49,8 +49,8 @@ public class CardInfoAdjustFragment extends BaseFragment {
 
         info = (CardInfo) getActivity().getIntent().getSerializableExtra("cardinfo");
 
-        tvAdjust.setText(info.getCardAdjust());
-        tvNoAdjust.setVisibility((info.getCardAdjust() == null || info.getCardAdjust().trim().equals("")) ? View.VISIBLE : View.GONE);
+        tvAdjust.setText(info.getAdjust());
+        tvNoAdjust.setVisibility((info.getAdjust() == null || info.getAdjust().trim().equals("")) ? View.VISIBLE : View.GONE);
 
         fontSize = Config.cfgGetFontSize(getActivity());
         if (fontSize == -1) {
@@ -83,7 +83,7 @@ public class CardInfoAdjustFragment extends BaseFragment {
     public String getCustomTitle() {
         String title = null;
         if (info != null) {
-            title = info.getSCCardName();
+            title = info.getName();
         }
         return title;
     }

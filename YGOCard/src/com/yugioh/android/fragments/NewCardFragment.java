@@ -12,9 +12,7 @@ import android.widget.CursorAdapter;
 import android.widget.ListView;
 import android.widget.SimpleCursorAdapter;
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.R;
-import com.yugioh.android.define.FieldDefine;
 import com.yugioh.android.loader.NewCardLoader;
 import com.yugioh.android.utils.MiscUtils;
 
@@ -91,7 +89,7 @@ public class NewCardFragment extends BaseFragment implements OnItemClickListener
     public void onLoadComplete(Loader<Cursor> loader, Cursor data) {
         if (data != null) {
             cNewCard = data;
-            adapterNewCard = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cNewCard, new String[]{FieldDefine.DataFields[5], FieldDefine.DataFields[10]}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+            adapterNewCard = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cNewCard, new String[]{"name", "sCardType"}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
         }
         if (getActivity() != null) {

@@ -12,7 +12,6 @@ public class YugiohProvider extends ContentProvider {
     public static final int ACTIONID_CLOSEDATABASE = -99;
     public static final int ACTIONID_NEWDATABASE = -98;
     public static final int ACTIONID_CARDCOUNT = -4;
-    public static final int ACTIONID_EFFECTLIST = -3;
     public static final int ACTIONID_TOP100 = -2;
     public static final int ACTIONID_SEARCH = -1;
     public static final int ACTIONID_VERSION = -5;

@@ -40,20 +40,17 @@ public class YugiohDatabase {
         if (database != null) {
             switch (actionId) {
                 case YugiohProvider.ACTIONID_CARDCOUNT:
-                    c = database.rawQuery("select CardID from YGODATA order by CardID desc limit 0,1", null);
-                    break;
-                case YugiohProvider.ACTIONID_EFFECTLIST:
-                    c = database.rawQuery("select * from YGOEFFECT", null);
+                    c = database.rawQuery("select _id from ygodata order by _id desc limit 0,1", null);
                     break;
                 case YugiohProvider.ACTIONID_TOP100:
-                    c = database.rawQuery("select _id, SCCardName, SCCardType from YGODATA order by _id desc limit 0,100 ", null);
+                    c = database.rawQuery("select _id, name, sCardType from ygodata order by _id desc limit 0,100 ", null);
                     break;
                 case YugiohProvider.ACTIONID_SEARCH:
-                    c = database.query("YGODATA", projection, selection, selectionArgs, null, null, sortOrder);
+                    c = database.query("ygodata", projection, selection, selectionArgs, null, null, sortOrder);
                     break;
                 default:
                     if (actionId >= 0) {
-                        c = database.rawQuery("select * from YGODATA where CardID=?", new String[]{String.valueOf(actionId)});
+                        c = database.rawQuery("select * from ygodata where _id=?", new String[]{String.valueOf(actionId)});
                     }
             }
         }

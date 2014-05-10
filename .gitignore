@@ -32,6 +32,7 @@ i386-linux/
 i386-win32/
 core
 *.~p*
+backup/
 
 # jetbrains
 out/

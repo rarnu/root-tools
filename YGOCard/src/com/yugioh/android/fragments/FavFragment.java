@@ -7,9 +7,7 @@ import android.view.Menu;
 import android.view.View;
 import android.widget.*;
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.R;
-import com.yugioh.android.define.FieldDefine;
 import com.yugioh.android.loader.FavLoader;
 import com.yugioh.android.utils.MiscUtils;
 
@@ -91,7 +89,7 @@ public class FavFragment extends BaseFragment implements Loader.OnLoadCompleteLi
     public void onLoadComplete(Loader<Cursor> loader, Cursor data) {
         if (data != null) {
             cSearch = data;
-            adapterSearch = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cSearch, new String[]{FieldDefine.DataFields[5], FieldDefine.DataFields[10]}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+            adapterSearch = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cSearch, new String[]{"name", "sCardType"}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         } else {
             adapterSearch = null;
         }

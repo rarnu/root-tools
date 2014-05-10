@@ -55,27 +55,30 @@ public class CardInfoCardFragment extends BaseFragment {
 
     private String buildCardInfo(CardInfo info) {
         StringBuilder sbInfo = new StringBuilder();
-        sbInfo.append(buildInfoLine(R.string.name, info.getSCCardName()));
-        sbInfo.append(buildInfoLine(R.string.japan_name, info.getJPCardName()));
-        sbInfo.append(buildInfoLine(R.string.english_name, info.getENCardName()));
-        sbInfo.append(buildInfoLine(R.string.type, info.getSCCardType()));
+        sbInfo.append(buildInfoLine(R.string.name, info.getName()));
+        sbInfo.append(buildInfoLine(R.string.japan_name, info.getJapName()));
+        sbInfo.append(buildInfoLine(R.string.english_name, info.getEnName()));
+        sbInfo.append(buildInfoLine(R.string.type, info.getSCardType()));
 
-        if (info.getSCCardType().contains(getResources().getString(R.string.monster))) {
+        if (info.getSCardType().contains(getResources().getString(R.string.monster))) {
             sbInfo.append(buildInfoLine(R.string.split, ""));
-            sbInfo.append(buildInfoLine(R.string.attribute, info.getSCCardAttribute()));
-            sbInfo.append(buildInfoLine(R.string.level, String.format("%d %s", info.getCardStarNum(), info.getSCCardType().contains(getResources().getString(R.string.overlay)) ? getResources().getString(R.string.lad) : "")));
-            sbInfo.append(buildInfoLine(R.string.race, info.getSCCardRace()));
-            sbInfo.append(buildInfoLine(R.string.attack, info.getCardAtk2()));
-            sbInfo.append(buildInfoLine(R.string.defense, info.getCardDef2()));
+            sbInfo.append(buildInfoLine(R.string.attribute, info.getElement()));
+            sbInfo.append(buildInfoLine(R.string.level, String.format("%d %s", info.getLevel(), info.getSCardType().contains(getResources().getString(R.string.overlay)) ? getResources().getString(R.string.lad) : "")));
+            sbInfo.append(buildInfoLine(R.string.race, info.getTribe()));
+            sbInfo.append(buildInfoLine(R.string.attack, info.getAtk()));
+            sbInfo.append(buildInfoLine(R.string.defense, info.getDef()));
+            if (info.getCardDType().contains(getString(R.string.pendulum))) {
+                sbInfo.append(buildInfoLine(R.string.pendulum_level, getString(R.string.pendulum_LR, info.getPendulumL(), info.getPendulumR())));
+            }
         }
         sbInfo.append(buildInfoLine(R.string.split, ""));
-        sbInfo.append(buildInfoLine(R.string.limit, info.getSCCardBan()));
-        sbInfo.append(buildInfoLine(R.string.pack, info.getCardBagNum()));
+        sbInfo.append(buildInfoLine(R.string.limit, info.getBan()));
+        sbInfo.append(buildInfoLine(R.string.pack, info.getPackage()));
         sbInfo.append(buildInfoLine(R.string.belongs, info.getCardCamp()));
-        sbInfo.append(buildInfoLine(R.string.password, info.getCardPass()));
-        sbInfo.append(buildInfoLine(R.string.rare, info.getSCCardRare()));
+        sbInfo.append(buildInfoLine(R.string.password, info.getCheatcode()));
+        sbInfo.append(buildInfoLine(R.string.rare, info.getInfrequence()));
         sbInfo.append(buildInfoLine(R.string.split, ""));
-        sbInfo.append(buildInfoLine(R.string.effect, info.getSCCardDepict()));
+        sbInfo.append(buildInfoLine(R.string.effect, "\n" + info.getEffect().replace("======", getString(R.string.split))));
 
         return sbInfo.toString();
     }
@@ -113,7 +116,7 @@ public class CardInfoCardFragment extends BaseFragment {
     public String getCustomTitle() {
         String title = null;
         if (info != null) {
-            title = info.getSCCardName();
+            title = info.getName();
         }
         return title;
     }

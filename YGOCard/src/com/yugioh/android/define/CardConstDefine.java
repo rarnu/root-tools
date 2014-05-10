@@ -5,7 +5,6 @@ import java.util.List;
 
 public class CardConstDefine {
 
-	public static final int DEFID_CARDEFFECT = 0;
 	public static final int DEFID_CARDRACE = 1;
 	public static final int DEFID_CARDBELONGS = 2;
 	public static final int DEFID_CARDTYPE = 3;
@@ -57,7 +56,7 @@ public class CardConstDefine {
 
 	private static final String[] CardRace = { "战士", "不死", "恶魔", "兽", "兽战士",
 			"恐龙", "鱼", "机械", "水", "天使", "魔法师", "炎", "雷", "爬虫类", "植物", "昆虫",
-			"岩石", "海龙", "鸟兽", "龙", "念动力", "幻神兽" };
+			"岩石", "海龙", "鸟兽", "龙", "念动力", "幻龙", "幻神兽" };
 
 	private static final String[] CardBelongs = { "OCG、TCG", "OCG", "TCG" };
 
@@ -77,6 +76,6 @@ public class CardConstDefine {
 
 	private static final String[] CardLimit = { "无限制", "禁止卡", "限制卡", "准限制卡",
 			"观赏卡" };
-	
-	private static final String[] CardTunner = {"调整","非调整"};
+
+    private static final String[] CardTunner = {"卡通","灵魂","同盟","调整","二重","反转","摇摆"};
 }

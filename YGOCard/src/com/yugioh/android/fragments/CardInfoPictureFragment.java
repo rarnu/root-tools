@@ -77,7 +77,7 @@ public class CardInfoPictureFragment extends BaseFragment implements OnClickList
     @Override
     public void initLogic() {
         info = (CardInfo) getActivity().getIntent().getSerializableExtra("cardinfo");
-        String picName = PathDefine.PICTURE_PATH + String.format("%d.jpg", info.getCardID() - 1);
+        String picName = PathDefine.PICTURE_PATH + String.format("%d.jpg", info.getId());
         File fPic = new File(picName);
         if (fPic.exists()) {
             Bitmap cardImg = BitmapFactory.decodeFile(picName);
@@ -114,7 +114,7 @@ public class CardInfoPictureFragment extends BaseFragment implements OnClickList
     public String getCustomTitle() {
         String title = null;
         if (info != null) {
-            title = info.getSCCardName();
+            title = info.getName();
         }
         return title;
     }
@@ -132,9 +132,9 @@ public class CardInfoPictureFragment extends BaseFragment implements OnClickList
         pbDownload.setProgress(0);
         pbDownload.setVisibility(View.VISIBLE);
         tvNoPic.setVisibility(View.GONE);
-        String url = String.format(NetworkDefine.URL_CARD_IMAGE_FMT, info.getCardID() - 1);
+        String url = String.format(NetworkDefine.URL_CARD_IMAGE_FMT, info.getId());
         String localDir = PathDefine.PICTURE_PATH;
-        String localFile = String.format("%d.jpg", info.getCardID() - 1);
+        String localFile = String.format("%d.jpg", info.getId());
         DownloadUtils.downloadFileT(getActivity(), ivImage, url, localDir, localFile, hDownloadProgress);
     }
 

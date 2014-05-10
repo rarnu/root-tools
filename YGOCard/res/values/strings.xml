@@ -3,7 +3,7 @@
 
     <string name="app_name">游戏王卡片查询器</string>
     <string name="data_name">卡片数据包</string>
-    <string name="about_data">数据来源：YFCC3天堂狐卡片收藏集</string>
+    <string name="about_data">数据来源：OurOcg</string>
     <string name="about_application">软件开发：橙子Infinity</string>
     <string name="about_date_fmt" formatted="false">发布日期：%s</string>
 
@@ -149,13 +149,16 @@
     <string name="level">星数阶级</string>
     <string name="attack">攻击力</string>
     <string name="defense">守备力</string>
+    <string name="pendulum_level">摇摆刻度</string>
+    <string name="pendulum_LR" formatted="false">左(%d)右(%s)</string>
     <string name="type">卡片种类</string>
     <string name="effect">卡片效果</string>
     <string name="monster">怪兽</string>
     <string name="tunner">调整</string>
+    <string name="pendulum">摇摆</string>
     <string name="magic">魔法</string>
     <string name="trap">陷阱</string>
-    <string name="overlay">超量</string>
+    <string name="overlay">XYZ</string>
     <string name="lad">阶</string>
     <string name="split">------------------------------</string>
     <string name="assigned">关联卡片</string>

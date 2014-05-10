@@ -28,7 +28,7 @@ import java.util.List;
 
 public class SearchFragment extends BaseFragment implements OnItemSelectedListener, View.OnTouchListener {
 
-    Spinner spCardEffect, spCardRace, spCardBelongs, spCardType, spCardAttribute, spCardLevel, spCardRare, spCardLimit, spCardTunner;
+    Spinner spCardRace, spCardBelongs, spCardType, spCardAttribute, spCardLevel, spCardRare, spCardLimit, spCardTunner;
     EditText etCardName, etCardAttack, etCardDefense, etEffectText;
 
     private  BaseFragment searchResultFragment = null;
@@ -58,7 +58,6 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
         etCardAttack = (EditText) innerView.findViewById(R.id.etCardAttack);
         etCardDefense = (EditText) innerView.findViewById(R.id.etCardDefense);
         etEffectText = (EditText) innerView.findViewById(R.id.etEffectText);
-        spCardEffect = (Spinner) innerView.findViewById(R.id.spCardEffect);
         spCardRace = (Spinner) innerView.findViewById(R.id.spCardRace);
         spCardBelongs = (Spinner) innerView.findViewById(R.id.spCardBelongs);
         spCardType = (Spinner) innerView.findViewById(R.id.spCardType);
@@ -79,12 +78,10 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
 
     @Override
     public void initEvents() {
-
     }
 
     @Override
     public void initLogic() {
-        setSpinner(spCardEffect, CardConstDefine.DEFID_CARDEFFECT);
         setSpinner(spCardRace, CardConstDefine.DEFID_CARDRACE);
         setSpinner(spCardBelongs, CardConstDefine.DEFID_CARDBELONGS);
         setSpinner(spCardType, CardConstDefine.DEFID_CARDTYPE);
@@ -106,7 +103,6 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
                     @SuppressWarnings("unchecked")
                     List<String> list = (List<String>) msg.obj;
                     if (list != null) {
-                        list.add(0, getResources().getString(R.string.search_na));
                         ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(), R.layout.item_spin, list);
                         sp.setAdapter(adapter);
                         sp.setSelection(0);
@@ -122,38 +118,41 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
             public void run() {
                 List<String> list = null;
                 switch (type) {
-                    case CardConstDefine.DEFID_CARDEFFECT:
-                        list = YugiohUtils.getEffectList(getActivity());
-                        break;
                     case CardConstDefine.DEFID_CARDRACE:
                         list = CardConstDefine.getCardRace();
+                        list.add(0, getResources().getString(R.string.search_na));
                         break;
                     case CardConstDefine.DEFID_CARDBELONGS:
                         list = CardConstDefine.getCardBelongs();
                         break;
                     case CardConstDefine.DEFID_CARDTYPE:
                         list = CardConstDefine.getCardType();
+                        list.add(0, getResources().getString(R.string.search_na));
                         break;
 
                     case CardConstDefine.DEFID_CARDATTRITUBE:
                         list = CardConstDefine.getCardAttribute();
+                        list.add(0, getResources().getString(R.string.search_na));
                         break;
 
                     case CardConstDefine.DEFID_CARDLEVEL:
                         list = CardConstDefine.getCardLevel();
+                        list.add(0, getResources().getString(R.string.search_na));
                         break;
 
                     case CardConstDefine.DEFID_CARDRARE:
                         list = CardConstDefine.getCardCare();
+                        list.add(0, getResources().getString(R.string.search_na));
                         break;
 
                     case CardConstDefine.DEFID_CARDLIMIT:
                         list = CardConstDefine.getCardLimit();
+                        list.add(0, getResources().getString(R.string.search_na));
                         break;
                     case CardConstDefine.DEFID_CARDTUNNER:
                         list = CardConstDefine.getCardTunner();
+                        list.add(0, getResources().getString(R.string.search_na));
                         break;
-
                 }
 
                 Message msg = new Message();
@@ -209,19 +208,16 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
         }
         String cardAtk = etCardAttack.getText().toString();
         String cardDef = etCardDefense.getText().toString();
-        String cardEffect = "";
-        if (spCardEffect.getSelectedItemPosition() != 0) {
-            cardEffect = String.valueOf(spCardEffect.getSelectedItemPosition());
-            if (spCardEffect.getSelectedItemPosition() < 10) {
-                cardEffect = "0" + cardEffect;
-            }
-        }
+
         String cardLimit = "";
         if (spCardLimit.getSelectedItemPosition() != 0) {
             cardLimit = (String) spCardLimit.getSelectedItem();
         }
 
-        int cardTunner = spCardTunner.getSelectedItemPosition();
+        String cardTunner = (String) spCardTunner.getSelectedItem();
+        if (cardTunner.equals(getString(R.string.search_na))) {
+            cardTunner = "";
+        }
 
         String cardEffectText = etEffectText.getText().toString();
 
@@ -231,13 +227,12 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
         bn.putInt("cardLevel", cardLevel);
         bn.putString("cardRace", cardRace);
         bn.putString("cardName", cardName);
-        bn.putString("cardEffect", cardEffect);
         bn.putString("cardAtk", cardAtk);
         bn.putString("cardDef", cardDef);
         bn.putString("cardRare", cardRare);
         bn.putString("cardBelongs", cardBelongs);
         bn.putString("cardLimit", cardLimit);
-        bn.putInt("cardTunner", cardTunner);
+        bn.putString("cardTunner", cardTunner);
         bn.putString("cardEffectText", cardEffectText);
 
         if (searchResultFragment != null) {
@@ -248,7 +243,6 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
     private void doSearchReset() {
         spCardAttribute.setSelection(0);
         spCardBelongs.setSelection(0);
-        spCardEffect.setSelection(0);
         spCardLevel.setSelection(0);
         spCardLimit.setSelection(0);
         spCardRace.setSelection(0);
@@ -274,7 +268,7 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         switch (parent.getId()) {
             case R.id.spCardType:
-                spCardTunner.setEnabled(position <= 7);
+                spCardTunner.setEnabled(position <= 7 && position > 0);
                 break;
         }
     }

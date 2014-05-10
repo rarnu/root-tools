@@ -13,7 +13,6 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.base.BaseTabFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.R;
-import com.yugioh.android.define.FieldDefine;
 import com.yugioh.android.loader.SearchLoader;
 import com.yugioh.android.utils.MiscUtils;
 
@@ -108,7 +107,7 @@ public class SearchResultFragment extends BaseFragment implements OnItemClickLis
     public void onLoadComplete(Loader<Cursor> loader, Cursor data) {
         if (data != null) {
             cSearchResult = data;
-            adapterSearchResult = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cSearchResult, new String[]{FieldDefine.DataFields[5], FieldDefine.DataFields[10]}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+            adapterSearchResult = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cSearchResult, new String[]{"name", "sCardType"}, new int[]{R.id.tvCardName, R.id.tvCardType}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         }
 
         if (getActivity() != null) {

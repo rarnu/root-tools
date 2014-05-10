@@ -6,7 +6,6 @@ import android.database.Cursor;
 import android.os.Handler;
 import android.os.Message;
 import com.rarnu.utils.FileUtils;
-import com.yugioh.android.AboutActivity;
 import com.yugioh.android.CardInfoActivity;
 import com.yugioh.android.classes.CardInfo;
 import com.yugioh.android.classes.CardItems;
@@ -18,14 +17,12 @@ public class MiscUtils {
     public static void openCardDetail(Context context, Cursor c, int position) {
         c.moveToPosition(position);
         int cardId = c.getInt(0);
-        if (cardId == 1) {
-            context.startActivity(new Intent(context, AboutActivity.class));
-        } else {
-            Intent inCardInfo = new Intent(context, CardInfoActivity.class);
-            CardInfo info = YugiohUtils.getOneCard(context, cardId);
-            inCardInfo.putExtra("cardinfo", info);
-            context.startActivity(inCardInfo);
-        }
+
+        Intent inCardInfo = new Intent(context, CardInfoActivity.class);
+        CardInfo info = YugiohUtils.getOneCard(context, cardId);
+        inCardInfo.putExtra("cardinfo", info);
+        context.startActivity(inCardInfo);
+
     }
 
     /**

@@ -174,26 +174,10 @@
                 android:layout_toRightOf="@+id/tvCardDefense"/>
 
         <TextView
-                android:id="@+id/tvCardEffect"
-                android:layout_width="70dip"
-                android:layout_height="48dip"
-                android:layout_below="@+id/tvCardDefense"
-                android:gravity="left|center_vertical"
-                android:text="@string/search_effect"
-                android:textColor="?android:attr/textColorPrimary"/>
-
-        <Spinner
-                android:id="@+id/spCardEffect"
-                android:layout_width="match_parent"
-                android:layout_height="48dip"
-                android:layout_below="@+id/etCardDefense"
-                android:layout_toRightOf="@+id/tvCardEffect"/>
-
-        <TextView
                 android:id="@+id/tvEffectText"
                 android:layout_width="70dip"
                 android:layout_height="48dip"
-                android:layout_below="@+id/tvCardEffect"
+                android:layout_below="@+id/tvCardDefense"
                 android:gravity="left|center_vertical"
                 android:text="@string/search_effect_text"
                 android:textColor="?android:attr/textColorPrimary"/>
@@ -202,7 +186,7 @@
                 android:id="@+id/etEffectText"
                 android:layout_width="match_parent"
                 android:layout_height="48dip"
-                android:layout_below="@+id/spCardEffect"
+                android:layout_below="@+id/etCardDefense"
                 android:layout_toRightOf="@+id/tvEffectText"/>
     </RelativeLayout>
 

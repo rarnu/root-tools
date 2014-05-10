@@ -1,8 +1,8 @@
-import csv
 import os
 import os.path
 import sqlite3
 import shutil
+import types
 
 import yugioh_env
 
@@ -10,9 +10,6 @@ import yugioh_env
 class yugioh:
     __DATABASE_NAME = "yugioh.db"
     __TBL_DATA = "YGODATA"
-    __TBL_EFFECT = "YGOEFFECT"
-    __CSV_DATA = "YGODATA.CSV"
-    __CSV_EFFECT = "YGOEFFECT.CSV"
 
     def __init__(self):
         pass
@@ -31,33 +28,35 @@ class yugioh:
         c.execute("INSERT INTO version (ver) VALUES (%d)" % (int(ver)))
         conn.commit()
 
-    def __import_from_csv(self, conn, c, type):
-        cf = open(type, "r")
-        reader = csv.reader(cf)
+    def __import_from_sqlite(self, conn, c, ori_db):
+        print(ori_db)
+        conn_ori = sqlite3.connect(ori_db)
+        c_ori = conn_ori.cursor()
+        c_ori.execute("SELECT * FROM ygodata")
+        rows_ori = c_ori.fetchall()
+
         count = 0
         param_str = "?"
-        param_count = 3
-        table_name = self.__TBL_EFFECT
-        if type == self.__CSV_DATA:
-            param_count = 51;
-            table_name = self.__TBL_DATA
+        param_count = 25
+
         for i in range(0, param_count - 1, 1):
             param_str += ",?"
-        sql_fmt = "INSERT INTO %s VALUES (%s)" % (table_name, param_str)
-        for r in reader:
-            for i in range(0, len(r), 1):
-                r[i] = r[i].decode("utf-8")
-            r.insert(0, r[0])
-            c.execute(sql_fmt, (r))
+        sql_fmt = "INSERT INTO YGODATA VALUES (%s)" % (param_str)
+        for row in rows_ori:
+            print(row)
+            for i in range(0, len(row), 1):
+                if type(row[i]) is types.StringType:
+                    row[i] = row[i].decode("utf-8")
+            list_param = list(row)
+            list_param.insert(0, row[0])
+
+            print(list_param)
+            c.execute(sql_fmt, list_param)
             count += 1
-        cf.close()
         conn.commit()
+        c_ori.close()
+        conn_ori.close()
         return count
-
-    def __extract_csv(self, mdb):
-        yugioh_env.execmd("mdb-export -H \"%s\" YGODATA > %s" % (mdb, self.__CSV_DATA))
-        yugioh_env.execmd("mdb-export -H \"%s\" YGOEFFECT > %s" % (mdb, self.__CSV_EFFECT))
-
 
     def __create_database(self):
         if os.path.exists(self.__DATABASE_NAME):
@@ -74,69 +73,37 @@ class yugioh:
 
     def __generate_tables(self, conn, c):
         c.execute(
-            "CREATE TABLE YGODATA ( \
-            _id int primary key, \
-            CardID int, \
-            CardPhAl text, \
-            CardCamp text, \
-            JPCardName text, \
-            SCCardName text, \
-            TCCardName text, \
-            ENCardName text, \
-            ENCardName2 text, \
-            JPCardType text, \
-            SCCardType text, \
-            TCCardType text, \
-            ENCardType text, \
-            JPDCardType text, \
-            SCDCardType text, \
-            TCDCardType text, \
-            ENDCardType text, \
-            JPCardRace text, \
-            SCCardRace text, \
-            TCCardRace text, \
-            ENCardRace text, \
-            CardBagNum text, \
-            JPCardAttribute text, \
-            SCCardAttribute text, \
-            TCCardAttribute text, \
-            ENCardAttribute text, \
-            CardStarNum int, \
-            SCCardRare text, \
-            TCCardRare text, \
-            ENCardRare text, \
-            CardAtk int, \
-            CardAtk2 text, \
-            CardDef int, \
-            CardDef2 text, \
-            JPCardDepict text, \
-            SCCardDepict text, \
-            TCCardDepict text, \
-            ENCardDepict text, \
-            SCCardBan text, \
-            TCCardBan text, \
-            ENCardBan text, \
-            CardIsYKDT int, \
-            CardIsTKEN int, \
-            CardIsCZN text, \
-            CardPass text, \
-            CardAdjust text, \
-            CardLover int, \
-            CardUnion text, \
-            CardOnceName text, \
-            CardAbbrName text, \
-            CardEfficeType text)")
-
-        c.execute("CREATE TABLE YGOEFFECT( \
-            _id int primary key, \
-            ID int, \
-            EFFECT text)")
+            '''CREATE TABLE YGODATA (
+                _id int PRIMARY KEY,
+                id int NOT NULL,
+                japName text DEFAULT 'NULL',
+                name text DEFAULT 'NULL',
+                enName text DEFAULT 'NULL',
+                sCardType text DEFAULT 'NULL',
+                CardDType text DEFAULT 'NULL',
+                tribe text DEFAULT 'NULL',
+                package text DEFAULT 'NULL',
+                element text DEFAULT 'NULL',
+                level int DEFAULT 'NULL',
+                infrequence text DEFAULT 'NULL',
+                atkValue int DEFAULT 'NULL',
+                atk text DEFAULT 'NULL',
+                defValue int DEFAULT 'NULL',
+                def text DEFAULT 'NULL',
+                effect text,
+                ban text DEFAULT 'NULL',
+                cheatcode text DEFAULT 'NULL',
+                adjust text,
+                cardCamp text,
+                oldName text,
+                shortName text,
+                pendulumL int,
+                pendulumR int
+                )''')
         c.execute("CREATE TABLE version(ver int primary key)")
         conn.commit()
 
-    def convert(self, mdb, ver, output):
-        print("extract from MDB database")
-        self.__extract_csv(mdb)
+    def convert(self, ori_db, ver, output):
         print("create database")
         conn = self.__create_database()
         c = conn.cursor()
@@ -145,9 +112,7 @@ class yugioh:
         self.__generate_tables(conn, c)
         self.__set_version(conn, c, ver)
         print("import card data")
-        count_data = self.__import_from_csv(conn, c, self.__CSV_DATA)
-        print("import effect data")
-        count_effect = self.__import_from_csv(conn, c, self.__CSV_EFFECT)
+        count_data = self.__import_from_sqlite(conn, c, ori_db)
         c.close()
         conn.close()
         print("output database as file")
@@ -156,10 +121,7 @@ class yugioh:
         if os.path.exists(output):
             os.remove(output)
         shutil.copyfile(self.__DATABASE_NAME, output)
-        os.remove(self.__DATABASE_NAME)
-        os.remove(self.__CSV_DATA)
-        os.remove(self.__CSV_EFFECT)
-        print("import completed, card:%d, effect:%d" % (count_data, count_effect))
+        print("import completed, card:%d" % (count_data))
 
     def get_version(self):
         if os.path.exists(self.__DATABASE_NAME):

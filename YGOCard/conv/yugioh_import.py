@@ -6,7 +6,7 @@ from yugioh_database import yugioh
 
 def print_help():
     print("usage yugioh_import.py R")
-    print("usage yugioh_import.py W <MDB PATH> <VERSION CODE> <OUTPUT PATH>")
+    print("usage yugioh_import.py W <ORIDB PATH> <VERSION CODE> <OUTPUT PATH>")
 
 if __name__ == "__main__":
     if not yugioh_env.check_os():
@@ -23,10 +23,10 @@ if __name__ == "__main__":
         ygo = yugioh()
         ygo.get_version()
     elif operation == "W" and len(sys.argv) == 5:
-        mdb = sys.argv[2:][0]
+        ori_db = sys.argv[2:][0]
         ver = sys.argv[3:][0]
         output = sys.argv[4:][0]
         ygo = yugioh()
-        ygo.convert(mdb, ver, output)
+        ygo.convert(ori_db, ver, output)
     else:
         print_help()

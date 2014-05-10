@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.*;
 import com.rarnu.devlib.base.BaseFragment;
 import com.yugioh.android.R;
-import com.yugioh.android.define.FieldDefine;
 import com.yugioh.android.loader.AutoNameLoader;
 
 public class AutoNameFragment extends BaseFragment implements AdapterView.OnItemClickListener, View.OnClickListener, Loader.OnLoadCompleteListener<Cursor> {
@@ -111,11 +110,10 @@ public class AutoNameFragment extends BaseFragment implements AdapterView.OnItem
         return null;
     }
 
-
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         cSearchResult.moveToPosition(position);
-        etCardName.setText(cSearchResult.getString(cSearchResult.getColumnIndex(FieldDefine.DataFields[5])));
+        etCardName.setText(cSearchResult.getString(cSearchResult.getColumnIndex("name")));
         etCardName.setSelection(etCardName.getText().toString().length());
     }
 
@@ -136,7 +134,7 @@ public class AutoNameFragment extends BaseFragment implements AdapterView.OnItem
     public void onLoadComplete(Loader<Cursor> loader, Cursor data) {
         if (data != null) {
             cSearchResult = data;
-            adapterSearchResult = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cSearchResult, new String[]{FieldDefine.DataFields[5]}, new int[]{R.id.tvCardName}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+            adapterSearchResult = new SimpleCursorAdapter(getActivity(), R.layout.item_card, cSearchResult, new String[]{"name"}, new int[]{R.id.tvCardName}, CursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         } else {
             adapterSearchResult = null;
         }

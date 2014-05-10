@@ -18,7 +18,7 @@ public class Config {
     }
 
     public static boolean cfgGetAutoName(Context context) {
-        return ConfigUtils.getBooleanConfig(context, KEY_AUTO_NAME, true);
+        return ConfigUtils.getBooleanConfig(context, KEY_AUTO_NAME, false);
     }
 
     public static void cfgSetAutoName(Context context, boolean value) {

@@ -63,19 +63,19 @@ public class CardInfoFragment extends BaseTabFragment {
 
         itemFav = menu.add(0, MenuIds.MENUID_FAV, 98, R.string.fav);
         itemFav.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        itemFav.setIcon(ImageUtils.loadActionBarIcon(getActivity(), FavUtils.queryFav(getActivity(), info.getCardID()) ? R.drawable.fav_enabled : R.drawable.fav_disabled));
+        itemFav.setIcon(ImageUtils.loadActionBarIcon(getActivity(), FavUtils.queryFav(getActivity(), info.getId()) ? R.drawable.fav_enabled : R.drawable.fav_disabled));
     }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case MenuIds.MENUID_FAV:
-                boolean isFav = FavUtils.queryFav(getActivity(), info.getCardID());
+                boolean isFav = FavUtils.queryFav(getActivity(), info.getId());
                 if (isFav) {
-                    FavUtils.removeFav(getActivity(), info.getCardID());
+                    FavUtils.removeFav(getActivity(), info.getId());
                     itemFav.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.fav_disabled));
                 } else {
-                    FavUtils.addFav(getActivity(), info.getCardID());
+                    FavUtils.addFav(getActivity(), info.getId());
                     itemFav.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.fav_enabled));
                 }
                 break;
@@ -86,7 +86,7 @@ public class CardInfoFragment extends BaseTabFragment {
     private Intent getShareIntent() {
         Intent shareIntent = new Intent(Intent.ACTION_SEND);
         shareIntent.setType("image/*");
-        Uri uri = Uri.fromFile(new File(PathDefine.PICTURE_PATH + String.valueOf(info.getCardID() - 1) + ".jpg"));
+        Uri uri = Uri.fromFile(new File(PathDefine.PICTURE_PATH + String.valueOf(info.getId()) + ".jpg"));
         shareIntent.putExtra(Intent.EXTRA_STREAM, uri);
         shareIntent.putExtra(Intent.EXTRA_TEXT, "Share one cadrd");
         return shareIntent;
@@ -101,7 +101,7 @@ public class CardInfoFragment extends BaseTabFragment {
     public String getCustomTitle() {
         String title = null;
         if (info != null) {
-            title = info.getSCCardName();
+            title = info.getName();
         }
         return title;
     }
