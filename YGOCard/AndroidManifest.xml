@@ -1,17 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.yugioh.android"
-        android:versionCode="60"
-        android:versionName="ver 2.3.0">
+        android:versionCode="100"
+        android:versionName="ver 3.0.0">
 
     <uses-sdk
             android:minSdkVersion="14"
-            android:targetSdkVersion="15"/>
+            android:targetSdkVersion="15" />
 
-    <uses-permission android:name="android.permission.INTERNET"/>
-    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
-    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
-    <uses-permission android:name="android.permission.READ_PHONE_STATE"/>
+    <uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
 
     <application
             android:allowBackup="true"
@@ -20,7 +20,7 @@
             android:theme="@android:style/Theme.Holo">
         <meta-data
                 android:name="release-date"
-                android:value="2014.05.11"/>
+                android:value="2014.05.11" />
 
         <activity
                 android:name=".MainActivity"
@@ -28,9 +28,9 @@
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden|adjustUnspecified">
             <intent-filter>
-                <action android:name="android.intent.action.MAIN"/>
+                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER"/>
+                <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
@@ -63,27 +63,30 @@
         <activity
                 android:name=".PackageCardsActivity"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="stateHidden"/>
+                android:windowSoftInputMode="stateHidden" />
         <activity
                 android:name=".DeckCardActivity"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateHidden"
                 />
-        <activity android:name=".FeedbackActivity"
+        <activity
+                android:name=".FeedbackActivity"
                 android:screenOrientation="portrait"
-                android:windowSoftInputMode="stateHidden"/>
-        <activity android:name=".AutoNameActivity"
+                android:windowSoftInputMode="stateHidden" />
+        <activity
+                android:name=".AutoNameActivity"
                 android:screenOrientation="portrait"
                 android:windowSoftInputMode="stateVisible"
-                android:theme="@android:style/Theme.Holo.NoActionBar"/>
+                android:theme="@android:style/Theme.Holo.NoActionBar" />
 
         <provider
                 android:name="com.yugioh.android.database.YugiohProvider"
                 android:authorities="com.yugioh.card"
-                android:exported="true"/>
-        <provider android:name="com.yugioh.android.database.FavProvider"
+                android:exported="true" />
+        <provider
+                android:name="com.yugioh.android.database.FavProvider"
                 android:authorities="com.yugioh.fav"
-                android:exported="true"/>
+                android:exported="true" />
     </application>
 
 </manifest>

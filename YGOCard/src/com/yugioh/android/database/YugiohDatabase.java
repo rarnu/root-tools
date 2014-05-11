@@ -37,7 +37,7 @@ public class YugiohDatabase {
 
         }
         Cursor c = null;
-        if (database != null) {
+        if (database != null && database.isOpen()) {
             switch (actionId) {
                 case YugiohProvider.ACTIONID_CARDCOUNT:
                     c = database.rawQuery("select _id from ygodata order by _id desc limit 0,1", null);

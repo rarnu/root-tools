@@ -24,9 +24,10 @@ import com.yugioh.android.utils.UpdateUtils;
 public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
     public static final String ACTION_CLOSE_MAIN = "com.yugioh.android.close.main";
-    public CloseReceiver receiverClose = new CloseReceiver();
     public IntentFilter filterClose = new IntentFilter(ACTION_CLOSE_MAIN);
+    public CloseReceiver receiverClose = new CloseReceiver();
     int currentPage = 0;
+
     private Handler hUpdate = new Handler() {
         @Override
         public void handleMessage(Message msg) {
@@ -39,6 +40,24 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
                     }
                 }
 
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+    private Handler hLocalDatabase = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    Toast.makeText(MainActivity.this, R.string.main_update_database, Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    Toast.makeText(MainActivity.this, R.string.main_updated_database, Toast.LENGTH_SHORT).show();
+                    break;
+                case 2:
+                    checkUpdate();
+                    break;
             }
             super.handleMessage(msg);
         }
@@ -73,7 +92,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
             startActivity(inUpdate);
             finish();
         } else {
-            checkUpdate();
+            UpdateUtils.updateLocalDatabase(this, hLocalDatabase);
         }
     }
 

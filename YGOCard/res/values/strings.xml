@@ -3,7 +3,7 @@
 
     <string name="app_name">游戏王卡片查询器</string>
     <string name="data_name">卡片数据包</string>
-    <string name="about_data">数据来源：OurOcg</string>
+    <string name="about_data">数据来源：OurOcg.Cn</string>
     <string name="about_application">软件开发：橙子Infinity</string>
     <string name="about_date_fmt" formatted="false">发布日期：%s</string>
 
@@ -216,6 +216,8 @@
     <string name="msg_not_impl">该功能暂未实现，请静候新版本哦~</string>
     <string name="slow_query_hint">此条件将使搜索变慢</string>
     <string name="datasize_counting">计算中...</string>
+    <string name="main_update_database">正在更新数据库, 现在请勿操作...</string>
+    <string name="main_updated_database">数据库更新完毕, 最新卡片已经准备好</string>
     
     <!-- jump -->
     <string name="jump_jump">跳转</string>

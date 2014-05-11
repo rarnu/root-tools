@@ -221,6 +221,7 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
             public void run() {
                 try {
                     YugiohUtils.closeDatabase(getActivity());
+                    FileUtils.deleteFile(PathDefine.DATABASE_PATH);
                     ZipUtils.unzipFile(new File(dbSource), PathDefine.ROOT_PATH);
                     FileUtils.deleteFile(dbSource);
                     YugiohUtils.newDatabase(getActivity());
