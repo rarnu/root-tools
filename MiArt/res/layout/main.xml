@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <RelativeLayout
+            android:id="@+id/layTitle"
+            android:layout_width="match_parent"
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@drawable/title_bar">
+
+        <ImageView
+                android:id="@+id/ico"
+                android:layout_width="?android:attr/actionBarSize"
+                android:layout_height="?android:attr/actionBarSize"
+                android:padding="8dip"
+                android:src="@drawable/icon_launcher" />
+
+        <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_toRightOf="@+id/ico"
+                android:text="@string/app_name"
+                android:textSize="18sp"
+                android:textColor="?android:attr/textColorPrimaryInverse"
+                android:gravity="left|center_vertical" />
+    </RelativeLayout>
+
+    <RelativeLayout
+            android:id="@+id/layDesc"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layTitle"
+            android:layout_above="@+id/btnSwitch"
+            android:padding="32dip">
+
+        <TextView
+                android:id="@+id/tvDesc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left|top"
+                android:text="@string/app_desc" />
+
+        <TextView
+                android:id="@+id/tvEnv"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="left"
+                android:textSize="18sp"
+                android:layout_below="@+id/tvDesc"
+                android:layout_marginTop="8dip"
+                android:textColor="@android:color/holo_orange_dark"
+                android:textStyle="bold"
+                />
+
+        <TextView
+                android:id="@+id/tvSwitchResult"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:gravity="center"
+                android:textColor="@android:color/holo_red_dark"/>
+
+    </RelativeLayout>
+
+
+
+    <Button
+            android:id="@+id/btnSwitch"
+            android:layout_width="match_parent"
+            android:layout_height="48dip"
+            android:background="@drawable/btn_style"
+            android:layout_marginLeft="32dip"
+            android:layout_marginRight="32dip"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="16dip"
+            android:textColor="@android:color/white" />
+
+</RelativeLayout>
+
