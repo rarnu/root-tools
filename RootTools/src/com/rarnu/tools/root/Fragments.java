@@ -59,6 +59,7 @@ public class Fragments {
     private static FileTransferFragment fFileTransfer = null;
     private static SelectSendFileFragment fSelectSendFile = null;
     private static SelectAPFragment fSelectAp = null;
+    private static RuntimeFragment fRuntime = null;
 
     public static Fragment getFragment(String name) {
 
@@ -328,6 +329,11 @@ public class Fragments {
                 fSelectAp = new SelectAPFragment();
             }
             f = fSelectAp;
+        } else if (name.equals(FragmentNameConst.FN_RUNTIME)) {
+            if (fRuntime == null) {
+                fRuntime = new RuntimeFragment();
+            }
+            f = fRuntime;
         }
 
         return f;
@@ -391,6 +397,7 @@ public class Fragments {
         fFileTransfer = null;
         fSelectSendFile = null;
         fSelectAp = null;
+        fRuntime = null;
     }
 
 }

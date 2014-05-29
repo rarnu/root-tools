@@ -35,7 +35,7 @@ public class IndexFragment extends BasePreferenceFragment implements
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
     PreferenceEx prefFeedback, prefRecommand, prefAbout;
     PreferenceEx prefTerminal, prefPassword, prefColorTemp;
-    PreferenceEx prefSettings, prefGoogle;
+    PreferenceEx prefSettings, prefGoogle, prefRuntime;
     IntentFilter filterRefreshTag = new IntentFilter(Actions.ACTION_REFRESH_TAG);
     RefreshTagReceiver receiverRefreshTag = new RefreshTagReceiver();
 
@@ -70,6 +70,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefRecommand.setStatus(PreferenceEx.STATE_NORMAL);
         prefAbout.setStatus(PreferenceEx.STATE_NORMAL);
         prefTerminal.setStatus(PreferenceEx.STATE_NORMAL);
+        prefRuntime.setStatus(isRooted ? PreferenceEx.STATE_NORMAL: PreferenceEx.STATE_BANNED);
 
         if (isRooted) {
             showBusyboxTag();
@@ -232,6 +233,9 @@ public class IndexFragment extends BasePreferenceFragment implements
         } else if (preference.getKey().equals(getString(R.string.id_google))) {
             UIInstance.currentFragment = 21;
             FragmentStarter.showContent(getActivity(), GoogleActivity.class, Fragments.getFragment(FragmentNameConst.FN_GOOGLE));
+        } else if (preference.getKey().equals(getString(R.string.id_runtime))) {
+            UIInstance.currentFragment = 29;
+            FragmentStarter.showContent(getActivity(), RuntimeActivity.class, Fragments.getFragment(FragmentNameConst.FN_RUNTIME));
         }
 
         return true;
@@ -285,6 +289,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefTerminal = (PreferenceEx) findPreference(getString(R.string.id_terminal_emu));
         prefPassword = (PreferenceEx) findPreference(getString(R.string.id_password));
         prefColorTemp = (PreferenceEx) findPreference(getString(R.string.id_color_temp));
+        prefRuntime = (PreferenceEx) findPreference(getString(R.string.id_runtime));
     }
 
     @Override
@@ -325,6 +330,8 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefTerminal.setOnPreferenceClickListener(this);
         prefPassword.setOnPreferenceClickListener(this);
         prefColorTemp.setOnPreferenceClickListener(this);
+
+        prefRuntime.setOnPreferenceClickListener(this);
     }
 
     @Override

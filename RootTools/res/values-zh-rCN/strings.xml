@@ -10,6 +10,7 @@
     <string name="sysapp_select">选择应用程序</string>
     <string name="settings">设置</string>
     <string name="google">Google 框架</string>
+    <string name="runtime">运行时环境</string>
     <string name="cat_settings">软件设置</string>
     <string name="cat_global">全局设置</string>
     <string name="cat_system">系统</string>
@@ -104,6 +105,8 @@
     <string name="func_color_temp_with_path">掌优 &gt; 屏幕色温</string>
     <string name="func_file_transfer">文件传输</string>
     <string name="func_file_transfer_with_path">掌优 &gt; 文件传输</string>
+    <string name="func_runtime">运行时环境</string>
+    <string name="func_runtime_with_path">掌优 &gt; 运行时环境</string>
     <string name="backup_data">备份应用程序的数据</string>
     <string name="restore_data">还原应用程序的数据</string>
     <string name="check_network_status">检查网络状况</string>

@@ -123,6 +123,9 @@
                 android:key="@string/id_google"
                 android:title="@string/google"
                 android:summary="@string/summary_google" />
+        <com.rarnu.devlib.component.PreferenceEx
+                android:key="@string/id_runtime"
+                android:title="@string/runtime" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_support">
         <com.rarnu.devlib.component.PreferenceEx

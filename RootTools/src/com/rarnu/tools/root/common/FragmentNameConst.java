@@ -56,4 +56,5 @@ public class FragmentNameConst {
     public static final String FN_FILE_TRANSFER = "filetransfer";
     public static final String FN_SELECT_SEND_FILE = "selectsendfile";
     public static final String FN_SELECT_AP = "selectap";
+    public static final String FN_RUNTIME = "runtime";
 }

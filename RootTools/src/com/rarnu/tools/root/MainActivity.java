@@ -181,6 +181,8 @@ public class MainActivity extends BaseMainActivity {
                 return Fragments.getFragment(FragmentNameConst.FN_COLOR_TEMP);
             case 28:
                 return Fragments.getFragment(FragmentNameConst.FN_FILE_TRANSFER);
+            case 29:
+                return Fragments.getFragment(FragmentNameConst.FN_RUNTIME);
             default:
                 return Fragments.getFragment(FragmentNameConst.FN_ABOUT);
         }

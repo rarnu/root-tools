@@ -34,6 +34,7 @@
     <string name="id_settings">id_settings</string>
     <string name="id_root">id_root</string>
     <string name="id_google">id_google</string>
+    <string name="id_runtime">id_runtime</string>
 
     <string name="id_feedback">id_feedback</string>
     <string name="id_recommand">id_recommand</string>
