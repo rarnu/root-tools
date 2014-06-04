@@ -523,4 +523,7 @@
     <string name="ft_add_file_hint">点击"增加"按钮来选择要发送的文件</string>
     <string name="ft_waiting_file_hint">正在等待接收文件...</string>
     <string name="ft_waiting_connect_hint">正在连接到接收方...</string>
+
+    <string name="switch_runtime">切换运行时环境</string>
+    <string name="current_runtime" formatted="false">当前运行时环境: %s</string>
 </resources>

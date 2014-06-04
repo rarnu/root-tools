@@ -556,4 +556,6 @@
     <string name="ft_add_file_hint">Click "Add" for sending a file.</string>
     <string name="ft_waiting_file_hint">Waiting for receiving files...</string>
     <string name="ft_waiting_connect_hint">Waiting for connecting...</string>
+    <string name="switch_runtime">Switch Runtime</string>
+    <string name="current_runtime" formatted="false">Current Runtime: %s</string>
 </resources>

@@ -36,4 +36,5 @@ public class MenuItemIds {
     public static final int MENU_DELETE = Menu.FIRST + 21;
 
     public static final int MENU_RETURN = Menu.FIRST + 22;
+    public static final int MENU_SWITCH_RUNTIME = Menu.FIRST + 23;
 }
