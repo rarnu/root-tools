@@ -21,8 +21,8 @@ public class UpdateActivity extends BaseActivity implements IUpdateIntf {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         uf = new UpdateFragment();
+        super.onCreate(savedInstanceState);
     }
 
     @Override

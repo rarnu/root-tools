@@ -1,109 +1,54 @@
 package com.yugioh.android;
 
-import android.app.AlertDialog;
 import android.app.Fragment;
-import android.content.*;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
 import android.view.KeyEvent;
 import android.widget.Toast;
 import com.rarnu.devlib.base.BaseSlidingActivity;
 import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.component.SlidingMenu;
-import com.rarnu.utils.MiscUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
-import com.yugioh.android.classes.UpdateInfo;
+import com.yugioh.android.common.Actions;
 import com.yugioh.android.database.YugiohDatabase;
-import com.yugioh.android.define.PathDefine;
 import com.yugioh.android.fragments.*;
 import com.yugioh.android.intf.IMainIntf;
-import com.yugioh.android.utils.UpdateUtils;
 
 public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
-    public static final String ACTION_CLOSE_MAIN = "com.yugioh.android.close.main";
-    public IntentFilter filterClose = new IntentFilter(ACTION_CLOSE_MAIN);
-    public CloseReceiver receiverClose = new CloseReceiver();
     int currentPage = 0;
-
-    private Handler hUpdate = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                UpdateInfo updateInfo = (UpdateInfo) msg.obj;
-                if (updateInfo != null) {
-                    int hasUpdate = updateInfo.getUpdateApk() + updateInfo.getUpdateData();
-                    if (hasUpdate != 0) {
-                        Toast.makeText(MainActivity.this, R.string.update_hint, Toast.LENGTH_LONG).show();
-                    }
-                }
-
-            }
-            super.handleMessage(msg);
-        }
-    };
-
-    private Handler hLocalDatabase = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            switch (msg.what) {
-                case 0:
-                    Toast.makeText(MainActivity.this, R.string.main_update_database, Toast.LENGTH_SHORT).show();
-                    break;
-                case 1:
-                    Toast.makeText(MainActivity.this, R.string.main_updated_database, Toast.LENGTH_SHORT).show();
-                    break;
-                case 2:
-                    checkUpdate();
-                    break;
-            }
-            super.handleMessage(msg);
-        }
-    };
+    private IntentFilter filterClose = new IntentFilter(Actions.ACTION_CLOSE_MAIN);
+    private CloseReceiver receiverClose = new CloseReceiver();
+    private DatabaseMessageReceiver receiverDatabase = new DatabaseMessageReceiver();
+    private IntentFilter filterDatabase = new IntentFilter();
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         UIUtils.initDisplayMetrics(this, getWindowManager(), false);
         ResourceUtils.init(this);
-        PathDefine.init();
+        filterDatabase.addAction(Actions.ACTION_EXTRACT_DATABASE);
+        filterDatabase.addAction(Actions.ACTION_EXTRACT_DATABASE_COMPLETE);
+        registerReceiver(receiverDatabase, filterDatabase);
         super.onCreate(savedInstanceState);
-        registerReceiver(receiverClose, filterClose);
-        if (!MiscUtils.isSDCardExists()) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.hint)
-                    .setMessage(R.string.no_sdcard)
-                    .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            finish();
-                        }
-                    })
-                    .show();
-            return;
-        }
         if (!YugiohDatabase.isDatabaseFileExists()) {
-            UpdateInfo updateInfo = new UpdateInfo();
-            updateInfo.setUpdateApk(0);
-            updateInfo.setUpdateData(1);
-            Intent inUpdate = new Intent(this, UpdateActivity.class);
-            inUpdate.putExtra("update", updateInfo);
-            startActivity(inUpdate);
-            finish();
-        } else {
-            UpdateUtils.updateLocalDatabase(this, hLocalDatabase);
+            Toast.makeText(this, R.string.main_update_database, Toast.LENGTH_LONG).show();
         }
-    }
-
-    private void checkUpdate() {
-        UpdateUtils.checkUpdateT(this, hUpdate);
+        registerReceiver(receiverClose, filterClose);
     }
 
     @Override
     protected void onDestroy() {
         try {
             unregisterReceiver(receiverClose);
+        } catch (Exception e) {
+
+        }
+        try {
+            unregisterReceiver(receiverDatabase);
         } catch (Exception e) {
 
         }
@@ -231,4 +176,14 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
         }
     }
 
+    public class DatabaseMessageReceiver extends BroadcastReceiver {
+
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (action.equals(Actions.ACTION_EXTRACT_DATABASE_COMPLETE)) {
+                Toast.makeText(MainActivity.this, R.string.main_updated_database, Toast.LENGTH_SHORT).show();
+            }
+        }
+    }
 }

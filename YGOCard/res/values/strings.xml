@@ -231,6 +231,5 @@
     <string name="feedback_send_fail">发送反馈信息失败</string>
     <string name="hint_cardname">请输入卡片名称来检索</string>
 
-
     <string name="no_sdcard">没有找到 SD 卡，无法启动本软件</string>
 </resources>

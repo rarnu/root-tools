@@ -4,26 +4,41 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Handler;
+import android.os.Message;
+import com.rarnu.utils.FileUtils;
 import com.yugioh.android.define.PathDefine;
 
 import java.io.File;
 
 public class FavDatabase {
 
-    private static final String CREATE_TABLE_FAV = "create table fav(cardId int primary key)";
+    private Context context;
+
     private static final String TABLE_FAV = "fav";
     private SQLiteDatabase database;
+    private Handler hCopy = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == FileUtils.WHAT_COPY_FINISH) {
+                database = SQLiteDatabase.openDatabase(PathDefine.FAV_DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
+            }
+            super.handleMessage(msg);
+        }
+    };
 
     public FavDatabase(Context context) throws Exception {
-        // this.context = context;
-        String dbName = PathDefine.FAV_DATABASE_NAME;
-        File fDb = new File(dbName);
+        this.context = context;
+        File fDb = new File(PathDefine.FAV_DATABASE_NAME);
         if (!fDb.exists()) {
-            database = SQLiteDatabase.openOrCreateDatabase(fDb, null);
-            database.execSQL(CREATE_TABLE_FAV);
+            asyncCopy(context);
         } else {
-            database = SQLiteDatabase.openDatabase(dbName, null, SQLiteDatabase.OPEN_READWRITE);
+            database = SQLiteDatabase.openDatabase(PathDefine.FAV_DATABASE_NAME, null, SQLiteDatabase.OPEN_READWRITE);
         }
+    }
+
+    private void asyncCopy(Context context) {
+        FileUtils.copyAssetFile(context, "fav.db", PathDefine.ROOT_PATH, hCopy);
     }
 
     public void addFav(int id) {

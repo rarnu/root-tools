@@ -2,31 +2,51 @@ package com.yugioh.android.database;
 
 import android.content.ContentUris;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
-import com.yugioh.android.R;
+import android.os.Handler;
+import android.os.Message;
+import com.rarnu.utils.FileUtils;
+import com.yugioh.android.common.Actions;
 import com.yugioh.android.define.PathDefine;
 
 import java.io.File;
 
 public class YugiohDatabase {
 
+    private Context context;
     private SQLiteDatabase database;
 
-    public YugiohDatabase(Context context) throws Exception {
-        // this.context = context;
-        String dbName = PathDefine.DATABASE_PATH;
-        File fDb = new File(dbName);
-        if (!fDb.exists()) {
-            throw new Exception(context.getResources().getString(R.string.error_no_database));
+    private Handler hCopy = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == FileUtils.WHAT_COPY_FINISH) {
+                database = SQLiteDatabase.openDatabase(PathDefine.DATABASE_PATH, null, SQLiteDatabase.OPEN_READONLY);
+                context.sendBroadcast(new Intent(Actions.ACTION_EXTRACT_DATABASE_COMPLETE));
+            }
+            super.handleMessage(msg);
         }
-        database = SQLiteDatabase.openDatabase(dbName, null, SQLiteDatabase.OPEN_READONLY);
+    };
 
+    public YugiohDatabase(Context context) throws Exception {
+        this.context = context;
+        File fDb = new File(PathDefine.DATABASE_PATH);
+        if (!fDb.exists()) {
+            asyncCopy(context);
+        } else {
+            database = SQLiteDatabase.openDatabase(PathDefine.DATABASE_PATH, null, SQLiteDatabase.OPEN_READONLY);
+        }
     }
 
     public static boolean isDatabaseFileExists() {
         return new File(PathDefine.DATABASE_PATH).exists();
+    }
+
+    private void asyncCopy(Context context) {
+        context.sendBroadcast(new Intent(Actions.ACTION_EXTRACT_DATABASE));
+        FileUtils.copyAssetFile(context, "yugioh.db", PathDefine.ROOT_PATH, hCopy);
     }
 
     public Cursor doQuery(Uri uri, String[] projection, String selection, String[] selectionArgs, String sortOrder) {

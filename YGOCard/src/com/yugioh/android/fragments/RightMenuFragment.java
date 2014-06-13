@@ -12,7 +12,6 @@ import android.view.View.OnClickListener;
 import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.*;
 import com.yugioh.android.adapter.RecommandAdapter;
 import com.yugioh.android.adapter.RightMenuAdapter;
@@ -28,23 +27,29 @@ import java.util.List;
 
 public class RightMenuFragment extends BaseFragment implements OnItemClickListener, OnLoadCompleteListener<List<RecommandInfo>>, OnClickListener {
 
-    final Handler hUpdate = new Handler() {
-        @Override
-        public void handleMessage(Message msg) {
-            if (msg.what == 1) {
-                updateInfo = (UpdateInfo) msg.obj;
-                updateMenu(updateInfo);
-
-            }
-            super.handleMessage(msg);
-        }
-    };
     ListView lvAbout, lvSettings;
     List<String> listAbout;
     ArrayAdapter<String> adapterAbout;
     List<RightMenuItem> listSettings;
     RightMenuAdapter adapterSettings;
     UpdateInfo updateInfo;
+    final Handler hUpdate = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                updateInfo = (UpdateInfo) msg.obj;
+
+                if (updateInfo != null && ((updateInfo.getUpdateApk() + updateInfo.getUpdateData()) != 0)) {
+                    Intent inUpdate = new Intent(getActivity(), UpdateActivity.class);
+                    inUpdate.putExtra("update", updateInfo);
+                    startActivity(inUpdate);
+                } else {
+                    Toast.makeText(getActivity(), R.string.update_no, Toast.LENGTH_SHORT).show();
+                }
+            }
+            super.handleMessage(msg);
+        }
+    };
     ListView lvRecommand;
     List<RecommandInfo> listRecommand;
     RecommandLoader loaderRecommand;
@@ -109,7 +114,7 @@ public class RightMenuFragment extends BaseFragment implements OnItemClickListen
     @Override
     public void onResume() {
         super.onResume();
-        UpdateUtils.checkUpdateT(getActivity(), hUpdate);
+
     }
 
     @Override
@@ -139,13 +144,8 @@ public class RightMenuFragment extends BaseFragment implements OnItemClickListen
             case R.id.lvSettings:
                 switch (position) {
                     case 0:
-                        if (updateInfo != null && ((updateInfo.getUpdateApk() + updateInfo.getUpdateData()) != 0)) {
-                            Intent inUpdate = new Intent(getActivity(), UpdateActivity.class);
-                            inUpdate.putExtra("update", updateInfo);
-                            startActivity(inUpdate);
-                        } else {
-                            Toast.makeText(getActivity(), R.string.update_no, Toast.LENGTH_SHORT).show();
-                        }
+                        Toast.makeText(getActivity(), R.string.update_checking, Toast.LENGTH_LONG).show();
+                        UpdateUtils.checkUpdateT(getActivity(), hUpdate);
                         break;
                 }
                 break;
@@ -179,14 +179,6 @@ public class RightMenuFragment extends BaseFragment implements OnItemClickListen
     @Override
     public String getCustomTitle() {
         return null;
-    }
-
-    private void updateMenu(UpdateInfo updateInfo) {
-        this.updateInfo = updateInfo;
-        if (updateInfo != null) {
-            listSettings.get(0).value = updateInfo.getUpdateApk() + updateInfo.getUpdateData();
-        }
-        adapterSettings.setNewList(listSettings);
     }
 
     @Override

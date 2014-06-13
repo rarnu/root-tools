@@ -25,9 +25,9 @@ public class MainFragment extends BaseTabFragment {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
         sf = new SearchFragment();
         srf = new SearchResultFragment();
+        super.onCreate(savedInstanceState);
         sf.registerSearchResult(srf);
         if (Build.VERSION.SDK_INT < 17) {
             srf.registerParent(this);

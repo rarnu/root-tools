@@ -3,6 +3,7 @@ package com.yugioh.android.utils;
 import android.content.Context;
 import android.os.Handler;
 import android.os.Message;
+import android.util.Log;
 import com.rarnu.utils.FileUtils;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.database.YugiohUtils;
@@ -16,6 +17,7 @@ public class UpdateUtils {
             public void run() {
                 int dbVer = YugiohUtils.getDatabaseVersion(context);
                 int lastCardId = YugiohUtils.getLastCardId(context);
+                Log.e("UpdateUtils", String.format("dbVer:%d, card:%d", dbVer, lastCardId));
                 UpdateInfo ui = YGOAPI.findUpdate(context, dbVer, lastCardId);
                 Message msg = new Message();
                 msg.what = 1;
