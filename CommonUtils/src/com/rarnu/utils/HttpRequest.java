@@ -3,21 +3,34 @@ package com.rarnu.utils;
 import com.rarnu.utils.common.HttpRequestResponseData;
 import com.rarnu.utils.http.*;
 import com.rarnu.utils.http.ProgressedMultipartEntity.ProgressListener;
+import com.rarnu.utils.socket.SSLSocket;
 import org.apache.http.HttpResponse;
+import org.apache.http.HttpVersion;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
+import org.apache.http.conn.ClientConnectionManager;
+import org.apache.http.conn.params.ConnManagerParams;
+import org.apache.http.conn.scheme.PlainSocketFactory;
+import org.apache.http.conn.scheme.Scheme;
+import org.apache.http.conn.scheme.SchemeRegistry;
+import org.apache.http.conn.ssl.SSLSocketFactory;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.apache.http.impl.conn.tsccm.ThreadSafeClientConnManager;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.params.BasicHttpParams;
 import org.apache.http.params.HttpConnectionParams;
+import org.apache.http.params.HttpParams;
+import org.apache.http.params.HttpProtocolParams;
+import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
 import java.io.*;
 import java.net.URL;
 import java.net.URLConnection;
+import java.security.KeyStore;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
@@ -141,16 +154,22 @@ public class HttpRequest {
         return executeForData(request, cookie, encoding);
     }
 
-    private static BasicHttpParams buildHttpParams() {
+    private static BasicHttpParams buildHttpParams(String encoding) {
         BasicHttpParams httpParams = new BasicHttpParams();
-        HttpConnectionParams.setConnectionTimeout(httpParams, 50000);
-        HttpConnectionParams.setSoTimeout(httpParams, 50000);
+        HttpProtocolParams.setVersion(httpParams, HttpVersion.HTTP_1_1);
+        HttpProtocolParams.setContentCharset(httpParams, encoding);
+        HttpProtocolParams.setUseExpectContinue(httpParams, true);
+        ConnManagerParams.setTimeout(httpParams, 10000);
+        HttpConnectionParams.setConnectionTimeout(httpParams, 10000);
+        HttpConnectionParams.setSoTimeout(httpParams, 10000);
         return httpParams;
     }
 
     private static String executeForResult(HttpRequestBase request, String encoding) {
         try {
-            DefaultHttpClient client = new DefaultHttpClient(buildHttpParams());
+            HttpParams params = buildHttpParams(encoding);
+            ClientConnectionManager connMgr = buildConnectionManager(params);
+            DefaultHttpClient client = new DefaultHttpClient(connMgr, params);
             HttpResponse response = client.execute(request);
             String result = "";
             int statusCode = response.getStatusLine().getStatusCode();
@@ -163,10 +182,29 @@ public class HttpRequest {
         }
     }
 
+    private static ClientConnectionManager buildConnectionManager(HttpParams params) {
+        ClientConnectionManager ret = null;
+        try {
+            KeyStore store = KeyStore.getInstance(KeyStore.getDefaultType());
+            store.load(null, null);
+            SSLSocket sf = new SSLSocket(store);
+            sf.setHostnameVerifier(SSLSocketFactory.ALLOW_ALL_HOSTNAME_VERIFIER);
+            SchemeRegistry reg = new SchemeRegistry();
+            reg.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
+            reg.register(new Scheme("https", sf, 443));
+            ret = new ThreadSafeClientConnManager(params, reg);
+        } catch (Exception e) {
+
+        }
+        return ret;
+    }
+
     private static HttpRequestResponseData executeForData(HttpRequestBase request, CookieStore cookie, String encoding) {
         HttpRequestResponseData data = null;
         try {
-            DefaultHttpClient client = new DefaultHttpClient(buildHttpParams());
+            HttpParams params = buildHttpParams(encoding);
+            ClientConnectionManager connMgr = buildConnectionManager(params);
+            DefaultHttpClient client = new DefaultHttpClient(connMgr, params);
             if (cookie != null) {
                 client.setCookieStore(cookie);
             }
