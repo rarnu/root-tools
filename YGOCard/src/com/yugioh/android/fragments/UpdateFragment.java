@@ -19,8 +19,10 @@ import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.ZipUtils;
+import com.yugioh.android.MainActivity;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.UpdateInfo;
+import com.yugioh.android.common.Actions;
 import com.yugioh.android.database.YugiohDatabase;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.NetworkDefine;
@@ -87,15 +89,12 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
         @Override
         public void handleMessage(Message msg) {
             if (msg.what == 1) {
-
                 pbDownlaodingData.setVisibility(View.GONE);
                 ((IUpdateIntf) getActivity()).setInProgress(false);
                 updateInfo.setUpdateData(0);
                 updateCurrentStatus();
                 updateDisabled(true);
-                if (!hasData) {
-                    confirmClose();
-                }
+                confirmClose();
             }
             super.handleMessage(msg);
         }
@@ -245,6 +244,7 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
                         YugiohUtils.closeDatabase(getActivity());
                         YugiohUtils.newDatabase(getActivity());
                         getActivity().finish();
+                        getActivity().sendBroadcast(new Intent(Actions.ACTION_CLOSE_MAIN));
                     }
                 })
                 .show();

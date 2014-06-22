@@ -29,7 +29,6 @@ class yugioh:
         conn.commit()
 
     def __import_from_sqlite(self, conn, c, ori_db):
-        print(ori_db)
         conn_ori = sqlite3.connect(ori_db)
         c_ori = conn_ori.cursor()
         c_ori.execute("SELECT * FROM ygodata")
@@ -43,14 +42,12 @@ class yugioh:
             param_str += ",?"
         sql_fmt = "INSERT INTO YGODATA VALUES (%s)" % (param_str)
         for row in rows_ori:
-            print(row)
             for i in range(0, len(row), 1):
                 if type(row[i]) is types.StringType:
                     row[i] = row[i].decode("utf-8")
             list_param = list(row)
             list_param.insert(0, row[0])
 
-            print(list_param)
             c.execute(sql_fmt, list_param)
             count += 1
         conn.commit()

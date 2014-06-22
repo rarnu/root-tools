@@ -168,11 +168,17 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
         return super.onKeyDown(keyCode, event);
     }
 
+    private void terminateSelf() {
+        finish();
+        android.os.Process.killProcess(android.os.Process.myPid());
+        System.exit(0);
+    }
+
     public class CloseReceiver extends BroadcastReceiver {
 
         @Override
         public void onReceive(Context context, Intent intent) {
-            MainActivity.this.finish();
+            terminateSelf();
         }
     }
 
