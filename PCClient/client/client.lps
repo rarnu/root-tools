@@ -1,4 +1,4 @@
-<?xml version="1.0"?>
+<?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectSession>
     <Version Value="9"/>
@@ -528,11 +528,10 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="2993"/>
-        <CursorPos X="3" Y="3007"/>
+        <TopLine Value="3029"/>
+        <CursorPos X="13" Y="3046"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit58>
       <Unit59>
         <Filename Value="/usr/lib/lazarus/1.0.10/lcl/graphics.pp"/>
@@ -649,7 +648,6 @@
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="11"/>
         <Loaded Value="True"/>
-        <DefaultSyntaxHighlighter Value="Delphi"/>
       </Unit72>
     </Units>
     <General>
@@ -718,4 +716,5 @@
       </Position15>
     </JumpHistory>
   </ProjectSession>
+  <EditorMacros Count="0"/>
 </CONFIG>

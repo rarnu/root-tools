@@ -1120,7 +1120,6 @@ end;
 
 function TFormOutput.FindBoundary(ABuffer: pchar): pchar;
 begin
-  {$warning TODO}
   Result := nil;
 end;
 

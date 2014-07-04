@@ -29,7 +29,7 @@ unit lCommon;
 interface
 
 uses
-  {$i sys/osunits.inc}
+  {$i osunits.inc}
 
 const
   {$IFDEF WINDOWS}
@@ -55,7 +55,7 @@ const
   {$IFDEF UNIX}
   INVALID_SOCKET = -1;
   SOCKET_ERROR = -1;
-    {$IFDEF LINUX} // TODO: fix this crap, some don't even have MSG_NOSIGNAL
+    {$IFDEF LINUX} // fix this crap, some don't even have MSG_NOSIGNAL
     LMSG = MSG_NOSIGNAL;
     {$ELSE}
       {$IFDEF FREEBSD}
@@ -219,7 +219,7 @@ end;
   
 function LStrError(const Ernum: Longint; const UseUTF8: Boolean = False): string;
 begin
-  Result := IntToStr(Ernum); // TODO: fix for non-windows winsock users
+  Result := IntToStr(Ernum); // fix for non-windows winsock users
 end;
 
 function TZSeconds: integer; inline;

@@ -1,15 +1,11 @@
-unit vg_controls;
-
-{$I vg_define.inc}
+unit vg_controls;{$I vg_define.inc}
 
 interface
 
-uses
-  {$IFDEF WINDOWS} Windows, {$ENDIF}
-  {$IFNDEF NOVCL} Graphics, Controls, Menus, Forms, Dialogs, ActnList, ImgList, vg_actions, {$ENDIF}
-  {$IFDEF LCL} LCLType, {$ENDIF}
-  {$IFDEF NOVCL} vg_forms, {$ENDIF}
-  Variants, Classes, SysUtils, vg_scene, vg_objects, vg_ani;
+uses  {$IFDEF WINDOWS} Windows, {$ENDIF}  {$IFNDEF NOVCL} Graphics,
+  Controls, Menus, Forms, Dialogs, ActnList, ImgList, vg_actions,
+ {$ENDIF}  {$IFDEF LCL} LCLType, {$ENDIF}  {$IFDEF NOVCL} vg_forms,
+ {$ENDIF}  Variants, Classes, SysUtils, vg_scene, vg_objects, vg_ani;
 
 type
 
@@ -50,7 +46,8 @@ type
   published
     property CalloutWidth: single read FCalloutWidth write SetCalloutWidth;
     property CalloutLength: single read FCalloutLength write SetCalloutLength;
-    property CalloutPosition: TvgCalloutPosition read FCalloutPosition write SetCalloutPosition default vgCalloutTop;
+    property CalloutPosition: TvgCalloutPosition
+      read FCalloutPosition write SetCalloutPosition default vgCalloutTop;
     property CalloutOffset: single read FCalloutOffset write SetCalloutOffset;
   end;
 
@@ -78,16 +75,20 @@ type
     property Resource;
   end;
 
+  { TvgTextControl }
+
   TvgTextControl = class(TvgControl)
   private
     FFont: TvgFont;
     FTextAlign: TvgTextAlign;
+    FTextRotation: single;
     FVertTextAlign: TvgTextAlign;
     FFontFill: TvgBrush;
     FWordWrap: boolean;
     function GetText: WideString;
     procedure SetFont(const Value: TvgFont);
     procedure SetTextAlign(const Value: TvgTextAlign);
+    procedure SetTextRotation(AValue: single);
     procedure SetVertTextAlign(const Value: TvgTextAlign);
     procedure SetFontFill(const Value: TvgBrush);
     procedure FontFillChanged(Sender: TObject);
@@ -97,17 +98,18 @@ type
     procedure ApplyStyle; override;
     procedure SetText(const Value: WideString); virtual;
     procedure FontChanged(Sender: TObject); virtual;
-    function GetData: Variant; override;
-    procedure SetData(const Value: Variant); override;
+    function GetData: variant; override;
+    procedure SetData(const Value: variant); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     property Font: TvgFont read FFont write SetFont;
     property FontFill: TvgBrush read FFontFill write SetFontFill;
     property Text: WideString read GetText write SetText;
+    property TextRotation: single read FTextRotation write SetTextRotation;
     property VertTextAlign: TvgTextAlign read FVertTextAlign write SetVertTextAlign;
     property TextAlign: TvgTextAlign read FTextAlign write SetTextAlign;
-    property WordWrap: boolean read FWordWrap write SetWordWrap default false;
+    property WordWrap: boolean read FWordWrap write SetWordWrap default False;
   published
   end;
 
@@ -123,16 +125,16 @@ type
   public
     constructor Create(AOwner: TComponent); override;
   published
-    property AutoSize: boolean read FAutoSize write SetAutoSize default false;
-    property AutoTranslate default true;
+    property AutoSize: boolean read FAutoSize write SetAutoSize default False;
+    property AutoTranslate default True;
     property BindingSource;
     property Font;
     property TextAlign;
     property VertTextAlign;
     property Text;
     property Resource;
-    property HitTest default false;
-    property WordWrap: boolean read FWordWrap write SetWordWrap default true;
+    property HitTest default False;
+    property WordWrap: boolean read FWordWrap write SetWordWrap default True;
   end;
 
   TvgValueLabel = class(TvgLabel)
@@ -141,8 +143,8 @@ type
   public
     constructor Create(AOwner: TComponent); override;
   published
-    property AutoTranslate default false;
-    property WordWrap default false;
+    property AutoTranslate default False;
+    property WordWrap default False;
   end;
 
   TvgCustomButton = class(TvgTextControl)
@@ -157,35 +159,36 @@ type
   protected
     procedure Click; override;
     procedure DblClick; override;
-    procedure SetData(const Value: Variant); override;
+    procedure SetData(const Value: variant); override;
     procedure ApplyStyle; override;
     procedure DoRepeatTimer(Sender: TObject);
     procedure DoRepeatDelayTimer(Sender: TObject);
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: single); override;
     procedure MouseMove(Shift: TShiftState; X, Y, Dx, Dy: single); override;
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
-    procedure KeyDown(var Key: Word; var KeyChar: System.WideChar; Shift: TShiftState); override;
-  published
-    {$IFNDEF NOVCL}
-    property Action;
-    {$ENDIF}
-    property AutoTranslate default true;
+    procedure KeyDown(var Key: word; var KeyChar: System.widechar;
+      Shift: TShiftState); override;
+  published    {$IFNDEF NOVCL}
+    property Action;    {$ENDIF}
+    property AutoTranslate default True;
     property StaysPressed: boolean read FStaysPressed write FStaysPressed;
     { triggers }
     property IsPressed: boolean read FIsPressed write SetIsPressed;
     { props }
-    property CanFocused default true;
+    property CanFocused default True;
     property DisableFocusEffect;
     property TabOrder;
     property Font;
-    property ModalResult: TModalResult read FModalResult write FModalResult default mrNone;
+    property ModalResult: TModalResult
+      read FModalResult write FModalResult default mrNone;
     property TextAlign;
     property Text;
-    property RepeatClick: boolean read FRepeat write FRepeat default false;
-    property WordWrap default false;
+    property RepeatClick: boolean read FRepeat write FRepeat default False;
+    property WordWrap default False;
     property Resource;
   end;
 
@@ -194,13 +197,13 @@ type
     FDefault: boolean;
     FCancel: boolean;
   protected
-    procedure DialogKey(var Key: Word; Shift: TShiftState); override;
+    procedure DialogKey(var Key: word; Shift: TShiftState); override;
   public
   published
-    property CanFocused default true;
+    property CanFocused default True;
     property DisableFocusEffect;
-    property Default: boolean read FDefault write FDefault default false;
-    property Cancel: boolean read FCancel write FCancel default false;
+    property Default: boolean read FDefault write FDefault default False;
+    property Cancel: boolean read FCancel write FCancel default False;
     property TabOrder;
   end;
 
@@ -221,18 +224,14 @@ type
 
   TvgPopupButton = class(TvgButton)
   private
-    {$IFNDEF NOVCL}
-    FPopupMenu: TPopupMenu;
-    {$ENDIF}
+{$IFNDEF NOVCL}    FPopupMenu: TPopupMenu;    {$ENDIF}
   protected
     procedure Click; override;
     procedure Notification(AComponent: TComponent; Operation: TOperation); override;
   public
     constructor Create(AOwner: TComponent); override;
-  published
-    {$IFNDEF NOVCL}
-    property PopupMenu: TPopupMenu read FPopupMenu write FPopupMenu;
-    {$ENDIF}
+  published    {$IFNDEF NOVCL}
+    property PopupMenu: TPopupMenu read FPopupMenu write FPopupMenu;    {$ENDIF}
   end;
 
   TvgButtonLayout = (
@@ -241,7 +240,7 @@ type
     vgGlyphTop,
     vgGlyphBottom,
     vgGlyphCenter
-  );
+    );
 
   TvgBitmapButton = class(TvgCustomButton)
   private
@@ -255,10 +254,8 @@ type
     procedure SetBitmapSpacing(const Value: single);
     procedure SetBitmapSize(const Value: single);
     procedure SetBitmapPadding(const Value: single);
-  protected
-    {$IFNDEF NOVCL}
-    procedure ActionChange(Sender: TObject; CheckDefaults: Boolean); override;
-    {$ENDIF}
+  protected    {$IFNDEF NOVCL}
+    procedure ActionChange(Sender: TObject; CheckDefaults: boolean); override;    {$ENDIF}
     procedure DoBitmapChanged(Sender: TObject);
     procedure ApplyStyle; override;
   public
@@ -266,7 +263,8 @@ type
     destructor Destroy; override;
   published
     property Bitmap: TvgBitmap read FBitmap write SetBitmap;
-    property BitmapLayout: TvgButtonLayout read FBitmapLayout write SetBitmapLayout default vgGlyphLeft;
+    property BitmapLayout: TvgButtonLayout read FBitmapLayout
+      write SetBitmapLayout default vgGlyphLeft;
     property BitmapSpacing: single read FBitmapSpacing write SetBitmapSpacing;
     property BitmapSize: single read FBitmapSize write SetBitmapSize;
     property BitmapPadding: single read FBitmapPadding write SetBitmapPadding;
@@ -290,7 +288,7 @@ type
     procedure SetPathPadding(const Value: single);
     procedure SetPathSize(const Value: single);
     procedure SetPathSpacing(const Value: single);
-    function isStrokeThicknessStored: Boolean;
+    function isStrokeThicknessStored: boolean;
     procedure SetFill(const Value: TvgBrush);
     procedure SetStroke(const Value: TvgBrush);
     procedure SetStrokeCap(const Value: TvgStrokeCap);
@@ -305,16 +303,21 @@ type
     destructor Destroy; override;
   published
     property Path: TvgPathData read FPath write SetPath;
-    property PathLayout: TvgButtonLayout read FPathLayout write SetPathLayout default vgGlyphLeft;
+    property PathLayout: TvgButtonLayout
+      read FPathLayout write SetPathLayout default vgGlyphLeft;
     property PathSpacing: single read FPathSpacing write SetPathSpacing;
     property PathSize: single read FPathSize write SetPathSize;
     property PathPadding: single read FPathPadding write SetPathPadding;
     property PathFill: TvgBrush read FFill write SetFill;
     property PathStroke: TvgBrush read FStroke write SetStroke;
-    property PathStrokeThickness: single read FStrokeThickness write SetStrokeThickness stored isStrokeThicknessStored;
-    property PathStrokeCap: TvgStrokeCap read FStrokeCap write SetStrokeCap default vgCapFlat;
-    property PathStrokeDash: TvgStrokeDash read FStrokeDash write SetStrokeDash default vgDashSolid;
-    property PathStrokeJoin: TvgStrokeJoin read FStrokeJoin write SetStrokeJoin default vgJoinMiter;
+    property PathStrokeThickness: single read FStrokeThickness
+      write SetStrokeThickness stored isStrokeThicknessStored;
+    property PathStrokeCap: TvgStrokeCap
+      read FStrokeCap write SetStrokeCap default vgCapFlat;
+    property PathStrokeDash: TvgStrokeDash
+      read FStrokeDash write SetStrokeDash default vgDashSolid;
+    property PathStrokeJoin: TvgStrokeJoin
+      read FStrokeJoin write SetStrokeJoin default vgJoinMiter;
   end;
 
   TvgToolButton = class(TvgBitmapButton)
@@ -323,7 +326,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
   published
-    property CanFocused default false;
+    property CanFocused default False;
     property TabOrder;
     property BitmapLayout default vgGlyphTop;
   end;
@@ -334,7 +337,7 @@ type
   public
     constructor Create(AOwner: TComponent); override;
   published
-    property CanFocused default false;
+    property CanFocused default False;
     property TabOrder;
     property PathLayout default vgGlyphTop;
   end;
@@ -370,8 +373,8 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
-    property CanFocused default false;
-    property RepeatClick default true;
+    property CanFocused default False;
+    property RepeatClick default True;
     property TabOrder;
   end;
 
@@ -390,12 +393,13 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
-    property AutoTranslate default false;
-    property CanFocused default true;
+    property AutoTranslate default False;
+    property CanFocused default True;
     property DisableFocusEffect;
     property TabOrder;
     property Color: string read FColor write SetColor;
-    property UseStandardDialog: boolean read FUseStandardDialog write FUseStandardDialog default true;
+    property UseStandardDialog: boolean read FUseStandardDialog
+      write FUseStandardDialog default True;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   end;
 
@@ -406,13 +410,13 @@ type
     FCorners: TvgCorners;
     FCornerType: TvgCornerType;
     FSides: TvgSides;
-    function IsCornersStored: Boolean;
+    function IsCornersStored: boolean;
     procedure SetxRadius(const Value: single);
     procedure SetyRadius(const Value: single);
     procedure SetCorners(const Value: TvgCorners);
     procedure SetCornerType(const Value: TvgCornerType);
     procedure SetSides(const Value: TvgSides);
-    function IsSidesStored: Boolean;
+    function IsSidesStored: boolean;
   protected
     procedure ApplyStyle; override;
   public
@@ -422,7 +426,8 @@ type
     property xRadius: single read FxRadius write SetxRadius;
     property yRadius: single read FyRadius write SetyRadius;
     property Corners: TvgCorners read FCorners write SetCorners stored IsCornersStored;
-    property CornerType: TvgCornerType read FCornerType write SetCornerType default vgCornerRound;
+    property CornerType: TvgCornerType
+      read FCornerType write SetCornerType default vgCornerRound;
     property Sides: TvgSides read FSides write SetSides stored IsSidesStored;
   end;
 
@@ -438,20 +443,22 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: single); override;
     procedure MouseMove(Shift: TShiftState; X, Y, Dx, Dy: single); override;
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
-    procedure KeyDown(var Key: Word; var KeyChar: System.WideChar; Shift: TShiftState); override;
-    function GetData: Variant; override;
-    procedure SetData(const Value: Variant); override;
+    procedure KeyDown(var Key: word; var KeyChar: System.widechar;
+      Shift: TShiftState); override;
+    function GetData: variant; override;
+    procedure SetData(const Value: variant); override;
   published
     { triggers }
     property IsPressed: boolean read FIsPressed;
     property IsChecked: boolean read FIsChecked write SetIsChecked;
     { props }
-    property AutoTranslate default true;
+    property AutoTranslate default True;
     property BindingSource;
-    property CanFocused default true;
+    property CanFocused default True;
     property DisableFocusEffect;
     property TabOrder;
     property Font;
@@ -491,20 +498,22 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: single); override;
     procedure MouseMove(Shift: TShiftState; X, Y, Dx, Dy: single); override;
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
-    procedure KeyDown(var Key: Word; var KeyChar: System.WideChar; Shift: TShiftState); override;
-    function GetData: Variant; override;
-    procedure SetData(const Value: Variant); override;
+    procedure KeyDown(var Key: word; var KeyChar: System.widechar;
+      Shift: TShiftState); override;
+    function GetData: variant; override;
+    procedure SetData(const Value: variant); override;
   published
     { triggers }
     property IsPressed: boolean read FIsPressed;
     property IsChecked: boolean read FIsChecked write SetIsChecked;
     { props }
-    property AutoTranslate default true;
+    property AutoTranslate default True;
     property BindingSource;
-    property CanFocused default true;
+    property CanFocused default True;
     property DisableFocusEffect;
     property TabOrder;
     property Font;
@@ -524,7 +533,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
-    property AutoTranslate default true;
+    property AutoTranslate default True;
     property Font;
     property TextAlign;
     property Text;
@@ -540,13 +549,14 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: single); override;
     procedure MouseMove(Shift: TShiftState; X, Y, Dx, Dy: single); override;
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
   published
     { props }
     property Resource;
-    property CloseForm: boolean read FCloseForm write FCloseForm default true;
+    property CloseForm: boolean read FCloseForm write FCloseForm default True;
     property OnClick: TNotifyEvent read FOnClick write FOnClick;
   end;
 
@@ -578,17 +588,18 @@ type
     function FindObject: TvgVisualObject;
     procedure CalcSplitSize(X, Y: single; var NewSize, Split: single);
     procedure UpdateSize(X, Y: single);
-    function DoCanResize(var NewSize: single): Boolean;
+    function DoCanResize(var NewSize: single): boolean;
     procedure UpdateControlSize;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: single); override;
     procedure MouseMove(Shift: TShiftState; X, Y, Dx, Dy: single); override;
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
   published
     property MinSize: single read FMinSize write FMinSize;
-    property ShowGrip: boolean read FShowGrip write SetShowGrip default true;
+    property ShowGrip: boolean read FShowGrip write SetShowGrip default True;
   end;
 
   TvgProgressBar = class(TvgControl)
@@ -603,8 +614,8 @@ type
     procedure SetValue(const Value: single);
   protected
     procedure ApplyStyle; override;
-    function GetData: Variant; override;
-    procedure SetData(const Value: Variant); override;
+    function GetData: variant; override;
+    procedure SetData(const Value: variant); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -630,7 +641,8 @@ type
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: single); override;
     procedure MouseMove(Shift: TShiftState; X, Y, Dx, Dy: single); override;
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
   published
@@ -658,12 +670,14 @@ type
     procedure SetOrientation(const Value: TvgOrientation);
     function GetThumbRect: TvgRect;
     property Thumb: TvgThumb read GetThumb;
-    function GetData: Variant; override;
-    procedure SetData(const Value: Variant); override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
+    function GetData: variant; override;
+    procedure SetData(const Value: variant); override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: single); override;
     procedure MouseMove(Shift: TShiftState; X, Y, Dx, Dy: single); override;
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
-    procedure KeyDown(var Key: Word; var KeyChar: System.WideChar; Shift: TShiftState); override;
+    procedure KeyDown(var Key: word; var KeyChar: System.widechar;
+      Shift: TShiftState); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -675,7 +689,7 @@ type
     property Orientation: TvgOrientation read FOrientation write SetOrientation;
     property Value: single read FValue write SetValue;
     property ViewportSize: single read FViewportSize write SetViewportSize;
-    property Tracking: boolean read FTracking write FTracking default true;
+    property Tracking: boolean read FTracking write FTracking default True;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
     property OnTracking: TNotifyEvent read FOnTracking write FOnTracking;
   end;
@@ -707,7 +721,7 @@ type
     constructor Create(AOwner: TComponent); override;
   published
     property BindingSource;
-    property CanFocused default true;
+    property CanFocused default True;
     property DisableFocusEffect;
     property TabOrder;
     property Resource;
@@ -741,8 +755,8 @@ type
     function Track: TvgCustomTrack;
     function MinButton: TvgCustomButton;
     function MaxButton: TvgCustomButton;
-    function GetData: Variant; override;
-    procedure SetData(const Value: Variant); override;
+    function GetData: variant; override;
+    procedure SetData(const Value: variant); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
@@ -768,7 +782,7 @@ type
   TvgAniIndicatorStyle = (
     vgAniIndicatorLine,
     vgAniIndicatorCircle
-  );
+    );
 
   TvgAniIndicator = class(TvgControl)
   private
@@ -804,13 +818,14 @@ type
     function Tick: TvgVisualObject;
     function Text: TvgText;
     procedure ApplyStyle; override;
-    function GetData: Variant; override;
-    procedure SetData(const Value: Variant); override;
+    function GetData: variant; override;
+    procedure SetData(const Value: variant); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
     procedure Paint; override;
-    procedure MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
+    procedure MouseDown(Button: TMouseButton; Shift: TShiftState;
+      X, Y: single); override;
     procedure MouseMove(Shift: TShiftState; X, Y, Dx, Dy: single); override;
     procedure MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single); override;
   published
@@ -818,11 +833,11 @@ type
     property BindingSource;
     property Resource;
     property Frequency: single read FFrequency write FFrequency;
-    property Tracking: boolean read FTracking write FTracking default true;
-    property ShowValue: boolean read FShowValue write SetShowValue default false;
+    property Tracking: boolean read FTracking write FTracking default True;
+    property ShowValue: boolean read FShowValue write SetShowValue default False;
     property Value: single read FValue write SetValue;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
-  end;          
+  end;
 
   TvgExpanderButton = class(TvgCustomButton)
   private
@@ -830,7 +845,7 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
-    property CanFocused default false;
+    property CanFocused default False;
   end;
 
   TvgExpander = class(TvgTextControl)
@@ -864,9 +879,9 @@ type
     property TextAlign;
     property Text;
     property Resource;
-    property AutoTranslate default true;
-    property IsExpanded: boolean read FIsExpanded write SetIsExpanded default true;
-    property IsChecked: boolean read FIsChecked write SetIsChecked default true;
+    property AutoTranslate default True;
+    property IsExpanded: boolean read FIsExpanded write SetIsExpanded default True;
+    property IsChecked: boolean read FIsChecked write SetIsChecked default True;
     property ShowCheck: boolean read FShowCheck write SetShowCheck;
     property OnCheckChange: TNotifyEvent read FOnCheckChange write FOnCheckChange;
   end;
@@ -875,10 +890,8 @@ type
   private
     FItems: TvgWideStrings;
     FItemIndex: integer;
-    {$IFNDEF NOVCL}
-    FPopup: TPopupMenu;
-    {$ENDIF}
-    FOnChange: TNotifyEvent;
+{$IFNDEF NOVCL}    FPopup: TPopupMenu;
+{$ENDIF}    FOnChange: TNotifyEvent;
     procedure SetItems(const Value: TvgWideStrings);
     procedure SetItemIndex(const Value: integer);
   protected
@@ -887,28 +900,31 @@ type
     procedure DoItemsChanged(Sender: TObject); virtual;
     procedure DoItemClick(Sender: TObject);
     procedure DoPopup; virtual;
-    function GetData: Variant; override;
-    procedure SetData(const Value: Variant); override;
+    function GetData: variant; override;
+    procedure SetData(const Value: variant); override;
     procedure SetText(const Value: WideString); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
     property BindingSource;
-    property CanFocused default true;
+    property CanFocused default True;
     property DisableFocusEffect;
     property TabOrder;
-    property Text stored false;
+    property Text stored False;
     property Items: TvgWideStrings read FItems write SetItems;
     property ItemIndex: integer read FItemIndex write SetItemIndex;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
   end;
+
+  { TvgWindow }
 
   TvgWindow = class(TvgTextControl)
   private
     FShowCloseButton: boolean;
     FShowSizeGrip: boolean;
     FOnCloseClick: TNotifyEvent;
+    procedure SetOnCloseClick(AValue: TNotifyEvent);
     procedure SetShowCloseButton(const Value: boolean);
     procedure SetShowSizeGrip(const Value: boolean);
   protected
@@ -917,11 +933,12 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
-    property ShowCloseButton: boolean read FShowCloseButton write SetShowCloseButton default true;
-    property ShowSizeGrip: boolean read FShowSizeGrip write SetShowSizeGrip default true;
-    property OnCloseClick: TNotifyEvent read FOnCloseClick write FOnCloseClick;
+    property ShowCloseButton: boolean read FShowCloseButton
+      write SetShowCloseButton default True;
+    property ShowSizeGrip: boolean read FShowSizeGrip write SetShowSizeGrip default True;
+    property OnCloseClick: TNotifyEvent read FOnCloseClick write SetOnCloseClick;
     { props }
-    property AutoTranslate default true;
+    property AutoTranslate default True;
     property Font;
     property TextAlign;
     property Text;
@@ -931,7 +948,7 @@ type
   TvgCloseAlign = (
     vgButtonAlignLeft,
     vgButtonAlignRight
-  );
+    );
 
   TvgHudWindow = class(TvgWindow)
   private
@@ -946,7 +963,7 @@ type
     FShowCaption: boolean;
     procedure SetDisableShadowOnOSX(const Value: boolean);
     procedure SetFill(const Value: TvgBrush);
-    function isStrokeThicknessStored: Boolean;
+    function isStrokeThicknessStored: boolean;
     procedure SetStroke(const Value: TvgBrush);
     procedure SetStrokeCap(const Value: TvgStrokeCap);
     procedure SetStrokeDash(const Value: TvgStrokeDash);
@@ -961,15 +978,21 @@ type
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
-    property DisableShadowOnOSX: boolean read FDisableShadowOnOSX write SetDisableShadowOnOSX default true;
-    property ButtonAlign: TvgCloseAlign read FCloseAlign write SetCloseAlign default vgButtonAlignLeft;
+    property DisableShadowOnOSX: boolean read FDisableShadowOnOSX
+      write SetDisableShadowOnOSX default True;
+    property ButtonAlign: TvgCloseAlign
+      read FCloseAlign write SetCloseAlign default vgButtonAlignLeft;
     property Fill: TvgBrush read FFill write SetFill;
     property Stroke: TvgBrush read FStroke write SetStroke;
-    property StrokeThickness: single read FStrokeThickness write SetStrokeThickness stored isStrokeThicknessStored;
-    property StrokeCap: TvgStrokeCap read FStrokeCap write SetStrokeCap default vgCapFlat;
-    property StrokeDash: TvgStrokeDash read FStrokeDash write SetStrokeDash default vgDashSolid;
-    property StrokeJoin: TvgStrokeJoin read FStrokeJoin write SetStrokeJoin default vgJoinMiter;
-    property ShowCaption: boolean read FShowCaption write SetShowCaption default true;
+    property StrokeThickness: single read FStrokeThickness
+      write SetStrokeThickness stored isStrokeThicknessStored;
+    property StrokeCap: TvgStrokeCap read FStrokeCap write SetStrokeCap default
+      vgCapFlat;
+    property StrokeDash: TvgStrokeDash
+      read FStrokeDash write SetStrokeDash default vgDashSolid;
+    property StrokeJoin: TvgStrokeJoin
+      read FStrokeJoin write SetStrokeJoin default vgJoinMiter;
+    property ShowCaption: boolean read FShowCaption write SetShowCaption default True;
   end;
 
   TvgImageControl = class(TvgControl)
@@ -983,18 +1006,20 @@ type
     procedure ApplyStyle; override;
     procedure FreeStyle; override;
     procedure Click; override;
-    procedure DragOver(const Data: TvgDragObject; const Point: TvgPoint; var Accept: Boolean); override;
+    procedure DragOver(const Data: TvgDragObject; const Point: TvgPoint;
+      var Accept: boolean); override;
     procedure DragDrop(const Data: TvgDragObject; const Point: TvgPoint); override;
     procedure DoBitmapChanged(Sender: TObject); virtual;
-    function GetData: Variant; override;
-    procedure SetData(const Value: Variant); override;
+    function GetData: variant; override;
+    procedure SetData(const Value: variant); override;
   public
     constructor Create(AOwner: TComponent); override;
     destructor Destroy; override;
   published
-    property CanFocused default true;
+    property CanFocused default True;
     property DisableFocusEffect;
-    property EnableOpenDialog: boolean read FEnableOpenDialog write FEnableOpenDialog default true;
+    property EnableOpenDialog: boolean read FEnableOpenDialog
+      write FEnableOpenDialog default True;
     property TabOrder;
     property Bitmap: TvgBitmap read FBitmap write SetBitmap;
     property OnChange: TNotifyEvent read FOnChange write FOnChange;
@@ -1019,6 +1044,38 @@ type
   protected
   public
   published
+  end;
+
+  { TvgHudToolButton }
+
+  TvgHudToolButton = class(TvgImage)
+  private
+    FBtn: TvgHudButton;
+    function GetTitleText: string;
+    procedure SetTitleText(AValue: string);
+  protected
+  public
+    constructor Create(AOwner: TComponent); override;
+  published
+    property Button: TvgHudButton read FBtn write FBtn;
+    property TitleText: string read GetTitleText write SetTitleText;
+  end;
+
+  { TvgHudVButton }
+
+  TvgHudVButton = class(TvgHudButton)
+  private
+    FImageOnly: boolean;
+    FTextControl: TvgText;
+    FImage: TvgImage;
+    procedure SetImageOnly(AValue: boolean);
+  protected
+  public
+    constructor Create(AOwner: TComponent); override;
+    procedure LoadImage(AFileName: string);
+  published
+    property TextControl: TvgText read FTextControl write FTextControl;
+    property ImageOnly: boolean read FImageOnly write SetImageOnly;
   end;
 
   TvgHudRoundButton = class(TvgButton)
@@ -1051,7 +1108,7 @@ type
 
   TvgHudCheckBox = class(TvgCheckBox)
   private
-  protected     
+  protected
   public
   published
   end;
@@ -1144,20 +1201,74 @@ type
 
 implementation {===============================================================}
 
-uses
-  {$IFNDEF NOVCL}
-  vg_dsgn,
-  {$ENDIF}
-  Math, vg_layouts;
+uses  {$IFNDEF NOVCL}  vg_dsgn,  {$ENDIF}  Math, vg_layouts;
 
-{$R *.res}
+{ TvgHudToolButton }
 
-{ TvgSelectionItem }
+function TvgHudToolButton.GetTitleText: string;
+begin
+  Result := FBtn.Text;
+end;
+
+procedure TvgHudToolButton.SetTitleText(AValue: string);
+begin
+  FBtn.Text := AValue;
+end;
+
+constructor TvgHudToolButton.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  HitTest := False;
+  FBtn := TvgHudButton.Create(Self);
+  FBtn.Parent := Self;
+  FBtn.Align := vaClient;
+  WrapMode := vgImageStretch;
+end;
+
+{ TvgHudVButton }
+
+procedure TvgHudVButton.SetImageOnly(AValue: boolean);
+begin
+  if FImageOnly = AValue then
+    Exit;
+  FImageOnly := AValue;
+end;
+
+constructor TvgHudVButton.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  FTextControl := TvgText.Create(Self);
+  FTextControl.Parent := Self;
+  FTextControl.Fill.Color := '#FFFFFFFF';
+  FTextControl.Align := vaCenter;
+  FTextControl.AutoSize := True;
+  FTextControl.WordWrap := False;
+  FTextControl.RotateAngle := 270;
+  FTextControl.HitTest := False;
+
+  FImage := TvgImage.Create(Self);
+  FImage.Parent := Self;
+  FImage.Align := vaClient;
+  FImage.Padding.Top := 2;
+  FImage.Padding.Bottom := 2;
+  FImage.Padding.Left := 2;
+  FImage.Padding.Right := 2;
+  FImage.WrapMode := vgImageStretch;
+  FImage.Bitmap := TvgBitmap.Create(48, 48);
+  FImage.HitTest:=False;
+end;
+
+procedure TvgHudVButton.LoadImage(AFileName: string);
+begin
+
+end;
+
+{$R *.res}{ TvgSelectionItem }
 
 constructor TvgSelectionItem.Create(AOwner: TComponent);
 begin
   inherited;
-  HitTest := false;
+  HitTest := False;
 end;
 
 procedure TvgSelectionItem.Paint;
@@ -1167,7 +1278,8 @@ end;
 
 procedure TvgSelectionItem.PaintChildren;
 begin
-  if csDesigning in ComponentState then Exit;
+  if csDesigning in ComponentState then
+    Exit;
   inherited;
 end;
 
@@ -1215,8 +1327,7 @@ begin
   end;
 end;
 
-procedure TvgCalloutPanel.SetCalloutPosition(
-  const Value: TvgCalloutPosition);
+procedure TvgCalloutPanel.SetCalloutPosition(const Value: TvgCalloutPosition);
 begin
   if FCalloutPosition <> Value then
   begin
@@ -1248,7 +1359,7 @@ end;
 constructor TvgStatusBar.Create(AOwner: TComponent);
 begin
   inherited;
-  FShowSizeGrip := true;
+  FShowSizeGrip := True;
   Height := 22;
   Align := vaBottom;
 end;
@@ -1261,11 +1372,11 @@ begin
   sizeGrip := FindResource('sizegrip');
   if (sizeGrip <> nil) and (sizeGrip is TvgVisualObject) then
   begin
-    TvgVisualObject(sizeGrip).visible := FShowSizeGrip;
+    TvgVisualObject(sizeGrip).Visible := FShowSizeGrip;
     if (Scene <> nil) and not (Scene.GetDesignTime) then
     begin
-      TvgVisualObject(sizeGrip).Locked := false;
-      TvgVisualObject(sizeGrip).HitTest := true;
+      TvgVisualObject(sizeGrip).Locked := False;
+      TvgVisualObject(sizeGrip).HitTest := True;
     end;
   end;
 end;
@@ -1297,7 +1408,7 @@ begin
   FFont.OnChanged := FontChanged;
   FFontFill := TvgBrush.Create(vgBrushSolid, $FF000000);
   FFontFill.OnChanged := FontFillChanged;
-  FWordWrap := false;
+  FWordWrap := False;
 end;
 
 destructor TvgTextControl.Destroy;
@@ -1307,20 +1418,20 @@ begin
   inherited;
 end;
 
-function TvgTextControl.GetData: Variant;
+function TvgTextControl.GetData: variant;
 begin
   Result := Text;
 end;
 
-procedure TvgTextControl.SetData(const Value: Variant);
+procedure TvgTextControl.SetData(const Value: variant);
 begin
   if VarIsNull(Value) then
     Text := ''
   else
-    if VarIsType(Value, varDate) then
-      Text := DateTimeToStr(VarToDateTime(Value))
-    else
-      Text := VarToWideStr(Value);
+  if VarIsType(Value, varDate) then
+    Text := DateTimeToStr(VarToDateTime(Value))
+  else
+    Text := VarToWideStr(Value);
 end;
 
 procedure TvgTextControl.ApplyStyle;
@@ -1389,10 +1500,10 @@ begin
       TvgText(T).UpdateEffects;
     end
     else
-      if (FResourceLink <> nil) and (FResourceLink is TvgText) then
-        TvgText(FResourceLink).Text := FText
-      else
-        Repaint;
+    if (FResourceLink <> nil) and (FResourceLink is TvgText) then
+      TvgText(FResourceLink).Text := FText
+    else
+      Repaint;
     UpdateEffects;
   end;
 end;
@@ -1417,6 +1528,27 @@ begin
     TvgText(T).HorzTextAlign := FTextAlign
   else
     Repaint;
+end;
+
+procedure TvgTextControl.SetTextRotation(AValue: single);
+var
+  T: TvgObject;
+begin
+  if FTextRotation = AValue then
+    Exit;
+  FTextRotation := AValue;
+  T := FindResource('text');
+  if (T <> nil) and (T is TvgText) then
+  begin
+    TvgText(T).RotateAngle := FTextRotation;
+    TvgText(T).UpdateEffects;
+  end
+  else
+  if (FResourceLink <> nil) and (FResourceLink is TvgText) then
+    TvgText(FResourceLink).RotateAngle := FTextRotation
+  else
+    Repaint;
+  UpdateEffects;
 end;
 
 procedure TvgTextControl.SetVertTextAlign(const Value: TvgTextAlign);
@@ -1446,11 +1578,11 @@ end;
 constructor TvgLabel.Create(AOwner: TComponent);
 begin
   inherited;
-  FAutoTranslate := true;
+  FAutoTranslate := True;
   Width := 120;
   Height := 15;
-  FWordWrap := true;
-  HitTest := false;
+  FWordWrap := True;
+  HitTest := False;
 end;
 
 procedure TvgLabel.ApplyStyle;
@@ -1465,17 +1597,17 @@ begin
     TvgText(T).WordWrap := WordWrap;
     if AutoSize then
     begin
-      FWordWrap := false;
-      TvgText(T).WordWrap := false;
+      FWordWrap := False;
+      TvgText(T).WordWrap := False;
       TvgText(T).VertTextAlign := vgTextAlignNear;
       TvgText(T).HorzTextAlign := vgTextAlignNear;
 
       S := TvgText(T).Align;
       TvgText(T).Align := vaNone;
-      TvgText(T).AutoSize := true;
+      TvgText(T).AutoSize := True;
       Width := TvgText(T).Width;
       Height := TvgText(T).Height;
-      TvgText(T).AutoSize := false;
+      TvgText(T).AutoSize := False;
       TvgText(T).Align := S;
     end;
   end;
@@ -1523,8 +1655,8 @@ end;
 constructor TvgValueLabel.Create(AOwner: TComponent);
 begin
   inherited;
-  FAutoTranslate := false;
-  FWordWrap := false;
+  FAutoTranslate := False;
+  FWordWrap := False;
 end;
 
 { TvgCustomButton ===================================================================}
@@ -1539,12 +1671,12 @@ end;
 constructor TvgCustomButton.Create(AOwner: TComponent);
 begin
   inherited;
-  FAutoTranslate := true;
-  FWordWrap := false;
+  FAutoTranslate := True;
+  FWordWrap := False;
   Width := 80;
   Height := 22;
-  AutoCapture := true;
-  CanFocused := true;
+  AutoCapture := True;
+  CanFocused := True;
 end;
 
 destructor TvgCustomButton.Destroy;
@@ -1554,7 +1686,7 @@ begin
   inherited;
 end;
 
-procedure TvgCustomButton.KeyDown(var Key: Word; var KeyChar: System.WideChar;
+procedure TvgCustomButton.KeyDown(var Key: word; var KeyChar: System.widechar;
   Shift: TShiftState);
 begin
   inherited;
@@ -1601,18 +1733,18 @@ begin
   inherited;
 end;
 
-procedure TvgCustomButton.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgCustomButton.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: single);
 begin
   inherited;
   if Button = mbLeft then
   begin
-    FPressing := true;
+    FPressing := True;
     if FStaysPressed then
       FIsPressed := not FIsPressed
     else
     begin
-      FIsPressed := true;
+      FIsPressed := True;
       if FRepeat then
       begin
         if FRepeatTimer = nil then
@@ -1621,11 +1753,14 @@ begin
           FRepeatTimer.Interval := 500;
         end;
         FRepeatTimer.OnTimer := DoRepeatDelayTimer;
-        FRepeatTimer.Enabled := true;
+        FRepeatTimer.Enabled := True;
       end;
     end;
-    StartTriggerAnimation(Self, 'IsPressed');
-    ApplyTriggerEffect(Self, 'IsPressed');
+    try
+      StartTriggerAnimation(Self, 'IsPressed');
+      ApplyTriggerEffect(Self, 'IsPressed');
+    except
+    end;
   end;
 end;
 
@@ -1646,25 +1781,29 @@ begin
   end;
 end;
 
-procedure TvgCustomButton.MouseUp(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgCustomButton.MouseUp(Button: TMouseButton; Shift: TShiftState;
+  X, Y: single);
 begin
-  if FPressing then
-  begin
-    if FRepeatTimer <> nil then
-      FRepeatTimer.Enabled := false;
-    FPressing := false;
-    if not FStaysPressed then
+  try
+    if FPressing then
     begin
-      FIsPressed := false;
-      StartTriggerAnimation(Self, 'IsPressed');
-      ApplyTriggerEffect(Self, 'IsPressed');
+      if FRepeatTimer <> nil then
+        FRepeatTimer.Enabled := False;
+      FPressing := False;
+      if not FStaysPressed then
+      begin
+        FIsPressed := False;
+        StartTriggerAnimation(Self, 'IsPressed');
+        ApplyTriggerEffect(Self, 'IsPressed');
+      end;
     end;
+    inherited;
+
+  except
   end;
-  inherited;
 end;
 
-procedure TvgCustomButton.SetData(const Value: Variant);
+procedure TvgCustomButton.SetData(const Value: variant);
 begin
   if VarIsEvent(Value) then
     OnClick := VariantToEvent(Value);
@@ -1685,7 +1824,7 @@ end;
 
 { TvgButton }
 
-procedure TvgButton.DialogKey(var Key: Word; Shift: TShiftState);
+procedure TvgButton.DialogKey(var Key: word; Shift: TShiftState);
 begin
   inherited;
   if Default and (Key = VK_RETURN) then
@@ -1716,14 +1855,11 @@ begin
   inherited;
 end;
 
-procedure TvgPopupButton.Notification(AComponent: TComponent;
-  Operation: TOperation);
+procedure TvgPopupButton.Notification(AComponent: TComponent; Operation: TOperation);
 begin
   inherited;
-  {$IFNDEF NOVCL}
-  if (Operation = opRemove) and (AComponent = FPopupMenu) then
-    FPopupMenu := nil;
-  {$ENDIF}
+{$IFNDEF NOVCL}  if (Operation = opRemove) and (AComponent = FPopupMenu) then
+    FPopupMenu := nil;  {$ENDIF}
 end;
 
 procedure TvgPopupButton.Click;
@@ -1731,15 +1867,14 @@ var
   VP: TvgPoint;
 begin
   inherited;
-  {$IFNDEF NOVCL}
-  if FPopupMenu = nil then Exit;
+{$IFNDEF NOVCL}  if FPopupMenu = nil then
+    Exit;
   if Scene <> nil then
   begin
     VP := LocalToAbsolute(vgPoint(0, Height));
     VP := Scene.LocalToScreen(VP);
     FPopupMenu.Popup(round(VP.X), round(VP.Y));
-  end;
-  {$ENDIF}
+  end;  {$ENDIF}
 end;
 
 { TvgBitmapButton }
@@ -1760,12 +1895,11 @@ destructor TvgBitmapButton.Destroy;
 begin
   FreeAndNil(FBitmap);
   inherited;
-end;
+end;{$IFNDEF NOVCL}
 
-{$IFNDEF NOVCL}
-procedure TvgBitmapButton.ActionChange(Sender: TObject; CheckDefaults: Boolean);
+procedure TvgBitmapButton.ActionChange(Sender: TObject; CheckDefaults: boolean);
 
-  procedure CopyImage(ImageList: TCustomImageList; Index: Integer);
+  procedure CopyImage(ImageList: TCustomImageList; Index: integer);
   begin
     BitmapSize := ImageList.Width;
     if ImageList is TvgImageList then
@@ -1778,12 +1912,12 @@ begin
     with TCustomAction(Sender) do
     begin
       { Copy image from action's imagelist }
-      if (Bitmap.Width <= 1) and (ActionList <> nil) and (ActionList.Images <> nil) and (ActionList.Images is TvgImageList) and
+      if (Bitmap.Width <= 1) and (ActionList <> nil) and
+        (ActionList.Images <> nil) and (ActionList.Images is TvgImageList) and
         (ImageIndex >= 0) and (ImageIndex < TvgImageList(ActionList.Images).Count) then
         CopyImage(ActionList.Images, ImageIndex);
     end;
-end;
-{$ENDIF}
+end;{$ENDIF}
 
 procedure TvgBitmapButton.ApplyStyle;
 var
@@ -1794,7 +1928,8 @@ begin
   T := FindResource('text');
   if (T <> nil) and (T is TvgVisualObject) then
   begin
-    TvgVisualObject(T).Padding.Rect := vgRect(FBitmapPadding, FBitmapPadding, FBitmapPadding, FBitmapPadding);
+    TvgVisualObject(T).Padding.Rect :=
+      vgRect(FBitmapPadding, FBitmapPadding, FBitmapPadding, FBitmapPadding);
   end;
 end;
 
@@ -1806,38 +1941,46 @@ begin
   if (T <> nil) and (T is TvgImage) then
   begin
     TvgImage(T).Bitmap.Assign(FBitmap);
-    TvgVisualObject(T).Padding.Rect := vgRect(FBitmapPadding, FBitmapPadding, FBitmapPadding, FBitmapPadding);
-    if ((TvgImage(T).Bitmap.Width = 1) or (TvgImage(T).Bitmap.Height = 1)) and (TvgImage(T).Bitmap.ResourceName = '') then
+    TvgVisualObject(T).Padding.Rect :=
+      vgRect(FBitmapPadding, FBitmapPadding, FBitmapPadding, FBitmapPadding);
+    if ((TvgImage(T).Bitmap.Width = 1) or (TvgImage(T).Bitmap.Height = 1)) and
+      (TvgImage(T).Bitmap.ResourceName = '') then
     begin
       TvgVisualObject(T).Align := vaNone;
     end
     else
       case FBitmapLayout of
-        vgGlyphLeft: begin
+        vgGlyphLeft:
+        begin
           TvgVisualObject(T).Align := vaLeft;
           TvgVisualObject(T).Width := FBitmapSize;
           TvgVisualObject(T).Padding.right := FBitmapSpacing;
         end;
-        vgGlyphRight: begin
+        vgGlyphRight:
+        begin
           TvgVisualObject(T).Align := vaRight;
           TvgVisualObject(T).Width := FBitmapSize;
           TvgVisualObject(T).Padding.left := FBitmapSpacing;
         end;
-        vgGlyphTop: begin
+        vgGlyphTop:
+        begin
           TvgVisualObject(T).Align := vaTop;
           TvgVisualObject(T).Height := FBitmapSize;
           TvgVisualObject(T).Padding.bottom := FBitmapSpacing;
         end;
-        vgGlyphBottom: begin
+        vgGlyphBottom:
+        begin
           TvgVisualObject(T).Align := vaBottom;
           TvgVisualObject(T).Height := FBitmapSize;
           TvgVisualObject(T).Padding.top := FBitmapSpacing;
         end;
-        vgGlyphCenter: begin
+        vgGlyphCenter:
+        begin
           TvgVisualObject(T).Align := vaCenter;
           TvgVisualObject(T).Width := FBitmapSize;
           TvgVisualObject(T).Height := FBitmapSize;
-          TvgVisualObject(T).Padding.Rect := vgRect(FBitmapSpacing, FBitmapSpacing, FBitmapSpacing, FBitmapSpacing);
+          TvgVisualObject(T).Padding.Rect :=
+            vgRect(FBitmapSpacing, FBitmapSpacing, FBitmapSpacing, FBitmapSpacing);
         end;
       end;
   end;
@@ -1934,45 +2077,53 @@ begin
   T := FindResource('pathowner');
   if (T <> nil) and (T is TvgVisualObject) then
   begin
-    TvgVisualObject(T).Padding.Rect := vgRect(FPathPadding, FPathPadding, FPathPadding, FPathPadding);
+    TvgVisualObject(T).Padding.Rect :=
+      vgRect(FPathPadding, FPathPadding, FPathPadding, FPathPadding);
     if (Length(FPath.PathData) = 0) then
     begin
       TvgVisualObject(T).Align := vaNone;
     end
     else
       case FPathLayout of
-        vgGlyphLeft: begin
+        vgGlyphLeft:
+        begin
           TvgVisualObject(T).Align := vaLeft;
           TvgVisualObject(T).Width := FPathSize;
           TvgVisualObject(T).Padding.right := FPathSpacing;
         end;
-        vgGlyphRight: begin
+        vgGlyphRight:
+        begin
           TvgVisualObject(T).Align := vaRight;
           TvgVisualObject(T).Width := FPathSize;
           TvgVisualObject(T).Padding.left := FPathSpacing;
         end;
-        vgGlyphTop: begin
+        vgGlyphTop:
+        begin
           TvgVisualObject(T).Align := vaTop;
           TvgVisualObject(T).Height := FPathSize;
           TvgVisualObject(T).Padding.bottom := FPathSpacing;
         end;
-        vgGlyphBottom: begin
+        vgGlyphBottom:
+        begin
           TvgVisualObject(T).Align := vaBottom;
           TvgVisualObject(T).Height := FPathSize;
           TvgVisualObject(T).Padding.top := FPathSpacing;
         end;
-        vgGlyphCenter: begin
+        vgGlyphCenter:
+        begin
           TvgVisualObject(T).Align := vaCenter;
           TvgVisualObject(T).Width := FPathSize;
           TvgVisualObject(T).Height := FPathSize;
-          TvgVisualObject(T).Padding.Rect := vgRect(FPathSpacing, FPathSpacing, FPathSpacing, FPathSpacing);
+          TvgVisualObject(T).Padding.Rect :=
+            vgRect(FPathSpacing, FPathSpacing, FPathSpacing, FPathSpacing);
         end;
       end;
   end;
   T := FindResource('text');
   if (T <> nil) and (T is TvgVisualObject) then
   begin
-    TvgVisualObject(T).Padding.Rect := vgRect(FPathPadding, FPathPadding, FPathPadding, FPathPadding);
+    TvgVisualObject(T).Padding.Rect :=
+      vgRect(FPathPadding, FPathPadding, FPathPadding, FPathPadding);
   end;
 end;
 
@@ -2026,7 +2177,7 @@ begin
   end;
 end;
 
-function TvgPathButton.isStrokeThicknessStored: Boolean;
+function TvgPathButton.isStrokeThicknessStored: boolean;
 begin
   Result := FStrokeThickness <> 1;
 end;
@@ -2086,7 +2237,7 @@ end;
 constructor TvgToolButton.Create(AOwner: TComponent);
 begin
   inherited;
-  CanFocused := false;
+  CanFocused := False;
   FBitmapLayout := vgGlyphTop;
 end;
 
@@ -2095,7 +2246,7 @@ end;
 constructor TvgToolPathButton.Create(AOwner: TComponent);
 begin
   inherited;
-  CanFocused := false;
+  CanFocused := False;
   FPathLayout := vgGlyphTop;
 end;
 
@@ -2104,8 +2255,8 @@ end;
 constructor TvgSpeedButton.Create(AOwner: TComponent);
 begin
   inherited;
-  CanFocused := false;
-  FRepeat := true;
+  CanFocused := False;
+  FRepeat := True;
   Width := 23;
   Height := 23;
   Text := '';
@@ -2121,9 +2272,9 @@ end;
 constructor TvgColorButton.Create(AOwner: TComponent);
 begin
   inherited;
-  FAutoTranslate := false;
+  FAutoTranslate := False;
   FColor := vcBlack;
-  FUseStandardDialog := true;
+  FUseStandardDialog := True;
 end;
 
 destructor TvgColorButton.Destroy;
@@ -2167,16 +2318,13 @@ begin
   TvgColorRec(Result).B := TvgColorRec(C).R;
 end;
 
-procedure TvgColorButton.Click;
-{$IFNDEF NOVCL}
+procedure TvgColorButton.Click;{$IFNDEF NOVCL}
 var
   C: TColorDialog;
-  V: TvgBrushDialog;
-{$ENDIF}
+  V: TvgBrushDialog;{$ENDIF}
 begin
   inherited;
-  {$IFNDEF NOVCL}
-  if FUseStandardDialog then
+{$IFNDEF NOVCL}  if FUseStandardDialog then
   begin
     C := TColorDialog.Create(nil);
     C.Color := SwapColor(vgStrToColor(FColor)) and $FFFFFF;
@@ -2197,8 +2345,7 @@ begin
       Color := V.Brush.Color;
     end;
     V.Free;
-  end;
-  {$ENDIF}
+  end;  {$ENDIF}
 end;
 
 { TvgCornerButton }
@@ -2234,14 +2381,14 @@ begin
   end;
 end;
 
-function TvgCornerButton.IsCornersStored: Boolean;
+function TvgCornerButton.IsCornersStored: boolean;
 begin
   Result := FCorners <> AllCorners;
 end;
 
-function TvgCornerButton.IsSidesStored: Boolean;
+function TvgCornerButton.IsSidesStored: boolean;
 begin
-  Result := FSides * AllSides <> []
+  Result := FSides * AllSides <> [];
 end;
 
 procedure TvgCornerButton.SetCorners(const Value: TvgCorners);
@@ -2294,9 +2441,9 @@ end;
 constructor TvgCheckBox.Create(AOwner: TComponent);
 begin
   inherited;
-  FAutoTranslate := true;
-  AutoCapture := true;
-  CanFocused := true;
+  FAutoTranslate := True;
+  AutoCapture := True;
+  CanFocused := True;
   TextAlign := vgTextAlignNear;
   Width := 120;
   Height := 19;
@@ -2307,20 +2454,20 @@ begin
   inherited;
 end;
 
-function TvgCheckBox.GetData: Variant;
+function TvgCheckBox.GetData: variant;
 begin
   Result := IsChecked;
 end;
 
-procedure TvgCheckBox.SetData(const Value: Variant);
+procedure TvgCheckBox.SetData(const Value: variant);
 begin
   if VarIsEvent(Value) then
     OnChange := VariantToEvent(Value)
   else
-    if VarIsType(Value, varBoolean) then
-      IsChecked := Value
-    else
-      IsChecked := false;
+  if VarIsType(Value, varBoolean) then
+    IsChecked := Value
+  else
+    IsChecked := False;
 end;
 
 procedure TvgCheckBox.ApplyStyle;
@@ -2334,8 +2481,8 @@ begin
   inherited;
   if Button = mbLeft then
   begin
-    FPressing := true;
-    FIsPressed := true;
+    FPressing := True;
+    FIsPressed := True;
     StartTriggerAnimation(Self, 'IsPressed');
   end;
 end;
@@ -2353,22 +2500,21 @@ begin
   end;
 end;
 
-procedure TvgCheckBox.MouseUp(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgCheckBox.MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single);
 begin
   inherited;
   if FPressing then
   begin
-    FPressing := false;
-    FIsPressed := false;
+    FPressing := False;
+    FIsPressed := False;
     if vgPtInRect(vgPoint(X, Y), LocalRect) then
     begin
       IsChecked := not IsChecked;
-    end
+    end;
   end;
 end;
 
-procedure TvgCheckBox.KeyDown(var Key: Word; var KeyChar: System.WideChar;
+procedure TvgCheckBox.KeyDown(var Key: word; var KeyChar: System.widechar;
   Shift: TShiftState);
 begin
   inherited;
@@ -2398,7 +2544,8 @@ begin
   inherited;
   FPath := TvgPathData.Create;
   FPath.OnChanged := DoPathChange;
-  FPath.Data := 'M 341.236,311.738 L 309.372,342.676 L 291.667,325.488 L 291.667,304.863 L 309.372,321.997 L 341.236,291.113 Z';
+  FPath.Data :=
+    'M 341.236,311.738 L 309.372,342.676 L 291.667,325.488 L 291.667,304.863 L 309.372,321.997 L 341.236,291.113 Z';
 end;
 
 destructor TvgPathCheckBox.Destroy;
@@ -2434,9 +2581,9 @@ end;
 constructor TvgRadioButton.Create(AOwner: TComponent);
 begin
   inherited;
-  FAutoTranslate := true;
-  AutoCapture := true;
-  CanFocused := true;
+  FAutoTranslate := True;
+  AutoCapture := True;
+  CanFocused := True;
   TextAlign := vgTextAlignNear;
   Width := 120;
   Height := 19;
@@ -2447,20 +2594,20 @@ begin
   inherited;
 end;
 
-function TvgRadioButton.GetData: Variant;
+function TvgRadioButton.GetData: variant;
 begin
   Result := IsChecked;
 end;
 
-procedure TvgRadioButton.SetData(const Value: Variant);
+procedure TvgRadioButton.SetData(const Value: variant);
 begin
   if VarIsEvent(Value) then
     OnChange := VariantToEvent(Value)
   else
-    if VarIsType(Value, varBoolean) then
-      IsChecked := Value
-    else
-      IsChecked := false;
+  if VarIsType(Value, varBoolean) then
+    IsChecked := Value
+  else
+    IsChecked := False;
 end;
 
 procedure TvgRadioButton.ApplyStyle;
@@ -2474,13 +2621,14 @@ begin
   inherited;
 end;
 
-procedure TvgRadioButton.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single);
+procedure TvgRadioButton.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: single);
 begin
   inherited;
   if Button = mbLeft then
   begin
-    FPressing := true;
-    FIsPressed := true;
+    FPressing := True;
+    FIsPressed := True;
     StartTriggerAnimation(Self, 'IsPressed');
   end;
 end;
@@ -2498,22 +2646,22 @@ begin
   end;
 end;
 
-procedure TvgRadioButton.MouseUp(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgRadioButton.MouseUp(Button: TMouseButton; Shift: TShiftState;
+  X, Y: single);
 begin
   inherited;
   if FPressing then
   begin
-    FPressing := false;
-    FIsPressed := false;
+    FPressing := False;
+    FIsPressed := False;
     if vgPtInRect(vgPoint(X, Y), LocalRect) then
     begin
       IsChecked := not IsChecked;
-    end
+    end;
   end;
 end;
 
-procedure TvgRadioButton.KeyDown(var Key: Word; var KeyChar: System.WideChar;
+procedure TvgRadioButton.KeyDown(var Key: word; var KeyChar: System.widechar;
   Shift: TShiftState);
 begin
   inherited;
@@ -2541,19 +2689,21 @@ begin
       FScene.GetRoot.AddControlsToList(List);
       for i := 0 to List.Count - 1 do
         if (TvgObject(List[i]) is TvgRadioButton) and (TvgObject(List[i]) <> Self) and
-           (TvgRadioButton(List[i]).GroupName = GroupName) then
+          (TvgRadioButton(List[i]).GroupName = GroupName) then
         begin
           if TvgRadioButton(List[i]).IsChecked then
             cc := cc + 1;
           if Value then
-            TvgRadioButton(List[i]).IsChecked := false;
+            TvgRadioButton(List[i]).IsChecked := False;
           c := c + 1;
         end;
       List.Free;
     end;
     { check }
-    if not Value and (c = 0) then Exit;
-    if not Value and (cc = 0) then Exit;
+    if not Value and (c = 0) then
+      Exit;
+    if not Value and (cc = 0) then
+      Exit;
     FIsChecked := Value;
     StartTriggerAnimation(Self, 'IsChecked');
     { event }
@@ -2569,8 +2719,8 @@ end;
 constructor TvgCloseButton.Create(AOwner: TComponent);
 begin
   inherited;
-  CanFocused := false;
-  CloseForm := true;
+  CanFocused := False;
+  CloseForm := True;
   Width := 20;
   Height := 20;
 end;
@@ -2581,16 +2731,15 @@ begin
   inherited;
 end;
 
-procedure TvgCloseButton.MouseDown(Button: TMouseButton;
-  Shift: TShiftState; X, Y: single);
+procedure TvgCloseButton.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: single);
 begin
   inherited;
   if Button = mbLeft then
-    FPressing := true;
+    FPressing := True;
 end;
 
-procedure TvgCloseButton.MouseMove(Shift: TShiftState; X, Y, Dx,
-  Dy: single);
+procedure TvgCloseButton.MouseMove(Shift: TShiftState; X, Y, Dx, Dy: single);
 begin
   inherited;
 end;
@@ -2616,7 +2765,7 @@ begin
         O := O.Owner;
       end;
     end;
-    FPressing := false;
+    FPressing := False;
     if Assigned(FOnClick) then
       FOnClick(Self);
   end;
@@ -2639,8 +2788,8 @@ end;
 constructor TvgGroupBox.Create(AOwner: TComponent);
 begin
   inherited;
-  FautoTranslate := true;
-  CanFocused := false;
+  FautoTranslate := True;
+  CanFocused := False;
   Width := 120;
   Height := 100;
 end;
@@ -2661,8 +2810,8 @@ constructor TvgSplitter.Create(AOwner: TComponent);
 begin
   inherited;
   FMinSize := 20;
-  FShowGrip := true;
-  AutoCapture := true;
+  FShowGrip := True;
+  AutoCapture := True;
   Width := 5;
   Align := vaLeft;
   Cursor := crHSplit;
@@ -2681,7 +2830,7 @@ begin
   grip := FindResource('grip');
   if (grip <> nil) and (grip is TvgVisualObject) then
   begin
-    TvgVisualObject(grip).visible := FShowGrip;
+    TvgVisualObject(grip).Visible := FShowGrip;
   end;
 end;
 
@@ -2715,7 +2864,7 @@ end;
 function TvgSplitter.FindObject: TvgVisualObject;
 var
   P: TvgPoint;
-  I: Integer;
+  I: integer;
   R: TvgRect;
 begin
   Result := nil;
@@ -2725,16 +2874,24 @@ begin
     vaRight, vaMostRight: P.X := P.X + Width + 1;
     vaTop: P.Y := P.Y - 1;
     vaBottom: P.Y := P.Y + Height + 1;
-  else
-    Exit;
+    else
+      Exit;
   end;
   if Parent <> nil then
     for I := 0 to Parent.ChildrenCount - 1 do
     begin
-      if not Parent.Children[I].IsVisual then Continue;
-      if TvgVisualObject(Parent.Children[I]).Locked then Continue;
-      if (Align in [vaLeft, vaMostLeft, vaRight, vaMostRight]) and not ((TvgVisualObject(Parent.Children[I]).Align in [vaLeft, vaMostLeft, vaRight, vaMostRight])) then Continue;
-      if (Align in [vaTop, vaBottom, vaMostTop, vaMostBottom]) and not ((TvgVisualObject(Parent.Children[I]).Align in [vaTop, vaBottom, vaMostTop, vaMostBottom])) then Continue;
+      if not Parent.Children[I].IsVisual then
+        Continue;
+      if TvgVisualObject(Parent.Children[I]).Locked then
+        Continue;
+      if (Align in [vaLeft, vaMostLeft, vaRight, vaMostRight]) and
+        not ((TvgVisualObject(Parent.Children[I]).Align in
+        [vaLeft, vaMostLeft, vaRight, vaMostRight])) then
+        Continue;
+      if (Align in [vaTop, vaBottom, vaMostTop, vaMostBottom]) and
+        not ((TvgVisualObject(Parent.Children[I]).Align in
+        [vaTop, vaBottom, vaMostTop, vaMostBottom])) then
+        Continue;
 
       Result := Parent.Children[I].Visual;
       if Result.Visible then
@@ -2751,7 +2908,8 @@ begin
             R.Top := R.Top - 1
           else
             R.Bottom := R.Bottom + 1;
-        if vgPtInRect(P, R) then Exit;
+        if vgPtInRect(P, R) then
+          Exit;
       end;
     end;
   Result := nil;
@@ -2793,32 +2951,33 @@ begin
   end;
 end;
 
-function TvgSplitter.DoCanResize(var NewSize: single): Boolean;
+function TvgSplitter.DoCanResize(var NewSize: single): boolean;
 begin
-  Result := true;
-  if (NewSize <= FMinSize) {and FAutoSnap }then
+  Result := True;
+  if (NewSize <= FMinSize) {and FAutoSnap } then
     NewSize := FMinSize;
 end;
 
-procedure TvgSplitter.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgSplitter.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single);
 var
   i: integer;
 begin
   inherited;
   if Button = mbLeft then
   begin
-    FPressed := true;
+    FPressed := True;
     FDownPos := vgPoint(X, Y);
     FControl := FindObject;
     if Assigned(FControl) then
     begin
       if Align in [vaLeft, vaMostLeft, vaRight, vaMostRight] then
       begin
-        FMaxSize := Parent.Visual.Width - FMinSize - Parent.Visual.Margins.left - Parent.Visual.Margins.right;
+        FMaxSize := Parent.Visual.Width - FMinSize - Parent.Visual.Margins.left -
+          Parent.Visual.Margins.right;
         for I := 0 to Parent.ChildrenCount - 1 do
         begin
-          if not Parent.Children[I].IsVisual then Continue;
+          if not Parent.Children[I].IsVisual then
+            Continue;
           with Parent.Children[I].Visual do
             if (Align in [vaLeft, vaRight, vaMostLeft, vaMostRight]) then
               FMaxSize := FMaxSize - Width - Padding.Left - Padding.Right;
@@ -2827,10 +2986,12 @@ begin
       end
       else
       begin
-        FMaxSize := Parent.Visual.Height - FMinSize - Parent.Visual.Margins.top - Parent.Visual.Margins.bottom;
+        FMaxSize := Parent.Visual.Height - FMinSize - Parent.Visual.Margins.top -
+          Parent.Visual.Margins.bottom;
         for I := 0 to Parent.ChildrenCount - 1 do
         begin
-          if not Parent.Children[I].IsVisual then Continue;
+          if not Parent.Children[I].IsVisual then
+            Continue;
           with Parent.Children[I].Visual do
             if Align in [vaTop, vaBottom] then
               FMaxSize := FMaxSize - Height - Padding.top - Padding.bottom;
@@ -2867,26 +3028,25 @@ begin
       vaLeft, vaMostLeft: FControl.Width := FNewSize;
       vaTop: FControl.Height := FNewSize;
       vaRight, vaMostRight:
-        begin
-          FControl.Position.X := FControl.Position.X + (FControl.Width - FNewSize);
-          FControl.Width := FNewSize;
-        end;
+      begin
+        FControl.Position.X := FControl.Position.X + (FControl.Width - FNewSize);
+        FControl.Width := FNewSize;
+      end;
       vaBottom:
-        begin
-          FControl.Position.Y := FControl.Position.Y + (FControl.Height - FNewSize);
-          FControl.Height := FNewSize;
-        end;
+      begin
+        FControl.Position.Y := FControl.Position.Y + (FControl.Height - FNewSize);
+        FControl.Height := FNewSize;
+      end;
     end;
-//    if Assigned(FOnMoved) then FOnMoved(Self);
+    //    if Assigned(FOnMoved) then FOnMoved(Self);
     FOldSize := FNewSize;
   end;
 end;
 
-procedure TvgSplitter.MouseUp(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgSplitter.MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single);
 begin
   inherited;
-  FPressed := false;
+  FPressed := False;
   FControl := nil;
 end;
 
@@ -2904,7 +3064,7 @@ end;
 constructor TvgProgressBar.Create(AOwner: TComponent);
 begin
   inherited;
-  CanFocused := false;
+  CanFocused := False;
   FMax := 100;
   Width := 100;
   Height := 20;
@@ -2915,17 +3075,17 @@ begin
   inherited;
 end;
 
-function TvgProgressBar.GetData: Variant;
+function TvgProgressBar.GetData: variant;
 begin
   Result := Value;
 end;
 
-procedure TvgProgressBar.SetData(const Value: Variant);
+procedure TvgProgressBar.SetData(const Value: variant);
 begin
   if VarIsNumeric(Value) then
     Self.Value := Value
   else
-    Self.Value := Min
+    Self.Value := Min;
 end;
 
 procedure TvgProgressBar.ApplyStyle;
@@ -2954,20 +3114,20 @@ var
 begin
   if not FDisableAlign then
   begin
-    FDisableAlign := true;
+    FDisableAlign := True;
     T := nil;
     if Orientation = vgHorizontal then
     begin
       T := FindResource('vtrack');
       if T <> nil then
-        T.Visual.Visible := false;
-      T := FindResource('htrack')
+        T.Visual.Visible := False;
+      T := FindResource('htrack');
     end
     else
     begin
       T := FindResource('htrack');
       if T <> nil then
-        T.Visual.Visible := false;
+        T.Visual.Visible := False;
       T := FindResource('vtrack');
     end;
     if T = nil then
@@ -2980,26 +3140,30 @@ begin
       begin
         if (hI <> nil) and (hI is TvgVisualObject) then
         begin
-          TvgVisualObject(hI).Width := ((Value - Min) / (Max - Min)) * (TvgVisualObject(T).Width - TvgVisualObject(T).Margins.Left - TvgVisualObject(T).Margins.Right -
+          TvgVisualObject(hI).Width :=
+            ((Value - Min) / (Max - Min)) * (TvgVisualObject(T).Width -
+            TvgVisualObject(T).Margins.Left - TvgVisualObject(T).Margins.Right -
             TvgVisualObject(hI).Padding.Left - TvgVisualObject(hI).Padding.Right);
           TvgVisualObject(hI).Visible := TvgVisualObject(hI).Width > 2;
         end;
         if (vI <> nil) and (vI is TvgVisualObject) then
-          TvgVisualObject(vI).Visible := false;
+          TvgVisualObject(vI).Visible := False;
       end
       else
       begin
         if (vI <> nil) and (vI is TvgVisualObject) then
         begin
-          TvgVisualObject(vI).Height := ((Value - Min) / (Max - Min)) * (TvgVisualObject(T).Height - TvgVisualObject(T).Margins.Top - TvgVisualObject(T).Margins.Bottom -
+          TvgVisualObject(vI).Height :=
+            ((Value - Min) / (Max - Min)) * (TvgVisualObject(T).Height -
+            TvgVisualObject(T).Margins.Top - TvgVisualObject(T).Margins.Bottom -
             TvgVisualObject(hI).Padding.Top - TvgVisualObject(hI).Padding.Bottom);
           TvgVisualObject(vI).Visible := TvgVisualObject(vI).Height > 2;
         end;
         if (hI <> nil) and (hI is TvgVisualObject) then
-          TvgVisualObject(hI).Visible := false;
+          TvgVisualObject(hI).Visible := False;
       end;
     end;
-    FDisableAlign := false;
+    FDisableAlign := False;
   end;
   inherited;
 end;
@@ -3022,7 +3186,8 @@ begin
   begin
     FOrientation := Value;
     // swap
-    if Assigned(FScene) and (FScene.GetDesignTime) and not (csLoading in ComponentState) then
+    if Assigned(FScene) and (FScene.GetDesignTime) and not
+      (csLoading in ComponentState) then
     begin
       T := Width;
       Width := Height;
@@ -3046,8 +3211,8 @@ end;
 constructor TvgThumb.Create(AOwner: TComponent);
 begin
   inherited;
-  CanFocused := false;
-  AutoCapture := true;
+  CanFocused := False;
+  AutoCapture := True;
 end;
 
 destructor TvgThumb.Destroy;
@@ -3055,13 +3220,12 @@ begin
   inherited;
 end;
 
-procedure TvgThumb.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgThumb.MouseDown(Button: TMouseButton; Shift: TShiftState; X, Y: single);
 begin
   inherited;
   if (Button = mbLeft) and Enabled then
   begin
-    FPressed := true;
+    FPressed := True;
     FDownOffset := vgPoint(X, Y);
 
     if FTrack <> nil then
@@ -3074,29 +3238,33 @@ var
   P: TvgPoint;
 begin
   inherited;
-  if FPressed and (FTrack <> nil) and (Enabled) and (Parent <> nil) and (Parent.IsVisual) then
+  if FPressed and (FTrack <> nil) and (Enabled) and (Parent <> nil) and
+    (Parent.IsVisual) then
   begin
     if FTrack.Orientation = vgHorizontal then
     begin
       P := FTrack.AbsoluteToLocal(LocalToAbsolute(vgPoint(X, 0)));
       if FTrack.ViewportSize = 0 then
-        FTrack.Value := FTrack.Min + (((P.X) / FTrack.Width) * (FTrack.FMax - FTrack.FMin))
+        FTrack.Value := FTrack.Min + (((P.X) / FTrack.Width) *
+          (FTrack.FMax - FTrack.FMin))
       else
-        FTrack.Value := FTrack.Min + (((P.X - FDownOffset.X) / FTrack.Width) * (FTrack.FMax - FTrack.FMin))
+        FTrack.Value := FTrack.Min + (((P.X - FDownOffset.X) / FTrack.Width) *
+          (FTrack.FMax - FTrack.FMin));
     end
     else
     begin
       P := FTrack.AbsoluteToLocal(LocalToAbsolute(vgPoint(0, Y)));
       if FTrack.ViewportSize = 0 then
-        FTrack.Value := FTrack.Min + (((P.Y) / FTrack.Height) * (FTrack.FMax - FTrack.FMin))
+        FTrack.Value := FTrack.Min + (((P.Y) / FTrack.Height) *
+          (FTrack.FMax - FTrack.FMin))
       else
-        FTrack.Value := FTrack.Min + (((P.Y - FDownOffset.Y) / FTrack.Height) * (FTrack.FMax - FTrack.FMin))
+        FTrack.Value := FTrack.Min + (((P.Y - FDownOffset.Y) / FTrack.Height) *
+          (FTrack.FMax - FTrack.FMin));
     end;
   end;
 end;
 
-procedure TvgThumb.MouseUp(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgThumb.MouseUp(Button: TMouseButton; Shift: TShiftState; X, Y: single);
 var
   V: single;
 begin
@@ -3105,13 +3273,13 @@ begin
   begin
     if not FTrack.Tracking and Assigned(FTrack.FOnChange) then
     begin
-      FTrack.FTracking := true;
+      FTrack.FTracking := True;
       V := FTrack.FValue;
       FTrack.FValue := $FFFF;
       FTrack.Value := V;
-      FTrack.FTracking := false;
+      FTrack.FTracking := False;
     end;
-    FPressed := false;
+    FPressed := False;
   end;
 end;
 
@@ -3122,7 +3290,7 @@ begin
   inherited;
   FViewportSize := 0;
   FMax := 100;
-  FTracking := true;
+  FTracking := True;
   Width := 100;
   Height := 15;
 end;
@@ -3132,20 +3300,20 @@ begin
   inherited;
 end;
 
-function TvgCustomTrack.GetData: Variant;
+function TvgCustomTrack.GetData: variant;
 begin
   Result := Value;
 end;
 
-procedure TvgCustomTrack.SetData(const Value: Variant);
+procedure TvgCustomTrack.SetData(const Value: variant);
 begin
   if VarIsEvent(Value) then
     OnChange := VariantToEvent(Value)
   else
-   if VarIsNumeric(Value) then
-     Self.Value := Value
-   else
-     Self.Value := Min
+  if VarIsNumeric(Value) then
+    Self.Value := Value
+  else
+    Self.Value := Min;
 end;
 
 function TvgCustomTrack.GetThumbRect: TvgRect;
@@ -3165,7 +3333,7 @@ begin
       if Result.Right > Width then
         vgOffsetRect(Result, Width - Result.Right, 0);
       if Result.Left < 0 then
-        vgOffsetRect(Result, - Result.Left, 0);
+        vgOffsetRect(Result, -Result.Left, 0);
     end
     else
     begin
@@ -3179,18 +3347,24 @@ begin
       if Result.Bottom > Height then
         vgOffsetRect(Result, 0, Height - Result.Bottom);
       if Result.Top < 0 then
-        vgOffsetRect(Result, 0, - Result.Top);
+        vgOffsetRect(Result, 0, -Result.Top);
     end;
   end;
   if (Thumb <> nil) and (Thumb.Parent <> nil) and (Thumb.Parent.IsVisual) then
   begin
-    if vgRectWidth(Result) > TvgVisualObject(Thumb.Parent).Margins.Left + Thumb.Padding.Left + TvgVisualObject(Thumb.Parent).Margins.Right - Thumb.Padding.Right then
+    if vgRectWidth(Result) > TvgVisualObject(Thumb.Parent).Margins.Left +
+    Thumb.Padding.Left + TvgVisualObject(Thumb.Parent).Margins.Right -
+    Thumb.Padding.Right then
     begin
-      Result.Left := Result.Left + TvgVisualObject(Thumb.Parent).Margins.Left + Thumb.Padding.Left;
-      Result.Right := Result.Right - TvgVisualObject(Thumb.Parent).Margins.Right - Thumb.Padding.Right;
+      Result.Left := Result.Left + TvgVisualObject(Thumb.Parent).Margins.Left +
+        Thumb.Padding.Left;
+      Result.Right := Result.Right - TvgVisualObject(Thumb.Parent).Margins.Right -
+        Thumb.Padding.Right;
     end;
-    Result.Top := Result.Top + TvgVisualObject(Thumb.Parent).Margins.Top + Thumb.Padding.Top;
-    Result.Bottom := Result.Bottom - TvgVisualObject(Thumb.Parent).Margins.Bottom - Thumb.Padding.Bottom;
+    Result.Top := Result.Top + TvgVisualObject(Thumb.Parent).Margins.Top +
+      Thumb.Padding.Top;
+    Result.Bottom := Result.Bottom - TvgVisualObject(Thumb.Parent).Margins.Bottom -
+      Thumb.Padding.Bottom;
   end;
 end;
 
@@ -3210,7 +3384,7 @@ end;
 
 procedure TvgCustomTrack.Realign;
 begin
-  inherited ;
+  inherited;
   if Thumb <> nil then
   begin
     with GetThumbRect do
@@ -3225,8 +3399,8 @@ begin
   end;
 end;
 
-procedure TvgCustomTrack.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgCustomTrack.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: single);
 begin
   inherited;
   if Button = mbLeft then
@@ -3240,7 +3414,7 @@ begin
         if Min + ((X / Width) * (FMax - FMin)) > Value then
           Value := Value + FViewportSize
         else
-          Value := Value - FViewportSize
+          Value := Value - FViewportSize;
       end;
     end
     else
@@ -3252,7 +3426,7 @@ begin
         if Min + ((Y / Height) * (FMax - FMin)) > Value then
           Value := Value + FViewportSize
         else
-          Value := Value - FViewportSize
+          Value := Value - FViewportSize;
       end;
     end;
   end;
@@ -3263,29 +3437,30 @@ begin
   inherited;
 end;
 
-procedure TvgCustomTrack.MouseUp(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgCustomTrack.MouseUp(Button: TMouseButton; Shift: TShiftState;
+  X, Y: single);
 begin
   inherited;
 end;
 
-procedure TvgCustomTrack.KeyDown(var Key: Word; var KeyChar: System.WideChar;
+procedure TvgCustomTrack.KeyDown(var Key: word; var KeyChar: System.widechar;
   Shift: TShiftState);
 var
-  inc: single;
+  Inc: single;
 begin
-  inc := Frequency;
-  if inc = 0 then inc := 1;
+  Inc := Frequency;
+  if Inc = 0 then
+    Inc := 1;
   inherited;
   case Key of
     VK_HOME: Value := Min;
     VK_END: Value := Max;
-    VK_UP: Value := Value - inc;
-    VK_DOWN: Value := Value + inc;
-    VK_LEFT: Value := Value - inc;
-    VK_RIGHT: Value := Value + inc;
-  else
-    Exit;
+    VK_UP: Value := Value - Inc;
+    VK_DOWN: Value := Value + Inc;
+    VK_LEFT: Value := Value - Inc;
+    VK_RIGHT: Value := Value + Inc;
+    else
+      Exit;
   end;
   if not Tracking and Assigned(FOnChange) then
     FOnChange(Self);
@@ -3324,7 +3499,8 @@ begin
   begin
     FOrientation := Value;
     // swap
-    if Assigned(FScene) and (FScene.GetDesignTime) and not (csLoading in ComponentState) then
+    if Assigned(FScene) and (FScene.GetDesignTime) and not
+      (csLoading in ComponentState) then
     begin
       T := Width;
       Width := Height;
@@ -3356,8 +3532,10 @@ begin
   if FValue <> Value then
   begin
     FValue := Value;
-    if FValue > FMax - FViewportSize then FValue := FMax - FViewportSize;
-    if FValue < FMin then FValue := FMin;
+    if FValue > FMax - FViewportSize then
+      FValue := FMax - FViewportSize;
+    if FValue < FMin then
+      FValue := FMin;
     if GetIsTracking and Assigned(FOnTracking) then
       FOnTracking(Self);
     if Tracking and Assigned(FBindingObjects) then
@@ -3365,8 +3543,8 @@ begin
     if GetIsTracking and Tracking and Assigned(FOnChange) then
       FOnChange(Self)
     else
-      if not GetIsTracking and Assigned(FOnChange) then
-        FOnChange(Self);
+    if not GetIsTracking and Assigned(FOnChange) then
+      FOnChange(Self);
     Realign;
   end;
 end;
@@ -3390,7 +3568,7 @@ constructor TvgTrackBar.Create(AOwner: TComponent);
 begin
   inherited;
   FViewportSize := 0;
-  CanFocused := true;
+  CanFocused := True;
 end;
 
 { TvgScrollBar ================================================================}
@@ -3410,20 +3588,20 @@ begin
   inherited;
 end;
 
-function TvgScrollBar.GetData: Variant;
+function TvgScrollBar.GetData: variant;
 begin
   Result := Value;
 end;
 
-procedure TvgScrollBar.SetData(const Value: Variant);
+procedure TvgScrollBar.SetData(const Value: variant);
 begin
   if VarIsEvent(Value) then
     OnChange := VariantToEvent(Value)
   else
-    if VarIsNumeric(Value) then
-      Self.Value := Value
-    else
-      Self.Value := Min
+  if VarIsNumeric(Value) then
+    Self.Value := Value
+  else
+    Self.Value := Min;
 end;
 
 function TvgScrollBar.Track: TvgCustomTrack;
@@ -3431,7 +3609,8 @@ var
   T: TvgObject;
   HT, VT: TvgCustomTrack;
 begin
-  HT := nil; VT := nil;
+  HT := nil;
+  VT := nil;
   T := FindResource('htrack');
   if (T <> nil) and (T is TvgCustomTrack) then
   begin
@@ -3443,8 +3622,9 @@ begin
     HT.ViewportSize := ViewportSize;
     HT.Visible := Orientation = vgHorizontal;
     HT.OnChange := DoTrackChanged;
-    HT.CanFocused := false;
-    if HT.visible then HT.Realign;
+    HT.CanFocused := False;
+    if HT.Visible then
+      HT.Realign;
   end;
   T := FindResource('vtrack');
   if (T <> nil) and (T is TvgCustomTrack) then
@@ -3457,8 +3637,9 @@ begin
     VT.ViewportSize := ViewportSize;
     VT.Visible := Orientation = vgVertical;
     VT.OnChange := DoTrackChanged;
-    VT.CanFocused := false;
-    if VT.visible then VT.Realign;
+    VT.CanFocused := False;
+    if VT.Visible then
+      VT.Realign;
   end;
   if Orientation = vgVertical then
     Result := VT
@@ -3471,14 +3652,15 @@ var
   T: TvgObject;
   LB, TB: TvgCustomButton;
 begin
-  TB := nil; LB := nil;
+  TB := nil;
+  LB := nil;
   T := FindResource('leftbutton');
   if (T <> nil) and (T is TvgCustomButton) then
   begin
     LB := TvgCustomButton(T);
     LB.OnClick := DoMinButtonClick;
     LB.Visible := Orientation = vgHorizontal;
-    LB.CanFocused := false;
+    LB.CanFocused := False;
   end;
 
   T := FindResource('topbutton');
@@ -3487,7 +3669,7 @@ begin
     TB := TvgCustomButton(T);
     TB.OnClick := DoMinButtonClick;
     TB.Visible := Orientation = vgVertical;
-    TB.CanFocused := false;
+    TB.CanFocused := False;
   end;
 
   if Orientation = vgVertical then
@@ -3501,14 +3683,15 @@ var
   T: TvgObject;
   RB, BB: TvgCustomButton;
 begin
-  RB := nil; BB := nil;
+  RB := nil;
+  BB := nil;
   T := FindResource('rightbutton');
   if (T <> nil) and (T is TvgCustomButton) then
   begin
     RB := TvgCustomButton(T);
     RB.OnClick := DoMaxButtonClick;
     RB.Visible := Orientation = vgHorizontal;
-    RB.CanFocused := false;
+    RB.CanFocused := False;
   end;
 
   T := FindResource('bottombutton');
@@ -3517,7 +3700,7 @@ begin
     BB := TvgCustomButton(T);
     BB.OnClick := DoMaxButtonClick;
     BB.Visible := Orientation = vgVertical;
-    RB.CanFocused := false;
+    RB.CanFocused := False;
   end;
 
   if Orientation = vgVertical then
@@ -3543,12 +3726,13 @@ end;
 
 procedure TvgScrollBar.Realign;
 begin
-  if FDisableAlign then Exit;
-  FDisableAlign := true;
+  if FDisableAlign then
+    Exit;
+  FDisableAlign := True;
   Track;
   MinButton;
   MaxButton;
-  FDisableAlign := false;
+  FDisableAlign := False;
   inherited;
 end;
 
@@ -3586,7 +3770,8 @@ begin
   begin
     FOrientation := Value;
     // swap
-    if Assigned(FScene) and (FScene.GetDesignTime) and not (csLoading in ComponentState) then
+    if Assigned(FScene) and (FScene.GetDesignTime) and not
+      (csLoading in ComponentState) then
     begin
       T := Width;
       Width := Height;
@@ -3642,11 +3827,11 @@ begin
   FLayout := TvgVisualObject.Create(Self);
   FLayout.Parent := Self;
   FLayout.Align := vaContents;
-  FLayout.Locked := true;
-  FLayout.Stored := false;
+  FLayout.Locked := True;
+  FLayout.Stored := False;
   FAni := TvgFloatAnimation.Create(Self);
   FAni.Parent := FLayout;
-  FAni.Loop := true;
+  FAni.Loop := True;
   FAni.StartValue := 0;
   FAni.StopValue := 360;
   FAni.Duration := 10;
@@ -3674,44 +3859,52 @@ begin
 
   case FStyle of
     vgAniIndicatorLine:
+    begin
+      Canvas.Stroke.Style := vgBrushsolid;
+      Canvas.StrokeThickness := eSize / 2;
+      for a := 0 to 11 do
       begin
-        Canvas.Stroke.Style := vgBrushsolid;
-        Canvas.StrokeThickness := eSize / 2;
-        for a := 0 to 11 do
+        P := vgPoint(Width / 2 + (cos(vgDegToRad(a * 30)) * wSize),
+          Height / 2 + (sin(vgDegToRad(a * 30)) * wSize));
+        P2 := vgPoint(Width / 2 + (cos(vgDegToRad(a * 30)) * (wSize / 2)),
+          Height / 2 + (sin(vgDegToRad(a * 30)) * (wSize / 2)));
+        Canvas.Fill.SolidColor := $FFBABABA;
+        Canvas.Stroke.SolidColor := $FFBABABA;
+        Canvas.DrawLine(P, P2, Opacity);
+        if FEnabled then
         begin
-          P := vgPoint(Width / 2 + (cos(vgDegToRad(a * 30)) * wSize), Height / 2 + (sin(vgDegToRad(a * 30)) * wSize));
-          P2 := vgPoint(Width / 2 + (cos(vgDegToRad(a * 30)) * (wSize / 2)), Height / 2 + (sin(vgDegToRad(a * 30)) * (wSize / 2)));
-          Canvas.Fill.SolidColor := $FFBABABA;
-          Canvas.Stroke.SolidColor := $FFBABABA;
-          Canvas.DrawLine(P, P2, Opacity);
-          if FEnabled then
-          begin
-            V := ((Trunc(FLayout.RotateAngle) + (30 - Trunc((a / 12) * 30))) mod 30) / 30;
-            if V > 1 then V := Abs(V - 2);
-            V := 1 - V;
-            Canvas.Stroke.SolidColor := $FF000000;
-            Canvas.DrawLine(P, P2, V * Opacity);
-          end;
+          V := ((Trunc(FLayout.RotateAngle) + (30 - Trunc((a / 12) * 30))) mod
+            30) / 30;
+          if V > 1 then
+            V := Abs(V - 2);
+          V := 1 - V;
+          Canvas.Stroke.SolidColor := $FF000000;
+          Canvas.DrawLine(P, P2, V * Opacity);
         end;
       end;
+    end;
     vgAniIndicatorCircle:
+    begin
+      Canvas.Stroke.Style := vgBrushNone;
+      for a := 0 to 7 do
       begin
-        Canvas.Stroke.Style := vgBrushNone;
-        for a := 0 to 7 do
+        P := vgPoint(Width / 2 + (cos(vgDegToRad(a * 45)) * wSize),
+          Height / 2 + (sin(vgDegToRad(a * 45)) * wSize));
+        Canvas.Fill.SolidColor := $FFBABABA;
+        Canvas.FillEllipse(vgRect(P.X - eSize, P.Y - eSize, P.X +
+          eSize, P.Y + eSize), Opacity);
+        if FEnabled then
         begin
-          P := vgPoint(Width / 2 + (cos(vgDegToRad(a * 45)) * wSize), Height / 2 + (sin(vgDegToRad(a * 45)) * wSize));
-          Canvas.Fill.SolidColor := $FFBABABA;
-          Canvas.FillEllipse(vgRect(P.X - eSize, P.Y - eSize, P.X + eSize, P.Y + eSize), Opacity);
-          if FEnabled then
-          begin
-            V := ((Trunc(FLayout.RotateAngle) + (30 - Trunc((a / 7) * 30))) mod 30) / 30;
-            if V > 1 then V := Abs(V - 2);
-            V := 1 - V;
-            Canvas.Fill.SolidColor := $FF000000;
-            Canvas.FillEllipse(vgRect(P.X - eSize, P.Y - eSize, P.X + eSize, P.Y + eSize), V * Opacity);
-          end;
+          V := ((Trunc(FLayout.RotateAngle) + (30 - Trunc((a / 7) * 30))) mod 30) / 30;
+          if V > 1 then
+            V := Abs(V - 2);
+          V := 1 - V;
+          Canvas.Fill.SolidColor := $FF000000;
+          Canvas.FillEllipse(vgRect(P.X - eSize, P.Y - eSize, P.X +
+            eSize, P.Y + eSize), V * Opacity);
         end;
       end;
+    end;
   end;
 end;
 
@@ -3746,8 +3939,8 @@ begin
   Width := 30;
   Height := 30;
   FFrequency := 0;
-  FTracking := true;
-  AutoCapture := true;
+  FTracking := True;
+  AutoCapture := True;
 end;
 
 destructor TvgAngleButton.Destroy;
@@ -3755,20 +3948,20 @@ begin
   inherited;
 end;
 
-function TvgAngleButton.GetData: Variant;
+function TvgAngleButton.GetData: variant;
 begin
   Result := Value;
 end;
 
-procedure TvgAngleButton.SetData(const Value: Variant);
+procedure TvgAngleButton.SetData(const Value: variant);
 begin
   if VarIsEvent(Value) then
     OnChange := VariantToEvent(Value)
   else
-    if VarIsNumeric(Value) then
-      Self.Value := Value
-    else
-      Self.Value := 0
+  if VarIsNumeric(Value) then
+    Self.Value := Value
+  else
+    Self.Value := 0;
 end;
 
 procedure TvgAngleButton.ApplyStyle;
@@ -3799,8 +3992,8 @@ begin
   T := FindResource('tracktext');
   if (T <> nil) and (T is TvgText) then
   begin
-    TvgText(T).Visible := false; //FPressing;
-    TvgText(T).Text := IntToStr(Round(Value)) + System.WideChar($B0);
+    TvgText(T).Visible := False; //FPressing;
+    TvgText(T).Text := IntToStr(Round(Value)) + System.widechar($B0);
     if FPressing and not FTracking then
       TvgText(T).Opacity := 1
     else
@@ -3812,7 +4005,7 @@ begin
   begin
     Result := TvgText(T);
     Result.Visible := FShowValue;
-    Result.Text := IntToStr(Round(Value)) + System.WideChar($B0);
+    Result.Text := IntToStr(Round(Value)) + System.widechar($B0);
     if not FShowValue then
       Result.Opacity := 0
     else
@@ -3822,13 +4015,13 @@ begin
     Result := nil;
 end;
 
-procedure TvgAngleButton.MouseDown(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgAngleButton.MouseDown(Button: TMouseButton; Shift: TShiftState;
+  X, Y: single);
 begin
   inherited;
   if Button = mbLeft then
   begin
-    FPressing := true;
+    FPressing := True;
     FOldPos := vgPoint(X, Y);
     FSaveValue := Value;
     Text;
@@ -3846,13 +4039,13 @@ begin
   end;
 end;
 
-procedure TvgAngleButton.MouseUp(Button: TMouseButton; Shift: TShiftState; X,
-  Y: single);
+procedure TvgAngleButton.MouseUp(Button: TMouseButton; Shift: TShiftState;
+  X, Y: single);
 begin
   inherited;
   if FPressing then
   begin
-    FPressing := false;
+    FPressing := False;
     Text;
     if Value <> FSaveValue then
       if Assigned(FOnChange) then
@@ -3934,7 +4127,7 @@ end;
 constructor TvgExpanderButton.Create(AOwner: TComponent);
 begin
   inherited;
-  CanFocused := false;
+  CanFocused := False;
 end;
 
 destructor TvgExpanderButton.Destroy;
@@ -3950,17 +4143,17 @@ begin
   Width := 130;
   Height := 130;
 
-  FAutoTranslate := true;
+  FAutoTranslate := True;
 
-  FIsExpanded := true;
-  FIsChecked := true;
+  FIsExpanded := True;
+  FIsChecked := True;
 
   FContent := TvgContent.Create(Self);
   FContent.Parent := Self;
-  FContent.ClipChildren := false;
-  FContent.HitTest := false;
-  FContent.Locked := true;
-  FContent.Stored := false;
+  FContent.ClipChildren := False;
+  FContent.HitTest := False;
+  FContent.Locked := True;
+  FContent.Stored := False;
   FContent.Padding.Top := 25;
   FContent.Width := Width;
   FContent.Height := Height;
@@ -3996,7 +4189,7 @@ begin
     FButton.OnClick := DoButtonClick;
     FButton.ApplyResource;
     FButton.StartTriggerAnimation(Self, 'IsExpanded');
-    FButton.CanFocused := false;
+    FButton.CanFocused := False;
   end;
   StartTriggerAnimation(Self, 'IsExpanded');
 end;
@@ -4021,7 +4214,7 @@ end;
 procedure TvgExpander.DefineProperties(Filer: TFiler);
 begin
   inherited;
-  Filer.DefineProperty('ContentSize', ReadContentSize, WriteContentSize, true);
+  Filer.DefineProperty('ContentSize', ReadContentSize, WriteContentSize, True);
 end;
 
 procedure TvgExpander.ReadContentSize(Reader: TReader);
@@ -4039,9 +4232,11 @@ end;
 procedure TvgExpander.Realign;
 begin
   inherited;
-  if csLoading in ComponentState then Exit;
-  if FDisableAlign then Exit;
-  FDisableAlign := true;
+  if csLoading in ComponentState then
+    Exit;
+  if FDisableAlign then
+    Exit;
+  FDisableAlign := True;
   { content }
   if (FContent <> nil) and (IsExpanded) then
   begin
@@ -4050,7 +4245,7 @@ begin
     FContent.Width := Width;
     FContent.Height := Height - FContent.Padding.Top;
   end;
-  FDisableAlign := false;
+  FDisableAlign := False;
 end;
 
 procedure TvgExpander.SetIsExpanded(const Value: boolean);
@@ -4123,32 +4318,29 @@ end;
 constructor TvgPopupBox.Create(AOwner: TComponent);
 begin
   inherited;
-  CanFocused := true;
+  CanFocused := True;
   Height := 21;
-  FItems := TvgWideStringList.Create;;
+  FItems := TvgWideStringList.Create;
+  ;
   TvgWideStringList(FItems).OnChange := DoItemsChanged;
-  {$IFNDEF NOVCL}
-  FPopup := TPopupMenu.Create(nil);
-  {$ENDIF}
-  FItemIndex := -1;
+{$IFNDEF NOVCL}  FPopup := TPopupMenu.Create(nil);
+{$ENDIF}  FItemIndex := -1;
   FText := '';
 end;
 
 destructor TvgPopupBox.Destroy;
 begin
-  {$IFNDEF NOVCL}
-  FreeAndNil(FPopup);
-  {$ENDIF}
-  FreeAndNil(FItems);
+{$IFNDEF NOVCL}  FreeAndNil(FPopup);
+{$ENDIF}  FreeAndNil(FItems);
   inherited;
 end;
 
-function TvgPopupBox.GetData: Variant;
+function TvgPopupBox.GetData: variant;
 begin
   Result := Text;
 end;
 
-procedure TvgPopupBox.SetData(const Value: Variant);
+procedure TvgPopupBox.SetData(const Value: variant);
 var
   S: WideString;
 begin
@@ -4158,17 +4350,17 @@ begin
   if VarIsEvent(Value) then
     OnChange := VariantToEvent(Value)
   else
-    if VarIsNumeric(Value) then
-      ItemIndex := Value
+  if VarIsNumeric(Value) then
+    ItemIndex := Value
+  else
+  if VarIsStr(Value) then
+  begin
+    S := VarToWideStr(Value);
+    if FItems.IndexOf(S) < 0 then
+      Text := S
     else
-      if VarIsStr(Value) then
-      begin
-        S := VarToWideStr(Value);
-        if FItems.IndexOf(S) < 0 then
-          Text := S
-        else
-          ItemIndex := FItems.IndexOf(S);
-      end;
+      ItemIndex := FItems.IndexOf(S);
+  end;
 end;
 
 procedure TvgPopupBox.ApplyStyle;
@@ -4182,19 +4374,17 @@ begin
   DoPopup;
 end;
 
-procedure TvgPopupBox.DoPopup;
-{$IFNDEF NOVCL}
+procedure TvgPopupBox.DoPopup;{$IFNDEF NOVCL}
 var
   Item: TMenuItem;
   VP: TvgPoint;
-  i: integer;
-{$ENDIF}
+  i: integer;{$ENDIF}
 begin
-  {$IFNDEF NOVCL}
-  FPopup.Items.Clear;
+{$IFNDEF NOVCL}  FPopup.Items.Clear;
   for i := 0 to FItems.Count - 1 do
   begin
-    Item := NewItem({$IFDEF FPC}UTF8Encode{$ENDIF}(FItems[i]), 0, i = FItemIndex, true, DoItemClick, 0, '');
+    Item := NewItem({$IFDEF FPC}UTF8Encode{$ENDIF}(FItems[i]), 0, i =
+      FItemIndex, True, DoItemClick, 0, '');
     FPopup.Items.Add(Item);
   end;
   if Scene <> nil then
@@ -4202,15 +4392,12 @@ begin
     VP := LocalToAbsolute(vgPoint(0, Trunc((Height / 2) - ((FItems.Count * 20) div 2))));
     VP := Scene.LocalToScreen(VP);
     FPopup.Popup(round(VP.X), round(VP.Y));
-  end;
-  {$ENDIF}
+  end;  {$ENDIF}
 end;
 
 procedure TvgPopupBox.DoItemClick(Sender: TObject);
 begin
-  {$IFNDEF NOVCL}
-  ItemIndex := TMenuItem(Sender).MenuIndex;
-  {$ENDIF}
+{$IFNDEF NOVCL}  ItemIndex := TMenuItem(Sender).MenuIndex;  {$ENDIF}
 end;
 
 procedure TvgPopupBox.DoItemsChanged(Sender: TObject);
@@ -4243,12 +4430,12 @@ begin
     if FItemIndex >= 0 then
       inherited SetText(Value)
     else
-      inherited SetText('')
+      inherited SetText('');
   end
   else
   begin
     FItemIndex := -1;
-    inherited SetText('')
+    inherited SetText('');
   end;
 end;
 
@@ -4262,10 +4449,10 @@ end;
 constructor TvgWindow.Create(AOwner: TComponent);
 begin
   inherited;
-  FautoTranslate := true;
-  FShowCloseButton := true;
-  FShowSizeGrip := true;
-  HitTest := false;
+  FautoTranslate := True;
+  FShowCloseButton := True;
+  FShowSizeGrip := True;
+  HitTest := False;
   TextAlign := vgTextalignNear;
   Width := 200;
   Height := 200;
@@ -4279,17 +4466,17 @@ begin
   closeBtn := FindResource('close');
   if (closeBtn <> nil) and (closeBtn is TvgVisualObject) then
   begin
-    TvgVisualObject(closeBtn).visible := FShowCloseButton;
+    TvgVisualObject(closeBtn).Visible := FShowCloseButton;
     if (closeBtn is TvgCloseButton) and (Assigned(FOnCloseClick)) then
     begin
-      TvgCloseButton(closeBtn).CloseForm := false;
+      TvgCloseButton(closeBtn).CloseForm := False;
       TvgCloseButton(closeBtn).OnClick := FOnCloseClick;
     end;
   end;
   sizeGrip := FindResource('sizegrip');
   if (sizeGrip <> nil) and (sizeGrip is TvgVisualObject) then
   begin
-    TvgVisualObject(sizeGrip).visible := FShowSizeGrip;
+    TvgVisualObject(sizeGrip).Visible := FShowSizeGrip;
   end;
 end;
 
@@ -4305,6 +4492,12 @@ begin
     FShowCloseButton := Value;
     Resource := FResource;
   end;
+end;
+
+procedure TvgWindow.SetOnCloseClick(AValue: TNotifyEvent);
+begin
+  FOnCloseClick := AValue;
+  ApplyStyle;
 end;
 
 procedure TvgWindow.SetShowSizeGrip(const Value: boolean);
@@ -4338,8 +4531,8 @@ begin
   FStroke := TvgBrush.Create(vgBrushSolid, $5B000000);
   FStroke.OnChanged := DoFillChanged;
   FStrokeThickness := 1;
-  FDisableShadowOnOSX := true;
-  FShowCaption := true;
+  FDisableShadowOnOSX := True;
+  FShowCaption := True;
   Font.Style := vgFontBold;
 end;
 
@@ -4352,20 +4545,16 @@ end;
 
 procedure TvgHudWindow.ApplyStyle;
 var
-  {$IFDEF DARWIN}
-  shadow: TvgObject;
-  {$endif}
-  back: TvgObject;
+{$IFDEF DARWIN}  shadow: TvgObject;
+{$endif}  back: TvgObject;
 begin
   inherited;
-  {$IFDEF DARWIN}
-  shadow := FindResource('shadow');
+{$IFDEF DARWIN}  shadow := FindResource('shadow');
   if (shadow <> nil) and (shadow is TvgVisualObject) and (FDisableShadowOnOSX) then
   begin
-    TvgVisualObject(shadow).visible := false;
+    TvgVisualObject(shadow).Visible := False;
   end;
-  {$ENDIF}
-  back := FindResource('close');
+{$ENDIF}  back := FindResource('close');
   if (back <> nil) and (back is TvgCloseButton) then
   begin
     if FCloseAlign = vgButtonAlignLeft then
@@ -4391,13 +4580,15 @@ begin
     TvgShape(back).StrokeCap := FStrokeCap;
     TvgShape(back).StrokeDash := FStrokeDash;
     TvgShape(back).StrokeJoin := FStrokeJoin;
-    TvgVisualObject(back).Margins.Rect := vgRect(FStrokeThickness, FStrokeThickness, FStrokeThickness, FStrokeThickness);
+    TvgVisualObject(back).Margins.Rect :=
+      vgRect(FStrokeThickness, FStrokeThickness, FStrokeThickness, FStrokeThickness);
   end;
   back := FindResource('caption');
   if (back <> nil) and (back is TvgVisualObject) then
   begin
     TvgVisualObject(back).Height := 20 + FStrokeThickness;
-    TvgVisualObject(back).Padding.Rect := vgRect(FStrokeThickness, FStrokeThickness, FStrokeThickness, 0);
+    TvgVisualObject(back).Padding.Rect :=
+      vgRect(FStrokeThickness, FStrokeThickness, FStrokeThickness, 0);
     TvgVisualObject(back).Visible := FShowCaption;
     TvgVisualObject(back).DesignHide := not FShowCaption;
   end;
@@ -4429,7 +4620,7 @@ begin
     ApplyStyle;
 end;
 
-function TvgHudWindow.isStrokeThicknessStored: Boolean;
+function TvgHudWindow.isStrokeThicknessStored: boolean;
 begin
   Result := StrokeThickness <> 1;
 end;
@@ -4556,10 +4747,10 @@ begin
   if IsPressed then
     B := FBitmapDown
   else
-    if IsMouseOver then
-      B := FBitmapHot
-    else
-      B := FBitmap;
+  if IsMouseOver then
+    B := FBitmapHot
+  else
+    B := FBitmap;
 
   R := vgRect(0, 0, B.Width, B.Height);
   scale := vgFitRect(R, LocalRect);
@@ -4569,14 +4760,14 @@ begin
   begin
     R := vgRect(0, 0, B.Width, B.Height);
     vgRectCenter(R, LocalRect);
-    Canvas.DrawBitmap(B, vgRect(0, 0, B.Width, B.Height), R, AbsoluteOpacity)
+    Canvas.DrawBitmap(B, vgRect(0, 0, B.Width, B.Height), R, AbsoluteOpacity);
   end;
 end;
 
 procedure TvgBitmapStateButton.MouseEnter;
 begin
   inherited;
-  Repaint; 
+  Repaint;
 end;
 
 procedure TvgBitmapStateButton.MouseLeave;
@@ -4600,8 +4791,8 @@ end;
 constructor TvgImageControl.Create(AOwner: TComponent);
 begin
   inherited;
-  CanFocused := true;
-  FEnableOpenDialog := true;
+  CanFocused := True;
+  FEnableOpenDialog := True;
   FBitmap := TvgBitmap.Create(1, 1);
   FBitmap.OnChange := DoBitmapChanged;
 end;
@@ -4631,38 +4822,34 @@ begin
   FImage := nil;
 end;
 
-procedure TvgImageControl.Click;
-{$IFNDEF NOVCL}
+procedure TvgImageControl.Click;{$IFNDEF NOVCL}
 var
-  D: TOpenDialog;
-{$ENDIF}
+  D: TOpenDialog;{$ENDIF}
 begin
   inherited;
-  if not FEnableOpenDialog then Exit;
-  {$IFNDEF NOVCL}
-  D := TOpenDialog.Create(nil);
+  if not FEnableOpenDialog then
+    Exit;
+{$IFNDEF NOVCL}  D := TOpenDialog.Create(nil);
   D.Filter := DefaultFilterClass.GetFileTypes;
   if D.Execute then
   begin
     Bitmap.LoadFromFile(D.FileName);
   end;
-  D.Free;
-  {$ENDIF}
+  D.Free;  {$ENDIF}
 end;
 
 procedure TvgImageControl.DragOver(const Data: TvgDragObject;
-  const Point: TvgPoint; var Accept: Boolean);
+  const Point: TvgPoint; var Accept: boolean);
 begin
   inherited;
   // accept correct image file or TvgImage
   Accept :=
-    ((Length(Data.Files) > 0) and FileExists(Data.Files[0]) and (Pos(ExtractFileExt(Data.Files[0]), DefaultFilterClass.GetFileTypes) > 0))
-    or
+    ((Length(Data.Files) > 0) and FileExists(Data.Files[0]) and
+    (Pos(ExtractFileExt(Data.Files[0]), DefaultFilterClass.GetFileTypes) > 0)) or
     (Data.Source is TvgImage);
 end;
 
-procedure TvgImageControl.DragDrop(const Data: TvgDragObject;
-  const Point: TvgPoint);
+procedure TvgImageControl.DragDrop(const Data: TvgDragObject; const Point: TvgPoint);
 begin
   inherited;
   if Data.Source is TvgImage then
@@ -4694,7 +4881,8 @@ begin
     if FImage.Bitmap.Canvas.BeginScene then
     begin
       FImage.Bitmap.Canvas.Clear(0);
-      FImage.Bitmap.Canvas.DrawBitmap(FBitmap, vgRect(0, 0, FBitmap.Width, FBitmap.Height),
+      FImage.Bitmap.Canvas.DrawBitmap(FBitmap,
+        vgRect(0, 0, FBitmap.Width, FBitmap.Height),
         vgRect(0, 0, FImage.Bitmap.Width, FImage.Bitmap.Height), 1);
       FImage.Bitmap.Canvas.EndScene;
     end;
@@ -4705,12 +4893,12 @@ begin
   end;
 end;
 
-function TvgImageControl.GetData: Variant;
+function TvgImageControl.GetData: variant;
 begin
   Result := ObjectToVariant(Bitmap);
 end;
 
-procedure TvgImageControl.SetData(const Value: Variant);
+procedure TvgImageControl.SetData(const Value: variant);
 begin
   if VarIsNull(Value) then
     Bitmap.SetSize(1, 1)
@@ -4721,22 +4909,26 @@ begin
       Bitmap.Assign(TPersistent(VariantToObject(Value)));
   end
   else
-    if VarIsStr(Value) then
-      Bitmap.LoadFromFile(Value)
+  if VarIsStr(Value) then
+    Bitmap.LoadFromFile(Value);
 end;
 
 initialization
   RegisterClasses([TvgSelectionItem, TvgThumb, TvgExpanderButton]);
   RegisterVGObjects('Windows', [TvgBackground, TvgSizeGrip, TvgCloseButton]);
-  RegisterVGObjects('Boxes', [TvgCheckBox, TvgPathCheckBox, TvgRadioButton, TvgGroupBox,
-    TvgPopupBox]);
-  RegisterVGObjects('Controls', [TvgPanel, TvgCalloutPanel, TvgLabel, TvgValueLabel,
-    TvgImageControl, TvgProgressBar, TvgTrack, TvgScrollBar, TvgSmallScrollBar, TvgAniIndicator,
-    TvgExpander, TvgTrackBar, TvgSplitter]);
-  RegisterVGObjects('Tool and Status', [TvgStatusBar, TvgToolBar, TvgToolButton, TvgToolPathButton]);
-  RegisterVGObjects('Buttons', [TvgButton, TvgRoundButton, TvgCircleButton, TvgBitmapButton, TvgPathButton, TvgSpeedButton, TvgCornerButton,
+  RegisterVGObjects('Boxes', [TvgCheckBox, TvgPathCheckBox, TvgRadioButton,
+    TvgGroupBox, TvgPopupBox]);
+  RegisterVGObjects('Controls', [TvgPanel, TvgCalloutPanel, TvgLabel,
+    TvgValueLabel, TvgImageControl, TvgProgressBar, TvgTrack, TvgScrollBar,
+    TvgSmallScrollBar, TvgAniIndicator, TvgExpander, TvgTrackBar, TvgSplitter]);
+  RegisterVGObjects('Tool and Status', [TvgStatusBar, TvgToolBar,
+    TvgToolButton, TvgToolPathButton]);
+  RegisterVGObjects('Buttons', [TvgButton, TvgRoundButton, TvgCircleButton,
+    TvgBitmapButton, TvgPathButton, TvgSpeedButton, TvgCornerButton,
     TvgColorButton, TvgAngleButton, TvgBitmapStateButton, TvgPopupButton]);
-  RegisterVGObjects('HUD', [TvgHudPanel, TvgHudWindow, TvgHudButton, TvgHudSpeedButton, TvgHudAngleButton, TvgHudTrack, TvgHudTrackBar,
-    TvgHudScrollBar, TvgHudPopupBox, TvgHudLabel, TvgHudCheckBox, TvgHudRadioButton, TvgHudGroupBox, TvgHudCloseButton,
-    TvgHudStatusBar, TvgHudSizeGrip, TvgHudRoundButton, TvgHudCornerButton, TvgHudCircleButton]);
+  RegisterVGObjects('HUD', [TvgHudPanel, TvgHudWindow, TvgHudButton,
+    TvgHudSpeedButton, TvgHudAngleButton, TvgHudTrack, TvgHudTrackBar,
+    TvgHudScrollBar, TvgHudPopupBox, TvgHudLabel, TvgHudCheckBox,
+    TvgHudRadioButton, TvgHudGroupBox, TvgHudCloseButton, TvgHudStatusBar,
+    TvgHudSizeGrip, TvgHudRoundButton, TvgHudCornerButton, TvgHudCircleButton]);
 end.

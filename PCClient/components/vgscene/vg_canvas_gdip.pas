@@ -721,6 +721,8 @@ begin
 end;
 
 constructor TvgCanvasGdiPlus.CreateFromBitmap(const ABitmap: TvgBitmap);
+var
+  dipx: Single;
 begin
   inherited;
   FBitmap := ABitmap;
@@ -733,7 +735,10 @@ begin
   FGPPenBrush := TGPSolidBrush.Create($FF000000);
   FGPBrush := TGPSolidBrush.Create(InvalideCanvasState);
   FGPFamily := TGPFontFamily.Create('Tahoma');
-  FFontScale := 96 / FGraphics.GetDpiX;
+  dipx := FGraphics.GetDpiX;
+  if dipx = 0 then
+     dipx := 96;
+  FFontScale := 96 / dipx;
 end;
 
 destructor TvgCanvasGdiPlus.Destroy;

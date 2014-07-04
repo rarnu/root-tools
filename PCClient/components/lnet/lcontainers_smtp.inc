@@ -1,4 +1,4 @@
-constructor TLFront.Create(const DefaultItem: __front_type__);
+constructor TLFront.Create(const DefaultItem: TLSMTPStatusRec);
 begin
   FEmptyItem:=DefaultItem;
   Clear;
@@ -9,14 +9,14 @@ begin
   Result:=FCount = 0;
 end;
 
-function TLFront.First: __front_type__;
+function TLFront.First: TLSMTPStatusRec;
 begin
   Result:=FEmptyItem;
   if FCount > 0 then
     Result:=FItems[FBottom];
 end;
 
-function TLFront.Remove: __front_type__;
+function TLFront.Remove: TLSMTPStatusRec;
 begin
   Result:=FEmptyItem;
   if FCount > 0 then begin
@@ -28,7 +28,7 @@ begin
   end;
 end;
 
-function TLFront.Insert(const Value: __front_type__): Boolean;
+function TLFront.Insert(const Value: TLSMTPStatusRec): Boolean;
 begin
   Result:=False;
   if FCount < MAX_FRONT_ITEMS then begin

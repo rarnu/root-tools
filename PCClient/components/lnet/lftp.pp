@@ -57,8 +57,7 @@ type
   { TLFTPStatusStack }
 
   { TLFTPStatusFront }
-  {$DEFINE __front_type__  :=  TLFTPStatusRec}
-  {$i lcontainersh.inc}
+  {$i lcontainerftp.inc}
   TLFTPStatusFront = TLFront;
   
   TLFTP = class(TLComponent, ILDirect)
@@ -288,7 +287,7 @@ begin
   Result := FTPStatusStr[aStatus];
 end;
 
-{$i lcontainers.inc}
+{$i lcontainers_ftp.inc}
 
 { TLFTP }
 

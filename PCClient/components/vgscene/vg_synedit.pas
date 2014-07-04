@@ -30,7 +30,6 @@ uses
   Controls,
   Contnrs,
   Graphics,
-  Windows,
   StdActns,
   Dialogs,
   SynEditTypes,
@@ -8956,4 +8955,4 @@ end;
 
 initialization
   RegisterVGObjects('SynEdit', [TvgSynEdit]);
-end.
+end.

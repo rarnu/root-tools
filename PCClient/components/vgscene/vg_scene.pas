@@ -54,7 +54,9 @@ const
 
    GripSize = 3;
    RotSize = 10;
-
+   {$IFDEF WINDOWS}
+   LM_DEACTIVATE = LM_LCL + 64;
+   {$ENDIF}
 const
   InvalideCanvasState = $FFFFFFFF;
 
@@ -1604,8 +1606,12 @@ type
 
   TvgObjectSortCompare = function (item1, item2: TvgObject): integer;
 
+  { TvgObject }
+
   TvgObject = class(TComponent)
   private
+    FId: Integer;
+    FMark: string;
     FStored: boolean;
     FResourceName: string;
     FNotifyList: TList;
@@ -1716,6 +1722,11 @@ type
     property Data: Variant read GetData write SetData;
     property Binding[Index: string]: Variant read GetBinding write SetBinding;
   published
+    { id }
+    property Id: Integer read FId write FId;
+    { mark }
+    property Mark: string read FMark write FMark;
+
     property Index: integer read GetIndex write SetIndex stored false;
     property Parent: TvgObject read FParent write SetParent stored false;
     property BindingName: string read FBindingName write SetBindingName;
@@ -1838,11 +1849,15 @@ type
 
   TvgCanFocusedEvent = procedure(Sender: TObject; var ACanFocused: boolean) of object;
 
+  TvgResizeEvent = procedure(Sender: TObject; const AWidth: single; const AHeight: single) of object;
+
   { TvgVisualObject }
   TvgPopup = class;
 
   TvgVisualObject = class(TvgObject)
   private
+    FMinHeight: Single;
+    FMinWidth: single;
     FOnMouseUp: TvgMouseEvent;
     FOnMouseDown: TvgMouseEvent;
     FOnMouseMove: TvgMouseMoveEvent;
@@ -1856,6 +1871,7 @@ type
     FMargins: TvgBounds;
     FAlign: TvgAlign;
     FDisableDefaultAlign: boolean;
+    FOnResize: TvgResizeEvent;
     FPadding: TvgBounds;
     FTempCanvas: TvgCanvas;
     FRotateAngle: single;
@@ -2096,6 +2112,8 @@ type
     property Locked: boolean read FLocked write SetLocked default false;
     property Width: single read FWidth write SetWidth;
     property Height: single read FHeight write SetHeight;
+    property MinWidth: single read FMinWidth write FMinWidth;
+    property MinHeight: Single read FMinHeight write FMinHeight;
     property Margins: TvgBounds read FMargins write FMargins;
     property Padding: TvgBounds read FPadding write FPadding;
     property Opacity: single read FOpacity write SetOpacity stored isOpacityStored;
@@ -2133,6 +2151,7 @@ type
     property OnBeforePaint: TOnPaintEvent read FOnBeforePaint write FOnBeforePaint;
     property OnPaint: TOnPaintEvent read FOnPaint write FOnPaint;
     property OnApplyResource: TNotifyEvent read FOnApplyResource write FOnApplyResource;
+    property OnResize: TvgResizeEvent read FOnResize write FOnResize;
   end;
 
   TvgBrushObject = class(TvgObject)
@@ -8950,7 +8969,10 @@ begin
     if FScene <> nil then
       FScene.RemoveObject(Self);
   FScene := nil;
-  DeleteChildren;
+  try
+    DeleteChildren;
+  except
+  end;
   inherited;
 end;
 
@@ -9232,8 +9254,9 @@ end;
 
 { Property animation }
 
-procedure TvgObject.AnimateColor(const APropertyName, NewValue: string;
-  Duration: single = 0.2; AType: TvgAnimationType = vgAnimationIn; AInterpolation: TvgInterpolationType = vgInterpolationLinear);
+procedure TvgObject.AnimateColor(const APropertyName: string;
+  const NewValue: string; Duration: single; AType: TvgAnimationType;
+  AInterpolation: TvgInterpolationType);
 var
   A: TvgColorAnimation;
 begin
@@ -9939,6 +9962,7 @@ begin
   inherited ;
   if FTabList <> nil then
     FreeAndNil(FTabList);
+  Repaint;
 end;
 
 procedure TvgVisualObject.Notification(AComponent: TComponent;
@@ -11068,6 +11092,8 @@ var
             Control.FHeight := NewHeight - Control.Padding.Top - Control.Padding.Bottom;
             Control.MatrixChanged(Self);
             Control.Realign;
+            if Assigned(Control.OnResize) then
+              Control.OnResize(Control, Control.FWidth, Control.FHeight);
             Exit;
           end;
         vaFit, vaFitLeft, vaFitRight:
@@ -11110,6 +11136,8 @@ var
             Control.FHeight := NewHeight - Control.Padding.Top - Control.Padding.Bottom;
             Control.MatrixChanged(Self);
             Control.Realign;
+            if Assigned(Control.OnResize) then
+              Control.OnResize(Control, Control.FWidth, Control.FHeight);
             Exit;
           end;
         vaCenter:
@@ -11157,6 +11185,8 @@ var
         Control.FHeight := Control.FHeight * (FHeight / FLastHeight);
         Control.MatrixChanged(Self);
         Control.Realign;
+        if Assigned(Control.OnResize) then
+          Control.OnResize(Control, Control.FWidth, Control.FHeight);
       end;
       Exit;
     end
@@ -11170,6 +11200,8 @@ var
         Control.FWidth := NewWidth - Control.Padding.Left - Control.Padding.Right;
         Control.FHeight := NewHeight - Control.Padding.Top - Control.Padding.Bottom;
         Control.Realign;
+        if Assigned(Control.OnResize) then
+          Control.OnResize(Control, Control.FWidth, Control.FHeight);
       end;
       Control.MatrixChanged(Self);
     end;
@@ -11522,16 +11554,20 @@ end;
 procedure TvgVisualObject.MouseUp(Button: TMouseButton; Shift: TShiftState; X,
   Y: single);
 begin
-  ReleaseCapture;
-  if Assigned(FOnMouseUp) then
-    FOnMouseUp(Self, Button, Shift, X, Y);
-  if FPressed and not (FDoubleClick) and vgPtInRect(vgPoint(X, Y), LocalRect) then
-  begin
+  try
+    ReleaseCapture;
+    if Assigned(FOnMouseUp) then
+      FOnMouseUp(Self, Button, Shift, X, Y);
+    if FPressed and not (FDoubleClick) and vgPtInRect(vgPoint(X, Y), LocalRect) then
+    begin
+      FPressed := false;
+      Click;
+    end;
     FPressed := false;
-    Click;
+    FDoubleClick := false;
+
+  except
   end;
-  FPressed := false;
-  FDoubleClick := false;
 end;
 
 procedure TvgVisualObject.MouseWheel(Shift: TShiftState; WheelDelta: integer; var Handled: boolean);
@@ -11764,6 +11800,8 @@ begin
     RecalcUpdateRect;
     Repaint;
   end;
+  if SizeChanged and Assigned(FOnResize) then
+    FOnResize(Self, FWidth, FHeight);
 end;
 
 procedure TvgVisualObject.SetSizeWithoutChange(AWidth, AHeight: single);
@@ -11775,11 +11813,15 @@ begin
 end;
 
 procedure TvgVisualObject.SetHeight(const Value: single);
+var
+  tmpValue: single;
 begin
   if FHeight <> Value then
   begin
     Repaint;
-    FHeight := Value;
+    tmpValue:=Value;
+    if tmpValue<FMinHeight then tmpValue := FMinHeight;
+    FHeight := tmpValue;
     if (FHeight < 0) and (((FScene <> nil) and (FScene.GetDesignTime))) then
     begin
       FHeight := Abs(FHeight);
@@ -11800,11 +11842,15 @@ begin
 end;
 
 procedure TvgVisualObject.SetWidth(const Value: single);
+var
+  tmpValue: single;
 begin
   if FWidth <> Value then
   begin
     Repaint;
-    FWidth := Value;
+    tmpValue := Value;
+    if tmpValue < FMinWidth then tmpValue:=FMinWidth;
+    FWidth := tmpValue;
     if (FWidth < 0) and (((FScene <> nil) and (FScene.GetDesignTime))) then
     begin
       FWidth := Abs(FWidth);

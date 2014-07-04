@@ -38,7 +38,7 @@ uses
     {$undef nochoice}
     BSD, Errors,
   {$endif}
-  {$i sys/osunits.inc}
+  {$i osunits.inc}
 
 type
   TLHandle = class;
@@ -189,8 +189,8 @@ type
     function CallAction: Boolean; override;
   end;
   
-{$i sys/lkqueueeventerh.inc}
-{$i sys/lepolleventerh.inc}
+{$i lkqueueeventerh.inc}
+{$i lepolleventerh.inc}
 
   function BestEventerClass: TLEventerClass;
   
@@ -603,8 +603,8 @@ begin
     FreeHandles;
 end;
 
-{$i sys/lkqueueeventer.inc}
-{$i sys/lepolleventer.inc}
+{$i lkqueueeventer.inc}
+{$i lepolleventer.inc}
 
 {$ifdef nochoice}
 

@@ -43,7 +43,7 @@ type
     procedure Button1Click(Sender: TObject);
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
-    procedure PreviewPaint(Sender: TObject; const Canvas: TvgCanvas);
+    procedure PreviewPaint(Sender: TObject; const ACanvas: TvgCanvas);
     procedure trackScaleChange(Sender: TObject);
     procedure cropButtonClick(Sender: TObject);
     procedure btnOkClick(Sender: TObject);
@@ -124,9 +124,9 @@ begin
   end;
 end;
 
-procedure TvgBitmapEditor.PreviewPaint(Sender: TObject; const Canvas: TvgCanvas);
+procedure TvgBitmapEditor.PreviewPaint(Sender: TObject; const ACanvas: TvgCanvas);
 begin
-  Canvas.DrawBitmap(FBitmap, FSourceRect, vgRect(0, 0, vgRectWidth(FSourceRect) * trackScale.Value, vgRectHeight(FSourceRect) * trackScale.Value), 1);
+  ACanvas.DrawBitmap(FBitmap, FSourceRect, vgRect(0, 0, vgRectWidth(FSourceRect) * trackScale.Value, vgRectHeight(FSourceRect) * trackScale.Value), 1);
 end;
 
 procedure TvgBitmapEditor.trackScaleChange(Sender: TObject);

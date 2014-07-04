@@ -301,10 +301,9 @@
 
 { ------------ !! DO NOT CHANGE DEFINES BELOW THIS LINE !! ------------ }
 
-{$IFNDEF KS_DEBUG}
-  {$WARNINGS OFF}
-  {$HINTS OFF}
-{$ENDIF}
+{$WARNINGS OFF}
+{$HINTS OFF}
+{$NOTES OFF}
 
 {$B-} {- Complete Boolean Evaluation }
 {$R-} {- Range-Checking }
@@ -316,9 +315,3 @@
 {$ENDIF}
 {$J+} {- Enable writeable const}
 
-{$IFDEF KS_COMPILER7}
-  {$WARN SYMBOL_DEPRECATED OFF}
-  {$WARN UNSAFE_TYPE OFF}
-  {$WARN UNSAFE_CODE OFF}
-  {$WARN UNSAFE_CAST OFF}
-{$ENDIF}

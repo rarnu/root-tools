@@ -371,6 +371,22 @@ type
     property OnBitmapLoaded: TNotifyEvent read FOnBitmapLoaded write FOnBitmapLoaded;
   end;
 
+  { TvgPaintImage }
+
+  TvgPaintImage = class(TvgImage)
+  private
+    FOnSelfPaint: TOnPaintEvent;
+    function GetPaintCanvas: TvgCanvas;
+  protected
+    procedure selfPaint(Sender: TObject; const Canvas: TvgCanvas;
+      const ARect: TvgRect);
+  public
+    constructor Create(AOwner: TComponent); override;
+  public
+    property PaintCanvas: TvgCanvas read GetPaintCanvas;
+    property OnSelfPaint: TOnPaintEvent read FOnSelfPaint write FOnSelfPaint;
+  end;
+
   TvgPaintEvent = procedure (Sender: TObject; const Canvas: TvgCanvas) of object;
 
   TvgPaintBox = class(TvgVisualObject)
@@ -483,6 +499,40 @@ type
 implementation {===============================================================}
 
 uses vg_effects;
+
+{ TvgPaintImage }
+
+function TvgPaintImage.GetPaintCanvas: TvgCanvas;
+begin
+  Result := Bitmap.Canvas;
+end;
+
+procedure TvgPaintImage.selfPaint(Sender: TObject; const Canvas: TvgCanvas;
+  const ARect: TvgRect);
+var
+  w, h: Integer;
+begin
+  w := Trunc(ARect.Right-ARect.Left);
+  h := Trunc(ARect.Bottom-ARect.Top);
+  if Assigned(Bitmap) then begin
+    if Bitmap.Width <> w then Bitmap.Width:=w;
+    if Bitmap.Height <> h then Bitmap.Height:=h;
+    with Bitmap.Canvas do begin
+      Fill.Style := vgBrushSolid;
+      Stroke.Style := vgBrushSolid;
+      StrokeThickness := 1;
+    end;
+  end;
+  if Assigned(FOnSelfPaint) then
+    FOnSelfPaint(Sender, Bitmap.Canvas, ARect);
+end;
+
+constructor TvgPaintImage.Create(AOwner: TComponent);
+begin
+  inherited Create(AOwner);
+  OnPaint:=selfPaint;
+
+end;
 
 { TvgShape ====================================================================}
 
@@ -2503,4 +2553,4 @@ initialization
   RegisterVGObjects('Design', [TvgSelection, TvgSelectionPoint, TvgDesignFrame]);
 end.
 
-
+

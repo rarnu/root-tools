@@ -8,8 +8,6 @@ uses
   {$ENDIF}
   Interfaces,
   Forms,
-  vgscene,
-  lnetbase,
   baseform,
   baseconfig,
   frm_main,

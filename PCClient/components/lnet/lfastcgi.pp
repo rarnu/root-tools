@@ -867,7 +867,6 @@ end;
 
 procedure TLFastCGIPool.EndRequest(AClient: TLFastCGIClient);
 begin
-  { TODO: wait for other requests to be completed }
   if AClient.RequestsSent = FMaxRequestsConn then
     AClient.Disconnect;
   AddToFreeClients(AClient);

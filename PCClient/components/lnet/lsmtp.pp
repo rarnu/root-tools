@@ -47,8 +47,7 @@ type
   end;
   
   { TLSMTPStatusFront }
-  {$DEFINE __front_type__  :=  TLSMTPStatusRec}
-  {$i lcontainersh.inc}
+  {$i lcontainersmtp.inc}
   TLSMTPStatusFront = TLFront;
 
   TLSMTPClientStatusEvent = procedure (aSocket: TLSocket;
@@ -207,7 +206,7 @@ implementation
 const
   EMPTY_REC: TLSMTPStatusRec = (Status: ssNone; Args: ('', ''));
 
-{$i lcontainers.inc}
+{$i lcontainers_smtp.inc}
 
 function StatusToStr(const aStatus: TLSMTPStatus): string;
 const
@@ -286,7 +285,6 @@ begin
   FFeatureList := TStringList.Create;
   FConnection := TLTcp.Create(nil);
   FConnection.Creator := Self;
-  // TODO: rework to use the new TLSocketTCP
   FConnection.SocketClass := TLSocket;
 end;
 
@@ -340,7 +338,6 @@ begin
   FPort := 25;
   FStatusSet := [ssNone..ssLast]; // full set
   FSL := TStringList.Create;
-//  {$warning TODO: fix pipelining support when server does it}
   FPipeLine := False;
   
   FConnection.OnError := @OnEr;
@@ -412,7 +409,7 @@ var
 begin
   FSL.Text := s;
 
-  case FStatus.First.Status of // TODO: clear this to a proper place, the whole thing needs an overhaul
+  case FStatus.First.Status of // clear this to a proper place, the whole thing needs an overhaul
     ssCon,
     ssEhlo: FTempBuffer := FTempBuffer + UpperCase(s);
   end;

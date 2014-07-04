@@ -59,12 +59,15 @@ type
   published
   end;
 
+  { TvgScrollBox }
+
   TvgScrollBox = class(TvgControl)
   private
     FAutoHide: boolean;
     FDisableMouseWheel: boolean;
     FDown: boolean;
     FHScrollAni: TvgFloatAnimation;
+    FOnScrollBarGenerated: TNotifyEvent;
     FVScrollAni: TvgFloatAnimation;
     FAnimated: boolean;
     FShowScrollBars: boolean;
@@ -127,6 +130,7 @@ type
     property ShowScrollBars: boolean read FShowScrollBars write SetShowScrollBars default true;
     property ShowSizeGrip: boolean read FShowSizeGrip write SetShowSizeGrip default false;
     property UseSmallScrollBars: boolean read FUseSmallScrollBars write SetUseSmallScrollBars default false;
+    property OnScrollBarGenerated: TNotifyEvent read FOnScrollBarGenerated write FOnScrollBarGenerated;
   end;
 
   TvgVertScrollBox = class(TvgScrollBox)
@@ -181,8 +185,6 @@ type
     property HitTest default false;
   end;
 
-{$IFNDEF NOVCL}
-
   TvgNonVGLayout = class(TvgLayout)
   private
     FControl: TControl;
@@ -200,8 +202,6 @@ type
   published
     property NonVGControl: TControl read FControl write SetControl;
   end;
-
-{$ENDIF}
 
 implementation {===============================================================}
 
@@ -475,7 +475,11 @@ procedure TvgScrollBox.Realign;
     begin
       VScrollBar.Enabled := vgRectHeight(R) > ContentLayout.Height;
       if FAutoHide then
+      begin
         VScrollBar.Visible := VScrollBar.Enabled;
+        if VScrollBar.Visible then
+          if Assigned(FOnScrollBarGenerated) then FOnScrollBarGenerated(Self);
+      end;
       if not FShowScrollBars then
       begin
         VScrollBar.Opacity := 0;
@@ -491,7 +495,11 @@ procedure TvgScrollBox.Realign;
     begin
       HScrollBar.Enabled := vgRectWidth(R) > ContentLayout.Width;
       if FAutoHide then
+      begin
         HScrollBar.Visible := HScrollBar.Enabled;
+        if HScrollBar.Visible then
+          if Assigned(FOnScrollBarGenerated) then FOnScrollBarGenerated(Self);
+      end;
       if not FShowScrollBars then
       begin
         HScrollBar.Opacity := 0;
@@ -515,7 +523,11 @@ procedure TvgScrollBox.Realign;
     begin
       VScrollBar.Enabled := vgRectHeight(R) > ContentLayout.Height;
       if FAutoHide then
+      begin
         VScrollBar.Visible := VScrollBar.Enabled;
+        if VScrollBar.Visible then
+          if Assigned(FOnScrollBarGenerated) then FOnScrollBarGenerated(Self);
+      end;
       if not FShowScrollBars then
       begin
         VScrollBar.Opacity := 0;
@@ -546,7 +558,11 @@ procedure TvgScrollBox.Realign;
       HScrollBar.Enabled := vgRectWidth(R) > ContentLayout.Width;
       HScrollBar.Padding.right := 0;
       if FAutoHide then
+      begin
         HScrollBar.Visible := HScrollBar.Enabled;
+        if HScrollBar.Visible then
+          if Assigned(FOnScrollBarGenerated) then FOnScrollBarGenerated(Self);
+      end;
       if not FShowScrollBars then
       begin
         HScrollBar.Opacity := 0;
@@ -1094,7 +1110,6 @@ begin
   inherited;
 end;
 
-{$IFNDEF NOVCL}
 { TvgNonVGLayout }
 
 constructor TvgNonVGLayout.Create(AOwner: TComponent);
@@ -1171,14 +1186,10 @@ begin
   CheckParentVisible;
 end;
 
-{$ENDIF}
-
 initialization
   RegisterVGObjects('Layout', [TvgLayout, TvgScaledLayout, TvgGridLayout, TvgSplitLayout]);
-  {$IFNDEF NOVCL}
   RegisterVGObjects('Layout', [TvgNonVGLayout]);
-  {$ENDIF}
   RegisterVGObjects('Controls', [TvgScrollBox, TvgVertScrollBox, TvgFramedScrollBox, TvgFramedVertScrollBox]);
 end.
 
-
+

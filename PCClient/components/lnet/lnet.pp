@@ -30,7 +30,7 @@ interface
 
 uses
   Classes, lEvents, lCommon,
-  {$i sys/osunits.inc}
+  {$i osunits.inc}
 
 const
   { API compatibility, these had to be moved to prevent circular unit usage and a

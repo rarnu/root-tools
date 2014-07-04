@@ -14,7 +14,6 @@ const
 
 procedure TLCLEventer.HandleIgnoreError(aHandle: TLHandle);
 begin
-  // TODO fix or remove alltogether
 end;
 
 procedure TLCLEventer.HandleIgnoreWrite(aHandle: TLHandle);

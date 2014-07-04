@@ -1048,10 +1048,10 @@ begin
     Locked := true;
     Stored := false;
     Position.Y := 50;
-    Height := 19 * 6;
+    Height := 28 * 6;
     Align := vaTop;
     Columns := 7;
-    ItemHeight := 19;
+    ItemHeight := 28;
     AlternatingRowBackground := true;
     HideSelectionUnfocused := false;
     ShowScrollBars := false;
@@ -1096,6 +1096,7 @@ var
   First, Last: integer;
   A: array[0..1] of char;
   Item: TvgListBoxItem;
+  logs: string;
 begin
   FDisableDayChange := FDisableDayChange + 1;
   try
@@ -1112,7 +1113,9 @@ begin
     FFirstDayOfWeekNum := (8 + FFirstDayOfWeekNum) mod 7;
     { week days }
     for i := 0 to 6 do
-      TvgLabel(FWeek.Children[i]).Text := Copy(ShortDayNames[1 + ((7 + i + FFirstDayOfWeekNum) mod 7)],5,MaxInt);//modify by eagle  ShortDayNames[1 + ((7 + i + FFirstDayOfWeekNum) mod 7)]
+    begin
+      TvgLabel(FWeek.Children[i]).Text := Copy(ShortDayNames[1 + ((7 + i + FFirstDayOfWeekNum) mod 7)],1,MaxInt);//modify by eagle  ShortDayNames[1 + ((7 + i + FFirstDayOfWeekNum) mod 7)]
+    end;
     { days }
     DecodeDate(FDateTime, AYear, AMonth, ADay);
     PreMonth := AMonth - 1;
@@ -2173,4 +2176,4 @@ initialization
   RegisterVGObjects('Text Edits', [TvgCalendarTextBox]);
 end.
 
-
+
