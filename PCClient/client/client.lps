@@ -11,7 +11,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="30"/>
         <CursorPos X="19" Y="35"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="65"/>
       </Unit0>
       <Unit1>
         <Filename Value="base/baseform.pas"/>
@@ -24,7 +24,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="21" Y="24"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="65"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -34,7 +34,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="55"/>
         <CursorPos X="25" Y="67"/>
-        <UsageCount Value="64"/>
+        <UsageCount Value="65"/>
       </Unit2>
       <Unit3>
         <Filename Value="forms/frm_main.pas"/>
@@ -46,7 +46,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="17" Y="122"/>
-        <UsageCount Value="63"/>
+        <UsageCount Value="64"/>
       </Unit3>
       <Unit4>
         <Filename Value="res/res_mapping.pas"/>
@@ -55,7 +55,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="5"/>
         <CursorPos X="31" Y="27"/>
-        <UsageCount Value="62"/>
+        <UsageCount Value="63"/>
       </Unit4>
       <Unit5>
         <Filename Value="res/platform_mapping.pas"/>
@@ -64,7 +64,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="3" Y="12"/>
-        <UsageCount Value="61"/>
+        <UsageCount Value="62"/>
       </Unit5>
       <Unit6>
         <Filename Value="pages/page_device.pas"/>
@@ -74,7 +74,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="166"/>
         <CursorPos X="32" Y="192"/>
-        <UsageCount Value="61"/>
+        <UsageCount Value="62"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
@@ -84,7 +84,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="34"/>
         <CursorPos X="42" Y="48"/>
-        <UsageCount Value="60"/>
+        <UsageCount Value="61"/>
       </Unit7>
       <Unit8>
         <Filename Value="pages/page_about.pas"/>
@@ -94,7 +94,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="74" Y="8"/>
-        <UsageCount Value="59"/>
+        <UsageCount Value="60"/>
         <Loaded Value="True"/>
       </Unit8>
       <Unit9>
@@ -104,7 +104,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="42"/>
         <CursorPos X="67" Y="54"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="59"/>
       </Unit9>
       <Unit10>
         <Filename Value="util/unt_env.pas"/>
@@ -113,7 +113,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="77"/>
         <CursorPos X="7" Y="84"/>
-        <UsageCount Value="58"/>
+        <UsageCount Value="59"/>
       </Unit10>
       <Unit11>
         <Filename Value="thread/th_device_id.pas"/>
@@ -122,7 +122,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="26"/>
         <CursorPos X="24" Y="32"/>
-        <UsageCount Value="56"/>
+        <UsageCount Value="57"/>
       </Unit11>
       <Unit12>
         <Filename Value="base/basethread.pas"/>
@@ -131,7 +131,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="11"/>
         <CursorPos X="17" Y="23"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
       </Unit12>
       <Unit13>
         <Filename Value="thread/th_usb.pas"/>
@@ -140,7 +140,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="46"/>
         <CursorPos X="14" Y="41"/>
-        <UsageCount Value="55"/>
+        <UsageCount Value="56"/>
       </Unit13>
       <Unit14>
         <Filename Value="forms/frm_skin.pas"/>
@@ -152,7 +152,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="25" Y="87"/>
-        <UsageCount Value="50"/>
+        <UsageCount Value="51"/>
       </Unit14>
       <Unit15>
         <Filename Value="forms/frm_blank.pas"/>
@@ -163,17 +163,18 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="5" Y="10"/>
-        <UsageCount Value="49"/>
+        <UsageCount Value="50"/>
       </Unit15>
       <Unit16>
         <Filename Value="base/basepage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="basepage"/>
+        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
         <CursorPos X="3" Y="15"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit16>
       <Unit17>
@@ -183,7 +184,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="133"/>
         <CursorPos X="5" Y="150"/>
-        <UsageCount Value="44"/>
+        <UsageCount Value="45"/>
       </Unit17>
       <Unit18>
         <Filename Value="thread/th_android.pas"/>
@@ -192,7 +193,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="31" Y="26"/>
-        <UsageCount Value="43"/>
+        <UsageCount Value="44"/>
       </Unit18>
       <Unit19>
         <Filename Value="intf/intf_notify.pas"/>
@@ -201,7 +202,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="17" Y="1"/>
-        <UsageCount Value="43"/>
+        <UsageCount Value="44"/>
       </Unit19>
       <Unit20>
         <Filename Value="intf/intf_paint.pas"/>
@@ -210,7 +211,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="26" Y="12"/>
-        <UsageCount Value="41"/>
+        <UsageCount Value="42"/>
       </Unit20>
       <Unit21>
         <Filename Value="item/item_device_build_prop.pas"/>
@@ -219,7 +220,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="45"/>
         <CursorPos X="1" Y="29"/>
-        <UsageCount Value="39"/>
+        <UsageCount Value="40"/>
       </Unit21>
       <Unit22>
         <Filename Value="pages/page_root_tools.pas"/>
@@ -228,7 +229,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="71"/>
         <CursorPos X="15" Y="76"/>
-        <UsageCount Value="37"/>
+        <UsageCount Value="38"/>
       </Unit22>
       <Unit23>
         <Filename Value="thread/th_network.pas"/>
@@ -237,7 +238,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="9"/>
         <CursorPos X="1" Y="26"/>
-        <UsageCount Value="35"/>
+        <UsageCount Value="36"/>
       </Unit23>
       <Unit24>
         <Filename Value="base/basenetwork.pas"/>
@@ -246,7 +247,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="61"/>
         <CursorPos X="31" Y="71"/>
-        <UsageCount Value="34"/>
+        <UsageCount Value="35"/>
       </Unit24>
       <Unit25>
         <Filename Value="util/unt_json.pas"/>
@@ -255,7 +256,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1348"/>
         <CursorPos X="34" Y="1357"/>
-        <UsageCount Value="32"/>
+        <UsageCount Value="33"/>
       </Unit25>
       <Unit26>
         <Filename Value="item/item_update_log.pas"/>
@@ -264,7 +265,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="36"/>
         <CursorPos X="23" Y="51"/>
-        <UsageCount Value="30"/>
+        <UsageCount Value="31"/>
       </Unit26>
       <Unit27>
         <Filename Value="util/unt_download.pas"/>
@@ -273,7 +274,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="26" Y="8"/>
-        <UsageCount Value="29"/>
+        <UsageCount Value="30"/>
       </Unit27>
       <Unit28>
         <Filename Value="forms/pop_env.pas"/>
@@ -282,7 +283,7 @@
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="9" Y="13"/>
-        <UsageCount Value="24"/>
+        <UsageCount Value="25"/>
       </Unit28>
       <Unit29>
         <Filename Value="frm_main.pas"/>
@@ -525,13 +526,10 @@
       <Unit58>
         <Filename Value="../../../../../Develop/lazarus/vgscene/vg_scene.pas"/>
         <UnitName Value="vg_scene"/>
-        <IsVisibleTab Value="True"/>
-        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="3029"/>
         <CursorPos X="13" Y="3046"/>
         <UsageCount Value="10"/>
-        <Loaded Value="True"/>
       </Unit58>
       <Unit59>
         <Filename Value="/usr/lib/lazarus/1.0.10/lcl/graphics.pp"/>
@@ -653,7 +651,7 @@
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="15" HistoryIndex="14">
+    <JumpHistory Count="14" HistoryIndex="13">
       <Position1>
         <Filename Value="base/basepage.pas"/>
         <Caret Line="62" Column="21" TopLine="48"/>
@@ -710,10 +708,6 @@
         <Filename Value="base/basepage.pas"/>
         <Caret Line="15" Column="3" TopLine="2"/>
       </Position14>
-      <Position15>
-        <Filename Value="../../../../../Develop/lazarus/vgscene/vg_scene.pas"/>
-        <Caret Line="2267" Column="3" TopLine="2254"/>
-      </Position15>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>

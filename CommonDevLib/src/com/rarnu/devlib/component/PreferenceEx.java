@@ -89,7 +89,11 @@ public class PreferenceEx extends Preference {
 
     @Override
     protected void onBindView(View view) {
-        super.onBindView(view);
+        try {
+            super.onBindView(view);
+        } catch (Exception e) {
+
+        }
         pref_title.setText(getTitle());
         pref_summary.setText(getSummary());
         if (getSummary() == null || getSummary().equals("")) {
