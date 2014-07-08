@@ -24,7 +24,7 @@ public class RTConfig {
     private static final String KEY_RECEIVE_PATH = "receive_path";
 
     public static String getReceivePath(Context context) {
-        return ConfigUtils.getStringConfig(context, KEY_RECEIVE_PATH, DirHelper.SDCARD_DIR + "/");
+        return ConfigUtils.getStringConfig(context, KEY_RECEIVE_PATH, DirHelper.ROOT_DIR + "/");
     }
 
     public static void setReceivePath(Context context, String value) {

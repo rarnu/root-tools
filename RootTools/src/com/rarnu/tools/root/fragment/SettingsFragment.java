@@ -264,7 +264,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
 
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        saveReceivePath(DirHelper.SDCARD_DIR);
+                        saveReceivePath(DirHelper.ROOT_DIR);
                     }
                 })
                 .setNegativeButton(R.string.cancel, null)
@@ -327,7 +327,7 @@ public class SettingsFragment extends InnerPreferenceFragment implements OnRecei
 
     private void saveReceivePath(String path) {
         if (path.equals("")) {
-            path = DirHelper.SDCARD_DIR;
+            path = DirHelper.ROOT_DIR;
         }
         if (!path.endsWith("/")) {
             path += "/";

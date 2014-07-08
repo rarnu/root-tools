@@ -1,13 +1,10 @@
 package com.rarnu.tools.root.utils;
 
+import android.content.Context;
 import android.os.Environment;
-
-import java.io.File;
 
 public class DirHelper {
 
-    private static final String SDCARD = "/sdcard";
-    public static String SDCARD_DIR = "";
     public static String ROOT_DIR = "";
     public static String SYSAPP_DIR = "";
     public static String ENABLEAPP_DIR = "";
@@ -30,7 +27,8 @@ public class DirHelper {
     public static String FONT_PREVIEW_DIR = "";
     public static String PASSWORD_DIR = "";
 
-    public static void makeDir() {
+    public static void makeDir(Context context) {
+        initDir(context);
         makeDir(ROOT_DIR);
         makeDir(SYSAPP_DIR);
         makeDir(ENABLEAPP_DIR);
@@ -55,13 +53,8 @@ public class DirHelper {
         FileUtils.mkdir(path);
     }
 
-    static {
-        SDCARD_DIR = Environment.getExternalStorageDirectory().getPath();
-        if (new File(SDCARD).exists()) {
-            SDCARD_DIR = SDCARD;
-        }
-        ROOT_DIR = SDCARD_DIR + "/.root_tools/";
-
+    private static void initDir(Context context) {
+        ROOT_DIR = context.getExternalFilesDir(null).getPath() + "/";
         SYSAPP_DIR = ROOT_DIR + "sysapp/";
         ENABLEAPP_DIR = ROOT_DIR + "enableapp/";
         ENABLEAPP_DIR_SYSTEM = ENABLEAPP_DIR + "system/";
@@ -75,7 +68,7 @@ public class DirHelper {
         ERROR_DIR = ROOT_DIR + "error/";
         ICON_DIR = ROOT_DIR + "icon/";
         FORCE_UPDATE_DIR = ROOT_DIR + "force_update/";
-        BATCH_INSTALL_DIR = SDCARD_DIR + "/install/";
+        BATCH_INSTALL_DIR = ROOT_DIR + "install/";
         GOOGLE_DIR = ROOT_DIR + "google/";
         FONT_DIR = ROOT_DIR + "fonts/";
         FONT_PREVIEW_DIR = ROOT_DIR + "fonts_preview/";
