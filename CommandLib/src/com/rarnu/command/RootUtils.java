@@ -23,6 +23,8 @@ public class RootUtils {
     private static boolean DEBUG = false;
     private static String[] SUPERUSER_PATH = null;
     private static PackageManager pm = null;
+    private static boolean _isrejected = false;
+
 
     public static void init(Context context) {
         try {
@@ -36,6 +38,10 @@ public class RootUtils {
         pm = context.getPackageManager();
         SUPERUSER_PATH = context.getResources().getStringArray(R.array.super_user);
 
+    }
+
+    public static boolean isRejected() {
+        return _isrejected;
     }
 
     public static boolean hasBusybox() {
@@ -265,7 +271,11 @@ public class RootUtils {
 
     public static void mountRW() {
         String cmd = "mount -o remount,rw /system"; // buildMountCommand();
-        runCommand(cmd, true, null);
+        _isrejected = false;
+        CommandResult ret = runCommand(cmd, true, null);
+        if (!ret.error.equals("") && ret.error.toLowerCase().contains("denied")) {
+            _isrejected = true;
+        }
     }
 
     private static boolean isSettingsContainsSU() {

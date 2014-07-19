@@ -7,6 +7,7 @@ import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 import com.rarnu.command.RootUtils;
 import com.rarnu.devlib.base.BaseMainActivity;
 import com.rarnu.tools.root.api.MobileApi;
@@ -92,6 +93,9 @@ public class MainActivity extends BaseMainActivity {
     public void initOnce() {
         RTConfig.initConfig(this);
         RootUtils.mountRW();
+        if (RootUtils.isRejected()) {
+            Toast.makeText(this, R.string.root_denied, Toast.LENGTH_LONG).show();
+        }
         loadExcludeListT();
         loadCustomPackageListT();
 

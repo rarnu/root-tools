@@ -3,7 +3,12 @@ package com.rarnu.tools.root.utils;
 import android.content.Context;
 import android.os.Environment;
 
+import java.io.File;
+
 public class DirHelper {
+
+    private static final String SDCARD = "/sdcard";
+    public static String SDCARD_DIR = "";
 
     public static String ROOT_DIR = "";
     public static String SYSAPP_DIR = "";
@@ -27,8 +32,7 @@ public class DirHelper {
     public static String FONT_PREVIEW_DIR = "";
     public static String PASSWORD_DIR = "";
 
-    public static void makeDir(Context context) {
-        initDir(context);
+    public static void makeDir() {
         makeDir(ROOT_DIR);
         makeDir(SYSAPP_DIR);
         makeDir(ENABLEAPP_DIR);
@@ -53,8 +57,13 @@ public class DirHelper {
         FileUtils.mkdir(path);
     }
 
-    private static void initDir(Context context) {
-        ROOT_DIR = context.getExternalFilesDir(null).getPath() + "/";
+    static {
+        SDCARD_DIR = Environment.getExternalStorageDirectory().getPath();
+        if (new File(SDCARD).exists()) {
+            SDCARD_DIR = SDCARD;
+        }
+        ROOT_DIR = SDCARD_DIR + "/RootTools/";
+
         SYSAPP_DIR = ROOT_DIR + "sysapp/";
         ENABLEAPP_DIR = ROOT_DIR + "enableapp/";
         ENABLEAPP_DIR_SYSTEM = ENABLEAPP_DIR + "system/";

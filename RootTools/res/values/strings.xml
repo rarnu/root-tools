@@ -558,4 +558,5 @@
     <string name="ft_waiting_connect_hint">Waiting for connecting...</string>
     <string name="switch_runtime">Switch Runtime</string>
     <string name="current_runtime" formatted="false">Current Runtime: %s</string>
+    <string name="root_denied">Please allow the root permission for RootTools.</string>
 </resources>

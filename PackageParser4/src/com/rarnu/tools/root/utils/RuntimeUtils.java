@@ -13,6 +13,10 @@ public class RuntimeUtils {
     private static final String RT_DALVIK = "libdvm.so";
     private static final String RT_ART = "libart.so";
 
+    public static boolean isAndroidL() {
+        return Build.VERSION.SDK_INT >= 20;
+    }
+
     public static boolean hasArt() {
         boolean ret = false;
         if (Build.VERSION.SDK_INT >= 19) {

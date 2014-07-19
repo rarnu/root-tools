@@ -56,7 +56,7 @@ public class SplashActivity extends Activity implements Loader.OnLoadCompleteLis
         checkSignatureT();
         loadLocalSplashImage();
 
-        DirHelper.makeDir(this);
+        DirHelper.makeDir();
         ShareUtils.registerToWechat(this);
         startCloseTimer();
     }
