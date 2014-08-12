@@ -52,16 +52,17 @@ public class AutobootUtils {
                 for (PackageParser.ActivityIntentInfo aii : ri.intents) {
                     if (aii.countActions() > 0) {
                         for (int i = 0; i < aii.countActions(); i++) {
-                            aii.getAction(i).equals(Intent.ACTION_BOOT_COMPLETED);
-                            if (enabled) {
-                                operatingResult = ComponentUtils.doEnabledComponent(context, ri.getComponentName());
-                            } else {
-                                operatingResult = ComponentUtils.doDisableComponent(context, ri.getComponentName());
+                            if (aii.getAction(i).equals(Intent.ACTION_BOOT_COMPLETED)) {
+                                if (enabled) {
+                                    operatingResult = ComponentUtils.doEnabledComponent(context, ri.getComponentName());
+                                } else {
+                                    operatingResult = ComponentUtils.doDisableComponent(context, ri.getComponentName());
+                                }
+                                if (!operatingResult) {
+                                    ret = false;
+                                }
+                                break;
                             }
-                            if (!operatingResult) {
-                                ret = false;
-                            }
-                            break;
                         }
                     }
                 }
