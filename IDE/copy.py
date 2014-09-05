@@ -11,9 +11,9 @@ class JetBrainsConfig:
     __path_webstorm = ""
     __path_phpstorm = ""
 
-    __path_color = "/config/colors/"
-    __path_codestyle = "/config/codestyles/"
-    __path_keymap = "/config/keymaps/"
+    __path_color = "/colors/"
+    __path_codestyle = "/codestyles/"
+    __path_keymap = "/keymaps/"
 
     __file_color = "rarnu_color.icls"
     __file_codestyle = "rarnu_codestyle.xml"
@@ -25,10 +25,11 @@ class JetBrainsConfig:
         self.__home = osenv("HOME")
         os_name = uname()[0].lower()
         if os_name.lower() == "linux":
-            self.__path_idea = "/.IntelliJIdea13"
-            self.__path_pycharm = "/.PyCharm30"
-            self.__path_webstorm = "/.WebStorm8"
-            self.__path_phpstorm = "/.WebIde70"
+            path_config = "/config"
+            self.__path_idea = path_config + "/.IntelliJIdea13"
+            self.__path_pycharm = path_config + "/.PyCharm30"
+            self.__path_webstorm = path_config + "/.WebStorm8"
+            self.__path_phpstorm = path_config + "/.WebIde70"
             self.__supported = True
         elif os_name.lower() == "darwin":
             path_pref = "/Library/Preferences"
@@ -56,9 +57,9 @@ class JetBrainsConfig:
             print("os not supported.")
         else:
             self.__copy_file(self.__home + self.__path_idea)
-            self.__copy_file(self.__home + self.__path_idea)
-            self.__copy_file(self.__home + self.__path_idea)
-            self.__copy_file(self.__home + self.__path_idea)
+            self.__copy_file(self.__home + self.__path_pycharm)
+            self.__copy_file(self.__home + self.__path_webstorm)
+            self.__copy_file(self.__home + self.__path_phpstorm)
             print("done")
         pass
 
