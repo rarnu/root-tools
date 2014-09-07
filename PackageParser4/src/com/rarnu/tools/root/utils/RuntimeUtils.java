@@ -9,6 +9,7 @@ import java.io.File;
 public class RuntimeUtils {
 
     private static final String LIB_ART = "/system/lib/libart.so";
+    private static final String LIB_DALVIK = "/system/lib/libdvm.so";
     private static final String PROP_NAME = "persist.sys.dalvik.vm.lib";
     private static final String RT_DALVIK = "libdvm.so";
     private static final String RT_ART = "libart.so";
@@ -23,6 +24,12 @@ public class RuntimeUtils {
             File fArt = new File(LIB_ART);
             ret = fArt.exists();
         }
+        return ret;
+    }
+
+    public static boolean hasDalvik() {
+        File fDalvik = new File(LIB_DALVIK);
+        boolean ret = fDalvik.exists();
         return ret;
     }
 
