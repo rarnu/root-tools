@@ -149,13 +149,13 @@
     <string name="level">星数阶级</string>
     <string name="attack">攻击力</string>
     <string name="defense">守备力</string>
-    <string name="pendulum_level">摇摆刻度</string>
-    <string name="pendulum_LR" formatted="false">左(%d)右(%s)</string>
+    <string name="pendulum_level">灵摆刻度</string>
+    <string name="pendulum_LR" formatted="false">左(%d)右(%d)</string>
     <string name="type">卡片种类</string>
     <string name="effect">卡片效果</string>
     <string name="monster">怪兽</string>
     <string name="tunner">调整</string>
-    <string name="pendulum">摇摆</string>
+    <string name="pendulum">灵摆</string>
     <string name="magic">魔法</string>
     <string name="trap">陷阱</string>
     <string name="overlay">XYZ</string>

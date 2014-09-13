@@ -1,6 +1,7 @@
 package com.yugioh.android.fragments;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
@@ -67,6 +68,7 @@ public class CardInfoCardFragment extends BaseFragment {
             sbInfo.append(buildInfoLine(R.string.race, info.getTribe()));
             sbInfo.append(buildInfoLine(R.string.attack, info.getAtk()));
             sbInfo.append(buildInfoLine(R.string.defense, info.getDef()));
+
             if (info.getCardDType().contains(getString(R.string.pendulum))) {
                 sbInfo.append(buildInfoLine(R.string.pendulum_level, getString(R.string.pendulum_LR, info.getPendulumL(), info.getPendulumR())));
             }

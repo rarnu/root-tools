@@ -77,5 +77,5 @@ public class CardConstDefine {
 	private static final String[] CardLimit = { "无限制", "禁止卡", "限制卡", "准限制卡",
 			"观赏卡" };
 
-    private static final String[] CardTunner = {"卡通","灵魂","同盟","调整","二重","反转","摇摆"};
+    private static final String[] CardTunner = {"卡通","灵魂","同盟","调整","二重","反转","灵摆"};
 }
