@@ -26,10 +26,10 @@ class JetBrainsConfig:
         os_name = uname()[0].lower()
         if os_name.lower() == "linux":
             path_config = "/config"
-            self.__path_idea = path_config + "/.IntelliJIdea13"
-            self.__path_pycharm = path_config + "/.PyCharm30"
-            self.__path_webstorm = path_config + "/.WebStorm8"
-            self.__path_phpstorm = path_config + "/.WebIde70"
+            self.__path_idea = "/.IntelliJIdea13" + path_config
+            self.__path_pycharm = "/.PyCharm30" + path_config
+            self.__path_webstorm = "/.WebStorm8" + path_config
+            self.__path_phpstorm = "/.WebIde70" + path_config
             self.__supported = True
         elif os_name.lower() == "darwin":
             path_pref = "/Library/Preferences"
