@@ -3,6 +3,7 @@
 
     <string name="app_name">游戏王卡片查询器</string>
     <string name="data_name">卡片数据包</string>
+    <string name="update_log">更新历史</string>
     <string name="about_data">数据来源：OurOcg.Cn</string>
     <string name="about_application">软件开发：橙子Infinity</string>
     <string name="about_date_fmt" formatted="false">发布日期：%s</string>
@@ -39,7 +40,7 @@
     <string name="lm_exit">退出</string>
     
     <!-- right menu -->
-    
+    <string name="rm_settings">系统设置</string>
     <string name="rm_update">检查新版本</string>
     <string name="rm_fitable">系统适配度</string>
     <string name="rm_feedback">信息反馈</string>
@@ -67,7 +68,7 @@
     <string name="search_attack">攻击力</string>
     <string name="search_defense">守备力</string>
     <string name="search_effect">效果种类</string>
-    <string name="search_effect_text">效果关键字</string>
+    <string name="search_effect_text">效果</string>
     <string name="search_search">搜索卡片</string>
     <string name="search_reset">条件复位</string>
     <string name="search_na">不限</string>
@@ -232,4 +233,5 @@
     <string name="hint_cardname">请输入卡片名称来检索</string>
 
     <string name="no_sdcard">没有找到 SD 卡，无法启动本软件</string>
+    <string name="str_confirm_delete">确定要清空全部卡图吗，清空卡图后您将需要重新下载卡图。</string>
 </resources>

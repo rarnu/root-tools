@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:padding="8dip">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white">
 
-    <ListView android:id="@+id/lvPackage"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:cacheColorHint="#00000000"
-              android:fastScrollEnabled="true"
+    <ListView
+            android:id="@+id/lvPackage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@color/transparent"
+            android:listSelector="@drawable/menu_list_selector"
+            android:fastScrollEnabled="false"
             />
 
     <TextView
@@ -19,17 +21,18 @@
             android:layout_centerInParent="true"
             android:layout_margin="4dip"
             android:text="@string/package_list_not_exist"
-            android:textColor="?android:attr/textColorPrimary"/>
+            android:textColor="?android:attr/textColorPrimary" />
 
-    <TextView android:id="@+id/tvLoading"
-              android:layout_width="match_parent"
-              android:layout_height="wrap_content"
-              android:padding="4dip"
-              android:gravity="center"
-              android:layout_alignParentBottom="true"
-              android:text="@string/list_loading"
-              android:background="@android:color/holo_blue_light"
-              android:textColor="?android:attr/textColorPrimary"
-              android:visibility="gone"/>
+    <TextView
+            android:id="@+id/tvLoading"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="4dip"
+            android:gravity="center"
+            android:layout_alignParentBottom="true"
+            android:text="@string/list_loading"
+            android:background="@android:color/holo_blue_light"
+            android:textColor="?android:attr/textColorPrimary"
+            android:visibility="gone" />
 
 </RelativeLayout>

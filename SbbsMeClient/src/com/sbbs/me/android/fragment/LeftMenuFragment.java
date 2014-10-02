@@ -74,8 +74,8 @@ public class LeftMenuFragment extends BaseFragment implements
 		lvMenu.setAdapter(adapterMenu);
 		lvExit.setAdapter(adapterExit);
 
-		lvMenu.setSelector(R.drawable.menu_list_selector);
-		lvExit.setSelector(R.drawable.menu_list_selector);
+		// lvMenu.setSelector(R.drawable.menu_list_selector);
+		// lvExit.setSelector(R.drawable.menu_list_selector);
 	}
 
 	@Override

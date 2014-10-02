@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.TextView;
 import com.rarnu.devlib.base.adapter.BaseAdapter;
+import com.rarnu.utils.DrawableUtils;
 import com.rarnu.utils.UIUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.PackageItem;
@@ -44,13 +45,21 @@ public class PackageAdapter extends BaseAdapter<PackageItem> {
         if (holder == null) {
             holder = new PackageHolder();
             holder.tvPackName = (TextView) v.findViewById(R.id.tvPackName);
+            holder.tvLine = (TextView) v.findViewById(R.id.tvLine);
             v.setTag(holder);
         }
         PackageItem item = list.get(position);
         if (item != null) {
             holder.tvPackName.setText(item.name);
+            if (item.isPackageTitle) {
+                holder.tvPackName.setTextColor(context.getResources().getColor(R.color.orange));
+            } else {
+                holder.tvPackName.setTextColor(DrawableUtils.getTextColorPrimary(context));
+            }
+            holder.tvPackName.getPaint().setFakeBoldText(item.isPackageTitle);
+            holder.tvLine.setVisibility(item.isPackageTitle ? View.VISIBLE : View.GONE);
             v.setLayoutParams(item.isPackageTitle ? allpTitle : allpList);
-            v.setBackgroundColor(context.getResources().getColor(item.isPackageTitle ? android.R.color.holo_blue_light : R.color.transparent));
+
         }
         return v;
     }

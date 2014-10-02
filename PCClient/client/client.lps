@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="73">
+    <Units Count="74">
       <Unit0>
         <Filename Value="client.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -169,11 +169,10 @@
         <Filename Value="base/basepage.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="basepage"/>
-        <IsVisibleTab Value="True"/>
         <EditorIndex Value="0"/>
         <WindowIndex Value="0"/>
         <TopLine Value="2"/>
-        <CursorPos X="3" Y="15"/>
+        <CursorPos X="15" Y="9"/>
         <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit16>
@@ -640,18 +639,27 @@
       <Unit72>
         <Filename Value="../../../../../Develop/lazarus/vgscene/vg_ani.pas"/>
         <UnitName Value="vg_ani"/>
-        <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="1" Y="1"/>
         <UsageCount Value="11"/>
-        <Loaded Value="True"/>
       </Unit72>
+      <Unit73>
+        <Filename Value="../components/vgscene/vg_scene.pas"/>
+        <UnitName Value="vg_scene"/>
+        <IsVisibleTab Value="True"/>
+        <EditorIndex Value="1"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="46"/>
+        <CursorPos X="19" Y="66"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit73>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="14" HistoryIndex="13">
+    <JumpHistory Count="16" HistoryIndex="15">
       <Position1>
         <Filename Value="base/basepage.pas"/>
         <Caret Line="62" Column="21" TopLine="48"/>
@@ -708,6 +716,14 @@
         <Filename Value="base/basepage.pas"/>
         <Caret Line="15" Column="3" TopLine="2"/>
       </Position14>
+      <Position15>
+        <Filename Value="../components/vgscene/vg_scene.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position15>
+      <Position16>
+        <Filename Value="../components/vgscene/vg_scene.pas"/>
+        <Caret Line="17417" Column="73" TopLine="17937"/>
+      </Position16>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>

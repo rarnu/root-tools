@@ -1,33 +1,28 @@
 package com.yugioh.android.fragments;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
 import android.view.View;
 import android.view.View.OnClickListener;
-import android.widget.Button;
-import android.widget.CheckBox;
-import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.*;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.FileUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.common.Config;
 import com.yugioh.android.define.PathDefine;
 
+import java.io.File;
+
 public class SettingsFragment extends BaseFragment implements OnClickListener {
 
-    // font settings
-
-    private static final int[] fits = new int[]{R.drawable.c0, R.drawable.c1,
-            R.drawable.c2, R.drawable.c3, R.drawable.c4, R.drawable.c5,
-            R.drawable.c6, R.drawable.c7, R.drawable.c8, R.drawable.c9};
-    ImageView ivFitable;
-    Button btnBigger, btnSmaller;
+    ImageView btnBigger, btnSmaller;
     TextView tvFontDemo;
     TextView tvData;
-    CheckBox chkAutoName, chkAssignedCard;
+    Switch chkAssignedCard;
 
     int fontSize = -1;
 
@@ -48,34 +43,29 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
 
     @Override
     public void initComponents() {
-        ivFitable = (ImageView) innerView.findViewById(R.id.ivFitable);
-        btnBigger = (Button) innerView.findViewById(R.id.btnBigger);
-        btnSmaller = (Button) innerView.findViewById(R.id.btnSmaller);
+        btnBigger = (ImageButton) innerView.findViewById(R.id.btnBigger);
+        btnSmaller = (ImageButton) innerView.findViewById(R.id.btnSmaller);
         tvData = (TextView) innerView.findViewById(R.id.tvData);
         tvFontDemo = (TextView) innerView.findViewById(R.id.tvFontDemo);
-        chkAutoName = (CheckBox) innerView.findViewById(R.id.chkAutoName);
-        chkAssignedCard = (CheckBox) innerView.findViewById(R.id.chkAssignedCard);
+        chkAssignedCard = (Switch) innerView.findViewById(R.id.chkAssignedCard);
     }
 
     @Override
     public void initEvents() {
         btnBigger.setOnClickListener(this);
         btnSmaller.setOnClickListener(this);
-        chkAutoName.setOnClickListener(this);
         chkAssignedCard.setOnClickListener(this);
+        tvData.setOnClickListener(this);
     }
 
     @Override
     public void initLogic() {
-        ivFitable.setImageResource(fits[9]);
-
         fontSize = Config.cfgGetFontSize(getActivity());
         if (fontSize == -1) {
             fontSize = (int) tvFontDemo.getTextSize();
         }
         tvFontDemo.setTextSize(fontSize);
         getDirSizeT();
-        chkAutoName.setChecked(Config.cfgGetAutoName(getActivity()));
         chkAssignedCard.setChecked(Config.cfgGetAssignedCard(getActivity()));
     }
 
@@ -134,15 +124,50 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
             case R.id.btnSmaller:
                 fontSize--;
                 break;
-            case R.id.chkAutoName:
-                Config.cfgSetAutoName(getActivity(), chkAutoName.isChecked());
-                return;
             case R.id.chkAssignedCard:
                 Config.cfgSetAssignedCard(getActivity(), chkAssignedCard.isChecked());
                 return;
+            case R.id.tvData:
+                confirmDeleteImages();
+                break;
         }
         tvFontDemo.setTextSize(fontSize);
         Config.cfgSetFontSize(getActivity(), fontSize);
+    }
+
+    private void confirmDeleteImages() {
+        new AlertDialog.Builder(getActivity()).setTitle(R.string.hint).setMessage(R.string.str_confirm_delete)
+                .setPositiveButton(R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        doDeleteImageT();
+                    }
+                })
+                .setNegativeButton(R.string.cancel, null)
+                .show();
+    }
+
+    private Handler hDelete = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                getDirSizeT();
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+    private void doDeleteImageT() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                File f = new File(PathDefine.PICTURE_PATH);
+                for (String s: f.list()) {
+                    new File(PathDefine.PICTURE_PATH+s).delete();
+                }
+                hDelete.sendEmptyMessage(1);
+            }
+        }).start();
     }
 
     @Override

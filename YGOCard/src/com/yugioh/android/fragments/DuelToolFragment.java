@@ -331,13 +331,13 @@ public class DuelToolFragment extends BaseFragment implements OnClickListener {
 
     private void setLifePoint(TextView tv, int life) {
         tv.setText(String.valueOf(life));
-        if (life >= 4000) {
-            tv.setTextColor(0xFF00FF00);
-        } else if (life < 1000) {
-            tv.setTextColor(0xFFFF0000);
-        } else {
-            tv.setTextColor(0xFFFF8C00);
-        }
+//        if (life >= 4000) {
+//            tv.setTextColor(0xFF00FF00);
+//        } else if (life < 1000) {
+//            tv.setTextColor(0xFFFF0000);
+//        } else {
+//            tv.setTextColor(0xFFFF8C00);
+//        }
     }
 
     @Override

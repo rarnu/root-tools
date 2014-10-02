@@ -17,9 +17,7 @@ import android.widget.TextView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.DownloadUtils;
 import com.rarnu.utils.FileUtils;
-import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.ZipUtils;
-import com.yugioh.android.MainActivity;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.UpdateInfo;
 import com.yugioh.android.common.Actions;
@@ -29,6 +27,8 @@ import com.yugioh.android.define.NetworkDefine;
 import com.yugioh.android.define.PathDefine;
 import com.yugioh.android.intf.IDestroyCallback;
 import com.yugioh.android.intf.IUpdateIntf;
+import com.yugioh.android.utils.UpdateUtils;
+import com.yugioh.android.utils.YGOAPI;
 
 import java.io.File;
 
@@ -40,6 +40,7 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
     TextView tvApkInfo, tvDataInfo;
     ProgressBar pbDownlaodingApk, pbDownlaodingData;
     RelativeLayout layUpdateApk, layNoDatabase;
+    TextView tvUpdateLogValue;
     UpdateInfo updateInfo = null;
     boolean hasData = YugiohDatabase.isDatabaseFileExists();
     private Handler hApkTask = new Handler() {
@@ -100,6 +101,17 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
         }
     };
 
+    final Handler hUpdate = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 1) {
+                updateInfo = (UpdateInfo) msg.obj;
+                showUpdateInfo(updateInfo);
+            }
+            super.handleMessage(msg);
+        }
+    };
+
     public UpdateFragment() {
         super();
     }
@@ -139,6 +151,7 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
         tvDataInfo = (TextView) innerView.findViewById(R.id.tvDataInfo);
         pbDownlaodingApk = (ProgressBar) innerView.findViewById(R.id.pbDownlaodingApk);
         pbDownlaodingData = (ProgressBar) innerView.findViewById(R.id.pbDownlaodingData);
+        tvUpdateLogValue = (TextView) innerView.findViewById(R.id.tvUpdateLogValue);
     }
 
     @Override
@@ -153,7 +166,34 @@ public class UpdateFragment extends BaseFragment implements IDestroyCallback, On
         if (!fDownload.exists()) {
             fDownload.mkdirs();
         }
-        updateInfo = (UpdateInfo) getActivity().getIntent().getSerializableExtra("update");
+        getUpdateLogT();
+        UpdateUtils.checkUpdateT(getActivity(), hUpdate);
+    }
+
+    private void getUpdateLogT() {
+        final Handler hLog = new Handler() {
+            @Override
+            public void handleMessage(Message msg) {
+                if (msg.what == 1) {
+                    UpdateFragment.this.tvUpdateLogValue.setText((String) msg.obj);
+                }
+                super.handleMessage(msg);
+            }
+        };
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                String ret = YGOAPI.getUpdateLog();
+                Message msg = new Message();
+                msg.what = 1;
+                msg.obj = ret;
+                hLog.sendMessage(msg);
+            }
+        }).start();
+    }
+
+    private void showUpdateInfo(UpdateInfo info) {
+        updateInfo = info;
         updateCurrentStatus();
         updateDisabled(true);
     }

@@ -7,6 +7,7 @@ import android.widget.*;
 import android.widget.AdapterView.OnItemClickListener;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
+import com.rarnu.utils.UIUtils;
 import com.yugioh.android.MainActivity;
 import com.yugioh.android.R;
 import com.yugioh.android.intf.IMainIntf;
@@ -16,12 +17,9 @@ import java.util.List;
 
 public class LeftMenuFragment extends BaseFragment implements OnItemClickListener {
 
-    ListView lvCard, lvExit;
-    ArrayAdapter<String> adapterCard, adapterExit;
-    List<String> listCard, listExit;
-    ImageView ivLogo;
-    TextView tvLeftTitle;
-    RelativeLayout.LayoutParams lpLogo = null;
+    ListView lvCard;
+    ArrayAdapter<String> adapterCard;
+    List<String> listCard;
 
     public LeftMenuFragment() {
         super();
@@ -40,30 +38,28 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
     @Override
     public void initComponents() {
         lvCard = (ListView) innerView.findViewById(R.id.lvCard);
-        lvExit = (ListView) innerView.findViewById(R.id.lvExit);
-        tvLeftTitle = (TextView) innerView.findViewById(R.id.tvLeftTitle);
-        ivLogo = (ImageView) innerView.findViewById(R.id.ivLogo);
 
         listCard = new ArrayList<String>();
         listCard.add(getString(R.string.lm_search));        // 0
         listCard.add(getString(R.string.lm_banned));        // 1
         listCard.add(getString(R.string.lm_newcard));       // 2
         listCard.add(getString(R.string.lm_package));       // 3
-        listCard.add(getString(R.string.lm_myfav));          // 4
+        listCard.add(getString(R.string.lm_myfav));         // 4
         listCard.add(getString(R.string.lm_tool));          // 5
-        listExit = new ArrayList<String>();
-        listExit.add(getString(R.string.lm_exit));
         adapterCard = new ArrayAdapter<String>(getActivity(), R.layout.item_menu, listCard);
-        adapterExit = new ArrayAdapter<String>(getActivity(), R.layout.item_menu, listExit);
         lvCard.setAdapter(adapterCard);
-        lvExit.setAdapter(adapterExit);
 
+        int lvHeight = UIUtils.dipToPx((int)(48 + UIUtils.getDensity() * 2) * 6);
+        int marginTop = (UIUtils.getHeight() - UIUtils.getStatusbarHeight(getActivity()) - lvHeight) / 2;
+        RelativeLayout.LayoutParams rllp = (RelativeLayout.LayoutParams)lvCard.getLayoutParams();
+        rllp.topMargin = marginTop;
+        rllp.height = lvHeight;
+        lvCard.setLayoutParams(rllp);
     }
 
     @Override
     public void initEvents() {
         lvCard.setOnItemClickListener(this);
-        lvExit.setOnItemClickListener(this);
     }
 
     @Override
@@ -98,9 +94,6 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
             case R.id.lvCard:
                 // switch page
                 ((IMainIntf) getActivity()).switchPage(position, true);
-                break;
-            case R.id.lvExit:
-                getActivity().finish();
                 break;
         }
 

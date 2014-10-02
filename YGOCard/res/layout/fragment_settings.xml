@@ -2,42 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:padding="8dip">
+        android:padding="8dip"
+        android:background="@color/white">
 
-    <TextView android:id="@+id/tvAutoName"
-            android:layout_width="wrap_content"
-            android:layout_height="48dip"
-            android:gravity="left|center_vertical"
-            android:text="@string/pref_auto_name"
-            android:textColor="?android:attr/textColorPrimary" />
-
-    <CheckBox android:id="@+id/chkAutoName"
-            android:layout_width="wrap_content"
-            android:layout_height="48dip"
-            android:layout_alignParentRight="true"
-            />
-
-    <RelativeLayout
-            android:id="@+id/laySplit"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_below="@+id/tvAutoName"
-            android:background="@color/shadow">
-    </RelativeLayout>
-
-    <TextView android:id="@+id/tvAssignedCard"
+    <TextView
+            android:id="@+id/tvAssignedCard"
             android:layout_width="wrap_content"
             android:layout_height="48dip"
             android:gravity="left|center_vertical"
             android:text="@string/pref_assigned_card"
-            android:textColor="?android:attr/textColorPrimary"
-            android:layout_below="@+id/laySplit" />
+            android:textColor="?android:attr/textColorPrimary" />
 
-    <CheckBox android:id="@+id/chkAssignedCard"
+    <Switch
+            android:id="@+id/chkAssignedCard"
             android:layout_width="wrap_content"
             android:layout_height="48dip"
             android:layout_below="@+id/laySplit"
             android:layout_alignParentRight="true"
+            android:gravity="center"
+
             />
 
     <RelativeLayout
@@ -57,12 +40,12 @@
             android:textColor="?android:attr/textColorPrimary"
             android:layout_below="@+id/laySplit0" />
 
-    <Button
+    <ImageButton
             android:id="@+id/btnBigger"
             android:layout_width="48dip"
             android:layout_height="48dip"
             android:layout_alignParentRight="true"
-            android:text="@string/st_font_bigger"
+            android:src="@drawable/ic_menu_forward"
             android:background="@drawable/button_style"
             android:layout_below="@+id/laySplit0" />
 
@@ -75,12 +58,12 @@
             android:text="@string/st_font_demo"
             android:layout_below="@+id/laySplit0" />
 
-    <Button
+    <ImageButton
             android:id="@+id/btnSmaller"
             android:layout_width="48dip"
             android:layout_height="48dip"
             android:layout_toLeftOf="@+id/tvFontDemo"
-            android:text="@string/st_font_smaller"
+            android:src="@drawable/ic_menu_back"
             android:background="@drawable/button_style"
             android:layout_below="@+id/laySplit0" />
 
@@ -116,30 +99,6 @@
             android:layout_width="match_parent"
             android:layout_height="1px"
             android:layout_below="@+id/tvDataSize"
-            android:background="@color/shadow">
-    </RelativeLayout>
-
-    <TextView
-            android:id="@+id/tvFitable"
-            android:layout_width="wrap_content"
-            android:layout_height="48dip"
-            android:layout_below="@+id/laySplit2"
-            android:gravity="left|center_vertical"
-            android:text="@string/pref_fit"
-            android:textColor="?android:attr/textColorPrimary" />
-    <ImageView android:id="@+id/ivFitable"
-            android:layout_width="48dip"
-            android:layout_height="48dip"
-            android:padding="8dip"
-            android:scaleType="centerInside"
-            android:layout_alignParentRight="true"
-            android:layout_below="@+id/laySplit2" />
-
-    <RelativeLayout
-            android:id="@+id/laySplit3"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_below="@+id/tvFitable"
             android:background="@color/shadow">
     </RelativeLayout>
 

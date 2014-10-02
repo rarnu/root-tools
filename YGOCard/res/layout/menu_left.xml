@@ -1,78 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
-
-    <RelativeLayout
-        android:id="@+id/layLeftMenuHead"
         android:layout_width="match_parent"
-        android:layout_height="?android:attr/actionBarSize" >
-
-        <ImageView
-            android:id="@+id/ivLogo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:adjustViewBounds="true"
-            android:scaleType="fitStart"
-            android:src="@drawable/logo"
-            android:visibility="visible" />
-
-        <TextView
-            android:id="@+id/tvLeftTitle"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_toRightOf="@+id/ivLogo"
-            android:gravity="left|center_vertical"
-            android:paddingBottom="7dip"
-            android:paddingTop="8dip"
-            android:text="@string/empty"
-            android:textColor="?android:attr/textColorPrimary"
-            android:textSize="18dp" />
-
-        <ImageView
-            android:id="@+id/laySplit"
-            android:layout_width="match_parent"
-            android:layout_height="2dip"
-            android:layout_alignParentBottom="true"
-            android:background="?android:attr/actionModeSplitBackground"
-            android:scaleType="fitStart" >
-        </ImageView>
-    </RelativeLayout>
+        android:layout_height="match_parent"
+        android:background="@color/orange"
+        >
 
     <ListView
-        android:id="@+id/lvCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/layLeftMenuHead"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/shadow"
-        android:dividerHeight="1px" >
-    </ListView>
-
-    <RelativeLayout
-        android:id="@+id/laySplit2"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_below="@+id/lvCard"
-        android:background="@color/shadow" >
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/laySplit3"
-        android:layout_width="match_parent"
-        android:layout_height="1px"
-        android:layout_above="@+id/lvExit"
-        android:background="@color/shadow" >
-    </RelativeLayout>
-
-    <ListView
-        android:id="@+id/lvExit"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:cacheColorHint="#00000000"
-        android:divider="@color/shadow"
-        android:dividerHeight="1px" >
+            android:id="@+id/lvCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:cacheColorHint="@color/transparent"
+            android:listSelector="@drawable/menu_list_selector"
+            android:divider="@null"
+            android:dividerHeight="1dip"
+            >
     </ListView>
 
 </RelativeLayout>

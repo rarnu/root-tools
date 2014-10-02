@@ -68,12 +68,13 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
         spCardTunner = (Spinner) innerView.findViewById(R.id.spCardTunner);
 
         etCardName.requestFocus();
+
+
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        setCardNameAutoName();
     }
 
     @Override
@@ -308,11 +309,5 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
                 break;
         }
         return true;
-    }
-
-    private void setCardNameAutoName() {
-        boolean auto = Config.cfgGetAutoName(getActivity());
-        etCardName.setInputType(auto ? InputType.TYPE_NULL : InputType.TYPE_CLASS_TEXT);
-        etCardName.setOnTouchListener(auto ? this : null);
     }
 }

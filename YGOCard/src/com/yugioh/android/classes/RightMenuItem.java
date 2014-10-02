@@ -7,6 +7,10 @@ public class RightMenuItem {
 	 * 0:update
 	 * 1:fitable
 	 */
-	public int type;
-	public int value;
+	public int type = 0;
+	public int value = 0;
+
+    public RightMenuItem(String name) {
+        this.name = name;
+    }
 }

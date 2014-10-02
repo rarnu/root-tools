@@ -34,6 +34,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
         filterDatabase.addAction(Actions.ACTION_EXTRACT_DATABASE_COMPLETE);
         registerReceiver(receiverDatabase, filterDatabase);
         super.onCreate(savedInstanceState);
+
         if (!YugiohDatabase.isDatabaseFileExists()) {
             Toast.makeText(this, R.string.main_update_database, Toast.LENGTH_LONG).show();
         }

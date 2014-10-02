@@ -1,34 +1,67 @@
 <?php
-$apkVersion=$_GET["ver"];
+
+// android
+$lastApkVersion=105;
+$lastApkVersionName="ver 3.0.5";
+$lastApkCardId=6666;
+$lastApkDbVer=102;
+
+// ios
+$lastIpaVersion=105;
+$lastIpaVersionName="ver 3.0.5";
+$lastIpaCardId=6666;
+$lastIpaDbVer=102;
+
+// ================================
+$version=$_GET["ver"];
 $cardId=$_GET["cardid"];
 $dbver=$_GET["dbver"];
-
-$lastApkVersion=32;
-$lastVersionName="ver 2.1.1";
-$lastCardId=6223;
-$lastDbVer=3;
-
+$os=$_GET["os"];
 if (empty($dbver)) {
     $dbver = 0;
 }
-
-$apkUpdate=0;
-if ($lastApkVersion > $apkVersion) {
-	$apkUpdate = 1;
+if (empty($os)) {
+    $os = "a";
 }
-$dataUpdate=0;
-if ($dbver != 0) {
-    if ($lastDbVer > $dbver) {
-        $dataUpdate=1;
+
+if ($os == "a") {
+    // android
+    $apkUpdate=0;
+    if ($lastApkVersion > $version) {
+        $apkUpdate = 1;
     }
+    $apkDataUpdate=0;
+    if ($dbver != 0) {
+        if ($lastApkDbVer > $dbver) {
+            $apkDataUpdate=1;
+        }
+    } else {
+        if ($lastApkCardId > $cardId) {
+            $apkDataUpdate=1;
+        }
+    }
+    $newCardCount = $lastApkCardId - $cardId;
+    $str="{\"apk\":\"$apkUpdate\",\"data\":\"$apkDataUpdate\",\"newcard\":\"$newCardCount\",\"apkversion\":\"$lastApkVersionName\"}";
+    echo $str;
 } else {
-    if ($lastCardId > $cardId) {
-	    $dataUpdate = 1;
+    // ios
+    $ipaUpdate=0;
+    if ($lastIpaVersion > $version) {
+        $ipaUpdate = 1;
     }
+    $ipaDataUpdate=0;
+    if ($dbver != 0) {
+        if ($lastIpaDbVer > $dbver) {
+            $ipaDataUpdate=1;
+        }
+    } else {
+        if ($lastIpaCardId > $cardId) {
+            $ipaDataUpdate=1;
+        }
+    }
+    $newCardCount = $lastIpaCardId - $cardId;
+    $str="{\"ipa\":\"$ipaUpdate\",\"data\":\"$ipaDataUpdate\",\"newcard\":\"$newCardCount\",\"ipaversion\":\"$lastIpaVersionName\"}";
+    echo $str;
 }
-$newCardCount = $lastCardId - $cardId;
-
-$version="{\"apk\":\"$apkUpdate\",\"data\":\"$dataUpdate\",\"newcard\":\"$newCardCount\",\"apkversion\":\"$lastVersionName\"}";
-echo $version;
 
 ?>

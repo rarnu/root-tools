@@ -1,14 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="8dip" >
-
-    <ListView
-        android:id="@+id/lvNewCard"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:cacheColorHint="#00000000"
-        android:fastScrollEnabled="true" />
+        android:background="@color/white">
+
+    <ListView
+            android:id="@+id/lvNewCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:cacheColorHint="@color/transparent"
+            android:listSelector="@drawable/menu_list_selector"
+            android:fastScrollEnabled="false" />
 
 </RelativeLayout>

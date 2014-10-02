@@ -137,4 +137,14 @@ public class YGOAPI {
         }
         return ret;
     }
+
+    public static String getUpdateLog() {
+        String ret = "";
+        try {
+            ret = HttpRequest.get(NetworkDefine.URL_UPDATE_LOG, "", HTTP.UTF_8);
+        } catch (Exception e) {
+
+        }
+        return ret;
+    }
 }

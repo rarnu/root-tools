@@ -22,7 +22,6 @@ import java.util.List;
 
 public class CardInfoFragment extends BaseTabFragment {
 
-    MenuItem itemShare;
     MenuItem itemFav;
     CardInfo info = null;
 
@@ -54,16 +53,12 @@ public class CardInfoFragment extends BaseTabFragment {
 
     @Override
     public void initMenu(Menu menu) {
-        itemShare = menu.add(0, MenuIds.MENUID_SHARE, 99, R.string.share);
-        itemShare.setIcon(android.R.drawable.ic_menu_share);
-        itemShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
-        ShareActionProvider sap = new ShareActionProvider(getActivity());
-        sap.setShareIntent(getShareIntent());
-        itemShare.setActionProvider(sap);
-
         itemFav = menu.add(0, MenuIds.MENUID_FAV, 98, R.string.fav);
         itemFav.setShowAsAction(MenuItem.SHOW_AS_ACTION_IF_ROOM);
-        itemFav.setIcon(ImageUtils.loadActionBarIcon(getActivity(), FavUtils.queryFav(getActivity(), info.getId()) ? R.drawable.fav_enabled : R.drawable.fav_disabled));
+        itemFav.setIcon(
+                FavUtils.queryFav(getActivity(), info.getId()) ?
+                        android.R.drawable.ic_menu_close_clear_cancel :
+                        android.R.drawable.ic_menu_add);
     }
 
     @Override
@@ -73,10 +68,10 @@ public class CardInfoFragment extends BaseTabFragment {
                 boolean isFav = FavUtils.queryFav(getActivity(), info.getId());
                 if (isFav) {
                     FavUtils.removeFav(getActivity(), info.getId());
-                    itemFav.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.fav_disabled));
+                    itemFav.setIcon(android.R.drawable.ic_menu_add);
                 } else {
                     FavUtils.addFav(getActivity(), info.getId());
-                    itemFav.setIcon(ImageUtils.loadActionBarIcon(getActivity(), R.drawable.fav_enabled));
+                    itemFav.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
                 }
                 break;
         }
