@@ -1,14 +1,14 @@
 <?php
 
 // android
-$lastApkVersion=105;
-$lastApkVersionName="ver 3.0.5";
+$lastApkVersion=106;
+$lastApkVersionName="ver 3.0.6";
 $lastApkCardId=6666;
 $lastApkDbVer=102;
 
 // ios
-$lastIpaVersion=105;
-$lastIpaVersionName="ver 3.0.5";
+$lastIpaVersion=106;
+$lastIpaVersionName="ver 3.0.6";
 $lastIpaCardId=6666;
 $lastIpaDbVer=102;
 

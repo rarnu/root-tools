@@ -2,6 +2,8 @@ package com.yugioh.android.fragments;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -13,6 +15,7 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.FileUtils;
 import com.yugioh.android.R;
 import com.yugioh.android.common.Config;
+import com.yugioh.android.define.NetworkDefine;
 import com.yugioh.android.define.PathDefine;
 
 import java.io.File;
@@ -22,7 +25,7 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
     ImageView btnBigger, btnSmaller;
     TextView tvFontDemo;
     TextView tvData;
-    Switch chkAssignedCard;
+    Button btnSource;
 
     int fontSize = -1;
 
@@ -47,15 +50,15 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
         btnSmaller = (ImageButton) innerView.findViewById(R.id.btnSmaller);
         tvData = (TextView) innerView.findViewById(R.id.tvData);
         tvFontDemo = (TextView) innerView.findViewById(R.id.tvFontDemo);
-        chkAssignedCard = (Switch) innerView.findViewById(R.id.chkAssignedCard);
+        btnSource = (Button) innerView.findViewById(R.id.btnSource);
     }
 
     @Override
     public void initEvents() {
         btnBigger.setOnClickListener(this);
         btnSmaller.setOnClickListener(this);
-        chkAssignedCard.setOnClickListener(this);
         tvData.setOnClickListener(this);
+        btnSource.setOnClickListener(this);
     }
 
     @Override
@@ -66,7 +69,6 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
         }
         tvFontDemo.setTextSize(fontSize);
         getDirSizeT();
-        chkAssignedCard.setChecked(Config.cfgGetAssignedCard(getActivity()));
     }
 
     private void getDirSizeT() {
@@ -124,15 +126,21 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
             case R.id.btnSmaller:
                 fontSize--;
                 break;
-            case R.id.chkAssignedCard:
-                Config.cfgSetAssignedCard(getActivity(), chkAssignedCard.isChecked());
-                return;
             case R.id.tvData:
                 confirmDeleteImages();
+                break;
+            case R.id.btnSource:
+                openSourceCodeSite();
                 break;
         }
         tvFontDemo.setTextSize(fontSize);
         Config.cfgSetFontSize(getActivity(), fontSize);
+    }
+
+    private void openSourceCodeSite() {
+        Intent inSite = new Intent(Intent.ACTION_VIEW);
+        inSite.setData(Uri.parse(NetworkDefine.URL_GITHUB));
+        startActivity(inSite);
     }
 
     private void confirmDeleteImages() {
@@ -174,5 +182,4 @@ public class SettingsFragment extends BaseFragment implements OnClickListener {
     public Bundle getFragmentState() {
         return null;
     }
-
 }

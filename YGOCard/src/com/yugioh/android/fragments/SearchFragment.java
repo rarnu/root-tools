@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.text.InputType;
 import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
@@ -15,23 +14,18 @@ import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.devlib.base.inner.InnerFragment;
-import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.utils.ResourceUtils;
-import com.yugioh.android.AutoNameActivity;
 import com.yugioh.android.R;
-import com.yugioh.android.common.Config;
-import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.CardConstDefine;
 
 import java.util.List;
 
-public class SearchFragment extends BaseFragment implements OnItemSelectedListener, View.OnTouchListener {
+public class SearchFragment extends BaseFragment implements OnItemSelectedListener {
 
     Spinner spCardRace, spCardBelongs, spCardType, spCardAttribute, spCardLevel, spCardRare, spCardLimit, spCardTunner;
     EditText etCardName, etCardAttack, etCardDefense, etEffectText;
 
-    private  BaseFragment searchResultFragment = null;
+    private BaseFragment searchResultFragment = null;
 
     public SearchFragment() {
         super();
@@ -68,7 +62,6 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
         spCardTunner = (Spinner) innerView.findViewById(R.id.spCardTunner);
 
         etCardName.requestFocus();
-
 
     }
 
@@ -299,15 +292,5 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
                 etCardName.setText(data.getStringExtra("name"));
                 break;
         }
-    }
-
-    @Override
-    public boolean onTouch(View v, MotionEvent event) {
-        switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                startActivityForResult(new Intent(getActivity(), AutoNameActivity.class).putExtra("name", etCardName.getText().toString()), 0);
-                break;
-        }
-        return true;
     }
 }

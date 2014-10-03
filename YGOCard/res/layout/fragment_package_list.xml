@@ -31,7 +31,7 @@
             android:gravity="center"
             android:layout_alignParentBottom="true"
             android:text="@string/list_loading"
-            android:background="@android:color/holo_blue_light"
+            android:background="@color/orange"
             android:textColor="?android:attr/textColorPrimary"
             android:visibility="gone" />
 

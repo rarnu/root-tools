@@ -234,4 +234,5 @@
 
     <string name="no_sdcard">没有找到 SD 卡，无法启动本软件</string>
     <string name="str_confirm_delete">确定要清空全部卡图吗，清空卡图后您将需要重新下载卡图。</string>
+    <string name="str_source_code">对源码感兴趣？请点击此处</string>
 </resources>

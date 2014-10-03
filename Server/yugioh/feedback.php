@@ -14,7 +14,7 @@ echo $ret;
 
 function doRecordFeedback($i,$e,$t,$a,$o) {
     $db = openConnection();
-    $sql = "insert into yugioh_feedback (device, email, feedback, appver, osver) values ('$i','$e','$t',$a,$o)";
+    $sql = "insert into yugioh_feedback (device, email, feedback, appver, osver) values ('$i','$e','$t','$a','$o')";
     $result = query($db, $sql);
     closeConnection($db);
     return $result;

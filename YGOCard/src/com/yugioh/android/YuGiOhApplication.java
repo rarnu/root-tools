@@ -1,6 +1,7 @@
 package com.yugioh.android;
 
 import android.app.Application;
+import android.content.Intent;
 import com.yugioh.android.define.PathDefine;
 
 public class YuGiOhApplication extends Application {
@@ -15,5 +16,4 @@ public class YuGiOhApplication extends Application {
     public void onTerminate() {
         super.onTerminate();
     }
-
 }

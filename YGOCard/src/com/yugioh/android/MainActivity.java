@@ -28,8 +28,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
-        UIUtils.initDisplayMetrics(this, getWindowManager(), false);
-        ResourceUtils.init(this);
+
         filterDatabase.addAction(Actions.ACTION_EXTRACT_DATABASE);
         filterDatabase.addAction(Actions.ACTION_EXTRACT_DATABASE_COMPLETE);
         registerReceiver(receiverDatabase, filterDatabase);

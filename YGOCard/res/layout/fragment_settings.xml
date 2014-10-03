@@ -6,39 +6,12 @@
         android:background="@color/white">
 
     <TextView
-            android:id="@+id/tvAssignedCard"
-            android:layout_width="wrap_content"
-            android:layout_height="48dip"
-            android:gravity="left|center_vertical"
-            android:text="@string/pref_assigned_card"
-            android:textColor="?android:attr/textColorPrimary" />
-
-    <Switch
-            android:id="@+id/chkAssignedCard"
-            android:layout_width="wrap_content"
-            android:layout_height="48dip"
-            android:layout_below="@+id/laySplit"
-            android:layout_alignParentRight="true"
-            android:gravity="center"
-
-            />
-
-    <RelativeLayout
-            android:id="@+id/laySplit0"
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:layout_below="@+id/tvAssignedCard"
-            android:background="@color/shadow">
-    </RelativeLayout>
-
-    <TextView
             android:id="@+id/tvFontSize"
             android:layout_width="wrap_content"
             android:layout_height="48dip"
             android:gravity="left|center_vertical"
             android:text="@string/st_font_size"
-            android:textColor="?android:attr/textColorPrimary"
-            android:layout_below="@+id/laySplit0" />
+            android:textColor="?android:attr/textColorPrimary" />
 
     <ImageButton
             android:id="@+id/btnBigger"
@@ -46,8 +19,7 @@
             android:layout_height="48dip"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_menu_forward"
-            android:background="@drawable/button_style"
-            android:layout_below="@+id/laySplit0" />
+            android:background="@drawable/button_style" />
 
     <TextView
             android:id="@+id/tvFontDemo"
@@ -55,8 +27,7 @@
             android:layout_height="48dip"
             android:layout_toLeftOf="@+id/btnBigger"
             android:gravity="center"
-            android:text="@string/st_font_demo"
-            android:layout_below="@+id/laySplit0" />
+            android:text="@string/st_font_demo" />
 
     <ImageButton
             android:id="@+id/btnSmaller"
@@ -64,8 +35,7 @@
             android:layout_height="48dip"
             android:layout_toLeftOf="@+id/tvFontDemo"
             android:src="@drawable/ic_menu_back"
-            android:background="@drawable/button_style"
-            android:layout_below="@+id/laySplit0" />
+            android:background="@drawable/button_style" />
 
     <RelativeLayout
             android:id="@+id/laySplit1"
@@ -101,5 +71,18 @@
             android:layout_below="@+id/tvDataSize"
             android:background="@color/shadow">
     </RelativeLayout>
+
+    <Button
+            android:id="@+id/btnSource"
+            android:layout_width="match_parent"
+            android:layout_height="48dip"
+            android:layout_marginTop="8dip"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:layout_below="@+id/laySplit2"
+            android:background="@drawable/button_style"
+            android:text="@string/str_source_code"
+            android:textColor="@color/orange"
+            />
 
 </RelativeLayout>

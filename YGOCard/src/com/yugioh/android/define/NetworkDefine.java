@@ -20,5 +20,6 @@ public class NetworkDefine {
     public static final String URL_OCGSOFT_GET_PACKAGE_CARD = URL_OCGSOFT_BASE + "Package/card/packid/%s";
 
     public static final String URL_UPDATE_LOG = BASE_URL + "update.txt";
+    public static final String URL_GITHUB = "https://github.com/rarnu/root-tools/tree/master/YGOCard";
 
 }
