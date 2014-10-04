@@ -28,7 +28,7 @@ public class SplashActivity extends Activity {
                 startMainActivity();
                 SplashActivity.this.finish();
             }
-        }, 2500);
+        }, 1500);
     }
 
     private void startMainActivity() {
