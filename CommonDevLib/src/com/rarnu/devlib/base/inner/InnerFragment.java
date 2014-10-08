@@ -1,17 +1,21 @@
 package com.rarnu.devlib.base.inner;
 
 import android.app.Fragment;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.view.*;
 import android.view.ViewTreeObserver.OnGlobalLayoutListener;
 import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.devlib.common.UIInstance;
+import com.rarnu.utils.DrawableUtils;
+import com.rarnu.utils.ImageUtils;
 
 public abstract class InnerFragment extends Fragment implements OnGlobalLayoutListener, InnerIntf {
 
     protected View innerView = null;
     protected Bundle innerBundle = null;
     protected String tabTitle;
+    protected int tabIcon = -1;
 
     public InnerFragment() {
         super();
@@ -24,6 +28,14 @@ public abstract class InnerFragment extends Fragment implements OnGlobalLayoutLi
 
     public String getTabTitle() {
         return tabTitle;
+    }
+
+    public int getIcon() {
+        return tabIcon;
+    }
+
+    public void setIcon(int res) {
+        this.tabIcon = res;
     }
 
     @Override

@@ -92,6 +92,9 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
 
         if (listFragment.indexOf(fragment) == -1) {
             Tab t = bar.newTab().setText(fragment.getTabTitle()).setTabListener(this);
+            if (fragment.getIcon() != -1) {
+                t.setIcon(fragment.getIcon());
+            }
             if (position == -1) {
                 listFragment.add(fragment);
                 bar.addTab(t);
@@ -156,7 +159,12 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
     private void initTab() {
         bar.removeAllTabs();
         for (Fragment bf : listFragment) {
-            Tab t = bar.newTab().setText(((BaseFragment) bf).getTabTitle()).setTabListener(this);
+            Tab t = bar.newTab()
+                    .setText(((BaseFragment) bf).getTabTitle())
+                    .setTabListener(this);
+            if (((BaseFragment) bf).getIcon() != -1) {
+                t.setIcon(((BaseFragment) bf).getIcon());
+            }
             bar.addTab(t);
         }
     }
