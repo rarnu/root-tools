@@ -54,16 +54,10 @@ const
 
    GripSize = 3;
    RotSize = 10;
-   {$IFDEF WINDOWS}
    LM_DEACTIVATE = LM_LCL + 64;
-   {$ENDIF}
+
 const
   InvalideCanvasState = $FFFFFFFF;
-
-{$IFDEF LINUX}
-const
-     LM_DEACTIVATE = LM_LCL + 64;
-{$ENDIF}
 
 { Global Settings }
 

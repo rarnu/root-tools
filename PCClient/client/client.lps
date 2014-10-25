@@ -3,7 +3,7 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="74">
+    <Units Count="76">
       <Unit0>
         <Filename Value="client.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -20,7 +20,7 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <UnitName Value="baseform"/>
-        <EditorIndex Value="2"/>
+        <EditorIndex Value="4"/>
         <WindowIndex Value="0"/>
         <TopLine Value="13"/>
         <CursorPos X="21" Y="24"/>
@@ -70,7 +70,7 @@
         <Filename Value="pages/page_device.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="page_device"/>
-        <EditorIndex Value="4"/>
+        <EditorIndex Value="6"/>
         <WindowIndex Value="0"/>
         <TopLine Value="166"/>
         <CursorPos X="32" Y="192"/>
@@ -90,7 +90,7 @@
         <Filename Value="pages/page_about.pas"/>
         <IsPartOfProject Value="True"/>
         <UnitName Value="page_about"/>
-        <EditorIndex Value="3"/>
+        <EditorIndex Value="5"/>
         <WindowIndex Value="0"/>
         <TopLine Value="1"/>
         <CursorPos X="74" Y="8"/>
@@ -650,16 +650,36 @@
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="1"/>
         <WindowIndex Value="0"/>
-        <TopLine Value="46"/>
-        <CursorPos X="19" Y="66"/>
+        <TopLine Value="49"/>
+        <CursorPos X="17" Y="56"/>
         <UsageCount Value="10"/>
         <Loaded Value="True"/>
       </Unit73>
+      <Unit74>
+        <Filename Value="../components/lnet/lclnet.pas"/>
+        <UnitName Value="LCLNet"/>
+        <EditorIndex Value="2"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="1"/>
+        <CursorPos X="15" Y="47"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit74>
+      <Unit75>
+        <Filename Value="../components/lnet/levents.pp"/>
+        <UnitName Value="lEvents"/>
+        <EditorIndex Value="3"/>
+        <WindowIndex Value="0"/>
+        <TopLine Value="145"/>
+        <CursorPos X="3" Y="136"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit75>
     </Units>
     <General>
       <ActiveWindowIndexAtStart Value="0"/>
     </General>
-    <JumpHistory Count="16" HistoryIndex="15">
+    <JumpHistory Count="20" HistoryIndex="19">
       <Position1>
         <Filename Value="base/basepage.pas"/>
         <Caret Line="62" Column="21" TopLine="48"/>
@@ -722,8 +742,24 @@
       </Position15>
       <Position16>
         <Filename Value="../components/vgscene/vg_scene.pas"/>
-        <Caret Line="17417" Column="73" TopLine="17937"/>
+        <Caret Line="63" Column="57" TopLine="46"/>
       </Position16>
+      <Position17>
+        <Filename Value="../components/vgscene/vg_scene.pas"/>
+        <Caret Line="5" Column="63" TopLine="1"/>
+      </Position17>
+      <Position18>
+        <Filename Value="../components/lnet/lclnet.pas"/>
+        <Caret Line="1" Column="1" TopLine="1"/>
+      </Position18>
+      <Position19>
+        <Filename Value="../components/lnet/lclnet.pas"/>
+        <Caret Line="45" Column="15" TopLine="33"/>
+      </Position19>
+      <Position20>
+        <Filename Value="../components/lnet/lclnet.pas"/>
+        <Caret Line="44" Column="17" TopLine="34"/>
+      </Position20>
     </JumpHistory>
   </ProjectSession>
   <EditorMacros Count="0"/>
