@@ -2,10 +2,13 @@ package com.rarnu.tools.root;
 
 import android.content.Context;
 import android.content.pm.PackageInfo;
-import android.content.pm.PackageManager;
 import android.net.NetworkInfo;
-import com.rarnu.tools.root.common.*;
-import com.rarnu.tools.root.utils.DeviceUtils;
+import com.rarnu.tools.root.common.FileOperationInfo;
+import com.rarnu.tools.root.common.MemProcessInfo;
+import com.rarnu.tools.root.common.SysappInfo;
+import com.rarnu.tools.root.common.UpdateInfo;
+import com.rarnu.utils.DeviceUtils;
+import com.rarnu.utils.common.DeviceInfo;
 
 import java.util.ArrayList;
 import java.util.List;

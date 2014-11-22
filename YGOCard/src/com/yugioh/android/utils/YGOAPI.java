@@ -3,7 +3,7 @@ package com.yugioh.android.utils;
 import android.content.Context;
 import android.os.Build;
 import android.util.Log;
-import com.rarnu.utils.DeviceUtilsLite;
+import com.rarnu.utils.DeviceUtils;
 import com.rarnu.utils.HttpRequest;
 import com.yugioh.android.classes.*;
 import com.yugioh.android.define.NetworkDefine;
@@ -18,7 +18,7 @@ import java.util.List;
 public class YGOAPI {
 
     public static UpdateInfo findUpdate(Context context, int dbVer, int lastCardId) {
-        String param = String.format(NetworkDefine.UPDATE_PARAM_FMT, DeviceUtilsLite.getAppVersionCode(context), lastCardId, dbVer);
+        String param = String.format(NetworkDefine.UPDATE_PARAM_FMT, DeviceUtils.getAppVersionCode(context), lastCardId, dbVer);
         Log.e("findUpdate", param);
         UpdateInfo ui = null;
         try {
@@ -125,10 +125,10 @@ public class YGOAPI {
     public static boolean sendFeedback(Context context, String text) {
         boolean ret = false;
         try {
-            String deviceId = DeviceUtilsLite.getDeviceUniqueId(context);
+            String deviceId = DeviceUtils.getDeviceUniqueId(context);
             String email = URLEncoder.encode(AccountUtils.getBindedEmailAddress(context), HTTP.UTF_8);
             text = URLEncoder.encode(text, HTTP.UTF_8);
-            int appver = DeviceUtilsLite.getAppVersionCode(context);
+            int appver = DeviceUtils.getAppVersionCode(context);
             int osver = Build.VERSION.SDK_INT;
             String str = HttpRequest.get(NetworkDefine.FEEDBACK_URL, String.format(NetworkDefine.FEEDBACK_PARAM_FMT, deviceId, email, text, appver, osver), HTTP.UTF_8);
             ret = !str.equals("0");

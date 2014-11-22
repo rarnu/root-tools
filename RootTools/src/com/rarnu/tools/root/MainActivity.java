@@ -17,9 +17,9 @@ import com.rarnu.tools.root.common.RTConfig;
 import com.rarnu.tools.root.fragmentactivity.ShareActivity;
 import com.rarnu.tools.root.service.FloatWidgetService;
 import com.rarnu.tools.root.utils.CustomPackageUtils;
-import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.MemorySpecialList;
 import com.rarnu.tools.root.utils.UpdateUtils;
+import com.rarnu.utils.DeviceUtils;
 import com.rarnu.utils.FloatUtils;
 import com.rarnu.utils.NetworkUtils;
 

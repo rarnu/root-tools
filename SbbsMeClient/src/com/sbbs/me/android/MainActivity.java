@@ -14,7 +14,7 @@ import com.rarnu.devlib.base.inner.InnerFragment;
 import com.rarnu.devlib.component.SlidingMenu;
 import com.rarnu.devlib.component.intf.OnCloseListener;
 import com.rarnu.devlib.component.intf.OnOpenListener;
-import com.rarnu.utils.DeviceUtilsLite;
+import com.rarnu.utils.DeviceUtils;
 import com.rarnu.utils.NotificationUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.rarnu.utils.UIUtils;
@@ -74,7 +74,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf,
 
             @Override
             public void run() {
-                SbbsMeUpdate update = SbbsMeAPI.checkUpdate(DeviceUtilsLite
+                SbbsMeUpdate update = SbbsMeAPI.checkUpdate(DeviceUtils
                         .getAppVersionCode(MainActivity.this));
                 if (update != null && update.needUpdate) {
                     Message msg = new Message();

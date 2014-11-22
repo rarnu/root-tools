@@ -20,8 +20,8 @@ import com.rarnu.tools.root.common.FragmentNameConst;
 import com.rarnu.tools.root.fragmentactivity.*;
 import com.rarnu.tools.root.utils.BusyboxUtils;
 import com.rarnu.tools.root.utils.DalvikUtils;
-import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.IptablesUtils;
+import com.rarnu.utils.DeviceUtils;
 import com.rarnu.utils.MiscUtils;
 import com.rarnu.utils.NetworkUtils;
 

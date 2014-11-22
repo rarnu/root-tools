@@ -1,4 +1,4 @@
-package com.rarnu.tools.root.utils;
+package com.rarnu.utils;
 
 import android.content.Context;
 import android.content.pm.ApplicationInfo;
@@ -7,8 +7,7 @@ import android.content.pm.PackageManager;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import com.rarnu.command.RootUtils;
-import com.rarnu.tools.root.common.DeviceInfo;
-import com.rarnu.tools.root.common.MemoryInfo;
+import com.rarnu.utils.common.DeviceInfo;
 
 import java.io.IOException;
 import java.util.List;
@@ -162,15 +161,6 @@ public class DeviceUtils {
             result++;
         } else {
             result--;
-        }
-
-        MemoryInfo mem = MemoryUtils.getMemoryInfo();
-        if (mem != null) {
-            if (mem.Total >= 1000) {
-                result += 2;
-            } else {
-                result--;
-            }
         }
 
         String cpu = getBuildProp(RO_PRODUCT_CPU_ABI);

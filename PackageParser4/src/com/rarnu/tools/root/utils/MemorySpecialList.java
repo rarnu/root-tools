@@ -2,6 +2,7 @@ package com.rarnu.tools.root.utils;
 
 import android.content.Context;
 import com.rarnu.tools.root.common.MemIgnoreInfo;
+import com.rarnu.utils.DeviceUtils;
 
 import java.io.IOException;
 import java.util.ArrayList;

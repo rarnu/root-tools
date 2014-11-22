@@ -22,8 +22,8 @@ import com.rarnu.tools.root.adapter.PartnerAdapter;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.AboutInfo;
 import com.rarnu.tools.root.fragmentactivity.BuildTeamActivity;
-import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.tools.root.utils.UpdateUtils;
+import com.rarnu.utils.DeviceUtils;
 import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.UIUtils;
 

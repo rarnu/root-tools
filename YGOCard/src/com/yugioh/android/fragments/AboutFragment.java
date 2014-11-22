@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.widget.TextView;
 import com.rarnu.devlib.base.BaseDialogFragment;
-import com.rarnu.utils.DeviceUtilsLite;
+import com.rarnu.utils.DeviceUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.R;
 
@@ -36,7 +36,7 @@ public class AboutFragment extends BaseDialogFragment {
 
     @Override
     public void initLogic() {
-        tvVersion.setText(DeviceUtilsLite.getAppVersionName(getActivity()));
+        tvVersion.setText(DeviceUtils.getAppVersionName(getActivity()));
         String releaseDate = "";
         try {
             ApplicationInfo appInfo = getActivity().getPackageManager().getApplicationInfo(getActivity().getPackageName(), PackageManager.GET_META_DATA);

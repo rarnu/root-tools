@@ -20,6 +20,7 @@ import com.rarnu.root.pp4.R;
 import com.rarnu.tools.root.common.DataappInfo;
 import com.rarnu.tools.root.common.EnableappInfo;
 import com.rarnu.tools.root.common.SysappInfo;
+import com.rarnu.utils.DeviceUtils;
 
 import java.io.File;
 import java.io.IOException;

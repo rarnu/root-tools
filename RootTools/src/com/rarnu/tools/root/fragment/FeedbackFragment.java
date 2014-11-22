@@ -15,8 +15,8 @@ import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.common.MenuItemIds;
-import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.utils.AccountUtils;
+import com.rarnu.utils.DeviceUtils;
 
 public class FeedbackFragment extends BaseFragment {
 

@@ -4,8 +4,8 @@ import android.content.Context;
 import android.os.Looper;
 import android.widget.Toast;
 import com.rarnu.tools.root.api.MobileApi;
-import com.rarnu.tools.root.utils.DeviceUtils;
 import com.rarnu.utils.AccountUtils;
+import com.rarnu.utils.DeviceUtils;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;

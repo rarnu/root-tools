@@ -22,7 +22,7 @@ import android.content.Context;
 import android.text.format.DateFormat;
 import android.util.Log;
 
-import com.rarnu.utils.DeviceUtilsLite;
+import com.rarnu.utils.DeviceUtils;
 import com.rarnu.utils.FileUtils;
 import com.rarnu.utils.HttpRequest;
 import com.rarnu.utils.common.HttpRequestResponseData;
@@ -735,10 +735,10 @@ public class SbbsMeAPI {
 	public static String feedback(Context context, String userId, String email,
 			String text) {
 		List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-		params.add(new BasicNameValuePair("device", DeviceUtilsLite
+		params.add(new BasicNameValuePair("device", DeviceUtils
 				.getDeviceUniqueId(context)));
 		params.add(new BasicNameValuePair("appver", String
-				.valueOf(DeviceUtilsLite.getAppVersionCode(context))));
+				.valueOf(DeviceUtils.getAppVersionCode(context))));
 		params.add(new BasicNameValuePair("osver", String
 				.valueOf(android.os.Build.VERSION.SDK_INT)));
 		params.add(new BasicNameValuePair("text", text));
@@ -834,10 +834,10 @@ public class SbbsMeAPI {
 			@Override
 			public void run() {
 				List<BasicNameValuePair> params = new ArrayList<BasicNameValuePair>();
-				params.add(new BasicNameValuePair("device", DeviceUtilsLite
+				params.add(new BasicNameValuePair("device", DeviceUtils
 						.getDeviceUniqueId(context)));
 				params.add(new BasicNameValuePair("appver", String
-						.valueOf(DeviceUtilsLite.getAppVersionCode(context))));
+						.valueOf(DeviceUtils.getAppVersionCode(context))));
 				params.add(new BasicNameValuePair("osver", String
 						.valueOf(android.os.Build.VERSION.SDK_INT)));
 				params.add(new BasicNameValuePair("email", AccountUtils

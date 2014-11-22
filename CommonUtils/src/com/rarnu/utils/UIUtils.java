@@ -6,12 +6,12 @@ import android.content.res.TypedArray;
 import android.graphics.PointF;
 import android.graphics.Rect;
 import android.util.DisplayMetrics;
-import android.view.MotionEvent;
-import android.view.View;
-import android.view.ViewGroup;
-import android.view.WindowManager;
+import android.view.*;
 import android.widget.GridView;
 import android.widget.ListView;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Method;
 
 public class UIUtils {
 
@@ -300,5 +300,33 @@ public class UIUtils {
 
     public static void setFollowSystemBackground(boolean isFollowSystemBackground) {
         followSystemBackground = isFollowSystemBackground;
+    }
+
+    public static void setImmersion(Activity activity, boolean transparent, boolean dark) {
+        Window window = activity.getWindow();
+
+        Class clazz = window.getClass();
+        try {
+            int tranceFlag = 0;
+            int darkModeFlag = 0;
+            Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+            Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_TRANSPARENT");
+            tranceFlag = field.getInt(layoutParams);
+            field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+            darkModeFlag = field.getInt(layoutParams);
+            Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
+            if (transparent) {
+                if (dark) {
+                    extraFlagField.invoke(window, tranceFlag | darkModeFlag, tranceFlag | darkModeFlag);
+                } else {
+                    extraFlagField.invoke(window, tranceFlag, tranceFlag);
+                }
+            } else {
+                extraFlagField.invoke(window, 0, darkModeFlag);
+            }
+
+        } catch (Exception e) {
+
+        }
     }
 }

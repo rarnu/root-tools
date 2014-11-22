@@ -1,4 +1,4 @@
-package com.rarnu.tools.root.common;
+package com.rarnu.utils.common;
 
 public class DeviceInfo {
 

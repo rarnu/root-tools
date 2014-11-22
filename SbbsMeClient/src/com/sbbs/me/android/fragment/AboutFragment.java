@@ -15,7 +15,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
-import com.rarnu.utils.DeviceUtilsLite;
+import com.rarnu.utils.DeviceUtils;
 import com.rarnu.utils.ResourceUtils;
 import com.sbbs.me.android.FeedbackActivity;
 import com.sbbs.me.android.R;
@@ -87,7 +87,7 @@ public class AboutFragment extends BaseFragment implements OnClickListener {
 	@Override
 	public void initLogic() {
 		tvVersion.setText(getString(R.string.app_version_about,
-				DeviceUtilsLite.getAppVersionName(getActivity())));
+				DeviceUtils.getAppVersionName(getActivity())));
 
 		SbbsMeAPI.writeLogT(getActivity(), SbbsMeLogs.LOG_ABOUT, "");
 
