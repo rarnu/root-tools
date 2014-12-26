@@ -9,8 +9,8 @@ class JetBrainsConfig:
 
     __base__ = ["/config", "/Library/Preferences"]
     __apps__ = None
-    __apps_linux__ = ["/.IntelliJIdea13", "/.PyCharm30", "/.WebStorm8", "/.WebIde70"]
-    __apps_mac__ = ["/IntelliJIdea13", "/PyCharm30", "/WebStorm8", "/WebIde70"]
+    __apps_linux__ = ["/.IntelliJIdea14", "/.PyCharm40", "/.WebStorm9", "/.WebIde80"]
+    __apps_mac__ = ["/IntelliJIdea14", "/PyCharm40", "/WebStorm9", "/WebIde80"]
 
     __paths__ = ["/colors/", "/codestyles/", "/keymaps/"]
     __files__ = ["rarnu_color.icls", "rarnu_codestyle.xml", "rarnu_keymap.xml"]
