@@ -85,24 +85,6 @@ public class UIUtils {
         return (e.getX() < (dm.widthPixels / 2));
     }
 
-    public static int getStatusbarHeight(Activity activity) {
-        int statusHeight = 0;
-        Rect localRect = new Rect();
-        activity.getWindow().getDecorView().getWindowVisibleDisplayFrame(localRect);
-        statusHeight = localRect.top;
-        if (statusHeight == 0) {
-            try {
-                Class<?> localClass = Class.forName("com.android.internal.R$dimen");
-                Object localObject = localClass.newInstance();
-                int i5 = Integer.parseInt(localClass.getField("status_bar_height").get(localObject).toString());
-                statusHeight = activity.getResources().getDimensionPixelSize(i5);
-            } catch (Exception e) {
-
-            }
-        }
-        return statusHeight;
-    }
-
     public static void setActivitySizePos(Activity activity, int x, int y, int width, int height) {
         WindowManager.LayoutParams p = activity.getWindow().getAttributes();
         p.x = x;
@@ -302,31 +284,65 @@ public class UIUtils {
         followSystemBackground = isFollowSystemBackground;
     }
 
-    public static void setImmersion(Activity activity, boolean transparent, boolean dark) {
-        Window window = activity.getWindow();
+    public static int getStatusBarHeight(Activity activity) {
+        int resId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int height = activity.getResources().getDimensionPixelSize(resId);
+        return height;
+    }
 
-        Class clazz = window.getClass();
-        try {
-            int tranceFlag = 0;
-            int darkModeFlag = 0;
-            Class layoutParams = Class.forName("android.view.MiuiWindowManager$LayoutParams");
-            Field field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_TRANSPARENT");
-            tranceFlag = field.getInt(layoutParams);
-            field = layoutParams.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
-            darkModeFlag = field.getInt(layoutParams);
-            Method extraFlagField = clazz.getMethod("setExtraFlags", int.class, int.class);
-            if (transparent) {
-                if (dark) {
-                    extraFlagField.invoke(window, tranceFlag | darkModeFlag, tranceFlag | darkModeFlag);
-                } else {
-                    extraFlagField.invoke(window, tranceFlag, tranceFlag);
-                }
-            } else {
-                extraFlagField.invoke(window, 0, darkModeFlag);
+    public static int getNavigationBarHeight(Activity activity) {
+        int resId = activity.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        int height = activity.getResources().getDimensionPixelSize(resId);
+        return height;
+    }
+
+    public static boolean hasNavigationBar(Activity activity) {
+        boolean hasMenuKey = ViewConfiguration.get(activity).hasPermanentMenuKey();
+        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+        return (!hasMenuKey && !hasBackKey);
+    }
+
+    public static void setImmersion(Activity activity, boolean immersion) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            if (immersion) {
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
+                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
             }
+        }
+    }
 
-        } catch (Exception e) {
+    public static void setFitSystem(Activity activity, int res, boolean immersion) {
+        View v = activity.findViewById(res);
+        if (v instanceof ViewGroup) {
+            setFitSystem(activity, (ViewGroup) v, immersion);
+        }
+    }
 
+    public static void setFitSystem(Activity activity, ViewGroup v, boolean immersion) {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
+            if (immersion) {
+                v.setFitsSystemWindows(true);
+                v.setClipToPadding(true);
+            }
+        }
+    }
+
+    public static void setStatusbarColor(Context ctx, boolean isBlack) {
+        if (ctx instanceof Activity) {
+            if (DeviceUtils.isMiuiV6()) {
+                Window w = ((Activity) ctx).getWindow();
+                Class<?> clz = w.getClass();
+                try {
+                    int darkFlag = 0;
+                    Class<?> layoutParam = Class.forName("android.view.MiuiWindowManager$LayoutParams");
+                    Field field = layoutParam.getField("EXTRA_FLAG_STATUS_BAR_DARK_MODE");
+                    darkFlag = field.getInt(layoutParam);
+                    Method extraFlag = clz.getMethod("setExtraFlags", int.class, int.class);
+                    extraFlag.invoke(w, (isBlack ? darkFlag : 0), darkFlag);
+                } catch (Exception e) {
+
+                }
+            }
         }
     }
 }

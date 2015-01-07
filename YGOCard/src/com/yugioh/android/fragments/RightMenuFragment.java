@@ -57,7 +57,7 @@ public class RightMenuFragment extends BaseFragment implements OnItemClickListen
         lvSettings.setAdapter(adapterSettings);
 
         int lvHeight = UIUtils.dipToPx((int) (48 + UIUtils.getDensity() * 2) * 4);
-        int marginTop = (UIUtils.getHeight() - UIUtils.getStatusbarHeight(getActivity()) - lvHeight) / 2;
+        int marginTop = (UIUtils.getHeight() - UIUtils.getStatusBarHeight(getActivity()) - lvHeight) / 2;
         RelativeLayout.LayoutParams rllp = (RelativeLayout.LayoutParams) lvSettings.getLayoutParams();
         rllp.topMargin = marginTop;
         rllp.height = lvHeight;

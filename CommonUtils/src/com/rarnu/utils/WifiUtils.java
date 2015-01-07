@@ -6,6 +6,7 @@ import android.net.wifi.WifiConfiguration;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class WifiUtils {
@@ -184,7 +185,11 @@ public class WifiUtils {
             apConfig.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.TKIP);
             apConfig.allowedPairwiseCiphers.set(WifiConfiguration.PairwiseCipher.CCMP);
             apConfig.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
-            return mWifiManager.setWifiApEnabled(apConfig, enabled);
+
+            // mWifiManager.setWifiApEnabled(apConfig, enabled);
+            Method m = mWifiManager.getClass().getDeclaredMethod("setWifiApEnabled", WifiConfiguration.class, boolean.class);
+            boolean ret = (Boolean) m.invoke(mWifiManager, apConfig, enabled);
+            return ret;
         } catch (Exception e) {
             return false;
         }

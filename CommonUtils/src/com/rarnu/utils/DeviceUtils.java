@@ -10,6 +10,7 @@ import com.rarnu.command.RootUtils;
 import com.rarnu.utils.common.DeviceInfo;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class DeviceUtils {
@@ -207,6 +208,19 @@ public class DeviceUtils {
             ret = true;
         }
         return ret;
+    }
+
+    public static boolean isMiuiV6() {
+        int ver = 0;
+        try {
+            Class<?> sys = Class.forName("android.os.SystemProperties");
+            Method m = sys.getDeclaredMethod("get", String.class);
+            String v = (String) m.invoke(sys, "ro.miui.ui.version.code");
+            ver = Integer.parseInt(v);
+        } catch (Exception e) {
+
+        }
+        return ver >= 4;
     }
 
     public static boolean isBaiduRom(Context context) {

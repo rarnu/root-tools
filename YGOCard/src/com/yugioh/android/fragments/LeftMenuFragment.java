@@ -50,7 +50,7 @@ public class LeftMenuFragment extends BaseFragment implements OnItemClickListene
         lvCard.setAdapter(adapterCard);
 
         int lvHeight = UIUtils.dipToPx((int)(48 + UIUtils.getDensity() * 2) * 6);
-        int marginTop = (UIUtils.getHeight() - UIUtils.getStatusbarHeight(getActivity()) - lvHeight) / 2;
+        int marginTop = (UIUtils.getHeight() - UIUtils.getStatusBarHeight(getActivity()) - lvHeight) / 2;
         RelativeLayout.LayoutParams rllp = (RelativeLayout.LayoutParams)lvCard.getLayoutParams();
         rllp.topMargin = marginTop;
         rllp.height = lvHeight;
