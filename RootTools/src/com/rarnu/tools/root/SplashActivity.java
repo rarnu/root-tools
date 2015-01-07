@@ -15,9 +15,11 @@ import android.widget.TextView;
 import com.rarnu.command.RootUtils;
 import com.rarnu.tools.root.api.MobileApi;
 import com.rarnu.tools.root.loader.SplashLoader;
-import com.rarnu.tools.root.utils.*;
+import com.rarnu.tools.root.utils.DirHelper;
+import com.rarnu.tools.root.utils.IptablesUtils;
+import com.rarnu.tools.root.utils.ShareUtils;
+import com.rarnu.tools.root.utils.SignatureUtils;
 import com.rarnu.utils.*;
-import com.rarnu.utils.FileUtils;
 
 import java.io.File;
 import java.util.List;
