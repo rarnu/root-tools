@@ -21,8 +21,6 @@ import com.rarnu.devlib.component.intf.*;
 import com.rarnu.devlib.component.tools.CustomViewAbove;
 import com.rarnu.devlib.component.tools.CustomViewBehind;
 
-import java.lang.reflect.Method;
-
 public class SlidingMenu extends RelativeLayout {
 
     public static final int SLIDING_WINDOW = 0;
@@ -314,11 +312,8 @@ public class SlidingMenu extends RelativeLayout {
         int width;
         Display display = ((WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE)).getDefaultDisplay();
         try {
-            Class<?> cls = Display.class;
-            Class<?>[] parameterTypes = {Point.class};
             Point parameter = new Point();
-            Method method = cls.getMethod("getSize", parameterTypes);
-            method.invoke(display, parameter);
+            display.getSize(parameter);
             width = parameter.x;
         } catch (Exception e) {
             width = display.getWidth();

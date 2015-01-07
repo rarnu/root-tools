@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PointF;
-import android.graphics.Rect;
 import android.util.DisplayMetrics;
 import android.view.*;
 import android.widget.GridView;
