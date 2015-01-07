@@ -7,25 +7,25 @@ the tool for rooted android devices
 
 1) get the JelyBean jar with hidden APIs
 ```
-   $ wget http://rarnu.7thgen.info/downloads/jellybean17.jar
+   $ wget http://rarnu.7thgen.info/downloads/android19.jar
 ```
-2) backup your android.jar in $(ANDROID_SDK)/platforms/android-17/
+2) backup your android.jar in $(ANDROID_SDK)/platforms/android-19/
 ```
-   $ mv $(ANDROID_SDK)/platforms/android-17/android.jar ./backup/
+   $ mv $(ANDROID_SDK)/platforms/android-19/android.jar ./backup/
 ```
 3) replace android.jar said above with the downloaded file
 ```
-   $ mv jellybean17.jar android.jar
-   $ cp android.jar $(ANDROID_SDK)/platforms/android-17/
+   $ mv android19.jar android.jar
+   $ cp android.jar $(ANDROID_SDK)/platforms/android-19/
 ```
 4) update following projects
 ```
-   $ android update project -n CommandLib -p . -t android-17
-   $ android update project -n CommonUtils -p . -t android-17
-   $ android update project -n CommonDevLib -p . -t android-17
-   $ android update project -n Emulator -p . -t android-17
-   $ android update project -n PackageParser4 -p . -t android-17
-   $ android update project -n RootTools -p . -t android-17
+   $ android update project -n CommandLib -p . -t android-19
+   $ android update project -n CommonUtils -p . -t android-19
+   $ android update project -n CommonDevLib -p . -t android-19
+   $ android update project -n Emulator -p . -t android-19
+   $ android update project -n PackageParser4 -p . -t android-19
+   $ android update project -n RootTools -p . -t android-19
 ```
 5) build emulator so
 ```
