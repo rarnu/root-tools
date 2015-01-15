@@ -2,12 +2,12 @@ import UIKit
 
 extension UIViewController {
     
-    var sideMenuViewController: RESideMenu? {
+    var sideMenuViewController: SideMenu? {
         get {
             var iter: UIViewController? = self.parentViewController
             while (iter != nil) {
-                if (iter is RESideMenu) {
-                    return iter as? RESideMenu
+                if (iter is SideMenu) {
+                    return iter as? SideMenu
                 } else if (iter!.parentViewController != nil && iter!.parentViewController != iter) {
                     iter = iter!.parentViewController
                 } else {

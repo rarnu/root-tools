@@ -3,7 +3,7 @@ import UIKit
 var CURRENT_TOAST_TAG = 6984678
 let kComponentPadding: CGFloat = 5
 
-enum iToastGravity {
+enum ToastGravity {
     case Top, Bottom, Center
     func toInt() -> Int {
         switch(self) {
@@ -17,7 +17,7 @@ enum iToastGravity {
     }
 }
 
-enum iToastDuration {
+enum ToastDuration {
     case Long, Short, Normal
     func toInt() -> Int {
         switch(self){
@@ -31,7 +31,7 @@ enum iToastDuration {
     }
 }
 
-enum iToastType {
+enum ToastType {
     case Info, Notice, Warning, Error, None
     func toInt() -> Int {
         switch(self) {
@@ -47,23 +47,23 @@ enum iToastType {
             return 4
         }
     }
-    static func fromInt(i: Int) -> iToastType {
+    static func fromInt(i: Int) -> ToastType {
         switch(i) {
         case 0:
-            return iToastType.Info
+            return ToastType.Info
         case 1:
-            return iToastType.Notice
+            return ToastType.Notice
         case 2:
-            return iToastType.Warning
+            return ToastType.Warning
         case 3:
-            return iToastType.Error
+            return ToastType.Error
         default:
-            return iToastType.None
+            return ToastType.None
         }
     }
 }
 
-enum iToastImageLocation {
+enum ToastImageLocation {
     case Top, Left
     func toInt() -> Int {
         switch(self) {
@@ -77,12 +77,12 @@ enum iToastImageLocation {
 
 var sharedSettings: NSObject?
 
-class iToastSettings : NSObject, NSCopying {
+class ToastSettings : NSObject, NSCopying {
 
-    var duration: iToastDuration?
-    var gravity: iToastGravity?
+    var duration: ToastDuration?
+    var gravity: ToastGravity?
     var postition: CGPoint?
-    var toastType: iToastType?
+    var toastType: ToastType?
     var fontSize: CGFloat?
     var useShadow: Bool?
     var cornerRadius: CGFloat?
@@ -94,14 +94,14 @@ class iToastSettings : NSObject, NSCopying {
     var offsetTop: NSInteger?
     var images: NSDictionary?
     var positionIsSet: Bool?
-    var imageLocation: iToastImageLocation?
+    var imageLocation: ToastImageLocation?
     
-    func setImage(img: UIImage?, forType type: iToastType) {
-        setImage(img, withLocation: iToastImageLocation.Left, forType: type)
+    func setImage(img: UIImage?, forType type: ToastType) {
+        setImage(img, withLocation: ToastImageLocation.Left, forType: type)
     }
 
-    func setImage(img: UIImage?, withLocation location: iToastImageLocation, forType type: iToastType) {
-        if (type == iToastType.None) {
+    func setImage(img: UIImage?, withLocation location: ToastImageLocation, forType type: ToastType) {
+        if (type == ToastType.None) {
             return
         }
         if (images == nil) {
@@ -116,26 +116,26 @@ class iToastSettings : NSObject, NSCopying {
         imageLocation = location
     }
 
-    class func getSharedSettings() -> iToastSettings? {
+    class func getSharedSettings() -> ToastSettings? {
         if (sharedSettings == nil) {
-            sharedSettings = iToastSettings()
-            (sharedSettings as iToastSettings).gravity = iToastGravity.Center
-            (sharedSettings as iToastSettings).duration = iToastDuration.Short
-            (sharedSettings as iToastSettings).fontSize = 16.0;
-            (sharedSettings as iToastSettings).useShadow = true;
-            (sharedSettings as iToastSettings).cornerRadius = 5.0;
-            (sharedSettings as iToastSettings).bgRed = 0;
-            (sharedSettings as iToastSettings).bgGreen = 0;
-            (sharedSettings as iToastSettings).bgBlue = 0;
-            (sharedSettings as iToastSettings).bgAlpha = 0.7;
-            (sharedSettings as iToastSettings).offsetLeft = 0;
-            (sharedSettings as iToastSettings).offsetTop = 0;
+            sharedSettings = ToastSettings()
+            (sharedSettings as ToastSettings).gravity = ToastGravity.Center
+            (sharedSettings as ToastSettings).duration = ToastDuration.Short
+            (sharedSettings as ToastSettings).fontSize = 16.0;
+            (sharedSettings as ToastSettings).useShadow = true;
+            (sharedSettings as ToastSettings).cornerRadius = 5.0;
+            (sharedSettings as ToastSettings).bgRed = 0;
+            (sharedSettings as ToastSettings).bgGreen = 0;
+            (sharedSettings as ToastSettings).bgBlue = 0;
+            (sharedSettings as ToastSettings).bgAlpha = 0.7;
+            (sharedSettings as ToastSettings).offsetLeft = 0;
+            (sharedSettings as ToastSettings).offsetTop = 0;
         }
-        return (sharedSettings as iToastSettings)
+        return (sharedSettings as ToastSettings)
     }
     
     func copyWithZone(zone: NSZone) -> AnyObject {
-        var copy = iToastSettings()
+        var copy = ToastSettings()
         
         copy.gravity = self.gravity;
         copy.duration = self.duration;
@@ -152,15 +152,15 @@ class iToastSettings : NSObject, NSCopying {
     
         var keys = self.images!.allKeys as NSArray
         for key in keys {
-            copy.setImage(images!.valueForKey(key as String) as? UIImage, forType: iToastType.fromInt(key as Int))
+            copy.setImage(images!.valueForKey(key as String) as? UIImage, forType: ToastType.fromInt(key as Int))
         }
         copy.imageLocation = imageLocation
         return copy
     }
 }
 
-class iToast: NSObject {
-    var _settings: iToastSettings?
+class Toast: NSObject {
+    var _settings: ToastSettings?
     var timer: NSTimer?
     var view: UIView?
     var text: NSString?
@@ -170,20 +170,19 @@ class iToast: NSObject {
     }
     
     func show() {
-        show(iToastType.None)
+        show(ToastType.None)
     }
     
-    func show(type: iToastType) {
+    func show(type: ToastType) {
         var theSettings = _settings
         
         if (theSettings == nil) {
-            theSettings = iToastSettings.getSharedSettings()
+            theSettings = ToastSettings.getSharedSettings()
         }
         
         var image: UIImage? = theSettings!.images?.valueForKey(String(type.toInt())) as? UIImage
         var font = UIFont.systemFontOfSize(theSettings!.fontSize!)
         
-        // var textSize = CGSizeMake(280, 20) // text!.sizeWithFont(font, constrainedToSize:CGSizeMake(280, 60))
         var textSize = text!.sizeWithAttributes([NSFontAttributeName: font])
         
         var label = UILabel(frame: CGRectMake(0, 0, textSize.width + kComponentPadding, textSize.height + kComponentPadding))
@@ -204,11 +203,11 @@ class iToast: NSObject {
         if (image != nil) {
             v.frame = _toastFrameForImageSize(image!.size, withLocation: theSettings!.imageLocation!, andTextSize: textSize)
             switch (theSettings!.imageLocation!) {
-            case iToastImageLocation.Left:
+            case ToastImageLocation.Left:
                 label.center = CGPointMake(image!.size.width + kComponentPadding * 2
                     + (v.frame.size.width - image!.size.width - kComponentPadding * 2) / 2,
                     v.frame.size.height / 2)
-            case iToastImageLocation.Top:
+            case ToastImageLocation.Top:
                 label.center = CGPointMake(v.frame.size.width / 2,
                     (image!.size.height + kComponentPadding * 2
                         + (v.frame.size.height - image!.size.height - kComponentPadding * 2) / 2))
@@ -241,11 +240,11 @@ class iToast: NSObject {
         
         switch (orientation) {
         case UIInterfaceOrientation.Portrait:
-                if (theSettings!.gravity! == iToastGravity.Top) {
+                if (theSettings!.gravity! == ToastGravity.Top) {
                     point = CGPointMake(window!.frame.size.width / 2, 45)
-                } else if (theSettings!.gravity! == iToastGravity.Bottom) {
+                } else if (theSettings!.gravity! == ToastGravity.Bottom) {
                     point = CGPointMake(window!.frame.size.width / 2, window!.frame.size.height - 45)
-                } else if (theSettings!.gravity! == iToastGravity.Center) {
+                } else if (theSettings!.gravity! == ToastGravity.Center) {
                     point = CGPointMake(window!.frame.size.width/2, window!.frame.size.height/2)
                 } else {
                     point = theSettings!.postition!
@@ -258,11 +257,11 @@ class iToast: NSObject {
                 var width = window!.frame.size.width
                 var height = window!.frame.size.height
                 
-                if (theSettings!.gravity! == iToastGravity.Top) {
+                if (theSettings!.gravity! == ToastGravity.Top) {
                     point = CGPointMake(width / 2, height - 45)
-                } else if (theSettings!.gravity! == iToastGravity.Bottom) {
+                } else if (theSettings!.gravity! == ToastGravity.Bottom) {
                     point = CGPointMake(width / 2, 45)
-                } else if (theSettings!.gravity! == iToastGravity.Center) {
+                } else if (theSettings!.gravity! == ToastGravity.Center) {
                     point = CGPointMake(width/2, height/2)
                 } else {
                     point = theSettings!.postition!
@@ -273,11 +272,11 @@ class iToast: NSObject {
         case UIInterfaceOrientation.LandscapeLeft:
                 v.transform = CGAffineTransformMakeRotation(CGFloat(M_PI/2))
                 
-                if (theSettings!.gravity! == iToastGravity.Top) {
+                if (theSettings!.gravity! == ToastGravity.Top) {
                     point = CGPointMake(window!.frame.size.width - 45, window!.frame.size.height / 2)
-                } else if (theSettings!.gravity! == iToastGravity.Bottom) {
+                } else if (theSettings!.gravity! == ToastGravity.Bottom) {
                     point = CGPointMake(45,window!.frame.size.height / 2)
-                } else if (theSettings!.gravity! == iToastGravity.Center) {
+                } else if (theSettings!.gravity! == ToastGravity.Center) {
                     point = CGPointMake(window!.frame.size.width/2, window!.frame.size.height/2)
                 } else {
                     point = theSettings!.postition!
@@ -288,11 +287,11 @@ class iToast: NSObject {
         case UIInterfaceOrientation.LandscapeRight:
                 v.transform = CGAffineTransformMakeRotation(CGFloat(-M_PI/2))
                 
-                if (theSettings!.gravity! == iToastGravity.Top) {
+                if (theSettings!.gravity! == ToastGravity.Top) {
                     point = CGPointMake(45, window!.frame.size.height / 2)
-                } else if (theSettings!.gravity! == iToastGravity.Bottom) {
+                } else if (theSettings!.gravity! == ToastGravity.Bottom) {
                     point = CGPointMake(window!.frame.size.width - 45, window!.frame.size.height/2)
-                } else if (theSettings!.gravity! == iToastGravity.Center) {
+                } else if (theSettings!.gravity! == ToastGravity.Center) {
                     point = CGPointMake(window!.frame.size.width/2, window!.frame.size.height/2)
                 } else {
                     point = theSettings!.postition!
@@ -327,19 +326,19 @@ class iToast: NSObject {
 
     }
     
-    class func makeText(text: NSString) -> iToast {
-        var toast = iToast(txt: text)
+    class func makeText(text: NSString) -> Toast {
+        var toast = Toast(txt: text)
         return toast
     }
     
-    func _toastFrameForImageSize(imageSize: CGSize, withLocation location: iToastImageLocation, andTextSize textSize: CGSize) -> CGRect {
+    func _toastFrameForImageSize(imageSize: CGSize, withLocation location: ToastImageLocation, andTextSize textSize: CGSize) -> CGRect {
         var theRect = CGRectZero
         switch (location) {
-        case iToastImageLocation.Left:
+        case ToastImageLocation.Left:
             theRect = CGRectMake(0, 0,
                 imageSize.width + textSize.width + kComponentPadding * 3,
                 max(textSize.height, imageSize.height) + kComponentPadding * 2);
-        case iToastImageLocation.Top:
+        case ToastImageLocation.Top:
             theRect = CGRectMake(0, 0,
                 max(textSize.width, imageSize.width) + kComponentPadding * 2,
                 imageSize.height + textSize.height + kComponentPadding * 3);
@@ -347,7 +346,7 @@ class iToast: NSObject {
         return theRect
     }
     
-    func _frameForImage(type: iToastType, inToastFrame toastFrame: CGRect) -> CGRect {
+    func _frameForImage(type: ToastType, inToastFrame toastFrame: CGRect) -> CGRect {
         var theSettings = _settings
         var image: UIImage? = theSettings!.images?.valueForKey(String(type.toInt())) as? UIImage
         if (image == nil) {
@@ -355,9 +354,9 @@ class iToast: NSObject {
         }
         var imageFrame = CGRectZero
         switch (theSettings!.imageLocation!) {
-        case iToastImageLocation.Left:
+        case ToastImageLocation.Left:
             imageFrame = CGRectMake(kComponentPadding, (toastFrame.size.height - image!.size.height) / 2, image!.size.width, image!.size.height);
-        case iToastImageLocation.Top:
+        case ToastImageLocation.Top:
             imageFrame = CGRectMake((toastFrame.size.width - image!.size.width) / 2, kComponentPadding, image!.size.width, image!.size.height);
         }
         return imageFrame
@@ -377,56 +376,56 @@ class iToast: NSObject {
         view?.removeFromSuperview()
     }
     
-    func setDuration(duration: iToastDuration) -> iToast {
+    func setDuration(duration: ToastDuration) -> Toast {
         self.theSettings()?.duration = duration
         return self
     }
-    func setGravity(gravity: iToastGravity, offsetLeft left: NSInteger, offsetTop top: NSInteger) -> iToast {
+    func setGravity(gravity: ToastGravity, offsetLeft left: NSInteger, offsetTop top: NSInteger) -> Toast {
         self.theSettings()?.gravity = gravity
         self.theSettings()?.offsetLeft = left
         self.theSettings()?.offsetTop = top
         return self
     }
-    func setGravity(gravity: iToastGravity) -> iToast {
+    func setGravity(gravity: ToastGravity) -> Toast {
         self.theSettings()?.gravity = gravity
         return self
     }
-    func setPostion(position: CGPoint) -> iToast {
+    func setPostion(position: CGPoint) -> Toast {
         self.theSettings()?.postition = CGPointMake(position.x, position.y);
         return self
     }
-    func setFontSize(fontSize: CGFloat) -> iToast {
+    func setFontSize(fontSize: CGFloat) -> Toast {
         self.theSettings()?.fontSize = fontSize
         return self
     }
-    func setUseShadow(useShadow: Bool) -> iToast {
+    func setUseShadow(useShadow: Bool) -> Toast {
         self.theSettings()?.useShadow = useShadow
         return self
     }
-    func setCornerRadius(cornerRadius: CGFloat) -> iToast {
+    func setCornerRadius(cornerRadius: CGFloat) -> Toast {
         self.theSettings()?.cornerRadius = cornerRadius
         return self
     }
-    func setBgRed(bgRed: CGFloat) -> iToast {
+    func setBgRed(bgRed: CGFloat) -> Toast {
         self.theSettings()?.bgRed = bgRed
         return self
     }
-    func setBgGreen(bgGreen: CGFloat) -> iToast {
+    func setBgGreen(bgGreen: CGFloat) -> Toast {
         self.theSettings()?.bgGreen = bgGreen
         return self
     }
-    func setBgBlue(bgBlue: CGFloat) -> iToast {
+    func setBgBlue(bgBlue: CGFloat) -> Toast {
         self.theSettings()?.bgBlue = bgBlue
         return self
     }
-    func setBgAlpha(bgAlpha: CGFloat) -> iToast {
+    func setBgAlpha(bgAlpha: CGFloat) -> Toast {
         self.theSettings()?.bgAlpha = bgAlpha
         return self
     }
     
-    func theSettings() -> iToastSettings? {
+    func theSettings() -> ToastSettings? {
         if (_settings == nil) {
-            _settings = iToastSettings.getSharedSettings()
+            _settings = ToastSettings.getSharedSettings()
         }
         return _settings
     }

@@ -19,12 +19,10 @@ protocol HttpUtilsDelegate: NSObjectProtocol {
 class HttpUtils: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDelegate {
     var receivedData: NSMutableData?
     var delegate: HttpUtilsDelegate?
-    var tag: Int?
     
     func get(url: String) {
         NSLog(url)
         var u = NSURL(string: url)
-        
         var req = NSURLRequest(URL: u!, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 60)
         var conn = NSURLConnection(request: req, delegate: self)
         conn!.start()
@@ -41,6 +39,10 @@ class HttpUtils: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDelegate 
         conn!.start()
     }
     
+    func postFile(url: String, param: String, file: NSData) {
+        // TODO: post upload file
+    }
+    
     func connection(connection: NSURLConnection, didReceiveData data: NSData) {
         self.receivedData!.appendData(data)
         self.delegate?.httpUtils?(self, receivedProgress: self.receivedData!.length)
@@ -54,7 +56,6 @@ class HttpUtils: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDelegate 
     func connectionDidFinishLoading(connection: NSURLConnection) {
         self.delegate?.httpUtils?(self, receivedData: self.receivedData)
     }
-    
     
     func connection(connection: NSURLConnection, didFailWithError error: NSError) {
         NSLog(error.localizedDescription)

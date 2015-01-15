@@ -1,16 +1,16 @@
 import UIKit
 
 @objc
-protocol RESideMenuDelegate: NSObjectProtocol {
-    optional func sideMenu(sideMenu:RESideMenu, didRecognizePanGesture recognizer: UIPanGestureRecognizer?)
-    optional func sideMenu(sideMenu:RESideMenu, willShowMenuViewController menuViewController: UIViewController?)
-    optional func sideMenu(sideMenu:RESideMenu, didShowMenuViewController menuViewController: UIViewController?)
-    optional func sideMenu(sideMenu:RESideMenu, willHideMenuViewController menuViewController: UIViewController?)
-    optional func sideMenu(sideMenu:RESideMenu, didHideMenuViewController menuViewController: UIViewController?)
+protocol SideMenuDelegate: NSObjectProtocol {
+    optional func sideMenu(sideMenu:SideMenu, didRecognizePanGesture recognizer: UIPanGestureRecognizer?)
+    optional func sideMenu(sideMenu:SideMenu, willShowMenuViewController menuViewController: UIViewController?)
+    optional func sideMenu(sideMenu:SideMenu, didShowMenuViewController menuViewController: UIViewController?)
+    optional func sideMenu(sideMenu:SideMenu, willHideMenuViewController menuViewController: UIViewController?)
+    optional func sideMenu(sideMenu:SideMenu, didHideMenuViewController menuViewController: UIViewController?)
     
 }
 
-class RESideMenu: UIViewController, UIGestureRecognizerDelegate {
+class SideMenu: UIViewController, UIGestureRecognizerDelegate {
 
     var _contentViewController: UIViewController? = nil
     
@@ -87,7 +87,7 @@ class RESideMenu: UIViewController, UIGestureRecognizerDelegate {
 
         }
     }
-    var delegate: RESideMenuDelegate?
+    var delegate: SideMenuDelegate?
     var animationDuration: NSTimeInterval?
     
     var _backgroundImage: UIImage?
