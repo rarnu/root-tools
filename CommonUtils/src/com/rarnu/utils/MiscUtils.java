@@ -49,11 +49,7 @@ public class MiscUtils {
         return extSdcard;
     }
 
-    public static void toggleSoftKeyboard(Context context) {
-        InputMethodManager imm = (InputMethodManager) context.getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
 
-    }
 
     public static boolean isEmulator(Context context) {
         boolean ret = false;
