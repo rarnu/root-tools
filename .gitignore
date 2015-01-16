@@ -49,6 +49,9 @@ out/
 *.exe
 *.dll
 
+# xcode
+*.xcodeproj/
+
 # in projects
 preview_generator
 roottools_client
