@@ -170,6 +170,10 @@ class FileUtils: NSObject {
         return fmgr.fileExistsAtPath(fileOper)
     }
     
+    class func fileExists(filePath: String) -> Bool {
+        return NSFileManager.defaultManager().fileExistsAtPath(filePath)
+    }
+    
     class func getFileSize(filePath: String) -> UInt64 {
         var manager = NSFileManager.defaultManager()
         if (manager.fileExistsAtPath(filePath)) {

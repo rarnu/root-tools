@@ -4,42 +4,58 @@ import UIKit
 protocol DownloadUtilsDelegate: NSObjectProtocol {
     optional func downloadUtils(downloadUtils: DownloadUtils, beginDownload: Int);
     optional func downloadUtils(downloadUtils: DownloadUtils, progress: Int);
-    optional func downloadUtils(downloadUtils: DownloadUtils, endDownload: Int);
-    optional func downloadUtils(downloadUtils: DownloadUtils, fileSaved: NSString);
+    optional func downloadUtils(downloadUtils: DownloadUtils, endDownload: Int, filePath: String);
     optional func downloadUtils(downloadUtils: DownloadUtils, error: NSString);
 }
 
-class DownloadUtils: NSObject, HttpUtilsDelegate {
+class DownloadUtils: NSObject, NSURLConnectionDataDelegate, NSURLConnectionDelegate {
 
     var delegate: DownloadUtilsDelegate?
-    var savePath: String?
+    var fileName: String?
+    var filePath: String?
+    var progress: Int?
     
-    func download(url: String, fileName: String, path: String) {
-        savePath = FileUtils.buildPath(fileName, path: path)
-        var http = HttpUtils()
-        http.delegate = self
-        http.get(url)
+    func download(url: String, name: String, path: String) {
+        fileName = name
+        filePath = path
+        progress = 0
+        var downloadUrl = NSURL(string: url)
+        var req = NSURLRequest(URL: downloadUrl!, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 60)
+        var conn = NSURLConnection(request: req, delegate: self)
+        conn!.start()
     }
     
-    func httpUtils(httpUtils: HttpUtils, receivedData data: NSData?) {
-        // TODO: This is not correct
-        self.delegate?.downloadUtils?(self, endDownload: data!.length)
-        var ret = data!.writeToFile(savePath!, atomically: true)
-        if (ret) {
-            self.delegate?.downloadUtils?(self, fileSaved: NSString(string: savePath!))
+    func connection(connection: NSURLConnection, didReceiveData data: NSData) {
+        if (FileUtils.fileExists(fileName!, filePath: filePath!)) {
+            FileUtils.appendFile(fileName!, savePath: filePath!, fileData: data)
+        } else {
+            FileUtils.rewriteFile(fileName!, savePath: filePath!, fileData: data)
         }
+        progress! += data.length
+        self.delegate?.downloadUtils?(self, progress: progress!)
     }
     
-    func httpUtils(httpUtils: HttpUtils, receivedError err: NSString) {
-        self.delegate?.downloadUtils?(self, error: err)
-    }
-    
-    func httpUtils(httpUtils: HttpUtils, receivedFileSize fileSize: Int64) {
+    func connection(connection: NSURLConnection, didReceiveResponse response: NSURLResponse) {
         self.delegate?.downloadUtils?(self, beginDownload: 0)
     }
     
-    func httpUtils(httpUtils: HttpUtils, receivedProgress progress: Int) {
-        self.delegate?.downloadUtils?(self, progress: progress)
+    func connectionDidFinishLoading(connection: NSURLConnection) {
+        self.delegate?.downloadUtils?(self, endDownload: progress!, filePath: FileUtils.buildPath(fileName!, path: filePath!))
+    }
+    
+    func connection(connection: NSURLConnection, didFailWithError error: NSError) {
+        self.delegate?.downloadUtils?(self, error: error.localizedDescription)
+    }
+    
+    func connection(connection: NSURLConnection, canAuthenticateAgainstProtectionSpace protectionSpace: NSURLProtectionSpace) -> Bool {
+        return protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust
+    }
+    
+    func connection(connection: NSURLConnection, didReceiveAuthenticationChallenge challenge: NSURLAuthenticationChallenge) {
+        if (challenge.protectionSpace.authenticationMethod == NSURLAuthenticationMethodServerTrust) {
+            challenge.sender.useCredential(NSURLCredential(forTrust: challenge.protectionSpace.serverTrust), forAuthenticationChallenge: challenge)
+        }
+        challenge.sender.continueWithoutCredentialForAuthenticationChallenge(challenge)
     }
     
 }
