@@ -39,8 +39,51 @@ class HttpUtils: NSObject, NSURLConnectionDelegate, NSURLConnectionDataDelegate 
         conn!.start()
     }
     
-    func postFile(url: String, param: String, file: NSData) {
+    func postFile(url: String, param: NSDictionary?, fieldName: String, fileName: String, mimeType: String, file: NSData) {
         // TODO: post upload file
+        
+        var prefix = "--"
+        var suffix = "22b996c312d6"
+        var boundary = prefix + suffix
+        
+        // NSString *name = [params objectForKey:@"name"]; // fieldname
+        // NSString *fileName = [params objectForKey:@"fileName"]; // filename
+        // NSString *type = [params objectForKey:@"type"];  // mimetype
+        
+        var topStr = ""
+        topStr += "\(boundary)\r\n"
+        topStr += "Content-Disposition: form-data; name=\"\(fieldName)\"; filename=\"\(fileName)\"; "
+        if (param != nil) {
+            var keys = param!.allKeys
+            for s in keys {
+                var key = s as String
+                topStr += "\(key)=\"\(param!.objectForKey(key) as String)\"; "
+            }
+        }
+        topStr += "\r\n"
+        topStr += "Content-Type: \(mimeType)\r\n\r\n"
+        
+        var bottomStr = ""
+        bottomStr += "\r\n\(boundary)--"
+        
+        var dataP = NSMutableData()
+        dataP.appendData(topStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion:true)!)
+        dataP.appendData(file)
+        dataP.appendData(bottomStr.dataUsingEncoding(NSUTF8StringEncoding, allowLossyConversion: true)!)
+        
+        var u = NSURL(string: url)
+        var request = NSMutableURLRequest(URL: u!, cachePolicy: NSURLRequestCachePolicy.UseProtocolCachePolicy, timeoutInterval: 60)
+        request.HTTPBody = dataP
+        request.HTTPMethod = "POST"
+        
+        var stringLength = "\(dataP.length)"
+        request.setValue(stringLength, forHTTPHeaderField: "Content-Length")
+        
+        var stringContentType = "multipart/form-data; boundary=\(suffix)"
+        request.setValue(stringContentType, forHTTPHeaderField: "Content-Type")
+        
+        var connection = NSURLConnection(request: request, delegate: self)
+        connection!.start()
     }
     
     func connection(connection: NSURLConnection, didReceiveData data: NSData) {

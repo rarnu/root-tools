@@ -50,6 +50,7 @@ out/
 *.dll
 
 # xcode
+.DS_*
 *.xcodeproj/
 
 # in projects
