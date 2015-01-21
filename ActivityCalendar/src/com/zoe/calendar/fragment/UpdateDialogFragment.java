@@ -21,13 +21,10 @@ public class UpdateDialogFragment extends BaseDialogFragment implements
 
 	public UpdateDialogFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_update_dialog);
+		// tagText = ResourceUtils.getString(R.tag.fragment_update_dialog);
 	}
 	
 	// update
-	public UpdateDialogFragment(String tag) {
-		super(tag);
-	}
 
 	@Override
 	public int getBarTitle() {

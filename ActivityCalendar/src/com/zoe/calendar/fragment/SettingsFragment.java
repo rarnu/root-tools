@@ -33,7 +33,7 @@ public class SettingsFragment extends BaseFragment implements
 	
 	public SettingsFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_settings);
+		// tagText = ResourceUtils.getString(R.tag.fragment_settings);
 	}
 	
 	public SettingsFragment(String tag) {

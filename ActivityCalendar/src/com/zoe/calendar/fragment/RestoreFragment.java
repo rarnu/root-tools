@@ -30,7 +30,7 @@ public class RestoreFragment extends BaseFragment implements RemoveListener {
 	
 	public RestoreFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_restore);
+		// tagText = ResourceUtils.getString(R.tag.fragment_restore);
 	}
 
 	public RestoreFragment(String tag) {

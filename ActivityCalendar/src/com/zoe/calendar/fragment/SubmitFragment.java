@@ -50,7 +50,7 @@ public class SubmitFragment extends BaseFragment implements OnClickListener {
 
 	public SubmitFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_submit);
+		// tagText = ResourceUtils.getString(R.tag.fragment_submit);
 	}
 
 	public SubmitFragment(String tag) {

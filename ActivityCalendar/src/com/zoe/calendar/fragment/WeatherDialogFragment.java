@@ -20,13 +20,10 @@ public class WeatherDialogFragment extends BaseDialogFragment implements
 
 	public WeatherDialogFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_weather_dialog);
+		// tagText = ResourceUtils.getString(R.tag.fragment_weather_dialog);
 	}
 	
 	// update
-	public WeatherDialogFragment(String tag) {
-		super(tag);
-	}
 
 	@Override
 	public int getBarTitle() {

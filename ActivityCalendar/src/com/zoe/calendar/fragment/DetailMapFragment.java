@@ -27,7 +27,7 @@ public class DetailMapFragment extends BaseFragment {
 
 	public DetailMapFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_detail_map);
+		// tagText = ResourceUtils.getString(R.tag.fragment_detail_map);
 		tabTitle = ResourceUtils.getString(R.string.menu_map);
 	}
 	

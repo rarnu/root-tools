@@ -43,7 +43,7 @@ public class CityFragment extends BaseFragment implements OnClickListener,
 
 	public CityFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_city);
+		// tagText = ResourceUtils.getString(R.tag.fragment_city);
 	}
 
 	public CityFragment(String tag) {

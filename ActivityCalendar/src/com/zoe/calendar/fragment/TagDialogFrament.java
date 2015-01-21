@@ -30,10 +30,7 @@ public class TagDialogFrament extends BaseDialogFragment implements
 
 	public TagDialogFrament() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_tag_dialog);
-	}
-	public TagDialogFrament(String tag) {
-		super(tag);
+		// tagText = ResourceUtils.getString(R.tag.fragment_tag_dialog);
 	}
 
 	@Override

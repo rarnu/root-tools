@@ -19,7 +19,7 @@ public class FeedbackFragment extends BaseFragment {
 	
 	public FeedbackFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_feedback);
+		// tagText = ResourceUtils.getString(R.tag.fragment_feedback);
 	}
 
 	public FeedbackFragment(String tag) {

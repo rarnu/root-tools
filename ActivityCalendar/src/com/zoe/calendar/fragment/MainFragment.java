@@ -90,7 +90,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	public MainFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_main);
+		// tagText = ResourceUtils.getString(R.tag.fragment_main);
 	}
 
 	public MainFragment(String tag) {

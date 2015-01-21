@@ -33,11 +33,7 @@ public class ShareDialogFragment extends BaseDialogFragment implements
 
 	public ShareDialogFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_share_dialog);
-	}
-
-	public ShareDialogFragment(String tag) {
-		super(tag);
+		// tagText = ResourceUtils.getString(R.tag.fragment_share_dialog);
 	}
 
 	@Override

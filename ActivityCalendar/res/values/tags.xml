@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <item name="fragment_main" type="tag">main_fragment</item>
-    <item name="fragment_left_menu" type="tag">left_menu_frgment</item>
-    <item name="fragment_right_motion" type="tag">right_motion_fragment</item>
-    <item name="fragment_detail" type="tag">detail_fragment</item>
-    <item name="fragment_detail_info" type="tag">detail_info_fragment</item>
-    <item name="fragment_detail_web" type="tag">detail_web_fragment</item>
-    <item name="fragment_detail_map" type="tag">detail_map_fragment</item>
-    <item name="fragment_settings" type="tag">settings_fragment</item>
-    <item name="fragment_city" type="tag">city_fragment</item>
-    <item name="fragment_restore" type="tag">restore_fragment</item>
-    <item name="fragment_feedback" type="tag">feedback_fragment</item>
-    <item name="fragment_update_dialog" type="tag">update_dialog_fragment</item>
-    <item name="fragment_event_dialog" type="tag">event_dialog_fragment</item>
-    <item name="fragment_weather_dialog" type="tag">weather_dialog_fragment</item>
-    <item name="fragment_share_dialog" type="tag">share_dialog_fragment</item>
-    <item name="fragment_tag_dialog" type="tag">tag_dialog_fragment</item>
-    <item name="fragment_not_implemented_dialog" type="tag">not_implemented_dialog_fragment</item>
-    <item name="fragment_newbie" type="tag">newbie_fragment</item>
-    <item name="fragment_submit" type="tag">submit_fragment</item>
+    <string name="fragment_main">main_fragment</string>
+    <string name="fragment_left_menu">left_menu_frgment</string>
+    <string name="fragment_right_motion">right_motion_fragment</string>
+    <string name="fragment_detail">detail_fragment</string>
+    <string name="fragment_detail_info">detail_info_fragment</string>
+    <string name="fragment_detail_web">detail_web_fragment</string>
+    <string name="fragment_detail_map">detail_map_fragment</string>
+    <string name="fragment_settings">settings_fragment</string>
+    <string name="fragment_city">city_fragment</string>
+    <string name="fragment_restore">restore_fragment</string>
+    <string name="fragment_feedback">feedback_fragment</string>
+    <string name="fragment_update_dialog">update_dialog_fragment</string>
+    <string name="fragment_event_dialog">event_dialog_fragment</string>
+    <string name="fragment_weather_dialog">weather_dialog_fragment</string>
+    <string name="fragment_share_dialog">share_dialog_fragment</string>
+    <string name="fragment_tag_dialog">tag_dialog_fragment</string>
+    <string name="fragment_not_implemented_dialog">not_implemented_dialog_fragment</string>
+    <string name="fragment_newbie">newbie_fragment</string>
+    <string name="fragment_submit">submit_fragment</string>
 
 </resources>
