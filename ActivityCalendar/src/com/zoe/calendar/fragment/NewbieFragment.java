@@ -20,7 +20,7 @@ public class NewbieFragment extends BaseFragment implements OnClickListener {
 
 	public NewbieFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_newbie);
+		// tagText = ResourceUtils.getString(R.tag.fragment_newbie);
 	}
 	public NewbieFragment(String tag) {
 		super(tag, "");

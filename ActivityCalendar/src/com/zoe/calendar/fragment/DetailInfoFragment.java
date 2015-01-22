@@ -19,7 +19,7 @@ public class DetailInfoFragment extends BaseFragment {
 
 	public DetailInfoFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_detail_info);
+		// tagText = ResourceUtils.getString(R.string.fragment_detail_info);
 		tabTitle = ResourceUtils.getString(R.string.menu_activity);
 	}
 	

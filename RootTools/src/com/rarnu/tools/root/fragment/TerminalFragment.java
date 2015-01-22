@@ -10,6 +10,7 @@ import com.rarnu.terminal.session.TermSession;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.MenuItemIds;
+import com.rarnu.utils.InputMethodUtils;
 import com.rarnu.utils.MiscUtils;
 import com.rarnu.utils.UIUtils;
 
@@ -96,7 +97,7 @@ public class TerminalFragment extends BaseFragment {
                 emu.sendFnKey();
                 break;
             case MenuItemIds.MENU_TOGGLE_INPUT_METHOD:
-                MiscUtils.toggleSoftKeyboard(getActivity());
+                InputMethodUtils.toggleSoftKeyboard(getActivity());
                 break;
         }
         return true;

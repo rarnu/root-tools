@@ -21,7 +21,7 @@ public class DetailWebFragment extends BaseFragment {
 
 	public DetailWebFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_detail_web);
+		// tagText = ResourceUtils.getString(R.tag.fragment_detail_web);
 		tabTitle = ResourceUtils.getString(R.string.menu_url);
 	}
 

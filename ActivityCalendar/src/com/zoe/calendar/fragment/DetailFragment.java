@@ -35,11 +35,7 @@ public class DetailFragment extends BaseTabFragment {
 
 	public DetailFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_detail);
-	}
-
-	public DetailFragment(String tag) {
-		super(tag, "");
+		// tagText = ResourceUtils.getString(R.tag.fragment_detail);
 	}
 
 	@Override

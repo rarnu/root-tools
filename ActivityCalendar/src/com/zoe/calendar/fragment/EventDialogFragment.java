@@ -19,13 +19,10 @@ public class EventDialogFragment extends BaseDialogFragment implements
 
 	public EventDialogFragment() {
 		super();
-		tagText = ResourceUtils.getString(R.tag.fragment_event_dialog);
+		// tagText = ResourceUtils.getString(R.tag.fragment_event_dialog);
 	}
 
 	// update
-	public EventDialogFragment(String tag) {
-		super(tag);
-	}
 
 	@Override
 	public int getBarTitle() {

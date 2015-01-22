@@ -96,13 +96,13 @@ public class MainActivity extends BaseSlidingActivity implements UpdateCallback 
 		}
 
 		BaseFragment bfMain = (BaseFragment) (getFragmentManager()
-				.findFragmentByTag(getString(R.tag.fragment_main)));
+				.findFragmentByTag(getString(R.string.fragment_main)));
 		if (bfMain != null) {
 			bfMain.setNewArguments(null);
 		}
 
 		BaseFragment bfLeftMenu = (BaseFragment) (getFragmentManager()
-				.findFragmentByTag(getString(R.tag.fragment_left_menu)));
+				.findFragmentByTag(getString(R.string.fragment_left_menu)));
 		if (bfLeftMenu != null) {
 			bfLeftMenu.setNewArguments(null);
 		}
