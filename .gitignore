@@ -1,4 +1,5 @@
-# for all
+#
+for all
 *~
 *.log
 *.swp
@@ -51,7 +52,6 @@ out/
 
 # xcode
 .DS_*
-*.xcodeproj/
 
 # in projects
 preview_generator
