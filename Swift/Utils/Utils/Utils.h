@@ -16,3 +16,4 @@ FOUNDATION_EXPORT const unsigned char UtilsVersionString[];
 #import <Utils/DownloadUtils.h>
 #import <Utils/ZipArchive.h>
 #import <Utils/ZipUtils.h>
+#import <Utils/ImageUtils.h>
