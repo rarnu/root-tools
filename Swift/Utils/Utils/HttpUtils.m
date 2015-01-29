@@ -1,61 +1,136 @@
 #import "HttpUtils.h"
 
+#define BOUNDARY_STR @"--"
+#define RANDOM_ID_STR  @"_yiban_req_"
+
 @implementation HttpUtils
 
--(void) get: (NSString *) url {
++(NSArray *) sendRequestSync: (NSURLRequest *)req {
+    NSHTTPURLResponse * resp;
+    NSError * error;
+    NSData * retData =[NSURLConnection sendSynchronousRequest:req returningResponse:&resp error:&error];
+    NSArray * result = nil;
+    if (resp.statusCode == 200) {
+        result = [NSArray arrayWithObjects:retData, resp, error, nil];
+    }
+    return result;
+}
+
++(NSURLRequest *) buildGetRequest:(NSString *) url {
     NSURL * u = [NSURL URLWithString: url];
     NSURLRequest * req = [NSURLRequest requestWithURL:u cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-    NSURLConnection * conn = [NSURLConnection connectionWithRequest:req delegate:self];
-    [conn start];
+    return req;
 }
 
--(void) post: (NSString *)url param: (NSString *)param {
-    NSURL * u = [NSURL URLWithString:url];
-    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:u cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
++ (NSString *)topString:(NSString *)uploadID uploadFile:(NSString *)uploadFile {
+    NSMutableString *strM = [NSMutableString string];
+    [strM appendFormat:@"%@%@\n", BOUNDARY_STR, RANDOM_ID_STR];
+    [strM appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"\r\n", uploadID, uploadFile];
+    [strM appendFormat:@"Content-Type: */*\r\n\r\n"];
+    return strM;
+}
+
++ (NSString *)bottomString {
+    NSMutableString *strM = [NSMutableString string];
+    [strM appendFormat:@"%@%@--\n", BOUNDARY_STR, RANDOM_ID_STR];
+    return strM;
+}
+
++(void)fillPostHead: (NSMutableURLRequest *)req {
+    NSString *strContentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", RANDOM_ID_STR];
+    [req setValue:strContentType forHTTPHeaderField:@"Content-Type"];
     req.HTTPMethod = @"POST";
-    NSData * data = [param dataUsingEncoding:NSUTF8StringEncoding];
-    req.HTTPBody = data;
-    NSURLConnection * conn = [NSURLConnection connectionWithRequest:req delegate:self];
-    [conn start];
 }
 
--(void) postFile: (NSString *)url param: (NSDictionary *)param fieldName: (NSString *) fieldName fileName: (NSString *)fileName mimeType: (NSString *)mimeType file: (NSData *)file {
-    
-    NSString * prefix = @"--";
-    NSString * suffix = @"22b996c312d6";
-    NSString * boundary = [NSString stringWithFormat:@"%@%@", prefix, suffix];
-    
-    NSMutableString * topStr = [[NSMutableString alloc] initWithString:@""];
-    [topStr appendFormat:@"%@\r\n", boundary];
-    [topStr appendFormat:@"Content-Disposition: form-data; name=\"%@\"; filename=\"%@\"; ", fieldName, fileName];
-    if (param != nil) {
-        NSArray * keys = param.allKeys;
-        for (NSString * s in keys) {
-            [topStr appendFormat:@"%@=\"%@\"; ", s, (NSString *)[param objectForKey:s]];
++(void)buildPostParam: (NSMutableData *)data dict: (NSDictionary *)dict {
+    if (dict != nil) {
+        for (NSString * key in dict.allKeys) {
+            [data appendData:[[NSString stringWithFormat:@"%@%@\r\n", BOUNDARY_STR, RANDOM_ID_STR]dataUsingEncoding:NSUTF8StringEncoding]];
+            [data appendData:[[NSString stringWithFormat:@"Content-Disposition:form-data; name=\"%@\"\r\n\r\n", key] dataUsingEncoding:NSUTF8StringEncoding]];
+            [data appendData:[[NSString stringWithFormat:@"%@\r\n", [dict objectForKey:key]] dataUsingEncoding:NSUTF8StringEncoding]];
         }
     }
-    [topStr appendString:@"\r\n"];
-    [topStr appendFormat:@"Content-Type: %@\r\n\r\n", mimeType];
-    
-    NSString * bottomStr = [NSString stringWithFormat:@"\r\n%@--", boundary];
-    
-    NSMutableData * dataP = [[NSMutableData alloc] init];
-    [dataP appendData:[topStr dataUsingEncoding:NSUTF8StringEncoding]];
-    [dataP appendData:file];
-    [dataP appendData:[bottomStr dataUsingEncoding:NSUTF8StringEncoding]];
-    
+}
+
++(void)buildPostFileParam: (NSMutableData *)data dict: (NSDictionary *)dict {
+    if (dict != nil) {
+        NSString * filePath;
+        NSString * topStr;
+        for (NSString * key in dict.allKeys) {
+            filePath = [dict objectForKey:key];
+            topStr = [HttpUtils topString:key uploadFile:[filePath lastPathComponent]];
+            [data appendData:[topStr dataUsingEncoding:NSUTF8StringEncoding]];
+            [data appendData:[NSData dataWithContentsOfFile:filePath]];
+            [data appendData:[[NSString stringWithFormat:@"%@\r\n", [dict objectForKey:key]] dataUsingEncoding:NSUTF8StringEncoding]];
+        }
+    }
+}
+
++(void)buildBottomSplitter: (NSMutableData *)data {
+    [data appendData:[[HttpUtils bottomString] dataUsingEncoding:NSUTF8StringEncoding]];
+}
+
++(void)fillPostLength: (NSMutableURLRequest *)req data: (NSMutableData *)data {
+    NSString *strLength = [NSString stringWithFormat:@"%ld", (long)data.length];
+    [req setValue:strLength forHTTPHeaderField:@"Content-Length"];
+}
+
++(NSURLRequest *) buildPostRequest:(NSString *)url dict: (NSDictionary *)dict {
     NSURL * u = [NSURL URLWithString:url];
-    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:u cachePolicy:NSURLRequestUseProtocolCachePolicy timeoutInterval:60];
-    req.HTTPBody = dataP;
-    req.HTTPMethod = @"POST";
-    
-    NSString * stringLength = [NSString stringWithFormat:@"%ld", (unsigned long)dataP.length];
-    [req setValue:stringLength forHTTPHeaderField:@"Content-Length"];
-    NSString * stringContentType = [NSString stringWithFormat:@"multipart/form-data; boundary=%@", suffix];
-    [req setValue:stringContentType forHTTPHeaderField:@"Content-Type"];
-    
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:u cachePolicy:0 timeoutInterval:2.0f];
+    [HttpUtils fillPostHead:req];
+    NSMutableData *dataM = [NSMutableData data];
+    [HttpUtils buildPostParam:dataM dict:dict];
+    [HttpUtils buildBottomSplitter:dataM];
+    req.HTTPBody = dataM;
+    [HttpUtils fillPostLength:req data:dataM];
+    return req;
+}
+
+-(void) get: (NSString *) url {
+    NSURLRequest * req = [HttpUtils buildGetRequest:url];
     NSURLConnection * conn = [NSURLConnection connectionWithRequest:req delegate:self];
     [conn start];
+}
+
++(NSArray *) getSync: (NSString *)url {
+    NSURLRequest * req = [HttpUtils buildGetRequest:url];
+    return [HttpUtils sendRequestSync:req];
+}
+
+-(void) post: (NSString *)url dict: (NSDictionary *)dict {
+    NSURLRequest * req = [HttpUtils buildPostRequest:url dict:dict];
+    NSURLConnection * conn = [NSURLConnection connectionWithRequest:req delegate:self];
+    [conn start];
+}
+
++(NSArray *) postSync: (NSString *)url dict: (NSDictionary *)dict {
+    NSURLRequest * req = [HttpUtils buildPostRequest:url dict:dict];
+    return [HttpUtils sendRequestSync:req];
+}
+
++(NSURLRequest *) buildPostFileRequest:(NSString *)url param: (NSDictionary *)param files: (NSDictionary *)files {
+    NSURL * u = [NSURL URLWithString:url];
+    NSMutableURLRequest * req = [NSMutableURLRequest requestWithURL:u cachePolicy:0 timeoutInterval:2.0f];
+    [HttpUtils fillPostHead:req];
+    NSMutableData *dataM = [NSMutableData data];
+    [HttpUtils buildPostParam:dataM dict:param];
+    [HttpUtils buildPostFileParam:dataM dict:files];
+    [HttpUtils buildBottomSplitter:dataM];
+    req.HTTPBody = dataM;
+    [HttpUtils fillPostLength:req data:dataM];
+    return req;
+}
+
+-(void) postFile: (NSString *)url param: (NSDictionary *)param files: (NSDictionary *)files {
+    NSURLRequest * req = [HttpUtils buildPostFileRequest:url param:param files:files];
+    NSURLConnection * conn = [NSURLConnection connectionWithRequest:req delegate:self];
+    [conn start];
+}
+
++(NSArray *) postFileSync: (NSString *)url param: (NSDictionary *)param files: (NSDictionary *)files {
+    NSURLRequest * req = [HttpUtils buildPostFileRequest:url param:param files:files];
+    return [HttpUtils sendRequestSync:req];
 }
 
 

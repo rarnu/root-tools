@@ -16,7 +16,11 @@
 @property NSMutableData * receivedData;
 
 -(void) get: (NSString *) url;
--(void) post: (NSString *)url param: (NSString *)param;
--(void) postFile: (NSString *)url param: (NSDictionary *)param fieldName: (NSString *) fieldName fileName: (NSString *)fileName mimeType: (NSString *)mimeType file: (NSData *)file;
+-(void) post: (NSString *)url dict: (NSDictionary *)dict;
+-(void) postFile: (NSString *)url param: (NSDictionary *)param files: (NSDictionary *)files;
+
++(NSArray *) getSync: (NSString *)url;
++(NSArray *) postSync: (NSString *)url dict: (NSDictionary *)dict;
++(NSArray *) postFileSync: (NSString *)url param: (NSDictionary *)param files: (NSDictionary *)files;
 
 @end

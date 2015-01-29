@@ -46,6 +46,8 @@
 		929F34F91A6F799800C55B9D /* UIViewController+SideMenu.m in Sources */ = {isa = PBXBuildFile; fileRef = 929F34F51A6F799800C55B9D /* UIViewController+SideMenu.m */; };
 		929F34FD1A6F7D9900C55B9D /* Toast.h in Headers */ = {isa = PBXBuildFile; fileRef = 929F34FB1A6F7D9900C55B9D /* Toast.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		929F34FE1A6F7D9900C55B9D /* Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 929F34FC1A6F7D9900C55B9D /* Toast.m */; };
+		92EA832A1A786A8800AAD2C9 /* JsonUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 92EA83281A786A8800AAD2C9 /* JsonUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		92EA832B1A786A8800AAD2C9 /* JsonUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92EA83291A786A8800AAD2C9 /* JsonUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -90,6 +92,8 @@
 		929F34F51A6F799800C55B9D /* UIViewController+SideMenu.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIViewController+SideMenu.m"; sourceTree = "<group>"; };
 		929F34FB1A6F7D9900C55B9D /* Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Toast.h; sourceTree = "<group>"; };
 		929F34FC1A6F7D9900C55B9D /* Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Toast.m; sourceTree = "<group>"; };
+		92EA83281A786A8800AAD2C9 /* JsonUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = JsonUtils.h; sourceTree = "<group>"; };
+		92EA83291A786A8800AAD2C9 /* JsonUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = JsonUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -175,6 +179,8 @@
 				9221D25B1A6FD31200E8DA89 /* ZipUtils.m */,
 				9231FEFB1A70EEF4003D1FF0 /* ImageUtils.h */,
 				9231FEFC1A70EEF4003D1FF0 /* ImageUtils.m */,
+				92EA83281A786A8800AAD2C9 /* JsonUtils.h */,
+				92EA83291A786A8800AAD2C9 /* JsonUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -228,6 +234,7 @@
 				9221D25C1A6FD31200E8DA89 /* ZipUtils.h in Headers */,
 				9231FEFD1A70EEF4003D1FF0 /* ImageUtils.h in Headers */,
 				9221D2161A6FC61700E8DA89 /* UIUtils.h in Headers */,
+				92EA832A1A786A8800AAD2C9 /* JsonUtils.h in Headers */,
 				9221D24D1A6FD0AA00E8DA89 /* ioapi.h in Headers */,
 				9221D21A1A6FCB2100E8DA89 /* JailbreakUtils.h in Headers */,
 				929F34EB1A6F6B3A00C55B9D /* DeviceUtils.h in Headers */,
@@ -304,6 +311,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				9221D2501A6FD0AA00E8DA89 /* miniunz.c in Sources */,
+				92EA832B1A786A8800AAD2C9 /* JsonUtils.m in Sources */,
 				929F34F91A6F799800C55B9D /* UIViewController+SideMenu.m in Sources */,
 				929F34F01A6F6D8400C55B9D /* HttpUtils.m in Sources */,
 				9221D2131A6F917C00E8DA89 /* FileUtils.m in Sources */,
@@ -345,6 +353,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
@@ -390,6 +399,7 @@
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = YES;
 				CURRENT_PROJECT_VERSION = 1;
