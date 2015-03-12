@@ -4,10 +4,10 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.PointF;
+import android.os.Build;
 import android.util.DisplayMetrics;
 import android.view.*;
-import android.widget.GridView;
-import android.widget.ListView;
+import android.widget.*;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
@@ -283,29 +283,35 @@ public class UIUtils {
         followSystemBackground = isFollowSystemBackground;
     }
 
-    public static int getStatusBarHeight(Activity activity) {
-        int resId = activity.getResources().getIdentifier("status_bar_height", "dimen", "android");
-        int height = activity.getResources().getDimensionPixelSize(resId);
+    public static int getStatusBarHeight() {
+        int resId = context.getResources().getIdentifier("status_bar_height", "dimen", "android");
+        int height = context.getResources().getDimensionPixelSize(resId);
         return height;
     }
 
-    public static int getNavigationBarHeight(Activity activity) {
-        int resId = activity.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
-        int height = activity.getResources().getDimensionPixelSize(resId);
+    public static int getNavigationBarHeight() {
+        int resId = context.getResources().getIdentifier("navigation_bar_height", "dimen", "android");
+        int height = context.getResources().getDimensionPixelSize(resId);
         return height;
     }
 
-    public static boolean hasNavigationBar(Activity activity) {
-        boolean hasMenuKey = ViewConfiguration.get(activity).hasPermanentMenuKey();
-        boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
-        return (!hasMenuKey && !hasBackKey);
+    public static boolean hasNavigationBar() {
+        if (Build.MODEL.toLowerCase().contains("nexus")) {
+            boolean hasMenuKey = ViewConfiguration.get(context).hasPermanentMenuKey();
+            boolean hasBackKey = KeyCharacterMap.deviceHasKey(KeyEvent.KEYCODE_BACK);
+            return (!hasMenuKey && !hasBackKey);
+        } else {
+            return false;
+        }
     }
 
     public static void setImmersion(Activity activity, boolean immersion) {
         if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
             if (immersion) {
                 activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_STATUS);
-                activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                if (hasNavigationBar()) {
+                    activity.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TRANSLUCENT_NAVIGATION);
+                }
             }
         }
     }
@@ -326,10 +332,10 @@ public class UIUtils {
         }
     }
 
-    public static void setStatusbarColor(Context ctx, boolean isBlack) {
-        if (ctx instanceof Activity) {
+    public static void setStatusbarColor(boolean isBlack) {
+        if (context instanceof Activity) {
             if (DeviceUtils.isMiuiV6()) {
-                Window w = ((Activity) ctx).getWindow();
+                Window w = ((Activity) context).getWindow();
                 Class<?> clz = w.getClass();
                 try {
                     int darkFlag = 0;
@@ -343,5 +349,24 @@ public class UIUtils {
                 }
             }
         }
+    }
+
+    public static void setSeachViewTextBackground(SearchView sv, int backgroundRes) {
+        try {
+            Class<?> clz = sv.getClass();
+            Field fSearchPlate = clz.getDeclaredField("mSearchPlate");
+            fSearchPlate.setAccessible(true);
+            View vSearchPlate = (View)fSearchPlate.get(sv);
+            vSearchPlate.setBackgroundResource(backgroundRes);
+
+            Field fSubmitArea = clz.getDeclaredField("submit_area");
+            fSubmitArea.setAccessible(true);
+            View vSubmitArea = (View)fSubmitArea.get(sv);
+            vSubmitArea.setBackgroundResource(backgroundRes);
+
+        } catch (Exception e) {
+
+        }
+
     }
 }

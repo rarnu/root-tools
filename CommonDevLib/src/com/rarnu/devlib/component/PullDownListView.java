@@ -16,8 +16,8 @@ import android.widget.ListView;
 import android.widget.TextView;
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.common.Actions;
-import com.rarnu.devlib.component.intf.OnPullDownListener;
-import com.rarnu.devlib.component.intf.OnScrollOverListener;
+import com.rarnu.devlib.intf.OnPullDownListener;
+import com.rarnu.devlib.intf.OnScrollOverListener;
 
 import java.util.Timer;
 import java.util.TimerTask;

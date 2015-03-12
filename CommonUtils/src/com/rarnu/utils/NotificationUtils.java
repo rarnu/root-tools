@@ -58,7 +58,7 @@ public class NotificationUtils {
                 .setContentTitle(context.getString(title))
                 .setContentText(context.getString(desc))
                 .setContentIntent(pMain)
-                .getNotification();
+                .build();
 
         if (canClose) {
             n.defaults |= Notification.DEFAULT_SOUND;

@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.component.intf.OnPasswordInputListener;
+import com.rarnu.devlib.intf.OnPasswordInputListener;
 
 public class PasswordView extends RelativeLayout {
 

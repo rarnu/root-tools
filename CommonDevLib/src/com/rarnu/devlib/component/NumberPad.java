@@ -7,7 +7,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.component.intf.NumberPadListener;
+import com.rarnu.devlib.intf.NumberPadListener;
 
 public class NumberPad extends RelativeLayout implements View.OnClickListener {
 

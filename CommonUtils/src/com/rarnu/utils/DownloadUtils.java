@@ -80,11 +80,16 @@ public class DownloadUtils {
                     if (file.exists()) {
                         try {
                             if (iv != null) {
+                                Bitmap bmp = null;
                                 if (bop != null) {
-                                    iv.setImageBitmap(BitmapFactory.decodeFile(filePath, bop));
+                                    bmp = BitmapFactory.decodeFile(filePath, bop);
                                 } else {
-                                    iv.setImageBitmap(BitmapFactory.decodeFile(filePath));
+                                    bmp = BitmapFactory.decodeFile(filePath);
                                 }
+                                if (bmp != null && isRound) {
+                                    bmp = ImageUtils.roundedCornerBitmap(bmp, radis);
+                                }
+                                iv.setImageBitmap(bmp);
                             }
                         } catch (Throwable e) {
 

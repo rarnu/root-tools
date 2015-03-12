@@ -17,9 +17,9 @@ import android.view.*;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.component.intf.*;
 import com.rarnu.devlib.component.tools.CustomViewAbove;
 import com.rarnu.devlib.component.tools.CustomViewBehind;
+import com.rarnu.devlib.intf.*;
 
 public class SlidingMenu extends RelativeLayout {
 

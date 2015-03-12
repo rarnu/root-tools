@@ -7,7 +7,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnTouchListener;
 import android.view.WindowManager;
-import com.rarnu.devlib.component.intf.FloatWindowListener;
+import com.rarnu.devlib.intf.FloatWindowListener;
 
 public class FloatWindow extends View implements OnTouchListener {
     long lastDownTime = 0L;

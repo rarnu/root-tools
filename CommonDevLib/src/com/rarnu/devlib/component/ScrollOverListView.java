@@ -4,7 +4,7 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.widget.ListView;
-import com.rarnu.devlib.component.intf.OnScrollOverListener;
+import com.rarnu.devlib.intf.OnScrollOverListener;
 
 public class ScrollOverListView extends ListView {
 

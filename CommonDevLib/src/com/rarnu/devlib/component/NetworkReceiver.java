@@ -19,9 +19,7 @@ public class NetworkReceiver extends BroadcastReceiver {
 
         if (action.equals("android.net.conn.CONNECTIVITY_CHANGE")) {
             NetworkUtils.doGetNetworkInfoT(context);
-
         }
-
     }
 
 }

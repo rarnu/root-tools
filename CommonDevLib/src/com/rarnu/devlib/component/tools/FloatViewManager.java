@@ -7,7 +7,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.ListView;
-import com.rarnu.devlib.component.intf.IFloatViewManager;
+import com.rarnu.devlib.intf.IFloatViewManager;
 
 
 public class FloatViewManager implements IFloatViewManager {

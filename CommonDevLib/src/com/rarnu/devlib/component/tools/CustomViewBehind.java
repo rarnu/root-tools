@@ -13,12 +13,12 @@ import android.view.View;
 import android.view.ViewGroup;
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.component.SlidingMenu;
-import com.rarnu.devlib.component.intf.CanvasTransformer;
+import com.rarnu.devlib.intf.CanvasTransformer;
 
 public class CustomViewBehind extends ViewGroup {
 
     private static final String TAG = "CustomViewBehind";
-    private static final int MARGIN_THRESHOLD = 48; // dips
+    private static final int MARGIN_THRESHOLD = 16; // dips
     private final Paint mFadePaint = new Paint();
     private int mTouchMode = SlidingMenu.TOUCHMODE_MARGIN;
     private CustomViewAbove mViewAbove;

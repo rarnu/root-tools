@@ -1,5 +1,6 @@
 package com.rarnu.utils;
 
+import android.util.Log;
 import com.rarnu.utils.common.JsonNode;
 import com.rarnu.utils.common.JsonNode.FieldType;
 import org.json.JSONArray;
@@ -275,4 +276,80 @@ public class JsonUtils<T> {
         }
     }
 
+    public static void fillJsonToObject(String jsonString, Object obj) {
+        try {
+            JSONObject json = new JSONObject(jsonString);
+            fillJsonToObject(json, obj);
+        } catch(Exception e) {
+
+        }
+    }
+
+    public static void fillJsonToObject(JSONObject json, Object obj) {
+        try {
+            Class<?> clz = obj.getClass();
+            Field[] fs = clz.getFields();
+            String typeStr = "";
+            for (Field f: fs) {
+                typeStr = f.getType().getSimpleName();
+                if (typeStr.equals("String")) {
+                    try { f.set(obj, json.getString(f.getName())); } catch(Exception e) { }
+                } else if (typeStr.equals("int")) {
+                    try { f.setInt(obj, json.getInt(f.getName())); } catch(Exception e) {}
+                } else if (typeStr.equals("double")) {
+                    try { f.setDouble(obj, json.getDouble(f.getName())); } catch(Exception e) {}
+                } else if (typeStr.equals("boolean")) {
+                    try { f.setBoolean(obj, json.getBoolean(f.getName())); } catch(Exception e) {}
+                } else if (typeStr.equals("float")) {
+                    try { f.setFloat(obj, (float) json.getDouble(f.getName())); } catch(Exception e) {}
+                } else if (typeStr.equals("long")) {
+                    try { f.setLong(obj, json.getLong(f.getName())); } catch(Exception e) {}
+                } else if (typeStr.equals("byte")) {
+                    try { f.setByte(obj, (byte) json.getInt(f.getName())); } catch(Exception e) {}
+                } else if (typeStr.equals("short")) {
+                    try { f.setShort(obj, (short) json.getInt(f.getName())); } catch(Exception e) {}
+                } else if (typeStr.equals("char")) {
+                    try { f.setChar(obj, json.getString(f.getName()).charAt(0)); } catch(Exception e) {}
+                }
+            }
+        } catch(Exception e) {
+
+        }
+    }
+
+    public static String objectToJsonString(Object obj) {
+        String str = "{";
+        try {
+            Class<?> clz = obj.getClass();
+            Field[] fs = clz.getFields();
+            String typeStr = "";
+            for (Field f: fs) {
+                typeStr = f.getType().getSimpleName();
+                if (typeStr.equals("String")) {
+                    str += String.format("\"%s\":\"%s\",", f.getName(), (String)f.get(obj));
+                } else if (typeStr.equals("int")) {
+                    str += String.format("\"%s\":%d,", f.getName(), f.getInt(obj));
+                } else if (typeStr.equals("double")) {
+                    str += String.format("\"%s\":%f,", f.getName(), f.getDouble(obj));
+                } else if (typeStr.equals("boolean")) {
+                    str += String.format("\"%s\":%b,", f.getName(), f.getBoolean(obj));
+                } else if (typeStr.equals("float")) {
+                    str += String.format("\"%s\":%f,", f.getName(), f.getFloat(obj));
+                } else if (typeStr.equals("long")) {
+                    str += String.format("\"%s\":%d,", f.getName(), f.getLong(obj));
+                } else if (typeStr.equals("byte")) {
+                    str += String.format("\"%s\":%d,", f.getName(), f.getByte(obj));
+                } else if (typeStr.equals("short")) {
+                    str += String.format("\"%s\":%d,", f.getName(), f.getShort(obj));
+                } else if (typeStr.equals("char")) {
+                    str += String.format("\"%s\":\"%s\",", f.getName(), f.getChar(obj));
+                }
+            }
+        } catch(Exception e) {
+
+        }
+        str = str.substring(0, str.length() - 1);
+        str += "}";
+        return str;
+    }
 }

@@ -2,7 +2,7 @@ package com.rarnu.devlib.component.tools;
 
 import android.graphics.Canvas;
 import android.view.animation.Interpolator;
-import com.rarnu.devlib.component.intf.CanvasTransformer;
+import com.rarnu.devlib.intf.CanvasTransformer;
 
 public class CanvasTransformerBuilder {
 

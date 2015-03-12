@@ -10,9 +10,9 @@ import android.view.*;
 import android.view.animation.Interpolator;
 import android.widget.Scroller;
 import com.rarnu.devlib.component.SlidingMenu;
-import com.rarnu.devlib.component.intf.OnClosedListener;
-import com.rarnu.devlib.component.intf.OnOpenedListener;
-import com.rarnu.devlib.component.intf.OnPageChangeListener;
+import com.rarnu.devlib.intf.OnClosedListener;
+import com.rarnu.devlib.intf.OnOpenedListener;
+import com.rarnu.devlib.intf.OnPageChangeListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import com.rarnu.devlib.base.intf.InnerIntf;
+import com.rarnu.devlib.intf.InnerIntf;
 
 public abstract class BaseDialogFragment extends Fragment implements InnerIntf {
 

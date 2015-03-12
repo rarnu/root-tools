@@ -5,7 +5,6 @@ import android.app.Fragment;
 import android.app.FragmentTransaction;
 import android.content.Intent;
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.base.intf.InnerIntf;
 
 public class FragmentStarter {
 

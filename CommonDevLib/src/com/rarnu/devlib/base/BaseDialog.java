@@ -3,7 +3,6 @@ package com.rarnu.devlib.base;
 import android.app.Activity;
 import android.app.Fragment;
 import android.os.Bundle;
-import com.rarnu.devlib.base.intf.InnerIntf;
 
 public abstract class BaseDialog extends Activity {
 

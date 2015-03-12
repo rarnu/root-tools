@@ -5,14 +5,14 @@ import android.util.AttributeSet;
 import android.view.*;
 import android.widget.Scroller;
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.component.intf.OnScreenChangeListener;
-import com.rarnu.devlib.component.intf.OnScreenTouchListener;
+import com.rarnu.devlib.intf.OnScreenChangeListener;
+import com.rarnu.devlib.intf.OnScreenTouchListener;
 
 public class VScrollLayout extends ViewGroup {
 
     private static final int TOUCH_STATE_REST = 0;
     private static final int TOUCH_STATE_SCROLLING = 1;
-    private static final int SNAP_VELOCITY = 600;
+    private static final int SNAP_VELOCITY = 50;
     private boolean enableScroll = true;
     private Scroller mScroller;
     private VelocityTracker mVelocityTracker;
@@ -23,6 +23,7 @@ public class VScrollLayout extends ViewGroup {
     private int mTouchState = TOUCH_STATE_REST;
     private int mTouchSlop;
     private float mLastMotionY;
+    private int baseDelta = 5;
 
     public VScrollLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -93,7 +94,7 @@ public class VScrollLayout extends ViewGroup {
 
             final int delta = whichScreen * getHeight() - getScrollY();
 
-            mScroller.startScroll(0, getScrollY(), 0, delta, Math.abs(delta) * 2);
+            mScroller.startScroll(0, getScrollY(), 0, delta, 50); // Math.abs(delta) * 2);
             mCurScreen = whichScreen;
             invalidate();
 
@@ -148,18 +149,18 @@ public class VScrollLayout extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
                 int deltaY = (int) (mLastMotionY - y);
 
-                if (Math.abs(deltaY) > 10) {
+                if (Math.abs(deltaY) > baseDelta) {
                     setTouchState(TOUCH_STATE_SCROLLING);
+                    mLastMotionY = y;
+                    scrollBy(0, deltaY);
                 }
-                mLastMotionY = y;
 
-                scrollBy(0, deltaY);
                 return true;
 
             case MotionEvent.ACTION_UP:
 
                 final VelocityTracker velocityTracker = mVelocityTracker;
-                velocityTracker.computeCurrentVelocity(1000);
+                velocityTracker.computeCurrentVelocity(2000);
                 int velocityY = (int) velocityTracker.getYVelocity();
 
                 if (velocityY > SNAP_VELOCITY && mCurScreen > 0) {
@@ -254,7 +255,13 @@ public class VScrollLayout extends ViewGroup {
     }
 
     public void setEnableScroll(boolean enableScroll) {
+        if (this.enableScroll == enableScroll) {
+            return;
+        }
         this.enableScroll = enableScroll;
     }
 
+    public void setBaseDalta(int d) {
+        baseDelta = d;
+    }
 }

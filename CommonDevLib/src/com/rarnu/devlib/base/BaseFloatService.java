@@ -6,7 +6,7 @@ import android.os.IBinder;
 import android.view.LayoutInflater;
 import android.view.View;
 import com.rarnu.devlib.component.FloatWindow;
-import com.rarnu.devlib.component.intf.FloatWindowListener;
+import com.rarnu.devlib.intf.FloatWindowListener;
 
 /**
  * <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" /> <br />

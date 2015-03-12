@@ -4,7 +4,8 @@ import android.content.Context;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.View;
-import com.rarnu.devlib.component.intf.OnPageSelected;
+import com.rarnu.devlib.adapter.EndlessPagerAdapter;
+import com.rarnu.devlib.intf.OnPageSelected;
 
 import java.util.ArrayList;
 import java.util.List;

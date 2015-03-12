@@ -5,14 +5,14 @@ import android.util.AttributeSet;
 import android.view.*;
 import android.widget.Scroller;
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.component.intf.OnScreenChangeListener;
-import com.rarnu.devlib.component.intf.OnScreenTouchListener;
+import com.rarnu.devlib.intf.OnScreenChangeListener;
+import com.rarnu.devlib.intf.OnScreenTouchListener;
 
 public class HScrollLayout extends ViewGroup {
 
     private static final int TOUCH_STATE_REST = 0;
     private static final int TOUCH_STATE_SCROLLING = 1;
-    private static final int SNAP_VELOCITY = 600;
+    private static final int SNAP_VELOCITY = 50;
     private boolean enableScroll = true;
     private Scroller mScroller;
     private VelocityTracker mVelocityTracker;
@@ -23,6 +23,7 @@ public class HScrollLayout extends ViewGroup {
     private int mTouchState = TOUCH_STATE_REST;
     private int mTouchSlop;
     private float mLastMotionX;
+    private int baseDelta = 5;
 
     public HScrollLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -90,7 +91,7 @@ public class HScrollLayout extends ViewGroup {
         if (getScrollX() != (whichScreen * getWidth())) {
 
             final int delta = whichScreen * getWidth() - getScrollX();
-            mScroller.startScroll(getScrollX(), 0, delta, 0, Math.abs(delta) * 2);
+            mScroller.startScroll(getScrollX(), 0, delta, 0, 50); // Math.abs(delta) * 2);
             mCurScreen = whichScreen;
             invalidate();
 
@@ -145,19 +146,18 @@ public class HScrollLayout extends ViewGroup {
             case MotionEvent.ACTION_MOVE:
 
                 int deltaX = (int) (mLastMotionX - x);
-                if (Math.abs(deltaX) > 10) {
+                if (Math.abs(deltaX) > baseDelta) {
                     setTouchState(TOUCH_STATE_SCROLLING);
+                    mLastMotionX = x;
+                    scrollBy(deltaX, 0);
                 }
 
-                mLastMotionX = x;
-
-                scrollBy(deltaX, 0);
                 return true;
 
             case MotionEvent.ACTION_UP:
 
                 final VelocityTracker velocityTracker = mVelocityTracker;
-                velocityTracker.computeCurrentVelocity(1000);
+                velocityTracker.computeCurrentVelocity(2000);
                 int velocityX = (int) velocityTracker.getXVelocity();
 
                 if (velocityX > SNAP_VELOCITY && mCurScreen > 0) {
@@ -255,7 +255,13 @@ public class HScrollLayout extends ViewGroup {
     }
 
     public void setEnableScroll(boolean enableScroll) {
+        if (this.enableScroll == enableScroll) {
+            return;
+        }
         this.enableScroll = enableScroll;
     }
 
+    public void setBaseDalta(int d) {
+        baseDelta = d;
+    }
 }

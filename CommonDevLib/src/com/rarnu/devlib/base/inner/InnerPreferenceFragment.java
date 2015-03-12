@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.view.Menu;
 import android.view.MenuInflater;
-import com.rarnu.devlib.base.intf.InnerIntf;
+import com.rarnu.devlib.intf.InnerIntf;
 import com.rarnu.devlib.common.UIInstance;
 
 public abstract class InnerPreferenceFragment extends PreferenceFragment implements InnerIntf {

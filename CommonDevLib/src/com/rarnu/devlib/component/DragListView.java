@@ -19,9 +19,9 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.ListView;
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.component.intf.*;
 import com.rarnu.devlib.component.tools.DragController;
 import com.rarnu.devlib.component.tools.HeightCache;
+import com.rarnu.devlib.intf.*;
 
 public class DragListView extends ListView {
 

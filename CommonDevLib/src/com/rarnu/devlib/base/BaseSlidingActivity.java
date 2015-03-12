@@ -9,7 +9,6 @@ import android.view.ViewGroup.LayoutParams;
 import android.widget.FrameLayout;
 import com.rarnu.devlib.R;
 import com.rarnu.devlib.base.inner.InnerActivity;
-import com.rarnu.devlib.base.intf.InnerIntf;
 import com.rarnu.devlib.common.IFragments;
 import com.rarnu.devlib.common.ISliding;
 import com.rarnu.devlib.component.SlidingMenu;

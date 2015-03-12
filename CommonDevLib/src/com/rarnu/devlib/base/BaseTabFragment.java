@@ -10,7 +10,7 @@ import android.os.Build;
 import android.support.v4.view.ViewPager;
 import android.support.v4.view.ViewPager.OnPageChangeListener;
 import com.rarnu.devlib.R;
-import com.rarnu.devlib.base.adapter.BaseFragmentStateAdapter;
+import com.rarnu.devlib.adapter.BaseFragmentStateAdapter;
 import com.rarnu.devlib.base.inner.InnerFragment;
 
 import java.lang.reflect.Field;

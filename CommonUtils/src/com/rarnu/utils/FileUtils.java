@@ -200,6 +200,12 @@ public class FileUtils {
 
     }
 
+    public static void renameFile(String source, String dest) {
+        File fSource = new File(source);
+        File fDest = new File(dest);
+        fSource.renameTo(fDest);
+    }
+
     public static List<String> readFile(File file) throws IOException {
         FileReader myFileReader = new FileReader(file);
         BufferedReader myBufferedReader = new BufferedReader(myFileReader);
