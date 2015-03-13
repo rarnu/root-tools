@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFF">
+
+    <TextView
+            android:id="@+id/tvDay"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:layout_above="@+id/tvLunar"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            />
+
+    <TextView
+            android:id="@+id/tvLunar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/vEvent"
+            android:padding="4dip"
+            android:gravity="center"
+            android:textSize="10sp"
+            android:maxLines="1"
+            android:singleLine="true"
+            android:ellipsize="end" />
+
+    <View
+            android:id="@+id/vEvent"
+            android:layout_width="match_parent"
+            android:layout_height="2dip"
+            android:layout_marginLeft="16dip"
+            android:layout_marginRight="16dip"
+            android:background="@color/yiban_blue"
+            android:layout_alignParentBottom="true"
+            android:visibility="invisible"
+            />
+
+</RelativeLayout>
