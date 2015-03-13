@@ -6,8 +6,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.rarnu.devlib.base.adapter.BaseAdapter;
+import com.rarnu.devlib.adapter.BaseAdapter;
 import com.zoe.calendar.R;
 import com.zoe.calendar.classes.CityItem;
 

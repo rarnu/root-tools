@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.PullDownListView;
-import com.rarnu.devlib.component.intf.OnPullDownListener;
+import com.rarnu.devlib.intf.OnPullDownListener;
 import com.rarnu.startup.ArticleActivity;
 import com.rarnu.startup.R;
 import com.rarnu.startup.adapter.ArticleListAdapter;

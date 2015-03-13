@@ -6,7 +6,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
 import android.widget.TextView;
-import com.rarnu.devlib.base.adapter.BaseAdapter;
+import com.rarnu.devlib.adapter.BaseAdapter;
 import com.rarnu.utils.DrawableUtils;
 import com.rarnu.utils.UIUtils;
 import com.yugioh.android.R;

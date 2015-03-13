@@ -27,8 +27,8 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DragListView;
-import com.rarnu.devlib.component.intf.RemoveListener;
 import com.rarnu.devlib.component.tools.DragController;
+import com.rarnu.devlib.intf.RemoveListener;
 import com.rarnu.utils.UIUtils;
 import com.zoe.calendar.DetailActivity;
 import com.zoe.calendar.Global;
@@ -52,7 +52,6 @@ import com.zoe.calendar.utils.APIUtils;
 import com.zoe.calendar.utils.APIUtils.WeatherCallback;
 import com.zoe.calendar.utils.AnimateUtils;
 import com.zoe.calendar.utils.CityUtils;
-import com.zoe.calendar.utils.ResourceUtils;
 import com.zoe.calendar.utils.WeatherUtils;
 
 public class MainFragment extends BaseFragment implements OnCalendarChange,

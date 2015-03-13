@@ -10,8 +10,8 @@ import android.widget.Toast;
 import com.rarnu.devlib.base.BaseDialogFragment;
 import com.rarnu.devlib.component.NumberPad;
 import com.rarnu.devlib.component.PasswordView;
-import com.rarnu.devlib.component.intf.NumberPadListener;
-import com.rarnu.devlib.component.intf.OnPasswordInputListener;
+import com.rarnu.devlib.intf.NumberPadListener;
+import com.rarnu.devlib.intf.OnPasswordInputListener;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
 

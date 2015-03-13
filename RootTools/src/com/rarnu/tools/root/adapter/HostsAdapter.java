@@ -8,7 +8,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import com.rarnu.devlib.base.adapter.BaseAdapter;
+import com.rarnu.devlib.adapter.BaseAdapter;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.HostRecordInfo;
 import com.rarnu.tools.root.holder.HostsAdapterHolder;

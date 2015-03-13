@@ -16,8 +16,7 @@ import android.widget.TextView;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.PullDownListView;
-import com.rarnu.devlib.component.intf.OnPullDownListener;
-import com.rarnu.utils.ResourceUtils;
+import com.rarnu.devlib.intf.OnPullDownListener;
 import com.rarnu.utils.UIUtils;
 import com.sbbs.me.android.R;
 import com.sbbs.me.android.ViewMessageActivity;

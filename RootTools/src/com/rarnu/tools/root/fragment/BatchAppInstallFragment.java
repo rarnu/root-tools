@@ -16,7 +16,7 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataBar;
 import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.devlib.component.MutaxReceiver;
-import com.rarnu.devlib.component.intf.OnReceiveMessage;
+import com.rarnu.devlib.intf.OnReceiveMessage;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.adapter.DataappAdapter;

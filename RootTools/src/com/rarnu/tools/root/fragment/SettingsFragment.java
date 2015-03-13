@@ -16,7 +16,7 @@ import com.rarnu.devlib.base.inner.InnerPreferenceFragment;
 import com.rarnu.devlib.component.CheckBoxPreferenceEx;
 import com.rarnu.devlib.component.MutaxReceiver;
 import com.rarnu.devlib.component.PreferenceEx;
-import com.rarnu.devlib.component.intf.OnReceiveMessage;
+import com.rarnu.devlib.intf.OnReceiveMessage;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;

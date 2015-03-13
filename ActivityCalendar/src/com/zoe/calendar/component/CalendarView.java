@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.RelativeLayout;
 
 import com.rarnu.devlib.component.HScrollLayout;
-import com.rarnu.devlib.component.intf.OnScreenChangeListener;
+import com.rarnu.devlib.intf.OnScreenChangeListener;
 import com.zoe.calendar.classes.CalendarItem;
 
 public class CalendarView extends HScrollLayout implements

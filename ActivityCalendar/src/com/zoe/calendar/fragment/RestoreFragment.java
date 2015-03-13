@@ -8,14 +8,13 @@ import android.view.Menu;
 
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DragListView;
-import com.rarnu.devlib.component.intf.RemoveListener;
 import com.rarnu.devlib.component.tools.DragController;
+import com.rarnu.devlib.intf.RemoveListener;
 import com.zoe.calendar.Global;
 import com.zoe.calendar.R;
 import com.zoe.calendar.adapter.ActivityAdapter;
 import com.zoe.calendar.classes.ActivityItem;
 import com.zoe.calendar.database.QueryUtils;
-import com.zoe.calendar.utils.ResourceUtils;
 
 public class RestoreFragment extends BaseFragment implements RemoveListener {
 

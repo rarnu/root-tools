@@ -4,7 +4,7 @@ import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import com.rarnu.devlib.base.adapter.BaseAdapter;
+import com.rarnu.devlib.adapter.BaseAdapter;
 import com.rarnu.tools.root.R;
 import com.rarnu.tools.root.common.TeamBuildInfo;
 import com.rarnu.tools.root.holder.TeamBuildAdapterHolder;

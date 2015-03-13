@@ -2,17 +2,16 @@ package com.sbbs.me.android.adapter;
 
 import java.util.List;
 
+import com.rarnu.devlib.adapter.BaseAdapter;
 import org.eclipse.egit.github.core.TreeEntry;
 
 import android.content.Context;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-
-import com.rarnu.devlib.base.adapter.BaseAdapter;
 import com.sbbs.me.android.R;
 
-public class SbbsMeTreeEntryAdapter extends BaseAdapter<TreeEntry>{
+public class SbbsMeTreeEntryAdapter extends BaseAdapter<TreeEntry> {
 
 	public SbbsMeTreeEntryAdapter(Context context, List<TreeEntry> list) {
 		super(context, list);

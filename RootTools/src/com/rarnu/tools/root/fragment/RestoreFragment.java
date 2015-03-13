@@ -23,7 +23,7 @@ import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.devlib.component.DataBar;
 import com.rarnu.devlib.component.DataProgressBar;
 import com.rarnu.devlib.component.MutaxReceiver;
-import com.rarnu.devlib.component.intf.OnReceiveMessage;
+import com.rarnu.devlib.intf.OnReceiveMessage;
 import com.rarnu.tools.root.GlobalInstance;
 import com.rarnu.tools.root.MainActivity;
 import com.rarnu.tools.root.R;
@@ -33,7 +33,6 @@ import com.rarnu.tools.root.loader.RestoreLoader;
 import com.rarnu.tools.root.service.DataRestoreService;
 import com.rarnu.tools.root.utils.BackupRestoreUtils;
 import com.rarnu.tools.root.utils.ListUtils;
-import com.rarnu.utils.ImageUtils;
 
 import java.util.ArrayList;
 import java.util.List;
