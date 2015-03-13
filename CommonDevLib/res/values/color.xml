@@ -149,4 +149,7 @@
 	<color name="transparent">#00000000</color>
 	<color name="half_transparent">#AA000000</color>
 	<color name="list_background_color">#FF009ad6</color>
+	<color name="dark_transparent">#DD000000</color>
+	<color name="transparent">#00000000</color>
+	<color name="yiban_blue">#00A5ED</color>
 </resources>
