@@ -1,5 +1,5 @@
 #import "JsonUtils.h"
-#import <objc/runtime.h>
+#import "ReflectionUtils.h"
 
 @implementation JsonUtils
 
@@ -14,7 +14,7 @@
 }
 
 +(void)fillJsonToObject:(id)obj json:(NSJSONSerialization *)json {
-    NSMutableArray * fields = [self getClassFields:obj];
+    NSMutableArray * fields = [ReflectionUtils getClassFields:obj];
     NSMutableString * jsonKey;
     for (NSString * field in fields) {
         jsonKey = [NSMutableString stringWithString:field];
@@ -27,7 +27,7 @@
 
 +(NSString *)objectToJsonString: (id)obj {
     NSMutableString * str = [[NSMutableString alloc] initWithString:@"{"];
-    NSMutableArray * fields = [self getClassFields:obj];
+    NSMutableArray * fields = [ReflectionUtils getClassFields:obj];
     for (NSString * field in fields) {
         id val = [obj valueForKey:field];
         if (val != nil) {
@@ -43,21 +43,6 @@
     return str;
 }
 
-+(NSMutableArray *)getClassFields: (id)obj {
-    NSMutableArray * array = [NSMutableArray array];
-    Class clz = [obj class];
-    unsigned int ivarsCnt = 0;
-    Ivar *ivars = class_copyIvarList(clz, &ivarsCnt);
-    for (const Ivar *p = ivars; p < ivars + ivarsCnt; ++p) {
-        Ivar const ivar = *p;
-        NSMutableString * key = [NSMutableString stringWithUTF8String:ivar_getName(ivar)];
-        // remove start _
-        if ([key hasPrefix:@"_"]) {
-            [key deleteCharactersInRange:NSMakeRange(0, 1)];
-        }
-        [array addObject:key];
-    }
-    return array;
-}
+
 
 @end

@@ -1,4 +1,5 @@
 #import "ConfigUtils.h"
+#import "ReflectionUtils.h"
 
 @implementation ConfigUtils
 
@@ -42,6 +43,21 @@
     NSUserDefaults * def = [NSUserDefaults standardUserDefaults];
     [def setObject:val forKey:key];
     [def synchronize];
+}
+
+
++(void)loadConfigObject: (NSString *)key obj:(id)obj {
+    NSMutableArray * fields = [ReflectionUtils getClassFields:obj];
+    for (NSString * field in fields) {
+        [obj setValue:[self loadConfigObj:[NSString stringWithFormat:@"%@_%@", key, field]] forKey:field];
+    }
+}
+
++(void)saveConfigObject: (NSString *)key obj:(id)obj {
+    NSMutableArray * fields = [ReflectionUtils getClassFields:obj];
+    for (NSString * field in fields) {
+        [self saveConfigObj:[NSString stringWithFormat:@"%@_%@", key, field] value:[obj valueForKey:field]];
+    }
 }
 
 @end

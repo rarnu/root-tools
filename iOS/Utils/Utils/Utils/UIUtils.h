@@ -8,6 +8,7 @@ typedef struct {
 
 @interface UIUtils : NSObject
 
++(void) setDefaultColor:(UIColor *)color;
 +(UIColor *) getDefaultColor;
 +(CGSize) getStatusBarSize;
 +(CGSize) getScreenSize;
@@ -18,5 +19,9 @@ typedef struct {
 +(CGSize) getAppFrameSize;
 +(CGFloat) getNavigationBarHeight: (UINavigationBar *)nav;
 +(TitleInfo) setTextTitleForSideMenu: (UIViewController *)controller nav: (UINavigationBar *)nav txt: (UILabel *)txt;
++(void)makeTableViewFullSize:(UITableView *)table items:(NSArray *)items;
++(void)setViewWidthPercent:(UIView *)view percent:(CGFloat)percent;
++(void)setViewHeightPercent:(UIView *)view percent:(CGFloat)percent;
++(void)setViewSizePercent:(UIView *)view percent:(CGFloat)percent;
 
 @end

@@ -13,4 +13,7 @@
 +(void) saveConfigNumber: (NSString *) key value: (NSNumber *) val;
 +(void) saveConfigBool: (NSString *) key value: (BOOL) val;
 
++(void)loadConfigObject: (NSString *)key obj:(id)obj;
++(void)saveConfigObject: (NSString *)key obj:(id)obj;
+
 @end

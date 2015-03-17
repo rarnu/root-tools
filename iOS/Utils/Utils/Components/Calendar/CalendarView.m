@@ -139,7 +139,7 @@
     float oldSize = self.calendarHeight;
     UIImage *imageCurrentMonth = [self drawCurrentState];
     
-    self.currentMonth = [currentMonth offsetMonth:1];
+    self.currentMonth = [currentMonth offsetMonths:1];
     if ([delegate respondsToSelector:@selector(calendarView:switchedToYear:switchedToMonth:targetHeight:animated:)]) [delegate calendarView:self switchedToYear:[currentMonth year] switchedToMonth:[currentMonth month] targetHeight:self.calendarHeight animated:YES];
     prepAnimationNextMonth=NO;
     [self setNeedsDisplay];
@@ -191,7 +191,7 @@
     float oldSize = self.calendarHeight;
     UIImage *imageCurrentMonth = [self drawCurrentState];
     
-    self.currentMonth = [currentMonth offsetMonth:-1];
+    self.currentMonth = [currentMonth offsetMonths:-1];
     if ([delegate respondsToSelector:@selector(calendarView:switchedToYear:switchedToMonth:targetHeight:animated:)]) {
         [delegate calendarView:self switchedToYear:[currentMonth year]  switchedToMonth:[currentMonth month] targetHeight:self.calendarHeight animated:YES];
     }
@@ -386,7 +386,7 @@
     CGContextSetFillColorWithColor(context, [UIColor colorWithHexString:@"0x383838"].CGColor);
     
     int numBlocks = numRows*7;
-    NSDate *previousMonth = [self.currentMonth offsetMonth:-1];
+    NSDate *previousMonth = [self.currentMonth offsetMonths:-1];
     int currentMonthNumDays = [currentMonth numDaysInMonth];
     int prevMonthNumDays = [previousMonth numDaysInMonth];
     

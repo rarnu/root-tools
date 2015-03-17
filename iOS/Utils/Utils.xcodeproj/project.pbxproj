@@ -128,6 +128,12 @@
 		922A48CE1AB17B4D00929632 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 922A48CD1AB17B4D00929632 /* CoreFoundation.framework */; };
 		922A48D41AB17C7B00929632 /* CommonDigest.h in Headers */ = {isa = PBXBuildFile; fileRef = 922A48D21AB17C7B00929632 /* CommonDigest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		922A48D51AB17C7B00929632 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 922A48D31AB17C7B00929632 /* sqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		924426BE1AB7BB170027A4B8 /* NetworkUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 924426BC1AB7BB170027A4B8 /* NetworkUtils.h */; };
+		924426BF1AB7BB170027A4B8 /* NetworkUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 924426BD1AB7BB170027A4B8 /* NetworkUtils.m */; };
+		924426C71AB7C21E0027A4B8 /* ReflectionUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 924426C51AB7C21E0027A4B8 /* ReflectionUtils.h */; };
+		924426C81AB7C21E0027A4B8 /* ReflectionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 924426C61AB7C21E0027A4B8 /* ReflectionUtils.m */; };
+		924426CB1AB7C8820027A4B8 /* NotificationUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 924426C91AB7C8820027A4B8 /* NotificationUtils.h */; };
+		924426CC1AB7C8820027A4B8 /* NotificationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 924426CA1AB7C8820027A4B8 /* NotificationUtils.m */; };
 		925F0B621A6F6297008571CC /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 925F0B611A6F6297008571CC /* Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
@@ -254,6 +260,12 @@
 		922A48CD1AB17B4D00929632 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		922A48D21AB17C7B00929632 /* CommonDigest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonDigest.h; sourceTree = "<group>"; };
 		922A48D31AB17C7B00929632 /* sqlite3.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = sqlite3.h; sourceTree = "<group>"; };
+		924426BC1AB7BB170027A4B8 /* NetworkUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NetworkUtils.h; sourceTree = "<group>"; };
+		924426BD1AB7BB170027A4B8 /* NetworkUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NetworkUtils.m; sourceTree = "<group>"; };
+		924426C51AB7C21E0027A4B8 /* ReflectionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ReflectionUtils.h; sourceTree = "<group>"; };
+		924426C61AB7C21E0027A4B8 /* ReflectionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ReflectionUtils.m; sourceTree = "<group>"; };
+		924426C91AB7C8820027A4B8 /* NotificationUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NotificationUtils.h; sourceTree = "<group>"; };
+		924426CA1AB7C8820027A4B8 /* NotificationUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NotificationUtils.m; sourceTree = "<group>"; };
 		925F0B5C1A6F6297008571CC /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		925F0B601A6F6297008571CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		925F0B611A6F6297008571CC /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
@@ -508,6 +520,12 @@
 				921CB6C81AB12480009822DA /* UrlParamUtils.m */,
 				921CB6C91AB12480009822DA /* ZipUtils.h */,
 				921CB6CA1AB12480009822DA /* ZipUtils.m */,
+				924426BC1AB7BB170027A4B8 /* NetworkUtils.h */,
+				924426BD1AB7BB170027A4B8 /* NetworkUtils.m */,
+				924426C51AB7C21E0027A4B8 /* ReflectionUtils.h */,
+				924426C61AB7C21E0027A4B8 /* ReflectionUtils.m */,
+				924426C91AB7C8820027A4B8 /* NotificationUtils.h */,
+				924426CA1AB7C8820027A4B8 /* NotificationUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -579,6 +597,7 @@
 				921CB7161AB12480009822DA /* UIView+Expanded.h in Headers */,
 				921CB6D81AB12480009822DA /* FMResultSet.h in Headers */,
 				921CB7291AB12480009822DA /* DownloadUtils.h in Headers */,
+				924426C71AB7C21E0027A4B8 /* ReflectionUtils.h in Headers */,
 				921CB6E61AB12480009822DA /* SWUtilityButtonTapGestureRecognizer.h in Headers */,
 				921CB6D31AB12480009822DA /* FMDatabasePool.h in Headers */,
 				921CB70A1AB12480009822DA /* zip.h in Headers */,
@@ -606,6 +625,7 @@
 				921CB6CF1AB12480009822DA /* FMDatabase.h in Headers */,
 				921CB7331AB12480009822DA /* JsonUtils.h in Headers */,
 				921CB6F61AB12480009822DA /* ZBarCameraSimulator.h in Headers */,
+				924426BE1AB7BB170027A4B8 /* NetworkUtils.h in Headers */,
 				921CB70B1AB12480009822DA /* ZipArchive.h in Headers */,
 				921CB6F91AB12480009822DA /* ZBarImage.h in Headers */,
 				921CB7271AB12480009822DA /* DeviceUtils.h in Headers */,
@@ -623,6 +643,7 @@
 				921CB72F1AB12480009822DA /* ImageUtils.h in Headers */,
 				921CB6E21AB12480009822DA /* SWLongPressGestureRecognizer.h in Headers */,
 				922A48D41AB17C7B00929632 /* CommonDigest.h in Headers */,
+				924426CB1AB7C8820027A4B8 /* NotificationUtils.h in Headers */,
 				922A48D51AB17C7B00929632 /* sqlite3.h in Headers */,
 				921CB6D51AB12480009822DA /* FMDatabaseQueue.h in Headers */,
 				921CB6F51AB12480009822DA /* zbar.h in Headers */,
@@ -670,7 +691,7 @@
 		925F0B531A6F6297008571CC /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 0610;
+				LastUpgradeCheck = 0620;
 				ORGANIZATIONNAME = rarnu;
 				TargetAttributes = {
 					925F0B5B1A6F6297008571CC = {
@@ -721,10 +742,13 @@
 				921CB7031AB12480009822DA /* miniunz.c in Sources */,
 				921CB73E1AB12480009822DA /* ZipUtils.m in Sources */,
 				921CB72C1AB12480009822DA /* FileUtils.m in Sources */,
+				924426CC1AB7C8820027A4B8 /* NotificationUtils.m in Sources */,
 				921CB7041AB12480009822DA /* minizip.c in Sources */,
 				921CB6DD1AB12480009822DA /* LunarCalendar.m in Sources */,
+				924426C81AB7C21E0027A4B8 /* ReflectionUtils.m in Sources */,
 				921CB6DB1AB12480009822DA /* CYDatetime.m in Sources */,
 				921CB7131AB12480009822DA /* NSMutableArray+SWUtilityButtons.m in Sources */,
+				924426BF1AB7BB170027A4B8 /* NetworkUtils.m in Sources */,
 				921CB6D01AB12480009822DA /* FMDatabase.m in Sources */,
 				921CB6CE1AB12480009822DA /* CalendarView.m in Sources */,
 				921CB73A1AB12480009822DA /* UIUtils.m in Sources */,
@@ -855,7 +879,6 @@
 		925F0B731A6F6297008571CC /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
@@ -879,7 +902,6 @@
 		925F0B741A6F6297008571CC /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ARCHS = "$(ARCHS_STANDARD)";
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;

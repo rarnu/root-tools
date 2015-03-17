@@ -96,6 +96,15 @@
     return retData;
 }
 
++(NSData *) readFileFromAssets: (NSString *)fileName fileType:(NSString *)type {
+    NSString * filePath = [[NSBundle mainBundle] pathForResource:fileName ofType:type];
+    NSData * retData = nil;
+    if ([self fileExists:filePath]) {
+        retData = [NSData dataWithContentsOfFile:filePath];
+    }
+    return retData;
+}
+
 +(BOOL) deleteFile: (NSString *)fileName path: (NSString *)path {
     BOOL ret = NO;
     NSString * fileOper = [self buildPath:fileName path:path];
@@ -145,6 +154,24 @@
     NSString * fileSource = [self buildPath:sourceFolder path:sourcePath];
     NSString * fileDest = [self buildPath:destFolder path:destPath];
     ret  =[fmgr moveItemAtPath:fileSource toPath:fileDest error:nil];
+    return ret;
+}
+
++(BOOL) renameFile: (NSString *)sourceFile sourcePath: (NSString *)sourcePath destFile: (NSString *)destFile {
+    BOOL ret = NO;
+    NSFileManager * fmgr = [NSFileManager defaultManager];
+    NSString * fileSource = [self buildPath:sourceFile path:sourcePath];
+    NSString * fileDest = [self buildPath:destFile path:sourcePath];
+    ret = [fmgr moveItemAtPath:fileSource toPath:fileDest error:nil];
+    return ret;
+}
+
++(BOOL) renameFolder: (NSString *)sourceFolder sourcePath:(NSString *) sourcePath destFolder:(NSString *)destFolder {
+    BOOL ret = NO;
+    NSFileManager * fmgr = [NSFileManager defaultManager];
+    NSString * fileSource = [self buildPath:sourceFolder path:sourcePath];
+    NSString * fileDest = [self buildPath:destFolder path:sourcePath];
+    ret = [fmgr moveItemAtPath:fileSource toPath:fileDest error:nil];
     return ret;
 }
 

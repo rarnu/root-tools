@@ -2,8 +2,17 @@
 
 @implementation UIUtils
 
+static UIColor * _defaultColor;
+
++(void) setDefaultColor:(UIColor *)color {
+    _defaultColor = color;
+}
+
 +(UIColor *) getDefaultColor {
-    return [UIColor colorWithRed:0x00 green:0xA5 / 0xFF blue:0xED / 0xFF alpha:1];
+    if (!_defaultColor) {
+        _defaultColor = [UIColor colorWithRed:0x00 green:0xA5 / 0xFF blue:0xED / 0xFF alpha:1];
+    }
+    return _defaultColor;
 }
 
 +(CGSize) getStatusBarSize {
@@ -61,5 +70,37 @@
     return ret;
 }
 
++(void)makeTableViewFullSize:(UITableView *)table items:(NSArray *)items {
+    NSInteger height = 0;
+    for (int i=0; i<items.count; i++) {
+        CGRect rect = [table rectForRowAtIndexPath:[NSIndexPath indexPathForRow:i inSection:0]];
+        height += rect.size.height;
+    }
+    CGRect frame = [table frame];
+    frame.size.height = height;
+    [table setFrame:frame];
+}
+
++(void)setViewWidthPercent:(UIView *)view percent:(CGFloat)percent {
+    CGSize size = [self getScreenSize];
+    CGRect frame = [view frame];
+    frame.size.width = size.width * percent;
+    [view setFrame:frame];
+}
+
++(void)setViewHeightPercent:(UIView *)view percent:(CGFloat)percent {
+    CGSize size = [self getScreenSize];
+    CGRect frame = [view frame];
+    frame.size.height = size.height * percent;
+    [view setFrame:frame];
+}
+
++(void)setViewSizePercent:(UIView *)view percent:(CGFloat)percent {
+    CGSize size = [self getScreenSize];
+    CGRect frame = [view frame];
+    frame.size.width = size.width * percent;
+    frame.size.height = size.height * percent;
+    [view setFrame:frame];
+}
 
 @end

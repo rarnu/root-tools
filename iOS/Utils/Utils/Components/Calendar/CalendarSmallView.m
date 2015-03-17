@@ -231,7 +231,7 @@
     CGContextSetFillColorWithColor(context, [UIColor colorWithHexString:@"0x383838"].CGColor);
     
     int numBlocks = numRows*7;
-    NSDate *previousMonth = [self.currentMonth offsetMonth:-1];
+    NSDate *previousMonth = [self.currentMonth offsetMonths:-1];
     int currentMonthNumDays = [currentMonth numDaysInMonth];
     int prevMonthNumDays = [previousMonth numDaysInMonth];
     

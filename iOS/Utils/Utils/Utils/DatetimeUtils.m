@@ -10,6 +10,14 @@
 
 @implementation DatetimeUtils
 
++(NSDate *)dateFromTimeInMillis:(NSTimeInterval)millis {
+    return [NSDate dateWithTimeIntervalSince1970:millis];
+}
+
++(NSTimeInterval)dateToTimeInMillis:(NSDate *)date {
+    return [date timeIntervalSince1970];
+}
+
 +(NSArray *)getSameWeekdaysInMonth: (NSNumber *)year month:(NSNumber *)month day:(NSNumber *)day currentYear:(NSNumber *)currentYear currentMonth:(NSNumber *)currentMonth {
     
     NSCalendar * calendar = [[NSCalendar alloc] initWithCalendarIdentifier:NSCalendarIdentifierGregorian];
@@ -32,7 +40,7 @@
         if (weekNow == weekThen) {
             break;
         }
-        cNow = [cNow offsetDay:1];
+        cNow = [cNow offsetDays:1];
     }
     int currentDay = [cNow day];
     while (currentDay <= 31) {
@@ -66,14 +74,14 @@
     NSDate * cThen = [calendar dateFromComponents:comps];
     int weekThen = [cThen week];
     NSDate * cNow = [NSDate date];
-    cNow = [cNow offsetDay:1]; // cannot be today
+    cNow = [cNow offsetDays:1]; // cannot be today
     int weekNow = -1;
     for (int i=0; i<7; i++) {
         weekNow = [cNow week];
         if (weekNow == weekThen) {
             break;
         }
-        cNow = [cNow offsetDay:1];
+        cNow = [cNow offsetDays:1];
     }
     return cNow;
 }

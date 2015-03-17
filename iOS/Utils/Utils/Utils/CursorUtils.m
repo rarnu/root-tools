@@ -1,4 +1,5 @@
 #import "CursorUtils.h"
+#import "ReflectionUtils.h"
 
 @implementation CursorUtils
 
@@ -13,7 +14,7 @@
 
 +(void)fillCursorToObject: (sqlite3_stmt *)stmt object: (id)obj {
     NSArray * arrColumns = [CursorUtils getColumns:stmt];
-    NSArray * arrFields = [JsonUtils getClassFields:obj];
+    NSArray * arrFields = [ReflectionUtils getClassFields:obj];
     NSMutableString * dbKey;
     int idx;
     int dbType;
@@ -50,7 +51,7 @@
 // d: double
 // b: blob
 +(void)fillSqliteStmt: (sqlite3_stmt *)stmt object: (id)obj types: (NSString *)types; {
-    NSArray * arrFields = [JsonUtils getClassFields:obj];
+    NSArray * arrFields = [ReflectionUtils getClassFields:obj];
     NSString * key;
     NSString * dbType;
     for (int i=0; i<types.length; i++) {
