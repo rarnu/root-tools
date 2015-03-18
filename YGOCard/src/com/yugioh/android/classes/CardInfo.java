@@ -7,7 +7,6 @@ import java.lang.reflect.Method;
 public class CardInfo implements Serializable {
 
     private int _id;
-    private int id;
     private String japName;
     private String name;
     private String enName;
@@ -62,21 +61,12 @@ public class CardInfo implements Serializable {
         return ret;
     }
 
-    public int get_id() {
+    public int getId() {
         return _id;
     }
 
-    public void set_id(int _id) {
+    public void setId(int _id) {
         this._id = _id;
-    }
-
-    public int getId() {
-        return id;
-    }
-
-    public void setId(int id) {
-        this.id = id;
-        this._id = id;
     }
 
     public String getJapName() {

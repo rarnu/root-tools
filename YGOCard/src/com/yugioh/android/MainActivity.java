@@ -17,6 +17,7 @@ import com.yugioh.android.common.Actions;
 import com.yugioh.android.database.YugiohDatabase;
 import com.yugioh.android.fragments.*;
 import com.yugioh.android.intf.IMainIntf;
+import com.yugioh.android.utils.UpdateUtils;
 
 public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
@@ -36,6 +37,8 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
         if (!YugiohDatabase.isDatabaseFileExists()) {
             Toast.makeText(this, R.string.main_update_database, Toast.LENGTH_LONG).show();
+        } else {
+            UpdateUtils.updateLocalDatabase(this);
         }
         registerReceiver(receiverClose, filterClose);
     }

@@ -1,11 +1,15 @@
 package com.yugioh.android.utils;
 
 import android.content.Context;
+import android.content.Intent;
+import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
+import com.rarnu.utils.ConfigUtils;
 import com.rarnu.utils.FileUtils;
 import com.yugioh.android.classes.UpdateInfo;
+import com.yugioh.android.common.Actions;
 import com.yugioh.android.database.YugiohUtils;
 import com.yugioh.android.define.PathDefine;
 
@@ -27,26 +31,19 @@ public class UpdateUtils {
         }).start();
     }
 
-    public static void updateLocalDatabase(final Context context, final Handler hProgress) {
+    public static void updateLocalDatabase(final Context context) {
         new Thread(new Runnable() {
             @Override
             public void run() {
 
                 int dbVer = YugiohUtils.getDatabaseVersion(context);
-                if (dbVer < 100) {
-                    if (hProgress != null) {
-                        hProgress.sendEmptyMessage(0);
-                    }
+                int innerVer = ConfigUtils.getManifestIntConfig(context, "database-version", 0);
+                if (innerVer > dbVer) {
                     YugiohUtils.closeDatabase(context);
                     FileUtils.deleteFile(PathDefine.DATABASE_PATH);
                     FileUtils.copyAssetFile(context, "yugioh.db", PathDefine.ROOT_PATH, null);
                     YugiohUtils.newDatabase(context);
-                    if (hProgress != null) {
-                        hProgress.sendEmptyMessage(1);
-                    }
-                }
-                if (hProgress != null) {
-                    hProgress.sendEmptyMessage(2);
+                    context.sendBroadcast(new Intent(Actions.ACTION_EXTRACT_DATABASE_COMPLETE));
                 }
             }
         }).start();

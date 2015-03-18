@@ -3,7 +3,6 @@ package com.yugioh.android.database;
 import android.content.ContentUris;
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import com.yugioh.android.R;
 import com.yugioh.android.classes.CardInfo;
 
@@ -201,12 +200,10 @@ public class YugiohUtils {
             args[argId] = "%" + cardEffectText + "%";
             argId++;
         }
-        Log.e("search", where);
         String LogArg = "";
         for (String l : args) {
             LogArg += l + ", ";
         }
-        Log.e("search", LogArg);
         return context.getContentResolver().query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI, YugiohProvider.ACTIONID_SEARCH), new String[]{"_id", "name", "sCardType"}, where, args, null);
 
     }
@@ -238,7 +235,7 @@ public class YugiohUtils {
     }
 
     public static Cursor getAssignedCards(Context context, String union) {
-        String where = "id in (" + union + ")";
+        String where = "_id in (" + union + ")";
         return context.getContentResolver().query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI, YugiohProvider.ACTIONID_SEARCH), new String[]{"_id", "name", "sCardType"}, where, null, null);
     }
 
@@ -248,7 +245,7 @@ public class YugiohUtils {
             idList += String.format("%d,", ids[i]);
         }
         idList = idList.substring(0, idList.length() - 1);
-        String where = "id in (" + idList + ")";
+        String where = "_id in (" + idList + ")";
         return context.getContentResolver().query(ContentUris.withAppendedId(YugiohProvider.CONTENT_URI, YugiohProvider.ACTIONID_SEARCH), new String[]{"_id", "name", "sCardType"}, where, null, null);
     }
 
@@ -261,12 +258,13 @@ public class YugiohUtils {
         String fName = "";
         String fDBName = "";
         try {
+            info.setId(c.getInt(c.getColumnIndex("_id")));
             for (Field f : fs) {
+                if (f.getName().equals("_id")) {
+                    continue;
+                }
                 fDBName = f.getName().replace("_", "");
-
                 fName = fDBName.substring(0, 1).toUpperCase() + fDBName.substring(1);
-
-                Log.e("cursorToCardInfo", fDBName);
                 mSet = cls.getMethod("set" + fName, new Class[]{f.getType()});
                 if (f.getType().getName().contains("String")) {
                     mSet.invoke(info, new Object[]{c.getString(c.getColumnIndex(fDBName))});
@@ -274,8 +272,9 @@ public class YugiohUtils {
                     mSet.invoke(info, new Object[]{c.getInt(c.getColumnIndex(fDBName))});
                 }
             }
+
         } catch (Exception e) {
-            Log.e("cursorToCardInfo-ex", e.getMessage());
+
         }
 
         return info;
