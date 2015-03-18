@@ -75,7 +75,6 @@ class yugioh:
         c.execute(
             '''CREATE TABLE YGODATA (
                 _id int PRIMARY KEY,
-                id int NOT NULL,
                 japName text DEFAULT 'NULL',
                 name text DEFAULT 'NULL',
                 enName text DEFAULT 'NULL',
@@ -102,7 +101,7 @@ class yugioh:
                 )''')
         conn.commit()
 
-    def convert(self, ori_db, ver, output):
+    def convert_mdb(self, ori_db, ver, output):
         print("create database")
         conn = self.__create_database()
         c = conn.cursor()
@@ -123,7 +122,15 @@ class yugioh:
         shutil.copyfile(self.__DATABASE_NAME, output)
         print("import completed, card:%d" % (count_data))
 
-    def append(self, ori_db, ver, output):
+    def __change_id(self, conn, c):
+        c.execute("alter table YGODATA RENAME TO YGODATA_OLD")
+        self.__generate_tables(conn, c)
+        c.execute("INSERT INTO YGODATA SELECT * FROM YGODATA_OLD")
+        c.execute("DROP TABLE YGODATA_OLD")
+        conn.commit()
+        pass
+
+    def convert_db(self, ori_db, ver, output):
         print("copy database")
         db_path = os.path.join(output, self.__DATABASE_NAME)
         shutil.copyfile(ori_db, db_path)
@@ -132,6 +139,7 @@ class yugioh:
         self.__generate_android_data(conn, c)
         self.__generate_version_data(conn, c)
         self.__set_version(conn, c, ver)
+        self.__change_id(conn, c)
         print("convert data completed")
 
     def get_version(self):

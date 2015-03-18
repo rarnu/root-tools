@@ -21,6 +21,6 @@ if __name__ == "__main__":
         ver = sys.argv[3:][0]
         output = sys.argv[4:][0]
         ygo = yugioh()
-        ygo.append(ori_db, ver, output)
+        ygo.convert_db(ori_db, ver, output)
     else:
         print_help()
