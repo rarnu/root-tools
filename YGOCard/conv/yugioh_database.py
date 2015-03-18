@@ -67,6 +67,9 @@ class yugioh:
         c.execute("INSERT INTO android_metadata VALUES ('en_US')")
         conn.commit()
 
+    def __generate_version_data(self, conn, c):
+        c.execute("CREATE TABLE version(ver int primary key)")
+        conn.commit()
 
     def __generate_tables(self, conn, c):
         c.execute(
@@ -97,7 +100,6 @@ class yugioh:
                 pendulumL int,
                 pendulumR int
                 )''')
-        c.execute("CREATE TABLE version(ver int primary key)")
         conn.commit()
 
     def convert(self, ori_db, ver, output):
@@ -106,6 +108,7 @@ class yugioh:
         c = conn.cursor()
         print("generate table and fill basic data")
         self.__generate_android_data(conn, c)
+        self.__generate_version_data(conn, c)
         self.__generate_tables(conn, c)
         self.__set_version(conn, c, ver)
         print("import card data")
@@ -119,6 +122,17 @@ class yugioh:
             os.remove(output)
         shutil.copyfile(self.__DATABASE_NAME, output)
         print("import completed, card:%d" % (count_data))
+
+    def append(self, ori_db, ver, output):
+        print("copy database")
+        db_path = os.path.join(output, self.__DATABASE_NAME)
+        shutil.copyfile(ori_db, db_path)
+        conn = sqlite3.connect(db_path)
+        c = conn.cursor()
+        self.__generate_android_data(conn, c)
+        self.__generate_version_data(conn, c)
+        self.__set_version(conn, c, ver)
+        print("convert data completed")
 
     def get_version(self):
         if os.path.exists(self.__DATABASE_NAME):
