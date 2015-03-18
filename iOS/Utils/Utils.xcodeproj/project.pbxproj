@@ -125,6 +125,8 @@
 		921CB7431AB13196009822DA /* NSDate+Lunar.h in Headers */ = {isa = PBXBuildFile; fileRef = 921CB7411AB13196009822DA /* NSDate+Lunar.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		921CB7441AB13196009822DA /* NSDate+Lunar.m in Sources */ = {isa = PBXBuildFile; fileRef = 921CB7421AB13196009822DA /* NSDate+Lunar.m */; };
 		9221D2391A6FCF5000E8DA89 /* libz.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 9221D2381A6FCF5000E8DA89 /* libz.dylib */; settings = {ATTRIBUTES = (Weak, ); }; };
+		922858EB1AB96F9800F4D9C5 /* EmulatorUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 922858E91AB96F9800F4D9C5 /* EmulatorUtils.h */; };
+		922858EC1AB96F9800F4D9C5 /* EmulatorUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 922858EA1AB96F9800F4D9C5 /* EmulatorUtils.m */; };
 		922A48CE1AB17B4D00929632 /* CoreFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 922A48CD1AB17B4D00929632 /* CoreFoundation.framework */; };
 		922A48D41AB17C7B00929632 /* CommonDigest.h in Headers */ = {isa = PBXBuildFile; fileRef = 922A48D21AB17C7B00929632 /* CommonDigest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		922A48D51AB17C7B00929632 /* sqlite3.h in Headers */ = {isa = PBXBuildFile; fileRef = 922A48D31AB17C7B00929632 /* sqlite3.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -256,6 +258,8 @@
 		921CB7411AB13196009822DA /* NSDate+Lunar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSDate+Lunar.h"; sourceTree = "<group>"; };
 		921CB7421AB13196009822DA /* NSDate+Lunar.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSDate+Lunar.m"; sourceTree = "<group>"; };
 		9221D2381A6FCF5000E8DA89 /* libz.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.dylib; path = usr/lib/libz.dylib; sourceTree = SDKROOT; };
+		922858E91AB96F9800F4D9C5 /* EmulatorUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = EmulatorUtils.h; sourceTree = "<group>"; };
+		922858EA1AB96F9800F4D9C5 /* EmulatorUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = EmulatorUtils.m; sourceTree = "<group>"; };
 		922A48CB1AB17AFF00929632 /* libcommonCrypto.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libcommonCrypto.dylib; path = usr/lib/system/libcommonCrypto.dylib; sourceTree = SDKROOT; };
 		922A48CD1AB17B4D00929632 /* CoreFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreFoundation.framework; path = System/Library/Frameworks/CoreFoundation.framework; sourceTree = SDKROOT; };
 		922A48D21AB17C7B00929632 /* CommonDigest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CommonDigest.h; sourceTree = "<group>"; };
@@ -526,6 +530,8 @@
 				924426C61AB7C21E0027A4B8 /* ReflectionUtils.m */,
 				924426C91AB7C8820027A4B8 /* NotificationUtils.h */,
 				924426CA1AB7C8820027A4B8 /* NotificationUtils.m */,
+				922858E91AB96F9800F4D9C5 /* EmulatorUtils.h */,
+				922858EA1AB96F9800F4D9C5 /* EmulatorUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -597,6 +603,7 @@
 				921CB7161AB12480009822DA /* UIView+Expanded.h in Headers */,
 				921CB6D81AB12480009822DA /* FMResultSet.h in Headers */,
 				921CB7291AB12480009822DA /* DownloadUtils.h in Headers */,
+				922858EB1AB96F9800F4D9C5 /* EmulatorUtils.h in Headers */,
 				924426C71AB7C21E0027A4B8 /* ReflectionUtils.h in Headers */,
 				921CB6E61AB12480009822DA /* SWUtilityButtonTapGestureRecognizer.h in Headers */,
 				921CB6D31AB12480009822DA /* FMDatabasePool.h in Headers */,
@@ -759,6 +766,7 @@
 				921CB7301AB12480009822DA /* ImageUtils.m in Sources */,
 				921CB7321AB12480009822DA /* JailbreakUtils.m in Sources */,
 				921CB7261AB12480009822DA /* DatetimeUtils.m in Sources */,
+				922858EC1AB96F9800F4D9C5 /* EmulatorUtils.m in Sources */,
 				921CB6D41AB12480009822DA /* FMDatabasePool.m in Sources */,
 				921CB7221AB12480009822DA /* ConfigUtils.m in Sources */,
 				921CB7091AB12480009822DA /* zip.c in Sources */,
