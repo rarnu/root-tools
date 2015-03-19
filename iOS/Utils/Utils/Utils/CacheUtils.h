@@ -3,6 +3,10 @@
 
 @interface CacheUtils : NSObject
 
++(BOOL)saveMemoryCache: (NSString *)key data:(NSData *)data;
++(NSData *)loadMemoryCache: (NSString *)key;
++(void)cleanMemoryCache;
+
 +(BOOL)saveCacheFile: (NSString *)filePath cacheDir: (NSString *) cacheDir;
 +(NSData *)loadCacheFile: (NSString *)fileName cacheDir: (NSString *)cacheDir;
 +(NSData *)loadCacheFileMD5: (NSString *)md5 cacheDir: (NSString *)cacheDir;

@@ -7,6 +7,40 @@ static NSMutableDictionary * dictMd5;
 static NSString * dictFileName = @"md5_dict";
 static NSFileManager * fmgr;
 static int changeDelta = 0;
+static int fileCacheLimit = 100;
+static NSMutableDictionary * dictMC;
+static int memoryCacheLimit = 100;
+
++(BOOL)saveMemoryCache: (NSString *)key data:(NSData *)data {
+    [self initMemoryDict];
+    BOOL ret = NO;
+    @try {
+        if (dictMC.count < memoryCacheLimit) {
+            [dictMC setValue:data forKey:key];
+            ret = YES;
+        }
+    } @catch (NSException *exception) {
+        
+    }
+    return ret;
+}
+
++(NSData *)loadMemoryCache: (NSString *)key {
+    [self initMemoryDict];
+    NSData * ret = nil;
+    @try {
+        ret = [dictMC valueForKey:key];
+    } @catch (NSException *exception) {
+        
+    }
+    return ret;
+}
+
++(void)cleanMemoryCache {
+    if (dictMC) {
+        [dictMC removeAllObjects];
+    }
+}
 
 +(BOOL)saveCacheFile: (NSString *)filePath cacheDir: (NSString *) cacheDir {
     [self makeDir:cacheDir];
@@ -89,10 +123,16 @@ static int changeDelta = 0;
 
 +(void)saveDictionary: (NSString *)cacheDir {
     changeDelta++;
-    if (changeDelta > 100) {
+    if (changeDelta > fileCacheLimit) {
         changeDelta = 0;
         NSString * fullPath = [cacheDir stringByAppendingPathComponent:dictFileName];
         [dictMd5 writeToFile:fullPath atomically:YES];
+    }
+}
+
++(void)initMemoryDict {
+    if (!dictMC) {
+        dictMC = [NSMutableDictionary dictionary];
     }
 }
 
