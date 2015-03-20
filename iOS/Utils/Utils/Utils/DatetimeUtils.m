@@ -86,4 +86,14 @@
     return cNow;
 }
 
++(NSTimeInterval)millisBetween:(NSDate *)fromDate toDate:(NSDate *)toDate {
+    return [toDate timeIntervalSinceDate:fromDate];
+}
+
++(BOOL)isDateAfter:(NSDate *)now base:(NSDate *)base {
+    NSTimeInterval iNow = [now timeIntervalSince1970];
+    NSTimeInterval iBase = [base timeIntervalSince1970];
+    return iNow > iBase;
+}
+
 @end

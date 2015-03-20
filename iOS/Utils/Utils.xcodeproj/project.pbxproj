@@ -137,6 +137,15 @@
 		924426CB1AB7C8820027A4B8 /* NotificationUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 924426C91AB7C8820027A4B8 /* NotificationUtils.h */; };
 		924426CC1AB7C8820027A4B8 /* NotificationUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 924426CA1AB7C8820027A4B8 /* NotificationUtils.m */; };
 		925F0B621A6F6297008571CC /* Utils.h in Headers */ = {isa = PBXBuildFile; fileRef = 925F0B611A6F6297008571CC /* Utils.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		92A4EAB81ABA5CAC00813F08 /* CompareUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 92A4EAB61ABA5CAC00813F08 /* CompareUtils.h */; };
+		92A4EAB91ABA5CAC00813F08 /* CompareUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A4EAB71ABA5CAC00813F08 /* CompareUtils.m */; };
+		92A4EABC1ABA651200813F08 /* MemoryUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 92A4EABA1ABA651200813F08 /* MemoryUtils.h */; };
+		92A4EABD1ABA651200813F08 /* MemoryUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A4EABB1ABA651200813F08 /* MemoryUtils.m */; };
+		92A4EAC01ABA71D700813F08 /* PermissionUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 92A4EABE1ABA71D700813F08 /* PermissionUtils.h */; };
+		92A4EAC11ABA71D700813F08 /* PermissionUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A4EABF1ABA71D700813F08 /* PermissionUtils.m */; };
+		92A4EAC31ABA721500813F08 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 92A4EAC21ABA721500813F08 /* AVFoundation.framework */; };
+		92A4EAC61ABA9D6A00813F08 /* LogUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 92A4EAC41ABA9D6A00813F08 /* LogUtils.h */; };
+		92A4EAC71ABA9D6A00813F08 /* LogUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 92A4EAC51ABA9D6A00813F08 /* LogUtils.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -273,6 +282,15 @@
 		925F0B5C1A6F6297008571CC /* Utils.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Utils.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		925F0B601A6F6297008571CC /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		925F0B611A6F6297008571CC /* Utils.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Utils.h; sourceTree = "<group>"; };
+		92A4EAB61ABA5CAC00813F08 /* CompareUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CompareUtils.h; sourceTree = "<group>"; };
+		92A4EAB71ABA5CAC00813F08 /* CompareUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CompareUtils.m; sourceTree = "<group>"; };
+		92A4EABA1ABA651200813F08 /* MemoryUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MemoryUtils.h; sourceTree = "<group>"; };
+		92A4EABB1ABA651200813F08 /* MemoryUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MemoryUtils.m; sourceTree = "<group>"; };
+		92A4EABE1ABA71D700813F08 /* PermissionUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PermissionUtils.h; sourceTree = "<group>"; };
+		92A4EABF1ABA71D700813F08 /* PermissionUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PermissionUtils.m; sourceTree = "<group>"; };
+		92A4EAC21ABA721500813F08 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		92A4EAC41ABA9D6A00813F08 /* LogUtils.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = LogUtils.h; sourceTree = "<group>"; };
+		92A4EAC51ABA9D6A00813F08 /* LogUtils.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = LogUtils.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -280,6 +298,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92A4EAC31ABA721500813F08 /* AVFoundation.framework in Frameworks */,
 				922A48CE1AB17B4D00929632 /* CoreFoundation.framework in Frameworks */,
 				921CB7401AB126AA009822DA /* libsqlite3.dylib in Frameworks */,
 				921CB71A1AB12480009822DA /* libzbar.a in Frameworks */,
@@ -532,6 +551,14 @@
 				924426CA1AB7C8820027A4B8 /* NotificationUtils.m */,
 				922858E91AB96F9800F4D9C5 /* EmulatorUtils.h */,
 				922858EA1AB96F9800F4D9C5 /* EmulatorUtils.m */,
+				92A4EAB61ABA5CAC00813F08 /* CompareUtils.h */,
+				92A4EAB71ABA5CAC00813F08 /* CompareUtils.m */,
+				92A4EABA1ABA651200813F08 /* MemoryUtils.h */,
+				92A4EABB1ABA651200813F08 /* MemoryUtils.m */,
+				92A4EABE1ABA71D700813F08 /* PermissionUtils.h */,
+				92A4EABF1ABA71D700813F08 /* PermissionUtils.m */,
+				92A4EAC41ABA9D6A00813F08 /* LogUtils.h */,
+				92A4EAC51ABA9D6A00813F08 /* LogUtils.m */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -548,6 +575,7 @@
 		925F0B521A6F6297008571CC = {
 			isa = PBXGroup;
 			children = (
+				92A4EAC21ABA721500813F08 /* AVFoundation.framework */,
 				922A48CD1AB17B4D00929632 /* CoreFoundation.framework */,
 				922A48CB1AB17AFF00929632 /* libcommonCrypto.dylib */,
 				921CB73F1AB126AA009822DA /* libsqlite3.dylib */,
@@ -601,8 +629,10 @@
 				921CB6FD1AB12480009822DA /* ZBarReaderViewController.h in Headers */,
 				921CB6EA1AB12480009822DA /* Toast.h in Headers */,
 				921CB7161AB12480009822DA /* UIView+Expanded.h in Headers */,
+				92A4EAC01ABA71D700813F08 /* PermissionUtils.h in Headers */,
 				921CB6D81AB12480009822DA /* FMResultSet.h in Headers */,
 				921CB7291AB12480009822DA /* DownloadUtils.h in Headers */,
+				92A4EABC1ABA651200813F08 /* MemoryUtils.h in Headers */,
 				922858EB1AB96F9800F4D9C5 /* EmulatorUtils.h in Headers */,
 				924426C71AB7C21E0027A4B8 /* ReflectionUtils.h in Headers */,
 				921CB6E61AB12480009822DA /* SWUtilityButtonTapGestureRecognizer.h in Headers */,
@@ -625,6 +655,7 @@
 				921CB72D1AB12480009822DA /* HttpUtils.h in Headers */,
 				921CB6E01AB12480009822DA /* SWCellScrollView.h in Headers */,
 				921CB7311AB12480009822DA /* JailbreakUtils.h in Headers */,
+				92A4EAC61ABA9D6A00813F08 /* LogUtils.h in Headers */,
 				921CB6F71AB12480009822DA /* ZBarCaptureReader.h in Headers */,
 				921CB7251AB12480009822DA /* DatetimeUtils.h in Headers */,
 				921CB73D1AB12480009822DA /* ZipUtils.h in Headers */,
@@ -653,6 +684,7 @@
 				924426CB1AB7C8820027A4B8 /* NotificationUtils.h in Headers */,
 				922A48D51AB17C7B00929632 /* sqlite3.h in Headers */,
 				921CB6D51AB12480009822DA /* FMDatabaseQueue.h in Headers */,
+				92A4EAB81ABA5CAC00813F08 /* CompareUtils.h in Headers */,
 				921CB6F51AB12480009822DA /* zbar.h in Headers */,
 				921CB6F31AB12480009822DA /* Video.h in Headers */,
 				921CB7081AB12480009822DA /* unzip.h in Headers */,
@@ -761,6 +793,7 @@
 				921CB73A1AB12480009822DA /* UIUtils.m in Sources */,
 				921CB7151AB12480009822DA /* UIColor+Expanded.m in Sources */,
 				921CB7361AB12480009822DA /* MD5Utils.m in Sources */,
+				92A4EAC11ABA71D700813F08 /* PermissionUtils.m in Sources */,
 				921CB6D91AB12480009822DA /* FMResultSet.m in Sources */,
 				921CB6E91AB12480009822DA /* SWUtilityButtonView.m in Sources */,
 				921CB7301AB12480009822DA /* ImageUtils.m in Sources */,
@@ -775,6 +808,7 @@
 				921CB6CC1AB12480009822DA /* CalendarSmallView.m in Sources */,
 				921CB6DF1AB12480009822DA /* SideMenu.m in Sources */,
 				921CB73C1AB12480009822DA /* UrlParamUtils.m in Sources */,
+				92A4EAC71ABA9D6A00813F08 /* LogUtils.m in Sources */,
 				921CB70C1AB12480009822DA /* ZipArchive.m in Sources */,
 				921CB72E1AB12480009822DA /* HttpUtils.m in Sources */,
 				921CB7051AB12480009822DA /* mztools.c in Sources */,
@@ -782,6 +816,7 @@
 				921CB72A1AB12480009822DA /* DownloadUtils.m in Sources */,
 				921CB7071AB12480009822DA /* unzip.c in Sources */,
 				921CB7241AB12480009822DA /* CursorUtils.m in Sources */,
+				92A4EAB91ABA5CAC00813F08 /* CompareUtils.m in Sources */,
 				921CB7281AB12480009822DA /* DeviceUtils.m in Sources */,
 				921CB7171AB12480009822DA /* UIView+Expanded.m in Sources */,
 				921CB6D21AB12480009822DA /* FMDatabaseAdditions.m in Sources */,
@@ -791,6 +826,7 @@
 				921CB7011AB12480009822DA /* ioapi.c in Sources */,
 				921CB6E31AB12480009822DA /* SWLongPressGestureRecognizer.m in Sources */,
 				921CB7111AB12480009822DA /* NSMutableArray+Expanded.m in Sources */,
+				92A4EABD1ABA651200813F08 /* MemoryUtils.m in Sources */,
 				921CB7441AB13196009822DA /* NSDate+Lunar.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

@@ -18,5 +18,7 @@
 +(NSArray *)getSameWeekdaysInMonth: (NSNumber *)year month:(NSNumber *)month day:(NSNumber *)day currentYear:(NSNumber *)currentYear currentMonth:(NSNumber *)currentMonth;
 +(BOOL)compareWeekday: (NSNumber *)year month:(NSNumber *)month day:(NSNumber *)day currentYear:(NSNumber *)currentYear currentMonth:(NSNumber *)currentMonth currentDay:(NSNumber *)currentDay;
 +(NSDate *)getNextWeekday: (NSNumber *)year month:(NSNumber *)month day:(NSNumber *)day;
++(NSTimeInterval)millisBetween:(NSDate *)fromDate toDate:(NSDate *)toDate;
++(BOOL)isDateAfter:(NSDate *)now base:(NSDate *)base;
 
 @end
