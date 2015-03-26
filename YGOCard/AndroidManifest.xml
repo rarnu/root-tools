@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.yugioh.android"
-        android:versionCode="108"
-        android:versionName="ver 3.1.0">
+        android:versionCode="109"
+        android:versionName="ver 3.1.1">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -21,10 +21,10 @@
             android:name=".YuGiOhApplication">
         <meta-data
                 android:name="release-date"
-                android:value="2015.03.18" />
+                android:value="2015.03.26" />
         <meta-data
                 android:name="database-version"
-                android:value="105" />
+                android:value="106" />
 
         <activity
                 android:name=".SplashActivity"
