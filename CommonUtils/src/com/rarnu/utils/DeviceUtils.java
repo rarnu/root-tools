@@ -4,13 +4,13 @@ import android.content.Context;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.os.SystemProperties;
 import android.telephony.TelephonyManager;
 import android.util.DisplayMetrics;
 import com.rarnu.command.RootUtils;
 import com.rarnu.utils.common.DeviceInfo;
 
 import java.io.IOException;
+import java.lang.reflect.Method;
 import java.util.List;
 
 public class DeviceUtils {
@@ -213,7 +213,10 @@ public class DeviceUtils {
     public static boolean isMiuiV6() {
         int ver = 0;
         try {
-            String v = SystemProperties.get("ro.miui.ui.version.code");
+            Class<?> clz = Class.forName("android.os.SystemProperties");
+            Method m = clz.getDeclaredMethod("get", String.class);
+            m.setAccessible(true);
+            String v = (String)m.invoke(clz.newInstance(), "ro.miui.ui.version.code");
             ver = Integer.parseInt(v);
         } catch (Exception e) {
 
