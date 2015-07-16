@@ -60,7 +60,7 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	CalendarView vpCalendar;
 	DragListView lvCalender;
-	ImageView ivActivityHint;
+	// ImageView ivActivityHint;
 	DragController mController;
 	ActivityAdapter adapterActivity;
 	List<ActivityItem> listActivity;
@@ -115,8 +115,9 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 	public void initComponents() {
 		vpCalendar = (CalendarView) innerView.findViewById(R.id.vpCalendar);
 		lvCalender = (DragListView) innerView.findViewById(R.id.lvCalendar);
-		ivActivityHint = (ImageView) innerView
-				.findViewById(R.id.ivActivityHint);
+		// ivActivityHint = (ImageView) innerView
+			//	.findViewById(R.id.ivActivityHint);
+		// ivActivityHint.setVisibility(View.GONE);
 		tvDate = (TextView) innerView.findViewById(R.id.tvDate);
 		ivTrash = (ImageView) innerView.findViewById(R.id.ivTrash);
 
@@ -345,22 +346,22 @@ public class MainFragment extends BaseFragment implements OnCalendarChange,
 
 	private void changeAtivityHintStatus(Day day) {
 		if (day.isBeforeToday()) {
-			ivActivityHint.setImageResource(R.drawable.activity_1);
-			ivActivityHint.setVisibility(View.VISIBLE);
+			// ivActivityHint.setImageResource(R.drawable.activity_0);
+			// ivActivityHint.setVisibility(View.GONE);
 			lvCalender.setVisibility(View.GONE);
 			ivTrash.setVisibility(View.GONE);
 		} else if (day.isAfter60Days()) {
-			ivActivityHint.setImageResource(R.drawable.activity_2);
-			ivActivityHint.setVisibility(View.VISIBLE);
+			// ivActivityHint.setImageResource(R.drawable.activity_0);
+			// ivActivityHint.setVisibility(View.GONE);
 			lvCalender.setVisibility(View.GONE);
 		} else {
 			if (listActivity.size() == 0) {
-				ivActivityHint.setImageResource(R.drawable.activity_0);
-				ivActivityHint.setVisibility(View.VISIBLE);
+				// ivActivityHint.setImageResource(R.drawable.activity_0);
+				// ivActivityHint.setVisibility(View.VISIBLE);
 				lvCalender.setVisibility(View.GONE);
 			} else {
-				ivActivityHint.setVisibility(View.GONE);
-				lvCalender.setVisibility(View.VISIBLE);
+				// ivActivityHint.setVisibility(View.GONE);
+				lvCalender.setVisibility(View.GONE);
 			}
 		}
 	}

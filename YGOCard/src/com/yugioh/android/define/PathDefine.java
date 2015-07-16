@@ -1,7 +1,5 @@
 package com.yugioh.android.define;
 
-import android.util.Log;
-
 import java.io.File;
 
 public class PathDefine {
@@ -33,7 +31,6 @@ public class PathDefine {
     }
 
     private static void mkdir(String path) {
-        Log.e("mkdir", path);
         File fPath = new File(path);
         if (!fPath.exists()) {
             fPath.mkdirs();

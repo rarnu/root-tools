@@ -105,7 +105,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
 
     @Override
     public Fragment replaceFragment() {
-        return new MainFragment();
+        return new SearchFragment();
     }
 
     @Override
@@ -133,7 +133,7 @@ public class MainActivity extends BaseSlidingActivity implements IMainIntf {
         switch (page) {
             case 0:
                 // MAIN
-                f = new MainFragment();
+                f = new SearchFragment();
                 break;
             case 1:
                 // LIMIT

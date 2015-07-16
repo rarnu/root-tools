@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.Menu;
-import android.view.MotionEvent;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemSelectedListener;
@@ -16,6 +16,8 @@ import android.widget.Spinner;
 import com.rarnu.devlib.base.BaseFragment;
 import com.rarnu.utils.ResourceUtils;
 import com.yugioh.android.R;
+import com.yugioh.android.SearchResultActivity;
+import com.yugioh.android.common.MenuIds;
 import com.yugioh.android.define.CardConstDefine;
 
 import java.util.List;
@@ -24,6 +26,9 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
 
     Spinner spCardRace, spCardBelongs, spCardType, spCardAttribute, spCardLevel, spCardRare, spCardLimit, spCardTunner;
     EditText etCardName, etCardAttack, etCardDefense, etEffectText;
+
+    MenuItem itemSearch;
+    MenuItem itemReset;
 
     private BaseFragment searchResultFragment = null;
 
@@ -171,7 +176,27 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
 
     @Override
     public void initMenu(Menu menu) {
+        itemSearch = menu.add(0, MenuIds.MENUID_SEARCH, 98, R.string.search_search);
+        itemSearch.setIcon(android.R.drawable.ic_menu_search);
+        itemSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+        itemReset = menu.add(0, MenuIds.MENUID_RESET, 99, R.string.search_reset);
+        itemReset.setIcon(android.R.drawable.ic_menu_close_clear_cancel);
+        itemReset.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
 
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()) {
+            case MenuIds.MENUID_SEARCH:
+                doSearchCard();
+                break;
+            case MenuIds.MENUID_RESET:
+                doSearchReset();
+                break;
+        }
+
+        return true;
     }
 
     private void doSearchCard() {
@@ -229,9 +254,9 @@ public class SearchFragment extends BaseFragment implements OnItemSelectedListen
         bn.putString("cardTunner", cardTunner);
         bn.putString("cardEffectText", cardEffectText);
 
-        if (searchResultFragment != null) {
-            searchResultFragment.setNewArguments(bn);
-        }
+        Intent inResult = new Intent(getActivity(), SearchResultActivity.class);
+        inResult.putExtras(bn);
+        startActivity(inResult);
     }
 
     private void doSearchReset() {
