@@ -127,6 +127,9 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
 
     public void removeTab(int position) {
         int newPosition = position;
+        if (listFragment.size() <= position) {
+            return;
+        }
         listFragment.remove(position);
         bar.removeTabAt(position);
         newPosition--;
@@ -208,6 +211,7 @@ public abstract class BaseTabFragment extends InnerFragment implements TabListen
 
                 @Override
                 public void run() {
+                    pager.getAdapter().notifyDataSetChanged();
                     pager.setCurrentItem(tab.getPosition());
 
                 }

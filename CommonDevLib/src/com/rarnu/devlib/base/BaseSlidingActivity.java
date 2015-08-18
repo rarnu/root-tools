@@ -72,7 +72,9 @@ public abstract class BaseSlidingActivity extends InnerActivity implements ISlid
         }
         if (sm.getMode() == SlidingMenu.LEFT_RIGHT || sm.getMode() == SlidingMenu.RIGHT) {
             sm.setSecondaryMenu(R.layout.layout_second_menu_replacement);
-            ((FrameLayout) findViewById(R.id.second_menu)).setBackgroundDrawable(UIUtils.isFollowSystemBackground() ? DrawableUtils.getSystemAttrDrawable(this, DrawableUtils.DETAILS_ELEMENT_BACKGROUND) : null);
+            ((FrameLayout) findViewById(R.id.second_menu)).setBackgroundDrawable(
+                    UIUtils.isFollowSystemBackground() ?
+                            DrawableUtils.getSystemAttrDrawable(this, DrawableUtils.DETAILS_ELEMENT_BACKGROUND) : null);
             sm.setSecondaryShadowDrawable(R.drawable.shadow);
             replaceSecondMenu();
         }

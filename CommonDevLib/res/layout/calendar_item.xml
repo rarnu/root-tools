@@ -32,7 +32,7 @@
             android:layout_height="2dip"
             android:layout_marginLeft="16dip"
             android:layout_marginRight="16dip"
-            android:background="@color/yiban_blue"
+            android:background="@color/light_blue"
             android:layout_alignParentBottom="true"
             android:visibility="invisible"
             />

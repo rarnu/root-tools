@@ -439,23 +439,11 @@ public abstract class InnerAbsListView extends InnerAdapterView<ListAdapter> imp
 
         View child;
         if (scrapView != null) {
-            if (ViewDebug.TRACE_RECYCLER) {
-                ViewDebug.trace(scrapView, ViewDebug.RecyclerTraceType.RECYCLE_FROM_SCRAP_HEAP, position, -1);
-            }
-
             child = mAdapter.getView(position, scrapView, this);
-
-            if (ViewDebug.TRACE_RECYCLER) {
-                ViewDebug.trace(child, ViewDebug.RecyclerTraceType.BIND_VIEW, position, getChildCount());
-            }
-
             if (child != scrapView) {
                 mRecycler.addScrapView(scrapView);
                 if (mCacheColorHint != 0) {
                     child.setDrawingCacheBackgroundColor(mCacheColorHint);
-                }
-                if (ViewDebug.TRACE_RECYCLER) {
-                    ViewDebug.trace(scrapView, ViewDebug.RecyclerTraceType.MOVE_TO_SCRAP_HEAP, position, -1);
                 }
             } else {
                 isScrap[0] = true;
@@ -465,9 +453,6 @@ public abstract class InnerAbsListView extends InnerAdapterView<ListAdapter> imp
             child = mAdapter.getView(position, null, this);
             if (mCacheColorHint != 0) {
                 child.setDrawingCacheBackgroundColor(mCacheColorHint);
-            }
-            if (ViewDebug.TRACE_RECYCLER) {
-                ViewDebug.trace(child, ViewDebug.RecyclerTraceType.NEW_VIEW, position, getChildCount());
             }
         }
 
@@ -1195,10 +1180,6 @@ public abstract class InnerAbsListView extends InnerAdapterView<ListAdapter> imp
                     int position = firstPosition + i;
                     if (position >= headerViewsCount && position < footerViewsStart) {
                         mRecycler.addScrapView(child);
-
-                        if (ViewDebug.TRACE_RECYCLER) {
-                            ViewDebug.trace(child, ViewDebug.RecyclerTraceType.MOVE_TO_SCRAP_HEAP, firstPosition + i, -1);
-                        }
                     }
                 }
             }
@@ -1214,10 +1195,6 @@ public abstract class InnerAbsListView extends InnerAdapterView<ListAdapter> imp
                     int position = firstPosition + i;
                     if (position >= headerViewsCount && position < footerViewsStart) {
                         mRecycler.addScrapView(child);
-
-                        if (ViewDebug.TRACE_RECYCLER) {
-                            ViewDebug.trace(child, ViewDebug.RecyclerTraceType.MOVE_TO_SCRAP_HEAP, firstPosition + i, -1);
-                        }
                     }
                 }
             }
@@ -2079,10 +2056,6 @@ public abstract class InnerAbsListView extends InnerAdapterView<ListAdapter> imp
 
                     if (hasListener) {
                         mRecyclerListener.onMovedToScrapHeap(victim);
-                    }
-
-                    if (ViewDebug.TRACE_RECYCLER) {
-                        ViewDebug.trace(victim, ViewDebug.RecyclerTraceType.MOVE_FROM_ACTIVE_TO_SCRAP_HEAP, mFirstActivePosition + i, -1);
                     }
                 }
             }

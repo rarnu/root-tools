@@ -12,7 +12,6 @@ import android.util.AttributeSet;
 import android.util.SparseBooleanArray;
 import android.view.MotionEvent;
 import android.view.View;
-import android.view.ViewDebug;
 import android.view.ViewGroup;
 import android.view.accessibility.AccessibilityEvent;
 import android.widget.ListAdapter;
@@ -702,9 +701,6 @@ public class InnerListView extends InnerAbsListView {
             if (dataChanged) {
                 for (int i = 0; i < childCount; i++) {
                     recycleBin.addScrapView(getChildAt(i));
-                    if (ViewDebug.TRACE_RECYCLER) {
-                        ViewDebug.trace(getChildAt(i), ViewDebug.RecyclerTraceType.MOVE_TO_SCRAP_HEAP, index, i);
-                    }
                 }
             } else {
                 recycleBin.fillActiveViews(childCount, firstPosition);
@@ -821,11 +817,6 @@ public class InnerListView extends InnerAbsListView {
         if (!mDataChanged) {
             child = mRecycler.getActiveView(position);
             if (child != null) {
-
-                if (ViewDebug.TRACE_RECYCLER) {
-                    ViewDebug.trace(child, ViewDebug.RecyclerTraceType.RECYCLE_FROM_ACTIVE_HEAP, position, getChildCount());
-                }
-
                 childrenLeft = getItemLeft(position);
                 setupChild(child, position, childrenBottomOrTop, flow,
                         childrenLeft, selected, true);

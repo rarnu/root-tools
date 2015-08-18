@@ -6,10 +6,13 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 import android.telephony.TelephonyManager;
-import android.view.inputmethod.InputMethodManager;
+import android.util.Log;
 import android.widget.Toast;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
+
+import java.io.File;
+import java.util.Random;
 
 public class MiscUtils {
 
@@ -50,7 +53,6 @@ public class MiscUtils {
     }
 
 
-
     public static boolean isEmulator(Context context) {
         boolean ret = false;
         try {
@@ -72,11 +74,39 @@ public class MiscUtils {
         return ret;
     }
 
+
+    public static String randomString() {
+        StringBuilder result = new StringBuilder();
+        String text = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+        char[] c = text.toCharArray();
+        Random random = new Random();
+        for (int i=0; i<11; i++) {
+            result.append(c[random.nextInt(c.length)]);
+        }
+        return result.toString();
+    }
+
     private static boolean isBlueStacks() {
         return Build.MODEL.toLowerCase().contains("bluestacks");
     }
 
     private static boolean isGenymotion() {
         return Build.MODEL.toLowerCase().contains("genymotion");
+    }
+
+    public static boolean isNoMediaContained(String path) {
+        String rootPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+        Log.e("isNoMediaContained", "root: "+rootPath);
+        String basePath = path;
+        boolean hasNomedia = false;
+        while (!basePath.equals(rootPath)) {
+            if (new File(basePath, ".nomedia").exists()) {
+                hasNomedia = true;
+                break;
+            }
+
+            basePath = basePath.substring(0, basePath.lastIndexOf("/"));
+        }
+        return hasNomedia;
     }
 }

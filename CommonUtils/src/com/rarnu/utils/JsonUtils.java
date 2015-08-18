@@ -1,6 +1,5 @@
 package com.rarnu.utils;
 
-import android.util.Log;
 import com.rarnu.utils.common.JsonNode;
 import com.rarnu.utils.common.JsonNode.FieldType;
 import org.json.JSONArray;
@@ -287,8 +286,7 @@ public class JsonUtils<T> {
 
     public static void fillJsonToObject(JSONObject json, Object obj) {
         try {
-            Class<?> clz = obj.getClass();
-            Field[] fs = clz.getFields();
+            Field[] fs = ReflectionUtils.getClassFields(obj);
             String typeStr = "";
             for (Field f: fs) {
                 typeStr = f.getType().getSimpleName();
@@ -319,34 +317,32 @@ public class JsonUtils<T> {
 
     public static String objectToJsonString(Object obj) {
         String str = "{";
-        try {
-            Class<?> clz = obj.getClass();
-            Field[] fs = clz.getFields();
-            String typeStr = "";
-            for (Field f: fs) {
-                typeStr = f.getType().getSimpleName();
-                if (typeStr.equals("String")) {
-                    str += String.format("\"%s\":\"%s\",", f.getName(), (String)f.get(obj));
-                } else if (typeStr.equals("int")) {
-                    str += String.format("\"%s\":%d,", f.getName(), f.getInt(obj));
-                } else if (typeStr.equals("double")) {
-                    str += String.format("\"%s\":%f,", f.getName(), f.getDouble(obj));
-                } else if (typeStr.equals("boolean")) {
-                    str += String.format("\"%s\":%b,", f.getName(), f.getBoolean(obj));
-                } else if (typeStr.equals("float")) {
-                    str += String.format("\"%s\":%f,", f.getName(), f.getFloat(obj));
-                } else if (typeStr.equals("long")) {
-                    str += String.format("\"%s\":%d,", f.getName(), f.getLong(obj));
-                } else if (typeStr.equals("byte")) {
-                    str += String.format("\"%s\":%d,", f.getName(), f.getByte(obj));
-                } else if (typeStr.equals("short")) {
-                    str += String.format("\"%s\":%d,", f.getName(), f.getShort(obj));
-                } else if (typeStr.equals("char")) {
-                    str += String.format("\"%s\":\"%s\",", f.getName(), f.getChar(obj));
-                }
-            }
-        } catch(Exception e) {
 
+        Field[] fs = ReflectionUtils.getClassFields(obj);
+        String typeStr = "";
+        for (Field f: fs) {
+            typeStr = f.getType().getSimpleName();
+            if (typeStr.equals("String")) {
+                try { str += String.format("\"%s\":\"%s\",", f.getName(), (String)f.get(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("int")) {
+                try { str += String.format("\"%s\":%d,", f.getName(), f.getInt(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("double")) {
+                try { str += String.format("\"%s\":%f,", f.getName(), f.getDouble(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("boolean")) {
+                try { str += String.format("\"%s\":%b,", f.getName(), f.getBoolean(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("float")) {
+                try { str += String.format("\"%s\":%f,", f.getName(), f.getFloat(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("long")) {
+                try { str += String.format("\"%s\":%d,", f.getName(), f.getLong(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("byte")) {
+                try { str += String.format("\"%s\":%d,", f.getName(), f.getByte(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("short")) {
+                try { str += String.format("\"%s\":%d,", f.getName(), f.getShort(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("char")) {
+                try { str += String.format("\"%s\":\"%s\",", f.getName(), f.getChar(obj)); } catch (Exception e) {}
+            } else {
+                try { str += String.format("\"%s\":\"%s\",", f.getName(), f.get(obj).toString()); } catch (Exception e) {}
+            }
         }
         str = str.substring(0, str.length() - 1);
         str += "}";

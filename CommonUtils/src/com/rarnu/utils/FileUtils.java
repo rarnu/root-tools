@@ -24,6 +24,10 @@ public class FileUtils {
         return ret;
     }
 
+    public static String getInternalPath(Context context) {
+        return context.getFilesDir() + "/";
+    }
+
     public static void rewriteFile(File file, String text, String encoding) throws IOException {
         writeFileByStream(file, text, false, encoding);
     }

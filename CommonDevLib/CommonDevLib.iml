@@ -28,5 +28,14 @@
     <orderEntry type="module" module-name="CommandLib" />
     <orderEntry type="module" module-name="CommonUtils" />
     <orderEntry type="library" exported="" name="android-support-v13" level="application" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/libs/zxing.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
   </component>
 </module>

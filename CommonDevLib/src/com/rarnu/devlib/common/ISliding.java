@@ -6,22 +6,22 @@ import com.rarnu.devlib.component.SlidingMenu;
 
 public interface ISliding {
 
-    public void setBehindContentView(View view, LayoutParams layoutParams);
+    void setBehindContentView(View view, LayoutParams layoutParams);
 
-    public void setBehindContentView(View view);
+    void setBehindContentView(View view);
 
-    public void setBehindContentView(int layoutResID);
+    void setBehindContentView(int layoutResID);
 
-    public SlidingMenu getSlidingMenu();
+    SlidingMenu getSlidingMenu();
 
-    public void toggle();
+    void toggle();
 
-    public void showContent();
+    void showContent();
 
-    public void showMenu();
+    void showMenu();
 
-    public void showSecondaryMenu();
+    void showSecondaryMenu();
 
-    public void setSlidingActionBarEnabled(boolean slidingActionBarEnabled);
+    void setSlidingActionBarEnabled(boolean slidingActionBarEnabled);
 
 }

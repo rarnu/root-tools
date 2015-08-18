@@ -196,7 +196,7 @@ public class CalendarAdapter extends BaseAdapter {
             TextView tvDay = (TextView) convertView.findViewById(R.id.tvDay);
             TextView tvLunar = (TextView) convertView.findViewById(R.id.tvLunar);
             View vEvent = convertView.findViewById(R.id.vEvent);
-            vEvent.setBackgroundColor(context.getResources().getColor(R.color.yiban_blue));
+            vEvent.setBackgroundColor(context.getResources().getColor(R.color.light_blue));
             tvLunar.setVisibility(showLunar ? View.VISIBLE : View.GONE);
 
             tvDay.setText(d);
@@ -210,13 +210,13 @@ public class CalendarAdapter extends BaseAdapter {
                 tvDay.setTextColor(Color.BLACK);
                 if (isMondayFirstDay) {
                     if (position % 7 == 5 || position % 7 == 6) {
-                        tvDay.setTextColor(context.getResources().getColor(R.color.yiban_blue));
-                        tvLunar.setTextColor(context.getResources().getColor(R.color.yiban_blue));
+                        tvDay.setTextColor(context.getResources().getColor(R.color.light_blue));
+                        tvLunar.setTextColor(context.getResources().getColor(R.color.light_blue));
                     }
                 } else {
                     if (position % 7 == 0 || position % 7 == 6) {
-                        tvDay.setTextColor(context.getResources().getColor(R.color.yiban_blue));
-                        tvLunar.setTextColor(context.getResources().getColor(R.color.yiban_blue));
+                        tvDay.setTextColor(context.getResources().getColor(R.color.light_blue));
+                        tvLunar.setTextColor(context.getResources().getColor(R.color.light_blue));
                     }
                 }
                 vEvent.setVisibility(evt ? View.VISIBLE : View.INVISIBLE);
@@ -229,7 +229,7 @@ public class CalendarAdapter extends BaseAdapter {
             }
 
             if (currentFlag == position) {
-                convertView.setBackgroundColor(context.getResources().getColor(R.color.yiban_blue));
+                convertView.setBackgroundColor(context.getResources().getColor(R.color.light_blue));
                 tvDay.setTextColor(Color.WHITE);
                 tvLunar.setTextColor(Color.WHITE);
                 vEvent.setBackgroundColor(Color.WHITE);

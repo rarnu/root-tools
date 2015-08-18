@@ -8,6 +8,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.HttpVersion;
 import org.apache.http.client.CookieStore;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.client.methods.HttpRequestBase;
@@ -145,6 +146,11 @@ public class HttpRequest {
 
     public static String get(String host, String params, String encoding) {
         HttpGet request = new HttpGet(host + "?" + params);
+        return executeForResult(request, encoding);
+    }
+
+    public static String delete(String host, String params, String encoding) {
+        HttpDelete request = new HttpDelete(host + "?" + params);
         return executeForResult(request, encoding);
     }
 

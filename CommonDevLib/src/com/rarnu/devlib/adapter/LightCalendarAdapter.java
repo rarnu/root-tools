@@ -117,17 +117,17 @@ public class LightCalendarAdapter extends BaseAdapter {
             tvDay.setTextColor(Color.BLACK);
             if (isMondayFirstDay) {
                 if (position % 7 == 5 || position % 7 == 6) {
-                    tvDay.setTextColor(context.getResources().getColor(R.color.yiban_blue));
+                    tvDay.setTextColor(context.getResources().getColor(R.color.light_blue));
                 }
             } else {
                 if (position % 7 == 0 || position % 7 == 6) {
-                    tvDay.setTextColor(context.getResources().getColor(R.color.yiban_blue));
+                    tvDay.setTextColor(context.getResources().getColor(R.color.light_blue));
                 }
             }
         }
 
         if (currentFlag == position) {
-            convertView.setBackgroundColor(context.getResources().getColor(R.color.yiban_blue));
+            convertView.setBackgroundColor(context.getResources().getColor(R.color.light_blue));
             tvDay.setTextColor(Color.WHITE);
         }
 

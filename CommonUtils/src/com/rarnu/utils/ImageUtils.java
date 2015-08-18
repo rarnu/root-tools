@@ -291,14 +291,14 @@ public class ImageUtils {
                     contentUri = MediaStore.Audio.Media.EXTERNAL_CONTENT_URI;
                 }
                 String selection = MediaStore.Images.Media._ID + "=?";
-                String[] selectionArgs = new String[] { split[1] };
+                String[] selectionArgs = new String[]{split[1]};
                 return getDataColumn(context, contentUri, selection, selectionArgs);
             }
         } else if ("content".equalsIgnoreCase(imageUri.getScheme())) {
             if (isGooglePhotosUri(imageUri))
                 return imageUri.getLastPathSegment();
             return getDataColumn(context, imageUri, null, null);
-        }  else if ("file".equalsIgnoreCase(imageUri.getScheme())) {
+        } else if ("file".equalsIgnoreCase(imageUri.getScheme())) {
             return imageUri.getPath();
         }
         return null;
@@ -307,7 +307,7 @@ public class ImageUtils {
     public static String getDataColumn(Context context, Uri uri, String selection, String[] selectionArgs) {
         Cursor cursor = null;
         String column = MediaStore.Images.Media.DATA;
-        String[] projection = { column };
+        String[] projection = {column};
         try {
             cursor = context.getContentResolver().query(uri, projection, selection, selectionArgs, null);
             if (cursor != null && cursor.moveToFirst()) {
@@ -337,5 +337,24 @@ public class ImageUtils {
         return "com.google.android.apps.photos.content".equals(uri.getAuthority());
     }
 
+    public static Bitmap getSmallBitmap(String path, int reqSize) {
+        BitmapFactory.Options options = new BitmapFactory.Options();
+        options.inJustDecodeBounds = true;
+        BitmapFactory.decodeFile(path, options);
+        int scale = 1;
+
+        while (true) {
+            if (options.outWidth <= reqSize || options.outHeight <= reqSize) {
+                break;
+            } else {
+                options.outWidth = options.outWidth / 2;
+                options.outHeight = options.outHeight / 2;
+                scale++;
+            }
+        }
+        BitmapFactory.Options newoptions = new BitmapFactory.Options();
+        newoptions.inSampleSize = scale;
+        return BitmapFactory.decodeFile(path, newoptions);
+    }
 
 }

@@ -6,6 +6,8 @@ import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.preference.PreferenceManager;
 
+import java.lang.reflect.Field;
+
 public class ConfigUtils {
 
     private static SharedPreferences sp = null;
@@ -120,5 +122,65 @@ public class ConfigUtils {
             ret = appInfo.metaData.getFloat(key, def);
         }
         return ret;
+    }
+
+    public static void getObjectConfig(Context context, String key, Object obj) {
+        initSharedPreference(context);
+        Field[] fs = ReflectionUtils.getClassFields(obj);
+        String typeStr = "";
+        String keyStr = "";
+        for (Field f: fs) {
+            typeStr = f.getType().getSimpleName();
+            keyStr = String.format("%s_%s", key, f.getName());
+            if (typeStr.equals("String")) {
+                try { f.set(obj, getStringConfig(context, keyStr, "")); } catch(Exception e) { }
+            } else if (typeStr.equals("int")) {
+                try { f.setInt(obj, getIntConfig(context, keyStr, 0)); } catch(Exception e) {}
+            } else if (typeStr.equals("double")) {
+                try { f.setDouble(obj, getFloatConfig(context, keyStr, 0)); } catch(Exception e) {}
+            } else if (typeStr.equals("boolean")) {
+                try { f.setBoolean(obj, getBooleanConfig(context, keyStr, false)); } catch(Exception e) {}
+            } else if (typeStr.equals("float")) {
+                try { f.setFloat(obj, getFloatConfig(context, keyStr, 0)); } catch(Exception e) {}
+            } else if (typeStr.equals("long")) {
+                try { f.setLong(obj, getLongConfig(context, keyStr, 0)); } catch(Exception e) {}
+            } else if (typeStr.equals("byte")) {
+                try { f.setByte(obj, (byte)getIntConfig(context, keyStr, 0)); } catch(Exception e) {}
+            } else if (typeStr.equals("short")) {
+                try { f.setShort(obj, (short)getIntConfig(context, keyStr, 0)); } catch(Exception e) {}
+            } else if (typeStr.equals("char")) {
+                try { f.setChar(obj, getStringConfig(context, keyStr, "").charAt(0)); } catch(Exception e) {}
+            }
+        }
+    }
+
+    public static void setObjectConfig(Context context, String key, Object obj) {
+        initSharedPreference(context);
+        Field[] fs = ReflectionUtils.getClassFields(obj);
+        String typeStr = "";
+        String keyStr = "";
+        for (Field f: fs) {
+            typeStr = f.getType().getSimpleName();
+            keyStr = String.format("%s_%s", key, f.getName());
+            if (typeStr.equals("String")) {
+                try { setStringConfig(context, keyStr, (String)f.get(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("int")) {
+                try { setIntConfig(context, keyStr, f.getInt(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("double")) {
+                try { setFloatConfig(context, keyStr, f.getFloat(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("boolean")) {
+                try { setBooleanConfig(context, keyStr, f.getBoolean(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("float")) {
+                try { setFloatConfig(context, keyStr, (float) f.getDouble(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("long")) {
+                try { setLongConfig(context, keyStr, f.getLong(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("byte")) {
+                try { setIntConfig(context, keyStr, f.getByte(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("short")) {
+                try { setIntConfig(context, keyStr, f.getShort(obj)); } catch (Exception e) {}
+            } else if (typeStr.equals("char")) {
+                try { setStringConfig(context, keyStr, String.valueOf(f.getChar(obj))); } catch (Exception e) {}
+            }
+        }
     }
 }
