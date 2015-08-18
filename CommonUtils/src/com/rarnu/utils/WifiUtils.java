@@ -187,7 +187,7 @@ public class WifiUtils {
             apConfig.allowedProtocols.set(WifiConfiguration.Protocol.RSN);
             Method m = mWifiManager.getClass().getDeclaredMethod("setWifiApEnabled", WifiConfiguration.class, Boolean.class);
             m.setAccessible(true);
-            Boolean ret = (Boolean)m.invoke(mWifiManager, apConfig, new Boolean(enabled));
+            Boolean ret = (Boolean) m.invoke(mWifiManager, apConfig, new Boolean(enabled));
             return ret.booleanValue();
         } catch (Exception e) {
             return false;
@@ -196,5 +196,17 @@ public class WifiUtils {
 
     public void removeWifi(int netId) {
         mWifiManager.removeNetwork(netId);
+    }
+
+    public static boolean getMeteredHint(WifiInfo info) {
+        boolean ret = false;
+        try {
+            Method m = info.getClass().getDeclaredMethod("getMeteredHint");
+            m.setAccessible(true);
+            ret = (Boolean) m.invoke(info);
+        } catch (Exception e) {
+
+        }
+        return ret;
     }
 }

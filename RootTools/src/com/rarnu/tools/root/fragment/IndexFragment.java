@@ -35,7 +35,7 @@ public class IndexFragment extends BasePreferenceFragment implements
     PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
     PreferenceEx prefFeedback, prefRecommand, prefAbout;
     PreferenceEx prefTerminal, prefPassword, prefColorTemp;
-    PreferenceEx prefSettings, prefGoogle;
+    PreferenceEx prefSettings;
     IntentFilter filterRefreshTag = new IntentFilter(Actions.ACTION_REFRESH_TAG);
     RefreshTagReceiver receiverRefreshTag = new RefreshTagReceiver();
 
@@ -46,7 +46,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefComponent.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefFirewall.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRoot.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        prefGoogle.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+//        prefGoogle.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefFonts.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefHtcRom.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         // prefReplaceFile.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
@@ -84,7 +84,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefHardUpdate.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefFirewall.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRoot.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
-        prefGoogle.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
+        // prefGoogle.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefFonts.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         // prefReplaceFile.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefBuildProp.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
@@ -258,7 +258,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefComponent = (PreferenceEx) findPreference(getString(R.string.id_component));
         prefFirewall = (PreferenceEx) findPreference(getString(R.string.id_firewall));
         prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
-        prefGoogle = (PreferenceEx) findPreference(getString(R.string.id_google));
+        // prefGoogle = (PreferenceEx) findPreference(getString(R.string.id_google));
         prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
         prefFonts = (PreferenceEx) findPreference(getString(R.string.id_fonts));
         // prefReplaceFile = (PreferenceEx) findPreference(getString(R.string.id_replace_files));
@@ -299,7 +299,7 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefComponent.setOnPreferenceClickListener(this);
         prefFirewall.setOnPreferenceClickListener(this);
         prefRoot.setOnPreferenceClickListener(this);
-        prefGoogle.setOnPreferenceClickListener(this);
+        // prefGoogle.setOnPreferenceClickListener(this);
         prefHtcRom.setOnPreferenceClickListener(this);
         prefFonts.setOnPreferenceClickListener(this);
         // prefReplaceFile.setOnPreferenceClickListener(this);

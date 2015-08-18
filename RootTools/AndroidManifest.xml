@@ -1,12 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.root"
-        android:versionCode="803"
-        android:versionName="6.7.9">
+        android:versionCode="1000"
+        android:versionName="7.0.0">
 
     <uses-sdk
             android:minSdkVersion="14"
-            android:targetSdkVersion="17" />
+            android:targetSdkVersion="19" />
 
     <permission
             android:name="android.permission.ROOT_TOOLS"

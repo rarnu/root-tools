@@ -4,16 +4,17 @@ import android.app.ActivityManager;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
-import android.content.pm.*;
+import android.content.pm.ApplicationInfo;
+import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.PackageManager.NameNotFoundException;
+import android.content.pm.ResolveInfo;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Handler;
 import android.os.Message;
-import android.util.DisplayMetrics;
 import com.rarnu.command.CommandCallback;
 import com.rarnu.command.CommandResult;
 import com.rarnu.command.RootUtils;
@@ -227,19 +228,17 @@ public class ApkUtils {
     }
 
     public static Drawable getIconFromPackage(Context context, String archiveFilePath) {
-        PackageParser packageParser = new PackageParser(archiveFilePath);
-        File sourceFile = new File(archiveFilePath);
-        DisplayMetrics metrics = new DisplayMetrics();
-        metrics.setToDefaults();
-        PackageParser.Package pkg = packageParser.parsePackage(sourceFile, archiveFilePath, metrics, 0);
+        PackageParserUtils ppu = new PackageParserUtils(archiveFilePath);
+        Object /* PackageParser.Package */ pkg = ppu.parsePackage(archiveFilePath, 0);
         if (pkg == null) {
             return context.getResources().getDrawable(R.drawable.android);
         }
-        ApplicationInfo info = pkg.applicationInfo;
-
+        ApplicationInfo info = PackageParserUtils.packageApplicationInfo(pkg);
         Resources pRes = context.getResources();
-        AssetManager assmgr = new AssetManager();
-        assmgr.addAssetPath(archiveFilePath);
+        AssetManager assmgr = context.getAssets();
+        AssetManagerUtils amu = new AssetManagerUtils(assmgr);
+        amu.addAssetPath(archiveFilePath);
+//        assmgr.addAssetPath(archiveFilePath);
         Resources res = new Resources(assmgr, pRes.getDisplayMetrics(), pRes.getConfiguration());
 
         if (info.icon != 0) {
@@ -277,8 +276,9 @@ public class ApkUtils {
 
     public static String getLabelFromPackageFile(Context context, ApplicationInfo info, String fileName) {
         Resources res = context.getResources();
-        AssetManager assetMag = new AssetManager();
-        assetMag.addAssetPath(fileName);
+        AssetManager assetMag = context.getAssets();
+        AssetManagerUtils amu = new AssetManagerUtils(assetMag);
+        amu.addAssetPath(fileName);
         res = new Resources(assetMag, res.getDisplayMetrics(), res.getConfiguration());
         try {
             if (info.labelRes != 0) {
@@ -305,8 +305,9 @@ public class ApkUtils {
         if (info == null) {
             return res.getDrawable(android.R.drawable.sym_def_app_icon);
         }
-        AssetManager assmgr = new AssetManager();
-        assmgr.addAssetPath(fileName);
+        AssetManager assmgr = context.getAssets();
+        AssetManagerUtils amu = new AssetManagerUtils(assmgr);
+        amu.addAssetPath(fileName);
         res = new Resources(assmgr, res.getDisplayMetrics(), res.getConfiguration());
         try {
             if (info.icon != 0) {
@@ -321,8 +322,9 @@ public class ApkUtils {
 
     public static String getLabelFromPackageEx(Context context, ApplicationInfo info) {
         Resources res = context.getResources();
-        AssetManager assetMag = new AssetManager();
-        assetMag.addAssetPath(info.publicSourceDir);
+        AssetManager assetMag = context.getAssets();
+        AssetManagerUtils amu = new AssetManagerUtils(assetMag);
+        amu.addAssetPath(info.publicSourceDir);
         res = new Resources(assetMag, res.getDisplayMetrics(), res.getConfiguration());
         if (info.labelRes != 0) {
             return res.getText(info.labelRes).toString();
@@ -333,21 +335,18 @@ public class ApkUtils {
 
     public static ApplicationInfo getAppInfoFromPackage(String filePath) {
         ApplicationInfo info = null;
-        PackageParser.Package pkg = getPackageInfoFromPackage(filePath, false);
+        Object /* PackageParser.Package */ pkg = getPackageInfoFromPackage(filePath, false);
         if (pkg != null) {
-            info = pkg.applicationInfo;
+            info = PackageParserUtils.packageApplicationInfo(pkg);
         }
         return info;
     }
 
-    public static PackageParser.Package getPackageInfoFromPackage(String filePath, boolean collectSignature) {
-        PackageParser packageParser = new PackageParser(filePath);
-        File sourceFile = new File(filePath);
-        DisplayMetrics metrics = new DisplayMetrics();
-        metrics.setToDefaults();
-        PackageParser.Package pkg = packageParser.parsePackage(sourceFile, filePath, metrics, 0);
+    public static Object /* PackageParser.Package */ getPackageInfoFromPackage(String filePath, boolean collectSignature) {
+        PackageParserUtils ppu = new PackageParserUtils(filePath);
+        Object /* PackageParser.Package */ pkg = ppu.parsePackage(filePath, 0);
         if (pkg != null && collectSignature) {
-            packageParser.collectCertificates(pkg, 0);
+            ppu.packageCollectCertificates(pkg, 0);
         }
 
         return pkg;

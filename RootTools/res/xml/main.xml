@@ -119,10 +119,6 @@
                 android:key="@string/id_root"
                 android:title="@string/func8_title"
                 android:summary="@string/summary_system_components" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_google"
-                android:title="@string/google"
-                android:summary="@string/summary_google" />
     </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_support">
         <com.rarnu.devlib.component.PreferenceEx

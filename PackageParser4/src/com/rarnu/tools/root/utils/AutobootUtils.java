@@ -1,11 +1,12 @@
 package com.rarnu.tools.root.utils;
 
 import android.Manifest;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.content.pm.PackageParser;
 import android.util.DisplayMetrics;
 import com.rarnu.tools.root.common.AutobootInfo;
 
@@ -28,7 +29,7 @@ public class AutobootUtils {
             if (apps != null && apps.size() != 0) {
                 for (PackageInfo pi : apps) {
                     if (pm.checkPermission(Manifest.permission.RECEIVE_BOOT_COMPLETED, pi.packageName) == PackageManager.PERMISSION_GRANTED) {
-                        status = isEnabled(context, pi, dm);
+                        status = isEnabled(context, pi);
                         if (status != -1) {
                             AutobootInfo info = new AutobootInfo();
                             info.info = pi;
@@ -42,14 +43,18 @@ public class AutobootUtils {
         return list;
     }
 
-    public static boolean switchAutoboot(Context context, AutobootInfo info, DisplayMetrics dm, boolean enabled) {
+    public static boolean switchAutoboot(Context context, AutobootInfo info, boolean enabled) {
         boolean ret = true;
         boolean operatingResult = true;
-        PackageParser.Package pkg = ComponentUtils.parsePackageInfo(info.info, dm);
-        List<PackageParser.Activity> receivers = pkg.receivers;
-        for (PackageParser.Activity ri : receivers) {
+        Object /* PackageParser.Package */ pkg = ComponentUtils.parsePackageInfo(info.info);
+        // List<PackageParser.Activity> receivers = pkg.receivers;
+        ArrayList<Object> receivers = PackageParserUtils.packageReceivers(pkg);
+
+        for (Object /* PackageParser.Activity */ riobj : receivers) {
+            PackageParserUtils.Activity ri = PackageParserUtils.Activity.fromComponent(riobj);
             if (ri.intents != null && ri.intents.size() != 0) {
-                for (PackageParser.ActivityIntentInfo aii : ri.intents) {
+                for (Object /* PackageParser.ActivityIntentInfo */ aiiobj : ri.intents) {
+                    IntentFilter aii = (IntentFilter) aiiobj;
                     if (aii.countActions() > 0) {
                         for (int i = 0; i < aii.countActions(); i++) {
                             if (aii.getAction(i).equals(Intent.ACTION_BOOT_COMPLETED)) {
@@ -71,19 +76,23 @@ public class AutobootUtils {
         return ret;
     }
 
-    private static int isEnabled(Context context, PackageInfo info, DisplayMetrics dm) {
+    private static int isEnabled(Context context, PackageInfo info) {
         int ret = -1;
         if (context != null) {
             try {
-                PackageParser.Package pkg = ComponentUtils.parsePackageInfo(info, dm);
-                List<PackageParser.Activity> receivers = pkg.receivers;
-                for (PackageParser.Activity ri : receivers) {
+                Object /* PackageParser.Package */ pkg = ComponentUtils.parsePackageInfo(info);
+                // List<PackageParser.Activity> receivers = pkg.receivers;
+                ArrayList<Object> receivers = PackageParserUtils.packageReceivers(pkg);
+                for (Object /* PackageParser.Activity */ riobj : receivers) {
+                    PackageParserUtils.Activity ri = PackageParserUtils.Activity.fromComponent(riobj);
                     if (ri.intents != null && ri.intents.size() != 0) {
-                        for (PackageParser.ActivityIntentInfo aii : ri.intents) {
+                        for (Object /* PackageParser.ActivityIntentInfo */ aiiobj : ri.intents) {
+                            IntentFilter aii = (IntentFilter) aiiobj;
                             if (aii.countActions() > 0) {
                                 for (int i = 0; i < aii.countActions(); i++) {
                                     if (aii.getAction(i).equals(Intent.ACTION_BOOT_COMPLETED)) {
-                                        ret = (context.getPackageManager().getComponentEnabledSetting(ri.getComponentName()) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) ? 1 : 0;
+                                        ComponentName cn = ri.getComponentName();
+                                        ret = (context.getPackageManager().getComponentEnabledSetting(cn) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED) ? 1 : 0;
                                         break;
                                     }
                                 }

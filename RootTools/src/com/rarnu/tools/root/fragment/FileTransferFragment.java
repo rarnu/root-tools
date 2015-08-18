@@ -496,7 +496,7 @@ public class FileTransferFragment extends BaseFragment implements View.OnClickLi
             WifiInfo info = wifi.getWifiInfo();
             if (info != null) {
                 try {
-                    if (info.getSSID().contains(AP_PREFIX) && info.getMeteredHint()) {
+                    if (info.getSSID().contains(AP_PREFIX) && WifiUtils.getMeteredHint(info)) {
                         startSendFile();
                     }
                 } catch (Exception e) {

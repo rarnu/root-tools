@@ -171,7 +171,7 @@ public class AutoBootFragment extends BaseFragment implements Loader.OnLoadCompl
         new Thread(new Runnable() {
             @Override
             public void run() {
-                boolean ret = AutobootUtils.switchAutoboot(getActivity(), item, UIUtils.getDM(), !item.enabled);
+                boolean ret = AutobootUtils.switchAutoboot(getActivity(), item, !item.enabled);
                 Message msg = new Message();
                 msg.what = 1;
                 msg.arg1 = ret ? 1 : 0;
