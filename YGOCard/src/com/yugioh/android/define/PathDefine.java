@@ -1,10 +1,12 @@
 package com.yugioh.android.define;
 
+import android.os.Environment;
+
 import java.io.File;
 
 public class PathDefine {
 
-    public static final String ROOT_PATH = "/sdcard/.yugioh/";
+    public static final String ROOT_PATH = Environment.getExternalStorageDirectory().getAbsolutePath() + "/.yugioh/";
     public static final String APK_NAME = "YuGiOhCard.apk";
     public static final String DATA_ZIP = "yugioh.zip";
     public static final String DATA_NAME = "yugioh.db";
