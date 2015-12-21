@@ -2,17 +2,12 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/ActivityCalendar/ActivityCalendar.iml" filepath="$PROJECT_DIR$/ActivityCalendar/ActivityCalendar.iml" />
       <module fileurl="file://$PROJECT_DIR$/CommandLib/CommandLib.iml" filepath="$PROJECT_DIR$/CommandLib/CommandLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/CommonDevLib/CommonDevLib.iml" filepath="$PROJECT_DIR$/CommonDevLib/CommonDevLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/CommonUtils/CommonUtils.iml" filepath="$PROJECT_DIR$/CommonUtils/CommonUtils.iml" />
       <module fileurl="file://$PROJECT_DIR$/Emulator/Emulator.iml" filepath="$PROJECT_DIR$/Emulator/Emulator.iml" />
-      <module fileurl="file://$PROJECT_DIR$/FindAround/FindAround.iml" filepath="$PROJECT_DIR$/FindAround/FindAround.iml" />
-      <module fileurl="file://$PROJECT_DIR$/HuaweiP6CPU/HuaweiP6CPU.iml" filepath="$PROJECT_DIR$/HuaweiP6CPU/HuaweiP6CPU.iml" />
       <module fileurl="file://$PROJECT_DIR$/PackageParser4/PackageParser4.iml" filepath="$PROJECT_DIR$/PackageParser4/PackageParser4.iml" />
       <module fileurl="file://$PROJECT_DIR$/RootTools/RootTools.iml" filepath="$PROJECT_DIR$/RootTools/RootTools.iml" />
-      <module fileurl="file://$PROJECT_DIR$/SbbsMeClient/SbbsMeClient.iml" filepath="$PROJECT_DIR$/SbbsMeClient/SbbsMeClient.iml" />
-      <module fileurl="file://$PROJECT_DIR$/Startup17/Startup17.iml" filepath="$PROJECT_DIR$/Startup17/Startup17.iml" />
       <module fileurl="file://$PROJECT_DIR$/YGOCard/YuGiOhCard.iml" filepath="$PROJECT_DIR$/YGOCard/YuGiOhCard.iml" />
     </modules>
   </component>
