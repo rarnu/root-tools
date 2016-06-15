@@ -1,0 +1,21 @@
+数据更新：
+
+1. 获取当前数据库版本号 
+	$ python yugioh_convert_sqlite.py R
+
+2. 跟据新版本号，新的原始数据库生成新数据库
+	$ python yugioh_convert_sqlite.py W ocgdb.sqlite <Version Code> <Output Path>
+
+3. 获取数据库内的卡片总数
+	$ sqlite3 yugioh.db
+	$ select count(*) from YGODATA;
+
+4. 压缩生成的 yugioh.db 为 yugioh.zip
+
+5. 上传 yugioh.zip 到服务器内 /yugioh/download/
+
+6. 修改 update.php，更改数据库版本号和卡片总数
+
+卡查 APK 更新：
+
+1. 打包签名后，修改文件名为 YuGiOhCard.apk，上传到服务器内 /yugioh/download/

@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.yugioh.android"
-        android:versionCode="110"
-        android:versionName="ver 3.2">
+        android:versionCode="200"
+        android:versionName="ver 3.6">
 
     <uses-sdk
             android:minSdkVersion="14"
@@ -21,7 +21,7 @@
             android:name=".YuGiOhApplication">
         <meta-data
                 android:name="release-date"
-                android:value="2015.07.16" />
+                android:value="2016.06.16" />
         <meta-data
                 android:name="database-version"
                 android:value="106" />

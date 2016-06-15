@@ -2,7 +2,7 @@ package com.yugioh.android.define;
 
 public class NetworkDefine {
 
-	public static final String BASE_URL = "http://rarnu.7thgen.info/yugioh/";
+	public static final String BASE_URL = "http://diy.ourocg.cn/yugioh/";
 	public static final String UPDATE_URL = BASE_URL + "update.php";
 	public static final String UPDATE_PARAM_FMT = "ver=%d&cardid=%d&dbver=%d&os=a";
     public static final String FEEDBACK_URL = BASE_URL + "feedback.php";
