@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">DoubleWatcher</string>
+    <string name="title_setting">Settings</string>
+    <string name="btn_help">About</string>
+    <string name="btn_watch">Watch</string>
+    <string name="btn_stop">Stop</string>
+    <string name="btn_sync">Sync</string>
+    <string name="item_userid">User ID</string>
+    <string name="item_userpath">Emulated Path</string>
+
+    <string name="tv_watch_weixin">Watch WeiXin</string>
+    <string name="tv_watch_qq">Watch QQ</string>
+
+    <string name="toast_lock_screen">For enabling the watcher, you must turn off your screen and then on once.</string>
+    <string name="toast_reject_permission">The write permission of SDCard is rejected, the app will not work.</string>
+    <string name="toast_synced">Files synced.</string>
+    <string name="notification_desc">Watch and sync Double App\'s images changing.</string>
+
+</resources>
