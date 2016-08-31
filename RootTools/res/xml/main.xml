@@ -18,15 +18,6 @@
                 android:summary="@string/summary_firewall" />
 
         <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_cleanhtc"
-                android:summary="@string/summary_cleanhtc"
-                android:title="@string/clean_htc_rom" />
-
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_fonts"
-                android:title="@string/func_fonts" />
-
-        <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_build_prop"
                 android:title="@string/func_build_prop" />
 
@@ -44,10 +35,6 @@
                 android:key="@string/id_hardupdate"
                 android:summary="@string/summary_hardupdate"
                 android:title="@string/func_hardupdate" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_batch_apps"
-                android:summary="@string/summary_batch_apps"
-                android:title="@string/func_batch_app" />
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_remained_files"
                 android:title="@string/func_remained_files"
@@ -67,42 +54,12 @@
                 android:summary="@string/summary_clean_dalvik" />
 
     </PreferenceCategory>
-    <PreferenceCategory android:title="@string/cat_other">
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_hosts"
-                android:summary="@string/summary_host"
-                android:title="@string/func7_title" />
 
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_network"
-                android:title="@string/check_network_status" />
-
-    </PreferenceCategory>
-    <PreferenceCategory android:title="@string/cat_file">
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_diskinfo"
-                android:title="@string/diskinfo" />
-
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_filesystem"
-                android:title="@string/filesystem"
-                android:summary="@string/summary_file_system" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_file_transfer"
-                android:title="@string/func_file_transfer" />
-    </PreferenceCategory>
     <PreferenceCategory android:title="@string/cat_terminal">
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_terminal_emu"
                 android:title="@string/func_terminal"
                 android:summary="@string/summary_terminal" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_password"
-                android:title="@string/func_password" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_color_temp"
-                android:title="@string/func_color_temp"
-                />
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_scanmedia"
                 android:summary="@string/summary_scanmedia"
@@ -125,10 +82,6 @@
                 android:key="@string/id_feedback"
                 android:summary="@string/summary_feedback"
                 android:title="@string/short_feedback" />
-        <com.rarnu.devlib.component.PreferenceEx
-                android:key="@string/id_recommand"
-                android:summary="@string/summary_recommand"
-                android:title="@string/short_recommand" />
         <com.rarnu.devlib.component.PreferenceEx
                 android:key="@string/id_about"
                 android:title="@string/short_about" />

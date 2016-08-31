@@ -28,13 +28,12 @@ import com.rarnu.utils.NetworkUtils;
 public class IndexFragment extends BasePreferenceFragment implements
         OnPreferenceClickListener {
 
-    PreferenceEx prefSysApp, prefComponent, prefFirewall, prefRoot, prefHtcRom, prefFonts, prefBuildProp;
-    PreferenceEx prefBackup, prefRestore, prefHardUpdate, prefBatchApps, prefRemainedFiles;
+    PreferenceEx prefSysApp, prefComponent, prefFirewall, prefRoot, prefBuildProp;
+    PreferenceEx prefBackup, prefRestore, prefHardUpdate, prefRemainedFiles;
     PreferenceEx prefCleanMemory, prefCleanCache, prefCleanDalvik;
-    PreferenceEx prefDiskInfo, prefFileSystem, prefFileTransfer;
-    PreferenceEx prefHosts, prefScanMedia, prefNetworkState, prefReboot;
-    PreferenceEx prefFeedback, prefRecommand, prefAbout;
-    PreferenceEx prefTerminal, prefPassword, prefColorTemp;
+    PreferenceEx prefScanMedia, prefReboot;
+    PreferenceEx prefFeedback, prefAbout;
+    PreferenceEx prefTerminal;
     PreferenceEx prefSettings;
     IntentFilter filterRefreshTag = new IntentFilter(Actions.ACTION_REFRESH_TAG);
     RefreshTagReceiver receiverRefreshTag = new RefreshTagReceiver();
@@ -42,32 +41,23 @@ public class IndexFragment extends BasePreferenceFragment implements
     public void showFunctionalEnabledTags() {
         boolean isRooted = RootUtils.hasSu();
         prefSysApp.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        // prefSysAppEnabled.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefComponent.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefFirewall.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRoot.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-//        prefGoogle.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        prefFonts.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        prefHtcRom.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        // prefReplaceFile.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
+
         prefBuildProp.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
 
         prefBackup.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRestore.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefHardUpdate.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        prefBatchApps.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefRemainedFiles.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
 
         prefCleanMemory.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefCleanCache.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefCleanDalvik.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        prefHosts.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefReboot.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
-        prefFileSystem.setStatus(isRooted ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_BANNED);
         prefScanMedia.setStatus(PreferenceEx.STATE_NORMAL);
-        prefNetworkState.setStatus(PreferenceEx.STATE_NORMAL);
         prefFeedback.setStatus(PreferenceEx.STATE_NORMAL);
-        prefRecommand.setStatus(PreferenceEx.STATE_NORMAL);
         prefAbout.setStatus(PreferenceEx.STATE_NORMAL);
         prefTerminal.setStatus(PreferenceEx.STATE_NORMAL);
         // prefRuntime.setStatus(isRooted ? PreferenceEx.STATE_NORMAL: PreferenceEx.STATE_BANNED);
@@ -85,15 +75,12 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefFirewall.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRoot.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         // prefGoogle.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
-        prefFonts.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         // prefReplaceFile.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefBuildProp.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefBackup.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefRestore.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefCleanCache.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
-        prefHosts.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         prefReboot.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
-        prefFileSystem.setStatus(ready ? PreferenceEx.STATE_NORMAL : PreferenceEx.STATE_WARNING);
         if (ready) {
             showIptablesTag();
         }
@@ -259,36 +246,24 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefFirewall = (PreferenceEx) findPreference(getString(R.string.id_firewall));
         prefRoot = (PreferenceEx) findPreference(getString(R.string.id_root));
         // prefGoogle = (PreferenceEx) findPreference(getString(R.string.id_google));
-        prefHtcRom = (PreferenceEx) findPreference(getString(R.string.id_cleanhtc));
-        prefFonts = (PreferenceEx) findPreference(getString(R.string.id_fonts));
         // prefReplaceFile = (PreferenceEx) findPreference(getString(R.string.id_replace_files));
         prefBuildProp = (PreferenceEx) findPreference(getString(R.string.id_build_prop));
 
         prefBackup = (PreferenceEx) findPreference(getString(R.string.id_backup));
         prefRestore = (PreferenceEx) findPreference(getString(R.string.id_restore));
         prefHardUpdate = (PreferenceEx) findPreference(getString(R.string.id_hardupdate));
-        prefBatchApps = (PreferenceEx) findPreference(getString(R.string.id_batch_apps));
         prefRemainedFiles = (PreferenceEx) findPreference(getString(R.string.id_remained_files));
 
         prefCleanMemory = (PreferenceEx) findPreference(getString(R.string.id_cleanmemory));
         prefCleanCache = (PreferenceEx) findPreference(getString(R.string.id_cleancache));
         prefCleanDalvik = (PreferenceEx) findPreference(getString(R.string.id_cleandalvik));
 
-        prefDiskInfo = (PreferenceEx) findPreference(getString(R.string.id_diskinfo));
-        prefFileSystem = (PreferenceEx) findPreference(getString(R.string.id_filesystem));
-        prefFileTransfer = (PreferenceEx) findPreference(getString(R.string.id_file_transfer));
-
-        prefHosts = (PreferenceEx) findPreference(getString(R.string.id_hosts));
         prefScanMedia = (PreferenceEx) findPreference(getString(R.string.id_scanmedia));
-        prefNetworkState = (PreferenceEx) findPreference(getString(R.string.id_network));
         prefReboot = (PreferenceEx) findPreference(getString(R.string.id_reboot));
         prefFeedback = (PreferenceEx) findPreference(getString(R.string.id_feedback));
-        prefRecommand = (PreferenceEx) findPreference(getString(R.string.id_recommand));
         prefAbout = (PreferenceEx) findPreference(getString(R.string.id_about));
         prefSettings = (PreferenceEx) findPreference(getString(R.string.id_settings));
         prefTerminal = (PreferenceEx) findPreference(getString(R.string.id_terminal_emu));
-        prefPassword = (PreferenceEx) findPreference(getString(R.string.id_password));
-        prefColorTemp = (PreferenceEx) findPreference(getString(R.string.id_color_temp));
         // prefRuntime = (PreferenceEx) findPreference(getString(R.string.id_runtime));
     }
 
@@ -300,36 +275,25 @@ public class IndexFragment extends BasePreferenceFragment implements
         prefFirewall.setOnPreferenceClickListener(this);
         prefRoot.setOnPreferenceClickListener(this);
         // prefGoogle.setOnPreferenceClickListener(this);
-        prefHtcRom.setOnPreferenceClickListener(this);
-        prefFonts.setOnPreferenceClickListener(this);
         // prefReplaceFile.setOnPreferenceClickListener(this);
         prefBuildProp.setOnPreferenceClickListener(this);
 
         prefBackup.setOnPreferenceClickListener(this);
         prefRestore.setOnPreferenceClickListener(this);
         prefHardUpdate.setOnPreferenceClickListener(this);
-        prefBatchApps.setOnPreferenceClickListener(this);
         prefRemainedFiles.setOnPreferenceClickListener(this);
 
         prefCleanMemory.setOnPreferenceClickListener(this);
         prefCleanCache.setOnPreferenceClickListener(this);
         prefCleanDalvik.setOnPreferenceClickListener(this);
 
-        prefDiskInfo.setOnPreferenceClickListener(this);
-        prefFileSystem.setOnPreferenceClickListener(this);
-        prefFileTransfer.setOnPreferenceClickListener(this);
 
-        prefHosts.setOnPreferenceClickListener(this);
         prefScanMedia.setOnPreferenceClickListener(this);
-        prefNetworkState.setOnPreferenceClickListener(this);
         prefReboot.setOnPreferenceClickListener(this);
         prefFeedback.setOnPreferenceClickListener(this);
-        prefRecommand.setOnPreferenceClickListener(this);
         prefAbout.setOnPreferenceClickListener(this);
         prefSettings.setOnPreferenceClickListener(this);
         prefTerminal.setOnPreferenceClickListener(this);
-        prefPassword.setOnPreferenceClickListener(this);
-        prefColorTemp.setOnPreferenceClickListener(this);
 
         // prefRuntime.setOnPreferenceClickListener(this);
     }
@@ -341,8 +305,7 @@ public class IndexFragment extends BasePreferenceFragment implements
     }
 
     private void showVersionTags() {
-        prefFonts.setVersion(PreferenceEx.VERSION_BETA);
-        prefFileTransfer.setVersion(PreferenceEx.VERSION_BETA);
+
     }
 
     @Override

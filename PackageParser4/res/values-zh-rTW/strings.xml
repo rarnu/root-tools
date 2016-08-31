@@ -29,8 +29,8 @@
     <string name="clean_dalvik_fail">清理 Dalvik 失敗</string>
     <string name="clean_dalvik_0">沒有發現要清理的數據</string>
     <string name="clean_dalvik_succ" formatted="false">清理 Dalvik 成功，本次共清理 %d 項</string>
-    <string name="cleaning_dalvik">正在清理 Dalvik...</string>
-    <string name="clean_dalvik">清理 Dalvik</string>
+    <string name="cleaning_dalvik">正在清理 Runtime...</string>
+    <string name="clean_dalvik">清理 Runtime</string>
     <string name="diskinfo">磁碟信息</string>
     <string name="filesystem">檔案管理</string>
 
