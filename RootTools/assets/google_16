@@ -1,9 +1,0 @@
-{
-    "sdk_version":16,
-    "sdk_name":"Android 4.1.x (CM 10.0)",
-    "apks":["ChromeBookmarksSyncAdapter.apk","GoogleCalendarSyncAdapter.apk","GoogleContactsSyncAdapter.apk","GoogleLoginService.apk","GooglePartnerSetup.apk","GoogleServicesFramework.apk","NetworkLocation.apk","Phonesky.apk"],
-    "apks_optional":["GoogleFeedback.apk","GoogleBackupTransport.apk","Talk.apk","Talkback.apk"],
-    "jars":["com.google.android.maps.jar","com.google.android.media.effects.jar","com.google.widevine.software.drm.jar"],
-    "libs":["libflint_engine_jni_api.so","libfrsdk.so","libgcomm_jni.so","libgoogle_recognizer_jni.so","libpatts_engine_jni_api.so","libpicowrapper.so","libspeexwrapper.so","libvideochat_jni.so","libvideochat_stabilize.so","libvorbisencoder.so"],
-    "xmls":["permissions/com.google.android.maps.xml","permissions/com.google.android.media.effects.xml","permissions/com.google.widevine.software.drm.xml","permissions/features.xml"]
-}

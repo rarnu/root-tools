@@ -1,6 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<transition xmlns:android="http://schemas.android.com/apk/res/android" >
-
-    <item android:drawable="@drawable/menu_list_selector_pressed"/>
-    <item android:drawable="@color/white"/>
-</transition>

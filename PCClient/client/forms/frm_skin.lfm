@@ -1,4 +1,0 @@
-inherited FormSkin: TFormSkin
-  Height = 160
-  Width = 300
-end

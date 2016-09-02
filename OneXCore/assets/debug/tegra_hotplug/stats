@@ -1,4 +1,0 @@
-cpu:            G0         G1         G2         G3         LP
-transitions:    2          12         4          0          1          
-time plugged:   555        1446       677        0          49701      
-time-stamp:     4312880234

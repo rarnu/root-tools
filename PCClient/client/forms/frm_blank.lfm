@@ -1,8 +1,0 @@
-object FormBlank: TFormBlank
-  Left = 230
-  Height = 240
-  Top = 181
-  Width = 320
-  Caption = 'FormBlank'
-  LCLVersion = '1.0.10.0'
-end

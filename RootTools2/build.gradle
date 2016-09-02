@@ -1,0 +1,66 @@
+buildscript {
+    repositories {
+        jcenter()
+    }
+    dependencies {
+        classpath 'com.android.tools.build:gradle:2.1.2'
+    }
+}
+
+apply plugin: 'com.android.application'
+
+android {
+    compileSdkVersion 24
+    buildToolsVersion '24.0.1'
+
+    defaultConfig {
+        applicationId "com.rarnu.tools.neo"
+        minSdkVersion 23
+        targetSdkVersion 24
+    }
+
+    signingConfigs {
+        signConfig {
+            storeFile file ('roottools2.keystore')
+            storePassword '123456' //密码
+            keyAlias 'roottools2'
+            keyPassword '123456'  //密码
+        }
+    }
+
+    buildTypes {
+        release {
+            renderscriptDebuggable false
+            minifyEnabled true
+            zipAlignEnabled true
+            signingConfig signingConfigs.signConfig
+        }
+        debug {
+            signingConfig signingConfigs.signConfig
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_7
+        targetCompatibility JavaVersion.VERSION_1_7
+    }
+
+    lintOptions {
+        abortOnError false
+    }
+}
+
+repositories {
+    flatDir {
+        dirs 'aar'
+    }
+}
+
+dependencies {
+    compile(name: 'Emulator-release', ext: 'aar')
+    provided fileTree(include: ['*.jar'], dir: 'xposed')
+}
+
+project.gradle.startParameter.excludedTaskNames.add('lint')
+project.gradle.startParameter.excludedTaskNames.add('lintVitalRelease')
+

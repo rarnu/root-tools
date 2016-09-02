@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8"?>
+<merger version="3"><dataSet config="main"><source path="/Users/rarnu/Code/Github/root-tools/Emulator/src/main/assets"/><source path="/Users/rarnu/Code/Github/root-tools/Emulator/build/generated/assets/shaders/release"/></dataSet><dataSet config="release"><source path="/Users/rarnu/Code/Github/root-tools/Emulator/src/release/assets"/></dataSet></merger>

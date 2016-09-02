@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:loading="http://schemas.android.com/apk/res/com.rarnu.tools.neo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFFFF">
+    <ListView
+            android:id="@+id/lvComponent"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fastScrollEnabled="true"
+            android:fadeScrollbars="true"
+            android:layout_above="@+id/laySwitch">
+    </ListView>
+
+    <LinearLayout
+            android:id="@+id/laySwitch"
+            android:layout_width="match_parent" android:layout_height="48dip"
+            android:layout_alignParentBottom="true"
+            android:orientation="horizontal">
+        <TextView
+                android:id="@+id/btnActivity"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_normal"
+                android:focusable="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/view_activity"
+        />
+        <TextView
+                android:id="@+id/btnService"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_normal"
+                android:focusable="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/view_service"
+        />
+        <TextView
+                android:id="@+id/btnReceiver"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_normal"
+                android:focusable="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/view_receiver"
+        />
+        <TextView
+                android:id="@+id/btnProvider"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_normal"
+                android:focusable="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/view_provider"
+        />
+
+    </LinearLayout>
+
+    <com.rarnu.tools.neo.comp.LoadingView
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="64dip"
+            android:layout_marginStart="16dip"
+            android:layout_marginEnd="16dip"
+            android:layout_centerInParent="true"
+            loading:text="@string/view_loading"
+            loading:textColor="?android:attr/textColorSecondary"
+            android:visibility="gone">
+    </com.rarnu.tools.neo.comp.LoadingView>
+</RelativeLayout>

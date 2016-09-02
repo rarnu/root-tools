@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="56dip"
+        android:padding="4dip">
+
+    <ImageView
+            android:id="@+id/ivIcon"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_centerVertical="true"
+            android:layout_marginStart="8dip"
+            android:contentDescription="@null"/>
+
+    <Switch
+            android:id="@+id/prefStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="8dip"
+            android:layout_centerVertical="true"
+            android:contentDescription="@null"
+            android:focusable="false"
+            android:clickable="false"
+    />
+
+    <TextView
+            android:id="@+id/tvName"
+            android:layout_width="match_parent" android:layout_height="match_parent"
+            android:gravity="center_vertical"
+            android:textSize="16sp"
+            android:layout_above="@+id/tvPackageName"
+            android:layout_toEndOf="@+id/ivIcon"
+            android:layout_toStartOf="@+id/prefStatus"
+            android:layout_marginStart="8dip"
+            android:layout_marginEnd="8dip"
+            android:textColor="?android:attr/textColorPrimary"/>
+
+    <TextView
+            android:id="@+id/tvPackageName"
+            android:layout_width="match_parent" android:layout_height="20dip"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_toEndOf="@+id/ivIcon"
+            android:layout_toStartOf="@+id/prefStatus"
+            android:layout_marginStart="8dip"
+            android:layout_marginEnd="8dip"
+            android:textColor="?android:attr/textColorSecondary"/>
+
+</RelativeLayout>

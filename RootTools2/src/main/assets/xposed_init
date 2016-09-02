@@ -1,0 +1,6 @@
+com.rarnu.tools.neo.xposed.XPEnabled
+com.rarnu.tools.neo.xposed.MIUIAds
+com.rarnu.tools.neo.xposed.MIUIRoot25
+com.rarnu.tools.neo.xposed.MIUISearchBar
+com.rarnu.tools.neo.xposed.MIUITheme
+com.rarnu.tools.neo.xposed.SystemCore

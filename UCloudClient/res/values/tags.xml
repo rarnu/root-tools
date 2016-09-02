@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="utf-8"?>
-<resources>
-    <string name="tag_server_fragment">tag_server_fragment</string>
-    <string name="tag_flow_fragment">tag_flow_fragment</string>
-    <string name="tag_chat_fragment">tag_chat_fragment</string>
-    <string name="tag_settings_fragment">tag_settings_fragment</string>
-    <string name="tag_user_fragment">tag_user_fragment</string>
-</resources>
