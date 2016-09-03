@@ -69,7 +69,7 @@ public class SystemCore implements IXposedHookZygoteInit, IXposedHookLoadPackage
 
     @Override
     public void handleLoadPackage(XC_LoadPackage.LoadPackageParam paramLoadPackageParam) throws Throwable {
-        final XSharedPreferences prefs = new XSharedPreferences("com.coderstory.toolkit", "UserSettings");
+        final XSharedPreferences prefs = new XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF);
         prefs.makeWorldReadable();
         if (paramLoadPackageParam.packageName.equals("android") && paramLoadPackageParam.processName.equals("android")) {
             Class localClass = XposedHelpers.findClass("com.android.server.pm.PackageManagerService", paramLoadPackageParam.classLoader);

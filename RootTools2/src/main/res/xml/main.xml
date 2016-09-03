@@ -26,6 +26,11 @@
                 android:title="@string/main_corecrack"
                 pref:showSwitch="true"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
+                android:key="@string/id_fake_device"
+                android:summary="@string/main_summary_fake_device"
+                android:title="@string/main_fake_device"
+                pref:showSwitch="true"/>
+        <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_terminal"
                 android:summary="@string/main_summary_terminal"
                 android:title="@string/main_terminal"
@@ -50,6 +55,12 @@
                 android:summary="@string/miui_summary_removesearch"
                 android:title="@string/miui_removesearch"
                 pref:showSwitch="true"/>
+        <com.rarnu.tools.neo.comp.PreferenceEx
+                android:key="@string/id_columns"
+                android:summary="@string/miui_summary_columns"
+                android:title="@string/miui_columns"
+                pref:showSwitch="false"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_root25"
                 android:summary="@string/miui_summary_root25"

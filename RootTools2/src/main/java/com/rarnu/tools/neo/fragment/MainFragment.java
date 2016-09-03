@@ -1,8 +1,10 @@
 package com.rarnu.tools.neo.fragment;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Message;
 import android.preference.Preference;
@@ -13,15 +15,16 @@ import com.rarnu.tools.neo.activity.*;
 import com.rarnu.tools.neo.base.BasePreferenceFragment;
 import com.rarnu.tools.neo.comp.PreferenceEx;
 import com.rarnu.tools.neo.root.RootUtils;
+import com.rarnu.tools.neo.utils.FileUtils;
 import com.rarnu.tools.neo.utils.HostsUtils;
 import com.rarnu.tools.neo.xposed.XpStatus;
 
 public class MainFragment extends BasePreferenceFragment implements Preference.OnPreferenceClickListener {
 
     // system
-    private PreferenceEx pFreeze, pComponent, pCleanArt, pCoreCrack, pTerminalo;
+    private PreferenceEx pFreeze, pComponent, pCleanArt, pCoreCrack, pFakeDevice, pTerminalo;
     // miui
-    private PreferenceEx pTheme, pRemoveAd, pRemoveSearch, pRoot25, pNoUpdate;
+    private PreferenceEx pTheme, pRemoveAd, pRemoveSearch, pColumns, pRoot25, pNoUpdate;
     // about
     private PreferenceEx pAbout;
 
@@ -49,12 +52,14 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pComponent = findPref(R.string.id_component);
         pCleanArt = findPref(R.string.id_cleanart);
         pCoreCrack = findPref(R.string.id_corecrack);
+        pFakeDevice = findPref(R.string.id_fake_device);
         pTerminalo = findPref(R.string.id_terminal);
 
         // miui
         pTheme = findPref(R.string.id_theme);
         pRemoveAd = findPref(R.string.id_removead);
         pRemoveSearch = findPref(R.string.id_removesearch);
+        pColumns = findPref(R.string.id_columns);
         pRoot25 = findPref(R.string.id_root25);
         pNoUpdate = findPref(R.string.id_noupdate);
 
@@ -73,12 +78,14 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pComponent.setOnPreferenceClickListener(this);
         pCleanArt.setOnPreferenceClickListener(this);
         pCoreCrack.setOnPreferenceClickListener(this);
+        pFakeDevice.setOnPreferenceClickListener(this);
         pTerminalo.setOnPreferenceClickListener(this);
 
         // miui
         pTheme.setOnPreferenceClickListener(this);
         pRemoveAd.setOnPreferenceClickListener(this);
         pRemoveSearch.setOnPreferenceClickListener(this);
+        pColumns.setOnPreferenceClickListener(this);
         pRoot25.setOnPreferenceClickListener(this);
         pNoUpdate.setOnPreferenceClickListener(this);
 
@@ -124,6 +131,8 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pRoot25.setStatus(pref.getBoolean(XpStatus.KEY_ROOTCRACK, false));
         pCoreCrack.setStatus(pref.getBoolean(XpStatus.KEY_CORECRACK, false));
         pNoUpdate.setStatus(pref.getBoolean(XpStatus.KEY_NOUPDATE, false));
+        pFakeDevice.setStatus(pref.getBoolean(XpStatus.KEY_FAKE_DEVICE, false));
+        pFakeDevice.setSummary(pref.getString(XpStatus.KEY_FAKE_DEVICE_NAME, ""));
     }
 
     private void setXposedRootStatus() {
@@ -132,11 +141,13 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pComponent.setEnabled(!RootUtils.isRejected());
         pCleanArt.setEnabled(!RootUtils.isRejected());
         pCoreCrack.setEnabled(XpStatus.isEnable());
+        pFakeDevice.setEnabled(!RootUtils.isRejected());
         pTerminalo.setEnabled(true);
         // miui
         pTheme.setEnabled(XpStatus.isEnable());
         pRemoveAd.setEnabled(XpStatus.isEnable());
         pRemoveSearch.setEnabled(XpStatus.isEnable());
+        pColumns.setEnabled(true);
         pRoot25.setEnabled(XpStatus.isEnable());
         pNoUpdate.setEnabled(!RootUtils.isRejected());
         // about
@@ -199,6 +210,8 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             showActivity(CleanActivity.class);
         } else if (prefKey.equals(getString(R.string.id_about))) {
             showActivity(AboutActivity.class);
+        } else if (prefKey.equals(getString(R.string.id_fake_device))) {
+            showActivity(FakeDeviceActivity.class);
         } else if (prefKey.equals(getString(R.string.id_theme))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_THEMECRACK, ex.getStatus());
@@ -219,6 +232,21 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_CORECRACK, ex.getStatus());
             editor.apply();
+        } else if (prefKey.equals(getString(R.string.id_columns))) {
+            if (XpStatus.canWriteSdcard) {
+                boolean ret = FileUtils.copyAssetFile(getContext(), "RootToolsNeo.mtz", Environment.getExternalStorageDirectory().getAbsolutePath());
+                if (ret) {
+                    new AlertDialog.Builder(getContext())
+                            .setTitle(R.string.alert_hint)
+                            .setMessage(R.string.alert_apply_theme)
+                            .setPositiveButton(R.string.alert_ok, null)
+                            .show();
+                } else {
+                    Toast.makeText(getContext(), R.string.toast_copyasset_fail, Toast.LENGTH_SHORT).show();
+                }
+            } else {
+                Toast.makeText(getContext(), R.string.toast_no_write_permission, Toast.LENGTH_SHORT).show();
+            }
         } else if (prefKey.equals(getString(R.string.id_noupdate))) {
             boolean oriStat = ex.getStatus();
             threadNoUpdate(oriStat);

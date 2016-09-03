@@ -2,6 +2,7 @@ package com.rarnu.tools.neo.xposed;
 
 import de.robv.android.xposed.XposedBridge;
 import de.robv.android.xposed.XposedHelpers;
+import de.robv.android.xposed.callbacks.XC_InitPackageResources;
 
 public class XpUtils {
 
@@ -9,7 +10,7 @@ public class XpUtils {
         try {
             XposedHelpers.findAndHookMethod(clsName, loader, method, parameterTypesAndCallback);
         } catch (Throwable th) {
-            XposedBridge.log(th.toString());
+            XposedBridge.log("RootToolsNeo findAndHookMethod: " + th.toString());
         }
 
     }
@@ -18,7 +19,7 @@ public class XpUtils {
         try {
             XposedHelpers.findAndHookMethod(Class.forName(clsName), method, parameter);
         } catch (Throwable th) {
-            XposedBridge.log(th.toString());
+            XposedBridge.log("RootToolsNeo findAndHookMethod: " + th.toString());
         }
     }
 
@@ -26,8 +27,16 @@ public class XpUtils {
         try {
             XposedHelpers.setStaticBooleanField(Class.forName(clsName), field, value);
         } catch (Throwable th) {
-            XposedBridge.log(th.toString());
+            XposedBridge.log("RootToolsNeo setStaticBooleanField: " + th.toString());
         }
     }
 
+    public static void setReplacement(XC_InitPackageResources.InitPackageResourcesParam param, String clsName, String type, String name, Object value) {
+        try {
+            param.res.setReplacement(clsName, type, name, value);
+            XposedBridge.log("MIUIColumns patched!! " + clsName + ": " + name);
+        } catch (Throwable th) {
+            XposedBridge.log("MIUIColumns error: " + name + " ======= " + th.getMessage());
+        }
+    }
 }

@@ -22,9 +22,9 @@ android {
     signingConfigs {
         signConfig {
             storeFile file ('roottools2.keystore')
-            storePassword '123456' //密码
+            storePassword '123456'
             keyAlias 'roottools2'
-            keyPassword '123456'  //密码
+            keyPassword '123456'
         }
     }
 
