@@ -34,6 +34,7 @@ public class AppAdapter extends BaseAdapter<AppInfo> {
         AppHolder holder = (AppHolder) v.getTag();
         if (holder == null) {
             holder = new AppHolder(v, R.id.ivIcon, R.id.prefStatus, R.id.tvName, R.id.tvPackageName);
+            v.setTag(holder);
         }
         AppInfo item = list.get(position);
         holder.setItem(item);

@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:pref="http://schemas.android.com/apk/res/com.rarnu.tools.neo">
+        xmlns:pref="http://schemas.android.com/apk/res-auto">
 
     <PreferenceCategory android:title="@string/category_main">
         <com.rarnu.tools.neo.comp.PreferenceEx
@@ -9,32 +9,38 @@
                 android:summary="@string/main_summary_freeze"
                 android:title="@string/main_freeze"
                 pref:showSwitch="false"
+                pref:showIcon="false"
         />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_component"
                 android:summary="@string/main_summary_component"
                 android:title="@string/main_component"
-                pref:showSwitch="false"/>
+                pref:showSwitch="false"
+                pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_cleanart"
                 android:summary="@string/main_summary_cleanart"
                 android:title="@string/main_cleanart"
-                pref:showSwitch="false"/>
+                pref:showSwitch="false"
+                pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_corecrack"
                 android:summary="@string/main_summary_corecrack"
                 android:title="@string/main_corecrack"
-                pref:showSwitch="true"/>
+                pref:showSwitch="true"
+                pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_fake_device"
                 android:summary="@string/main_summary_fake_device"
                 android:title="@string/main_fake_device"
-                pref:showSwitch="true"/>
+                pref:showSwitch="false"
+                pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_terminal"
                 android:summary="@string/main_summary_terminal"
                 android:title="@string/main_terminal"
-                pref:showSwitch="false"/>
+                pref:showSwitch="false"
+                pref:showIcon="false"/>
 
     </PreferenceCategory>
 
@@ -44,33 +50,38 @@
                 android:key="@string/id_theme"
                 android:summary="@string/miui_summary_theme"
                 android:title="@string/miui_theme"
-                pref:showSwitch="true"/>
+                pref:showSwitch="true"
+                pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_removead"
                 android:summary="@string/miui_summary_removead"
                 android:title="@string/miui_removead"
-                pref:showSwitch="true"/>
+                pref:showSwitch="true"
+                pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_removesearch"
                 android:summary="@string/miui_summary_removesearch"
                 android:title="@string/miui_removesearch"
-                pref:showSwitch="true"/>
+                pref:showSwitch="true"
+                pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_columns"
                 android:summary="@string/miui_summary_columns"
                 android:title="@string/miui_columns"
                 pref:showSwitch="false"
-        />
+                pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_root25"
                 android:summary="@string/miui_summary_root25"
                 android:title="@string/miui_root25"
-                pref:showSwitch="true"/>
+                pref:showSwitch="true"
+                pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_noupdate"
                 android:summary="@string/miui_summary_noupdate"
                 android:title="@string/miui_noupdate"
-                pref:showSwitch="true"/>
+                pref:showSwitch="true"
+                pref:showIcon="false"/>
     </PreferenceCategory>
 
 
@@ -78,6 +89,7 @@
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_about"
                 android:title="@string/about_about"
-                pref:showSwitch="false"/>
+                pref:showSwitch="false"
+                pref:showIcon="false"/>
     </PreferenceCategory>
 </PreferenceScreen>

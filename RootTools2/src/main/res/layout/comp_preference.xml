@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:id="@+id/layPref"
-                android:layout_width="match_parent"
-                android:layout_height="56dip"
-                android:padding="4dip">
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/layPref"
+        android:layout_width="match_parent"
+        android:layout_height="56dip"
+        android:padding="4dip">
 
     <ImageView
             android:id="@+id/prefIcon"

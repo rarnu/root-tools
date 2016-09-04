@@ -31,6 +31,7 @@ public class CompDetailAdapter extends BaseAdapter<CompInfo> {
         CompHolder holder = (CompHolder) v.getTag();
         if (holder == null) {
             holder = new CompHolder(v, R.id.prefStatus, R.id.tvName);
+            v.setTag(holder);
         }
         CompInfo item = list.get(position);
         holder.setItem(item);

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 import android.widget.SearchView;
@@ -37,6 +38,7 @@ public class ComponentFragment extends BaseFragment implements AdapterView.OnIte
         inDetail.putExtra("pkg", item.packageName);
         inDetail.putExtra("name", item.name);
         startActivity(inDetail);
+
     }
 
     @Override

@@ -40,8 +40,10 @@ out/
 
 # xcode
 .DS_*
+
  
 # project
 RootTools2/build/
 Emulator/build/
-
+RootTools2/.gradle/
+Emulator/.gradle/

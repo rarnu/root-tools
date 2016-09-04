@@ -23,6 +23,7 @@ public class PreferenceEx extends Preference {
 
     private View innerView = null;
     private boolean showSwitch = false;
+    private boolean showIcon = true;
     private boolean isOn = false;
 
     public PreferenceEx(Context context, AttributeSet attrs, int defStyleAttr) {
@@ -43,6 +44,7 @@ public class PreferenceEx extends Preference {
         if (attrs != null) {
             TypedArray a = getContext().obtainStyledAttributes(attrs, R.styleable.PreferenceEx, 0, 0);
             showSwitch = a.getBoolean(R.styleable.PreferenceEx_showSwitch, false);
+            showIcon = a.getBoolean(R.styleable.PreferenceEx_showIcon,true);
             a.recycle();
         }
     }
@@ -74,6 +76,7 @@ public class PreferenceEx extends Preference {
             prefSummary = (TextView) innerView.findViewById(R.id.prefSummary);
             prefStatus = (Switch) innerView.findViewById(R.id.prefStatus);
             prefStatus.setVisibility(showSwitch ? View.VISIBLE : View.GONE);
+            prefIcon.setVisibility(showIcon ? View.VISIBLE : View.GONE);
         }
         return innerView;
     }
@@ -101,6 +104,10 @@ public class PreferenceEx extends Preference {
 
     public void setShowSwitch(boolean on) {
         prefStatus.setVisibility(on ? View.VISIBLE : View.GONE);
+    }
+
+    public void setShowIcon(boolean on) {
+        prefIcon.setVisibility(on ? View.VISIBLE : View.GONE);
     }
 
     public void setStatus(boolean on) {

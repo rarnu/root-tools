@@ -49,7 +49,16 @@
     <string name="view_receiver">Receiver</string>
     <string name="view_provider">Provider</string>
 
+    <string name="view_ready">已准备就绪, 请点击右上角『清理』按钮开始清理...\n</string>
+    <string name="view_start_clean">开始清理, 请耐心等待...\n</string>
+    <string name="view_clean_cache" formatted="false">清理: %s (%s) ...\n</string>
+    <string name="view_clean_anr" formatted="false">清理 ANR 日志 (%s) ...\n</string>
+    <string name="view_clean_art_remain" formatted="false">清理 ART: %s (%s) ...\n</string>
+    <string name="view_clean_complete" formatted="false">清理完毕, 共清理文件 %s\n\n</string>
+
     <string name="ab_search">搜索</string>
+    <string name="ab_save">保存</string>
+    <string name="ab_clean">清理</string>
     <string name="ab_send_ctrl">发送 Ctrl</string>
     <string name="ab_send_fn">发送 FN</string>
     <string name="ab_ctrl">Ctrl</string>
@@ -61,6 +70,9 @@
     <string name="toast_noupdate_fail">切换更新状态失败</string>
     <string name="toast_copyasset_fail">生成主题文件失败</string>
     <string name="toast_no_write_permission">请在程序启动时授予读写 SD 卡的权限, 然后重试</string>
+    <string name="toast_buildprop_saved">修改 build.prop 成功</string>
+    <string name="toast_buildprop_save_failed">修改 build.prop 失败</string>
+    <string name="toast_cleaning">正在清理, 请稍后再退出...</string>
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>

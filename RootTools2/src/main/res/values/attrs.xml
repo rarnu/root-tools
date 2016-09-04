@@ -3,6 +3,7 @@
 
     <declare-styleable name="PreferenceEx">
         <attr name="showSwitch" format="boolean" />
+        <attr name="showIcon" format="boolean"/>
     </declare-styleable>
 
     <declare-styleable name="LoadingView">

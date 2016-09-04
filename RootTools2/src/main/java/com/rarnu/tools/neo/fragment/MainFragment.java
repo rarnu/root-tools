@@ -131,8 +131,6 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pRoot25.setStatus(pref.getBoolean(XpStatus.KEY_ROOTCRACK, false));
         pCoreCrack.setStatus(pref.getBoolean(XpStatus.KEY_CORECRACK, false));
         pNoUpdate.setStatus(pref.getBoolean(XpStatus.KEY_NOUPDATE, false));
-        pFakeDevice.setStatus(pref.getBoolean(XpStatus.KEY_FAKE_DEVICE, false));
-        pFakeDevice.setSummary(pref.getString(XpStatus.KEY_FAKE_DEVICE_NAME, ""));
     }
 
     private void setXposedRootStatus() {
