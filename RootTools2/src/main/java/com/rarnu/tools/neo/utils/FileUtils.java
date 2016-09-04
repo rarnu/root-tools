@@ -102,7 +102,7 @@ public class FileUtils {
     }
 
     public static String getReadableFileSize(long size) {
-        String[] units = new String[]{"B", "KB", "MB", "GB", "TB", "PB"};
+        String[] units = new String[]{"K", "M", "G", "T", "P"};
         double nSize = size * 1L * 1.0f;
         double mod = 1024.0f;
         int i = 0;
