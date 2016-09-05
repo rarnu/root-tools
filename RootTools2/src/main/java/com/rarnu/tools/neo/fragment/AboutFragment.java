@@ -5,9 +5,6 @@ import android.view.Menu;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.base.BaseFragment;
 
-/**
- * Created by rarnu on 9/2/16.
- */
 public class AboutFragment extends BaseFragment {
 
     // TODO: about

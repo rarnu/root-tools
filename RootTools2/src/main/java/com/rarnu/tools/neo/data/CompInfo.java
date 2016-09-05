@@ -31,5 +31,4 @@ public class CompInfo {
         return result;
     }
 
-
 }
