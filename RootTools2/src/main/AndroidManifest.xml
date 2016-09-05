@@ -63,7 +63,12 @@
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar">
         </activity>
+        <activity android:name=".activity.BanStartActivity"
+                  android:screenOrientation="portrait">
+        </activity>
 
+
+        <!-- xposed -->
         <meta-data
                 android:name="xposedmodule"
                 android:value="true"/>

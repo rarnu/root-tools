@@ -8,11 +8,13 @@
     <string name="terminal_name">终端</string>
     <string name="clean_name">清理系统</string>
     <string name="fake_device_name">模拟设备</string>
+    <string name="banstart_name">禁止自启</string>
     <string name="about_name">关于本软件</string>
 
     <string name="category_main">系统</string>
     <string name="main_freeze">冻结应用[root]</string>
     <string name="main_component">组件管理[root]</string>
+    <string name="main_banstart">禁止自启[xposed]</string>
     <string name="main_cleanart">清理系统[root]</string>
     <string name="main_corecrack">核心校验破解[xposed]</string>
     <string name="main_fake_device">模拟设备[root]</string>
@@ -20,6 +22,7 @@
 
     <string name="main_summary_freeze">冻结不想要的系统应用, 不会影响 OTA</string>
     <string name="main_summary_component">对程序内的组件进行管理, 可以禁用服务等</string>
+    <string name="main_summay_banstart">禁止应用自动启动, 或者被其他应用唤醒</string>
     <string name="main_summary_cleanart">清理 ART 虚拟机, 清理卸载残余, 缓存等</string>
     <string name="main_summary_corecrack">破解签名校验, 允许不同签名覆盖, 无签名安装</string>
     <string name="main_summary_fake_device"></string>

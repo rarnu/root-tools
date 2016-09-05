@@ -2,6 +2,7 @@
 <resources>
     <string name="id_freeze">id_freeze</string>
     <string name="id_component">id_component</string>
+    <string name="id_banstart">id_banstart</string>
     <string name="id_cleanart">id_cleanart</string>
     <string name="id_corecrack">id_corecrack</string>
     <string name="id_fake_device">id_fake_device</string>

@@ -18,6 +18,12 @@
                 pref:showSwitch="false"
                 pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
+                android:key="@string/id_banstart"
+                android:summary="@string/main_summay_banstart"
+                android:title="@string/main_banstart"
+                pref:showSwitch="false"
+                pref:showIcon="false"/>
+        <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_cleanart"
                 android:summary="@string/main_summary_cleanart"
                 android:title="@string/main_cleanart"

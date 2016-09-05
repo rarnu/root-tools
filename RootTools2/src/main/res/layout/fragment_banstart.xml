@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:loading="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#FFFFFFFF">
+    <ListView
+            android:id="@+id/lvApp"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fastScrollEnabled="true"
+            android:fadeScrollbars="true">
+    </ListView>
+
+    <com.rarnu.tools.neo.comp.LoadingView
+            android:id="@+id/loading"
+            android:layout_width="match_parent"
+            android:layout_height="64dip"
+            android:layout_marginStart="16dip"
+            android:layout_marginEnd="16dip"
+            android:layout_centerInParent="true"
+            loading:text="@string/view_loading"
+            loading:textColor="?android:attr/textColorSecondary"
+            android:visibility="gone">
+    </com.rarnu.tools.neo.comp.LoadingView>
+</RelativeLayout>

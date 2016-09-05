@@ -22,7 +22,7 @@ import com.rarnu.tools.neo.xposed.XpStatus;
 public class MainFragment extends BasePreferenceFragment implements Preference.OnPreferenceClickListener {
 
     // system
-    private PreferenceEx pFreeze, pComponent, pCleanArt, pCoreCrack, pFakeDevice, pTerminalo;
+    private PreferenceEx pFreeze, pComponent, pBanStart, pCleanArt, pCoreCrack, pFakeDevice, pTerminalo;
     // miui
     private PreferenceEx pTheme, pRemoveAd, pRemoveSearch, pColumns, pRoot25, pNoUpdate;
     // about
@@ -44,12 +44,13 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
 
     @Override
     public void initComponents() {
-        pref = getActivity().getSharedPreferences(XpStatus.PREF, 1);
+        pref = getContext().getSharedPreferences(XpStatus.PREF, 1);
         editor = pref.edit();
 
         // system
         pFreeze = findPref(R.string.id_freeze);
         pComponent = findPref(R.string.id_component);
+        pBanStart = findPref(R.string.id_banstart);
         pCleanArt = findPref(R.string.id_cleanart);
         pCoreCrack = findPref(R.string.id_corecrack);
         pFakeDevice = findPref(R.string.id_fake_device);
@@ -76,6 +77,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         // system
         pFreeze.setOnPreferenceClickListener(this);
         pComponent.setOnPreferenceClickListener(this);
+        pBanStart.setOnPreferenceClickListener(this);
         pCleanArt.setOnPreferenceClickListener(this);
         pCoreCrack.setOnPreferenceClickListener(this);
         pFakeDevice.setOnPreferenceClickListener(this);
@@ -137,6 +139,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         // system
         pFreeze.setEnabled(!RootUtils.isRejected());
         pComponent.setEnabled(!RootUtils.isRejected());
+        pBanStart.setEnabled(XpStatus.isEnable());
         pCleanArt.setEnabled(!RootUtils.isRejected());
         pCoreCrack.setEnabled(XpStatus.isEnable());
         pFakeDevice.setEnabled(!RootUtils.isRejected());
@@ -202,6 +205,8 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             showActivity(FreezeActivity.class);
         } else if (prefKey.equals(getString(R.string.id_component))) {
             showActivity(ComponentActivity.class);
+        } else if (prefKey.equals(getString(R.string.id_banstart))) {
+            showActivity(BanStartActivity.class);
         } else if (prefKey.equals(getString(R.string.id_terminal))) {
             showActivity(TerminalActivity.class);
         } else if (prefKey.equals(getString(R.string.id_cleanart))) {
@@ -212,24 +217,19 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             showActivity(FakeDeviceActivity.class);
         } else if (prefKey.equals(getString(R.string.id_theme))) {
             ex.setStatus(!ex.getStatus());
-            editor.putBoolean(XpStatus.KEY_THEMECRACK, ex.getStatus());
-            editor.apply();
+            editor.putBoolean(XpStatus.KEY_THEMECRACK, ex.getStatus()).apply();
         } else if (prefKey.equals(getString(R.string.id_removead))) {
             ex.setStatus(!ex.getStatus());
-            editor.putBoolean(XpStatus.KEY_REMOVEAD, ex.getStatus());
-            editor.apply();
+            editor.putBoolean(XpStatus.KEY_REMOVEAD, ex.getStatus()).apply();
         } else if (prefKey.equals(getString(R.string.id_removesearch))) {
             ex.setStatus(!ex.getStatus());
-            editor.putBoolean(XpStatus.KEY_REMOVESEARCHBAR, ex.getStatus());
-            editor.apply();
+            editor.putBoolean(XpStatus.KEY_REMOVESEARCHBAR, ex.getStatus()).apply();
         } else if (prefKey.equals(getString(R.string.id_root25))) {
             ex.setStatus(!ex.getStatus());
-            editor.putBoolean(XpStatus.KEY_ROOTCRACK, ex.getStatus());
-            editor.apply();
+            editor.putBoolean(XpStatus.KEY_ROOTCRACK, ex.getStatus()).apply();
         } else if (prefKey.equals(getString(R.string.id_corecrack))) {
             ex.setStatus(!ex.getStatus());
-            editor.putBoolean(XpStatus.KEY_CORECRACK, ex.getStatus());
-            editor.apply();
+            editor.putBoolean(XpStatus.KEY_CORECRACK, ex.getStatus()).apply();
         } else if (prefKey.equals(getString(R.string.id_columns))) {
             if (XpStatus.canWriteSdcard) {
                 boolean ret = FileUtils.copyAssetFile(getContext(), "RootToolsNeo.mtz", Environment.getExternalStorageDirectory().getAbsolutePath());
