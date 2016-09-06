@@ -1,43 +1,40 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="app_name">RootToolsNeo</string>
-    <string name="app_desc">作者很懒, 不想写说明</string>
+    <string name="app_name">RootTools·Neo</string>
+    <string name="app_desc">RootTools·Neo 是一款辅助软件, 它允许用户对程序内部的组件进行管理, 同时也提供针对 MIUI 系统的各项功能。</string>
 
     <string name="freeze_name">冻结应用</string>
     <string name="component_name">组件管理</string>
     <string name="terminal_name">终端</string>
     <string name="clean_name">清理系统</string>
     <string name="fake_device_name">模拟设备</string>
-    <string name="banstart_name">禁止自启</string>
     <string name="about_name">关于本软件</string>
 
     <string name="category_main">系统</string>
     <string name="main_freeze">冻结应用[root]</string>
     <string name="main_component">组件管理[root]</string>
-    <string name="main_banstart">禁止自启[xposed]</string>
     <string name="main_cleanart">清理系统[root]</string>
     <string name="main_corecrack">核心校验破解[xposed]</string>
     <string name="main_fake_device">模拟设备[root]</string>
     <string name="main_terminal">终端模拟器</string>
 
-    <string name="main_summary_freeze">冻结不想要的系统应用, 不会影响 OTA</string>
+    <string name="main_summary_freeze">冻结不想要的系统应用</string>
     <string name="main_summary_component">对程序内的组件进行管理, 可以禁用服务等</string>
-    <string name="main_summay_banstart">禁止应用自动启动, 或者被其他应用唤醒</string>
     <string name="main_summary_cleanart">清理 ART 虚拟机, 清理卸载残余, 缓存等</string>
     <string name="main_summary_corecrack">破解签名校验, 允许不同签名覆盖, 无签名安装</string>
-    <string name="main_summary_fake_device"></string>
+    <string name="main_summary_fake_device">修改 build.prop 以绕过某些应用的设备校验</string>
     <string name="main_summary_terminal"></string>
 
     <string name="category_miui">MIUI</string>
-    <string name="miui_theme">主题破解[xposed]</string>
-    <string name="miui_removead">移除广告[xposed]</string>
+    <string name="miui_theme">主题免费[xposed]</string>
+    <string name="miui_removead">移除广告[xposed/root]</string>
     <string name="miui_removesearch">移除通知栏搜索[xposed]</string>
     <string name="miui_columns">状态栏图标数</string>
     <string name="miui_root25">移除 Root 等待[xposed]</string>
     <string name="miui_noupdate">屏蔽更新[root]</string>
 
-    <string name="miui_summary_theme">破解 MIUI8 的收费主题</string>
-    <string name="miui_summary_removead">去除广告, 不保证长期有效, 但会长期更新</string>
+    <string name="miui_summary_theme">不花钱使用 MIUI8 主题</string>
+    <string name="miui_summary_removead">去除大部分系统自带应用的广告</string>
     <string name="miui_summary_removesearch">去除通知栏的搜索框</string>
     <string name="miui_summary_columns">将通知栏单页图标数改为 5 个, 双页每行 4 个</string>
     <string name="miui_summary_root25">去除 root 授权时的 25 秒等待</string>
@@ -59,9 +56,22 @@
     <string name="view_clean_art_remain" formatted="false">清理 ART: %s (%s) ...\n</string>
     <string name="view_clean_complete" formatted="false">清理完毕, 共清理文件 %s\n\n</string>
 
+    <string name="view_about_version" formatted="false">version %s</string>
+    <string name="view_about_intro"></string>
+    <string name="view_about_project_github">项目源码 rarnu/root-tools</string>
+    <string name="view_about_project_github_url">https://github.com/rarnu/root-tools</string>
+    <string name="view_about_thankto">特别鸣谢</string>
+    <string name="view_about_thankto_coderstory">CoderStory</string>
+    <string name="view_about_thankto_coderstory_url">https://blog.coderstory.cn</string>
+    <string name="view_about_thankto_coderstory_github">参考项目(GPLv2) coderstory/toolkit</string>
+    <string name="view_about_thankto_coderstory_github_url">https://github.com/coderstory/toolkit</string>
+
     <string name="ab_search">搜索</string>
     <string name="ab_save">保存</string>
     <string name="ab_clean">清理</string>
+    <string name="ab_update">检查升级</string>
+    <string name="ab_share">分享</string>
+    <string name="ab_onekey">一键设置</string>
     <string name="ab_send_ctrl">发送 Ctrl</string>
     <string name="ab_send_fn">发送 FN</string>
     <string name="ab_ctrl">Ctrl</string>
@@ -79,9 +89,12 @@
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>
+    <string name="alert_update">升级</string>
+    <string name="alert_cancel">取消</string>
     <string name="alert_root">本软件需要 root 权限和 xposed 框架。\n\n当前检测到本软件未能获得 root 权限, 请授权后重新启动本软件。</string>
     <string name="alert_xposed">本软件需要 root 权限和 xposed 框架。\n\n当前检测到本软件未在 xposed 框架中激活, 部分功能将无法使用。\n\n请在 xposed installe 中勾选 RootToolsNeo 并重启系统。</string>
     <string name="alert_no_intent">没有找到 Intent</string>
-    <string name="alert_apply_theme">已在 SD 卡根目录生成 RootToolsNeo.mtz 主题文件, 请在『主题』中导入该文件, 在混搭中替换通知栏为 RootToolsNeo 主题即可。</string>
+    <string name="alert_apply_theme">已在 SD 卡根目录生成 RootToolsNeo.mtz 主题文件, 请在『主题』中导入该文件, 在『混搭』中替换通知栏为 RootToolsNeo 主题即可。</string>
+    <string name="alert_update_message" formatted="false">发现新版本! \n版本号 %s (%d)\n主要改动:\n%s\n</string>
 
 </resources>

@@ -72,7 +72,7 @@ public class FileUtils {
             fAsset.mkdirs();
         }
         try {
-            byte[] buffer = new byte[8192];
+            byte[] buffer = new byte[1024 * 1024];
             File dest = new File(saveDir, fileName);
             if (dest.exists()) {
                 dest.delete();
@@ -89,6 +89,19 @@ public class FileUtils {
         } catch (Exception ex) {
             return false;
         }
+    }
+
+    public static String readAssetFile(Context context, String fileName) throws IOException {
+        InputStream is = context.getAssets().open(fileName);
+        byte[] bytes = new byte[1024 * 1024];
+        ByteArrayOutputStream arrayOutputStream = new ByteArrayOutputStream();
+        while (is.read(bytes) != -1) {
+            arrayOutputStream.write(bytes, 0, bytes.length);
+        }
+        is.close();
+        arrayOutputStream.close();
+        String text = new String(arrayOutputStream.toByteArray());
+        return text.trim();
     }
 
     public static void setPermission(String filePath, int permission) {

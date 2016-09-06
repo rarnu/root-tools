@@ -37,6 +37,7 @@ public class ComponentDetailFragment extends BaseFragment implements View.OnClic
     private CompDetailAdapter adapter = null;
 
     private MenuItem miSearch = null;
+    private MenuItem miOnekey = null;
     private SearchView sv = null;
     private String filterText = "";
 
@@ -182,6 +183,21 @@ public class ComponentDetailFragment extends BaseFragment implements View.OnClic
         miSearch.setIcon(android.R.drawable.ic_menu_search);
         miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         miSearch.setActionView(sv);
+        miOnekey = menu.add(0, 2, 2, R.string.ab_onekey);
+        miOnekey.setIcon(android.R.drawable.ic_menu_manage);
+        miOnekey.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case 2:
+                // TODO: one key profile
+                // send request like "onekey.php?pkg=xxx.xxx"
+                // and server returns a list of components to be disabled.
+                break;
+        }
+        return true;
     }
 
     @Override

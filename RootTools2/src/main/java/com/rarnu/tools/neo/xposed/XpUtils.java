@@ -23,9 +23,9 @@ public class XpUtils {
         }
     }
 
-    public static void setStaticBooleanField(String clsName, String field, boolean value) {
+    public static void setStaticBooleanField(String clsName, ClassLoader loader, String field, boolean value) {
         try {
-            XposedHelpers.setStaticBooleanField(Class.forName(clsName), field, value);
+            XposedHelpers.setStaticBooleanField(loader.loadClass(clsName), field, value);
         } catch (Throwable th) {
             XposedBridge.log("RootToolsNeo setStaticBooleanField: " + th.toString());
         }
@@ -34,9 +34,18 @@ public class XpUtils {
     public static void setReplacement(XC_InitPackageResources.InitPackageResourcesParam param, String clsName, String type, String name, Object value) {
         try {
             param.res.setReplacement(clsName, type, name, value);
-            XposedBridge.log("MIUIColumns patched!! " + clsName + ": " + name);
         } catch (Throwable th) {
-            XposedBridge.log("MIUIColumns error: " + name + " ======= " + th.getMessage());
+            XposedBridge.log("RootToolsNeo setReplacement: " + th.toString());
         }
+    }
+
+    public static Class<?> findClass(ClassLoader loader, String clsName) {
+        Class<?> cls = null;
+        try {
+            cls = loader.loadClass(clsName);
+        } catch (Throwable th) {
+            XposedBridge.log("RootToolsNeo findClass: " + th.toString());
+        }
+        return cls;
     }
 }

@@ -1,8 +1,15 @@
 package com.rarnu.tools.neo.xposed;
 
 
+import android.app.Activity;
+import android.content.ComponentName;
 import android.content.Context;
-import de.robv.android.xposed.*;
+import android.os.Bundle;
+import com.rarnu.tools.neo.utils.ComponentUtils;
+import de.robv.android.xposed.IXposedHookLoadPackage;
+import de.robv.android.xposed.XC_MethodHook;
+import de.robv.android.xposed.XC_MethodReplacement;
+import de.robv.android.xposed.XSharedPreferences;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 import java.util.List;
@@ -24,16 +31,35 @@ public class MIUIAds implements IXposedHookLoadPackage {
         if (!prefs.getBoolean(XpStatus.KEY_REMOVEAD, false)) {
             return;
         }
-        if (loadPackageParam.packageName.equals("com.miui.cleanmaster")) {
-            XpUtils.findAndHookMethod("com.miui.optimizecenter.result.DataModel", loadPackageParam.classLoader, "post", Map.class, new XC_MethodHook() {
+
+        if (loadPackageParam.packageName.equals("com.miui.core")) {
+            XpUtils.findAndHookMethod("miui.os.SystemProperties", loadPackageParam.classLoader, "get", String.class, String.class, new XC_MethodHook() {
+
+                protected void afterHookedMethod(MethodHookParam paramAnonymousMethodHookParam)
+                        throws Throwable {
+                    if (paramAnonymousMethodHookParam.args[0].toString().equals("ro.product.mod_device")) {
+                        paramAnonymousMethodHookParam.setResult("gemini_global");
+                    }
+                }
+
                 protected void beforeHookedMethod(MethodHookParam paramAnonymousMethodHookParam)
                         throws Throwable {
+                    if (paramAnonymousMethodHookParam.args[0].toString().equals("ro.product.mod_device")) {
+                        paramAnonymousMethodHookParam.setResult("gemini_global");
+                    }
+                }
+            });
+            return;
+        }
+
+        if (loadPackageParam.packageName.equals("com.miui.cleanmaster")) {
+            XpUtils.findAndHookMethod("com.miui.optimizecenter.result.DataModel", loadPackageParam.classLoader, "post", Map.class, new XC_MethodHook() {
+                protected void beforeHookedMethod(MethodHookParam paramAnonymousMethodHookParam) throws Throwable {
                     paramAnonymousMethodHookParam.setResult("");
                 }
             });
             XpUtils.findAndHookMethod("com.miui.optimizecenter.config.MiStat", loadPackageParam.classLoader, "getChannel", new XC_MethodHook() {
-                protected void beforeHookedMethod(MethodHookParam paramAnonymousMethodHookParam)
-                        throws Throwable {
+                protected void beforeHookedMethod(MethodHookParam paramAnonymousMethodHookParam) throws Throwable {
                     paramAnonymousMethodHookParam.setResult("international");
                 }
             });
@@ -62,55 +88,34 @@ public class MIUIAds implements IXposedHookLoadPackage {
             XpUtils.findAndHookMethod("com.android.fileexplorer.model.ConfigHelper", loadPackageParam.classLoader, "isVideoEnable", Context.class, XC_MethodReplacement.returnConstant(false));
             XpUtils.findAndHookMethod("com.android.fileexplorer.model.ConfigHelper", loadPackageParam.classLoader, "isStickerEnable", Context.class, XC_MethodReplacement.returnConstant(false));
             XpUtils.findAndHookMethod("com.android.fileexplorer.util.XLUtil", loadPackageParam.classLoader, "isNetworkAvailable", Context.class, XC_MethodReplacement.returnConstant(false));
-            XpUtils.findAndHookMethod("com.xunlei.adlibrary.XunleiADSdk", loadPackageParam.classLoader, "setup", Context.class, new XC_MethodReplacement() {
-                @Override
-                protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-                    return null;
-                }
-            });
-            XpUtils.findAndHookMethod("com.xunlei.adlibrary.analytics.xunlei.AdStatHelper", loadPackageParam.classLoader, "init", Context.class, new XC_MethodReplacement() {
-                @Override
-                protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-                    return null;
-                }
-            });
-            XpUtils.findAndHookMethod("com.android.fileexplorer.video.upload.VideoItemManager", loadPackageParam.classLoader, "initLoad", new XC_MethodReplacement() {
-                @Override
-                protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
-                    return null;
-                }
-            });
+
+            XpUtils.findAndHookMethod("com.xunlei.adlibrary.XunleiADSdk", loadPackageParam.classLoader, "setup", Context.class, XC_MethodReplacement.returnConstant(null));
+            XpUtils.findAndHookMethod("com.xunlei.adlibrary.analytics.xunlei.AdStatHelper", loadPackageParam.classLoader, "init", Context.class, XC_MethodReplacement.returnConstant(null));
+            XpUtils.findAndHookMethod("com.android.fileexplorer.video.upload.VideoItemManager", loadPackageParam.classLoader, "initLoad", XC_MethodReplacement.returnConstant(null));
             return;
         }
 
         if (loadPackageParam.packageName.equals("com.miui.player")) {
+
+            Class<?> clsListener = XpUtils.findClass(loadPackageParam.classLoader, "com.android.volley.Response$Listener");
+            Class<?> clsErrorListener = XpUtils.findClass(loadPackageParam.classLoader, "com.android.volley.Response$ErrorListener");
+            Class<?> clsAdInfo = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.util.AdUtils$AdInfo");
             XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "isAdEnable", XC_MethodReplacement.returnConstant(false));
-            XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "getPlayAd", XC_MethodReplacement.returnConstant(null));
-            XpUtils.findAndHookMethod("com.miui.player.util.ExperimentsHelper", loadPackageParam.classLoader, "isAdEnable", XC_MethodReplacement.returnConstant(false));
-            return;
-        }
-
-        if (loadPackageParam.packageName.equals("com.miui.core")) {
-            XpUtils.findAndHookMethod("miui.os.SystemProperties", loadPackageParam.classLoader, "get", String.class, String.class, new XC_MethodHook() {
-                protected void afterHookedMethod(MethodHookParam paramAnonymousMethodHookParam) throws Throwable {
-                    if (paramAnonymousMethodHookParam.args[0].toString().equals("ro.product.mod_device")) {
-                        paramAnonymousMethodHookParam.setResult("gemini_global");
-                    }
-                }
-
-                protected void beforeHookedMethod(MethodHookParam paramAnonymousMethodHookParam) throws Throwable {
-                    if (paramAnonymousMethodHookParam.args[0].toString().equals("ro.product.mod_device")) {
-                        paramAnonymousMethodHookParam.setResult("gemini_global");
-                    }
-                }
-            });
-            XpUtils.setStaticBooleanField("miui.os.SystemProperties.Build", "IS_CM_CUSTOMIZATION_TEST", true);
-            XpUtils.setStaticBooleanField("com.miui.internal.util", "IS_INTERNATIONAL_BUILD", true);
+            if (clsListener != null && clsErrorListener != null) {
+                XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "getPlayAd", clsListener, clsErrorListener, XC_MethodReplacement.returnConstant(null));
+            }
+            XpUtils.findAndHookMethod("com.miui.player.util.ExperimentsHelper", loadPackageParam.classLoader, "isAdEnabled", XC_MethodReplacement.returnConstant(false));
+            if (clsAdInfo != null) {
+                XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "handleDeepLinkUrl", Activity.class, clsAdInfo, XC_MethodReplacement.returnConstant(null));
+                XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "showAlertAndDownload", Activity.class, clsAdInfo, XC_MethodReplacement.returnConstant(null));
+                XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "handleAdClick", Activity.class, clsAdInfo, XC_MethodReplacement.returnConstant(null));
+                XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "postPlayAdStat", String.class, clsAdInfo, XC_MethodReplacement.returnConstant(null));
+            }
+            XpUtils.findAndHookMethod("com.miui.player.phone.view.NowplayingAlbumPage", loadPackageParam.classLoader, "getPlayAd", XC_MethodReplacement.returnConstant(null));
             return;
         }
 
         if (loadPackageParam.packageName.equals("com.android.providers.downloads.ui")) {
-
             XpUtils.findAndHookMethod("com.android.providers.downloads.ui.recommend.config.ADConfig", loadPackageParam.classLoader, "OSSupportAD", new XC_MethodHook() {
                 protected void beforeHookedMethod(MethodHookParam paramAnonymousMethodHookParam) throws Throwable {
                     paramAnonymousMethodHookParam.setResult(false);
@@ -138,6 +143,11 @@ public class MIUIAds implements IXposedHookLoadPackage {
                     return null;
                 }
             });
+            XpUtils.findAndHookMethod("com.android.quicksearchbox.util.HotWordsUtil", loadPackageParam.classLoader, "setHotQueryView", "com.android.quicksearchbox.ui.HotQueryView", new XC_MethodHook() {
+                protected void beforeHookedMethod(MethodHookParam paramAnonymousMethodHookParam) throws Throwable {
+                    paramAnonymousMethodHookParam.setResult(null);
+                }
+            });
             return;
         }
 
@@ -161,8 +171,19 @@ public class MIUIAds implements IXposedHookLoadPackage {
                 }
             });
         }
+
+        if (loadPackageParam.packageName.equals("com.miui.systemAdSolution")) {
+            XpUtils.findAndHookMethod("com.xiaomi.ad.internal.common.b.c", loadPackageParam.classLoader, "a", String.class, Context.class, XC_MethodReplacement.returnConstant(false));
+            XpUtils.findAndHookMethod("com.xiaomi.ad.internal.common.b.c", loadPackageParam.classLoader, "j", Context.class, String.class, XC_MethodReplacement.returnConstant(false));
+            XpUtils.findAndHookMethod("com.xiaomi.ad.internal.common.b.d", loadPackageParam.classLoader, "m", Context.class, String.class, XC_MethodReplacement.returnConstant(null));
+            XpUtils.findAndHookMethod("com.miui.systemAdSolution.landingPage.h", loadPackageParam.classLoader, "a", String.class, String.class, int.class, XC_MethodReplacement.returnConstant(null));
+            Class<?> clsB = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.ad.internal.pojo.b");
+            if (clsB != null) {
+                XpUtils.findAndHookMethod("com.xiaomi.ad.internal.server.h", loadPackageParam.classLoader, "a", clsB, Bundle.class, XC_MethodReplacement.returnConstant(null));
+                XpUtils.findAndHookMethod("com.xiaomi.ad.internal.server.h", loadPackageParam.classLoader, "b", clsB, Bundle.class, XC_MethodReplacement.returnConstant(null));
+            }
+            XpUtils.findAndHookMethod("com.xiaomi.ad.internal.ui.SplashAdView", loadPackageParam.classLoader, "onAction", String.class, XC_MethodReplacement.returnConstant(null));
+            return;
+        }
     }
-
 }
-
-

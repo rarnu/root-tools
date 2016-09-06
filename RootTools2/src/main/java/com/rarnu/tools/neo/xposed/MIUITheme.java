@@ -1,6 +1,7 @@
 package com.rarnu.tools.neo.xposed;
 
 import android.content.Context;
+import android.content.Intent;
 import de.robv.android.xposed.*;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
@@ -27,10 +28,8 @@ public class MIUITheme implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         prefs.makeWorldReadable();
         prefs.reload();
         if (!prefs.getBoolean(XpStatus.KEY_THEMECRACK, false)) {
-            XposedBridge.log("RootToolsNeo No Theme Crack");
             return;
         }
-        XposedBridge.log("RootToolsNeo Start Theme Crack");
         MIUI_DRM();
     }
 
@@ -46,11 +45,10 @@ public class MIUITheme implements IXposedHookZygoteInit, IXposedHookLoadPackage 
             MIUI_DRM();
         }
         if (lpparam.packageName.equals("com.android.thememanager")) {
-            XposedBridge.log("RootToolsNeo Start ThemeManager Crack");
-            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader,"isTrialable", XC_MethodReplacement.returnConstant(false));
-            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler",lpparam.classLoader, "isLegal", XC_MethodReplacement.returnConstant(true));
-            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader,"isAuthorizedResource", XC_MethodReplacement.returnConstant(true));
-            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader,"isPermanentRights", XC_MethodReplacement.returnConstant(true));
+            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isTrialable", XC_MethodReplacement.returnConstant(false));
+            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isLegal", XC_MethodReplacement.returnConstant(true));
+            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isAuthorizedResource", XC_MethodReplacement.returnConstant(true));
+            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isPermanentRights", XC_MethodReplacement.returnConstant(true));
         }
     }
 
@@ -60,33 +58,32 @@ public class MIUITheme implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", new Object[]{Context.class, String.class, "miui.drm.DrmManager$RightObject", XC_MethodReplacement.returnConstant(getDrmResultSUCCESS())});
         XpUtils.findAndHookMethod("miui.drm.DrmManager", "isPermanentRights", new Object[]{File.class, XC_MethodReplacement.returnConstant(true)});
         XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", new Object[]{"miui.drm.DrmManager$RightObject", XC_MethodReplacement.returnConstant(true)});
-        XpUtils.findAndHookMethod("miui.drm.ThemeReceiver", "validateTheme", new Object[] {XC_MethodReplacement.returnConstant(true)});
-        XpUtils.findAndHookMethod("miui.content.res.ThemeRuntimeManager.ThemeReceiver", "validateTheme", new Object[] {XC_MethodReplacement.returnConstant(true)});
-        XpUtils.findAndHookMethod("miui.content.res.ThemeRuntimeManager", "restoreDefault", new Object[] {new XC_MethodReplacement() {
+        XpUtils.findAndHookMethod("miui.drm.ThemeReceiver", "validateTheme", new Object[]{XC_MethodReplacement.returnConstant(true)});
+        XpUtils.findAndHookMethod("miui.content.res.ThemeRuntimeManager.ThemeReceiver", "validateTheme", new Object[]{XC_MethodReplacement.returnConstant(true)});
+        XpUtils.findAndHookMethod("miui.content.res.ThemeRuntimeManager", "restoreDefault", new Object[]{new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                 return null;
             }
         }});
-        XpUtils.findAndHookMethod("miui.drm.ThemeReceiverr", "restoreDefault", new Object[] {new XC_MethodReplacement() {
+        XpUtils.findAndHookMethod("miui.drm.ThemeReceiver", "restoreDefault", new Object[]{new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                 return null;
             }
         }});
-        XpUtils.findAndHookMethod("miui.content.res.ThemeRuntimeManager", "restoreDefault", new Object[] {new XC_MethodReplacement() {
+        XpUtils.findAndHookMethod("miui.content.res.ThemeRuntimeManager", "restoreDefault", new Object[]{new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                 return null;
             }
         }});
-        XpUtils.findAndHookMethod("miui.drm.ThemeReceiver", "onReceive", new Object[] {new XC_MethodReplacement() {
+        XpUtils.findAndHookMethod("miui.drm.ThemeReceiver", "onReceive", new Object[]{Context.class, Intent.class, new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                 return null;
             }
         }});
-
     }
 
 }
