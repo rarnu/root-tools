@@ -131,7 +131,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 1:
-                // TODO: show license
+                showGPLLicense();
                 break;
         }
         return true;
@@ -266,5 +266,11 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         Intent inDownload = new Intent(Intent.ACTION_VIEW);
         inDownload.setData(Uri.parse(http));
         startActivity(inDownload);
+    }
+
+    private void showGPLLicense() {
+        Intent inGPL = new Intent(Intent.ACTION_VIEW);
+        inGPL.setData(Uri.parse(getString(R.string.view_gpl_license_url)));
+        startActivity(inGPL);
     }
 }

@@ -48,6 +48,13 @@
     <string name="view_service">Service</string>
     <string name="view_receiver">Receiver</string>
     <string name="view_provider">Provider</string>
+    <string name="view_profile">Profile</string>
+
+    <string name="view_profile_pkg" formatted="false">包名: %s</string>
+    <string name="view_profile_ver" formatted="false">版本: %d</string>
+    <string name="view_profile_download">下载组件配置</string>
+    <string name="view_profile_upload">上传组件配置</string>
+    <string name="view_profile_note">组件配置是众人的经验所成, 经过实际体验得到的最佳组件配置, 它包含了该应用可被禁用且不影响主要功能的组件列表。下载组件配置后即可直接完成组件禁用, 若当前应用没有配置方案, 或者您觉得当前方案不佳, 也可以上传您当前对于组件的配置。</string>
 
     <string name="view_ready">已准备就绪, 请点击右上角『清理』按钮开始清理...\n</string>
     <string name="view_start_clean">开始清理, 请耐心等待...\n</string>
@@ -65,6 +72,8 @@
     <string name="view_about_thankto_coderstory_url">https://blog.coderstory.cn</string>
     <string name="view_about_thankto_coderstory_github">参考项目(GPLv2) coderstory/toolkit</string>
     <string name="view_about_thankto_coderstory_github_url">https://github.com/coderstory/toolkit</string>
+
+    <string name="view_gpl_license_url">https://www.gnu.org/licenses/old-licenses/gpl-2.0.en.html</string>
 
     <string name="ab_search">搜索</string>
     <string name="ab_save">保存</string>
@@ -96,5 +105,9 @@
     <string name="alert_no_intent">没有找到 Intent</string>
     <string name="alert_apply_theme">已在 SD 卡根目录生成 RootToolsNeo.mtz 主题文件, 请在『主题』中导入该文件, 在『混搭』中替换通知栏为 RootToolsNeo 主题即可。</string>
     <string name="alert_update_message" formatted="false">发现新版本! \n版本号 %s (%d)\n主要改动:\n%s\n</string>
+    <string name="alert_apply_component_config">成功下载并应用组件配置!</string>
+    <string name="alert_no_component_config">该应用程序还没有组件配置, 您可以配置后上传自己的方案!</string>
+    <string name="alert_upload_ok">上传组件配置成功, 待审核通过后即可让他人下载!</string>
+    <string name="alert_upload_failed">上传组件配置失败, 请确认设置正确并检查网络!</string>
 
 </resources>

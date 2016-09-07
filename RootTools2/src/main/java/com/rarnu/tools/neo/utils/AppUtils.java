@@ -26,7 +26,8 @@ public class AppUtils {
                                 pkg.applicationInfo.loadIcon(pm),
                                 pkg.packageName,
                                 false,
-                                pkg.versionName
+                                pkg.versionName,
+                                pkg.versionCode
                         ));
                     } else {
                         listDisabled.add(new AppInfo(
@@ -34,7 +35,8 @@ public class AppUtils {
                                 pkg.applicationInfo.loadIcon(pm),
                                 pkg.packageName,
                                 true,
-                                pkg.versionName
+                                pkg.versionName,
+                                pkg.versionCode
                         ));
                     }
                 }
@@ -56,7 +58,8 @@ public class AppUtils {
                             pkg.applicationInfo.loadIcon(pm),
                             pkg.packageName,
                             true,
-                            pkg.versionName
+                            pkg.versionName,
+                            pkg.versionCode
                     ));
                 }
             }

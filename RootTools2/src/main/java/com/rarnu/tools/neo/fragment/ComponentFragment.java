@@ -36,6 +36,7 @@ public class ComponentFragment extends BaseFragment implements AdapterView.OnIte
         AppInfo item = adapter.getFiltedItem(position);
         Intent inDetail = new Intent(getContext(), ComponentDetailActivity.class);
         inDetail.putExtra("pkg", item.packageName);
+        inDetail.putExtra("versionCode", item.versionCode);
         inDetail.putExtra("name", item.name);
         startActivity(inDetail);
 

@@ -11,8 +11,53 @@
             android:layout_height="match_parent"
             android:fastScrollEnabled="true"
             android:fadeScrollbars="true"
-            android:layout_above="@+id/laySwitch">
+            android:layout_above="@+id/laySwitch"
+            android:visibility="gone">
     </ListView>
+
+    <RelativeLayout
+            android:id="@+id/layProfile"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_above="@+id/laySwitch"
+            android:padding="8dip"
+            android:visibility="gone">
+
+        <TextView
+                android:id="@+id/tvPkgName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dip"
+                android:layout_marginTop="8dip"/>
+        <TextView
+                android:id="@+id/tvVer"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:padding="4dip"
+                android:layout_below="@+id/tvPkgName"/>
+
+        <Button
+                android:id="@+id/btnDownloadProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/tvVer"
+                android:layout_marginTop="8dip"
+                android:text="@string/view_profile_download"
+                android:layout_marginStart="64dip"
+                android:layout_marginEnd="64dip"/>
+        <Button
+                android:id="@+id/btnUploadProfile"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/btnDownloadProfile"
+                android:text="@string/view_profile_upload"
+                android:layout_marginStart="64dip"
+                android:layout_marginEnd="64dip"/>
+
+        <TextView android:layout_width="match_parent" android:layout_height="wrap_content"
+                  android:layout_alignParentBottom="true"
+                  android:text="@string/view_profile_note"/>
+    </RelativeLayout>
 
     <LinearLayout
             android:id="@+id/laySwitch"
@@ -62,6 +107,17 @@
                 android:clickable="true"
                 android:gravity="center"
                 android:text="@string/view_provider"
+        />
+        <TextView
+                android:id="@+id/btnProfile"
+                android:layout_width="0dip"
+                android:layout_weight="1"
+                android:layout_height="match_parent"
+                android:background="@drawable/button_normal"
+                android:focusable="true"
+                android:clickable="true"
+                android:gravity="center"
+                android:text="@string/view_profile"
         />
 
     </LinearLayout>
