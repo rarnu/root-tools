@@ -35,15 +35,13 @@ public class MIUIAds implements IXposedHookLoadPackage {
         if (loadPackageParam.packageName.equals("com.miui.core")) {
             XpUtils.findAndHookMethod("miui.os.SystemProperties", loadPackageParam.classLoader, "get", String.class, String.class, new XC_MethodHook() {
 
-                protected void afterHookedMethod(MethodHookParam paramAnonymousMethodHookParam)
-                        throws Throwable {
+                protected void afterHookedMethod(MethodHookParam paramAnonymousMethodHookParam) throws Throwable {
                     if (paramAnonymousMethodHookParam.args[0].toString().equals("ro.product.mod_device")) {
                         paramAnonymousMethodHookParam.setResult("gemini_global");
                     }
                 }
 
-                protected void beforeHookedMethod(MethodHookParam paramAnonymousMethodHookParam)
-                        throws Throwable {
+                protected void beforeHookedMethod(MethodHookParam paramAnonymousMethodHookParam) throws Throwable {
                     if (paramAnonymousMethodHookParam.args[0].toString().equals("ro.product.mod_device")) {
                         paramAnonymousMethodHookParam.setResult("gemini_global");
                     }
@@ -72,6 +70,45 @@ public class MIUIAds implements IXposedHookLoadPackage {
                         throws Throwable {
                     paramAnonymousMethodHookParam.args[0] = null;
                     paramAnonymousMethodHookParam.args[1] = null;
+                }
+            });
+            XpUtils.findAndHookMethod("com.video.ui.view.AdView", loadPackageParam.classLoader, "getAdsBlock", Context.class, XC_MethodReplacement.returnConstant(null));
+            Class<?> clsCallback = XpUtils.findClass(loadPackageParam.classLoader, "com.video.ui.idata.SyncServiceHelper$Callback");
+            if (clsCallback != null) {
+                XpUtils.findAndHookMethod("com.video.ui.idata.SyncServiceHelper", loadPackageParam.classLoader, "fetchAds", Context.class, clsCallback, XC_MethodReplacement.returnConstant(null));
+            }
+            XpUtils.findAndHookMethod("com.video.ui.idata.iDataORM", loadPackageParam.classLoader, "getBooleanValue", Context.class, String.class, boolean.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    String key = (String) param.args[1];
+                    if (key.equals("debug_mode") || key.equals("show_first_ads") || key.equals("ads_show_homekey") || key.equals("startup_ads_loop") || key.equals("app_upgrade_splash")) {
+                        param.setResult(false);
+                    }
+                }
+
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    String key = (String) param.args[1];
+                    if (key.equals("debug_mode") || key.equals("show_first_ads") || key.equals("ads_show_homekey") || key.equals("startup_ads_loop") || key.equals("app_upgrade_splash")) {
+                        param.setResult(false);
+                    }
+                }
+            });
+            XpUtils.findAndHookMethod("com.video.ui.idata.iDataORM", loadPackageParam.classLoader, "getStringValue", Context.class, String.class, String.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    String key = (String) param.args[1];
+                    if (key.equals("startup_ads")) {
+                        param.setResult(null);
+                    }
+                }
+
+                @Override
+                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
+                    String key = (String) param.args[1];
+                    if (key.equals("startup_ads")) {
+                        param.setResult(null);
+                    }
                 }
             });
             return;
