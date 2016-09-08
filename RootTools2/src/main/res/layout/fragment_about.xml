@@ -6,8 +6,7 @@
 
     <ScrollView
             android:layout_width="match_parent" android:layout_height="match_parent"
-            android:padding="8dip"
-            android:layout_above="@+id/ivLogo">
+            android:padding="8dip">
 
         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
             <LinearLayout
@@ -88,17 +87,14 @@
                     android:focusable="true"
                     android:clickable="true"/>
 
+            <ImageView
+                    android:id="@+id/ivLogo"
+                    android:layout_width="80dip" android:layout_height="80dip"
+                    android:contentDescription="@null"
+                    android:src="@drawable/ic_launcher"
+                    android:layout_centerHorizontal="true"
+                    android:layout_below="@+id/tvCoderStoryGithub"
+                    android:layout_marginTop="16dip"/>
         </RelativeLayout>
     </ScrollView>
-
-
-    <ImageView
-            android:id="@+id/ivLogo"
-            android:layout_width="80dip" android:layout_height="80dip"
-            android:contentDescription="@null"
-            android:src="@drawable/ic_launcher"
-            android:layout_centerHorizontal="true"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="32dip"/>
-
 </RelativeLayout>

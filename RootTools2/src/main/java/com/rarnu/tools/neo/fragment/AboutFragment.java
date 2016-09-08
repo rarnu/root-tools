@@ -12,6 +12,9 @@ import android.view.View;
 import android.widget.TextView;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.base.BaseFragment;
+import com.rarnu.tools.neo.utils.FileUtils;
+
+import java.io.IOException;
 
 public class AboutFragment extends BaseFragment implements View.OnClickListener {
 
@@ -19,6 +22,7 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
     private TextView tvCoderStory = null;
     private TextView tvCoderStoryGithub = null;
     private TextView tvProj = null;
+    private TextView tvIntro = null;
 
     @Override
     public int getBarTitle() {
@@ -36,6 +40,7 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
         tvProj = (TextView) innerView.findViewById(R.id.tvProj);
         tvCoderStory = (TextView) innerView.findViewById(R.id.tvCoderStory);
         tvCoderStoryGithub = (TextView) innerView.findViewById(R.id.tvCoderStoryGithub);
+        tvIntro = (TextView) innerView.findViewById(R.id.tvIntro);
     }
 
     @Override
@@ -55,8 +60,12 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
 
         }
         tvVersion.setText(getString(R.string.view_about_version, ver));
-
-        // TODO: load app intro
+        try {
+            String intro = FileUtils.readAssetFile(getContext(), "intro");
+            tvIntro.setText(intro);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
