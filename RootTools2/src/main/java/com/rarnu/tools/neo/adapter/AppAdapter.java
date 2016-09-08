@@ -1,6 +1,7 @@
 package com.rarnu.tools.neo.adapter;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -65,6 +66,18 @@ public class AppAdapter extends BaseAdapter<AppInfo> {
             prefStatus.setChecked(!item.isDisable);
             tvName.setText(item.name);
             tvPackageName.setText(item.packageName);
+            if (item.isForFreeze) {
+                tvName.setTextColor(Color.BLACK);
+                tvPackageName.setTextColor(Color.DKGRAY);
+            } else {
+                if (item.isSystem) {
+                    tvName.setTextColor(context.getResources().getColor(android.R.color.holo_green_dark));
+                    tvPackageName.setTextColor(context.getResources().getColor(android.R.color.holo_green_light));
+                } else {
+                    tvName.setTextColor(Color.BLACK);
+                    tvPackageName.setTextColor(Color.DKGRAY);
+                }
+            }
         }
     }
 

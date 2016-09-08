@@ -1,6 +1,8 @@
 package com.rarnu.tools.neo.base;
 
 import android.app.Fragment;
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.*;
 
@@ -94,4 +96,11 @@ public abstract class InnerFragment extends Fragment implements ViewTreeObserver
         return null;
     }
 
+    public Context getContext() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            return super.getContext();
+        } else {
+            return super.getActivity();
+        }
+    }
 }

@@ -53,7 +53,7 @@ public class TerminalFragment extends BaseFragment  {
 
     @Override
     public void initLogic() {
-
+        toggleSoftKeyboard();
     }
 
     @Override

@@ -1,5 +1,7 @@
 package com.rarnu.tools.neo.base;
 
+import android.content.Context;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 import android.view.Menu;
@@ -52,6 +54,14 @@ public abstract class InnerPreferenceFragment extends PreferenceFragment impleme
             return;
         }
         initMenu(menu);
+    }
+
+    public Context getContext() {
+        if (Build.VERSION.SDK_INT >= 23) {
+            return super.getContext();
+        } else {
+            return super.getActivity();
+        }
     }
 
 }

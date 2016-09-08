@@ -32,11 +32,13 @@ public class RootUtils {
         return runCommand(new String[]{command}, root, callback);
     }
 
+    private static Process process = null;
+    private static DataOutputStream os = null;
+    private static BufferedReader brOut = null;
+    private static BufferedReader brErr = null;
+
     public static CommandResult runCommand(String[] command, boolean root, CommandCallback callback) {
-        Process process;
-        DataOutputStream os = null;
-        BufferedReader brOut = null;
-        BufferedReader brErr = null;
+
         CommandResult ret = new CommandResult();
         try {
             StringBuffer output = new StringBuffer();
@@ -44,7 +46,6 @@ public class RootUtils {
             if (root) {
                 process = Runtime.getRuntime().exec("su");
                 os = new DataOutputStream(process.getOutputStream());
-
                 os.writeBytes(command[0] + "\n");
                 os.writeBytes("exit\n");
                 os.flush();

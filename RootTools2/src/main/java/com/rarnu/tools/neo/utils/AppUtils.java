@@ -27,7 +27,9 @@ public class AppUtils {
                                 pkg.packageName,
                                 false,
                                 pkg.versionName,
-                                pkg.versionCode
+                                pkg.versionCode,
+                                true,
+                                true
                         ));
                     } else {
                         listDisabled.add(new AppInfo(
@@ -36,7 +38,9 @@ public class AppUtils {
                                 pkg.packageName,
                                 true,
                                 pkg.versionName,
-                                pkg.versionCode
+                                pkg.versionCode,
+                                true,
+                                true
                         ));
                     }
                 }
@@ -50,20 +54,38 @@ public class AppUtils {
         PackageManager pm = ctx.getPackageManager();
         List<PackageInfo> pkgs = pm.getInstalledPackages(0);
         List<AppInfo> list = new ArrayList<>();
+        List<AppInfo> listSystem = new ArrayList<>();
         if (pkgs != null) {
             for (PackageInfo pkg : pkgs) {
                 if (pkg.applicationInfo.enabled) {
-                    list.add(new AppInfo(
-                            pkg.applicationInfo.loadLabel(pm).toString(),
-                            pkg.applicationInfo.loadIcon(pm),
-                            pkg.packageName,
-                            true,
-                            pkg.versionName,
-                            pkg.versionCode
-                    ));
+                    if ((pkg.applicationInfo.flags & ApplicationInfo.FLAG_SYSTEM) > 0) {
+                        listSystem.add(new AppInfo(
+                                pkg.applicationInfo.loadLabel(pm).toString(),
+                                pkg.applicationInfo.loadIcon(pm),
+                                pkg.packageName,
+                                true,
+                                pkg.versionName,
+                                pkg.versionCode,
+                                true,
+                                false
+                        ));
+                    } else {
+                        list.add(new AppInfo(
+                                pkg.applicationInfo.loadLabel(pm).toString(),
+                                pkg.applicationInfo.loadIcon(pm),
+                                pkg.packageName,
+                                true,
+                                pkg.versionName,
+                                pkg.versionCode,
+                                false,
+                                false
+                        ));
+                    }
+
                 }
             }
         }
+        list.addAll(listSystem);
         return list;
     }
 
