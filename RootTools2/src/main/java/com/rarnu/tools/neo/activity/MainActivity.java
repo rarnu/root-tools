@@ -29,15 +29,22 @@ public class MainActivity extends BaseActivity {
                     .setPositiveButton(R.string.alert_ok, null)
                     .show();
         }
-        if (RootUtils.isRejected()) {
+        if (Build.VERSION.SDK_INT >= 24) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.alert_hint)
-                    .setMessage(R.string.alert_root)
-                    .setCancelable(false)
+                    .setMessage(R.string.alert_androidn_pending)
                     .setPositiveButton(R.string.alert_ok, null)
                     .show();
+        } else {
+            if (RootUtils.isRejected()) {
+                new AlertDialog.Builder(this)
+                        .setTitle(R.string.alert_hint)
+                        .setMessage(R.string.alert_root)
+                        .setCancelable(false)
+                        .setPositiveButton(R.string.alert_ok, null)
+                        .show();
+            }
         }
-
         requirePermission();
     }
 
@@ -73,6 +80,7 @@ public class MainActivity extends BaseActivity {
         }
     }
 
+    // No override here for compact with 5.0
     // @Override
     public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
         super.onRequestPermissionsResult(requestCode, permissions, grantResults);

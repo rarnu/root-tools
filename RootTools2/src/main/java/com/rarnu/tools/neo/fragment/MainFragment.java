@@ -1,10 +1,12 @@
 package com.rarnu.tools.neo.fragment;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.preference.Preference;
@@ -50,8 +52,11 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
 
     @Override
     public void initComponents() {
-        pref = getContext().getSharedPreferences(XpStatus.PREF, 1);
+
+        pref = getContext().getSharedPreferences(XpStatus.PREF, Build.VERSION.SDK_INT < 24 ? 1 : 0);
         editor = pref.edit();
+
+        // MODE_WORLD_READABLE is removed on Android N!!!!!
 
         // system
         pFreeze = findPref(R.string.id_freeze);
@@ -154,22 +159,29 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     }
 
     private void setXposedRootStatus() {
-        // system
+        pColumns.setEnabled(true);
+        pTerminal.setEnabled(true);
+        pAbout.setEnabled(true);
+
         pFreeze.setEnabled(!RootUtils.isRejected());
         pComponent.setEnabled(!RootUtils.isRejected());
         pCleanArt.setEnabled(!RootUtils.isRejected());
-        pCoreCrack.setEnabled(XpStatus.isEnable());
         pFakeDevice.setEnabled(!RootUtils.isRejected());
-        pTerminal.setEnabled(true);
-        // miui
-        pTheme.setEnabled(XpStatus.isEnable());
-        pRemoveAd.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
-        pRemoveSearch.setEnabled(XpStatus.isEnable());
-        pColumns.setEnabled(true);
-        pRoot25.setEnabled(XpStatus.isEnable());
         pNoUpdate.setEnabled(!RootUtils.isRejected());
-        // about
-        pAbout.setEnabled(true);
+
+        if (Build.VERSION.SDK_INT >= 24) {
+            pTheme.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
+            pRemoveSearch.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
+            pRoot25.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
+            pCoreCrack.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
+        } else {
+            pTheme.setEnabled(XpStatus.isEnable());
+            pRemoveSearch.setEnabled(XpStatus.isEnable());
+            pRoot25.setEnabled(XpStatus.isEnable());
+            pCoreCrack.setEnabled(XpStatus.isEnable());
+        }
+
+        pRemoveAd.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
     }
 
     private void showActivity(Class<?> cls) {
@@ -205,19 +217,24 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         } else if (prefKey.equals(getString(R.string.id_theme))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_THEMECRACK, ex.getStatus()).apply();
+            RootUtils.makePreferenceReadable(getContext());
         } else if (prefKey.equals(getString(R.string.id_removead))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_REMOVEAD, ex.getStatus()).apply();
+            RootUtils.makePreferenceReadable(getContext());
             threadWriteHost();
         } else if (prefKey.equals(getString(R.string.id_removesearch))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_REMOVESEARCHBAR, ex.getStatus()).apply();
+            RootUtils.makePreferenceReadable(getContext());
         } else if (prefKey.equals(getString(R.string.id_root25))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_ROOTCRACK, ex.getStatus()).apply();
+            RootUtils.makePreferenceReadable(getContext());
         } else if (prefKey.equals(getString(R.string.id_corecrack))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_CORECRACK, ex.getStatus()).apply();
+            RootUtils.makePreferenceReadable(getContext());
         } else if (prefKey.equals(getString(R.string.id_columns))) {
             if (XpStatus.canWriteSdcard) {
                 boolean ret = FileUtils.copyAssetFile(getContext(), "RootToolsNeo.mtz", Environment.getExternalStorageDirectory().getAbsolutePath());
@@ -236,6 +253,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         } else if (prefKey.equals(getString(R.string.id_noupdate))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_NOUPDATE, ex.getStatus()).apply();
+            RootUtils.makePreferenceReadable(getContext());
             threadWriteHost();
         }
         return true;

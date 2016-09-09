@@ -57,6 +57,8 @@
     <string name="view_profile_note">组件配置是众人的经验所成, 经过实际体验得到的最佳组件配置, 它包含了该应用可被禁用且不影响主要功能的组件列表。下载组件配置后即可直接完成组件禁用, 若当前应用没有配置方案, 或者您觉得当前方案不佳, 也可以上传您当前对于组件的配置。</string>
 
     <string name="view_ready">已准备就绪, 请点击右上角『清理』按钮开始清理...\n</string>
+    <string name="view_not_ready">正在准备环境, 请稍候...\n</string>
+    <string name="view_env_error">准备环境失败, 不能进行清理操作...\n</string>
     <string name="view_start_clean">开始清理, 请耐心等待...\n</string>
     <string name="view_clean_cache" formatted="false">清理: %s (%s) ...\n</string>
     <string name="view_clean_anr" formatted="false">清理 ANR 日志 (%s) ...\n</string>
@@ -109,5 +111,6 @@
     <string name="alert_no_component_config">该应用程序还没有组件配置, 您可以配置后上传自己的方案!</string>
     <string name="alert_upload_ok">上传组件配置成功, 待审核通过后即可让他人下载!</string>
     <string name="alert_upload_failed">上传组件配置失败, 请确认设置正确并检查网络!</string>
+    <string name="alert_androidn_pending">检测到 Android N, 由于安全策略的问题, 暂时还无法很好的支持, 若使用过程中出现问题请至 Github 提交 Issue, 但是修复时间无法确定。</string>
 
 </resources>

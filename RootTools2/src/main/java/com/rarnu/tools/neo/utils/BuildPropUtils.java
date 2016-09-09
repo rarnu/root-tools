@@ -50,14 +50,12 @@ public class BuildPropUtils {
         try {
             FileUtils.rewriteFile(tmpFile, str);
             RootUtils.mountRW();
-            CommandResult result = RootUtils.runCommand(String.format("cp %s %s", tmpFile, PATH_BUILD_PROP_TMP), true);
-            if (result != null && result.error.equals("")) {
-                result = RootUtils.runCommand(String.format("chmod 755 %s", PATH_BUILD_PROP_TMP), true);
-                if (result.error.equals("")) {
-                    RootUtils.runCommand(String.format("cp %s %s", PATH_BUILD_PROP_TMP, PATH_BUILD_PROP), true);
-                }
-                ret = true;
-            }
+            CommandResult result = RootUtils.runCommand(new String[]{
+                    String.format("cp %s %s", tmpFile, PATH_BUILD_PROP_TMP),
+                    String.format("chmod 755 %s", PATH_BUILD_PROP_TMP),
+                    String.format("cp %s %s", PATH_BUILD_PROP_TMP, PATH_BUILD_PROP)
+            }, true);
+            return result.error.equals("");
         } catch (Exception e) {
 
         }

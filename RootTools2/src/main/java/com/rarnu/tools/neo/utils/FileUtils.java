@@ -72,7 +72,7 @@ public class FileUtils {
             fAsset.mkdirs();
         }
         try {
-            byte[] buffer = new byte[1024 * 1024];
+            byte[] buffer = new byte[1024 * 1024 * 10];
             File dest = new File(saveDir, fileName);
             if (dest.exists()) {
                 dest.delete();

@@ -1,8 +1,7 @@
 package com.rarnu.tools.neo.fragment;
 
-import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
+import android.os.*;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
@@ -12,12 +11,16 @@ import com.rarnu.tools.neo.root.CommandResult;
 import com.rarnu.tools.neo.root.RootUtils;
 import com.rarnu.tools.neo.utils.FileUtils;
 
+import java.io.File;
+
 public class CleanFragment extends BaseFragment {
 
 
     private TextView tvClean = null;
     private MenuItem miRun = null;
     private boolean isCleaning = false;
+
+    private String duCmd = "";
 
     @Override
     public int getBarTitle() {
@@ -41,7 +44,71 @@ public class CleanFragment extends BaseFragment {
 
     @Override
     public void initLogic() {
+        boolean busyboxExists = new File("/system/bin/busybox").exists() || new File("/system/xbin/busybox").exists();
+        boolean duExists = new File("/system/bin/du").exists() || new File("/system/xbin/du").exists();
+        if (duExists) {
+            duCmd = "du";
+            tvClean.setText(R.string.view_ready);
+            return;
+        }
+        duCmd = "busybox du";
+        if (busyboxExists) {
+            tvClean.setText(R.string.view_ready);
+            return;
+        }
+        tvClean.setText(R.string.view_not_ready);
+        threadExtractBusybox();
+    }
 
+    private Handler hEnvReady = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            if (msg.what == 0) {
+                tvClean.setText(R.string.view_env_error);
+                if (miRun != null) {
+                    miRun.setEnabled(false);
+                }
+            } else {
+                tvClean.setText(R.string.view_ready);
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+    private void threadExtractBusybox() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                // extract busybox
+                String[] abis = Build.SUPPORTED_ABIS;
+                String busyboxAsset = "busybox_arm";
+                for (String abi: abis) {
+                    if (abi.toLowerCase().contains("mips")) {
+                        busyboxAsset = "busybox_mips";
+                        break;
+                    }
+                    if (abi.toLowerCase().contains("x86")) {
+                        busyboxAsset = "busybox_x86";
+                        break;
+                    }
+                }
+                String tmpDir = Environment.getExternalStorageDirectory().getAbsolutePath();
+                File fDir = new File(tmpDir, ".tmp");
+                if (!fDir.exists()) {
+                    fDir.mkdirs();
+                }
+                File fBusybox = new File(fDir, busyboxAsset);
+                FileUtils.copyAssetFile(getContext(), busyboxAsset, fDir.getAbsolutePath());
+                RootUtils.mountRW();
+                CommandResult ret = RootUtils.runCommand(new String[] {
+                        String.format("cat %s > /system/xbin/busybox", fBusybox.getAbsolutePath()),
+                        "chmod 755 /system/xbin/busybox"
+                }, true);
+                Message msg = new Message();
+                msg.what = ret.error.equals("") ? 1 : 0;
+                hEnvReady.sendMessage(msg);
+            }
+        }).start();
     }
 
     @Override
@@ -143,13 +210,14 @@ public class CleanFragment extends BaseFragment {
     }
 
     private CacheSize getSize(String path) {
-        CommandResult ret = RootUtils.runCommand(String.format("du -s -k \"%s\"", path), true);
-        String sizeStr = ret.result.substring(0, ret.result.indexOf('\t')).trim();
+        CommandResult ret = RootUtils.runCommand(String.format("%s -s -k \"%s\"", duCmd, path), true);
+        String sizeStr = "0";
         long size = 0L;
         try {
+            sizeStr = ret.result.substring(0, ret.result.indexOf('\t')).trim();
             size = Long.parseLong(sizeStr);
         } catch (Exception e) {
-
+            Log.e("CleanFragment", "getSize => error: " + ret.error);
         }
         return new CacheSize(sizeStr + "K", size);
     }

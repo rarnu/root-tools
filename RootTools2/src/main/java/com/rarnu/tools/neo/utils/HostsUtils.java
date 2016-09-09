@@ -37,13 +37,12 @@ public class HostsUtils {
         try {
             FileUtils.rewriteFile(tmpFile, host);
             RootUtils.mountRW();
-            CommandResult result = RootUtils.runCommand(String.format("cp %s %s", tmpFile, "/etc/hosts"), true);
-            if (result != null && result.error.equals("")) {
-                RootUtils.runCommand(String.format("chmod 755 %s", "/etc/hosts"), true);
-            }
-            ret = true;
+            CommandResult result = RootUtils.runCommand(new String[]{
+                    String.format("cp %s %s", tmpFile, "/etc/hosts"),
+                    String.format("chmod 755 %s", "/etc/hosts")
+            }, true);
+            ret = result.error.equals("");
         } catch (Exception e) {
-
         }
         return ret;
     }

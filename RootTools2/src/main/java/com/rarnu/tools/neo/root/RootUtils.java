@@ -1,7 +1,7 @@
 package com.rarnu.tools.neo.root;
 
-import android.content.pm.ApplicationInfo;
-import android.util.Log;
+import android.content.Context;
+import android.os.Build;
 
 import java.io.BufferedReader;
 import java.io.DataOutputStream;
@@ -16,61 +16,48 @@ public class RootUtils {
         return _isrejected;
     }
 
+    public static boolean isHasSu() {
+        return new File("/system/bin/su").exists() || new File("/system/xbin/su").exists();
+    }
+
     public static CommandResult runCommand(String command, boolean root) {
-        return runCommand(new String[]{command}, root, null);
+        return runCommand(new String[]{command}, root);
     }
 
     public static CommandResult runCommand(String[] prog) {
-        return runCommand(prog, false, null);
+        return runCommand(prog, false);
     }
 
-    public static CommandResult runCommand(String[] prog, CommandCallback callback) {
-        return runCommand(prog, false, callback);
-    }
+    public static CommandResult runCommand(String[] command, boolean root) {
 
-    public static CommandResult runCommand(String command, boolean root, CommandCallback callback) {
-        return runCommand(new String[]{command}, root, callback);
-    }
-
-    private static Process process = null;
-    private static DataOutputStream os = null;
-    private static BufferedReader brOut = null;
-    private static BufferedReader brErr = null;
-
-    public static CommandResult runCommand(String[] command, boolean root, CommandCallback callback) {
+        Process process = null;
+        DataOutputStream os = null;
+        BufferedReader brOut = null;
+        BufferedReader brErr = null;
 
         CommandResult ret = new CommandResult();
         try {
-            StringBuffer output = new StringBuffer();
-            StringBuffer error = new StringBuffer();
+            StringBuilder output = new StringBuilder();
+            StringBuilder error = new StringBuilder();
             if (root) {
                 process = Runtime.getRuntime().exec("su");
                 os = new DataOutputStream(process.getOutputStream());
-                os.writeBytes(command[0] + "\n");
+                for (String s : command) {
+                    os.writeBytes(s + "\n");
+                }
                 os.writeBytes("exit\n");
                 os.flush();
             } else {
-                if (command.length == 1) {
-                    process = Runtime.getRuntime().exec(command[0]);
-                } else {
-                    process = Runtime.getRuntime().exec(command);
-                }
+                process = Runtime.getRuntime().exec(command);
             }
-
             String line;
             brOut = new BufferedReader(new InputStreamReader(process.getInputStream()));
             while ((line = brOut.readLine()) != null) {
                 output.append(line).append('\n');
-                if (callback != null) {
-                    callback.onReadLine(line);
-                }
             }
             brErr = new BufferedReader(new InputStreamReader(process.getErrorStream()));
             while ((line = brErr.readLine()) != null) {
                 error.append(line).append('\n');
-                if (callback != null) {
-                    callback.onReadError(line);
-                }
             }
             process.waitFor();
             ret.result = output.toString().trim();
@@ -99,18 +86,23 @@ public class RootUtils {
                 ret.error = e.getMessage();
             }
         }
-        if (callback != null) {
-            callback.onCommandFinish();
-        }
         return ret;
     }
 
     public static void mountRW() {
         String cmd = "mount -o remount,rw /system"; // buildMountCommand();
         _isrejected = false;
-        CommandResult ret = runCommand(cmd, true, null);
-        if (!ret.error.equals("") && ret.error.toLowerCase().contains("denied")) {
+        CommandResult ret = runCommand(cmd, true);
+        if (!ret.error.equals("") && (ret.error.toLowerCase().contains("denied")
+                || (ret.error.toLowerCase().contains("null environment"))
+                || ret.error.toLowerCase().contains("not allowed"))) {
             _isrejected = true;
+        }
+    }
+
+    public static void makePreferenceReadable(Context ctx) {
+        if (Build.VERSION.SDK_INT >= 24) {
+            RootUtils.runCommand(String.format("chmod -R 777 /data/data/%s/shared_prefs", ctx.getPackageName()), true);
         }
     }
 }

@@ -13,8 +13,7 @@
                 android:id="@+id/tvClean"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:gravity="start|top"
-                android:text="@string/view_ready"/>
+                android:gravity="start|top"/>
 
     </ScrollView>
 
