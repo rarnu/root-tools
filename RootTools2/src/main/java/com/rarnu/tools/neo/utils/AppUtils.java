@@ -89,4 +89,23 @@ public class AppUtils {
         return list;
     }
 
+    public static boolean isMIUI(Context ctx) {
+        PackageManager pm = ctx.getPackageManager();
+        String[] pkgs = new String[] {"com.miui.core", "com.miui.system"};
+        boolean isMIUI = true;
+        PackageInfo pi;
+        for (String s : pkgs) {
+            try {
+                pi = pm.getPackageInfo(s, 0);
+                isMIUI = pi != null;
+            } catch (Exception e) {
+                isMIUI = false;
+            }
+            if (!isMIUI) {
+                break;
+            }
+        }
+        return isMIUI;
+    }
+
 }

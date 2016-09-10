@@ -20,6 +20,7 @@ import com.rarnu.tools.neo.base.BasePreferenceFragment;
 import com.rarnu.tools.neo.comp.PreferenceEx;
 import com.rarnu.tools.neo.data.UpdateInfo;
 import com.rarnu.tools.neo.root.RootUtils;
+import com.rarnu.tools.neo.utils.AppUtils;
 import com.rarnu.tools.neo.utils.FileUtils;
 import com.rarnu.tools.neo.utils.HostsUtils;
 import com.rarnu.tools.neo.xposed.XpStatus;
@@ -124,7 +125,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     @Override
     public void initMenu(Menu menu) {
         menu.clear();
-        miShare = menu.add(0, 1, 1, R.string.ab_share);
+        miShare = menu.add(0, 1, 1, R.string.ab_help);
         miShare.setIcon(android.R.drawable.ic_menu_help);
         miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
     }
@@ -159,7 +160,10 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     }
 
     private void setXposedRootStatus() {
-        pColumns.setEnabled(true);
+
+        boolean isMIUI = AppUtils.isMIUI(getContext());
+
+        pColumns.setEnabled(isMIUI);
         pTerminal.setEnabled(true);
         pAbout.setEnabled(true);
 
@@ -167,21 +171,21 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pComponent.setEnabled(!RootUtils.isRejected());
         pCleanArt.setEnabled(!RootUtils.isRejected());
         pFakeDevice.setEnabled(!RootUtils.isRejected());
-        pNoUpdate.setEnabled(!RootUtils.isRejected());
+        pNoUpdate.setEnabled(isMIUI && !RootUtils.isRejected());
 
         if (Build.VERSION.SDK_INT >= 24) {
-            pTheme.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
-            pRemoveSearch.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
-            pRoot25.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
+            pTheme.setEnabled(isMIUI && XpStatus.isEnable() && !RootUtils.isRejected());
+            pRemoveSearch.setEnabled(isMIUI && XpStatus.isEnable() && !RootUtils.isRejected());
+            pRoot25.setEnabled(isMIUI && XpStatus.isEnable() && !RootUtils.isRejected());
             pCoreCrack.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
         } else {
-            pTheme.setEnabled(XpStatus.isEnable());
-            pRemoveSearch.setEnabled(XpStatus.isEnable());
-            pRoot25.setEnabled(XpStatus.isEnable());
+            pTheme.setEnabled(isMIUI && XpStatus.isEnable());
+            pRemoveSearch.setEnabled(isMIUI && XpStatus.isEnable());
+            pRoot25.setEnabled(isMIUI && XpStatus.isEnable());
             pCoreCrack.setEnabled(XpStatus.isEnable());
         }
 
-        pRemoveAd.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
+        pRemoveAd.setEnabled(isMIUI && XpStatus.isEnable() && !RootUtils.isRejected());
     }
 
     private void showActivity(Class<?> cls) {

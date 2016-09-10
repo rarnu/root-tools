@@ -105,4 +105,5 @@ public class RootUtils {
             RootUtils.runCommand(String.format("chmod -R 777 /data/data/%s/shared_prefs", ctx.getPackageName()), true);
         }
     }
+
 }
