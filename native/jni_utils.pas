@@ -10,6 +10,7 @@ uses
 function jstringToString(env: PJNIEnv; jstr: jstring): string;
 function stringToJString(env: PJNIEnv; str: string): jstring;
 function argsToJValues(env:PJNIEnv; const Args: array of const): PJValue;
+function jstringArrayToStringArray(env: PJNIEnv; arr: jarray): TStringArray;
 
 implementation
 
@@ -39,6 +40,20 @@ begin
       raise Exception.Create('Unsupported variant argument');
     end;
   Result := PJValue(FConvertedArgs);
+end;
+
+function jstringArrayToStringArray(env: PJNIEnv; arr: jarray): TStringArray;
+var
+  len: Integer;
+  i: Integer;
+  jstr: jstring;
+begin
+  len := env^^.GetArrayLength(env, arr);
+  SetLength(Result, len);
+  for i := 0 to len - 1 do begin
+    jstr:= env^^.GetObjectArrayElement(env, arr, i);
+    Result[i] := jstringToString(env, jstr);
+  end;
 end;
 
 function jstringToString(env: PJNIEnv; jstr: jstring): string;
