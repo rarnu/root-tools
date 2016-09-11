@@ -15,8 +15,11 @@ begin
 end;
 
 function Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponent(env: PJNIEnv; obj: jobject; packageName: jstring; componentName: jstring; isFreezed: jboolean): jboolean; stdcall;
+   var testString: TString;
+   ret: Boolean;
 begin
-  // TODO:
+  ret := FreezeComponent(jstringToString(env, packageName), componentName, isFreezed = JNI_TRUE);
+  Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
 function Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponents(env: PJNIEnv; obj: jobject; packageName: jstring; components: jarray; isFreezed: jboolean): jboolean; stdcall;

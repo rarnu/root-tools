@@ -10,6 +10,7 @@ uses
 // JNI real method
 function FreezeApplication(packageName: String; isFreezed: Boolean): Boolean;
 function FreeComponents(packageName: string; components: TStringArray; isFreezed: Boolean): Boolean;
+function FreezeComponent(packageName: string; componentName: TString; isFreezed: Boolean): Boolean;
 
 implementation
 
@@ -19,6 +20,15 @@ var
   outstr: string;
 begin
   cmd := Format('pm %s %s', [IfThen(isFreezed, 'disable', 'enable'), packageName]);
+  Result := internalRun([cmd], outstr);
+end;
+
+function FreezeComponent(packageName: string; componentName: TString; isFreezed: Boolean): Boolean;
+var
+  cmd: string;
+  outstr: string;
+begin
+  cmd := Format('pm %s %s/%s', [IfThen(isFreezed, 'disable', 'enable'), packageName, componentName]);
   Result := internalRun([cmd], outstr);
 end;
 
