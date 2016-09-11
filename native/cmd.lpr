@@ -15,10 +15,12 @@ begin
 end;
 
 function Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponent(env: PJNIEnv; obj: jobject; packageName: jstring; componentName: jstring; isFreezed: jboolean): jboolean; stdcall;
-   var testString: TString;
+   var
+   componentNameStr: String;
    ret: Boolean;
 begin
-  ret := FreezeComponent(jstringToString(env, packageName), componentName, isFreezed = JNI_TRUE);
+  componentNameStr := jstringToString(env, componentName);
+  ret := FreezeComponent(jstringToString(env, packageName), componentNameStr, isFreezed = JNI_TRUE);
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 

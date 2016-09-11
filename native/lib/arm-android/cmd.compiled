@@ -2,5 +2,4 @@
 <CONFIG>
   <Compiler Value="/usr/local/codetyphon/fpc/fpc64/bin/x86_64-linux/fpc" Date="1473580213"/>
   <Params Value=" -Tandroid -Parm -MObjFPC -Scghi -O1 -g -gl -l -vewnhibq -Fi/home/conquer/Documents/code/root-tools/native/lib/arm-android -Fl/usr/local/codetyphon/binLibraries/android-5.0-api21-arm -Fu/home/conquer/Documents/code/root-tools/native/ -FU/home/conquer/Documents/code/root-tools/native/lib/arm-android/ -olibcmd.so cmd.lpr"/>
-  <Complete Value="False"/>
 </CONFIG>

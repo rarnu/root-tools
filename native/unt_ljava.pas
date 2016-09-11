@@ -9,8 +9,8 @@ uses
 
 // JNI real method
 function FreezeApplication(packageName: String; isFreezed: Boolean): Boolean;
-function FreeComponents(packageName: string; components: TStringArray; isFreezed: Boolean): Boolean;
-function FreezeComponent(packageName: string; componentName: TString; isFreezed: Boolean): Boolean;
+function FreeComponents(packageName: String; components: TStringArray; isFreezed: Boolean): Boolean;
+function FreezeComponent(packageName: String; componentName: String; isFreezed: Boolean): Boolean;
 
 implementation
 
@@ -23,7 +23,7 @@ begin
   Result := internalRun([cmd], outstr);
 end;
 
-function FreezeComponent(packageName: string; componentName: TString; isFreezed: Boolean): Boolean;
+function FreezeComponent(packageName: String; componentName: String; isFreezed: Boolean): Boolean;
 var
   cmd: string;
   outstr: string;
