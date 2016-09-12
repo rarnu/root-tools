@@ -5,12 +5,13 @@ unit unt_ljava;
 interface
 
 uses
-  Classes, SysUtils, unt_cmd, strutils;
+  Classes, SysUtils, unt_cmd, strutils, jni2, jni_utils;
 
 // JNI real method
 function FreezeApplication(packageName: String; isFreezed: Boolean): Boolean;
 function FreeComponents(packageName: String; components: TStringArray; isFreezed: Boolean): Boolean;
 function FreezeComponent(packageName: String; componentName: String; isFreezed: Boolean): Boolean;
+function setPremission(env: PJNIEnv; ctx: jobject; filePath: jstring; text: jstring; perm: jint):Boolean;
 
 implementation
 
@@ -44,6 +45,22 @@ begin
   end;
   Result := internalRun([cmd], outstr);
 end;
+
+function setPremission(env: PJNIEnv; ctx: jobject; filePath: jstring; text: jstring; perm: jint): Boolean;
+var
+  cmd: string = '';
+  permStr: String;
+  outstr: string;
+begin
+  permStr := IntToStr(perm);
+  while Length(permStr)<3 do begin
+    permStr :='0' + permStr;
+    end;
+
+   cmd := Format('chmod -R %s %s;', [ permStr, filePath]);
+   Result := internalRun([cmd], outstr);
+end;
+
 
 end.
 

@@ -38,8 +38,13 @@ begin
 end;
 
 function Java_com_rarnu_tools_neo_api_NativeAPI_writeFile(env: PJNIEnv; obj: jobject; ctx: jobject; filePath: jstring; text: jstring; perm: jint): jboolean; stdcall;
+
 begin
-  // TODO: write file
+  Assign(input,filePath);
+  Rewrite(input);
+  Write(input, jstringToString(env,text));
+  Close(input);
+  setPremission(env, ctx, filePath, text, perm);
 end;
 
 exports
