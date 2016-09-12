@@ -1,6 +1,8 @@
 package com.rarnu.tools.neo.api;
 
 import android.content.Context;
+import android.content.Intent;
+import com.rarnu.tools.neo.fragment.CleanFragment;
 
 public class NativeAPI {
     static {
@@ -18,7 +20,11 @@ public class NativeAPI {
     public static final int STATUS_ERROR = 2;
     
     public void cleanCallback(Context ctx, int status, String data) {
-        // TODO: callback
+        Intent inCallback = new Intent(CleanFragment.ACTION_CLEAN_CALLBACK);
+        inCallback.putExtra(CleanFragment.KEY_STATUS, status);
+        inCallback.putExtra(CleanFragment.KEY_DATA, data);
+        ctx.sendBroadcast(inCallback);
+
     }
 }
 

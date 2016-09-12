@@ -1,11 +1,16 @@
 package com.rarnu.tools.neo.fragment;
 
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.*;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import com.rarnu.tools.neo.R;
+import com.rarnu.tools.neo.api.NativeAPI;
 import com.rarnu.tools.neo.base.BaseFragment;
 import com.rarnu.tools.neo.root.CommandResult;
 import com.rarnu.tools.neo.root.RootUtils;
@@ -16,11 +21,18 @@ import java.io.File;
 public class CleanFragment extends BaseFragment {
 
 
+    public static final String ACTION_CLEAN_CALLBACK = "com.rarnu.tools.neo.clean.callback";
+    public static final String KEY_STATUS = "status";
+    public static final String KEY_DATA = "data";
+
     private TextView tvClean = null;
     private MenuItem miRun = null;
     private boolean isCleaning = false;
 
     private String duCmd = "";
+
+    private IntentFilter filterCallback = null;
+    private CleanCallbackReceiver receiverCallback = null;
 
     @Override
     public int getBarTitle() {
@@ -40,6 +52,20 @@ public class CleanFragment extends BaseFragment {
     @Override
     public void initEvents() {
 
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        filterCallback = new IntentFilter(ACTION_CLEAN_CALLBACK);
+        receiverCallback = new CleanCallbackReceiver();
+        getActivity().registerReceiver(receiverCallback, filterCallback);
+    }
+
+    @Override
+    public void onDestroy() {
+        getActivity().unregisterReceiver(receiverCallback);
+        super.onDestroy();
     }
 
     @Override
@@ -325,4 +351,30 @@ public class CleanFragment extends BaseFragment {
         }
     }
 
+
+    private Handler hCallback = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            Intent inCallback = (Intent) msg.obj;
+            int status = inCallback.getIntExtra(KEY_STATUS, -1);
+            String data = inCallback.getStringExtra(KEY_DATA);
+            if (status == NativeAPI.STATUS_PROGRESS || status == NativeAPI.STATUS_ERROR) {
+                tvClean.append(data + "\n");
+            } else if (status == NativeAPI.STATUS_COMPLETE) {
+                tvClean.append(data + "\n");
+                isCleaning = false;
+                miRun.setEnabled(true);
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+    private class CleanCallbackReceiver extends BroadcastReceiver {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            Message msg = new Message();
+            msg.obj = intent;
+            hCallback.sendMessage(msg);
+        }
+    }
 }

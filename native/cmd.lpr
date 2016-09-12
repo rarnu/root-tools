@@ -37,6 +37,11 @@ begin
   CleanData(env, ctx);
 end;
 
+function Java_com_rarnu_tools_neo_api_NativeAPI_writeFile(env: PJNIEnv; obj: jobject; ctx: jobject; filePath: jstring; text: jstring; perm: jint): jboolean; stdcall;
+begin
+  // TODO: write file
+end;
+
 exports
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeApplication,
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponent,

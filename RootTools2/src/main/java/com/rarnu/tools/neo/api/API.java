@@ -1,6 +1,5 @@
 package com.rarnu.tools.neo.api;
 
-import android.util.Log;
 import com.rarnu.tools.neo.data.Onekey;
 import com.rarnu.tools.neo.utils.HttpUtils;
 
