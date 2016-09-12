@@ -3,7 +3,7 @@ library cmd;
 {$mode objfpc}{$H+}
 
 uses
-  cthreads, Classes, sysutils, jni2, jni_utils, math, unt_ljava;
+  cthreads, Classes, sysutils, jni2, jni_utils, math, unt_ljava, unt_clean;
 
 // JNI exchange method
 function Java_com_rarnu_tools_neo_api_NativeAPI_freezeApplication(env: PJNIEnv; obj: jobject; packageName: jstring; isFreezed: jboolean): jboolean; stdcall;
@@ -15,12 +15,10 @@ begin
 end;
 
 function Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponent(env: PJNIEnv; obj: jobject; packageName: jstring; componentName: jstring; isFreezed: jboolean): jboolean; stdcall;
-   var
-   componentNameStr: String;
-   ret: Boolean;
+var
+  ret: Boolean;
 begin
-  componentNameStr := jstringToString(env, componentName);
-  ret := FreezeComponent(jstringToString(env, packageName), componentNameStr, isFreezed = JNI_TRUE);
+  ret := FreezeComponent(jstringToString(env, packageName), jstringToString(env, componentName), isFreezed = JNI_TRUE);
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -29,16 +27,21 @@ var
   strArr: TStringArray;
   ret: Boolean;
 begin
-  // TODO:
   strArr := jstringArrayToStringArray(env, components);
   ret := FreeComponents(jstringToString(env, packageName), strArr, isFreezed = JNI_TRUE);
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
+procedure Java_com_rarnu_tools_neo_api_NativeAPI_systemClean(env: PJNIEnv; obj: jobject; ctx: jobject); stdcall;
+begin
+  CleanData(env, ctx);
+end;
+
 exports
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeApplication,
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponent,
-  Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponents;
+  Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponents,
+  Java_com_rarnu_tools_neo_api_NativeAPI_systemClean;
 
 begin
 
