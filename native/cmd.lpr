@@ -38,20 +38,19 @@ begin
 end;
 
 function Java_com_rarnu_tools_neo_api_NativeAPI_writeFile(env: PJNIEnv; obj: jobject; ctx: jobject; filePath: jstring; text: jstring; perm: jint): jboolean; stdcall;
-
+var
+  ret: Boolean;
 begin
-  Assign(input,filePath);
-  Rewrite(input);
-  Write(input, jstringToString(env,text));
-  Close(input);
-  setPremission(env, ctx, filePath, text, perm);
+  ret := WriteFile(jstringToString(env, filePath), jstringToString(env, text), perm);
+  Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
 exports
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeApplication,
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponent,
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponents,
-  Java_com_rarnu_tools_neo_api_NativeAPI_systemClean;
+  Java_com_rarnu_tools_neo_api_NativeAPI_systemClean,
+  Java_com_rarnu_tools_neo_api_NativeAPI_writeFile;
 
 begin
 
