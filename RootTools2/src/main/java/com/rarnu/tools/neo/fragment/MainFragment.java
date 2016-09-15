@@ -1,7 +1,6 @@
 package com.rarnu.tools.neo.fragment;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -16,10 +15,10 @@ import android.widget.Toast;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.activity.*;
 import com.rarnu.tools.neo.api.API;
+import com.rarnu.tools.neo.api.NativeAPI;
 import com.rarnu.tools.neo.base.BasePreferenceFragment;
 import com.rarnu.tools.neo.comp.PreferenceEx;
 import com.rarnu.tools.neo.data.UpdateInfo;
-import com.rarnu.tools.neo.root.RootUtils;
 import com.rarnu.tools.neo.utils.AppUtils;
 import com.rarnu.tools.neo.utils.FileUtils;
 import com.rarnu.tools.neo.utils.HostsUtils;
@@ -167,17 +166,17 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pTerminal.setEnabled(true);
         pAbout.setEnabled(true);
 
-        pFreeze.setEnabled(!RootUtils.isRejected());
-        pComponent.setEnabled(!RootUtils.isRejected());
-        pCleanArt.setEnabled(!RootUtils.isRejected());
-        pFakeDevice.setEnabled(!RootUtils.isRejected());
-        pNoUpdate.setEnabled(isMIUI && !RootUtils.isRejected());
+        pFreeze.setEnabled(!NativeAPI.isRejected);
+        pComponent.setEnabled(!NativeAPI.isRejected);
+        pCleanArt.setEnabled(!NativeAPI.isRejected);
+        pFakeDevice.setEnabled(!NativeAPI.isRejected);
+        pNoUpdate.setEnabled(isMIUI && !NativeAPI.isRejected);
 
         if (Build.VERSION.SDK_INT >= 24) {
-            pTheme.setEnabled(isMIUI && XpStatus.isEnable() && !RootUtils.isRejected());
-            pRemoveSearch.setEnabled(isMIUI && XpStatus.isEnable() && !RootUtils.isRejected());
-            pRoot25.setEnabled(isMIUI && XpStatus.isEnable() && !RootUtils.isRejected());
-            pCoreCrack.setEnabled(XpStatus.isEnable() && !RootUtils.isRejected());
+            pTheme.setEnabled(isMIUI && XpStatus.isEnable() && !NativeAPI.isRejected);
+            pRemoveSearch.setEnabled(isMIUI && XpStatus.isEnable() && !NativeAPI.isRejected);
+            pRoot25.setEnabled(isMIUI && XpStatus.isEnable() && !NativeAPI.isRejected);
+            pCoreCrack.setEnabled(XpStatus.isEnable() && !NativeAPI.isRejected);
         } else {
             pTheme.setEnabled(isMIUI && XpStatus.isEnable());
             pRemoveSearch.setEnabled(isMIUI && XpStatus.isEnable());
@@ -185,7 +184,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             pCoreCrack.setEnabled(XpStatus.isEnable());
         }
 
-        pRemoveAd.setEnabled(isMIUI && XpStatus.isEnable() && !RootUtils.isRejected());
+        pRemoveAd.setEnabled(isMIUI && XpStatus.isEnable() && !NativeAPI.isRejected);
     }
 
     private void showActivity(Class<?> cls) {
@@ -221,24 +220,24 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         } else if (prefKey.equals(getString(R.string.id_theme))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_THEMECRACK, ex.getStatus()).apply();
-            RootUtils.makePreferenceReadable(getContext());
+            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_removead))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_REMOVEAD, ex.getStatus()).apply();
-            RootUtils.makePreferenceReadable(getContext());
+            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
             threadWriteHost();
         } else if (prefKey.equals(getString(R.string.id_removesearch))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_REMOVESEARCHBAR, ex.getStatus()).apply();
-            RootUtils.makePreferenceReadable(getContext());
+            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_root25))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_ROOTCRACK, ex.getStatus()).apply();
-            RootUtils.makePreferenceReadable(getContext());
+            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_corecrack))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_CORECRACK, ex.getStatus()).apply();
-            RootUtils.makePreferenceReadable(getContext());
+            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_columns))) {
             if (XpStatus.canWriteSdcard) {
                 boolean ret = FileUtils.copyAssetFile(getContext(), "RootToolsNeo.mtz", Environment.getExternalStorageDirectory().getAbsolutePath());
@@ -257,7 +256,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         } else if (prefKey.equals(getString(R.string.id_noupdate))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_NOUPDATE, ex.getStatus()).apply();
-            RootUtils.makePreferenceReadable(getContext());
+            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
             threadWriteHost();
         }
         return true;

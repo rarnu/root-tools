@@ -13,11 +13,11 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.adapter.AppAdapter;
+import com.rarnu.tools.neo.api.NativeAPI;
 import com.rarnu.tools.neo.base.BaseFragment;
 import com.rarnu.tools.neo.comp.LoadingView;
 import com.rarnu.tools.neo.data.AppInfo;
 import com.rarnu.tools.neo.loader.AppLoader;
-import com.rarnu.tools.neo.utils.ComponentUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -142,7 +142,7 @@ public class FreezeFragment extends BaseFragment implements AdapterView.OnItemCl
             @Override
             public void run() {
                 boolean newStat = !item.isDisable;
-                boolean ret = ComponentUtils.applicationFreeze(item.packageName, newStat);
+                boolean ret = NativeAPI.freezeApplication(item.packageName, newStat);
                 if (ret) {
                     item.isDisable = newStat;
                 }

@@ -41,12 +41,17 @@ var
   obj: jobject;
   clsInit: jmethodID;
   clsCallback: jmethodID;
+  dataStr: jstring;
 begin
   cls := env^^.FindClass(env, 'com/rarnu/tools/neo/api/NativeAPI');
   clsInit:= env^^.GetMethodID(env, cls, '<init>', '()V');
   clsCallback:= env^^.GetMethodID(env, cls, 'cleanCallback', '(Landroid/content/Context;ILjava/lang/String;)V');
   obj := env^^.NewObjectA(env, cls, clsInit, nil);
-  env^^.CallVoidMethodA(env, obj, clsCallback, argsToJValues(env, [ctx, status, data]));
+  dataStr:= stringToJString(env, data);
+  env^^.CallVoidMethodA(env, obj, clsCallback, argsToJValues(env, [ctx, status, dataStr]));
+  env^^.DeleteLocalRef(env, dataStr);
+  env^^.DeleteLocalRef(env, obj);
+  env^^.DeleteLocalRef(env, cls);
 end;
 
 function GetDuCmd(): string;
@@ -130,12 +135,12 @@ end;
 function IsCachedAppInstalled(oriList: TStringList; app: String): Boolean;
 var
   newAppPath: string;
-  s: string;
   idx: Integer;
 begin
   Result := False;
   if (app.StartsWith('system')) or (app.StartsWith('data@dalvik-cache')) then begin
     Result := True;
+    Exit;
   end;
   newAppPath:= app.Replace('data@app@', '');
   newAppPath:= newAppPath.Substring(0, newAppPath.IndexOf('@'));
@@ -163,9 +168,7 @@ const
   CMD_LS_ARM = 'ls /data/dalvik-cache/arm';
   CMD_LS_ARM64 = 'ls /data/dalvik-cache/arm64';
   CMD_LS_PROFILE = 'ls /data/dalvik-cache/profiles';
-  ERROR_MSG = 'Can not clean ART';
 var
-  b: Boolean;
   outstr: string;
   listInstalled: TStringList;
   listAllInstalled: TStringList;

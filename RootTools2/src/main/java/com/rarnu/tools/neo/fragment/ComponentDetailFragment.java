@@ -14,13 +14,13 @@ import android.widget.*;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.adapter.CompDetailAdapter;
 import com.rarnu.tools.neo.api.API;
+import com.rarnu.tools.neo.api.NativeAPI;
 import com.rarnu.tools.neo.base.BaseFragment;
 import com.rarnu.tools.neo.comp.LoadingView;
 import com.rarnu.tools.neo.data.CompInfo;
 import com.rarnu.tools.neo.data.Onekey;
 import com.rarnu.tools.neo.loader.ComponentLoader;
 import com.rarnu.tools.neo.utils.ComponentUtils;
-import com.rarnu.tools.neo.utils.HttpUtils;
 import com.rarnu.tools.neo.utils.PackageParserUtils;
 
 import java.util.ArrayList;
@@ -283,7 +283,7 @@ public class ComponentDetailFragment extends BaseFragment implements View.OnClic
             @Override
             public void run() {
                 boolean newStat = !item.enabled;
-                boolean ret = ComponentUtils.componentFreeze(pkgName, item.component.className, !newStat);
+                boolean ret = NativeAPI.freezeComponent(pkgName, item.component.className, !newStat);
                 if (ret) {
                     item.enabled = newStat;
                 }
@@ -324,11 +324,11 @@ public class ComponentDetailFragment extends BaseFragment implements View.OnClic
                 boolean hasProfile = false;
                 Onekey ok = API.getOnekey(pkgName, versionCode);
                 if (ok != null) {
-                    if (ok.disabledComponents.size() != 0) {
+                    if (ok.disabledComponents != null && ok.disabledComponents.length != 0) {
                         hasProfile = true;
                     }
-                    for (String s : ok.disabledComponents) {
-                        ComponentUtils.componentFreeze(pkgName, s, true);
+                    if (hasProfile) {
+                        NativeAPI.freezeComponents(pkgName, ok.disabledComponents, true);
                     }
                 }
                 hOnekey.sendEmptyMessage(hasProfile ? 1 : 0);

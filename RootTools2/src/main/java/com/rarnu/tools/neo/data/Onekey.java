@@ -9,17 +9,13 @@ import java.util.List;
 public class Onekey {
 
     public String pkgName = "";
-    public List<String> disabledComponents = new ArrayList<>();
+    public String[] disabledComponents = null;
 
     public Onekey(String pkg, String str) {
         this.pkgName = pkg;
         try {
             String[] strs = str.split("\n");
-            if (strs != null && strs.length != 0) {
-                for (String s : strs) {
-                    disabledComponents.add(s);
-                }
-            }
+            disabledComponents = strs;
         } catch (Exception e) {
 
         }

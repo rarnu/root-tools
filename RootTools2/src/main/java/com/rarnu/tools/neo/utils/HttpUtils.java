@@ -1,6 +1,5 @@
 package com.rarnu.tools.neo.utils;
 
-import android.util.Log;
 import com.squareup.okhttp.*;
 
 import java.util.Iterator;

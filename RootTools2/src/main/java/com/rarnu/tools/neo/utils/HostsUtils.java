@@ -1,12 +1,7 @@
 package com.rarnu.tools.neo.utils;
 
 import android.content.Context;
-import android.os.Environment;
-import com.rarnu.tools.neo.root.CommandResult;
-import com.rarnu.tools.neo.root.RootUtils;
-
-import java.io.File;
-import java.io.IOException;
+import com.rarnu.tools.neo.api.NativeAPI;
 
 public class HostsUtils {
 
@@ -28,21 +23,11 @@ public class HostsUtils {
             }
             host += noad + "\n";
         }
-        String tmpDir = Environment.getExternalStorageDirectory().getAbsolutePath();
-        File fDir = new File(tmpDir, ".tmp");
-        if (!fDir.exists()) {
-            fDir.mkdirs();
-        }
-        String tmpFile = new File(fDir, "hosts").getAbsolutePath();
+
         try {
-            FileUtils.rewriteFile(tmpFile, host);
-            RootUtils.mountRW();
-            CommandResult result = RootUtils.runCommand(new String[]{
-                    String.format("cp %s %s", tmpFile, "/etc/hosts"),
-                    String.format("chmod 755 %s", "/etc/hosts")
-            }, true);
-            ret = result.error.equals("");
-        } catch (Exception e) {
+            NativeAPI.mount();
+            ret = NativeAPI.writeFile(ctx, "/etc/hosts", host, 755);
+        } catch (Throwable th) {
         }
         return ret;
     }

@@ -127,7 +127,7 @@ public class FakeDeviceFragment extends BaseFragment implements SearchView.OnQue
         new Thread(new Runnable() {
             @Override
             public void run() {
-                boolean ret = BuildPropUtils.setBuildProp(list);
+                boolean ret = BuildPropUtils.setBuildProp(getContext(), list);
                 hSaving.sendEmptyMessage(ret ? 0 : 1);
             }
         }).start();

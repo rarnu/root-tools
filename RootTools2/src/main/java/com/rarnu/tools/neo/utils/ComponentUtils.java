@@ -3,26 +3,12 @@ package com.rarnu.tools.neo.utils;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import com.rarnu.tools.neo.data.CompInfo;
-import com.rarnu.tools.neo.root.CommandResult;
-import com.rarnu.tools.neo.root.RootUtils;
 
 import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("Duplicates")
 public class ComponentUtils {
-
-    public static boolean applicationFreeze(String pkgName, boolean isDisable) {
-        String cmd = String.format("pm %s %s", (isDisable ? "disable" : "enable"), pkgName);
-        CommandResult result = RootUtils.runCommand(cmd, true);
-        return result.error.equals("");
-    }
-
-    public static boolean componentFreeze(String pkgName, String componentName, boolean isDisable) {
-        String cmd = String.format("pm %s %s/%s", (isDisable ? "disable" : "enable"), pkgName, componentName);
-        CommandResult result = RootUtils.runCommand(cmd, true);
-        return result.error.equals("");
-    }
 
     public static List<CompInfo> getActivityList(Context ctx, Object pkg) {
         List<CompInfo> lstComponentInfo = new ArrayList<>();

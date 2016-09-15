@@ -8,14 +8,39 @@ uses
   Classes, SysUtils, unt_cmd, strutils, jni2, jni_utils;
 
 // JNI real method
+function Mount(): Boolean;
+procedure MakePreferenceReadable(sdk: integer; packageName: string);
 function FreezeApplication(packageName: string; isFreezed: boolean): boolean;
 function FreeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;
 function FreezeComponent(packageName: string; componentName: string; isFreezed: boolean): boolean;
 function WriteFile(filePath: string; _text: string; perm: integer): boolean;
-
-// function setPremission(env: PJNIEnv; ctx: jobject; filePath: jstring; text: jstring; perm: jint):Boolean;
+function CatFile(src: string; dest: string; perm: integer): Boolean;
 
 implementation
+
+function Mount: Boolean;
+const
+  cmd = 'mount -o remount,rw /system';
+var
+  outstr: string;
+begin
+  Result := internalRun([cmd], outstr);
+  outstr:= outstr.ToLower;
+  if (outstr.Contains('denied')) or (outstr.Contains('null environment')) or (outstr.Contains('not allowed')) then begin
+    Result := False;
+  end;
+end;
+
+procedure MakePreferenceReadable(sdk: integer; packageName: string);
+var
+  cmd: string;
+  outstr: string;
+begin
+  if (sdk >= 24) then begin
+    cmd := Format('chmod -R 777 /data/data/%s/shared_prefs', [packageName]);
+    internalRun([cmd], outstr);
+  end;
+end;
 
 function FreezeApplication(packageName: string; isFreezed: boolean): boolean;
 var
@@ -62,9 +87,25 @@ begin
   if FileExists(tmpPath) then begin
     Result := internalRun([Format('cp %s %s', [tmpPath, tmpPathEx]),     // cp /sdcard/build.prop /system/build.prop.tmp
       Format('chmod %s %s', [modStr, tmpPathEx]),   // chmod 755 /system/build.prop.tmp
-      Format('cp %s %s', [tmpPathEx, filePath])     // cp /system/build.prop.tmp /system/build.prop
+      Format('cp %s %s', [tmpPathEx, filePath]),     // cp /system/build.prop.tmp /system/build.prop
+      Format('chmod %s %s', [modStr, filePath])
       ], outstr);
   end;
+end;
+
+function CatFile(src: string; dest: string; perm: integer): Boolean;
+var
+  modstr: string;
+  outstr: string;
+begin
+  modstr:= IntToStr(perm);
+  while modstr.Length < 3 do begin
+    modstr := '0' + modstr;
+  end;
+  Result := internalRun([
+    Format('cat %s > %s', [src, dest]),
+    Format('chmod %s %s', [modstr, dest])
+  ], outstr);
 end;
 
 function FreeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;
@@ -78,22 +119,6 @@ begin
   end;
   Result := internalRun([cmd], outstr);
 end;
-
-function setPremission(env: PJNIEnv; ctx: jobject; filePath: jstring; Text: jstring; perm: jint): boolean;
-var
-  cmd: string = '';
-  permStr: string;
-  outstr: string;
-begin
-  permStr := IntToStr(perm);
-  while Length(permStr) < 3 do begin
-    permStr := '0' + permStr;
-  end;
-
-  cmd := Format('chmod -R %s %s;', [permStr, filePath]);
-  Result := internalRun([cmd], outstr);
-end;
-
 
 end.
 
