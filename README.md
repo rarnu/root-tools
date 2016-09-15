@@ -32,5 +32,11 @@ RootTools·Neo
 	$ gradle build
 	```
 
-
-                                                                                                                                                                                           
+	* 如果您还需要自行编译 JNI 部分，可以自行下载 [CodeTyphon](http://www.pilotlogic.com/sitejoom/index.php/codetyphon/)，并编译其 Cross Elements 以适应 Android 跨平台编译（目前仅支持 Linux 环境，不需要额外安装 NDK）。源码中已提供编译脚本
+	
+	```
+	$ cd native
+	$ ./build.sh
+	```
+	
+	* 此时即可以得到工作于 arm, mips, x86 三个平台的 libcmd.so                                                                                                                                                                 
