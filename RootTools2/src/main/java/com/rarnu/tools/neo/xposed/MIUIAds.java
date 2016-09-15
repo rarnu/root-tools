@@ -4,6 +4,7 @@ package com.rarnu.tools.neo.xposed;
 import android.app.Activity;
 import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import com.rarnu.tools.neo.utils.ComponentUtils;
 import de.robv.android.xposed.IXposedHookLoadPackage;
@@ -209,6 +210,13 @@ public class MIUIAds implements IXposedHookLoadPackage {
                     return null;
                 }
             });
+        }
+
+        if (loadPackageParam.packageName.equals("com.android.calendar")) {
+            XpUtils.findAndHookMethod("com.miui.calendar.ad.AdUtils", loadPackageParam.classLoader, "canShowBrandAd", Context.class, XC_MethodReplacement.returnConstant(false));
+            XpUtils.findAndHookMethod("com.miui.calendar.ad.AdService", loadPackageParam.classLoader, "onHandleIntent", Intent.class, XC_MethodReplacement.returnConstant(null));
+            XpUtils.findAndHookMethod("com.miui.calendar.card.single.local.SummarySingleCard", loadPackageParam.classLoader, "needShowAdBanner", XC_MethodReplacement.returnConstant(false));
+            XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.ad.AdSingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false));
         }
 
         if (loadPackageParam.packageName.equals("com.miui.systemAdSolution")) {
