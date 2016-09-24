@@ -138,6 +138,7 @@ public class MIUIAds implements IXposedHookLoadPackage {
             Class<?> clsListener = XpUtils.findClass(loadPackageParam.classLoader, "com.android.volley.Response$Listener");
             Class<?> clsErrorListener = XpUtils.findClass(loadPackageParam.classLoader, "com.android.volley.Response$ErrorListener");
             Class<?> clsAdInfo = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.util.AdUtils$AdInfo");
+            final Class<?> clsDisplayItem = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.display.model.DisplayItem");
             XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "isAdEnable", XC_MethodReplacement.returnConstant(false));
             if (clsListener != null && clsErrorListener != null) {
                 XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "getPlayAd", clsListener, clsErrorListener, XC_MethodReplacement.returnConstant(null));
@@ -152,6 +153,14 @@ public class MIUIAds implements IXposedHookLoadPackage {
             XpUtils.findAndHookMethod("com.miui.player.phone.view.NowplayingAlbumPage", loadPackageParam.classLoader, "getPlayAd", XC_MethodReplacement.returnConstant(null));
             XpUtils.findAndHookMethod("com.miui.player.util.Configuration", loadPackageParam.classLoader, "isCmTest", XC_MethodReplacement.returnConstant(true));
             XpUtils.findAndHookMethod("com.miui.player.util.Configuration", loadPackageParam.classLoader, "isCpLogoVisiable", XC_MethodReplacement.returnConstant(false));
+            if (clsDisplayItem != null) {
+                XpUtils.findAndHookMethod("com.miui.player.display.view.LocalDynamicList", loadPackageParam.classLoader, "createHeader", new XC_MethodReplacement() {
+                    @Override
+                    protected Object replaceHookedMethod(MethodHookParam methodHookParam) throws Throwable {
+                        return clsDisplayItem.newInstance();
+                    }
+                });
+            }
             return;
         }
 
