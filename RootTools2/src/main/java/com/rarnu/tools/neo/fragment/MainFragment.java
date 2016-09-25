@@ -201,6 +201,15 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         }).start();
     }
 
+    private void threadDeleteTmpFiles() {
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NativeAPI.forceDeleteFile("/data/data/com.miui.cleanmaster/shared_prefs/*");
+            }
+        }).start();
+    }
+
     @Override
     public boolean onPreferenceClick(Preference preference) {
         String prefKey = preference.getKey();
@@ -226,6 +235,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             editor.putBoolean(XpStatus.KEY_REMOVEAD, ex.getStatus()).apply();
             NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
             threadWriteHost();
+            threadDeleteTmpFiles();
         } else if (prefKey.equals(getString(R.string.id_removesearch))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_REMOVESEARCHBAR, ex.getStatus()).apply();

@@ -66,6 +66,11 @@ begin
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
+procedure Java_com_rarnu_tools_neo_api_NativeAPI_forceDeleteFile(env: PJNIEnv; obj: jobject; path: jstring); stdcall;
+begin
+  ForceDeleteFile(jstringToString(env, path));
+end;
+
 exports
   Java_com_rarnu_tools_neo_api_NativeAPI_mount,
   Java_com_rarnu_tools_neo_api_NativeAPI_makePreferenceReadable,
@@ -74,7 +79,8 @@ exports
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponents,
   Java_com_rarnu_tools_neo_api_NativeAPI_systemClean,
   Java_com_rarnu_tools_neo_api_NativeAPI_writeFile,
-  Java_com_rarnu_tools_neo_api_NativeAPI_catFile;
+  Java_com_rarnu_tools_neo_api_NativeAPI_catFile,
+  Java_com_rarnu_tools_neo_api_NativeAPI_forceDeleteFile;
 
 begin
 

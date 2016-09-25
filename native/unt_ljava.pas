@@ -15,6 +15,7 @@ function FreeComponents(packageName: string; Components: TStringArray; isFreezed
 function FreezeComponent(packageName: string; componentName: string; isFreezed: boolean): boolean;
 function WriteFile(filePath: string; _text: string; perm: integer): boolean;
 function CatFile(src: string; dest: string; perm: integer): Boolean;
+procedure ForceDeleteFile(path: string);
 
 implementation
 
@@ -106,6 +107,15 @@ begin
     Format('cat %s > %s', [src, dest]),
     Format('chmod %s %s', [modstr, dest])
   ], outstr);
+end;
+
+procedure ForceDeleteFile(path: string);
+var
+  cmd: string;
+  outstr: string;
+begin
+  cmd := Format('rm -f -r %s', [path]);
+  internalRun([cmd], outstr);
 end;
 
 function FreeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;
