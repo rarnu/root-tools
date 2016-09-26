@@ -71,6 +71,12 @@ begin
   ForceDeleteFile(jstringToString(env, path));
 end;
 
+procedure Java_com_rarnu_tools_neo_api_NativeAPI_forceDropCache(env: PJNIEnv; obj: jobject); stdcall;
+begin
+  ForceDropCache();
+end;
+
+
 exports
   Java_com_rarnu_tools_neo_api_NativeAPI_mount,
   Java_com_rarnu_tools_neo_api_NativeAPI_makePreferenceReadable,
@@ -80,7 +86,8 @@ exports
   Java_com_rarnu_tools_neo_api_NativeAPI_systemClean,
   Java_com_rarnu_tools_neo_api_NativeAPI_writeFile,
   Java_com_rarnu_tools_neo_api_NativeAPI_catFile,
-  Java_com_rarnu_tools_neo_api_NativeAPI_forceDeleteFile;
+  Java_com_rarnu_tools_neo_api_NativeAPI_forceDeleteFile,
+  Java_com_rarnu_tools_neo_api_NativeAPI_forceDropCache;
 
 begin
 

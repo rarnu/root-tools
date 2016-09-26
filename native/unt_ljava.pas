@@ -16,6 +16,7 @@ function FreezeComponent(packageName: string; componentName: string; isFreezed: 
 function WriteFile(filePath: string; _text: string; perm: integer): boolean;
 function CatFile(src: string; dest: string; perm: integer): Boolean;
 procedure ForceDeleteFile(path: string);
+procedure ForceDropCache();
 
 implementation
 
@@ -116,6 +117,17 @@ var
 begin
   cmd := Format('rm -f -r %s', [path]);
   internalRun([cmd], outstr);
+end;
+
+procedure ForceDropCache;
+const
+  cmdSync = 'sync';
+  cmdDrop = 'echo 3 > /proc/sys/vm/drop_caches';
+  cmdDropRestore = 'echo 0 > /proc/sys/vm/drop_caches';
+var
+  outstr: string;
+begin
+  internalRun([cmdSync, cmdDrop, cmdDropRestore], outstr);
 end;
 
 function FreeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;
