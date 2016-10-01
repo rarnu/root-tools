@@ -5,9 +5,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.Build;
-import android.os.Bundle;
-import android.os.Environment;
+import android.os.*;
 import android.preference.Preference;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -27,7 +25,7 @@ import com.rarnu.tools.neo.xposed.XpStatus;
 public class MainFragment extends BasePreferenceFragment implements Preference.OnPreferenceClickListener, UpdateInfo.UpdateInfoReadyCallback {
 
     // system
-    private PreferenceEx pFreeze, pComponent, pCleanArt, pCoreCrack, pFakeDevice, pTerminal;
+    private PreferenceEx pFreeze, pComponent, pCleanArt, pCoreCrack, pFakeDevice, pTerminal, pMemory;
     // miui
     private PreferenceEx pTheme, pRemoveAd, pRemoveSearch, pColumns, pRoot25, pNoUpdate;
     // about
@@ -65,6 +63,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pCoreCrack = findPref(R.string.id_corecrack);
         pFakeDevice = findPref(R.string.id_fake_device);
         pTerminal = findPref(R.string.id_terminal);
+        pMemory = findPref(R.string.id_memory);
 
         // miui
         pTheme = findPref(R.string.id_theme);
@@ -91,6 +90,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pCoreCrack.setOnPreferenceClickListener(this);
         pFakeDevice.setOnPreferenceClickListener(this);
         pTerminal.setOnPreferenceClickListener(this);
+        pMemory.setOnPreferenceClickListener(this);
 
         // miui
         pTheme.setOnPreferenceClickListener(this);
@@ -168,6 +168,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
 
         pFreeze.setEnabled(!NativeAPI.isRejected);
         pComponent.setEnabled(!NativeAPI.isRejected);
+        pMemory.setEnabled(!NativeAPI.isRejected);
         pCleanArt.setEnabled(!NativeAPI.isRejected);
         pFakeDevice.setEnabled(!NativeAPI.isRejected);
         pNoUpdate.setEnabled(isMIUI && !NativeAPI.isRejected);
@@ -226,6 +227,8 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             showActivity(AboutActivity.class);
         } else if (prefKey.equals(getString(R.string.id_fake_device))) {
             showActivity(FakeDeviceActivity.class);
+        } else if (prefKey.equals(getString(R.string.id_memory))) {
+            threadMemory();
         } else if (prefKey.equals(getString(R.string.id_theme))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_THEMECRACK, ex.getStatus()).apply();
@@ -300,5 +303,26 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         Intent inGPL = new Intent(Intent.ACTION_VIEW);
         inGPL.setData(Uri.parse(getString(R.string.view_gpl_license_url)));
         startActivity(inGPL);
+    }
+
+    private Handler hMemory = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            pMemory.setEnabled(true);
+            Toast.makeText(getContext(), R.string.toast_memory_cleaned, Toast.LENGTH_SHORT).show();
+            super.handleMessage(msg);
+        }
+    };
+
+    private void threadMemory() {
+        pMemory.setEnabled(false);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                NativeAPI.killProcess();
+                NativeAPI.forceDropCache();
+                hMemory.sendEmptyMessage(0);
+            }
+        }).start();
     }
 }

@@ -76,6 +76,10 @@ begin
   ForceDropCache();
 end;
 
+procedure Java_com_rarnu_tools_neo_api_NativeAPI_killProcess(env: PJNIEnv; obj: jobject); stdcall;
+begin
+  KillProcess();
+end;
 
 exports
   Java_com_rarnu_tools_neo_api_NativeAPI_mount,
@@ -87,7 +91,8 @@ exports
   Java_com_rarnu_tools_neo_api_NativeAPI_writeFile,
   Java_com_rarnu_tools_neo_api_NativeAPI_catFile,
   Java_com_rarnu_tools_neo_api_NativeAPI_forceDeleteFile,
-  Java_com_rarnu_tools_neo_api_NativeAPI_forceDropCache;
+  Java_com_rarnu_tools_neo_api_NativeAPI_forceDropCache,
+  Java_com_rarnu_tools_neo_api_NativeAPI_killProcess;
 
 begin
 

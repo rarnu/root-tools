@@ -24,6 +24,12 @@
                 pref:showSwitch="false"
                 pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
+                android:key="@string/id_memory"
+                android:summary="@string/main_summary_memory"
+                android:title="@string/main_memory"
+                pref:showIcon="false"
+                pref:showSwitch="false"/>
+        <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_corecrack"
                 android:summary="@string/main_summary_corecrack"
                 android:title="@string/main_corecrack"

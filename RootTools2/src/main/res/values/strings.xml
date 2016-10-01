@@ -14,6 +14,7 @@
     <string name="main_freeze">冻结应用[root]</string>
     <string name="main_component">组件管理[root]</string>
     <string name="main_cleanart">清理系统[root]</string>
+    <string name="main_memory">清理内存[root]</string>
     <string name="main_corecrack">核心校验破解[xposed]</string>
     <string name="main_fake_device">模拟设备[root]</string>
     <string name="main_terminal">终端模拟器</string>
@@ -21,6 +22,7 @@
     <string name="main_summary_freeze">冻结不想要的系统应用</string>
     <string name="main_summary_component">对程序内的组件进行管理, 可以禁用服务等</string>
     <string name="main_summary_cleanart">清理 ART 虚拟机, 清理卸载残余, 缓存等</string>
+    <string name="main_summary_memory">深度清理内存, 让手机回到刚开机的状态</string>
     <string name="main_summary_corecrack">破解签名校验, 允许不同签名覆盖, 无签名安装</string>
     <string name="main_summary_fake_device">修改 build.prop 以绕过某些应用的设备校验</string>
     <string name="main_summary_terminal"></string>
@@ -97,6 +99,7 @@
     <string name="toast_buildprop_saved">修改 build.prop 成功</string>
     <string name="toast_buildprop_save_failed">修改 build.prop 失败</string>
     <string name="toast_cleaning">正在清理, 请稍后再退出...</string>
+    <string name="toast_memory_cleaned">清理内存完毕</string>
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>

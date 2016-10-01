@@ -5,7 +5,7 @@ unit unt_ljava;
 interface
 
 uses
-  Classes, SysUtils, unt_cmd, strutils, jni2, jni_utils;
+  Classes, SysUtils, unt_cmd, strutils;
 
 // JNI real method
 function Mount(): Boolean;
@@ -17,6 +17,7 @@ function WriteFile(filePath: string; _text: string; perm: integer): boolean;
 function CatFile(src: string; dest: string; perm: integer): Boolean;
 procedure ForceDeleteFile(path: string);
 procedure ForceDropCache();
+procedure KillProcess();
 
 implementation
 
@@ -128,6 +129,57 @@ var
   outstr: string;
 begin
   internalRun([cmdSync, cmdDrop, cmdDropRestore], outstr);
+end;
+
+function GetProcessId(str: string): string;
+var
+  p: Integer;
+  s: string;
+begin
+  // do not kill self
+  if (str.Contains('com.rarnu.tools.neo')) or (str.EndsWith(' su')) then begin
+    Result := '';
+    Exit;
+  end;
+  s := str.Trim;
+  p := Pos(' ', s);
+  s := s.Substring(p).Trim;
+  p := Pos(' ', s);
+  Result := LeftStr(s, p - 1);
+end;
+
+procedure KillProcess;
+const
+  CMD_PS = 'ps';
+  CMD_KILL = 'kill %s';
+var
+  outstr: string;
+  b: Boolean;
+  slPs: TStringList;
+  slPid: TStringList;
+  pidstr: string;
+  i: Integer;
+begin
+  b := internalRun([CMD_PS], outstr);
+  if b then begin
+    slPs := TStringList.Create;
+    slPid := TStringList.Create;
+    slPs.Text:= outstr;
+    for i := 0 to slPs.Count - 1 do begin
+      if (slPs[i].StartsWith('u')) then begin
+        pidstr:= GetProcessId(slPs[i]);
+        if (pidstr <> '') then begin
+          slPid.Add(pidstr);
+        end;
+      end;
+    end;
+    // clean
+    for i := 0 to slPid.Count - 1 do begin
+      internalRun([Format(CMD_KILL, [slPid[i]])], outstr);
+    end;
+    slPid.Free;
+    slPs.Free;
+  end;
 end;
 
 function FreeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;

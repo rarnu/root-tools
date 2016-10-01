@@ -21,6 +21,8 @@ public class NativeAPI {
     public static native boolean catFile(String src, String dest, int perm);
     public static native void forceDeleteFile(String path);
     public static native void forceDropCache();
+    public static native void killProcess();
+
 
     public static final int STATUS_PROGRESS = 0;
     public static final int STATUS_COMPLETE = 1;
