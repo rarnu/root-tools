@@ -20,10 +20,7 @@ import java.lang.reflect.Array;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Objects;
+import java.util.*;
 
 public class MIUIAds implements IXposedHookLoadPackage, IXposedHookInitPackageResources {
 
@@ -227,6 +224,7 @@ public class MIUIAds implements IXposedHookLoadPackage, IXposedHookInitPackageRe
                     return null;
                 }
             });
+            return;
         }
 
         if (loadPackageParam.packageName.equals("com.android.calendar")) {
@@ -234,6 +232,7 @@ public class MIUIAds implements IXposedHookLoadPackage, IXposedHookInitPackageRe
             XpUtils.findAndHookMethod("com.miui.calendar.ad.AdService", loadPackageParam.classLoader, "onHandleIntent", Intent.class, XC_MethodReplacement.returnConstant(null));
             XpUtils.findAndHookMethod("com.miui.calendar.card.single.local.SummarySingleCard", loadPackageParam.classLoader, "needShowAdBanner", XC_MethodReplacement.returnConstant(false));
             XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.ad.AdSingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false));
+            return;
         }
 
         if (loadPackageParam.packageName.equals("com.miui.systemAdSolution")) {
@@ -248,6 +247,15 @@ public class MIUIAds implements IXposedHookLoadPackage, IXposedHookInitPackageRe
             }
             XpUtils.findAndHookMethod("com.xiaomi.ad.internal.ui.SplashAdView", loadPackageParam.classLoader, "onAction", String.class, XC_MethodReplacement.returnConstant(null));
             return;
+        }
+
+        if (loadPackageParam.packageName.equals("com.android.browser")) {
+            XpUtils.findAndHookMethod("miui.browser.a.a", loadPackageParam.classLoader, "a", String.class, String.class, String.class, List.class, HashMap.class, XC_MethodReplacement.returnConstant(null));
+            Class<?> clsA = XpUtils.findClass(loadPackageParam.classLoader, "com.a.a.d.a");
+            if (clsA != null) {
+                XpUtils.findAndHookMethod("com.android.browser.suggestion.SuggestItem$AdsInfo", loadPackageParam.classLoader, "deserialize", clsA, XC_MethodReplacement.returnConstant(null));
+                XpUtils.findAndHookMethod("com.android.browser.homepage.HomepageBannerProvider$AdTrackingInfo", loadPackageParam.classLoader, "deserialize", clsA, XC_MethodReplacement.returnConstant(null));
+            }
         }
     }
 
