@@ -1,9 +1,12 @@
 package com.rarnu.tools.neo.utils;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Environment;
 import com.rarnu.tools.neo.data.AppInfo;
 
 import java.util.ArrayList;
@@ -16,6 +19,7 @@ public class AppUtils {
         List<PackageInfo> pkgs = pm.getInstalledPackages(0);
 
         List<AppInfo> list = new ArrayList<>();
+        List<AppInfo> listData = new ArrayList<>();
         List<AppInfo> listDisabled = new ArrayList<>();
         if (pkgs != null) {
             for (PackageInfo pkg : pkgs) {
@@ -43,9 +47,34 @@ public class AppUtils {
                                 true
                         ));
                     }
+                } else {
+                    if (pkg.applicationInfo.enabled) {
+                        listData.add(new AppInfo(
+                                pkg.applicationInfo.loadLabel(pm).toString(),
+                                pkg.applicationInfo.loadIcon(pm),
+                                pkg.packageName,
+                                false,
+                                pkg.versionName,
+                                pkg.versionCode,
+                                true,
+                                true
+                        ));
+                    } else {
+                        listDisabled.add(new AppInfo(
+                                pkg.applicationInfo.loadLabel(pm).toString(),
+                                pkg.applicationInfo.loadIcon(pm),
+                                pkg.packageName,
+                                false,
+                                pkg.versionName,
+                                pkg.versionCode,
+                                true,
+                                true
+                        ));
+                    }
                 }
             }
         }
+        list.addAll(listData);
         list.addAll(listDisabled);
         return list;
     }
@@ -91,7 +120,7 @@ public class AppUtils {
 
     public static boolean isMIUI(Context ctx) {
         PackageManager pm = ctx.getPackageManager();
-        String[] pkgs = new String[] {"com.miui.core", "com.miui.system"};
+        String[] pkgs = new String[]{"com.miui.core", "com.miui.system"};
         boolean isMIUI = true;
         PackageInfo pi;
         for (String s : pkgs) {
@@ -106,6 +135,10 @@ public class AppUtils {
             }
         }
         return isMIUI;
+    }
+
+    public static void doScanMedia(Context context) {
+        context.sendBroadcast(new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE, Uri.parse("file://" + Environment.getExternalStorageDirectory().getAbsolutePath())));
     }
 
 }

@@ -1,6 +1,8 @@
 package com.rarnu.tools.neo.base;
 
 import android.content.res.Configuration;
+import android.text.Html;
+import android.widget.TextView;
 import com.rarnu.tools.neo.R;
 
 public abstract class BaseActivity extends InnerActivity {

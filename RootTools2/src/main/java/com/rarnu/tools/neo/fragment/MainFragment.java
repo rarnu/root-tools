@@ -27,7 +27,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     // system
     private PreferenceEx pFreeze, pComponent, pCleanArt, pCoreCrack, pFakeDevice, pTerminal, pMemory;
     // miui
-    private PreferenceEx pTheme, pRemoveAd, pRemoveSearch, pColumns, pRoot25, pNoUpdate;
+    private PreferenceEx pTheme, pRemoveAd, pRemoveSearch, pRoot25, pNoUpdate;
     // about
     private PreferenceEx pAbout;
 
@@ -69,7 +69,6 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pTheme = findPref(R.string.id_theme);
         pRemoveAd = findPref(R.string.id_removead);
         pRemoveSearch = findPref(R.string.id_removesearch);
-        pColumns = findPref(R.string.id_columns);
         pRoot25 = findPref(R.string.id_root25);
         pNoUpdate = findPref(R.string.id_noupdate);
 
@@ -96,7 +95,6 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pTheme.setOnPreferenceClickListener(this);
         pRemoveAd.setOnPreferenceClickListener(this);
         pRemoveSearch.setOnPreferenceClickListener(this);
-        pColumns.setOnPreferenceClickListener(this);
         pRoot25.setOnPreferenceClickListener(this);
         pNoUpdate.setOnPreferenceClickListener(this);
 
@@ -161,8 +159,6 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     private void setXposedRootStatus() {
 
         boolean isMIUI = AppUtils.isMIUI(getContext());
-
-        pColumns.setEnabled(isMIUI);
         pTerminal.setEnabled(true);
         pAbout.setEnabled(true);
 

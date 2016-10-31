@@ -10,6 +10,7 @@ import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.api.NativeAPI;
 import com.rarnu.tools.neo.base.BaseActivity;
 import com.rarnu.tools.neo.fragment.MainFragment;
+import com.rarnu.tools.neo.utils.AppUtils;
 import com.rarnu.tools.neo.utils.UIUtils;
 import com.rarnu.tools.neo.xposed.XpStatus;
 
@@ -45,6 +46,7 @@ public class MainActivity extends BaseActivity {
                         .show();
             }
         }
+        AppUtils.doScanMedia(this);
         requirePermission();
     }
 

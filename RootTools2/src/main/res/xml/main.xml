@@ -71,12 +71,6 @@
                 pref:showSwitch="true"
                 pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
-                android:key="@string/id_columns"
-                android:summary="@string/miui_summary_columns"
-                android:title="@string/miui_columns"
-                pref:showSwitch="false"
-                pref:showIcon="false"/>
-        <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_root25"
                 android:summary="@string/miui_summary_root25"
                 android:title="@string/miui_root25"
