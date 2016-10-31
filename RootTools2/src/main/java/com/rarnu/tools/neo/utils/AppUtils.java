@@ -56,7 +56,7 @@ public class AppUtils {
                                 false,
                                 pkg.versionName,
                                 pkg.versionCode,
-                                true,
+                                false,
                                 true
                         ));
                     } else {
@@ -64,10 +64,10 @@ public class AppUtils {
                                 pkg.applicationInfo.loadLabel(pm).toString(),
                                 pkg.applicationInfo.loadIcon(pm),
                                 pkg.packageName,
-                                false,
+                                true,
                                 pkg.versionName,
                                 pkg.versionCode,
-                                true,
+                                false,
                                 true
                         ));
                     }
