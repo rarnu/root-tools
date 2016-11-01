@@ -5,7 +5,7 @@ unit unt_ljava;
 interface
 
 uses
-  Classes, SysUtils, unt_cmd, strutils;
+  Classes, SysUtils, unt_cmd, strutils, android;
 
 // JNI real method
 function Mount(): Boolean;
@@ -148,6 +148,15 @@ begin
   Result := LeftStr(s, p - 1);
 end;
 
+function GetPackageName(str: string): string;
+var
+  p: Integer;
+begin
+  p := str.LastIndexOf(' ');
+  Result := str.Substring(p + 1).Trim;
+  LOGE(PChar(Format('GetPackageName: %s', [Result])));
+end;
+
 procedure KillProcess;
 const
   CMD_PS = 'ps';
@@ -159,6 +168,7 @@ var
   slPid: TStringList;
   pidstr: string;
   i: Integer;
+  pkgName: string;
 begin
   b := internalRun([CMD_PS], outstr);
   if b then begin
@@ -166,10 +176,13 @@ begin
     slPid := TStringList.Create;
     slPs.Text:= outstr;
     for i := 0 to slPs.Count - 1 do begin
-      if (slPs[i].StartsWith('u')) then begin
-        pidstr:= GetProcessId(slPs[i]);
-        if (pidstr <> '') then begin
-          slPid.Add(pidstr);
+      if (slPs[i].StartsWith('u0')) then begin
+        pkgName:= GetPackageName(slPs[i]);
+        if (not pkgName.Contains('core')) then begin
+          pidstr:= GetProcessId(slPs[i]);
+          if (pidstr <> '') then begin
+            slPid.Add(pidstr);
+          end;
         end;
       end;
     end;
