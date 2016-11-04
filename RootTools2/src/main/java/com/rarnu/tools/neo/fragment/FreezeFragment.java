@@ -183,6 +183,7 @@ public class FreezeFragment extends BaseFragment implements
                     break;
                 case 1:
                     // delete succ
+                    Toast.makeText(getContext(), R.string.toast_delete_system_app_succ, Toast.LENGTH_SHORT).show();
                     loading.setVisibility(View.VISIBLE);
                     loader.startLoading();
                     break;

@@ -18,6 +18,7 @@ function CatFile(src: string; dest: string; perm: integer): Boolean;
 procedure ForceDeleteFile(path: string);
 procedure ForceDropCache();
 procedure KillProcess();
+function DeleteSystemApp(pkgName: string): Boolean;
 
 implementation
 
@@ -193,6 +194,48 @@ begin
     slPid.Free;
     slPs.Free;
   end;
+end;
+
+function GetSlashCount(path: string): Integer;
+var
+  i: Integer;
+  c: Integer = 0;
+begin
+  for i := 1 to Length(path) do begin
+    if (path[i] = '/') then begin
+      c += 1;
+    end;
+  end;
+  Result := c;
+end;
+
+function DeleteSystemApp(pkgName: string): Boolean;
+var
+  ret: Boolean;
+  outstr: string;
+  apkPath: string;
+  parentDir: string;
+  sc: Integer;
+begin
+  Result := False;
+  // pm path com.android.email
+  // package:/system/app/Email/Email.apk
+  ret := internalRun(['pm path ' + pkgName], outstr);
+  if (not ret) or (outstr.Trim = '') then begin
+    Exit;
+  end;
+  outstr:= StringReplace(outstr, 'package:', '', [rfIgnoreCase, rfReplaceAll]).Trim;
+  apkPath:= outstr;
+  // outstr = /system/app/Email/Email.apk
+  // /system/app/aaa.apk
+  sc := GetSlashCount(apkPath);
+  if sc = 4 then begin
+    parentDir:= ExtractFileDir(apkPath);
+    ret := internalRun(['rm -r ' + parentDir], outstr);
+  end else if sc = 3 then begin
+    ret := internalRun(['rm ' + apkPath], outstr);
+  end;
+  Result := ret;
 end;
 
 function FreeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;

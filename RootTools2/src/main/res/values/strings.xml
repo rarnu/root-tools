@@ -101,6 +101,7 @@
     <string name="toast_cleaning">正在清理, 请稍后再退出...</string>
     <string name="toast_memory_cleaned">清理内存完毕</string>
     <string name="toast_delete_system_app_fail">删除系统应用失败</string>
+    <string name="toast_delete_system_app_succ">删除系统应用成功, 若列表没有刷新请重启手机</string>
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>

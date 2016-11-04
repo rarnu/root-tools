@@ -3,21 +3,22 @@
   <ProjectSession>
     <Version Value="9"/>
     <BuildModes Active="Default"/>
-    <Units Count="17">
+    <Units Count="18">
       <Unit0>
         <Filename Value="cmd.lpr"/>
         <IsPartOfProject Value="True"/>
-        <TopLine Value="14"/>
-        <CursorPos X="48" Y="85"/>
-        <UsageCount Value="68"/>
+        <TopLine Value="56"/>
+        <CursorPos X="44" Y="89"/>
+        <UsageCount Value="69"/>
         <Loaded Value="True"/>
       </Unit0>
       <Unit1>
         <Filename Value="unt_cmd.pas"/>
         <IsPartOfProject Value="True"/>
-        <EditorIndex Value="6"/>
-        <CursorPos Y="15"/>
-        <UsageCount Value="68"/>
+        <EditorIndex Value="7"/>
+        <TopLine Value="50"/>
+        <CursorPos X="3" Y="70"/>
+        <UsageCount Value="69"/>
         <Loaded Value="True"/>
       </Unit1>
       <Unit2>
@@ -25,9 +26,9 @@
         <IsPartOfProject Value="True"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="145"/>
-        <CursorPos X="40" Y="157"/>
-        <UsageCount Value="57"/>
+        <TopLine Value="199"/>
+        <CursorPos X="19" Y="220"/>
+        <UsageCount Value="58"/>
         <Loaded Value="True"/>
       </Unit2>
       <Unit3>
@@ -36,7 +37,7 @@
         <EditorIndex Value="1"/>
         <TopLine Value="289"/>
         <CursorPos X="7" Y="326"/>
-        <UsageCount Value="45"/>
+        <UsageCount Value="46"/>
         <Loaded Value="True"/>
       </Unit3>
       <Unit4>
@@ -51,21 +52,21 @@
         <EditorIndex Value="4"/>
         <TopLine Value="80"/>
         <CursorPos X="13" Y="103"/>
-        <UsageCount Value="23"/>
+        <UsageCount Value="24"/>
         <Loaded Value="True"/>
       </Unit5>
       <Unit6>
         <Filename Value="jni_utils.pas"/>
         <EditorIndex Value="3"/>
         <CursorPos X="44" Y="34"/>
-        <UsageCount Value="31"/>
+        <UsageCount Value="32"/>
         <Loaded Value="True"/>
       </Unit6>
       <Unit7>
         <Filename Value="android.pas"/>
         <EditorIndex Value="2"/>
         <CursorPos Y="28"/>
-        <UsageCount Value="13"/>
+        <UsageCount Value="14"/>
         <Loaded Value="True"/>
       </Unit7>
       <Unit8>
@@ -132,127 +133,135 @@
         <CursorPos Y="49"/>
         <UsageCount Value="10"/>
       </Unit16>
+      <Unit17>
+        <Filename Value="/usr/local/codetyphon/fpcsrc/packages/rtl-objpas/src/inc/strutils.pp"/>
+        <EditorIndex Value="6"/>
+        <TopLine Value="207"/>
+        <CursorPos X="10" Y="232"/>
+        <UsageCount Value="10"/>
+        <Loaded Value="True"/>
+      </Unit17>
     </Units>
     <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="unt_clean.pas"/>
-        <Caret Line="47"/>
+        <Caret Line="52" Column="18" TopLine="18"/>
       </Position1>
       <Position2>
         <Filename Value="unt_clean.pas"/>
-        <Caret Line="50" Column="32" TopLine="28"/>
+        <Caret Line="333" Column="5" TopLine="298"/>
       </Position2>
       <Position3>
         <Filename Value="unt_clean.pas"/>
-        <Caret Line="49" Column="56" TopLine="28"/>
+        <Caret Line="317" Column="10" TopLine="294"/>
       </Position3>
       <Position4>
-        <Filename Value="jni_utils.pas"/>
-        <Caret Line="12" Column="10"/>
-      </Position4>
-      <Position5>
-        <Filename Value="jni_utils.pas"/>
-        <Caret Line="20" Column="31"/>
-      </Position5>
-      <Position6>
-        <Filename Value="unt_clean.pas"/>
-        <Caret Line="8" Column="64"/>
-      </Position6>
-      <Position7>
-        <Filename Value="unt_clean.pas"/>
-        <Caret Line="52" Column="18" TopLine="18"/>
-      </Position7>
-      <Position8>
-        <Filename Value="unt_clean.pas"/>
-        <Caret Line="333" Column="5" TopLine="298"/>
-      </Position8>
-      <Position9>
-        <Filename Value="unt_clean.pas"/>
-        <Caret Line="317" Column="10" TopLine="294"/>
-      </Position9>
-      <Position10>
         <Filename Value="unt_clean.pas"/>
         <Caret Line="202" Column="31" TopLine="172"/>
+      </Position4>
+      <Position5>
+        <Filename Value="unt_ljava.pas"/>
+        <Caret Line="17" Column="70"/>
+      </Position5>
+      <Position6>
+        <Filename Value="cmd.lpr"/>
+        <Caret Line="66" Column="44" TopLine="33"/>
+      </Position6>
+      <Position7>
+        <Filename Value="unt_ljava.pas"/>
+        <Caret Line="17" Column="13"/>
+      </Position7>
+      <Position8>
+        <Filename Value="cmd.lpr"/>
+        <Caret Line="71" Column="3" TopLine="42"/>
+      </Position8>
+      <Position9>
+        <Filename Value="unt_ljava.pas"/>
+        <Caret Line="18" Column="41"/>
+      </Position9>
+      <Position10>
+        <Filename Value="unt_ljava.pas"/>
+        <Caret Line="118" Column="30" TopLine="91"/>
       </Position10>
       <Position11>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="17" Column="70"/>
+        <Caret Line="19" Column="28"/>
       </Position11>
       <Position12>
         <Filename Value="cmd.lpr"/>
-        <Caret Line="66" Column="44" TopLine="33"/>
+        <Caret Line="77" Column="5" TopLine="54"/>
       </Position12>
       <Position13>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="17" Column="13"/>
+        <Caret Line="20" Column="17"/>
       </Position13>
       <Position14>
-        <Filename Value="cmd.lpr"/>
-        <Caret Line="71" Column="3" TopLine="42"/>
+        <Filename Value="unt_ljava.pas"/>
+        <Caret Line="165" Column="21" TopLine="132"/>
       </Position14>
       <Position15>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="18" Column="41"/>
+        <Caret Line="136" Column="5" TopLine="115"/>
       </Position15>
       <Position16>
-        <Filename Value="unt_ljava.pas"/>
-        <Caret Line="118" Column="30" TopLine="91"/>
+        <Filename Value="unt_cmd.pas"/>
+        <Caret Line="32" Column="10" TopLine="11"/>
       </Position16>
       <Position17>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="19" Column="28"/>
+        <Caret Line="8" Column="39"/>
       </Position17>
       <Position18>
-        <Filename Value="cmd.lpr"/>
-        <Caret Line="77" Column="5" TopLine="54"/>
+        <Filename Value="unt_ljava.pas"/>
+        <Caret Line="134" Column="10" TopLine="115"/>
       </Position18>
       <Position19>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="20" Column="17"/>
+        <Caret Line="8" Column="39"/>
       </Position19>
       <Position20>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="165" Column="21" TopLine="132"/>
+        <Caret Line="160" Column="3" TopLine="148"/>
       </Position20>
       <Position21>
-        <Filename Value="unt_ljava.pas"/>
-        <Caret Line="136" Column="5" TopLine="115"/>
+        <Filename Value="cmd.lpr"/>
+        <Caret Line="85" Column="48" TopLine="14"/>
       </Position21>
       <Position22>
-        <Filename Value="unt_cmd.pas"/>
-        <Caret Line="32" Column="10" TopLine="11"/>
+        <Filename Value="unt_ljava.pas"/>
+        <Caret Line="175" Column="9" TopLine="139"/>
       </Position22>
       <Position23>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="8" Column="39"/>
+        <Caret Line="178" Column="13" TopLine="139"/>
       </Position23>
       <Position24>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="134" Column="10" TopLine="115"/>
+        <Caret Line="158" Column="39" TopLine="148"/>
       </Position24>
       <Position25>
-        <Filename Value="unt_ljava.pas"/>
-        <Caret Line="8" Column="39"/>
+        <Filename Value="cmd.lpr"/>
+        <Caret Line="101" Column="3" TopLine="56"/>
       </Position25>
       <Position26>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="160" Column="3" TopLine="148"/>
+        <Caret Line="21" Column="52"/>
       </Position26>
       <Position27>
         <Filename Value="cmd.lpr"/>
-        <Caret Line="85" Column="48" TopLine="14"/>
+        <Caret Line="89" Column="44" TopLine="56"/>
       </Position27>
       <Position28>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="175" Column="9" TopLine="139"/>
+        <Caret Line="207" Column="32" TopLine="169"/>
       </Position28>
       <Position29>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="178" Column="13" TopLine="139"/>
+        <Caret Line="209" Column="3" TopLine="169"/>
       </Position29>
       <Position30>
         <Filename Value="unt_ljava.pas"/>
-        <Caret Line="158" Column="39" TopLine="148"/>
+        <Caret Line="210" Column="3" TopLine="169"/>
       </Position30>
     </JumpHistory>
   </ProjectSession>
