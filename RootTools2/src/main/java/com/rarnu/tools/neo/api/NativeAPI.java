@@ -22,7 +22,7 @@ public class NativeAPI {
     public static native void forceDeleteFile(String path);
     public static native void forceDropCache();
     public static native void killProcess();
-
+    public static native boolean deleteSystemApp(String pkgName);
 
     public static final int STATUS_PROGRESS = 0;
     public static final int STATUS_COMPLETE = 1;

@@ -1,5 +1,7 @@
 package com.rarnu.tools.neo.fragment;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Loader;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,7 +24,8 @@ import com.rarnu.tools.neo.loader.AppLoader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class FreezeFragment extends BaseFragment implements AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
+public class FreezeFragment extends BaseFragment implements
+        AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, SearchView.OnQueryTextListener {
 
     private List<AppInfo> list = null;
     private AppAdapter adapter = null;
@@ -73,6 +76,7 @@ public class FreezeFragment extends BaseFragment implements AdapterView.OnItemCl
     @Override
     public void initEvents() {
         lvApp.setOnItemClickListener(this);
+        lvApp.setOnItemLongClickListener(this);
 
         loader.registerListener(0, new Loader.OnLoadCompleteListener<List<AppInfo>>() {
             @Override
@@ -152,5 +156,58 @@ public class FreezeFragment extends BaseFragment implements AdapterView.OnItemCl
                 hFreeze.sendMessage(msg);
             }
         }).start();
+    }
+
+    private void showDeleteAppDialog(final AppInfo item) {
+        // delete app
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.alert_hint)
+                .setMessage(getString(R.string.alert_delete_app, item.name))
+                .setPositiveButton(R.string.alert_ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        doDeleteApp(item);
+                    }
+                })
+                .setNegativeButton(R.string.alert_cancel, null)
+                .show();
+    }
+
+    private Handler hDeleteApp = new Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            switch (msg.what) {
+                case 0:
+                    // delete fail
+                    Toast.makeText(getContext(), R.string.toast_delete_system_app_fail, Toast.LENGTH_SHORT).show();
+                    break;
+                case 1:
+                    // delete succ
+                    loading.setVisibility(View.VISIBLE);
+                    loader.startLoading();
+                    break;
+            }
+            super.handleMessage(msg);
+        }
+    };
+
+    private void doDeleteApp(final AppInfo item) {
+        // delete app
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                boolean ret = NativeAPI.deleteSystemApp(item.packageName);
+                hDeleteApp.sendEmptyMessage(ret ? 1 : 0);
+            }
+        }).start();
+    }
+
+    @Override
+    public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+        AppInfo item = adapter.getFiltedItem(position);
+        if (item.isSystem) {
+            showDeleteAppDialog(item);
+        }
+        return true;
     }
 }

@@ -100,6 +100,7 @@
     <string name="toast_buildprop_save_failed">修改 build.prop 失败</string>
     <string name="toast_cleaning">正在清理, 请稍后再退出...</string>
     <string name="toast_memory_cleaned">清理内存完毕</string>
+    <string name="toast_delete_system_app_fail">删除系统应用失败</string>
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>
@@ -115,5 +116,6 @@
     <string name="alert_upload_ok">上传组件配置成功, 待审核通过后即可让他人下载!</string>
     <string name="alert_upload_failed">上传组件配置失败, 请确认设置正确并检查网络!</string>
     <string name="alert_androidn_pending">检测到 Android N, 由于安全策略的问题, 暂时还无法很好的支持, 若使用过程中出现问题请至 Github 提交 Issue, 但是修复时间无法确定。</string>
+    <string name="alert_delete_app" formatted="false">确定要删除系统内置应用 『%s』? 这个操作不能恢复并容易引起系统问题。</string>
 
 </resources>
