@@ -118,5 +118,6 @@
     <string name="alert_upload_failed">上传组件配置失败, 请确认设置正确并检查网络!</string>
     <string name="alert_androidn_pending">检测到 Android N, 由于安全策略的问题, 暂时还无法很好的支持, 若使用过程中出现问题请至 Github 提交 Issue, 但是修复时间无法确定。</string>
     <string name="alert_delete_app" formatted="false">确定要删除系统内置应用 『%s』? 这个操作不能恢复并容易引起系统问题。</string>
+    <string name="alert_cannot_delete_app">这个应用是系统必备的, 不能删除</string>
 
 </resources>

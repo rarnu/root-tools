@@ -20,6 +20,7 @@ import com.rarnu.tools.neo.base.BaseFragment;
 import com.rarnu.tools.neo.comp.LoadingView;
 import com.rarnu.tools.neo.data.AppInfo;
 import com.rarnu.tools.neo.loader.AppLoader;
+import com.rarnu.tools.neo.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -158,19 +159,28 @@ public class FreezeFragment extends BaseFragment implements
         }).start();
     }
 
-    private void showDeleteAppDialog(final AppInfo item) {
+    private void showDeleteAppDialog(final AppInfo item, final boolean isSystemRequired) {
         // delete app
-        new AlertDialog.Builder(getContext())
-                .setTitle(R.string.alert_hint)
-                .setMessage(getString(R.string.alert_delete_app, item.name))
-                .setPositiveButton(R.string.alert_ok, new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        doDeleteApp(item);
-                    }
-                })
-                .setNegativeButton(R.string.alert_cancel, null)
-                .show();
+        if (isSystemRequired) {
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.alert_hint)
+                    .setMessage(R.string.alert_cannot_delete_app)
+                    .setPositiveButton(R.string.alert_ok, null)
+                    .show();
+        } else {
+            new AlertDialog.Builder(getContext())
+                    .setTitle(R.string.alert_hint)
+                    .setMessage(getString(R.string.alert_delete_app, item.name))
+                    .setPositiveButton(R.string.alert_ok, new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            doDeleteApp(item);
+                        }
+                    })
+                    .setNegativeButton(R.string.alert_cancel, null)
+                    .show();
+        }
+
     }
 
     private Handler hDeleteApp = new Handler() {
@@ -207,7 +217,7 @@ public class FreezeFragment extends BaseFragment implements
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         AppInfo item = adapter.getFiltedItem(position);
         if (item.isSystem) {
-            showDeleteAppDialog(item);
+            showDeleteAppDialog(item, AppUtils.isAppRequiredBySystem(item.packageName));
         }
         return true;
     }

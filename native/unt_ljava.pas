@@ -19,6 +19,7 @@ procedure ForceDeleteFile(path: string);
 procedure ForceDropCache();
 procedure KillProcess();
 function DeleteSystemApp(pkgName: string): Boolean;
+function IsAppRequiredBySystem(pkgName: string): Boolean;
 
 implementation
 
@@ -236,6 +237,32 @@ begin
     ret := internalRun(['rm ' + apkPath], outstr);
   end;
   Result := ret;
+end;
+
+function IsAppRequiredBySystem(pkgName: string): Boolean;
+var
+  ret: Boolean;
+  outstr: string;
+  apkPath: string;
+begin
+  Result := False;
+  ret := internalRun(['pm path ' + pkgName], outstr);
+  if (not ret) or (outstr.Trim = '') then begin
+    Exit;
+  end;
+  outstr:= StringReplace(outstr, 'package:', '', [rfIgnoreCase, rfReplaceAll]).Trim;
+  apkPath:= outstr;
+  if (apkPath.Contains('/data/app')) or (apkPath.Contains('/data/priv-app')) then begin
+    Exit;
+  end;
+
+  // is app required by system?
+  if (pkgName = 'android') or (pkgName.StartsWith('android.')) or (pkgName.StartsWith('com.android.')) or (pkgName.StartsWith('com.') and pkgName.Contains('.android.')) then begin
+    Result := True;
+  end;
+  if (pkgName.EndsWith('.core') or pkgName.EndsWith('.securitycore')) then begin
+    Result := True;
+  end;
 end;
 
 function FreeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;
