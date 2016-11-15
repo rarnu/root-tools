@@ -108,7 +108,7 @@
     <string name="alert_update">升级</string>
     <string name="alert_cancel">取消</string>
     <string name="alert_root">本软件需要 root 权限和 xposed 框架。\n\n当前检测到本软件未能获得 root 权限, 请授权后重新启动本软件。</string>
-    <string name="alert_xposed">本软件需要 root 权限和 xposed 框架。\n\n当前检测到本软件未在 xposed 框架中激活, 部分功能将无法使用。\n\n请在 xposed installe 中勾选 RootToolsNeo 并重启系统。</string>
+    <string name="alert_xposed">本软件需要 root 权限和 xposed 框架。\n\n当前检测到本软件未在 xposed 框架中激活, 部分功能将无法使用。\n\n请在 Xposed Installer 中勾选 RootToolsNeo 并重启系统。</string>
     <string name="alert_no_intent">没有找到 Intent</string>
     <string name="alert_apply_theme">已在 SD 卡根目录生成 RootToolsNeo.mtz 主题文件, 请在『主题』中导入该文件, 在『混搭』中替换通知栏为 RootToolsNeo 主题即可。</string>
     <string name="alert_update_message" formatted="false">发现新版本! \n版本号 %s (%d)\n主要改动:\n%s\n</string>
@@ -116,7 +116,6 @@
     <string name="alert_no_component_config">该应用程序还没有组件配置, 您可以配置后上传自己的方案!</string>
     <string name="alert_upload_ok">上传组件配置成功, 待审核通过后即可让他人下载!</string>
     <string name="alert_upload_failed">上传组件配置失败, 请确认设置正确并检查网络!</string>
-    <string name="alert_androidn_pending">检测到 Android N, 由于安全策略的问题, 暂时还无法很好的支持, 若使用过程中出现问题请至 Github 提交 Issue, 但是修复时间无法确定。</string>
     <string name="alert_delete_app" formatted="false">确定要删除系统内置应用 『%s』? 这个操作不能恢复并容易引起系统问题。</string>
     <string name="alert_cannot_delete_app">这个应用是系统必备的, 不能删除</string>
 

@@ -30,22 +30,16 @@ public class MainActivity extends BaseActivity {
                     .setPositiveButton(R.string.alert_ok, null)
                     .show();
         }
-        if (Build.VERSION.SDK_INT >= 24) {
+
+        if (NativeAPI.isRejected) {
             new AlertDialog.Builder(this)
                     .setTitle(R.string.alert_hint)
-                    .setMessage(R.string.alert_androidn_pending)
+                    .setMessage(R.string.alert_root)
+                    .setCancelable(false)
                     .setPositiveButton(R.string.alert_ok, null)
                     .show();
-        } else {
-            if (NativeAPI.isRejected) {
-                new AlertDialog.Builder(this)
-                        .setTitle(R.string.alert_hint)
-                        .setMessage(R.string.alert_root)
-                        .setCancelable(false)
-                        .setPositiveButton(R.string.alert_ok, null)
-                        .show();
-            }
         }
+
         AppUtils.doScanMedia(this);
         requirePermission();
     }
