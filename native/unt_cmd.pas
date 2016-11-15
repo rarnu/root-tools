@@ -5,7 +5,7 @@ unit unt_cmd;
 interface
 
 uses
-  Classes, SysUtils, process, jni2, jni_utils;
+  Classes, SysUtils, process, jni2, jni_utils, android;
 
 const
   _ED = #10; // \n

@@ -30,6 +30,7 @@ var
   outstr: string;
 begin
   Result := internalRun([cmd], outstr);
+  LOGE(PChar(outstr));
   outstr:= outstr.ToLower;
   if (outstr.Contains('denied')) or (outstr.Contains('null environment')) or (outstr.Contains('not allowed')) then begin
     Result := False;
@@ -44,6 +45,7 @@ begin
   if (sdk >= 24) then begin
     cmd := Format('chmod -R 777 /data/data/%s/shared_prefs', [packageName]);
     internalRun([cmd], outstr);
+    LOGE(PChar(outstr));
   end;
 end;
 
@@ -54,6 +56,7 @@ var
 begin
   cmd := Format('pm %s %s', [IfThen(isFreezed, 'disable', 'enable'), packageName]);
   Result := internalRun([cmd], outstr);
+  LOGE(PChar(outstr));
 end;
 
 function FreezeComponent(packageName: string; componentName: string; isFreezed: boolean): boolean;
@@ -63,6 +66,7 @@ var
 begin
   cmd := Format('pm %s %s/%s', [IfThen(isFreezed, 'disable', 'enable'), packageName, componentName]);
   Result := internalRun([cmd], outstr);
+  LOGE(PChar(outstr));
 end;
 
 function WriteFile(filePath: string; _text: string; perm: integer): boolean;
@@ -95,6 +99,7 @@ begin
       Format('cp %s %s', [tmpPathEx, filePath]),     // cp /system/build.prop.tmp /system/build.prop
       Format('chmod %s %s', [modStr, filePath])
       ], outstr);
+    LOGE(PChar(outstr));
   end;
 end;
 
@@ -111,6 +116,7 @@ begin
     Format('cat %s > %s', [src, dest]),
     Format('chmod %s %s', [modstr, dest])
   ], outstr);
+  LOGE(PChar(outstr));
 end;
 
 procedure ForceDeleteFile(path: string);
@@ -120,6 +126,7 @@ var
 begin
   cmd := Format('rm -f -r %s', [path]);
   internalRun([cmd], outstr);
+  LOGE(PChar(outstr));
 end;
 
 procedure ForceDropCache;
@@ -131,6 +138,7 @@ var
   outstr: string;
 begin
   internalRun([cmdSync, cmdDrop, cmdDropRestore], outstr);
+  LOGE(PChar(outstr));
 end;
 
 function GetProcessId(str: string): string;
@@ -191,6 +199,7 @@ begin
     // clean
     for i := 0 to slPid.Count - 1 do begin
       internalRun([Format(CMD_KILL, [slPid[i]])], outstr);
+      LOGE(PChar(outstr));
     end;
     slPid.Free;
     slPs.Free;
@@ -236,6 +245,7 @@ begin
   end else if sc = 3 then begin
     ret := internalRun(['rm ' + apkPath], outstr);
   end;
+  LOGE(PChar(outstr));
   Result := ret;
 end;
 
@@ -247,6 +257,7 @@ var
 begin
   Result := False;
   ret := internalRun(['pm path ' + pkgName], outstr);
+  LOGE(PChar(outstr));
   if (not ret) or (outstr.Trim = '') then begin
     Exit;
   end;
@@ -275,6 +286,7 @@ begin
     cmd += Format('pm %s %s/%s;', [IfThen(isFreezed, 'disable', 'enable'), packageName, Components[i]]);
   end;
   Result := internalRun([cmd], outstr);
+  LOGE(PChar(outstr));
 end;
 
 end.
