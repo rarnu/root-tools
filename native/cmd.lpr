@@ -89,7 +89,7 @@ begin
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
-function Java_com_rarnu_tools_neo_api_NativeAPI_isAppRequiredBySystemr(env: PJNIEnv; obj: jobject; pkgName: jstring): jboolean; stdcall;
+function Java_com_rarnu_tools_neo_api_NativeAPI_isAppRequiredBySystem(env: PJNIEnv; obj: jobject; pkgName: jstring): jboolean; stdcall;
 var
   ret: Boolean;
 begin
@@ -110,7 +110,7 @@ exports
   Java_com_rarnu_tools_neo_api_NativeAPI_forceDropCache,
   Java_com_rarnu_tools_neo_api_NativeAPI_killProcess,
   Java_com_rarnu_tools_neo_api_NativeAPI_deleteSystemApp,
-  Java_com_rarnu_tools_neo_api_NativeAPI_isAppRequiredBySystemr;
+  Java_com_rarnu_tools_neo_api_NativeAPI_isAppRequiredBySystem;
 
 begin
 

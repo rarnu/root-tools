@@ -3,7 +3,8 @@
         xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:pref="http://schemas.android.com/apk/res-auto">
 
-    <PreferenceCategory android:title="@string/category_main">
+    <PreferenceCategory android:title="@string/category_main"
+                        android:key="@string/catid_system">
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_freeze"
                 android:summary="@string/main_summary_freeze"
@@ -50,7 +51,8 @@
 
     </PreferenceCategory>
 
-    <PreferenceCategory android:title="@string/category_miui">
+    <PreferenceCategory android:title="@string/category_miui"
+                        android:key="@string/catid_miui">
 
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_theme"

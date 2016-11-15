@@ -7,6 +7,7 @@ import android.content.SharedPreferences;
 import android.net.Uri;
 import android.os.*;
 import android.preference.Preference;
+import android.preference.PreferenceCategory;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.Toast;
@@ -24,12 +25,17 @@ import com.rarnu.tools.neo.xposed.XpStatus;
 
 public class MainFragment extends BasePreferenceFragment implements Preference.OnPreferenceClickListener, UpdateInfo.UpdateInfoReadyCallback {
 
+    // categories
+    private PreferenceCategory catMain, catMiui;
+
     // system
     private PreferenceEx pFreeze, pComponent, pCleanArt, pCoreCrack, pFakeDevice, pTerminal, pMemory;
     // miui
     private PreferenceEx pTheme, pRemoveAd, pRemoveSearch, pRoot25, pNoUpdate;
     // about
     private PreferenceEx pAbout;
+
+
 
     // pref
     private SharedPreferences pref = null;
@@ -55,6 +61,9 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         editor = pref.edit();
 
         // MODE_WORLD_READABLE is removed on Android N!!!!!
+        // categories
+        catMain = (PreferenceCategory) findPreference(getString(R.string.catid_system));
+        catMiui = (PreferenceCategory) findPreference(getString(R.string.catid_miui));
 
         // system
         pFreeze = findPref(R.string.id_freeze);
@@ -159,6 +168,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     private void setXposedRootStatus() {
 
         boolean isMIUI = AppUtils.isMIUI(getContext());
+
         pTerminal.setEnabled(true);
         pAbout.setEnabled(true);
 
@@ -182,6 +192,10 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         }
 
         pRemoveAd.setEnabled(isMIUI && XpStatus.isEnable() && !NativeAPI.isRejected);
+
+        if (!isMIUI) {
+            getPreferenceScreen().removePreference(catMiui);
+        }
     }
 
     private void showActivity(Class<?> cls) {
