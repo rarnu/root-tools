@@ -23,6 +23,14 @@ public class XpUtils {
         }
     }
 
+    public static void findAndHookConstructor(String clsName, ClassLoader loader, Object ... parameterTypesAndCallback) {
+        try {
+            XposedHelpers.findAndHookConstructor(clsName, loader, parameterTypesAndCallback);
+        } catch (Throwable th) {
+            XposedBridge.log("RootToolsNeo findAndHookConstructor: " + th.toString());
+        }
+    }
+
     public static void setStaticBooleanField(String clsName, ClassLoader loader, String field, boolean value) {
         try {
             XposedHelpers.setStaticBooleanField(loader.loadClass(clsName), field, value);

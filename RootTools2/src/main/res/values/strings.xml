@@ -32,6 +32,7 @@
     <string name="miui_removead">移除广告[xposed/root]</string>
     <string name="miui_removesearch">移除通知栏搜索[xposed]</string>
     <string name="miui_columns">状态栏图标数</string>
+    <string name="miui_minus_screen">移除负一屏</string>
     <string name="miui_root25">移除 Root 等待[xposed]</string>
     <string name="miui_noupdate">屏蔽更新[root]</string>
 
@@ -39,6 +40,7 @@
     <string name="miui_summary_removead">去除大部分系统自带应用的广告</string>
     <string name="miui_summary_removesearch">去除通知栏的搜索框</string>
     <string name="miui_summary_columns">将通知栏单页图标数改为 5 个, 双页每行 4 个</string>
+    <string name="miui_summary_minus_screen">桌面不再显示负一屏</string>
     <string name="miui_summary_root25">去除 root 授权时的 25 秒等待</string>
     <string name="miui_summary_noupdate">使 MIUI 检查不到新版本</string>
 

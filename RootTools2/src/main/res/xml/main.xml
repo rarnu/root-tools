@@ -73,6 +73,12 @@
                 pref:showSwitch="true"
                 pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
+                android:key="@string/id_minus_screen"
+                android:summary="@string/miui_summary_minus_screen"
+                android:title="@string/miui_minus_screen"
+                pref:showSwitch="true"
+                pref:showIcon="false"/>
+        <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_root25"
                 android:summary="@string/miui_summary_root25"
                 android:title="@string/miui_root25"

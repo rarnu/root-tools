@@ -11,6 +11,7 @@ public class XpStatus {
     public static final String KEY_ROOTCRACK = "rootcrack";
     public static final String KEY_CORECRACK = "corecrack";
     public static final String KEY_NOUPDATE = "noupate";
+    public static final String KEY_MINUS_SCREEN = "minusscreen";
 
     public static boolean canWriteSdcard = false;
 
