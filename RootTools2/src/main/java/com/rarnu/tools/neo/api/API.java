@@ -1,11 +1,14 @@
 package com.rarnu.tools.neo.api;
 
+import android.util.Log;
 import com.rarnu.tools.neo.data.Onekey;
 import com.rarnu.tools.neo.utils.HttpUtils;
+import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
 
 public class API {
 
@@ -41,6 +44,29 @@ public class API {
         param.put("data", data);
         String str = HttpUtils.post(API_BASE + "onekey.php", param);
         return str.equals("OK");
+    }
+
+    public static boolean sendFeedback(String nickname, String comment, String photo1, String photo2, String photo3, String photo4, String photo5) {
+        Map<String, String> params = new HashMap<>();
+        params.put("nickname", nickname);
+        params.put("comment", comment);
+        Map<String, String> files = new HashMap<>();
+        files.put("photo1", photo1);
+        files.put("photo2", photo2);
+        files.put("photo3", photo3);
+        files.put("photo4", photo4);
+        files.put("photo5", photo5);
+        String data = HttpUtils.postFile(API_BASE + "feedback.php", params, files);
+        Log.e("API", "sendFeedback => " + data);
+        boolean ret = false;
+        try {
+            JSONObject json = new JSONObject(data);
+            int i = json.getInt("result");
+            ret = i == 0;
+        } catch (Exception e) {
+
+        }
+        return ret;
     }
 
 }

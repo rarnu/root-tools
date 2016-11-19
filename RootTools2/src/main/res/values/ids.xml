@@ -20,5 +20,6 @@
     <string name="id_root25">id_root25</string>
     <string name="id_noupdate">id_noupdate</string>
 
+    <string name="id_feedback">id_feedback</string>
     <string name="id_about">id_about</string>
 </resources>

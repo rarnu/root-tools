@@ -44,8 +44,10 @@
     <string name="miui_summary_root25">去除 root 授权时的 25 秒等待</string>
     <string name="miui_summary_noupdate">使 MIUI 检查不到新版本</string>
 
-    <string name="category_about">关于</string>
+    <string name="category_about">其他</string>
+    <string name="about_feedback">MIUI 广告反馈</string>
     <string name="about_about">关于本软件</string>
+    <string name="about_summary_feedback">发现了广告可以告诉我，可能下个版本就没啦</string>
 
     <string name="view_loading">正在努力加载, 请稍候...</string>
     <string name="view_activity">Activity</string>
@@ -78,6 +80,9 @@
     <string name="view_about_thankto_coderstory_github">参考项目(GPLv2) coderstory/toolkit</string>
     <string name="view_about_thankto_coderstory_github_url">https://github.com/coderstory/toolkit</string>
 
+    <string name="view_feedback_nickname">昵称</string>
+    <string name="view_feedback_comment">备注</string>
+
     <string name="view_gpl_license_url">http://diy.ourocg.cn/root/help.php</string>
 
     <string name="ab_search">搜索</string>
@@ -85,6 +90,7 @@
     <string name="ab_clean">清理</string>
     <string name="ab_update">检查升级</string>
     <string name="ab_share">分享</string>
+    <string name="ab_send">发送</string>
     <string name="ab_help">使用帮助</string>
     <string name="ab_onekey">一键设置</string>
     <string name="ab_send_ctrl">发送 Ctrl</string>
@@ -104,6 +110,9 @@
     <string name="toast_memory_cleaned">清理内存完毕</string>
     <string name="toast_delete_system_app_fail">删除系统应用失败</string>
     <string name="toast_delete_system_app_succ">删除系统应用成功, 若列表没有刷新请重启手机</string>
+    <string name="toast_nickname_empty">昵称不能为空</string>
+    <string name="toast_send_feedback_fail">发送反馈失败</string>
+    <string name="toast_send_feedback_ok">发送反馈成功</string>
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>

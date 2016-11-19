@@ -33,8 +33,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     // miui
     private PreferenceEx pTheme, pRemoveAd, pRemoveSearch, pMinusScreen, pRoot25, pNoUpdate;
     // about
-    private PreferenceEx pAbout;
-
+    private PreferenceEx pFeedback, pAbout;
 
 
     // pref
@@ -83,6 +82,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pNoUpdate = findPref(R.string.id_noupdate);
 
         // about
+        pFeedback = findPref(R.string.id_feedback);
         pAbout = findPref(R.string.id_about);
     }
 
@@ -110,6 +110,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pNoUpdate.setOnPreferenceClickListener(this);
 
         // about
+        pFeedback.setOnPreferenceClickListener(this);
         pAbout.setOnPreferenceClickListener(this);
     }
 
@@ -173,6 +174,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         boolean isMIUI = AppUtils.isMIUI(getContext());
 
         pTerminal.setEnabled(true);
+        pFeedback.setEnabled(true);
         pAbout.setEnabled(true);
 
         pFreeze.setEnabled(!NativeAPI.isRejected);
@@ -200,6 +202,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
 
         if (!isMIUI) {
             getPreferenceScreen().removePreference(catMiui);
+            getPreferenceScreen().removePreference(pFeedback);
         }
     }
 
@@ -240,6 +243,8 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             showActivity(CleanActivity.class);
         } else if (prefKey.equals(getString(R.string.id_about))) {
             showActivity(AboutActivity.class);
+        } else if (prefKey.equals(getString(R.string.id_feedback))) {
+            showActivity(FeedbackActivity.class);
         } else if (prefKey.equals(getString(R.string.id_fake_device))) {
             showActivity(FakeDeviceActivity.class);
         } else if (prefKey.equals(getString(R.string.id_memory))) {

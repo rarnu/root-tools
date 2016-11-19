@@ -56,6 +56,10 @@
                 android:name=".activity.AboutActivity"
                 android:screenOrientation="portrait">
         </activity>
+        <activity android:name=".activity.FeedbackActivity"
+                  android:screenOrientation="portrait">
+
+        </activity>
         <activity android:name=".activity.FakeDeviceActivity"
                   android:screenOrientation="portrait">
         </activity>

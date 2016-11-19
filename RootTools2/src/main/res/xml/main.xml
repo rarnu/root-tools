@@ -95,6 +95,12 @@
 
     <PreferenceCategory android:title="@string/category_about">
         <com.rarnu.tools.neo.comp.PreferenceEx
+                android:key="@string/id_feedback"
+                android:title="@string/about_feedback"
+                android:summary="@string/about_summary_feedback"
+                pref:showIcon="false"
+                pref:showSwitch="false"/>
+        <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_about"
                 android:title="@string/about_about"
                 pref:showSwitch="false"

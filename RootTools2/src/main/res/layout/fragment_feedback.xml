@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="40dip"
+            android:orientation="horizontal"
+            android:weightSum="4">
+        <TextView android:layout_width="0px"
+                  android:layout_height="match_parent"
+                  android:layout_weight="1"
+                  android:text="@string/view_feedback_nickname"
+                  android:gravity="start|center_vertical"
+                  android:paddingStart="8dip"/>
+        <EditText
+                android:id="@+id/etNickname"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:layout_marginEnd="8dip"
+                android:gravity="start|center_vertical"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="120dip"
+                  android:orientation="horizontal"
+                  android:weightSum="4">
+        <TextView android:layout_width="0px"
+                  android:layout_height="40dip"
+                  android:layout_weight="1"
+                  android:text="@string/view_feedback_comment"
+                  android:gravity="start|center_vertical"
+                  android:paddingStart="8dip"/>
+        <EditText
+                android:id="@+id/etComment"
+                android:layout_width="0px"
+                android:layout_height="match_parent"
+                android:layout_weight="3"
+                android:layout_marginEnd="8dip"
+                android:gravity="start|top"/>
+    </LinearLayout>
+
+    <LinearLayout android:layout_width="match_parent"
+                  android:layout_height="wrap_content"
+                  android:orientation="horizontal"
+                  android:weightSum="5">
+
+        <RelativeLayout
+                android:id="@+id/ph1"
+                android:layout_width="0px" android:layout_height="90dip" android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_margin="4dip">
+            <ImageView
+                    android:id="@+id/imgP1"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dashed"
+            />
+        </RelativeLayout>
+1
+        <RelativeLayout
+                android:id="@+id/ph2"
+                android:layout_width="0px" android:layout_height="90dip" android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_margin="4dip">
+            <ImageView
+                    android:id="@+id/imgP2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dashed"
+            />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/ph3"
+                android:layout_width="0px" android:layout_height="90dip" android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_margin="4dip">
+            <ImageView
+                    android:id="@+id/imgP3"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dashed"
+            />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/ph4"
+                android:layout_width="0px" android:layout_height="90dip" android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_margin="4dip">
+            <ImageView
+                    android:id="@+id/imgP4"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dashed"
+            />
+        </RelativeLayout>
+
+        <RelativeLayout
+                android:id="@+id/ph5"
+                android:layout_width="0px" android:layout_height="90dip" android:layout_weight="1"
+                android:focusable="true"
+                android:clickable="true"
+                android:layout_margin="4dip">
+            <ImageView
+                    android:id="@+id/imgP5"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/dashed"
+            />
+        </RelativeLayout>
+
+    </LinearLayout>
+
+</LinearLayout>
