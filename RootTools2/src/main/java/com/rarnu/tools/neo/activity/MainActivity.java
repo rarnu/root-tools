@@ -11,6 +11,7 @@ import com.rarnu.tools.neo.api.NativeAPI;
 import com.rarnu.tools.neo.base.BaseActivity;
 import com.rarnu.tools.neo.fragment.MainFragment;
 import com.rarnu.tools.neo.utils.AppUtils;
+import com.rarnu.tools.neo.utils.RootUtils;
 import com.rarnu.tools.neo.utils.UIUtils;
 import com.rarnu.tools.neo.xposed.XpStatus;
 
@@ -20,6 +21,7 @@ public class MainActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         UIUtils.initDisplayMetrics(this, getWindowManager(), false);
         super.onCreate(savedInstanceState);
+        RootUtils.requestRoot();
         NativeAPI.isRejected = !NativeAPI.mount();
 
         if (!XpStatus.isEnable()) {
