@@ -13,5 +13,3 @@ create table feedback(
 	commit_date varchar(64) not null,
 	status int default 0
 ) character set utf8;
-
-

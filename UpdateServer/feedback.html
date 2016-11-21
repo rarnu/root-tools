@@ -6,7 +6,35 @@
 
 	<script type="text/javascript">
 		function doComplete(idx) {
-			alert(idx);
+			if(confirm("Mark this as Completed? \nIf you are not a developer of RootToolsNeo, do not use this function.")) {
+ 				$.getJSON("feedback_status.php?id=" + idx + "&stat=1", function (json) {
+ 					if (json.result == 0) {
+ 						alert("This issue is completed!");
+ 						query(0);
+ 					} else {
+ 						alert("Mark as completed failed!");
+ 					}
+ 				});
+			}
+		}
+
+		function generateImgTag(p) {
+			var base = "./files/";
+			var str = "";
+			if (p != "") {
+				str = "<img src='"+ base + p +"' width='225px' height='400px' />";
+			}
+			return str;
+		}
+
+		function generatePhotoList(p1, p2, p3, p4, p5) {
+			var str = "";
+			str += generateImgTag(p1);
+			str += generateImgTag(p2);
+			str += generateImgTag(p3);
+			str += generateImgTag(p4);
+			str += generateImgTag(p5);
+			return str;
 		}
 
 		function query(typ) {
@@ -14,7 +42,7 @@
 				if (json.result == 0) {
 					var str = "";
 					$.each(json.data, function(idx, data) {
-						str += "<tr><td>" + data.id + "</td><td>" + data.nickname + "</td><td>" + data.comment + "</td><td>" + data.commit_date + "</td><td></td><td><input type='button' value='Completed' onclick='doComplete(" + data.id + ");'></td></tr>";
+						str += "<tr><td valign='top'>" + data.id + "</td><td valign='top'>" + data.nickname + "</td><td valign='top'>" + data.comment + "</td><td valign='top'>" + data.commit_date + "</td><td valign='top'>" + generatePhotoList(data.photo1, data.photo2, data.photo3, data.photo4, data.photo5) + "</td><td valign='top'><input type='button' value='Completed' onclick='doComplete(" + data.id + ");'></td></tr>";
 					});
 					$("#_feedback")[0].innerHTML = str;
 				} else {
@@ -37,12 +65,12 @@
 
 <body>
 	
-<table id="_feedback" name="_feedback">
+<table id="_feedback" name="_feedback" width="100%">
 	
 </table>
 
 <script type="text/javascript">
-query(0);
+	query(0);
 </script>
 
 </body>
