@@ -93,7 +93,8 @@
     </PreferenceCategory>
 
 
-    <PreferenceCategory android:title="@string/category_about">
+    <PreferenceCategory android:title="@string/category_about"
+                        android:key="@string/catid_about">
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_feedback"
                 android:title="@string/about_feedback"

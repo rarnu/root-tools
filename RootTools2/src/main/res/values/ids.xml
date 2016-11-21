@@ -3,6 +3,7 @@
 
     <string name="catid_system">catid_main</string>
     <string name="catid_miui">catid_miui</string>
+    <string name="catid_about">catid_about</string>
 
     <string name="id_freeze">id_freeze</string>
     <string name="id_component">id_component</string>

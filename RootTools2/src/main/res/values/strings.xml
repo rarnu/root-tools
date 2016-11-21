@@ -81,7 +81,7 @@
     <string name="view_about_thankto_coderstory_github_url">https://github.com/coderstory/toolkit</string>
 
     <string name="view_feedback_nickname">昵称</string>
-    <string name="view_feedback_comment">内容</string>
+    <string name="view_feedback_comment">备注</string>
 
     <string name="view_gpl_license_url">http://diy.ourocg.cn/root/help.php</string>
 
@@ -111,7 +111,7 @@
     <string name="toast_delete_system_app_fail">删除系统应用失败</string>
     <string name="toast_delete_system_app_succ">删除系统应用成功, 若列表没有刷新请重启手机</string>
     <string name="toast_nickname_empty">昵称不能为空</string>
-    <string name="toast_comment_empty">反馈内容不能为空</string>
+    <string name="toast_comment_empty">不能为空</string>
     <string name="toast_send_feedback_fail">发送反馈失败</string>
     <string name="toast_send_feedback_ok">发送反馈成功</string>
 

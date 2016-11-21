@@ -26,7 +26,7 @@ import com.rarnu.tools.neo.xposed.XpStatus;
 public class MainFragment extends BasePreferenceFragment implements Preference.OnPreferenceClickListener, UpdateInfo.UpdateInfoReadyCallback {
 
     // categories
-    private PreferenceCategory catMain, catMiui;
+    private PreferenceCategory catMain, catMiui, catAbout;
 
     // system
     private PreferenceEx pFreeze, pComponent, pCleanArt, pCoreCrack, pFakeDevice, pTerminal, pMemory;
@@ -63,6 +63,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         // categories
         catMain = (PreferenceCategory) findPreference(getString(R.string.catid_system));
         catMiui = (PreferenceCategory) findPreference(getString(R.string.catid_miui));
+        catAbout = (PreferenceCategory) findPreference(getString(R.string.catid_about));
 
         // system
         pFreeze = findPref(R.string.id_freeze);
@@ -202,7 +203,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
 
         if (!isMIUI) {
             getPreferenceScreen().removePreference(catMiui);
-            getPreferenceScreen().removePreference(pFeedback);
+            catAbout.removePreference(pFeedback);
         }
     }
 
