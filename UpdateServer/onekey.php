@@ -12,9 +12,10 @@ if ($action == "get") {
     $data = $_REQUEST["data"];
     $d = date("Ymd_His");
     mkdir("./upfile/${pkg}", 0777, true);
-    $filePath = "./upfile/${pkg}/${ver}_${}.lst";
+    $filePath = "./upfile/${pkg}/${ver}_${d}.lst";
     file_put_contents($filePath, $data);
     echo "OK";
 }
+
 
 ?>
