@@ -1,0 +1,50 @@
+<html>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<head>
+	<title>Feedback</title>
+	<script src="jquery.js"></script>
+
+	<script type="text/javascript">
+		function doComplete(idx) {
+			alert(idx);
+		}
+
+		function query(typ) {
+			$.getJSON("query_feedback.php?type=" + typ, function(json) {
+				if (json.result == 0) {
+					var str = "";
+					$.each(json.data, function(idx, data) {
+						str += "<tr><td>" + data.id + "</td><td>" + data.nickname + "</td><td>" + data.comment + "</td><td>" + data.commit_date + "</td><td></td><td><input type='button' value='Completed' onclick='doComplete(" + data.id + ");'></td></tr>";
+					});
+					$("#_feedback")[0].innerHTML = str;
+				} else {
+					$("#_feedback")[0].innerHTML = "";
+				}
+			});
+		}
+	</script>
+	<style>
+		table {
+    		border-collapse: collapse;
+		}
+
+		table, td, th {
+    		border: 1px solid #CCCCCC;
+		}
+
+</style>
+</head>
+
+<body>
+	
+<table id="_feedback" name="_feedback">
+	
+</table>
+
+<script type="text/javascript">
+query(0);
+</script>
+
+</body>
+
+</html>

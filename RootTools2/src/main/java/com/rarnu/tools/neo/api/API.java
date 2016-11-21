@@ -46,16 +46,16 @@ public class API {
         return str.equals("OK");
     }
 
-    public static boolean sendFeedback(String nickname, String comment, String photo1, String photo2, String photo3, String photo4, String photo5) {
+    public static boolean sendFeedback(String nickname, String comment, String[] photo) {
         Map<String, String> params = new HashMap<>();
         params.put("nickname", nickname);
         params.put("comment", comment);
         Map<String, String> files = new HashMap<>();
-        files.put("photo1", photo1);
-        files.put("photo2", photo2);
-        files.put("photo3", photo3);
-        files.put("photo4", photo4);
-        files.put("photo5", photo5);
+        for (int i = 0; i < photo.length; i++) {
+            if (!photo[i].equals("")) {
+                files.put(String.format("photo%d", i + 1), photo[i]);
+            }
+        }
         String data = HttpUtils.postFile(API_BASE + "feedback.php", params, files);
         Log.e("API", "sendFeedback => " + data);
         boolean ret = false;

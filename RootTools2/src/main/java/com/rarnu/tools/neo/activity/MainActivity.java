@@ -64,6 +64,7 @@ public class MainActivity extends BaseActivity {
         return false;
     }
 
+    @SuppressWarnings("Duplicates")
     private void requirePermission() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE) != PackageManager.PERMISSION_GRANTED) {

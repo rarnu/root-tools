@@ -3,6 +3,9 @@ package com.rarnu.tools.neo.fragment;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.net.Uri;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
@@ -17,9 +20,10 @@ import android.widget.Toast;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.api.API;
 import com.rarnu.tools.neo.base.BaseFragment;
-import org.w3c.dom.Text;
+import com.rarnu.tools.neo.utils.ImageUtils;
 
-import java.lang.reflect.Field;
+import java.io.File;
+import java.util.UUID;
 
 /**
  * Created by rarnu on 11/19/16.
@@ -29,10 +33,11 @@ public class FeedbackFragment extends BaseFragment implements View.OnClickListen
     private MenuItem miSend;
     private TextView etNickname;
     private TextView etComment;
-    private RelativeLayout ph1, ph2, ph3, ph4, ph5;
-    private ImageView imgP1, imgP2, imgP3, imgP4, imgP5;
+    private RelativeLayout[] ph = new RelativeLayout[5];
+    private TextView[] tvAdd = new TextView[5];
+    private ImageView[] imgP = new ImageView[5];
     private SharedPreferences sp;
-    private String path1 = "", path2 = "", path3 = "", path4 = "", path5 = "";
+    private String[] path = new String[]{"", "", "", "", ""};
 
     private static final String KEY_NICKNAME = "__nickname";
 
@@ -50,26 +55,19 @@ public class FeedbackFragment extends BaseFragment implements View.OnClickListen
     public void initComponents() {
         etNickname = (TextView) innerView.findViewById(R.id.etNickname);
         etComment = (TextView) innerView.findViewById(R.id.etComment);
-        ph1 = (RelativeLayout) innerView.findViewById(R.id.ph1);
-        ph2 = (RelativeLayout) innerView.findViewById(R.id.ph2);
-        ph3 = (RelativeLayout) innerView.findViewById(R.id.ph3);
-        ph4 = (RelativeLayout) innerView.findViewById(R.id.ph4);
-        ph5 = (RelativeLayout) innerView.findViewById(R.id.ph5);
-        imgP1 = (ImageView) innerView.findViewById(R.id.imgP1);
-        imgP2 = (ImageView) innerView.findViewById(R.id.imgP2);
-        imgP3 = (ImageView) innerView.findViewById(R.id.imgP3);
-        imgP4 = (ImageView) innerView.findViewById(R.id.imgP4);
-        imgP5 = (ImageView) innerView.findViewById(R.id.imgP5);
+        for (int i = 0; i < 5; i++) {
+            ph[i] = (RelativeLayout) innerView.findViewById(getResources().getIdentifier("ph" + (i + 1), "id", getContext().getPackageName()));
+            imgP[i] = (ImageView) innerView.findViewById(getResources().getIdentifier("imgP" + (i + 1), "id", getContext().getPackageName()));
+            tvAdd[i] = (TextView) innerView.findViewById(getResources().getIdentifier("tvAdd" + (i + 1), "id", getContext().getPackageName()));
+        }
         sp = PreferenceManager.getDefaultSharedPreferences(getContext());
     }
 
     @Override
     public void initEvents() {
-        ph1.setOnClickListener(this);
-        ph2.setOnClickListener(this);
-        ph3.setOnClickListener(this);
-        ph4.setOnClickListener(this);
-        ph5.setOnClickListener(this);
+        for (int i = 0; i < 5; i++) {
+            ph[i].setOnClickListener(this);
+        }
     }
 
     @Override
@@ -100,7 +98,6 @@ public class FeedbackFragment extends BaseFragment implements View.OnClickListen
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 1:
-                miSend.setEnabled(false);
                 sendFeedback();
                 break;
         }
@@ -122,19 +119,23 @@ public class FeedbackFragment extends BaseFragment implements View.OnClickListen
     };
 
     private void sendFeedback() {
-
         final String nickname = etNickname.getText().toString();
-        if (!nickname.equals("")) {
+        if (nickname.equals("")) {
             Toast.makeText(getContext(), R.string.toast_nickname_empty, Toast.LENGTH_SHORT).show();
             return;
         }
         final String comment = etComment.getText().toString();
+        if (comment.equals("")) {
+            Toast.makeText(getContext(), R.string.toast_comment_empty, Toast.LENGTH_SHORT).show();
+            return;
+        }
+        miSend.setEnabled(false);
         sp.edit().putString(KEY_NICKNAME, etNickname.getText().toString()).apply();
         new Thread(new Runnable() {
             @Override
             public void run() {
                 // send feedback async
-                boolean ret = API.sendFeedback(nickname, comment, path1, path2, path3, path4, path5);
+                boolean ret = API.sendFeedback(nickname, comment, path);
                 hFeedback.sendEmptyMessage(ret ? 0 : 1);
             }
         }).start();
@@ -152,19 +153,70 @@ public class FeedbackFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void onClick(View v) {
-        // TODO: upload screenshot
+        // upload screenshot
+        int id = v.getId();
+        for (int i = 0; i < 5; i++) {
+            if (id == ph[i].getId()) {
+                chooseScreenshot(i);
+                break;
+            }
+        }
+    }
 
+    private void chooseScreenshot(int i) {
+        Intent intent = new Intent(Intent.ACTION_PICK);
+        intent.setType("image/*");
+        startActivityForResult(intent, i);
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO: album callback data
-        if (resultCode != Activity.RESULT_OK) {
-            return;
+        // album callback data
+        if (resultCode == Activity.RESULT_OK) {
+            try {
+                Uri uri = data.getData();
+                BitmapFactory.Options bop = new BitmapFactory.Options();
+                bop.inSampleSize = 2;
+                Bitmap bmp = BitmapFactory.decodeStream(getContext().getContentResolver().openInputStream(uri), null, bop);
+                String filePath = generateLocalFileName();
+                path[requestCode] = generateFullPath(filePath);
+                ImageUtils.saveBitmapToFile(bmp, path[requestCode]);
+                imgP[requestCode].setImageBitmap(bmp);
+                tvAdd[requestCode].setVisibility(View.GONE);
+            } catch (Exception e) {
+
+            }
+        } else {
+            try {
+                imgP[requestCode].setImageBitmap(null);
+                path[requestCode] = "";
+                tvAdd[requestCode].setVisibility(View.VISIBLE);
+            } catch (Exception e) {
+
+            }
         }
-
-        String vName = "imgP" + requestCode;
-        Field fImg = getClass().getDeclaredField(vName);
-
     }
+
+    private String generateFullPath(String uuid) {
+        String ret = "";
+        File fFile = getContext().getExternalFilesDir("");
+        if (fFile != null) {
+            if (!fFile.exists()) {
+                fFile.mkdir();
+            }
+            String cachePath = fFile.getAbsolutePath();
+            if (!cachePath.endsWith("/")) {
+                cachePath += "/";
+            }
+            ret = cachePath + uuid;
+        }
+        return ret;
+    }
+
+    private String generateLocalFileName() {
+        UUID uuid = UUID.randomUUID();
+        return uuid.toString() + ".png";
+    }
+
+
 }

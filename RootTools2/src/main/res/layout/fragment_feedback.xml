@@ -53,27 +53,46 @@
                 android:layout_width="0px" android:layout_height="90dip" android:layout_weight="1"
                 android:focusable="true"
                 android:clickable="true"
-                android:layout_margin="4dip">
-            <ImageView
-                    android:id="@+id/imgP1"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/dashed"
-            />
+                android:layout_margin="4dip"
+                android:background="@android:color/darker_gray">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                            android:layout_margin="1dip"
+                            android:background="@android:color/white">
+                <TextView
+                        android:id="@+id/tvAdd1"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="+"
+                        android:layout_centerInParent="true"/>
+                <ImageView
+                        android:id="@+id/imgP1"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                />
+            </RelativeLayout>
         </RelativeLayout>
-1
+
         <RelativeLayout
                 android:id="@+id/ph2"
                 android:layout_width="0px" android:layout_height="90dip" android:layout_weight="1"
                 android:focusable="true"
                 android:clickable="true"
-                android:layout_margin="4dip">
-            <ImageView
-                    android:id="@+id/imgP2"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/dashed"
-            />
+                android:layout_margin="4dip"
+                android:background="@android:color/darker_gray">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                            android:layout_margin="1dip"
+                            android:background="@android:color/white">
+                <TextView
+                        android:id="@+id/tvAdd2"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="+"
+                        android:layout_centerInParent="true"/>
+                <ImageView
+                        android:id="@+id/imgP2"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                />
+            </RelativeLayout>
+
         </RelativeLayout>
 
         <RelativeLayout
@@ -81,13 +100,22 @@
                 android:layout_width="0px" android:layout_height="90dip" android:layout_weight="1"
                 android:focusable="true"
                 android:clickable="true"
-                android:layout_margin="4dip">
-            <ImageView
-                    android:id="@+id/imgP3"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/dashed"
-            />
+                android:layout_margin="4dip"
+                android:background="@android:color/darker_gray">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                            android:layout_margin="1dip"
+                            android:background="@android:color/white">
+                <TextView
+                        android:id="@+id/tvAdd3"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="+"
+                        android:layout_centerInParent="true"/>
+                <ImageView
+                        android:id="@+id/imgP3"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                />
+            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -95,13 +123,22 @@
                 android:layout_width="0px" android:layout_height="90dip" android:layout_weight="1"
                 android:focusable="true"
                 android:clickable="true"
-                android:layout_margin="4dip">
-            <ImageView
-                    android:id="@+id/imgP4"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/dashed"
-            />
+                android:layout_margin="4dip"
+                android:background="@android:color/darker_gray">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                            android:layout_margin="1dip"
+                            android:background="@android:color/white">
+                <TextView
+                        android:id="@+id/tvAdd4"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="+"
+                        android:layout_centerInParent="true"/>
+                <ImageView
+                        android:id="@+id/imgP4"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                />
+            </RelativeLayout>
         </RelativeLayout>
 
         <RelativeLayout
@@ -109,13 +146,22 @@
                 android:layout_width="0px" android:layout_height="90dip" android:layout_weight="1"
                 android:focusable="true"
                 android:clickable="true"
-                android:layout_margin="4dip">
-            <ImageView
-                    android:id="@+id/imgP5"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:background="@drawable/dashed"
-            />
+                android:layout_margin="4dip"
+                android:background="@android:color/darker_gray">
+            <RelativeLayout android:layout_width="match_parent" android:layout_height="match_parent"
+                            android:layout_margin="1dip"
+                            android:background="@android:color/white">
+                <TextView
+                        android:id="@+id/tvAdd5"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:text="+"
+                        android:layout_centerInParent="true"/>
+                <ImageView
+                        android:id="@+id/imgP5"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                />
+            </RelativeLayout>
         </RelativeLayout>
 
     </LinearLayout>

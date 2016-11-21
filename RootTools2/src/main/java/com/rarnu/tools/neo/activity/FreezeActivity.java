@@ -1,11 +1,13 @@
 package com.rarnu.tools.neo.activity;
 
 import android.app.Fragment;
+import android.os.Bundle;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.base.BaseActivity;
 import com.rarnu.tools.neo.fragment.FreezeFragment;
 
 public class FreezeActivity extends BaseActivity {
+
     @Override
     public int getIcon() {
         return R.drawable.ic_launcher;
