@@ -118,6 +118,7 @@
 
     <string name="alert_hint">Hint</string>
     <string name="alert_ok">OK</string>
+    <string name="alert_welcome">Welcome</string>
     <string name="alert_update">Update</string>
     <string name="alert_cancel">Cancel</string>
     <string name="alert_no_intent">No Intent found</string>
@@ -128,5 +129,5 @@
     <string name="alert_upload_failed">Upload failed.</string>
     <string name="alert_delete_app" formatted="false">Are you sure to delete the system app "%s"? This can not be undo and may cause problems.</string>
     <string name="alert_cannot_delete_app">This app is required by system, can not delete it</string>
-
+    <string name="alert_qq_group">Welcome to our discussion, QQ Group: 474272855</string>
 </resources>

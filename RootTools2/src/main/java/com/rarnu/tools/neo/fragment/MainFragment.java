@@ -10,6 +10,8 @@ import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.Toast;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.activity.*;
@@ -21,6 +23,7 @@ import com.rarnu.tools.neo.data.UpdateInfo;
 import com.rarnu.tools.neo.utils.AppUtils;
 import com.rarnu.tools.neo.utils.FileUtils;
 import com.rarnu.tools.neo.utils.HostsUtils;
+import com.rarnu.tools.neo.utils.UIUtils;
 import com.rarnu.tools.neo.xposed.XpStatus;
 
 public class MainFragment extends BasePreferenceFragment implements Preference.OnPreferenceClickListener, UpdateInfo.UpdateInfoReadyCallback {
@@ -144,7 +147,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case 1:
-                showGPLLicense();
+                showQQGroup();
                 break;
         }
         return true;
@@ -309,10 +312,19 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         startActivity(inDownload);
     }
 
-    private void showGPLLicense() {
-        Intent inGPL = new Intent(Intent.ACTION_VIEW);
-        inGPL.setData(Uri.parse(getString(R.string.view_gpl_license_url)));
-        startActivity(inGPL);
+    private void showQQGroup() {
+        // show qq group
+        ImageView ivLogo = new ImageView(getContext());
+        ivLogo.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+        int w = (int) (UIUtils.getWidth() * 0.8);
+        ivLogo.setLayoutParams(new ViewGroup.LayoutParams(w, w));
+        ivLogo.setImageResource(R.drawable.qqgroup);
+        new AlertDialog.Builder(getContext())
+                .setTitle(R.string.alert_welcome)
+                .setView(ivLogo)
+                .setMessage(R.string.alert_qq_group)
+                .setPositiveButton(R.string.alert_ok, null)
+                .show();
     }
 
     private Handler hMemory = new Handler() {

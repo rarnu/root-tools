@@ -118,6 +118,7 @@
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>
+    <string name="alert_welcome">欢迎</string>
     <string name="alert_update">升级</string>
     <string name="alert_cancel">取消</string>
     <string name="alert_no_intent">没有找到 Intent</string>
@@ -128,5 +129,6 @@
     <string name="alert_upload_failed">上传组件配置失败, 请确认设置正确并检查网络!</string>
     <string name="alert_delete_app" formatted="false">确定要删除系统内置应用 『%s』? 这个操作不能恢复并容易引起系统问题。</string>
     <string name="alert_cannot_delete_app">这个应用是系统必备的, 不能删除</string>
+    <string name="alert_qq_group">欢迎加入讨论, QQ群: 474272855</string>
 
 </resources>
