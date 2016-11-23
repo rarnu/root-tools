@@ -276,21 +276,6 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_CORECRACK, ex.getStatus()).apply();
             NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
-        } else if (prefKey.equals(getString(R.string.id_columns))) {
-            if (XpStatus.canWriteSdcard) {
-                boolean ret = FileUtils.copyAssetFile(getContext(), "RootToolsNeo.mtz", Environment.getExternalStorageDirectory().getAbsolutePath());
-                if (ret) {
-                    new AlertDialog.Builder(getContext())
-                            .setTitle(R.string.alert_hint)
-                            .setMessage(R.string.alert_apply_theme)
-                            .setPositiveButton(R.string.alert_ok, null)
-                            .show();
-                } else {
-                    Toast.makeText(getContext(), R.string.toast_copyasset_fail, Toast.LENGTH_SHORT).show();
-                }
-            } else {
-                Toast.makeText(getContext(), R.string.toast_no_write_permission, Toast.LENGTH_SHORT).show();
-            }
         } else if (prefKey.equals(getString(R.string.id_noupdate))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_NOUPDATE, ex.getStatus()).apply();

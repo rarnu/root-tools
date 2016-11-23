@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">RootTools·Neo</string>
+    <string name="app_desc">RootTools·Neo 是一款辅助软件, 它允许用户对程序内部的组件进行管理, 同时也提供针对 MIUI 系统的各项功能。</string>
+
+    <string name="freeze_name">冻结应用</string>
+    <string name="component_name">组件管理</string>
+    <string name="terminal_name">终端</string>
+    <string name="clean_name">清理系统</string>
+    <string name="fake_device_name">模拟设备</string>
+    <string name="about_name">关于本软件</string>
+
+    <string name="category_main">系统</string>
+    <string name="main_freeze">冻结应用[root]</string>
+    <string name="main_component">组件管理[root]</string>
+    <string name="main_cleanart">清理系统[root]</string>
+    <string name="main_memory">清理内存[root]</string>
+    <string name="main_corecrack">核心校验破解[xposed]</string>
+    <string name="main_fake_device">模拟设备[root]</string>
+    <string name="main_terminal">终端模拟器</string>
+
+    <string name="main_summary_freeze">冻结不想要的系统应用</string>
+    <string name="main_summary_component">对程序内的组件进行管理, 可以禁用服务等</string>
+    <string name="main_summary_cleanart">清理 ART 虚拟机, 清理卸载残余, 缓存等</string>
+    <string name="main_summary_memory">深度清理内存, 让手机回到刚开机的状态</string>
+    <string name="main_summary_corecrack">破解签名校验, 允许不同签名覆盖, 无签名安装</string>
+    <string name="main_summary_fake_device">修改 build.prop 以绕过某些应用的设备校验</string>
+    <string name="main_summary_terminal"></string>
+
+    <string name="category_miui">MIUI</string>
+    <string name="miui_theme">主题免费[xposed]</string>
+    <string name="miui_removead">移除广告[xposed/root]</string>
+    <string name="miui_removesearch">移除通知栏搜索[xposed]</string>
+    <string name="miui_minus_screen">移除负一屏</string>
+    <string name="miui_root25">移除 Root 等待[xposed]</string>
+    <string name="miui_noupdate">屏蔽更新[root]</string>
+
+    <string name="miui_summary_theme">不花钱使用 MIUI8 主题</string>
+    <string name="miui_summary_removead">去除大部分系统自带应用的广告</string>
+    <string name="miui_summary_removesearch">去除通知栏的搜索框</string>
+    <string name="miui_summary_minus_screen">桌面不再显示负一屏</string>
+    <string name="miui_summary_root25">去除 root 授权时的 25 秒等待</string>
+    <string name="miui_summary_noupdate">使 MIUI 检查不到新版本</string>
+
+    <string name="category_about">其他</string>
+    <string name="about_feedback">MIUI 广告反馈</string>
+    <string name="about_about">关于本软件</string>
+    <string name="about_summary_feedback">发现了广告可以告诉我，可能下个版本就没啦</string>
+
+    <string name="view_loading">正在努力加载, 请稍候...</string>
+    <string name="view_activity">Activity</string>
+    <string name="view_service">Service</string>
+    <string name="view_receiver">Receiver</string>
+    <string name="view_provider">Provider</string>
+    <string name="view_profile">Profile</string>
+
+    <string name="view_profile_pkg" formatted="false">包名: %s</string>
+    <string name="view_profile_ver" formatted="false">版本: %d</string>
+    <string name="view_profile_download">下载组件配置</string>
+    <string name="view_profile_upload">上传组件配置</string>
+    <string name="view_profile_note">组件配置是众人的经验所成, 经过实际体验得到的最佳组件配置, 它包含了该应用可被禁用且不影响主要功能的组件列表。下载组件配置后即可直接完成组件禁用, 若当前应用没有配置方案, 或者您觉得当前方案不佳, 也可以上传您当前对于组件的配置。</string>
+
+    <string name="view_ready">已准备就绪, 请点击右上角『清理』按钮开始清理...\n</string>
+    <string name="view_not_ready">正在准备环境, 请稍候...\n</string>
+    <string name="view_env_error">准备环境失败, 不能进行清理操作...\n</string>
+    <string name="view_start_clean">开始清理, 请耐心等待...\n</string>
+    <string name="view_clean_cache" formatted="false">清理: %s (%s) ...\n</string>
+    <string name="view_clean_anr" formatted="false">清理 ANR 日志 (%s) ...\n</string>
+    <string name="view_clean_art_remain" formatted="false">清理 ART: %s (%s) ...\n</string>
+    <string name="view_clean_complete" formatted="false">清理完毕, 共清理文件 %s\n\n</string>
+
+    <string name="view_about_version" formatted="false">version %s</string>
+    <string name="view_about_project_github">项目源码 rarnu/root-tools</string>
+    <string name="view_about_project_github_url">https://github.com/rarnu/root-tools</string>
+    <string name="view_about_thankto">特别鸣谢</string>
+    <string name="view_about_thankto_coderstory">CoderStory</string>
+    <string name="view_about_thankto_coderstory_url">https://blog.coderstory.cn</string>
+    <string name="view_about_thankto_coderstory_github">参考项目(GPLv2) coderstory/toolkit</string>
+    <string name="view_about_thankto_coderstory_github_url">https://github.com/coderstory/toolkit</string>
+
+    <string name="view_feedback_nickname">昵称</string>
+    <string name="view_feedback_comment">备注</string>
+
+    <string name="view_gpl_license_url">http://diy.ourocg.cn/root/help.php</string>
+
+    <string name="ab_search">搜索</string>
+    <string name="ab_save">保存</string>
+    <string name="ab_clean">清理</string>
+    <string name="ab_update">检查升级</string>
+    <string name="ab_share">分享</string>
+    <string name="ab_send">发送</string>
+    <string name="ab_help">使用帮助</string>
+    <string name="ab_onekey">一键设置</string>
+    <string name="ab_send_ctrl">发送 Ctrl</string>
+    <string name="ab_send_fn">发送 FN</string>
+    <string name="ab_ctrl">Ctrl</string>
+    <string name="ab_fn">FN</string>
+    <string name="ab_toggle_input_method">切换输入法</string>
+
+    <string name="toast_freeze_fail">操作应用状态失败</string>
+    <string name="toast_component_fail">操作组件状态失败</string>
+    <string name="toast_noupdate_fail">切换更新状态失败</string>
+    <string name="toast_copyasset_fail">生成主题文件失败</string>
+    <string name="toast_no_write_permission">请在程序启动时授予读写 SD 卡的权限, 然后重试</string>
+    <string name="toast_buildprop_saved">修改 build.prop 成功</string>
+    <string name="toast_buildprop_save_failed">修改 build.prop 失败</string>
+    <string name="toast_cleaning">正在清理, 请稍后再退出...</string>
+    <string name="toast_memory_cleaned">清理内存完毕</string>
+    <string name="toast_delete_system_app_fail">删除系统应用失败</string>
+    <string name="toast_delete_system_app_succ">删除系统应用成功, 若列表没有刷新请重启手机</string>
+    <string name="toast_nickname_empty">昵称不能为空</string>
+    <string name="toast_comment_empty">不能为空</string>
+    <string name="toast_send_feedback_fail">发送反馈失败</string>
+    <string name="toast_send_feedback_ok">发送反馈成功</string>
+    <string name="toast_need_root">需要 root 权限</string>
+    <string name="toast_need_xposed">需要 xposed 框架</string>
+    <string name="toast_need_root_xposed">需要 root 权限和 xposed 框架</string>
+
+    <string name="alert_hint">提示</string>
+    <string name="alert_ok">确定</string>
+    <string name="alert_update">升级</string>
+    <string name="alert_cancel">取消</string>
+    <string name="alert_no_intent">没有找到 Intent</string>
+    <string name="alert_update_message" formatted="false">发现新版本! \n版本号 %s (%d)\n主要改动:\n%s\n</string>
+    <string name="alert_apply_component_config">成功下载并应用组件配置!</string>
+    <string name="alert_no_component_config">该应用程序还没有组件配置, 您可以配置后上传自己的方案!</string>
+    <string name="alert_upload_ok">上传组件配置成功, 待审核通过后即可让他人下载!</string>
+    <string name="alert_upload_failed">上传组件配置失败, 请确认设置正确并检查网络!</string>
+    <string name="alert_delete_app" formatted="false">确定要删除系统内置应用 『%s』? 这个操作不能恢复并容易引起系统问题。</string>
+    <string name="alert_cannot_delete_app">这个应用是系统必备的, 不能删除</string>
+
+</resources>

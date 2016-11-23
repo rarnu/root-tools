@@ -15,6 +15,7 @@ import com.rarnu.tools.neo.base.BaseFragment;
 import com.rarnu.tools.neo.utils.FileUtils;
 
 import java.io.IOException;
+import java.util.Locale;
 
 public class AboutFragment extends BaseFragment implements View.OnClickListener {
 
@@ -61,7 +62,8 @@ public class AboutFragment extends BaseFragment implements View.OnClickListener 
         }
         tvVersion.setText(getString(R.string.view_about_version, ver));
         try {
-            String intro = FileUtils.readAssetFile(getContext(), "intro");
+            String lng = Locale.getDefault().getLanguage();
+            String intro = FileUtils.readAssetFile(getContext(), (lng.equals("zh") ? "intro_zh" : "intro"));
             tvIntro.setText(intro);
         } catch (IOException e) {
             e.printStackTrace();

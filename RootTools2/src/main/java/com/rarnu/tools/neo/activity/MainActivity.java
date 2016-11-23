@@ -6,6 +6,7 @@ import android.app.Fragment;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.widget.Toast;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.api.NativeAPI;
 import com.rarnu.tools.neo.base.BaseActivity;
@@ -24,22 +25,15 @@ public class MainActivity extends BaseActivity {
         RootUtils.requestRoot();
         NativeAPI.isRejected = !NativeAPI.mount();
 
-        if (!XpStatus.isEnable()) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.alert_hint)
-                    .setMessage(R.string.alert_xposed)
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.alert_ok, null)
-                    .show();
-        }
+        boolean xpEnabled = XpStatus.isEnable();
+        boolean isRooted = !NativeAPI.isRejected;
 
-        if (NativeAPI.isRejected) {
-            new AlertDialog.Builder(this)
-                    .setTitle(R.string.alert_hint)
-                    .setMessage(R.string.alert_root)
-                    .setCancelable(false)
-                    .setPositiveButton(R.string.alert_ok, null)
-                    .show();
+        if (!xpEnabled && !isRooted) {
+            Toast.makeText(this, R.string.toast_need_root_xposed, Toast.LENGTH_SHORT).show();
+        } else if (!xpEnabled && isRooted) {
+            Toast.makeText(this, R.string.toast_need_xposed, Toast.LENGTH_SHORT).show();
+        } else if (xpEnabled && !isRooted) {
+            Toast.makeText(this, R.string.toast_need_root, Toast.LENGTH_SHORT).show();
         }
 
         AppUtils.doScanMedia(this);
