@@ -55,6 +55,7 @@
     <string name="settings_adchoose">Ad Remover</string>
     <string name="settings_adchoose_onekey">Onekey remove all ads</string>
     <string name="settings_adchoose_detail">Choose app one by one for removing ads</string>
+    <string name="settings_deep_clean">Deep Clean</string>
 
     <string name="app_weather">Weather</string>
     <string name="app_music">Music</string>

@@ -185,7 +185,7 @@ public class RootAPI {
                 if (s.startsWith("u0")) {
                     String pkgName = getPackageName(s);
                     Log.e("killProcess", "pkg: " + pkgName);
-                    if (!pkgName.contains("core") && !pkgName.startsWith("android.")) {
+                    if (!pkgName.contains("core") && !pkgName.startsWith("android.") &&!pkgName.contains("secure")) {
                         String pidstr = getProcessId(s);
                         Log.e("killProcess", "pid: " + pidstr);
                         if (!pidstr.equals("")) {

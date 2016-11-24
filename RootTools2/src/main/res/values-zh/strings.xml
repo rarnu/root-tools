@@ -54,6 +54,7 @@
     <string name="settings_adchoose">去广告详细选择</string>
     <string name="settings_adchoose_onekey">一键去广告模式，将广告一网打尽</string>
     <string name="settings_adchoose_detail">详细选择模式，可以按应用选择是否去除广告</string>
+    <string name="settings_deep_clean">深度清理</string>
 
     <string name="view_loading">正在努力加载, 请稍候...</string>
     <string name="view_activity">Activity</string>

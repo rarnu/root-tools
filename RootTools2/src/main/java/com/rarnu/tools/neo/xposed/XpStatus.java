@@ -20,6 +20,7 @@ public class XpStatus {
     // settings
     public static final String KEY_WORK_MODE = "work_mode";
     public static final String KEY_AD_CHOOSE = "ad_choose";
+    public static final String KEY_DEEP_CLEAN = "deep_clean";
 
     // ad fucker for special apps
     public static final String KEY_AD_WEATHER = "fuck_weather";

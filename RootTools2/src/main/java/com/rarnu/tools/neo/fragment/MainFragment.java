@@ -366,7 +366,9 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             @Override
             public void run() {
                 DeviceAPI.killProcess();
-                DeviceAPI.forceDropCache();
+                if (pref.getBoolean(XpStatus.KEY_DEEP_CLEAN, false)) {
+                    DeviceAPI.forceDropCache();
+                }
                 hMemory.sendEmptyMessage(0);
             }
         }).start();

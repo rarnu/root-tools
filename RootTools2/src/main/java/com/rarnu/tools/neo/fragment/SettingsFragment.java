@@ -17,7 +17,7 @@ import com.rarnu.tools.neo.xposed.XpStatus;
  */
 public class SettingsFragment extends BasePreferenceFragment implements Preference.OnPreferenceClickListener {
 
-    private PreferenceEx pMode, pAdChoose;
+    private PreferenceEx pMode, pAdChoose, pDeepClean;
     private SharedPreferences pref = null;
     private SharedPreferences.Editor editor = null;
 
@@ -37,6 +37,7 @@ public class SettingsFragment extends BasePreferenceFragment implements Preferen
         editor = pref.edit();
         pMode = findPref(R.string.id_settings_mode);
         pAdChoose = findPref(R.string.id_settings_adchoose);
+        pDeepClean = findPref(R.string.id_settings_deep_clean);
     }
 
     private PreferenceEx findPref(int prefId) {
@@ -47,6 +48,7 @@ public class SettingsFragment extends BasePreferenceFragment implements Preferen
     public void initEvents() {
         pMode.setOnPreferenceClickListener(this);
         pAdChoose.setOnPreferenceClickListener(this);
+        pDeepClean.setOnPreferenceClickListener(this);
     }
 
     @Override
@@ -55,6 +57,7 @@ public class SettingsFragment extends BasePreferenceFragment implements Preferen
         pMode.setSummary(pref.getBoolean(XpStatus.KEY_WORK_MODE, true) ? R.string.settings_mode_effect : R.string.settings_mode_common);
         pAdChoose.setStatus(pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false));
         pAdChoose.setSummary(pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false) ? R.string.settings_adchoose_detail : R.string.settings_adchoose_onekey);
+        pDeepClean.setStatus(pref.getBoolean(XpStatus.KEY_DEEP_CLEAN, false));
     }
 
     @Override
@@ -109,6 +112,10 @@ public class SettingsFragment extends BasePreferenceFragment implements Preferen
             editor.putBoolean(XpStatus.KEY_AD_SYSTEM, false).apply();
             DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
             pAdChoose.setSummary(pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false) ? R.string.settings_adchoose_detail : R.string.settings_adchoose_onekey);
+        } else if (prefKey.equals(getString(R.string.id_settings_deep_clean))) {
+            ex.setStatus(!ex.getStatus());
+            editor.putBoolean(XpStatus.KEY_DEEP_CLEAN, ex.getStatus()).apply();
+            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         }
         return true;
     }
