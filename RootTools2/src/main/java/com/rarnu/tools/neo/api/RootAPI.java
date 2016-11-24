@@ -4,10 +4,8 @@ import android.content.Context;
 import android.util.Log;
 import com.rarnu.tools.neo.utils.FileUtils;
 import com.rarnu.tools.neo.utils.RootUtils;
-import com.rarnu.tools.neo.xposed.ads.FuckAdSolution;
 
 import java.io.File;
-import java.io.IOException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -186,8 +184,10 @@ public class RootAPI {
             for (String s: slPs) {
                 if (s.startsWith("u0")) {
                     String pkgName = getPackageName(s);
-                    if (!pkgName.contains("core")) {
+                    Log.e("killProcess", "pkg: " + pkgName);
+                    if (!pkgName.contains("core") && !pkgName.startsWith("android.")) {
                         String pidstr = getProcessId(s);
+                        Log.e("killProcess", "pid: " + pidstr);
                         if (!pidstr.equals("")) {
                             slPid.add(pidstr);
                         }
@@ -195,8 +195,10 @@ public class RootAPI {
                 }
             }
             for (String s: slPid) {
-                ret = RootUtils.runCommand(String.format(CMD_KILL, s), true);
-                Log.e("RootAPI", String.format("result: %s, error: %s", ret.result, ret.error));
+                if (!s.trim().equals("")) {
+                    ret = RootUtils.runCommand(String.format(CMD_KILL, s), true);
+                    Log.e("RootAPI", String.format("result: %s, error: %s", ret.result, ret.error));
+                }
             }
         }
     }
@@ -265,7 +267,7 @@ public class RootAPI {
         int  p = s.indexOf(" ");
         s = s.substring(p).trim();
         p = s.indexOf(" ");
-        return s.substring(0, p - 1);
+        return s.substring(0, p - 1).trim();
     }
 
     private static String getPackageName(String str) {

@@ -181,7 +181,7 @@ begin
   p := Pos(' ', s);
   s := s.Substring(p).Trim;
   p := Pos(' ', s);
-  Result := LeftStr(s, p - 1);
+  Result := LeftStr(s, p - 1).Trim;
 end;
 
 function GetPackageName(str: string): string;
@@ -214,7 +214,7 @@ begin
     for i := 0 to slPs.Count - 1 do begin
       if (slPs[i].StartsWith('u0')) then begin
         pkgName:= GetPackageName(slPs[i]);
-        if (not pkgName.Contains('core')) then begin
+        if (not pkgName.Contains('core')) and (not pkgName.StartsWith('android.')) then begin
           pidstr:= GetProcessId(slPs[i]);
           if (pidstr <> '') then begin
             slPid.Add(pidstr);
