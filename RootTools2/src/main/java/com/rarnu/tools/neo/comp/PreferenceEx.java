@@ -90,9 +90,10 @@ public class PreferenceEx extends Preference {
     @Override
     public void setSummary(int summaryResId) {
         super.setSummary(summaryResId);
-        prefSummary.setText(summaryResId);
         if (getSummary() == null || getSummary().equals("")) {
-            prefSummary.setVisibility(View.GONE);
+            if (prefSummary != null) {
+                prefSummary.setVisibility(View.GONE);
+            }
         }
     }
 
@@ -103,7 +104,10 @@ public class PreferenceEx extends Preference {
     }
 
     public void setShowSwitch(boolean on) {
-        prefStatus.setVisibility(on ? View.VISIBLE : View.GONE);
+        showSwitch = on;
+        if (prefStatus != null) {
+            prefStatus.setVisibility(on ? View.VISIBLE : View.GONE);
+        }
     }
 
     public void setShowIcon(boolean on) {

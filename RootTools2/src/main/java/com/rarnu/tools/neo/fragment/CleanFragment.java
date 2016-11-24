@@ -10,7 +10,7 @@ import android.view.MenuItem;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.rarnu.tools.neo.R;
-import com.rarnu.tools.neo.api.NativeAPI;
+import com.rarnu.tools.neo.api.DeviceAPI;
 import com.rarnu.tools.neo.base.BaseFragment;
 import com.rarnu.tools.neo.utils.FileUtils;
 
@@ -103,7 +103,7 @@ public class CleanFragment extends BaseFragment {
                 // extract busybox
                 String[] abis = Build.SUPPORTED_ABIS;
                 String busyboxAsset = "busybox_arm";
-                for (String abi: abis) {
+                for (String abi : abis) {
                     if (abi.toLowerCase().contains("mips")) {
                         busyboxAsset = "busybox_mips";
                         break;
@@ -120,8 +120,8 @@ public class CleanFragment extends BaseFragment {
                 }
                 File fBusybox = new File(fDir, busyboxAsset);
                 FileUtils.copyAssetFile(getContext(), busyboxAsset, fDir.getAbsolutePath());
-                NativeAPI.mount();
-                boolean ret = NativeAPI.catFile(fBusybox.getAbsolutePath(), "/system/xbin/busybox", 755);
+                DeviceAPI.mount();
+                boolean ret = DeviceAPI.catFile(fBusybox.getAbsolutePath(), "/system/xbin/busybox", 755);
                 Message msg = new Message();
                 msg.what = ret ? 1 : 0;
                 hEnvReady.sendMessage(msg);
@@ -176,7 +176,7 @@ public class CleanFragment extends BaseFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                NativeAPI.systemClean(getContext());
+                DeviceAPI.systemClean(getContext());
             }
         }).start();
     }
@@ -187,9 +187,9 @@ public class CleanFragment extends BaseFragment {
             Intent inCallback = (Intent) msg.obj;
             int status = inCallback.getIntExtra(KEY_STATUS, -1);
             String data = inCallback.getStringExtra(KEY_DATA);
-            if (status == NativeAPI.STATUS_PROGRESS || status == NativeAPI.STATUS_ERROR) {
+            if (status == DeviceAPI.STATUS_PROGRESS || status == DeviceAPI.STATUS_ERROR) {
                 tvClean.append(data + "\n");
-            } else if (status == NativeAPI.STATUS_COMPLETE) {
+            } else if (status == DeviceAPI.STATUS_COMPLETE) {
                 tvClean.append(data + "\n");
                 isCleaning = false;
                 miRun.setEnabled(true);

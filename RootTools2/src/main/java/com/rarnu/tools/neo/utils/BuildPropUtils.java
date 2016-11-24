@@ -2,7 +2,7 @@ package com.rarnu.tools.neo.utils;
 
 
 import android.content.Context;
-import com.rarnu.tools.neo.api.NativeAPI;
+import com.rarnu.tools.neo.api.DeviceAPI;
 import com.rarnu.tools.neo.data.BuildPropInfo;
 
 import java.util.ArrayList;
@@ -39,8 +39,8 @@ public class BuildPropUtils {
             str += String.format("%s=%s\n", item.buildName, item.buildValue);
         }
         try {
-            NativeAPI.mount();
-            ret = NativeAPI.writeFile(ctx, PATH_BUILD_PROP, str, 755);
+            DeviceAPI.mount();
+            ret = DeviceAPI.writeFile(ctx, PATH_BUILD_PROP, str, 755);
         } catch (Exception e) {
 
         }

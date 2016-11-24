@@ -5,7 +5,10 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
-import android.os.*;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.preference.Preference;
 import android.preference.PreferenceCategory;
 import android.view.Menu;
@@ -16,12 +19,11 @@ import android.widget.Toast;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.activity.*;
 import com.rarnu.tools.neo.api.API;
-import com.rarnu.tools.neo.api.NativeAPI;
+import com.rarnu.tools.neo.api.DeviceAPI;
 import com.rarnu.tools.neo.base.BasePreferenceFragment;
 import com.rarnu.tools.neo.comp.PreferenceEx;
 import com.rarnu.tools.neo.data.UpdateInfo;
 import com.rarnu.tools.neo.utils.AppUtils;
-import com.rarnu.tools.neo.utils.FileUtils;
 import com.rarnu.tools.neo.utils.HostsUtils;
 import com.rarnu.tools.neo.utils.UIUtils;
 import com.rarnu.tools.neo.xposed.XpStatus;
@@ -45,6 +47,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
 
     //
     private MenuItem miShare = null;
+    private MenuItem miSettings = null;
 
     @Override
     public int getBarTitle() {
@@ -138,6 +141,9 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     @Override
     public void initMenu(Menu menu) {
         menu.clear();
+        miSettings = menu.add(0, 2, 0, R.string.ab_settings);
+        miSettings.setIcon(android.R.drawable.ic_menu_preferences);
+        miSettings.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
         miShare = menu.add(0, 1, 1, R.string.ab_help);
         miShare.setIcon(android.R.drawable.ic_menu_help);
         miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
@@ -148,6 +154,9 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         switch (item.getItemId()) {
             case 1:
                 showQQGroup();
+                break;
+            case 2:
+                showActivityResult(SettingsActivity.class, 1);
                 break;
         }
         return true;
@@ -165,12 +174,20 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
 
     private void loadSettings() {
         pTheme.setStatus(pref.getBoolean(XpStatus.KEY_THEMECRACK, false));
-        pRemoveAd.setStatus(pref.getBoolean(XpStatus.KEY_REMOVEAD, false));
+
         pRemoveSearch.setStatus(pref.getBoolean(XpStatus.KEY_REMOVESEARCHBAR, false));
         pMinusScreen.setStatus(pref.getBoolean(XpStatus.KEY_MINUS_SCREEN, false));
         pRoot25.setStatus(pref.getBoolean(XpStatus.KEY_ROOTCRACK, false));
         pCoreCrack.setStatus(pref.getBoolean(XpStatus.KEY_CORECRACK, false));
         pNoUpdate.setStatus(pref.getBoolean(XpStatus.KEY_NOUPDATE, false));
+
+        if (pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) {
+            pRemoveAd.setShowSwitch(false);
+        } else {
+            pRemoveAd.setShowSwitch(true);
+            pRemoveAd.setStatus(pref.getBoolean(XpStatus.KEY_REMOVEAD, false));
+        }
+
     }
 
     private void setXposedRootStatus() {
@@ -181,19 +198,19 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pFeedback.setEnabled(true);
         pAbout.setEnabled(true);
 
-        pFreeze.setEnabled(!NativeAPI.isRejected);
-        pComponent.setEnabled(!NativeAPI.isRejected);
-        pMemory.setEnabled(!NativeAPI.isRejected);
-        pCleanArt.setEnabled(!NativeAPI.isRejected);
-        pFakeDevice.setEnabled(!NativeAPI.isRejected);
-        pNoUpdate.setEnabled(isMIUI && !NativeAPI.isRejected);
+        pFreeze.setEnabled(!DeviceAPI.isRejected());
+        pComponent.setEnabled(!DeviceAPI.isRejected());
+        pMemory.setEnabled(!DeviceAPI.isRejected());
+        pCleanArt.setEnabled(!DeviceAPI.isRejected());
+        pFakeDevice.setEnabled(!DeviceAPI.isRejected());
+        pNoUpdate.setEnabled(isMIUI && !DeviceAPI.isRejected());
 
         if (Build.VERSION.SDK_INT >= 24) {
-            pTheme.setEnabled(isMIUI && XpStatus.isEnable() && !NativeAPI.isRejected);
-            pRemoveSearch.setEnabled(isMIUI && XpStatus.isEnable() && !NativeAPI.isRejected);
-            pMinusScreen.setEnabled(isMIUI && XpStatus.isEnable() && !NativeAPI.isRejected);
-            pRoot25.setEnabled(isMIUI && XpStatus.isEnable() && !NativeAPI.isRejected);
-            pCoreCrack.setEnabled(XpStatus.isEnable() && !NativeAPI.isRejected);
+            pTheme.setEnabled(isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected());
+            pRemoveSearch.setEnabled(isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected());
+            pMinusScreen.setEnabled(isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected());
+            pRoot25.setEnabled(isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected());
+            pCoreCrack.setEnabled(XpStatus.isEnable() && !DeviceAPI.isRejected());
         } else {
             pTheme.setEnabled(isMIUI && XpStatus.isEnable());
             pRemoveSearch.setEnabled(isMIUI && XpStatus.isEnable());
@@ -201,9 +218,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             pRoot25.setEnabled(isMIUI && XpStatus.isEnable());
             pCoreCrack.setEnabled(XpStatus.isEnable());
         }
-
-        pRemoveAd.setEnabled(isMIUI && XpStatus.isEnable() && !NativeAPI.isRejected);
-
+        pRemoveAd.setEnabled(isMIUI && XpStatus.isEnable());
         if (!isMIUI) {
             getPreferenceScreen().removePreference(catMiui);
             catAbout.removePreference(pFeedback);
@@ -213,6 +228,11 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     private void showActivity(Class<?> cls) {
         Intent inA = new Intent(getContext(), cls);
         startActivity(inA);
+    }
+
+    private void showActivityResult(Class<?> cls, int req) {
+        Intent inA = new Intent(getContext(), cls);
+        startActivityForResult(inA, req);
     }
 
     private void threadWriteHost() {
@@ -228,7 +248,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         new Thread(new Runnable() {
             @Override
             public void run() {
-                NativeAPI.forceDeleteFile("/data/data/com.miui.cleanmaster/shared_prefs/*");
+                DeviceAPI.forceDeleteFile("/data/data/com.miui.cleanmaster/shared_prefs/*");
             }
         }).start();
     }
@@ -256,33 +276,37 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         } else if (prefKey.equals(getString(R.string.id_theme))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_THEMECRACK, ex.getStatus()).apply();
-            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
+            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_removead))) {
-            ex.setStatus(!ex.getStatus());
-            editor.putBoolean(XpStatus.KEY_REMOVEAD, ex.getStatus()).apply();
-            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
-            threadWriteHost();
-            threadDeleteTmpFiles();
+            if (pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) {
+                showActivity(MIUIAppSettingActivity.class);
+            } else {
+                ex.setStatus(!ex.getStatus());
+                editor.putBoolean(XpStatus.KEY_REMOVEAD, ex.getStatus()).apply();
+                DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
+                threadWriteHost();
+                threadDeleteTmpFiles();
+            }
         } else if (prefKey.equals(getString(R.string.id_removesearch))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_REMOVESEARCHBAR, ex.getStatus()).apply();
-            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
+            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_minus_screen))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_MINUS_SCREEN, ex.getStatus()).apply();
-            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
+            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_root25))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_ROOTCRACK, ex.getStatus()).apply();
-            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
+            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_corecrack))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_CORECRACK, ex.getStatus()).apply();
-            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
+            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_noupdate))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_NOUPDATE, ex.getStatus()).apply();
-            NativeAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
+            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
             threadWriteHost();
         }
         return true;
@@ -341,10 +365,22 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         new Thread(new Runnable() {
             @Override
             public void run() {
-                NativeAPI.killProcess();
-                NativeAPI.forceDropCache();
+                DeviceAPI.killProcess();
+                DeviceAPI.forceDropCache();
                 hMemory.sendEmptyMessage(0);
             }
         }).start();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 1) {
+            if (pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) {
+                pRemoveAd.setShowSwitch(false);
+            } else {
+                pRemoveAd.setShowSwitch(true);
+                pRemoveAd.setStatus(pref.getBoolean(XpStatus.KEY_REMOVEAD, false));
+            }
+        }
     }
 }

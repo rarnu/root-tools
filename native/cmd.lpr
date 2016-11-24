@@ -14,6 +14,14 @@ begin
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
+function Java_com_rarnu_tools_neo_api_NativeAPI_isSystemRW(env: PJNIEnv; obj: jobject): jboolean; stdcall;
+var
+  ret: Boolean;
+begin
+  ret := IsSystemRW();
+  Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
+end;
+
 procedure Java_com_rarnu_tools_neo_api_NativeAPI_makePreferenceReadable(env: PJNIEnv; obj: jobject; sdk: jint; packageName: jstring); stdcall;
 begin
   MakePreferenceReadable(sdk, jstringToString(env, packageName));
@@ -99,6 +107,7 @@ end;
 
 exports
   Java_com_rarnu_tools_neo_api_NativeAPI_mount,
+  Java_com_rarnu_tools_neo_api_NativeAPI_isSystemRW,
   Java_com_rarnu_tools_neo_api_NativeAPI_makePreferenceReadable,
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeApplication,
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponent,

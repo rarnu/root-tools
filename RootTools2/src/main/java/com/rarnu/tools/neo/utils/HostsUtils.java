@@ -1,7 +1,7 @@
 package com.rarnu.tools.neo.utils;
 
 import android.content.Context;
-import com.rarnu.tools.neo.api.NativeAPI;
+import com.rarnu.tools.neo.api.DeviceAPI;
 
 public class HostsUtils {
 
@@ -25,8 +25,8 @@ public class HostsUtils {
         }
 
         try {
-            NativeAPI.mount();
-            ret = NativeAPI.writeFile(ctx, "/etc/hosts", host, 755);
+            DeviceAPI.mount();
+            ret = DeviceAPI.writeFile(ctx, "/etc/hosts", host, 755);
         } catch (Throwable th) {
         }
         return ret;

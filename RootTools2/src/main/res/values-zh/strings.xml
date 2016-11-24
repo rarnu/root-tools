@@ -9,6 +9,7 @@
     <string name="clean_name">清理系统</string>
     <string name="fake_device_name">模拟设备</string>
     <string name="about_name">关于本软件</string>
+    <string name="settings_name">设置</string>
 
     <string name="category_main">系统</string>
     <string name="main_freeze">冻结应用[root]</string>
@@ -46,6 +47,13 @@
     <string name="about_feedback">MIUI 广告反馈</string>
     <string name="about_about">关于本软件</string>
     <string name="about_summary_feedback">发现了广告可以告诉我，可能下个版本就没啦</string>
+
+    <string name="settings_mode">工作模式</string>
+    <string name="settings_mode_common">传统模式，使用 JVM 层代码完成工作</string>
+    <string name="settings_mode_effect">性能模式，使用 NDK 层代码完成工作</string>
+    <string name="settings_adchoose">去广告详细选择</string>
+    <string name="settings_adchoose_onekey">一键去广告模式，将广告一网打尽</string>
+    <string name="settings_adchoose_detail">详细选择模式，可以按应用选择是否去除广告</string>
 
     <string name="view_loading">正在努力加载, 请稍候...</string>
     <string name="view_activity">Activity</string>
@@ -90,6 +98,7 @@
     <string name="ab_share">分享</string>
     <string name="ab_send">发送</string>
     <string name="ab_help">使用帮助</string>
+    <string name="ab_settings">设置</string>
     <string name="ab_onekey">一键设置</string>
     <string name="ab_send_ctrl">发送 Ctrl</string>
     <string name="ab_send_fn">发送 FN</string>

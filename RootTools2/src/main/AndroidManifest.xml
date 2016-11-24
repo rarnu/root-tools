@@ -56,6 +56,16 @@
                 android:name=".activity.AboutActivity"
                 android:screenOrientation="portrait">
         </activity>
+        <activity
+                android:name=".activity.SettingsActivity"
+                android:screenOrientation="portrait">
+
+        </activity>
+        <activity
+                android:name=".activity.MIUIAppSettingActivity"
+                android:screenOrientation="portrait">
+
+        </activity>
         <activity android:name=".activity.FeedbackActivity"
                   android:screenOrientation="portrait">
 

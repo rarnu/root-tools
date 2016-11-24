@@ -9,6 +9,7 @@ uses
 
 // JNI real method
 function Mount(): Boolean;
+function IsSystemRW(): Boolean;
 procedure MakePreferenceReadable(sdk: integer; packageName: string);
 function FreezeApplication(packageName: string; isFreezed: boolean): boolean;
 function FreeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;
@@ -29,12 +30,37 @@ const
 var
   outstr: string;
 begin
-  Result := internalRun([cmd], outstr);
+  Result := True;
+  internalRun([cmd], outstr);
   LOGE(PChar(outstr));
   outstr:= outstr.ToLower;
   if (outstr.Contains('denied')) or (outstr.Contains('null environment')) or (outstr.Contains('not allowed')) then begin
     Result := False;
   end;
+end;
+
+function IsSystemRW: Boolean;
+const
+  cmd = 'mount';
+var
+  outstr: string;
+  sl: TStringList;
+  i: Integer;
+begin
+  // is system rw
+  Result := False;
+  internalRun([cmd], outstr);
+  sl := TStringList.Create;
+  sl.Text:= outstr;
+  for i := 0 to sl.Count - 1 do begin
+    if (sl[i].Contains(' /system')) and (sl[i].Contains('ext4')) then begin
+      if (sl[i].Contains('rw')) then begin
+        Result := True;
+        Break;
+      end;
+    end;
+  end;
+  sl.Free;
 end;
 
 procedure MakePreferenceReadable(sdk: integer; packageName: string);

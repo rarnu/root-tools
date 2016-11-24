@@ -10,8 +10,10 @@ public class NativeAPI {
     }
 
     public static boolean isRejected = false;
+    public static boolean isSystemRW = false;
 
     public static native boolean mount();
+    public static native boolean isSystemRW();
     public static native void makePreferenceReadable(int sdk, String packageName);
     public static native boolean freezeApplication(String packageName, boolean isFreezed);
     public static native boolean freezeComponent(String packageName, String componentName, boolean isFreezed);
@@ -24,17 +26,9 @@ public class NativeAPI {
     public static native void killProcess();
     public static native boolean deleteSystemApp(String pkgName);
     public static native boolean isAppRequiredBySystem(String pkgName);
-
-    public static final int STATUS_PROGRESS = 0;
-    public static final int STATUS_COMPLETE = 1;
-    public static final int STATUS_ERROR = 2;
     
     public void cleanCallback(Context ctx, int status, String data) {
-        Intent inCallback = new Intent(CleanFragment.ACTION_CLEAN_CALLBACK);
-        inCallback.putExtra(CleanFragment.KEY_STATUS, status);
-        inCallback.putExtra(CleanFragment.KEY_DATA, data);
-        ctx.sendBroadcast(inCallback);
-
+        DeviceAPI.cleanCallback(ctx, status, data);
     }
 }
 

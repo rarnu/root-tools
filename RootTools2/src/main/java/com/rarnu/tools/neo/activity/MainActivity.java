@@ -1,32 +1,39 @@
 package com.rarnu.tools.neo.activity;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.Toast;
 import com.rarnu.tools.neo.R;
-import com.rarnu.tools.neo.api.NativeAPI;
+import com.rarnu.tools.neo.api.DeviceAPI;
 import com.rarnu.tools.neo.base.BaseActivity;
 import com.rarnu.tools.neo.fragment.MainFragment;
 import com.rarnu.tools.neo.utils.AppUtils;
-import com.rarnu.tools.neo.utils.RootUtils;
 import com.rarnu.tools.neo.utils.UIUtils;
 import com.rarnu.tools.neo.xposed.XpStatus;
 
 public class MainActivity extends BaseActivity {
 
+    private SharedPreferences pref = null;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         UIUtils.initDisplayMetrics(this, getWindowManager(), false);
         super.onCreate(savedInstanceState);
-        RootUtils.requestRoot();
-        NativeAPI.isRejected = !NativeAPI.mount();
+        pref = getSharedPreferences(XpStatus.PREF, Build.VERSION.SDK_INT < 24 ? 1 : 0);
+        XpStatus.mode = pref.getBoolean(XpStatus.KEY_WORK_MODE, true) ? XpStatus.Mode.NDK : XpStatus.Mode.JVM;
+
+        DeviceAPI.setRejected(DeviceAPI.mount());
+        DeviceAPI.setSystemRW(DeviceAPI.isSystemRW());
+        boolean isRooted = !DeviceAPI.isRejected();
+        Log.e("DeviceAPI", "isRejected => " + DeviceAPI.isRejected());
+        Log.e("DeviceAPI", "isSystemRW => " + DeviceAPI.isSystemRW());
 
         boolean xpEnabled = XpStatus.isEnable();
-        boolean isRooted = !NativeAPI.isRejected;
 
         if (!xpEnabled && !isRooted) {
             Toast.makeText(this, R.string.toast_need_root_xposed, Toast.LENGTH_SHORT).show();

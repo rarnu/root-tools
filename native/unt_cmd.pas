@@ -68,6 +68,7 @@ begin
       params[0] := '0';
     end;
     params[1] := cmds[i];
+    LOGE(PChar(cmds[i]));
     r := RunCommand('su', params, outstr, [poWaitOnExit, poUsePipes, poStderrToOutPut]);
     resultString += outstr +  _ED;
     Result := Result and r;

@@ -15,12 +15,11 @@ import android.widget.SearchView;
 import android.widget.Toast;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.adapter.AppAdapter;
-import com.rarnu.tools.neo.api.NativeAPI;
+import com.rarnu.tools.neo.api.DeviceAPI;
 import com.rarnu.tools.neo.base.BaseFragment;
 import com.rarnu.tools.neo.comp.LoadingView;
 import com.rarnu.tools.neo.data.AppInfo;
 import com.rarnu.tools.neo.loader.AppLoader;
-import com.rarnu.tools.neo.utils.AppUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -147,7 +146,7 @@ public class FreezeFragment extends BaseFragment implements
             @Override
             public void run() {
                 boolean newStat = !item.isDisable;
-                boolean ret = NativeAPI.freezeApplication(item.packageName, newStat);
+                boolean ret = DeviceAPI.freezeApplication(item.packageName, newStat);
                 if (ret) {
                     item.isDisable = newStat;
                 }
@@ -207,7 +206,7 @@ public class FreezeFragment extends BaseFragment implements
         new Thread(new Runnable() {
             @Override
             public void run() {
-                boolean ret = NativeAPI.deleteSystemApp(item.packageName);
+                boolean ret = DeviceAPI.deleteSystemApp(item.packageName);
                 hDeleteApp.sendEmptyMessage(ret ? 1 : 0);
             }
         }).start();
@@ -217,7 +216,7 @@ public class FreezeFragment extends BaseFragment implements
     public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
         AppInfo item = adapter.getFiltedItem(position);
         if (item.isSystem) {
-            showDeleteAppDialog(item, AppUtils.isAppRequiredBySystem(item.packageName));
+            showDeleteAppDialog(item, DeviceAPI.isAppRequiredBySystem(item.packageName));
         }
         return true;
     }

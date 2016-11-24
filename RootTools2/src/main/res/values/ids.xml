@@ -23,4 +23,20 @@
 
     <string name="id_feedback">id_feedback</string>
     <string name="id_about">id_about</string>
+    
+    <string name="id_settings_mode">id_settings_mode</string>
+    <string name="id_settings_adchoose">id_settings_adchoose</string>
+
+    <string name="id_app_weather">id_app_weather</string>
+    <string name="id_app_music">id_app_music</string>
+    <string name="id_app_video">id_app_video</string>
+    <string name="id_app_searchbox">id_app_searchbox</string>
+    <string name="id_app_mms">id_app_mms</string>
+    <string name="id_app_fileexplorer">id_app_fileexplorer</string>
+    <string name="id_app_download">id_app_download</string>
+    <string name="id_app_cleanmaster">id_app_cleanmaster</string>
+    <string name="id_app_calendar">id_app_calendar</string>
+    <string name="id_app_browser">id_app_browser</string>
+    <string name="id_app_system">id_app_system</string>
+
 </resources>

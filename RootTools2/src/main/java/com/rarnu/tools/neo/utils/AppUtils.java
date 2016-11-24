@@ -7,17 +7,12 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Environment;
-import com.rarnu.tools.neo.api.NativeAPI;
 import com.rarnu.tools.neo.data.AppInfo;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class AppUtils {
-
-    public static boolean isAppRequiredBySystem(String pkgName) {
-        return NativeAPI.isAppRequiredBySystem(pkgName);
-    }
 
     public static List<AppInfo> getSystemApps(Context ctx) {
         PackageManager pm = ctx.getPackageManager();

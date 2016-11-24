@@ -14,7 +14,7 @@ import android.widget.*;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.adapter.CompDetailAdapter;
 import com.rarnu.tools.neo.api.API;
-import com.rarnu.tools.neo.api.NativeAPI;
+import com.rarnu.tools.neo.api.DeviceAPI;
 import com.rarnu.tools.neo.base.BaseFragment;
 import com.rarnu.tools.neo.comp.LoadingView;
 import com.rarnu.tools.neo.data.CompInfo;
@@ -283,7 +283,7 @@ public class ComponentDetailFragment extends BaseFragment implements View.OnClic
             @Override
             public void run() {
                 boolean newStat = !item.enabled;
-                boolean ret = NativeAPI.freezeComponent(pkgName, item.component.className, !newStat);
+                boolean ret = DeviceAPI.freezeComponent(pkgName, item.component.className, !newStat);
                 if (ret) {
                     item.enabled = newStat;
                 }
@@ -328,7 +328,7 @@ public class ComponentDetailFragment extends BaseFragment implements View.OnClic
                         hasProfile = true;
                     }
                     if (hasProfile) {
-                        NativeAPI.freezeComponents(pkgName, ok.disabledComponents, true);
+                        DeviceAPI.freezeComponents(pkgName, ok.disabledComponents, true);
                     }
                 }
                 hOnekey.sendEmptyMessage(hasProfile ? 1 : 0);
@@ -374,22 +374,22 @@ public class ComponentDetailFragment extends BaseFragment implements View.OnClic
                     List<CompInfo> lstReceiver = ComponentUtils.getReceiverList(getContext(), obj);
                     List<CompInfo> lstProvider = ComponentUtils.getProviderList(getContext(), obj);
                     List<String> lstDisabled = new ArrayList<>();
-                    for (CompInfo ci: lstActivity) {
+                    for (CompInfo ci : lstActivity) {
                         if (!ci.enabled) {
                             lstDisabled.add(ci.component.className);
                         }
                     }
-                    for (CompInfo ci: lstService) {
+                    for (CompInfo ci : lstService) {
                         if (!ci.enabled) {
                             lstDisabled.add(ci.component.className);
                         }
                     }
-                    for (CompInfo ci: lstReceiver) {
+                    for (CompInfo ci : lstReceiver) {
                         if (!ci.enabled) {
                             lstDisabled.add(ci.component.className);
                         }
                     }
-                    for (CompInfo ci: lstProvider) {
+                    for (CompInfo ci : lstProvider) {
                         if (!ci.enabled) {
                             lstDisabled.add(ci.component.className);
                         }

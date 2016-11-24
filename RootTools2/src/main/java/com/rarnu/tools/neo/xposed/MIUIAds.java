@@ -15,65 +15,88 @@ public class MIUIAds implements IXposedHookLoadPackage, IXposedHookInitPackageRe
         XSharedPreferences prefs = new XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF);
         prefs.makeWorldReadable();
         prefs.reload();
-        if (!prefs.getBoolean(XpStatus.KEY_REMOVEAD, false)) {
-            return;
-        }
 
         if (paramLoadPackageParam.packageName.equals("com.miui.core")) {
-            FuckCore.fuckCore(paramLoadPackageParam);
-            return;
-        }
-
-        if (paramLoadPackageParam.packageName.equals("com.miui.cleanmaster")) {
-            FuckCleanMaster.fuckCleanMaster(paramLoadPackageParam);
-            return;
-        }
-
-        if (paramLoadPackageParam.packageName.equals("com.miui.video")) {
-            FuckVideo.fuckVideo(paramLoadPackageParam);
-            return;
-        }
-
-        if (paramLoadPackageParam.packageName.equals("com.android.fileexplorer")) {
-            FuckFileExplorer.fuckFileExplorer(paramLoadPackageParam);
-            return;
-        }
-        if (paramLoadPackageParam.packageName.equals("com.miui.player")) {
-            FuckMusic.fuckMusic(paramLoadPackageParam);
-            return;
-        }
-
-        if (paramLoadPackageParam.packageName.equals("com.android.providers.downloads.ui")) {
-            FuckDownload.fuckDownload(paramLoadPackageParam);
-            return;
-        }
-
-        if (paramLoadPackageParam.packageName.equals("com.miui.weather2")) {
-            FuckWeather.fuckWeather(paramLoadPackageParam);
-            return;
-        }
-
-        if (paramLoadPackageParam.packageName.equals("com.android.quicksearchbox")) {
-            FuckSearchBox.fuckSearchBox(paramLoadPackageParam);
-            return;
-        }
-
-        if (paramLoadPackageParam.packageName.equals("com.android.mms")) {
-            FuckMms.fuckMms(paramLoadPackageParam);
-            return;
-        }
-
-        if (paramLoadPackageParam.packageName.equals("com.android.calendar")) {
-            FuckCalendar.fuckCalendar(paramLoadPackageParam);
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_SYSTEM, false)) {
+                FuckCore.fuckCore(paramLoadPackageParam);
+            }
             return;
         }
 
         if (paramLoadPackageParam.packageName.equals("com.miui.systemAdSolution")) {
-            FuckAdSolution.fuckAdSolution(paramLoadPackageParam);
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_SYSTEM, false)) {
+                FuckAdSolution.fuckAdSolution(paramLoadPackageParam);
+            }
             return;
         }
+
+        if (paramLoadPackageParam.packageName.equals("com.miui.cleanmaster")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)) {
+                FuckCleanMaster.fuckCleanMaster(paramLoadPackageParam);
+            }
+            return;
+        }
+
+        if (paramLoadPackageParam.packageName.equals("com.miui.video")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_VIDEO, false)) {
+                FuckVideo.fuckVideo(paramLoadPackageParam);
+            }
+            return;
+        }
+
+        if (paramLoadPackageParam.packageName.equals("com.android.fileexplorer")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_FILEEXPLORER, false)) {
+                FuckFileExplorer.fuckFileExplorer(paramLoadPackageParam);
+            }
+            return;
+        }
+        if (paramLoadPackageParam.packageName.equals("com.miui.player")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_MUSIC, false)) {
+                FuckMusic.fuckMusic(paramLoadPackageParam);
+            }
+            return;
+        }
+
+        if (paramLoadPackageParam.packageName.equals("com.android.providers.downloads.ui")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_DOWNLOAD, false)) {
+                FuckDownload.fuckDownload(paramLoadPackageParam);
+            }
+            return;
+        }
+
+        if (paramLoadPackageParam.packageName.equals("com.miui.weather2")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_WEATHER, false)) {
+                FuckWeather.fuckWeather(paramLoadPackageParam);
+            }
+            return;
+        }
+
+        if (paramLoadPackageParam.packageName.equals("com.android.quicksearchbox")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_SEARCHBOX, false)) {
+                FuckSearchBox.fuckSearchBox(paramLoadPackageParam);
+            }
+            return;
+        }
+
+        if (paramLoadPackageParam.packageName.equals("com.android.mms")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_MMS, false)) {
+                FuckMms.fuckMms(paramLoadPackageParam);
+            }
+            return;
+        }
+
+        if (paramLoadPackageParam.packageName.equals("com.android.calendar")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CALENDAR, false)) {
+                FuckCalendar.fuckCalendar(paramLoadPackageParam);
+            }
+            return;
+        }
+
+
         if (paramLoadPackageParam.packageName.equals("com.android.browser")) {
-            FuckBrowser.fuckBrowser(paramLoadPackageParam);
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_BROWSER, false)) {
+                FuckBrowser.fuckBrowser(paramLoadPackageParam);
+            }
             return;
         }
     }
@@ -83,11 +106,10 @@ public class MIUIAds implements IXposedHookLoadPackage, IXposedHookInitPackageRe
         XSharedPreferences prefs = new XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF);
         prefs.makeWorldReadable();
         prefs.reload();
-        if (!prefs.getBoolean(XpStatus.KEY_REMOVEAD, false)) {
-            return;
-        }
         if (initPackageResourcesParam.packageName.equals("com.miui.cleanmaster")) {
-            FuckCleanMaster.fuckResource(initPackageResourcesParam);
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)) {
+                FuckCleanMaster.fuckResource(initPackageResourcesParam);
+            }
             return;
         }
     }
