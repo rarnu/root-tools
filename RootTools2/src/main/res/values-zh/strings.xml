@@ -123,7 +123,9 @@
     <string name="toast_send_feedback_ok">发送反馈成功</string>
     <string name="toast_need_root">需要 root 权限</string>
     <string name="toast_need_xposed">需要 xposed 框架</string>
+    <string name="toast_need_crack_system">需要破解 system 分区</string>
     <string name="toast_need_root_xposed">需要 root 权限和 xposed 框架</string>
+    <string name="toast_reboot_app">切换此选项后请重启本软件</string>
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>

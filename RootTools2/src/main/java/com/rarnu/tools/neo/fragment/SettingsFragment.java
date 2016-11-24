@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.preference.Preference;
 import android.view.Menu;
+import android.widget.Toast;
 import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.api.DeviceAPI;
 import com.rarnu.tools.neo.base.BasePreferenceFragment;
@@ -90,6 +91,7 @@ public class SettingsFragment extends BasePreferenceFragment implements Preferen
             editor.putBoolean(XpStatus.KEY_WORK_MODE, ex.getStatus()).apply();
             DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
             pMode.setSummary(pref.getBoolean(XpStatus.KEY_WORK_MODE, true) ? R.string.settings_mode_effect : R.string.settings_mode_common);
+            Toast.makeText(getContext(), R.string.toast_reboot_app, Toast.LENGTH_SHORT).show();
         } else if (prefKey.equals(getString(R.string.id_settings_adchoose))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_AD_CHOOSE, ex.getStatus()).apply();

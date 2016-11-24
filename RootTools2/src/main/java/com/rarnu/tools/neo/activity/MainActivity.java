@@ -27,11 +27,15 @@ public class MainActivity extends BaseActivity {
         pref = getSharedPreferences(XpStatus.PREF, Build.VERSION.SDK_INT < 24 ? 1 : 0);
         XpStatus.mode = pref.getBoolean(XpStatus.KEY_WORK_MODE, true) ? XpStatus.Mode.NDK : XpStatus.Mode.JVM;
 
-        DeviceAPI.setRejected(DeviceAPI.mount());
+        DeviceAPI.setRejected(!DeviceAPI.mount());
         DeviceAPI.setSystemRW(DeviceAPI.isSystemRW());
         boolean isRooted = !DeviceAPI.isRejected();
         Log.e("DeviceAPI", "isRejected => " + DeviceAPI.isRejected());
         Log.e("DeviceAPI", "isSystemRW => " + DeviceAPI.isSystemRW());
+
+        if (!DeviceAPI.isSystemRW()) {
+            Toast.makeText(this, R.string.toast_need_crack_system, Toast.LENGTH_SHORT).show();
+        }
 
         boolean xpEnabled = XpStatus.isEnable();
 

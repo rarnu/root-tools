@@ -136,7 +136,9 @@
     <string name="toast_send_feedback_ok">Feedback sent</string>
     <string name="toast_need_root">Require root permission</string>
     <string name="toast_need_xposed">Require xposed framework</string>
+    <string name="toast_need_crack_system">Require system partition cracked.</string>
     <string name="toast_need_root_xposed">Require root permission and xposed framework</string>
+    <string name="toast_reboot_app">Please reboot the app after switch this option</string>
 
     <string name="alert_hint">Hint</string>
     <string name="alert_ok">OK</string>
