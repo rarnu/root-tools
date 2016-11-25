@@ -157,13 +157,13 @@ end;
 
 procedure ForceDropCache;
 const
-  cmdSync = 'sync';
+  // cmdSync = 'sync';
   cmdDrop = 'echo 3 > /proc/sys/vm/drop_caches';
   cmdDropRestore = 'echo 0 > /proc/sys/vm/drop_caches';
 var
   outstr: string;
 begin
-  internalRun([cmdSync, cmdDrop, cmdDropRestore], outstr);
+  internalRun([cmdDrop, cmdDropRestore], outstr);
   LOGE(PChar(outstr));
 end;
 

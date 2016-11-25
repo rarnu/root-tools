@@ -164,9 +164,9 @@ public class RootAPI {
 
     public static void forceDropCache() {
         // forceDropCache
-        RootUtils.CommandResult ret = RootUtils.runCommand("sync", true);
-        Log.e("RootAPI", String.format("result: %s, error: %s", ret.result, ret.error));
-        ret = RootUtils.runCommand("echo 3 > /proc/sys/vm/drop_caches", true);
+        // RootUtils.CommandResult ret = RootUtils.runCommand("sync", true);
+        // Log.e("RootAPI", String.format("result: %s, error: %s", ret.result, ret.error));
+        RootUtils.CommandResult ret = RootUtils.runCommand("echo 3 > /proc/sys/vm/drop_caches", true);
         Log.e("RootAPI", String.format("result: %s, error: %s", ret.result, ret.error));
         ret = RootUtils.runCommand("echo 0 > /proc/sys/vm/drop_caches", true);
         Log.e("RootAPI", String.format("result: %s, error: %s", ret.result, ret.error));
