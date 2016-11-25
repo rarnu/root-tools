@@ -267,7 +267,7 @@ public class RootAPI {
         int  p = s.indexOf(" ");
         s = s.substring(p).trim();
         p = s.indexOf(" ");
-        return s.substring(0, p - 1).trim();
+        return s.substring(0, p).trim();
     }
 
     private static String getPackageName(String str) {

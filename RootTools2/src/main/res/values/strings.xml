@@ -42,7 +42,7 @@
     <string name="miui_summary_removead">Remove Ads showed on MIUI</string>
     <string name="miui_summary_removesearch"></string>
     <string name="miui_summary_minus_screen"></string>
-    <string name="miui_summary_keep_mtz">Keep MTZ file after input it</string>
+    <string name="miui_summary_keep_mtz">Keep MTZ file after import it</string>
     <string name="miui_summary_root25"></string>
     <string name="miui_summary_noupdate">MIUI cannot check for new version</string>
 

@@ -10,6 +10,7 @@ import com.rarnu.tools.neo.R;
 import com.rarnu.tools.neo.api.DeviceAPI;
 import com.rarnu.tools.neo.base.BasePreferenceFragment;
 import com.rarnu.tools.neo.comp.PreferenceEx;
+import com.rarnu.tools.neo.utils.AppUtils;
 import com.rarnu.tools.neo.xposed.XpStatus;
 
 /**
@@ -58,6 +59,11 @@ public class SettingsFragment extends BasePreferenceFragment implements Preferen
         pAdChoose.setStatus(pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false));
         pAdChoose.setSummary(pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false) ? R.string.settings_adchoose_detail : R.string.settings_adchoose_onekey);
         pDeepClean.setStatus(pref.getBoolean(XpStatus.KEY_DEEP_CLEAN, false));
+
+        boolean isMIUI = AppUtils.isMIUI(getContext());
+        if (!isMIUI) {
+            getPreferenceScreen().removePreference(pAdChoose);
+        }
     }
 
     @Override
