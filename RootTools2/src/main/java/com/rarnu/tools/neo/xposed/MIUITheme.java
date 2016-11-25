@@ -2,6 +2,7 @@ package com.rarnu.tools.neo.xposed;
 
 import android.content.Context;
 import android.content.Intent;
+import com.rarnu.tools.neo.utils.FileUtils;
 import de.robv.android.xposed.*;
 import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
@@ -38,17 +39,37 @@ public class MIUITheme implements IXposedHookZygoteInit, IXposedHookLoadPackage 
         XSharedPreferences prefs = new XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF);
         prefs.makeWorldReadable();
         prefs.reload();
-        if (!prefs.getBoolean(XpStatus.KEY_THEMECRACK, false)) {
+        if (lpparam.packageName.equals("miui.drm") || lpparam.packageName.equals("com.miui.system") || lpparam.packageName.equals("miui.system")) {
+            if (prefs.getBoolean(XpStatus.KEY_THEMECRACK, false)) {
+                MIUI_DRM();
+            }
             return;
         }
-        if (lpparam.packageName.equals("miui.drm") || lpparam.packageName.equals("com.miui.system") || lpparam.packageName.equals("miui.system")) {
-            MIUI_DRM();
-        }
         if (lpparam.packageName.equals("com.android.thememanager")) {
-            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isTrialable", XC_MethodReplacement.returnConstant(false));
-            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isLegal", XC_MethodReplacement.returnConstant(true));
-            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isAuthorizedResource", XC_MethodReplacement.returnConstant(true));
-            XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isPermanentRights", XC_MethodReplacement.returnConstant(true));
+            if (prefs.getBoolean(XpStatus.KEY_THEMECRACK, false)) {
+                XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isTrialable", XC_MethodReplacement.returnConstant(false));
+                XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isLegal", XC_MethodReplacement.returnConstant(true));
+                XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isAuthorizedResource", XC_MethodReplacement.returnConstant(true));
+                XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isPermanentRights", XC_MethodReplacement.returnConstant(true));
+            }
+            if (prefs.getBoolean(XpStatus.KEY_KEEP_MTZ, false)) {
+                XpUtils.findAndHookMethod("com.android.thememanager.model.ResourceOnlineProperties", lpparam.classLoader, "setDownloadPath", String.class, new XC_MethodHook() {
+                    @Override
+                    protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                        String oriPath = (String) param.args[0];
+                        String newPath = oriPath + "1.mtz";
+                        XposedBridge.log("setDownloadPath => " + newPath);
+                        try {
+                            FileUtils.copyFile(oriPath, newPath);
+                            XposedBridge.log("setDownloadPath copy file => succ");
+                            param.args[0] = newPath;
+                        } catch (Exception e) {
+                            XposedBridge.log("setDownloadPath error => " + e.toString());
+                        }
+
+                    }
+                });
+            }
         }
     }
 

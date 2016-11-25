@@ -53,8 +53,8 @@ public class SettingsFragment extends BasePreferenceFragment implements Preferen
 
     @Override
     public void initLogic() {
-        pMode.setStatus(pref.getBoolean(XpStatus.KEY_WORK_MODE, true));
-        pMode.setSummary(pref.getBoolean(XpStatus.KEY_WORK_MODE, true) ? R.string.settings_mode_effect : R.string.settings_mode_common);
+        pMode.setStatus(pref.getBoolean(XpStatus.KEY_WORK_MODE, false));
+        pMode.setSummary(pref.getBoolean(XpStatus.KEY_WORK_MODE, false) ? R.string.settings_mode_effect : R.string.settings_mode_common);
         pAdChoose.setStatus(pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false));
         pAdChoose.setSummary(pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false) ? R.string.settings_adchoose_detail : R.string.settings_adchoose_onekey);
         pDeepClean.setStatus(pref.getBoolean(XpStatus.KEY_DEEP_CLEAN, false));
@@ -93,8 +93,8 @@ public class SettingsFragment extends BasePreferenceFragment implements Preferen
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_WORK_MODE, ex.getStatus()).apply();
             DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
-            pMode.setSummary(pref.getBoolean(XpStatus.KEY_WORK_MODE, true) ? R.string.settings_mode_effect : R.string.settings_mode_common);
-            Toast.makeText(getContext(), R.string.toast_reboot_app, Toast.LENGTH_SHORT).show();
+            pMode.setSummary(pref.getBoolean(XpStatus.KEY_WORK_MODE, false) ? R.string.settings_mode_effect : R.string.settings_mode_common);
+            Toast.makeText(getContext(), R.string.toast_reboot_app, Toast.LENGTH_LONG).show();
         } else if (prefKey.equals(getString(R.string.id_settings_adchoose))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_AD_CHOOSE, ex.getStatus()).apply();

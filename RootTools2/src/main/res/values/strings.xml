@@ -31,9 +31,10 @@
 
     <string name="category_miui">MIUI</string>
     <string name="miui_theme">Theme Crack[xposed]</string>
-    <string name="miui_removead">Remove Ads[xposed/root]</string>
+    <string name="miui_removead">Remove Ads[xposed]</string>
     <string name="miui_removesearch">Remove Searchbar[xposed]</string>
-    <string name="miui_minus_screen">Remove MinusOne Screen</string>
+    <string name="miui_minus_screen">Remove MinusOne Screen[xposed]</string>
+    <string name="miui_keep_mtz">Keep MTZ[xposed]</string>
     <string name="miui_root25">Remove Root Waiting[xposed]</string>
     <string name="miui_noupdate">Ban Update Check[root]</string>
 
@@ -41,6 +42,7 @@
     <string name="miui_summary_removead">Remove Ads showed on MIUI</string>
     <string name="miui_summary_removesearch"></string>
     <string name="miui_summary_minus_screen"></string>
+    <string name="miui_summary_keep_mtz">Keep MTZ file after input it</string>
     <string name="miui_summary_root25"></string>
     <string name="miui_summary_noupdate">MIUI cannot check for new version</string>
 
@@ -139,7 +141,7 @@
     <string name="toast_need_xposed">Require xposed framework</string>
     <string name="toast_need_crack_system">Require system partition cracked.</string>
     <string name="toast_need_root_xposed">Require root permission and xposed framework</string>
-    <string name="toast_reboot_app">Please reboot the app after switch this option</string>
+    <string name="toast_reboot_app">Please reboot the app after switch this option. Some devices can not switch to Speed Mode, please stay on Common Mode.</string>
 
     <string name="alert_hint">Hint</string>
     <string name="alert_ok">OK</string>

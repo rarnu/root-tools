@@ -104,6 +104,25 @@ public class FileUtils {
         return text.trim();
     }
 
+    public static void copyFile(String source, String dest) throws IOException {
+        File oldFile = new File(source);
+        if (oldFile.exists()) {
+            InputStream is = new FileInputStream(source);
+            FileOutputStream fs = new FileOutputStream(dest);
+            int size = is.available();
+            int count = 0;
+            int n = 0;
+
+            byte[] buffer = new byte[1444];
+            while ((n = is.read(buffer)) != -1) {
+                fs.write(buffer, 0, n);
+                count += n;
+            }
+            is.close();
+            fs.close();
+        }
+    }
+
     public static void setPermission(String filePath, int permission) {
         try {
             Class<?> cls = Class.forName("android.os.FileUtils");

@@ -30,9 +30,10 @@
 
     <string name="category_miui">MIUI</string>
     <string name="miui_theme">主题免费[xposed]</string>
-    <string name="miui_removead">移除广告[xposed/root]</string>
+    <string name="miui_removead">移除广告[xposed]</string>
     <string name="miui_removesearch">移除通知栏搜索[xposed]</string>
-    <string name="miui_minus_screen">移除负一屏</string>
+    <string name="miui_minus_screen">移除负一屏[xposed]</string>
+    <string name="miui_keep_mtz">保留 MTZ[xposed]</string>
     <string name="miui_root25">移除 Root 等待[xposed]</string>
     <string name="miui_noupdate">屏蔽更新[root]</string>
 
@@ -40,6 +41,7 @@
     <string name="miui_summary_removead">去除大部分系统自带应用的广告</string>
     <string name="miui_summary_removesearch">去除通知栏的搜索框</string>
     <string name="miui_summary_minus_screen">桌面不再显示负一屏</string>
+    <string name="miui_summary_keep_mtz">导入主题后保留原始 mtz</string>
     <string name="miui_summary_root25">去除 root 授权时的 25 秒等待</string>
     <string name="miui_summary_noupdate">使 MIUI 检查不到新版本</string>
 
@@ -126,7 +128,7 @@
     <string name="toast_need_xposed">需要 xposed 框架</string>
     <string name="toast_need_crack_system">需要破解 system 分区</string>
     <string name="toast_need_root_xposed">需要 root 权限和 xposed 框架</string>
-    <string name="toast_reboot_app">切换此选项后请重启本软件</string>
+    <string name="toast_reboot_app">切换此选项后请重启本软件，部分设备无法开启性能模式，若工作不正常请切换回传统模式</string>
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>

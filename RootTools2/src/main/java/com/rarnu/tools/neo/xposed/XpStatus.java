@@ -16,6 +16,7 @@ public class XpStatus {
     public static final String KEY_CORECRACK = "corecrack";
     public static final String KEY_NOUPDATE = "noupate";
     public static final String KEY_MINUS_SCREEN = "minusscreen";
+    public static final String KEY_KEEP_MTZ = "keepmtz";
 
     // settings
     public static final String KEY_WORK_MODE = "work_mode";

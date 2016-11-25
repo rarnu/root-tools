@@ -36,7 +36,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
     // system
     private PreferenceEx pFreeze, pComponent, pCleanArt, pCoreCrack, pFakeDevice, pTerminal, pMemory;
     // miui
-    private PreferenceEx pTheme, pRemoveAd, pRemoveSearch, pMinusScreen, pRoot25, pNoUpdate;
+    private PreferenceEx pTheme, pRemoveAd, pRemoveSearch, pMinusScreen, pKeepMtz, pRoot25, pNoUpdate;
     // about
     private PreferenceEx pFeedback, pAbout;
 
@@ -85,6 +85,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pRemoveAd = findPref(R.string.id_removead);
         pRemoveSearch = findPref(R.string.id_removesearch);
         pMinusScreen = findPref(R.string.id_minus_screen);
+        pKeepMtz = findPref(R.string.id_keep_mtz);
         pRoot25 = findPref(R.string.id_root25);
         pNoUpdate = findPref(R.string.id_noupdate);
 
@@ -113,6 +114,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         pRemoveAd.setOnPreferenceClickListener(this);
         pRemoveSearch.setOnPreferenceClickListener(this);
         pMinusScreen.setOnPreferenceClickListener(this);
+        pKeepMtz.setOnPreferenceClickListener(this);
         pRoot25.setOnPreferenceClickListener(this);
         pNoUpdate.setOnPreferenceClickListener(this);
 
@@ -177,6 +179,7 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
 
         pRemoveSearch.setStatus(pref.getBoolean(XpStatus.KEY_REMOVESEARCHBAR, false));
         pMinusScreen.setStatus(pref.getBoolean(XpStatus.KEY_MINUS_SCREEN, false));
+        pKeepMtz.setStatus(pref.getBoolean(XpStatus.KEY_KEEP_MTZ, false));
         pRoot25.setStatus(pref.getBoolean(XpStatus.KEY_ROOTCRACK, false));
         pCoreCrack.setStatus(pref.getBoolean(XpStatus.KEY_CORECRACK, false));
         pNoUpdate.setStatus(pref.getBoolean(XpStatus.KEY_NOUPDATE, false));
@@ -209,12 +212,14 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
             pTheme.setEnabled(isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected());
             pRemoveSearch.setEnabled(isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected());
             pMinusScreen.setEnabled(isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected());
+            pKeepMtz.setEnabled(isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected());
             pRoot25.setEnabled(isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected());
             pCoreCrack.setEnabled(XpStatus.isEnable() && !DeviceAPI.isRejected());
         } else {
             pTheme.setEnabled(isMIUI && XpStatus.isEnable());
             pRemoveSearch.setEnabled(isMIUI && XpStatus.isEnable());
             pMinusScreen.setEnabled(isMIUI && XpStatus.isEnable());
+            pKeepMtz.setEnabled(isMIUI && XpStatus.isEnable());
             pRoot25.setEnabled(isMIUI && XpStatus.isEnable());
             pCoreCrack.setEnabled(XpStatus.isEnable());
         }
@@ -294,6 +299,10 @@ public class MainFragment extends BasePreferenceFragment implements Preference.O
         } else if (prefKey.equals(getString(R.string.id_minus_screen))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_MINUS_SCREEN, ex.getStatus()).apply();
+            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
+        } else if (prefKey.equals(getString(R.string.id_keep_mtz))) {
+            ex.setStatus(!ex.getStatus());
+            editor.putBoolean(XpStatus.KEY_KEEP_MTZ, ex.getStatus()).apply();
             DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_root25))) {
             ex.setStatus(!ex.getStatus());

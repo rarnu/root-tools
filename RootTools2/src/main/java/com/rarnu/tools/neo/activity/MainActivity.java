@@ -25,7 +25,7 @@ public class MainActivity extends BaseActivity {
         UIUtils.initDisplayMetrics(this, getWindowManager(), false);
         super.onCreate(savedInstanceState);
         pref = getSharedPreferences(XpStatus.PREF, Build.VERSION.SDK_INT < 24 ? 1 : 0);
-        XpStatus.mode = pref.getBoolean(XpStatus.KEY_WORK_MODE, true) ? XpStatus.Mode.NDK : XpStatus.Mode.JVM;
+        XpStatus.mode = pref.getBoolean(XpStatus.KEY_WORK_MODE, false) ? XpStatus.Mode.NDK : XpStatus.Mode.JVM;
 
         DeviceAPI.setRejected(!DeviceAPI.mount());
         DeviceAPI.setSystemRW(DeviceAPI.isSystemRW());

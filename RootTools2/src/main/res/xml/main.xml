@@ -79,6 +79,12 @@
                 pref:showSwitch="true"
                 pref:showIcon="false"/>
         <com.rarnu.tools.neo.comp.PreferenceEx
+                android:key="@string/id_keep_mtz"
+                android:title="@string/miui_keep_mtz"
+                android:summary="@string/miui_summary_keep_mtz"
+                pref:showSwitch="true"
+                pref:showIcon="false"/>
+        <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_root25"
                 android:summary="@string/miui_summary_root25"
                 android:title="@string/miui_root25"
