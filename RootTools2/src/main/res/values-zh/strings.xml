@@ -58,6 +58,19 @@
     <string name="settings_adchoose_detail">详细选择模式，可以按应用选择是否去除广告</string>
     <string name="settings_deep_clean">深度清理</string>
 
+    <string name="app_weather">天气</string>
+    <string name="app_music">音我</string>
+    <string name="app_video">视频</string>
+    <string name="app_searchbox">搜索框</string>
+    <string name="app_mms">短信</string>
+    <string name="app_fileexplorer">文件管理器</string>
+    <string name="app_download">下载</string>
+    <string name="app_cleanmaster">安全中心</string>
+    <string name="app_calendar">日历</string>
+    <string name="app_browser">浏览器</string>
+    <string name="app_system">系统</string>
+    <string name="app_thememanager">主题</string>
+
     <string name="view_loading">正在努力加载, 请稍候...</string>
     <string name="view_activity">Activity</string>
     <string name="view_service">Service</string>

@@ -13,6 +13,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Method;
+import java.util.List;
 
 /**
  * Created by rarnu on 11/18/16.
@@ -66,6 +67,23 @@ public class FuckMusic {
                 vThis.setLayoutParams(lp);
             }
         });
+
+        Class<?> clsOnQualitySelectedListener = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.vip.DownloadVipHelper$OnQualitySelectedListener");
+        final Class<?> clsResult = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.music.model.Result");
+        if (clsOnQualitySelectedListener != null && clsResult != null) {
+            XpUtils.findAndHookMethod("com.miui.player.vip.DownloadVipHelper", loadPackageParam.classLoader, "handleBatchDownloadPermission", Activity.class, List.class, int.class, boolean.class, clsOnQualitySelectedListener, clsResult, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    Object oResult = param.args[5];
+                    Field fErrorCode = clsResult.getDeclaredField("mErrorCode");
+                    fErrorCode.setAccessible(true);
+                    fErrorCode.setInt(oResult, 1);
+                }
+            });
+        }
+
+        XpUtils.findAndHookMethod("com.xiaomi.music.online.model.BatchDownloadPermission", loadPackageParam.classLoader, "allDownloadAllowed", XC_MethodReplacement.returnConstant(true));
+
 //        Class<?> clsDisplayItem = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.display.model.DisplayItem");
 //        if (clsDisplayItem != null) {
 //            XpUtils.findAndHookMethod("com.miui.player.display.view.cell.BannerAdItemCell", loadPackageParam.classLoader, "onBindItem", clsDisplayItem, int.class, new XC_MethodHook() {

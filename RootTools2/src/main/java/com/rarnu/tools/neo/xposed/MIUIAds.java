@@ -92,12 +92,17 @@ public class MIUIAds implements IXposedHookLoadPackage, IXposedHookInitPackageRe
             return;
         }
 
-
         if (paramLoadPackageParam.packageName.equals("com.android.browser")) {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_BROWSER, false)) {
                 FuckBrowser.fuckBrowser(paramLoadPackageParam);
             }
             return;
+        }
+
+        if (paramLoadPackageParam.packageName.equals("com.android.thememanager")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)) {
+                FuckThemeManager.fuckThemeManager(paramLoadPackageParam);
+            }
         }
     }
 

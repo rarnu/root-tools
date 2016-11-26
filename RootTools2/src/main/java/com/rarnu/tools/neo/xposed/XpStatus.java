@@ -34,6 +34,7 @@ public class XpStatus {
     public static final String KEY_AD_CLEANMASTER = "fuck_cleanmaster";
     public static final String KEY_AD_CALENDAR = "fuck_calendar";
     public static final String KEY_AD_BROWSER = "fuck_browser";
+    public static final String KEY_AD_THEMEMANAGER = "fuck_thememanager";
     public static final String KEY_AD_SYSTEM = "fuck_system";
 
     public static boolean canWriteSdcard = false;

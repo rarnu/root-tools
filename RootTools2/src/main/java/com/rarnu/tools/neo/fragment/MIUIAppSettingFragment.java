@@ -16,7 +16,7 @@ import com.rarnu.tools.neo.xposed.XpStatus;
  */
 public class MIUIAppSettingFragment extends BasePreferenceFragment implements Preference.OnPreferenceClickListener {
 
-    private PreferenceEx pBrowser, pCalendar, pCleanMaster, pDownload, pFileExplorer, pMms, pMusic, pSearchBox, pVideo, pWeather, pSystem;
+    private PreferenceEx pBrowser, pCalendar, pCleanMaster, pDownload, pFileExplorer, pMms, pMusic, pSearchBox, pVideo, pWeather, pTheme, pSystem;
     private SharedPreferences pref = null;
     private SharedPreferences.Editor editor = null;
 
@@ -44,6 +44,7 @@ public class MIUIAppSettingFragment extends BasePreferenceFragment implements Pr
         pSearchBox = findPref(R.string.id_app_searchbox);
         pVideo = findPref(R.string.id_app_video);
         pWeather = findPref(R.string.id_app_weather);
+        pTheme = findPref(R.string.id_app_thememanager);
         pSystem = findPref(R.string.id_app_system);
     }
 
@@ -63,6 +64,7 @@ public class MIUIAppSettingFragment extends BasePreferenceFragment implements Pr
         pSearchBox.setOnPreferenceClickListener(this);
         pVideo.setOnPreferenceClickListener(this);
         pWeather.setOnPreferenceClickListener(this);
+        pTheme.setOnPreferenceClickListener(this);
         pSystem.setOnPreferenceClickListener(this);
     }
 
@@ -78,6 +80,7 @@ public class MIUIAppSettingFragment extends BasePreferenceFragment implements Pr
         pSearchBox.setStatus(pref.getBoolean(XpStatus.KEY_AD_SEARCHBOX, false));
         pVideo.setStatus(pref.getBoolean(XpStatus.KEY_AD_VIDEO, false));
         pWeather.setStatus(pref.getBoolean(XpStatus.KEY_AD_WEATHER, false));
+        pTheme.setStatus(pref.getBoolean(XpStatus.KEY_AD_THEMEMANAGER, false));
         pSystem.setStatus(pref.getBoolean(XpStatus.KEY_AD_SYSTEM, false));
     }
 
@@ -149,6 +152,10 @@ public class MIUIAppSettingFragment extends BasePreferenceFragment implements Pr
         } else if (prefKey.equals(getString(R.string.id_app_weather))) {
             ex.setStatus(!ex.getStatus());
             editor.putBoolean(XpStatus.KEY_AD_WEATHER, ex.getStatus()).apply();
+            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
+        } else if (prefKey.equals(getString(R.string.id_app_thememanager))) {
+            ex.setStatus(!ex.getStatus());
+            editor.putBoolean(XpStatus.KEY_AD_THEMEMANAGER, ex.getStatus()).apply();
             DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, getContext().getPackageName());
         } else if (prefKey.equals(getString(R.string.id_app_system))) {
             ex.setStatus(!ex.getStatus());

@@ -54,6 +54,11 @@
             pref:showSwitch="true"
             pref:showIcon="false"/>
     <com.rarnu.tools.neo.comp.PreferenceEx
+            android:key="@string/id_app_thememanager"
+            android:title="@string/app_thememanager"
+            pref:showIcon="false"
+            pref:showSwitch="true"/>
+    <com.rarnu.tools.neo.comp.PreferenceEx
             android:key="@string/id_app_system"
             android:title="@string/app_system"
             pref:showSwitch="true"
