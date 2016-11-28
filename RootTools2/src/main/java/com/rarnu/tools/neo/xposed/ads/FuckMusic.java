@@ -20,7 +20,7 @@ import java.util.List;
  */
 public class FuckMusic {
 
-    public static void fuckMusic(XC_LoadPackage.LoadPackageParam loadPackageParam) {
+    public static void fuckMusic(final XC_LoadPackage.LoadPackageParam loadPackageParam) {
         Class<?> clsListener = XpUtils.findClass(loadPackageParam.classLoader, "com.android.volley.Response$Listener");
         Class<?> clsErrorListener = XpUtils.findClass(loadPackageParam.classLoader, "com.android.volley.Response$ErrorListener");
         final Class<?> clsAdInfo = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.util.AdUtils$AdInfo");
@@ -68,7 +68,11 @@ public class FuckMusic {
             }
         });
 
-        Class<?> clsOnQualitySelectedListener = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.vip.DownloadVipHelper$OnQualitySelectedListener");
+        // try to remove copy right validation, removed.
+
+        /*
+
+        final Class<?> clsOnQualitySelectedListener = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.vip.DownloadVipHelper$OnQualitySelectedListener");
         final Class<?> clsResult = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.music.model.Result");
         if (clsOnQualitySelectedListener != null && clsResult != null) {
             XpUtils.findAndHookMethod("com.miui.player.vip.DownloadVipHelper", loadPackageParam.classLoader, "handleBatchDownloadPermission", Activity.class, List.class, int.class, boolean.class, clsOnQualitySelectedListener, clsResult, new XC_MethodHook() {
@@ -82,20 +86,59 @@ public class FuckMusic {
             });
         }
 
+        final Class<?> clsDownloadOne = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.download.MusicDownloader$DownloadOne");
+        if (clsOnQualitySelectedListener != null && clsResult != null && clsDownloadOne != null) {
+            XpUtils.findAndHookMethod("com.miui.player.vip.DownloadVipHelper", loadPackageParam.classLoader, "handleMusicUrl", Activity.class, clsDownloadOne, int.class, boolean.class, clsOnQualitySelectedListener, clsResult, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    Object oResult = param.args[5];
+                    Field fErrorCode = clsResult.getDeclaredField("mErrorCode");
+                    fErrorCode.setAccessible(true);
+                    fErrorCode.setInt(oResult, 1);
+                }
+            });
+        }
+
+        // TODO: to be removed....
+        if (clsDownloadOne != null) {
+            XpUtils.findAndHookMethod("com.miui.player.vip.DownloadVipHelper", loadPackageParam.classLoader, "getMusicUrl", Activity.class, clsDownloadOne, int.class, new XC_MethodHook() {
+                @Override
+                protected void beforeHookedMethod(MethodHookParam param) throws Throwable {
+                    Object oDownloadOne = param.args[1];
+                    Field fValue = clsDownloadOne.getDeclaredField("mValue");
+                    fValue.setAccessible(true);
+                    Object oValue = fValue.get(oDownloadOne);
+                    Field fGlobalId = oValue.getClass().getDeclaredField("mGlobalId");
+                    fGlobalId.setAccessible(true);
+                    String globalId = (String) fGlobalId.get(oValue);
+                    try {
+                        Class<?> clsEngineHelper = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.util.EngineHelper");
+                        Method mGet = clsEngineHelper.getDeclaredMethod("get", Context.class);
+                        Object oMusicEngine = mGet.invoke(null, param.args[0]);
+                        Method mGetOnlineEngine = oMusicEngine.getClass().getDeclaredMethod("getOnlineEngine");
+                        Object oOnlineEngine = mGetOnlineEngine.invoke(oMusicEngine);
+                        Method mGetMusicLink = oOnlineEngine.getClass().getDeclaredMethod("getMusicLink", Context.class, String.class, int.class, int.class);
+
+                        Class<?> clsGlobalId = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.content.GlobalIds");
+                        Method mGetId = clsGlobalId.getDeclaredMethod("getId", String.class);
+                        String newGlobalId = (String) mGetId.invoke(null, globalId);
+
+                        Class<?> clsQualityUtils = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.util.QualityUtils");
+                        Method mToBitrate = clsQualityUtils.getDeclaredMethod("toBitrate", int.class);
+                        int bitrate = (int) mToBitrate.invoke(null, param.args[2]);
+
+                        Object oResult = mGetMusicLink.invoke(oOnlineEngine, param.args[0], newGlobalId, bitrate, 1);
+                        XposedBridge.log(String.format("getMusicUrl => %s", oResult.toString()));
+
+                    } catch (Exception e) {
+
+                    }
+                }
+            });
+        }
         XpUtils.findAndHookMethod("com.xiaomi.music.online.model.BatchDownloadPermission", loadPackageParam.classLoader, "allDownloadAllowed", XC_MethodReplacement.returnConstant(true));
 
-//        Class<?> clsDisplayItem = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.display.model.DisplayItem");
-//        if (clsDisplayItem != null) {
-//            XpUtils.findAndHookMethod("com.miui.player.display.view.cell.BannerAdItemCell", loadPackageParam.classLoader, "onBindItem", clsDisplayItem, int.class, new XC_MethodHook() {
-//                @Override
-//                protected void afterHookedMethod(MethodHookParam param) throws Throwable {
-//                    XposedBridge.log("BannerAdItemCell onBindItem");
-//                    Method fRemove = param.thisObject.getClass().getSuperclass().getDeclaredMethod("remove");
-//                    fRemove.setAccessible(true);
-//                    fRemove.invoke(param.thisObject);
-//                }
-//            });
-//        }
+        */
     }
 
 }
