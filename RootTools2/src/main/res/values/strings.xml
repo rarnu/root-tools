@@ -5,7 +5,6 @@
 
     <string name="freeze_name">Freeze Apps</string>
     <string name="component_name">Component Management</string>
-    <string name="terminal_name">Terminal</string>
     <string name="clean_name">System Clean</string>
     <string name="fake_device_name">Build.prop</string>
     <string name="about_name">About</string>
@@ -19,7 +18,6 @@
     <string name="main_memory">Memory Clean[root]</string>
     <string name="main_corecrack">Core Crack[xposed]</string>
     <string name="main_fake_device">Build.prop[root]</string>
-    <string name="main_terminal">Terminal</string>
 
     <string name="main_summary_freeze">Freeze the apps you do not need</string>
     <string name="main_summary_component">Management of components in apps and services can be disabled</string>
@@ -27,7 +25,6 @@
     <string name="main_summary_memory">Clean memory for making device more fluid</string>
     <string name="main_summary_corecrack">Core crack for override apps with different signature</string>
     <string name="main_summary_fake_device"></string>
-    <string name="main_summary_terminal"></string>
 
     <string name="category_miui">MIUI</string>
     <string name="miui_theme">Theme Crack[xposed]</string>

@@ -25,8 +25,8 @@ public class HostsUtils {
         }
 
         try {
-            DeviceAPI.mount();
-            ret = DeviceAPI.writeFile(ctx, "/etc/hosts", host, 755);
+            DeviceAPI.INSTANCE.mount();
+            ret = DeviceAPI.INSTANCE.writeFile(ctx, "/etc/hosts", host, 755);
         } catch (Throwable th) {
         }
         return ret;

@@ -1,13 +1,16 @@
 buildscript {
+    ext.kotlin_version = '1.0.3'
     repositories {
         jcenter()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.1.2'
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
 apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
 
 android {
     compileSdkVersion 24
@@ -45,18 +48,23 @@ android {
     lintOptions {
         abortOnError false
     }
+    sourceSets {
+        main.java.srcDirs += 'src/main/kotlin'
+    }
 }
 
 repositories {
     flatDir {
         dirs 'aar'
     }
+    mavenCentral()
 }
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile(name: 'Emulator-release', ext: 'aar')
+    // compile(name: 'Emulator-release', ext: 'aar')
     provided fileTree(include: ['*.jar'], dir: 'xposed')
+    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }
 
 project.gradle.startParameter.excludedTaskNames.add('lint')

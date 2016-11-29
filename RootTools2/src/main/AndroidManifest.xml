@@ -45,10 +45,6 @@
                 android:screenOrientation="portrait">
         </activity>
         <activity
-                android:name=".activity.TerminalActivity"
-                android:screenOrientation="portrait">
-        </activity>
-        <activity
                 android:name=".activity.CleanActivity"
                 android:screenOrientation="portrait">
         </activity>

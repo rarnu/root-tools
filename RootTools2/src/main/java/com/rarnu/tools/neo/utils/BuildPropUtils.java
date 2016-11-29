@@ -22,7 +22,7 @@ public class BuildPropUtils {
                     if (f.trim().equals("") || f.trim().startsWith("#") || !f.trim().contains("=")) {
                         continue;
                     }
-                    list.add(BuildPropInfo.parse(f));
+                    list.add(BuildPropInfo.Companion.parse(f));
                 }
             }
         } catch (Exception e) {
@@ -36,11 +36,11 @@ public class BuildPropUtils {
         boolean ret = false;
         String str = "";
         for (BuildPropInfo item : list) {
-            str += String.format("%s=%s\n", item.buildName, item.buildValue);
+            str += String.format("%s=%s\n", item.getBuildName(), item.getBuildValue());
         }
         try {
-            DeviceAPI.mount();
-            ret = DeviceAPI.writeFile(ctx, PATH_BUILD_PROP, str, 755);
+            DeviceAPI.INSTANCE.mount();
+            ret = DeviceAPI.INSTANCE.writeFile(ctx, PATH_BUILD_PROP, str, 755);
         } catch (Exception e) {
 
         }

@@ -42,12 +42,6 @@
                 android:title="@string/main_fake_device"
                 pref:showSwitch="false"
                 pref:showIcon="false"/>
-        <com.rarnu.tools.neo.comp.PreferenceEx
-                android:key="@string/id_terminal"
-                android:summary="@string/main_summary_terminal"
-                android:title="@string/main_terminal"
-                pref:showSwitch="false"
-                pref:showIcon="false"/>
 
     </PreferenceCategory>
 

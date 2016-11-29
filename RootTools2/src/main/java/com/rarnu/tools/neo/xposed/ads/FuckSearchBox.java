@@ -13,13 +13,13 @@ import java.util.List;
 public class FuckSearchBox {
 
     public static void fuckSearchBox(XC_LoadPackage.LoadPackageParam loadPackageParam) {
-        XpUtils.findAndHookMethod("com.android.quicksearchbox.ui.LocalListView", loadPackageParam.classLoader, "updateHotQuery", List.class, int.class, new XC_MethodReplacement() {
+        XpUtils.INSTANCE.findAndHookMethod("com.android.quicksearchbox.ui.LocalListView", loadPackageParam.classLoader, "updateHotQuery", List.class, int.class, new XC_MethodReplacement() {
             @Override
             protected Object replaceHookedMethod(MethodHookParam param) throws Throwable {
                 return null;
             }
         });
-        XpUtils.findAndHookMethod("com.android.quicksearchbox.util.HotWordsUtil", loadPackageParam.classLoader, "setHotQueryView", "com.android.quicksearchbox.ui.HotQueryView", new XC_MethodHook() {
+        XpUtils.INSTANCE.findAndHookMethod("com.android.quicksearchbox.util.HotWordsUtil", loadPackageParam.classLoader, "setHotQueryView", "com.android.quicksearchbox.ui.HotQueryView", new XC_MethodHook() {
             protected void beforeHookedMethod(MethodHookParam paramAnonymousMethodHookParam) throws Throwable {
                 paramAnonymousMethodHookParam.setResult(null);
             }

@@ -42,8 +42,8 @@ public class CleanFragment extends BaseFragment {
 
     @Override
     public void initComponents() {
-        svClean = (ScrollView) innerView.findViewById(R.id.svClean);
-        tvClean = (TextView) innerView.findViewById(R.id.tvClean);
+        svClean = (ScrollView) getInnerView().findViewById(R.id.svClean);
+        tvClean = (TextView) getInnerView().findViewById(R.id.tvClean);
     }
 
     @Override
@@ -120,8 +120,8 @@ public class CleanFragment extends BaseFragment {
                 }
                 File fBusybox = new File(fDir, busyboxAsset);
                 FileUtils.copyAssetFile(getContext(), busyboxAsset, fDir.getAbsolutePath());
-                DeviceAPI.mount();
-                boolean ret = DeviceAPI.catFile(fBusybox.getAbsolutePath(), "/system/xbin/busybox", 755);
+                DeviceAPI.INSTANCE.mount();
+                boolean ret = DeviceAPI.INSTANCE.catFile(fBusybox.getAbsolutePath(), "/system/xbin/busybox", 755);
                 Message msg = new Message();
                 msg.what = ret ? 1 : 0;
                 hEnvReady.sendMessage(msg);
@@ -176,7 +176,7 @@ public class CleanFragment extends BaseFragment {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                DeviceAPI.systemClean(getContext());
+                DeviceAPI.INSTANCE.systemClean(getContext());
             }
         }).start();
     }
@@ -187,9 +187,9 @@ public class CleanFragment extends BaseFragment {
             Intent inCallback = (Intent) msg.obj;
             int status = inCallback.getIntExtra(KEY_STATUS, -1);
             String data = inCallback.getStringExtra(KEY_DATA);
-            if (status == DeviceAPI.STATUS_PROGRESS || status == DeviceAPI.STATUS_ERROR) {
+            if (status == DeviceAPI.INSTANCE.getSTATUS_PROGRESS() || status == DeviceAPI.INSTANCE.getSTATUS_ERROR()) {
                 tvClean.append(data + "\n");
-            } else if (status == DeviceAPI.STATUS_COMPLETE) {
+            } else if (status == DeviceAPI.INSTANCE.getSTATUS_COMPLETE()) {
                 tvClean.append(data + "\n");
                 isCleaning = false;
                 miRun.setEnabled(true);

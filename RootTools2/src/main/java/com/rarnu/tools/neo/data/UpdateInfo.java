@@ -46,7 +46,7 @@ public class UpdateInfo {
         new Thread(new Runnable() {
             @Override
             public void run() {
-                String jsonStr = API.getUpdateInfo();
+                String jsonStr = API.INSTANCE.getUpdateInfo();
                 try {
                     JSONObject json = new JSONObject(jsonStr);
                     versionCode = json.getInt("versionCode");

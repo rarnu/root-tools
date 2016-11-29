@@ -34,9 +34,9 @@ public class ComponentFragment extends BaseFragment implements AdapterView.OnIte
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
         AppInfo item = adapter.getFiltedItem(position);
         Intent inDetail = new Intent(getContext(), ComponentDetailActivity.class);
-        inDetail.putExtra("pkg", item.packageName);
-        inDetail.putExtra("versionCode", item.versionCode);
-        inDetail.putExtra("name", item.name);
+        inDetail.putExtra("pkg", item.getPackageName());
+        inDetail.putExtra("versionCode", item.getVersionCode());
+        inDetail.putExtra("name", item.getName());
         startActivity(inDetail);
 
     }
@@ -64,8 +64,8 @@ public class ComponentFragment extends BaseFragment implements AdapterView.OnIte
 
     @Override
     public void initComponents() {
-        lvApp = (ListView) innerView.findViewById(R.id.lvApp);
-        loading = (LoadingView) innerView.findViewById(R.id.loading);
+        lvApp = (ListView) getInnerView().findViewById(R.id.lvApp);
+        loading = (LoadingView) getInnerView().findViewById(R.id.loading);
         list = new ArrayList<>();
         adapter = new AppAdapter(getContext(), list);
         adapter.setShowSwitch(false);

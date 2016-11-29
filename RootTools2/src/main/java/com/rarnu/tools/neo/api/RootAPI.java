@@ -15,8 +15,8 @@ import java.util.List;
  */
 public class RootAPI {
 
-    public static boolean isRejected = false;
-    public static boolean isSystemRW = false;
+    public static boolean rejected = false;
+    public static boolean systemRW = false;
 
     private static String _DU_CMD = "";
 
@@ -97,7 +97,7 @@ public class RootAPI {
         totalSize += cleanCache(ctx);
         totalSize += cleanANR(ctx);
         totalSize += cleanART(ctx);
-        cleanCallback(ctx, DeviceAPI.STATUS_COMPLETE, String.format("Total Cleaned: %s", getReadableFileSize(totalSize)));
+        cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_COMPLETE(), String.format("Total Cleaned: %s", getReadableFileSize(totalSize)));
     }
 
     public static boolean writeFile(Context ctx, String filePath, String text, int perm) {
@@ -382,7 +382,7 @@ public class RootAPI {
         long l = 0L;
         CacheSize anrSize =getCacheSize("/data/anr/");
         if (deleteAnrLog()) {
-            cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, String.format("Clean ANR (%s)", anrSize.sizeReadable));
+            cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_PROGRESS(), String.format("Clean ANR (%s)", anrSize.sizeReadable));
             l = anrSize.size;
         }
         return l;
@@ -409,12 +409,12 @@ public class RootAPI {
         long totalSize =0L;
         for (String s: listArm) {
             if (!s.trim().equals("")) {
-                cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, String.format("Scan %s", s));
+                cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_PROGRESS(), String.format("Scan %s", s));
                 if (!isCachedAppInstalled(listInstalled, s)) {
                     String tmpPath = "/data/dalvik-cache/arm/" + s;
                     CacheSize size = getCacheSize(tmpPath);
                     if (deleteCache(tmpPath)) {
-                        cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, String.format("Clean %s(%s)", s, size.sizeReadable));
+                        cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_PROGRESS(), String.format("Clean %s(%s)", s, size.sizeReadable));
                         totalSize += size.size;
                     }
                 }
@@ -422,12 +422,12 @@ public class RootAPI {
         }
         for (String s: listArm64) {
             if (!s.trim().equals("")) {
-                cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, String.format("Scan %s", s));
+                cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_PROGRESS(), String.format("Scan %s", s));
                 if (!isCachedAppInstalled(listInstalled, s)) {
                     String tmpPath = "/data/dalvik-cache/arm64/" + s;
                     CacheSize size = getCacheSize(tmpPath);
                     if (deleteCache(tmpPath)) {
-                        cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, String.format("Clean %s(%s)", s, size.sizeReadable));
+                        cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_PROGRESS(), String.format("Clean %s(%s)", s, size.sizeReadable));
                         totalSize += size.size;
                     }
                 }
@@ -435,12 +435,12 @@ public class RootAPI {
         }
         for (String s: listProfile) {
             if (!s.trim().equals("")) {
-                cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, String.format("Scan %s", s));
+                cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_PROGRESS(), String.format("Scan %s", s));
                 if (!isProfileInstalled(listAllInstalled, s)) {
                     String tmpPath = "/data/dalvik-cache/profiles/" + s;
                     CacheSize size = getCacheSize(tmpPath);
                     if (deleteCache(tmpPath)) {
-                        cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, String.format("Clean %s(%s)", s, size.sizeReadable));
+                        cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_PROGRESS(), String.format("Clean %s(%s)", s, size.sizeReadable));
                         totalSize += size.size;
                     }
                 }
@@ -454,16 +454,16 @@ public class RootAPI {
         final String CMD_FIND_CACHE = "find /data/data/ -type dir -name \"cache\"";
         RootUtils.CommandResult ret = RootUtils.runCommand(CMD_FIND_CACHE,true);
         if (!ret.error.equals("")) {
-            cleanCallback(ctx, DeviceAPI.STATUS_ERROR, "Can not clean Cache");
+            cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_ERROR(), "Can not clean Cache");
             return 0;
         }
         String[] items = ret.result.split("\n");
         for (String s: items) {
-            cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, String.format("Scan %s", s));
+            cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_PROGRESS(), String.format("Scan %s", s));
             CacheSize cs = getCacheSize(s);
             if (cs.size > 16) {
                 if (deleteCache(s)) {
-                    cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, String.format("Clean %s(%s)", s, cs.sizeReadable));
+                    cleanCallback(ctx, DeviceAPI.INSTANCE.getSTATUS_PROGRESS(), String.format("Clean %s(%s)", s, cs.sizeReadable));
                     totalSize += cs.size;
                 }
             }
@@ -476,7 +476,7 @@ public class RootAPI {
     }
 
     public static void cleanCallback(Context ctx, int status, String data) {
-        DeviceAPI.cleanCallback(ctx, status, data);
+        DeviceAPI.INSTANCE.cleanCallback(ctx, status, data);
     }
 
 

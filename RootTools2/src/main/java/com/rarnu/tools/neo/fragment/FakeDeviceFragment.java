@@ -48,12 +48,12 @@ public class FakeDeviceFragment extends BaseFragment implements SearchView.OnQue
 
     @Override
     public void initComponents() {
-        lvProp = (ListView) innerView.findViewById(R.id.lvProp);
+        lvProp = (ListView) getInnerView().findViewById(R.id.lvProp);
         list = new ArrayList<>();
         adapter = new BuildPropAdapter(getContext(), list);
         lvProp.setAdapter(adapter);
         loader = new BuildPropLoader(getContext());
-        loading = (LoadingView) innerView.findViewById(R.id.loading);
+        loading = (LoadingView) getInnerView().findViewById(R.id.loading);
     }
 
     @Override

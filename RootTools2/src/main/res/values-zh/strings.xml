@@ -5,7 +5,6 @@
 
     <string name="freeze_name">冻结应用</string>
     <string name="component_name">组件管理</string>
-    <string name="terminal_name">终端</string>
     <string name="clean_name">清理系统</string>
     <string name="fake_device_name">模拟设备</string>
     <string name="about_name">关于本软件</string>
@@ -18,7 +17,6 @@
     <string name="main_memory">清理内存[root]</string>
     <string name="main_corecrack">核心校验破解[xposed]</string>
     <string name="main_fake_device">模拟设备[root]</string>
-    <string name="main_terminal">终端模拟器</string>
 
     <string name="main_summary_freeze">冻结不想要的系统应用</string>
     <string name="main_summary_component">对程序内的组件进行管理, 可以禁用服务等</string>
@@ -26,7 +24,6 @@
     <string name="main_summary_memory">深度清理内存, 让手机回到刚开机的状态</string>
     <string name="main_summary_corecrack">破解签名校验, 允许不同签名覆盖, 无签名安装</string>
     <string name="main_summary_fake_device">修改 build.prop 以绕过某些应用的设备校验</string>
-    <string name="main_summary_terminal"></string>
 
     <string name="category_miui">MIUI</string>
     <string name="miui_theme">主题免费[xposed]</string>

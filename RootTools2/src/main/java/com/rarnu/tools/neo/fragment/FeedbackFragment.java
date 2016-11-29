@@ -53,12 +53,12 @@ public class FeedbackFragment extends BaseFragment implements View.OnClickListen
 
     @Override
     public void initComponents() {
-        etNickname = (TextView) innerView.findViewById(R.id.etNickname);
-        etComment = (TextView) innerView.findViewById(R.id.etComment);
+        etNickname = (TextView) getInnerView().findViewById(R.id.etNickname);
+        etComment = (TextView) getInnerView().findViewById(R.id.etComment);
         for (int i = 0; i < 5; i++) {
-            ph[i] = (RelativeLayout) innerView.findViewById(getResources().getIdentifier("ph" + (i + 1), "id", getContext().getPackageName()));
-            imgP[i] = (ImageView) innerView.findViewById(getResources().getIdentifier("imgP" + (i + 1), "id", getContext().getPackageName()));
-            tvAdd[i] = (TextView) innerView.findViewById(getResources().getIdentifier("tvAdd" + (i + 1), "id", getContext().getPackageName()));
+            ph[i] = (RelativeLayout) getInnerView().findViewById(getResources().getIdentifier("ph" + (i + 1), "id", getContext().getPackageName()));
+            imgP[i] = (ImageView) getInnerView().findViewById(getResources().getIdentifier("imgP" + (i + 1), "id", getContext().getPackageName()));
+            tvAdd[i] = (TextView) getInnerView().findViewById(getResources().getIdentifier("tvAdd" + (i + 1), "id", getContext().getPackageName()));
         }
         sp = PreferenceManager.getDefaultSharedPreferences(getContext());
     }
@@ -135,7 +135,7 @@ public class FeedbackFragment extends BaseFragment implements View.OnClickListen
             @Override
             public void run() {
                 // send feedback async
-                boolean ret = API.sendFeedback(nickname, comment, path);
+                boolean ret = API.INSTANCE.sendFeedback(nickname, comment, path);
                 hFeedback.sendEmptyMessage(ret ? 0 : 1);
             }
         }).start();

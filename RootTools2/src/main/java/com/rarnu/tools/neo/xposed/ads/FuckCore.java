@@ -10,7 +10,7 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage;
 public class FuckCore {
 
     public static void fuckCore(XC_LoadPackage.LoadPackageParam loadPackageParam) {
-        XpUtils.findAndHookMethod("miui.os.SystemProperties", loadPackageParam.classLoader, "get", String.class, String.class, new XC_MethodHook() {
+        XpUtils.INSTANCE.findAndHookMethod("miui.os.SystemProperties", loadPackageParam.classLoader, "get", String.class, String.class, new XC_MethodHook() {
 
             protected void afterHookedMethod(MethodHookParam paramAnonymousMethodHookParam) throws Throwable {
                 if (paramAnonymousMethodHookParam.args[0].toString().equals("ro.product.mod_device")) {

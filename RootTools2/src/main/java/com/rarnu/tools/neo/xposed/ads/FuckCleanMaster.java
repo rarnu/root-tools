@@ -13,13 +13,13 @@ import java.util.Map;
 public class FuckCleanMaster {
 
     public static void fuckCleanMaster(XC_LoadPackage.LoadPackageParam loadPackageParam) {
-        XpUtils.findAndHookMethod("com.miui.optimizecenter.result.DataModel", loadPackageParam.classLoader, "post", Map.class, XC_MethodReplacement.returnConstant(""));
-        XpUtils.findAndHookMethod("com.miui.optimizecenter.config.MiStat", loadPackageParam.classLoader, "getChannel", XC_MethodReplacement.returnConstant("international"));
-        Class<?> clsAdImageView = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.optimizecenter.widget.AdImageView");
-        Class<?> clsAdvertisement = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.optimizecenter.result.Advertisement");
+        XpUtils.INSTANCE.findAndHookMethod("com.miui.optimizecenter.result.DataModel", loadPackageParam.classLoader, "post", Map.class, XC_MethodReplacement.returnConstant(""));
+        XpUtils.INSTANCE.findAndHookMethod("com.miui.optimizecenter.config.MiStat", loadPackageParam.classLoader, "getChannel", XC_MethodReplacement.returnConstant("international"));
+        Class<?> clsAdImageView = XpUtils.INSTANCE.findClass(loadPackageParam.classLoader, "com.miui.optimizecenter.widget.AdImageView");
+        Class<?> clsAdvertisement = XpUtils.INSTANCE.findClass(loadPackageParam.classLoader, "com.miui.optimizecenter.result.Advertisement");
         if (clsAdImageView != null && clsAdvertisement != null) {
-            XpUtils.findAndHookMethod("com.miui.optimizecenter.result.CleanResultActivity", loadPackageParam.classLoader, "startAdCountdown", clsAdImageView, clsAdvertisement, XC_MethodReplacement.returnConstant(null));
-            XpUtils.findAndHookMethod("com.miui.optimizecenter.result.CleanResultActivity", loadPackageParam.classLoader, "addAdvertisementEvent", String.class, clsAdvertisement, XC_MethodReplacement.returnConstant(null));
+            XpUtils.INSTANCE.findAndHookMethod("com.miui.optimizecenter.result.CleanResultActivity", loadPackageParam.classLoader, "startAdCountdown", clsAdImageView, clsAdvertisement, XC_MethodReplacement.returnConstant(null));
+            XpUtils.INSTANCE.findAndHookMethod("com.miui.optimizecenter.result.CleanResultActivity", loadPackageParam.classLoader, "addAdvertisementEvent", String.class, clsAdvertisement, XC_MethodReplacement.returnConstant(null));
         }
     }
 
