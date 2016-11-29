@@ -6,7 +6,7 @@ import de.robv.android.xposed.callbacks.XC_InitPackageResources
 
 object XpUtils {
 
-    fun findAndHookMethod(clsName: String, loader: ClassLoader, method: String, vararg parameterTypesAndCallback: Any) {
+    fun findAndHookMethod(clsName: String, loader: ClassLoader, method: String, vararg parameterTypesAndCallback: Any?) {
         try {
             XposedHelpers.findAndHookMethod(clsName, loader, method, *parameterTypesAndCallback)
         } catch (th: Throwable) {
@@ -23,7 +23,7 @@ object XpUtils {
 
     }
 
-    fun findAndHookConstructor(clsName: String, loader: ClassLoader, vararg parameterTypesAndCallback: Any) {
+    fun findAndHookConstructor(clsName: String, loader: ClassLoader, vararg parameterTypesAndCallback: Any?) {
         try {
             XposedHelpers.findAndHookConstructor(clsName, loader, *parameterTypesAndCallback)
         } catch (th: Throwable) {
