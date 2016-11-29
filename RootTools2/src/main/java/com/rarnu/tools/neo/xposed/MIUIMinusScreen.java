@@ -15,9 +15,11 @@ public class MIUIMinusScreen implements IXposedHookLoadPackage {
         XSharedPreferences prefs = new XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF);
         prefs.makeWorldReadable();
         prefs.reload();
-        if (prefs.getBoolean(XpStatus.KEY_MINUS_SCREEN, false)) {
-            if (loadPackageParam.packageName.equals("com.miui.home")) {
+        if (loadPackageParam.packageName.equals("com.miui.home")) {
+            if (prefs.getBoolean(XpStatus.KEY_MINUS_SCREEN, false)) {
                 XpUtils.findAndHookMethod("com.miui.home.launcher.X", loadPackageParam.classLoader, "cl", XC_MethodReplacement.returnConstant(true));
+                XpUtils.findAndHookMethod("com.miui.home.launcher.DeviceConfig", loadPackageParam.classLoader, "needHideMinusScreen", XC_MethodReplacement.returnConstant(true));
+
             }
         }
     }

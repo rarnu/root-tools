@@ -11,8 +11,9 @@ public class MIUISearchBar implements IXposedHookInitPackageResources {
         XSharedPreferences prefs = new XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF);
         prefs.makeWorldReadable();
         prefs.reload();
-        if (prefs.getBoolean(XpStatus.KEY_REMOVESEARCHBAR, false)) {
-            if (paramInitPackageResourcesParam.packageName.equals("com.android.systemui")) {
+
+        if (paramInitPackageResourcesParam.packageName.equals("com.android.systemui")) {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVESEARCHBAR, false)) {
                 paramInitPackageResourcesParam.res.setReplacement(paramInitPackageResourcesParam.packageName, "bool", "config_show_statusbar_search", false);
             }
         }
