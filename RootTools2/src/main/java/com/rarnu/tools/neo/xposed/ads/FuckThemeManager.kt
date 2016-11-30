@@ -14,6 +14,5 @@ object FuckThemeManager {
         if (clsPageItem != null) {
             XpUtils.findAndHookMethod("com.android.thememanager.controller.online.PageItemViewConverter", loadPackageParam.classLoader, "buildAdView", clsPageItem, XC_MethodReplacement.returnConstant(null))
         }
-
     }
 }
