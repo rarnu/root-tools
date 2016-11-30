@@ -1,8 +1,6 @@
 package com.rarnu.tools.neo.fragment
 
 import android.app.AlertDialog
-import android.content.DialogInterface
-import android.content.Loader
 import android.os.Bundle
 import android.os.Handler
 import android.os.Message
@@ -20,8 +18,7 @@ import com.rarnu.tools.neo.base.BaseFragment
 import com.rarnu.tools.neo.comp.LoadingView
 import com.rarnu.tools.neo.data.AppInfo
 import com.rarnu.tools.neo.loader.AppLoader
-
-import java.util.ArrayList
+import kotlin.concurrent.thread
 
 class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, SearchView.OnQueryTextListener {
 
@@ -34,31 +31,25 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
     private var loading: LoadingView? = null
 
     override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-        val item = adapter!!.getFiltedItem(position)
+        val item = adapter?.getFiltedItem(position)
         threadChangeAppFreeze(item)
     }
 
-    override fun onQueryTextSubmit(query: String): Boolean {
-        return false
-    }
+    override fun onQueryTextSubmit(query: String): Boolean = false
 
     override fun onQueryTextChange(newText: String): Boolean {
-        adapter!!.filter(newText)
+        adapter?.filter(newText)
         return true
     }
 
-    override fun getBarTitle(): Int {
-        return R.string.freeze_name
-    }
+    override fun getBarTitle(): Int = R.string.freeze_name
 
-    override fun getCustomTitle(): String? {
-        return null
-    }
+    override fun getCustomTitle(): String? = null
 
     override fun initComponents() {
         lvApp = innerView?.findViewById(R.id.lvApp) as ListView?
         loading = innerView?.findViewById(R.id.loading) as LoadingView?
-        list = ArrayList<AppInfo>()
+        list = arrayListOf<AppInfo>()
         adapter = AppAdapter(context, list)
         adapter?.setShowSwitch(true)
         lvApp?.adapter = adapter
@@ -116,10 +107,10 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
         }
     }
 
-    private fun threadChangeAppFreeze(item: AppInfo) {
+    private fun threadChangeAppFreeze(item: AppInfo?) {
         lvApp?.isEnabled = false
-        Thread(Runnable {
-            val newStat = !item.isDisable
+        thread {
+            val newStat = !item!!.isDisable
             val ret = DeviceAPI.freezeApplication(item.packageName, newStat)
             if (ret) {
                 item.isDisable = newStat
@@ -128,7 +119,7 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
             msg.what = if (ret) 1 else 0
             msg.obj = item
             hFreeze.sendMessage(msg)
-        }).start()
+        }
     }
 
     private fun showDeleteAppDialog(item: AppInfo, isSystemRequired: Boolean) {
@@ -164,10 +155,10 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
 
     private fun doDeleteApp(item: AppInfo) {
         // delete app
-        Thread(Runnable {
-            val ret = DeviceAPI.deleteSystemApp(item.packageName!!)
+        thread {
+            val ret = DeviceAPI.deleteSystemApp(item.packageName)
             hDeleteApp.sendEmptyMessage(if (ret) 1 else 0)
-        }).start()
+        }
     }
 
     override fun onItemLongClick(parent: AdapterView<*>, view: View, position: Int, id: Long): Boolean {

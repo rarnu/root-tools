@@ -55,33 +55,33 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
     private fun findPref(prefId: Int): PreferenceEx = findPreference(getString(prefId)) as PreferenceEx
 
     override fun initEvents() {
-        pBrowser!!.onPreferenceClickListener = this
-        pCalendar!!.onPreferenceClickListener = this
-        pCleanMaster!!.onPreferenceClickListener = this
-        pDownload!!.onPreferenceClickListener = this
-        pFileExplorer!!.onPreferenceClickListener = this
-        pMms!!.onPreferenceClickListener = this
-        pMusic!!.onPreferenceClickListener = this
-        pSearchBox!!.onPreferenceClickListener = this
-        pVideo!!.onPreferenceClickListener = this
-        pWeather!!.onPreferenceClickListener = this
-        pTheme!!.onPreferenceClickListener = this
-        pSystem!!.onPreferenceClickListener = this
+        pBrowser?.onPreferenceClickListener = this
+        pCalendar?.onPreferenceClickListener = this
+        pCleanMaster?.onPreferenceClickListener = this
+        pDownload?.onPreferenceClickListener = this
+        pFileExplorer?.onPreferenceClickListener = this
+        pMms?.onPreferenceClickListener = this
+        pMusic?.onPreferenceClickListener = this
+        pSearchBox?.onPreferenceClickListener = this
+        pVideo?.onPreferenceClickListener = this
+        pWeather?.onPreferenceClickListener = this
+        pTheme?.onPreferenceClickListener = this
+        pSystem?.onPreferenceClickListener = this
     }
 
     override fun initLogic() {
-        pBrowser!!.status = pref!!.getBoolean(XpStatus.KEY_AD_BROWSER, false)
-        pCalendar!!.status = pref!!.getBoolean(XpStatus.KEY_AD_CALENDAR, false)
-        pCleanMaster!!.status = pref!!.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)
-        pDownload!!.status = pref!!.getBoolean(XpStatus.KEY_AD_DOWNLOAD, false)
-        pFileExplorer!!.status = pref!!.getBoolean(XpStatus.KEY_AD_FILEEXPLORER, false)
-        pMms!!.status = pref!!.getBoolean(XpStatus.KEY_AD_MMS, false)
-        pMusic!!.status = pref!!.getBoolean(XpStatus.KEY_AD_MUSIC, false)
-        pSearchBox!!.status = pref!!.getBoolean(XpStatus.KEY_AD_SEARCHBOX, false)
-        pVideo!!.status = pref!!.getBoolean(XpStatus.KEY_AD_VIDEO, false)
-        pWeather!!.status = pref!!.getBoolean(XpStatus.KEY_AD_WEATHER, false)
-        pTheme!!.status = pref!!.getBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)
-        pSystem!!.status = pref!!.getBoolean(XpStatus.KEY_AD_SYSTEM, false)
+        pBrowser?.status = pref!!.getBoolean(XpStatus.KEY_AD_BROWSER, false)
+        pCalendar?.status = pref!!.getBoolean(XpStatus.KEY_AD_CALENDAR, false)
+        pCleanMaster?.status = pref!!.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)
+        pDownload?.status = pref!!.getBoolean(XpStatus.KEY_AD_DOWNLOAD, false)
+        pFileExplorer?.status = pref!!.getBoolean(XpStatus.KEY_AD_FILEEXPLORER, false)
+        pMms?.status = pref!!.getBoolean(XpStatus.KEY_AD_MMS, false)
+        pMusic?.status = pref!!.getBoolean(XpStatus.KEY_AD_MUSIC, false)
+        pSearchBox?.status = pref!!.getBoolean(XpStatus.KEY_AD_SEARCHBOX, false)
+        pVideo?.status = pref!!.getBoolean(XpStatus.KEY_AD_VIDEO, false)
+        pWeather?.status = pref!!.getBoolean(XpStatus.KEY_AD_WEATHER, false)
+        pTheme?.status = pref!!.getBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)
+        pSystem?.status = pref!!.getBoolean(XpStatus.KEY_AD_SYSTEM, false)
     }
 
     override fun getFragmentLayoutResId(): Int = R.xml.miui_apps

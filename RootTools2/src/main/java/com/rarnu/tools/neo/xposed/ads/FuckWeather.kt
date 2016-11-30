@@ -14,8 +14,8 @@ object FuckWeather {
     fun fuckWeather(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
         XpUtils.findAndHookMethod("com.miui.weather2.tools.ToolUtils", loadPackageParam.classLoader, "checkCommericalStatue", Context::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
-                paramAnonymousMethodHookParam!!.result = false
+            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
+                paramAnonymousMethodHookParam.result = false
             }
         })
         XpUtils.findAndHookMethod("com.miui.weather2.tools.ToolUtils", loadPackageParam.classLoader, "canRequestCommercialInfo", Context::class.java, XC_MethodReplacement.returnConstant(false))

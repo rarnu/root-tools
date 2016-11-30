@@ -23,20 +23,20 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
         prefs.makeWorldReadable()
         XposedBridge.hookAllMethods(XposedHelpers.findClass("com.android.org.conscrypt.OpenSSLSignature", null), "engineVerify", object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
+            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
                 prefs.reload()
                 if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
-                    paramAnonymousMethodHookParam!!.result = true
+                    paramAnonymousMethodHookParam.result = true
                 }
             }
         })
 
         XposedHelpers.findAndHookMethod("java.security.MessageDigest", null, "isEqual", ByteArray::class.java, ByteArray::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
+            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
                 prefs.reload()
                 if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
-                    paramAnonymousMethodHookParam!!.result = true
+                    paramAnonymousMethodHookParam.result = true
                 }
 
             }
@@ -44,10 +44,10 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
 
         XposedHelpers.findAndHookMethod("java.security.Signature", null, "verify", ByteArray::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
+            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
                 prefs.reload()
                 if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
-                    if (((paramAnonymousMethodHookParam!!.thisObject as java.security.Signature).algorithm.toLowerCase() == "sha1withrsa"
+                    if (((paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "sha1withrsa"
                             || (paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "rsa-sha1"
                             || (paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "1.3.14.3.2.26with1.2.840.113549.1.1.1") && XposedHelpers.getIntField(paramAnonymousMethodHookParam.thisObject, "state") == 3) {
                         paramAnonymousMethodHookParam.result = true
@@ -59,10 +59,10 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
 
         XposedHelpers.findAndHookMethod("java.security.Signature", null, "verify", ByteArray::class.java, Integer.TYPE, Integer.TYPE, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
+            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
                 prefs.reload()
                 if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
-                    if (((paramAnonymousMethodHookParam!!.thisObject as java.security.Signature).algorithm.toLowerCase() == "sha1withrsa"
+                    if (((paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "sha1withrsa"
                             || (paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "rsa-sha1"
                             || (paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "1.3.14.3.2.26with1.2.840.113549.1.1.1") && XposedHelpers.getIntField(paramAnonymousMethodHookParam.thisObject, "state") == 3) {
                         paramAnonymousMethodHookParam.result = true
@@ -80,24 +80,24 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
             val localClass = XposedHelpers.findClass("com.android.server.pm.PackageManagerService", paramLoadPackageParam.classLoader)
             XposedBridge.hookAllConstructors(XposedHelpers.findClass("com.android.server.pm.PackageManagerService", paramLoadPackageParam.classLoader), object : XC_MethodHook() {
                 @Throws(Throwable::class)
-                override fun afterHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
+                override fun afterHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
                     prefs.reload()
                     if (!prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
                         return
                     }
-                    _context = paramAnonymousMethodHookParam!!.args[0] as Context
+                    _context = paramAnonymousMethodHookParam.args[0] as Context
                 }
             })
             XposedBridge.hookAllMethods(localClass, "compareSignatures", object : XC_MethodHook() {
                 @Suppress("UNCHECKED_CAST")
                 @SuppressWarnings("Duplicates")
                 @Throws(Throwable::class)
-                override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
+                override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
                     prefs.reload()
                     if (!prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
                         return
                     }
-                    val localObject: PackageInfo
+                    val localObject: PackageInfo?
                     var k: Int
                     var j: Int
                     val arrayOfSignature2: Array<android.content.pm.Signature>?
@@ -105,14 +105,14 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
                     var m: Int
                     val tmpStr: String
                     try {
-                        localObject = _context!!.packageManager.getPackageInfo("android", PackageManager.GET_SIGNATURES)
-                        if (localObject.signatures[0] == null) {
+                        localObject = _context?.packageManager?.getPackageInfo("android", PackageManager.GET_SIGNATURES)
+                        if (localObject?.signatures!![0] == null) {
                             return
                         }
-                        tmpStr = Base64.encodeToString(localObject.signatures[0].toByteArray(), 0).replace("\n".toRegex(), "")
+                        tmpStr = Base64.encodeToString(localObject?.signatures!![0].toByteArray(), 0).replace("\n".toRegex(), "")
                         k = 0
                         j = 0
-                        val arrayOfSignature1 = paramAnonymousMethodHookParam!!.args[0] as Array<Signature>?
+                        val arrayOfSignature1 = paramAnonymousMethodHookParam.args[0] as Array<Signature>?
                         arrayOfSignature2 = paramAnonymousMethodHookParam.args[1] as Array<Signature>?
                         i = k
                         if (arrayOfSignature1 != null) {
@@ -165,10 +165,10 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
         if (paramLoadPackageParam.packageName == "com.android.settings") {
             XposedBridge.hookAllMethods(XposedHelpers.findClass("com.android.settings.applications.AppOpsDetails", paramLoadPackageParam.classLoader), "isPlatformSigned", object : XC_MethodHook() {
                 @Throws(Throwable::class)
-                override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
+                override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
                     prefs.reload()
                     if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
-                        paramAnonymousMethodHookParam!!.result = false
+                        paramAnonymousMethodHookParam.result = false
                     }
                 }
             })

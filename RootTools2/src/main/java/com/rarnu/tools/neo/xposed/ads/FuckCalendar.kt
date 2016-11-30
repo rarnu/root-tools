@@ -29,16 +29,16 @@ object FuckCalendar {
         XpUtils.findAndHookMethod("com.xiaomi.ad.internal.a.e", loadPackageParam.classLoader, "onAdInfo", String::class.java, XC_MethodReplacement.returnConstant(null))
         XpUtils.findAndHookMethod("com.miui.calendar.util.DiskStringCache", loadPackageParam.classLoader, "getString", Context::class.java, String::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val key = param!!.args[1] as String
+            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                val key = param.args[1] as String
                 if (key.startsWith("bottom_banner_is_closed_today")) {
                     param.result = "true"
                 }
             }
 
             @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val key = param!!.args[1] as String
+            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                val key = param.args[1] as String
                 if (key.startsWith("bottom_banner_is_closed_today")) {
                     param.result = "true"
                 }

@@ -8,7 +8,7 @@ import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.base.BaseAdapter
 import com.rarnu.tools.neo.data.BuildPropInfo
 
-class BuildPropAdapter(context: Context, list: MutableList<BuildPropInfo>) : BaseAdapter<BuildPropInfo>(context, list) {
+class BuildPropAdapter(context: Context, list: MutableList<BuildPropInfo>?) : BaseAdapter<BuildPropInfo>(context, list) {
 
     override fun getValueText(item: BuildPropInfo): String? = (item.buildName + item.buildValue)
 

@@ -19,8 +19,8 @@ object FuckSearchBox {
         })
         XpUtils.findAndHookMethod("com.android.quicksearchbox.util.HotWordsUtil", loadPackageParam.classLoader, "setHotQueryView", "com.android.quicksearchbox.ui.HotQueryView", object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
-                paramAnonymousMethodHookParam!!.result = null
+            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
+                paramAnonymousMethodHookParam.result = null
             }
         })
     }

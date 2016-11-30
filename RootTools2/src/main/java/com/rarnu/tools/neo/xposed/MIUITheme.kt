@@ -42,8 +42,8 @@ class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
             if (prefs.getBoolean(XpStatus.KEY_KEEP_MTZ, false)) {
                 XpUtils.findAndHookMethod("com.android.thememanager.model.ResourceOnlineProperties", lpparam.classLoader, "setDownloadPath", String::class.java, object : XC_MethodHook() {
                     @Throws(Throwable::class)
-                    override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                        val oriPath = param!!.args[0] as String
+                    override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                        val oriPath = param.args[0] as String
                         val newPath = oriPath + "1.mtz"
                         XposedBridge.log("setDownloadPath => " + newPath)
                         try {

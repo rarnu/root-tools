@@ -27,6 +27,7 @@ import com.rarnu.tools.neo.utils.AppUtils
 import com.rarnu.tools.neo.utils.HostsUtils
 import com.rarnu.tools.neo.utils.UIUtils
 import com.rarnu.tools.neo.xposed.XpStatus
+import kotlin.concurrent.thread
 
 class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListener, UpdateInfo.UpdateInfoReadyCallback {
 
@@ -221,81 +222,79 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
     private fun showActivityResult(cls: Class<*>, req: Int) = startActivityForResult(Intent(context, cls), req)
 
     private fun threadWriteHost() {
-        Thread(Runnable { HostsUtils.writeHost(context, pref!!.getBoolean(XpStatus.KEY_NOUPDATE, false), pref!!.getBoolean(XpStatus.KEY_REMOVEAD, false)) }).start()
+        thread { HostsUtils.writeHost(context, pref!!.getBoolean(XpStatus.KEY_NOUPDATE, false), pref!!.getBoolean(XpStatus.KEY_REMOVEAD, false)) }
     }
 
     private fun threadDeleteTmpFiles() {
-        Thread(Runnable { DeviceAPI.forceDeleteFile("/data/data/com.miui.cleanmaster/shared_prefs/*") }).start()
+        thread { DeviceAPI.forceDeleteFile("/data/data/com.miui.cleanmaster/shared_prefs/*") }
     }
 
     override fun onPreferenceClick(preference: Preference): Boolean {
         val prefKey = preference.key
         val ex = preference as PreferenceEx
-        if (prefKey == getString(R.string.id_freeze)) {
-            showActivity(FreezeActivity::class.java)
-        } else if (prefKey == getString(R.string.id_component)) {
-            showActivity(ComponentActivity::class.java)
-        } else if (prefKey == getString(R.string.id_cleanart)) {
-            showActivity(CleanActivity::class.java)
-        } else if (prefKey == getString(R.string.id_about)) {
-            showActivity(AboutActivity::class.java)
-        } else if (prefKey == getString(R.string.id_feedback)) {
-            showActivity(FeedbackActivity::class.java)
-        } else if (prefKey == getString(R.string.id_fake_device)) {
-            showActivity(FakeDeviceActivity::class.java)
-        } else if (prefKey == getString(R.string.id_memory)) {
-            threadMemory()
-        } else if (prefKey == getString(R.string.id_theme)) {
-            ex.status = !ex.status
-            editor!!.putBoolean(XpStatus.KEY_THEMECRACK, ex.status).apply()
-            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
-        } else if (prefKey == getString(R.string.id_removead)) {
-            if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) {
-                showActivity(MIUIAppSettingActivity::class.java)
-            } else {
+        when (prefKey) {
+            getString(R.string.id_freeze) -> showActivity(FreezeActivity::class.java)
+            getString(R.string.id_component) -> showActivity(ComponentActivity::class.java)
+            getString(R.string.id_cleanart) -> showActivity(CleanActivity::class.java)
+            getString(R.string.id_about) -> showActivity(AboutActivity::class.java)
+            getString(R.string.id_feedback) -> showActivity(FeedbackActivity::class.java)
+            getString(R.string.id_fake_device) -> showActivity(FakeDeviceActivity::class.java)
+            getString(R.string.id_memory) -> threadMemory()
+            getString(R.string.id_theme) -> {
                 ex.status = !ex.status
-                editor!!.putBoolean(XpStatus.KEY_REMOVEAD, ex.status).apply()
-                DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
-                threadWriteHost()
-                threadDeleteTmpFiles()
+                editor?.putBoolean(XpStatus.KEY_THEMECRACK, ex.status)?.apply()
             }
-        } else if (prefKey == getString(R.string.id_removesearch)) {
-            ex.status = !ex.status
-            editor!!.putBoolean(XpStatus.KEY_REMOVESEARCHBAR, ex.status).apply()
-            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
-        } else if (prefKey == getString(R.string.id_minus_screen)) {
-            ex.status = !ex.status
-            editor!!.putBoolean(XpStatus.KEY_MINUS_SCREEN, ex.status).apply()
-            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
-        } else if (prefKey == getString(R.string.id_keep_mtz)) {
-            ex.status = !ex.status
-            editor!!.putBoolean(XpStatus.KEY_KEEP_MTZ, ex.status).apply()
-            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
-        } else if (prefKey == getString(R.string.id_root25)) {
-            ex.status = !ex.status
-            editor!!.putBoolean(XpStatus.KEY_ROOTCRACK, ex.status).apply()
-            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
-        } else if (prefKey == getString(R.string.id_corecrack)) {
-            ex.status = !ex.status
-            editor!!.putBoolean(XpStatus.KEY_CORECRACK, ex.status).apply()
-            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
-        } else if (prefKey == getString(R.string.id_noupdate)) {
-            ex.status = !ex.status
-            editor!!.putBoolean(XpStatus.KEY_NOUPDATE, ex.status).apply()
-            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
-            threadWriteHost()
+            getString(R.string.id_removead) -> {
+                if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) {
+                    showActivity(MIUIAppSettingActivity::class.java)
+                } else {
+                    ex.status = !ex.status
+                    editor?.putBoolean(XpStatus.KEY_REMOVEAD, ex.status)?.apply()
+                    threadWriteHost()
+                    threadDeleteTmpFiles()
+                }
+            }
+            getString(R.string.id_removesearch) -> {
+                ex.status = !ex.status
+                editor?.putBoolean(XpStatus.KEY_REMOVESEARCHBAR, ex.status)?.apply()
+            }
+            getString(R.string.id_minus_screen) -> {
+                ex.status = !ex.status
+                editor?.putBoolean(XpStatus.KEY_MINUS_SCREEN, ex.status)?.apply()
+            }
+            getString(R.string.id_keep_mtz) -> {
+                ex.status = !ex.status
+                editor?.putBoolean(XpStatus.KEY_KEEP_MTZ, ex.status)?.apply()
+            }
+            getString(R.string.id_root25) -> {
+                ex.status = !ex.status
+                editor?.putBoolean(XpStatus.KEY_ROOTCRACK, ex.status)?.apply()
+            }
+            getString(R.string.id_corecrack) -> {
+                ex.status = !ex.status
+                editor?.putBoolean(XpStatus.KEY_CORECRACK, ex.status)?.apply()
+            }
+            getString(R.string.id_noupdate) -> {
+                ex.status = !ex.status
+                editor?.putBoolean(XpStatus.KEY_NOUPDATE, ex.status)?.apply()
+                threadWriteHost()
+            }
         }
+        DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
         return true
     }
 
-    override fun onUpdateInfoReady(info: UpdateInfo) {
-        if (info.isNewVersion(context)) {
-            AlertDialog.Builder(context).setTitle(R.string.alert_hint)
-                    .setMessage(getString(R.string.alert_update_message, info.versionName, info.versionCode, info.description))
-                    .setPositiveButton(R.string.alert_update) { dialog, which -> downloadApk(info.url) }
-                    .setNegativeButton(R.string.alert_cancel, null)
-                    .show()
+    override fun onUpdateInfoReady(info: UpdateInfo?) {
+        if (info != null) {
+            if (info.isNewVersion(context)) {
+                AlertDialog.Builder(context).setTitle(R.string.alert_hint)
+                        .setMessage(getString(R.string.alert_update_message, info.versionName, info.versionCode, info.description))
+                        .setPositiveButton(R.string.alert_update) { dialog, which -> downloadApk(info.url) }
+                        .setNegativeButton(R.string.alert_cancel, null)
+                        .show()
+            }
         }
+
     }
 
     private fun downloadApk(url: String) {
@@ -328,13 +327,13 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
 
     private fun threadMemory() {
         pMemory?.isEnabled = false
-        Thread(Runnable {
+        thread {
             DeviceAPI.killProcess()
             if (pref!!.getBoolean(XpStatus.KEY_DEEP_CLEAN, false)) {
                 DeviceAPI.forceDropCache()
             }
             hMemory.sendEmptyMessage(0)
-        }).start()
+        }
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

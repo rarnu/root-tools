@@ -29,7 +29,7 @@ class AppAdapter(context: Context, list: MutableList<AppInfo>?) : BaseAdapter<Ap
         }
         val item = list!![position]
         holder.setItem(item)
-        holder.prefStatus!!.visibility = if (showSwitch) View.VISIBLE else View.GONE
+        holder.prefStatus?.visibility = if (showSwitch) View.VISIBLE else View.GONE
         return v
     }
 

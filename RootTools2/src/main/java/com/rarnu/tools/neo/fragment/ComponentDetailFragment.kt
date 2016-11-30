@@ -1,8 +1,6 @@
 package com.rarnu.tools.neo.fragment
 
 import android.app.AlertDialog
-import android.content.Loader
-import android.content.pm.ApplicationInfo
 import android.graphics.Color
 import android.os.Bundle
 import android.os.Handler
@@ -18,12 +16,10 @@ import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.base.BaseFragment
 import com.rarnu.tools.neo.comp.LoadingView
 import com.rarnu.tools.neo.data.CompInfo
-import com.rarnu.tools.neo.data.Onekey
 import com.rarnu.tools.neo.loader.ComponentLoader
 import com.rarnu.tools.neo.utils.ComponentUtils
 import com.rarnu.tools.neo.utils.PackageParserUtils
-
-import java.util.ArrayList
+import kotlin.concurrent.thread
 
 class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener {
 
@@ -52,11 +48,11 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
     private var btnDownloadProfile: Button? = null
     private var btnUploadProfile: Button? = null
 
-    override fun onClick(v: View?) {
+    override fun onClick(v: View) {
         lvComponent?.visibility = View.VISIBLE
         layProfile?.visibility = View.GONE
         unfocusButtons()
-        when (v!!.id) {
+        when (v.id) {
             R.id.btnActivity -> if (focusItem != 0) {
                 doLoadData(0)
                 focusButton(btnActivity)
@@ -75,8 +71,8 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
             }
             R.id.btnProfile -> {
                 focusItem = 4
-                lvComponent!!.visibility = View.GONE
-                layProfile!!.visibility = View.VISIBLE
+                lvComponent?.visibility = View.GONE
+                layProfile?.visibility = View.VISIBLE
                 focusButton(btnProfile)
             }
         }
@@ -129,8 +125,8 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
         btnUploadProfile = innerView?.findViewById(R.id.btnUploadProfile) as Button?
 
         loading = innerView?.findViewById(R.id.loading) as LoadingView?
-        list = ArrayList<CompInfo>()
-        adapter = CompDetailAdapter(context, list!!)
+        list = arrayListOf<CompInfo>()
+        adapter = CompDetailAdapter(context, list)
         lvComponent?.adapter = adapter
         loader = ComponentLoader(context)
     }
@@ -163,7 +159,9 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
         versionCode = activity.intent.getIntExtra("versionCode", 0)
         tvPkgName?.text = getString(R.string.view_profile_pkg, pkgName)
         tvVer?.text = getString(R.string.view_profile_ver, versionCode)
-        onClick(btnActivity)
+        if (btnActivity != null) {
+            onClick(btnActivity!!)
+        }
     }
 
     override fun getFragmentLayoutResId(): Int = R.layout.fragment_component_detail
@@ -224,10 +222,10 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
     }
 
     private fun threadChangeComponentFreeze(item: CompInfo?) {
-        lvComponent!!.isEnabled = false
-        Thread(Runnable {
+        lvComponent?.isEnabled = false
+        thread {
             val newStat = !item!!.enabled
-            val ret = DeviceAPI.freezeComponent(pkgName!!, item.component.className, !newStat)
+            val ret = DeviceAPI.freezeComponent(pkgName, item.component?.className, !newStat)
             if (ret) {
                 item.enabled = newStat
             }
@@ -235,7 +233,7 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
             msg.what = if (ret) 1 else 0
             msg.obj = item
             hFreeze.sendMessage(msg)
-        }).start()
+        }
     }
 
     private val hOnekey = object : Handler() {
@@ -259,11 +257,11 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
         btnDownloadProfile?.isEnabled = false
         btnUploadProfile?.isEnabled = false
         loading?.visibility = View.VISIBLE
-        Thread(Runnable {
+        thread {
             var hasProfile = false
             val ok = API.getOnekey(pkgName, versionCode)
             if (ok != null) {
-                if (ok.disabledComponents != null && ok.disabledComponents.size != 0) {
+                if (ok.disabledComponents != null && ok.disabledComponents!!.size != 0) {
                     hasProfile = true
                 }
                 if (hasProfile) {
@@ -271,7 +269,7 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
                 }
             }
             hOnekey.sendEmptyMessage(if (hasProfile) 1 else 0)
-        }).start()
+        }
     }
 
     private val hPutOnekey = object : Handler() {
@@ -297,7 +295,7 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
         btnDownloadProfile?.isEnabled = false
         btnUploadProfile?.isEnabled = false
         loading?.visibility = View.VISIBLE
-        Thread(Runnable {
+        thread {
             var ret = false
             try {
                 val info = context.packageManager.getApplicationInfo(pkgName, 0)
@@ -307,34 +305,34 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
                 val lstService = ComponentUtils.getServiceList(context, obj)
                 val lstReceiver = ComponentUtils.getReceiverList(context, obj)
                 val lstProvider = ComponentUtils.getProviderList(context, obj)
-                val lstDisabled = ArrayList<String>()
+                val lstDisabled = arrayListOf<String?>()
                 for (ci in lstActivity) {
                     if (!ci.enabled) {
-                        lstDisabled.add(ci.component.className)
+                        lstDisabled.add(ci.component?.className)
                     }
                 }
                 for (ci in lstService) {
                     if (!ci.enabled) {
-                        lstDisabled.add(ci.component.className)
+                        lstDisabled.add(ci.component?.className)
                     }
                 }
                 for (ci in lstReceiver) {
                     if (!ci.enabled) {
-                        lstDisabled.add(ci.component.className)
+                        lstDisabled.add(ci.component?.className)
                     }
                 }
                 for (ci in lstProvider) {
                     if (!ci.enabled) {
-                        lstDisabled.add(ci.component.className)
+                        lstDisabled.add(ci.component?.className)
                     }
                 }
                 if (lstDisabled.size != 0) {
-                    ret = API.uploadOnekey(pkgName!!, versionCode, lstDisabled)
+                    ret = API.uploadOnekey(pkgName, versionCode, lstDisabled)
                 }
             } catch (e: Exception) {
 
             }
             hPutOnekey.sendEmptyMessage(if (ret) 1 else 0)
-        }).start()
+        }
     }
 }

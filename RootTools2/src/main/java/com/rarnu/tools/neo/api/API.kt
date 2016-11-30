@@ -24,9 +24,9 @@ object API {
         return ok
     }
 
-    fun uploadOnekey(pkgName: String, versionCode: Int, disabled: List<String>?): Boolean {
+    fun uploadOnekey(pkgName: String?, versionCode: Int, disabled: List<String?>?): Boolean {
         // upload onekey
-        val param = HashMap<String, String>()
+        val param = HashMap<String, String?>()
         param.put("action", "put")
         param.put("pkg", pkgName)
         param.put("ver", versionCode.toString())
@@ -52,12 +52,11 @@ object API {
             }
         }
         val data = HttpUtils.postFile(API_BASE + "feedback.php", params, files)
-        Log.e("API", "sendFeedback => " + data!!)
+        Log.e("API", "sendFeedback => $data")
         var ret = false
         try {
             val json = JSONObject(data)
-            val i = json.getInt("result")
-            ret = i == 0
+            ret = json.getInt("result") == 0
         } catch (e: Exception) {
 
         }

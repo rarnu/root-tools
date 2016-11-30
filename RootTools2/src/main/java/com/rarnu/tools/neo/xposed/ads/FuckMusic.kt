@@ -45,8 +45,8 @@ object FuckMusic {
 
         XpUtils.findAndHookMethod("com.miui.player.display.view.cell.BannerAdItemCell", loadPackageParam.classLoader, "onFinishInflate", object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val clsThis = param!!.thisObject.javaClass
+            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                val clsThis = param.thisObject.javaClass
                 val vThis = param.thisObject as View
                 val fText = clsThis.getDeclaredField("mClose")
                 fText.isAccessible = true
@@ -122,7 +122,7 @@ object FuckMusic {
                         int bitrate = (int) mToBitrate.invoke(null, param.args[2]);
 
                         Object oResult = mGetMusicLink.invoke(oOnlineEngine, param.args[0], newGlobalId, bitrate, 1);
-                        XposedBridge.log(String.format("getMusicUrl => %s", oResult.toString()));
+                        // XposedBridge.log(String.format("getMusicUrl => %s", oResult.toString()));
 
                     } catch (Exception e) {
 

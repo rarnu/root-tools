@@ -24,7 +24,11 @@ class CleanActivity : BaseActivity() {
     private val isCleaning: Boolean
         get() {
             val bn = cf.getFragmentState()
-            return bn!!.getBoolean("isCleaning", false)
+            if (bn != null) {
+                return bn.getBoolean("isCleaning", false)
+            } else {
+                return false
+            }
         }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {
@@ -37,8 +41,8 @@ class CleanActivity : BaseActivity() {
         return super.onKeyDown(keyCode, event)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             android.R.id.home -> if (isCleaning) {
                 Toast.makeText(this, R.string.toast_cleaning, Toast.LENGTH_SHORT).show()
                 return true

@@ -9,7 +9,7 @@ import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.base.BaseAdapter
 import com.rarnu.tools.neo.data.CompInfo
 
-class CompDetailAdapter(context: Context, list: MutableList<CompInfo>) : BaseAdapter<CompInfo>(context, list) {
+class CompDetailAdapter(context: Context, list: MutableList<CompInfo>?) : BaseAdapter<CompInfo>(context, list) {
 
     override fun getValueText(item: CompInfo): String? = item.compName
 

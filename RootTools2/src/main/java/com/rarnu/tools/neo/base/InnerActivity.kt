@@ -15,7 +15,7 @@ import com.rarnu.tools.neo.utils.UIUtils
 /**
  * Created by rarnu on 3/23/16.
  */
-abstract class InnerActivity: Activity(), ViewTreeObserver.OnGlobalLayoutListener {
+abstract class InnerActivity : Activity(), ViewTreeObserver.OnGlobalLayoutListener {
 
     protected var bar: ActionBar? = null
     protected var layoutReplacement: RelativeLayout? = null
@@ -32,19 +32,19 @@ abstract class InnerActivity: Activity(), ViewTreeObserver.OnGlobalLayoutListene
         }
         setContentView(getBaseLayout())
 
-        layoutReplacement = findViewById(R.id.layoutReplacement) as RelativeLayout
+        layoutReplacement = findViewById(R.id.layoutReplacement) as RelativeLayout?
         layoutReplacement?.viewTreeObserver?.addOnGlobalLayoutListener(this)
-        layoutReplacement?.background =  if (UIUtils.isFollowSystemBackground) { DrawableUtils.getDetailsElementBackground(this) } else { null }
-
-        bar = actionBar
-        if (bar != null) {
-            bar!!.setIcon(getIcon())
-            if (getActionBarCanBack()) {
-                bar!!.setDisplayOptions(0, ActionBar.DISPLAY_HOME_AS_UP)
-                bar!!.setDisplayHomeAsUpEnabled(true)
-            }
+        layoutReplacement?.background = if (UIUtils.isFollowSystemBackground) {
+            DrawableUtils.getDetailsElementBackground(this)
+        } else {
+            null
         }
-
+        bar = actionBar
+        bar?.setIcon(getIcon())
+        if (getActionBarCanBack()) {
+            bar?.setDisplayOptions(0, ActionBar.DISPLAY_HOME_AS_UP)
+            bar?.setDisplayHomeAsUpEnabled(true)
+        }
         replace()
     }
 
@@ -62,13 +62,10 @@ abstract class InnerActivity: Activity(), ViewTreeObserver.OnGlobalLayoutListene
 
     abstract fun getActionBarCanBack(): Boolean
 
-    open fun replace() {
-        var bf = replaceFragment()
-        fragmentManager.beginTransaction().replace(getReplaceId(), bf).commit()
-    }
+    open fun replace() = fragmentManager.beginTransaction().replace(getReplaceId(), replaceFragment()).commit()
 
-    override fun onOptionsItemSelected(item: MenuItem?): Boolean {
-        when (item!!.itemId) {
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
             android.R.id.home -> finish()
         }
         return super.onOptionsItemSelected(item)
@@ -79,5 +76,6 @@ abstract class InnerActivity: Activity(), ViewTreeObserver.OnGlobalLayoutListene
     /**
      * override the method if you want to re-layout after system layouted
      */
-    open fun onLayoutReady() { }
+    open fun onLayoutReady() {
+    }
 }

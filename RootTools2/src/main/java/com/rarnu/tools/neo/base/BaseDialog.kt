@@ -21,10 +21,7 @@ abstract class BaseDialog: Activity() {
         replace()
     }
 
-    open fun replace() {
-        val bf = replaceFragment()
-        fragmentManager.beginTransaction().replace(android.R.id.content, bf).commit()
-    }
+    open fun replace() = fragmentManager.beginTransaction().replace(android.R.id.content, replaceFragment()).commit()
 
     abstract fun getCloseCondition(): Boolean
     abstract fun replaceFragment(): Fragment

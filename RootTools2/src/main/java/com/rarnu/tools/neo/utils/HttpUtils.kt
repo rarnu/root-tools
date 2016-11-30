@@ -51,7 +51,7 @@ object HttpUtils {
         return post(url, params)
     }
 
-    fun post(host: String?, params: Map<String, String>?): String? {
+    fun post(host: String?, params: Map<String, String?>?): String? {
         val body = buildBody(params)
         val req = Request.Builder().url(host).post(body).build()
         return executeForResult(req)
@@ -79,19 +79,19 @@ object HttpUtils {
     private fun buildPostFileParts(params: Map<String, String>?, files: Map<String, String>?): RequestBody? {
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
-        val iterParam = params!!.keys.iterator()
-        while (iterParam.hasNext()) {
+        val iterParam = params?.keys?.iterator()
+        while (iterParam!!.hasNext()) {
             val key = iterParam.next()
-            val value = params[key]
+            val value = params!![key]
             builder.addFormDataPart(key, value)
         }
-        val iterFile = files!!.keys.iterator()
-        while (iterFile.hasNext()) {
+        val iterFile = files?.keys?.iterator()
+        while (iterFile!!.hasNext()) {
             val key = iterFile.next()
-            val file = files[key]
+            val file = files!![key]
             val f = File(file)
             val fileBody = RequestBody.create(MediaType.parse("application/octet-stream"), f)
-            builder.addFormDataPart(key, file!!.substring(file.lastIndexOf("/") + 1), fileBody)
+            builder.addFormDataPart(key, file?.substring(file.lastIndexOf("/") + 1), fileBody)
         }
         return builder.build()
     }
@@ -113,12 +113,12 @@ object HttpUtils {
     }
 
 
-    private fun buildBody(params: Map<String, String>?): RequestBody? {
+    private fun buildBody(params: Map<String, String?>?): RequestBody? {
         val builder = FormBody.Builder()
-        val iter = params!!.keys.iterator()
-        while (iter.hasNext()) {
+        val iter = params?.keys?.iterator()
+        while (iter!!.hasNext()) {
             val key = iter.next()
-            val value = params[key]
+            val value = params!![key]
             builder.add(key, value)
         }
         return builder.build()

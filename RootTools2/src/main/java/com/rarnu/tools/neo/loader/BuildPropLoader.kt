@@ -7,5 +7,5 @@ import com.rarnu.tools.neo.utils.BuildPropUtils
 
 class BuildPropLoader(context: Context) : BaseLoader<BuildPropInfo>(context) {
 
-    override fun loadInBackground(): MutableList<BuildPropInfo>? = BuildPropUtils.getBuildProp()
+    override fun loadInBackground(): MutableList<BuildPropInfo>? = BuildPropUtils.buildProp
 }

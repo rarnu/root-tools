@@ -25,8 +25,8 @@ object FuckVideo {
     fun fuckVideo(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
         XpUtils.findAndHookMethod("com.miui.videoplayer.ads.DynamicAd", loadPackageParam.classLoader, "replaceList", List::class.java, String::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
-                paramAnonymousMethodHookParam!!.args[0] = null
+            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
+                paramAnonymousMethodHookParam.args[0] = null
                 paramAnonymousMethodHookParam.args[1] = null
             }
         })
@@ -37,16 +37,16 @@ object FuckVideo {
         }
         XpUtils.findAndHookMethod("com.video.ui.idata.iDataORM", loadPackageParam.classLoader, "getBooleanValue", Context::class.java, String::class.java, java.lang.Boolean.TYPE, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val key = param!!.args[1] as String
+            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                val key = param.args[1] as String
                 if (key == "debug_mode" || key == "show_first_ads" || key == "ads_show_homekey" || key == "startup_ads_loop" || key == "app_upgrade_splash") {
                     param.result = false
                 }
             }
 
             @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val key = param!!.args[1] as String
+            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                val key = param.args[1] as String
                 if (key == "debug_mode" || key == "show_first_ads" || key == "ads_show_homekey" || key == "startup_ads_loop" || key == "app_upgrade_splash") {
                     param.result = false
                 }
@@ -54,16 +54,16 @@ object FuckVideo {
         })
         XpUtils.findAndHookMethod("com.video.ui.idata.iDataORM", loadPackageParam.classLoader, "getStringValue", Context::class.java, String::class.java, String::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val key = param!!.args[1] as String
+            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                val key = param.args[1] as String
                 if (key == "startup_ads") {
                     param.result = null
                 }
             }
 
             @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val key = param!!.args[1] as String
+            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                val key = param.args[1] as String
                 if (key == "startup_ads") {
                     param.result = null
                 }
@@ -71,16 +71,16 @@ object FuckVideo {
         })
         XpUtils.findAndHookMethod("com.video.ui.idata.iDataORM", loadPackageParam.classLoader, "getBooleanValue", Context::class.java, String::class.java, java.lang.Boolean.TYPE, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val key = param!!.args[1] as String
+            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                val key = param.args[1] as String
                 if (key == "show_title_ads" || key == "show_channel_title_ads") {
                     param.result = false
                 }
             }
 
             @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val key = param!!.args[1] as String
+            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                val key = param.args[1] as String
                 if (key == "show_title_ads" || key == "show_channel_title_ads") {
                     param.result = false
                 }
@@ -109,16 +109,16 @@ object FuckVideo {
         if (clsVideoView != null) {
             XpUtils.findAndHookMethod("com.miui.videoplayer.videoview.VideoViewContainer", loadPackageParam.classLoader, "playRealVideo", clsVideoView, java.lang.Boolean.TYPE, object : XC_MethodHook() {
                 @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                    param!!.args[1] = true   // skipAd
+                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                    param.args[1] = true   // skipAd
                 }
             })
         }
 
         XpUtils.findAndHookMethod("com.miui.videoplayer.videoview.VideoViewContainer", loadPackageParam.classLoader, "prepareRealVideoView", java.lang.Boolean.TYPE, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                param!!.args[0] = true  // haveAd
+            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                param.args[0] = true  // haveAd
             }
         })
 
@@ -150,10 +150,10 @@ object FuckVideo {
             })
             XpUtils.findAndHookMethod("com.video.ui.view.block.PortBlockView", loadPackageParam.classLoader, "initUI", clsBlock, object : XC_MethodHook() {
                 @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                    val block = param!!.args[0]
-                    val clsBlock = block.javaClass
-                    val fBlocks = clsBlock.getDeclaredField("blocks")
+                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                    val block = param.args[0]
+                    val clsBlock2 = block.javaClass
+                    val fBlocks = clsBlock2.getDeclaredField("blocks")
                     fBlocks.isAccessible = true
                     val blocks = fBlocks.get(block) as ArrayList<*>
                     for (i in blocks.indices.reversed()) {
@@ -174,8 +174,8 @@ object FuckVideo {
         if (clsBlock != null) {
             XpUtils.findAndHookMethod("com.video.ui.view.ListFragment", loadPackageParam.classLoader, "setBlockView", clsBlock, object : XC_MethodHook() {
                 @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                    val o = param!!.args[0]
+                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                    val o = param.args[0]
                     val fBlocks = o.javaClass.getDeclaredField("blocks")
                     fBlocks.isAccessible = true
                     fBlocks.set(o, null)
@@ -190,8 +190,8 @@ object FuckVideo {
         if (clsVideo != null) {
             XpUtils.findAndHookMethod("com.video.ui.view.DetailFragment", loadPackageParam.classLoader, "updateVideo", clsVideo, object : XC_MethodHook() {
                 @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                    val oVideo = param!!.args[0]
+                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                    val oVideo = param.args[0]
                     val fBlocks = oVideo.javaClass.getDeclaredField("blocks")
                     fBlocks.isAccessible = true
                     fBlocks.set(oVideo, null)
@@ -204,8 +204,8 @@ object FuckVideo {
 
         XpUtils.findAndHookMethod("com.video.ui.view.DetailFragment", loadPackageParam.classLoader, "onCreateView", LayoutInflater::class.java, ViewGroup::class.java, Bundle::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                val fragment = param!!.thisObject
+            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                val fragment = param.thisObject
                 val fR1 = fragment.javaClass.getDeclaredField("relative_region")
                 val fR2 = fragment.javaClass.getDeclaredField("headers_region")
                 val r1 = fR1.get(fragment) as FrameLayout
@@ -221,8 +221,8 @@ object FuckVideo {
         if (clsGenericBlock != null) {
             XpUtils.findAndHookMethod("com.video.ui.view.user.MyVideoFragment", loadPackageParam.classLoader, "onLoadFinished", Loader::class.java, clsGenericBlock, object : XC_MethodHook() {
                 @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam?) {
-                    param!!.args[1] = null
+                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
+                    param.args[1] = null
                 }
             })
         }

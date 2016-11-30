@@ -18,13 +18,6 @@ abstract class InnerAdapter<T> : BaseAdapter, Filterable {
     protected var listFull: MutableList<T>?
     protected var list: MutableList<T>?
     private  var _filter: ArrayFilter? = null
-    protected var fileter: ArrayFilter? = null
-        get() {
-            if (_filter == null) {
-                _filter = ArrayFilter()
-            }
-            return _filter
-        }
     protected var pm: PackageManager
 
     constructor(context: Context, list: MutableList<T>?): super() {
@@ -55,6 +48,13 @@ abstract class InnerAdapter<T> : BaseAdapter, Filterable {
         notifyDataSetChanged()
     }
 
+    override fun getFilter(): Filter? {
+        if (_filter == null) {
+            _filter = ArrayFilter()
+        }
+        return _filter
+    }
+
     override fun getItem(position: Int): Any? = list!![position]
 
     open fun getFiltedItem(position: Int): T = list!![position]
@@ -63,13 +63,9 @@ abstract class InnerAdapter<T> : BaseAdapter, Filterable {
 
     override fun getCount(): Int = list!!.size
 
-    override fun getFilter(): Filter? = throw UnsupportedOperationException()
-
     abstract fun getValueText(item: T): String?
 
-    open fun filter(text: String?) {
-        fileter?.filter(text)
-    }
+    open fun filter(text: String?) = filter?.filter(text)
 
     inner class ArrayFilter: Filter() {
         override fun performFiltering(prefix: CharSequence?): FilterResults? {

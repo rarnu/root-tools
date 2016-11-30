@@ -65,7 +65,8 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
 
     }
 
-    override fun onGetNewArguments(bn: Bundle?) { }
+    override fun onGetNewArguments(bn: Bundle?) {
+    }
 
     override fun getFragmentState(): Bundle? = null
 
@@ -80,19 +81,22 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
             Toast.makeText(context, R.string.toast_reboot_app, Toast.LENGTH_LONG).show()
         } else if (prefKey == getString(R.string.id_settings_adchoose)) {
             ex.status = !ex.status
-            editor?.putBoolean(XpStatus.KEY_AD_CHOOSE, ex.status)?.apply()
-            editor?.putBoolean(XpStatus.KEY_REMOVEAD, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_BROWSER, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_CALENDAR, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_CLEANMASTER, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_DOWNLOAD, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_FILEEXPLORER, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_MMS, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_SEARCHBOX, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_VIDEO, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_MUSIC, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_WEATHER, false)?.apply()
-            editor?.putBoolean(XpStatus.KEY_AD_SYSTEM, false)?.apply()
+            editor
+                    ?.putBoolean(XpStatus.KEY_AD_CHOOSE, ex.status)
+                    ?.putBoolean(XpStatus.KEY_REMOVEAD, false)
+                    ?.putBoolean(XpStatus.KEY_AD_BROWSER, false)
+                    ?.putBoolean(XpStatus.KEY_AD_CALENDAR, false)
+                    ?.putBoolean(XpStatus.KEY_AD_CLEANMASTER, false)
+                    ?.putBoolean(XpStatus.KEY_AD_DOWNLOAD, false)
+                    ?.putBoolean(XpStatus.KEY_AD_FILEEXPLORER, false)
+                    ?.putBoolean(XpStatus.KEY_AD_MMS, false)
+                    ?.putBoolean(XpStatus.KEY_AD_SEARCHBOX, false)
+                    ?.putBoolean(XpStatus.KEY_AD_VIDEO, false)
+                    ?.putBoolean(XpStatus.KEY_AD_MUSIC, false)
+                    ?.putBoolean(XpStatus.KEY_AD_WEATHER, false)
+                    ?.putBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)
+                    ?.putBoolean(XpStatus.KEY_AD_SYSTEM, false)
+                    ?.apply()
             DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
             pAdChoose?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) R.string.settings_adchoose_detail else R.string.settings_adchoose_onekey)
         } else if (prefKey == getString(R.string.id_settings_deep_clean)) {

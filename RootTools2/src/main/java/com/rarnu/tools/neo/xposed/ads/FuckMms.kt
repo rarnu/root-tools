@@ -14,8 +14,8 @@ object FuckMms {
     fun fuckMms(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
         XpUtils.findAndHookMethod("com.android.mms.ui.MessageUtils", loadPackageParam.classLoader, "isMessagingTemplateAllowed", Context::class.java, object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
-                val mc = paramAnonymousMethodHookParam!!.args[0] as Context
+            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
+                val mc = paramAnonymousMethodHookParam.args[0] as Context
                 paramAnonymousMethodHookParam.result = !mc.javaClass.name.toLowerCase().contains("app")
             }
         })
