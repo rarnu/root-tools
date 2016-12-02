@@ -320,7 +320,7 @@ object RootAPI {
             nSize /= MOOD
             i++
         }
-        return DecimalFormat("#.##").format(nSize) + UNITS[i]
+        return DecimalFormat("0.##").format(nSize) + UNITS[i]
     }
 
     private fun deleteCache(path: String?): Boolean {

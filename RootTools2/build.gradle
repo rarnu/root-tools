@@ -13,8 +13,8 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 
 android {
-    compileSdkVersion 24
-    buildToolsVersion '24.0.1'
+    compileSdkVersion 23
+    buildToolsVersion '23.0.3'
 
     defaultConfig {
         applicationId "com.rarnu.tools.neo"
@@ -54,9 +54,6 @@ android {
 }
 
 repositories {
-    flatDir {
-        dirs 'aar'
-    }
     mavenCentral()
 }
 

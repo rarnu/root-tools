@@ -309,7 +309,7 @@ begin
     nSize /= MOOD;
     i += 1;
   end;
-  Result := FormatFloat('#.##', nSize) + UNITS[i];
+  Result := FormatFloat('0.##', nSize) + UNITS[i];
 end;
 
 function CleanART(env: PJNIEnv; ctx: jobject): LongInt;
