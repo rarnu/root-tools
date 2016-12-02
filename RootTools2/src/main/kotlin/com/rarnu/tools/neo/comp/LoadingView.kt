@@ -29,7 +29,7 @@ class LoadingView : LinearLayout {
 
     private fun initAttrs(attrs: AttributeSet?) {
         orientation = LinearLayout.HORIZONTAL
-        background = context.resources.getDrawable(R.drawable.background_layout, context.theme)
+        background = context.resources.getDrawable(R.drawable.background_layout)
 
         // inner component
         pb = ProgressBar(context)

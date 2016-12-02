@@ -57,8 +57,8 @@ class AppAdapter(context: Context, list: MutableList<AppInfo>?) : BaseAdapter<Ap
             tvName?.text = item.name
             tvPackageName?.text = item.packageName
             if (item.isSystem) {
-                tvName?.setTextColor(context.resources.getColor(android.R.color.holo_green_dark, context.theme))
-                tvPackageName?.setTextColor(context.resources.getColor(android.R.color.holo_green_light, context.theme))
+                tvName?.setTextColor(context.resources.getColor(android.R.color.holo_green_dark))
+                tvPackageName?.setTextColor(context.resources.getColor(android.R.color.holo_green_light))
             } else {
                 tvName?.setTextColor(Color.BLACK)
                 tvPackageName?.setTextColor(Color.DKGRAY)

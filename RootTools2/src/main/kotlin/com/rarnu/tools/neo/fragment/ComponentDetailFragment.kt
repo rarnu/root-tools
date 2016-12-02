@@ -185,11 +185,11 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
     override fun getFragmentState(): Bundle? = null
 
     private fun unfocusButtons() {
-        btnActivity?.background = resources.getDrawable(R.drawable.button_normal, context.theme)
-        btnService?.background = resources.getDrawable(R.drawable.button_normal, context.theme)
-        btnReceiver?.background = resources.getDrawable(R.drawable.button_normal, context.theme)
-        btnProvider?.background = resources.getDrawable(R.drawable.button_normal, context.theme)
-        btnProfile?.background = resources.getDrawable(R.drawable.button_normal, context.theme)
+        btnActivity?.background = resources.getDrawable(R.drawable.button_normal)
+        btnService?.background = resources.getDrawable(R.drawable.button_normal)
+        btnReceiver?.background = resources.getDrawable(R.drawable.button_normal)
+        btnProvider?.background = resources.getDrawable(R.drawable.button_normal)
+        btnProfile?.background = resources.getDrawable(R.drawable.button_normal)
         btnActivity?.setTextColor(Color.BLACK)
         btnService?.setTextColor(Color.BLACK)
         btnReceiver?.setTextColor(Color.BLACK)
@@ -198,7 +198,7 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
     }
 
     private fun focusButton(btn: TextView?) {
-        btn?.background = resources.getDrawable(R.drawable.button_focus, context.theme)
+        btn?.background = resources.getDrawable(R.drawable.button_focus)
         btn?.setTextColor(Color.WHITE)
     }
 

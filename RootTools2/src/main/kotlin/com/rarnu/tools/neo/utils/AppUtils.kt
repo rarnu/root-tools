@@ -13,7 +13,6 @@ object AppUtils {
     fun getSystemApps(ctx: Context?): MutableList<AppInfo> {
         val pm = ctx?.packageManager
         val pkgs = pm?.getInstalledPackages(0)
-
         val list = arrayListOf<AppInfo>()
         val listData = arrayListOf<AppInfo>()
         val listDisabled = arrayListOf<AppInfo>()
@@ -66,8 +65,12 @@ object AppUtils {
                 }
             }
         }
-        list.addAll(listData)
-        list.addAll(listDisabled)
+        if (listData.size > 0) {
+            list.addAll(listData)
+        }
+        if (listDisabled.size > 0) {
+            list.addAll(listDisabled)
+        }
         return list
     }
 
@@ -104,7 +107,9 @@ object AppUtils {
                 }
             }
         }
-        list.addAll(listSystem)
+        if (listSystem.size > 0) {
+            list.addAll(listSystem)
+        }
         return list
     }
 
