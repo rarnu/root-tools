@@ -53,7 +53,7 @@ class ThanksAdapter(context: Context, list: MutableList<ThanksInfo?>?) : BaseAda
             if (item?.headFile == "") {
                 ivHead?.setImageBitmap(null)
             } else {
-                val filePath = context.getExternalFilesDir("").absolutePath + "/head/" + item?.headFile
+                val filePath = context.getExternalFilesDir("").absolutePath + "/" + item?.headFile
                 if (File(filePath).exists()) {
                     ivHead?.setImageBitmap(BitmapFactory.decodeFile(filePath))
                 } else {
