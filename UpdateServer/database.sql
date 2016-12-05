@@ -13,3 +13,21 @@ create table feedback(
 	commit_date varchar(64) not null,
 	status int default 0
 ) character set utf8;
+
+create table thanks(
+	id int primary key auto_increment,
+	name varchar(128) not null,
+	description varchar(256) null,
+	head_image varchar(256) null
+) character set utf8;
+
+create table crash(
+	id int primary key auto_increment,
+	model varchar(64) not null,
+	sdk int default 0,
+	appver int default 0,
+	commit_date varchar(64) not null,
+	data text null,
+	status int default 0
+) character set utf8;
+
