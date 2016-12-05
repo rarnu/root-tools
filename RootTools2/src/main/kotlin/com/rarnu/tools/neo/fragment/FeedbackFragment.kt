@@ -184,5 +184,4 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         private val KEY_NICKNAME = "__nickname"
     }
 
-
 }

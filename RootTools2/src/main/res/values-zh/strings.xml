@@ -9,6 +9,7 @@
     <string name="fake_device_name">模拟设备</string>
     <string name="about_name">关于本软件</string>
     <string name="settings_name">设置</string>
+    <string name="thanks_name">特别感谢</string>
 
     <string name="category_main">系统</string>
     <string name="main_freeze">冻结应用[root]</string>
@@ -118,6 +119,7 @@
     <string name="ab_ctrl">Ctrl</string>
     <string name="ab_fn">FN</string>
     <string name="ab_toggle_input_method">切换输入法</string>
+    <string name="ab_thanks">感谢人员名单</string>
 
     <string name="toast_freeze_fail">操作应用状态失败</string>
     <string name="toast_component_fail">操作组件状态失败</string>
@@ -139,6 +141,7 @@
     <string name="toast_need_crack_system">需要破解 system 分区</string>
     <string name="toast_need_root_xposed">需要 root 权限和 xposed 框架</string>
     <string name="toast_reboot_app">切换此选项后请重启本软件，部分设备无法开启性能模式，若工作不正常请切换回传统模式</string>
+    <string name="toast_crash">崩溃啦！日志已被发送给开发者</string>
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>

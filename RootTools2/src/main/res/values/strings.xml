@@ -10,6 +10,7 @@
     <string name="about_name">About</string>
     <string name="settings_name">Settings</string>
     <string name="miui_app_name">MIUI App Settings</string>
+    <string name="thanks_name">Thanks</string>
 
     <string name="category_main">System</string>
     <string name="main_freeze">Freeze Apps[root]</string>
@@ -120,6 +121,7 @@
     <string name="ab_ctrl">Ctrl</string>
     <string name="ab_fn">FN</string>
     <string name="ab_toggle_input_method">Switch Inputmethod</string>
+    <string name="ab_thanks">Thanks</string>
 
     <string name="toast_freeze_fail">Freeze app failed</string>
     <string name="toast_component_fail">Switch component status failed</string>
@@ -141,6 +143,7 @@
     <string name="toast_need_crack_system">Require system partition cracked.</string>
     <string name="toast_need_root_xposed">Require root permission and xposed framework</string>
     <string name="toast_reboot_app">Please reboot the app after switch this option. Some devices can not switch to Speed Mode, please stay on Common Mode.</string>
+    <string name="toast_crash">App crashed! the report is send to the author.</string>
 
     <string name="alert_hint">Hint</string>
     <string name="alert_ok">OK</string>

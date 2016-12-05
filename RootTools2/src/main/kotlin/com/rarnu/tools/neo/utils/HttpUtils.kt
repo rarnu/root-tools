@@ -12,7 +12,7 @@ object HttpUtils {
 
     data class HttpRequestResponseData(var cookie: CookieJar?, var data: String?): Serializable
 
-    fun simplePostWithHeader(host: String, param: String, encoding: String, property: MutableMap<String, String>?): String {
+    fun simplePostWithHeader(host: String, param: String, encoding: String, property: Map<String, String?>?): String {
         val url = URL(host)
         val conn = url.openConnection()
         if (property != null) {
@@ -46,7 +46,7 @@ object HttpUtils {
 
     fun simplePost(host: String, param: String, encoding: String): String = simplePostWithHeader(host, param, encoding, null)
 
-    fun post(host: String?, getParams: String?, params: Map<String, String>?): String? {
+    fun post(host: String?, getParams: String?, params: Map<String, String?>?): String? {
         val url = "$host?$getParams"
         return post(url, params)
     }
@@ -57,26 +57,26 @@ object HttpUtils {
         return executeForResult(req)
     }
 
-    fun postFile(host: String?, params: Map<String, String>?, files: Map<String, String>?): String? {
+    fun postFile(host: String?, params: Map<String, String?>?, files: Map<String, String?>?): String? {
         val body = buildPostFileParts(params, files)
         val req = Request.Builder().url(host).post(body).build()
         return executeForResult(req)
     }
 
-    fun postWithCookie(host: String?, params: Map<String, String>?, cookie: CookieJar?): HttpRequestResponseData? {
+    fun postWithCookie(host: String?, params: Map<String, String?>?, cookie: CookieJar?): HttpRequestResponseData? {
         val body = buildBody(params)
         val req = Request.Builder().url(host).post(body).build()
         return executeForData(req, cookie)
     }
 
 
-    fun postFileWithCookie(host: String?, params: Map<String, String>?, files: Map<String, String>?, cookie: CookieJar?): HttpRequestResponseData? {
+    fun postFileWithCookie(host: String?, params: Map<String, String?>?, files: Map<String, String?>?, cookie: CookieJar?): HttpRequestResponseData? {
         val body = buildPostFileParts(params, files)
         val req = Request.Builder().url(host).post(body).build()
         return executeForData(req, cookie)
     }
 
-    private fun buildPostFileParts(params: Map<String, String>?, files: Map<String, String>?): RequestBody? {
+    private fun buildPostFileParts(params: Map<String, String?>?, files: Map<String, String?>?): RequestBody? {
         val builder = MultipartBody.Builder()
         builder.setType(MultipartBody.FORM)
         val iterParam = params?.keys?.iterator()
@@ -101,7 +101,7 @@ object HttpUtils {
         return executeForResult(req)
     }
 
-    fun delete(host: String?, params: Map<String, String>?): String? {
+    fun delete(host: String?, params: Map<String, String?>?): String? {
         val body = buildBody(params)
         val req = Request.Builder().url(host).delete(body).build()
         return executeForResult(req)

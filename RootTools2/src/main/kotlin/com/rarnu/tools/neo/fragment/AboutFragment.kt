@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.rarnu.tools.neo.R
+import com.rarnu.tools.neo.activity.ThanksActivity
 import com.rarnu.tools.neo.base.BaseFragment
 import com.rarnu.tools.neo.utils.FileUtils
 
@@ -20,10 +21,9 @@ import java.util.Locale
 class AboutFragment : BaseFragment(), View.OnClickListener {
 
     private var tvVersion: TextView? = null
-    private var tvCoderStory: TextView? = null
-    private var tvCoderStoryGithub: TextView? = null
     private var tvProj: TextView? = null
     private var tvIntro: TextView? = null
+    private var miThanks: MenuItem? = null
 
     override fun getBarTitle(): Int = R.string.about_name
 
@@ -32,15 +32,11 @@ class AboutFragment : BaseFragment(), View.OnClickListener {
     override fun initComponents() {
         tvVersion = innerView?.findViewById(R.id.tvVersion) as TextView?
         tvProj = innerView?.findViewById(R.id.tvProj) as TextView?
-        tvCoderStory = innerView?.findViewById(R.id.tvCoderStory) as TextView?
-        tvCoderStoryGithub = innerView?.findViewById(R.id.tvCoderStoryGithub) as TextView?
         tvIntro = innerView?.findViewById(R.id.tvIntro) as TextView?
     }
 
     override fun initEvents() {
         tvProj?.setOnClickListener(this)
-        tvCoderStory?.setOnClickListener(this)
-        tvCoderStoryGithub?.setOnClickListener(this)
     }
 
     override fun initLogic() {
@@ -67,17 +63,30 @@ class AboutFragment : BaseFragment(), View.OnClickListener {
 
     override fun getMainActivityName(): String? = null
 
-    override fun initMenu(menu: Menu?) { }
+    override fun initMenu(menu: Menu?) {
+        menu?.clear()
+        miThanks = menu?.add(0, 1, 1, R.string.ab_thanks)
+        miThanks?.setIcon(android.R.drawable.ic_menu_info_details)
+        miThanks?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+    }
 
-    override fun onGetNewArguments(bn: Bundle?) { }
+    override fun onOptionsItemSelected(item: MenuItem): Boolean {
+        when (item.itemId) {
+            1 -> {
+                startActivity(Intent(context, ThanksActivity::class.java))
+            }
+        }
+        return true
+    }
+
+    override fun onGetNewArguments(bn: Bundle?) {
+    }
 
     override fun getFragmentState(): Bundle? = null
 
     override fun onClick(v: View) {
         when (v.id) {
             R.id.tvProj -> openUrl(R.string.view_about_project_github_url)
-            R.id.tvCoderStory -> openUrl(R.string.view_about_thankto_coderstory_url)
-            R.id.tvCoderStoryGithub -> openUrl(R.string.view_about_thankto_coderstory_github_url)
         }
     }
 

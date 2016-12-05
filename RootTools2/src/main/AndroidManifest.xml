@@ -16,6 +16,7 @@
             android:label="@string/app_name"
             android:icon="@drawable/ic_launcher"
             android:theme="@android:style/Theme.Material.Light"
+            android:name=".RootApplication"
             android:allowBackup="true"
             android:supportsRtl="true">
 
@@ -72,6 +73,10 @@
         <activity android:name=".activity.BuildPropEditActivity"
                   android:screenOrientation="portrait"
                   android:theme="@android:style/Theme.Material.Light.Dialog.NoActionBar">
+        </activity>
+        <activity
+                android:name=".activity.ThanksActivity"
+                android:screenOrientation="portrait">
         </activity>
 
         <!-- xposed -->
