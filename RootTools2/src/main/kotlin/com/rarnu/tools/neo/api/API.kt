@@ -63,4 +63,8 @@ object API {
         return ret
     }
 
+    fun reportCrash() {
+        // TODO:
+    }
+
 }
