@@ -36,7 +36,7 @@ object API {
         param.put("pkg", pkgName)
         param.put("ver", versionCode.toString())
         var data = ""
-        if (disabled != null && disabled.size != 0) {
+        if (disabled != null && disabled.isNotEmpty()) {
             for (s in disabled) {
                 data += s + "\n"
             }
@@ -51,11 +51,7 @@ object API {
         params.put("nickname", nickname)
         params.put("comment", comment)
         val files = HashMap<String, String>()
-        for (i in photo.indices) {
-            if (photo[i] != "") {
-                files.put("photo${i + 1}", photo[i])
-            }
-        }
+        photo.indices.filter { photo[it] != "" }.forEach { files.put("photo${it + 1}", photo[it]) }
         val data = HttpUtils.postFile(API_BASE + "feedback.php", params, files)
         Log.e("API", "sendFeedback => $data")
         var ret = false

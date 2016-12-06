@@ -43,18 +43,16 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
     override fun initComponents() {
         etNickname = innerView?.findViewById(R.id.etNickname) as TextView?
         etComment = innerView?.findViewById(R.id.etComment) as TextView?
-        for (i in 0..4) {
-            ph[i] = innerView?.findViewById(resources.getIdentifier("ph${i + 1}", "id", context.packageName)) as RelativeLayout?
-            imgP[i] = innerView?.findViewById(resources.getIdentifier("imgP${i + 1}", "id", context.packageName)) as ImageView?
-            tvAdd[i] = innerView?.findViewById(resources.getIdentifier("tvAdd${i + 1}", "id", context.packageName)) as TextView?
+        (0..4).forEach {
+            ph[it] = innerView?.findViewById(resources.getIdentifier("ph${it + 1}", "id", context.packageName)) as RelativeLayout?
+            imgP[it] = innerView?.findViewById(resources.getIdentifier("imgP${it + 1}", "id", context.packageName)) as ImageView?
+            tvAdd[it] = innerView?.findViewById(resources.getIdentifier("tvAdd${it + 1}", "id", context.packageName)) as TextView?
         }
         sp = PreferenceManager.getDefaultSharedPreferences(context)
     }
 
     override fun initEvents() {
-        for (i in 0..4) {
-            ph[i]?.setOnClickListener(this)
-        }
+        (0..4).forEach { ph[it]?.setOnClickListener(this) }
     }
 
     override fun initLogic() {

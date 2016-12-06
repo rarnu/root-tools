@@ -30,19 +30,11 @@ object RootAPI {
 
     // isSystemRW
     fun isSystemRW(): Boolean {
-        var b = false
         val cmd = "mount"
         val ret = RootUtils.runCommand(cmd, true)
         Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
         val sl = ret.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
-        for (s in sl) {
-            if (s.contains(" /system") && s.contains("ext4")) {
-                if (s.contains("rw")) {
-                    b = true
-                    break
-                }
-            }
-        }
+        val b = sl.any { it.contains(" /system") && it.contains("ext4") && it.contains("rw") }
         return b
     }
 
@@ -74,8 +66,8 @@ object RootAPI {
     fun freezeComponents(packageName: String?, componentNames: Array<String>?, isFreezed: Boolean): Boolean {
         // freezeComponents
         var b = true
-        for (i in componentNames!!.indices) {
-            val cmd = "pm ${if (isFreezed) "disable" else "enable"} $packageName/${componentNames[i]}"
+        componentNames!!.indices.forEach {
+            val cmd = "pm ${if (isFreezed) "disable" else "enable"} $packageName/${componentNames[it]}"
             val ret = RootUtils.runCommand(cmd, true)
             Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
             if (ret.error != "") {
@@ -244,15 +236,7 @@ object RootAPI {
         return b
     }
 
-    private fun getSlashCount(path: String): Int {
-        var c = 0
-        for (i in 0..path.length - 1) {
-            if (path[i] == '/') {
-                c++
-            }
-        }
-        return c
-    }
+    private fun getSlashCount(path: String): Int = (0..path.length - 1).count { path[it] == '/' }
 
     private fun getProcessId(str: String): String {
         if (str.contains("com.rarnu.tools.neo") || str.endsWith(" su")) {
@@ -276,23 +260,11 @@ object RootAPI {
         get() {
             val BUSYBOX_PATH = arrayOf("/system/bin/busybox", "/system/xbin/busybox")
             val DU_PATH = arrayOf("/system/bin/du", "/system/xbin/du")
-            var duExists = false
-            var busyboxExists = false
-            for (s in DU_PATH) {
-                if (File(s).exists()) {
-                    duExists = true
-                    break
-                }
-            }
+            val duExists = DU_PATH.any { File(it).exists() }
             if (duExists) {
                 return "du"
             }
-            for (s in BUSYBOX_PATH) {
-                if (File(s).exists()) {
-                    busyboxExists = true
-                    break
-                }
-            }
+            val busyboxExists = BUSYBOX_PATH.any { File(it).exists() }
             if (busyboxExists) {
                 return "busybox du"
             }
@@ -344,26 +316,11 @@ object RootAPI {
         var newAppPath = app.replace("data@app@", "")
         newAppPath = newAppPath.substring(0, newAppPath.indexOf("@"))
 
-        var idx = -1
-        for (i in oriList.indices) {
-            if (oriList[i] == newAppPath) {
-                idx = i
-                break
-            }
-        }
+        val idx = oriList.indices.firstOrNull { oriList[it] == newAppPath } ?: -1
         return idx != -1
     }
 
-    private fun isProfileInstalled(oriList: Array<String>, app: String): Boolean {
-        var b = false
-        for (s in oriList) {
-            if (s.contains(app)) {
-                b = true
-                break
-            }
-        }
-        return b
-    }
+    private fun isProfileInstalled(oriList: Array<String>, app: String): Boolean = oriList.any { it.contains(app) }
 
     private fun cleanANR(ctx: Context?): Long {
         var l = 0L

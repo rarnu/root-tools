@@ -69,6 +69,7 @@
     <string name="app_system">系统</string>
     <string name="app_thememanager">主题</string>
     <string name="app_market">应用商店</string>
+    <string name="app_settings">设置</string>
 
     <string name="view_loading">正在努力加载, 请稍候...</string>
     <string name="view_activity">Activity</string>

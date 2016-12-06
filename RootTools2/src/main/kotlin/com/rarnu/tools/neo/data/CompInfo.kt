@@ -16,13 +16,7 @@ class CompInfo {
         get() {
             val result = arrayListOf<String>()
             if (component != null && component?.intents != null) {
-                for (a in component!!.intents!!) {
-                    if (a.countActions() > 0) {
-                        for (i in 0..a.countActions() - 1) {
-                            result.add(a.getAction(i))
-                        }
-                    }
-                }
+                component!!.intents!!.filter { it.countActions() > 0 }.forEach { a -> (0..a.countActions() - 1).mapTo(result) { a.getAction(it) } }
             }
             return result
         }

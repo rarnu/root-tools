@@ -88,7 +88,7 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
         val item = adapter?.getFiltedItem(position)
         val msg = item?.intents
         var msgStr = ""
-        if (msg == null || msg.size == 0) {
+        if (msg == null || msg.isEmpty()) {
             msgStr = getString(R.string.alert_no_intent)
         } else {
             for (s in msg) {
@@ -306,26 +306,10 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
                 val lstReceiver = ComponentUtils.getReceiverList(context, obj)
                 val lstProvider = ComponentUtils.getProviderList(context, obj)
                 val lstDisabled = arrayListOf<String?>()
-                for (ci in lstActivity) {
-                    if (!ci.enabled) {
-                        lstDisabled.add(ci.component?.className)
-                    }
-                }
-                for (ci in lstService) {
-                    if (!ci.enabled) {
-                        lstDisabled.add(ci.component?.className)
-                    }
-                }
-                for (ci in lstReceiver) {
-                    if (!ci.enabled) {
-                        lstDisabled.add(ci.component?.className)
-                    }
-                }
-                for (ci in lstProvider) {
-                    if (!ci.enabled) {
-                        lstDisabled.add(ci.component?.className)
-                    }
-                }
+                lstActivity.filterNot { it.enabled }.mapTo(lstDisabled) { it.component?.className }
+                lstService.filterNot { it.enabled }.mapTo(lstDisabled) { it.component?.className }
+                lstReceiver.filterNot { it.enabled }.mapTo(lstDisabled) { it.component?.className }
+                lstProvider.filterNot { it.enabled }.mapTo(lstDisabled) { it.component?.className }
                 if (lstDisabled.size != 0) {
                     ret = API.uploadOnekey(pkgName, versionCode, lstDisabled)
                 }

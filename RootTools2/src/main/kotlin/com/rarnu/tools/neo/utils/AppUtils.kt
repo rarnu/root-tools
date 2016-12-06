@@ -80,30 +80,27 @@ object AppUtils {
         val list = arrayListOf<AppInfo>()
         val listSystem = arrayListOf<AppInfo>()
         if (pkgs != null) {
-            for (pkg in pkgs) {
-                if (pkg.applicationInfo.enabled) {
-                    if (pkg.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
-                        listSystem.add(AppInfo(
-                                pkg.applicationInfo.loadLabel(pm).toString(),
-                                pkg.applicationInfo.loadIcon(pm),
-                                pkg.packageName,
-                                true,
-                                pkg.versionName,
-                                pkg.versionCode,
-                                true,
-                                false))
-                    } else {
-                        list.add(AppInfo(
-                                pkg.applicationInfo.loadLabel(pm).toString(),
-                                pkg.applicationInfo.loadIcon(pm),
-                                pkg.packageName,
-                                true,
-                                pkg.versionName,
-                                pkg.versionCode,
-                                false,
-                                false))
-                    }
-
+            pkgs.filter { it.applicationInfo.enabled }.forEach {
+                if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
+                    listSystem.add(AppInfo(
+                            it.applicationInfo.loadLabel(pm).toString(),
+                            it.applicationInfo.loadIcon(pm),
+                            it.packageName,
+                            true,
+                            it.versionName,
+                            it.versionCode,
+                            true,
+                            false))
+                } else {
+                    list.add(AppInfo(
+                            it.applicationInfo.loadLabel(pm).toString(),
+                            it.applicationInfo.loadIcon(pm),
+                            it.packageName,
+                            true,
+                            it.versionName,
+                            it.versionCode,
+                            false,
+                            false))
                 }
             }
         }

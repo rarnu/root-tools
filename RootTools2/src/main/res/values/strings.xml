@@ -70,6 +70,7 @@
     <string name="app_system">System</string>
     <string name="app_thememanager">Theme Manager</string>
     <string name="app_market">Market</string>
+    <string name="app_settings">Settings</string>
 
 
     <string name="view_loading">Loading, please wait...</string>

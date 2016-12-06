@@ -16,12 +16,7 @@ object BuildPropUtils {
                 val file = FileUtils.readFile(PATH_BUILD_PROP)
                 if (file != null && file.size != 0) {
                     list = arrayListOf<BuildPropInfo>()
-                    for (f in file) {
-                        if (f.trim { it <= ' ' } == "" || f.trim { it <= ' ' }.startsWith("#") || !f.trim { it <= ' ' }.contains("=")) {
-                            continue
-                        }
-                        list.add(BuildPropInfo.parse(f))
-                    }
+                    file.filter { f -> f.trim { it <= ' ' } != "" && !f.trim { it <= ' ' }.startsWith("#") && f.trim { it <= ' ' }.contains("=") }.mapTo(list) { BuildPropInfo.parse(it) }
                 }
             } catch (e: Exception) {
 
