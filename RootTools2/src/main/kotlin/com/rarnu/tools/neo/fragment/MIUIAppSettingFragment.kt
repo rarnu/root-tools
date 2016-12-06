@@ -27,6 +27,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
     private var pVideo: PreferenceEx? = null
     private var pWeather: PreferenceEx? = null
     private var pTheme: PreferenceEx? = null
+    private var pMarket: PreferenceEx? = null
     private var pSystem: PreferenceEx? = null
     private var pref: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
@@ -49,6 +50,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
         pVideo = findPref(R.string.id_app_video)
         pWeather = findPref(R.string.id_app_weather)
         pTheme = findPref(R.string.id_app_thememanager)
+        pMarket = findPref(R.string.id_app_market)
         pSystem = findPref(R.string.id_app_system)
     }
 
@@ -66,6 +68,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
         pVideo?.onPreferenceClickListener = this
         pWeather?.onPreferenceClickListener = this
         pTheme?.onPreferenceClickListener = this
+        pMarket?.onPreferenceClickListener = this
         pSystem?.onPreferenceClickListener = this
     }
 
@@ -81,6 +84,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
         pVideo?.status = pref!!.getBoolean(XpStatus.KEY_AD_VIDEO, false)
         pWeather?.status = pref!!.getBoolean(XpStatus.KEY_AD_WEATHER, false)
         pTheme?.status = pref!!.getBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)
+        pMarket?.status = pref!!.getBoolean(XpStatus.KEY_AD_MARKET, false)
         pSystem?.status = pref!!.getBoolean(XpStatus.KEY_AD_SYSTEM, false)
     }
 
@@ -110,6 +114,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
             getString(R.string.id_app_video) -> editor?.putBoolean(XpStatus.KEY_AD_VIDEO, ex.status)
             getString(R.string.id_app_weather) -> editor?.putBoolean(XpStatus.KEY_AD_WEATHER, ex.status)
             getString(R.string.id_app_thememanager) -> editor?.putBoolean(XpStatus.KEY_AD_THEMEMANAGER, ex.status)
+            getString(R.string.id_app_market) -> editor?.putBoolean(XpStatus.KEY_AD_MARKET, ex.status)
             getString(R.string.id_app_system) -> editor?.putBoolean(XpStatus.KEY_AD_SYSTEM, ex.status)
 
         }

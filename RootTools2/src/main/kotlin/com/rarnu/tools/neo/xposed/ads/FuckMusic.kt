@@ -62,6 +62,17 @@ object FuckMusic {
             }
         })
 
+        // 2.7.300
+        XpUtils.findAndHookMethod("com.miui.player.content.MusicHybridProvider", loadPackageParam.classLoader, "parseCommand", String::class, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun beforeHookedMethod(param: MethodHookParam) {
+                val scheme = param.args[0] as String?
+                if (scheme == "advertise") {
+                    param.args[0] = ""
+                }
+            }
+        })
+
         // try to remove copy right validation, removed.
 
         /*

@@ -104,6 +104,18 @@ class MIUIAds : IXposedHookLoadPackage, IXposedHookInitPackageResources {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)) {
                 FuckThemeManager.fuckThemeManager(paramLoadPackageParam)
             }
+            return
+        }
+        if (paramLoadPackageParam.packageName == "com.xiaomi.market") {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_MARKET, false)) {
+                FuckMarket.fuckMarket(paramLoadPackageParam)
+            }
+            return
+        }
+        if (paramLoadPackageParam.packageName == "com.android.settings") {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_SETTINGS, false)) {
+                FuckSettings.fuckSettings(paramLoadPackageParam)
+            }
         }
     }
 

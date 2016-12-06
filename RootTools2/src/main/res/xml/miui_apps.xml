@@ -59,6 +59,11 @@
             pref:showIcon="false"
             pref:showSwitch="true"/>
     <com.rarnu.tools.neo.comp.PreferenceEx
+            android:key="@string/id_app_market"
+            android:title="@string/app_market"
+            pref:showIcon="false"
+            pref:showSwitch="true"/>
+    <com.rarnu.tools.neo.comp.PreferenceEx
             android:key="@string/id_app_system"
             android:title="@string/app_system"
             pref:showSwitch="true"

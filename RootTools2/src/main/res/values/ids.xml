@@ -39,5 +39,6 @@
     <string name="id_app_browser">id_app_browser</string>
     <string name="id_app_system">id_app_system</string>
     <string name="id_app_thememanager">id_app_thememanager</string>
+    <string name="id_app_market">id_app_market</string>
 
 </resources>

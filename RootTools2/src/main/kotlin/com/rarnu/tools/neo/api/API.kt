@@ -91,7 +91,7 @@ object API {
         val param = hashMapOf<String, String?>()
         param.put("model", Build.MODEL)
         param.put("sdk", Build.VERSION.SDK_INT.toString())
-        val info = ctx?.packageManager?.getPackageInfo(ctx?.packageName, 0)
+        val info = ctx?.packageManager?.getPackageInfo(ctx.packageName, 0)
         param.put("appver", info?.versionCode.toString())
         param.put("data", data)
         HttpUtils.post(API_BASE + "crash.php", param)

@@ -95,6 +95,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
                     ?.putBoolean(XpStatus.KEY_AD_MUSIC, false)
                     ?.putBoolean(XpStatus.KEY_AD_WEATHER, false)
                     ?.putBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)
+                    ?.putBoolean(XpStatus.KEY_AD_MARKET, false)
                     ?.putBoolean(XpStatus.KEY_AD_SYSTEM, false)
                     ?.apply()
             DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)

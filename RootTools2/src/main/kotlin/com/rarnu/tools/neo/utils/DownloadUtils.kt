@@ -36,8 +36,8 @@ object DownloadUtils {
     private fun doDownload(info: DownloadInfo) {
         val hDownload = object : Handler() {
             override fun handleMessage(msg: Message?) {
-                val info = lstDownload[0]
-                info.callback?.notifyDataSetChanged()
+                val i = lstDownload[0]
+                i.callback?.notifyDataSetChanged()
                 lstDownload.removeAt(0)
                 run()
                 super.handleMessage(msg)
@@ -50,13 +50,11 @@ object DownloadUtils {
                 fTmp.delete()
             }
             var url: URL?
-            var filesize = 0
             var position = 0
             try {
                 url = URL(info.url)
                 val con = url.openConnection() as HttpURLConnection
                 var ins = con.inputStream
-                filesize = con.contentLength
                 val fileOut = File(info.local + ".tmp")
                 val out = FileOutputStream(fileOut)
                 val buffer = ByteArray(1024)
