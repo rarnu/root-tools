@@ -4,55 +4,17 @@ import android.content.Context
 import android.os.Handler
 import android.os.Message
 import com.rarnu.tools.neo.api.API
+import org.jetbrains.annotations.Mutable
 import org.json.JSONException
 import org.json.JSONObject
 import kotlin.concurrent.thread
 
-class UpdateInfo  {
-
-    interface UpdateInfoReadyCallback {
-        fun onUpdateInfoReady(info: UpdateInfo?)
-    }
+class UpdateInfo() {
 
     var versionName = ""
     var versionCode = 0
     var description = ""
     var url = ""
-
-    private var isReady = false
-    private var callback: UpdateInfoReadyCallback? = null
-
-    private val hCallback = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            callback?.onUpdateInfoReady(_instance)
-            super.handleMessage(msg)
-        }
-    }
-
-    private constructor(callback: UpdateInfo.UpdateInfoReadyCallback?) {
-        _instance = this
-        this.callback = callback
-        threadInitUpdateInfo()
-    }
-
-    private fun threadInitUpdateInfo() {
-        isReady = false
-        thread {
-            val jsonStr = API.getUpdateInfo()
-            try {
-                val json = JSONObject(jsonStr)
-                versionCode = json.getInt("versionCode")
-                versionName = json.getString("versionName")
-                url = json.getString("url")
-                description = json.getString("description")
-            } catch (e: JSONException) {
-
-            }
-
-            isReady = true
-            hCallback.sendEmptyMessage(0)
-        }
-    }
 
     fun isNewVersion(ctx: Context?): Boolean {
         var ret = false
@@ -67,10 +29,33 @@ class UpdateInfo  {
     }
 
     companion object {
-        private var _instance: UpdateInfo? = null
-        fun getUpdateInfo(callback: UpdateInfoReadyCallback?): UpdateInfo? {
-            UpdateInfo(callback)
-            return _instance
+
+        fun fromJson(json: JSONObject): UpdateInfo? {
+            var info: UpdateInfo? = null
+            try {
+                info = UpdateInfo()
+                info.versionCode = json.getInt("versionCode")
+                info.versionName = json.getString("versionName")
+                info.url = json.getString("url")
+                info.description = json.getString("description")
+            } catch (e: Exception) {
+
+            }
+            return info
+        }
+
+        fun listFromJson(json: JSONObject): MutableList<UpdateInfo?>? {
+            var list: MutableList<UpdateInfo?>? = null
+            try {
+                if (json.getInt("result") == 0) {
+                    val arr = json.getJSONArray("data")
+                    list = arrayListOf()
+                    (0..arr.length() - 1).forEach { list?.add(fromJson(arr.getJSONObject(it))) }
+                }
+            } catch (e: Exception) {
+
+            }
+            return list
         }
     }
 

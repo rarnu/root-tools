@@ -31,3 +31,11 @@ create table crash(
 	status int default 0
 ) character set utf8;
 
+create table version(
+	id int primary key auto_increment,
+	versionCode int default 0,
+	versionName varchar(64) not null,
+	url varchar(256) not null,
+	description text not null
+) character set utf8;
+

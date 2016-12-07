@@ -11,6 +11,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.TextView
 import com.rarnu.tools.neo.R
+import com.rarnu.tools.neo.activity.ChangeLogActivity
 import com.rarnu.tools.neo.activity.ThanksActivity
 import com.rarnu.tools.neo.base.BaseFragment
 import com.rarnu.tools.neo.utils.FileUtils
@@ -24,6 +25,7 @@ class AboutFragment : BaseFragment(), View.OnClickListener {
     private var tvProj: TextView? = null
     private var tvIntro: TextView? = null
     private var miThanks: MenuItem? = null
+    private var tvChangeLog: TextView? = null
 
     override fun getBarTitle(): Int = R.string.about_name
 
@@ -33,10 +35,12 @@ class AboutFragment : BaseFragment(), View.OnClickListener {
         tvVersion = innerView?.findViewById(R.id.tvVersion) as TextView?
         tvProj = innerView?.findViewById(R.id.tvProj) as TextView?
         tvIntro = innerView?.findViewById(R.id.tvIntro) as TextView?
+        tvChangeLog = innerView?.findViewById(R.id.tvChangeLog) as TextView?
     }
 
     override fun initEvents() {
         tvProj?.setOnClickListener(this)
+        tvChangeLog?.setOnClickListener(this)
     }
 
     override fun initLogic() {
@@ -87,6 +91,7 @@ class AboutFragment : BaseFragment(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.tvProj -> openUrl(R.string.view_about_project_github_url)
+            R.id.tvChangeLog -> startActivity(Intent(context, ChangeLogActivity::class.java))
         }
     }
 

@@ -78,6 +78,11 @@
                 android:name=".activity.ThanksActivity"
                 android:screenOrientation="portrait">
         </activity>
+        <activity
+                android:name=".activity.ChangeLogActivity"
+                android:screenOrientation="portrait">
+
+        </activity>
 
         <!-- xposed -->
         <meta-data

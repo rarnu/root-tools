@@ -29,7 +29,7 @@ import com.rarnu.tools.neo.utils.UIUtils
 import com.rarnu.tools.neo.xposed.XpStatus
 import kotlin.concurrent.thread
 
-class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListener, UpdateInfo.UpdateInfoReadyCallback {
+class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListener {
 
     // categories
     private var catMain: PreferenceCategory? = null
@@ -126,10 +126,31 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
         pAbout?.onPreferenceClickListener = this
     }
 
+    private val hUpdate = object : Handler() {
+        override fun handleMessage(msg: Message) {
+            val info = msg.obj as UpdateInfo?
+            if (info != null) {
+                if (info.isNewVersion(context)) {
+                    AlertDialog.Builder(context).setTitle(R.string.alert_hint)
+                            .setMessage(getString(R.string.alert_update_message, info.versionName, info.versionCode, info.description))
+                            .setPositiveButton(R.string.alert_update) { dialog, which -> downloadApk(info.url) }
+                            .setNegativeButton(R.string.alert_cancel, null)
+                            .show()
+                }
+            }
+            super.handleMessage(msg)
+        }
+    }
+
     override fun initLogic() {
         loadSettings()
         setXposedRootStatus()
-        UpdateInfo.getUpdateInfo(this)
+        thread {
+            val info = API.getUpdateInfo()
+            val msg = Message()
+            msg.obj = info
+            hUpdate.sendMessage(msg)
+        }
     }
 
     override fun getFragmentLayoutResId(): Int = R.xml.main
@@ -282,19 +303,6 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
         }
         DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
         return true
-    }
-
-    override fun onUpdateInfoReady(info: UpdateInfo?) {
-        if (info != null) {
-            if (info.isNewVersion(context)) {
-                AlertDialog.Builder(context).setTitle(R.string.alert_hint)
-                        .setMessage(getString(R.string.alert_update_message, info.versionName, info.versionCode, info.description))
-                        .setPositiveButton(R.string.alert_update) { dialog, which -> downloadApk(info.url) }
-                        .setNegativeButton(R.string.alert_cancel, null)
-                        .show()
-            }
-        }
-
     }
 
     private fun downloadApk(url: String) {

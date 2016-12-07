@@ -5,6 +5,7 @@ import android.os.Build
 import android.util.Log
 import com.rarnu.tools.neo.data.Onekey
 import com.rarnu.tools.neo.data.ThanksInfo
+import com.rarnu.tools.neo.data.UpdateInfo
 import com.rarnu.tools.neo.utils.HttpUtils
 import org.jetbrains.annotations.Mutable
 import org.json.JSONObject
@@ -18,7 +19,29 @@ object API {
     val DOWNLOAD_URL = API_BASE + "download/"
     val HEAD_URL = API_BASE + "head/"
 
-    fun getUpdateInfo(): String? = HttpUtils.get(API_BASE + "version.php", "")
+    fun getUpdateInfo(): UpdateInfo? {
+        val jsonStr = HttpUtils.get(API_BASE + "version.php", "type=last")
+        var ret: UpdateInfo? = null
+        try {
+            val jobj = JSONObject(jsonStr)
+            ret = UpdateInfo.fromJson(jobj)
+        } catch (e: Exception) {
+
+        }
+        return ret
+    }
+
+    fun getAllUpdateInfo(): MutableList<UpdateInfo?>? {
+        val jsonStr = HttpUtils.get(API_BASE + "version.php", "type=all")
+        var ret: MutableList<UpdateInfo?>? = null
+        try {
+            val jobj = JSONObject(jsonStr)
+            ret = UpdateInfo.listFromJson(jobj)
+        } catch (e: Exception) {
+
+        }
+        return ret
+    }
 
     fun getOnekey(pkgName: String?, versionCode: Int): Onekey? {
         val str = HttpUtils.get(API_BASE + "onekey.php", "action=get&pkg=$pkgName&ver=$versionCode")

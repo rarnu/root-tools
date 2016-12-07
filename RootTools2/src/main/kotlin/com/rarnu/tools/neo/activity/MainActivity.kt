@@ -21,7 +21,7 @@ class MainActivity : BaseActivity() {
     private var pref: SharedPreferences? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
-        UIUtils.initDisplayMetrics(this, windowManager, false)
+        UIUtils.initDisplayMetrics(this, windowManager, true)
         super.onCreate(savedInstanceState)
         pref = getSharedPreferences(XpStatus.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
         XpStatus.mode = if (pref!!.getBoolean(XpStatus.KEY_WORK_MODE, false)) XpStatus.Mode.NDK else XpStatus.Mode.JVM

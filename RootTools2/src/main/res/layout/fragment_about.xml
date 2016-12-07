@@ -6,7 +6,8 @@
 
     <ScrollView
             android:layout_width="match_parent" android:layout_height="match_parent"
-            android:padding="8dip">
+            android:padding="8dip"
+            android:layout_above="@+id/tvChangeLog">
 
         <RelativeLayout android:layout_width="match_parent" android:layout_height="wrap_content">
             <LinearLayout
@@ -67,4 +68,13 @@
                     android:layout_marginTop="16dip"/>
         </RelativeLayout>
     </ScrollView>
+    <TextView
+            android:id="@+id/tvChangeLog"
+            android:layout_width="match_parent" android:layout_height="40dip"
+            android:layout_alignParentBottom="true"
+            android:text="@string/view_changelog"
+            android:gravity="center"
+            android:clickable="true"
+            android:focusable="true"
+            android:textColor="@android:color/holo_green_dark"/>
 </RelativeLayout>
