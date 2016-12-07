@@ -131,8 +131,9 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
             val info = msg.obj as UpdateInfo?
             if (info != null) {
                 if (info.isNewVersion(context)) {
+                    val str = "    " + info.description.replace("\\n", "\n    ")
                     AlertDialog.Builder(context).setTitle(R.string.alert_hint)
-                            .setMessage(getString(R.string.alert_update_message, info.versionName, info.versionCode, info.description))
+                            .setMessage(getString(R.string.alert_update_message, info.versionName, info.versionCode, str))
                             .setPositiveButton(R.string.alert_update) { dialog, which -> downloadApk(info.url) }
                             .setNegativeButton(R.string.alert_cancel, null)
                             .show()
