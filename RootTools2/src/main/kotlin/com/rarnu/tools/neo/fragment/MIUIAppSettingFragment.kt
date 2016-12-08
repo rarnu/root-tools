@@ -21,6 +21,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
     private var pCleanMaster: PreferenceEx? = null
     private var pDownload: PreferenceEx? = null
     private var pFileExplorer: PreferenceEx? = null
+    private var pContact: PreferenceEx? = null
     private var pMms: PreferenceEx? = null
     private var pMusic: PreferenceEx? = null
     private var pSearchBox: PreferenceEx? = null
@@ -45,6 +46,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
         pCleanMaster = findPref(R.string.id_app_cleanmaster)
         pDownload = findPref(R.string.id_app_download)
         pFileExplorer = findPref(R.string.id_app_fileexplorer)
+        pContact = findPref(R.string.id_app_contacts)
         pMms = findPref(R.string.id_app_mms)
         pMusic = findPref(R.string.id_app_music)
         pSearchBox = findPref(R.string.id_app_searchbox)
@@ -64,6 +66,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
         pCleanMaster?.onPreferenceClickListener = this
         pDownload?.onPreferenceClickListener = this
         pFileExplorer?.onPreferenceClickListener = this
+        pContact?.onPreferenceClickListener = this
         pMms?.onPreferenceClickListener = this
         pMusic?.onPreferenceClickListener = this
         pSearchBox?.onPreferenceClickListener = this
@@ -81,6 +84,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
         pCleanMaster?.status = pref!!.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)
         pDownload?.status = pref!!.getBoolean(XpStatus.KEY_AD_DOWNLOAD, false)
         pFileExplorer?.status = pref!!.getBoolean(XpStatus.KEY_AD_FILEEXPLORER, false)
+        pContact?.status = pref!!.getBoolean(XpStatus.KEY_AD_CONTACTS, false)
         pMms?.status = pref!!.getBoolean(XpStatus.KEY_AD_MMS, false)
         pMusic?.status = pref!!.getBoolean(XpStatus.KEY_AD_MUSIC, false)
         pSearchBox?.status = pref!!.getBoolean(XpStatus.KEY_AD_SEARCHBOX, false)
@@ -112,6 +116,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
             getString(R.string.id_app_cleanmaster) -> editor?.putBoolean(XpStatus.KEY_AD_CLEANMASTER, ex.status)
             getString(R.string.id_app_download) -> editor?.putBoolean(XpStatus.KEY_AD_DOWNLOAD, ex.status)
             getString(R.string.id_app_fileexplorer) -> editor?.putBoolean(XpStatus.KEY_AD_FILEEXPLORER, ex.status)
+            getString(R.string.id_app_contacts) -> editor?.putBoolean(XpStatus.KEY_AD_CONTACTS, ex.status)
             getString(R.string.id_app_mms) -> editor?.putBoolean(XpStatus.KEY_AD_MMS, ex.status)
             getString(R.string.id_app_music) -> editor?.putBoolean(XpStatus.KEY_AD_MUSIC, ex.status)
             getString(R.string.id_app_searchbox) -> editor?.putBoolean(XpStatus.KEY_AD_SEARCHBOX, ex.status)

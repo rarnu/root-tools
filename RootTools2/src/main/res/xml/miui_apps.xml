@@ -29,6 +29,11 @@
             pref:showSwitch="true"
             pref:showIcon="false"/>
     <com.rarnu.tools.neo.comp.PreferenceEx
+            android:key="@string/id_app_contacts"
+            android:title="@string/app_contacts"
+            pref:showIcon="false"
+            pref:showSwitch="true"/>
+    <com.rarnu.tools.neo.comp.PreferenceEx
             android:key="@string/id_app_mms"
             android:title="@string/app_mms"
             pref:showSwitch="true"

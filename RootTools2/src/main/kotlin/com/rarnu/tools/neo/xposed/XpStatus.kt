@@ -39,7 +39,8 @@ object XpStatus {
     val KEY_AD_THEMEMANAGER = "fuck_thememanager"
     val KEY_AD_SYSTEM = "fuck_system"
     val KEY_AD_MARKET = "fuck_market"
-    val KEY_AD_SETTINGS = "fuck_settins"
+    val KEY_AD_SETTINGS = "fuck_settings"
+    val KEY_AD_CONTACTS = "fuck_contacts"
 
     var canWriteSdcard = false
 

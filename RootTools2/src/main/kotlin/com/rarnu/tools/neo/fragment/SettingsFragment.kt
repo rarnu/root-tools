@@ -89,6 +89,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
                     ?.putBoolean(XpStatus.KEY_AD_CLEANMASTER, false)
                     ?.putBoolean(XpStatus.KEY_AD_DOWNLOAD, false)
                     ?.putBoolean(XpStatus.KEY_AD_FILEEXPLORER, false)
+                    ?.putBoolean(XpStatus.KEY_AD_CONTACTS, false)
                     ?.putBoolean(XpStatus.KEY_AD_MMS, false)
                     ?.putBoolean(XpStatus.KEY_AD_SEARCHBOX, false)
                     ?.putBoolean(XpStatus.KEY_AD_VIDEO, false)

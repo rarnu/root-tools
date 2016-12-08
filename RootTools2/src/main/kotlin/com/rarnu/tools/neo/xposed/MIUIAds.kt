@@ -116,6 +116,12 @@ class MIUIAds : IXposedHookLoadPackage, IXposedHookInitPackageResources {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_SETTINGS, false)) {
                 FuckSettings.fuckSettings(paramLoadPackageParam)
             }
+            return
+        }
+        if (paramLoadPackageParam.packageName == "com.android.contacts") {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CONTACTS, false)) {
+                FuckContacts.fuckContacts(paramLoadPackageParam)
+            }
         }
     }
 

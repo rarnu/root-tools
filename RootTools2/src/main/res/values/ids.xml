@@ -41,5 +41,6 @@
     <string name="id_app_thememanager">id_app_thememanager</string>
     <string name="id_app_market">id_app_market</string>
     <string name="id_app_settings">id_app_settings</string>
+    <string name="id_app_contacts">id_app_contacts</string>
 
 </resources>
