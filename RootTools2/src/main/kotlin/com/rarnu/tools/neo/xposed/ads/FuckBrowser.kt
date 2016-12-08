@@ -4,7 +4,7 @@ import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import java.util.*
+import java.lang.reflect.Field
 
 /**
  * Created by rarnu on 11/18/16.
@@ -12,12 +12,51 @@ import java.util.*
 object FuckBrowser {
 
     fun fuckBrowser(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
-        XpUtils.findAndHookMethod("miui.browser.a.a", loadPackageParam.classLoader, "a", String::class.java, String::class.java, String::class.java, List::class.java, HashMap::class.java, XC_MethodReplacement.returnConstant(null))
+
+        //
         val clsA = XpUtils.findClass(loadPackageParam.classLoader, "com.a.a.d.a")
         if (clsA != null) {
-            XpUtils.findAndHookMethod("com.android.browser.suggestion.SuggestItem\$AdsInfo", loadPackageParam.classLoader, "deserialize", clsA, XC_MethodReplacement.returnConstant(null))
-            XpUtils.findAndHookMethod("com.android.browser.homepage.HomepageBannerProvider\$AdTrackingInfo", loadPackageParam.classLoader, "deserialize", clsA, XC_MethodReplacement.returnConstant(null))
+            XpUtils.findAndHookMethod("com.android.browser.suggestion.af", loadPackageParam.classLoader, "a", clsA, String::class.java, object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun afterHookedMethod(param: MethodHookParam) {
+                    val o = param.thisObject
+                    val fJ: Field?
+                    if (o.javaClass.name != "com.android.browser.suggestion.af") {
+                        fJ = o.javaClass.superclass.getDeclaredField("j")
+                    } else {
+                        fJ = o.javaClass.getDeclaredField("j")
+                    }
+                    fJ.isAccessible = true
+                    val oJ = fJ.get(o)
+                    if (oJ != null) {
+                        if (oJ.javaClass.name == "com.android.browser.suggestion.SuggestItem\$AdsInfo") {
+                            fJ.set(o, null)
+                        }
+                    }
+                }
+            })
+
+            XpUtils.findAndHookMethod("com.android.browser.suggestion.af", loadPackageParam.classLoader, "a", clsA, object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun afterHookedMethod(param: MethodHookParam) {
+                    val o = param.thisObject
+                    val fJ: Field?
+                    if (o.javaClass.name != "com.android.browser.suggestion.af") {
+                        fJ = o.javaClass.superclass.getDeclaredField("j")
+                    } else {
+                        fJ = o.javaClass.getDeclaredField("j")
+                    }
+                    fJ.isAccessible = true
+                    val oJ = fJ.get(o)
+                    if (oJ != null) {
+                        if (oJ.javaClass.name == "com.android.browser.suggestion.SuggestItem\$AdsInfo") {
+                            fJ.set(o, null)
+                        }
+                    }
+                }
+            })
         }
+
 
         // 8.2.15
         XpUtils.findAndHookMethod("com.android.browser.jx", loadPackageParam.classLoader, "ak", XC_MethodReplacement.returnConstant(true))
@@ -46,6 +85,32 @@ object FuckBrowser {
         val clsSuggestItem = XpUtils.findClass(loadPackageParam.classLoader, "com.android.browser.suggestion.SuggestItem")
         if (clsSuggestItem != null) {
             XpUtils.findAndHookMethod("com.android.browser.suggestion.ap", loadPackageParam.classLoader, "a", clsSuggestItem, XC_MethodReplacement.returnConstant(null))
+        }
+
+        val clsAi = XpUtils.findClass(loadPackageParam.classLoader, "com.android.browser.suggestion.ai")
+        if (clsSuggestItem != null && clsAi != null) {
+            if (clsAi.superclass.name == "android.widget.BaseAdapter") {
+                XpUtils.findAndHookMethod("com.android.browser.suggestion.ai", loadPackageParam.classLoader, "a", List::class.java, String::class.java, object : XC_MethodHook() {
+                    @Throws(Throwable::class)
+                    override fun beforeHookedMethod(param: MethodHookParam) {
+                        val list = param.args[0] as MutableList<*>?
+                        val fType = clsSuggestItem.getDeclaredField("type")
+                        fType.isAccessible = true
+                        if (list != null) {
+                            var idx = list.size - 1
+                            while (idx >= 0) {
+                                val item = list[idx]    // SuggestItem
+                                val typ = fType.get(item)
+                                if (typ == "app") {
+                                    list.removeAt(idx)
+                                }
+                                idx--
+                            }
+                        }
+                        param.args[0] = list
+                    }
+                })
+            }
         }
 
         XpUtils.findAndHookMethod("miui.browser.a", loadPackageParam.classLoader, "a", String::class.java, object : XC_MethodHook() {
