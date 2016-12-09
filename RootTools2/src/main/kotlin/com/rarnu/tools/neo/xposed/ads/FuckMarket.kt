@@ -4,7 +4,10 @@ import android.content.Loader
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
+import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import java.lang.reflect.Field
+import java.util.*
 
 /**
  * Created by rarnu on 12/6/16.
@@ -12,11 +15,6 @@ import de.robv.android.xposed.callbacks.XC_LoadPackage
 object FuckMarket {
 
     fun fuckMarket(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
-
-        // 3.x
-//        XpUtils.findAndHookMethod("com.xiaomi.market.ui.UpdateHistoryFragmentPhone", loadPackageParam.classLoader, "lK", XC_MethodReplacement.returnConstant(null))
-//        XpUtils.findAndHookMethod("com.xiaomi.market.ui.UpdateHistoryFragmentPhone", loadPackageParam.classLoader, "lH", XC_MethodReplacement.returnConstant(null))
-//        XpUtils.findAndHookMethod("com.xiaomi.market.ui.UpdateAppsFragmentPhone", loadPackageParam.classLoader, "lH", XC_MethodReplacement.returnConstant(null))
 
         val clsCg = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.data.cg")
         if (clsCg != null) {
@@ -88,5 +86,49 @@ object FuckMarket {
                 }
             })
         }
+
+        val clsQItem = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.ui.UpdateAppsAdapterPhone\$Item")
+        if (clsQItem != null) {
+            XpUtils.findAndHookMethod("com.xiaomi.market.widget.q", loadPackageParam.classLoader, "w", ArrayList::class.java, object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    var fItemType = clsQItem.getDeclaredField("aTC")
+                    val list = param.args[0] as MutableList<*>?
+                    val newList = arrayListOf<Any?>()
+                    if (list != null) {
+                        for (item in list) {
+                            val typ = fItemType?.get(item) as Enum<*>?
+                            if (typ != null) {
+                                if (typ.toString() != "RECOMMEND_APP") {
+                                    newList.add(item)
+                                }
+                            }
+                        }
+                    }
+                    param.args[0] = newList
+                }
+            })
+
+            XpUtils.findAndHookMethod("com.xiaomi.market.widget.q", loadPackageParam.classLoader, "x", ArrayList::class.java, object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    var fItemType = clsQItem.getDeclaredField("KV")
+                    val list = param.args[0] as MutableList<*>?
+                    val newList = arrayListOf<Any?>()
+                    if (list != null) {
+                        for (item in list) {
+                            val typ = fItemType?.get(item) as Enum<*>?
+                            if (typ != null) {
+                                if (typ.toString() != "RECOMMEND_APP") {
+                                    newList.add(item)
+                                }
+                            }
+                        }
+                    }
+                    param.args[0] = newList
+                }
+            })
+        }
+
     }
 }
