@@ -25,10 +25,8 @@ object FuckThemeManager {
                     if (url.contains("AdCenter")) {
                         param.args[1] = "http://127.0.0.1/"
                     }
-
                 }
             })
         }
-
     }
 }

@@ -3,10 +3,7 @@ package com.rarnu.tools.neo.xposed.ads
 import android.content.Loader
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import java.lang.reflect.Field
 import java.util.*
 
 /**
