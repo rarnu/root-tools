@@ -11,37 +11,48 @@
                 android:title="@string/main_freeze"
                 pref:showSwitch="false"
                 pref:showIcon="false"
+                pref:extitle="@string/pref_root"
         />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_component"
                 android:summary="@string/main_summary_component"
                 android:title="@string/main_component"
                 pref:showSwitch="false"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_root"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_cleanart"
                 android:summary="@string/main_summary_cleanart"
                 android:title="@string/main_cleanart"
                 pref:showSwitch="false"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_root"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_memory"
                 android:summary="@string/main_summary_memory"
                 android:title="@string/main_memory"
                 pref:showIcon="false"
-                pref:showSwitch="false"/>
+                pref:showSwitch="false"
+                pref:extitle="@string/pref_root"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_corecrack"
                 android:summary="@string/main_summary_corecrack"
                 android:title="@string/main_corecrack"
                 pref:showSwitch="true"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_xposed"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_fake_device"
                 android:summary="@string/main_summary_fake_device"
                 android:title="@string/main_fake_device"
                 pref:showSwitch="false"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_root"
+        />
 
     </PreferenceCategory>
 
@@ -53,43 +64,65 @@
                 android:summary="@string/miui_summary_theme"
                 android:title="@string/miui_theme"
                 pref:showSwitch="true"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_xposed"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_removead"
                 android:summary="@string/miui_summary_removead"
                 android:title="@string/miui_removead"
                 pref:showSwitch="true"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_xposed"
+        />
+        <com.rarnu.tools.neo.comp.PreferenceEx
+                android:key="@string/id_removead_root"
+                android:summary="@string/miui_summary_removead_root"
+                android:title="@string/miui_removead_root"
+                pref:showSwitch="true"
+                pref:showIcon="false"
+                pref:extitle="@string/pref_root"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_removesearch"
                 android:summary="@string/miui_summary_removesearch"
                 android:title="@string/miui_removesearch"
                 pref:showSwitch="true"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_xposed"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_minus_screen"
                 android:summary="@string/miui_summary_minus_screen"
                 android:title="@string/miui_minus_screen"
                 pref:showSwitch="true"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_xposed"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_keep_mtz"
                 android:title="@string/miui_keep_mtz"
                 android:summary="@string/miui_summary_keep_mtz"
                 pref:showSwitch="true"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_xposed"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_root25"
                 android:summary="@string/miui_summary_root25"
                 android:title="@string/miui_root25"
                 pref:showSwitch="true"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_xposed"
+        />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_noupdate"
                 android:summary="@string/miui_summary_noupdate"
                 android:title="@string/miui_noupdate"
                 pref:showSwitch="true"
-                pref:showIcon="false"/>
+                pref:showIcon="false"
+                pref:extitle="@string/pref_root"
+        />
     </PreferenceCategory>
 
 

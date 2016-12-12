@@ -4,6 +4,7 @@
     <declare-styleable name="PreferenceEx">
         <attr name="showSwitch" format="boolean" />
         <attr name="showIcon" format="boolean"/>
+        <attr name="extitle" format="string"/>
     </declare-styleable>
 
     <declare-styleable name="LoadingView">

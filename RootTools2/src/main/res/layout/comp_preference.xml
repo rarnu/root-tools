@@ -22,14 +22,24 @@
             android:layout_marginStart="8dip">
         <TextView
                 android:id="@+id/prefTitle"
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="center_vertical"
                 android:textColor="?android:attr/textColorPrimary"
                 android:textSize="16sp"
                 android:layout_above="@+id/prefSummary"
                 android:layout_centerVertical="true"/>
-
+        <TextView
+                android:id="@+id/prefExTitle"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:textColor="@android:color/holo_green_dark"
+                android:textSize="16sp"
+                android:layout_above="@+id/prefSummary"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/prefTitle"
+        />
         <TextView
                 android:id="@+id/prefSummary"
                 android:layout_width="match_parent"

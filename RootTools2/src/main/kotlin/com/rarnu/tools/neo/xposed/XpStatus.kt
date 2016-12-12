@@ -14,6 +14,7 @@ object XpStatus {
     val KEY_REMOVESEARCHBAR = "removesearchbar"
     val KEY_THEMECRACK = "themecrack"
     val KEY_REMOVEAD = "removead"
+    val KEY_REMOVEAD_ROOT = "removead_root"
     val KEY_ROOTCRACK = "rootcrack"
     val KEY_CORECRACK = "corecrack"
     val KEY_NOUPDATE = "noupate"

@@ -11,13 +11,16 @@
     <string name="settings_name">设置</string>
     <string name="thanks_name">特别感谢</string>
 
+    <string name="pref_xposed">[xposed]</string>
+    <string name="pref_root">[root]</string>
+
     <string name="category_main">系统</string>
-    <string name="main_freeze">冻结应用[root]</string>
-    <string name="main_component">组件管理[root]</string>
-    <string name="main_cleanart">清理系统[root]</string>
-    <string name="main_memory">清理内存[root]</string>
-    <string name="main_corecrack">核心校验破解[xposed]</string>
-    <string name="main_fake_device">模拟设备[root]</string>
+    <string name="main_freeze">冻结应用</string>
+    <string name="main_component">组件管理</string>
+    <string name="main_cleanart">清理系统</string>
+    <string name="main_memory">清理内存</string>
+    <string name="main_corecrack">核心校验破解</string>
+    <string name="main_fake_device">模拟设备</string>
 
     <string name="main_summary_freeze">冻结不想要的系统应用</string>
     <string name="main_summary_component">对程序内的组件进行管理, 可以禁用服务等</string>
@@ -27,16 +30,18 @@
     <string name="main_summary_fake_device">修改 build.prop 以绕过某些应用的设备校验</string>
 
     <string name="category_miui">MIUI</string>
-    <string name="miui_theme">主题免费[xposed]</string>
-    <string name="miui_removead">移除广告[xposed]</string>
-    <string name="miui_removesearch">移除通知栏搜索[xposed]</string>
-    <string name="miui_minus_screen">移除负一屏[xposed]</string>
-    <string name="miui_keep_mtz">保留 MTZ[xposed]</string>
-    <string name="miui_root25">移除 Root 等待[xposed]</string>
-    <string name="miui_noupdate">屏蔽更新[root]</string>
+    <string name="miui_theme">主题免费</string>
+    <string name="miui_removead">移除广告</string>
+    <string name="miui_removead_root">移除广告</string>
+    <string name="miui_removesearch">移除通知栏搜索</string>
+    <string name="miui_minus_screen">移除负一屏</string>
+    <string name="miui_keep_mtz">保留 MTZ </string>
+    <string name="miui_root25">移除 Root 等待</string>
+    <string name="miui_noupdate">屏蔽更新</string>
 
     <string name="miui_summary_theme">不花钱使用 MIUI8 主题</string>
     <string name="miui_summary_removead">去除大部分系统自带应用的广告</string>
+    <string name="miui_summary_removead_root">通过修改 Hosts 来去除部分广告</string>
     <string name="miui_summary_removesearch">去除通知栏的搜索框</string>
     <string name="miui_summary_minus_screen">桌面不再显示负一屏</string>
     <string name="miui_summary_keep_mtz">导入主题后保留原始 mtz</string>

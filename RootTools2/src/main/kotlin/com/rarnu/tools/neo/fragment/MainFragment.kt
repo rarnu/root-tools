@@ -1,7 +1,6 @@
 package com.rarnu.tools.neo.fragment
 
 import android.app.AlertDialog
-import android.content.DialogInterface
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
@@ -46,6 +45,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
     // miui
     private var pTheme: PreferenceEx? = null
     private var pRemoveAd: PreferenceEx? = null
+    private var pRemoveAdRoot: PreferenceEx? = null
     private var pRemoveSearch: PreferenceEx? = null
     private var pMinusScreen: PreferenceEx? = null
     private var pKeepMtz: PreferenceEx? = null
@@ -90,6 +90,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
         // miui
         pTheme = findPref(R.string.id_theme)
         pRemoveAd = findPref(R.string.id_removead)
+        pRemoveAdRoot = findPref(R.string.id_removead_root)
         pRemoveSearch = findPref(R.string.id_removesearch)
         pMinusScreen = findPref(R.string.id_minus_screen)
         pKeepMtz = findPref(R.string.id_keep_mtz)
@@ -115,6 +116,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
         // miui
         pTheme?.onPreferenceClickListener = this
         pRemoveAd?.onPreferenceClickListener = this
+        pRemoveAdRoot?.onPreferenceClickListener = this
         pRemoveSearch?.onPreferenceClickListener = this
         pMinusScreen?.onPreferenceClickListener = this
         pKeepMtz?.onPreferenceClickListener = this
@@ -200,6 +202,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
             pRemoveAd?.setShowSwitch(true)
             pRemoveAd?.status = pref!!.getBoolean(XpStatus.KEY_REMOVEAD, false)
         }
+        pRemoveAdRoot?.status = pref!!.getBoolean(XpStatus.KEY_REMOVEAD_ROOT, false)
 
     }
 
@@ -216,22 +219,14 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
         pCleanArt?.isEnabled = !DeviceAPI.isRejected
         pFakeDevice?.isEnabled = !DeviceAPI.isRejected
         pNoUpdate?.isEnabled = isMIUI && !DeviceAPI.isRejected
+        pRemoveAdRoot?.isEnabled = isMIUI && !DeviceAPI.isRejected
 
-        if (Build.VERSION.SDK_INT >= 24) {
-            pTheme?.isEnabled = isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected
-            pRemoveSearch?.isEnabled = isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected
-            pMinusScreen?.isEnabled = isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected
-            pKeepMtz?.isEnabled = isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected
-            pRoot25?.isEnabled = isMIUI && XpStatus.isEnable() && !DeviceAPI.isRejected
-            pCoreCrack?.isEnabled = XpStatus.isEnable() && !DeviceAPI.isRejected
-        } else {
-            pTheme?.isEnabled = isMIUI && XpStatus.isEnable()
-            pRemoveSearch?.isEnabled = isMIUI && XpStatus.isEnable()
-            pMinusScreen?.isEnabled = isMIUI && XpStatus.isEnable()
-            pKeepMtz?.isEnabled = isMIUI && XpStatus.isEnable()
-            pRoot25?.isEnabled = isMIUI && XpStatus.isEnable()
-            pCoreCrack?.isEnabled = XpStatus.isEnable()
-        }
+        pTheme?.isEnabled = isMIUI && XpStatus.isEnable()
+        pRemoveSearch?.isEnabled = isMIUI && XpStatus.isEnable()
+        pMinusScreen?.isEnabled = isMIUI && XpStatus.isEnable()
+        pKeepMtz?.isEnabled = isMIUI && XpStatus.isEnable()
+        pRoot25?.isEnabled = isMIUI && XpStatus.isEnable()
+        pCoreCrack?.isEnabled = XpStatus.isEnable()
         pRemoveAd?.isEnabled = isMIUI && XpStatus.isEnable()
         if (!isMIUI) {
             preferenceScreen.removePreference(catMiui)
@@ -243,13 +238,9 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
 
     private fun showActivityResult(cls: Class<*>, req: Int) = startActivityForResult(Intent(context, cls), req)
 
-    private fun threadWriteHost() {
-        thread { HostsUtils.writeHost(context, pref!!.getBoolean(XpStatus.KEY_NOUPDATE, false), pref!!.getBoolean(XpStatus.KEY_REMOVEAD, false)) }
-    }
+    private fun threadWriteHost() = thread { HostsUtils.writeHost(context, pref!!.getBoolean(XpStatus.KEY_NOUPDATE, false), pref!!.getBoolean(XpStatus.KEY_REMOVEAD_ROOT, false)) }
 
-    private fun threadDeleteTmpFiles() {
-        thread { DeviceAPI.forceDeleteFile("/data/data/com.miui.cleanmaster/shared_prefs/*") }
-    }
+    private fun threadDeleteTmpFiles() = thread { DeviceAPI.forceDeleteFile("/data/data/com.miui.cleanmaster/shared_prefs/*") }
 
     override fun onPreferenceClick(preference: Preference): Boolean {
         val prefKey = preference.key
@@ -272,9 +263,14 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
                 } else {
                     ex.status = !ex.status
                     editor?.putBoolean(XpStatus.KEY_REMOVEAD, ex.status)?.apply()
-                    threadWriteHost()
                     threadDeleteTmpFiles()
                 }
+            }
+            getString(R.string.id_removead_root) -> {
+                ex.status = !ex.status
+                editor?.putBoolean(XpStatus.KEY_REMOVEAD_ROOT, ex.status)?.apply()
+                threadWriteHost()
+                threadDeleteTmpFiles()
             }
             getString(R.string.id_removesearch) -> {
                 ex.status = !ex.status

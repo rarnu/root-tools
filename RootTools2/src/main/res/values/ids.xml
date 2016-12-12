@@ -14,6 +14,7 @@
 
     <string name="id_theme">id_theme</string>
     <string name="id_removead">id_removead</string>
+    <string name="id_removead_root">id_removead_root</string>
     <string name="id_removesearch">id_removesearch</string>
     <string name="id_minus_screen">id_minus_screen</string>
     <string name="id_keep_mtz">id_keep_mtz</string>

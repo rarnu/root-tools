@@ -17,12 +17,14 @@ class PreferenceEx : Preference {
     private var layPref: RelativeLayout? = null
     private var prefIcon: ImageView? = null
     private var prefTitle: TextView? = null
+    private var prefExTitle: TextView? = null
     private var prefSummary: TextView? = null
     private var prefStatus: Switch? = null
 
     private var innerView: View? = null
     private var showSwitch = false
     private var showIcon = true
+    private var exTitle: String? = ""
     private var isOn = false
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
@@ -41,6 +43,7 @@ class PreferenceEx : Preference {
             val a = context.obtainStyledAttributes(attrs, R.styleable.PreferenceEx, 0, 0)
             showSwitch = a.getBoolean(R.styleable.PreferenceEx_showSwitch, false)
             showIcon = a.getBoolean(R.styleable.PreferenceEx_showIcon, true)
+            exTitle = a.getString(R.styleable.PreferenceEx_extitle)
             a.recycle()
         }
     }
@@ -53,6 +56,7 @@ class PreferenceEx : Preference {
         }
 
         prefTitle?.text = title
+        prefExTitle?.text = exTitle
         prefSummary?.text = summary
         if (summary == null || summary == "") {
             prefSummary?.visibility = View.GONE
@@ -68,6 +72,7 @@ class PreferenceEx : Preference {
             layPref = innerView?.findViewById(R.id.layPref) as RelativeLayout?
             prefIcon = innerView?.findViewById(R.id.prefIcon) as ImageView?
             prefTitle = innerView?.findViewById(R.id.prefTitle) as TextView?
+            prefExTitle = innerView?.findViewById(R.id.prefExTitle) as TextView?
             prefSummary = innerView?.findViewById(R.id.prefSummary) as TextView?
             prefStatus = innerView?.findViewById(R.id.prefStatus) as Switch?
             prefStatus?.visibility = if (showSwitch) View.VISIBLE else View.GONE
@@ -79,6 +84,10 @@ class PreferenceEx : Preference {
     override fun setTitle(titleResId: Int) {
         super.setTitle(titleResId)
         prefTitle?.setText(titleResId)
+    }
+
+    fun setExTitle(resId: Int) {
+        prefExTitle?.setText(resId)
     }
 
     override fun setSummary(summaryResId: Int) {
