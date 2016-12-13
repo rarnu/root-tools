@@ -13,6 +13,7 @@ import android.widget.TextView
 import android.widget.Toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.activity.ChangeLogActivity
+import com.rarnu.tools.neo.activity.ManualActivity
 import com.rarnu.tools.neo.activity.ThanksActivity
 import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.base.BaseFragment
@@ -28,6 +29,7 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
     private var tvProj: TextView? = null
     private var tvIntro: TextView? = null
     private var miThanks: MenuItem? = null
+    private var tvUsage: TextView? = null
     private var tvChangeLog: TextView? = null
     private var ivLogo: ImageView? = null
 
@@ -40,12 +42,14 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
         tvProj = innerView?.findViewById(R.id.tvProj) as TextView?
         tvIntro = innerView?.findViewById(R.id.tvIntro) as TextView?
         tvChangeLog = innerView?.findViewById(R.id.tvChangeLog) as TextView?
+        tvUsage = innerView?.findViewById(R.id.tvUsage) as TextView?
         ivLogo = innerView?.findViewById(R.id.ivLogo) as ImageView?
     }
 
     override fun initEvents() {
         tvProj?.setOnClickListener(this)
         tvChangeLog?.setOnClickListener(this)
+        tvUsage?.setOnClickListener(this)
         ivLogo?.setOnTouchListener(this)
     }
 
@@ -98,6 +102,7 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
         when (v.id) {
             R.id.tvProj -> openUrl(R.string.view_about_project_github_url)
             R.id.tvChangeLog -> startActivity(Intent(context, ChangeLogActivity::class.java))
+            R.id.tvUsage -> startActivity(Intent(context, ManualActivity::class.java))
         }
     }
 
@@ -105,7 +110,7 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
     var lastTime = 0L
 
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
-        when(event.action) {
+        when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 if (lastTime == 0L) {
                     lastTime = System.currentTimeMillis()

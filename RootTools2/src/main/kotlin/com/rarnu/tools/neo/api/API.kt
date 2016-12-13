@@ -12,7 +12,7 @@ import java.util.*
 
 object API {
 
-    private val API_BASE = NativeAPI.getBaseURL()
+    val API_BASE = NativeAPI.getBaseURL()
     val DOWNLOAD_URL = API_BASE + "download/"
     val HEAD_URL = API_BASE + "head/"
 

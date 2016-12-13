@@ -86,6 +86,7 @@
     <string name="view_provider">Provider</string>
     <string name="view_profile">Profile</string>
     <string name="view_changelog">更新日志</string>
+    <string name="view_usage_manual">使用手册</string>
 
     <string name="view_profile_pkg" formatted="false">包名: %s</string>
     <string name="view_profile_ver" formatted="false">版本: %d</string>

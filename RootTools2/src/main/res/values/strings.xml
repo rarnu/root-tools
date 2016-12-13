@@ -88,6 +88,7 @@
     <string name="view_provider">Provider</string>
     <string name="view_profile">Profile</string>
     <string name="view_changelog">Change Log</string>
+    <string name="view_usage_manual">Usage Manual</string>
 
     <string name="view_profile_pkg" formatted="false">Package: %s</string>
     <string name="view_profile_ver" formatted="false">Version: %d</string>
