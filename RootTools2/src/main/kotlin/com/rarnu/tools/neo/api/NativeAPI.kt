@@ -27,6 +27,7 @@ object NativeAPI {
     external fun killProcess()
     external fun deleteSystemApp(pkgName: String?): Boolean
     external fun isAppRequiredBySystem(pkgName: String?): Boolean
+    external fun getBaseURL(): String?
 
     fun cleanCallback(ctx: Context?, status: Int, data: String?) {
         DeviceAPI.cleanCallback(ctx, status, data)

@@ -5,6 +5,9 @@ library cmd;
 uses
   cthreads, Classes, sysutils, jni2, jni_utils, math, unt_ljava, unt_clean;
 
+const
+  BASE_URL: string = 'http://diy.ourocg.cn/root/';
+
 // JNI exchange method
 function Java_com_rarnu_tools_neo_api_NativeAPI_mount(env: PJNIEnv; obj: jobject): jboolean; stdcall;
 var
@@ -105,6 +108,11 @@ begin
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
+function Java_com_rarnu_tools_neo_api_NativeAPI_getBaseURL(env: PJNIEnv; obj: jobject): jstring; stdcall;
+begin
+  Result := stringToJString(env, BASE_URL);
+end;
+
 exports
   Java_com_rarnu_tools_neo_api_NativeAPI_mount,
   Java_com_rarnu_tools_neo_api_NativeAPI_isSystemRW,
@@ -119,7 +127,8 @@ exports
   Java_com_rarnu_tools_neo_api_NativeAPI_forceDropCache,
   Java_com_rarnu_tools_neo_api_NativeAPI_killProcess,
   Java_com_rarnu_tools_neo_api_NativeAPI_deleteSystemApp,
-  Java_com_rarnu_tools_neo_api_NativeAPI_isAppRequiredBySystem;
+  Java_com_rarnu_tools_neo_api_NativeAPI_isAppRequiredBySystem,
+  Java_com_rarnu_tools_neo_api_NativeAPI_getBaseURL;
 
 begin
 
