@@ -83,10 +83,9 @@ abstract class InnerAdapter<T> : BaseAdapter, Filterable {
                 val count = values!!.size
                 val newValues = arrayListOf<T>()
 
-
                 (0..count - 1).forEach {
                     val value = values[it]
-                    val valueText = getValueText(value)
+                    val valueText = getValueText(value)?.toLowerCase()
                     if (valueText?.indexOf(prefixString) != -1) {
                         newValues.add(value)
                     }

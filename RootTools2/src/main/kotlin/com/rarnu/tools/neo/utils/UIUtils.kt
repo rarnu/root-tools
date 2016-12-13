@@ -1,7 +1,6 @@
 package com.rarnu.tools.neo.utils
 
 import android.app.Activity
-import android.app.ActivityOptions
 import android.content.Context
 import android.os.Build
 import android.util.DisplayMetrics
@@ -20,17 +19,11 @@ object UIUtils {
     var dm: DisplayMetrics? = null
     var isFollowSystemBackground = false
     var density: Float? = null
-        get() {
-            return dm?.density
-        }
+        get() = dm?.density
     var width: Int? = null
-        get() {
-            return dm?.widthPixels
-        }
+        get() = dm?.widthPixels
     var height: Int? = null
-        get() {
-            return dm?.heightPixels
-        }
+        get() = dm?.heightPixels
 
     fun initDisplayMetrics(ctx: Context, wm: WindowManager, follow: Boolean) {
         context = ctx
@@ -68,7 +61,7 @@ object UIUtils {
             return ret
         }
 
-    var statusBarHeight: Int?= null
+    var statusBarHeight: Int? = null
         get() {
             val resId = context?.resources?.getIdentifier("status_bar_height", "dimen", "android")
             val height = context?.resources?.getDimensionPixelSize(resId!!)
@@ -102,17 +95,19 @@ object UIUtils {
 
     fun makeGridViewFullSize(gv: GridView, itemHeight: Int, colNum: Int) {
         val itemCount = gv.adapter.count
-        val lines = (itemCount / colNum).toInt() + (if (itemCount % colNum != 0) { 1 } else { 0 })
+        val lines = (itemCount / colNum).toInt() + (if (itemCount % colNum != 0) {
+            1
+        } else {
+            0
+        })
         gv.layoutParams.height = itemHeight * lines
     }
 
-    fun setActivitySizePos(activity: Activity, x: Int, y: Int, width: Int, height: Int) {
-        with(activity.window.attributes) {
-            this.x = x
-            this.y = y
-            this.width = width
-            this.height = height
-        }
+    fun setActivitySizePos(activity: Activity, x: Int, y: Int, width: Int, height: Int) = with(activity.window.attributes) {
+        this.x = x
+        this.y = y
+        this.width = width
+        this.height = height
     }
 
     fun setActivityWidth(activity: Activity, width: Int) {
@@ -194,7 +189,7 @@ object UIUtils {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
             if (immersion) {
                 v.fitsSystemWindows = true
-                v.setClipToPadding(true)
+                v.clipToPadding = true
             }
         }
     }
@@ -202,7 +197,7 @@ object UIUtils {
     fun setSearchViewTextBackground(sv: SearchView, backgroundRes: Int) = try {
         val clz = sv.javaClass
         val fSearchPlate = clz.getDeclaredField("mSearchPlate")
-        fSearchPlate.isAccessible =  true
+        fSearchPlate.isAccessible = true
         val vSearchPlate = fSearchPlate.get(sv) as View
         vSearchPlate.setBackgroundResource(backgroundRes)
         val fSubmitArea = clz.getDeclaredField("submit_area")

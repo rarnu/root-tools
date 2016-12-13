@@ -105,25 +105,27 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
     var lastTime = 0L
 
     override fun onTouch(v: View?, event: MotionEvent): Boolean {
-        if (event.action == MotionEvent.ACTION_DOWN) {
-            if (lastTime == 0L) {
-                lastTime = System.currentTimeMillis()
-                touchCount = 1
-                return true
-            } else {
-                val t = System.currentTimeMillis()
-                if (t - lastTime > 1000) {
-                    touchCount = 0
-                    lastTime = 0
+        when(event.action) {
+            MotionEvent.ACTION_DOWN -> {
+                if (lastTime == 0L) {
+                    lastTime = System.currentTimeMillis()
+                    touchCount = 1
                     return true
                 } else {
-                    lastTime = t
-                    touchCount++
-                    if (touchCount == 5) {
+                    val t = System.currentTimeMillis()
+                    if (t - lastTime > 1000) {
                         touchCount = 0
                         lastTime = 0
-                        showThemeCrack()
                         return true
+                    } else {
+                        lastTime = t
+                        touchCount++
+                        if (touchCount == 5) {
+                            touchCount = 0
+                            lastTime = 0
+                            showThemeCrack()
+                            return true
+                        }
                     }
                 }
             }

@@ -23,6 +23,7 @@ object ComponentUtils {
                 }
             }
         }
+        lstComponentInfo.sortBy { it.compName }
         return lstComponentInfo
     }
 
@@ -42,6 +43,7 @@ object ComponentUtils {
                 }
             }
         }
+        lstComponentInfo.sortBy { it.compName }
         return lstComponentInfo
     }
 
@@ -61,6 +63,7 @@ object ComponentUtils {
                 }
             }
         }
+        lstComponentInfo.sortBy { it.compName }
         return lstComponentInfo
     }
 
@@ -80,6 +83,7 @@ object ComponentUtils {
                 }
             }
         }
+        lstComponentInfo.sortBy { it.compName }
         return lstComponentInfo
     }
 

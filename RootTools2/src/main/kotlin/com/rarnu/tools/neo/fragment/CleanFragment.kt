@@ -112,9 +112,7 @@ class CleanFragment : BaseFragment() {
 
     override fun getFragmentLayoutResId(): Int = R.layout.fragment_clean
 
-    override fun getMainActivityName(): String? {
-        return null
-    }
+    override fun getMainActivityName(): String? = null
 
     override fun initMenu(menu: Menu?) {
         menu?.clear()

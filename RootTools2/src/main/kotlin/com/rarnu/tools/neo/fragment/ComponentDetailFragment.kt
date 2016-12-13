@@ -246,12 +246,12 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
         }
     }
 
-    private fun showApplyProfileAlert(hasProfile: Boolean) {
-        AlertDialog.Builder(context).setTitle(R.string.alert_hint)
-                .setMessage(if (hasProfile) R.string.alert_apply_component_config else R.string.alert_no_component_config)
-                .setPositiveButton(R.string.alert_ok, null)
-                .show()
-    }
+    private fun showApplyProfileAlert(hasProfile: Boolean) =
+            AlertDialog.Builder(context).setTitle(R.string.alert_hint)
+                    .setMessage(if (hasProfile) R.string.alert_apply_component_config else R.string.alert_no_component_config)
+                    .setPositiveButton(R.string.alert_ok, null)
+                    .show()
+
 
     private fun threadGetOnekeyAndApply() {
         btnDownloadProfile?.isEnabled = false

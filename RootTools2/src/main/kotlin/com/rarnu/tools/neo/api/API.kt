@@ -7,11 +7,8 @@ import com.rarnu.tools.neo.data.Onekey
 import com.rarnu.tools.neo.data.ThanksInfo
 import com.rarnu.tools.neo.data.UpdateInfo
 import com.rarnu.tools.neo.utils.HttpUtils
-import org.jetbrains.annotations.Mutable
 import org.json.JSONObject
-
-import java.util.HashMap
-import java.util.StringTokenizer
+import java.util.*
 
 object API {
 

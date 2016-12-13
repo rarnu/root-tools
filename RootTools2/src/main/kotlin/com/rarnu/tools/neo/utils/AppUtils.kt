@@ -65,10 +65,13 @@ object AppUtils {
                 }
             }
         }
+        list.sortBy { it.name }
         if (listData.size > 0) {
+            listData.sortBy { it.name }
             list.addAll(listData)
         }
         if (listDisabled.size > 0) {
+            listDisabled.sortBy { it.name }
             list.addAll(listDisabled)
         }
         return list
@@ -104,7 +107,9 @@ object AppUtils {
                 }
             }
         }
+        list.sortBy { it.name }
         if (listSystem.size > 0) {
+            listSystem.sortBy { it.name }
             list.addAll(listSystem)
         }
         return list
