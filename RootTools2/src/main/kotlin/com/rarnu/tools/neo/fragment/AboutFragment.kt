@@ -1,31 +1,35 @@
 package com.rarnu.tools.neo.fragment
 
 import android.content.Intent
-import android.content.pm.PackageInfo
-import android.content.pm.PackageManager
 import android.net.Uri
+import android.os.Build
 import android.os.Bundle
-import android.text.Html
 import android.view.Menu
 import android.view.MenuItem
+import android.view.MotionEvent
 import android.view.View
+import android.widget.ImageView
 import android.widget.TextView
+import android.widget.Toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.activity.ChangeLogActivity
 import com.rarnu.tools.neo.activity.ThanksActivity
+import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.base.BaseFragment
 import com.rarnu.tools.neo.utils.FileUtils
-
+import com.rarnu.tools.neo.xposed.XpStatus
 import java.io.IOException
-import java.util.Locale
+import java.util.*
 
-class AboutFragment : BaseFragment(), View.OnClickListener {
+
+class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener {
 
     private var tvVersion: TextView? = null
     private var tvProj: TextView? = null
     private var tvIntro: TextView? = null
     private var miThanks: MenuItem? = null
     private var tvChangeLog: TextView? = null
+    private var ivLogo: ImageView? = null
 
     override fun getBarTitle(): Int = R.string.about_name
 
@@ -36,11 +40,13 @@ class AboutFragment : BaseFragment(), View.OnClickListener {
         tvProj = innerView?.findViewById(R.id.tvProj) as TextView?
         tvIntro = innerView?.findViewById(R.id.tvIntro) as TextView?
         tvChangeLog = innerView?.findViewById(R.id.tvChangeLog) as TextView?
+        ivLogo = innerView?.findViewById(R.id.ivLogo) as ImageView?
     }
 
     override fun initEvents() {
         tvProj?.setOnClickListener(this)
         tvChangeLog?.setOnClickListener(this)
+        ivLogo?.setOnTouchListener(this)
     }
 
     override fun initLogic() {
@@ -95,10 +101,47 @@ class AboutFragment : BaseFragment(), View.OnClickListener {
         }
     }
 
+    var touchCount = 0
+    var lastTime = 0L
+
+    override fun onTouch(v: View?, event: MotionEvent): Boolean {
+        if (event.action == MotionEvent.ACTION_DOWN) {
+            if (lastTime == 0L) {
+                lastTime = System.currentTimeMillis()
+                touchCount = 1
+                return true
+            } else {
+                val t = System.currentTimeMillis()
+                if (t - lastTime > 1000) {
+                    touchCount = 0
+                    lastTime = 0
+                    return true
+                } else {
+                    lastTime = t
+                    touchCount++
+                    if (touchCount == 5) {
+                        touchCount = 0
+                        lastTime = 0
+                        showThemeCrack()
+                        return true
+                    }
+                }
+            }
+        }
+        return false
+    }
+
     private fun openUrl(resId: Int) {
         val u = Uri.parse(getString(resId))
         val inWeb = Intent(Intent.ACTION_VIEW)
         inWeb.data = u
         startActivity(inWeb)
+    }
+
+    private fun showThemeCrack() {
+        val pref = context.getSharedPreferences(XpStatus.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        pref.edit().putBoolean(XpStatus.KEY_SHOW_THEME_CRACK, true).apply()
+        DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context.packageName)
+        Toast.makeText(context, R.string.toast_hidden_function_open, Toast.LENGTH_SHORT).show()
     }
 }

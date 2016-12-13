@@ -21,6 +21,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
     private var pMode: PreferenceEx? = null
     private var pAdChoose: PreferenceEx? = null
     private var pDeepClean: PreferenceEx? = null
+    private var pShowThemeCrack: PreferenceEx? = null
     private var pref: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
 
@@ -34,6 +35,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
         pMode = findPref(R.string.id_settings_mode)
         pAdChoose = findPref(R.string.id_settings_adchoose)
         pDeepClean = findPref(R.string.id_settings_deep_clean)
+        pShowThemeCrack = findPref(R.string.id_settings_show_theme_crack)
     }
 
     private fun findPref(prefId: Int): PreferenceEx = findPreference(getString(prefId)) as PreferenceEx
@@ -42,6 +44,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
         pMode?.onPreferenceClickListener = this
         pAdChoose?.onPreferenceClickListener = this
         pDeepClean?.onPreferenceClickListener = this
+        pShowThemeCrack?.onPreferenceClickListener = this
     }
 
     override fun initLogic() {
@@ -50,10 +53,15 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
         pAdChoose?.status = pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)
         pAdChoose?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) R.string.settings_adchoose_detail else R.string.settings_adchoose_onekey)
         pDeepClean?.status = pref!!.getBoolean(XpStatus.KEY_DEEP_CLEAN, false)
+        pShowThemeCrack?.status = pref!!.getBoolean(XpStatus.KEY_SHOW_THEME_CRACK, false)
 
         val isMIUI = AppUtils.isMIUI(context)
         if (!isMIUI) {
             preferenceScreen.removePreference(pAdChoose)
+            preferenceScreen.removePreference(pShowThemeCrack)
+        }
+        if (!pref!!.getBoolean(XpStatus.KEY_SHOW_THEME_CRACK, false)) {
+            preferenceScreen.removePreference(pShowThemeCrack)
         }
     }
 
@@ -73,40 +81,39 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
     override fun onPreferenceClick(preference: Preference): Boolean {
         val prefKey = preference.key
         val ex = preference as PreferenceEx
-        if (prefKey == getString(R.string.id_settings_mode)) {
-            ex.status = !ex.status
-            editor?.putBoolean(XpStatus.KEY_WORK_MODE, ex.status)?.apply()
-            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
-            pMode?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_WORK_MODE, false)) R.string.settings_mode_effect else R.string.settings_mode_common)
-            Toast.makeText(context, R.string.toast_reboot_app, Toast.LENGTH_LONG).show()
-        } else if (prefKey == getString(R.string.id_settings_adchoose)) {
-            ex.status = !ex.status
-            editor
-                    ?.putBoolean(XpStatus.KEY_AD_CHOOSE, ex.status)
-                    ?.putBoolean(XpStatus.KEY_REMOVEAD, false)
-                    ?.putBoolean(XpStatus.KEY_AD_BROWSER, false)
-                    ?.putBoolean(XpStatus.KEY_AD_CALENDAR, false)
-                    ?.putBoolean(XpStatus.KEY_AD_CLEANMASTER, false)
-                    ?.putBoolean(XpStatus.KEY_AD_DOWNLOAD, false)
-                    ?.putBoolean(XpStatus.KEY_AD_FILEEXPLORER, false)
-                    ?.putBoolean(XpStatus.KEY_AD_CONTACTS, false)
-                    ?.putBoolean(XpStatus.KEY_AD_MMS, false)
-                    ?.putBoolean(XpStatus.KEY_AD_SEARCHBOX, false)
-                    ?.putBoolean(XpStatus.KEY_AD_VIDEO, false)
-                    ?.putBoolean(XpStatus.KEY_AD_MUSIC, false)
-                    ?.putBoolean(XpStatus.KEY_AD_WEATHER, false)
-                    ?.putBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)
-                    ?.putBoolean(XpStatus.KEY_AD_MARKET, false)
-                    ?.putBoolean(XpStatus.KEY_AD_SETTINGS, false)
-                    ?.putBoolean(XpStatus.KEY_AD_SYSTEM, false)
-                    ?.apply()
-            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
-            pAdChoose?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) R.string.settings_adchoose_detail else R.string.settings_adchoose_onekey)
-        } else if (prefKey == getString(R.string.id_settings_deep_clean)) {
-            ex.status = !ex.status
-            editor?.putBoolean(XpStatus.KEY_DEEP_CLEAN, ex.status)?.apply()
-            DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
+        ex.status = !ex.status
+        when(prefKey) {
+            getString(R.string.id_settings_mode) -> {
+                editor?.putBoolean(XpStatus.KEY_WORK_MODE, ex.status)
+                pMode?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_WORK_MODE, false)) R.string.settings_mode_effect else R.string.settings_mode_common)
+                Toast.makeText(context, R.string.toast_reboot_app, Toast.LENGTH_LONG).show()
+            }
+            getString(R.string.id_settings_adchoose) -> {
+                editor
+                        ?.putBoolean(XpStatus.KEY_AD_CHOOSE, ex.status)
+                        ?.putBoolean(XpStatus.KEY_REMOVEAD, false)
+                        ?.putBoolean(XpStatus.KEY_AD_BROWSER, false)
+                        ?.putBoolean(XpStatus.KEY_AD_CALENDAR, false)
+                        ?.putBoolean(XpStatus.KEY_AD_CLEANMASTER, false)
+                        ?.putBoolean(XpStatus.KEY_AD_DOWNLOAD, false)
+                        ?.putBoolean(XpStatus.KEY_AD_FILEEXPLORER, false)
+                        ?.putBoolean(XpStatus.KEY_AD_CONTACTS, false)
+                        ?.putBoolean(XpStatus.KEY_AD_MMS, false)
+                        ?.putBoolean(XpStatus.KEY_AD_SEARCHBOX, false)
+                        ?.putBoolean(XpStatus.KEY_AD_VIDEO, false)
+                        ?.putBoolean(XpStatus.KEY_AD_MUSIC, false)
+                        ?.putBoolean(XpStatus.KEY_AD_WEATHER, false)
+                        ?.putBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)
+                        ?.putBoolean(XpStatus.KEY_AD_MARKET, false)
+                        ?.putBoolean(XpStatus.KEY_AD_SETTINGS, false)
+                        ?.putBoolean(XpStatus.KEY_AD_SYSTEM, false)
+                pAdChoose?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) R.string.settings_adchoose_detail else R.string.settings_adchoose_onekey)
+            }
+            getString(R.string.id_settings_deep_clean) -> editor?.putBoolean(XpStatus.KEY_DEEP_CLEAN, ex.status)
+            getString(R.string.id_settings_show_theme_crack) -> editor?.putBoolean(XpStatus.KEY_SHOW_THEME_CRACK, ex.status)
         }
+        editor?.apply()
+        DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
         return true
     }
 }

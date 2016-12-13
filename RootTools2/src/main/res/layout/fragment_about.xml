@@ -65,7 +65,8 @@
                     android:src="@drawable/ic_launcher"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/tvProj"
-                    android:layout_marginTop="16dip"/>
+                    android:layout_marginTop="16dip"
+            />
         </RelativeLayout>
     </ScrollView>
     <TextView

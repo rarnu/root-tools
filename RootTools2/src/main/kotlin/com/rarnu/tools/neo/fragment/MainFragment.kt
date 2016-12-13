@@ -232,6 +232,9 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
             preferenceScreen.removePreference(catMiui)
             catAbout?.removePreference(pFeedback)
         }
+        if (!pref!!.getBoolean(XpStatus.KEY_SHOW_THEME_CRACK, false)) {
+            catMiui?.removePreference(pTheme)
+        }
     }
 
     private fun showActivity(cls: Class<*>) = startActivity(Intent(context, cls))
@@ -249,7 +252,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
             getString(R.string.id_freeze) -> showActivity(FreezeActivity::class.java)
             getString(R.string.id_component) -> showActivity(ComponentActivity::class.java)
             getString(R.string.id_cleanart) -> showActivity(CleanActivity::class.java)
-            getString(R.string.id_about) -> showActivity(AboutActivity::class.java)
+            getString(R.string.id_about) -> showActivityResult(AboutActivity::class.java, 2)
             getString(R.string.id_feedback) -> showActivity(FeedbackActivity::class.java)
             getString(R.string.id_fake_device) -> showActivity(FakeDeviceActivity::class.java)
             getString(R.string.id_memory) -> threadMemory()
@@ -342,12 +345,23 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (requestCode == 1) {
-            if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) {
-                pRemoveAd?.setShowSwitch(false)
-            } else {
-                pRemoveAd?.setShowSwitch(true)
-                pRemoveAd?.status = pref!!.getBoolean(XpStatus.KEY_REMOVEAD, false)
+        when(requestCode) {
+            1 -> {
+                if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) {
+                    pRemoveAd?.setShowSwitch(false)
+                } else {
+                    pRemoveAd?.setShowSwitch(true)
+                    pRemoveAd?.status = pref!!.getBoolean(XpStatus.KEY_REMOVEAD, false)
+                }
+                if (!pref!!.getBoolean(XpStatus.KEY_SHOW_THEME_CRACK, false)) {
+                    catMiui?.removePreference(pTheme)
+                }
+            }
+
+            2-> {
+                if (pref!!.getBoolean(XpStatus.KEY_SHOW_THEME_CRACK, false)) {
+                    catMiui?.addPreference(pTheme)
+                }
             }
         }
     }

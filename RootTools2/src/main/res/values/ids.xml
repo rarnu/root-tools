@@ -27,6 +27,7 @@
     <string name="id_settings_mode">id_settings_mode</string>
     <string name="id_settings_adchoose">id_settings_adchoose</string>
     <string name="id_settings_deep_clean">id_settings_deep_clean</string>
+    <string name="id_settings_show_theme_crack">id_settings_show_theme_crack</string>
 
     <string name="id_app_weather">id_app_weather</string>
     <string name="id_app_music">id_app_music</string>
