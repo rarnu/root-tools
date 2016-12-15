@@ -19,17 +19,7 @@ object FuckMms {
                 paramAnonymousMethodHookParam.result = !mc.javaClass.name.toLowerCase().contains("app")
             }
         })
-        XpUtils.findAndHookMethod("com.android.mms.ui.SingleRecipientConversationActivity", loadPackageParam.classLoader, "showMenuMode", object : XC_MethodReplacement() {
-            @Throws(Throwable::class)
-            override fun replaceHookedMethod(param: XC_MethodHook.MethodHookParam): Any? {
-                return null
-            }
-        })
-        XpUtils.findAndHookMethod("com.android.mms.util.MiStatSdkHelper", loadPackageParam.classLoader, "recordBottomMenuShown", String::class.java, object : XC_MethodReplacement() {
-            @Throws(Throwable::class)
-            override fun replaceHookedMethod(param: XC_MethodHook.MethodHookParam): Any? {
-                return null
-            }
-        })
+        XpUtils.findAndHookMethod("com.android.mms.ui.SingleRecipientConversationActivity", loadPackageParam.classLoader, "showMenuMode", XC_MethodReplacement.returnConstant(null))
+        XpUtils.findAndHookMethod("com.android.mms.util.MiStatSdkHelper", loadPackageParam.classLoader, "recordBottomMenuShown", String::class.java, XC_MethodReplacement.returnConstant(null))
     }
 }

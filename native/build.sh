@@ -26,7 +26,7 @@ __compile() {
 		mkdir out/${LIB}
 	fi
 	${FPC} -B -Tandroid -P${CPU} \
-	-MObjFPC -Scghi -Cg -O1 -g -gl -l -vewnhibq \
+	-MObjFPC -Scghi -Cg -O1 -l -vewnhibq \
 	-Filib/${LIB}-android \
 	-Fl${TYPHON_BIN_LIB}/android-5.0-api21-${LIB} \
 	-Fu. -FUlib/${LIB}-android \

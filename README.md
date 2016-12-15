@@ -57,4 +57,5 @@ RootTools·Neo
 	| <img src="http://diy.ourocg.cn/root/head/maomao.png" width="48" height="48"> | 猫猫姐姐 | 程序媛，OneCat 创始人 | [Github](https://github.com/chaojimiaomiao) |
 	| <img src="http://diy.ourocg.cn/root/head/laiga.png" width="48" height="48"> | 來嘠 | 帮助修复了 root 问题的玩机爱好者 | |
 	| <img src="http://diy.ourocg.cn/root/head/lanyuyinxue.png" width="48" height="48"> | 蓝羽映雪 | 帮助修复了浏览器广告的玩机爱好者 | |
+	| <img src="http://diy.ourocg.cn/root/head/binwuyaowei.png" width="48" height="48"> | ∮†冰舞╭妖尾№ | 协助修复了主题破解的玩机爱好者 | |
 	

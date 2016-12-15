@@ -19,7 +19,6 @@ object XpStatus {
     val KEY_CORECRACK = "corecrack"
     val KEY_NOUPDATE = "noupate"
     val KEY_MINUS_SCREEN = "minusscreen"
-    val KEY_KEEP_MTZ = "keepmtz"
 
     // settings
     val KEY_WORK_MODE = "work_mode"

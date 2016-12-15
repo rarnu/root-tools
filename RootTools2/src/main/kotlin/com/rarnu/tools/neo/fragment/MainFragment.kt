@@ -48,7 +48,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
     private var pRemoveAdRoot: PreferenceEx? = null
     private var pRemoveSearch: PreferenceEx? = null
     private var pMinusScreen: PreferenceEx? = null
-    private var pKeepMtz: PreferenceEx? = null
+    // private var pKeepMtz: PreferenceEx? = null
     private var pRoot25: PreferenceEx? = null
     private var pNoUpdate: PreferenceEx? = null
     // about
@@ -93,7 +93,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
         pRemoveAdRoot = findPref(R.string.id_removead_root)
         pRemoveSearch = findPref(R.string.id_removesearch)
         pMinusScreen = findPref(R.string.id_minus_screen)
-        pKeepMtz = findPref(R.string.id_keep_mtz)
+        // pKeepMtz = findPref(R.string.id_keep_mtz)
         pRoot25 = findPref(R.string.id_root25)
         pNoUpdate = findPref(R.string.id_noupdate)
 
@@ -119,7 +119,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
         pRemoveAdRoot?.onPreferenceClickListener = this
         pRemoveSearch?.onPreferenceClickListener = this
         pMinusScreen?.onPreferenceClickListener = this
-        pKeepMtz?.onPreferenceClickListener = this
+        // pKeepMtz?.onPreferenceClickListener = this
         pRoot25?.onPreferenceClickListener = this
         pNoUpdate?.onPreferenceClickListener = this
 
@@ -191,7 +191,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
 
         pRemoveSearch?.status = pref!!.getBoolean(XpStatus.KEY_REMOVESEARCHBAR, false)
         pMinusScreen?.status = pref!!.getBoolean(XpStatus.KEY_MINUS_SCREEN, false)
-        pKeepMtz?.status = pref!!.getBoolean(XpStatus.KEY_KEEP_MTZ, false)
+        // pKeepMtz?.status = pref!!.getBoolean(XpStatus.KEY_KEEP_MTZ, false)
         pRoot25?.status = pref!!.getBoolean(XpStatus.KEY_ROOTCRACK, false)
         pCoreCrack?.status = pref!!.getBoolean(XpStatus.KEY_CORECRACK, false)
         pNoUpdate?.status = pref!!.getBoolean(XpStatus.KEY_NOUPDATE, false)
@@ -224,7 +224,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
         pTheme?.isEnabled = isMIUI && XpStatus.isEnable()
         pRemoveSearch?.isEnabled = isMIUI && XpStatus.isEnable()
         pMinusScreen?.isEnabled = isMIUI && XpStatus.isEnable()
-        pKeepMtz?.isEnabled = isMIUI && XpStatus.isEnable()
+        // pKeepMtz?.isEnabled = isMIUI && XpStatus.isEnable()
         pRoot25?.isEnabled = isMIUI && XpStatus.isEnable()
         pCoreCrack?.isEnabled = XpStatus.isEnable()
         pRemoveAd?.isEnabled = isMIUI && XpStatus.isEnable()
@@ -283,10 +283,10 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
                 ex.status = !ex.status
                 editor?.putBoolean(XpStatus.KEY_MINUS_SCREEN, ex.status)?.apply()
             }
-            getString(R.string.id_keep_mtz) -> {
-                ex.status = !ex.status
-                editor?.putBoolean(XpStatus.KEY_KEEP_MTZ, ex.status)?.apply()
-            }
+//            getString(R.string.id_keep_mtz) -> {
+//                ex.status = !ex.status
+//                editor?.putBoolean(XpStatus.KEY_KEEP_MTZ, ex.status)?.apply()
+//            }
             getString(R.string.id_root25) -> {
                 ex.status = !ex.status
                 editor?.putBoolean(XpStatus.KEY_ROOTCRACK, ex.status)?.apply()

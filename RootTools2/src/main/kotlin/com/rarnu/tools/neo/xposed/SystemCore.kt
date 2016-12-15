@@ -49,7 +49,8 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
                 if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
                     if (((paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "sha1withrsa"
                             || (paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "rsa-sha1"
-                            || (paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "1.3.14.3.2.26with1.2.840.113549.1.1.1") && XposedHelpers.getIntField(paramAnonymousMethodHookParam.thisObject, "state") == 3) {
+                            || (paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "1.3.14.3.2.26with1.2.840.113549.1.1.1")
+                            && XposedHelpers.getIntField(paramAnonymousMethodHookParam.thisObject, "state") == 3) {
                         paramAnonymousMethodHookParam.result = true
                     }
                 }
@@ -64,7 +65,8 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
                 if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
                     if (((paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "sha1withrsa"
                             || (paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "rsa-sha1"
-                            || (paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "1.3.14.3.2.26with1.2.840.113549.1.1.1") && XposedHelpers.getIntField(paramAnonymousMethodHookParam.thisObject, "state") == 3) {
+                            || (paramAnonymousMethodHookParam.thisObject as java.security.Signature).algorithm.toLowerCase() == "1.3.14.3.2.26with1.2.840.113549.1.1.1")
+                            && XposedHelpers.getIntField(paramAnonymousMethodHookParam.thisObject, "state") == 3) {
                         paramAnonymousMethodHookParam.result = true
                     }
                 }
@@ -117,7 +119,7 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
                         i = k
                         if (arrayOfSignature1 != null) {
                             i = k
-                            if (arrayOfSignature1.size > 0) {
+                            if (arrayOfSignature1.isNotEmpty()) {
                                 m = arrayOfSignature1.size
                                 k = 0
                                 while (true) {
@@ -140,7 +142,7 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
 
                     if (arrayOfSignature2 != null) {
                         k = i
-                        if (arrayOfSignature2.size > 0) {
+                        if (arrayOfSignature2.isNotEmpty()) {
                             m = arrayOfSignature2.size
                             j = 0
                             while (true) {

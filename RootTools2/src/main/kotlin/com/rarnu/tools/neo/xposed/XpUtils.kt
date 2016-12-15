@@ -14,9 +14,9 @@ object XpUtils {
         }
     }
 
-    fun findAndHookMethod(clsName: String?, method: String?, parameter: Array<Any>) {
+    fun findAndHookMethod(clsName: String?, method: String?, vararg parameterTypesAndCallback: Any?) {
         try {
-            XposedHelpers.findAndHookMethod(Class.forName(clsName), method, *parameter)
+            XposedHelpers.findAndHookMethod(Class.forName(clsName), method, *parameterTypesAndCallback)
         } catch (th: Throwable) {
             XposedBridge.log("RootToolsNeo findAndHookMethod: " + th.toString())
         }
@@ -37,7 +37,14 @@ object XpUtils {
         } catch (th: Throwable) {
             XposedBridge.log("RootToolsNeo setStaticBooleanField: " + th.toString())
         }
+    }
 
+    fun setStaticBooleanField(clsName: String, field: String, value: Boolean) {
+        try {
+            XposedHelpers.setStaticBooleanField(Class.forName(clsName), field, value)
+        } catch (th: Throwable) {
+
+        }
     }
 
     fun setReplacement(param: XC_InitPackageResources.InitPackageResourcesParam, clsName: String, type: String, name: String, value: Any) {
