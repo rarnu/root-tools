@@ -12,10 +12,7 @@ import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import org.json.JSONObject
-
-import java.lang.reflect.Field
-import java.lang.reflect.Method
-import java.util.ArrayList
+import java.util.*
 
 /**
  * Created by rarnu on 11/18/16.
