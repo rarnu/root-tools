@@ -121,6 +121,7 @@ object FuckBrowser {
                     param.result = false
                 }
             }
+
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: MethodHookParam) {
                 val str = param.args[0] as String?
@@ -137,7 +138,7 @@ object FuckBrowser {
             override fun beforeHookedMethod(param: MethodHookParam) {
                 var i = param.args[0] as Int
                 if (i == 2) {
-                   i = 1
+                    i = 1
                 }
                 param.args[0] = i
             }
@@ -149,6 +150,20 @@ object FuckBrowser {
         val clsOs = XpUtils.findClass(loadPackageParam.classLoader, "com.android.browser.os")
         if (clsBrowserActivity != null && clsTu != null && clsOs != null) {
             XpUtils.findAndHookConstructor("com.android.browser.kc", loadPackageParam.classLoader, clsBrowserActivity, clsTu, clsOs, object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    val o = param.thisObject
+                    val fC = o.javaClass.getDeclaredField("c")
+                    fC.isAccessible = true
+                    fC.set(null, true)
+                }
+            })
+        }
+
+        // 8.5.6
+        val clsTs = XpUtils.findClass(loadPackageParam.classLoader, "com.android.browser.ts")
+        if (clsBrowserActivity != null && clsTs != null && clsOs != null) {
+            XpUtils.findAndHookConstructor("com.android.browser.kc", loadPackageParam.classLoader, clsBrowserActivity, clsTs, clsOs, object : XC_MethodHook() {
                 @Throws(Throwable::class)
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val o = param.thisObject

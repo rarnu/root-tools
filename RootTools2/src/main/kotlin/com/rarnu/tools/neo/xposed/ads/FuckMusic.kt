@@ -73,6 +73,8 @@ object FuckMusic {
             }
         })
 
+        XpUtils.findAndHookMethod("com.miui.systemAdSolution.landingPage.LandingPageService", loadPackageParam.classLoader, "init", Context::class.java, XC_MethodReplacement.returnConstant(null))
+
     }
 
 }

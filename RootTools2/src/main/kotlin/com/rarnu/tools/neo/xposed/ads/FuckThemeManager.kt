@@ -1,5 +1,6 @@
 package com.rarnu.tools.neo.xposed.ads
 
+import android.content.Context
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
@@ -28,5 +29,11 @@ object FuckThemeManager {
                 }
             })
         }
+
+        // 0.8
+        XpUtils.findAndHookMethod("com.android.thememanager.util.ApplicationHelper", loadPackageParam.classLoader, "isFreshMan", XC_MethodReplacement.returnConstant(false))
+        XpUtils.findAndHookMethod("com.android.thememanager.util.ApplicationHelper", loadPackageParam.classLoader, "hasFreshManMarkRecord", Context::class.java, XC_MethodReplacement.returnConstant(false))
+        XpUtils.findAndHookMethod("com.miui.systemAdSolution.landingPage.LandingPageService", loadPackageParam.classLoader, "init", Context::class.java, XC_MethodReplacement.returnConstant(null))
+
     }
 }

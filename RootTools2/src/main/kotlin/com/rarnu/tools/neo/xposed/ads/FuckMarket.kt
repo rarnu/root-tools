@@ -172,12 +172,24 @@ object FuckMarket {
                     val loader = param.args[0] as Loader<*>
                     if (loader.id == 1) {
                         val list = param.args[1]
-                        val fATP = list.javaClass.getDeclaredField("atP")
-                        val l = fATP.get(list) as MutableList<*>?
-                        l?.clear()
+                        try {
+                            val fATP = list.javaClass.getDeclaredField("atP")
+                            val l = fATP.get(list) as MutableList<*>?
+                            l?.clear()
+                        } catch (e: Exception) {
+
+                        }
+                        try {
+                            val fATR = list.javaClass.getDeclaredField("atR")
+                            val l = fATR.get(list) as MutableList<*>?
+                            l?.clear()
+                        } catch (e: Exception) {
+
+                        }
                     }
                 }
             })
         }
+
     }
 }

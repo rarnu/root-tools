@@ -15,6 +15,7 @@ object FuckCalendar {
 
     fun fuckCalendar(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
         XpUtils.findAndHookMethod("com.miui.calendar.ad.AdUtils", loadPackageParam.classLoader, "canShowBrandAd", Context::class.java, XC_MethodReplacement.returnConstant(false))
+        XpUtils.findAndHookMethod("com.miui.calendar.ad.AdUtils", loadPackageParam.classLoader, "getActionBarBitmap", Context::class.java, XC_MethodReplacement.returnConstant(null))
         XpUtils.findAndHookMethod("com.miui.calendar.ad.AdService", loadPackageParam.classLoader, "onHandleIntent", Intent::class.java, XC_MethodReplacement.returnConstant(null))
         XpUtils.findAndHookMethod("com.miui.calendar.card.single.local.SummarySingleCard", loadPackageParam.classLoader, "needShowAdBanner", XC_MethodReplacement.returnConstant(false))
         XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.ad.AdSingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false))
