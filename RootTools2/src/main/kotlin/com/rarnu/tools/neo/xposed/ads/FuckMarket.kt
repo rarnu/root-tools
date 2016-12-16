@@ -1,8 +1,13 @@
 package com.rarnu.tools.neo.xposed.ads
 
 import android.content.Loader
+import android.os.Bundle
+import android.view.LayoutInflater
+import android.view.View
+import android.view.ViewGroup
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import java.lang.reflect.Field
 import java.util.*
@@ -154,18 +159,57 @@ object FuckMarket {
                     val list = param.args[1]
                     when (loader.id) {
                         1 -> {
-                            val fATY = list.javaClass.getDeclaredField("atY")
-                            val l = fATY.get(list) as MutableList<*>?
-                            l?.clear()
+                            try {
+                                val fATY = list.javaClass.getDeclaredField("atY")
+                                val l = fATY.get(list) as MutableList<*>?
+                                l?.clear()
+                            } catch (e: Exception) {
+
+                            }
+                            try {
+                                val fAUA = list.javaClass.getDeclaredField("aua")
+                                val l = fAUA.get(list) as MutableList<*>?
+                                l?.clear()
+                            } catch (e: Exception) {
+
+                            }
+                            try {
+                                val fATV = list.javaClass.getDeclaredField("atV")
+                                val l = fATV.get(list) as MutableList<*>?
+                                l?.clear()
+                            } catch (e: Exception) {
+
+                            }
+
                         }
                         2 -> {
-                            val fATP = list.javaClass.getDeclaredField("atP")
-                            val l = fATP.get(list) as MutableList<*>?
-                            l?.clear()
+                            try {
+                                val fATP = list.javaClass.getDeclaredField("atP")
+                                val l = fATP.get(list) as MutableList<*>?
+                                l?.clear()
+                            } catch (e: Exception) {
+
+                            }
+                            try {
+                                val fATR = list.javaClass.getDeclaredField("atR")
+                                val l = fATR.get(list) as MutableList<*>?
+                                l?.clear()
+                            } catch (e: Exception) {
+
+                            }
+                            try {
+                                val fATM = list.javaClass.getDeclaredField("atM")
+                                val l = fATM.get(list) as MutableList<*>?
+                                l?.clear()
+                            } catch (e: Exception) {
+
+                            }
+
                         }
                     }
                 }
             })
+
             XpUtils.findAndHookMethod("com.xiaomi.market.ui.UpdateAppsFragmentPhone", loadPackageParam.classLoader, "a", Loader::class.java, clsCz, object : XC_MethodHook() {
                 @Throws(Throwable::class)
                 override fun beforeHookedMethod(param: MethodHookParam) {
@@ -186,7 +230,26 @@ object FuckMarket {
                         } catch (e: Exception) {
 
                         }
+                        try {
+                            val fATM = list.javaClass.getDeclaredField("atM")
+                            val l = fATM.get(list) as MutableList<*>?
+                            l?.clear()
+                        } catch (e: Exception) {
+
+                        }
                     }
+                }
+            })
+        }
+
+        val clsAM = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.model.am")
+        val clsRefInfo = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.model.RefInfo")
+        if (clsAM != null && clsRefInfo != null) {
+            XpUtils.findAndHookMethod("com.xiaomi.market.ui.RelatedAppRecommendView", loadPackageParam.classLoader, "a", clsAM, java.lang.Boolean.TYPE, List::class.java, clsRefInfo, object : XC_MethodReplacement() {
+                @Throws(Throwable::class)
+                override fun replaceHookedMethod(param: MethodHookParam): Any? {
+                    (param.thisObject as View).visibility = View.GONE
+                    return null
                 }
             })
         }
