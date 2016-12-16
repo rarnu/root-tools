@@ -20,7 +20,7 @@ class CompDetailAdapter(context: Context, list: MutableList<CompInfo>?) : BaseAd
         }
         var holder: CompHolder? = v?.tag as CompHolder?
         if (holder == null) {
-            holder = CompHolder(v, R.id.prefStatus, R.id.tvName)
+            holder = CompHolder(v, R.id.prefStatus, R.id.tvName, R.id.tvPackageName)
             v?.tag = holder
         }
         val item = list!![position]
@@ -32,15 +32,18 @@ class CompDetailAdapter(context: Context, list: MutableList<CompInfo>?) : BaseAd
 
         internal var prefStatus: Switch? = null
         internal var tvName: TextView? = null
+        internal var tvPackageName: TextView? = null
 
-        constructor(v: View?, statusId: Int, nameId: Int) {
+        constructor(v: View?, statusId: Int, nameId: Int, pkgId: Int) {
             prefStatus = v?.findViewById(statusId) as Switch?
             tvName = v?.findViewById(nameId) as TextView?
+            tvPackageName = v?.findViewById(pkgId) as TextView?
         }
 
         internal fun setItem(item: CompInfo) {
             prefStatus?.isChecked = item.enabled
             tvName?.text = item.compName
+            tvPackageName?.text = item.fullPackageName?.substring(0, item.fullPackageName!!.lastIndexOf("."))
         }
     }
 }

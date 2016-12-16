@@ -22,9 +22,21 @@
             android:layout_width="match_parent" android:layout_height="match_parent"
             android:gravity="center_vertical"
             android:textSize="16sp"
+            android:layout_above="@+id/tvPackageName"
             android:layout_toStartOf="@+id/prefStatus"
             android:layout_marginStart="8dip"
             android:layout_marginEnd="8dip"
             android:textColor="?android:attr/textColorPrimary"/>
+
+    <TextView
+            android:id="@+id/tvPackageName"
+            android:layout_width="match_parent" android:layout_height="20dip"
+            android:textSize="14sp"
+            android:gravity="center_vertical"
+            android:layout_alignParentBottom="true"
+            android:layout_toStartOf="@+id/prefStatus"
+            android:layout_marginStart="8dip"
+            android:layout_marginEnd="8dip"
+            android:textColor="?android:attr/textColorSecondary"/>
 
 </RelativeLayout>
