@@ -19,6 +19,7 @@ object FuckMarket {
 
     fun fuckMarket(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
 
+        // 3.x
         val clsCg = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.data.cg")
         if (clsCg != null) {
             XpUtils.findAndHookMethod("com.xiaomi.market.ui.UpdateAppsFragmentPhone", loadPackageParam.classLoader, "a", Loader::class.java, clsCg, object : XC_MethodHook() {
@@ -54,7 +55,7 @@ object FuckMarket {
             })
         }
 
-        // 6.x / 240
+        // 6.x 240, 250
         val clsCy = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.data.cy")
         if (clsCy != null) {
             XpUtils.findAndHookMethod("com.xiaomi.market.ui.UpdateHistoryFragmentPhone", loadPackageParam.classLoader, "a", Loader::class.java, clsCy, object : XC_MethodHook() {
@@ -160,6 +161,7 @@ object FuckMarket {
                     when (loader.id) {
                         1 -> {
                             try {
+                                // 3.x
                                 val fATY = list.javaClass.getDeclaredField("atY")
                                 val l = fATY.get(list) as MutableList<*>?
                                 l?.clear()
@@ -167,6 +169,7 @@ object FuckMarket {
 
                             }
                             try {
+                                // 6.x 250
                                 val fAUA = list.javaClass.getDeclaredField("aua")
                                 val l = fAUA.get(list) as MutableList<*>?
                                 l?.clear()
@@ -174,6 +177,7 @@ object FuckMarket {
 
                             }
                             try {
+                                // 6.x 250 (2)
                                 val fATV = list.javaClass.getDeclaredField("atV")
                                 val l = fATV.get(list) as MutableList<*>?
                                 l?.clear()
@@ -184,6 +188,7 @@ object FuckMarket {
                         }
                         2 -> {
                             try {
+                                // 3.x
                                 val fATP = list.javaClass.getDeclaredField("atP")
                                 val l = fATP.get(list) as MutableList<*>?
                                 l?.clear()
@@ -191,6 +196,7 @@ object FuckMarket {
 
                             }
                             try {
+                                // 6.x 250
                                 val fATR = list.javaClass.getDeclaredField("atR")
                                 val l = fATR.get(list) as MutableList<*>?
                                 l?.clear()
@@ -198,6 +204,7 @@ object FuckMarket {
 
                             }
                             try {
+                                // 6.x 250 (2)
                                 val fATM = list.javaClass.getDeclaredField("atM")
                                 val l = fATM.get(list) as MutableList<*>?
                                 l?.clear()
@@ -217,6 +224,7 @@ object FuckMarket {
                     if (loader.id == 1) {
                         val list = param.args[1]
                         try {
+                            // 3.x
                             val fATP = list.javaClass.getDeclaredField("atP")
                             val l = fATP.get(list) as MutableList<*>?
                             l?.clear()
@@ -224,6 +232,7 @@ object FuckMarket {
 
                         }
                         try {
+                            // 6.x 250
                             val fATR = list.javaClass.getDeclaredField("atR")
                             val l = fATR.get(list) as MutableList<*>?
                             l?.clear()
@@ -231,6 +240,7 @@ object FuckMarket {
 
                         }
                         try {
+                            // 6.x 250 (2)
                             val fATM = list.javaClass.getDeclaredField("atM")
                             val l = fATM.get(list) as MutableList<*>?
                             l?.clear()
@@ -242,8 +252,23 @@ object FuckMarket {
             })
         }
 
-        val clsAM = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.model.am")
+        // recommend view
         val clsRefInfo = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.model.RefInfo")
+
+        // 3.x recommend
+        val clsAL = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.model.al")
+        if (clsAL != null && clsRefInfo != null) {
+            XpUtils.findAndHookMethod("com.xiaomi.market.ui.RelatedAppRecommendView", loadPackageParam.classLoader, "a", clsAL, java.lang.Boolean.TYPE, List::class.java, clsRefInfo, object : XC_MethodReplacement() {
+                @Throws(Throwable::class)
+                override fun replaceHookedMethod(param: MethodHookParam): Any? {
+                    (param.thisObject as View).visibility = View.GONE
+                    return null
+                }
+            })
+        }
+
+        // 6.x
+        val clsAM = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.model.am")
         if (clsAM != null && clsRefInfo != null) {
             XpUtils.findAndHookMethod("com.xiaomi.market.ui.RelatedAppRecommendView", loadPackageParam.classLoader, "a", clsAM, java.lang.Boolean.TYPE, List::class.java, clsRefInfo, object : XC_MethodReplacement() {
                 @Throws(Throwable::class)
@@ -253,6 +278,7 @@ object FuckMarket {
                 }
             })
         }
+
 
     }
 }

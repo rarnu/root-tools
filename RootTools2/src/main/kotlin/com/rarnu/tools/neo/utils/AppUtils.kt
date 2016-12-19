@@ -17,48 +17,48 @@ object AppUtils {
         val listData = arrayListOf<AppInfo>()
         val listDisabled = arrayListOf<AppInfo>()
         if (pkgs != null) {
-            for (pkg in pkgs) {
-                if (pkg.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
-                    if (pkg.applicationInfo.enabled) {
+            pkgs.filter { it.packageName != ctx?.packageName }.forEach {
+                if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
+                    if (it.applicationInfo.enabled) {
                         list.add(AppInfo(
-                                pkg.applicationInfo.loadLabel(pm).toString(),
-                                pkg.applicationInfo.loadIcon(pm),
-                                pkg.packageName,
+                                it.applicationInfo.loadLabel(pm).toString(),
+                                it.applicationInfo.loadIcon(pm),
+                                it.packageName,
                                 false,
-                                pkg.versionName,
-                                pkg.versionCode,
+                                it.versionName,
+                                it.versionCode,
                                 true,
                                 true))
                     } else {
                         listDisabled.add(AppInfo(
-                                pkg.applicationInfo.loadLabel(pm).toString(),
-                                pkg.applicationInfo.loadIcon(pm),
-                                pkg.packageName,
+                                it.applicationInfo.loadLabel(pm).toString(),
+                                it.applicationInfo.loadIcon(pm),
+                                it.packageName,
                                 true,
-                                pkg.versionName,
-                                pkg.versionCode,
+                                it.versionName,
+                                it.versionCode,
                                 true,
                                 true))
                     }
                 } else {
-                    if (pkg.applicationInfo.enabled) {
+                    if (it.applicationInfo.enabled) {
                         listData.add(AppInfo(
-                                pkg.applicationInfo.loadLabel(pm).toString(),
-                                pkg.applicationInfo.loadIcon(pm),
-                                pkg.packageName,
+                                it.applicationInfo.loadLabel(pm).toString(),
+                                it.applicationInfo.loadIcon(pm),
+                                it.packageName,
                                 false,
-                                pkg.versionName,
-                                pkg.versionCode,
+                                it.versionName,
+                                it.versionCode,
                                 false,
                                 true))
                     } else {
                         listDisabled.add(AppInfo(
-                                pkg.applicationInfo.loadLabel(pm).toString(),
-                                pkg.applicationInfo.loadIcon(pm),
-                                pkg.packageName,
+                                it.applicationInfo.loadLabel(pm).toString(),
+                                it.applicationInfo.loadIcon(pm),
+                                it.packageName,
                                 true,
-                                pkg.versionName,
-                                pkg.versionCode,
+                                it.versionName,
+                                it.versionCode,
                                 false,
                                 true))
                     }
@@ -83,7 +83,7 @@ object AppUtils {
         val list = arrayListOf<AppInfo>()
         val listSystem = arrayListOf<AppInfo>()
         if (pkgs != null) {
-            pkgs.filter { it.applicationInfo.enabled }.forEach {
+            pkgs.filter { it.packageName != ctx?.packageName }.filter { it.applicationInfo.enabled }.forEach {
                 if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
                     listSystem.add(AppInfo(
                             it.applicationInfo.loadLabel(pm).toString(),
