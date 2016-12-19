@@ -84,7 +84,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
         ex.status = !ex.status
         when(prefKey) {
             getString(R.string.id_settings_mode) -> {
-                editor?.putBoolean(XpStatus.KEY_WORK_MODE, ex.status)
+                editor?.putBoolean(XpStatus.KEY_WORK_MODE, ex.status)?.apply()
                 pMode?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_WORK_MODE, false)) R.string.settings_mode_effect else R.string.settings_mode_common)
                 Toast.makeText(context, R.string.toast_reboot_app, Toast.LENGTH_LONG).show()
             }
@@ -106,13 +106,12 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
                         ?.putBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)
                         ?.putBoolean(XpStatus.KEY_AD_MARKET, false)
                         ?.putBoolean(XpStatus.KEY_AD_SETTINGS, false)
-                        ?.putBoolean(XpStatus.KEY_AD_SYSTEM, false)
+                        ?.putBoolean(XpStatus.KEY_AD_SYSTEM, false)?.apply()
                 pAdChoose?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) R.string.settings_adchoose_detail else R.string.settings_adchoose_onekey)
             }
-            getString(R.string.id_settings_deep_clean) -> editor?.putBoolean(XpStatus.KEY_DEEP_CLEAN, ex.status)
-            getString(R.string.id_settings_show_theme_crack) -> editor?.putBoolean(XpStatus.KEY_SHOW_THEME_CRACK, ex.status)
+            getString(R.string.id_settings_deep_clean) -> editor?.putBoolean(XpStatus.KEY_DEEP_CLEAN, ex.status)?.apply()
+            getString(R.string.id_settings_show_theme_crack) -> editor?.putBoolean(XpStatus.KEY_SHOW_THEME_CRACK, ex.status)?.apply()
         }
-        editor?.apply()
         DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
         return true
     }
