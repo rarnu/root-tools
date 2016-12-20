@@ -1,6 +1,9 @@
 package com.rarnu.tools.neo.xposed.ads
 
+import android.content.Context
+import android.preference.PreferenceManager
 import com.rarnu.tools.neo.xposed.XpUtils
+import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.callbacks.XC_InitPackageResources
 import de.robv.android.xposed.callbacks.XC_LoadPackage
@@ -19,6 +22,25 @@ object FuckCleanMaster {
             XpUtils.findAndHookMethod("com.miui.optimizecenter.result.CleanResultActivity", loadPackageParam.classLoader, "startAdCountdown", clsAdImageView, clsAdvertisement, XC_MethodReplacement.returnConstant(null))
             XpUtils.findAndHookMethod("com.miui.optimizecenter.result.CleanResultActivity", loadPackageParam.classLoader, "addAdvertisementEvent", String::class.java, clsAdvertisement, XC_MethodReplacement.returnConstant(null))
         }
+        XpUtils.findAndHookMethod("com.miui.optimizecenter.Application", loadPackageParam.classLoader, "attachBaseContext", Context::class.java, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun afterHookedMethod(param: MethodHookParam) {
+                val pref = PreferenceManager.getDefaultSharedPreferences(param.thisObject as Context)
+                pref.edit().putBoolean("key_information_setting_close", false).apply()
+            }
+        })
+
+    }
+
+    fun fuckSecurityCenter(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
+        XpUtils.findAndHookMethod("com.miui.securitycenter.Application", loadPackageParam.classLoader, "attachBaseContext", Context::class.java, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun afterHookedMethod(param: MethodHookParam) {
+                val pref = PreferenceManager.getDefaultSharedPreferences(param.thisObject as Context)
+                pref.edit().putBoolean("key_information_setting_close", false).apply()
+            }
+        })
+
     }
 
     fun fuckResource(initPackageResourcesParam: XC_InitPackageResources.InitPackageResourcesParam) {

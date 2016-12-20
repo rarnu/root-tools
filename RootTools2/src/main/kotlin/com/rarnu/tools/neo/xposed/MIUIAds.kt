@@ -38,6 +38,12 @@ class MIUIAds : IXposedHookLoadPackage, IXposedHookInitPackageResources {
             return
         }
 
+        if (paramLoadPackageParam.packageName == "com.miui.securitycenter") {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)) {
+                FuckCleanMaster.fuckSecurityCenter(paramLoadPackageParam)
+            }
+        }
+
         if (paramLoadPackageParam.packageName == "com.miui.video") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_VIDEO, false)) {
                 FuckVideo.fuckVideo(paramLoadPackageParam)
