@@ -7,6 +7,7 @@ import android.view.View
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
+import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 /**
@@ -46,16 +47,9 @@ object FuckMusic {
         XpUtils.findAndHookMethod("com.miui.player.display.view.cell.BannerAdItemCell", loadPackageParam.classLoader, "onFinishInflate", object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val clsThis = param.thisObject.javaClass
                 val vThis = param.thisObject as View
-                val fText = clsThis.getDeclaredField("mClose")
-                fText.isAccessible = true
-                val vText = fText.get(param.thisObject) as View
-                vText.visibility = View.GONE
-                val fImg = clsThis.getDeclaredField("mImage")
-                fImg.isAccessible = true
-                val vImg = fImg.get(param.thisObject) as View
-                vImg.visibility = View.GONE
+                (XposedHelpers.getObjectField(param.thisObject, "mClose") as View?)?.visibility = View.GONE
+                (XposedHelpers.getObjectField(param.thisObject, "mImage") as View?)?.visibility = View.GONE
                 val lp = vThis.layoutParams
                 lp.height = 0
                 vThis.layoutParams = lp

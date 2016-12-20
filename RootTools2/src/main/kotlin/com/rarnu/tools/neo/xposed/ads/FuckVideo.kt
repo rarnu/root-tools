@@ -129,19 +129,19 @@ object FuckVideo {
         if (clsBlock != null && clsPool != null) {
             XpUtils.findAndHookConstructor("com.video.ui.view.BlockAdapter", loadPackageParam.classLoader, Context::class.java, clsBlock, object : XC_MethodHook() {
                 @Throws(Throwable::class)
-                override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
+                override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
                     removeAds(param)
                 }
             })
             XpUtils.findAndHookConstructor("com.video.ui.view.BlockAdapter", loadPackageParam.classLoader, Context::class.java, clsBlock, clsPool, object : XC_MethodHook() {
                 @Throws(Throwable::class)
-                override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
+                override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
                     removeAds(param)
                 }
             })
             XpUtils.findAndHookMethod("com.video.ui.view.BlockAdapter", loadPackageParam.classLoader, "addGroup", clsBlock, object : XC_MethodHook() {
                 @Throws(Throwable::class)
-                override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam?) {
+                override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
                     removeAds(param)
                 }
             })
@@ -227,12 +227,12 @@ object FuckVideo {
         XpUtils.findAndHookMethod("com.miui.systemAdSolution.landingPage.LandingPageService", loadPackageParam.classLoader, "init", Context::class.java, XC_MethodReplacement.returnConstant(null))
     }
 
-    private fun removeAds(param: XC_MethodHook.MethodHookParam?) {
+    private fun removeAds(param: XC_MethodHook.MethodHookParam) {
         try {
-            val clsThis = param?.thisObject?.javaClass
+            val clsThis = param.thisObject?.javaClass
             val fBlockRootArrayList = clsThis?.getDeclaredField("mBlockRootArrayList")
             fBlockRootArrayList?.isAccessible = true
-            val mBlockRootArrayList = fBlockRootArrayList?.get(param?.thisObject) as ArrayList<*>
+            val mBlockRootArrayList = fBlockRootArrayList?.get(param.thisObject) as ArrayList<*>
             for (i in mBlockRootArrayList.indices.reversed()) {
                 val b = mBlockRootArrayList[i]
                 val fUI = b.javaClass.superclass.getDeclaredField("ui_type")

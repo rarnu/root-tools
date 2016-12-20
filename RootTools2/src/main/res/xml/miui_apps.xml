@@ -69,6 +69,11 @@
             pref:showIcon="false"
             pref:showSwitch="true"/>
     <com.rarnu.tools.neo.comp.PreferenceEx
+            android:key="@string/id_app_cloudservice"
+            android:title="@string/app_cloudservice"
+            pref:showIcon="false"
+            pref:showSwitch="true"/>
+    <com.rarnu.tools.neo.comp.PreferenceEx
             android:key="@string/id_app_settings"
             android:title="@string/app_settings"
             pref:showSwitch="true"

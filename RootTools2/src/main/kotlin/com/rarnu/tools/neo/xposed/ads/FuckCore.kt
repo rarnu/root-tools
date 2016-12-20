@@ -2,6 +2,7 @@ package com.rarnu.tools.neo.xposed.ads
 
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 
@@ -27,8 +28,8 @@ object FuckCore {
                 }
             }
         })
-        XpUtils.setStaticBooleanField("miui.os.SystemProperties.Build", "IS_CM_CUSTOMIZATION_TEST", true)
-        XpUtils.setStaticBooleanField("com.miui.internal.util", "IS_INTERNATIONAL_BUILD", true)
+        XposedHelpers.setStaticBooleanField(Class.forName("miui.os.SystemProperties.Build"), "IS_CM_CUSTOMIZATION_TEST", true)
+        XposedHelpers.setStaticBooleanField(Class.forName("com.miui.internal.util"), "IS_INTERNATIONAL_BUILD", true)
     }
 
 }

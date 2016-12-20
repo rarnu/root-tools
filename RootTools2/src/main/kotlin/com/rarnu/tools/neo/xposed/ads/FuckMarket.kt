@@ -8,7 +8,10 @@ import android.view.ViewGroup
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
+import de.robv.android.xposed.XposedBridge
+import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import org.jetbrains.annotations.Mutable
 import java.lang.reflect.Field
 import java.util.*
 
@@ -27,10 +30,7 @@ object FuckMarket {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
                     if (loader.id == 1) {
-                        val list = param.args[1]
-                        val fPL = list.javaClass.getDeclaredField("pL")
-                        val l = fPL.get(list) as MutableList<*>?
-                        l?.clear()
+                        (XposedHelpers.getObjectField(param.args[1], "pL") as MutableList<*>?)?.clear()
                     }
                 }
             })
@@ -38,18 +38,9 @@ object FuckMarket {
                 @Throws(Throwable::class)
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
-                    val list = param.args[1]
                     when (loader.id) {
-                        1 -> {
-                            val fPT = list.javaClass.getDeclaredField("pT")
-                            val l = fPT.get(list) as MutableList<*>?
-                            l?.clear()
-                        }
-                        2 -> {
-                            val fPL = list.javaClass.getDeclaredField("pL")
-                            val l = fPL.get(list) as MutableList<*>?
-                            l?.clear()
-                        }
+                        1 -> (XposedHelpers.getObjectField(param.args[1], "pT") as MutableList<*>?)?.clear()
+                        2 -> (XposedHelpers.getObjectField(param.args[1], "pL") as MutableList<*>?)?.clear()
                     }
                 }
             })
@@ -62,18 +53,9 @@ object FuckMarket {
                 @Throws(Throwable::class)
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
-                    val list = param.args[1]
                     when (loader.id) {
-                        1 -> {
-                            val fASN = list.javaClass.getDeclaredField("asN")
-                            val l = fASN.get(list) as MutableList<*>?
-                            l?.clear()
-                        }
-                        2 -> {
-                            val fASE = list.javaClass.getDeclaredField("asE")
-                            val l = fASE.get(list) as MutableList<*>?
-                            l?.clear()
-                        }
+                        1 -> (XposedHelpers.getObjectField(param.args[1], "asN") as MutableList<*>?)?.clear()
+                        2 -> (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear()
                     }
                 }
             })
@@ -82,10 +64,7 @@ object FuckMarket {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
                     if (loader.id == 1) {
-                        val list = param.args[1]
-                        val fASE = list.javaClass.getDeclaredField("asE")
-                        val l = fASE.get(list) as MutableList<*>?
-                        l?.clear()
+                        (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear()
                     }
                 }
             })
@@ -157,61 +136,22 @@ object FuckMarket {
                 @Throws(Throwable::class)
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
-                    val list = param.args[1]
                     when (loader.id) {
                         1 -> {
-                            try {
-                                // 3.x
-                                val fATY = list.javaClass.getDeclaredField("atY")
-                                val l = fATY.get(list) as MutableList<*>?
-                                l?.clear()
-                            } catch (e: Exception) {
-
-                            }
-                            try {
-                                // 6.x 250
-                                val fAUA = list.javaClass.getDeclaredField("aua")
-                                val l = fAUA.get(list) as MutableList<*>?
-                                l?.clear()
-                            } catch (e: Exception) {
-
-                            }
-                            try {
-                                // 6.x 250 (2)
-                                val fATV = list.javaClass.getDeclaredField("atV")
-                                val l = fATV.get(list) as MutableList<*>?
-                                l?.clear()
-                            } catch (e: Exception) {
-
-                            }
-
+                            // 3.x
+                            (XposedHelpers.getObjectField(param.args[1], "atY") as MutableList<*>?)?.clear()
+                            // 6.x 250
+                            (XposedHelpers.getObjectField(param.args[1], "aua") as MutableList<*>?)?.clear()
+                            // 6.x 250 (2)
+                            (XposedHelpers.getObjectField(param.args[1], "atV") as MutableList<*>?)?.clear()
                         }
                         2 -> {
-                            try {
-                                // 3.x
-                                val fATP = list.javaClass.getDeclaredField("atP")
-                                val l = fATP.get(list) as MutableList<*>?
-                                l?.clear()
-                            } catch (e: Exception) {
-
-                            }
-                            try {
-                                // 6.x 250
-                                val fATR = list.javaClass.getDeclaredField("atR")
-                                val l = fATR.get(list) as MutableList<*>?
-                                l?.clear()
-                            } catch (e: Exception) {
-
-                            }
-                            try {
-                                // 6.x 250 (2)
-                                val fATM = list.javaClass.getDeclaredField("atM")
-                                val l = fATM.get(list) as MutableList<*>?
-                                l?.clear()
-                            } catch (e: Exception) {
-
-                            }
-
+                            // 3.x
+                            (XposedHelpers.getObjectField(param.args[1], "atP") as MutableList<*>?)?.clear()
+                            // 6.x 250
+                            (XposedHelpers.getObjectField(param.args[1], "atR") as MutableList<*>?)?.clear()
+                            // 6.x 250 (2)
+                            (XposedHelpers.getObjectField(param.args[1], "atM") as MutableList<*>?)?.clear()
                         }
                     }
                 }
@@ -222,31 +162,13 @@ object FuckMarket {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
                     if (loader.id == 1) {
-                        val list = param.args[1]
-                        try {
-                            // 3.x
-                            val fATP = list.javaClass.getDeclaredField("atP")
-                            val l = fATP.get(list) as MutableList<*>?
-                            l?.clear()
-                        } catch (e: Exception) {
+                        // 3.x
+                        (XposedHelpers.getObjectField(param.args[1], "atP") as MutableList<*>?)?.clear()
+                        // 6.x 250
+                        (XposedHelpers.getObjectField(param.args[1], "atR") as MutableList<*>?)?.clear()
+                        // 6.x 250 (2)
+                        (XposedHelpers.getObjectField(param.args[1], "atM") as MutableList<*>?)?.clear()
 
-                        }
-                        try {
-                            // 6.x 250
-                            val fATR = list.javaClass.getDeclaredField("atR")
-                            val l = fATR.get(list) as MutableList<*>?
-                            l?.clear()
-                        } catch (e: Exception) {
-
-                        }
-                        try {
-                            // 6.x 250 (2)
-                            val fATM = list.javaClass.getDeclaredField("atM")
-                            val l = fATM.get(list) as MutableList<*>?
-                            l?.clear()
-                        } catch (e: Exception) {
-
-                        }
                     }
                 }
             })
@@ -278,7 +200,5 @@ object FuckMarket {
                 }
             })
         }
-
-
     }
 }

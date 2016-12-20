@@ -83,7 +83,7 @@ object AppUtils {
         val list = arrayListOf<AppInfo>()
         val listSystem = arrayListOf<AppInfo>()
         if (pkgs != null) {
-            pkgs.filter { it.packageName != ctx?.packageName }.filter { it.applicationInfo.enabled }.forEach {
+            pkgs.filter { it.packageName != ctx?.packageName && it.applicationInfo.enabled }.forEach {
                 if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
                     listSystem.add(AppInfo(
                             it.applicationInfo.loadLabel(pm).toString(),

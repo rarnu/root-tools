@@ -122,6 +122,12 @@ class MIUIAds : IXposedHookLoadPackage, IXposedHookInitPackageResources {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CONTACTS, false)) {
                 FuckContacts.fuckContacts(paramLoadPackageParam)
             }
+            return
+        }
+        if (paramLoadPackageParam.packageName == "com.miui.cloudservice") {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CLOUDSERVICE, false)) {
+                FuckCloudService.fuckCloudService(paramLoadPackageParam)
+            }
         }
     }
 

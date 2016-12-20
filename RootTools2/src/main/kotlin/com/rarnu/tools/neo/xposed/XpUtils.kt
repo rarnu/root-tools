@@ -24,26 +24,6 @@ object XpUtils {
         XposedBridge.log("RootToolsNeo findAndHookConstructor: " + th.toString())
     }
 
-
-    fun setStaticBooleanField(clsName: String, loader: ClassLoader, field: String, value: Boolean) = try {
-        XposedHelpers.setStaticBooleanField(loader.loadClass(clsName), field, value)
-    } catch (th: Throwable) {
-        XposedBridge.log("RootToolsNeo setStaticBooleanField: " + th.toString())
-    }
-
-    fun setStaticBooleanField(clsName: String, field: String, value: Boolean) = try {
-        XposedHelpers.setStaticBooleanField(Class.forName(clsName), field, value)
-    } catch (th: Throwable) {
-
-    }
-
-    fun setReplacement(param: XC_InitPackageResources.InitPackageResourcesParam, clsName: String, type: String, name: String, value: Any) = try {
-        param.res.setReplacement(clsName, type, name, value)
-    } catch (th: Throwable) {
-        XposedBridge.log("RootToolsNeo setReplacement: " + th.toString())
-    }
-
-
     fun findClass(loader: ClassLoader, clsName: String): Class<*>? = try {
         loader.loadClass(clsName)
     } catch (th: Throwable) {

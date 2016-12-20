@@ -44,5 +44,6 @@
     <string name="id_app_market">id_app_market</string>
     <string name="id_app_settings">id_app_settings</string>
     <string name="id_app_contacts">id_app_contacts</string>
+    <string name="id_app_cloudservice">id_app_cloudservice</string>
 
 </resources>
