@@ -13,10 +13,11 @@ function DoQuery() {
 	$id = 0;
 	$name = "";
 	$desc = "";
+	$desc_en = "";
 	$head = "";
-	$stmt->bind_result($id, $name, $desc, $head);
+	$stmt->bind_result($id, $name, $desc, $desc_en, $head);
 	while ($stmt->fetch()) {
-		$str .= "{\"id\":${id},\"name\":".json_encode($name).",\"desc\":".json_encode($desc).",\"head\":\"${head}\"},";
+		$str .= "{\"id\":${id},\"name\":".json_encode($name).",\"desc\":".json_encode($desc).",\"desc_en\":".json_encode($desc_en).",\"head\":\"${head}\"},";
 	}
 	$stmt->close();
 	closeConnection($db);

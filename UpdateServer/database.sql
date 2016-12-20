@@ -39,3 +39,6 @@ create table version(
 	description text not null
 ) character set utf8;
 
+alter table thanks add column description_en varchar(256) null after description;
+
+alter table version add column description_en text null after description;
