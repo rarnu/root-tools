@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import com.rarnu.tools.neo.R
+import com.rarnu.tools.neo.RootApplication
 import com.rarnu.tools.neo.activity.ChangeLogActivity
 import com.rarnu.tools.neo.activity.ManualActivity
 import com.rarnu.tools.neo.activity.ThanksActivity
@@ -61,11 +62,9 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
         } catch (e: Exception) {
 
         }
-
         tvVersion?.text = getString(R.string.view_about_version, ver)
         try {
-            val lng = Locale.getDefault().language
-            val intro = FileUtils.readAssetFile(context, if (lng == "zh") "intro_zh" else "intro")
+            val intro = FileUtils.readAssetFile(context, if (RootApplication.isZh) "intro_zh" else "intro")
             tvIntro?.text = intro
         } catch (e: IOException) {
 

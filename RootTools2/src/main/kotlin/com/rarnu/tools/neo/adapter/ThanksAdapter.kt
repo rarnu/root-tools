@@ -7,6 +7,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.rarnu.tools.neo.R
+import com.rarnu.tools.neo.RootApplication
 import com.rarnu.tools.neo.api.API
 import com.rarnu.tools.neo.base.BaseAdapter
 import com.rarnu.tools.neo.data.ThanksInfo
@@ -61,10 +62,9 @@ class ThanksAdapter(context: Context, list: MutableList<ThanksInfo?>?) : BaseAda
                 }
             }
             tvName?.text = item?.name
-            tvDesc?.text = item?.desc
+            tvDesc?.text = if (RootApplication.isZh) item?.desc else item?.descEn
         }
 
     }
-
 
 }

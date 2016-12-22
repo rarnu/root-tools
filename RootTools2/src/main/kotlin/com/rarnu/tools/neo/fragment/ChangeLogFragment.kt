@@ -6,9 +6,11 @@ import android.os.Message
 import android.view.Menu
 import android.widget.TextView
 import com.rarnu.tools.neo.R
+import com.rarnu.tools.neo.RootApplication
 import com.rarnu.tools.neo.api.API
 import com.rarnu.tools.neo.base.BaseFragment
 import com.rarnu.tools.neo.data.UpdateInfo
+import java.util.*
 import kotlin.concurrent.thread
 
 /**
@@ -34,7 +36,7 @@ class ChangeLogFragment : BaseFragment() {
         override fun handleMessage(msg: Message) {
             val info = msg.obj as MutableList<UpdateInfo?>?
             var str = ""
-            info?.filterNotNull()?.forEach { str += "${it.versionName} (${it.versionCode})\n\n    ${it.description}\n\n" }
+            info?.filterNotNull()?.forEach { str += "${it.versionName} (${it.versionCode})\n\n    ${if (RootApplication.isZh) it.description else it.descriptionEn}\n\n" }
             str = str.replace("\\n", "\n    ")
             tvChangeLog?.text = str
             super.handleMessage(msg)

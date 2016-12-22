@@ -5,8 +5,10 @@ import android.view.Menu
 import android.webkit.WebSettings
 import android.webkit.WebView
 import com.rarnu.tools.neo.R
+import com.rarnu.tools.neo.RootApplication
 import com.rarnu.tools.neo.api.API
 import com.rarnu.tools.neo.base.BaseFragment
+import java.util.*
 
 /**
  * Created by rarnu on 12/13/16.
@@ -32,7 +34,7 @@ class ManualFragment : BaseFragment() {
     }
 
     override fun initLogic() {
-        wvManual?.loadUrl(API.API_BASE + "manual.html")
+        wvManual?.loadUrl(API.API_BASE + if (RootApplication.isZh) "manual.html" else "manual_en.html")
     }
 
     override fun getFragmentLayoutResId(): Int = R.layout.fragment_manual

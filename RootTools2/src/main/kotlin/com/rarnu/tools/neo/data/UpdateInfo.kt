@@ -14,6 +14,7 @@ class UpdateInfo() {
     var versionName = ""
     var versionCode = 0
     var description = ""
+    var descriptionEn = ""
     var url = ""
 
     fun isNewVersion(ctx: Context?): Boolean {
@@ -38,6 +39,7 @@ class UpdateInfo() {
                 info.versionName = json.getString("versionName")
                 info.url = json.getString("url")
                 info.description = json.getString("description")
+                info.descriptionEn = json.getString("desc_en")
             } catch (e: Exception) {
 
             }
