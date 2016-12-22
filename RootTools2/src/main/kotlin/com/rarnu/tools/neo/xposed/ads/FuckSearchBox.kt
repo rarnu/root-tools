@@ -1,7 +1,7 @@
 package com.rarnu.tools.neo.xposed.ads
 
+import android.content.Context
 import com.rarnu.tools.neo.xposed.XpUtils
-import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
@@ -12,6 +12,8 @@ object FuckSearchBox {
 
     fun fuckSearchBox(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
         XpUtils.findAndHookMethod("com.android.quicksearchbox.ui.LocalListView", loadPackageParam.classLoader, "updateHotQuery", List::class.java, Integer.TYPE, XC_MethodReplacement.returnConstant(null))
+        XpUtils.findAndHookMethod("com.android.quicksearchbox.ui.LocalListView", loadPackageParam.classLoader, "updateHotQuery", List::class.java, Integer.TYPE, java.lang.Boolean.TYPE, XC_MethodReplacement.returnConstant(null))
+        XpUtils.findAndHookMethod("com.android.quicksearchbox.util.Util", loadPackageParam.classLoader, "isShowHotView", Context::class.java, XC_MethodReplacement.returnConstant(false))
         val clsQueryView = XpUtils.findClass(loadPackageParam.classLoader, "com.android.quicksearchbox.ui.HotQueryView")
         if (clsQueryView != null) {
             XpUtils.findAndHookMethod("com.android.quicksearchbox.util.HotWordsUtil", loadPackageParam.classLoader, "setHotQueryView", clsQueryView, XC_MethodReplacement.returnConstant(null))

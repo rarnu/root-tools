@@ -29,7 +29,6 @@ object FuckCleanMaster {
                 pref.edit().putBoolean("key_information_setting_close", false).apply()
             }
         })
-
     }
 
     fun fuckSecurityCenter(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
