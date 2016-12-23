@@ -48,8 +48,8 @@ object FuckMusic {
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
                 val vThis = param.thisObject as View
-                (XposedHelpers.getObjectField(param.thisObject, "mClose") as View?)?.visibility = View.GONE
-                (XposedHelpers.getObjectField(param.thisObject, "mImage") as View?)?.visibility = View.GONE
+                try { (XposedHelpers.getObjectField(param.thisObject, "mClose") as View?)?.visibility = View.GONE } catch (t: Throwable) { }
+                try { (XposedHelpers.getObjectField(param.thisObject, "mImage") as View?)?.visibility = View.GONE } catch (t: Throwable) { }
                 val lp = vThis.layoutParams
                 lp.height = 0
                 vThis.layoutParams = lp

@@ -30,7 +30,7 @@ object FuckMarket {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
                     if (loader.id == 1) {
-                        (XposedHelpers.getObjectField(param.args[1], "pL") as MutableList<*>?)?.clear()
+                        try { (XposedHelpers.getObjectField(param.args[1], "pL") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                     }
                 }
             })
@@ -39,8 +39,8 @@ object FuckMarket {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
                     when (loader.id) {
-                        1 -> (XposedHelpers.getObjectField(param.args[1], "pT") as MutableList<*>?)?.clear()
-                        2 -> (XposedHelpers.getObjectField(param.args[1], "pL") as MutableList<*>?)?.clear()
+                        1 -> try { (XposedHelpers.getObjectField(param.args[1], "pT") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                        2 -> try { (XposedHelpers.getObjectField(param.args[1], "pL") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                     }
                 }
             })
@@ -54,8 +54,8 @@ object FuckMarket {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
                     when (loader.id) {
-                        1 -> (XposedHelpers.getObjectField(param.args[1], "asN") as MutableList<*>?)?.clear()
-                        2 -> (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear()
+                        1 -> try { (XposedHelpers.getObjectField(param.args[1], "asN") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                        2 -> try { (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                     }
                 }
             })
@@ -64,7 +64,7 @@ object FuckMarket {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
                     if (loader.id == 1) {
-                        (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear()
+                        try { (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                     }
                 }
             })
@@ -139,19 +139,23 @@ object FuckMarket {
                     when (loader.id) {
                         1 -> {
                             // 3.x
-                            (XposedHelpers.getObjectField(param.args[1], "atY") as MutableList<*>?)?.clear()
+                            try { (XposedHelpers.getObjectField(param.args[1], "atY") as MutableList<*>?)?.clear() } catch (e: Throwable) { }
                             // 6.x 250
-                            (XposedHelpers.getObjectField(param.args[1], "aua") as MutableList<*>?)?.clear()
+                            try { (XposedHelpers.getObjectField(param.args[1], "aua") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                             // 6.x 250 (2)
-                            (XposedHelpers.getObjectField(param.args[1], "atV") as MutableList<*>?)?.clear()
+                            try { (XposedHelpers.getObjectField(param.args[1], "atV") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                            // 6.x 250 (3)
+                            try { (XposedHelpers.getObjectField(param.args[1], "auk") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         }
                         2 -> {
                             // 3.x
-                            (XposedHelpers.getObjectField(param.args[1], "atP") as MutableList<*>?)?.clear()
+                            try { (XposedHelpers.getObjectField(param.args[1], "atP") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                             // 6.x 250
-                            (XposedHelpers.getObjectField(param.args[1], "atR") as MutableList<*>?)?.clear()
+                            try { (XposedHelpers.getObjectField(param.args[1], "atR") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                             // 6.x 250 (2)
-                            (XposedHelpers.getObjectField(param.args[1], "atM") as MutableList<*>?)?.clear()
+                            try { (XposedHelpers.getObjectField(param.args[1], "atM") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                            // 6.x 250 (3)
+                            try { (XposedHelpers.getObjectField(param.args[1], "aub") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         }
                     }
                 }
@@ -163,11 +167,13 @@ object FuckMarket {
                     val loader = param.args[0] as Loader<*>
                     if (loader.id == 1) {
                         // 3.x
-                        (XposedHelpers.getObjectField(param.args[1], "atP") as MutableList<*>?)?.clear()
+                        try { (XposedHelpers.getObjectField(param.args[1], "atP") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         // 6.x 250
-                        (XposedHelpers.getObjectField(param.args[1], "atR") as MutableList<*>?)?.clear()
+                        try { (XposedHelpers.getObjectField(param.args[1], "atR") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         // 6.x 250 (2)
-                        (XposedHelpers.getObjectField(param.args[1], "atM") as MutableList<*>?)?.clear()
+                        try { (XposedHelpers.getObjectField(param.args[1], "atM") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                        // 6.x 250 (3)
+                        try { (XposedHelpers.getObjectField(param.args[1], "aub") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
 
                     }
                 }

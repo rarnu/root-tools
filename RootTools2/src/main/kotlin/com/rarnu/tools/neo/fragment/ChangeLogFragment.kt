@@ -36,7 +36,12 @@ class ChangeLogFragment : BaseFragment() {
         override fun handleMessage(msg: Message) {
             val info = msg.obj as MutableList<UpdateInfo?>?
             var str = ""
-            info?.filterNotNull()?.forEach { str += "${it.versionName} (${it.versionCode})\n\n    ${if (RootApplication.isZh) it.description else it.descriptionEn}\n\n" }
+            info?.filterNotNull()?.filter {
+                if (RootApplication.isZh)
+                    it.description.trim { it == ' ' } != ""
+                else
+                    it.descriptionEn.trim { it == ' ' } != ""
+            }?.forEach { str += "${it.versionName} (${it.versionCode})\n\n    ${if (RootApplication.isZh) it.description else it.descriptionEn}\n\n" }
             str = str.replace("\\n", "\n    ")
             tvChangeLog?.text = str
             super.handleMessage(msg)

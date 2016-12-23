@@ -28,8 +28,8 @@ object FuckCore {
                 }
             }
         })
-        XposedHelpers.setStaticBooleanField(Class.forName("miui.os.SystemProperties.Build"), "IS_CM_CUSTOMIZATION_TEST", true)
-        XposedHelpers.setStaticBooleanField(Class.forName("com.miui.internal.util"), "IS_INTERNATIONAL_BUILD", true)
+        try { XposedHelpers.setStaticBooleanField(Class.forName("miui.os.SystemProperties.Build"), "IS_CM_CUSTOMIZATION_TEST", true) } catch (t: Throwable) { }
+        try { XposedHelpers.setStaticBooleanField(Class.forName("com.miui.internal.util"), "IS_INTERNATIONAL_BUILD", true) } catch (t: Throwable) { }
     }
 
 }

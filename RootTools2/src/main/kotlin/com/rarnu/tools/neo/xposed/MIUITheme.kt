@@ -45,7 +45,7 @@ class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
                 XpUtils.findAndHookMethod("miui.resourcebrowser.view.ResourceOperationHandler", lpparam.classLoader, "onCheckResourceRightEventBeforeRealApply", object : XC_MethodHook() {
                     @Throws(Throwable::class)
                     override fun beforeHookedMethod(param: MethodHookParam) {
-                        XposedHelpers.setBooleanField(param.thisObject, "mIsLegal", true)
+                        try { XposedHelpers.setBooleanField(param.thisObject, "mIsLegal", true) } catch (t: Throwable) { }
                     }
                 })
 
@@ -58,7 +58,7 @@ class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
                 XpUtils.findAndHookMethod("miui.resourcebrowser.view.ResourceOperationHandler", lpparam.classLoader, "onCheckResourceRightEventBeforeRealApply", object : XC_MethodHook() {
                     @Throws(Throwable::class)
                     override fun beforeHookedMethod(param: MethodHookParam) {
-                        XposedHelpers.setBooleanField(param.thisObject, "mIsLegal", true)
+                        try { XposedHelpers.setBooleanField(param.thisObject, "mIsLegal", true) } catch (t: Throwable) { }
                     }
                 })
 

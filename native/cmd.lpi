@@ -13,9 +13,6 @@
       <UseAppBundle Value="False"/>
       <ResourceType Value="res"/>
     </General>
-    <VersionInfo>
-      <StringTable ProductVersion=""/>
-    </VersionInfo>
     <MacroValues Count="1">
       <Macro1 Name="LCLWidgetType" Value="customdrawn"/>
     </MacroValues>
@@ -33,7 +30,7 @@
         <FormatVersion Value="1"/>
       </local>
     </RunParams>
-    <Units Count="4">
+    <Units Count="5">
       <Unit0>
         <Filename Value="cmd.lpr"/>
         <IsPartOfProject Value="True"/>
@@ -50,6 +47,10 @@
         <Filename Value="unt_clean.pas"/>
         <IsPartOfProject Value="True"/>
       </Unit3>
+      <Unit4>
+        <Filename Value="unt_freeze.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit4>
     </Units>
   </ProjectOptions>
   <CompilerOptions>

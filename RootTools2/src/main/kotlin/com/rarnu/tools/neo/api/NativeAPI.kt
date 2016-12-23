@@ -27,7 +27,12 @@ object NativeAPI {
     external fun killProcess()
     external fun deleteSystemApp(pkgName: String?): Boolean
     external fun isAppRequiredBySystem(pkgName: String?): Boolean
+
     external fun getBaseURL(): String?
+
+    external fun initFreezeBase(path: String?)
+    external fun updateFreezeStatus(pkg: String?, comp: String?, enabled: Boolean)
+    external fun freezeOnLoad(pkg: String?)
 
     fun cleanCallback(ctx: Context?, status: Int, data: String?) {
         DeviceAPI.cleanCallback(ctx, status, data)

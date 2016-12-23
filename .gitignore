@@ -20,6 +20,7 @@ build.xml
 lint.xml
 
 # lazarus
+native/lib/
 x86_64-linux/
 i386-linux/
 i386-win32/

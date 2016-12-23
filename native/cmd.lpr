@@ -3,7 +3,7 @@ library cmd;
 {$mode objfpc}{$H+}
 
 uses
-  cthreads, Classes, sysutils, jni2, jni_utils, math, unt_ljava, unt_clean;
+  cthreads, Classes, sysutils, jni2, jni_utils, math, unt_ljava, unt_clean, unt_freeze;
 
 const
   BASE_URL: string = 'http://diy.ourocg.cn/root/';
@@ -108,9 +108,37 @@ begin
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
+// ======================================
+// URL
+// ======================================
+
 function Java_com_rarnu_tools_neo_api_NativeAPI_getBaseURL(env: PJNIEnv; obj: jobject): jstring; stdcall;
 begin
   Result := stringToJString(env, BASE_URL);
+end;
+
+// ======================================
+// freezed apps
+// ======================================
+procedure Java_com_rarnu_tools_neo_api_NativeAPI_initFreezeBase(env: PJNIEnv; obj: jobject; path: jstring); stdcall;
+begin
+  FREEZE_FILE_PATH := jstringToString(env, path);
+  if (not FREEZE_FILE_PATH.EndsWith('/')) then begin
+    FREEZE_FILE_PATH += '/';
+  end;
+  if (not DirectoryExists(FREEZE_FILE_PATH)) then begin
+    ForceDirectories(FREEZE_FILE_PATH);
+  end;
+end;
+
+procedure Java_com_rarnu_tools_neo_api_NativeAPI_updateFreezeStatus(env: PJNIEnv; obj: jobject; pkg: jstring; comp: jstring; enabled: jboolean); stdcall;
+begin
+  updateFreezeList(jstringToString(env, pkg), jstringToString(env, comp), enabled = JNI_TRUE);
+end;
+
+procedure Java_com_rarnu_tools_neo_api_NativeAPI_freezeOnLoad(env: PJNIEnv; obj: jobject; pkg: jstring); stdcall;
+begin
+  freezeOnLoad(jstringToString(env, pkg));
 end;
 
 exports
@@ -128,7 +156,18 @@ exports
   Java_com_rarnu_tools_neo_api_NativeAPI_killProcess,
   Java_com_rarnu_tools_neo_api_NativeAPI_deleteSystemApp,
   Java_com_rarnu_tools_neo_api_NativeAPI_isAppRequiredBySystem,
-  Java_com_rarnu_tools_neo_api_NativeAPI_getBaseURL;
+
+  // ======================================
+  // URL
+  // ======================================
+  Java_com_rarnu_tools_neo_api_NativeAPI_getBaseURL,
+
+  // ======================================
+  // freezed apps
+  // ======================================
+  Java_com_rarnu_tools_neo_api_NativeAPI_initFreezeBase,
+  Java_com_rarnu_tools_neo_api_NativeAPI_updateFreezeStatus,
+  Java_com_rarnu_tools_neo_api_NativeAPI_freezeOnLoad;
 
 begin
 

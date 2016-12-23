@@ -79,7 +79,7 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
         val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
         prefs.makeWorldReadable()
         if (paramLoadPackageParam.packageName == "android" && paramLoadPackageParam.processName == "android") {
-            val localClass = XposedHelpers.findClass("com.android.server.pm.PackageManagerService", paramLoadPackageParam.classLoader)
+            val localClass = XpUtils.findClass(paramLoadPackageParam.classLoader, "com.android.server.pm.PackageManagerService")
             XposedBridge.hookAllConstructors(XposedHelpers.findClass("com.android.server.pm.PackageManagerService", paramLoadPackageParam.classLoader), object : XC_MethodHook() {
                 @Throws(Throwable::class)
                 override fun afterHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
