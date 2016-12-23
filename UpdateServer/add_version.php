@@ -10,7 +10,7 @@ $descEn = $_REQUEST["descEn"];
 
 $db = openConnection();
 $stmt = $db->prepare("insert into version(versionCode, versionName, url, description, description_en) values (?, ?, ?, ?, ?)");
-$stmt->bind_param("isss", $verCode, $verName, $url, $desc, $descEn);
+$stmt->bind_param("issss", $verCode, $verName, $url, $desc, $descEn);
 $stmt->execute();
 $stmt->close();
 closeConnection($db);
