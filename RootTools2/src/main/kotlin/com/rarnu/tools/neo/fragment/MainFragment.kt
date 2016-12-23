@@ -16,6 +16,7 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import com.rarnu.tools.neo.R
+import com.rarnu.tools.neo.RootApplication
 import com.rarnu.tools.neo.activity.*
 import com.rarnu.tools.neo.api.API
 import com.rarnu.tools.neo.api.DeviceAPI
@@ -133,7 +134,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
             val info = msg.obj as UpdateInfo?
             if (info != null) {
                 if (info.isNewVersion(context)) {
-                    val str = "    " + info.description.replace("\\n", "\n    ")
+                    val str = "    " + (if (RootApplication.isZh) info.description else info.descriptionEn).replace("\\n", "\n    ")
                     AlertDialog.Builder(context).setTitle(R.string.alert_hint)
                             .setMessage(getString(R.string.alert_update_message, info.versionName, info.versionCode, str))
                             .setPositiveButton(R.string.alert_update) { dialog, which -> downloadApk(info.url) }
@@ -345,7 +346,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        when(requestCode) {
+        when (requestCode) {
             1 -> {
                 if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) {
                     pRemoveAd?.setShowSwitch(false)
@@ -358,7 +359,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
                 }
             }
 
-            2-> {
+            2 -> {
                 if (pref!!.getBoolean(XpStatus.KEY_SHOW_THEME_CRACK, false)) {
                     catMiui?.addPreference(pTheme)
                 }
