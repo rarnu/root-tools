@@ -36,10 +36,13 @@ object DownloadUtils {
     private fun doDownload(info: DownloadInfo) {
         val hDownload = object : Handler() {
             override fun handleMessage(msg: Message?) {
-                val i = lstDownload[0]
-                i.callback?.notifyDataSetChanged()
-                lstDownload.removeAt(0)
-                run()
+                try {
+                    val i = lstDownload[0]
+                    i.callback?.notifyDataSetChanged()
+                    lstDownload.removeAt(0)
+                    run()
+                } catch (e: Exception) {
+                }
                 super.handleMessage(msg)
             }
         }

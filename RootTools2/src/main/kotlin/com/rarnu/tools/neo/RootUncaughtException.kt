@@ -28,7 +28,10 @@ class RootUncaughtException : Thread.UncaughtExceptionHandler {
             API.reportCrash(ctx, msg + "\n<br>" + stack)
             Looper.prepare()
             Toast.makeText(ctx, R.string.toast_crash, Toast.LENGTH_LONG).show()
-            Looper.loop()
+            try {
+                Looper.loop()
+            } catch (t: Throwable) {
+            }
         }
         try {
             Thread.sleep(3000)

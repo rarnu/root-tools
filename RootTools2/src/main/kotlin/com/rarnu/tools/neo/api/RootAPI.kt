@@ -283,8 +283,11 @@ object RootAPI {
         var sizeStr = "0"
         var size = 0L
         if (ret.error == "") {
-            sizeStr = ret.result.substring(0, ret.result.indexOf("\t")).trim { it <= ' ' }
-            size = Integer.parseInt(sizeStr).toLong()
+            try {
+                sizeStr = ret.result.substring(0, ret.result.indexOf("\t")).trim { it <= ' ' }
+                size = Integer.parseInt(sizeStr).toLong()
+            } catch (e: Exception) {
+            }
         }
         return CacheSize(sizeStr, size)
     }
@@ -316,7 +319,7 @@ object RootAPI {
     }
 
     private fun isCachedAppInstalled(oriList: Array<String>, app: String): Boolean {
-        if (app.startsWith("system") || app.startsWith("data@dalvik-cache")) {
+        if (app.trim { it == ' ' } == "" || app.startsWith("system") || app.startsWith("data@dalvik-cache")) {
             return true
         }
         var newAppPath = app.replace("data@app@", "")

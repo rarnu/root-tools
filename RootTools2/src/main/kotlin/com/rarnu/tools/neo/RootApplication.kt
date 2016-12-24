@@ -15,6 +15,6 @@ class RootApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         isZh = Locale.getDefault().language == "zh"
-        Thread.setDefaultUncaughtExceptionHandler(RootUncaughtException(this))
+        // Thread.setDefaultUncaughtExceptionHandler(RootUncaughtException(this))
     }
 }

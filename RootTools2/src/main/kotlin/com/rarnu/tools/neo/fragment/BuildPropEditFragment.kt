@@ -36,9 +36,9 @@ class BuildPropEditFragment : BaseDialogFragment(), View.OnClickListener {
     }
 
     override fun initLogic() {
-        val item = activity.intent.getSerializableExtra("item") as BuildPropInfo
-        tvHead?.text = item.buildName
-        etValue?.setText(item.buildValue)
+        val item = activity.intent.getSerializableExtra("item") as BuildPropInfo?
+        tvHead?.text = item?.buildName
+        etValue?.setText(item?.buildValue)
     }
 
     override fun getFragmentLayoutResId(): Int = R.layout.fragment_fakedev_edit

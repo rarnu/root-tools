@@ -329,7 +329,9 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
     private val hMemory = object : Handler() {
         override fun handleMessage(msg: Message) {
             pMemory?.isEnabled = true
-            Toast.makeText(context, R.string.toast_memory_cleaned, Toast.LENGTH_SHORT).show()
+            if (context != null) {
+                Toast.makeText(context, R.string.toast_memory_cleaned, Toast.LENGTH_SHORT).show()
+            }
             super.handleMessage(msg)
         }
     }

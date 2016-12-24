@@ -22,7 +22,7 @@ object AppUtils {
                     if (it.applicationInfo.enabled) {
                         list.add(AppInfo(
                                 it.applicationInfo.loadLabel(pm).toString(),
-                                it.applicationInfo.loadIcon(pm),
+                                try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
                                 it.packageName,
                                 false,
                                 it.versionName,
@@ -32,7 +32,7 @@ object AppUtils {
                     } else {
                         listDisabled.add(AppInfo(
                                 it.applicationInfo.loadLabel(pm).toString(),
-                                it.applicationInfo.loadIcon(pm),
+                                try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
                                 it.packageName,
                                 true,
                                 it.versionName,
@@ -44,7 +44,7 @@ object AppUtils {
                     if (it.applicationInfo.enabled) {
                         listData.add(AppInfo(
                                 it.applicationInfo.loadLabel(pm).toString(),
-                                it.applicationInfo.loadIcon(pm),
+                                try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
                                 it.packageName,
                                 false,
                                 it.versionName,
@@ -54,7 +54,7 @@ object AppUtils {
                     } else {
                         listDisabled.add(AppInfo(
                                 it.applicationInfo.loadLabel(pm).toString(),
-                                it.applicationInfo.loadIcon(pm),
+                                try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
                                 it.packageName,
                                 true,
                                 it.versionName,
@@ -87,7 +87,7 @@ object AppUtils {
                 if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
                     listSystem.add(AppInfo(
                             it.applicationInfo.loadLabel(pm).toString(),
-                            it.applicationInfo.loadIcon(pm),
+                            try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
                             it.packageName,
                             true,
                             it.versionName,
@@ -97,7 +97,7 @@ object AppUtils {
                 } else {
                     list.add(AppInfo(
                             it.applicationInfo.loadLabel(pm).toString(),
-                            it.applicationInfo.loadIcon(pm),
+                            try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
                             it.packageName,
                             true,
                             it.versionName,
