@@ -25,6 +25,7 @@ var
   cmd: string;
   outstr: string;
 begin
+  if (not DirectoryExists(FREEZE_FILE_PATH)) then ForceDirectories(FREEZE_FILE_PATH);
   // update freeze list
   if (comp.Trim = '') then begin
     // pkg
@@ -67,8 +68,8 @@ begin
       Free;
     end;
   end;
-  cmd := Format('chmod -R 777 %s', [FREEZE_FILE_PATH]);
-  internalRun([cmd], outstr);
+  cmd := Format('chmod -R 744 %s', [FREEZE_FILE_PATH]);
+  internalRunWithoutRoot([cmd], outstr);
   LOGE(PChar(outstr));
 end;
 

@@ -36,6 +36,7 @@ object NativeAPI {
 
     external fun getBaseURL(): String?
 
+    external fun freezeUpdateList(pkg: String?, comp: String?, enabled: Boolean)
     external fun freezeOnLoad()
 
     fun cleanCallback(ctx: Context?, status: Int, data: String?) {

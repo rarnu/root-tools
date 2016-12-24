@@ -52,6 +52,7 @@ object RootAPI {
         val cmd = "pm ${if (isFreezed) "disable" else "enable"} $packageName"
         val ret = RootUtils.runCommand(cmd, true)
         Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        if (ret.error == "") NativeAPI.freezeUpdateList(packageName, "", !isFreezed)
         return ret.error == ""
     }
 
@@ -60,21 +61,18 @@ object RootAPI {
         val cmd = "pm ${if (isFreezed) "disable" else "enable"} $packageName/$componentName"
         val ret = RootUtils.runCommand(cmd, true)
         Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        if (ret.error == "") NativeAPI.freezeUpdateList(packageName, componentName, !isFreezed)
         return ret.error == ""
     }
 
     fun freezeComponents(packageName: String?, componentNames: Array<String>?, isFreezed: Boolean): Boolean {
         // freezeComponents
-        var b = true
+        var r = true
         componentNames!!.indices.forEach {
-            val cmd = "pm ${if (isFreezed) "disable" else "enable"} $packageName/${componentNames[it]}"
-            val ret = RootUtils.runCommand(cmd, true)
-            Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
-            if (ret.error != "") {
-                b = false
-            }
+            val rt = freezeComponent(packageName, componentNames[it], isFreezed)
+            if (!rt) r = false
         }
-        return b
+        return r
     }
 
     fun systemClean(ctx: Context?) {

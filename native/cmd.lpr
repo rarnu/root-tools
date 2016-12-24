@@ -128,6 +128,16 @@ end;
 // ======================================
 // freezed apps
 // ======================================
+
+procedure Java_com_rarnu_tools_neo_api_NativeAPI_freezeUpdateList(env: PJNIEnv; obj: jobject; pkg: jstring; comp: jstring; enabled: jboolean); stdcall;
+begin
+  updateFreezeList(
+    jstringToString(env, pkg),
+    jstringToString(env, comp),
+    enabled = JNI_TRUE
+  );
+end;
+
 procedure Java_com_rarnu_tools_neo_api_NativeAPI_freezeOnLoad(env: PJNIEnv; obj: jobject); stdcall;
 begin
   freezeOnLoad();
@@ -158,6 +168,7 @@ exports
   // ======================================
   // freezed apps
   // ======================================
+  Java_com_rarnu_tools_neo_api_NativeAPI_freezeUpdateList,
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeOnLoad;
 
 begin

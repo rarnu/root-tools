@@ -30,6 +30,7 @@ var
   SU_STYLE: Integer = -1;
 
 function internalRun(cmds: array of String; out resultString: string): Boolean;
+function internalRunWithoutRoot(cmds: array of String; out resultString: string): Boolean;
 
 implementation
 
@@ -71,6 +72,22 @@ begin
     LOGE(PChar(cmds[i]));
     r := RunCommand('su', params, outstr, [poWaitOnExit, poUsePipes, poStderrToOutPut]);
     resultString += outstr +  _ED;
+    Result := Result and r;
+  end;
+end;
+
+function internalRunWithoutRoot(cmds: array of String; out resultString: string
+  ): Boolean;
+var
+  i: Integer;
+  r: Boolean;
+  outstr: string;
+begin
+  resultString := '';
+  Result := True;
+  for i := 0 to Length(cmds) - 1 do begin
+    r := RunCommand(cmds[i], outstr);
+    resultString += outstr + _ED;
     Result := Result and r;
   end;
 end;
