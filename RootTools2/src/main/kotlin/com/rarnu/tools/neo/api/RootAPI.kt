@@ -145,6 +145,12 @@ object RootAPI {
         return ret.error == ""
     }
 
+    fun deleteFile(src: String?): Boolean {
+        var ret: RootUtils.CommandResult = RootUtils.runCommand("rm $src", true)
+        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        return ret.error == ""
+    }
+
     fun forceDeleteFile(path: String?) {
         // forceDeleteFile
         val cmd = "rm -f -r $path"

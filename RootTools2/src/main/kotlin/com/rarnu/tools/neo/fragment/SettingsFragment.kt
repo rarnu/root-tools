@@ -22,6 +22,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
     private var pAdChoose: PreferenceEx? = null
     private var pDeepClean: PreferenceEx? = null
     private var pShowThemeCrack: PreferenceEx? = null
+    private var pPreventFreezeReverse: PreferenceEx? = null
     private var pref: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
 
@@ -36,6 +37,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
         pAdChoose = findPref(R.string.id_settings_adchoose)
         pDeepClean = findPref(R.string.id_settings_deep_clean)
         pShowThemeCrack = findPref(R.string.id_settings_show_theme_crack)
+        pPreventFreezeReverse = findPref(R.string.id_settings_prevent_freeze_reverser)
     }
 
     private fun findPref(prefId: Int): PreferenceEx = findPreference(getString(prefId)) as PreferenceEx
@@ -45,6 +47,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
         pAdChoose?.onPreferenceClickListener = this
         pDeepClean?.onPreferenceClickListener = this
         pShowThemeCrack?.onPreferenceClickListener = this
+        pPreventFreezeReverse?.onPreferenceClickListener = this
     }
 
     override fun initLogic() {
@@ -54,6 +57,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
         pAdChoose?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) R.string.settings_adchoose_detail else R.string.settings_adchoose_onekey)
         pDeepClean?.status = pref!!.getBoolean(XpStatus.KEY_DEEP_CLEAN, false)
         pShowThemeCrack?.status = pref!!.getBoolean(XpStatus.KEY_SHOW_THEME_CRACK, false)
+        pPreventFreezeReverse?.status = pref!!.getBoolean(XpStatus.KEY_PREVENT_FREEZE_REVERSE, false)
 
         val isMIUI = AppUtils.isMIUI(context)
         if (!isMIUI) {
@@ -82,7 +86,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
         val prefKey = preference.key
         val ex = preference as PreferenceEx
         ex.status = !ex.status
-        when(prefKey) {
+        when (prefKey) {
             getString(R.string.id_settings_mode) -> {
                 editor?.putBoolean(XpStatus.KEY_WORK_MODE, ex.status)?.apply()
                 pMode?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_WORK_MODE, false)) R.string.settings_mode_effect else R.string.settings_mode_common)
@@ -111,8 +115,10 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
             }
             getString(R.string.id_settings_deep_clean) -> editor?.putBoolean(XpStatus.KEY_DEEP_CLEAN, ex.status)?.apply()
             getString(R.string.id_settings_show_theme_crack) -> editor?.putBoolean(XpStatus.KEY_SHOW_THEME_CRACK, ex.status)?.apply()
+            getString(R.string.id_settings_prevent_freeze_reverser) -> editor?.putBoolean(XpStatus.KEY_PREVENT_FREEZE_REVERSE, ex.status)?.apply()
         }
         DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
         return true
     }
+
 }

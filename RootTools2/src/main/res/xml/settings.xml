@@ -20,6 +20,13 @@
             android:title="@string/settings_deep_clean"
             pref:showIcon="false"
             pref:showSwitch="true"/>
+
+    <com.rarnu.tools.neo.comp.PreferenceEx
+            android:key="@string/id_settings_prevent_freeze_reverser"
+            android:title="@string/settings_prevent_freeze_reverser"
+            pref:showIcon="false"
+            pref:showSwitch="true"/>
+
     <com.rarnu.tools.neo.comp.PreferenceEx
             android:key="@string/id_settings_show_theme_crack"
             android:title="@string/settings_show_theme_crack"

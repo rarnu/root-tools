@@ -52,7 +52,7 @@ var
   ret: Boolean;
 begin
   strArr := jstringArrayToStringArray(env, components);
-  ret := FreeComponents(jstringToString(env, packageName), strArr, isFreezed = JNI_TRUE);
+  ret := FreezeComponents(jstringToString(env, packageName), strArr, isFreezed = JNI_TRUE);
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -74,6 +74,14 @@ var
   ret: Boolean;
 begin
   ret := CatFile(jstringToString(env, src), jstringToString(env, dest), perm);
+  Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
+end;
+
+function Java_com_rarnu_tools_neo_api_NativeAPI_deleteFile(env: PJNIEnv; obj: jobject; src: jstring): jboolean; stdcall;
+var
+  ret: Boolean;
+begin
+  ret := DeleteFile(jstringToString(env, src));
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -120,25 +128,9 @@ end;
 // ======================================
 // freezed apps
 // ======================================
-procedure Java_com_rarnu_tools_neo_api_NativeAPI_initFreezeBase(env: PJNIEnv; obj: jobject; path: jstring); stdcall;
+procedure Java_com_rarnu_tools_neo_api_NativeAPI_freezeOnLoad(env: PJNIEnv; obj: jobject); stdcall;
 begin
-  FREEZE_FILE_PATH := jstringToString(env, path);
-  if (not FREEZE_FILE_PATH.EndsWith('/')) then begin
-    FREEZE_FILE_PATH += '/';
-  end;
-  if (not DirectoryExists(FREEZE_FILE_PATH)) then begin
-    ForceDirectories(FREEZE_FILE_PATH);
-  end;
-end;
-
-procedure Java_com_rarnu_tools_neo_api_NativeAPI_updateFreezeStatus(env: PJNIEnv; obj: jobject; pkg: jstring; comp: jstring; enabled: jboolean); stdcall;
-begin
-  updateFreezeList(jstringToString(env, pkg), jstringToString(env, comp), enabled = JNI_TRUE);
-end;
-
-procedure Java_com_rarnu_tools_neo_api_NativeAPI_freezeOnLoad(env: PJNIEnv; obj: jobject; pkg: jstring); stdcall;
-begin
-  freezeOnLoad(jstringToString(env, pkg));
+  freezeOnLoad();
 end;
 
 exports
@@ -151,6 +143,7 @@ exports
   Java_com_rarnu_tools_neo_api_NativeAPI_systemClean,
   Java_com_rarnu_tools_neo_api_NativeAPI_writeFile,
   Java_com_rarnu_tools_neo_api_NativeAPI_catFile,
+  Java_com_rarnu_tools_neo_api_NativeAPI_deleteFile,
   Java_com_rarnu_tools_neo_api_NativeAPI_forceDeleteFile,
   Java_com_rarnu_tools_neo_api_NativeAPI_forceDropCache,
   Java_com_rarnu_tools_neo_api_NativeAPI_killProcess,
@@ -165,8 +158,6 @@ exports
   // ======================================
   // freezed apps
   // ======================================
-  Java_com_rarnu_tools_neo_api_NativeAPI_initFreezeBase,
-  Java_com_rarnu_tools_neo_api_NativeAPI_updateFreezeStatus,
   Java_com_rarnu_tools_neo_api_NativeAPI_freezeOnLoad;
 
 begin

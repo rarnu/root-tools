@@ -62,6 +62,7 @@
     <string name="settings_deep_clean">深度清理</string>
     <string name="settings_show_theme_crack">显示免费主题选项</string>
     <string name="settings_summary_show_theme_crack">关闭后不显示，但是相关功能依然有效</string>
+    <string name="settings_prevent_freeze_reverser">阻止自动解冻</string>
 
     <string name="app_weather">天气</string>
     <string name="app_music">音乐</string>
@@ -156,6 +157,7 @@
     <string name="toast_reboot_app">切换此选项后请重启本软件，部分设备无法开启性能模式，若工作不正常请切换回传统模式</string>
     <string name="toast_crash">崩溃啦！日志已被发送给开发者</string>
     <string name="toast_hidden_function_open">隐藏功能已激活</string>
+    <string name="toast_prevent_freeze_reverse_fail">初始化阻止功能失败</string>
 
     <string name="alert_hint">提示</string>
     <string name="alert_ok">确定</string>

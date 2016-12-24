@@ -87,6 +87,17 @@
                 android:screenOrientation="portrait">
         </activity>
 
+
+        <service android:name=".service.FreezeService">
+
+        </service>
+
+        <receiver android:name=".receiver.BootReceiver">
+            <intent-filter>
+                <action android:name="android.media.AUDIO_BECOMING_NOISY"/>
+            </intent-filter>
+        </receiver>
+
         <!-- xposed -->
         <meta-data
                 android:name="xposedmodule"

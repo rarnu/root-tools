@@ -30,7 +30,7 @@ __compile() {
 	-Filib/${LIB}-android \
 	-Fl${TYPHON_BIN_LIB}/android-5.0-api21-${LIB} \
 	-Fu. -FUlib/${LIB}-android \
-	-oout/${LIB}/lib${PROJ}.so \
+	-oout/${LIB}/librarnu${PROJ}.so \
 	${PROJ}.lpr
 }
 

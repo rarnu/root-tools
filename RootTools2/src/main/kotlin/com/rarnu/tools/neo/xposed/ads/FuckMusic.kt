@@ -48,8 +48,14 @@ object FuckMusic {
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
                 val vThis = param.thisObject as View
-                try { (XposedHelpers.getObjectField(param.thisObject, "mClose") as View?)?.visibility = View.GONE } catch (t: Throwable) { }
-                try { (XposedHelpers.getObjectField(param.thisObject, "mImage") as View?)?.visibility = View.GONE } catch (t: Throwable) { }
+                try {
+                    (XposedHelpers.getObjectField(param.thisObject, "mClose") as View?)?.visibility = View.GONE
+                } catch (t: Throwable) {
+                }
+                try {
+                    (XposedHelpers.getObjectField(param.thisObject, "mImage") as View?)?.visibility = View.GONE
+                } catch (t: Throwable) {
+                }
                 val lp = vThis.layoutParams
                 lp.height = 0
                 vThis.layoutParams = lp
@@ -68,6 +74,32 @@ object FuckMusic {
         })
 
         XpUtils.findAndHookMethod("com.miui.systemAdSolution.landingPage.LandingPageService", loadPackageParam.classLoader, "init", Context::class.java, XC_MethodReplacement.returnConstant(null))
+
+        // 2.7.400
+        XpUtils.findAndHookMethod("com.miui.player.phone.view.NowplayingContentView", loadPackageParam.classLoader, "setInfoVisibility", java.lang.Boolean.TYPE, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun beforeHookedMethod(param: MethodHookParam) {
+                param.args[0] = true
+            }
+        })
+
+
+        if (clsAdInfo2 != null) {
+            XpUtils.findAndHookConstructor("com.miui.player.phone.view.NowplayingContentView\$ShowAdRunnable", loadPackageParam.classLoader, clsAdInfo2, java.lang.Boolean.TYPE, object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    param.args[1] = false
+                }
+            })
+        }
+
+        XpUtils.findAndHookMethod("com.miui.player.phone.view.NowplayingContentView\$ShowAdRunnable", loadPackageParam.classLoader, "setLoadAd", java.lang.Boolean.TYPE, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun beforeHookedMethod(param: MethodHookParam) {
+                param.args[0] = false
+            }
+        })
+
 
     }
 

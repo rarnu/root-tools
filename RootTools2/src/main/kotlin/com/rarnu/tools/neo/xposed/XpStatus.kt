@@ -25,6 +25,7 @@ object XpStatus {
     val KEY_AD_CHOOSE = "ad_choose"
     val KEY_DEEP_CLEAN = "deep_clean"
     val KEY_SHOW_THEME_CRACK = "show_theme_crack"
+    val KEY_PREVENT_FREEZE_REVERSE = "prevent_freeze_reverse"
 
     // ad fucker for special apps
     val KEY_AD_WEATHER = "fuck_weather"

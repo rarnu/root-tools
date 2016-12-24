@@ -62,6 +62,12 @@ object DeviceAPI {
         RootAPI.catFile(src, dest, perm)
     }
 
+    fun deleteFile(src: String?): Boolean = if (XpStatus.mode === XpStatus.Mode.NDK) {
+        NativeAPI.deleteFile(src)
+    } else {
+        RootAPI.deleteFile(src)
+    }
+
     fun systemClean(ctx: Context?) = if (XpStatus.mode === XpStatus.Mode.NDK) {
         NativeAPI.systemClean(ctx)
     } else {

@@ -63,6 +63,7 @@
     <string name="settings_deep_clean">Deep Clean</string>
     <string name="settings_show_theme_crack">Show Theme Crack</string>
     <string name="settings_summary_show_theme_crack"></string>
+    <string name="settings_prevent_freeze_reverser">Prevent Freeze Reverse</string>
 
     <string name="app_weather">Weather</string>
     <string name="app_music">Music</string>
@@ -157,6 +158,7 @@
     <string name="toast_reboot_app">Please reboot the app after switch this option. Some devices can not switch to Speed Mode, please stay on Common Mode.</string>
     <string name="toast_crash">App crashed! the report is send to the author.</string>
     <string name="toast_hidden_function_open">Hidden function is activated.</string>
+    <string name="toast_prevent_freeze_reverse_fail">Init prevent failed</string>
 
     <string name="alert_hint">Hint</string>
     <string name="alert_ok">OK</string>

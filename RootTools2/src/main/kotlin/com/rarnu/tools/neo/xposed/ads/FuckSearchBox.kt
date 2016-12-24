@@ -18,5 +18,6 @@ object FuckSearchBox {
         if (clsQueryView != null) {
             XpUtils.findAndHookMethod("com.android.quicksearchbox.util.HotWordsUtil", loadPackageParam.classLoader, "setHotQueryView", clsQueryView, XC_MethodReplacement.returnConstant(null))
         }
+        XpUtils.findAndHookMethod("com.android.quicksearchbox.ui.LocalListView", loadPackageParam.classLoader, "updateBanners", XC_MethodReplacement.returnConstant(null))
     }
 }

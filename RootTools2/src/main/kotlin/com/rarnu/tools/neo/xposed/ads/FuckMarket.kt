@@ -189,7 +189,7 @@ object FuckMarket {
             XpUtils.findAndHookMethod("com.xiaomi.market.ui.RelatedAppRecommendView", loadPackageParam.classLoader, "a", clsAL, java.lang.Boolean.TYPE, List::class.java, clsRefInfo, object : XC_MethodReplacement() {
                 @Throws(Throwable::class)
                 override fun replaceHookedMethod(param: MethodHookParam): Any? {
-                    (param.thisObject as View).visibility = View.GONE
+                    (param.thisObject as View?)?.visibility = View.GONE
                     return null
                 }
             })
@@ -201,7 +201,7 @@ object FuckMarket {
             XpUtils.findAndHookMethod("com.xiaomi.market.ui.RelatedAppRecommendView", loadPackageParam.classLoader, "a", clsAM, java.lang.Boolean.TYPE, List::class.java, clsRefInfo, object : XC_MethodReplacement() {
                 @Throws(Throwable::class)
                 override fun replaceHookedMethod(param: MethodHookParam): Any? {
-                    (param.thisObject as View).visibility = View.GONE
+                    (param.thisObject as View?)?.visibility = View.GONE
                     return null
                 }
             })

@@ -1,13 +1,18 @@
 package com.rarnu.tools.neo.api
 
 import android.content.Context
-import android.content.Intent
-import com.rarnu.tools.neo.fragment.CleanFragment
+import android.util.Log
 
 object NativeAPI {
 
+    var jniLoaded = false
     init {
-        System.loadLibrary("cmd")
+        try {
+            System.loadLibrary("rarnucmd")
+            jniLoaded = true
+        } catch (t: Throwable) {
+            Log.e("NativeAPI", "System.loadLibrary => $t")
+        }
     }
 
     var rejected = false
@@ -22,6 +27,7 @@ object NativeAPI {
     external fun systemClean(ctx: Context?)
     external fun writeFile(ctx: Context?, filePath: String?, text: String?, perm: Int): Boolean
     external fun catFile(src: String?, dest: String?, perm: Int): Boolean
+    external fun deleteFile(src: String?): Boolean
     external fun forceDeleteFile(path: String?)
     external fun forceDropCache()
     external fun killProcess()
@@ -30,9 +36,7 @@ object NativeAPI {
 
     external fun getBaseURL(): String?
 
-    external fun initFreezeBase(path: String?)
-    external fun updateFreezeStatus(pkg: String?, comp: String?, enabled: Boolean)
-    external fun freezeOnLoad(pkg: String?)
+    external fun freezeOnLoad()
 
     fun cleanCallback(ctx: Context?, status: Int, data: String?) {
         DeviceAPI.cleanCallback(ctx, status, data)

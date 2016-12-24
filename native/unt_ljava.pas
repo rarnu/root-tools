@@ -5,17 +5,18 @@ unit unt_ljava;
 interface
 
 uses
-  Classes, SysUtils, unt_cmd, strutils, android;
+  Classes, SysUtils, strutils, android;
 
 // JNI real method
 function Mount(): Boolean;
 function IsSystemRW(): Boolean;
 procedure MakePreferenceReadable(sdk: integer; packageName: string);
 function FreezeApplication(packageName: string; isFreezed: boolean): boolean;
-function FreeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;
+function FreezeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;
 function FreezeComponent(packageName: string; componentName: string; isFreezed: boolean): boolean;
 function WriteFile(filePath: string; _text: string; perm: integer): boolean;
 function CatFile(src: string; dest: string; perm: integer): Boolean;
+function DeleteFile(src: string): Boolean;
 procedure ForceDeleteFile(path: string);
 procedure ForceDropCache();
 procedure KillProcess();
@@ -23,6 +24,8 @@ function DeleteSystemApp(pkgName: string): Boolean;
 function IsAppRequiredBySystem(pkgName: string): Boolean;
 
 implementation
+
+uses unt_cmd, unt_freeze;
 
 function Mount: Boolean;
 const
@@ -82,6 +85,7 @@ var
 begin
   cmd := Format('pm %s %s', [IfThen(isFreezed, 'disable', 'enable'), packageName]);
   Result := internalRun([cmd], outstr);
+  if Result then updateFreezeList(packageName, '', not isFreezed);
   LOGE(PChar(outstr));
 end;
 
@@ -92,6 +96,7 @@ var
 begin
   cmd := Format('pm %s %s/%s', [IfThen(isFreezed, 'disable', 'enable'), packageName, componentName]);
   Result := internalRun([cmd], outstr);
+  if Result then updateFreezeList(packageName, componentName, not isFreezed);
   LOGE(PChar(outstr));
 end;
 
@@ -142,6 +147,14 @@ begin
     Format('cat %s > %s', [src, dest]),
     Format('chmod %s %s', [modstr, dest])
   ], outstr);
+  LOGE(PChar(outstr));
+end;
+
+function DeleteFile(src: string): Boolean;
+var
+  outstr: string;
+begin
+  Result := internalRun([Format('rm %s', [src])], outstr);
   LOGE(PChar(outstr));
 end;
 
@@ -302,17 +315,18 @@ begin
   end;
 end;
 
-function FreeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;
+function FreezeComponents(packageName: string; Components: TStringArray; isFreezed: boolean): boolean;
 var
-  cmd: string = '';
-  outstr: string;
   i: integer;
+  r: Boolean;
+  rt: Boolean;
 begin
+  r := True;
   for i := 0 to Length(Components) - 1 do begin
-    cmd += Format('pm %s %s/%s;', [IfThen(isFreezed, 'disable', 'enable'), packageName, Components[i]]);
+    rt := FreezeComponent(packageName, Components[i], isFreezed);
+    if not rt then r := False;
   end;
-  Result := internalRun([cmd], outstr);
-  LOGE(PChar(outstr));
+  Result := r
 end;
 
 end.
