@@ -83,7 +83,6 @@ object FuckMusic {
             }
         })
 
-
         if (clsAdInfo2 != null) {
             XpUtils.findAndHookConstructor("com.miui.player.phone.view.NowplayingContentView\$ShowAdRunnable", loadPackageParam.classLoader, clsAdInfo2, java.lang.Boolean.TYPE, object : XC_MethodHook() {
                 @Throws(Throwable::class)

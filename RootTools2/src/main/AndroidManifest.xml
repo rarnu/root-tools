@@ -2,8 +2,8 @@
 <manifest
         xmlns:android="http://schemas.android.com/apk/res/android"
         package="com.rarnu.tools.neo"
-        android:versionCode="65"
-        android:versionName="3.1.4">
+        android:versionCode="66"
+        android:versionName="3.1.5">
 
     <uses-sdk android:minSdkVersion="21" android:targetSdkVersion="23"/>
 
@@ -87,20 +87,6 @@
                 android:name=".activity.ManualActivity"
                 android:screenOrientation="portrait">
         </activity>
-
-
-        <service android:name=".service.FreezeService">
-
-        </service>
-
-        <receiver android:name=".receiver.BootReceiver">
-            <intent-filter>
-                <action android:name="android.intent.action.BOOT_COMPLETED"/>
-            </intent-filter>
-            <intent-filter>
-                <action android:name="android.media.AUDIO_BECOMING_NOISY"/>
-            </intent-filter>
-        </receiver>
 
         <!-- xposed -->
         <meta-data

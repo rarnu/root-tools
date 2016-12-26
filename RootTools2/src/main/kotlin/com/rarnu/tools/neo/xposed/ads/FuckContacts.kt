@@ -2,6 +2,7 @@ package com.rarnu.tools.neo.xposed.ads
 
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
+import de.robv.android.xposed.XC_MethodReplacement
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 /**
@@ -27,7 +28,7 @@ object FuckContacts {
                     mGetItemType.isAccessible = true
                     val newList = arrayListOf<Any?>()
                     if (list != null) {
-                        for (item in  list) {
+                        for (item in list) {
                             val typ = mGetItemType.invoke(item) as Enum<*>
                             if (typ.ordinal != 2 && typ.ordinal != 4 && typ.ordinal != 6) {
                                 newList.add(item)
@@ -38,5 +39,9 @@ object FuckContacts {
                 }
             })
         }
+        XpUtils.findAndHookMethod("com.android.contacts.ContactsUtils", loadPackageParam.classLoader, "showFraudInsurance", XC_MethodReplacement.returnConstant(false))
+        XpUtils.findAndHookMethod("com.android.contacts.activities.UnknownContactActivity", loadPackageParam.classLoader, "updateDetailInsurance", XC_MethodReplacement.returnConstant(null))
+        XpUtils.findAndHookMethod("com.android.contacts.detail.UnknownContactFragment", loadPackageParam.classLoader, "showInsuranceView", XC_MethodReplacement.returnConstant(null))
+        XpUtils.findAndHookMethod("com.android.contacts.detail.UnknownContactFragment", loadPackageParam.classLoader, "updateFraudInsurance", XC_MethodReplacement.returnConstant(null))
     }
 }

@@ -71,6 +71,7 @@ class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
                         return XposedBridge.invokeOriginalMethod(param.method, param.thisObject, arrayOf(true))
                     }
                 })
+
                 XpUtils.findAndHookMethod("miui.resourcebrowser.model.ResourceOnlineProperties", lpparam.classLoader, "isProductBought", XC_MethodReplacement.returnConstant(true))
 
                 // common
@@ -83,7 +84,6 @@ class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
     }
 
     private fun patchDRM() {
-
 
         XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", Context::class.java, File::class.java, File::class.java, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
         XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", Context::class.java, String::class.java, File::class.java, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
