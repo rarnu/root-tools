@@ -153,15 +153,15 @@ object FuckVideo {
                     val fBlocks = clsBlock2.getDeclaredField("blocks")
                     fBlocks.isAccessible = true
                     val blocks = fBlocks.get(block) as ArrayList<*>
-                    for (i in blocks.indices.reversed()) {
-                        val o = blocks[i]
+                    blocks.indices.reversed().forEach {
+                        val o = blocks[it]
                         val fUI = o.javaClass.superclass.getDeclaredField("ui_type")
                         val oUI = fUI.get(o)
                         val mId = oUI.javaClass.getMethod("id")
                         val id = mId.invoke(oUI) as Int
                         if (id == 101 || id == 10001 || id == 282 || id == 257 || id == 221 ||
                                 id == 501 || id == 502 || id == 503 || (id == 601) or (id == 602) || id == 603 || id == 604) {
-                            blocks.removeAt(i)
+                            blocks.removeAt(it)
                         }
                     }
                 }
@@ -233,8 +233,9 @@ object FuckVideo {
             val fBlockRootArrayList = clsThis?.getDeclaredField("mBlockRootArrayList")
             fBlockRootArrayList?.isAccessible = true
             val mBlockRootArrayList = fBlockRootArrayList?.get(param.thisObject) as ArrayList<*>
-            for (i in mBlockRootArrayList.indices.reversed()) {
-                val b = mBlockRootArrayList[i]
+
+            mBlockRootArrayList.indices.reversed().forEach {
+                val b = mBlockRootArrayList[it]
                 val fUI = b.javaClass.superclass.getDeclaredField("ui_type")
                 fUI.isAccessible = true
                 val oUI = fUI.get(b)
@@ -242,7 +243,7 @@ object FuckVideo {
                 val id = mId.invoke(oUI) as Int
                 if (id == 101 || id == 10001 || id == 282 || id == 257 || id == 221 ||
                         id == 501 || id == 502 || id == 503 || (id == 601) or (id == 602) || id == 603 || id == 604) {
-                    mBlockRootArrayList.removeAt(i)
+                    mBlockRootArrayList.removeAt(it)
                 }
             }
         } catch (e: Exception) {

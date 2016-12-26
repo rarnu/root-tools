@@ -40,10 +40,9 @@ class FeedbackActivity : BaseActivity() {
     override fun onRequestPermissionsResult(requestCode: Int, permissions: Array<String>, grantResults: IntArray) {
         if (Build.VERSION.SDK_INT >= 23) {
             super.onRequestPermissionsResult(requestCode, permissions, grantResults)
-            for (i in permissions.indices) {
-                if (permissions[i] == Manifest.permission.WRITE_EXTERNAL_STORAGE) {
-                    XpStatus.canWriteSdcard = grantResults[i] == PackageManager.PERMISSION_GRANTED
-                    break
+            permissions.indices.forEach {
+                if (permissions[it] == Manifest.permission.WRITE_EXTERNAL_STORAGE) {
+                    XpStatus.canWriteSdcard = grantResults[it] == PackageManager.PERMISSION_GRANTED
                 }
             }
         }

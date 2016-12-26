@@ -14,6 +14,7 @@
     <string name="pref_xposed">[xposed]</string>
     <string name="pref_root">[root]</string>
     <string name="pref_alpha">[alpha]</string>
+    <string name="pref_beta">[beta]</string>
 
     <string name="category_main">系统</string>
     <string name="main_freeze">冻结应用</string>
