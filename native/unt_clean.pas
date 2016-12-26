@@ -261,6 +261,7 @@ var
   cs: TCacheSize;
   totalSize: LongInt = 0;
 begin
+  Result := 0;
   b := internalRun([CMD_FIND_CACHE], outstr);
   if not b then begin
     CleanCallback(env, ctx, STATUS_ERROR, 'Can not clean Cache');

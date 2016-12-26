@@ -39,6 +39,7 @@ object FuckCleanMaster {
                 pref.edit().putBoolean("key_information_setting_close", false).apply()
             }
         })
+        XpUtils.findAndHookMethod("com.miui.securitycenter.service.i", loadPackageParam.classLoader, "oI", XC_MethodReplacement.returnConstant(null))
 
     }
 

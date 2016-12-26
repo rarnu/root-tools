@@ -12,9 +12,8 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:gravity="center_vertical"
-            android:ellipsize="end"
+            android:ellipsize="marquee"
             android:padding="4dip"
-            android:singleLine="true"
             android:maxLines="1"
             android:textColor="?android:attr/textColorPrimary"/>
 
@@ -24,8 +23,7 @@
             android:layout_height="match_parent"
             android:layout_weight="1"
             android:maxLines="1"
-            android:singleLine="true"
-            android:ellipsize="end"
+            android:ellipsize="marquee"
             android:padding="4dip"
             android:textColor="?android:attr/textColorPrimary"
             android:gravity="center_vertical"/>

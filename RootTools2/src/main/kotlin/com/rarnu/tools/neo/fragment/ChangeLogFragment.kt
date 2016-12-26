@@ -38,9 +38,9 @@ class ChangeLogFragment : BaseFragment() {
             var str = ""
             info?.filterNotNull()?.filter {
                 if (RootApplication.isZh)
-                    it.description.trim { it == ' ' } != ""
+                    it.description.trim { it <= ' ' } != ""
                 else
-                    it.descriptionEn.trim { it == ' ' } != ""
+                    it.descriptionEn.trim { it <= ' ' } != ""
             }?.forEach { str += "${it.versionName} (${it.versionCode})\n\n    ${if (RootApplication.isZh) it.description else it.descriptionEn}\n\n" }
             str = str.replace("\\n", "\n    ")
             tvChangeLog?.text = str

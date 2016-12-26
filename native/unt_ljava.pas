@@ -73,7 +73,7 @@ var
 begin
   if (sdk >= 24) then begin
     cmd := Format('chmod -R 777 /data/data/%s/shared_prefs', [packageName]);
-    internalRun([cmd], outstr);
+    internalRunWithoutRoot([cmd], outstr);
     LOGE(PChar(outstr));
   end;
 end;
@@ -295,7 +295,7 @@ var
   apkPath: string;
 begin
   Result := False;
-  ret := internalRun(['pm path ' + pkgName], outstr);
+  ret := internalRunWithoutRoot(['pm path ' + pkgName], outstr);
   LOGE(PChar(outstr));
   if (not ret) or (outstr.Trim = '') then begin
     Exit;

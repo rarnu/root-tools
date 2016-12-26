@@ -68,8 +68,8 @@ object RootUtils {
                 }
             }
             process.waitFor()
-            ret.result = outStr.toString().trim()
-            ret.error = errStr.toString().trim()
+            ret.result = outStr.toString().trim { it <= ' ' }
+            ret.error = errStr.toString().trim { it <= ' ' }
         } catch(e: Exception) {
             if (e.message != null) {
                 ret.error = if (e.message == null) "" else e.message!!

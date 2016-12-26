@@ -95,6 +95,7 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
                 msgStr += s + "\n"
             }
         }
+        msgStr = "${item?.fullPackageName}\n\n$msgStr"
         AlertDialog.Builder(context).setTitle(R.string.alert_hint).setMessage(msgStr).setPositiveButton(R.string.alert_ok, null).show()
         return true
     }

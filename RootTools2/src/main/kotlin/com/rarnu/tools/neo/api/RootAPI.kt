@@ -68,8 +68,8 @@ object RootAPI {
     fun freezeComponents(packageName: String?, componentNames: Array<String>?, isFreezed: Boolean): Boolean {
         // freezeComponents
         var r = true
-        componentNames!!.indices.forEach {
-            val rt = freezeComponent(packageName, componentNames[it], isFreezed)
+        componentNames!!.forEach {
+            val rt = freezeComponent(packageName, it, isFreezed)
             if (!rt) r = false
         }
         return r

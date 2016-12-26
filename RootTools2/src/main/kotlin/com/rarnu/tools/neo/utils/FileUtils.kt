@@ -216,7 +216,7 @@ object FileUtils {
         ins.close()
         output.close()
         val text = String(output.toByteArray())
-        return text.trim()
+        return text.trim { it <= ' ' }
     }
 
     fun readAssertFileAsList(context: Context?, fileName: String?): MutableList<String>?  {
@@ -290,7 +290,7 @@ object FileUtils {
         ins.close()
         output.close()
         val text = String(output.toByteArray())
-        return text.trim()
+        return text.trim { it <= ' ' }
     }
 
     fun getDirSize(path: String?): Long = getDirSize(File(path))

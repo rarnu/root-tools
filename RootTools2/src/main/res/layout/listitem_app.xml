@@ -47,6 +47,8 @@
             android:layout_toStartOf="@+id/prefStatus"
             android:layout_marginStart="8dip"
             android:layout_marginEnd="8dip"
-            android:textColor="?android:attr/textColorSecondary"/>
+            android:textColor="?android:attr/textColorSecondary"
+            android:ellipsize="marquee"
+            android:maxLines="1"/>
 
 </RelativeLayout>
