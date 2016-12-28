@@ -99,6 +99,27 @@ object FuckMusic {
             }
         })
 
+        // 2.8
+        val clsDisplayItem = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.display.model.DisplayItem")
+        if (clsDisplayItem != null) {
+            XpUtils.findAndHookMethod("com.miui.player.display.view.SearchPopularKeyCard", loadPackageParam.classLoader, "onBindItem", clsDisplayItem, Integer.TYPE, object : XC_MethodHook(){
+                @Throws(Throwable::class)
+                override fun afterHookedMethod(param: MethodHookParam) {
+                    val v = param.thisObject as View
+                    v.layoutParams.height = 0
+                    v.visibility = View.GONE
+                }
+            })
+
+            XpUtils.findAndHookMethod("com.miui.player.display.view.BannerCard", loadPackageParam.classLoader, "onBindItem", clsDisplayItem, Integer.TYPE, object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun afterHookedMethod(param: MethodHookParam) {
+                    val v = param.thisObject as View
+                    v.layoutParams.height = 0
+                    v.visibility = View.GONE
+                }
+            })
+        }
 
     }
 
