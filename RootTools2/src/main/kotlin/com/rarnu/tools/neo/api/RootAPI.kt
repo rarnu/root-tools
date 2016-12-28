@@ -317,14 +317,17 @@ object RootAPI {
     }
 
     private fun isCachedAppInstalled(oriList: Array<String>, app: String): Boolean {
-        if (app.trim { it == ' ' } == "" || app.startsWith("system") || app.startsWith("data@dalvik-cache")) {
+        if (app.trim { it <= ' ' } == "" || app.startsWith("system") || app.startsWith("data@dalvik-cache")) {
             return true
         }
-        var newAppPath = app.replace("data@app@", "")
-        newAppPath = newAppPath.substring(0, newAppPath.indexOf("@"))
-
-        val idx = oriList.indices.firstOrNull { oriList[it] == newAppPath } ?: -1
-        return idx != -1
+        try {
+            var newAppPath = app.replace("data@app@", "")
+            newAppPath = newAppPath.substring(0, newAppPath.indexOf("@"))
+            val idx = oriList.indices.firstOrNull { oriList[it] == newAppPath } ?: -1
+            return idx != -1
+        } catch (e: Exception) {
+            return true
+        }
     }
 
     private fun isProfileInstalled(oriList: Array<String>, app: String): Boolean = oriList.any { it.contains(app) }
