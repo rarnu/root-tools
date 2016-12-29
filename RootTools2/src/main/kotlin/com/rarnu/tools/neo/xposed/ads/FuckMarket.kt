@@ -54,8 +54,14 @@ object FuckMarket {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val loader = param.args[0] as Loader<*>
                     when (loader.id) {
-                        1 -> try { (XposedHelpers.getObjectField(param.args[1], "asN") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
-                        2 -> try { (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                        1 -> {
+                            try { (XposedHelpers.getObjectField(param.args[1], "asN") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                            try { (XposedHelpers.getObjectField(param.args[1], "qD") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                        }
+                        2 -> {
+                            try { (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                            try { (XposedHelpers.getObjectField(param.args[1], "qv") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                        }
                     }
                 }
             })
@@ -65,6 +71,7 @@ object FuckMarket {
                     val loader = param.args[0] as Loader<*>
                     if (loader.id == 1) {
                         try { (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                        try { (XposedHelpers.getObjectField(param.args[1], "qv") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                     }
                 }
             })
@@ -204,6 +211,18 @@ object FuckMarket {
         val clsAM = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.model.am")
         if (clsAM != null && clsRefInfo != null) {
             XpUtils.findAndHookMethod("com.xiaomi.market.ui.RelatedAppRecommendView", loadPackageParam.classLoader, "a", clsAM, java.lang.Boolean.TYPE, List::class.java, clsRefInfo, object : XC_MethodReplacement() {
+                @Throws(Throwable::class)
+                override fun replaceHookedMethod(param: MethodHookParam): Any? {
+                    (param.thisObject as View?)?.visibility = View.GONE
+                    return null
+                }
+            })
+        }
+
+        // 6.x.23.250
+        val clsAN = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.market.model.an")
+        if (clsAN != null && clsRefInfo != null) {
+            XpUtils.findAndHookMethod("com.xiaomi.market.ui.RelatedAppRecommendView", loadPackageParam.classLoader, "a", clsAN, java.lang.Boolean.TYPE, List::class.java, clsRefInfo, object : XC_MethodReplacement() {
                 @Throws(Throwable::class)
                 override fun replaceHookedMethod(param: MethodHookParam): Any? {
                     (param.thisObject as View?)?.visibility = View.GONE
