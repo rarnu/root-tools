@@ -25,5 +25,15 @@ object FuckWeather {
         XpUtils.findAndHookMethod("com.miui.weather2.structures.DailyForecastAdData", loadPackageParam.classLoader, "isAdTitleExistence", XC_MethodReplacement.returnConstant(false))
         XpUtils.findAndHookMethod("com.miui.weather2.structures.DailyForecastAdData", loadPackageParam.classLoader, "isLandingPageUrlExistence", XC_MethodReplacement.returnConstant(false))
         XpUtils.findAndHookMethod("com.miui.weather2.structures.DailyForecastAdData", loadPackageParam.classLoader, "isUseSystemBrowserExistence", XC_MethodReplacement.returnConstant(false))
+
+        // 8.2.1
+        XpUtils.findAndHookMethod("com.miui.weather2.WeatherApplication", loadPackageParam.classLoader, "attachBaseContext", Context::class.java, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun afterHookedMethod(param: MethodHookParam) {
+                val ctx = param.args[0] as Context?
+                val pref = ctx?.getSharedPreferences("com.miui.weather2.information", 0)
+                pref?.edit()?.putBoolean("agree_to_have_information", false)?.apply()
+            }
+        })
     }
 }

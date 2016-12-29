@@ -40,7 +40,7 @@
     <TextView
             android:id="@+id/tvPackageName"
             android:layout_width="match_parent" android:layout_height="20dip"
-            android:textSize="14sp"
+            android:textSize="12sp"
             android:gravity="center_vertical"
             android:layout_alignParentBottom="true"
             android:layout_toEndOf="@+id/ivIcon"

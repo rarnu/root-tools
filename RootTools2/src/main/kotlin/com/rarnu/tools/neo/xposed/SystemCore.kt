@@ -21,6 +21,9 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
     override fun initZygote(paramStartupParam: IXposedHookZygoteInit.StartupParam) {
         val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
         prefs.makeWorldReadable()
+        prefs.reload()
+
+
         XposedBridge.hookAllMethods(XposedHelpers.findClass("com.android.org.conscrypt.OpenSSLSignature", null), "engineVerify", object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
@@ -38,7 +41,6 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
                 if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
                     paramAnonymousMethodHookParam.result = true
                 }
-
             }
         })
 

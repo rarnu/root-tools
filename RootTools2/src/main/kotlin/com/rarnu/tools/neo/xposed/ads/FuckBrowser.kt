@@ -174,5 +174,20 @@ object FuckBrowser {
             })
         }
 
+        // 8.5.10
+        XpUtils.findAndHookMethod("com.android.browser.ov", loadPackageParam.classLoader, "a", String::class.java, String::class.java, String::class.java, XC_MethodReplacement.returnConstant(null))
+        val clsTx = XpUtils.findClass(loadPackageParam.classLoader, "com.android.browser.tx")
+        val clsOv = XpUtils.findClass(loadPackageParam.classLoader, "com.android.browser.ov")
+        if (clsBrowserActivity != null && clsTx != null && clsOv != null) {
+            XpUtils.findAndHookConstructor("com.android.browser.kf", loadPackageParam.classLoader, clsBrowserActivity, clsTx, clsOv, object : XC_MethodHook() {
+                @Throws(Throwable::class)
+                override fun beforeHookedMethod(param: MethodHookParam) {
+                    val o = param.thisObject
+                    val fC = o.javaClass.getDeclaredField("c")
+                    fC.isAccessible = true
+                    fC.set(null, true)
+                }
+            })
+        }
     }
 }

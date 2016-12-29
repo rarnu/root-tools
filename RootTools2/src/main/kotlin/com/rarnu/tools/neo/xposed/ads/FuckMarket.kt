@@ -155,6 +155,8 @@ object FuckMarket {
                             try { (XposedHelpers.getObjectField(param.args[1], "auk") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                             // 6.x 250 (4)
                             try { (XposedHelpers.getObjectField(param.args[1], "auf") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                            // 6.x 250 (5)
+                            try { (XposedHelpers.getObjectField(param.args[1], "aum") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         }
                         2 -> {
                             // 3.x
@@ -167,6 +169,8 @@ object FuckMarket {
                             try { (XposedHelpers.getObjectField(param.args[1], "aub") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                             // 6.x 250 (4)
                             try { (XposedHelpers.getObjectField(param.args[1], "atW") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                            // 6.x 250 (5)
+                            try { (XposedHelpers.getObjectField(param.args[1], "aud") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         }
                     }
                 }
@@ -187,6 +191,8 @@ object FuckMarket {
                         try { (XposedHelpers.getObjectField(param.args[1], "aub") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         // 6.x 250 (4)
                         try { (XposedHelpers.getObjectField(param.args[1], "atW") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                        // 6.x 250 (5)
+                        try { (XposedHelpers.getObjectField(param.args[1], "aud") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                     }
                 }
             })
@@ -213,7 +219,9 @@ object FuckMarket {
             XpUtils.findAndHookMethod("com.xiaomi.market.ui.RelatedAppRecommendView", loadPackageParam.classLoader, "a", clsAM, java.lang.Boolean.TYPE, List::class.java, clsRefInfo, object : XC_MethodReplacement() {
                 @Throws(Throwable::class)
                 override fun replaceHookedMethod(param: MethodHookParam): Any? {
-                    (param.thisObject as View?)?.visibility = View.GONE
+                    val v = param.thisObject as View?
+                    v?.layoutParams?.height = 0
+                    v?.visibility = View.GONE
                     return null
                 }
             })
