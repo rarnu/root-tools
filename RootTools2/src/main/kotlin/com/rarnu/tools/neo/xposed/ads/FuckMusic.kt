@@ -102,7 +102,7 @@ object FuckMusic {
         // 2.8
         val clsDisplayItem = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.display.model.DisplayItem")
         if (clsDisplayItem != null) {
-            XpUtils.findAndHookMethod("com.miui.player.display.view.SearchPopularKeyCard", loadPackageParam.classLoader, "onBindItem", clsDisplayItem, Integer.TYPE, object : XC_MethodHook(){
+            XpUtils.findAndHookMethod("com.miui.player.display.view.SearchPopularKeyCard", loadPackageParam.classLoader, "onBindItem", clsDisplayItem, Integer.TYPE, object : XC_MethodHook() {
                 @Throws(Throwable::class)
                 override fun afterHookedMethod(param: MethodHookParam) {
                     val v = param.thisObject as View
@@ -120,6 +120,17 @@ object FuckMusic {
                 }
             })
         }
+
+        val clsAdShowingListener = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.phone.view.NowplayingAlbumPage\$AdShowingListener")
+        if (clsAdShowingListener != null) {
+            XpUtils.findAndHookMethod("com.miui.player.phone.view.NowplayingAlbumView", loadPackageParam.classLoader, "setAdShowingListener", clsAdShowingListener, XC_MethodReplacement.returnConstant(null))
+        }
+        XpUtils.findAndHookConstructor("com.miui.player.phone.view.NowplayingAlbumPage\$ShowAdRunnable", loadPackageParam.classLoader, java.lang.Boolean.TYPE, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun beforeHookedMethod(param: MethodHookParam) {
+                param.args[0] = false
+            }
+        })
 
     }
 

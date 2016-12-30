@@ -14,8 +14,6 @@ class CoreCrack2 : IXposedHookZygoteInit, IXposedHookLoadPackage {
         val INSTALL_ALLOW_DOWNGRADE = 128
     }
 
-    // private var context: Context? = null
-
     @Throws(Throwable::class)
     override fun initZygote(param: IXposedHookZygoteInit.StartupParam) {
         val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
@@ -75,13 +73,16 @@ class CoreCrack2 : IXposedHookZygoteInit, IXposedHookLoadPackage {
             if (param.packageName == "android" || param.processName == "android") {
                 val clsPackageManagerClass = XpUtils.findClass(param.classLoader, "com.android.server.pm.PackageManagerService")
                 if (clsPackageManagerClass != null) {
-//                    XposedBridge.hookAllConstructors(clsPackageManagerClass, object : XC_MethodHook() {
-//                        @Throws(Throwable::class)
-//                        override fun afterHookedMethod(param: MethodHookParam) {
-//                            // this@CoreCrack2.context = param.args[0] as Context?
-//                        }
-//                    })
                     XposedBridge.hookAllMethods(clsPackageManagerClass, "installPackageAsUser", object : XC_MethodHook() {
+                        @Throws(Throwable::class)
+                        override fun beforeHookedMethod(param: MethodHookParam) {
+                            val flags = param.args[2] as Int
+                            if ((flags and INSTALL_ALLOW_DOWNGRADE) == 0) {
+                                param.args[2] = (flags or INSTALL_ALLOW_DOWNGRADE)
+                            }
+                        }
+                    })
+                    XposedBridge.hookAllMethods(clsPackageManagerClass, "installPackageWithVerificationAndEncryption", object : XC_MethodHook() {
                         @Throws(Throwable::class)
                         override fun beforeHookedMethod(param: MethodHookParam) {
                             val flags = param.args[2] as Int
@@ -114,39 +115,7 @@ class CoreCrack2 : IXposedHookZygoteInit, IXposedHookLoadPackage {
                         @Throws(Throwable::class)
                         override fun beforeHookedMethod(param: MethodHookParam) {
                             param.result = PackageManager.SIGNATURE_MATCH
-                            /*
-                            try {
-                                val pi = this@CoreCrack2.context?.packageManager?.getPackageInfo("android", PackageManager.GET_SIGNATURES)
-                                if (pi!!.signatures[0] != null) {
-                                    val platform = Base64.encodeToString(pi.signatures[0].toByteArray(), 0).replace("\n".toRegex(), "")
-                                    var z = false
-                                    val sig1 = param.args[0] as Array<android.content.pm.Signature>?
-                                    val sig2 = param.args[1] as Array<android.content.pm.Signature>?
-                                    if (sig1 != null && sig1.isNotEmpty()) {
-                                        sig1.forEach {
-                                            if (Base64.encodeToString(it.toByteArray(), 0).replace("\n".toRegex(), "") == platform) {
-                                                z = true
-                                            }
-                                        }
-                                    }
-                                    if (sig2 != null && sig2.isNotEmpty()) {
-                                        sig2.forEach {
-                                            if (Base64.encodeToString(it.toByteArray(), 0).replace("\n".toRegex(), "") == platform) {
-                                                z = true
-                                            }
-                                        }
-                                    }
-                                    if (!z) {
-                                        param.result = 0
-                                    }
-
-                                }
-                            } catch (t: Throwable) {
-
-                            }
-                            */
                         }
-
                         @Throws(Throwable::class)
                         override fun afterHookedMethod(param: MethodHookParam) {
                             param.result = PackageManager.SIGNATURE_MATCH
