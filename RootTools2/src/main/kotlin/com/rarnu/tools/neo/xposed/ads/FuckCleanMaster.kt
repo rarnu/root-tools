@@ -1,6 +1,7 @@
 package com.rarnu.tools.neo.xposed.ads
 
 import android.content.Context
+import android.content.Intent
 import android.preference.PreferenceManager
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
@@ -40,6 +41,8 @@ object FuckCleanMaster {
             }
         })
         XpUtils.findAndHookMethod("com.miui.securitycenter.service.i", loadPackageParam.classLoader, "oI", XC_MethodReplacement.returnConstant(null))
+        XpUtils.findAndHookMethod("com.miui.securitycenter.service.i", loadPackageParam.classLoader, "oy", XC_MethodReplacement.returnConstant(null))
+        XpUtils.findAndHookMethod("com.miui.securitycenter.service.i", loadPackageParam.classLoader, "a", String::class.java, Intent::class.java, XC_MethodReplacement.returnConstant(null))
 
     }
 
