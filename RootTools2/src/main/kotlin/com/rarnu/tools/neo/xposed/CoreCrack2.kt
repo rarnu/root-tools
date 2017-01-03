@@ -1,6 +1,7 @@
 package com.rarnu.tools.neo.xposed
 
 import android.content.pm.PackageManager
+import android.os.Build
 import de.robv.android.xposed.*
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import java.security.Signature
@@ -69,8 +70,8 @@ class CoreCrack2 : IXposedHookZygoteInit, IXposedHookLoadPackage {
         prefs.makeWorldReadable()
         prefs.reload()
 
-        if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
-            if (param.packageName == "android" || param.processName == "android") {
+        if (param.packageName == "android" || param.processName == "android") {
+            if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
                 val clsPackageManagerClass = XpUtils.findClass(param.classLoader, "com.android.server.pm.PackageManagerService")
                 if (clsPackageManagerClass != null) {
                     XposedBridge.hookAllMethods(clsPackageManagerClass, "installPackageAsUser", object : XC_MethodHook() {
@@ -82,45 +83,9 @@ class CoreCrack2 : IXposedHookZygoteInit, IXposedHookLoadPackage {
                             }
                         }
                     })
-                    XposedBridge.hookAllMethods(clsPackageManagerClass, "installPackageWithVerificationAndEncryption", object : XC_MethodHook() {
-                        @Throws(Throwable::class)
-                        override fun beforeHookedMethod(param: MethodHookParam) {
-                            val flags = param.args[2] as Int
-                            if ((flags and INSTALL_ALLOW_DOWNGRADE) == 0) {
-                                param.args[2] = (flags or INSTALL_ALLOW_DOWNGRADE)
-                            }
-                        }
-                    })
-                    XposedBridge.hookAllMethods(clsPackageManagerClass, "checkUpgradeKeySetLP", object : XC_MethodHook() {
-                        @Throws(Throwable::class)
-                        override fun beforeHookedMethod(param: MethodHookParam) {
-                            param.result = true
-                        }
-                        @Throws(Throwable::class)
-                        override fun afterHookedMethod(param: MethodHookParam) {
-                            param.result = true
-                        }
-                    })
-                    XposedBridge.hookAllMethods(clsPackageManagerClass, "verifySignaturesLP", object : XC_MethodHook() {
-                        @Throws(Throwable::class)
-                        override fun beforeHookedMethod(param: MethodHookParam) {
-                            param.result = true
-                        }
-                        @Throws(Throwable::class)
-                        override fun afterHookedMethod(param: MethodHookParam) {
-                            param.result = true
-                        }
-                    })
-                    XposedBridge.hookAllMethods(clsPackageManagerClass, "compareSignatures", object : XC_MethodHook() {
-                        @Throws(Throwable::class)
-                        override fun beforeHookedMethod(param: MethodHookParam) {
-                            param.result = PackageManager.SIGNATURE_MATCH
-                        }
-                        @Throws(Throwable::class)
-                        override fun afterHookedMethod(param: MethodHookParam) {
-                            param.result = PackageManager.SIGNATURE_MATCH
-                        }
-                    })
+                    XposedBridge.hookAllMethods(clsPackageManagerClass, "checkUpgradeKeySetLP", XC_MethodReplacement.returnConstant(true))
+                    XposedBridge.hookAllMethods(clsPackageManagerClass, "verifySignaturesLP", XC_MethodReplacement.returnConstant(true))
+                    XposedBridge.hookAllMethods(clsPackageManagerClass, "compareSignatures", XC_MethodReplacement.returnConstant(PackageManager.SIGNATURE_MATCH))
                 }
             }
         }
