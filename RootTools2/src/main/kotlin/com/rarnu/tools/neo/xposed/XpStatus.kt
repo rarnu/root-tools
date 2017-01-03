@@ -44,6 +44,7 @@ object XpStatus {
     val KEY_AD_SETTINGS = "fuck_settings"
     val KEY_AD_CONTACTS = "fuck_contacts"
     val KEY_AD_CLOUDSERVICE = "fuck_cloudservice"
+    val KEY_AD_ACCOUNT = "fuck_account"
 
     var canWriteSdcard = false
 

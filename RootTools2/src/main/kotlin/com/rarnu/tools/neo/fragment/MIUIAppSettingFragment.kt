@@ -16,6 +16,7 @@ import com.rarnu.tools.neo.xposed.XpStatus
  */
 class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListener {
 
+    private var pAccount: PreferenceEx? = null
     private var pBrowser: PreferenceEx? = null
     private var pCalendar: PreferenceEx? = null
     private var pCleanMaster: PreferenceEx? = null
@@ -42,6 +43,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
     override fun initComponents() {
         pref = context?.getSharedPreferences(XpStatus.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
         editor = pref?.edit()
+        pAccount = findPref(R.string.id_app_account)
         pBrowser = findPref(R.string.id_app_browser)
         pCalendar = findPref(R.string.id_app_calendar)
         pCleanMaster = findPref(R.string.id_app_cleanmaster)
@@ -63,6 +65,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
     private fun findPref(prefId: Int): PreferenceEx = findPreference(getString(prefId)) as PreferenceEx
 
     override fun initEvents() {
+        pAccount?.onPreferenceClickListener = this
         pBrowser?.onPreferenceClickListener = this
         pCalendar?.onPreferenceClickListener = this
         pCleanMaster?.onPreferenceClickListener = this
@@ -82,6 +85,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
     }
 
     override fun initLogic() {
+        pAccount?.status = pref!!.getBoolean(XpStatus.KEY_AD_ACCOUNT, false)
         pBrowser?.status = pref!!.getBoolean(XpStatus.KEY_AD_BROWSER, false)
         pCalendar?.status = pref!!.getBoolean(XpStatus.KEY_AD_CALENDAR, false)
         pCleanMaster?.status = pref!!.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)
@@ -115,6 +119,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
         val ex = preference as PreferenceEx
         ex.status = !ex.status
         when (prefKey) {
+            getString(R.string.id_app_account) -> editor?.putBoolean(XpStatus.KEY_AD_ACCOUNT, ex.status)
             getString(R.string.id_app_browser) -> editor?.putBoolean(XpStatus.KEY_AD_BROWSER, ex.status)
             getString(R.string.id_app_calendar) -> editor?.putBoolean(XpStatus.KEY_AD_CALENDAR, ex.status)
             getString(R.string.id_app_cleanmaster) -> editor?.putBoolean(XpStatus.KEY_AD_CLEANMASTER, ex.status)

@@ -46,5 +46,6 @@
     <string name="id_app_settings">id_app_settings</string>
     <string name="id_app_contacts">id_app_contacts</string>
     <string name="id_app_cloudservice">id_app_cloudservice</string>
+    <string name="id_app_account">id_app_account</string>
 
 </resources>

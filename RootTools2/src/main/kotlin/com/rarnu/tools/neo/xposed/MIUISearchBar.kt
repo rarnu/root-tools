@@ -15,7 +15,11 @@ class MIUISearchBar : IXposedHookInitPackageResources {
 
         if (paramInitPackageResourcesParam.packageName == "com.android.systemui") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVESEARCHBAR, false)) {
-                paramInitPackageResourcesParam.res.setReplacement(paramInitPackageResourcesParam.packageName, "bool", "config_show_statusbar_search", false)
+                try {
+                    paramInitPackageResourcesParam.res.setReplacement(paramInitPackageResourcesParam.packageName, "bool", "config_show_statusbar_search", false)
+                } catch (t: Throwable) {
+
+                }
             }
         }
     }

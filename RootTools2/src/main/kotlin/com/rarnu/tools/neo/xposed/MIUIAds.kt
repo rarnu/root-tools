@@ -134,6 +134,17 @@ class MIUIAds : IXposedHookLoadPackage, IXposedHookInitPackageResources {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CLOUDSERVICE, false)) {
                 FuckCloudService.fuckCloudService(paramLoadPackageParam)
             }
+            return
+        }
+        if (paramLoadPackageParam.packageName == "com.miui.system") {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_ACCOUNT, false)) {
+                FuckAccount.fuckAccount(paramLoadPackageParam)
+            }
+        }
+        if (paramLoadPackageParam.packageName == "com.xiaomi.vip") {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_ACCOUNT, false)) {
+                FuckAccount.fuckVip(paramLoadPackageParam)
+            }
         }
     }
 

@@ -3,6 +3,11 @@
                   xmlns:pref="http://schemas.android.com/apk/res-auto">
 
     <com.rarnu.tools.neo.comp.PreferenceEx
+            android:key="@string/id_app_account"
+            android:title="@string/app_account"
+            pref:showSwitch="true"
+            pref:showIcon="false"/>
+    <com.rarnu.tools.neo.comp.PreferenceEx
             android:key="@string/id_app_browser"
             android:title="@string/app_browser"
             pref:showSwitch="true"
