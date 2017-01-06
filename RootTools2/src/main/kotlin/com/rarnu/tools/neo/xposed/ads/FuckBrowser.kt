@@ -61,17 +61,6 @@ object FuckBrowser {
         // 8.2.15
         XpUtils.findAndHookMethod("com.android.browser.jx", loadPackageParam.classLoader, "ak", XC_MethodReplacement.returnConstant(true))
         XpUtils.findAndHookMethod("com.android.browser.suggestion.al", loadPackageParam.classLoader, "e", XC_MethodReplacement.returnConstant(0))
-        XpUtils.findAndHookMethod("com.android.browser.view.at", loadPackageParam.classLoader, "setItemCount", Integer.TYPE, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: MethodHookParam) {
-                var i = param.args[0] as Int
-                if (i == 2) {
-                    i = 1
-                }
-                param.args[0] = i
-            }
-        })
-
 
         // 8.4.4
         XpUtils.findAndHookMethod("com.android.browser.homepage.bk", loadPackageParam.classLoader, "e", XC_MethodReplacement.returnConstant(0))
@@ -205,6 +194,16 @@ object FuckBrowser {
                 }
             })
         }
+        XpUtils.findAndHookMethod("com.android.browser.view.at", loadPackageParam.classLoader, "setItemCount", Integer.TYPE, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun beforeHookedMethod(param: MethodHookParam) {
+                var i = param.args[0] as Int
+                if (i == 2) {
+                    i = 1
+                }
+                param.args[0] = i
+            }
+        })
 
     }
 }
