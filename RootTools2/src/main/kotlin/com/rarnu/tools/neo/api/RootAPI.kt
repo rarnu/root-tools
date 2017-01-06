@@ -34,7 +34,12 @@ object RootAPI {
         val ret = RootUtils.runCommand(cmd, true)
         Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
         val sl = ret.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
-        val b = sl.any { it.contains(" /system") && it.contains("ext4") && it.contains("rw") }
+        var b = sl.any { it.contains(" /system") && it.contains("ext4") && it.contains("rw") }
+        if (!b) {
+            val ret2 = RootUtils.runCommand(cmd, false)
+            val sl2 = ret2.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+            b = sl2.any { it.contains(" /system") && it.contains("ext4") && it.contains("rw") }
+        }
         return b
     }
 

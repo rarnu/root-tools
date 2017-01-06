@@ -51,6 +51,9 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
     }
 
     override fun initLogic() {
+
+        pPreventFreezeReverse?.isEnabled = XpStatus.isEnable()
+
         pMode?.status = pref!!.getBoolean(XpStatus.KEY_WORK_MODE, false)
         pMode?.setSummary(if (pref!!.getBoolean(XpStatus.KEY_WORK_MODE, false)) R.string.settings_mode_effect else R.string.settings_mode_common)
         pAdChoose?.status = pref!!.getBoolean(XpStatus.KEY_AD_CHOOSE, false)

@@ -64,6 +64,20 @@ begin
     end;
   end;
   sl.Free;
+  if (not Result) then begin
+    internalRunWithoutRoot([cmd], outstr);
+    sl := TStringList.Create;
+    sl.Text:= outstr;
+    for i := 0 to sl.Count - 1 do begin
+      if (sl[i].Contains(' /system')) and (sl[i].Contains('ext4')) then begin
+        if (sl[i].Contains('rw')) then begin
+          Result := True;
+          Break;
+        end;
+      end;
+    end;
+    sl.Free;
+  end;
 end;
 
 procedure MakePreferenceReadable(sdk: integer; packageName: string);
