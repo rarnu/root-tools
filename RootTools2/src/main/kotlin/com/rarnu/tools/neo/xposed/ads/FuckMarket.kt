@@ -157,6 +157,8 @@ object FuckMarket {
                             try { (XposedHelpers.getObjectField(param.args[1], "auf") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                             // 6.x 250 (5)
                             try { (XposedHelpers.getObjectField(param.args[1], "aum") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                            // 6.x 250(6)
+                            try { (XposedHelpers.getObjectField(param.args[1], "auo") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         }
                         2 -> {
                             // 3.x
@@ -171,6 +173,8 @@ object FuckMarket {
                             try { (XposedHelpers.getObjectField(param.args[1], "atW") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                             // 6.x 250 (5)
                             try { (XposedHelpers.getObjectField(param.args[1], "aud") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                            // 6.x 250(6)
+                            try { (XposedHelpers.getObjectField(param.args[1], "auf") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         }
                     }
                 }
@@ -193,6 +197,8 @@ object FuckMarket {
                         try { (XposedHelpers.getObjectField(param.args[1], "atW") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         // 6.x 250 (5)
                         try { (XposedHelpers.getObjectField(param.args[1], "aud") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                        // 6.x 250(6)
+                        try { (XposedHelpers.getObjectField(param.args[1], "auf") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                     }
                 }
             })
