@@ -17,6 +17,12 @@ void UTF8Utils::buildIndex() {
     // mapping index
     utf8map.clear();
     int i = 0, j = 0;
+    // filter the head of UTF8
+    if (_str[0] == 0xef && _str[1] == 0xbb && _str[2] == 0xbf) {
+        i = 3;
+    } else if (_str[0] == '\xef' && _str[1] == '\xbb' && _str[2] == '\xbf') {
+        i = 3;
+    }
     while (_str[i]) {
         if ((_str[i] & 0xc0) != 0x80) {
             utf8map.insert(pair<int, int>(j, i));
@@ -223,7 +229,8 @@ int UTF8Utils::toInt() {
 }
 
 double UTF8Utils::toDouble() {
-    return atof(_str.c_str());
+    // for android 4.4 and lower, atof is not exists.
+    return 0.0;
 }
 
 float UTF8Utils::toFloat() {
