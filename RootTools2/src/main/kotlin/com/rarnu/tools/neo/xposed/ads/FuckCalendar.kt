@@ -19,6 +19,8 @@ object FuckCalendar {
         XpUtils.findAndHookMethod("com.miui.calendar.ad.AdService", loadPackageParam.classLoader, "onHandleIntent", Intent::class.java, XC_MethodReplacement.returnConstant(null))
         XpUtils.findAndHookMethod("com.miui.calendar.card.single.local.SummarySingleCard", loadPackageParam.classLoader, "needShowAdBanner", XC_MethodReplacement.returnConstant(false))
         XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.ad.AdSingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false))
+        XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.HistorySingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false))
+        XpUtils.findAndHookMethod("com.miui.calendar.huangli.HuangLiDetailActivity", loadPackageParam.classLoader, "startLoading", XC_MethodReplacement.returnConstant(null))
         XpUtils.findAndHookMethod("com.miui.calendar.ad.AdUtils", loadPackageParam.classLoader, "getAdConfigJson", Context::class.java, XC_MethodReplacement.returnConstant(null))
         XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.RecommendSingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false))
         XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.ad.LargeImageAdSingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false))
