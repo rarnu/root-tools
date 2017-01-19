@@ -33,6 +33,8 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
     private var tvUsage: TextView? = null
     private var tvChangeLog: TextView? = null
     private var ivLogo: ImageView? = null
+    private var tvRepo1: TextView? = null
+    private var tvRepo2: TextView? = null
 
     override fun getBarTitle(): Int = R.string.about_name
 
@@ -45,6 +47,8 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
         tvChangeLog = innerView?.findViewById(R.id.tvChangeLog) as TextView?
         tvUsage = innerView?.findViewById(R.id.tvUsage) as TextView?
         ivLogo = innerView?.findViewById(R.id.ivLogo) as ImageView?
+        tvRepo1 = innerView?.findViewById(R.id.tvRepo1) as TextView?
+        tvRepo2 = innerView?.findViewById(R.id.tvRepo2) as TextView?
     }
 
     override fun initEvents() {
@@ -52,6 +56,8 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
         tvChangeLog?.setOnClickListener(this)
         tvUsage?.setOnClickListener(this)
         ivLogo?.setOnTouchListener(this)
+        tvRepo1?.setOnClickListener(this)
+        tvRepo2?.setOnClickListener(this)
     }
 
     override fun initLogic() {
@@ -102,6 +108,8 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
             R.id.tvProj -> openUrl(R.string.view_about_project_github_url)
             R.id.tvChangeLog -> startActivity(Intent(context, ChangeLogActivity::class.java))
             R.id.tvUsage -> startActivity(Intent(context, ManualActivity::class.java))
+            R.id.tvRepo1 -> openUrl(R.string.view_about_project_repo1_url)
+            R.id.tvRepo2 -> openUrl(R.string.view_about_project_repo2_url)
         }
     }
 

@@ -110,7 +110,11 @@
 
     <string name="view_about_version" formatted="false">version %s</string>
     <string name="view_about_project_github">项目源码 rarnu/root-tools</string>
+    <string name="view_about_project_repo1">[关联项目] WechatNoRevoke: rarnu/wechat_no_revoke</string>
+    <string name="view_about_project_repo2">[关联项目] Native Port: rarnu/root-tools/utils</string>
     <string name="view_about_project_github_url">https://github.com/rarnu/root-tools</string>
+    <string name="view_about_project_repo1_url">https://github.com/rarnu/wechat_no_revoke</string>
+    <string name="view_about_project_repo2_url">https://github.com/rarnu/root-tools/tree/master/utils</string>
     <string name="view_about_thankto">特别鸣谢</string>
     <string name="view_about_thankto_coderstory">CoderStory</string>
     <string name="view_about_thankto_coderstory_url">https://blog.coderstory.cn</string>
