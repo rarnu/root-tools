@@ -43,7 +43,6 @@ object FuckCleanMaster {
         XpUtils.findAndHookMethod("com.miui.securitycenter.service.i", loadPackageParam.classLoader, "oI", XC_MethodReplacement.returnConstant(null))
         XpUtils.findAndHookMethod("com.miui.securitycenter.service.i", loadPackageParam.classLoader, "oy", XC_MethodReplacement.returnConstant(null))
         XpUtils.findAndHookMethod("com.miui.securitycenter.service.i", loadPackageParam.classLoader, "a", String::class.java, Intent::class.java, XC_MethodReplacement.returnConstant(null))
-
     }
 
     fun fuckResource(initPackageResourcesParam: XC_InitPackageResources.InitPackageResourcesParam) {

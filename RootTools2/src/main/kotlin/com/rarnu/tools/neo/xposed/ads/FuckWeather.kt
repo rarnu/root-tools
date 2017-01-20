@@ -1,10 +1,13 @@
 package com.rarnu.tools.neo.xposed.ads
 
 import android.content.Context
+import android.view.View
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
+import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
+import java.util.*
 
 /**
  * Created by rarnu on 11/18/16.
@@ -35,5 +38,14 @@ object FuckWeather {
                 pref?.edit()?.putBoolean("agree_to_have_information", false)?.apply()
             }
         })
+
+        // 8.2.3
+        XpUtils.findAndHookMethod("com.miui.weather2.view.n", loadPackageParam.classLoader, "i", ArrayList::class.java, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun beforeHookedMethod(param: MethodHookParam) {
+                param.args[0] = null
+            }
+        })
+
     }
 }

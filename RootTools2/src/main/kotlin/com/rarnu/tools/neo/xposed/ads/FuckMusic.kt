@@ -132,6 +132,17 @@ object FuckMusic {
             }
         })
 
+        // 2.9.0
+        XpUtils.findAndHookMethod("com.miui.player.content.preference.PreferenceCache", loadPackageParam.classLoader, "getBoolean", Context::class.java, String::class.java, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun afterHookedMethod(param: MethodHookParam) {
+                if (param.args[1] == "ad_recommend") {
+                    param.result = false
+                }
+            }
+        })
+        XpUtils.findAndHookMethod("com.miui.player.util.ExperimentsHelper", loadPackageParam.classLoader, "isAdEnabled", XC_MethodReplacement.returnConstant(false));
+
     }
 
 }

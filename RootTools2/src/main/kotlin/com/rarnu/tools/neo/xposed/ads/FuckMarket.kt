@@ -57,10 +57,12 @@ object FuckMarket {
                         1 -> {
                             try { (XposedHelpers.getObjectField(param.args[1], "asN") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                             try { (XposedHelpers.getObjectField(param.args[1], "qD") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                            try { (XposedHelpers.getObjectField(param.args[1], "qH") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         }
                         2 -> {
                             try { (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                             try { (XposedHelpers.getObjectField(param.args[1], "qv") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                            try { (XposedHelpers.getObjectField(param.args[1], "qz") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         }
                     }
                 }
@@ -72,6 +74,7 @@ object FuckMarket {
                     if (loader.id == 1) {
                         try { (XposedHelpers.getObjectField(param.args[1], "asE") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                         try { (XposedHelpers.getObjectField(param.args[1], "qv") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                        try { (XposedHelpers.getObjectField(param.args[1], "qz") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
                     }
                 }
             })
@@ -244,5 +247,16 @@ object FuckMarket {
                 }
             })
         }
+
+        // 7.1.6.260
+        XpUtils.findAndHookMethod("com.xiaomi.market.ui.DownloadListFragment", loadPackageParam.classLoader, "a", Loader::class.java, clsCy, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun beforeHookedMethod(param: MethodHookParam) {
+                val loader = param.args[0] as Loader<*>
+                if (loader.id == 1) {
+                    try { (XposedHelpers.getObjectField(param.args[1], "qz") as MutableList<*>?)?.clear() } catch (t: Throwable) { }
+                }
+            }
+        })
     }
 }

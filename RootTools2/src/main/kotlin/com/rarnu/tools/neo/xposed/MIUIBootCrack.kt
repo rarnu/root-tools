@@ -2,10 +2,7 @@ package com.rarnu.tools.neo.xposed
 
 import android.content.pm.PackageManager
 import android.content.pm.Signature
-import de.robv.android.xposed.IXposedHookLoadPackage
-import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.XSharedPreferences
-import de.robv.android.xposed.XposedBridge
+import de.robv.android.xposed.*
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 /**
@@ -28,6 +25,8 @@ class MIUIBootCrack : IXposedHookLoadPackage {
                     XpUtils.findAndHookMethod("com.miui.server.SecurityManagerService", param.classLoader, "checkEnabled", PackageManager::class.java, String::class.java, XC_MethodReplacement.returnConstant(null))
                     XpUtils.findAndHookMethod("com.miui.server.SecurityManagerService", param.classLoader, "enforcePlatformSignature", Array<Signature>::class.java, XC_MethodReplacement.returnConstant(null))
                 }
+
+
             }
         }
     }
