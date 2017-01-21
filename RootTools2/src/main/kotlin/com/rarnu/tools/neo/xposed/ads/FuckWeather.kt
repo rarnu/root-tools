@@ -40,10 +40,13 @@ object FuckWeather {
         })
 
         // 8.2.3
-        XpUtils.findAndHookMethod("com.miui.weather2.view.n", loadPackageParam.classLoader, "i", ArrayList::class.java, object : XC_MethodHook() {
+        XpUtils.findAndHookMethod("com.miui.weather2.view.n", loadPackageParam.classLoader, "i", ArrayList::class.java, XC_MethodReplacement.returnConstant(null))
+
+        XpUtils.findAndHookMethod("com.miui.weather2.view.WeatherScrollView", loadPackageParam.classLoader, "mu", object : XC_MethodHook() {
             @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: MethodHookParam) {
-                param.args[0] = null
+            override fun afterHookedMethod(param: MethodHookParam) {
+                val v = XposedHelpers.getObjectField(param.thisObject, "LR") as View?
+                v?.visibility = View.GONE
             }
         })
 
