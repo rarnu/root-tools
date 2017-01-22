@@ -51,7 +51,7 @@
                 android:title="@string/main_fake_device"
                 pref:showSwitch="false"
                 pref:showIcon="false"
-                pref:extitle="@string/pref_root"
+                pref:extitle="@string/pref_root_unlock"
         />
 
     </PreferenceCategory>
@@ -81,7 +81,7 @@
                 android:title="@string/miui_removead_root"
                 pref:showSwitch="true"
                 pref:showIcon="false"
-                pref:extitle="@string/pref_root"
+                pref:extitle="@string/pref_root_unlock"
         />
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_removesearch"

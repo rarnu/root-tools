@@ -13,6 +13,7 @@
 
     <string name="pref_xposed">[xposed]</string>
     <string name="pref_root">[root]</string>
+    <string name="pref_root_unlock">[root/unlock]</string>
     <string name="pref_alpha">[alpha]</string>
     <string name="pref_beta">[beta]</string>
 
