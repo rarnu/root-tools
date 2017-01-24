@@ -99,16 +99,6 @@
                 pref:showIcon="false"
                 pref:extitle="@string/pref_xposed"
         />
-        <!--
-        <com.rarnu.tools.neo.comp.PreferenceEx
-                android:key="@string/id_keep_mtz"
-                android:title="@string/miui_keep_mtz"
-                android:summary="@string/miui_summary_keep_mtz"
-                pref:showSwitch="true"
-                pref:showIcon="false"
-                pref:extitle="@string/pref_xposed"
-        />
-        -->
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_root25"
                 android:summary="@string/miui_summary_root25"
@@ -117,13 +107,14 @@
                 pref:showIcon="false"
                 pref:extitle="@string/pref_xposed"
         />
+
         <com.rarnu.tools.neo.comp.PreferenceEx
                 android:key="@string/id_noupdate"
                 android:summary="@string/miui_summary_noupdate"
                 android:title="@string/miui_noupdate"
                 pref:showSwitch="true"
                 pref:showIcon="false"
-                pref:extitle="@string/pref_root"
+                pref:extitle="@string/pref_xposed"
         />
     </PreferenceCategory>
 

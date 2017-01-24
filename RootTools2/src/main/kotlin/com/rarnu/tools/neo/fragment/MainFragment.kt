@@ -219,16 +219,18 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
         pMemory?.isEnabled = !DeviceAPI.isRejected
         pCleanArt?.isEnabled = !DeviceAPI.isRejected
         pFakeDevice?.isEnabled = !DeviceAPI.isRejected
-        pNoUpdate?.isEnabled = isMIUI && !DeviceAPI.isRejected
+
         pRemoveAdRoot?.isEnabled = isMIUI && !DeviceAPI.isRejected
 
         pTheme?.isEnabled = isMIUI && XpStatus.isEnable()
         pRemoveSearch?.isEnabled = isMIUI && XpStatus.isEnable()
         pMinusScreen?.isEnabled = isMIUI && XpStatus.isEnable()
-        // pKeepMtz?.isEnabled = isMIUI && XpStatus.isEnable()
+        pNoUpdate?.isEnabled = isMIUI && XpStatus.isEnable()
+
         pRoot25?.isEnabled = isMIUI && XpStatus.isEnable()
         pCoreCrack?.isEnabled = XpStatus.isEnable()
         pRemoveAd?.isEnabled = isMIUI && XpStatus.isEnable()
+
         if (!isMIUI) {
             preferenceScreen.removePreference(catMiui)
             catAbout?.removePreference(pFeedback)
@@ -284,10 +286,6 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
                 ex.status = !ex.status
                 editor?.putBoolean(XpStatus.KEY_MINUS_SCREEN, ex.status)?.apply()
             }
-//            getString(R.string.id_keep_mtz) -> {
-//                ex.status = !ex.status
-//                editor?.putBoolean(XpStatus.KEY_KEEP_MTZ, ex.status)?.apply()
-//            }
             getString(R.string.id_root25) -> {
                 ex.status = !ex.status
                 editor?.putBoolean(XpStatus.KEY_ROOTCRACK, ex.status)?.apply()
@@ -299,7 +297,6 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
             getString(R.string.id_noupdate) -> {
                 ex.status = !ex.status
                 editor?.putBoolean(XpStatus.KEY_NOUPDATE, ex.status)?.apply()
-                threadWriteHost()
             }
         }
         DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context?.packageName)
