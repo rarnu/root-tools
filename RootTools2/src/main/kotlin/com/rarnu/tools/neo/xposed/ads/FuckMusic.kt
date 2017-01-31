@@ -3,6 +3,7 @@ package com.rarnu.tools.neo.xposed.ads
 import android.app.Activity
 import android.content.Context
 import android.net.Uri
+import android.util.AttributeSet
 import android.view.View
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
@@ -142,7 +143,13 @@ object FuckMusic {
             }
         })
         XpUtils.findAndHookMethod("com.miui.player.util.ExperimentsHelper", loadPackageParam.classLoader, "isAdEnabled", XC_MethodReplacement.returnConstant(false));
-
+        XpUtils.findAndHookConstructor("com.miui.player.phone.view.NowplayingAlbumPage", loadPackageParam.classLoader, Context::class.java, AttributeSet::class.java, Integer.TYPE, object : XC_MethodHook() {
+            @Throws(Throwable::class)
+            override fun afterHookedMethod(param: MethodHookParam) {
+                val mAdMark = XposedHelpers.getObjectField(param.thisObject, "mAdMark") as View?
+                mAdMark?.visibility = View.GONE
+            }
+        })
     }
 
 }
