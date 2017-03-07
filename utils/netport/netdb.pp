@@ -171,7 +171,8 @@ Implementation
 
 uses 
    BaseUnix,
-   sysutils;
+   sysutils,
+   process;
 
 
 const
@@ -530,6 +531,50 @@ begin
   Finally
     Close(R);
   end;    
+end;
+
+function GetNetDNS(): String;
+var
+  outstr: string;
+begin
+  result := '';
+  if (runCommand('getprop', ['net.dns1'], outstr, [poUsePipes, poWaitOnExit])) then
+    result := outstr.Trim;
+end;
+
+function GetDNSServerAndroid(): Integer;
+var
+    L: string;
+    H : THostAddr;
+    E : THostEntry;
+    function CheckDirective(Dir : String) : Boolean;
+    var
+        p : Integer;
+    begin
+        p := pos(Dir, L);
+        result := p <> 0;
+        If result then begin
+            delete(L, 1, P + length(Dir));
+            L := trim(L);
+        end;
+    end;
+begin
+    result := 0;
+    L := 'nameserver ' + GetNetDNS();
+    if StripComment(L) then begin
+        If CheckDirective('nameserver') then begin
+            H := HostToNet(StrToHostAddr(L));
+            If (H.s_bytes[1] <> 0) then begin
+                setlength(DNSServers, result + 1);
+                DNSServers[result]:=H;
+                Inc(result);
+            end else if FindHostEntryInHostsFile(L, H, E) then begin
+                setlength(DNSServers, result + 1);
+                DNSServers[result]:=E.Addr;
+                Inc(result);
+            end;
+        end;
+    end;
 end;
 
 Procedure CheckResolveFile;
@@ -1470,7 +1515,10 @@ begin
 {$IFDEF OS2}
   else if FileExists(EtcPath + SResolveFile2) then
     GetDNsservers(EtcPath + SResolveFile2)
-{$ENDIF OS2}
+{$ENDIF OS2};
+
+  If high(DNSServers) = -1 then
+    GetDNSServerAndroid();
                                          ;
 end;
 
