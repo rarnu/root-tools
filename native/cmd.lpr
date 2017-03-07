@@ -3,7 +3,7 @@ library cmd;
 {$mode objfpc}{$H+}
 
 uses
-  cthreads, Classes, sysutils, jni2, jni_utils, math, unt_ljava, unt_clean, unt_freeze;
+  cthreads, Classes, sysutils, JNI2, math, unt_ljava, unt_clean, unt_freeze;
 
 const
   BASE_URL: string = 'http://diy.ourocg.cn/root/';
@@ -27,14 +27,14 @@ end;
 
 procedure Java_com_rarnu_tools_neo_api_NativeAPI_makePreferenceReadable(env: PJNIEnv; obj: jobject; sdk: jint; packageName: jstring); stdcall;
 begin
-  MakePreferenceReadable(sdk, jstringToString(env, packageName));
+  MakePreferenceReadable(sdk, TJNIEnv.jstringToString(env, packageName));
 end;
 
 function Java_com_rarnu_tools_neo_api_NativeAPI_freezeApplication(env: PJNIEnv; obj: jobject; packageName: jstring; isFreezed: jboolean): jboolean; stdcall;
 var
   ret: Boolean;
 begin
-  ret := FreezeApplication(jstringToString(env, packageName), isFreezed = JNI_TRUE);
+  ret := FreezeApplication(TJNIEnv.jstringToString(env, packageName), isFreezed = JNI_TRUE);
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -42,7 +42,7 @@ function Java_com_rarnu_tools_neo_api_NativeAPI_freezeComponent(env: PJNIEnv; ob
 var
   ret: Boolean;
 begin
-  ret := FreezeComponent(jstringToString(env, packageName), jstringToString(env, componentName), isFreezed = JNI_TRUE);
+  ret := FreezeComponent(TJNIEnv.jstringToString(env, packageName), TJNIEnv.jstringToString(env, componentName), isFreezed = JNI_TRUE);
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -51,8 +51,8 @@ var
   strArr: TStringArray;
   ret: Boolean;
 begin
-  strArr := jstringArrayToStringArray(env, components);
-  ret := FreezeComponents(jstringToString(env, packageName), strArr, isFreezed = JNI_TRUE);
+  strArr := TJNIEnv.jstringArrayToStringArray(env, components);
+  ret := FreezeComponents(TJNIEnv.jstringToString(env, packageName), strArr, isFreezed = JNI_TRUE);
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -65,7 +65,7 @@ function Java_com_rarnu_tools_neo_api_NativeAPI_writeFile(env: PJNIEnv; obj: job
 var
   ret: Boolean;
 begin
-  ret := WriteFile(jstringToString(env, filePath), jstringToString(env, text), perm);
+  ret := WriteFile(TJNIEnv.jstringToString(env, filePath), TJNIEnv.jstringToString(env, text), perm);
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -73,7 +73,7 @@ function Java_com_rarnu_tools_neo_api_NativeAPI_catFile(env: PJNIEnv; obj: jobje
 var
   ret: Boolean;
 begin
-  ret := CatFile(jstringToString(env, src), jstringToString(env, dest), perm);
+  ret := CatFile(TJNIEnv.jstringToString(env, src), TJNIEnv.jstringToString(env, dest), perm);
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -81,13 +81,13 @@ function Java_com_rarnu_tools_neo_api_NativeAPI_deleteFile(env: PJNIEnv; obj: jo
 var
   ret: Boolean;
 begin
-  ret := DeleteFile(jstringToString(env, src));
+  ret := DeleteFile(TJNIEnv.jstringToString(env, src));
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
 procedure Java_com_rarnu_tools_neo_api_NativeAPI_forceDeleteFile(env: PJNIEnv; obj: jobject; path: jstring); stdcall;
 begin
-  ForceDeleteFile(jstringToString(env, path));
+  ForceDeleteFile(TJNIEnv.jstringToString(env, path));
 end;
 
 procedure Java_com_rarnu_tools_neo_api_NativeAPI_forceDropCache(env: PJNIEnv; obj: jobject); stdcall;
@@ -104,7 +104,7 @@ function Java_com_rarnu_tools_neo_api_NativeAPI_deleteSystemApp(env: PJNIEnv; ob
 var
   ret: Boolean;
 begin
-  ret := DeleteSystemApp(jstringToString(env, pkgName));
+  ret := DeleteSystemApp(TJNIEnv.jstringToString(env, pkgName));
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -112,7 +112,7 @@ function Java_com_rarnu_tools_neo_api_NativeAPI_isAppRequiredBySystem(env: PJNIE
 var
   ret: Boolean;
 begin
-  ret := IsAppRequiredBySystem(jstringToString(env, pkgName));
+  ret := IsAppRequiredBySystem(TJNIEnv.jstringToString(env, pkgName));
   Result := ifthen(ret, JNI_TRUE, JNI_FALSE);
 end;
 
@@ -122,7 +122,7 @@ end;
 
 function Java_com_rarnu_tools_neo_api_NativeAPI_getBaseURL(env: PJNIEnv; obj: jobject): jstring; stdcall;
 begin
-  Result := stringToJString(env, BASE_URL);
+  Result := TJNIEnv.stringToJString(env, BASE_URL);
 end;
 
 // ======================================
@@ -132,8 +132,8 @@ end;
 procedure Java_com_rarnu_tools_neo_api_NativeAPI_freezeUpdateList(env: PJNIEnv; obj: jobject; pkg: jstring; comp: jstring; enabled: jboolean); stdcall;
 begin
   updateFreezeList(
-    jstringToString(env, pkg),
-    jstringToString(env, comp),
+    TJNIEnv.jstringToString(env, pkg),
+    TJNIEnv.jstringToString(env, comp),
     enabled = JNI_TRUE
   );
 end;

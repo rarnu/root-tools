@@ -5,7 +5,7 @@ unit unt_cmd;
 interface
 
 uses
-  Classes, SysUtils, process, jni2, jni_utils, android;
+  Classes, SysUtils, process, JNI2, android;
 
 const
   _ED = #10; // \n
@@ -109,7 +109,7 @@ var
 begin
   cls := FEnv^^.FindClass(FEnv, 'com/rarnu/tools/neo/api/CommandResult');
   clsInit:= FEnv^^.GetMethodID(FEnv, cls, '<init>', '(Ljava/lang/String;Ljava/lang/String;)V');
-  obj := FEnv^^.NewObjectA(FEnv, cls, clsInit, argsToJValues(FEnv, [FResultString, FErrorString]));
+  obj := FEnv^^.NewObjectA(FEnv, cls, clsInit, TJNIEnv.ArgsToJValues(FEnv, [FResultString, FErrorString]));
   Result := obj;
 end;
 

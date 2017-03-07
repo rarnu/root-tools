@@ -5,7 +5,7 @@ unit unt_clean;
 interface
 
 uses
-  Classes, SysUtils, process, unt_cmd, jni2, jni_utils;
+  Classes, SysUtils, process, unt_cmd, JNI2;
 
 const
   STATUS_PROGRESS = 0;
@@ -47,8 +47,8 @@ begin
   clsInit:= env^^.GetMethodID(env, cls, '<init>', '()V');
   clsCallback:= env^^.GetMethodID(env, cls, 'cleanCallback', '(Landroid/content/Context;ILjava/lang/String;)V');
   obj := env^^.NewObjectA(env, cls, clsInit, nil);
-  dataStr:= stringToJString(env, data);
-  env^^.CallVoidMethodA(env, obj, clsCallback, argsToJValues(env, [ctx, status, dataStr]));
+  dataStr:= TJNIEnv.StringToJString(env, data);
+  env^^.CallVoidMethodA(env, obj, clsCallback, TJNIEnv.ArgsToJValues(env, [ctx, status, dataStr]));
   env^^.DeleteLocalRef(env, dataStr);
   env^^.DeleteLocalRef(env, obj);
   env^^.DeleteLocalRef(env, cls);
