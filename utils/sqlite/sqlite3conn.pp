@@ -1,31 +1,5 @@
-{
-    This file is part of the Free Pascal Classes Library (FCL).
-    Copyright (c) 2006-2014 by the Free Pascal development team
-
-    SQLite3 connection for SQLDB
-
-    See the File COPYING.FPC, included in this distribution,
-    for details about the copyright.
-
-    This program is distributed in the hope that it will be useful,
-    but WITHOUT ANY WARRANTY; without even the implied warranty of
-    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.
-
- **********************************************************************}
- 
-{ 
-  Based on an implementation by Martin Schreiber, part of MSEIDE.
-  Reworked all code so it conforms to FCL coding standards.
-
-  TSQLite3Connection properties
-      Params - "foreign_keys=ON" - enable foreign key support for this connection:
-                                   http://www.sqlite.org/foreignkeys.html#fk_enable
-
-} 
- 
 unit sqlite3conn;
-{$mode objfpc}
-{$h+}
+{$mode objfpc}{$h+}
 
 interface
 
