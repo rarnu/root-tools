@@ -6,7 +6,7 @@ uses
   cthreads, Classes, sysutils, JNI2, math, unt_ljava, unt_clean, unt_freeze;
 
 const
-  BASE_URL: string = 'http://diy.ourocg.cn/root/';
+  BASE_URL: string = 'http://rarnu.xyz/root/';
 
 // JNI exchange method
 function Java_com_rarnu_tools_neo_api_NativeAPI_mount(env: PJNIEnv; obj: jobject): jboolean; stdcall;

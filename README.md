@@ -52,10 +52,10 @@ RootTools·Neo
 
 	| Icon | Name | Desc | Github |
 	| :--: | :-- | :-- | :-- | 
-	| <img src="http://diy.ourocg.cn/root/head/soulhacker.png" width="48" height="48"> | Soulhacker | 忠实的支持者和指导者，给予了大量的帮助 | [Github](https://github.com/soulhacker) |
-	| <img src="http://diy.ourocg.cn/root/head/coderstory.png" width="48" height="48"> | CoderStory | MiKit 作者，调教 MIUI 的先驱者 | [Github](https://github.com/coderstory) |
-	| <img src="http://diy.ourocg.cn/root/head/maomao.png" width="48" height="48"> | 猫猫姐姐 | 程序媛，OneCat 创始人 | [Github](https://github.com/chaojimiaomiao) |
-	| <img src="http://diy.ourocg.cn/root/head/laiga.png" width="48" height="48"> | 來嘠 | 帮助修复了 root 问题的玩机爱好者 | |
-	| <img src="http://diy.ourocg.cn/root/head/lanyuyinxue.png" width="48" height="48"> | 蓝羽映雪 | 帮助修复了浏览器广告的玩机爱好者 | |
-	| <img src="http://diy.ourocg.cn/root/head/binwuyaowei.png" width="48" height="48"> | ∮†冰舞╭妖尾№ | 协助修复了主题破解的玩机爱好者 | |
+	| <img src="http://rarnu.xyz/root/head/soulhacker.png" width="48" height="48"> | Soulhacker | 忠实的支持者和指导者，给予了大量的帮助 | [Github](https://github.com/soulhacker) |
+	| <img src="http://rarnu.xyz/root/head/coderstory.png" width="48" height="48"> | CoderStory | MiKit 作者，调教 MIUI 的先驱者 | [Github](https://github.com/coderstory) |
+	| <img src="http://rarnu.xyz/root/head/maomao.png" width="48" height="48"> | 猫猫姐姐 | 程序媛，OneCat 创始人 | [Github](https://github.com/chaojimiaomiao) |
+	| <img src="http://rarnu.xyz/root/head/laiga.png" width="48" height="48"> | 來嘠 | 帮助修复了 root 问题的玩机爱好者 | |
+	| <img src="http://rarnu.xyz/root/head/lanyuyinxue.png" width="48" height="48"> | 蓝羽映雪 | 帮助修复了浏览器广告的玩机爱好者 | |
+	| <img src="http://rarnu.xyz/root/head/binwuyaowei.png" width="48" height="48"> | ∮†冰舞╭妖尾№ | 协助修复了主题破解的玩机爱好者 | |
 	
