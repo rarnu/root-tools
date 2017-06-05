@@ -6,47 +6,39 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import com.rarnu.base.app.BaseAdapter
+import com.rarnu.base.utils.DownloadUtils
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.RootApplication
 import com.rarnu.tools.neo.api.API
-import com.rarnu.tools.neo.base.BaseAdapter
 import com.rarnu.tools.neo.data.ThanksInfo
-import com.rarnu.tools.neo.utils.DownloadUtils
+import kotlinx.android.synthetic.main.listitem_thanks.view.*
 import java.io.File
 
 /**
  * Created by rarnu on 12/5/16.
  */
-class ThanksAdapter(context: Context, list: MutableList<ThanksInfo?>?) : BaseAdapter<ThanksInfo?>(context, list) {
+class ThanksAdapter(context: Context, list: MutableList<ThanksInfo?>?) : BaseAdapter<ThanksInfo?, ThanksAdapter.ThanksHolder>(context, list) {
 
-    override fun getValueText(item: ThanksInfo?): String? = ""
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        var v: View? = convertView
-        if (v == null) {
-            v = inflater.inflate(R.layout.listitem_thanks, parent, false)
-        }
-
-        var holder: ThanksHolder? = v?.tag as ThanksHolder?
-        if (holder ==  null) {
-            holder = ThanksHolder(v, R.id.ivHead, R.id.tvName, R.id.tvDesc)
-            v?.tag = holder
-        }
-        val item = list!![position]
+    override fun fillHolder(baseVew: View, holder: ThanksHolder, item: ThanksInfo?) {
         holder.setItem(item)
-        return v
     }
 
+    override fun getAdapterLayout(): Int = R.layout.listitem_thanks
 
-    private inner class ThanksHolder {
+    override fun newHolder(baseView: View): ThanksHolder = ThanksHolder(baseView)
+
+    override fun getValueText(item: ThanksInfo?): String? = ""
+    
+    inner class ThanksHolder {
         internal var ivHead: ImageView? = null
         internal var tvName: TextView? = null
         internal var tvDesc: TextView? = null
 
-        constructor(v: View?, headId: Int, nameId: Int, descId: Int) {
-            ivHead = v?.findViewById(headId) as ImageView?
-            tvName = v?.findViewById(nameId) as TextView?
-            tvDesc = v?.findViewById(descId) as TextView?
+        constructor(v: View) {
+            ivHead = v.ivHead
+            tvName = v.tvName
+            tvDesc = v.tvDesc
         }
 
         internal fun setItem(item: ThanksInfo?) {
@@ -58,7 +50,7 @@ class ThanksAdapter(context: Context, list: MutableList<ThanksInfo?>?) : BaseAda
                 if (File(filePath).exists()) {
                     ivHead?.setImageBitmap(BitmapFactory.decodeFile(filePath))
                 } else {
-                    DownloadUtils.startDownload(API.HEAD_URL + item?.headFile, filePath, this@ThanksAdapter)
+                    DownloadUtils.downloadFileT(context, ivHead, API.HEAD_URL + item!!.headFile, context.getExternalFilesDir("").absolutePath, item.headFile!!, null)
                 }
             }
             tvName?.text = item?.name

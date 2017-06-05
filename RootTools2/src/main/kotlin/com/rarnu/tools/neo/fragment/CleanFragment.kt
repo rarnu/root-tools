@@ -9,19 +9,17 @@ import android.view.Menu
 import android.view.MenuItem
 import android.widget.ScrollView
 import android.widget.TextView
+import com.rarnu.base.app.BaseFragment
+import com.rarnu.base.utils.FileUtils
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
-import com.rarnu.tools.neo.base.BaseFragment
-import com.rarnu.tools.neo.utils.FileUtils
-
 import java.io.File
 import kotlin.concurrent.thread
+import kotlinx.android.synthetic.main.fragment_clean.view.*
 
 class CleanFragment : BaseFragment() {
 
-    private var tvClean: TextView? = null
     private var miRun: MenuItem? = null
-    private var svClean: ScrollView? = null
     private var isCleaning = false
 
     private var filterCallback: IntentFilter? = null
@@ -29,16 +27,13 @@ class CleanFragment : BaseFragment() {
 
     override fun getBarTitle(): Int = R.string.clean_name
 
+    override fun getBarTitleWithPath(): Int = 0
+
     override fun getCustomTitle(): String? = null
 
-    override fun initComponents() {
-        svClean = innerView?.findViewById(R.id.svClean) as ScrollView?
-        tvClean = innerView?.findViewById(R.id.tvClean) as TextView?
-    }
+    override fun initComponents() { }
 
-    override fun initEvents() {
-
-    }
+    override fun initEvents() { }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -56,24 +51,24 @@ class CleanFragment : BaseFragment() {
         val busyboxExists = File("/system/bin/busybox").exists() || File("/system/xbin/busybox").exists()
         val duExists = File("/system/bin/du").exists() || File("/system/xbin/du").exists()
         if (duExists) {
-            tvClean?.setText(R.string.view_ready)
+            innerView.tvClean.setText(R.string.view_ready)
             return
         }
         if (busyboxExists) {
-            tvClean?.setText(R.string.view_ready)
+            innerView.tvClean.setText(R.string.view_ready)
             return
         }
-        tvClean?.setText(R.string.view_not_ready)
+        innerView.tvClean.setText(R.string.view_not_ready)
         threadExtractBusybox()
     }
 
     private val hEnvReady = object : Handler() {
         override fun handleMessage(msg: Message) {
             if (msg.what == 0) {
-                tvClean?.setText(R.string.view_env_error)
+                innerView.tvClean.setText(R.string.view_env_error)
                 miRun?.isEnabled = false
             } else {
-                tvClean?.setText(R.string.view_ready)
+                innerView.tvClean.setText(R.string.view_ready)
             }
             super.handleMessage(msg)
         }
@@ -101,7 +96,7 @@ class CleanFragment : BaseFragment() {
                 fDir.mkdirs()
             }
             val fBusybox = File(fDir, busyboxAsset)
-            FileUtils.copyAssetFile(context, busyboxAsset, fDir.absolutePath)
+            FileUtils.copyAssetFile(context, busyboxAsset, fDir.absolutePath, null)
             DeviceAPI.mount()
             val ret = DeviceAPI.catFile(fBusybox.absolutePath, "/system/xbin/busybox", 755)
             val msg = Message()
@@ -114,9 +109,9 @@ class CleanFragment : BaseFragment() {
 
     override fun getMainActivityName(): String? = null
 
-    override fun initMenu(menu: Menu?) {
-        menu?.clear()
-        miRun = menu?.add(0, 1, 1, R.string.ab_clean)
+    override fun initMenu(menu: Menu) {
+        menu.clear()
+        miRun = menu.add(0, 1, 1, R.string.ab_clean)
         miRun?.setIcon(android.R.drawable.ic_menu_delete)
         miRun?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
     }
@@ -139,7 +134,7 @@ class CleanFragment : BaseFragment() {
     }
 
     private fun threadClean() {
-        tvClean?.append(getString(R.string.view_start_clean))
+        innerView.tvClean.append(getString(R.string.view_start_clean))
         miRun?.isEnabled = false
         isCleaning = true
         thread { DeviceAPI.systemClean(context) }
@@ -151,19 +146,19 @@ class CleanFragment : BaseFragment() {
             val status = inCallback.getIntExtra(KEY_STATUS, -1)
             val data = inCallback.getStringExtra(KEY_DATA)
             if (status == DeviceAPI.STATUS_PROGRESS || status == DeviceAPI.STATUS_ERROR) {
-                tvClean?.append(data + "\n")
+                innerView.tvClean.append(data + "\n")
             } else if (status == DeviceAPI.STATUS_COMPLETE) {
-                tvClean?.append(data + "\n")
+                innerView.tvClean.append(data + "\n")
                 isCleaning = false
                 miRun?.isEnabled = true
             }
-            svClean?.fullScroll(ScrollView.FOCUS_DOWN)
+            innerView.svClean.fullScroll(ScrollView.FOCUS_DOWN)
             super.handleMessage(msg)
         }
     }
 
     private inner class CleanCallbackReceiver : BroadcastReceiver() {
-        override fun onReceive(context: Context, intent: Intent) {
+        override fun onReceive(context: Context?, intent: Intent?) {
             val msg = Message()
             msg.obj = intent
             hCallback.sendMessage(msg)

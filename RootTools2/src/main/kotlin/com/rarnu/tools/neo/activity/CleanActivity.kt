@@ -1,12 +1,11 @@
 package com.rarnu.tools.neo.activity
 
 import android.app.Fragment
-import android.os.Bundle
 import android.view.KeyEvent
 import android.view.MenuItem
 import android.widget.Toast
+import com.rarnu.base.app.BaseActivity
 import com.rarnu.tools.neo.R
-import com.rarnu.tools.neo.base.BaseActivity
 import com.rarnu.tools.neo.fragment.CleanFragment
 
 class CleanActivity : BaseActivity() {

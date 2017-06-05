@@ -7,48 +7,42 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Switch
 import android.widget.TextView
+import com.rarnu.base.app.BaseAdapter
 import com.rarnu.tools.neo.R
-import com.rarnu.tools.neo.base.BaseAdapter
 import com.rarnu.tools.neo.data.AppInfo
+import kotlinx.android.synthetic.main.listitem_app.view.*
 
-class AppAdapter(context: Context, list: MutableList<AppInfo>?) : BaseAdapter<AppInfo>(context, list) {
+class AppAdapter(context: Context, list: MutableList<AppInfo>?) : BaseAdapter<AppInfo, AppAdapter.AppHolder>(context, list) {
+
+    override fun fillHolder(baseVew: View, holder: AppHolder, item: AppInfo) {
+        holder.setItem(item)
+        holder.prefStatus?.visibility = if (showSwitch) View.VISIBLE else View.GONE
+    }
+
+    override fun getAdapterLayout(): Int = R.layout.listitem_app
+
+    override fun newHolder(baseView: View): AppHolder = AppHolder(baseView)
 
     private var showSwitch = false
 
     override fun getValueText(item: AppInfo): String? = (item.name + item.packageName)
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        var v: View? = convertView
-        if (v == null) {
-            v = inflater.inflate(R.layout.listitem_app, parent, false)
-        }
-        var holder: AppHolder? = v?.tag as AppHolder?
-        if (holder == null) {
-            holder = AppHolder(v, R.id.ivIcon, R.id.prefStatus, R.id.tvName, R.id.tvPackageName)
-            v?.tag = holder
-        }
-        val item = list!![position]
-        holder.setItem(item)
-        holder.prefStatus?.visibility = if (showSwitch) View.VISIBLE else View.GONE
-        return v
-    }
 
     fun setShowSwitch(on: Boolean) {
         showSwitch = on
         notifyDataSetChanged()
     }
 
-    private inner class AppHolder {
+    inner class AppHolder {
         internal var ivIcon: ImageView? = null
         internal var prefStatus: Switch? = null
         internal var tvName: TextView? = null
         internal var tvPackageName: TextView? = null
 
-        constructor(v: View?, iconId: Int, statusId: Int, nameId: Int, pkgId: Int) {
-            ivIcon = v?.findViewById(iconId) as ImageView?
-            prefStatus = v?.findViewById(statusId) as Switch?
-            tvName = v?.findViewById(nameId) as TextView?
-            tvPackageName = v?.findViewById(pkgId) as TextView?
+        constructor(v: View) {
+            ivIcon = v.ivIcon
+            prefStatus = v.prefStatus
+            tvName = v.tvName
+            tvPackageName = v.tvPackageName
         }
 
         internal fun setItem(item: AppInfo) {

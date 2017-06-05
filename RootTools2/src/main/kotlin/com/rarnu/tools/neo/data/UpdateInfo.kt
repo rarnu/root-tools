@@ -1,13 +1,7 @@
 package com.rarnu.tools.neo.data
 
 import android.content.Context
-import android.os.Handler
-import android.os.Message
-import com.rarnu.tools.neo.api.API
-import org.jetbrains.annotations.Mutable
-import org.json.JSONException
 import org.json.JSONObject
-import kotlin.concurrent.thread
 
 class UpdateInfo() {
 
@@ -17,11 +11,11 @@ class UpdateInfo() {
     var descriptionEn = ""
     var url = ""
 
-    fun isNewVersion(ctx: Context?): Boolean {
+    fun isNewVersion(ctx: Context): Boolean {
         var ret = false
         try {
-            val pm = ctx?.packageManager
-            val pkg = pm?.getPackageInfo(ctx?.packageName, 0)
+            val pm = ctx.packageManager
+            val pkg = pm?.getPackageInfo(ctx.packageName, 0)
             val verCode = pkg?.versionCode
             ret = versionCode > verCode!!
         } catch (e: Exception) {

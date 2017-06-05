@@ -1,17 +1,12 @@
 package com.rarnu.tools.neo.xposed.ads
 
 import android.content.Loader
-import android.os.Bundle
-import android.view.LayoutInflater
 import android.view.View
-import android.view.ViewGroup
 import com.rarnu.tools.neo.xposed.XpUtils
 import de.robv.android.xposed.XC_MethodHook
 import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.XposedBridge
 import de.robv.android.xposed.XposedHelpers
 import de.robv.android.xposed.callbacks.XC_LoadPackage
-import org.jetbrains.annotations.Mutable
 import java.lang.reflect.Field
 import java.util.*
 

@@ -1,23 +1,20 @@
 package com.rarnu.tools.neo.loader
 
 import android.content.Context
-import android.content.pm.ApplicationInfo
-import android.content.pm.PackageManager
-import com.rarnu.tools.neo.base.BaseLoader
-import com.rarnu.tools.neo.data.CompInfo
-import com.rarnu.tools.neo.utils.ComponentUtils
-import com.rarnu.tools.neo.utils.PackageParserUtils
+import com.rarnu.base.app.BaseLoader
+import com.rarnu.base.utils.ComponentUtils
+import com.rarnu.base.utils.PackageParserUtils
 
 /**
  * Created by rarnu on 9/2/16.
  */
-class ComponentLoader(context: Context) : BaseLoader<CompInfo>(context) {
+class ComponentLoader(context: Context) : BaseLoader<ComponentUtils.CompInfo>(context) {
 
     private var type = 0
     private var pkg: String? = null
 
-    override fun loadInBackground(): MutableList<CompInfo>? {
-        var list: MutableList<CompInfo>? = null
+    override fun loadInBackground(): MutableList<ComponentUtils.CompInfo>? {
+        var list: MutableList<ComponentUtils.CompInfo>? = null
         try {
             val info = context.packageManager.getApplicationInfo(pkg, 0)
             val ppu = PackageParserUtils()

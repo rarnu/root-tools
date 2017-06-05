@@ -10,14 +10,14 @@ import com.rarnu.tools.neo.data.AppInfo
 
 object AppUtils {
 
-    fun getSystemApps(ctx: Context?): MutableList<AppInfo> {
-        val pm = ctx?.packageManager
+    fun getSystemApps(ctx: Context): MutableList<AppInfo> {
+        val pm = ctx.packageManager
         val pkgs = pm?.getInstalledPackages(0)
         val list = arrayListOf<AppInfo>()
         val listData = arrayListOf<AppInfo>()
         val listDisabled = arrayListOf<AppInfo>()
         if (pkgs != null) {
-            pkgs.filter { it.packageName != ctx?.packageName }.forEach {
+            pkgs.filter { it.packageName != ctx.packageName }.forEach {
                 if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
                     if (it.applicationInfo.enabled) {
                         list.add(AppInfo(
@@ -77,13 +77,13 @@ object AppUtils {
         return list
     }
 
-    fun getInstalledApps(ctx: Context?): MutableList<AppInfo> {
-        val pm = ctx?.packageManager
+    fun getInstalledApps(ctx: Context): MutableList<AppInfo> {
+        val pm = ctx.packageManager
         val pkgs = pm?.getInstalledPackages(0)
         val list = arrayListOf<AppInfo>()
         val listSystem = arrayListOf<AppInfo>()
         if (pkgs != null) {
-            pkgs.filter { it.packageName != ctx?.packageName && it.applicationInfo.enabled }.forEach {
+            pkgs.filter { it.packageName != ctx.packageName && it.applicationInfo.enabled }.forEach {
                 if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
                     listSystem.add(AppInfo(
                             it.applicationInfo.loadLabel(pm).toString(),

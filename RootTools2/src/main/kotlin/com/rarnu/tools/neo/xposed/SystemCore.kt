@@ -113,7 +113,7 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
                         if (localObject?.signatures!![0] == null) {
                             return
                         }
-                        tmpStr = Base64.encodeToString(localObject?.signatures!![0].toByteArray(), 0).replace("\n".toRegex(), "")
+                        tmpStr = Base64.encodeToString(localObject.signatures!![0].toByteArray(), 0).replace("\n".toRegex(), "")
                         k = 0
                         j = 0
                         val arrayOfSignature1 = paramAnonymousMethodHookParam.args[0] as Array<Signature>?

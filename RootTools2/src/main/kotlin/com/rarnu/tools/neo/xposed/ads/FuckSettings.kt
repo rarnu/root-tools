@@ -35,7 +35,7 @@ object FuckSettings {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val h = param.args[0] as PreferenceActivity.Header?
                     if (h?.fragment == "com.android.settings.device.MiuiDeviceDetailSettings") {
-                        h?.fragment = "com.android.settings.device.u"
+                        h.fragment = "com.android.settings.device.u"
                     }
                 }
             })

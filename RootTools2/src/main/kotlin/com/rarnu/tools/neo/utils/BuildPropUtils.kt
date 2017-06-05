@@ -2,6 +2,7 @@ package com.rarnu.tools.neo.utils
 
 
 import android.content.Context
+import com.rarnu.base.utils.FileUtils
 import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.data.BuildPropInfo
 
@@ -24,7 +25,7 @@ object BuildPropUtils {
             return list
         }
 
-    fun setBuildProp(ctx: Context?, list: List<BuildPropInfo>?): Boolean {
+    fun setBuildProp(ctx: Context, list: List<BuildPropInfo>?): Boolean {
         var ret = false
         var str = ""
         for ((buildName, buildValue) in list!!) {

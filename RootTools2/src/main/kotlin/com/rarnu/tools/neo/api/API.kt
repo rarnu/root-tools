@@ -3,10 +3,10 @@ package com.rarnu.tools.neo.api
 import android.content.Context
 import android.os.Build
 import android.util.Log
+import com.rarnu.base.utils.HttpUtils
 import com.rarnu.tools.neo.data.Onekey
 import com.rarnu.tools.neo.data.ThanksInfo
 import com.rarnu.tools.neo.data.UpdateInfo
-import com.rarnu.tools.neo.utils.HttpUtils
 import org.json.JSONObject
 import java.util.*
 
@@ -49,9 +49,9 @@ object API {
         return ok
     }
 
-    fun uploadOnekey(pkgName: String?, versionCode: Int, disabled: List<String?>?): Boolean {
+    fun uploadOnekey(pkgName: String, versionCode: Int, disabled: List<String?>?): Boolean {
         // upload onekey
-        val param = hashMapOf<String, String?>()
+        val param = hashMapOf<String, String>()
         param.put("action", "put")
         param.put("pkg", pkgName)
         param.put("ver", versionCode.toString())
@@ -67,7 +67,7 @@ object API {
     }
 
     fun sendFeedback(nickname: String, comment: String, photo: Array<String>): Boolean {
-        val params = hashMapOf<String, String?>()
+        val params = hashMapOf<String, String>()
         params.put("nickname", nickname)
         params.put("comment", comment)
         val files = HashMap<String, String>()
@@ -102,9 +102,9 @@ object API {
         return list
     }
 
-    fun reportCrash(ctx: Context?, data: String?) {
+    fun reportCrash(ctx: Context?, data: String) {
         // report crash
-        val param = hashMapOf<String, String?>()
+        val param = hashMapOf<String, String>()
         param.put("model", Build.MODEL)
         param.put("sdk", Build.VERSION.SDK_INT.toString())
         val info = ctx?.packageManager?.getPackageInfo(ctx.packageName, 0)

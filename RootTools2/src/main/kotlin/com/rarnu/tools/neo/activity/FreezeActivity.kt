@@ -1,9 +1,8 @@
 package com.rarnu.tools.neo.activity
 
 import android.app.Fragment
-import android.os.Bundle
+import com.rarnu.base.app.BaseActivity
 import com.rarnu.tools.neo.R
-import com.rarnu.tools.neo.base.BaseActivity
 import com.rarnu.tools.neo.fragment.FreezeFragment
 
 class FreezeActivity : BaseActivity() {

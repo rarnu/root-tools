@@ -6,9 +6,9 @@ import android.os.Bundle
 import android.preference.Preference
 import android.view.Menu
 import android.widget.Toast
+import com.rarnu.base.app.BasePreferenceFragment
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
-import com.rarnu.tools.neo.base.BasePreferenceFragment
 import com.rarnu.tools.neo.comp.PreferenceEx
 import com.rarnu.tools.neo.utils.AppUtils
 import com.rarnu.tools.neo.xposed.XpStatus
@@ -27,6 +27,8 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
     private var editor: SharedPreferences.Editor? = null
 
     override fun getBarTitle(): Int = R.string.settings_name
+
+    override fun getBarTitleWithPath(): Int = 0
 
     override fun getCustomTitle(): String? = null
 
@@ -76,9 +78,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
 
     override fun getMainActivityName(): String? = null
 
-    override fun initMenu(menu: Menu?) {
-
-    }
+    override fun initMenu(menu: Menu) { }
 
     override fun onGetNewArguments(bn: Bundle?) {
     }

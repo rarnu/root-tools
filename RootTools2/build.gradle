@@ -1,5 +1,5 @@
 buildscript {
-    ext.kotlin_version = '1.0.5'
+    ext.kotlin_version = '1.1.2-2'
     repositories {
         jcenter()
     }
@@ -11,15 +11,16 @@ buildscript {
 
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 23
-    buildToolsVersion '23.0.3'
+    compileSdkVersion 25
+    buildToolsVersion '25.0.2'
 
     defaultConfig {
         applicationId "com.rarnu.tools.neo"
-        minSdkVersion 21
-        targetSdkVersion 24
+        minSdkVersion 23
+        targetSdkVersion 25
     }
 
     signingConfigs {
@@ -59,7 +60,9 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    // compile(name: 'Emulator-release', ext: 'aar')
+    compile "com.github.rarnu:rarnubase:1.0.8"
+    compile "com.squareup.okhttp3:okhttp:3.8.0"
+    compile "com.android.support:support-v13:25.3.1"
     provided fileTree(include: ['*.jar'], dir: 'xposed')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

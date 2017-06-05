@@ -8,12 +8,12 @@ import android.os.Build
 import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
+import com.rarnu.base.app.BaseActivity
+import com.rarnu.base.utils.UIUtils
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
-import com.rarnu.tools.neo.base.BaseActivity
 import com.rarnu.tools.neo.fragment.MainFragment
 import com.rarnu.tools.neo.utils.AppUtils
-import com.rarnu.tools.neo.utils.UIUtils
 import com.rarnu.tools.neo.xposed.XpStatus
 
 class MainActivity : BaseActivity() {

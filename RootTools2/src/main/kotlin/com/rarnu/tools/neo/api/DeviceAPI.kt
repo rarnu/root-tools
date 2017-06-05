@@ -50,7 +50,7 @@ object DeviceAPI {
         RootAPI.isAppRequiredBySystem(pkgName)
     }
 
-    fun writeFile(ctx: Context?, filePath: String?, text: String?, perm: Int): Boolean = if (XpStatus.mode === XpStatus.Mode.NDK) {
+    fun writeFile(ctx: Context, filePath: String, text: String, perm: Int): Boolean = if (XpStatus.mode === XpStatus.Mode.NDK) {
         NativeAPI.writeFile(ctx, filePath, text, perm)
     } else {
         RootAPI.writeFile(ctx, filePath, text, perm)

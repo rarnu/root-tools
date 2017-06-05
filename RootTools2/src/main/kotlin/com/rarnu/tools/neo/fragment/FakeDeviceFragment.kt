@@ -9,57 +9,55 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
+import com.rarnu.base.app.BaseFragment
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.activity.BuildPropEditActivity
 import com.rarnu.tools.neo.adapter.BuildPropAdapter
-import com.rarnu.tools.neo.base.BaseFragment
-import com.rarnu.tools.neo.comp.LoadingView
 import com.rarnu.tools.neo.data.BuildPropInfo
 import com.rarnu.tools.neo.loader.BuildPropLoader
 import com.rarnu.tools.neo.utils.BuildPropUtils
+import kotlinx.android.synthetic.main.fragment_fakedev.view.*
 import kotlin.concurrent.thread
 
 class FakeDeviceFragment : BaseFragment(), SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
 
-    private var lvProp: ListView? = null
+
     private var list: MutableList<BuildPropInfo>? = null
     private var adapter: BuildPropAdapter? = null
     private var loader: BuildPropLoader? = null
     private var sv: SearchView? = null
     private var miSave: MenuItem? = null
     private var miSearch: MenuItem? = null
-    private var loading: LoadingView? = null
 
     override fun getBarTitle(): Int = R.string.fake_device_name
+
+    override fun getBarTitleWithPath(): Int = 0
 
     override fun getCustomTitle(): String? = null
 
     override fun initComponents() {
-        lvProp = innerView?.findViewById(R.id.lvProp) as ListView?
         list = arrayListOf<BuildPropInfo>()
         adapter = BuildPropAdapter(context, list)
-        lvProp?.adapter = adapter
+        innerView.lvProp.adapter = adapter
         loader = BuildPropLoader(context)
-        loading = innerView?.findViewById(R.id.loading) as LoadingView?
     }
 
     override fun initEvents() {
-        lvProp?.onItemClickListener = this
-        loader?.registerListener(0, { loader, data ->
+        innerView.lvProp.onItemClickListener = this
+        loader?.registerListener(0, { _, data ->
             list?.clear()
             if (data != null) {
                 list?.addAll(data)
             }
             adapter?.setNewList(list)
-            loading?.visibility = View.GONE
+            innerView.loading.visibility = View.GONE
         })
     }
 
     override fun initLogic() {
-        loading?.visibility = View.VISIBLE
+        innerView.loading.visibility = View.VISIBLE
         loader?.startLoading()
     }
 
@@ -67,8 +65,8 @@ class FakeDeviceFragment : BaseFragment(), SearchView.OnQueryTextListener, Adapt
 
     override fun getMainActivityName(): String? = null
 
-    override fun initMenu(menu: Menu?) {
-        miSearch = menu?.add(0, 1, 1, R.string.ab_search)
+    override fun initMenu(menu: Menu) {
+        miSearch = menu.add(0, 1, 1, R.string.ab_search)
         miSearch?.setIcon(android.R.drawable.ic_menu_search)
         miSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
 
@@ -76,7 +74,7 @@ class FakeDeviceFragment : BaseFragment(), SearchView.OnQueryTextListener, Adapt
         sv?.setOnQueryTextListener(this)
         miSearch?.actionView = sv
 
-        miSave = menu?.add(0, 2, 2, R.string.ab_save)
+        miSave = menu.add(0, 2, 2, R.string.ab_save)
         miSave?.setIcon(android.R.drawable.ic_menu_save)
         miSave?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
     }
@@ -91,13 +89,13 @@ class FakeDeviceFragment : BaseFragment(), SearchView.OnQueryTextListener, Adapt
     private val hSaving = object : Handler() {
         override fun handleMessage(msg: Message) {
             Toast.makeText(context, if (msg.what == 0) R.string.toast_buildprop_saved else R.string.toast_buildprop_save_failed, Toast.LENGTH_SHORT).show()
-            loading?.visibility = View.GONE
+            innerView.loading.visibility = View.GONE
             super.handleMessage(msg)
         }
     }
 
     private fun threadSaveBuildProp() {
-        loading?.visibility = View.VISIBLE
+        innerView.loading.visibility = View.VISIBLE
         thread {
             val ret = BuildPropUtils.setBuildProp(context, list)
             hSaving.sendEmptyMessage(if (ret) 0 else 1)
@@ -111,7 +109,7 @@ class FakeDeviceFragment : BaseFragment(), SearchView.OnQueryTextListener, Adapt
     override fun getFragmentState(): Bundle? = null
 
     override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-        val item = lvProp?.getItemAtPosition(position) as BuildPropInfo
+        val item = innerView.lvProp.getItemAtPosition(position) as BuildPropInfo
         val inEdit = Intent(activity, BuildPropEditActivity::class.java)
         inEdit.putExtra("item", item)
         inEdit.putExtra("position", list?.indexOf(item))

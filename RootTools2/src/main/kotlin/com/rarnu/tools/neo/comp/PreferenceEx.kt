@@ -6,20 +6,10 @@ import android.util.AttributeSet
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
-import android.widget.RelativeLayout
-import android.widget.Switch
-import android.widget.TextView
 import com.rarnu.tools.neo.R
+import kotlinx.android.synthetic.main.comp_preference.view.*
 
 class PreferenceEx : Preference {
-
-    private var layPref: RelativeLayout? = null
-    private var prefIcon: ImageView? = null
-    private var prefTitle: TextView? = null
-    private var prefExTitle: TextView? = null
-    private var prefSummary: TextView? = null
-    private var prefStatus: Switch? = null
 
     private var innerView: View? = null
     private var showSwitch = false
@@ -36,6 +26,7 @@ class PreferenceEx : Preference {
     }
 
     constructor(context: Context) : super(context) {
+        initAttr(null)
     }
 
     private fun initAttr(attrs: AttributeSet?) {
@@ -55,66 +46,60 @@ class PreferenceEx : Preference {
 
         }
 
-        prefTitle?.text = title
-        prefExTitle?.text = exTitle
-        prefSummary?.text = summary
+        innerView?.prefTitle?.text = title
+        innerView?.prefExTitle?.text = exTitle
+        innerView?.prefSummary?.text = summary
         if (summary == null || summary == "") {
-            prefSummary?.visibility = View.GONE
+            innerView?.prefSummary?.visibility = View.GONE
         }
-        prefStatus?.isChecked = isOn
-        prefIcon?.setImageDrawable(icon)
+        innerView?.prefStatus?.isChecked = isOn
+        innerView?.prefIcon?.setImageDrawable(icon)
     }
 
     override fun onCreateView(parent: ViewGroup): View? {
         super.onCreateView(parent)
         if (innerView == null) {
             innerView = LayoutInflater.from(context).inflate(R.layout.comp_preference, parent, false)
-            layPref = innerView?.findViewById(R.id.layPref) as RelativeLayout?
-            prefIcon = innerView?.findViewById(R.id.prefIcon) as ImageView?
-            prefTitle = innerView?.findViewById(R.id.prefTitle) as TextView?
-            prefExTitle = innerView?.findViewById(R.id.prefExTitle) as TextView?
-            prefSummary = innerView?.findViewById(R.id.prefSummary) as TextView?
-            prefStatus = innerView?.findViewById(R.id.prefStatus) as Switch?
-            prefStatus?.visibility = if (showSwitch) View.VISIBLE else View.GONE
-            prefIcon?.visibility = if (showIcon) View.VISIBLE else View.GONE
+            innerView?.prefStatus?.visibility = if (showSwitch) View.VISIBLE else View.GONE
+            innerView?.prefIcon?.visibility = if (showIcon) View.VISIBLE else View.GONE
         }
         return innerView
     }
 
     override fun setTitle(titleResId: Int) {
         super.setTitle(titleResId)
-        prefTitle?.setText(titleResId)
+        innerView?.prefTitle?.setText(titleResId)
     }
 
     fun setExTitle(resId: Int) {
-        prefExTitle?.setText(resId)
+        innerView?.prefExTitle?.setText(resId)
     }
 
     override fun setSummary(summaryResId: Int) {
         super.setSummary(summaryResId)
         if (summary == null || summary == "") {
-            prefSummary?.visibility = View.GONE
+            innerView?.prefSummary?.visibility = View.GONE
         }
     }
 
     override fun setIcon(iconResId: Int) {
         super.setIcon(iconResId)
-        prefIcon?.setImageDrawable(icon)
+        innerView?.prefIcon?.setImageDrawable(icon)
     }
 
     fun setShowSwitch(on: Boolean) {
         showSwitch = on
-        prefStatus?.visibility = if (on) View.VISIBLE else View.GONE
+        innerView?.prefStatus?.visibility = if (on) View.VISIBLE else View.GONE
     }
 
     fun setShowIcon(on: Boolean) {
-        prefIcon?.visibility = if (on) View.VISIBLE else View.GONE
+        innerView?.prefIcon?.visibility = if (on) View.VISIBLE else View.GONE
     }
 
     var status: Boolean
-        get() = prefStatus!!.isChecked
+        get() = innerView?.prefStatus!!.isChecked
         set(on) {
             isOn = on
-            prefStatus?.isChecked = on
+            innerView?.prefStatus?.isChecked = on
         }
 }

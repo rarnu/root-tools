@@ -4,37 +4,31 @@ import android.content.Context
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import com.rarnu.base.app.BaseAdapter
 import com.rarnu.tools.neo.R
-import com.rarnu.tools.neo.base.BaseAdapter
 import com.rarnu.tools.neo.data.BuildPropInfo
+import kotlinx.android.synthetic.main.listitem_buildprop.view.*
 
-class BuildPropAdapter(context: Context, list: MutableList<BuildPropInfo>?) : BaseAdapter<BuildPropInfo>(context, list) {
+class BuildPropAdapter(context: Context, list: MutableList<BuildPropInfo>?) : BaseAdapter<BuildPropInfo, BuildPropAdapter.BuildPropAdapterHolder>(context, list) {
+
+    override fun fillHolder(baseVew: View, holder: BuildPropAdapterHolder, item: BuildPropInfo) {
+        holder.setItem(item)
+    }
+
+    override fun getAdapterLayout(): Int = R.layout.listitem_buildprop
+
+    override fun newHolder(baseView: View): BuildPropAdapterHolder = BuildPropAdapterHolder(baseView)
 
     override fun getValueText(item: BuildPropInfo): String? = (item.buildName + item.buildValue)
 
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        var v: View? = convertView
-        if (v == null) {
-            v = inflater.inflate(R.layout.listitem_buildprop, parent, false)
-        }
-        var holder: BuildPropAdapterHolder? = v?.tag as BuildPropAdapterHolder?
-        if (holder == null) {
-            holder = BuildPropAdapterHolder(v, R.id.tvPropName, R.id.tvPropValue)
-            v?.tag = holder
-        }
-        val item = list!![position]
-        holder.setItem(item)
-        return v
-    }
-
-    private inner class BuildPropAdapterHolder  {
+    inner class BuildPropAdapterHolder  {
 
         var tvPropName: TextView? = null
         var tvPropValue: TextView? = null
 
-        constructor(v: View?, nameId: Int, valueId: Int) {
-            tvPropName = v?.findViewById(nameId) as TextView?
-            tvPropValue = v?.findViewById(valueId) as TextView?
+        constructor(v: View) {
+            tvPropName = v.tvPropName
+            tvPropValue = v.tvPropValue
         }
 
         internal fun setItem(item: BuildPropInfo) {

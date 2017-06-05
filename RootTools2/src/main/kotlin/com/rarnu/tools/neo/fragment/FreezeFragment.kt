@@ -8,30 +8,27 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
-import android.widget.ListView
 import android.widget.SearchView
 import android.widget.Toast
+import com.rarnu.base.app.BaseFragment
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.AppAdapter
 import com.rarnu.tools.neo.api.DeviceAPI
-import com.rarnu.tools.neo.base.BaseFragment
-import com.rarnu.tools.neo.comp.LoadingView
 import com.rarnu.tools.neo.data.AppInfo
 import com.rarnu.tools.neo.loader.AppLoader
+import kotlinx.android.synthetic.main.fragment_freeze.view.*
 import kotlin.concurrent.thread
 
 class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, SearchView.OnQueryTextListener {
 
     private var list: MutableList<AppInfo>? = null
     private var adapter: AppAdapter? = null
-    private var lvApp: ListView? = null
     private var loader: AppLoader? = null
     private var sv: SearchView? = null
     private var miSearch: MenuItem? = null
-    private var loading: LoadingView? = null
 
     override fun onItemClick(parent: AdapterView<*>, view: View, position: Int, id: Long) {
-        val item = adapter?.getFiltedItem(position)
+        val item = adapter?.getItem(position) as AppInfo?
         threadChangeAppFreeze(item)
     }
 
@@ -44,35 +41,35 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
 
     override fun getBarTitle(): Int = R.string.freeze_name
 
+    override fun getBarTitleWithPath(): Int = 0
+
     override fun getCustomTitle(): String? = null
 
     override fun initComponents() {
-        lvApp = innerView?.findViewById(R.id.lvApp) as ListView?
-        loading = innerView?.findViewById(R.id.loading) as LoadingView?
         list = arrayListOf<AppInfo>()
         adapter = AppAdapter(context, list)
         adapter?.setShowSwitch(true)
-        lvApp?.adapter = adapter
+        innerView.lvApp.adapter = adapter
         loader = AppLoader(context)
     }
 
     override fun initEvents() {
-        lvApp?.onItemClickListener = this
-        lvApp?.onItemLongClickListener = this
+        innerView.lvApp.onItemClickListener = this
+        innerView.lvApp.onItemLongClickListener = this
 
-        loader?.registerListener(0, { loader, data ->
+        loader?.registerListener(0, { _, data ->
             list?.clear()
             if (data != null) {
                 list?.addAll(data)
             }
             adapter?.setNewList(list)
-            loading?.visibility = View.GONE
+            innerView.loading.visibility = View.GONE
         })
 
     }
 
     override fun initLogic() {
-        loading?.visibility = View.VISIBLE
+        innerView.loading.visibility = View.VISIBLE
         loader?.startLoading()
     }
 
@@ -80,11 +77,11 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
 
     override fun getMainActivityName(): String? = null
 
-    override fun initMenu(menu: Menu?) {
+    override fun initMenu(menu: Menu) {
         sv = SearchView(context)
         sv?.setOnQueryTextListener(this)
-        menu?.clear()
-        miSearch = menu?.add(0, 1, 1, R.string.ab_search)
+        menu.clear()
+        miSearch = menu.add(0, 1, 1, R.string.ab_search)
         miSearch?.setIcon(android.R.drawable.ic_menu_search)
         miSearch?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         miSearch?.actionView = sv
@@ -102,13 +99,13 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
                 Toast.makeText(context, R.string.toast_freeze_fail, Toast.LENGTH_SHORT).show()
             }
             adapter?.notifyDataSetChanged()
-            lvApp?.isEnabled = true
+            innerView.lvApp.isEnabled = true
             super.handleMessage(msg)
         }
     }
 
     private fun threadChangeAppFreeze(item: AppInfo?) {
-        lvApp?.isEnabled = false
+        innerView.lvApp.isEnabled = false
         thread {
             val newStat = !item!!.isDisable
             val ret = DeviceAPI.freezeApplication(item.packageName, newStat)
@@ -145,7 +142,7 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
                 1 -> {
                     // delete succ
                     Toast.makeText(context, R.string.toast_delete_system_app_succ, Toast.LENGTH_SHORT).show()
-                    loading?.visibility = View.VISIBLE
+                    innerView.loading.visibility = View.VISIBLE
                     loader?.startLoading()
                 }
             }
@@ -162,7 +159,7 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
     }
 
     override fun onItemLongClick(parent: AdapterView<*>, view: View, position: Int, id: Long): Boolean {
-        val item = adapter?.getFiltedItem(position)
+        val item = adapter?.getItem(position) as AppInfo?
         if (item!!.isSystem) {
             showDeleteAppDialog(item, DeviceAPI.isAppRequiredBySystem(item.packageName))
         }

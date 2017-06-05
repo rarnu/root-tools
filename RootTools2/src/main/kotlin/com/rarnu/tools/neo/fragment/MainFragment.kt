@@ -15,17 +15,17 @@ import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import com.rarnu.base.app.BasePreferenceFragment
+import com.rarnu.base.utils.UIUtils
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.RootApplication
 import com.rarnu.tools.neo.activity.*
 import com.rarnu.tools.neo.api.API
 import com.rarnu.tools.neo.api.DeviceAPI
-import com.rarnu.tools.neo.base.BasePreferenceFragment
 import com.rarnu.tools.neo.comp.PreferenceEx
 import com.rarnu.tools.neo.data.UpdateInfo
 import com.rarnu.tools.neo.utils.AppUtils
 import com.rarnu.tools.neo.utils.HostsUtils
-import com.rarnu.tools.neo.utils.UIUtils
 import com.rarnu.tools.neo.xposed.XpStatus
 import kotlin.concurrent.thread
 
@@ -56,7 +56,6 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
     private var pFeedback: PreferenceEx? = null
     private var pAbout: PreferenceEx? = null
 
-
     // pref
     private var pref: SharedPreferences? = null
     private var editor: SharedPreferences.Editor? = null
@@ -66,6 +65,8 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
     private var miSettings: MenuItem? = null
 
     override fun getBarTitle(): Int = R.string.app_name
+
+    override fun getBarTitleWithPath(): Int = 0
 
     override fun getCustomTitle(): String? = null
 
@@ -137,7 +138,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
                     val str = "    " + (if (RootApplication.isZh) info.description else info.descriptionEn).replace("\\n", "\n    ")
                     AlertDialog.Builder(context).setTitle(R.string.alert_hint)
                             .setMessage(getString(R.string.alert_update_message, info.versionName, info.versionCode, str))
-                            .setPositiveButton(R.string.alert_update) { dialog, which -> downloadApk(info.url) }
+                            .setPositiveButton(R.string.alert_update) { _, _ -> downloadApk(info.url) }
                             .setNegativeButton(R.string.alert_cancel, null)
                             .show()
                 }
@@ -161,12 +162,12 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
 
     override fun getMainActivityName(): String? = null
 
-    override fun initMenu(menu: Menu?) {
-        menu?.clear()
-        miSettings = menu?.add(0, 2, 0, R.string.ab_settings)
+    override fun initMenu(menu: Menu) {
+        menu.clear()
+        miSettings = menu.add(0, 2, 0, R.string.ab_settings)
         miSettings?.setIcon(android.R.drawable.ic_menu_preferences)
         miSettings?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        miShare = menu?.add(0, 1, 1, R.string.ab_help)
+        miShare = menu.add(0, 1, 1, R.string.ab_help)
         miShare?.setIcon(android.R.drawable.ic_menu_help)
         miShare?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
     }

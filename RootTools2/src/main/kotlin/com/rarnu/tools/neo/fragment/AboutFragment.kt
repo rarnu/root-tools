@@ -4,57 +4,41 @@ import android.content.Intent
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.view.*
-import android.widget.ImageView
-import android.widget.TextView
+import android.view.Menu
+import android.view.MenuItem
+import android.view.MotionEvent
+import android.view.View
 import android.widget.Toast
+import com.rarnu.base.app.BaseFragment
+import com.rarnu.base.utils.FileUtils
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.RootApplication
 import com.rarnu.tools.neo.activity.ChangeLogActivity
 import com.rarnu.tools.neo.activity.ManualActivity
 import com.rarnu.tools.neo.activity.ThanksActivity
 import com.rarnu.tools.neo.api.DeviceAPI
-import com.rarnu.tools.neo.base.BaseFragment
-import com.rarnu.tools.neo.utils.FileUtils
 import com.rarnu.tools.neo.xposed.XpStatus
-import java.io.IOException
-import java.util.*
-
+import kotlinx.android.synthetic.main.fragment_about.view.*
 
 class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener {
 
-    private var tvVersion: TextView? = null
-    private var tvProj: TextView? = null
-    private var tvIntro: TextView? = null
     private var miThanks: MenuItem? = null
-    private var tvUsage: TextView? = null
-    private var tvChangeLog: TextView? = null
-    private var ivLogo: ImageView? = null
-    private var tvRepo1: TextView? = null
-    private var tvRepo2: TextView? = null
 
     override fun getBarTitle(): Int = R.string.about_name
 
+    override fun getBarTitleWithPath(): Int = 0
+
     override fun getCustomTitle(): String? = null
 
-    override fun initComponents() {
-        tvVersion = innerView?.findViewById(R.id.tvVersion) as TextView?
-        tvProj = innerView?.findViewById(R.id.tvProj) as TextView?
-        tvIntro = innerView?.findViewById(R.id.tvIntro) as TextView?
-        tvChangeLog = innerView?.findViewById(R.id.tvChangeLog) as TextView?
-        tvUsage = innerView?.findViewById(R.id.tvUsage) as TextView?
-        ivLogo = innerView?.findViewById(R.id.ivLogo) as ImageView?
-        tvRepo1 = innerView?.findViewById(R.id.tvRepo1) as TextView?
-        tvRepo2 = innerView?.findViewById(R.id.tvRepo2) as TextView?
-    }
+    override fun initComponents() { }
 
     override fun initEvents() {
-        tvProj?.setOnClickListener(this)
-        tvChangeLog?.setOnClickListener(this)
-        tvUsage?.setOnClickListener(this)
-        ivLogo?.setOnTouchListener(this)
-        tvRepo1?.setOnClickListener(this)
-        tvRepo2?.setOnClickListener(this)
+        innerView.tvProj.setOnClickListener(this)
+        innerView.tvChangeLog.setOnClickListener(this)
+        innerView.tvUsage.setOnClickListener(this)
+        innerView.ivLogo.setOnTouchListener(this)
+        innerView.tvRepo1.setOnClickListener(this)
+        innerView.tvRepo2.setOnClickListener(this)
     }
 
     override fun initLogic() {
@@ -65,23 +49,22 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
         } catch (e: Exception) {
 
         }
-        tvVersion?.text = getString(R.string.view_about_version, ver)
+        innerView.tvVersion.text = getString(R.string.view_about_version, ver)
         try {
             val intro = FileUtils.readAssetFile(context, if (RootApplication.isZh) "intro_zh" else "intro")
-            tvIntro?.text = intro
-        } catch (e: IOException) {
+            innerView.tvIntro.text = intro
+        } catch (e: Exception) {
 
         }
-
     }
 
     override fun getFragmentLayoutResId(): Int = R.layout.fragment_about
 
     override fun getMainActivityName(): String? = null
 
-    override fun initMenu(menu: Menu?) {
-        menu?.clear()
-        miThanks = menu?.add(0, 1, 1, R.string.ab_thanks)
+    override fun initMenu(menu: Menu) {
+        menu.clear()
+        miThanks = menu.add(0, 1, 1, R.string.ab_thanks)
         miThanks?.setIcon(android.R.drawable.ic_menu_info_details)
         miThanks?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
     }

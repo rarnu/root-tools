@@ -1,6 +1,7 @@
 package com.rarnu.tools.neo.utils
 
 import android.content.Context
+import com.rarnu.base.utils.FileUtils
 import com.rarnu.tools.neo.api.DeviceAPI
 
 object HostsUtils {
@@ -8,7 +9,7 @@ object HostsUtils {
     val STANDARD_HOSTS = "127.0.0.1  localhost\n255.255.255.255	broadcasthost\n::1	localhost\nfe80::1%lo0	localhost\n"
     val NOUPDATE_HOSTS = "127.0.0.1 update.miui.com\n"
 
-    fun writeHost(ctx: Context?, isNoUpdate: Boolean, isNoAd: Boolean): Boolean {
+    fun writeHost(ctx: Context, isNoUpdate: Boolean, isNoAd: Boolean): Boolean {
         var ret = false
         var host = STANDARD_HOSTS
         if (isNoUpdate) {

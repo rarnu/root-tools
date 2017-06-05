@@ -3,6 +3,7 @@ package com.rarnu.tools.neo.fragment
 import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
 import android.os.Handler
@@ -15,12 +16,13 @@ import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
 import android.widget.Toast
+import com.rarnu.base.app.BaseFragment
+import com.rarnu.base.utils.ImageUtils
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.API
-import com.rarnu.tools.neo.base.BaseFragment
-import com.rarnu.tools.neo.utils.ImageUtils
 import java.util.*
 import kotlin.concurrent.thread
+import kotlinx.android.synthetic.main.fragment_feedback.view.*
 
 /**
  * Created by rarnu on 11/19/16.
@@ -28,8 +30,6 @@ import kotlin.concurrent.thread
 class FeedbackFragment : BaseFragment(), View.OnClickListener {
 
     private var miSend: MenuItem? = null
-    private var etNickname: TextView? = null
-    private var etComment: TextView? = null
     private val ph = arrayOfNulls<RelativeLayout>(5)
     private val tvAdd = arrayOfNulls<TextView>(5)
     private val imgP = arrayOfNulls<ImageView>(5)
@@ -38,15 +38,15 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
 
     override fun getBarTitle(): Int = R.string.about_feedback
 
+    override fun getBarTitleWithPath(): Int = 0
+
     override fun getCustomTitle(): String? = null
 
     override fun initComponents() {
-        etNickname = innerView?.findViewById(R.id.etNickname) as TextView?
-        etComment = innerView?.findViewById(R.id.etComment) as TextView?
         (0..4).forEach {
-            ph[it] = innerView?.findViewById(resources.getIdentifier("ph${it + 1}", "id", context.packageName)) as RelativeLayout?
-            imgP[it] = innerView?.findViewById(resources.getIdentifier("imgP${it + 1}", "id", context.packageName)) as ImageView?
-            tvAdd[it] = innerView?.findViewById(resources.getIdentifier("tvAdd${it + 1}", "id", context.packageName)) as TextView?
+            ph[it] = innerView.findViewById(resources.getIdentifier("ph${it + 1}", "id", context.packageName)) as RelativeLayout?
+            imgP[it] = innerView.findViewById(resources.getIdentifier("imgP${it + 1}", "id", context.packageName)) as ImageView?
+            tvAdd[it] = innerView.findViewById(resources.getIdentifier("tvAdd${it + 1}", "id", context.packageName)) as TextView?
         }
         sp = PreferenceManager.getDefaultSharedPreferences(context)
     }
@@ -57,16 +57,16 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
 
     override fun initLogic() {
         // load nickname cache
-        etNickname?.text = sp?.getString(KEY_NICKNAME, "")
+        innerView.etNickname.setText(sp?.getString(KEY_NICKNAME, ""))
     }
 
     override fun getFragmentLayoutResId(): Int = R.layout.fragment_feedback
 
     override fun getMainActivityName(): String? = null
 
-    override fun initMenu(menu: Menu?) {
-        menu?.clear()
-        miSend = menu?.add(0, 1, 1, R.string.ab_send)
+    override fun initMenu(menu: Menu) {
+        menu.clear()
+        miSend = menu.add(0, 1, 1, R.string.ab_send)
         miSend?.setIcon(android.R.drawable.ic_menu_send)
         miSend?.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
     }
@@ -92,18 +92,18 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
     }
 
     private fun sendFeedback() {
-        val nickname = etNickname?.text.toString()
+        val nickname = innerView.etNickname.text.toString()
         if (nickname == "") {
             Toast.makeText(context, R.string.toast_nickname_empty, Toast.LENGTH_SHORT).show()
             return
         }
-        val comment = etComment?.text.toString()
+        val comment = innerView.etComment.text.toString()
         if (comment == "") {
             Toast.makeText(context, R.string.toast_comment_empty, Toast.LENGTH_SHORT).show()
             return
         }
         miSend?.isEnabled = false
-        sp?.edit()?.putString(KEY_NICKNAME, etNickname?.text.toString())?.apply()
+        sp?.edit()?.putString(KEY_NICKNAME, innerView.etNickname.text.toString())?.apply()
         thread {
             // send feedback async
             val ret = API.sendFeedback(nickname, comment, path)
@@ -142,7 +142,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
                 val bmp = BitmapFactory.decodeStream(context.contentResolver.openInputStream(uri), null, bop)
                 val filePath = generateLocalFileName()
                 path[requestCode] = generateFullPath(filePath)
-                ImageUtils.saveBitmapToFile(bmp, path[requestCode])
+                ImageUtils.saveBitmapToFile(bmp, path[requestCode], Bitmap.CompressFormat.PNG)
                 imgP[requestCode]?.setImageBitmap(bmp)
                 tvAdd[requestCode]?.visibility = View.GONE
             } catch (e: Exception) {

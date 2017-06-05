@@ -5,9 +5,9 @@ import android.os.Build
 import android.os.Bundle
 import android.preference.Preference
 import android.view.Menu
+import com.rarnu.base.app.BasePreferenceFragment
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
-import com.rarnu.tools.neo.base.BasePreferenceFragment
 import com.rarnu.tools.neo.comp.PreferenceEx
 import com.rarnu.tools.neo.xposed.XpStatus
 
@@ -37,6 +37,8 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
     private var editor: SharedPreferences.Editor? = null
 
     override fun getBarTitle(): Int = R.string.miui_app_name
+
+    override fun getBarTitleWithPath(): Int = 0
 
     override fun getCustomTitle(): String? = null
 
@@ -108,7 +110,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
 
     override fun getMainActivityName(): String? = null
 
-    override fun initMenu(menu: Menu?) { }
+    override fun initMenu(menu: Menu) { }
 
     override fun onGetNewArguments(bn: Bundle?) { }
 

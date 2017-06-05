@@ -5,42 +5,36 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
+import com.rarnu.base.app.BaseAdapter
+import com.rarnu.base.utils.ComponentUtils
 import com.rarnu.tools.neo.R
-import com.rarnu.tools.neo.base.BaseAdapter
-import com.rarnu.tools.neo.data.CompInfo
+import kotlinx.android.synthetic.main.listitem_compdetail.view.*
 
-class CompDetailAdapter(context: Context, list: MutableList<CompInfo>?) : BaseAdapter<CompInfo>(context, list) {
+class CompDetailAdapter(context: Context, list: MutableList<ComponentUtils.CompInfo>?) : BaseAdapter<ComponentUtils.CompInfo, CompDetailAdapter.CompHolder>(context, list) {
 
-    override fun getValueText(item: CompInfo): String? = item.compName
-
-    override fun getView(position: Int, convertView: View?, parent: ViewGroup?): View? {
-        var v: View? = convertView
-        if (v == null) {
-            v = inflater.inflate(R.layout.listitem_compdetail, parent, false)
-        }
-        var holder: CompHolder? = v?.tag as CompHolder?
-        if (holder == null) {
-            holder = CompHolder(v, R.id.prefStatus, R.id.tvName, R.id.tvPackageName)
-            v?.tag = holder
-        }
-        val item = list!![position]
+    override fun fillHolder(baseVew: View, holder: CompHolder, item: ComponentUtils.CompInfo) {
         holder.setItem(item)
-        return v
     }
 
-    private inner class CompHolder {
+    override fun getAdapterLayout(): Int = R.layout.listitem_compdetail
+
+    override fun newHolder(baseView: View): CompHolder = CompHolder(baseView)
+
+    override fun getValueText(item: ComponentUtils.CompInfo): String? = item.compName
+
+    inner class CompHolder {
 
         internal var prefStatus: Switch? = null
         internal var tvName: TextView? = null
         internal var tvPackageName: TextView? = null
 
-        constructor(v: View?, statusId: Int, nameId: Int, pkgId: Int) {
-            prefStatus = v?.findViewById(statusId) as Switch?
-            tvName = v?.findViewById(nameId) as TextView?
-            tvPackageName = v?.findViewById(pkgId) as TextView?
+        constructor(v: View) {
+            prefStatus = v.prefStatus
+            tvName = v.tvName
+            tvPackageName = v.tvPackageName
         }
 
-        internal fun setItem(item: CompInfo) {
+        internal fun setItem(item: ComponentUtils.CompInfo) {
             prefStatus?.isChecked = item.enabled
             tvName?.text = item.compName
             tvPackageName?.text = item.fullPackageName?.substring(0, item.fullPackageName!!.lastIndexOf("."))
