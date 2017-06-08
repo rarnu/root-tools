@@ -127,7 +127,7 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
         } else {
             AlertDialog.Builder(context).setTitle(R.string.alert_hint)
                     .setMessage(getString(R.string.alert_delete_app, item.name))
-                    .setPositiveButton(R.string.alert_ok) { dialog, which -> doDeleteApp(item) }.setNegativeButton(R.string.alert_cancel, null)
+                    .setPositiveButton(R.string.alert_ok) { _, _ -> doDeleteApp(item) }.setNegativeButton(R.string.alert_cancel, null)
                     .show()
         }
 

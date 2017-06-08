@@ -3,7 +3,8 @@ package com.rarnu.tools.neo.api
 import android.content.Context
 import android.os.Build
 import android.util.Log
-import com.rarnu.base.utils.HttpUtils
+import com.rarnu.base.utils.HttpMethod
+import com.rarnu.base.utils.http
 import com.rarnu.tools.neo.data.Onekey
 import com.rarnu.tools.neo.data.ThanksInfo
 import com.rarnu.tools.neo.data.UpdateInfo
@@ -17,7 +18,11 @@ object API {
     val HEAD_URL = API_BASE + "head/"
 
     fun getUpdateInfo(): UpdateInfo? {
-        val jsonStr = HttpUtils.get(API_BASE + "version.php", "type=last")
+        val jsonStr = http {
+            url = API_BASE + "version.php"
+            method = HttpMethod.GET
+            getParam = "type=last"
+        }
         var ret: UpdateInfo? = null
         try {
             val jobj = JSONObject(jsonStr)
@@ -29,7 +34,11 @@ object API {
     }
 
     fun getAllUpdateInfo(): MutableList<UpdateInfo?>? {
-        val jsonStr = HttpUtils.get(API_BASE + "version.php", "type=all")
+        val jsonStr = http {
+            url = API_BASE + "version.php"
+            method = HttpMethod.GET
+            getParam = "type=all"
+        }
         var ret: MutableList<UpdateInfo?>? = null
         try {
             val jobj = JSONObject(jsonStr)
@@ -41,7 +50,11 @@ object API {
     }
 
     fun getOnekey(pkgName: String?, versionCode: Int): Onekey? {
-        val str = HttpUtils.get(API_BASE + "onekey.php", "action=get&pkg=$pkgName&ver=$versionCode")
+        val str = http {
+            url = API_BASE + "onekey.php"
+            method = HttpMethod.GET
+            getParam = "action=get&pkg=$pkgName&ver=$versionCode"
+        }
         var ok: Onekey? = null
         if (str != null && str.trim { it <= ' ' } != "") {
             ok = Onekey(pkgName, str)
@@ -62,7 +75,11 @@ object API {
             }
         }
         param.put("data", data)
-        val str = HttpUtils.post(API_BASE + "onekey.php", param)
+        val str = http {
+            url = API_BASE + "onekey.php"
+            method = HttpMethod.POST
+            postParam = param
+        }
         return str == "OK"
     }
 
@@ -72,7 +89,12 @@ object API {
         params.put("comment", comment)
         val files = HashMap<String, String>()
         photo.indices.filter { photo[it] != "" }.forEach { files.put("photo${it + 1}", photo[it]) }
-        val data = HttpUtils.postFile(API_BASE + "feedback.php", params, files)
+        val data = http {
+            url = API_BASE + "feedback.php"
+            method = HttpMethod.POST
+            postParam = params
+            fileParam = files
+        }
         Log.e("API", "sendFeedback => $data")
         var ret = false
         try {
@@ -85,7 +107,11 @@ object API {
     }
 
     fun getThanksInfo(): MutableList<ThanksInfo?>? {
-        val data = HttpUtils.get(API_BASE + "thanks.php", "")
+        val data = http {
+            url = API_BASE + "thanks.php"
+            method = HttpMethod.GET
+            getParam = ""
+        }
         var list: MutableList<ThanksInfo?>? = null
         try {
             val json = JSONObject(data)
@@ -110,7 +136,11 @@ object API {
         val info = ctx?.packageManager?.getPackageInfo(ctx.packageName, 0)
         param.put("appver", info?.versionCode.toString())
         param.put("data", data)
-        HttpUtils.post(API_BASE + "crash.php", param)
+        http {
+            url = API_BASE + "crash.php"
+            method = HttpMethod.POST
+            postParam = param
+        }
     }
 
 }
