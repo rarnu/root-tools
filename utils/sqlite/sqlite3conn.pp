@@ -1,10 +1,14 @@
+{$I debug.inc}
+
 unit sqlite3conn;
 {$mode objfpc}{$h+}
+
+{$notes off}
 
 interface
 
 uses
-  classes, db, bufdataset, sqldb, sqlite3dyn, types;
+  classes, db, bufdataset, sqldb, {$IFNDEF LOAD_DYNAMICALLY}sqlite3static{$ELSE}sqlite3dyn{$ENDIF}, types;
 
 const
   sqliteerrormax = 99;
@@ -84,10 +88,12 @@ type
     class Function UnLoadFunction : TLibraryUnLoadFunction; override;
     class function LoadedLibraryName: string; override;
   end;
-  
+
+{$IFDEF LOAD_DYNAMICALLY}
 Var
   SQLiteLibraryName : String absolute sqlite3dyn.SQLiteDefaultLibrary deprecated 'use sqlite3dyn.SQLiteDefaultLibrary instead';
-   
+{$ENDIF}
+
 implementation
 
 uses
@@ -747,11 +753,13 @@ begin
   Inherited;
   if DatabaseName = '' then
     DatabaseError(SErrNoDatabaseName,self);
+  {$IFDEF LOAD_DYNAMICALLY}
   InitializeSQLite;
+  {$ENDIF}
   filename := DatabaseName;
   checkerror(sqlite3_open(PAnsiChar(filename),@fhandle));
-  if (Length(Password)>0) and assigned(sqlite3_key) then
-    checkerror(sqlite3_key(fhandle,PChar(Password),StrLen(PChar(Password))));
+  // if (Length(Password)>0) then
+  //  checkerror(sqlite3_key(fhandle,PChar(Password),StrLen(PChar(Password))));
   if Params.IndexOfName('foreign_keys') <> -1 then
     execsql('PRAGMA foreign_keys =  '+Params.Values['foreign_keys']);
 end;
@@ -764,7 +772,9 @@ begin
     begin
     checkerror(sqlite3_close(fhandle));
     fhandle:= nil;
+    {$IFDEF LOAD_DYNAMICALLY}
     ReleaseSQLite;
+    {$ENDIF}
     end; 
 end;
 
@@ -943,7 +953,9 @@ function TSQLite3Connection.GetConnectionInfo(InfoType: TConnInfoType): string;
 begin
   Result:='';
   try
+    {$IFDEF LOAD_DYNAMICALLY}
     InitializeSQLite;
+    {$ENDIF}
     case InfoType of
       citServerType:
         Result:=TSQLite3ConnectionDef.TypeName;
@@ -958,7 +970,9 @@ begin
       Result:=inherited GetConnectionInfo(InfoType);
     end;
   finally
+    {$IFDEF LOAD_DYNAMICALLY}
     ReleaseSqlite;
+    {$ENDIF}
   end;
 end;
 
@@ -967,7 +981,9 @@ var filename: ansistring;
 begin
   CheckDisConnected;
   try
+    {$IFDEF LOAD_DYNAMICALLY}
     InitializeSQLite;
+    {$ENDIF}
     try
       filename := DatabaseName;
       checkerror(sqlite3_open(PAnsiChar(filename),@fhandle));
@@ -976,7 +992,9 @@ begin
       fhandle := nil;
     end;
   finally
+    {$IFDEF LOAD_DYNAMICALLY}
     ReleaseSqlite;
+    {$ENDIF}
   end;
 end;
 
@@ -1051,22 +1069,22 @@ end;
 
 class function TSQLite3ConnectionDef.DefaultLibraryName: string;
 begin
-  Result := SQLiteDefaultLibrary;
+  Result := {$IFDEF LOAD_DYNAMICALLY}SQLiteDefaultLibrary{$ELSE}''{$ENDIF};
 end;
 
 class function TSQLite3ConnectionDef.LoadedLibraryName: string;
 begin
-  Result := SQLiteLoadedLibrary;
+  Result := {$IFDEF LOAD_DYNAMICALLY}SQLiteLoadedLibrary{$ELSE}''{$ENDIF};
 end;
 
 class function TSQLite3ConnectionDef.LoadFunction: TLibraryLoadFunction;
 begin
-  Result:=@InitializeSQLiteANSI; //the function taking the filename argument
+  Result:= {$IFDEF LOAD_DYNAMICALLY}@InitializeSQLiteANSI{$ELSE}nil{$ENDIF}; //the function taking the filename argument
 end;
 
 class function TSQLite3ConnectionDef.UnLoadFunction: TLibraryUnLoadFunction;
 begin
-  Result:=@ReleaseSQLite;
+  Result:={$IFDEF LOAD_DYNAMICALLY}@ReleaseSQLite{$ELSE}nil{$ENDIF};
 end;
 
 initialization

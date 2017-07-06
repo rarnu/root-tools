@@ -1,6 +1,6 @@
-unit sqlite3dyn;
+{$i debug.inc}
 
-{$DEFINE LOAD_DYNAMICALLY}
+unit sqlite3dyn;
 
 {$i sqlite3.inc}
 

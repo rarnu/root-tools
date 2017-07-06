@@ -167,7 +167,11 @@ begin
   mib[0] := CTL_HW;
   mib[1] := HW_NCPU;
   len := sizeof(t);
+  {$IF DEFINED(HJARCH64) OR DEFINED(HJEMU) OR DEFINED(HJEMU32) OR DEFINED(HJMAC)}
+  fpsysctl(pcint(@mib), 2, @t, @len, Nil, 0);
+  {$ELSE}
   fpsysctl(pchar(@mib), 2, @t, @len, Nil, 0);
+  {$ENDIF}
   Result:=t;
 end;
 {$ELSEIF defined(linux)}
