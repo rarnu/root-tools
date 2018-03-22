@@ -142,7 +142,7 @@ object FuckMusic {
                 }
             }
         })
-        XpUtils.findAndHookMethod("com.miui.player.util.ExperimentsHelper", loadPackageParam.classLoader, "isAdEnabled", XC_MethodReplacement.returnConstant(false));
+        XpUtils.findAndHookMethod("com.miui.player.util.ExperimentsHelper", loadPackageParam.classLoader, "isAdEnabled", XC_MethodReplacement.returnConstant(false))
         XpUtils.findAndHookConstructor("com.miui.player.phone.view.NowplayingAlbumPage", loadPackageParam.classLoader, Context::class.java, AttributeSet::class.java, Integer.TYPE, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun afterHookedMethod(param: MethodHookParam) {

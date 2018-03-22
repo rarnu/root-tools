@@ -3,7 +3,6 @@ package com.rarnu.tools.neo.adapter
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.view.View
-import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import com.rarnu.base.app.BaseAdapter
@@ -30,16 +29,10 @@ class ThanksAdapter(context: Context, list: MutableList<ThanksInfo?>?) : BaseAda
 
     override fun getValueText(item: ThanksInfo?): String? = ""
     
-    inner class ThanksHolder {
-        internal var ivHead: ImageView? = null
-        internal var tvName: TextView? = null
-        internal var tvDesc: TextView? = null
-
-        constructor(v: View) {
-            ivHead = v.ivHead
-            tvName = v.tvName
-            tvDesc = v.tvDesc
-        }
+    inner class ThanksHolder(v: View) {
+        private var ivHead: ImageView? = null
+        private var tvName: TextView? = null
+        private var tvDesc: TextView? = null
 
         internal fun setItem(item: ThanksInfo?) {
             // set head image
@@ -55,6 +48,12 @@ class ThanksAdapter(context: Context, list: MutableList<ThanksInfo?>?) : BaseAda
             }
             tvName?.text = item?.name
             tvDesc?.text = if (RootApplication.isZh) item?.desc else item?.descEn
+        }
+
+        init {
+            ivHead = v.ivHead
+            tvName = v.tvName
+            tvDesc = v.tvDesc
         }
 
     }

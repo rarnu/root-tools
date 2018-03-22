@@ -71,7 +71,7 @@ class MIUIRoot25 : IXposedHookInitPackageResources, IXposedHookLoadPackage {
     }
 
     companion object {
-        var warningText: TextView? = null
-        var accept: Button? = null
+        internal var warningText: TextView? = null
+        internal var accept: Button? = null
     }
 }

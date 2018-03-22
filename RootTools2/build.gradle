@@ -60,7 +60,7 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.github.rarnu:rarnubase:1.1.0"
+    compile "com.github.rarnu:rarnubase:1.1.5"
     compile "com.squareup.okhttp3:okhttp:3.8.0"
     compile "com.android.support:support-v13:25.3.1"
     provided fileTree(include: ['*.jar'], dir: 'xposed')

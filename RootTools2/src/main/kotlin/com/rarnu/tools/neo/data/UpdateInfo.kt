@@ -3,7 +3,7 @@ package com.rarnu.tools.neo.data
 import android.content.Context
 import org.json.JSONObject
 
-class UpdateInfo() {
+class UpdateInfo {
 
     var versionName = ""
     var versionCode = 0
@@ -46,7 +46,7 @@ class UpdateInfo() {
                 if (json.getInt("result") == 0) {
                     val arr = json.getJSONArray("data")
                     list = arrayListOf()
-                    (0..arr.length() - 1).forEach { list?.add(fromJson(arr.getJSONObject(it))) }
+                    (0 until arr.length()).forEach { list?.add(fromJson(arr.getJSONObject(it))) }
                 }
             } catch (e: Exception) {
 

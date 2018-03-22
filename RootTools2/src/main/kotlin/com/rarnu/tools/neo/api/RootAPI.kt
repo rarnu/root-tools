@@ -92,7 +92,7 @@ object RootAPI {
         cleanCallback(ctx, DeviceAPI.STATUS_COMPLETE, "Total Cleaned: ${getReadableFileSize(totalSize)}")
     }
 
-    fun writeFile(ctx: Context, filePath: String, text: String, perm: Int): Boolean {
+    fun writeFile(filePath: String, text: String, perm: Int): Boolean {
         // writeFile
         val CACHE = "/sdcard/.tmp/"
         var b = false
@@ -145,12 +145,6 @@ object RootAPI {
             ret = Command.runCommand("chmod $modstr $dest", true)
             Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
         }
-        return ret.error == ""
-    }
-
-    fun deleteFile(src: String?): Boolean {
-        var ret = Command.runCommand("rm $src", true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
         return ret.error == ""
     }
 
@@ -245,7 +239,7 @@ object RootAPI {
         return b
     }
 
-    private fun getSlashCount(path: String): Int = (0..path.length - 1).count { path[it] == '/' }
+    private fun getSlashCount(path: String): Int = (0 until path.length).count { path[it] == '/' }
 
     private fun getProcessId(str: String): String {
         if (str.contains("com.rarnu.tools.neo") || str.endsWith(" su")) {
@@ -325,13 +319,13 @@ object RootAPI {
         if (app.trim { it <= ' ' } == "" || app.startsWith("system") || app.startsWith("data@dalvik-cache")) {
             return true
         }
-        try {
+        return try {
             var newAppPath = app.replace("data@app@", "")
             newAppPath = newAppPath.substring(0, newAppPath.indexOf("@"))
             val idx = oriList.indices.firstOrNull { oriList[it] == newAppPath } ?: -1
-            return idx != -1
+            idx != -1
         } catch (e: Exception) {
-            return true
+            true
         }
     }
 
@@ -427,6 +421,6 @@ object RootAPI {
 
     private fun cleanART(ctx: Context?): Long = deleteRemainArtCache(ctx)
 
-    fun cleanCallback(ctx: Context?, status: Int, data: String?) = DeviceAPI.cleanCallback(ctx, status, data)
+    private fun cleanCallback(ctx: Context?, status: Int, data: String?) = DeviceAPI.cleanCallback(ctx, status, data)
 
 }

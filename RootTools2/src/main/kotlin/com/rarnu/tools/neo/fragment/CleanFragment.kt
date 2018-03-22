@@ -8,14 +8,13 @@ import android.os.*
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ScrollView
-import android.widget.TextView
 import com.rarnu.base.app.BaseFragment
 import com.rarnu.base.utils.FileUtils
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
+import kotlinx.android.synthetic.main.fragment_clean.view.*
 import java.io.File
 import kotlin.concurrent.thread
-import kotlinx.android.synthetic.main.fragment_clean.view.*
 
 class CleanFragment : BaseFragment() {
 
@@ -31,9 +30,9 @@ class CleanFragment : BaseFragment() {
 
     override fun getCustomTitle(): String? = null
 
-    override fun initComponents() { }
+    override fun initComponents() {}
 
-    override fun initEvents() { }
+    override fun initEvents() {}
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,48 +61,39 @@ class CleanFragment : BaseFragment() {
         threadExtractBusybox()
     }
 
-    private val hEnvReady = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            if (msg.what == 0) {
+    private fun threadExtractBusybox() = thread {
+        // extract busybox
+        val abis = Build.SUPPORTED_ABIS
+        var busyboxAsset = "busybox_arm"
+        for (abi in abis) {
+            if (abi.toLowerCase().contains("mips")) {
+                busyboxAsset = "busybox_mips"
+                break
+            }
+            if (abi.toLowerCase().contains("x86")) {
+                busyboxAsset = "busybox_x86"
+                break
+            }
+        }
+        val tmpDir = Environment.getExternalStorageDirectory().absolutePath
+        val fDir = File(tmpDir, ".tmp")
+        if (!fDir.exists()) {
+            fDir.mkdirs()
+        }
+        val fBusybox = File(fDir, busyboxAsset)
+        FileUtils.copyAssetFile(context, busyboxAsset, fDir.absolutePath, null)
+        DeviceAPI.mount()
+        val ret = DeviceAPI.catFile(fBusybox.absolutePath, "/system/xbin/busybox", 755)
+        activity.runOnUiThread {
+            if (ret) {
+                innerView.tvClean.setText(R.string.view_ready)
+            } else {
                 innerView.tvClean.setText(R.string.view_env_error)
                 miRun?.isEnabled = false
-            } else {
-                innerView.tvClean.setText(R.string.view_ready)
             }
-            super.handleMessage(msg)
         }
     }
 
-    private fun threadExtractBusybox() {
-
-        thread {
-            // extract busybox
-            val abis = Build.SUPPORTED_ABIS
-            var busyboxAsset = "busybox_arm"
-            for (abi in abis) {
-                if (abi.toLowerCase().contains("mips")) {
-                    busyboxAsset = "busybox_mips"
-                    break
-                }
-                if (abi.toLowerCase().contains("x86")) {
-                    busyboxAsset = "busybox_x86"
-                    break
-                }
-            }
-            val tmpDir = Environment.getExternalStorageDirectory().absolutePath
-            val fDir = File(tmpDir, ".tmp")
-            if (!fDir.exists()) {
-                fDir.mkdirs()
-            }
-            val fBusybox = File(fDir, busyboxAsset)
-            FileUtils.copyAssetFile(context, busyboxAsset, fDir.absolutePath, null)
-            DeviceAPI.mount()
-            val ret = DeviceAPI.catFile(fBusybox.absolutePath, "/system/xbin/busybox", 755)
-            val msg = Message()
-            msg.what = if (ret) 1 else 0
-            hEnvReady.sendMessage(msg)
-        }
-    }
 
     override fun getFragmentLayoutResId(): Int = R.layout.fragment_clean
 
@@ -140,34 +130,27 @@ class CleanFragment : BaseFragment() {
         thread { DeviceAPI.systemClean(context) }
     }
 
-    private val hCallback = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            val inCallback = msg.obj as Intent
-            val status = inCallback.getIntExtra(KEY_STATUS, -1)
-            val data = inCallback.getStringExtra(KEY_DATA)
-            if (status == DeviceAPI.STATUS_PROGRESS || status == DeviceAPI.STATUS_ERROR) {
-                innerView.tvClean.append(data + "\n")
-            } else if (status == DeviceAPI.STATUS_COMPLETE) {
-                innerView.tvClean.append(data + "\n")
-                isCleaning = false
-                miRun?.isEnabled = true
-            }
-            innerView.svClean.fullScroll(ScrollView.FOCUS_DOWN)
-            super.handleMessage(msg)
-        }
-    }
-
     private inner class CleanCallbackReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            val msg = Message()
-            msg.obj = intent
-            hCallback.sendMessage(msg)
+            activity.runOnUiThread {
+                val inCallback = intent!!
+                val status = inCallback.getIntExtra(KEY_STATUS, -1)
+                val data = inCallback.getStringExtra(KEY_DATA)
+                if (status == DeviceAPI.STATUS_PROGRESS || status == DeviceAPI.STATUS_ERROR) {
+                    innerView.tvClean.append(data + "\n")
+                } else if (status == DeviceAPI.STATUS_COMPLETE) {
+                    innerView.tvClean.append(data + "\n")
+                    isCleaning = false
+                    miRun?.isEnabled = true
+                }
+                innerView.svClean.fullScroll(ScrollView.FOCUS_DOWN)
+            }
         }
     }
 
     companion object {
-        val ACTION_CLEAN_CALLBACK = "com.rarnu.tools.neo.clean.callback"
-        val KEY_STATUS = "status"
-        val KEY_DATA = "data"
+        const val ACTION_CLEAN_CALLBACK = "com.rarnu.tools.neo.clean.callback"
+        const val KEY_STATUS = "status"
+        const val KEY_DATA = "data"
     }
 }

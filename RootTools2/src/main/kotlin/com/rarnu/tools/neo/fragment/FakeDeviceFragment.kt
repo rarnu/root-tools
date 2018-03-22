@@ -3,8 +3,6 @@ package com.rarnu.tools.neo.fragment
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -38,7 +36,7 @@ class FakeDeviceFragment : BaseFragment(), SearchView.OnQueryTextListener, Adapt
     override fun getCustomTitle(): String? = null
 
     override fun initComponents() {
-        list = arrayListOf<BuildPropInfo>()
+        list = arrayListOf()
         adapter = BuildPropAdapter(context, list)
         innerView.lvProp.adapter = adapter
         loader = BuildPropLoader(context)
@@ -86,19 +84,14 @@ class FakeDeviceFragment : BaseFragment(), SearchView.OnQueryTextListener, Adapt
         return true
     }
 
-    private val hSaving = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            Toast.makeText(context, if (msg.what == 0) R.string.toast_buildprop_saved else R.string.toast_buildprop_save_failed, Toast.LENGTH_SHORT).show()
-            innerView.loading.visibility = View.GONE
-            super.handleMessage(msg)
-        }
-    }
-
     private fun threadSaveBuildProp() {
         innerView.loading.visibility = View.VISIBLE
         thread {
             val ret = BuildPropUtils.setBuildProp(context, list)
-            hSaving.sendEmptyMessage(if (ret) 0 else 1)
+            activity.runOnUiThread {
+                Toast.makeText(context, if (ret) R.string.toast_buildprop_saved else R.string.toast_buildprop_save_failed, Toast.LENGTH_SHORT).show()
+                innerView.loading.visibility = View.GONE
+            }
         }
     }
 

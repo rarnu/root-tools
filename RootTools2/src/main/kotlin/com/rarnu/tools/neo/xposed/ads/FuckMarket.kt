@@ -116,7 +116,7 @@ object FuckMarket {
             XpUtils.findAndHookMethod("com.xiaomi.market.widget.q", loadPackageParam.classLoader, "x", ArrayList::class.java, object : XC_MethodHook() {
                 @Throws(Throwable::class)
                 override fun beforeHookedMethod(param: MethodHookParam) {
-                    var fItemType = clsQItem.getDeclaredField("KV")
+                    val fItemType = clsQItem.getDeclaredField("KV")
                     val list = param.args[0] as MutableList<*>?
                     val newList = arrayListOf<Any?>()
                     if (list != null) {

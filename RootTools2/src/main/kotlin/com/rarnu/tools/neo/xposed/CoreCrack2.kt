@@ -1,7 +1,6 @@
 package com.rarnu.tools.neo.xposed
 
 import android.content.pm.PackageManager
-import android.os.Build
 import de.robv.android.xposed.*
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import java.security.Signature
@@ -12,7 +11,7 @@ import java.security.Signature
 class CoreCrack2 : IXposedHookZygoteInit, IXposedHookLoadPackage {
 
     companion object {
-        val INSTALL_ALLOW_DOWNGRADE = 128
+        const val INSTALL_ALLOW_DOWNGRADE = 128
     }
 
     @Throws(Throwable::class)

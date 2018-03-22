@@ -3,8 +3,6 @@ package com.rarnu.tools.neo.fragment
 import android.app.AlertDialog
 import android.graphics.Color
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -161,11 +159,11 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
     override fun getFragmentState(): Bundle? = null
 
     private fun unfocusButtons() {
-        innerView.btnActivity.background = resources.getDrawable(R.drawable.button_normal)
-        innerView.btnService.background = resources.getDrawable(R.drawable.button_normal)
-        innerView.btnReceiver.background = resources.getDrawable(R.drawable.button_normal)
-        innerView.btnProvider.background = resources.getDrawable(R.drawable.button_normal)
-        innerView.btnProfile.background = resources.getDrawable(R.drawable.button_normal)
+        innerView.btnActivity.background = resources.getDrawable(R.drawable.button_normal, context.theme)
+        innerView.btnService.background = resources.getDrawable(R.drawable.button_normal, context.theme)
+        innerView.btnReceiver.background = resources.getDrawable(R.drawable.button_normal, context.theme)
+        innerView.btnProvider.background = resources.getDrawable(R.drawable.button_normal, context.theme)
+        innerView.btnProfile.background = resources.getDrawable(R.drawable.button_normal, context.theme)
         innerView.btnActivity.setTextColor(Color.BLACK)
         innerView.btnService.setTextColor(Color.BLACK)
         innerView.btnReceiver.setTextColor(Color.BLACK)
@@ -174,7 +172,7 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
     }
 
     private fun focusButton(btn: TextView) {
-        btn.background = resources.getDrawable(R.drawable.button_focus)
+        btn.background = resources.getDrawable(R.drawable.button_focus, context.theme)
         btn.setTextColor(Color.WHITE)
     }
 
@@ -186,17 +184,6 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
         loader?.startLoading(pkgName, type)
     }
 
-    private val hFreeze = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            if (msg.what == 0) {
-                Toast.makeText(context, R.string.toast_component_fail, Toast.LENGTH_SHORT).show()
-            }
-            adapter?.notifyDataSetChanged()
-            innerView.lvComponent.isEnabled = true
-            super.handleMessage(msg)
-        }
-    }
-
     private fun threadChangeComponentFreeze(item: ComponentUtils.CompInfo?) {
         innerView.lvComponent.isEnabled = false
         thread {
@@ -205,20 +192,13 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
             if (ret) {
                 item.enabled = newStat
             }
-            val msg = Message()
-            msg.what = if (ret) 1 else 0
-            msg.obj = item
-            hFreeze.sendMessage(msg)
-        }
-    }
-
-    private val hOnekey = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            showApplyProfileAlert(msg.what == 1)
-            innerView.btnDownloadProfile.isEnabled = true
-            innerView.btnUploadProfile.isEnabled = true
-            innerView.loading.visibility = View.GONE
-            super.handleMessage(msg)
+            activity.runOnUiThread {
+                if (!ret) {
+                    Toast.makeText(context, R.string.toast_component_fail, Toast.LENGTH_SHORT).show()
+                }
+                adapter?.notifyDataSetChanged()
+                innerView.lvComponent.isEnabled = true
+            }
         }
     }
 
@@ -237,25 +217,19 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
             var hasProfile = false
             val ok = API.getOnekey(pkgName, versionCode)
             if (ok != null) {
-                if (ok.disabledComponents != null && ok.disabledComponents!!.size != 0) {
+                if (ok.disabledComponents != null && ok.disabledComponents!!.isNotEmpty()) {
                     hasProfile = true
                 }
                 if (hasProfile) {
                     DeviceAPI.freezeComponents(pkgName, ok.disabledComponents, true)
                 }
             }
-            hOnekey.sendEmptyMessage(if (hasProfile) 1 else 0)
-        }
-    }
-
-    private val hPutOnekey = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            // handle put onekey
-            showUploadProfileAlert(msg.what == 1)
-            innerView.btnDownloadProfile.isEnabled = true
-            innerView.btnUploadProfile.isEnabled = true
-            innerView.loading.visibility = View.GONE
-            super.handleMessage(msg)
+            activity.runOnUiThread {
+                showApplyProfileAlert(hasProfile)
+                innerView.btnDownloadProfile.isEnabled = true
+                innerView.btnUploadProfile.isEnabled = true
+                innerView.loading.visibility = View.GONE
+            }
         }
     }
 
@@ -292,7 +266,12 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
             } catch (e: Exception) {
 
             }
-            hPutOnekey.sendEmptyMessage(if (ret) 1 else 0)
+            activity.runOnUiThread {
+                showUploadProfileAlert(ret)
+                innerView.btnDownloadProfile.isEnabled = true
+                innerView.btnUploadProfile.isEnabled = true
+                innerView.loading.visibility = View.GONE
+            }
         }
     }
 }

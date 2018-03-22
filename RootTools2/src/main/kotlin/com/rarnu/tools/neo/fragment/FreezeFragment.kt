@@ -2,8 +2,6 @@ package com.rarnu.tools.neo.fragment
 
 import android.app.AlertDialog
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
@@ -46,7 +44,7 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
     override fun getCustomTitle(): String? = null
 
     override fun initComponents() {
-        list = arrayListOf<AppInfo>()
+        list = arrayListOf()
         adapter = AppAdapter(context, list)
         adapter?.setShowSwitch(true)
         innerView.lvApp.adapter = adapter
@@ -87,22 +85,9 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
         miSearch?.actionView = sv
     }
 
-    override fun onGetNewArguments(bn: Bundle?) {
-
-    }
+    override fun onGetNewArguments(bn: Bundle?) { }
 
     override fun getFragmentState(): Bundle? = null
-
-    private val hFreeze = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            if (msg.what == 0) {
-                Toast.makeText(context, R.string.toast_freeze_fail, Toast.LENGTH_SHORT).show()
-            }
-            adapter?.notifyDataSetChanged()
-            innerView.lvApp.isEnabled = true
-            super.handleMessage(msg)
-        }
-    }
 
     private fun threadChangeAppFreeze(item: AppInfo?) {
         innerView.lvApp.isEnabled = false
@@ -112,10 +97,13 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
             if (ret) {
                 item.isDisable = newStat
             }
-            val msg = Message()
-            msg.what = if (ret) 1 else 0
-            msg.obj = item
-            hFreeze.sendMessage(msg)
+            activity.runOnUiThread {
+                if (!ret) {
+                    Toast.makeText(context, R.string.toast_freeze_fail, Toast.LENGTH_SHORT).show()
+                }
+                adapter?.notifyDataSetChanged()
+                innerView.lvApp.isEnabled = true
+            }
         }
     }
 
@@ -133,28 +121,20 @@ class FreezeFragment : BaseFragment(), AdapterView.OnItemClickListener, AdapterV
 
     }
 
-    private val hDeleteApp = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            when (msg.what) {
-                0 ->
-                    // delete fail
-                    Toast.makeText(context, R.string.toast_delete_system_app_fail, Toast.LENGTH_SHORT).show()
-                1 -> {
-                    // delete succ
-                    Toast.makeText(context, R.string.toast_delete_system_app_succ, Toast.LENGTH_SHORT).show()
-                    innerView.loading.visibility = View.VISIBLE
-                    loader?.startLoading()
-                }
-            }
-            super.handleMessage(msg)
-        }
-    }
-
     private fun doDeleteApp(item: AppInfo) {
         // delete app
         thread {
             val ret = DeviceAPI.deleteSystemApp(item.packageName)
-            hDeleteApp.sendEmptyMessage(if (ret) 1 else 0)
+            activity.runOnUiThread {
+                if (ret) {
+                    // delete succ
+                    Toast.makeText(context, R.string.toast_delete_system_app_succ, Toast.LENGTH_SHORT).show()
+                    innerView.loading.visibility = View.VISIBLE
+                    loader?.startLoading()
+                } else {
+                    Toast.makeText(context, R.string.toast_delete_system_app_fail, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

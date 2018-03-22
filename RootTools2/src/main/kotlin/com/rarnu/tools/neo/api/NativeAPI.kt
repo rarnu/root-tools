@@ -5,7 +5,7 @@ import android.util.Log
 
 object NativeAPI {
 
-    var jniLoaded = false
+    private var jniLoaded = false
     init {
         try {
             System.loadLibrary("rarnucmd")
@@ -27,20 +27,13 @@ object NativeAPI {
     external fun systemClean(ctx: Context?)
     external fun writeFile(ctx: Context?, filePath: String?, text: String?, perm: Int): Boolean
     external fun catFile(src: String?, dest: String?, perm: Int): Boolean
-    external fun deleteFile(src: String?): Boolean
     external fun forceDeleteFile(path: String?)
     external fun forceDropCache()
     external fun killProcess()
     external fun deleteSystemApp(pkgName: String?): Boolean
     external fun isAppRequiredBySystem(pkgName: String?): Boolean
-
     external fun getBaseURL(): String?
-
     external fun freezeUpdateList(pkg: String?, comp: String?, enabled: Boolean)
-    external fun freezeOnLoad()
 
-    fun cleanCallback(ctx: Context?, status: Int, data: String?) {
-        DeviceAPI.cleanCallback(ctx, status, data)
-    }
 }
 

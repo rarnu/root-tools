@@ -1,5 +1,6 @@
 package com.rarnu.tools.neo.fragment
 
+import android.content.Context
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -93,10 +94,10 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
         }
     }
 
-    var touchCount = 0
-    var lastTime = 0L
+    private var touchCount = 0
+    private var lastTime = 0L
 
-    override fun onTouch(v: View?, event: MotionEvent): Boolean {
+    override fun onTouch(v: View, event: MotionEvent): Boolean {
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 if (lastTime == 0L) {
@@ -133,7 +134,7 @@ class AboutFragment : BaseFragment(), View.OnClickListener, View.OnTouchListener
     }
 
     private fun showThemeCrack() {
-        val pref = context.getSharedPreferences(XpStatus.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        val pref = context.getSharedPreferences(XpStatus.PREF, Context.MODE_PRIVATE)
         pref.edit().putBoolean(XpStatus.KEY_SHOW_THEME_CRACK, true).apply()
         DeviceAPI.makePreferenceReadable(Build.VERSION.SDK_INT, context.packageName)
         Toast.makeText(context, R.string.toast_hidden_function_open, Toast.LENGTH_SHORT).show()

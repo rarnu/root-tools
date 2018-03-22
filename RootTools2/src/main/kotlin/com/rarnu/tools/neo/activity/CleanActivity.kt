@@ -23,11 +23,7 @@ class CleanActivity : BaseActivity() {
     private val isCleaning: Boolean
         get() {
             val bn = cf.getFragmentState()
-            if (bn != null) {
-                return bn.getBoolean("isCleaning", false)
-            } else {
-                return false
-            }
+            return bn?.getBoolean("isCleaning", false) ?: false
         }
 
     override fun onKeyDown(keyCode: Int, event: KeyEvent): Boolean {

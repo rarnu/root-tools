@@ -1,5 +1,6 @@
 package com.rarnu.tools.neo.fragment
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -33,7 +34,7 @@ class SettingsFragment : BasePreferenceFragment(), Preference.OnPreferenceClickL
     override fun getCustomTitle(): String? = null
 
     override fun initComponents() {
-        pref = context?.getSharedPreferences(XpStatus.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        pref = context?.getSharedPreferences(XpStatus.PREF, Context.MODE_PRIVATE)
         editor = pref?.edit()
         pMode = findPref(R.string.id_settings_mode)
         pAdChoose = findPref(R.string.id_settings_adchoose)

@@ -46,7 +46,7 @@ class ComponentFragment : BaseFragment(), AdapterView.OnItemClickListener, Searc
     override fun getCustomTitle(): String? = null
 
     override fun initComponents() {
-        list = arrayListOf<AppInfo>()
+        list = arrayListOf()
         adapter = AppAdapter(context, list)
         adapter?.setShowSwitch(false)
         innerView.lvApp.adapter = adapter

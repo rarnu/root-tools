@@ -8,7 +8,7 @@ import com.rarnu.tools.neo.data.BuildPropInfo
 
 object BuildPropUtils {
 
-    private val PATH_BUILD_PROP = "/system/build.prop"
+    private const val PATH_BUILD_PROP = "/system/build.prop"
 
     val buildProp: MutableList<BuildPropInfo>?
         get() {
@@ -16,7 +16,7 @@ object BuildPropUtils {
             try {
                 val file = FileUtils.readFile(PATH_BUILD_PROP)
                 if (file != null && file.size != 0) {
-                    list = arrayListOf<BuildPropInfo>()
+                    list = arrayListOf()
                     file.filter { f -> f.trim { it <= ' ' } != "" && !f.trim { it <= ' ' }.startsWith("#") && f.trim { it <= ' ' }.contains("=") }.mapTo(list) { BuildPropInfo.parse(it) }
                 }
             } catch (e: Exception) {

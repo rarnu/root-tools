@@ -65,16 +65,16 @@ object API {
     fun uploadOnekey(pkgName: String, versionCode: Int, disabled: List<String?>?): Boolean {
         // upload onekey
         val param = hashMapOf<String, String>()
-        param.put("action", "put")
-        param.put("pkg", pkgName)
-        param.put("ver", versionCode.toString())
+        param["action"] = "put"
+        param["pkg"] = pkgName
+        param["ver"] = versionCode.toString()
         var data = ""
         if (disabled != null && disabled.isNotEmpty()) {
             for (s in disabled) {
                 data += s + "\n"
             }
         }
-        param.put("data", data)
+        param["data"] = data
         val str = http {
             url = API_BASE + "onekey.php"
             method = HttpMethod.POST
@@ -85,10 +85,10 @@ object API {
 
     fun sendFeedback(nickname: String, comment: String, photo: Array<String>): Boolean {
         val params = hashMapOf<String, String>()
-        params.put("nickname", nickname)
-        params.put("comment", comment)
+        params["nickname"] = nickname
+        params["comment"] = comment
         val files = HashMap<String, String>()
-        photo.indices.filter { photo[it] != "" }.forEach { files.put("photo${it + 1}", photo[it]) }
+        photo.indices.filter { photo[it] != "" }.forEach { files["photo${it + 1}"] = photo[it] }
         val data = http {
             url = API_BASE + "feedback.php"
             method = HttpMethod.POST
@@ -118,7 +118,7 @@ object API {
             if (json.getInt("result") == 0) {
                 list = arrayListOf()
                 val arr = json.getJSONArray("data")
-                (0..arr.length() - 1).mapTo(list) {
+                (0 until arr.length()).mapTo(list) {
                     ThanksInfo.fromJson(arr.getJSONObject(it))
                 }
             }
@@ -131,11 +131,11 @@ object API {
     fun reportCrash(ctx: Context?, data: String) {
         // report crash
         val param = hashMapOf<String, String>()
-        param.put("model", Build.MODEL)
-        param.put("sdk", Build.VERSION.SDK_INT.toString())
+        param["model"] = Build.MODEL
+        param["sdk"] = Build.VERSION.SDK_INT.toString()
         val info = ctx?.packageManager?.getPackageInfo(ctx.packageName, 0)
-        param.put("appver", info?.versionCode.toString())
-        param.put("data", data)
+        param["appver"] = info?.versionCode.toString()
+        param["data"] = data
         http {
             url = API_BASE + "crash.php"
             method = HttpMethod.POST

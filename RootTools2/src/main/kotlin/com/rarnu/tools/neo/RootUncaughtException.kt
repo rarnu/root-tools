@@ -9,17 +9,10 @@ import android.os.Looper
 import android.widget.Toast
 import com.rarnu.tools.neo.api.API
 
-
 /**
  * Created by rarnu on 12/5/16.
  */
-class RootUncaughtException : Thread.UncaughtExceptionHandler {
-
-    private var ctx: Context? = null
-
-    constructor(ctx: Context?) {
-        this.ctx = ctx
-    }
+class RootUncaughtException(private var ctx: Context?) : Thread.UncaughtExceptionHandler {
 
     override fun uncaughtException(thread: Thread?, ex: Throwable?) {
         thread {

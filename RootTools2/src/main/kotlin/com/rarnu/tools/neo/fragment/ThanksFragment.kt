@@ -2,7 +2,6 @@ package com.rarnu.tools.neo.fragment
 
 import android.os.Bundle
 import android.view.Menu
-import android.widget.ListView
 import com.rarnu.base.app.BaseFragment
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.ThanksAdapter

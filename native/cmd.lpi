@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <CONFIG>
   <ProjectOptions>
-    <Version Value="9"/>
+    <Version Value="10"/>
     <General>
       <Flags>
         <MainUnitHasCreateFormStatements Value="False"/>
@@ -63,10 +63,6 @@
       <Libraries Value="/usr/local/codetyphon/binLibraries/android-5.0-api21-arm/"/>
       <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
     </SearchPaths>
-    <CodeGeneration>
-      <TargetCPU Value="arm"/>
-      <TargetOS Value="android"/>
-    </CodeGeneration>
     <Linking>
       <Options>
         <ExecutableType Value="Library"/>

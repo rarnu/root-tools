@@ -2,7 +2,6 @@ package com.rarnu.tools.neo.adapter
 
 import android.content.Context
 import android.view.View
-import android.view.ViewGroup
 import android.widget.TextView
 import com.rarnu.base.app.BaseAdapter
 import com.rarnu.tools.neo.R
@@ -21,19 +20,19 @@ class BuildPropAdapter(context: Context, list: MutableList<BuildPropInfo>?) : Ba
 
     override fun getValueText(item: BuildPropInfo): String? = (item.buildName + item.buildValue)
 
-    inner class BuildPropAdapterHolder  {
+    inner class BuildPropAdapterHolder(v: View) {
 
-        var tvPropName: TextView? = null
-        var tvPropValue: TextView? = null
-
-        constructor(v: View) {
-            tvPropName = v.tvPropName
-            tvPropValue = v.tvPropValue
-        }
+        private var tvPropName: TextView? = null
+        private var tvPropValue: TextView? = null
 
         internal fun setItem(item: BuildPropInfo) {
             tvPropName?.text = item.buildName
             tvPropValue?.text = item.buildValue
+        }
+
+        init {
+            tvPropName = v.tvPropName
+            tvPropValue = v.tvPropValue
         }
     }
 

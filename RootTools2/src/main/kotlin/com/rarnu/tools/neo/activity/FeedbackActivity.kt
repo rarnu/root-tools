@@ -15,7 +15,6 @@ import com.rarnu.tools.neo.xposed.XpStatus
  */
 class FeedbackActivity : BaseActivity() {
 
-    @SuppressWarnings("Duplicates")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         if (Build.VERSION.SDK_INT >= 23) {

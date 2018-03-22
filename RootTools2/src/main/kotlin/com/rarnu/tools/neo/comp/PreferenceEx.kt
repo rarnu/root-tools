@@ -71,10 +71,6 @@ class PreferenceEx : Preference {
         innerView?.prefTitle?.setText(titleResId)
     }
 
-    fun setExTitle(resId: Int) {
-        innerView?.prefExTitle?.setText(resId)
-    }
-
     override fun setSummary(summaryResId: Int) {
         super.setSummary(summaryResId)
         if (summary == null || summary == "") {
@@ -90,10 +86,6 @@ class PreferenceEx : Preference {
     fun setShowSwitch(on: Boolean) {
         showSwitch = on
         innerView?.prefStatus?.visibility = if (on) View.VISIBLE else View.GONE
-    }
-
-    fun setShowIcon(on: Boolean) {
-        innerView?.prefIcon?.visibility = if (on) View.VISIBLE else View.GONE
     }
 
     var status: Boolean

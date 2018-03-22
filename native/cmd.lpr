@@ -8,6 +8,20 @@ uses
 const
   BASE_URL: string = 'http://rarnu.xyz/root/';
 
+procedure test(env: PJNIEnv);
+
+var
+  strArr: jarray;
+  i: Integer;
+  size: Integer;
+begin
+  strArr:= env^^.GetObjectField(env, nil, nil);
+  size := env^^.GetArrayLength(env, strArr);
+  for i := 0 to size - 1 do begin
+
+  end;
+end;
+
 // JNI exchange method
 function Java_com_rarnu_tools_neo_api_NativeAPI_mount(env: PJNIEnv; obj: jobject): jboolean; stdcall;
 var

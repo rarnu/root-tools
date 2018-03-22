@@ -6,8 +6,6 @@ import android.content.SharedPreferences
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.preference.PreferenceManager
 import android.view.Menu
 import android.view.MenuItem
@@ -20,9 +18,9 @@ import com.rarnu.base.app.BaseFragment
 import com.rarnu.base.utils.ImageUtils
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.API
+import kotlinx.android.synthetic.main.fragment_feedback.view.*
 import java.util.*
 import kotlin.concurrent.thread
-import kotlinx.android.synthetic.main.fragment_feedback.view.*
 
 /**
  * Created by rarnu on 11/19/16.
@@ -78,19 +76,6 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         return true
     }
 
-    private val hFeedback = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            miSend?.isEnabled = true
-            if (msg.what == 0) {
-                Toast.makeText(context, R.string.toast_send_feedback_ok, Toast.LENGTH_SHORT).show()
-                activity.finish()
-            } else {
-                Toast.makeText(context, R.string.toast_send_feedback_fail, Toast.LENGTH_SHORT).show()
-            }
-            super.handleMessage(msg)
-        }
-    }
-
     private fun sendFeedback() {
         val nickname = innerView.etNickname.text.toString()
         if (nickname == "") {
@@ -107,7 +92,15 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
         thread {
             // send feedback async
             val ret = API.sendFeedback(nickname, comment, path)
-            hFeedback.sendEmptyMessage(if (ret) 0 else 1)
+            activity.runOnUiThread {
+                miSend?.isEnabled = true
+                if (ret) {
+                    Toast.makeText(context, R.string.toast_send_feedback_ok, Toast.LENGTH_SHORT).show()
+                    activity.finish()
+                } else {
+                    Toast.makeText(context, R.string.toast_send_feedback_fail, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 
@@ -179,7 +172,7 @@ class FeedbackFragment : BaseFragment(), View.OnClickListener {
     private fun generateLocalFileName(): String = UUID.randomUUID().toString() + ".png"
 
     companion object {
-        private val KEY_NICKNAME = "__nickname"
+        private const val KEY_NICKNAME = "__nickname"
     }
 
 }

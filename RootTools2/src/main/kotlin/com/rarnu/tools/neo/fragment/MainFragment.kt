@@ -1,13 +1,12 @@
 package com.rarnu.tools.neo.fragment
 
 import android.app.AlertDialog
+import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.net.Uri
 import android.os.Build
 import android.os.Bundle
-import android.os.Handler
-import android.os.Message
 import android.preference.Preference
 import android.preference.PreferenceCategory
 import android.view.Menu
@@ -23,7 +22,6 @@ import com.rarnu.tools.neo.activity.*
 import com.rarnu.tools.neo.api.API
 import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.comp.PreferenceEx
-import com.rarnu.tools.neo.data.UpdateInfo
 import com.rarnu.tools.neo.utils.AppUtils
 import com.rarnu.tools.neo.utils.HostsUtils
 import com.rarnu.tools.neo.xposed.XpStatus
@@ -72,7 +70,7 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
 
     override fun initComponents() {
 
-        pref = context?.getSharedPreferences(XpStatus.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        pref = context?.getSharedPreferences(XpStatus.PREF, Context.MODE_PRIVATE)
         editor = pref?.edit()
 
         // MODE_WORLD_READABLE is removed on Android N!!!!!
@@ -130,31 +128,23 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
         pAbout?.onPreferenceClickListener = this
     }
 
-    private val hUpdate = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            val info = msg.obj as UpdateInfo?
-            if (info != null) {
-                if (info.isNewVersion(context)) {
-                    val str = "    " + (if (RootApplication.isZh) info.description else info.descriptionEn).replace("\\n", "\n    ")
-                    AlertDialog.Builder(context).setTitle(R.string.alert_hint)
-                            .setMessage(getString(R.string.alert_update_message, info.versionName, info.versionCode, str))
-                            .setPositiveButton(R.string.alert_update) { _, _ -> downloadApk(info.url) }
-                            .setNegativeButton(R.string.alert_cancel, null)
-                            .show()
-                }
-            }
-            super.handleMessage(msg)
-        }
-    }
-
     override fun initLogic() {
         loadSettings()
         setXposedRootStatus()
         thread {
             val info = API.getUpdateInfo()
-            val msg = Message()
-            msg.obj = info
-            hUpdate.sendMessage(msg)
+            activity.runOnUiThread {
+                if (info != null) {
+                    if (info.isNewVersion(context)) {
+                        val str = "    " + (if (RootApplication.isZh) info.description else info.descriptionEn).replace("\\n", "\n    ")
+                        AlertDialog.Builder(context).setTitle(R.string.alert_hint)
+                                .setMessage(getString(R.string.alert_update_message, info.versionName, info.versionCode, str))
+                                .setPositiveButton(R.string.alert_update) { _, _ -> downloadApk(info.url) }
+                                .setNegativeButton(R.string.alert_cancel, null)
+                                .show()
+                    }
+                }
+            }
         }
     }
 
@@ -324,16 +314,6 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
                 .show()
     }
 
-    private val hMemory = object : Handler() {
-        override fun handleMessage(msg: Message) {
-            pMemory?.isEnabled = true
-            if (context != null) {
-                Toast.makeText(context, R.string.toast_memory_cleaned, Toast.LENGTH_SHORT).show()
-            }
-            super.handleMessage(msg)
-        }
-    }
-
     private fun threadMemory() {
         pMemory?.isEnabled = false
         thread {
@@ -341,7 +321,12 @@ class MainFragment : BasePreferenceFragment(), Preference.OnPreferenceClickListe
             if (pref!!.getBoolean(XpStatus.KEY_DEEP_CLEAN, false)) {
                 DeviceAPI.forceDropCache()
             }
-            hMemory.sendEmptyMessage(0)
+            activity.runOnUiThread {
+                pMemory?.isEnabled = true
+                if (context != null) {
+                    Toast.makeText(context, R.string.toast_memory_cleaned, Toast.LENGTH_SHORT).show()
+                }
+            }
         }
     }
 

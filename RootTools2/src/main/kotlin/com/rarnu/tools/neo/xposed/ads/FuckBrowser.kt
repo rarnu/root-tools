@@ -21,10 +21,10 @@ object FuckBrowser {
                 override fun afterHookedMethod(param: MethodHookParam) {
                     val o = param.thisObject
                     val fJ: Field?
-                    if (o.javaClass.name != "com.android.browser.suggestion.af") {
-                        fJ = o.javaClass.superclass.getDeclaredField("j")
+                    fJ = if (o.javaClass.name != "com.android.browser.suggestion.af") {
+                        o.javaClass.superclass.getDeclaredField("j")
                     } else {
-                        fJ = o.javaClass.getDeclaredField("j")
+                        o.javaClass.getDeclaredField("j")
                     }
                     fJ.isAccessible = true
                     val oJ = fJ.get(o)
@@ -41,10 +41,10 @@ object FuckBrowser {
                 override fun afterHookedMethod(param: MethodHookParam) {
                     val o = param.thisObject
                     val fJ: Field?
-                    if (o.javaClass.name != "com.android.browser.suggestion.af") {
-                        fJ = o.javaClass.superclass.getDeclaredField("j")
+                    fJ = if (o.javaClass.name != "com.android.browser.suggestion.af") {
+                        o.javaClass.superclass.getDeclaredField("j")
                     } else {
-                        fJ = o.javaClass.getDeclaredField("j")
+                        o.javaClass.getDeclaredField("j")
                     }
                     fJ.isAccessible = true
                     val oJ = fJ.get(o)

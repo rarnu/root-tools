@@ -1,5 +1,6 @@
 package com.rarnu.tools.neo.fragment
 
+import android.content.Context
 import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
@@ -43,7 +44,7 @@ class MIUIAppSettingFragment : BasePreferenceFragment(), Preference.OnPreference
     override fun getCustomTitle(): String? = null
 
     override fun initComponents() {
-        pref = context?.getSharedPreferences(XpStatus.PREF, if (Build.VERSION.SDK_INT < 24) 1 else 0)
+        pref = context?.getSharedPreferences(XpStatus.PREF, Context.MODE_PRIVATE)
         editor = pref?.edit()
         pAccount = findPref(R.string.id_app_account)
         pBrowser = findPref(R.string.id_app_browser)

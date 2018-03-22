@@ -10,9 +10,9 @@ import com.rarnu.tools.neo.xposed.XpStatus
  */
 object DeviceAPI {
 
-    val STATUS_PROGRESS = 0
-    val STATUS_COMPLETE = 1
-    val STATUS_ERROR = 2
+    const val STATUS_PROGRESS = 0
+    const val STATUS_COMPLETE = 1
+    const val STATUS_ERROR = 2
 
     var isRejected: Boolean
         get() = if (XpStatus.mode === XpStatus.Mode.NDK) {
@@ -53,19 +53,13 @@ object DeviceAPI {
     fun writeFile(ctx: Context, filePath: String, text: String, perm: Int): Boolean = if (XpStatus.mode === XpStatus.Mode.NDK) {
         NativeAPI.writeFile(ctx, filePath, text, perm)
     } else {
-        RootAPI.writeFile(ctx, filePath, text, perm)
+        RootAPI.writeFile(filePath, text, perm)
     }
 
     fun catFile(src: String?, dest: String?, perm: Int): Boolean = if (XpStatus.mode === XpStatus.Mode.NDK) {
         NativeAPI.catFile(src, dest, perm)
     } else {
         RootAPI.catFile(src, dest, perm)
-    }
-
-    fun deleteFile(src: String?): Boolean = if (XpStatus.mode === XpStatus.Mode.NDK) {
-        NativeAPI.deleteFile(src)
-    } else {
-        RootAPI.deleteFile(src)
     }
 
     fun systemClean(ctx: Context?) = if (XpStatus.mode === XpStatus.Mode.NDK) {

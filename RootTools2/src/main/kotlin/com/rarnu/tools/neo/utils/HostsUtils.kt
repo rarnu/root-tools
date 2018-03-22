@@ -6,8 +6,8 @@ import com.rarnu.tools.neo.api.DeviceAPI
 
 object HostsUtils {
 
-    val STANDARD_HOSTS = "127.0.0.1  localhost\n255.255.255.255	broadcasthost\n::1	localhost\nfe80::1%lo0	localhost\n"
-    val NOUPDATE_HOSTS = "127.0.0.1 update.miui.com\n"
+    private const val STANDARD_HOSTS = "127.0.0.1  localhost\n255.255.255.255	broadcasthost\n::1	localhost\nfe80::1%lo0	localhost\n"
+    private const val NOUPDATE_HOSTS = "127.0.0.1 update.miui.com\n"
 
     fun writeHost(ctx: Context, isNoUpdate: Boolean, isNoAd: Boolean): Boolean {
         var ret = false

@@ -16,52 +16,50 @@ object AppUtils {
         val list = arrayListOf<AppInfo>()
         val listData = arrayListOf<AppInfo>()
         val listDisabled = arrayListOf<AppInfo>()
-        if (pkgs != null) {
-            pkgs.filter { it.packageName != ctx.packageName }.forEach {
-                if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
-                    if (it.applicationInfo.enabled) {
-                        list.add(AppInfo(
-                                it.applicationInfo.loadLabel(pm).toString(),
-                                try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
-                                it.packageName,
-                                false,
-                                it.versionName,
-                                it.versionCode,
-                                true,
-                                true))
-                    } else {
-                        listDisabled.add(AppInfo(
-                                it.applicationInfo.loadLabel(pm).toString(),
-                                try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
-                                it.packageName,
-                                true,
-                                it.versionName,
-                                it.versionCode,
-                                true,
-                                true))
-                    }
+        pkgs?.filter { it.packageName != ctx.packageName }?.forEach {
+            if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
+                if (it.applicationInfo.enabled) {
+                    list.add(AppInfo(
+                            it.applicationInfo.loadLabel(pm).toString(),
+                            try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
+                            it.packageName,
+                            false,
+                            it.versionName,
+                            it.versionCode,
+                            true,
+                            true))
                 } else {
-                    if (it.applicationInfo.enabled) {
-                        listData.add(AppInfo(
-                                it.applicationInfo.loadLabel(pm).toString(),
-                                try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
-                                it.packageName,
-                                false,
-                                it.versionName,
-                                it.versionCode,
-                                false,
-                                true))
-                    } else {
-                        listDisabled.add(AppInfo(
-                                it.applicationInfo.loadLabel(pm).toString(),
-                                try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
-                                it.packageName,
-                                true,
-                                it.versionName,
-                                it.versionCode,
-                                false,
-                                true))
-                    }
+                    listDisabled.add(AppInfo(
+                            it.applicationInfo.loadLabel(pm).toString(),
+                            try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
+                            it.packageName,
+                            true,
+                            it.versionName,
+                            it.versionCode,
+                            true,
+                            true))
+                }
+            } else {
+                if (it.applicationInfo.enabled) {
+                    listData.add(AppInfo(
+                            it.applicationInfo.loadLabel(pm).toString(),
+                            try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
+                            it.packageName,
+                            false,
+                            it.versionName,
+                            it.versionCode,
+                            false,
+                            true))
+                } else {
+                    listDisabled.add(AppInfo(
+                            it.applicationInfo.loadLabel(pm).toString(),
+                            try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
+                            it.packageName,
+                            true,
+                            it.versionName,
+                            it.versionCode,
+                            false,
+                            true))
                 }
             }
         }
@@ -82,29 +80,27 @@ object AppUtils {
         val pkgs = pm?.getInstalledPackages(0)
         val list = arrayListOf<AppInfo>()
         val listSystem = arrayListOf<AppInfo>()
-        if (pkgs != null) {
-            pkgs.filter { it.packageName != ctx.packageName && it.applicationInfo.enabled }.forEach {
-                if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
-                    listSystem.add(AppInfo(
-                            it.applicationInfo.loadLabel(pm).toString(),
-                            try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
-                            it.packageName,
-                            true,
-                            it.versionName,
-                            it.versionCode,
-                            true,
-                            false))
-                } else {
-                    list.add(AppInfo(
-                            it.applicationInfo.loadLabel(pm).toString(),
-                            try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
-                            it.packageName,
-                            true,
-                            it.versionName,
-                            it.versionCode,
-                            false,
-                            false))
-                }
+        pkgs?.filter { it.packageName != ctx.packageName && it.applicationInfo.enabled }?.forEach {
+            if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
+                listSystem.add(AppInfo(
+                        it.applicationInfo.loadLabel(pm).toString(),
+                        try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
+                        it.packageName,
+                        true,
+                        it.versionName,
+                        it.versionCode,
+                        true,
+                        false))
+            } else {
+                list.add(AppInfo(
+                        it.applicationInfo.loadLabel(pm).toString(),
+                        try { it.applicationInfo.loadIcon(pm) } catch (e: Exception) { null },
+                        it.packageName,
+                        true,
+                        it.versionName,
+                        it.versionCode,
+                        false,
+                        false))
             }
         }
         list.sortBy { it.name }

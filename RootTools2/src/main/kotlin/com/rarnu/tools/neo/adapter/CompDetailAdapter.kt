@@ -2,7 +2,6 @@ package com.rarnu.tools.neo.adapter
 
 import android.content.Context
 import android.view.View
-import android.view.ViewGroup
 import android.widget.Switch
 import android.widget.TextView
 import com.rarnu.base.app.BaseAdapter
@@ -22,22 +21,22 @@ class CompDetailAdapter(context: Context, list: MutableList<ComponentUtils.CompI
 
     override fun getValueText(item: ComponentUtils.CompInfo): String? = item.compName
 
-    inner class CompHolder {
+    inner class CompHolder(v: View) {
 
-        internal var prefStatus: Switch? = null
-        internal var tvName: TextView? = null
-        internal var tvPackageName: TextView? = null
-
-        constructor(v: View) {
-            prefStatus = v.prefStatus
-            tvName = v.tvName
-            tvPackageName = v.tvPackageName
-        }
+        private var prefStatus: Switch? = null
+        private var tvName: TextView? = null
+        private var tvPackageName: TextView? = null
 
         internal fun setItem(item: ComponentUtils.CompInfo) {
             prefStatus?.isChecked = item.enabled
             tvName?.text = item.compName
             tvPackageName?.text = item.fullPackageName?.substring(0, item.fullPackageName!!.lastIndexOf("."))
+        }
+
+        init {
+            prefStatus = v.prefStatus
+            tvName = v.tvName
+            tvPackageName = v.tvPackageName
         }
     }
 }
