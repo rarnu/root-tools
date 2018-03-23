@@ -57,7 +57,7 @@ object API {
         }
         var ok: Onekey? = null
         if (str != null && str.trim { it <= ' ' } != "") {
-            ok = Onekey(pkgName, str)
+            ok = Onekey(str)
         }
         return ok
     }

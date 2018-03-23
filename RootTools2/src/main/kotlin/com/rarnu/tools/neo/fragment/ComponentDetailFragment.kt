@@ -12,7 +12,9 @@ import android.widget.TextView
 import android.widget.Toast
 import com.rarnu.base.app.BaseFragment
 import com.rarnu.base.utils.ComponentUtils
-import com.rarnu.base.utils.PackageParserUtils
+import com.rarnu.base.utils.PackageParserP
+import com.rarnu.base.utils.className
+import com.rarnu.base.utils.parsePackage
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.CompDetailAdapter
 import com.rarnu.tools.neo.api.API
@@ -249,8 +251,8 @@ class ComponentDetailFragment : BaseFragment(), View.OnClickListener, SearchView
             var ret = false
             try {
                 val info = context.packageManager.getApplicationInfo(pkgName, 0)
-                val ppu = PackageParserUtils()
-                val obj = ppu.parsePackage(info.publicSourceDir, 0)
+                val ppu = PackageParserP.newPackageParser()
+                val obj = ppu?.parsePackage(info.publicSourceDir, 0)
                 val lstActivity = ComponentUtils.getActivityList(context, obj)
                 val lstService = ComponentUtils.getServiceList(context, obj)
                 val lstReceiver = ComponentUtils.getReceiverList(context, obj)
