@@ -1,5 +1,6 @@
 package com.rarnu.tools.neo.adapter
 
+import android.app.Activity
 import android.content.Context
 import android.graphics.BitmapFactory
 import android.view.View
@@ -7,6 +8,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import com.rarnu.base.app.BaseAdapter
 import com.rarnu.base.utils.DownloadUtils
+import com.rarnu.base.utils.downloadAsync
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.RootApplication
 import com.rarnu.tools.neo.api.API
@@ -28,7 +30,7 @@ class ThanksAdapter(context: Context, list: MutableList<ThanksInfo?>?) : BaseAda
     override fun newHolder(baseView: View): ThanksHolder = ThanksHolder(baseView)
 
     override fun getValueText(item: ThanksInfo?): String? = ""
-    
+
     inner class ThanksHolder(v: View) {
         private var ivHead: ImageView? = null
         private var tvName: TextView? = null
@@ -43,7 +45,14 @@ class ThanksAdapter(context: Context, list: MutableList<ThanksInfo?>?) : BaseAda
                 if (File(filePath).exists()) {
                     ivHead?.setImageBitmap(BitmapFactory.decodeFile(filePath))
                 } else {
-                    DownloadUtils.downloadFileT(context, ivHead, API.HEAD_URL + item!!.headFile, context.getExternalFilesDir("").absolutePath, item.headFile!!, null)
+                    if (item != null) {
+                        downloadAsync(context as Activity) {
+                            imageView = ivHead
+                            url = API.HEAD_URL + item.headFile
+                            localDir = context.getExternalFilesDir("").absolutePath
+                            localFile = item.headFile!!
+                        }
+                    }
                 }
             }
             tvName?.text = item?.name
