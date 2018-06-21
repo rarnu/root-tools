@@ -10,7 +10,7 @@ import kotlinx.android.synthetic.main.listitem_buildprop.view.*
 
 class BuildPropAdapter(context: Context, list: MutableList<BuildPropInfo>) : BaseAdapter<BuildPropInfo, BuildPropAdapter.BuildPropAdapterHolder>(context, list) {
 
-    override fun fillHolder(baseVew: View, holder: BuildPropAdapterHolder, item: BuildPropInfo) {
+    override fun fillHolder(baseVew: View, holder: BuildPropAdapterHolder, item: BuildPropInfo, position: Int) {
         holder.setItem(item)
     }
 

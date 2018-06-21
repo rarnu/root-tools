@@ -14,7 +14,7 @@ import kotlinx.android.synthetic.main.listitem_app.view.*
 
 class AppAdapter(context: Context, list: MutableList<AppInfo>) : BaseAdapter<AppInfo, AppAdapter.AppHolder>(context, list) {
 
-    override fun fillHolder(baseVew: View, holder: AppHolder, item: AppInfo) {
+    override fun fillHolder(baseVew: View, holder: AppHolder, item: AppInfo, position: Int) {
         holder.setItem(item)
         holder.prefStatus.visibility = if (showSwitch) View.VISIBLE else View.GONE
     }

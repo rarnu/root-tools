@@ -61,7 +61,7 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.github.rarnu:ktfunctional:0.2.1"
+    compile "com.github.rarnu:ktfunctional:0.2.2"
     provided fileTree(include: ['*.jar'], dir: 'xposed')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

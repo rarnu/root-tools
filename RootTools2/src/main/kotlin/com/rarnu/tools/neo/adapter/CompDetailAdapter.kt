@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.listitem_compdetail.view.*
 
 class CompDetailAdapter(context: Context, list: MutableList<CompInfo>) : BaseAdapter<CompInfo, CompDetailAdapter.CompHolder>(context, list) {
 
-    override fun fillHolder(baseVew: View, holder: CompHolder, item: CompInfo) {
+    override fun fillHolder(baseVew: View, holder: CompHolder, item: CompInfo, position: Int) {
         holder.setItem(item)
     }
 

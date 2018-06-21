@@ -20,7 +20,7 @@ import java.io.File
  */
 class ThanksAdapter(context: Context, list: MutableList<ThanksInfo>) : BaseAdapter<ThanksInfo, ThanksAdapter.ThanksHolder>(context, list) {
 
-    override fun fillHolder(baseVew: View, holder: ThanksHolder, item: ThanksInfo) {
+    override fun fillHolder(baseVew: View, holder: ThanksHolder, item: ThanksInfo, position: Int) {
         holder.setItem(item)
     }
 
