@@ -2,7 +2,7 @@ package com.rarnu.tools.neo.api
 
 import android.content.Context
 import android.content.Intent
-import com.rarnu.tools.neo.fragment.CleanFragment
+import com.rarnu.tools.neo.activity.CleanActivity
 import com.rarnu.tools.neo.xposed.XpStatus
 
 /**
@@ -117,9 +117,9 @@ object DeviceAPI {
     }
 
     fun cleanCallback(ctx: Context?, status: Int, data: String?) {
-        val inCallback = Intent(CleanFragment.ACTION_CLEAN_CALLBACK)
-        inCallback.putExtra(CleanFragment.KEY_STATUS, status)
-        inCallback.putExtra(CleanFragment.KEY_DATA, data)
+        val inCallback = Intent(CleanActivity.ACTION_CLEAN_CALLBACK)
+        inCallback.putExtra(CleanActivity.KEY_STATUS, status)
+        inCallback.putExtra(CleanActivity.KEY_DATA, data)
         ctx?.sendBroadcast(inCallback)
     }
 }

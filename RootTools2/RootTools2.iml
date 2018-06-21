@@ -22,10 +22,9 @@
       </configuration>
     </facet>
     <facet type="kotlin-language" name="Kotlin">
-      <configuration version="2" platform="JVM 1.8" useProjectSettings="false">
+      <configuration version="2" platform="JVM 1.6" useProjectSettings="false">
         <compilerSettings />
         <compilerArguments>
-          <option name="jvmTarget" value="1.8" />
           <option name="languageVersion" value="1.1" />
           <option name="apiVersion" value="1.1" />
           <option name="pluginOptions">
@@ -101,14 +100,7 @@
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/blame" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/classes" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/dex-cache" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-compat/25.3.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-core-ui/25.3.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-core-utils/25.3.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-fragment/25.3.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-media-compat/25.3.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v13/25.3.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.android.support/support-v4/25.3.1/jars" />
-      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.rarnu/rarnubase/1.2.1/jars" />
+      <excludeFolder url="file://$MODULE_DIR$/build/intermediates/exploded-aar/com.github.rarnu/ktfunctional/0.2.1/jars" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/incremental-safeguard" />
       <excludeFolder url="file://$MODULE_DIR$/build/intermediates/jniLibs" />
@@ -124,25 +116,17 @@
       <excludeFolder url="file://$MODULE_DIR$/build/outputs" />
       <excludeFolder url="file://$MODULE_DIR$/build/tmp" />
     </content>
-    <orderEntry type="jdk" jdkName="Android API 25 Platform" jdkType="Android SDK" />
+    <orderEntry type="jdk" jdkName="Android API 26 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="Gradle: com.android.support:support-fragment-25.3.1" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: com.android.support:support-v13-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: commons-io:commons-io:1.3.2@jar" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: com.android.support:support-annotations:25.3.1@jar" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: com.android.support:support-v4-25.3.1" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: com.android.support:support-core-ui-25.3.1" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: com.android.support:support-media-compat-25.3.1" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: com.github.rarnu:rarnubase-1.2.1" level="project" />
+    <orderEntry type="library" exported="" name="Gradle: com.github.rarnu:ktfunctional-0.2.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.commons:commons-lang3:3.7@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.squareup.okio:okio:1.13.0@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: com.squareup.okhttp3:okhttp:3.8.0@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.jetbrains.kotlin:kotlin-stdlib:1.1.2-2@jar" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: com.android.support:support-compat-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: __local_jars__:/Users/rarnu/Code/github/root-tools/RootTools2/xposed/xposedapi82.jar:unspecified@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.commons:commons-io:1.3.2@jar" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.apache.commons:commons-compress:1.8.1@jar" level="project" />
-    <orderEntry type="library" exported="" name="Gradle: com.android.support:support-core-utils-25.3.1" level="project" />
     <orderEntry type="library" exported="" name="Gradle: org.jetbrains:annotations:13.0@jar" level="project" />
   </component>
 </module>

@@ -7,7 +7,7 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.rarnu.base.utils.UIUtils
+import com.rarnu.kt.android.dip2px
 import com.rarnu.tools.neo.R
 
 class LoadingView : LinearLayout {
@@ -33,15 +33,16 @@ class LoadingView : LinearLayout {
 
         // inner component
         pb = ProgressBar(context)
-        val rllpPb = LinearLayout.LayoutParams(UIUtils.dip2px(36), UIUtils.dip2px(36))
-        rllpPb.marginStart = UIUtils.dip2px(12)
+
+        val rllpPb = LinearLayout.LayoutParams(36.dip2px(), 36.dip2px())
+        rllpPb.marginStart = 12.dip2px()
         rllpPb.gravity = Gravity.CENTER_VERTICAL
         pb?.layoutParams = rllpPb
 
         tv = TextView(context)
-        val rllpTv = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, UIUtils.dip2px(36))
-        rllpTv.marginStart = UIUtils.dip2px(12)
-        rllpTv.marginEnd = UIUtils.dip2px(12)
+        val rllpTv = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 36.dip2px())
+        rllpTv.marginStart = 12.dip2px()
+        rllpTv.marginEnd = 12.dip2px()
         rllpTv.gravity = Gravity.CENTER_VERTICAL
         tv?.layoutParams = rllpTv
         tv?.gravity = Gravity.CENTER_VERTICAL

@@ -1,10 +1,10 @@
 package com.rarnu.tools.neo.loader
 
 import android.content.Context
-import com.rarnu.base.app.BaseLoader
+import com.rarnu.kt.android.BaseListLoader
 import com.rarnu.tools.neo.data.AppInfo
 import com.rarnu.tools.neo.utils.AppUtils
 
-class AllAppLoader(context: Context) : BaseLoader<AppInfo>(context) {
-    override fun loadInBackground(): MutableList<AppInfo>? = AppUtils.getInstalledApps(context)
+class AllAppLoader(context: Context) : BaseListLoader<AppInfo>(context) {
+    override fun loadInBackground() = AppUtils.getInstalledApps(context)
 }

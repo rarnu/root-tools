@@ -2,8 +2,8 @@ package com.rarnu.tools.neo.api
 
 import android.content.Context
 import android.util.Log
-import com.rarnu.base.command.Command
-import com.rarnu.base.utils.FileUtils
+import com.rarnu.kt.android.fileIO
+import com.rarnu.kt.android.runCommand
 import java.io.File
 import java.text.DecimalFormat
 
@@ -18,10 +18,12 @@ object RootAPI {
     private var _DU_CMD = ""
 
     fun mount(): Boolean {
-        val cmd = "mount -o remount,rw /system"
         var b = true
-        val ret = Command.runCommand(cmd, true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        val ret = runCommand {
+            commands.add("mount -o remount,rw /system")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         if (ret.error != "" && ret.error.toLowerCase().contains("denied")) {
             b = false
         }
@@ -30,14 +32,16 @@ object RootAPI {
 
     // isSystemRW
     fun isSystemRW(): Boolean {
-        val cmd = "mount"
-        val ret = Command.runCommand(cmd, true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
-        val sl = ret.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+        val ret = runCommand {
+            commands.add("mount")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
+        val sl = ret.output.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
         var b = sl.any { it.contains(" /system") && it.contains("ext4") && it.contains("rw") }
         if (!b) {
-            val ret2 = Command.runCommand(cmd, false)
-            val sl2 = ret2.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+            val ret2 = runCommand { commands.add("mount") }
+            val sl2 = ret2.output.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
             b = sl2.any { it.contains(" /system") && it.contains("ext4") && it.contains("rw") }
         }
         return b
@@ -46,26 +50,32 @@ object RootAPI {
     fun makePreferenceReadable(sdk: Int, packageName: String?) {
         // makePreferenceReadable
         if (sdk >= 24) {
-            val cmd = "chmod -R 777 /data/data/$packageName/shared_prefs"
-            val ret = Command.runCommand(cmd, true)
-            Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+            val ret = runCommand {
+                commands.add("chmod -R 777 /data/data/$packageName/shared_prefs")
+                runAsRoot = true
+            }
+            Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         }
     }
 
     fun freezeApplication(packageName: String?, isFreezed: Boolean): Boolean {
         // freezeApplication
-        val cmd = "pm ${if (isFreezed) "disable" else "enable"} $packageName"
-        val ret = Command.runCommand(cmd, true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        val ret = runCommand {
+            commands.add("pm ${if (isFreezed) "disable" else "enable"} $packageName")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         if (ret.error == "") NativeAPI.freezeUpdateList(packageName, "", !isFreezed)
         return ret.error == ""
     }
 
     fun freezeComponent(packageName: String?, componentName: String?, isFreezed: Boolean): Boolean {
         // freezeComponent
-        val cmd = "pm ${if (isFreezed) "disable" else "enable"} $packageName/$componentName"
-        val ret = Command.runCommand(cmd, true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        val ret = runCommand {
+            commands.add("pm ${if (isFreezed) "disable" else "enable"} $packageName/$componentName")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         if (ret.error == "") NativeAPI.freezeUpdateList(packageName, componentName, !isFreezed)
         return ret.error == ""
     }
@@ -101,32 +111,24 @@ object RootAPI {
             fCache.mkdirs()
         }
         val tmpPath = CACHE + filePath.substring(filePath.lastIndexOf("/") + 1)
-        val tmpPathEx = filePath + ".tmp"
-        try {
-            FileUtils.rewriteFile(tmpPath, text)
-        } catch (e: Exception) {
-
+        val tmpPathEx = "$filePath.tmp"
+        fileIO {
+            src = text
+            isSrcText = true
+            dest = tmpPath
         }
-
         var modStr = perm.toString()
         while (modStr.length < 3) {
-            modStr = "0" + modStr
+            modStr = "0$modStr"
         }
         val fTmp = File(tmpPath)
         if (fTmp.exists()) {
-            var ret = Command.runCommand("cp $tmpPath $tmpPathEx", true)
-            Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
-            if (ret.error == "") {
-                ret = Command.runCommand("chmod $modStr $tmpPathEx", true)
-                Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
-            }
-            if (ret.error == "") {
-                ret = Command.runCommand("cp $tmpPathEx $filePath", true)
-                Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
-            }
-            if (ret.error == "") {
-                ret = Command.runCommand("chmod $modStr $filePath", true)
-                Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+            val ret = runCommand {
+                commands.add("cp $tmpPath $tmpPathEx")
+                commands.add("chmod $modStr $tmpPathEx")
+                commands.add("cp $tmpPathEx $filePath")
+                commands.add("chmod $modStr $filePath")
+                runAsRoot = true
             }
             b = ret.error == ""
         }
@@ -137,47 +139,53 @@ object RootAPI {
         // catFile
         var modstr = perm.toString()
         while (modstr.length < 3) {
-            modstr = "0" + modstr
+            modstr = "0$modstr"
         }
-        var ret = Command.runCommand("cat $src > $dest", true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
-        if (ret.error == "") {
-            ret = Command.runCommand("chmod $modstr $dest", true)
-            Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        val ret = runCommand {
+            commands.add("cat $src > $dest")
+            commands.add("chmod $modstr $dest")
+            runAsRoot = true
         }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         return ret.error == ""
     }
 
     fun forceDeleteFile(path: String?) {
         // forceDeleteFile
-        val cmd = "rm -f -r $path"
-        val ret = Command.runCommand(cmd, true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        val ret = runCommand {
+            commands.add("rm -f -r $path")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
     }
 
     fun forceDropCache() {
         // forceDropCache
-        // RootUtils.CommandResult ret = RootUtils.runCommand("sync", true);
-        var ret = Command.runCommand("echo 3 > /proc/sys/vm/drop_caches", true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
-        ret = Command.runCommand("echo 0 > /proc/sys/vm/drop_caches", true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        val ret = runCommand {
+            commands.add("echo 3 > /proc/sys/vm/drop_caches")
+            commands.add("echo 0 > /proc/sys/vm/drop_caches")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
     }
 
     fun killProcess() {
         // killProcess
-        var ret = Command.runCommand("ps", true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        var ret = runCommand {
+            commands.add("ps")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         if (ret.error == "") {
             val slPid = arrayListOf<String>()
-            val slPs = ret.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+            val slPs = ret.output.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
             for (s in slPs) {
                 if (s.startsWith("u0")) {
                     val pkgName = getPackageName(s)
-                    Log.e("killProcess", "pkg: " + pkgName)
+                    Log.e("killProcess", "pkg: $pkgName")
                     if (!pkgName.contains("core") && !pkgName.startsWith("android.") && !pkgName.contains("secure")) {
                         val pidstr = getProcessId(s)
-                        Log.e("killProcess", "pid: " + pidstr)
+                        Log.e("killProcess", "pid: $pidstr")
                         if (pidstr != "") {
                             slPid.add(pidstr)
                         }
@@ -186,8 +194,11 @@ object RootAPI {
             }
             for (s in slPid) {
                 if (s.trim { it <= ' ' } != "") {
-                    ret = Command.runCommand("kill $s", true)
-                    Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+                    ret = runCommand {
+                        commands.add("kill $s")
+                        runAsRoot = true
+                    }
+                    Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
                 }
             }
         }
@@ -196,9 +207,12 @@ object RootAPI {
     fun deleteSystemApp(pkgName: String?): Boolean {
         // deleteSystemApp
         val b = false
-        var ret = Command.runCommand("pm path $pkgName", true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
-        var outstr: String = ret.result
+        var ret = runCommand {
+            commands.add("pm path $pkgName")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
+        var outstr = ret.output
         if (ret.error != "" || outstr.trim { it <= ' ' } == "") {
             return b
         }
@@ -207,11 +221,17 @@ object RootAPI {
         val sc = getSlashCount(apkPath)
         if (sc == 4) {
             val parentDir = apkPath.substring(0, apkPath.lastIndexOf("/"))
-            ret = Command.runCommand("rm -r $parentDir", true)
-            Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+            ret = runCommand {
+                commands.add("rm -r $parentDir")
+                runAsRoot = true
+            }
+            Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         } else if (sc == 3) {
-            ret = Command.runCommand("rm $apkPath", true)
-            Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+            ret = runCommand {
+                commands.add("rm $apkPath")
+                runAsRoot = true
+            }
+            Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         }
         return ret.error == ""
     }
@@ -219,9 +239,12 @@ object RootAPI {
     fun isAppRequiredBySystem(pkgName: String?): Boolean {
         // isAppRequiredBySystem
         var b = false
-        val ret = Command.runCommand("pm path $pkgName", true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
-        var outstr: String = ret.result
+        val ret = runCommand {
+            commands.add("pm path $pkgName")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
+        var outstr = ret.output
         if (ret.error != "" || outstr.trim { it <= ' ' } == "") {
             return b
         }
@@ -275,13 +298,15 @@ object RootAPI {
         }
 
     private fun getCacheSize(path: String): CacheSize {
-        val cmd = "$_DU_CMD -s -k \"$path\""
-        val ret = Command.runCommand(cmd, true)
+        val ret = runCommand {
+            commands.add("$_DU_CMD -s -k \"$path\"")
+            runAsRoot = true
+        }
         var sizeStr = "0"
         var size = 0L
         if (ret.error == "") {
             try {
-                sizeStr = ret.result.substring(0, ret.result.indexOf("\t")).trim { it <= ' ' }
+                sizeStr = ret.output.substring(0, ret.output.indexOf("\t")).trim { it <= ' ' }
                 size = Integer.parseInt(sizeStr).toLong()
             } catch (e: Exception) {
             }
@@ -302,16 +327,20 @@ object RootAPI {
     }
 
     private fun deleteCache(path: String?): Boolean {
-        val cmd = "rm -r \"$path\""
-        val ret = Command.runCommand(cmd, true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        val ret = runCommand {
+            commands.add("rm -r \"$path\"")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         return ret.error == ""
     }
 
     private fun deleteAnrLog(): Boolean {
-        val CMD_DELETE_ANR = "rm -r /data/anr/*"
-        val ret = Command.runCommand(CMD_DELETE_ANR, true)
-        Log.e("RootAPI", "result: ${ret.result}, error: ${ret.error}")
+        val ret = runCommand {
+            commands.add("rm -r /data/anr/*")
+            runAsRoot = true
+        }
+        Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         return ret.error == ""
     }
 
@@ -342,24 +371,33 @@ object RootAPI {
     }
 
     private fun deleteRemainArtCache(ctx: Context?): Long {
-
-        var ret = Command.runCommand("ls /data/app", true)
-        val listInstalled = ret.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
-        ret = Command.runCommand("pm list packages", true)
-        val listAllInstalled = ret.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
-        ret = Command.runCommand("ls /data/dalvik-cache/arm", true)
-        val listArm = ret.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
-        ret = Command.runCommand("ls /data/dalvik-cache/arm64", true)
-        val listArm64 = ret.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
-        ret = Command.runCommand("ls /data/dalvik-cache/profiles", true)
-        val listProfile = ret.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+        val listInstalled = runCommand {
+            commands.add("ls /data/app")
+            runAsRoot = true
+        }.output.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+        val listAllInstalled = runCommand {
+            commands.add("pm list packages")
+            runAsRoot = true
+        }.output.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+        val listArm = runCommand {
+            commands.add("ls /data/dalvik-cache/arm")
+            runAsRoot = true
+        }.output.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+        val listArm64 = runCommand {
+            commands.add("ls /data/dalvik-cache/arm64")
+            runAsRoot = true
+        }.output.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+        val listProfile = runCommand {
+            commands.add("ls /data/dalvik-cache/profiles")
+            runAsRoot = true
+        }.output.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
 
         var totalSize = 0L
         for (s in listArm) {
             if (s.trim { it <= ' ' } != "") {
                 cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, "Scan $s")
                 if (!isCachedAppInstalled(listInstalled, s)) {
-                    val tmpPath = "/data/dalvik-cache/arm/" + s
+                    val tmpPath = "/data/dalvik-cache/arm/$s"
                     val size = getCacheSize(tmpPath)
                     if (deleteCache(tmpPath)) {
                         cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, "Clean $s(${size.sizeReadable})")
@@ -372,7 +410,7 @@ object RootAPI {
             if (s.trim { it <= ' ' } != "") {
                 cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, "Scan $s")
                 if (!isCachedAppInstalled(listInstalled, s)) {
-                    val tmpPath = "/data/dalvik-cache/arm64/" + s
+                    val tmpPath = "/data/dalvik-cache/arm64/$s"
                     val size = getCacheSize(tmpPath)
                     if (deleteCache(tmpPath)) {
                         cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, "Clean $s(${size.sizeReadable})")
@@ -385,7 +423,7 @@ object RootAPI {
             if (s.trim { it <= ' ' } != "") {
                 cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, "Scan $s")
                 if (!isProfileInstalled(listAllInstalled, s)) {
-                    val tmpPath = "/data/dalvik-cache/profiles/" + s
+                    val tmpPath = "/data/dalvik-cache/profiles/$s"
                     val size = getCacheSize(tmpPath)
                     if (deleteCache(tmpPath)) {
                         cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, "Clean $s(${size.sizeReadable})")
@@ -399,13 +437,15 @@ object RootAPI {
 
     private fun cleanCache(ctx: Context?): Long {
         var totalSize = 0L
-        val CMD_FIND_CACHE = "find /data/data/ -type dir -name \"cache\""
-        val ret = Command.runCommand(CMD_FIND_CACHE, true)
+        val ret = runCommand {
+            commands.add("find /data/data/ -type dir -name \"cache\"")
+            runAsRoot = true
+        }
         if (ret.error != "") {
             cleanCallback(ctx, DeviceAPI.STATUS_ERROR, "Can not clean Cache")
             return 0
         }
-        val items = ret.result.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+        val items = ret.output.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
         for (s in items) {
             cleanCallback(ctx, DeviceAPI.STATUS_PROGRESS, "Scan $s")
             val cs = getCacheSize(s)

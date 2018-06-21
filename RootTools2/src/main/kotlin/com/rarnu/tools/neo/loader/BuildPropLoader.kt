@@ -1,11 +1,11 @@
 package com.rarnu.tools.neo.loader
 
 import android.content.Context
-import com.rarnu.base.app.BaseLoader
+import com.rarnu.kt.android.BaseListLoader
 import com.rarnu.tools.neo.data.BuildPropInfo
 import com.rarnu.tools.neo.utils.BuildPropUtils
 
-class BuildPropLoader(context: Context) : BaseLoader<BuildPropInfo>(context) {
+class BuildPropLoader(context: Context) : BaseListLoader<BuildPropInfo>(context) {
 
-    override fun loadInBackground(): MutableList<BuildPropInfo>? = BuildPropUtils.buildProp
+    override fun loadInBackground() = BuildPropUtils.buildProp
 }

@@ -2,7 +2,7 @@ package com.rarnu.tools.neo.utils
 
 
 import android.content.Context
-import com.rarnu.base.utils.FileUtils
+import com.rarnu.kt.android.fileIO
 import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.data.BuildPropInfo
 
@@ -10,25 +10,27 @@ object BuildPropUtils {
 
     private const val PATH_BUILD_PROP = "/system/build.prop"
 
-    val buildProp: MutableList<BuildPropInfo>?
+    val buildProp: MutableList<BuildPropInfo>
         get() {
-            var list: MutableList<BuildPropInfo>? = null
-            try {
-                val file = FileUtils.readFile(PATH_BUILD_PROP)
-                if (file != null && file.size != 0) {
-                    list = arrayListOf()
-                    file.filter { f -> f.trim { it <= ' ' } != "" && !f.trim { it <= ' ' }.startsWith("#") && f.trim { it <= ' ' }.contains("=") }.mapTo(list) { BuildPropInfo.parse(it) }
+            val list = arrayListOf<BuildPropInfo>()
+            fileIO {
+                src = PATH_BUILD_PROP
+                isDestText = true
+                result { _, text, _ ->
+                    val file = text?.split("\n")
+                    if (file != null && file.isNotEmpty()) {
+                        file.filter { it -> it.trim { it <= ' ' } != "" && !it.trim { it <= ' ' }.startsWith("#") && it.trim { it <= ' ' }.contains("=") }
+                                .mapTo(list) { BuildPropInfo.parse(it) }
+                    }
                 }
-            } catch (e: Exception) {
-
             }
             return list
         }
 
-    fun setBuildProp(ctx: Context, list: List<BuildPropInfo>?): Boolean {
+    fun setBuildProp(ctx: Context, list: List<BuildPropInfo>): Boolean {
         var ret = false
         var str = ""
-        for ((buildName, buildValue) in list!!) {
+        for ((buildName, buildValue) in list) {
             str += "$buildName=$buildValue\n"
         }
         try {

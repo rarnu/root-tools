@@ -14,7 +14,7 @@ class PreferenceEx : Preference {
     private var innerView: View? = null
     private var showSwitch = false
     private var showIcon = true
-    private var exTitle: String? = ""
+    private var exTitle = ""
     private var isOn = false
 
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
@@ -34,7 +34,9 @@ class PreferenceEx : Preference {
             val a = context.obtainStyledAttributes(attrs, R.styleable.PreferenceEx, 0, 0)
             showSwitch = a.getBoolean(R.styleable.PreferenceEx_showSwitch, false)
             showIcon = a.getBoolean(R.styleable.PreferenceEx_showIcon, true)
-            exTitle = a.getString(R.styleable.PreferenceEx_extitle)
+            if (a.hasValue(R.styleable.PreferenceEx_extitle)) {
+                exTitle = a.getString(R.styleable.PreferenceEx_extitle)
+            }
             a.recycle()
         }
     }
@@ -58,11 +60,9 @@ class PreferenceEx : Preference {
 
     override fun onCreateView(parent: ViewGroup): View? {
         super.onCreateView(parent)
-        if (innerView == null) {
-            innerView = LayoutInflater.from(context).inflate(R.layout.comp_preference, parent, false)
-            innerView?.prefStatus?.visibility = if (showSwitch) View.VISIBLE else View.GONE
-            innerView?.prefIcon?.visibility = if (showIcon) View.VISIBLE else View.GONE
-        }
+        innerView = LayoutInflater.from(context).inflate(R.layout.comp_preference, parent, false)
+        innerView?.prefStatus?.visibility = if (showSwitch) View.VISIBLE else View.GONE
+        innerView?.prefIcon?.visibility = if (showIcon) View.VISIBLE else View.GONE
         return innerView
     }
 
@@ -89,7 +89,7 @@ class PreferenceEx : Preference {
     }
 
     var status: Boolean
-        get() = innerView?.prefStatus!!.isChecked
+        get() = innerView?.prefStatus?.isChecked!!
         set(on) {
             isOn = on
             innerView?.prefStatus?.isChecked = on

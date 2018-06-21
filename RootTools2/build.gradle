@@ -2,6 +2,7 @@ buildscript {
     ext.kotlin_version = '1.1.2-2'
     repositories {
         jcenter()
+        mavenCentral()
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.0'
@@ -14,13 +15,13 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion '25.0.2'
+    compileSdkVersion 26
+    buildToolsVersion '26.0.0'
 
     defaultConfig {
         applicationId "com.rarnu.tools.neo"
         minSdkVersion 23
-        targetSdkVersion 25
+        targetSdkVersion 26
     }
 
     signingConfigs {
@@ -60,9 +61,7 @@ repositories {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.github.rarnu:rarnubase:1.2.1"
-    compile "com.squareup.okhttp3:okhttp:3.8.0"
-    compile "com.android.support:support-v13:25.3.1"
+    compile "com.github.rarnu:ktfunctional:0.2.1"
     provided fileTree(include: ['*.jar'], dir: 'xposed')
     compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
 }

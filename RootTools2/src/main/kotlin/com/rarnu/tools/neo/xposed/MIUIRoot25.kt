@@ -59,8 +59,8 @@ class MIUIRoot25 : IXposedHookInitPackageResources, IXposedHookLoadPackage {
                 initPackageResourcesParam.res.hookLayout("com.miui.securitycenter", "layout", "pm_activity_root_apply", object : XC_LayoutInflated() {
                     @Throws(Throwable::class)
                     override fun handleLayoutInflated(paramAnonymousLayoutInflatedParam: XC_LayoutInflated.LayoutInflatedParam) {
-                        accept = paramAnonymousLayoutInflatedParam.view.findViewById(paramAnonymousLayoutInflatedParam.res.getIdentifier("accept", "id", "com.miui.securitycenter")) as Button
-                        warningText = paramAnonymousLayoutInflatedParam.view.findViewById(paramAnonymousLayoutInflatedParam.res.getIdentifier("warning_info", "id", "com.miui.securitycenter")) as TextView
+                        accept = paramAnonymousLayoutInflatedParam.view.findViewById(paramAnonymousLayoutInflatedParam.res.getIdentifier("accept", "id", "com.miui.securitycenter"))
+                        warningText = paramAnonymousLayoutInflatedParam.view.findViewById(paramAnonymousLayoutInflatedParam.res.getIdentifier("warning_info", "id", "com.miui.securitycenter"))
                         if (warningText != null) {
                             warningText?.setLines(6)
                         }

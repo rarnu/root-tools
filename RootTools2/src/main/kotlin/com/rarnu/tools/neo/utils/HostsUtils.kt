@@ -1,7 +1,7 @@
 package com.rarnu.tools.neo.utils
 
 import android.content.Context
-import com.rarnu.base.utils.FileUtils
+import com.rarnu.kt.android.assetsIO
 import com.rarnu.tools.neo.api.DeviceAPI
 
 object HostsUtils {
@@ -18,13 +18,18 @@ object HostsUtils {
         if (isNoAd) {
             var noad: String? = ""
             try {
-                noad = FileUtils.readAssetFile(ctx, "hosts_noad")
+                ctx.assetsIO {
+                    src = "hosts_noad"
+                    isDestText = true
+                    result { _, text, _ ->
+                        noad = text
+                    }
+                }
             } catch (e: Exception) {
 
             }
             host += noad + "\n"
         }
-
         try {
             DeviceAPI.mount()
             ret = DeviceAPI.writeFile(ctx, "/etc/hosts", host, 755)
