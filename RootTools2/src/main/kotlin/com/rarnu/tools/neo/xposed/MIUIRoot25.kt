@@ -22,6 +22,7 @@ class MIUIRoot25 : IXposedHookInitPackageResources, IXposedHookLoadPackage {
                 XpUtils.findAndHookMethod("com.miui.permcenter.root.RootApplyActivity", loadPackageParam.classLoader, "onCreate", Bundle::class.java, object : XC_MethodHook() {
                     @Throws(Throwable::class)
                     override fun afterHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam?) {
+                        paramAnonymousMethodHookParam.result = null
                         if (accept == null) {
                             return
                         }
