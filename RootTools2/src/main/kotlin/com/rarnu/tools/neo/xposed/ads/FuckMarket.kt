@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.rarnu.tools.neo.xposed.ads
 
 import android.content.Loader
@@ -121,7 +123,7 @@ object FuckMarket {
                     val newList = arrayListOf<Any?>()
                     if (list != null) {
                         for (item in list) {
-                            val typ = fItemType?.get(item) as Enum<*>?
+                            val typ = fItemType.get(item) as Enum<*>?
                             if (typ != null) {
                                 if (typ.toString() != "RECOMMEND_APP") {
                                     newList.add(item)

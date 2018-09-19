@@ -31,7 +31,7 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        actionBar.title = resStr(R.string.settings_name)
+        actionBar?.title = resStr(R.string.settings_name)
         showActionBack()
     }
 

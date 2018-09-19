@@ -67,7 +67,7 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
     override fun onCreate(savedInstanceState: Bundle?) {
         initUI()
         super.onCreate(savedInstanceState)
-        actionBar.title = resStr(R.string.app_name)
+        actionBar?.title = resStr(R.string.app_name)
 
         pref = getSharedPreferences(XpStatus.PREF, Context.MODE_PRIVATE)
         XpStatus.mode = if (pref.getBoolean(XpStatus.KEY_WORK_MODE, false)) XpStatus.Mode.NDK else XpStatus.Mode.JVM

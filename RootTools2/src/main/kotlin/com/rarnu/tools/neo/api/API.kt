@@ -134,7 +134,7 @@ object API {
         param["model"] = Build.MODEL
         param["sdk"] = Build.VERSION.SDK_INT.toString()
         val info = ctx?.packageManager?.getPackageInfo(ctx.packageName, 0)
-        param["appver"] = info?.versionCode.toString()
+        param["appver"] = info?.longVersionCode.toString()
         param["data"] = data
         http {
             url = API_BASE + "crash.php"

@@ -35,7 +35,7 @@ class PreferenceEx : Preference {
             showSwitch = a.getBoolean(R.styleable.PreferenceEx_showSwitch, false)
             showIcon = a.getBoolean(R.styleable.PreferenceEx_showIcon, true)
             if (a.hasValue(R.styleable.PreferenceEx_extitle)) {
-                exTitle = a.getString(R.styleable.PreferenceEx_extitle)
+                exTitle = a.getString(R.styleable.PreferenceEx_extitle)!!
             }
             a.recycle()
         }

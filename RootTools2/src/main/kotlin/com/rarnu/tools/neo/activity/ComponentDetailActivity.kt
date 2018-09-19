@@ -39,7 +39,7 @@ class ComponentDetailActivity : Activity(), SearchView.OnQueryTextListener, Adap
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_component_detail)
-        actionBar.title = intent.getStringExtra("name")
+        actionBar?.title = intent.getStringExtra("name")
         showActionBack()
 
         adapter = CompDetailAdapter(this, list)

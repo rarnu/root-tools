@@ -16,8 +16,10 @@ class UpdateInfo {
         try {
             val pm = ctx.packageManager
             val pkg = pm?.getPackageInfo(ctx.packageName, 0)
-            val verCode = pkg?.versionCode
-            ret = versionCode > verCode!!
+            if (pkg != null) {
+                val verCode = pkg.longVersionCode
+                ret = versionCode > verCode
+            }
         } catch (e: Exception) {
         }
         return ret
@@ -49,7 +51,7 @@ class UpdateInfo {
                     (0 until arr.length()).forEach {
                         val info = fromJson(arr.getJSONObject(it))
                         if (info != null) {
-                            list?.add(info)
+                            list.add(info)
                         }
                     }
                 }

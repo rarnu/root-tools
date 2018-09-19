@@ -40,7 +40,7 @@ class MIUIAppSettingActivity : PreferenceActivity(), Preference.OnPreferenceClic
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        actionBar.title = resStr(R.string.miui_app_name)
+        actionBar?.title = resStr(R.string.miui_app_name)
         showActionBack()
     }
 

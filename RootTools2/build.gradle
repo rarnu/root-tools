@@ -1,11 +1,12 @@
 buildscript {
-    ext.kotlin_version = '1.1.2-2'
+    ext.kotlin_version = '1.2.70'
     repositories {
+        google()
         jcenter()
         mavenCentral()
     }
     dependencies {
-        classpath 'com.android.tools.build:gradle:2.2.0'
+        classpath 'com.android.tools.build:gradle:3.1.4'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
@@ -15,14 +16,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion '26.0.0'
-
-    defaultConfig {
-        applicationId "com.rarnu.tools.neo"
-        minSdkVersion 23
-        targetSdkVersion 26
-    }
+    compileSdkVersion 28
 
     signingConfigs {
         signConfig {
@@ -42,11 +36,6 @@ android {
         }
     }
 
-    compileOptions {
-        sourceCompatibility JavaVersion.VERSION_1_7
-        targetCompatibility JavaVersion.VERSION_1_7
-    }
-
     lintOptions {
         abortOnError false
     }
@@ -56,16 +45,17 @@ android {
 }
 
 repositories {
+    google()
+    jcenter()
     mavenCentral()
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile "com.github.rarnu:ktfunctional:0.2.2"
-    provided fileTree(include: ['*.jar'], dir: 'xposed')
-    compile "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'com.github.rarnu:ktfunctional:0.7.0'
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    compileOnly fileTree(include: ['*.jar'], dir: 'xposed')
 }
 
-project.gradle.startParameter.excludedTaskNames.add('lint')
-project.gradle.startParameter.excludedTaskNames.add('lintVitalRelease')
+// project.gradle.startParameter.excludedTaskNames.add('lint')
+// project.gradle.startParameter.excludedTaskNames.add('lintVitalRelease')
 

@@ -29,7 +29,7 @@ class ComponentActivity : Activity(), SearchView.OnQueryTextListener, AdapterVie
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_component)
-        actionBar.title = resStr(R.string.component_name)
+        actionBar?.title = resStr(R.string.component_name)
         showActionBack()
 
         adapter = AppAdapter(this, list)

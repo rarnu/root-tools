@@ -35,30 +35,28 @@ class ThanksAdapter(context: Context, list: MutableList<ThanksInfo>) : BaseAdapt
         private var tvName: TextView = v.tvName
         private var tvDesc: TextView = v.tvDesc
 
-        internal fun setItem(item: ThanksInfo?) {
+        internal fun setItem(item: ThanksInfo) {
             // set head image
-            if (item?.headFile == "") {
+            if (item.headFile == "") {
                 ivHead.setImageBitmap(null)
             } else {
-                val filePath = context.getExternalFilesDir("").absolutePath + "/" + item?.headFile
-                if (File(filePath).exists()) {
-                    ivHead.setImageBitmap(BitmapFactory.decodeFile(filePath))
+                val filePath = File(context.getExternalFilesDir(""), item.headFile)
+                if (filePath.exists()) {
+                    ivHead.setImageBitmap(BitmapFactory.decodeFile(filePath.absolutePath))
                 } else {
-                    if (item != null) {
-                        downloadAsync {
-                            url = API.HEAD_URL + item.headFile
-                            localFile = File(context.getExternalFilesDir(""), item.headFile).absolutePath
-                            progress { state, _, _, _ ->
-                                if (state == DownloadState.WHAT_DOWNLOAD_FINISH) {
-                                    ivHead.setImageBitmap(BitmapFactory.decodeFile(localFile))
-                                }
+                    downloadAsync {
+                        url = API.HEAD_URL + item.headFile
+                        localFile = File(context.getExternalFilesDir(""), item.headFile).absolutePath
+                        progress { state, _, _, _ ->
+                            if (state == DownloadState.WHAT_DOWNLOAD_FINISH) {
+                                ivHead.setImageBitmap(BitmapFactory.decodeFile(localFile))
                             }
                         }
                     }
                 }
             }
-            tvName.text = item?.name
-            tvDesc.text = if (RootApplication.isZh) item?.desc else item?.descEn
+            tvName.text = item.name
+            tvDesc.text = if (RootApplication.isZh) item.desc else item.descEn
         }
 
     }

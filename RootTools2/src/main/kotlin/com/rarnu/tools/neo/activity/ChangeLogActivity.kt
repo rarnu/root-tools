@@ -18,7 +18,7 @@ class ChangeLogActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_changelog)
-        actionBar.title = resStr(R.string.view_changelog)
+        actionBar?.title = resStr(R.string.view_changelog)
         showActionBack()
 
         thread {

@@ -39,7 +39,7 @@ class CleanActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_clean)
-        actionBar.title = resStr(R.string.clean_name)
+        actionBar?.title = resStr(R.string.clean_name)
         showActionBack()
 
         registerReceiver(receiverCallback, filterCallback)

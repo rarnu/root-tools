@@ -19,7 +19,7 @@ class ManualActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_manual)
-        actionBar.title = resStr(R.string.view_usage_manual)
+        actionBar?.title = resStr(R.string.view_usage_manual)
         showActionBack()
 
         with(wvManual) {

@@ -6,6 +6,7 @@ import de.robv.android.xposed.*
 import de.robv.android.xposed.callbacks.XC_LoadPackage
 import java.io.File
 import java.io.InputStream
+import java.lang.Exception
 
 class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
 
@@ -45,7 +46,10 @@ class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
                 XpUtils.findAndHookMethod("miui.resourcebrowser.view.ResourceOperationHandler", lpparam.classLoader, "onCheckResourceRightEventBeforeRealApply", object : XC_MethodHook() {
                     @Throws(Throwable::class)
                     override fun beforeHookedMethod(param: MethodHookParam) {
-                        try { XposedHelpers.setBooleanField(param.thisObject, "mIsLegal", true) } catch (t: Throwable) { }
+                        try {
+                            XposedHelpers.setBooleanField(param.thisObject, "mIsLegal", true)
+                        } catch (t: Throwable) {
+                        }
                     }
                 })
 
@@ -58,7 +62,10 @@ class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
                 XpUtils.findAndHookMethod("miui.resourcebrowser.view.ResourceOperationHandler", lpparam.classLoader, "onCheckResourceRightEventBeforeRealApply", object : XC_MethodHook() {
                     @Throws(Throwable::class)
                     override fun beforeHookedMethod(param: MethodHookParam) {
-                        try { XposedHelpers.setBooleanField(param.thisObject, "mIsLegal", true) } catch (t: Throwable) { }
+                        try {
+                            XposedHelpers.setBooleanField(param.thisObject, "mIsLegal", true)
+                        } catch (t: Throwable) {
+                        }
                     }
                 })
 
@@ -90,17 +97,17 @@ class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
         XpUtils.findAndHookMethod("miui.drm.DrmManager", "isPermanentRights", File::class.java, XC_MethodReplacement.returnConstant(true))
         XpUtils.findAndHookMethod("miui.drm.DrmManager", "isRightsFileLegal", File::class.java, XC_MethodReplacement.returnConstant(true))
 
-
-        val clsRightObject = Class.forName("miui.drm.DrmManager\$RightObject")
-        if (clsRightObject != null) {
+        try {
+            val clsRightObject = Class.forName("miui.drm.DrmManager\$RightObject")
             XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", Context::class.java, String::class.java, clsRightObject, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
             XpUtils.findAndHookMethod("miui.drm.DrmManager", "isPermanentRights", clsRightObject, XC_MethodReplacement.returnConstant(true))
             XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", clsRightObject, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
+        } catch (e: Exception) {
+
         }
 
         XpUtils.findAndHookMethod("miui.drm.DrmManager", "isSupportAd", Context::class.java, XC_MethodReplacement.returnConstant(false))
         XpUtils.findAndHookMethod("miui.drm.DrmManager", "isSupportAd", File::class.java, XC_MethodReplacement.returnConstant(false))
-
         XpUtils.findAndHookMethod("miui.drm.DrmManager", "setSupportAd", Context::class.java, java.lang.Boolean.TYPE, object : XC_MethodHook() {
             @Throws(Throwable::class)
             override fun beforeHookedMethod(param: MethodHookParam) {
@@ -135,11 +142,8 @@ class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
             get() {
                 try {
                     val clsEnum = Class.forName("miui.drm.DrmManager\$DrmResult")
-
-                    if (clsEnum != null) {
-                        val mEnum = clsEnum.getDeclaredMethod("valueOf", String::class.java)
-                        return mEnum.invoke(null, "DRM_SUCCESS")
-                    }
+                    val mEnum = clsEnum.getDeclaredMethod("valueOf", String::class.java)
+                    return mEnum.invoke(null, "DRM_SUCCESS")
                 } catch (th: Throwable) {
                     XposedBridge.log(th.toString())
 

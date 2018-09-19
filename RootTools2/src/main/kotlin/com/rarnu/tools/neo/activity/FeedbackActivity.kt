@@ -46,7 +46,7 @@ class FeedbackActivity : Activity(), View.OnClickListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_feedback)
-        actionBar.title = resStr(R.string.about_feedback)
+        actionBar?.title = resStr(R.string.about_feedback)
         showActionBack()
 
         (0..4).forEach {
@@ -147,10 +147,10 @@ class FeedbackActivity : Activity(), View.OnClickListener {
                 val uri = data?.data
                 val bop = BitmapFactory.Options()
                 bop.inSampleSize = 2
-                val bmp = BitmapFactory.decodeStream(contentResolver.openInputStream(uri), null, bop)
+                val bmp = BitmapFactory.decodeStream(contentResolver.openInputStream(uri!!), null, bop)
                 val filePath = generateLocalFileName()
                 path[requestCode] = generateFullPath(filePath)
-                bmp.save(path[requestCode], Bitmap.CompressFormat.PNG)
+                bmp?.save(path[requestCode], Bitmap.CompressFormat.PNG)
                 imgP[requestCode]?.setImageBitmap(bmp)
                 tvAdd[requestCode]?.visibility = View.GONE
             } catch (e: Exception) {

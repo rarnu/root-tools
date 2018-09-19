@@ -23,7 +23,7 @@ class ThanksActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_thanks)
-        actionBar.title = resStr(R.string.thanks_name)
+        actionBar?.title = resStr(R.string.thanks_name)
         showActionBack()
 
         adapter = ThanksAdapter(this, list)

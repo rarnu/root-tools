@@ -29,7 +29,7 @@ class AboutActivity : Activity(), View.OnClickListener, View.OnTouchListener {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_about)
-        actionBar.title = resStr(R.string.about_name)
+        actionBar?.title = resStr(R.string.about_name)
         showActionBack()
         tvProj.setOnClickListener(this)
         tvChangeLog.setOnClickListener(this)

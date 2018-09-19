@@ -25,7 +25,7 @@ object AppUtils {
                             it.packageName,
                             false,
                             it.versionName,
-                            it.versionCode,
+                            it.longVersionCode.toInt(),
                             true,
                             true))
                 } else {
@@ -35,7 +35,7 @@ object AppUtils {
                             it.packageName,
                             true,
                             it.versionName,
-                            it.versionCode,
+                            it.longVersionCode.toInt(),
                             true,
                             true))
                 }
@@ -47,7 +47,7 @@ object AppUtils {
                             it.packageName,
                             false,
                             it.versionName,
-                            it.versionCode,
+                            it.longVersionCode.toInt(),
                             false,
                             true))
                 } else {
@@ -57,7 +57,7 @@ object AppUtils {
                             it.packageName,
                             true,
                             it.versionName,
-                            it.versionCode,
+                            it.longVersionCode.toInt(),
                             false,
                             true))
                 }
@@ -88,7 +88,7 @@ object AppUtils {
                         it.packageName,
                         true,
                         it.versionName,
-                        it.versionCode,
+                        it.longVersionCode.toInt(),
                         true,
                         false))
             } else {
@@ -98,7 +98,7 @@ object AppUtils {
                         it.packageName,
                         true,
                         it.versionName,
-                        it.versionCode,
+                        it.longVersionCode.toInt(),
                         false,
                         false))
             }

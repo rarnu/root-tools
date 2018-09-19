@@ -35,7 +35,7 @@ class FakeDeviceActivity : Activity(), AdapterView.OnItemClickListener, SearchVi
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_fakedev)
-        actionBar.title = resStr(R.string.fake_device_name)
+        actionBar?.title = resStr(R.string.fake_device_name)
         showActionBack()
 
         adapter = BuildPropAdapter(this, list)

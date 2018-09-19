@@ -11,7 +11,7 @@ object XpUtils {
         XposedBridge.log("RootToolsNeo findAndHookMethod: " + th.toString())
     }!!
 
-    fun findAndHookMethod(clsName: String?, method: String?, vararg parameterTypesAndCallback: Any?) = try {
+    fun findAndHookMethod(clsName: String, method: String?, vararg parameterTypesAndCallback: Any?) = try {
         XposedHelpers.findAndHookMethod(Class.forName(clsName), method, *parameterTypesAndCallback)
     } catch (th: Throwable) {
         XposedBridge.log("RootToolsNeo findAndHookMethod: " + th.toString())

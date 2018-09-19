@@ -32,7 +32,7 @@ class FreezeActivity : Activity(), AdapterView.OnItemClickListener, AdapterView.
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_freeze)
-        actionBar.title = resStr(R.string.freeze_name)
+        actionBar?.title = resStr(R.string.freeze_name)
         showActionBack()
 
         adapter = AppAdapter(this, list)

@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.rarnu.tools.neo.xposed
 
 import android.content.Context
