@@ -1,6 +1,7 @@
+@file:Suppress("Duplicates")
+
 package com.rarnu.tools.neo.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -8,17 +9,15 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.SearchView
+import com.rarnu.kt.android.BackActivity
 import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.showActionBack
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.AppAdapter
 import com.rarnu.tools.neo.data.AppInfo
 import com.rarnu.tools.neo.loader.AllAppLoader
 import kotlinx.android.synthetic.main.fragment_component.*
 
-class ComponentActivity : Activity(), SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
-
-
+class ComponentActivity : BackActivity(), SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
 
     private var list = arrayListOf<AppInfo>()
     private lateinit var adapter: AppAdapter
@@ -30,7 +29,6 @@ class ComponentActivity : Activity(), SearchView.OnQueryTextListener, AdapterVie
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_component)
         actionBar?.title = resStr(R.string.component_name)
-        showActionBack()
 
         adapter = AppAdapter(this, list)
         adapter.setShowSwitch(false)
@@ -53,7 +51,6 @@ class ComponentActivity : Activity(), SearchView.OnQueryTextListener, AdapterVie
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.clear()
         sv = SearchView(this)
         sv.setOnQueryTextListener(this)
         miSearch = menu.add(0, 1, 1, R.string.ab_search)
@@ -61,13 +58,6 @@ class ComponentActivity : Activity(), SearchView.OnQueryTextListener, AdapterVie
         miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         miSearch.actionView = sv
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            android.R.id.home -> finish()
-        }
-        return true
     }
 
     override fun onQueryTextSubmit(query: String?) = false

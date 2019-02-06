@@ -1,3 +1,5 @@
+@file:Suppress("Duplicates")
+
 package com.rarnu.tools.neo.activity
 
 import android.Manifest
@@ -286,8 +288,8 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
         val isMIUI = AppUtils.isMIUI(this)
         pFeedback.isEnabled = true
         pAbout.isEnabled = true
-        pFreeze.isEnabled = !DeviceAPI.isRejected
-        pComponent.isEnabled = !DeviceAPI.isRejected
+        // pFreeze.isEnabled = !DeviceAPI.isRejected
+        // pComponent.isEnabled = !DeviceAPI.isRejected
         pMemory.isEnabled = !DeviceAPI.isRejected
         pCleanArt.isEnabled = !DeviceAPI.isRejected
         pFakeDevice.isEnabled = !DeviceAPI.isRejected

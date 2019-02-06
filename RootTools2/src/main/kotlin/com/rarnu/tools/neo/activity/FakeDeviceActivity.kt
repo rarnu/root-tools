@@ -1,6 +1,7 @@
+@file:Suppress("Duplicates")
+
 package com.rarnu.tools.neo.activity
 
-import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
@@ -8,8 +9,8 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.SearchView
+import com.rarnu.kt.android.BackActivity
 import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.showActionBack
 import com.rarnu.kt.android.toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.BuildPropAdapter
@@ -22,8 +23,7 @@ import kotlin.concurrent.thread
 /**
  * Created by rarnu on 9/3/16.
  */
-class FakeDeviceActivity : Activity(), AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
-
+class FakeDeviceActivity : BackActivity(), AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
 
     private var list = arrayListOf<BuildPropInfo>()
     private lateinit var adapter: BuildPropAdapter
@@ -36,7 +36,6 @@ class FakeDeviceActivity : Activity(), AdapterView.OnItemClickListener, SearchVi
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_fakedev)
         actionBar?.title = resStr(R.string.fake_device_name)
-        showActionBack()
 
         adapter = BuildPropAdapter(this, list)
         lvProp.adapter = adapter
@@ -65,7 +64,6 @@ class FakeDeviceActivity : Activity(), AdapterView.OnItemClickListener, SearchVi
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.clear()
         miSearch = menu.add(0, 1, 1, R.string.ab_search)
         miSearch.setIcon(android.R.drawable.ic_menu_search)
         miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
@@ -80,10 +78,9 @@ class FakeDeviceActivity : Activity(), AdapterView.OnItemClickListener, SearchVi
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> finish()
             2 -> threadSaveBuildProp()
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onQueryTextSubmit(query: String?) = false

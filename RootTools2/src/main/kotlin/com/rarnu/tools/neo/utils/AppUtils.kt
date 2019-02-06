@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION", "Duplicates", "BooleanLiteralArgument")
+
 package com.rarnu.tools.neo.utils
 
 import android.content.Context
@@ -25,7 +27,7 @@ object AppUtils {
                             it.packageName,
                             false,
                             it.versionName,
-                            it.longVersionCode.toInt(),
+                            it.versionCode,
                             true,
                             true))
                 } else {
@@ -35,7 +37,7 @@ object AppUtils {
                             it.packageName,
                             true,
                             it.versionName,
-                            it.longVersionCode.toInt(),
+                            it.versionCode,
                             true,
                             true))
                 }
@@ -47,7 +49,7 @@ object AppUtils {
                             it.packageName,
                             false,
                             it.versionName,
-                            it.longVersionCode.toInt(),
+                            it.versionCode,
                             false,
                             true))
                 } else {
@@ -57,7 +59,7 @@ object AppUtils {
                             it.packageName,
                             true,
                             it.versionName,
-                            it.longVersionCode.toInt(),
+                            it.versionCode,
                             false,
                             true))
                 }
@@ -88,7 +90,7 @@ object AppUtils {
                         it.packageName,
                         true,
                         it.versionName,
-                        it.longVersionCode.toInt(),
+                        it.versionCode,
                         true,
                         false))
             } else {
@@ -98,7 +100,7 @@ object AppUtils {
                         it.packageName,
                         true,
                         it.versionName,
-                        it.longVersionCode.toInt(),
+                        it.versionCode,
                         false,
                         false))
             }

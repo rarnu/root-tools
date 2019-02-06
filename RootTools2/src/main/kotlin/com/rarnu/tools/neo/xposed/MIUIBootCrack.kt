@@ -26,7 +26,6 @@ class MIUIBootCrack : IXposedHookLoadPackage {
                     XpUtils.findAndHookMethod("com.miui.server.SecurityManagerService", param.classLoader, "enforcePlatformSignature", Array<Signature>::class.java, XC_MethodReplacement.returnConstant(null))
                 }
 
-
             }
         }
     }

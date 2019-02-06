@@ -1,6 +1,5 @@
 package com.rarnu.tools.neo.utils
 
-
 import android.content.Context
 import com.rarnu.kt.android.fileIO
 import com.rarnu.tools.neo.api.DeviceAPI
@@ -19,7 +18,7 @@ object BuildPropUtils {
                 result { _, text, _ ->
                     val file = text?.split("\n")
                     if (file != null && file.isNotEmpty()) {
-                        file.filter { it -> it.trim { it <= ' ' } != "" && !it.trim { it <= ' ' }.startsWith("#") && it.trim { it <= ' ' }.contains("=") }
+                        file.filter { it.trim { i -> i <= ' ' } != "" && !it.trim { i -> i <= ' ' }.startsWith("#") && it.trim { i -> i <= ' ' }.contains("=") }
                                 .mapTo(list) { BuildPropInfo.parse(it) }
                     }
                 }

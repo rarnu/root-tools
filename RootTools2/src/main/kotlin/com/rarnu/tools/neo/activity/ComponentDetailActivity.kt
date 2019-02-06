@@ -1,6 +1,7 @@
+@file:Suppress("Duplicates")
+
 package com.rarnu.tools.neo.activity
 
-import android.app.Activity
 import android.graphics.Color
 import android.os.Bundle
 import android.view.Menu
@@ -20,9 +21,7 @@ import com.rarnu.tools.neo.utils.ComponentUtils
 import kotlinx.android.synthetic.main.fragment_component_detail.*
 import kotlin.concurrent.thread
 
-class ComponentDetailActivity : Activity(), SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnClickListener {
-
-
+class ComponentDetailActivity : BackActivity(), SearchView.OnQueryTextListener, AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, View.OnClickListener {
 
     private var pkgName = ""
     private var versionCode = 0
@@ -40,7 +39,6 @@ class ComponentDetailActivity : Activity(), SearchView.OnQueryTextListener, Adap
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_component_detail)
         actionBar?.title = intent.getStringExtra("name")
-        showActionBack()
 
         adapter = CompDetailAdapter(this, list)
         lvComponent.adapter = adapter
@@ -75,7 +73,6 @@ class ComponentDetailActivity : Activity(), SearchView.OnQueryTextListener, Adap
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.clear()
         sv = SearchView(this)
         sv.setOnQueryTextListener(this)
         miSearch = menu.add(0, 1, 1, R.string.ab_search)
@@ -83,13 +80,6 @@ class ComponentDetailActivity : Activity(), SearchView.OnQueryTextListener, Adap
         miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         miSearch.actionView = sv
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when(item.itemId) {
-            android.R.id.home -> finish()
-        }
-        return true
     }
 
     override fun onQueryTextSubmit(query: String?) = false

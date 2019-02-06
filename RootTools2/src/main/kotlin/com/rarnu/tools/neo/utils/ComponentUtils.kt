@@ -1,3 +1,5 @@
+@file:Suppress("Duplicates", "unused")
+
 package com.rarnu.tools.neo.utils
 
 import android.app.ActivityManager

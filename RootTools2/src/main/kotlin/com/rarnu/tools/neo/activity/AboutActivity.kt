@@ -1,7 +1,8 @@
+@file:Suppress("Duplicates")
+
 package com.rarnu.tools.neo.activity
 
 import android.annotation.SuppressLint
-import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import android.net.Uri
@@ -11,9 +12,9 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
+import com.rarnu.kt.android.BackActivity
 import com.rarnu.kt.android.assetsIO
 import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.showActionBack
 import com.rarnu.kt.android.toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.RootApplication
@@ -21,7 +22,7 @@ import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.xposed.XpStatus
 import kotlinx.android.synthetic.main.fragment_about.*
 
-class AboutActivity : Activity(), View.OnClickListener, View.OnTouchListener {
+class AboutActivity : BackActivity(), View.OnClickListener, View.OnTouchListener {
 
 
     private lateinit var miThanks: MenuItem
@@ -30,7 +31,6 @@ class AboutActivity : Activity(), View.OnClickListener, View.OnTouchListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_about)
         actionBar?.title = resStr(R.string.about_name)
-        showActionBack()
         tvProj.setOnClickListener(this)
         tvChangeLog.setOnClickListener(this)
         tvUsage.setOnClickListener(this)
@@ -56,7 +56,6 @@ class AboutActivity : Activity(), View.OnClickListener, View.OnTouchListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.clear()
         miThanks = menu.add(0, 1, 1, R.string.ab_thanks)
         miThanks.setIcon(android.R.drawable.ic_menu_info_details)
         miThanks.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
@@ -65,10 +64,9 @@ class AboutActivity : Activity(), View.OnClickListener, View.OnTouchListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> finish()
             1 -> startActivity(Intent(this, ThanksActivity::class.java))
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
     override fun onClick(v: View) {

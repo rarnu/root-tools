@@ -1,4 +1,4 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION", "Duplicates")
 
 package com.rarnu.tools.neo.xposed.ads
 

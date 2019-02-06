@@ -1,3 +1,5 @@
+@file:Suppress("unused")
+
 package com.rarnu.tools.neo
 
 import android.content.Context
@@ -18,7 +20,7 @@ class RootUncaughtException(private var ctx: Context?) : Thread.UncaughtExceptio
         thread {
             val msg = ex?.message
             val stack = getErrorMessage(ex)
-            API.reportCrash(ctx, msg + "\n<br>" + stack)
+            API.reportCrash(ctx, "$msg\n<br>$stack")
             Looper.prepare()
             Toast.makeText(ctx, R.string.toast_crash, Toast.LENGTH_LONG).show()
             try {

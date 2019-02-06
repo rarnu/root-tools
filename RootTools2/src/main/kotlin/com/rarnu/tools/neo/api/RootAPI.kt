@@ -1,5 +1,8 @@
+@file:Suppress("LocalVariableName", "ObjectPropertyName", "Duplicates")
+
 package com.rarnu.tools.neo.api
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.util.Log
 import com.rarnu.kt.android.fileIO
@@ -102,6 +105,7 @@ object RootAPI {
         cleanCallback(ctx, DeviceAPI.STATUS_COMPLETE, "Total Cleaned: ${getReadableFileSize(totalSize)}")
     }
 
+    @SuppressLint("SdCardPath")
     fun writeFile(filePath: String, text: String, perm: Int): Boolean {
         // writeFile
         val CACHE = "/sdcard/.tmp/"

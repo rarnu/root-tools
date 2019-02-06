@@ -1,7 +1,8 @@
+@file:Suppress("Duplicates")
+
 package com.rarnu.tools.neo.activity
 
 import android.Manifest
-import android.app.Activity
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
@@ -16,9 +17,9 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RelativeLayout
 import android.widget.TextView
+import com.rarnu.kt.android.BackActivity
 import com.rarnu.kt.android.resStr
 import com.rarnu.kt.android.save
-import com.rarnu.kt.android.showActionBack
 import com.rarnu.kt.android.toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.API
@@ -30,7 +31,7 @@ import kotlin.concurrent.thread
 /**
  * Created by rarnu on 11/19/16.
  */
-class FeedbackActivity : Activity(), View.OnClickListener {
+class FeedbackActivity : BackActivity(), View.OnClickListener {
 
     companion object {
         private const val KEY_NICKNAME = "__nickname"
@@ -47,8 +48,6 @@ class FeedbackActivity : Activity(), View.OnClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_feedback)
         actionBar?.title = resStr(R.string.about_feedback)
-        showActionBack()
-
         (0..4).forEach {
             ph[it] = findViewById(resources.getIdentifier("ph${it + 1}", "id", packageName))
             ph[it]?.setOnClickListener(this)
@@ -92,7 +91,6 @@ class FeedbackActivity : Activity(), View.OnClickListener {
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.clear()
         miSend = menu.add(0, 1, 1, R.string.ab_send)
         miSend.setIcon(android.R.drawable.ic_menu_send)
         miSend.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
@@ -101,10 +99,9 @@ class FeedbackActivity : Activity(), View.OnClickListener {
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            android.R.id.home -> finish()
             1 -> sendFeedback()
         }
-        return true
+        return super.onOptionsItemSelected(item)
     }
 
     private fun sendFeedback() {

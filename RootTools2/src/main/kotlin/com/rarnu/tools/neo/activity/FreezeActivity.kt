@@ -1,15 +1,16 @@
+@file:Suppress("Duplicates")
+
 package com.rarnu.tools.neo.activity
 
-import android.app.Activity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.SearchView
+import com.rarnu.kt.android.BackActivity
 import com.rarnu.kt.android.alert
 import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.showActionBack
 import com.rarnu.kt.android.toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.AppAdapter
@@ -19,9 +20,7 @@ import com.rarnu.tools.neo.loader.AppLoader
 import kotlinx.android.synthetic.main.fragment_freeze.*
 import kotlin.concurrent.thread
 
-class FreezeActivity : Activity(), AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, SearchView.OnQueryTextListener {
-
-
+class FreezeActivity : BackActivity(), AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, SearchView.OnQueryTextListener {
 
     private var list = arrayListOf<AppInfo>()
     private lateinit var adapter: AppAdapter
@@ -33,7 +32,6 @@ class FreezeActivity : Activity(), AdapterView.OnItemClickListener, AdapterView.
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_freeze)
         actionBar?.title = resStr(R.string.freeze_name)
-        showActionBack()
 
         adapter = AppAdapter(this, list)
         adapter.setShowSwitch(true)
@@ -58,7 +56,6 @@ class FreezeActivity : Activity(), AdapterView.OnItemClickListener, AdapterView.
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.clear()
         sv = SearchView(this)
         sv.setOnQueryTextListener(this)
         miSearch = menu.add(0, 1, 1, R.string.ab_search)
@@ -66,13 +63,6 @@ class FreezeActivity : Activity(), AdapterView.OnItemClickListener, AdapterView.
         miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
         miSearch.actionView = sv
         return super.onCreateOptionsMenu(menu)
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> finish()
-        }
-        return true
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {

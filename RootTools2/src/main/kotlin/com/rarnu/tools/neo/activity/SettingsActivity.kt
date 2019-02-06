@@ -1,3 +1,5 @@
+@file:Suppress("Duplicates")
+
 package com.rarnu.tools.neo.activity
 
 import android.content.Context
@@ -5,10 +7,8 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.preference.Preference
-import android.view.MenuItem
-import com.rarnu.kt.android.PreferenceActivity
+import com.rarnu.kt.android.BackPreferenceActivity
 import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.showActionBack
 import com.rarnu.kt.android.toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
@@ -19,8 +19,7 @@ import com.rarnu.tools.neo.xposed.XpStatus
 /**
  * Created by rarnu on 11/23/16.
  */
-class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListener {
-
+class SettingsActivity : BackPreferenceActivity(), Preference.OnPreferenceClickListener {
 
     private lateinit var pMode: PreferenceEx
     private lateinit var pAdChoose: PreferenceEx
@@ -32,7 +31,6 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         actionBar?.title = resStr(R.string.settings_name)
-        showActionBack()
     }
 
     override fun getPreferenceXml() = R.xml.settings
@@ -70,13 +68,6 @@ class SettingsActivity : PreferenceActivity(), Preference.OnPreferenceClickListe
             screen().removePreference(pShowThemeCrack)
         }
 
-    }
-
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            android.R.id.home -> finish()
-        }
-        return true
     }
 
     override fun onPreferenceClick(preference: Preference): Boolean {

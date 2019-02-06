@@ -1,7 +1,8 @@
-@file:Suppress("DEPRECATION")
+@file:Suppress("DEPRECATION", "Duplicates", "unused")
 
 package com.rarnu.tools.neo.xposed
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.content.pm.PackageInfo
 import android.content.pm.PackageManager
@@ -95,6 +96,7 @@ class SystemCore : IXposedHookZygoteInit, IXposedHookLoadPackage {
                 }
             })
             XposedBridge.hookAllMethods(localClass, "compareSignatures", object : XC_MethodHook() {
+                @SuppressLint("PackageManagerGetSignatures")
                 @Suppress("UNCHECKED_CAST")
                 @SuppressWarnings("Duplicates")
                 @Throws(Throwable::class)

@@ -1,3 +1,5 @@
+@file:Suppress("Duplicates")
+
 package com.rarnu.tools.neo.activity
 
 import android.content.Context
@@ -5,9 +7,8 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.preference.Preference
-import com.rarnu.kt.android.PreferenceActivity
+import com.rarnu.kt.android.BackPreferenceActivity
 import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.showActionBack
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.comp.PreferenceEx
@@ -16,8 +17,7 @@ import com.rarnu.tools.neo.xposed.XpStatus
 /**
  * Created by rarnu on 11/23/16.
  */
-class MIUIAppSettingActivity : PreferenceActivity(), Preference.OnPreferenceClickListener {
-
+class MIUIAppSettingActivity : BackPreferenceActivity(), Preference.OnPreferenceClickListener {
 
     private lateinit var pAccount: PreferenceEx
     private lateinit var pBrowser: PreferenceEx
@@ -41,7 +41,6 @@ class MIUIAppSettingActivity : PreferenceActivity(), Preference.OnPreferenceClic
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         actionBar?.title = resStr(R.string.miui_app_name)
-        showActionBack()
     }
 
     override fun getPreferenceXml() = R.xml.miui_apps

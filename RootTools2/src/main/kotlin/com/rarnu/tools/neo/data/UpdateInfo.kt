@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package com.rarnu.tools.neo.data
 
 import android.content.Context
@@ -17,7 +19,7 @@ class UpdateInfo {
             val pm = ctx.packageManager
             val pkg = pm?.getPackageInfo(ctx.packageName, 0)
             if (pkg != null) {
-                val verCode = pkg.longVersionCode
+                val verCode = pkg.versionCode
                 ret = versionCode > verCode
             }
         } catch (e: Exception) {

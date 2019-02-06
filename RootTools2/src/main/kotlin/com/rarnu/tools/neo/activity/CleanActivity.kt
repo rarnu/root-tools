@@ -1,6 +1,7 @@
+@file:Suppress("Duplicates")
+
 package com.rarnu.tools.neo.activity
 
-import android.app.Activity
 import android.content.BroadcastReceiver
 import android.content.Context
 import android.content.Intent
@@ -12,9 +13,9 @@ import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ScrollView
+import com.rarnu.kt.android.BackActivity
 import com.rarnu.kt.android.assetsIO
 import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.showActionBack
 import com.rarnu.kt.android.toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
@@ -22,7 +23,7 @@ import kotlinx.android.synthetic.main.fragment_clean.*
 import java.io.File
 import kotlin.concurrent.thread
 
-class CleanActivity : Activity() {
+class CleanActivity : BackActivity() {
 
     companion object {
         const val ACTION_CLEAN_CALLBACK = "com.rarnu.tools.neo.clean.callback"
@@ -40,8 +41,6 @@ class CleanActivity : Activity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_clean)
         actionBar?.title = resStr(R.string.clean_name)
-        showActionBack()
-
         registerReceiver(receiverCallback, filterCallback)
 
         val busyboxExists = File("/system/bin/busybox").exists() || File("/system/xbin/busybox").exists()
@@ -102,7 +101,6 @@ class CleanActivity : Activity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        menu.clear()
         miRun = menu.add(0, 1, 1, R.string.ab_clean)
         miRun.setIcon(android.R.drawable.ic_menu_delete)
         miRun.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)

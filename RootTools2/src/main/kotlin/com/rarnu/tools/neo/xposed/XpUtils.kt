@@ -1,3 +1,5 @@
+@file:Suppress("ConvertToStringTemplate")
+
 package com.rarnu.tools.neo.xposed
 
 import de.robv.android.xposed.XposedBridge

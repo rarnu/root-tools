@@ -1,5 +1,6 @@
 package com.rarnu.tools.neo.xposed
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import android.os.Message
 import android.widget.Button
@@ -72,7 +73,9 @@ class MIUIRoot25 : IXposedHookInitPackageResources, IXposedHookLoadPackage {
     }
 
     companion object {
+        @SuppressLint("StaticFieldLeak")
         internal var warningText: TextView? = null
+        @SuppressLint("StaticFieldLeak")
         internal var accept: Button? = null
     }
 }
