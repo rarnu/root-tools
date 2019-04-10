@@ -2,7 +2,6 @@ package com.rarnu.tools.neo.adapter
 
 import android.content.Context
 import android.view.View
-import android.widget.TextView
 import com.rarnu.kt.android.BaseAdapter
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.data.BuildPropInfo
@@ -22,8 +21,8 @@ class BuildPropAdapter(context: Context, list: MutableList<BuildPropInfo>) : Bas
 
     inner class BuildPropAdapterHolder(v: View) {
 
-        private var tvPropName: TextView = v.tvPropName
-        private var tvPropValue: TextView = v.tvPropValue
+        private var tvPropName = v.tvPropName
+        private var tvPropValue = v.tvPropValue
 
         internal fun setItem(item: BuildPropInfo) {
             tvPropName.text = item.buildName

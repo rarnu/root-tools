@@ -26,7 +26,7 @@ object FuckContacts {
                     val mGetItemType = clsServiceDataEntry.getDeclaredMethod("getItemType")
 
                     mGetItemType.isAccessible = true
-                    val newList = arrayListOf<Any?>()
+                    val newList = mutableListOf<Any?>()
                     if (list != null) {
                         for (item in list) {
                             val typ = mGetItemType.invoke(item) as Enum<*>

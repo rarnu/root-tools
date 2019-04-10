@@ -1,12 +1,9 @@
 package com.rarnu.tools.neo.adapter
 
 import android.content.Context
-import android.graphics.Color
 import android.view.View
-import android.widget.ImageView
-import android.widget.Switch
-import android.widget.TextView
 import com.rarnu.kt.android.BaseAdapter
+import com.rarnu.kt.android.attrColor
 import com.rarnu.kt.android.resColor
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.data.AppInfo
@@ -33,10 +30,10 @@ class AppAdapter(context: Context, list: MutableList<AppInfo>) : BaseAdapter<App
     }
 
     inner class AppHolder(v: View) {
-        private var ivIcon: ImageView = v.ivIcon
-        internal var prefStatus: Switch = v.prefStatus
-        private var tvName: TextView = v.tvName
-        private var tvPackageName: TextView = v.tvPackageName
+        private var ivIcon = v.ivIcon
+        internal var prefStatus = v.prefStatus
+        private var tvName = v.tvName
+        private var tvPackageName = v.tvPackageName
 
         internal fun setItem(item: AppInfo) {
             ivIcon.setImageDrawable(item.imageId)
@@ -44,12 +41,11 @@ class AppAdapter(context: Context, list: MutableList<AppInfo>) : BaseAdapter<App
             tvName.text = item.name
             tvPackageName.text = item.packageName
             if (item.isSystem) {
-
                 tvName.setTextColor(context.resColor(android.R.color.holo_green_dark))
                 tvPackageName.setTextColor(context.resColor(android.R.color.holo_green_light))
             } else {
-                tvName.setTextColor(Color.BLACK)
-                tvPackageName.setTextColor(Color.DKGRAY)
+                tvName.setTextColor(context.attrColor(android.R.attr.textColorPrimary))
+                tvPackageName.setTextColor(context.attrColor(android.R.attr.textColorSecondary))
             }
         }
 

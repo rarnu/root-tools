@@ -8,10 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.SearchView
-import com.rarnu.kt.android.BackActivity
-import com.rarnu.kt.android.alert
-import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.toast
+import com.rarnu.kt.android.*
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.AppAdapter
 import com.rarnu.tools.neo.api.DeviceAPI
@@ -22,7 +19,7 @@ import kotlin.concurrent.thread
 
 class FreezeActivity : BackActivity(), AdapterView.OnItemClickListener, AdapterView.OnItemLongClickListener, SearchView.OnQueryTextListener {
 
-    private var list = arrayListOf<AppInfo>()
+    private var list = mutableListOf<AppInfo>()
     private lateinit var adapter: AppAdapter
     private lateinit var loader: AppLoader
     private lateinit var sv: SearchView
@@ -78,7 +75,7 @@ class FreezeActivity : BackActivity(), AdapterView.OnItemClickListener, AdapterV
             if (ret) {
                 item.isDisable = newStat
             }
-            runOnUiThread {
+            runOnMainThread {
                 if (!ret) {
                     toast(resStr(R.string.toast_freeze_fail))
                 }
@@ -118,7 +115,7 @@ class FreezeActivity : BackActivity(), AdapterView.OnItemClickListener, AdapterV
         // delete app
         thread {
             val ret = DeviceAPI.deleteSystemApp(item.packageName)
-            runOnUiThread {
+            runOnMainThread {
                 if (ret) {
                     // delete succ
                     toast(resStr(R.string.toast_delete_system_app_succ))

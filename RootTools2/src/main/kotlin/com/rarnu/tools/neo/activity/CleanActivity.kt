@@ -13,10 +13,7 @@ import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ScrollView
-import com.rarnu.kt.android.BackActivity
-import com.rarnu.kt.android.assetsIO
-import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.toast
+import com.rarnu.kt.android.*
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
 import kotlinx.android.synthetic.main.fragment_clean.*
@@ -83,7 +80,7 @@ class CleanActivity : BackActivity() {
         }
         DeviceAPI.mount()
         val ret = DeviceAPI.catFile(fBusybox.absolutePath, "/system/xbin/busybox", 755)
-        runOnUiThread {
+        runOnMainThread {
             if (ret) {
                 tvClean.setText(R.string.view_ready)
             } else {
@@ -137,7 +134,7 @@ class CleanActivity : BackActivity() {
 
     private inner class CleanCallbackReceiver : BroadcastReceiver() {
         override fun onReceive(context: Context?, intent: Intent?) {
-            runOnUiThread {
+            runOnMainThread {
                 val inCallback = intent!!
                 val status = inCallback.getIntExtra(KEY_STATUS, -1)
                 val data = inCallback.getStringExtra(KEY_DATA)

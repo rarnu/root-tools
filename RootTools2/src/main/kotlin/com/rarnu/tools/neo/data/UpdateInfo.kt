@@ -44,12 +44,12 @@ class UpdateInfo {
             return info
         }
 
-        fun listFromJson(json: JSONObject): MutableList<UpdateInfo>? {
+        fun listFromJson(json: JSONObject): List<UpdateInfo>? {
             var list: MutableList<UpdateInfo>? = null
             try {
                 if (json.getInt("result") == 0) {
                     val arr = json.getJSONArray("data")
-                    list = arrayListOf()
+                    list = mutableListOf()
                     (0 until arr.length()).forEach {
                         val info = fromJson(arr.getJSONObject(it))
                         if (info != null) {

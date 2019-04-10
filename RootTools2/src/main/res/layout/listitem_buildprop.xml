@@ -14,7 +14,7 @@
             android:gravity="center_vertical"
             android:ellipsize="marquee"
             android:padding="4dip"
-            android:maxLines="1"
+            android:singleLine="true"
             android:textColor="?android:attr/textColorPrimary"/>
 
     <TextView
@@ -22,7 +22,7 @@
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
-            android:maxLines="1"
+            android:singleLine="true"
             android:ellipsize="marquee"
             android:padding="4dip"
             android:textColor="?android:attr/textColorPrimary"

@@ -87,7 +87,7 @@
                     android:id="@+id/ivLogo"
                     android:layout_width="80dip" android:layout_height="80dip"
                     android:contentDescription="@null"
-                    android:src="@drawable/ic_launcher"
+                    android:src="@drawable/mainicon"
                     android:layout_centerHorizontal="true"
                     android:layout_below="@+id/tvRepo2"
                     android:layout_marginTop="16dip"

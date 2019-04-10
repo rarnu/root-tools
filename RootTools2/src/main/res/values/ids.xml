@@ -1,51 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="catid_system">catid_main</string>
-    <string name="catid_miui">catid_miui</string>
-    <string name="catid_about">catid_about</string>
+    <string name="catid_system" translatable="false">catid_main</string>
+    <string name="catid_miui" translatable="false">catid_miui</string>
+    <string name="catid_about" translatable="false">catid_about</string>
 
-    <string name="id_freeze">id_freeze</string>
-    <string name="id_component">id_component</string>
-    <string name="id_cleanart">id_cleanart</string>
-    <string name="id_memory">id_memory</string>
-    <string name="id_corecrack">id_corecrack</string>
-    <string name="id_fake_device">id_fake_device</string>
+    <string name="id_freeze" translatable="false">id_freeze</string>
+    <string name="id_component" translatable="false">id_component</string>
+    <string name="id_cleanart" translatable="false">id_cleanart</string>
+    <string name="id_memory" translatable="false">id_memory</string>
+    <string name="id_corecrack" translatable="false">id_corecrack</string>
+    <string name="id_fake_device" translatable="false">id_fake_device</string>
 
-    <string name="id_theme">id_theme</string>
-    <string name="id_removead">id_removead</string>
-    <string name="id_removead_root">id_removead_root</string>
-    <string name="id_removesearch">id_removesearch</string>
-    <string name="id_minus_screen">id_minus_screen</string>
-    <string name="id_keep_mtz">id_keep_mtz</string>
-    <string name="id_root25">id_root25</string>
-    <string name="id_noupdate">id_noupdate</string>
+    <string name="id_theme" translatable="false">id_theme</string>
+    <string name="id_removead" translatable="false">id_removead</string>
+    <string name="id_removead_root" translatable="false">id_removead_root</string>
+    <string name="id_removesearch" translatable="false">id_removesearch</string>
+    <string name="id_minus_screen" translatable="false">id_minus_screen</string>
+    <string name="id_keep_mtz" translatable="false">id_keep_mtz</string>
+    <string name="id_root25" translatable="false">id_root25</string>
+    <string name="id_noupdate" translatable="false">id_noupdate</string>
 
-    <string name="id_feedback">id_feedback</string>
-    <string name="id_about">id_about</string>
+    <string name="id_feedback" translatable="false">id_feedback</string>
+    <string name="id_about" translatable="false">id_about</string>
     
-    <string name="id_settings_mode">id_settings_mode</string>
-    <string name="id_settings_adchoose">id_settings_adchoose</string>
-    <string name="id_settings_deep_clean">id_settings_deep_clean</string>
-    <string name="id_settings_show_theme_crack">id_settings_show_theme_crack</string>
-    <string name="id_settings_prevent_freeze_reverser">id_setting_prevent_freeze_reverser</string>
+    <string name="id_settings_mode" translatable="false">id_settings_mode</string>
+    <string name="id_settings_adchoose" translatable="false">id_settings_adchoose</string>
+    <string name="id_settings_deep_clean" translatable="false">id_settings_deep_clean</string>
+    <string name="id_settings_show_theme_crack" translatable="false">id_settings_show_theme_crack</string>
+    <string name="id_settings_prevent_freeze_reverser" translatable="false">id_setting_prevent_freeze_reverser</string>
 
-    <string name="id_app_weather">id_app_weather</string>
-    <string name="id_app_music">id_app_music</string>
-    <string name="id_app_video">id_app_video</string>
-    <string name="id_app_searchbox">id_app_searchbox</string>
-    <string name="id_app_mms">id_app_mms</string>
-    <string name="id_app_fileexplorer">id_app_fileexplorer</string>
-    <string name="id_app_download">id_app_download</string>
-    <string name="id_app_cleanmaster">id_app_cleanmaster</string>
-    <string name="id_app_calendar">id_app_calendar</string>
-    <string name="id_app_browser">id_app_browser</string>
-    <string name="id_app_system">id_app_system</string>
-    <string name="id_app_thememanager">id_app_thememanager</string>
-    <string name="id_app_market">id_app_market</string>
-    <string name="id_app_settings">id_app_settings</string>
-    <string name="id_app_contacts">id_app_contacts</string>
-    <string name="id_app_cloudservice">id_app_cloudservice</string>
-    <string name="id_app_account">id_app_account</string>
+    <string name="id_app_weather" translatable="false">id_app_weather</string>
+    <string name="id_app_music" translatable="false">id_app_music</string>
+    <string name="id_app_video" translatable="false">id_app_video</string>
+    <string name="id_app_searchbox" translatable="false">id_app_searchbox</string>
+    <string name="id_app_mms" translatable="false">id_app_mms</string>
+    <string name="id_app_fileexplorer" translatable="false">id_app_fileexplorer</string>
+    <string name="id_app_download" translatable="false">id_app_download</string>
+    <string name="id_app_cleanmaster" translatable="false">id_app_cleanmaster</string>
+    <string name="id_app_calendar" translatable="false">id_app_calendar</string>
+    <string name="id_app_browser" translatable="false">id_app_browser</string>
+    <string name="id_app_system" translatable="false">id_app_system</string>
+    <string name="id_app_thememanager" translatable="false">id_app_thememanager</string>
+    <string name="id_app_market" translatable="false">id_app_market</string>
+    <string name="id_app_settings" translatable="false">id_app_settings</string>
+    <string name="id_app_contacts" translatable="false">id_app_contacts</string>
+    <string name="id_app_cloudservice" translatable="false">id_app_cloudservice</string>
+    <string name="id_app_account" translatable="false">id_app_account</string>
 
 </resources>

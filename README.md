@@ -29,21 +29,26 @@ RootTools·Neo
 
 * 编译软件
 
-	* 系统必备 jdk8 和 gradle 2.14.1 以上
+	* 系统必备 jdk8 和 gradle 4.4 以上
 	
 	```
 	$ git clone https://github.com/rarnu/root-tools
 	$ cd root-tools/RootTools2
-	$ gradle build
+	$ gradle clean build
 	```
 
 	* 如果您还需要自行编译 JNI 部分，可以自行下载 [CodeTyphon](http://www.pilotlogic.com/sitejoom/index.php/codetyphon/)，并编译其 Cross Elements 以适应 Android 跨平台编译（目前仅支持 Linux 环境，不需要额外安装 NDK）。源码中已提供编译脚本
 	
 	```
-	$ cd native
-	$ ./build.sh
+	$ fpccmd A64 cmd.lpr   ## 编译 arm64-v8a 的 so
+	$ fpccmd AA cmd.lpr    ## 编译 armeabi-v7a 的 so
+	$ fpccmd AI cmd.lpr    ## 编译 x86 的 so
 	```
 	
-	* 此时即可以得到工作于 arm, mips, x86 三个平台的 libcmd.so                                                                                                                                                                 
+	* 此时即可以得到工作于 arm, mips, x86 三个平台的 libcmd.so
+   
+- - -
 
-	
+### 目前软件已不再更新，当前版本适配了 Android Q 以及 arm64-v8a。
+
+## Good Luck!

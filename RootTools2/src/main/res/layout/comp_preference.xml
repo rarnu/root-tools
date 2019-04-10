@@ -48,7 +48,7 @@
                 android:layout_alignParentBottom="true"
                 android:textColor="?android:attr/textColorSecondary"
                 android:gravity="center_vertical"
-                android:maxLines="1"
+                android:singleLine="true"
                 android:ellipsize="marquee"/>
 
     </RelativeLayout>

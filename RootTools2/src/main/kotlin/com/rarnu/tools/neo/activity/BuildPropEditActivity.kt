@@ -11,7 +11,6 @@ import kotlinx.android.synthetic.main.fragment_fakedev_edit.*
 
 class BuildPropEditActivity : Activity(), View.OnClickListener {
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_fakedev_edit)

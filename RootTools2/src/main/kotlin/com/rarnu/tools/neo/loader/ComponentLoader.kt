@@ -1,9 +1,8 @@
 package com.rarnu.tools.neo.loader
 
 import android.content.Context
+import android.content.pm.PackageManager
 import com.rarnu.kt.android.BaseListLoader
-import com.rarnu.kt.android.PackageParserP
-import com.rarnu.kt.android.parsePackage
 import com.rarnu.tools.neo.utils.CompInfo
 import com.rarnu.tools.neo.utils.ComponentUtils
 
@@ -15,17 +14,15 @@ class ComponentLoader(context: Context) : BaseListLoader<CompInfo>(context) {
     private var type = 0
     private var pkg: String? = null
 
-    override fun loadInBackground(): MutableList<CompInfo>? {
-        val list = arrayListOf<CompInfo>()
+    override fun loadInBackground(): List<CompInfo> {
+        val list = mutableListOf<CompInfo>()
         try {
-            val info = context.packageManager.getApplicationInfo(pkg, 0)
-            val ppu = PackageParserP.newPackageParser()
-            val obj = ppu?.parsePackage(info.publicSourceDir, 0)
+            val info = context.packageManager.getPackageInfo(pkg, PackageManager.GET_ACTIVITIES or PackageManager.GET_SERVICES or PackageManager.GET_RECEIVERS or PackageManager.GET_PROVIDERS)
             when (type) {
-                0 -> list.addAll(ComponentUtils.getActivityList(context, obj))
-                1 -> list.addAll(ComponentUtils.getServiceList(context, obj))
-                2 -> list.addAll(ComponentUtils.getReceiverList(context, obj))
-                3 -> list.addAll(ComponentUtils.getProviderList(context, obj))
+                0 -> list.addAll(ComponentUtils.getActivityList(context, info))
+                1 -> list.addAll(ComponentUtils.getServiceList(context, info))
+                2 -> list.addAll(ComponentUtils.getReceiverList(context, info))
+                3 -> list.addAll(ComponentUtils.getProviderList(context, info))
             }
         } catch (e: Exception) {
         }

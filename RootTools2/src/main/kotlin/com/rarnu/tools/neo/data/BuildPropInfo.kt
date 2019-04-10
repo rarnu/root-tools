@@ -8,7 +8,7 @@ data class BuildPropInfo(
 ) : Serializable {
 
     companion object {
-        fun parse(str: String?): BuildPropInfo =
+        fun parse(str: String?) =
                 BuildPropInfo(
                         str?.substring(0, str.indexOf("="))?.trim { it <= ' ' },
                         str?.substring(str.indexOf("=") + 1)?.trim { it <= ' ' }

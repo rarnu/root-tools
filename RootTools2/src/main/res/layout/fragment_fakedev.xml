@@ -11,8 +11,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fastScrollEnabled="true"
-            android:fadeScrollbars="true"
-    >
+            android:fadeScrollbars="true">
     </ListView>
 
     <com.rarnu.tools.neo.comp.LoadingView

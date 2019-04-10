@@ -19,7 +19,7 @@ import kotlinx.android.synthetic.main.fragment_component.*
 
 class ComponentActivity : BackActivity(), SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
 
-    private var list = arrayListOf<AppInfo>()
+    private var list = mutableListOf<AppInfo>()
     private lateinit var adapter: AppAdapter
     private lateinit var loader: AllAppLoader
     private lateinit var sv: SearchView

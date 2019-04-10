@@ -3,26 +3,23 @@
 package com.rarnu.tools.neo
 
 import android.content.Context
-import kotlin.concurrent.thread
-import java.io.PrintWriter
-import java.io.Writer
-import java.io.StringWriter
 import android.os.Looper
-import android.widget.Toast
-import com.rarnu.tools.neo.api.API
+import com.rarnu.kt.android.resStr
+import com.rarnu.kt.android.toast
+import java.io.PrintWriter
+import java.io.StringWriter
+import java.io.Writer
+import kotlin.concurrent.thread
 
 /**
  * Created by rarnu on 12/5/16.
  */
-class RootUncaughtException(private var ctx: Context?) : Thread.UncaughtExceptionHandler {
+class RootUncaughtException(private var ctx: Context) : Thread.UncaughtExceptionHandler {
 
     override fun uncaughtException(thread: Thread?, ex: Throwable?) {
         thread {
-            val msg = ex?.message
-            val stack = getErrorMessage(ex)
-            API.reportCrash(ctx, "$msg\n<br>$stack")
             Looper.prepare()
-            Toast.makeText(ctx, R.string.toast_crash, Toast.LENGTH_LONG).show()
+            ctx.toast(ctx.resStr(R.string.toast_crash))
             try {
                 Looper.loop()
             } catch (t: Throwable) {

@@ -9,7 +9,6 @@ import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
 import android.content.pm.PackageManager
-import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.preference.Preference
@@ -19,11 +18,8 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.ViewGroup
 import android.widget.ImageView
-import android.widget.Toast
 import com.rarnu.kt.android.*
 import com.rarnu.tools.neo.R
-import com.rarnu.tools.neo.RootApplication
-import com.rarnu.tools.neo.api.API
 import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.comp.PreferenceEx
 import com.rarnu.tools.neo.utils.AppUtils
@@ -80,17 +76,17 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
         Log.e("DeviceAPI", "isSystemRW => " + DeviceAPI.isSystemRW)
 
         if (!DeviceAPI.isSystemRW) {
-            Toast.makeText(this, R.string.toast_need_crack_system, Toast.LENGTH_SHORT).show()
+            toast(resStr(R.string.toast_need_crack_system))
         }
 
         val xpEnabled = XpStatus.isEnable()
 
         if (!xpEnabled && !isRooted) {
-            Toast.makeText(this, R.string.toast_need_root_xposed, Toast.LENGTH_SHORT).show()
+            toast(resStr(R.string.toast_need_root_xposed))
         } else if (!xpEnabled && isRooted) {
-            Toast.makeText(this, R.string.toast_need_xposed, Toast.LENGTH_SHORT).show()
+            toast(resStr(R.string.toast_need_xposed))
         } else if (xpEnabled && !isRooted) {
-            Toast.makeText(this, R.string.toast_need_root, Toast.LENGTH_SHORT).show()
+            toast(resStr(R.string.toast_need_root))
         }
 
         AppUtils.doScanMedia(this)
@@ -174,24 +170,6 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
         // load data
         loadSettings()
         setXposedRootStatus()
-        thread {
-            val info = API.getUpdateInfo()
-            runOnUiThread {
-                if (info != null) {
-                    if (info.isNewVersion(this@MainActivity)) {
-                        val str = "    " + (if (RootApplication.isZh) info.description else info.descriptionEn).replace("\\n", "\n    ")
-                        alert(resStr(R.string.alert_hint),
-                                resStr(R.string.alert_update_message, info.versionName, info.versionCode, str),
-                                resStr(R.string.alert_update),
-                                resStr(R.string.alert_cancel)) {
-                            if (it == 0) {
-                                downloadApk(info.url)
-                            }
-                        }
-                    }
-                }
-            }
-        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -207,7 +185,6 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
 
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         when (item.itemId) {
-            1 -> showQQGroup()
             2 -> showActivityResult(SettingsActivity::class.java, 1)
         }
         return true
@@ -221,7 +198,6 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
             getString(R.string.id_component) -> showActivity(ComponentActivity::class.java)
             getString(R.string.id_cleanart) -> showActivity(CleanActivity::class.java)
             getString(R.string.id_about) -> showActivityResult(AboutActivity::class.java, 2)
-            getString(R.string.id_feedback) -> showActivity(FeedbackActivity::class.java)
             getString(R.string.id_fake_device) -> showActivity(FakeDeviceActivity::class.java)
             getString(R.string.id_memory) -> threadMemory()
             getString(R.string.id_theme) -> {
@@ -317,26 +293,6 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
     @SuppressLint("SdCardPath")
     private fun threadDeleteTmpFiles() = thread { DeviceAPI.forceDeleteFile("/data/data/com.miui.cleanmaster/shared_prefs/*") }
 
-    private fun downloadApk(url: String) {
-        val http = API.DOWNLOAD_URL + url
-        val inDownload = Intent(Intent.ACTION_VIEW)
-        inDownload.data = Uri.parse(http)
-        startActivity(inDownload)
-    }
-
-    private fun showQQGroup() {
-        // show qq group
-        val ivLogo = ImageView(this)
-        ivLogo.scaleType = ImageView.ScaleType.CENTER_INSIDE
-        val w = (UI.width * 0.8).toInt()
-        ivLogo.layoutParams = ViewGroup.LayoutParams(w, w)
-        ivLogo.setImageResource(R.drawable.qqgroup)
-        AlertDialog.Builder(this).setTitle(R.string.alert_welcome)
-                .setView(ivLogo).setMessage(R.string.alert_qq_group)
-                .setPositiveButton(R.string.alert_ok, null)
-                .show()
-    }
-
     private fun threadMemory() {
         pMemory.isEnabled = false
         thread {
@@ -344,7 +300,7 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
             if (pref.getBoolean(XpStatus.KEY_DEEP_CLEAN, false)) {
                 DeviceAPI.forceDropCache()
             }
-            runOnUiThread {
+            runOnMainThread {
                 pMemory.isEnabled = true
                 toast(resStr(R.string.toast_memory_cleaned))
             }

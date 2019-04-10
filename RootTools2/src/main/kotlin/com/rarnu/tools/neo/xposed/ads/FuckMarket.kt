@@ -99,7 +99,7 @@ object FuckMarket {
                     }
                     if (fItemType != null) {
                         val list = param.args[0] as MutableList<*>?
-                        val newList = arrayListOf<Any?>()
+                        val newList = mutableListOf<Any?>()
                         if (list != null) {
                             for (item in list) {
                                 val typ = fItemType.get(item) as Enum<*>?
@@ -120,7 +120,7 @@ object FuckMarket {
                 override fun beforeHookedMethod(param: MethodHookParam) {
                     val fItemType = clsQItem.getDeclaredField("KV")
                     val list = param.args[0] as MutableList<*>?
-                    val newList = arrayListOf<Any?>()
+                    val newList = mutableListOf<Any?>()
                     if (list != null) {
                         for (item in list) {
                             val typ = fItemType.get(item) as Enum<*>?

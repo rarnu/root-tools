@@ -49,6 +49,6 @@
             android:layout_marginEnd="8dip"
             android:textColor="?android:attr/textColorSecondary"
             android:ellipsize="marquee"
-            android:maxLines="1"/>
+            android:singleLine="true"/>
 
 </RelativeLayout>

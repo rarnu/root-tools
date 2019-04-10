@@ -181,7 +181,7 @@ object RootAPI {
         }
         Log.e("RootAPI", "result: ${ret.output}, error: ${ret.error}")
         if (ret.error == "") {
-            val slPid = arrayListOf<String>()
+            val slPid = mutableListOf<String>()
             val slPs = ret.output.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
             for (s in slPs) {
                 if (s.startsWith("u0")) {

@@ -15,9 +15,9 @@ object AppUtils {
     fun getSystemApps(ctx: Context): MutableList<AppInfo> {
         val pm = ctx.packageManager
         val pkgs = pm?.getInstalledPackages(0)
-        val list = arrayListOf<AppInfo>()
-        val listData = arrayListOf<AppInfo>()
-        val listDisabled = arrayListOf<AppInfo>()
+        val list = mutableListOf<AppInfo>()
+        val listData = mutableListOf<AppInfo>()
+        val listDisabled = mutableListOf<AppInfo>()
         pkgs?.filter { it.packageName != ctx.packageName }?.forEach {
             if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
                 if (it.applicationInfo.enabled) {
@@ -80,8 +80,8 @@ object AppUtils {
     fun getInstalledApps(ctx: Context): MutableList<AppInfo> {
         val pm = ctx.packageManager
         val pkgs = pm?.getInstalledPackages(0)
-        val list = arrayListOf<AppInfo>()
-        val listSystem = arrayListOf<AppInfo>()
+        val list = mutableListOf<AppInfo>()
+        val listSystem = mutableListOf<AppInfo>()
         pkgs?.filter { it.packageName != ctx.packageName && it.applicationInfo.enabled }?.forEach {
             if (it.applicationInfo.flags and ApplicationInfo.FLAG_SYSTEM > 0) {
                 listSystem.add(AppInfo(

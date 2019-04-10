@@ -11,6 +11,7 @@ import android.widget.AdapterView
 import android.widget.SearchView
 import com.rarnu.kt.android.BackActivity
 import com.rarnu.kt.android.resStr
+import com.rarnu.kt.android.runOnMainThread
 import com.rarnu.kt.android.toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.BuildPropAdapter
@@ -25,7 +26,7 @@ import kotlin.concurrent.thread
  */
 class FakeDeviceActivity : BackActivity(), AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
 
-    private var list = arrayListOf<BuildPropInfo>()
+    private var list = mutableListOf<BuildPropInfo>()
     private lateinit var adapter: BuildPropAdapter
     private lateinit var loader: BuildPropLoader
     private lateinit var sv: SearchView
@@ -94,7 +95,7 @@ class FakeDeviceActivity : BackActivity(), AdapterView.OnItemClickListener, Sear
         loading.visibility = View.VISIBLE
         thread {
             val ret = BuildPropUtils.setBuildProp(this, list)
-            runOnUiThread {
+            runOnMainThread {
                 toast(resStr(if (ret) R.string.toast_buildprop_saved else R.string.toast_buildprop_save_failed))
                 loading.visibility = View.GONE
             }

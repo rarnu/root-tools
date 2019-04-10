@@ -12,10 +12,7 @@ import android.view.Menu
 import android.view.MenuItem
 import android.view.MotionEvent
 import android.view.View
-import com.rarnu.kt.android.BackActivity
-import com.rarnu.kt.android.assetsIO
-import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.toast
+import com.rarnu.kt.android.*
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.RootApplication
 import com.rarnu.tools.neo.api.DeviceAPI
@@ -23,7 +20,6 @@ import com.rarnu.tools.neo.xposed.XpStatus
 import kotlinx.android.synthetic.main.fragment_about.*
 
 class AboutActivity : BackActivity(), View.OnClickListener, View.OnTouchListener {
-
 
     private lateinit var miThanks: MenuItem
 
@@ -37,22 +33,8 @@ class AboutActivity : BackActivity(), View.OnClickListener, View.OnTouchListener
         ivLogo.setOnTouchListener(this)
         tvRepo1.setOnClickListener(this)
         tvRepo2.setOnClickListener(this)
-
-        var ver = "unknown"
-        try {
-            val info = packageManager.getPackageInfo(packageName, 0)
-            ver = info.versionName
-        } catch (e: Exception) {
-
-        }
-        tvVersion.text = resStr(R.string.view_about_version, ver)
-        assetsIO {
-            src = if (RootApplication.isZh) "intro_zh" else "intro"
-            isDestText = true
-            result { _, text, _ ->
-                tvIntro.text = text
-            }
-        }
+        tvVersion.text = resStr(R.string.view_about_version, appVersionName)
+        tvIntro.text = assetsReadText(if (RootApplication.isZh) "intro_zh" else "intro")
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -62,18 +44,9 @@ class AboutActivity : BackActivity(), View.OnClickListener, View.OnTouchListener
         return super.onCreateOptionsMenu(menu)
     }
 
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        when (item.itemId) {
-            1 -> startActivity(Intent(this, ThanksActivity::class.java))
-        }
-        return super.onOptionsItemSelected(item)
-    }
-
     override fun onClick(v: View) {
         when (v.id) {
             R.id.tvProj -> openUrl(R.string.view_about_project_github_url)
-            R.id.tvChangeLog -> startActivity(Intent(this, ChangeLogActivity::class.java))
-            R.id.tvUsage -> startActivity(Intent(this, ManualActivity::class.java))
             R.id.tvRepo1 -> openUrl(R.string.view_about_project_repo1_url)
             R.id.tvRepo2 -> openUrl(R.string.view_about_project_repo2_url)
         }
@@ -87,11 +60,11 @@ class AboutActivity : BackActivity(), View.OnClickListener, View.OnTouchListener
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 if (lastTime == 0L) {
-                    lastTime = System.currentTimeMillis()
+                    lastTime = java.lang.System.currentTimeMillis()
                     touchCount = 1
                     return true
                 } else {
-                    val t = System.currentTimeMillis()
+                    val t = java.lang.System.currentTimeMillis()
                     if (t - lastTime > 1000) {
                         touchCount = 0
                         lastTime = 0

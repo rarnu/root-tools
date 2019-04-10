@@ -11,7 +11,7 @@ object BuildPropUtils {
 
     val buildProp: MutableList<BuildPropInfo>
         get() {
-            val list = arrayListOf<BuildPropInfo>()
+            val list = mutableListOf<BuildPropInfo>()
             fileIO {
                 src = PATH_BUILD_PROP
                 isDestText = true
