@@ -1,7 +1,8 @@
 package com.rarnu.tools.neo.utils
 
 import android.content.Context
-import com.rarnu.kt.android.assetsIO
+import com.rarnu.android.assetsIO
+import com.rarnu.android.assetsReadText
 import com.rarnu.tools.neo.api.DeviceAPI
 
 object HostsUtils {
@@ -18,13 +19,7 @@ object HostsUtils {
         if (isNoAd) {
             var noad: String? = ""
             try {
-                ctx.assetsIO {
-                    src = "hosts_noad"
-                    isDestText = true
-                    result { _, text, _ ->
-                        noad = text
-                    }
-                }
+                noad = ctx.assetsReadText("hosts_noad")
             } catch (e: Exception) {
 
             }

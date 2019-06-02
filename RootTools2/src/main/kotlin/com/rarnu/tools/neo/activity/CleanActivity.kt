@@ -13,7 +13,7 @@ import android.view.KeyEvent
 import android.view.Menu
 import android.view.MenuItem
 import android.widget.ScrollView
-import com.rarnu.kt.android.*
+import com.rarnu.android.*
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
 import kotlinx.android.synthetic.main.fragment_clean.*

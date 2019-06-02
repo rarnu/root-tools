@@ -8,7 +8,7 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.SearchView
-import com.rarnu.kt.android.*
+import com.rarnu.android.*
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.AppAdapter
 import com.rarnu.tools.neo.api.DeviceAPI

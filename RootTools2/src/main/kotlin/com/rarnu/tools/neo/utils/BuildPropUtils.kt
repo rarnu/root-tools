@@ -1,7 +1,7 @@
 package com.rarnu.tools.neo.utils
 
 import android.content.Context
-import com.rarnu.kt.android.fileIO
+import com.rarnu.common.asFileReadText
 import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.data.BuildPropInfo
 
@@ -12,16 +12,10 @@ object BuildPropUtils {
     val buildProp: MutableList<BuildPropInfo>
         get() {
             val list = mutableListOf<BuildPropInfo>()
-            fileIO {
-                src = PATH_BUILD_PROP
-                isDestText = true
-                result { _, text, _ ->
-                    val file = text?.split("\n")
-                    if (file != null && file.isNotEmpty()) {
-                        file.filter { it.trim { i -> i <= ' ' } != "" && !it.trim { i -> i <= ' ' }.startsWith("#") && it.trim { i -> i <= ' ' }.contains("=") }
-                                .mapTo(list) { BuildPropInfo.parse(it) }
-                    }
-                }
+            val text = try { PATH_BUILD_PROP.asFileReadText() } catch (e: Throwable) { null }
+            val file = text?.split("\n")
+            if (file != null && file.isNotEmpty()) {
+                file.filter { it.trim() != "" && !it.trim().startsWith("#") && it.trim().contains("=") }.mapTo(list) { BuildPropInfo.parse(it) }
             }
             return list
         }

@@ -4,7 +4,7 @@ import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
 import android.view.View
-import com.rarnu.kt.android.toEditable
+import com.rarnu.android.toEditable
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.data.BuildPropInfo
 import kotlinx.android.synthetic.main.fragment_fakedev_edit.*

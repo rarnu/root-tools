@@ -7,8 +7,8 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.preference.Preference
-import com.rarnu.kt.android.BackPreferenceActivity
-import com.rarnu.kt.android.resStr
+import com.rarnu.android.BackPreferenceActivity
+import com.rarnu.android.resStr
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.comp.PreferenceEx

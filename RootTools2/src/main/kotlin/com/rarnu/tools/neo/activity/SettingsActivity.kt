@@ -7,9 +7,9 @@ import android.content.SharedPreferences
 import android.os.Build
 import android.os.Bundle
 import android.preference.Preference
-import com.rarnu.kt.android.BackPreferenceActivity
-import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.toast
+import com.rarnu.android.BackPreferenceActivity
+import com.rarnu.android.resStr
+import com.rarnu.android.toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.comp.PreferenceEx
@@ -21,7 +21,6 @@ import com.rarnu.tools.neo.xposed.XpStatus
  */
 class SettingsActivity : BackPreferenceActivity(), Preference.OnPreferenceClickListener {
 
-    private lateinit var pMode: PreferenceEx
     private lateinit var pAdChoose: PreferenceEx
     private lateinit var pDeepClean: PreferenceEx
     private lateinit var pShowThemeCrack: PreferenceEx
@@ -38,21 +37,17 @@ class SettingsActivity : BackPreferenceActivity(), Preference.OnPreferenceClickL
     override fun onPreparedPreference() {
         pref = getSharedPreferences(XpStatus.PREF, Context.MODE_PRIVATE)
 
-        pMode = findPref(R.string.id_settings_mode)
         pAdChoose = findPref(R.string.id_settings_adchoose)
         pDeepClean = findPref(R.string.id_settings_deep_clean)
         pShowThemeCrack = findPref(R.string.id_settings_show_theme_crack)
         pPreventFreezeReverse = findPref(R.string.id_settings_prevent_freeze_reverser)
 
-        pMode.onPreferenceClickListener = this
         pAdChoose.onPreferenceClickListener = this
         pDeepClean.onPreferenceClickListener = this
         pShowThemeCrack.onPreferenceClickListener = this
         pPreventFreezeReverse.onPreferenceClickListener = this
 
         pPreventFreezeReverse.isEnabled = XpStatus.isEnable()
-        pMode.status = pref.getBoolean(XpStatus.KEY_WORK_MODE, false)
-        pMode.setSummary(if (pref.getBoolean(XpStatus.KEY_WORK_MODE, false)) R.string.settings_mode_effect else R.string.settings_mode_common)
         pAdChoose.status = pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false)
         pAdChoose.setSummary(if (pref.getBoolean(XpStatus.KEY_AD_CHOOSE, false)) R.string.settings_adchoose_detail else R.string.settings_adchoose_onekey)
         pDeepClean.status = pref.getBoolean(XpStatus.KEY_DEEP_CLEAN, false)
@@ -75,11 +70,6 @@ class SettingsActivity : BackPreferenceActivity(), Preference.OnPreferenceClickL
         val ex = preference as PreferenceEx
         ex.status = !ex.status
         when (prefKey) {
-            getString(R.string.id_settings_mode) -> {
-                pref.edit().putBoolean(XpStatus.KEY_WORK_MODE, ex.status).apply()
-                pMode.setSummary(if (pref.getBoolean(XpStatus.KEY_WORK_MODE, false)) R.string.settings_mode_effect else R.string.settings_mode_common)
-                toast(resStr(R.string.toast_reboot_app))
-            }
             getString(R.string.id_settings_adchoose) -> {
                 pref.edit()
                         .putBoolean(XpStatus.KEY_AD_CHOOSE, ex.status)

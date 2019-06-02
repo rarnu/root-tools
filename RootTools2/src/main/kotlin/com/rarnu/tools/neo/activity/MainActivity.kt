@@ -4,7 +4,6 @@ package com.rarnu.tools.neo.activity
 
 import android.Manifest
 import android.annotation.SuppressLint
-import android.app.AlertDialog
 import android.content.Context
 import android.content.Intent
 import android.content.SharedPreferences
@@ -16,9 +15,7 @@ import android.preference.PreferenceCategory
 import android.util.Log
 import android.view.Menu
 import android.view.MenuItem
-import android.view.ViewGroup
-import android.widget.ImageView
-import com.rarnu.kt.android.*
+import com.rarnu.android.*
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.api.DeviceAPI
 import com.rarnu.tools.neo.comp.PreferenceEx
@@ -66,9 +63,7 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
         initUI()
         super.onCreate(savedInstanceState)
         actionBar?.title = resStr(R.string.app_name)
-
         pref = getSharedPreferences(XpStatus.PREF, Context.MODE_PRIVATE)
-        XpStatus.mode = if (pref.getBoolean(XpStatus.KEY_WORK_MODE, false)) XpStatus.Mode.NDK else XpStatus.Mode.JVM
         DeviceAPI.isRejected = !DeviceAPI.mount()
         DeviceAPI.isSystemRW = DeviceAPI.isSystemRW
         val isRooted = !DeviceAPI.isRejected

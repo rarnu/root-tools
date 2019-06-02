@@ -10,7 +10,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.SearchView
 import android.widget.TextView
-import com.rarnu.kt.android.*
+import com.rarnu.android.*
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.CompDetailAdapter
 import com.rarnu.tools.neo.api.DeviceAPI

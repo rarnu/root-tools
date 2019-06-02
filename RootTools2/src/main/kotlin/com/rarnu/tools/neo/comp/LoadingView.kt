@@ -7,7 +7,7 @@ import android.view.Gravity
 import android.widget.LinearLayout
 import android.widget.ProgressBar
 import android.widget.TextView
-import com.rarnu.kt.android.dip2px
+import com.rarnu.android.dip2px
 import com.rarnu.tools.neo.R
 
 class LoadingView : LinearLayout {

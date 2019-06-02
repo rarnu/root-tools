@@ -56,7 +56,6 @@
     <string name="about_about">关于本软件</string>
     <string name="about_summary_feedback">发现了广告可以告诉我，可能下个版本就没啦</string>
 
-    <string name="settings_mode">工作模式</string>
     <string name="settings_mode_common">传统模式，使用 JVM 层代码完成工作</string>
     <string name="settings_mode_effect">性能模式，使用 NDK 层代码完成工作</string>
     <string name="settings_adchoose">去广告详细选择</string>

@@ -2,9 +2,9 @@ package com.rarnu.tools.neo.adapter
 
 import android.content.Context
 import android.view.View
-import com.rarnu.kt.android.BaseAdapter
-import com.rarnu.kt.android.attrColor
-import com.rarnu.kt.android.resColor
+import com.rarnu.android.BaseAdapter
+import com.rarnu.android.attrColor
+import com.rarnu.android.resColor
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.data.AppInfo
 import kotlinx.android.synthetic.main.listitem_app.view.*

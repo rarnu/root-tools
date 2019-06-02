@@ -1,17 +1,10 @@
 package com.rarnu.tools.neo.data
 
+import com.rarnu.common.toPair
 import java.io.Serializable
 
-data class BuildPropInfo(
-        var buildName: String?,
-        var buildValue: String?
-) : Serializable {
-
+data class BuildPropInfo(var buildName: String, var buildValue: String) : Serializable {
     companion object {
-        fun parse(str: String?) =
-                BuildPropInfo(
-                        str?.substring(0, str.indexOf("="))?.trim { it <= ' ' },
-                        str?.substring(str.indexOf("=") + 1)?.trim { it <= ' ' }
-                )
+        fun parse(str: String): BuildPropInfo = str.toPair().let { BuildPropInfo(it.first, it.second) }
     }
 }

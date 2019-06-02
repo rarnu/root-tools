@@ -1,7 +1,7 @@
 package com.rarnu.tools.neo.loader
 
 import android.content.Context
-import com.rarnu.kt.android.BaseListLoader
+import com.rarnu.android.BaseListLoader
 import com.rarnu.tools.neo.data.BuildPropInfo
 import com.rarnu.tools.neo.utils.BuildPropUtils
 

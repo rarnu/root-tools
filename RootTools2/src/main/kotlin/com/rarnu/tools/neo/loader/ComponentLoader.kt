@@ -2,7 +2,7 @@ package com.rarnu.tools.neo.loader
 
 import android.content.Context
 import android.content.pm.PackageManager
-import com.rarnu.kt.android.BaseListLoader
+import com.rarnu.android.BaseListLoader
 import com.rarnu.tools.neo.utils.CompInfo
 import com.rarnu.tools.neo.utils.ComponentUtils
 

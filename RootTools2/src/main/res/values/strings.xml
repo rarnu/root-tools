@@ -56,8 +56,7 @@
     <string name="about_feedback">MIUI Ad Feedback</string>
     <string name="about_about">About</string>
     <string name="about_summary_feedback">Feedback for system Ads, I will remove it.</string>
-    
-    <string name="settings_mode">Work Mode</string>
+
     <string name="settings_mode_common">Common mode, use JVM code</string>
     <string name="settings_mode_effect">Speed mode, use NDK code</string>
     <string name="settings_adchoose">Ad Remover</string>

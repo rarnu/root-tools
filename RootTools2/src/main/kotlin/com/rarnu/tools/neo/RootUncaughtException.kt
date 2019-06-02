@@ -4,8 +4,8 @@ package com.rarnu.tools.neo
 
 import android.content.Context
 import android.os.Looper
-import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.toast
+import com.rarnu.android.resStr
+import com.rarnu.android.toast
 import java.io.PrintWriter
 import java.io.StringWriter
 import java.io.Writer

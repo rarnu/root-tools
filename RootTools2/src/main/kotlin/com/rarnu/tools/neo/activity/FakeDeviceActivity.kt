@@ -9,10 +9,10 @@ import android.view.MenuItem
 import android.view.View
 import android.widget.AdapterView
 import android.widget.SearchView
-import com.rarnu.kt.android.BackActivity
-import com.rarnu.kt.android.resStr
-import com.rarnu.kt.android.runOnMainThread
-import com.rarnu.kt.android.toast
+import com.rarnu.android.BackActivity
+import com.rarnu.android.resStr
+import com.rarnu.android.runOnMainThread
+import com.rarnu.android.toast
 import com.rarnu.tools.neo.R
 import com.rarnu.tools.neo.adapter.BuildPropAdapter
 import com.rarnu.tools.neo.data.BuildPropInfo

@@ -2,12 +2,6 @@ package com.rarnu.tools.neo.xposed
 
 object XpStatus {
 
-    enum class Mode {
-        NDK, JVM
-    }
-
-    var mode = Mode.NDK
-
     const val PKGNAME = "com.rarnu.tools.neo"
     const val PREF = "settings"
 

@@ -23,8 +23,7 @@
 
     <string name="id_feedback" translatable="false">id_feedback</string>
     <string name="id_about" translatable="false">id_about</string>
-    
-    <string name="id_settings_mode" translatable="false">id_settings_mode</string>
+
     <string name="id_settings_adchoose" translatable="false">id_settings_adchoose</string>
     <string name="id_settings_deep_clean" translatable="false">id_settings_deep_clean</string>
     <string name="id_settings_show_theme_crack" translatable="false">id_settings_show_theme_crack</string>
