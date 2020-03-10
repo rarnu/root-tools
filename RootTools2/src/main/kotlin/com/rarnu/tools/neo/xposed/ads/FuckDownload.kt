@@ -1,22 +1,21 @@
 package com.rarnu.tools.neo.xposed.ads
 
-import com.rarnu.tools.neo.xposed.XpUtils
-import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.callbacks.XC_LoadPackage
+import com.rarnu.xfunc.*
 
 /**
  * Created by rarnu on 11/18/16.
  */
 object FuckDownload {
 
-    fun fuckDownload(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
-        XpUtils.findAndHookMethod("com.android.providers.downloads.ui.recommend.config.ADConfig", loadPackageParam.classLoader, "OSSupportAD", XC_MethodReplacement.returnConstant(false))
-
-        XpUtils.findAndHookMethod("com.android.providers.downloads.ui.utils.CloudConfigHelper", loadPackageParam.classLoader, "supportRank", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.android.providers.downloads.ui.utils.CloudConfigHelper", loadPackageParam.classLoader, "isShouldShowAd", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.android.providers.downloads.ui.utils.CloudConfigHelper", loadPackageParam.classLoader, "isShouldShowRecommendInfo", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.android.providers.downloads.ui.utils.CloudConfigHelper", loadPackageParam.classLoader, "getHomeAdRefreshType", XC_MethodReplacement.returnConstant(0))
-        XpUtils.findAndHookMethod("com.android.providers.downloads.ui.utils.CloudConfigHelper", loadPackageParam.classLoader, "isShouldShowExtraAd", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.android.providers.downloads.ui.utils.CloudConfigHelper", loadPackageParam.classLoader, "isShouldShowRankGuide", XC_MethodReplacement.returnConstant(false))
+    fun fuckDownload(pkg: XposedPkg) {
+        pkg.findClass("com.android.providers.downloads.ui.recommend.config.ADConfig").findMethod("OSSupportAD").hook { replace { result = false } }
+        pkg.findClass("com.android.providers.downloads.ui.utils.CloudConfigHelper").apply {
+            findMethod("supportRank").hook { replace { result = false } }
+            findMethod("isShouldShowAd").hook { replace { result = false } }
+            findMethod("isShouldShowRecommendInfo").hook { replace { result = false } }
+            findMethod("getHomeAdRefreshType").hook { replace { result = 0 } }
+            findMethod("isShouldShowExtraAd").hook { replace { result = false } }
+            findMethod("isShouldShowRankGuide").hook { replace { result = false } }
+        }
     }
 }

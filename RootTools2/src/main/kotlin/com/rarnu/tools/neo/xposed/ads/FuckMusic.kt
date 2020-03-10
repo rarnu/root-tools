@@ -7,151 +7,140 @@ import android.content.Context
 import android.net.Uri
 import android.util.AttributeSet
 import android.view.View
-import com.rarnu.tools.neo.xposed.XpUtils
-import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XC_MethodReplacement
+import com.rarnu.xfunc.*
 import de.robv.android.xposed.XposedHelpers
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 
 /**
  * Created by rarnu on 11/18/16.
  */
 object FuckMusic {
 
-    fun fuckMusic(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
-        val clsListener = XpUtils.findClass(loadPackageParam.classLoader, "com.android.volley.Response\$Listener")
-        val clsErrorListener = XpUtils.findClass(loadPackageParam.classLoader, "com.android.volley.Response\$ErrorListener")
-        val clsAdInfo = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.util.AdUtils\$AdInfo")
+    fun fuckMusic(pkg: XposedPkg) {
+        val clsListener = pkg.findClass("com.android.volley.Response\$Listener")
+        val clsErrorListener = pkg.findClass("com.android.volley.Response\$ErrorListener")
+        val clsAdInfo = pkg.findClass("com.miui.player.util.AdUtils\$AdInfo")
+        pkg.findClass("com.miui.player.util.AdUtils").apply {
+            findMethod("isAdEnable").hook { replace { result = false } }
+            if (clsListener != null && clsErrorListener != null) {
+                findMethod("getPlayAd", clsListener, clsErrorListener).hook { replace { result = null } }
+            }
+            if (clsAdInfo != null) {
+                findMethod("handleDeepLinkUrl", Activity::class.java, clsAdInfo).hook { replace { result = null } }
+                findMethod("showAlertAndDownload", Activity::class.java, clsAdInfo).hook { replace { result = null } }
+                findMethod("handleAdClick", Activity::class.java, clsAdInfo).hook { replace { result = null } }
+                findMethod("postPlayAdStat", String::class.java, clsAdInfo).hook { replace { result = null } }
+            }
+        }
 
-        XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "isAdEnable", XC_MethodReplacement.returnConstant(false))
-        if (clsListener != null && clsErrorListener != null) {
-            XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "getPlayAd", clsListener, clsErrorListener, XC_MethodReplacement.returnConstant(null))
+        pkg.findClass("com.miui.player.util.ExperimentsHelper").findMethod("isAdEnabled").hook { replace { result = null } }
+        pkg.findClass("com.miui.player.phone.view.NowplayingAlbumPage").findMethod("getPlayAd").hook { replace { result = null } }
+        pkg.findClass("com.miui.player.util.Configuration").apply {
+            findMethod("isCmTest").hook { replace { result = true } }
+            findMethod("isCpLogoVisiable").hook { replace { result = false } }
         }
-        XpUtils.findAndHookMethod("com.miui.player.util.ExperimentsHelper", loadPackageParam.classLoader, "isAdEnabled", XC_MethodReplacement.returnConstant(false))
-        if (clsAdInfo != null) {
-            XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "handleDeepLinkUrl", Activity::class.java, clsAdInfo, XC_MethodReplacement.returnConstant(null))
-            XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "showAlertAndDownload", Activity::class.java, clsAdInfo, XC_MethodReplacement.returnConstant(null))
-            XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "handleAdClick", Activity::class.java, clsAdInfo, XC_MethodReplacement.returnConstant(null))
-            XpUtils.findAndHookMethod("com.miui.player.util.AdUtils", loadPackageParam.classLoader, "postPlayAdStat", String::class.java, clsAdInfo, XC_MethodReplacement.returnConstant(null))
-        }
-        XpUtils.findAndHookMethod("com.miui.player.phone.view.NowplayingAlbumPage", loadPackageParam.classLoader, "getPlayAd", XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.player.util.Configuration", loadPackageParam.classLoader, "isCmTest", XC_MethodReplacement.returnConstant(true))
-        XpUtils.findAndHookMethod("com.miui.player.util.Configuration", loadPackageParam.classLoader, "isCpLogoVisiable", XC_MethodReplacement.returnConstant(false))
 
         // fuck the ad under account
-        val clsAdInfo2 = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.music.online.model.AdInfo")
+        val clsAdInfo2 = pkg.findClass("com.xiaomi.music.online.model.AdInfo")
         if (clsAdInfo != null) {
-            XpUtils.findAndHookMethod("com.miui.player.util.AdForbidManager", loadPackageParam.classLoader, "recordAdInfo", clsAdInfo2, Integer.TYPE, XC_MethodReplacement.returnConstant(null))
-            XpUtils.findAndHookMethod("com.miui.player.util.AdForbidManager", loadPackageParam.classLoader, "addForbidInfo", String::class.java, XC_MethodReplacement.returnConstant(null))
-            XpUtils.findAndHookMethod("com.miui.player.util.AdForbidManager", loadPackageParam.classLoader, "isForbidden", String::class.java, XC_MethodReplacement.returnConstant(true))
-        }
-        XpUtils.findAndHookMethod("com.miui.player.hybrid.feature.GetAdInfo", loadPackageParam.classLoader, "addAdQueryParams", Context::class.java, Uri::class.java, XC_MethodReplacement.returnConstant(""))
-
-        XpUtils.findAndHookMethod("com.miui.player.display.view.cell.BannerAdItemCell", loadPackageParam.classLoader, "onFinishInflate", object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val vThis = param.thisObject as View
-                try {
-                    (XposedHelpers.getObjectField(param.thisObject, "mClose") as View?)?.visibility = View.GONE
-                } catch (t: Throwable) {
-                }
-                try {
-                    (XposedHelpers.getObjectField(param.thisObject, "mImage") as View?)?.visibility = View.GONE
-                } catch (t: Throwable) {
-                }
-                val lp = vThis.layoutParams
-                lp.height = 0
-                vThis.layoutParams = lp
+            pkg.findClass("com.miui.player.util.AdForbidManager").apply {
+                findMethod("recordAdInfo", clsAdInfo2, Integer.TYPE).hook { replace { result = null } }
+                findMethod("addForbidInfo", String::class.java).hook { replace { result = null } }
+                findMethod("isForbidden", String::class.java).hook { replace { result = true } }
             }
-        })
+        }
+        pkg.findClass("com.miui.player.hybrid.feature.GetAdInfo").findMethod("addAdQueryParams", Context::class.java, Uri::class.java).hook { replace { result = "" } }
+        pkg.findClass("com.miui.player.display.view.cell.BannerAdItemCell").findMethod("onFinishInflate").hook {
+            after {
+                val vThis = thisObject as View
+                try {
+                    (XposedHelpers.getObjectField(thisObject, "mClose") as View?)?.visibility = View.GONE
+                } catch (t: Throwable) {
+                }
+                try {
+                    (XposedHelpers.getObjectField(thisObject, "mImage") as View?)?.visibility = View.GONE
+                } catch (t: Throwable) {
+                }
+                vThis.layoutParams = vThis.layoutParams.apply { height = 0 }
+            }
+        }
 
         // 2.7.300
-        XpUtils.findAndHookMethod("com.miui.player.content.MusicHybridProvider", loadPackageParam.classLoader, "parseCommand", String::class, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: MethodHookParam) {
-                val scheme = param.args[0] as String?
+        pkg.findClass("com.miui.player.content.MusicHybridProvider").findMethod("parseCommand", String::class.java).hook {
+            before {
+                val scheme = args[0] as String?
                 if (scheme == "advertise") {
-                    param.args[0] = ""
+                    args[0] = ""
                 }
             }
-        })
-
-        XpUtils.findAndHookMethod("com.miui.systemAdSolution.landingPage.LandingPageService", loadPackageParam.classLoader, "init", Context::class.java, XC_MethodReplacement.returnConstant(null))
+        }
+        pkg.findClass("com.miui.systemAdSolution.landingPage.LandingPageService").findMethod("init", Context::class.java).hook { replace { result = null } }
 
         // 2.7.400
-        XpUtils.findAndHookMethod("com.miui.player.phone.view.NowplayingContentView", loadPackageParam.classLoader, "setInfoVisibility", java.lang.Boolean.TYPE, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: MethodHookParam) {
-                param.args[0] = true
+        pkg.findClass("com.miui.player.phone.view.NowplayingContentView").findMethod("setInfoVisibility", java.lang.Boolean.TYPE).hook {
+            before {
+                args[0] = true
             }
-        })
+        }
 
         if (clsAdInfo2 != null) {
-            XpUtils.findAndHookConstructor("com.miui.player.phone.view.NowplayingContentView\$ShowAdRunnable", loadPackageParam.classLoader, clsAdInfo2, java.lang.Boolean.TYPE, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: MethodHookParam) {
-                    param.args[1] = false
+            pkg.findClass("com.miui.player.phone.view.NowplayingContentView\$ShowAdRunnable").findConstructor(clsAdInfo2, java.lang.Boolean.TYPE).hook {
+                before {
+                    args[1] = false
                 }
-            })
-        }
-
-        XpUtils.findAndHookMethod("com.miui.player.phone.view.NowplayingContentView\$ShowAdRunnable", loadPackageParam.classLoader, "setLoadAd", java.lang.Boolean.TYPE, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: MethodHookParam) {
-                param.args[0] = false
             }
-        })
+        }
+        pkg.findClass("com.miui.player.phone.view.NowplayingContentView\$ShowAdRunnable").findMethod("setLoadAd", java.lang.Boolean.TYPE).hook {
+            before {
+                args[0] = false
+            }
+        }
 
         // 2.8
-        val clsDisplayItem = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.display.model.DisplayItem")
+        val clsDisplayItem = pkg.findClass("com.miui.player.display.model.DisplayItem")
         if (clsDisplayItem != null) {
-            XpUtils.findAndHookMethod("com.miui.player.display.view.SearchPopularKeyCard", loadPackageParam.classLoader, "onBindItem", clsDisplayItem, Integer.TYPE, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun afterHookedMethod(param: MethodHookParam) {
-                    val v = param.thisObject as View
-                    v.layoutParams.height = 0
-                    v.visibility = View.GONE
+            pkg.findClass("com.miui.player.display.view.SearchPopularKeyCard").findMethod("onBindItem", clsDisplayItem, Integer.TYPE).hook {
+                after {
+                    (thisObject as View).apply {
+                        layoutParams.height = 0
+                        visibility = View.GONE
+                    }
                 }
-            })
-
-            XpUtils.findAndHookMethod("com.miui.player.display.view.BannerCard", loadPackageParam.classLoader, "onBindItem", clsDisplayItem, Integer.TYPE, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun afterHookedMethod(param: MethodHookParam) {
-                    val v = param.thisObject as View
-                    v.layoutParams.height = 0
-                    v.visibility = View.GONE
-                }
-            })
-        }
-
-        val clsAdShowingListener = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.player.phone.view.NowplayingAlbumPage\$AdShowingListener")
-        if (clsAdShowingListener != null) {
-            XpUtils.findAndHookMethod("com.miui.player.phone.view.NowplayingAlbumView", loadPackageParam.classLoader, "setAdShowingListener", clsAdShowingListener, XC_MethodReplacement.returnConstant(null))
-        }
-        XpUtils.findAndHookConstructor("com.miui.player.phone.view.NowplayingAlbumPage\$ShowAdRunnable", loadPackageParam.classLoader, java.lang.Boolean.TYPE, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: MethodHookParam) {
-                param.args[0] = false
             }
-        })
+            pkg.findClass("com.miui.player.display.view.BannerCard").findMethod("onBindItem", clsDisplayItem, Integer.TYPE).hook {
+                after {
+                    (thisObject as View).apply {
+                        layoutParams.height = 0
+                        visibility = View.GONE
+                    }
+                }
+            }
+        }
+
+        val clsAdShowingListener = pkg.findClass("com.miui.player.phone.view.NowplayingAlbumPage\$AdShowingListener")
+        if (clsAdShowingListener != null) {
+            pkg.findClass("com.miui.player.phone.view.NowplayingAlbumView").findMethod("setAdShowingListener", clsAdShowingListener).hook { replace { result = null } }
+        }
+        pkg.findClass("com.miui.player.phone.view.NowplayingAlbumPage\$ShowAdRunnable").findConstructor(java.lang.Boolean.TYPE).hook {
+            before {
+                args[0] = false
+            }
+        }
 
         // 2.9.0
-        XpUtils.findAndHookMethod("com.miui.player.content.preference.PreferenceCache", loadPackageParam.classLoader, "getBoolean", Context::class.java, String::class.java, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(param: MethodHookParam) {
-                if (param.args[1] == "ad_recommend") {
-                    param.result = false
+        pkg.findClass("com.miui.player.content.preference.PreferenceCache").findMethod("getBoolean", Context::class.java, String::class.java).hook {
+            after {
+                if (args[1] == "ad_recommend") {
+                    result = false
                 }
             }
-        })
-        XpUtils.findAndHookMethod("com.miui.player.util.ExperimentsHelper", loadPackageParam.classLoader, "isAdEnabled", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookConstructor("com.miui.player.phone.view.NowplayingAlbumPage", loadPackageParam.classLoader, Context::class.java, AttributeSet::class.java, Integer.TYPE, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(param: MethodHookParam) {
-                val mAdMark = XposedHelpers.getObjectField(param.thisObject, "mAdMark") as View?
+        }
+        pkg.findClass("com.miui.player.util.ExperimentsHelper").findMethod("isAdEnabled").hook { replace { result = false } }
+        pkg.findClass("com.miui.player.phone.view.NowplayingAlbumPage").findConstructor(Context::class.java, AttributeSet::class.java, Integer.TYPE).hook {
+            after {
+                val mAdMark = XposedHelpers.getObjectField(thisObject, "mAdMark") as View?
                 mAdMark?.visibility = View.GONE
             }
-        })
+        }
     }
 
 }

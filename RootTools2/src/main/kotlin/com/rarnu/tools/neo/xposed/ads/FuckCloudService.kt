@@ -1,19 +1,20 @@
 package com.rarnu.tools.neo.xposed.ads
 
-import com.rarnu.tools.neo.xposed.XpUtils
-import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.callbacks.XC_LoadPackage
+import com.rarnu.xfunc.*
 
 /**
  * Created by rarnu on 12/20/16.
  */
 object FuckCloudService {
 
-    fun fuckCloudService(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
+    fun fuckCloudService(pkg: XposedPkg) {
         // old
-        XpUtils.findAndHookMethod("com.miui.cloudservice.ui.x", loadPackageParam.classLoader, "hd", XC_MethodReplacement.returnConstant(true))
-        // new
-        XpUtils.findAndHookMethod("com.miui.cloudservice.ui.x", loadPackageParam.classLoader, "hg", XC_MethodReplacement.returnConstant(true))
+        pkg.findClass("com.miui.cloudservice.ui.x").apply {
+            // old
+            findMethod("hd").hook { replace { result = true } }
+            // new
+            findMethod("hg").hook { replace { result = true } }
+        }
     }
 
 }

@@ -56,8 +56,8 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
     private lateinit var pAbout: PreferenceEx
 
     // menu
-    private lateinit var miShare: MenuItem
-    private lateinit var miSettings: MenuItem
+    // private lateinit var miShare: MenuItem
+    // private lateinit var miSettings: MenuItem
 
     override fun onCreate(savedInstanceState: Bundle?) {
         initUI()
@@ -169,12 +169,14 @@ class MainActivity : PreferenceActivity(), Preference.OnPreferenceClickListener 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
         menu.clear()
-        miSettings = menu.add(0, 2, 0, R.string.ab_settings)
-        miSettings.setIcon(android.R.drawable.ic_menu_preferences)
-        miSettings.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        miShare = menu.add(0, 1, 1, R.string.ab_help)
-        miShare.setIcon(android.R.drawable.ic_menu_help)
-        miShare.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menu.add(0, 2, 0, R.string.ab_settings).apply {
+            setIcon(android.R.drawable.ic_menu_preferences)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        }
+        menu.add(0, 1, 1, R.string.ab_help).apply {
+            setIcon(android.R.drawable.ic_menu_help)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        }
         return super.onCreateOptionsMenu(menu)
     }
 

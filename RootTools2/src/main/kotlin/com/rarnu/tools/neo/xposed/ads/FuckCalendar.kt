@@ -2,10 +2,7 @@ package com.rarnu.tools.neo.xposed.ads
 
 import android.content.Context
 import android.content.Intent
-import com.rarnu.tools.neo.xposed.XpUtils
-import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.callbacks.XC_LoadPackage
+import com.rarnu.xfunc.*
 import org.json.JSONObject
 
 /**
@@ -13,39 +10,39 @@ import org.json.JSONObject
  */
 object FuckCalendar {
 
-    fun fuckCalendar(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
-        XpUtils.findAndHookMethod("com.miui.calendar.ad.AdUtils", loadPackageParam.classLoader, "canShowBrandAd", Context::class.java, XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.calendar.ad.AdUtils", loadPackageParam.classLoader, "getActionBarBitmap", Context::class.java, XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.calendar.ad.AdService", loadPackageParam.classLoader, "onHandleIntent", Intent::class.java, XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.calendar.card.single.local.SummarySingleCard", loadPackageParam.classLoader, "needShowAdBanner", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.ad.AdSingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.HistorySingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.calendar.huangli.HuangLiDetailActivity", loadPackageParam.classLoader, "startLoading", XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.calendar.ad.AdUtils", loadPackageParam.classLoader, "getAdConfigJson", Context::class.java, XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.RecommendSingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.calendar.card.single.custom.ad.LargeImageAdSingleCard", loadPackageParam.classLoader, "needDisplay", XC_MethodReplacement.returnConstant(false))
-        val clsC = XpUtils.findClass(loadPackageParam.classLoader, "com.xiaomi.ad.internal.common.module.a\$c")
-        if (clsC != null) {
-            XpUtils.findAndHookMethod("com.xiaomi.ad.internal.common.module.a", loadPackageParam.classLoader, "b", clsC, XC_MethodReplacement.returnConstant(null))
+    fun fuckCalendar(pkg: XposedPkg) {
+        pkg.findClass("com.miui.calendar.ad.AdUtils").apply {
+            findMethod("canShowBrandAd", Context::class.java).hook { replace { result = false } }
+            findMethod("getActionBarBitmap", Context::class.java).hook { replace { result = null } }
+            findMethod("getAdConfigJson", Context::class.java).hook { replace { result = null } }
         }
-        XpUtils.findAndHookMethod("com.xiaomi.ad.common.pojo.Ad", loadPackageParam.classLoader, "parseJson", JSONObject::class.java, XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.xiaomi.ad.internal.a.e", loadPackageParam.classLoader, "onAdInfo", String::class.java, XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.calendar.util.DiskStringCache", loadPackageParam.classLoader, "getString", Context::class.java, String::class.java, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val key = param.args[1] as String
-                if (key.startsWith("bottom_banner_is_closed_today")) {
-                    param.result = "true"
-                }
-            }
+        pkg.findClass("com.miui.calendar.ad.AdService").findMethod("onHandleIntent", Intent::class.java).hook { replace { result = null } }
+        pkg.findClass("com.miui.calendar.card.single.local.SummarySingleCard").findMethod("needShowAdBanner").hook { replace { result = false } }
+        pkg.findClass("com.miui.calendar.card.single.custom.ad.AdSingleCard").findMethod("needDisplay").hook { replace { result = false } }
+        pkg.findClass("com.miui.calendar.card.single.custom.HistorySingleCard").findMethod("needDisplay").hook { replace { result = false } }
+        pkg.findClass("com.miui.calendar.huangli.HuangLiDetailActivity").findMethod("startLoading").hook { replace { result = null } }
+        pkg.findClass("com.miui.calendar.card.single.custom.RecommendSingleCard").findMethod("needDisplay").hook { replace { result = false } }
+        pkg.findClass("com.miui.calendar.card.single.custom.ad.LargeImageAdSingleCard").findMethod("needDisplay").hook { replace { result = false } }
 
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val key = param.args[1] as String
+        val clsC = pkg.findClass("com.xiaomi.ad.internal.common.module.a\$c")
+        if (clsC != null) {
+            pkg.findClass("com.xiaomi.ad.internal.common.module.a").findMethod("b", clsC).hook { replace { result = null } }
+        }
+        pkg.findClass("com.xiaomi.ad.common.pojo.Ad").findMethod("parseJson", JSONObject::class.java).hook { replace { result = null } }
+        pkg.findClass("com.xiaomi.ad.internal.a.e").findMethod("onAdInfo", String::class.java).hook { replace { result = null } }
+        pkg.findClass("com.miui.calendar.util.DiskStringCache").findMethod("getString", Context::class.java, String::class.java).hook {
+            before {
+                val key = args[1] as String
                 if (key.startsWith("bottom_banner_is_closed_today")) {
-                    param.result = "true"
+                    result = "true"
                 }
             }
-        })
+            after {
+                val key = args[1] as String
+                if (key.startsWith("bottom_banner_is_closed_today")) {
+                    result = "true"
+                }
+            }
+        }
     }
 }

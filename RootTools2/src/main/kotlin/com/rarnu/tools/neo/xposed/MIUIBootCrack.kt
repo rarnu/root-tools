@@ -2,31 +2,24 @@ package com.rarnu.tools.neo.xposed
 
 import android.content.pm.PackageManager
 import android.content.pm.Signature
+import com.rarnu.xfunc.*
 import de.robv.android.xposed.*
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 
-/**
- * Created by rarnu on 12/26/16.
- */
-class MIUIBootCrack : IXposedHookLoadPackage {
-
-    override fun handleLoadPackage(param: XC_LoadPackage.LoadPackageParam) {
+class MIUIBootCrack : XposedPackage() {
+    override fun hook(pkg: XposedPkg) {
         val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
         prefs.makeWorldReadable()
         prefs.reload()
 
         if (prefs.getBoolean(XpStatus.KEY_PREVENT_FREEZE_REVERSE, false)) {
-            if (param.packageName == "android" || param.packageName == "com.miui.system" || param.packageName == "miui.system") {
-                val clsSMS = XpUtils.findClass(param.classLoader, "com.miui.server.SecurityManagerService")
-                XposedBridge.log("MIUIBootCrack load => ${param.packageName}, cls: ${clsSMS != null}")
-                if (clsSMS != null) {
-                    XposedBridge.log("MIUIBootCrack inject service.odex")
-                    XpUtils.findAndHookMethod("com.miui.server.SecurityManagerService", param.classLoader, "checkSysAppCrack", XC_MethodReplacement.returnConstant(false))
-                    XpUtils.findAndHookMethod("com.miui.server.SecurityManagerService", param.classLoader, "checkEnabled", PackageManager::class.java, String::class.java, XC_MethodReplacement.returnConstant(null))
-                    XpUtils.findAndHookMethod("com.miui.server.SecurityManagerService", param.classLoader, "enforcePlatformSignature", Array<Signature>::class.java, XC_MethodReplacement.returnConstant(null))
+            if (pkg.packageName == "android" || pkg.packageName == "com.miui.system" || pkg.packageName == "miui.system") {
+                pkg.findClass("com.miui.server.SecurityManagerService")?.apply {
+                    findMethod("checkSysAppCrack").hook { replace { result = false } }
+                    findMethod("checkEnabled", PackageManager::class.java, String::class.java).hook { replace { result = null } }
+                    findMethod("enforcePlatformSignature", Array<Signature>::class.java).hook { replace { result = null } }
                 }
-
             }
         }
     }
+
 }

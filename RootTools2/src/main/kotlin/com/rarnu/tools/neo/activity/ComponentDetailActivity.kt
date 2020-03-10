@@ -25,43 +25,41 @@ class ComponentDetailActivity : BackActivity(), SearchView.OnQueryTextListener, 
     private var versionCode = 0
     private var focusItem = -1
 
-    private var list = mutableListOf<CompInfo>()
-    private lateinit var adapter: CompDetailAdapter
-    private lateinit var loader: ComponentLoader
+    private val list = mutableListOf<CompInfo>()
+    private val adapter: CompDetailAdapter
+    private val loader: ComponentLoader
 
-    private lateinit var miSearch: MenuItem
-    private lateinit var sv: SearchView
     private var filterText = ""
+
+    init {
+        adapter = CompDetailAdapter(this, list)
+        loader = ComponentLoader(this).apply {
+            registerListener(0) { _, data ->
+                if (data != null) {
+                    list.addAll(data)
+                    adapter.setNewList(list)
+                    if (filterText != "") {
+                        adapter.filter(filterText)
+                    }
+                }
+                loading.visibility = View.GONE
+            }
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_component_detail)
         actionBar?.title = intent.getStringExtra("name")
-
-        adapter = CompDetailAdapter(this, list)
         lvComponent.adapter = adapter
-        loader = ComponentLoader(this)
-
         lvComponent.onItemClickListener = this
         btnActivity.setOnClickListener(this)
         btnService.setOnClickListener(this)
         btnReceiver.setOnClickListener(this)
         btnProvider.setOnClickListener(this)
         btnProfile.setOnClickListener(this)
-        btnDownloadProfile.setOnClickListener {  }
-        btnUploadProfile.setOnClickListener {  }
-
-        loader.registerListener(0) { _, data ->
-            if (data != null) {
-                list.addAll(data)
-                adapter.setNewList(list)
-                if (filterText != "") {
-                    adapter.filter(filterText)
-                }
-            }
-            loading.visibility = View.GONE
-        }
-
+        btnDownloadProfile.setOnClickListener { }
+        btnUploadProfile.setOnClickListener { }
         pkgName = intent.getStringExtra("pkg")
         versionCode = intent.getIntExtra("versionCode", 0)
         tvPkgName.text = getString(R.string.view_profile_pkg, pkgName)
@@ -70,12 +68,13 @@ class ComponentDetailActivity : BackActivity(), SearchView.OnQueryTextListener, 
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        sv = SearchView(this)
-        sv.setOnQueryTextListener(this)
-        miSearch = menu.add(0, 1, 1, R.string.ab_search)
-        miSearch.setIcon(android.R.drawable.ic_menu_search)
-        miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        miSearch.actionView = sv
+        menu.add(0, 1, 1, R.string.ab_search).apply {
+            setIcon(android.R.drawable.ic_menu_search)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            actionView = SearchView(this@ComponentDetailActivity).apply {
+                setOnQueryTextListener(this@ComponentDetailActivity)
+            }
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -90,8 +89,7 @@ class ComponentDetailActivity : BackActivity(), SearchView.OnQueryTextListener, 
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
-        val item = adapter.getItem(position) as CompInfo
-        threadChangeComponentFreeze(item)
+        threadChangeComponentFreeze(adapter.getItem(position) as CompInfo)
     }
 
     override fun onClick(v: View) {
@@ -124,22 +122,18 @@ class ComponentDetailActivity : BackActivity(), SearchView.OnQueryTextListener, 
         }
     }
 
-    private fun unfocusButtons() {
-        btnActivity.background = resDrawable(R.drawable.button_normal)
-        btnService.background = resDrawable(R.drawable.button_normal)
-        btnReceiver.background = resDrawable(R.drawable.button_normal)
-        btnProvider.background = resDrawable(R.drawable.button_normal)
-        btnProfile.background = resDrawable(R.drawable.button_normal)
-        btnActivity.setTextColor(Color.WHITE)
-        btnService.setTextColor(Color.WHITE)
-        btnReceiver.setTextColor(Color.WHITE)
-        btnProvider.setTextColor(Color.WHITE)
-        btnProfile.setTextColor(Color.WHITE)
+    private fun unfocusButtons() = arrayOf(btnActivity, btnService, btnReceiver, btnProvider, btnProfile).forEach {
+        unfocusButton(it)
     }
 
-    private fun focusButton(btn: TextView) {
-        btn.background = resDrawable(R.drawable.button_focus)
-        btn.setTextColor(Color.WHITE)
+    private fun focusButton(btn: TextView) = with(btn) {
+        background = resDrawable(R.drawable.button_focus)
+        setTextColor(Color.WHITE)
+    }
+
+    private fun unfocusButton(btn: TextView) = with(btn) {
+        background = resDrawable(R.drawable.button_normal)
+        setTextColor(Color.WHITE)
     }
 
     private fun doLoadData(type: Int) {

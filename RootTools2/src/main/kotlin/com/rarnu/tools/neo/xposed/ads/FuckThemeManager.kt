@@ -1,39 +1,38 @@
 package com.rarnu.tools.neo.xposed.ads
 
 import android.content.Context
-import com.rarnu.tools.neo.xposed.XpUtils
-import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.callbacks.XC_LoadPackage
+import com.rarnu.xfunc.*
 
 /**
  * Created by rarnu on 11/26/16.
  */
 object FuckThemeManager {
 
-    fun fuckThemeManager(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
-        val clsPageItem = XpUtils.findClass(loadPackageParam.classLoader, "com.android.thememanager.model.PageItem")
+    fun fuckThemeManager(pkg: XposedPkg) {
+        val clsPageItem = pkg.findClass("com.android.thememanager.model.PageItem")
         if (clsPageItem != null) {
-            XpUtils.findAndHookMethod("com.android.thememanager.controller.online.PageItemViewConverter", loadPackageParam.classLoader, "buildAdView", clsPageItem, XC_MethodReplacement.returnConstant(null))
+            pkg.findClass("com.android.thememanager.controller.online.PageItemViewConverter").findMethod("buildAdView", clsPageItem).hook { replace { result = null } }
         }
 
-        val clsHybridView = XpUtils.findClass(loadPackageParam.classLoader, "miui.hybrid.HybridView")
+        val clsHybridView = pkg.findClass("miui.hybrid.HybridView")
         if (clsHybridView != null) {
-            XpUtils.findAndHookMethod("com.android.thememanager.h5.ThemeHybridFragment\$BaseWebViewClient", loadPackageParam.classLoader, "shouldInterceptRequest", clsHybridView, String::class.java, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: MethodHookParam) {
-                    val url = param.args[1] as String
+            pkg.findClass("com.android.thememanager.h5.ThemeHybridFragment\$BaseWebViewClient").findMethod("shouldInterceptRequest", clsHybridView, String::class.java).hook {
+                before {
+                    val url = args[1] as String
                     if (url.contains("AdCenter")) {
-                        param.args[1] = "http://127.0.0.1/"
+                        args[1] = "http://127.0.0.1/"
                     }
                 }
-            })
+            }
         }
 
         // 0.8
-        XpUtils.findAndHookMethod("com.android.thememanager.util.ApplicationHelper", loadPackageParam.classLoader, "isFreshMan", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.android.thememanager.util.ApplicationHelper", loadPackageParam.classLoader, "hasFreshManMarkRecord", Context::class.java, XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.systemAdSolution.landingPage.LandingPageService", loadPackageParam.classLoader, "init", Context::class.java, XC_MethodReplacement.returnConstant(null))
+        pkg.findClass("com.android.thememanager.util.ApplicationHelper").apply {
+            findMethod("isFreshMan").hook { replace { result = false } }
+            findMethod("hasFreshManMarkRecord", Context::class.java).hook { replace { result = false } }
+        }
+
+        pkg.findClass("com.miui.systemAdSolution.landingPage.LandingPageService").findMethod("init", Context::class.java).hook { replace { result = null } }
 
     }
 }

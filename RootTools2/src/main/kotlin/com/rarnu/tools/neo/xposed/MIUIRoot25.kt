@@ -5,27 +5,50 @@ import android.os.Bundle
 import android.os.Message
 import android.widget.Button
 import android.widget.TextView
+import com.rarnu.xfunc.*
 import de.robv.android.xposed.*
-import de.robv.android.xposed.callbacks.XC_InitPackageResources
+
 import de.robv.android.xposed.callbacks.XC_LayoutInflated
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 
-class MIUIRoot25 : IXposedHookInitPackageResources, IXposedHookLoadPackage {
 
-    @Throws(Throwable::class)
-    override fun handleLoadPackage(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
+@SuppressLint("StaticFieldLeak")
+private var warningText: TextView? = null
+@SuppressLint("StaticFieldLeak")
+private var accept: Button? = null
+
+class MIUIRoot25Resources: XposedResource() {
+
+    override fun hook(res: XposedRes) {
+        val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
+        prefs.makeWorldReadable()
+        prefs.reload()
+        if (res.packageName == "com.miui.securitycenter") {
+            if (prefs.getBoolean(XpStatus.KEY_ROOTCRACK, false)) {
+                res.res.hookLayout("com.miui.securitycenter", "layout", "pm_activity_root_apply", object : XC_LayoutInflated() {
+                    override fun handleLayoutInflated(paramAnonymousLayoutInflatedParam: LayoutInflatedParam) {
+                        accept = paramAnonymousLayoutInflatedParam.view.findViewById(paramAnonymousLayoutInflatedParam.res.getIdentifier("accept", "id", "com.miui.securitycenter"))
+                        warningText = paramAnonymousLayoutInflatedParam.view.findViewById(paramAnonymousLayoutInflatedParam.res.getIdentifier("warning_info", "id", "com.miui.securitycenter"))
+                        warningText?.setLines(6)
+                    }
+                })
+            }
+        }
+    }
+}
+
+class MIUIRoot25Pakage : XposedPackage() {
+    override fun hook(pkg: XposedPkg) {
         val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
         prefs.makeWorldReadable()
         prefs.reload()
 
-        if (loadPackageParam.packageName == "com.miui.securitycenter") {
+        if (pkg.packageName == "com.miui.securitycenter") {
             if (prefs.getBoolean(XpStatus.KEY_ROOTCRACK, false)) {
-                XpUtils.findAndHookMethod("com.miui.permcenter.root.RootApplyActivity", loadPackageParam.classLoader, "onCreate", Bundle::class.java, object : XC_MethodHook() {
-                    @Throws(Throwable::class)
-                    override fun afterHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
-                        paramAnonymousMethodHookParam.result = null
+                pkg.findClass("com.miui.permcenter.root.RootApplyActivity").findMethod("onCreate", Bundle::class.java).hook {
+                    after {
+                        result = null
                         if (accept == null) {
-                            return
+                            return@after
                         }
                         var i = 0
                         while (i < 5) {
@@ -33,49 +56,10 @@ class MIUIRoot25 : IXposedHookInitPackageResources, IXposedHookLoadPackage {
                             i += 1
                         }
                     }
-                })
-                XpUtils.findAndHookMethod("com.miui.permcenter.root.c", loadPackageParam.classLoader, "handleMessage", Message::class.java, object : XC_MethodReplacement() {
-                    @Throws(Throwable::class)
-                    override fun replaceHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam): Any? {
-                        return null
-                    }
-                })
-                XpUtils.findAndHookMethod("com.miui.permcenter.root.a", loadPackageParam.classLoader, "handleMessage", Message::class.java, object : XC_MethodReplacement() {
-                    @Throws(Throwable::class)
-                    override fun replaceHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam): Any? {
-                        return null
-                    }
-                })
+                }
+                pkg.findClass("com.miui.permcenter.root.c").findMethod("handleMessage", Message::class.java).hook { replace { result = null } }
+                pkg.findClass("com.miui.permcenter.root.a").findMethod("handleMessage", Message::class.java).hook { replace { result = null } }
             }
         }
-    }
-
-
-    @Throws(Throwable::class)
-    override fun handleInitPackageResources(initPackageResourcesParam: XC_InitPackageResources.InitPackageResourcesParam) {
-        val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
-        prefs.makeWorldReadable()
-        prefs.reload()
-        if (initPackageResourcesParam.packageName == "com.miui.securitycenter") {
-            if (prefs.getBoolean(XpStatus.KEY_ROOTCRACK, false)) {
-                initPackageResourcesParam.res.hookLayout("com.miui.securitycenter", "layout", "pm_activity_root_apply", object : XC_LayoutInflated() {
-                    @Throws(Throwable::class)
-                    override fun handleLayoutInflated(paramAnonymousLayoutInflatedParam: XC_LayoutInflated.LayoutInflatedParam) {
-                        accept = paramAnonymousLayoutInflatedParam.view.findViewById(paramAnonymousLayoutInflatedParam.res.getIdentifier("accept", "id", "com.miui.securitycenter"))
-                        warningText = paramAnonymousLayoutInflatedParam.view.findViewById(paramAnonymousLayoutInflatedParam.res.getIdentifier("warning_info", "id", "com.miui.securitycenter"))
-                        if (warningText != null) {
-                            warningText?.setLines(6)
-                        }
-                    }
-                })
-            }
-        }
-    }
-
-    companion object {
-        @SuppressLint("StaticFieldLeak")
-        internal var warningText: TextView? = null
-        @SuppressLint("StaticFieldLeak")
-        internal var accept: Button? = null
     }
 }

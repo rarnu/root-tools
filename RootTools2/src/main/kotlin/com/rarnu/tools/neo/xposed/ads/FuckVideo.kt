@@ -9,10 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.FrameLayout
-import com.rarnu.tools.neo.xposed.XpUtils
+import com.rarnu.xfunc.*
 import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 import org.json.JSONObject
 import java.util.*
 
@@ -21,139 +19,130 @@ import java.util.*
  */
 object FuckVideo {
 
-    fun fuckVideo(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
-        XpUtils.findAndHookMethod("com.miui.videoplayer.ads.DynamicAd", loadPackageParam.classLoader, "replaceList", List::class.java, String::class.java, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
-                paramAnonymousMethodHookParam.args[0] = null
-                paramAnonymousMethodHookParam.args[1] = null
+    fun fuckVideo(pkg: XposedPkg) {
+        pkg.findClass("com.miui.videoplayer.ads.DynamicAd").findMethod("replaceList", List::class.java, String::class.java).hook {
+            before {
+                args[0] = null
+                args[1] = null
             }
-        })
-        XpUtils.findAndHookMethod("com.video.ui.view.AdView", loadPackageParam.classLoader, "getAdsBlock", Context::class.java, XC_MethodReplacement.returnConstant(null))
-        val clsCallback = XpUtils.findClass(loadPackageParam.classLoader, "com.video.ui.idata.SyncServiceHelper\$Callback")
+        }
+        pkg.findClass("com.video.ui.view.AdView").findMethod("getAdsBlock", Context::class.java).hook { replace { result = null } }
+
+        val clsCallback = pkg.findClass("com.video.ui.idata.SyncServiceHelper\$Callback")
         if (clsCallback != null) {
-            XpUtils.findAndHookMethod("com.video.ui.idata.SyncServiceHelper", loadPackageParam.classLoader, "fetchAds", Context::class.java, clsCallback, XC_MethodReplacement.returnConstant(null))
+            pkg.findClass("com.video.ui.idata.SyncServiceHelper").findMethod("fetchAds", Context::class.java, clsCallback).hook { replace { result = null } }
         }
-        XpUtils.findAndHookMethod("com.video.ui.idata.iDataORM", loadPackageParam.classLoader, "getBooleanValue", Context::class.java, String::class.java, java.lang.Boolean.TYPE, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val key = param.args[1] as String
+        pkg.findClass("com.video.ui.idata.iDataORM").findMethod("getBooleanValue", Context::class.java, String::class.java, java.lang.Boolean.TYPE).hook {
+            before {
+                val key = args[1] as String
                 if (key == "debug_mode" || key == "show_first_ads" || key == "ads_show_homekey" || key == "startup_ads_loop" || key == "app_upgrade_splash") {
-                    param.result = false
+                    result = false
                 }
             }
-
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val key = param.args[1] as String
+            after {
+                val key = args[1] as String
                 if (key == "debug_mode" || key == "show_first_ads" || key == "ads_show_homekey" || key == "startup_ads_loop" || key == "app_upgrade_splash") {
-                    param.result = false
+                    result = false
                 }
             }
-        })
-        XpUtils.findAndHookMethod("com.video.ui.idata.iDataORM", loadPackageParam.classLoader, "getStringValue", Context::class.java, String::class.java, String::class.java, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val key = param.args[1] as String
+        }
+        pkg.findClass("com.video.ui.idata.iDataORM").findMethod("getStringValue", Context::class.java, String::class.java, String::class.java).hook {
+            before {
+                val key = args[1] as String
                 if (key == "startup_ads") {
-                    param.result = null
+                    result = null
                 }
             }
-
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val key = param.args[1] as String
+            after {
+                val key = args[1] as String
                 if (key == "startup_ads") {
-                    param.result = null
+                    result = null
                 }
             }
-        })
-        XpUtils.findAndHookMethod("com.video.ui.idata.iDataORM", loadPackageParam.classLoader, "getBooleanValue", Context::class.java, String::class.java, java.lang.Boolean.TYPE, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val key = param.args[1] as String
+        }
+        pkg.findClass("com.video.ui.idata.iDataORM").findMethod("getBooleanValue", Context::class.java, String::class.java, java.lang.Boolean.TYPE).hook {
+            before {
+                val key = args[1] as String
                 if (key == "show_title_ads" || key == "show_channel_title_ads") {
-                    param.result = false
+                    result = false
                 }
             }
+            after {
+                val key = args[1] as String
+                if (key == "show_title_ads" || key == "show_channel_title_ads") {
+                    result = false
+                }
+            }
+        }
+        pkg.findClass("com.video.ui.idata.iDataORM").findMethod("enabledAds", Context::class.java).hook { replace { result = false } }
 
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val key = param.args[1] as String
-                if (key == "show_title_ads" || key == "show_channel_title_ads") {
-                    param.result = false
-                }
-            }
-        })
-        XpUtils.findAndHookMethod("com.video.ui.idata.iDataORM", loadPackageParam.classLoader, "enabledAds", Context::class.java, XC_MethodReplacement.returnConstant(false))
-        val clsAdListener = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.systemAdSolution.splashAd.IAdListener")
+        val clsAdListener = pkg.findClass("com.miui.systemAdSolution.splashAd.IAdListener")
         if (clsAdListener != null) {
-            XpUtils.findAndHookMethod("com.miui.ad.sdk.api.RemoteSystemSplashAdService", loadPackageParam.classLoader, "requestSystemSplashAd", clsAdListener, XC_MethodReplacement.returnConstant(false))
-            XpUtils.findAndHookMethod("com.miui.ad.sdk.api.SystemSplashAd", loadPackageParam.classLoader, "requestAd", Context::class.java, clsAdListener, XC_MethodReplacement.returnConstant(null))
-            XpUtils.findAndHookMethod("com.miui.ad.sdk.api.SystemSplashAd", loadPackageParam.classLoader, "requestAd", clsAdListener, XC_MethodReplacement.returnConstant(null))
-        }
-
-        XpUtils.findAndHookMethod("com.miui.videoplayer.model.OnlineUri", loadPackageParam.classLoader, "supportFrontAD", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.videoplayer.model.OnlineUri", loadPackageParam.classLoader, "supportPauseAD", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.videoplayer.model.OnlineUri", loadPackageParam.classLoader, "supportCornerAD", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.videoplayer.model.OnlineUri", loadPackageParam.classLoader, "skipAllAD", XC_MethodReplacement.returnConstant(true))
-        XpUtils.findAndHookMethod("com.miui.videoplayer.model.OnlineUri", loadPackageParam.classLoader, "skipSDKAD", XC_MethodReplacement.returnConstant(true))
-        XpUtils.findAndHookMethod("com.miui.videoplayer.model.OnlineUri", loadPackageParam.classLoader, "getMiAdFlag", XC_MethodReplacement.returnConstant(-1))
-
-        XpUtils.findAndHookMethod("com.miui.videoplayer.ads.AdsContainer", loadPackageParam.classLoader, "setCornerAd", XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.videoplayer.ads.AdsContainer", loadPackageParam.classLoader, "enableOfflineAds", XC_MethodReplacement.returnConstant(false))
-
-        XpUtils.findAndHookMethod("com.miui.videoplayer.videoview.VideoViewContainer", loadPackageParam.classLoader, "playAd", XC_MethodReplacement.returnConstant(null))
-        val clsVideoView = XpUtils.findClass(loadPackageParam.classLoader, "com.miui.videoplayer.videoview.IVideoView")
-        if (clsVideoView != null) {
-            XpUtils.findAndHookMethod("com.miui.videoplayer.videoview.VideoViewContainer", loadPackageParam.classLoader, "playRealVideo", clsVideoView, java.lang.Boolean.TYPE, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                    param.args[1] = true   // skipAd
-                }
-            })
-        }
-
-        XpUtils.findAndHookMethod("com.miui.videoplayer.videoview.VideoViewContainer", loadPackageParam.classLoader, "prepareRealVideoView", java.lang.Boolean.TYPE, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                param.args[0] = true  // haveAd
+            pkg.findClass("com.miui.ad.sdk.api.RemoteSystemSplashAdService").findMethod("requestSystemSplashAd", clsAdListener).hook { replace { result = false } }
+            pkg.findClass("com.miui.ad.sdk.api.SystemSplashAd").apply {
+                findMethod("requestAd", Context::class.java, clsAdListener).hook { replace { result = null } }
+                findMethod("requestAd", clsAdListener).hook { replace { result = null } }
             }
-        })
+        }
 
-        XpUtils.findAndHookMethod("com.miui.videoplayer.ads.AdsService", loadPackageParam.classLoader, "doLaunch", String::class.java, XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.videoplayer.videoview.MiAdsVideoView", loadPackageParam.classLoader, "haveAd", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.xiaomi.miui.ad.listeners.impl.AdEventListenerImpl", loadPackageParam.classLoader, "onAdRequest", String::class.java, JSONObject::class.java, XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.xiaomi.miui.ad.listeners.impl.AdEventListenerImpl", loadPackageParam.classLoader, "onAdClicked", String::class.java, JSONObject::class.java, XC_MethodReplacement.returnConstant(null))
+        pkg.findClass("com.miui.videoplayer.model.OnlineUri").apply {
+            findMethod("supportFrontAD").hook { replace { result = false } }
+            findMethod("supportPauseAD").hook { replace { result = false } }
+            findMethod("supportCornerAD").hook { replace { result = false } }
+            findMethod("skipAllAD").hook { replace { result = true } }
+            findMethod("skipSDKAD").hook { replace { result = true } }
+            findMethod("getMiAdFlag").hook { replace { result = -1 } }
+        }
 
-        val clsBlock = XpUtils.findClass(loadPackageParam.classLoader, "com.tv.ui.metro.model.Block")
-        val clsPool = XpUtils.findClass(loadPackageParam.classLoader, "android.support.v7.widget.RecyclerView\$RecycledViewPool")
+        pkg.findClass("com.miui.videoplayer.ads.AdsContainer").apply {
+            findMethod("setCornerAd").hook { replace { result = null } }
+            findMethod("enableOfflineAds").hook { replace { result = false } }
+        }
+        pkg.findClass("com.miui.videoplayer.videoview.VideoViewContainer").findMethod("playAd").hook { replace { result = null } }
+
+        val clsVideoView = pkg.findClass("com.miui.videoplayer.videoview.IVideoView")
+        if (clsVideoView != null) {
+            pkg.findClass("com.miui.videoplayer.videoview.VideoViewContainer").findMethod("playRealVideo", clsVideoView, java.lang.Boolean.TYPE).hook {
+                before {
+                    args[1] = true   // skipAd
+                }
+            }
+        }
+
+        pkg.findClass("com.miui.videoplayer.videoview.VideoViewContainer").findMethod("prepareRealVideoView", java.lang.Boolean.TYPE).hook {
+            before {
+                args[0] = true  // haveAd
+            }
+        }
+
+        // TODO:
+        pkg.findClass("com.miui.videoplayer.ads.AdsService").findMethod("doLaunch", String::class.java).hook { replace { result = null } }
+        pkg.findClass("com.miui.videoplayer.videoview.MiAdsVideoView").findMethod("haveAd").hook { replace { result = false } }
+        pkg.findClass("com.xiaomi.miui.ad.listeners.impl.AdEventListenerImpl").apply {
+            findMethod("onAdRequest", String::class.java, JSONObject::class.java).hook { replace { result = null } }
+            findMethod("onAdClicked", String::class.java, JSONObject::class.java).hook { replace { result = null } }
+        }
+
+        val clsBlock = pkg.findClass("com.tv.ui.metro.model.Block")
+        val clsPool = pkg.findClass("android.support.v7.widget.RecyclerView\$RecycledViewPool")
         if (clsBlock != null && clsPool != null) {
-            XpUtils.findAndHookConstructor("com.video.ui.view.BlockAdapter", loadPackageParam.classLoader, Context::class.java, clsBlock, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                    removeAds(param)
+            pkg.findClass("com.video.ui.view.BlockAdapter").apply {
+                findConstructor(Context::class.java, clsBlock).hook {
+                    after { removeAds(this) }
                 }
-            })
-            XpUtils.findAndHookConstructor("com.video.ui.view.BlockAdapter", loadPackageParam.classLoader, Context::class.java, clsBlock, clsPool, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                    removeAds(param)
+                findConstructor(Context::class.java, clsBlock, clsPool).hook {
+                    after { removeAds(this) }
                 }
-            })
-            XpUtils.findAndHookMethod("com.video.ui.view.BlockAdapter", loadPackageParam.classLoader, "addGroup", clsBlock, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                    removeAds(param)
+                findMethod("addGroup", clsBlock).hook {
+                    after { removeAds(this) }
                 }
-            })
-            XpUtils.findAndHookMethod("com.video.ui.view.block.PortBlockView", loadPackageParam.classLoader, "initUI", clsBlock, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                    val block = param.args[0]
+            }
+
+            pkg.findClass("com.video.ui.view.block.PortBlockView").findMethod("initUI", clsBlock).hook {
+                before {
+                    val block = args[0]
                     val clsBlock2 = block.javaClass
-                    val fBlocks = clsBlock2.getDeclaredField("blocks")
-                    fBlocks.isAccessible = true
+                    val fBlocks = clsBlock2.getDeclaredField("blocks").apply { isAccessible = true }
                     val blocks = fBlocks.get(block) as ArrayList<*>
                     blocks.indices.reversed().forEach {
                         val o = blocks[it]
@@ -167,79 +156,73 @@ object FuckVideo {
                         }
                     }
                 }
-            })
+            }
         }
 
         if (clsBlock != null) {
-            XpUtils.findAndHookMethod("com.video.ui.view.ListFragment", loadPackageParam.classLoader, "setBlockView", clsBlock, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                    val o = param.args[0]
-                    val fBlocks = o.javaClass.getDeclaredField("blocks")
-                    fBlocks.isAccessible = true
+            pkg.findClass("com.video.ui.view.ListFragment").findMethod("setBlockView", clsBlock).hook {
+                before {
+                    val o = args[0]
+                    val fBlocks = o.javaClass.getDeclaredField("blocks").apply { isAccessible = true }
                     fBlocks.set(o, null)
-                    val fFooters = o.javaClass.getDeclaredField("footers")
-                    fFooters.isAccessible = true
+                    val fFooters = o.javaClass.getDeclaredField("footers").apply { isAccessible = true }
                     fFooters.set(o, null)
                 }
-            })
+            }
         }
 
-        val clsVideo = XpUtils.findClass(loadPackageParam.classLoader, "com.tv.ui.metro.model.VideoItem")
+        val clsVideo = pkg.findClass("com.tv.ui.metro.model.VideoItem")
         if (clsVideo != null) {
-            XpUtils.findAndHookMethod("com.video.ui.view.DetailFragment", loadPackageParam.classLoader, "updateVideo", clsVideo, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                    val oVideo = param.args[0]
-                    val fBlocks = oVideo.javaClass.getDeclaredField("blocks")
-                    fBlocks.isAccessible = true
+            pkg.findClass("com.video.ui.view.DetailFragment").findMethod("updateVideo", clsVideo).hook {
+                before {
+                    val oVideo = args[0]
+                    val fBlocks = oVideo.javaClass.getDeclaredField("blocks").apply { isAccessible = true }
                     fBlocks.set(oVideo, null)
-                    val fHeaders = oVideo.javaClass.getDeclaredField("headers")
-                    fHeaders.isAccessible = true
+                    val fHeaders = oVideo.javaClass.getDeclaredField("headers").apply { isAccessible = true }
                     fHeaders.set(oVideo, null)
                 }
-            })
-        }
-
-        XpUtils.findAndHookMethod("com.video.ui.view.DetailFragment", loadPackageParam.classLoader, "onCreateView", LayoutInflater::class.java, ViewGroup::class.java, Bundle::class.java, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                val fragment = param.thisObject
-                val fR1 = fragment.javaClass.getDeclaredField("relative_region")
-                val fR2 = fragment.javaClass.getDeclaredField("headers_region")
-                val r1 = fR1.get(fragment) as FrameLayout
-                val r2 = fR2.get(fragment) as FrameLayout
-                r1.visibility = View.GONE
-                r2.visibility = View.GONE
             }
-        })
-        XpUtils.findAndHookMethod("com.video.ui.view.DetailFragment", loadPackageParam.classLoader, "checkAdsPresentVisibility", View::class.java, XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.video.ui.view.ListFragment", loadPackageParam.classLoader, "checkAdsPresentVisibility", View::class.java, XC_MethodReplacement.returnConstant(null))
-
-        val clsGenericBlock = XpUtils.findClass(loadPackageParam.classLoader, "com.tv.ui.metro.model.GenericBlock")
-        if (clsGenericBlock != null) {
-            XpUtils.findAndHookMethod("com.video.ui.view.user.MyVideoFragment", loadPackageParam.classLoader, "onLoadFinished", Loader::class.java, clsGenericBlock, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: XC_MethodHook.MethodHookParam) {
-                    param.args[1] = null
-                }
-            })
         }
 
-        XpUtils.findAndHookMethod("com.miui.systemAdSolution.landingPage.LandingPageService", loadPackageParam.classLoader, "init", Context::class.java, XC_MethodReplacement.returnConstant(null))
+        pkg.findClass("com.video.ui.view.DetailFragment").apply {
+            findMethod("onCreateView", LayoutInflater::class.java, ViewGroup::class.java, Bundle::class.java).hook {
+                after {
+                    val fragment = thisObject
+                    val fR1 = fragment.javaClass.getDeclaredField("relative_region")
+                    val fR2 = fragment.javaClass.getDeclaredField("headers_region")
+                    val r1 = fR1.get(fragment) as FrameLayout
+                    val r2 = fR2.get(fragment) as FrameLayout
+                    r1.visibility = View.GONE
+                    r2.visibility = View.GONE
+                }
+            }
+            findMethod("checkAdsPresentVisibility", View::class.java).hook { replace { result = null } }
+        }
+
+        pkg.findClass("com.video.ui.view.ListFragment").findMethod("checkAdsPresentVisibility", View::class.java).hook { replace { result = null } }
+
+        val clsGenericBlock = pkg.findClass("com.tv.ui.metro.model.GenericBlock")
+        if (clsGenericBlock != null) {
+            pkg.findClass("com.video.ui.view.user.MyVideoFragment").findMethod("onLoadFinished", Loader::class.java, clsGenericBlock).hook {
+                before {
+                    args[1] = null
+                }
+            }
+        }
+
+        pkg.findClass("com.miui.systemAdSolution.landingPage.LandingPageService").findMethod("init", Context::class.java).hook { replace { result = null } }
+
     }
 
     private fun removeAds(param: XC_MethodHook.MethodHookParam) {
         try {
             val clsThis = param.thisObject?.javaClass
-            val fBlockRootArrayList = clsThis?.getDeclaredField("mBlockRootArrayList")
-            fBlockRootArrayList?.isAccessible = true
+            val fBlockRootArrayList = clsThis?.getDeclaredField("mBlockRootArrayList")?.apply { isAccessible = true }
             val mBlockRootArrayList = fBlockRootArrayList?.get(param.thisObject) as ArrayList<*>
 
             mBlockRootArrayList.indices.reversed().forEach {
                 val b = mBlockRootArrayList[it]
-                val fUI = b.javaClass.superclass.getDeclaredField("ui_type")
-                fUI.isAccessible = true
+                val fUI = b.javaClass.superclass.getDeclaredField("ui_type").apply { isAccessible = true }
                 val oUI = fUI.get(b)
                 val mId = oUI.javaClass.getMethod("id")
                 val id = mId.invoke(oUI) as Int

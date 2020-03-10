@@ -3,6 +3,7 @@
 package com.rarnu.tools.neo.data
 
 import android.content.Context
+import com.rarnu.common.forEach
 import org.json.JSONObject
 
 class UpdateInfo {
@@ -32,12 +33,13 @@ class UpdateInfo {
         fun fromJson(json: JSONObject): UpdateInfo? {
             var info: UpdateInfo? = null
             try {
-                info = UpdateInfo()
-                info.versionCode = json.getInt("versionCode")
-                info.versionName = json.getString("versionName")
-                info.url = json.getString("url")
-                info.description = json.getString("description")
-                info.descriptionEn = json.getString("desc_en")
+                info = json.run { UpdateInfo().apply {
+                    versionCode = getInt("versionCode")
+                    versionName = getString("versionName")
+                    url = getString("url")
+                    description = getString("description")
+                    descriptionEn = getString("desc_en")
+                } }
             } catch (e: Exception) {
 
             }
@@ -50,15 +52,12 @@ class UpdateInfo {
                 if (json.getInt("result") == 0) {
                     val arr = json.getJSONArray("data")
                     list = mutableListOf()
-                    (0 until arr.length()).forEach {
-                        val info = fromJson(arr.getJSONObject(it))
-                        if (info != null) {
-                            list.add(info)
-                        }
+                    arr.forEach { _, obj ->
+                        val info = fromJson(obj)
+                        if (info != null) list.add(info)
                     }
                 }
             } catch (e: Exception) {
-
             }
             return list
         }

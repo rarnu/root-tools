@@ -2,165 +2,164 @@ package com.rarnu.tools.neo.xposed
 
 
 import com.rarnu.tools.neo.xposed.ads.*
-import de.robv.android.xposed.IXposedHookInitPackageResources
-import de.robv.android.xposed.IXposedHookLoadPackage
+import com.rarnu.xfunc.XposedPackage
+import com.rarnu.xfunc.XposedPkg
+import com.rarnu.xfunc.XposedRes
+import com.rarnu.xfunc.XposedResource
 import de.robv.android.xposed.XSharedPreferences
-import de.robv.android.xposed.callbacks.XC_InitPackageResources
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 
-class MIUIAds : IXposedHookLoadPackage, IXposedHookInitPackageResources {
+class MIUIAdsResources: XposedResource() {
+    override fun hook(res: XposedRes) {
+        val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
+        prefs.makeWorldReadable()
+        prefs.reload()
+        if (res.packageName == "com.miui.cleanmaster") {
+            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)) {
+                FuckCleanMaster.fuckResource(res)
+            }
+            return
+        }
+    }
+}
 
-
-    @Throws(Throwable::class)
-    override fun handleLoadPackage(paramLoadPackageParam: XC_LoadPackage.LoadPackageParam) {
+class MIUIAdsPackage : XposedPackage() {
+    override fun hook(pkg: XposedPkg) {
         val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
         prefs.makeWorldReadable()
         prefs.reload()
 
-        if (paramLoadPackageParam.packageName == "com.miui.core") {
+        if (pkg.packageName == "com.miui.core") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_SYSTEM, false)) {
-                FuckCore.fuckCore(paramLoadPackageParam)
+                FuckCore.fuckCore(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.miui.systemAdSolution") {
+        if (pkg.packageName == "com.miui.systemAdSolution") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_SYSTEM, false)) {
-                FuckAdSolution.fuckAdSolution(paramLoadPackageParam)
+                FuckAdSolution.fuckAdSolution(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.miui.cleanmaster") {
+        if (pkg.packageName == "com.miui.cleanmaster") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)) {
-                FuckCleanMaster.fuckCleanMaster(paramLoadPackageParam)
+                FuckCleanMaster.fuckCleanMaster(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.miui.securitycenter") {
+        if (pkg.packageName == "com.miui.securitycenter") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)) {
-                FuckCleanMaster.fuckSecurityCenter(paramLoadPackageParam)
+                FuckCleanMaster.fuckSecurityCenter(pkg)
             }
         }
 
-        if (paramLoadPackageParam.packageName == "com.miui.video") {
+        if (pkg.packageName == "com.miui.video") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_VIDEO, false)) {
-                FuckVideo.fuckVideo(paramLoadPackageParam)
+                FuckVideo.fuckVideo(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.android.fileexplorer") {
+        if (pkg.packageName == "com.android.fileexplorer") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_FILEEXPLORER, false)) {
-                FuckFileExplorer.fuckFileExplorer(paramLoadPackageParam)
+                FuckFileExplorer.fuckFileExplorer(pkg)
             }
             return
         }
-        if (paramLoadPackageParam.packageName == "com.miui.player") {
+        if (pkg.packageName == "com.miui.player") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_MUSIC, false)) {
-                FuckMusic.fuckMusic(paramLoadPackageParam)
+                FuckMusic.fuckMusic(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.android.providers.downloads.ui") {
+        if (pkg.packageName == "com.android.providers.downloads.ui") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_DOWNLOAD, false)) {
-                FuckDownload.fuckDownload(paramLoadPackageParam)
+                FuckDownload.fuckDownload(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.miui.weather2") {
+        if (pkg.packageName == "com.miui.weather2") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_WEATHER, false)) {
-                FuckWeather.fuckWeather(paramLoadPackageParam)
+                FuckWeather.fuckWeather(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.android.quicksearchbox") {
+        if (pkg.packageName == "com.android.quicksearchbox") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_SEARCHBOX, false)) {
-                FuckSearchBox.fuckSearchBox(paramLoadPackageParam)
+                FuckSearchBox.fuckSearchBox(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.android.mms") {
+        if (pkg.packageName == "com.android.mms") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_MMS, false)) {
-                FuckMms.fuckMms(paramLoadPackageParam)
+                FuckMms.fuckMms(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.android.calendar") {
+        if (pkg.packageName == "com.android.calendar") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CALENDAR, false)) {
-                FuckCalendar.fuckCalendar(paramLoadPackageParam)
+                FuckCalendar.fuckCalendar(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.android.browser") {
+        if (pkg.packageName == "com.android.browser") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_BROWSER, false)) {
-                FuckBrowser.fuckBrowser(paramLoadPackageParam)
+                FuckBrowser.fuckBrowser(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.android.thememanager") {
+        if (pkg.packageName == "com.android.thememanager") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_THEMEMANAGER, false)) {
-                FuckThemeManager.fuckThemeManager(paramLoadPackageParam)
+                FuckThemeManager.fuckThemeManager(pkg)
             }
             return
         }
-        if (paramLoadPackageParam.packageName == "com.xiaomi.market") {
+        if (pkg.packageName == "com.xiaomi.market") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_MARKET, false)) {
-                FuckMarket.fuckMarket(paramLoadPackageParam)
+                FuckMarket.fuckMarket(pkg)
             }
             return
         }
-        if (paramLoadPackageParam.packageName == "com.android.settings") {
+        if (pkg.packageName == "com.android.settings") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_SETTINGS, false)) {
-                FuckSettings.fuckSettings(paramLoadPackageParam)
+                FuckSettings.fuckSettings(pkg)
             }
             return
         }
-        if (paramLoadPackageParam.packageName == "com.android.contacts") {
+        if (pkg.packageName == "com.android.contacts") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CONTACTS, false)) {
-                FuckContacts.fuckContacts(paramLoadPackageParam)
+                FuckContacts.fuckContacts(pkg)
             }
             return
         }
-        if (paramLoadPackageParam.packageName == "com.miui.cloudservice") {
+        if (pkg.packageName == "com.miui.cloudservice") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CLOUDSERVICE, false)) {
-                FuckCloudService.fuckCloudService(paramLoadPackageParam)
+                FuckCloudService.fuckCloudService(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.xiaomi.account") {
+        if (pkg.packageName == "com.xiaomi.account") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_ACCOUNT, false)) {
-                FuckAccount.fuckAccount(paramLoadPackageParam)
+                FuckAccount.fuckAccount(pkg)
             }
             return
         }
 
-        if (paramLoadPackageParam.packageName == "com.xiaomi.vip") {
+        if (pkg.packageName == "com.xiaomi.vip") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_ACCOUNT, false)) {
-                FuckAccount.fuckVip(paramLoadPackageParam)
+                FuckAccount.fuckVip(pkg)
             }
         }
     }
 
-    @Throws(Throwable::class)
-    override fun handleInitPackageResources(initPackageResourcesParam: XC_InitPackageResources.InitPackageResourcesParam) {
-        val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
-        prefs.makeWorldReadable()
-        prefs.reload()
-        if (initPackageResourcesParam.packageName == "com.miui.cleanmaster") {
-            if (prefs.getBoolean(XpStatus.KEY_REMOVEAD, false) || prefs.getBoolean(XpStatus.KEY_AD_CLEANMASTER, false)) {
-                FuckCleanMaster.fuckResource(initPackageResourcesParam)
-            }
-            return
-        }
-    }
 }

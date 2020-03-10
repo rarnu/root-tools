@@ -1,35 +1,27 @@
 package com.rarnu.tools.neo.xposed.ads
 
-import com.rarnu.tools.neo.xposed.XpUtils
-import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XposedHelpers
-import de.robv.android.xposed.callbacks.XC_LoadPackage
-
+import com.rarnu.xfunc.*
 
 /**
  * Created by rarnu on 11/18/16.
  */
 object FuckCore {
 
-    fun fuckCore(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
-        XpUtils.findAndHookMethod("miui.os.SystemProperties", loadPackageParam.classLoader, "get", String::class.java, String::class.java, object : XC_MethodHook() {
-
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
-                if (paramAnonymousMethodHookParam.args[0].toString() == "ro.product.mod_device") {
-                    paramAnonymousMethodHookParam.result = "gemini_global"
+    fun fuckCore(pkg: XposedPkg) {
+        pkg.findClass("miui.os.SystemProperties").findMethod("get", String::class.java, String::class.java).hook {
+            before {
+                if (args[0].toString() == "ro.product.mod_device") {
+                    result = "gemini_global"
                 }
             }
-
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(paramAnonymousMethodHookParam: XC_MethodHook.MethodHookParam) {
-                if (paramAnonymousMethodHookParam.args[0].toString() == "ro.product.mod_device") {
-                    paramAnonymousMethodHookParam.result = "gemini_global"
+            after {
+                if (args[0].toString() == "ro.product.mod_device") {
+                    result = "gemini_global"
                 }
             }
-        })
-        try { XposedHelpers.setStaticBooleanField(Class.forName("miui.os.SystemProperties.Build"), "IS_CM_CUSTOMIZATION_TEST", true) } catch (t: Throwable) { }
-        try { XposedHelpers.setStaticBooleanField(Class.forName("com.miui.internal.util"), "IS_INTERNATIONAL_BUILD", true) } catch (t: Throwable) { }
+        }
+        pkg.findClass("miui.os.SystemProperties.Build").findField("IS_CM_CUSTOMIZATION_TEST").setStatic(true)
+        pkg.findClass("com.miui.internal.util").findField("IS_INTERNATIONAL_BUILD").setStatic(true)
     }
 
 }

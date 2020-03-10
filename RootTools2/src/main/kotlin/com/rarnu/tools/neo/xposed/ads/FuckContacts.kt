@@ -1,31 +1,25 @@
 package com.rarnu.tools.neo.xposed.ads
 
-import com.rarnu.tools.neo.xposed.XpUtils
-import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XC_MethodReplacement
-import de.robv.android.xposed.callbacks.XC_LoadPackage
+import com.rarnu.xfunc.*
 
 /**
  * Created by rarnu on 12/8/16.
  */
 object FuckContacts {
-    fun fuckContacts(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
+    fun fuckContacts(pkg: XposedPkg) {
         // fuck contacts
-        XpUtils.findAndHookMethod("com.android.contacts.yellowpage.ui.NavigationFragment", loadPackageParam.classLoader, "setIsAdOn", java.lang.Boolean.TYPE, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: MethodHookParam) {
-                param.args[0] = false
+        pkg.findClass("com.android.contacts.yellowpage.ui.NavigationFragment").findMethod("setIsAdOn", java.lang.Boolean.TYPE).hook {
+            before {
+                args[0] = false
             }
-        })
-        val clsServiceDataEntry = XpUtils.findClass(loadPackageParam.classLoader, "miui.yellowpage.ServicesDataEntry")
-        if (clsServiceDataEntry != null) {
-            XpUtils.findAndHookMethod("com.android.contacts.yellowpage.adapter.YellowPageAdapter", loadPackageParam.classLoader, "updateData", List::class.java, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: MethodHookParam) {
-                    val list = param.args[0] as MutableList<*>?
-                    val mGetItemType = clsServiceDataEntry.getDeclaredMethod("getItemType")
+        }
 
-                    mGetItemType.isAccessible = true
+        val clsServiceDataEntry = pkg.findClass("miui.yellowpage.ServicesDataEntry")
+        if (clsServiceDataEntry != null) {
+            pkg.findClass("com.android.contacts.yellowpage.adapter.YellowPageAdapter").findMethod("updateData", List::class.java).hook {
+                before {
+                    val list = args[0] as MutableList<*>?
+                    val mGetItemType = clsServiceDataEntry.getDeclaredMethod("getItemType").apply { isAccessible = true }
                     val newList = mutableListOf<Any?>()
                     if (list != null) {
                         for (item in list) {
@@ -35,13 +29,15 @@ object FuckContacts {
                             }
                         }
                     }
-                    param.args[0] = newList
+                    args[0] = newList
                 }
-            })
+            }
         }
-        XpUtils.findAndHookMethod("com.android.contacts.ContactsUtils", loadPackageParam.classLoader, "showFraudInsurance", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.android.contacts.activities.UnknownContactActivity", loadPackageParam.classLoader, "updateDetailInsurance", XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.android.contacts.detail.UnknownContactFragment", loadPackageParam.classLoader, "showInsuranceView", XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.android.contacts.detail.UnknownContactFragment", loadPackageParam.classLoader, "updateFraudInsurance", XC_MethodReplacement.returnConstant(null))
+        pkg.findClass("com.android.contacts.ContactsUtils").findMethod("showFraudInsurance").hook { replace { result = false } }
+        pkg.findClass("com.android.contacts.activities.UnknownContactActivity").findMethod("updateDetailInsurance").hook { replace { result = null } }
+        pkg.findClass("com.android.contacts.detail.UnknownContactFragment").apply {
+            findMethod("showInsuranceView").hook { replace { result = null } }
+            findMethod("updateFraudInsurance").hook { replace { result = null } }
+        }
     }
 }

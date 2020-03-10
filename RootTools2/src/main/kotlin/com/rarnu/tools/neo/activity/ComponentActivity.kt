@@ -19,44 +19,45 @@ import kotlinx.android.synthetic.main.fragment_component.*
 
 class ComponentActivity : BackActivity(), SearchView.OnQueryTextListener, AdapterView.OnItemClickListener {
 
-    private var list = mutableListOf<AppInfo>()
-    private lateinit var adapter: AppAdapter
-    private lateinit var loader: AllAppLoader
-    private lateinit var sv: SearchView
-    private lateinit var miSearch: MenuItem
+    private val list = mutableListOf<AppInfo>()
+    private val adapter: AppAdapter
+    private val loader: AllAppLoader
+
+    init {
+        adapter = AppAdapter(this, list).apply {
+            setShowSwitch(false)
+        }
+        loader = AllAppLoader(this).apply {
+            registerListener(0) { _, data ->
+                list.clear()
+                if (data != null) {
+                    list.addAll(data)
+                }
+                adapter.setNewList(list)
+                loading.visibility = View.GONE
+            }
+        }
+
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_component)
         actionBar?.title = resStr(R.string.component_name)
-
-        adapter = AppAdapter(this, list)
-        adapter.setShowSwitch(false)
         lvApp.adapter = adapter
-        loader = AllAppLoader(this)
-
         lvApp.onItemClickListener = this
-
-        loader.registerListener(0) { _, data ->
-            list.clear()
-            if (data != null) {
-                list.addAll(data)
-            }
-            adapter.setNewList(list)
-            loading.visibility = View.GONE
-        }
-
         loading.visibility = View.VISIBLE
         loader.startLoading()
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        sv = SearchView(this)
-        sv.setOnQueryTextListener(this)
-        miSearch = menu.add(0, 1, 1, R.string.ab_search)
-        miSearch.setIcon(android.R.drawable.ic_menu_search)
-        miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        miSearch.actionView = sv
+        menu.add(0, 1, 1, R.string.ab_search).apply {
+            setIcon(android.R.drawable.ic_menu_search)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            actionView = SearchView(this@ComponentActivity).apply {
+                setOnQueryTextListener(this@ComponentActivity)
+            }
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -69,10 +70,10 @@ class ComponentActivity : BackActivity(), SearchView.OnQueryTextListener, Adapte
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val item = adapter.getItem(position) as AppInfo
-        val inDetail = Intent(this, ComponentDetailActivity::class.java)
-        inDetail.putExtra("pkg", item.packageName)
-        inDetail.putExtra("versionCode", item.versionCode)
-        inDetail.putExtra("name", item.name)
-        startActivity(inDetail)
+        startActivity(Intent(this, ComponentDetailActivity::class.java).apply {
+            putExtra("pkg", item.packageName)
+            putExtra("versionCode", item.versionCode)
+            putExtra("name", item.name)
+        })
     }
 }

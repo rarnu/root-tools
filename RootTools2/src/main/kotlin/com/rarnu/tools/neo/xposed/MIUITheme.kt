@@ -4,155 +4,147 @@ package com.rarnu.tools.neo.xposed
 
 import android.content.Context
 import android.content.Intent
+import com.rarnu.xfunc.*
 import de.robv.android.xposed.*
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 import java.io.File
 import java.io.InputStream
 import java.lang.Exception
 
-class MIUITheme : IXposedHookZygoteInit, IXposedHookLoadPackage {
-
-    @Throws(Throwable::class)
-    override fun initZygote(startupParam: IXposedHookZygoteInit.StartupParam) {
-        // keep
+class MIUIThemeZygote: XposedZygote() {
+    override fun hook(zygote: XposedStartup) {
         val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
         prefs.makeWorldReadable()
         prefs.reload()
         if (prefs.getBoolean(XpStatus.KEY_THEMECRACK, false)) {
-            patchDRM()
+            patchDRM(null)
         }
     }
+}
 
-    @Throws(Throwable::class)
-    override fun handleLoadPackage(lpparam: XC_LoadPackage.LoadPackageParam) {
+class MIUIThemePackage: XposedPackage() {
+    override fun hook(pkg: XposedPkg) {
         val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
         prefs.makeWorldReadable()
         prefs.reload()
-        if (lpparam.packageName == "miui.drm" || lpparam.packageName == "com.miui.system" || lpparam.packageName == "miui.system") {
+        if (pkg.packageName == "miui.drm" || pkg.packageName == "com.miui.system" || pkg.packageName == "miui.system") {
             if (prefs.getBoolean(XpStatus.KEY_THEMECRACK, false)) {
-                patchDRM()
+                patchDRM(pkg.classLoader)
             }
             return
         }
-        if (lpparam.packageName == "com.android.thememanager") {
+        if (pkg.packageName == "com.android.thememanager") {
             if (prefs.getBoolean(XpStatus.KEY_THEMECRACK, false)) {
-
+                pkg.findClass("miui.resourcebrowser.view.ResourceOperationHandler").findMethod("isAuthorizedResource").hook { replace { result = true } }
                 // payment
-                XpUtils.findAndHookMethod("miui.resourcebrowser.view.ResourceOperationHandler", lpparam.classLoader, "isAuthorizedResource", XC_MethodReplacement.returnConstant(true))
-                XpUtils.findAndHookMethod("miui.resourcebrowser.controller.online.NetworkHelper", lpparam.classLoader, "validateResponseResult", Integer.TYPE, InputStream::class.java, object : XC_MethodHook() {
-                    @Throws(Throwable::class)
-                    override fun beforeHookedMethod(param: MethodHookParam) {
-                        param.result = param.args[1] as InputStream?
+                pkg.findClass("miui.resourcebrowser.controller.online.NetworkHelper").findMethod("validateResponseResult", Integer.TYPE, InputStream::class.java).hook {
+                    before {
+                        result = args[1] as InputStream?
                     }
-                })
-                XpUtils.findAndHookMethod("miui.resourcebrowser.view.ResourceOperationHandler", lpparam.classLoader, "onCheckResourceRightEventBeforeRealApply", object : XC_MethodHook() {
-                    @Throws(Throwable::class)
-                    override fun beforeHookedMethod(param: MethodHookParam) {
-                        try {
-                            XposedHelpers.setBooleanField(param.thisObject, "mIsLegal", true)
-                        } catch (t: Throwable) {
-                        }
-                    }
-                })
-
-                // validate
-                val clsResource = XpUtils.findClass(lpparam.classLoader, "miui.resourcebrowser.model.Resource")
-                if (clsResource != null) {
-                    XpUtils.findAndHookMethod("miui.resourcebrowser.controller.online.DrmService", lpparam.classLoader, "isLegal", clsResource, XC_MethodReplacement.returnConstant(true))
                 }
-                XpUtils.findAndHookMethod("miui.resourcebrowser.view.ResourceOperationHandler", lpparam.classLoader, "isLegal", XC_MethodReplacement.returnConstant(true))
-                XpUtils.findAndHookMethod("miui.resourcebrowser.view.ResourceOperationHandler", lpparam.classLoader, "onCheckResourceRightEventBeforeRealApply", object : XC_MethodHook() {
-                    @Throws(Throwable::class)
-                    override fun beforeHookedMethod(param: MethodHookParam) {
+                pkg.findClass("miui.resourcebrowser.view.ResourceOperationHandler").findMethod("onCheckResourceRightEventBeforeRealApply").hook {
+                    before {
                         try {
-                            XposedHelpers.setBooleanField(param.thisObject, "mIsLegal", true)
+                            thisObject.javaClass.findField("mIsLegal").setStatic(true)
                         } catch (t: Throwable) {
                         }
                     }
-                })
-
-                // notification
-                XpUtils.findAndHookMethod("miui.resourcebrowser.model.Resource", lpparam.classLoader, "isProductBought", XC_MethodReplacement.returnConstant(true))
-                XpUtils.findAndHookMethod("miui.resourcebrowser.model.ResourceOnlineProperties", lpparam.classLoader, "setProductBought", java.lang.Boolean.TYPE, object : XC_MethodReplacement() {
-                    @Throws(Throwable::class)
-                    override fun replaceHookedMethod(param: MethodHookParam): Any? {
-                        param.args = arrayOf(true)
-                        return XposedBridge.invokeOriginalMethod(param.method, param.thisObject, arrayOf(true))
+                }
+                pkg.findClass("miui.resourcebrowser.view.ResourceOperationHandler").findMethod("onCheckResourceRightEventBeforeRealApply").hook {
+                    before {
+                        try {
+                            thisObject.javaClass.findField("mIsLegal").setStatic(true)
+                        } catch (t: Throwable) {
+                        }
                     }
-                })
-
-                XpUtils.findAndHookMethod("miui.resourcebrowser.model.ResourceOnlineProperties", lpparam.classLoader, "isProductBought", XC_MethodReplacement.returnConstant(true))
-
-                // common
-                XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isTrialable", XC_MethodReplacement.returnConstant(false))
-                XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isLegal", XC_MethodReplacement.returnConstant(true))
-                XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isAuthorizedResource", XC_MethodReplacement.returnConstant(true))
-                XpUtils.findAndHookMethod("com.android.thememanager.util.ThemeOperationHandler", lpparam.classLoader, "isPermanentRights", XC_MethodReplacement.returnConstant(true))
+                }
+                val clsResource = pkg.findClass("miui.resourcebrowser.model.Resource")
+                if (clsResource != null) {
+                    pkg.findClass("miui.resourcebrowser.controller.online.DrmService").findMethod("isLegal", clsResource).hook { replace { result = true } }
+                }
+                pkg.findClass("miui.resourcebrowser.view.ResourceOperationHandler").apply {
+                    findMethod("isLegal").hook { replace { result = true } }
+                    findMethod("onCheckResourceRightEventBeforeRealApply").hook {
+                        before {
+                            try {
+                                thisObject.javaClass.findField("mIsLegal").setStatic(true)
+                            } catch (t: Throwable) {
+                            }
+                        }
+                    }
+                }
+                pkg.findClass("miui.resourcebrowser.model.Resource").findMethod("isProductBought").hook { replace { result = true } }
+                pkg.findClass("miui.resourcebrowser.model.ResourceOnlineProperties").findMethod("setProductBought", java.lang.Boolean.TYPE).hook {
+                    replace {
+                        args = arrayOf(true)
+                        result = XposedBridge.invokeOriginalMethod(method, thisObject, arrayOf(true))
+                    }
+                }
+                pkg.findClass("miui.resourcebrowser.model.ResourceOnlineProperties").findMethod("isProductBought").hook { replace { result = true } }
+                pkg.findClass("com.android.thememanager.util.ThemeOperationHandler").apply {
+                    findMethod("isTrialable").hook { replace { result = false } }
+                    findMethod("isLegal").hook { replace { result = true } }
+                    findMethod("isAuthorizedResource").hook { replace { result = true } }
+                    findMethod("isPermanentRights").hook { replace { result = true } }
+                }
             }
         }
     }
+}
 
-    private fun patchDRM() {
-
-        XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", Context::class.java, File::class.java, File::class.java, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
-        XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", Context::class.java, String::class.java, File::class.java, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
-        XpUtils.findAndHookMethod("miui.drm.DrmManager", "isPermanentRights", File::class.java, XC_MethodReplacement.returnConstant(true))
-        XpUtils.findAndHookMethod("miui.drm.DrmManager", "isRightsFileLegal", File::class.java, XC_MethodReplacement.returnConstant(true))
-
+private fun patchDRM(cl: ClassLoader?) {
+    fun findClass(clsName: String) = XposedHelpers.findClass(clsName, cl)
+    findClass("miui.drm.DrmManager").apply {
+        findMethod("isLegal", Context::class.java, File::class.java, File::class.java).hook { replace { result= drmResultSUCCESS } }
+        findMethod("isLegal", Context::class.java, String::class.java, File::class.java).hook { replace { result = drmResultSUCCESS } }
+        findMethod("isPermanentRights", File::class.java).hook { replace { result = true } }
+        findMethod("isRightsFileLegal", File::class.java).hook { replace { result = true } }
         try {
             val clsRightObject = Class.forName("miui.drm.DrmManager\$RightObject")
-            XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", Context::class.java, String::class.java, clsRightObject, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
-            XpUtils.findAndHookMethod("miui.drm.DrmManager", "isPermanentRights", clsRightObject, XC_MethodReplacement.returnConstant(true))
-            XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", clsRightObject, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
+            findMethod("isLegal", Context::class.java, String::class.java, clsRightObject).hook { replace { result = drmResultSUCCESS } }
+            findMethod("isPermanentRights", clsRightObject).hook { replace { result = true } }
+            findMethod("isLegal", clsRightObject).hook { replace { result = drmResultSUCCESS } }
         } catch (e: Exception) {
 
         }
-
-        XpUtils.findAndHookMethod("miui.drm.DrmManager", "isSupportAd", Context::class.java, XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("miui.drm.DrmManager", "isSupportAd", File::class.java, XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("miui.drm.DrmManager", "setSupportAd", Context::class.java, java.lang.Boolean.TYPE, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: MethodHookParam) {
-                param.args[1] = false
+        findMethod("isSupportAd", Context::class.java).hook { replace { result = false } }
+        findMethod("isSupportAd", File::class.java).hook { replace { result = false } }
+        findMethod("setSupportAd", Context::class.java, java.lang.Boolean.TYPE).hook {
+            before {
+                args[1] = false
             }
-        })
+        }
+        findMethod("isLegal", File::class.java, File::class.java).hook { replace { result = drmResultSUCCESS } }
+        findMethod("isLegal", String::class.java, File::class.java).hook { replace { result = drmResultSUCCESS } }
+    }
 
-        XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", File::class.java, File::class.java, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
-        XpUtils.findAndHookMethod("miui.drm.DrmManager", "isLegal", String::class.java, File::class.java, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
-
-        XpUtils.findAndHookMethod("miui.drm.ThemeReceiver", "validateTheme", Context::class.java, String::class.java, String::class.java, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
-        XpUtils.findAndHookMethod("miui.drm.ThemeReceiver", "restoreDefault", XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("miui.drm.ThemeReceiver", "onReceive", Context::class.java, Intent::class.java, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun beforeHookedMethod(param: MethodHookParam) {
-                val intent = param.args[1] as Intent?
+    findClass("miui.drm.ThemeReceiver").apply {
+        findMethod("validateTheme", Context::class.java, String::class.java, String::class.java).hook { replace { result = drmResultSUCCESS } }
+        findMethod("restoreDefault").hook { replace { result = null } }
+        findMethod("onReceive", Context::class.java, Intent::class.java).hook {
+            before {
+                val intent = args[1] as Intent?
                 if (intent != null && intent.action != null && intent.action == "miui.intent.action.CHECK_TIME_UP") {
                     intent.action = ""
-                    param.args[1] = intent
+                    args[1] = intent
                 }
             }
-        })
-
-        XpUtils.findAndHookMethod("miui.content.res.ThemeRuntimeManager\$ThemeReceiver", "validateTheme", Context::class.java, String::class.java, String::class.java, XC_MethodReplacement.returnConstant(drmResultSUCCESS))
-        XpUtils.findAndHookMethod("miui.content.res.ThemeRuntimeManager", "restoreDefault", XC_MethodReplacement.returnConstant(null))
-
+        }
     }
-
-    companion object {
-
-        val drmResultSUCCESS: Any?
-            get() {
-                try {
-                    val clsEnum = Class.forName("miui.drm.DrmManager\$DrmResult")
-                    val mEnum = clsEnum.getDeclaredMethod("valueOf", String::class.java)
-                    return mEnum.invoke(null, "DRM_SUCCESS")
-                } catch (th: Throwable) {
-                    XposedBridge.log(th.toString())
-
-                }
-                return null
-            }
-    }
+    findClass("miui.content.res.ThemeRuntimeManager\$ThemeReceiver").findMethod("validateTheme", Context::class.java, String::class.java, String::class.java).hook { replace { result = drmResultSUCCESS } }
+    findClass("miui.content.res.ThemeRuntimeManager").findMethod("restoreDefault").hook { replace { result = null } }
 
 }
+
+val drmResultSUCCESS: Any?
+    get() {
+        try {
+            val clsEnum = Class.forName("miui.drm.DrmManager\$DrmResult")
+            val mEnum = clsEnum.getDeclaredMethod("valueOf", String::class.java)
+            return mEnum.invoke(null, "DRM_SUCCESS")
+        } catch (th: Throwable) {
+            XposedBridge.log(th.toString())
+
+        }
+        return null
+    }
 

@@ -3,92 +3,81 @@
 package com.rarnu.tools.neo.xposed
 
 import android.content.pm.PackageManager
+import com.rarnu.xfunc.*
 import de.robv.android.xposed.*
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 import java.security.Signature
 
-/**
- * Created by rarnu on 12/29/16.
- */
-class CoreCrack2 : IXposedHookZygoteInit, IXposedHookLoadPackage {
+class CoreCrack2Zygote: XposedZygote() {
 
+
+    override fun hook(zygote: XposedStartup) {
+        val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
+        prefs.makeWorldReadable()
+        prefs.reload()
+        if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
+            zygote.findClass("com.android.org.conscrypt.OpenSSLSignature").findAllMethod("engineVerify").hook {
+                before {
+                    result = true
+                }
+            }
+            zygote.findClass("java.security.MessageDigest").findMethod("isEqual", ByteArray::class.java, ByteArray::class.java).hook {
+                before {
+                    result = true
+                }
+            }
+            zygote.findClass("java.security.Signature").apply {
+                findMethod("verify", ByteArray::class.java).hook {
+                    before {
+                        val alg = (thisObject as Signature).algorithm.toLowerCase()
+                        val state = XposedHelpers.getIntField(thisObject, "state")
+                        if ((alg == "sha1withrsa" || alg == "rsa-sha1" || alg == "1.3.14.3.2.26with1.2.840.113549.1.1.1") && state == 3) {
+                            result = true
+                        }
+                    }
+                }
+                findMethod("verify", ByteArray::class.java, Integer.TYPE, Integer.TYPE).hook {
+                    before {
+                        val alg = (thisObject as Signature).algorithm.toLowerCase()
+                        val state = XposedHelpers.getIntField(thisObject, "state")
+                        if ((alg == "sha1withrsa" || alg == "rsa-sha1" || alg == "1.3.14.3.2.26with1.2.840.113549.1.1.1") && state == 3) {
+                            result = true
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+}
+
+class CoreCrack2Package: XposedPackage() {
     companion object {
         const val INSTALL_ALLOW_DOWNGRADE = 128
     }
 
-    @Throws(Throwable::class)
-    override fun initZygote(param: IXposedHookZygoteInit.StartupParam) {
+    override fun hook(pkg: XposedPkg) {
         val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
         prefs.makeWorldReadable()
         prefs.reload()
 
-        if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
-            try {
-                XposedBridge.hookAllMethods(XposedHelpers.findClass("com.android.org.conscrypt.OpenSSLSignature", null), "engineVerify", object : XC_MethodHook() {
-                    @Throws(Throwable::class)
-                    override fun beforeHookedMethod(param: MethodHookParam) {
-                        param.result = true
-                    }
-                })
-            } catch (t: Throwable) {
-
-            }
-
-            XpUtils.findAndHookMethod("java.security.MessageDigest", null, "isEqual", ByteArray::class.java, ByteArray::class.java, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: MethodHookParam) {
-                    param.result = true
-                }
-            })
-
-            XpUtils.findAndHookMethod("java.security.Signature", null, "verify", ByteArray::class.java, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: MethodHookParam) {
-                    val alg = (param.thisObject as Signature).algorithm.toLowerCase()
-                    val state = XposedHelpers.getIntField(param.thisObject, "state")
-                    if ((alg == "sha1withrsa" || alg == "rsa-sha1" || alg == "1.3.14.3.2.26with1.2.840.113549.1.1.1") && state == 3) {
-                        param.result = true
-                    }
-                }
-            })
-
-            XpUtils.findAndHookMethod("java.security.Signature", null, "verify", ByteArray::class.java, Integer.TYPE, Integer.TYPE, object : XC_MethodHook() {
-                @Throws(Throwable::class)
-                override fun beforeHookedMethod(param: MethodHookParam) {
-                    val alg = (param.thisObject as Signature).algorithm.toLowerCase()
-                    val state = XposedHelpers.getIntField(param.thisObject, "state")
-                    if ((alg == "sha1withrsa" || alg == "rsa-sha1" || alg == "1.3.14.3.2.26with1.2.840.113549.1.1.1") && state == 3) {
-                        param.result = true
-                    }
-                }
-            })
-        }
-    }
-
-    @Throws(Throwable::class)
-    override fun handleLoadPackage(param: XC_LoadPackage.LoadPackageParam) {
-        val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
-        prefs.makeWorldReadable()
-        prefs.reload()
-
-        if (param.packageName == "android" || param.processName == "android") {
+        if (pkg.packageName == "android" || pkg.processName == "android") {
             if (prefs.getBoolean(XpStatus.KEY_CORECRACK, false)) {
-                val clsPackageManagerClass = XpUtils.findClass(param.classLoader, "com.android.server.pm.PackageManagerService")
-                if (clsPackageManagerClass != null) {
-                    XposedBridge.hookAllMethods(clsPackageManagerClass, "installPackageAsUser", object : XC_MethodHook() {
-                        @Throws(Throwable::class)
-                        override fun beforeHookedMethod(param: MethodHookParam) {
-                            val flags = param.args[2] as Int
+                pkg.findClass("com.android.server.pm.PackageManagerService")?.apply {
+                    findAllMethod("installPackageAsUser").hook {
+                        before {
+                            val flags = args[2] as Int
                             if ((flags and INSTALL_ALLOW_DOWNGRADE) == 0) {
-                                param.args[2] = (flags or INSTALL_ALLOW_DOWNGRADE)
+                                args[2] = (flags or INSTALL_ALLOW_DOWNGRADE)
                             }
                         }
-                    })
-                    XposedBridge.hookAllMethods(clsPackageManagerClass, "checkUpgradeKeySetLP", XC_MethodReplacement.returnConstant(true))
-                    XposedBridge.hookAllMethods(clsPackageManagerClass, "verifySignaturesLP", XC_MethodReplacement.returnConstant(true))
-                    XposedBridge.hookAllMethods(clsPackageManagerClass, "compareSignatures", XC_MethodReplacement.returnConstant(PackageManager.SIGNATURE_MATCH))
+                    }
+                    findAllMethod("checkUpgradeKeySetLP").hook { replace { result = true } }
+                    findAllMethod("verifySignaturesLP").hook { replace { result = true } }
+                    findAllMethod("compareSignatures").hook { replace { result = PackageManager.SIGNATURE_MATCH } }
                 }
+
             }
         }
     }
+
 }

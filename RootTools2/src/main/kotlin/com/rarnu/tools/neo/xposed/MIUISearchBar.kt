@@ -1,22 +1,18 @@
 package com.rarnu.tools.neo.xposed
 
-import de.robv.android.xposed.IXposedHookInitPackageResources
+import com.rarnu.xfunc.XposedRes
+import com.rarnu.xfunc.XposedResource
 import de.robv.android.xposed.XSharedPreferences
-import de.robv.android.xposed.callbacks.XC_InitPackageResources
 
-
-class MIUISearchBar : IXposedHookInitPackageResources {
-
-    @Throws(Throwable::class)
-    override fun handleInitPackageResources(paramInitPackageResourcesParam: XC_InitPackageResources.InitPackageResourcesParam) {
+class MIUISearchBar : XposedResource() {
+    override fun hook(res: XposedRes) {
         val prefs = XSharedPreferences(XpStatus.PKGNAME, XpStatus.PREF)
         prefs.makeWorldReadable()
         prefs.reload()
-
-        if (paramInitPackageResourcesParam.packageName == "com.android.systemui") {
+        if (res.packageName == "com.android.systemui") {
             if (prefs.getBoolean(XpStatus.KEY_REMOVESEARCHBAR, false)) {
                 try {
-                    paramInitPackageResourcesParam.res.setReplacement(paramInitPackageResourcesParam.packageName, "bool", "config_show_statusbar_search", false)
+                    res.res.setReplacement(res.packageName, "bool", "config_show_statusbar_search", false)
                 } catch (t: Throwable) {
 
                 }

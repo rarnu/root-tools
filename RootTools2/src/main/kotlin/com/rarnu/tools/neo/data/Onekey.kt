@@ -7,7 +7,7 @@ class Onekey(str: String) {
     var disabledComponents: Array<String>? = null
     init {
         try {
-            val strs = str.split("\n".toRegex()).dropLastWhile(String::isEmpty).toTypedArray()
+            val strs = str.split("\n").dropLastWhile(String::isEmpty).toTypedArray()
             disabledComponents = strs
         } catch (e: Exception) {
 

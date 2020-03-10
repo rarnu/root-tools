@@ -27,11 +27,10 @@ class BuildPropEditActivity : Activity(), View.OnClickListener {
     override fun onClick(v: View) {
         when (v.id) {
             R.id.btnSave -> {
-                val info = BuildPropInfo(tvHead.text.toString(), etValue.text.toString())
-                val inRet = Intent()
-                inRet.putExtra("item", info)
-                inRet.putExtra("position", intent.getIntExtra("position", -1))
-                setResult(Activity.RESULT_OK, inRet)
+                setResult(RESULT_OK, Intent().apply {
+                    putExtra("item", BuildPropInfo(tvHead.text.toString(), etValue.text.toString()))
+                    putExtra("position", intent.getIntExtra("position", -1))
+                })
                 finish()
             }
             R.id.btnCancel -> finish()

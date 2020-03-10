@@ -28,8 +28,8 @@ class CleanActivity : BackActivity() {
         const val KEY_DATA = "data"
     }
 
-    private lateinit var miRun: MenuItem
     private var isCleaning = false
+    private lateinit var miRun: MenuItem
 
     private val filterCallback = IntentFilter(ACTION_CLEAN_CALLBACK)
     private val receiverCallback = CleanCallbackReceiver()
@@ -69,10 +69,7 @@ class CleanActivity : BackActivity() {
             }
         }
         val tmpDir = Environment.getExternalStorageDirectory().absolutePath
-        val fDir = File(tmpDir, ".tmp")
-        if (!fDir.exists()) {
-            fDir.mkdirs()
-        }
+        val fDir = File(tmpDir, ".tmp").apply { if (!exists()) mkdirs() }
         val fBusybox = File(fDir, busyboxAsset)
         assetsIO {
             src = busyboxAsset
@@ -98,9 +95,10 @@ class CleanActivity : BackActivity() {
 
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        miRun = menu.add(0, 1, 1, R.string.ab_clean)
-        miRun.setIcon(android.R.drawable.ic_menu_delete)
-        miRun.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        miRun = menu.add(0, 1, 1, R.string.ab_clean).apply {
+            setIcon(android.R.drawable.ic_menu_delete)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        }
         return super.onCreateOptionsMenu(menu)
     }
 

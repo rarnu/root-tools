@@ -11,88 +11,61 @@ import android.util.Log
 
 object ComponentUtils {
 
-    fun isServiceRunning(context: Context, className: String?): Boolean {
-        val activityManager = context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager
-        @Suppress("DEPRECATION")
-        val serviceList = activityManager.getRunningServices(30)
-        if (serviceList.isEmpty()) {
-            return false
-        }
-        return serviceList.any { it.service.className == className }
-    }
+    @Suppress("DEPRECATION")
+    fun isServiceRunning(context: Context, className: String?) = (context.getSystemService(Context.ACTIVITY_SERVICE) as ActivityManager).getRunningServices(30).any { it.service.className == className }
 
-    fun getActivityList(ctx: Context, pkg: PackageInfo): List<CompInfo> {
-        val lstRet = mutableListOf<CompInfo>()
+    fun getActivityList(ctx: Context, pkg: PackageInfo) = mutableListOf<CompInfo>().apply {
         val pm = ctx.packageManager
-        val lst = pkg.activities
-        if (lst != null) {
-            for (a in lst) {
-                val info = CompInfo()
-                Log.e("RootTools", "Activity => $a")
-                info.pureName = a.name.substringAfterLast(".")
-                info.componentClassName = a.name
-                info.componentPackageName = a.packageName
-                info.enabled = pm.getComponentEnabledSetting(ComponentName(a.packageName, a.name)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-                lstRet.add(info)
-            }
+        pkg.activities?.forEach {
+            add(CompInfo().apply {
+                Log.e("RootTools", "Activity => $it")
+                pureName = it.name.substringAfterLast(".")
+                componentClassName = it.name
+                componentPackageName = it.packageName
+                enabled = pm.getComponentEnabledSetting(ComponentName(it.packageName, it.name)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+            })
         }
-        lstRet.sortBy { it.pureName }
-        return lstRet
-    }
+        sortBy { it.pureName }
+    }.toList()
 
-    fun getServiceList(ctx: Context, pkg: PackageInfo): List<CompInfo> {
-        val lstRet = mutableListOf<CompInfo>()
+    fun getServiceList(ctx: Context, pkg: PackageInfo) = mutableListOf<CompInfo>().apply {
         val pm = ctx.packageManager
-        val lst = pkg.services
-        if (lst != null) {
-            for (s in lst) {
-                val info = CompInfo()
-                info.pureName = s.name.substringAfterLast(".")
-                info.componentClassName = s.name
-                info.componentPackageName = s.packageName
-                info.enabled = pm.getComponentEnabledSetting(ComponentName(s.packageName, s.name)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-                lstRet.add(info)
-            }
+        pkg.services?.forEach {
+            add(CompInfo().apply {
+                pureName = it.name.substringAfterLast(".")
+                componentClassName = it.name
+                componentPackageName = it.packageName
+                enabled = pm.getComponentEnabledSetting(ComponentName(it.packageName, it.name)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+            })
         }
-        lstRet.sortBy { it.pureName }
-        return lstRet
-    }
+        sortBy { it.pureName }
+    }.toList()
 
-    fun getReceiverList(ctx: Context, pkg: PackageInfo): List<CompInfo> {
-        val lstRet = mutableListOf<CompInfo>()
+    fun getReceiverList(ctx: Context, pkg: PackageInfo) = mutableListOf<CompInfo>().apply {
         val pm = ctx.packageManager
-        val lst = pkg.receivers
-        if (lst != null) {
-            for (r in lst) {
-                val info = CompInfo()
-                info.pureName = r.name.substringAfterLast(".")
-                info.componentClassName = r.name
-                info.componentPackageName = r.packageName
-                info.enabled = pm.getComponentEnabledSetting(ComponentName(r.packageName, r.name)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-                lstRet.add(info)
-            }
+        pkg.receivers?.forEach {
+            add(CompInfo().apply {
+                pureName = it.name.substringAfterLast(".")
+                componentClassName = it.name
+                componentPackageName = it.packageName
+                enabled = pm.getComponentEnabledSetting(ComponentName(it.packageName, it.name)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+            })
         }
-        lstRet.sortBy { it.pureName }
-        return lstRet
-    }
+        sortBy { it.pureName }
+    }.toList()
 
-    fun getProviderList(ctx: Context, pkg: PackageInfo): List<CompInfo> {
-        val lstRet = mutableListOf<CompInfo>()
+    fun getProviderList(ctx: Context, pkg: PackageInfo) = mutableListOf<CompInfo>().apply {
         val pm = ctx.packageManager
-        val lst = pkg.providers
-        if (lst != null) {
-            for (p in lst) {
-                val info = CompInfo()
-                info.pureName = p.name.substringAfterLast(".")
-                info.componentClassName = p.name
-                info.componentPackageName = p.packageName
-                info.enabled = pm.getComponentEnabledSetting(ComponentName(p.packageName, p.name)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
-                lstRet.add(info)
-            }
+        pkg.providers?.forEach {
+            add(CompInfo().apply {
+                pureName = it.name.substringAfterLast(".")
+                componentClassName = it.name
+                componentPackageName = it.packageName
+                enabled = pm.getComponentEnabledSetting(ComponentName(it.packageName, it.name)) != PackageManager.COMPONENT_ENABLED_STATE_DISABLED
+            })
         }
-        lstRet.sortBy { it.pureName }
-        return lstRet
-    }
+        sortBy { it.pureName }
+    }.toList()
 }
 
 class CompInfo {

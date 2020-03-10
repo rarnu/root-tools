@@ -12,9 +12,6 @@ import com.rarnu.tools.neo.R
 
 class LoadingView : LinearLayout {
 
-    private var pb: ProgressBar? = null
-    private var tv: TextView? = null
-
     constructor(context: Context, attrs: AttributeSet, defStyleAttr: Int) : super(context, attrs, defStyleAttr) {
         initAttrs(attrs)
     }
@@ -28,31 +25,26 @@ class LoadingView : LinearLayout {
     }
 
     private fun initAttrs(attrs: AttributeSet?) {
-        orientation = LinearLayout.HORIZONTAL
-        background = context.resources.getDrawable(R.drawable.background_layout, context.theme)
-
-        // inner component
-        pb = ProgressBar(context)
-
-        val rllpPb = LinearLayout.LayoutParams(36.dip2px(), 36.dip2px())
-        rllpPb.marginStart = 12.dip2px()
-        rllpPb.gravity = Gravity.CENTER_VERTICAL
-        pb?.layoutParams = rllpPb
-
-        tv = TextView(context)
-        val rllpTv = LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 36.dip2px())
-        rllpTv.marginStart = 12.dip2px()
-        rllpTv.marginEnd = 12.dip2px()
-        rllpTv.gravity = Gravity.CENTER_VERTICAL
-        tv?.layoutParams = rllpTv
-        tv?.gravity = Gravity.CENTER_VERTICAL
-        tv?.textSize = 18f
-        addView(pb)
-        addView(tv)
-
         val a = context.obtainStyledAttributes(attrs, R.styleable.LoadingView, 0, 0)
-        tv?.text = a.getString(R.styleable.LoadingView_text)
-        tv?.setTextColor(a.getColor(R.styleable.LoadingView_textColor, Color.BLACK))
+        orientation = HORIZONTAL
+        background = context.resources.getDrawable(R.drawable.background_layout, context.theme)
+        addView(ProgressBar(context).apply {
+            layoutParams = LayoutParams(36.dip2px(), 36.dip2px()).apply {
+                marginStart = 12.dip2px()
+                gravity = Gravity.CENTER_VERTICAL
+            }
+        })
+        addView(TextView(context).apply {
+            layoutParams = LayoutParams(LayoutParams.MATCH_PARENT, 36.dip2px()).apply {
+                marginStart = 12.dip2px()
+                marginEnd = 12.dip2px()
+                gravity = Gravity.CENTER_VERTICAL
+            }
+            gravity = Gravity.CENTER_VERTICAL
+            textSize = 18f
+            text = a.getString(R.styleable.LoadingView_text)
+            setTextColor(a.getColor(R.styleable.LoadingView_textColor, Color.BLACK))
+        })
         a.recycle()
     }
 }

@@ -11,7 +11,7 @@ import kotlinx.android.synthetic.main.comp_preference.view.*
 
 class PreferenceEx : Preference {
 
-    private var innerView: View? = null
+    private lateinit var innerView: View
     private var showSwitch = false
     private var showIcon = true
     private var exTitle = ""
@@ -47,51 +47,54 @@ class PreferenceEx : Preference {
         } catch (e: Exception) {
 
         }
-
-        innerView?.prefTitle?.text = title
-        innerView?.prefExTitle?.text = exTitle
-        innerView?.prefSummary?.text = summary
-        if (summary == null || summary == "") {
-            innerView?.prefSummary?.visibility = View.GONE
+        with(innerView) {
+            prefTitle.text = title
+            prefExTitle.text = exTitle
+            prefSummary.text = summary
+            if (summary == null || summary == "") {
+                prefSummary.visibility = View.GONE
+            }
+            prefStatus.isChecked = isOn
+            prefIcon.setImageDrawable(icon)
         }
-        innerView?.prefStatus?.isChecked = isOn
-        innerView?.prefIcon?.setImageDrawable(icon)
+
     }
 
-    override fun onCreateView(parent: ViewGroup): View? {
+    override fun onCreateView(parent: ViewGroup): View {
         super.onCreateView(parent)
-        innerView = LayoutInflater.from(context).inflate(R.layout.comp_preference, parent, false)
-        innerView?.prefStatus?.visibility = if (showSwitch) View.VISIBLE else View.GONE
-        innerView?.prefIcon?.visibility = if (showIcon) View.VISIBLE else View.GONE
+        innerView = LayoutInflater.from(context).inflate(R.layout.comp_preference, parent, false).apply {
+            prefStatus.visibility = if (showSwitch) View.VISIBLE else View.GONE
+            prefIcon.visibility = if (showIcon) View.VISIBLE else View.GONE
+        }
         return innerView
     }
 
     override fun setTitle(titleResId: Int) {
         super.setTitle(titleResId)
-        innerView?.prefTitle?.setText(titleResId)
+        innerView.prefTitle.setText(titleResId)
     }
 
     override fun setSummary(summaryResId: Int) {
         super.setSummary(summaryResId)
         if (summary == null || summary == "") {
-            innerView?.prefSummary?.visibility = View.GONE
+            innerView.prefSummary?.visibility = View.GONE
         }
     }
 
     override fun setIcon(iconResId: Int) {
         super.setIcon(iconResId)
-        innerView?.prefIcon?.setImageDrawable(icon)
+        innerView.prefIcon?.setImageDrawable(icon)
     }
 
     fun setShowSwitch(on: Boolean) {
         showSwitch = on
-        innerView?.prefStatus?.visibility = if (on) View.VISIBLE else View.GONE
+        innerView.prefStatus?.visibility = if (on) View.VISIBLE else View.GONE
     }
 
     var status: Boolean
-        get() = innerView?.prefStatus?.isChecked!!
+        get() = innerView.prefStatus.isChecked
         set(on) {
             isOn = on
-            innerView?.prefStatus?.isChecked = on
+            innerView.prefStatus.isChecked = on
         }
 }

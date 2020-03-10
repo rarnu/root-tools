@@ -21,8 +21,6 @@ import kotlinx.android.synthetic.main.fragment_about.*
 
 class AboutActivity : BackActivity(), View.OnClickListener, View.OnTouchListener {
 
-    private lateinit var miThanks: MenuItem
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_about)
@@ -38,9 +36,10 @@ class AboutActivity : BackActivity(), View.OnClickListener, View.OnTouchListener
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        miThanks = menu.add(0, 1, 1, R.string.ab_thanks)
-        miThanks.setIcon(android.R.drawable.ic_menu_info_details)
-        miThanks.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menu.add(0, 1, 1, R.string.ab_thanks).apply {
+            setIcon(android.R.drawable.ic_menu_info_details)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -60,11 +59,11 @@ class AboutActivity : BackActivity(), View.OnClickListener, View.OnTouchListener
         when (event.action) {
             MotionEvent.ACTION_DOWN -> {
                 if (lastTime == 0L) {
-                    lastTime = java.lang.System.currentTimeMillis()
+                    lastTime = System.currentTimeMillis()
                     touchCount = 1
                     return true
                 } else {
-                    val t = java.lang.System.currentTimeMillis()
+                    val t = System.currentTimeMillis()
                     if (t - lastTime > 1000) {
                         touchCount = 0
                         lastTime = 0
@@ -85,12 +84,9 @@ class AboutActivity : BackActivity(), View.OnClickListener, View.OnTouchListener
         return false
     }
 
-    private fun openUrl(resId: Int) {
-        val u = Uri.parse(getString(resId))
-        val inWeb = Intent(Intent.ACTION_VIEW)
-        inWeb.data = u
-        startActivity(inWeb)
-    }
+    private fun openUrl(resId: Int) = startActivity(Intent(Intent.ACTION_VIEW).apply {
+        data = Uri.parse(getString(resId))
+    })
 
     private fun showThemeCrack() {
         val pref = getSharedPreferences(XpStatus.PREF, Context.MODE_PRIVATE)

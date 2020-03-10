@@ -26,54 +26,56 @@ import kotlin.concurrent.thread
  */
 class FakeDeviceActivity : BackActivity(), AdapterView.OnItemClickListener, SearchView.OnQueryTextListener {
 
-    private var list = mutableListOf<BuildPropInfo>()
-    private lateinit var adapter: BuildPropAdapter
-    private lateinit var loader: BuildPropLoader
-    private lateinit var sv: SearchView
-    private lateinit var miSave: MenuItem
-    private lateinit var miSearch: MenuItem
+    private val list = mutableListOf<BuildPropInfo>()
+    private val adapter: BuildPropAdapter
+    private val loader: BuildPropLoader
+    private val sv: SearchView
+
+    init {
+        adapter = BuildPropAdapter(this, list)
+        loader = BuildPropLoader(this).apply {
+            registerListener(0) { _, data ->
+                list.clear()
+                if (data != null) {
+                    list.addAll(data)
+                }
+                adapter.setNewList(list)
+                loading.visibility = View.GONE
+            }
+        }
+        sv = SearchView(this).apply {
+            setOnQueryTextListener(this@FakeDeviceActivity)
+        }
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.fragment_fakedev)
         actionBar?.title = resStr(R.string.fake_device_name)
-
-        adapter = BuildPropAdapter(this, list)
         lvProp.adapter = adapter
-        loader = BuildPropLoader(this)
-
         lvProp.onItemClickListener = this
-        loader.registerListener(0) { _, data ->
-            list.clear()
-            if (data != null) {
-                list.addAll(data)
-            }
-            adapter.setNewList(list)
-            loading.visibility = View.GONE
-        }
-
         loading.visibility = View.VISIBLE
         loader.startLoading()
     }
 
     override fun onItemClick(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
         val item = lvProp.getItemAtPosition(position) as BuildPropInfo
-        val inEdit = Intent(this, BuildPropEditActivity::class.java)
-        inEdit.putExtra("item", item)
-        inEdit.putExtra("position", list.indexOf(item))
-        startActivityForResult(inEdit, 0)
+        startActivityForResult(Intent(this, BuildPropEditActivity::class.java).apply {
+            putExtra("item", item)
+            putExtra("position", list.indexOf(item))
+        }, 0)
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
-        miSearch = menu.add(0, 1, 1, R.string.ab_search)
-        miSearch.setIcon(android.R.drawable.ic_menu_search)
-        miSearch.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
-        sv = SearchView(this)
-        sv.setOnQueryTextListener(this)
-        miSearch.actionView = sv
-        miSave = menu.add(0, 2, 2, R.string.ab_save)
-        miSave.setIcon(android.R.drawable.ic_menu_save)
-        miSave.setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        menu.add(0, 1, 1, R.string.ab_search).apply {
+            setIcon(android.R.drawable.ic_menu_search)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+            actionView = sv
+        }
+        menu.add(0, 2, 2, R.string.ab_save).apply {
+            setIcon(android.R.drawable.ic_menu_save)
+            setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS)
+        }
         return super.onCreateOptionsMenu(menu)
     }
 
@@ -103,9 +105,7 @@ class FakeDeviceActivity : BackActivity(), AdapterView.OnItemClickListener, Sear
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        if (resultCode != RESULT_OK) {
-            return
-        }
+        if (resultCode != RESULT_OK) return
         when (requestCode) {
             0 -> {
                 val item = data!!.getSerializableExtra("item") as BuildPropInfo

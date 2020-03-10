@@ -2,11 +2,8 @@ package com.rarnu.tools.neo.xposed.ads
 
 import android.content.Context
 import android.view.View
-import com.rarnu.tools.neo.xposed.XpUtils
-import de.robv.android.xposed.XC_MethodHook
-import de.robv.android.xposed.XC_MethodReplacement
+import com.rarnu.xfunc.*
 import de.robv.android.xposed.XposedHelpers
-import de.robv.android.xposed.callbacks.XC_LoadPackage
 import java.util.*
 
 /**
@@ -14,41 +11,42 @@ import java.util.*
  */
 object FuckWeather {
 
-    fun fuckWeather(loadPackageParam: XC_LoadPackage.LoadPackageParam) {
+    fun fuckWeather(pkg: XposedPkg) {
+        pkg.findClass("com.miui.weather2.tools.ToolUtils").apply {
+            findMethod("checkCommericalStatue", Context::class.java).hook { replace { result = false } }
+            findMethod("canRequestCommercialInfo", Context::class.java).hook { replace { result = false } }
+        }
 
-        XpUtils.findAndHookMethod("com.miui.weather2.tools.ToolUtils", loadPackageParam.classLoader, "checkCommericalStatue", Context::class.java, XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.weather2.tools.ToolUtils", loadPackageParam.classLoader, "canRequestCommercialInfo", Context::class.java, XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.weather2.tools.ToolUtils", loadPackageParam.classLoader, "checkCommericalStatue", Context::class.java, XC_MethodReplacement.returnConstant(false))
-
-        XpUtils.findAndHookMethod("com.miui.weather2.ActivityDailyForecastDetail", loadPackageParam.classLoader, "ep", XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.weather2.ActivityDailyForecastDetail", loadPackageParam.classLoader, "eq", XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.weather2.ActivityDailyForecastDetail", loadPackageParam.classLoader, "er", XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.weather2.ActivityDailyForecastDetail", loadPackageParam.classLoader, "eo", XC_MethodReplacement.returnConstant(null))
-        XpUtils.findAndHookMethod("com.miui.weather2.structures.DailyForecastAdData", loadPackageParam.classLoader, "isAdInfosExistence", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.weather2.structures.DailyForecastAdData", loadPackageParam.classLoader, "isAdTitleExistence", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.weather2.structures.DailyForecastAdData", loadPackageParam.classLoader, "isLandingPageUrlExistence", XC_MethodReplacement.returnConstant(false))
-        XpUtils.findAndHookMethod("com.miui.weather2.structures.DailyForecastAdData", loadPackageParam.classLoader, "isUseSystemBrowserExistence", XC_MethodReplacement.returnConstant(false))
+        pkg.findClass("com.miui.weather2.ActivityDailyForecastDetail").apply {
+            findMethod("ep").hook { replace { result = null } }
+            findMethod("eq").hook { replace { result = null } }
+            findMethod("er").hook { replace { result = null } }
+            findMethod("eo").hook { replace { result = null } }
+        }
+        pkg.findClass("com.miui.weather2.structures.DailyForecastAdData").apply {
+            findMethod("isAdInfosExistence").hook { replace { result = false } }
+            findMethod("isAdTitleExistence").hook { replace { result = false } }
+            findMethod("isLandingPageUrlExistence").hook { replace { result = false } }
+            findMethod("isUseSystemBrowserExistence").hook { replace { result = false } }
+        }
 
         // 8.2.1
-        XpUtils.findAndHookMethod("com.miui.weather2.WeatherApplication", loadPackageParam.classLoader, "attachBaseContext", Context::class.java, object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(param: MethodHookParam) {
-                val ctx = param.args[0] as Context?
+        pkg.findClass("com.miui.weather2.WeatherApplication").findMethod("attachBaseContext", Context::class.java).hook {
+            after {
+                val ctx = args[0] as Context?
                 val pref = ctx?.getSharedPreferences("com.miui.weather2.information", 0)
                 pref?.edit()?.putBoolean("agree_to_have_information", false)?.apply()
             }
-        })
+        }
 
         // 8.2.3
-        XpUtils.findAndHookMethod("com.miui.weather2.view.n", loadPackageParam.classLoader, "i", ArrayList::class.java, XC_MethodReplacement.returnConstant(null))
+        pkg.findClass("com.miui.weather2.view.n").findMethod("i", ArrayList::class.java).hook { replace { result = null } }
 
-        XpUtils.findAndHookMethod("com.miui.weather2.view.WeatherScrollView", loadPackageParam.classLoader, "mu", object : XC_MethodHook() {
-            @Throws(Throwable::class)
-            override fun afterHookedMethod(param: MethodHookParam) {
-                val v = XposedHelpers.getObjectField(param.thisObject, "LR") as View?
+        pkg.findClass("com.miui.weather2.view.WeatherScrollView").findMethod("mu").hook {
+            after {
+                val v = XposedHelpers.getObjectField(thisObject, "LR") as View?
                 v?.visibility = View.GONE
             }
-        })
-
+        }
     }
 }
